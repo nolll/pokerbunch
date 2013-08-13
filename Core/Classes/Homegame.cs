@@ -1,4 +1,3 @@
-/*
 using System;
 
 namespace Core.Classes{
@@ -10,34 +9,37 @@ namespace Core.Classes{
 	    public string DisplayName { get; set; }
 	    public string Description { get; set; }
 	    public string HouseRules { get; set; }
-	    public TimeZone Timezone { get; set; }
+        public TimeZoneInfo Timezone { get; set; }
 	    public int DefaultBuyin { get; set; }
 	    public CurrencySettings Currency { get; set; }
+	    public bool CashgamesEnabled { get; set; }
+        public bool TournamentsEnabled { get; set; }
+        public bool VideosEnabled { get; set; }
 
 	    public Homegame()
 	    {
-	        
+            Currency = DefaultCurrency;
+            Timezone = DefaultTimezone;
+            DefaultBuyin = 0;
+            CashgamesEnabled = true;
+            TournamentsEnabled = false;
+            VideosEnabled = false;
 	    }
 
-		public function __construct(){
-			locations = array();
-			setCurrency(self::getDefaultCurrency());
-			setTimezone(self::getDefaultTimezone());
-			defaultBuyin = 0;
-			cashgamesEnabled = true;
-			tournamentsEnabled = true;
-			videosEnabled = false;
+		public static TimeZoneInfo DefaultTimezone{
+            get
+            {
+                return TimeZoneInfo.Utc;
+            }
 		}
 
-		public static TimeZone GetDefaultTimezone(){
-			return new DateTimeZone('UTC');
-		}
-
-		public static CurrencySettings getDefaultCurrency(){
-			return new CurrencySettings("$", "{SYMBOL}{AMOUNT}");
+		public static CurrencySettings DefaultCurrency{
+            get 
+            {
+                return new CurrencySettings("$", "{SYMBOL}{AMOUNT}");
+            }
 		}
 
 	}
 
 }
-*/
