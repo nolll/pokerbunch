@@ -6,8 +6,8 @@ namespace app\Chart{
 		public $f;
 
 		public function __construct($val){
-			$this->v = $val;
-			$this->f = null;
+			v = $val;
+			f = null;
 		}
 
 	}

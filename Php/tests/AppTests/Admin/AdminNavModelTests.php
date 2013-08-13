@@ -10,36 +10,36 @@ namespace tests\AppTests\Admin{
 
 		function test_Show_AdminUser_DefaultContentSet(){
 			$user = new User();
-			$user->setGlobalRole(Role::$admin);
+			$user.setGlobalRole(Role::$admin);
 			$sut = new AdminNavModel($user);
 
-			$this->assertIdentical("Admin", $sut->heading);
-			$this->assertIdentical("admin-nav", $sut->cssClass);
+			assertIdentical("Admin", $sut.heading);
+			assertIdentical("admin-nav", $sut.cssClass);
 		}
 
 		function test_Show_NotLoggedIn_NoNodes(){
 			$sut = new AdminNavModel();
 
-			$nodes = $sut->nodes;
-			$this->assertIdentical(0, count($nodes));
+			$nodes = $sut.nodes;
+			assertIdentical(0, count($nodes));
 		}
 
 		function test_Show_WithNonAdminUser_NoNodes(){
 			$user = new User();
 			$sut = new AdminNavModel($user);
 
-			$nodes = $sut->nodes;
-			$this->assertIdentical(0, count($nodes));
+			$nodes = $sut.nodes;
+			assertIdentical(0, count($nodes));
 		}
 
 		function test_Show_WithAdminUser_SetsNodes(){
 			$user = new User();
-			$user->setGlobalRole(Role::$admin);
+			$user.setGlobalRole(Role::$admin);
 			$sut = new AdminNavModel($user);
 
-			$nodes = $sut->nodes;
-			$this->assertIsA($nodes[0]->urlModel, 'app\Urls\HomegameListingUrlModel');
-			$this->assertIsA($nodes[1]->urlModel, 'app\Urls\UserListingUrlModel');
+			$nodes = $sut.nodes;
+			assertIsA($nodes[0].urlModel, 'app\Urls\HomegameListingUrlModel');
+			assertIsA($nodes[1].urlModel, 'app\Urls\UserListingUrlModel');
 		}
 
 	}

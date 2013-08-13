@@ -10,20 +10,20 @@ namespace tests\CoreTests\FormFields{
 		private $sut;
 
 		function setUp(){
-			$this->sut = new ListFieldModel('name', 'id', 'value', $this->getTwoItems());
+			sut = new ListFieldModel('name', 'id', 'value', getTwoItems());
 		}
 
 		function test_FormField_WithTwoItems_ListHasTwoNamesAndTwoValues(){
-			$this->assertIdentical(2, count($this->sut->names));
-			$this->assertIdentical(2, count($this->sut->values));
+			assertIdentical(2, count(sut.names));
+			assertIdentical(2, count(sut.values));
 		}
 
         function test_FormField_WithFieldName_SetsListName(){
-            $this->assertIdentical('name-list', $this->sut->listName);
+            assertIdentical('name-list', sut.listName);
         }
 
         function test_FormField_WithFieldName_SetsDropdownName(){
-            $this->assertIdentical("name-dropdown", $this->sut->dropdownName);
+            assertIdentical("name-dropdown", sut.dropdownName);
         }
 
 		function getTwoItems(){

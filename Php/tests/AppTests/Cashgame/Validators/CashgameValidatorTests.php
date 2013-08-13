@@ -11,43 +11,43 @@ namespace tests\AppTests\Cashgame\Validators{
 	class CashgameValidatorTests extends UnitTestCase {
 
 		function test_IsValid_WithValidValues_ReturnsTrue(){
-			$postModel = $this->getPostModel();
-			$validator = $this->getValidator($postModel);
+			$postModel = getPostModel();
+			$validator = getValidator($postModel);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyLocation_ReturnsFalse(){
-			$postModel = $this->getPostModel();
-			$postModel->location = "";
-			$validator = $this->getValidator($postModel);
+			$postModel = getPostModel();
+			$postModel.location = "";
+			$validator = getValidator($postModel);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithValidStartTime_ReturnsTrue(){
-			$postModel = $this->getPostModel();
-			$validator = $this->getValidator($postModel);
+			$postModel = getPostModel();
+			$validator = getValidator($postModel);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithValidEndTime_ReturnsTrue(){
-			$postModel = $this->getPostModel();
-			$validator = $this->getValidator($postModel);
+			$postModel = getPostModel();
+			$validator = getValidator($postModel);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function getValidator(CashgameEditPostModel $postModel){
-			return $this->getValidatorFactory()->getEditCashgameValidator($postModel);
+			return getValidatorFactory().getEditCashgameValidator($postModel);
 		}
 
 		/**
 		 * @return CashgameValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			$cashgameStorage = $this->getCashgameStorage();
+			$cashgameStorage = getCashgameStorage();
 			return new CashgameValidatorFactoryImpl($cashgameStorage);
 		}
 
@@ -58,9 +58,9 @@ namespace tests\AppTests\Cashgame\Validators{
 		function getPostModel(){
 			$cashgameFactory = TestHelper::getFake(ClassNames::$CashgameFactory);
 			$cashgame = new Cashgame();
-			$cashgameFactory->returns('create', $cashgame);
+			$cashgameFactory.returns('create', $cashgame);
 			$postModel = new CashgameEditPostModel($cashgameFactory);
-			$postModel->location = "not empty";
+			$postModel.location = "not empty";
 			return $postModel;
 		}
 

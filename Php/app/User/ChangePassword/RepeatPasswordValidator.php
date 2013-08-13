@@ -9,18 +9,18 @@ namespace app\User\ChangePassword{
 		protected $message;
 
 		public function __construct($password, $repeatPassword, $message){
-			$this->password = $password;
-			$this->repeatPassword = $repeatPassword;
-			$this->message = $message;
+			password = $password;
+			repeatPassword = $repeatPassword;
+			message = $message;
 		}
 
 		public function validate(){
-			$this->validatePasswords();
+			validatePasswords();
 		}
 
 		public function validatePasswords(){
-			if($this->password !== $this->repeatPassword){
-				$this->addError('The passwords does not match');
+			if(password !== repeatPassword){
+				addError('The passwords does not match');
 				return false;
 			}
 			return true;

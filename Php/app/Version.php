@@ -7,7 +7,7 @@ namespace app{
 		private $build = 0;
 
 		public function getVersion() {
-			return sprintf('{0}.{1}.{2}', $this->major, $this->minor, $this->build);
+			return sprintf('{0}.{1}.{2}', major, minor, build);
 		}
 
 	}

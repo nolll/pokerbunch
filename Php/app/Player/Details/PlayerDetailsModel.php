@@ -37,21 +37,21 @@ namespace app\Player\Details{
 									AvatarModelBuilder $avatarModelBuilder,
 									Cashgame $runningGame = null){
 			parent::__construct($currentUser, $homegame, $runningGame);
-			$this->displayName = $player->getDisplayName();
-			$this->deleteUrl = new PlayerDeleteUrlModel($homegame, $player);
-			$this->deleteEnabled = $isManager && !$hasPlayed;
+			displayName = $player.getDisplayName();
+			deleteUrl = new PlayerDeleteUrlModel($homegame, $player);
+			deleteEnabled = $isManager && !$hasPlayed;
 			$hasUser = $user != null;
-			$this->showUserInfo = $hasUser;
-			$this->showInvitation = !$hasUser;
+			showUserInfo = $hasUser;
+			showInvitation = !$hasUser;
 			if($hasUser){
-				$this->userUrl = new UserDetailsUrlModel($user);
-				$this->userEmail = $user->getEmail();
-				$this->avatarModel = $avatarModelBuilder->build($user->getEmail());
+				userUrl = new UserDetailsUrlModel($user);
+				userEmail = $user.getEmail();
+				avatarModel = $avatarModelBuilder.build($user.getEmail());
 			} else {
-				$this->invitationUrl = new PlayerInviteUrlModel($homegame, $player);
+				invitationUrl = new PlayerInviteUrlModel($homegame, $player);
 			}
-			$this->playerFactsModel = new PlayerFactsModel($homegame, $cashgames, $player);
-			$this->playerAchievementsModel = new PlayerAchievementsModel($player, $cashgames);
+			playerFactsModel = new PlayerFactsModel($homegame, $cashgames, $player);
+			playerAchievementsModel = new PlayerAchievementsModel($player, $cashgames);
 		}
 
 	}

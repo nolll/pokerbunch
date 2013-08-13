@@ -15,178 +15,178 @@ namespace tests\AppTests\Player{
 		private $player;
 
 		function setUp(){
-			$this->homegame = new Homegame();
+			homegame = new Homegame();
 		}
 
 		function test_FilterCashames_ReturnsOnlyGamesWhereThePlayerParticipated(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($this->player);
+			$cashgameResult.setPlayer(player);
 			$cashgame1 = new Cashgame();
-			$cashgame1->setResults(array($cashgameResult));
+			$cashgame1.setResults(array($cashgameResult));
 			$cashgame2 = new Cashgame();
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$filteredCashgames = PlayerFactsModel::filterCashgames($cashgames, $this->player);
+			$filteredCashgames = PlayerFactsModel::filterCashgames($cashgames, player);
 
-			$this->assertIdentical(1, count($filteredCashgames));
+			assertIdentical(1, count($filteredCashgames));
 		}
 
 		function test_GetWinnings_ReturnsPlayerWinnings(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 
 			$cashgame1 = new Cashgame();
 			$result1 = new CashgameResult();
-			$result1->setPlayer($this->player);
-			$result1->setWinnings(1);
-			$cashgame1->setResults(array($result1));
+			$result1.setPlayer(player);
+			$result1.setWinnings(1);
+			$cashgame1.setResults(array($result1));
 
 			$cashgame2 = new Cashgame();
 			$result2 = new CashgameResult();
-			$result2->setPlayer($this->player);
-			$result2->setWinnings(2);
-			$cashgame2->setResults(array($result2));
+			$result2.setPlayer(player);
+			$result2.setWinnings(2);
+			$cashgame2.setResults(array($result2));
 
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$winnings = PlayerFactsModel::getWinnings($cashgames, $this->player);
+			$winnings = PlayerFactsModel::getWinnings($cashgames, player);
 
-			$this->assertIdentical(3, $winnings);
+			assertIdentical(3, $winnings);
 		}
 
 		function test_GetBestResultAndGetWorstResult_ReturnsCorrectResults(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgame1 = new Cashgame();
 			$worstResult = new CashgameResult();
-			$worstResult->setWinnings(1);
-			$worstResult->setPlayer($this->player);
-			$cashgame1->setResults(array($worstResult));
+			$worstResult.setWinnings(1);
+			$worstResult.setPlayer(player);
+			$cashgame1.setResults(array($worstResult));
 			$cashgame2 = new Cashgame();
 			$bestResult = new CashgameResult();
-			$bestResult->setWinnings(2);
-			$bestResult->setPlayer($this->player);
-			$cashgame2->setResults(array($bestResult));
+			$bestResult.setWinnings(2);
+			$bestResult.setPlayer(player);
+			$cashgame2.setResults(array($bestResult));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$worst = PlayerFactsModel::getWorstResult($cashgames, $this->player);
-			$best = PlayerFactsModel::getBestResult($cashgames, $this->player);
+			$worst = PlayerFactsModel::getWorstResult($cashgames, player);
+			$best = PlayerFactsModel::getBestResult($cashgames, player);
 
-			$this->assertIdentical(1, $worst);
-			$this->assertIdentical(2, $best);
+			assertIdentical(1, $worst);
+			assertIdentical(2, $best);
 		}
 
 		function test_GetMinutesPlayed_ReturnsPlayerMinutes(){
-			$this->player = new Player();
+			player = new Player();
 			$cashgame1 = new Cashgame();
-			$cashgame1->setDuration(1);
+			$cashgame1.setDuration(1);
 			$cashgame2 = new Cashgame();
-			$cashgame2->setDuration(2);
+			$cashgame2.setDuration(2);
 			$cashgames = array($cashgame1, $cashgame2);
 
 			$minutesPlayed = PlayerFactsModel::getMinutesPlayed($cashgames);
 
-			$this->assertIdentical(3, $minutesPlayed);
+			assertIdentical(3, $minutesPlayed);
 		}
 
 		function test_Facts_SetsFormattedWinnings(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgame1 = new Cashgame();
 			$result1 = new CashgameResult();
-			$result1->setPlayer($this->player);
-			$result1->setWinnings(1);
-			$cashgame1->setResults(array($result1));
+			$result1.setPlayer(player);
+			$result1.setWinnings(1);
+			$cashgame1.setResults(array($result1));
 			$cashgame2 = new Cashgame();
 			$result2 = new CashgameResult();
-			$result2->setPlayer($this->player);
-			$result2->setWinnings(2);
-			$cashgame2->setResults(array($result2));
+			$result2.setPlayer(player);
+			$result2.setWinnings(2);
+			$cashgame2.setResults(array($result2));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$sut = new PlayerFactsModel($this->homegame, $cashgames, $this->player);
+			$sut = new PlayerFactsModel(homegame, $cashgames, player);
 
-			$this->assertIdentical('+$3', $sut->winnings);
+			assertIdentical('+$3', $sut.winnings);
 		}
 
 		function test_Facts_SetsFormattedBestResult(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgame1 = new Cashgame();
 			$result1 = new CashgameResult();
-			$result1->setPlayer($this->player);
-			$result1->setWinnings(1);
-			$cashgame1->setResults(array($result1));
+			$result1.setPlayer(player);
+			$result1.setWinnings(1);
+			$cashgame1.setResults(array($result1));
 			$cashgame2 = new Cashgame();
 			$result2 = new CashgameResult();
-			$result2->setPlayer($this->player);
-			$result2->setWinnings(2);
-			$cashgame2->setResults(array($result2));
+			$result2.setPlayer(player);
+			$result2.setWinnings(2);
+			$cashgame2.setResults(array($result2));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$sut = new PlayerFactsModel($this->homegame, $cashgames, $this->player);
+			$sut = new PlayerFactsModel(homegame, $cashgames, player);
 
-			$this->assertIdentical('+$2', $sut->bestResult);
+			assertIdentical('+$2', $sut.bestResult);
 		}
 
 		function test_Facts_SetsFormattedWorstResult(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgame1 = new Cashgame();
 			$result1 = new CashgameResult();
-			$result1->setPlayer($this->player);
-			$result1->setWinnings(1);
-			$cashgame1->setResults(array($result1));
+			$result1.setPlayer(player);
+			$result1.setWinnings(1);
+			$cashgame1.setResults(array($result1));
 			$cashgame2 = new Cashgame();
 			$result2 = new CashgameResult();
-			$result2->setPlayer($this->player);
-			$result2->setWinnings(2);
-			$cashgame2->setResults(array($result2));
+			$result2.setPlayer(player);
+			$result2.setWinnings(2);
+			$cashgame2.setResults(array($result2));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$sut = new PlayerFactsModel($this->homegame, $cashgames, $this->player);
+			$sut = new PlayerFactsModel(homegame, $cashgames, player);
 
-			$this->assertIdentical('+$1', $sut->worstResult);
+			assertIdentical('+$1', $sut.worstResult);
 		}
 
 		function test_Facts_SetsFormattedTimePlayed(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgameResult1 = new CashgameResult();
-			$cashgameResult1->setPlayer($this->player);
+			$cashgameResult1.setPlayer(player);
 			$cashgame1 = new Cashgame();
-			$cashgame1->setDuration(1);
-			$cashgame1->setResults(array($cashgameResult1));
+			$cashgame1.setDuration(1);
+			$cashgame1.setResults(array($cashgameResult1));
 			$cashgameResult2 = new CashgameResult();
-			$cashgameResult2->setPlayer($this->player);
+			$cashgameResult2.setPlayer(player);
 			$cashgame2 = new Cashgame();
-			$cashgame2->setDuration(2);
-			$cashgame2->setResults(array($cashgameResult2));
+			$cashgame2.setDuration(2);
+			$cashgame2.setResults(array($cashgameResult2));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$sut = new PlayerFactsModel($this->homegame, $cashgames, $this->player);
+			$sut = new PlayerFactsModel(homegame, $cashgames, player);
 
-			$this->assertIdentical("3m", $sut->timePlayed);
+			assertIdentical("3m", $sut.timePlayed);
 		}
 
 		function test_Facts_SetsNumberOfGamesPlayed(){
-			$this->player = new Player();
-			$this->player->setId(1);
+			player = new Player();
+			player.setId(1);
 			$cashgameResult1 = new CashgameResult();
-			$cashgameResult1->setPlayer($this->player);
+			$cashgameResult1.setPlayer(player);
 			$cashgame1 = new Cashgame();
-			$cashgame1->setResults(array($cashgameResult1));
+			$cashgame1.setResults(array($cashgameResult1));
 			$cashgameResult2 = new CashgameResult();
-			$cashgameResult2->setPlayer($this->player);
+			$cashgameResult2.setPlayer(player);
 			$cashgame2 = new Cashgame();
-			$cashgame2->setResults(array($cashgameResult2));
+			$cashgame2.setResults(array($cashgameResult2));
 			$cashgames = array($cashgame1, $cashgame2);
 
-			$sut = new PlayerFactsModel($this->homegame, $cashgames, $this->player);
+			$sut = new PlayerFactsModel(homegame, $cashgames, player);
 
-			$this->assertIdentical(2, $sut->gamesPlayed);
+			assertIdentical(2, $sut.gamesPlayed);
 		}
 
 	}

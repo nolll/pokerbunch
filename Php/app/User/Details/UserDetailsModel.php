@@ -21,26 +21,26 @@ namespace app\User\Details{
 
 		public function __construct(User $currentUser, User $displayUser, AvatarService $avatarService){
 			parent::__construct($currentUser);
-			$this->userName = $displayUser->getUserName();
-			$this->displayName = $displayUser->getDisplayName();
-			$this->realName = $displayUser->getRealName();
-			$this->email = $displayUser->getEmail();
+			userName = $displayUser.getUserName();
+			displayName = $displayUser.getDisplayName();
+			realName = $displayUser.getRealName();
+			email = $displayUser.getEmail();
 
 			$avatarModelBuilder = new AvatarModelBuilder($avatarService);
-			$this->avatarModel = $avatarModelBuilder->build($displayUser->getEmail());
+			avatarModel = $avatarModelBuilder.build($displayUser.getEmail());
 
-			$this->showEditLink = false;
-			$this->showPasswordLink = false;
-			$isViewingCurrentUser = $displayUser->getUserName() == $currentUser->getUserName();
+			showEditLink = false;
+			showPasswordLink = false;
+			$isViewingCurrentUser = $displayUser.getUserName() == $currentUser.getUserName();
 
-			if($currentUser->isAdmin() || $isViewingCurrentUser){
-				$this->showEditLink = true;
-				$this->editLink = new UserEditUrlModel($displayUser);
+			if($currentUser.isAdmin() || $isViewingCurrentUser){
+				showEditLink = true;
+				editLink = new UserEditUrlModel($displayUser);
 			}
 
 			if($isViewingCurrentUser){
-				$this->showPasswordLink = true;
-				$this->changePasswordLink = new ChangePasswordUrlModel();
+				showPasswordLink = true;
+				changePasswordLink = new ChangePasswordUrlModel();
 			}
 		}
 

@@ -8,26 +8,26 @@ namespace tests\FactoryTests{
 	class CashgameTotalResultFactoryTests extends UnitTestCase {
 
 		public function test_GetWinnings_WithTwoResults_ReturnsSumOfWinnings(){
-			$sut = $this->getSutWithTwoResults();
+			$sut = getSutWithTwoResults();
 
-			$actual = $sut->getWinnings();
+			$actual = $sut.getWinnings();
 
-			$this->assertEqual(2, $actual);
+			assertEqual(2, $actual);
 		}
 
 		private function getSutWithTwoResults(){
 			$player = new Player();
 			$factory = new CashgameTotalResultFactoryImpl();
-			$result = $this->getResult();
+			$result = getResult();
 			$results = array($result, $result);
-			return $factory->create($player, $results);
+			return $factory.create($player, $results);
 		}
 
 		private function getResult(){
 			$player = new Player();
 			$result = new CashgameResult();
-			$result->setPlayer($player);
-			$result->setWinnings(1);
+			$result.setPlayer($player);
+			$result.setWinnings(1);
 			return $result;
 		}
 

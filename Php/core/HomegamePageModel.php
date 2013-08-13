@@ -14,7 +14,7 @@ namespace core{
 									Cashgame $runningGame = null){
 			parent::__construct($user);
 			if($homegame != null){
-				$this->homegameNavigationModel = new HomegameNavigationModel($homegame, $runningGame);
+				homegameNavigationModel = new HomegameNavigationModel($homegame, $runningGame);
 			}
 		}
 

@@ -19,10 +19,10 @@ namespace core{
 		public function __construct(WebContext $webContext,
 									UserStorage $userStorage,
 									HomegameStorage $homegameStorage){
-			$this->webContext = $webContext;
-			$this->userStorage = $userStorage;
-			$this->homegameStorage = $homegameStorage;
-			$this->fetchedUser = false;
+			webContext = $webContext;
+			userStorage = $userStorage;
+			homegameStorage = $homegameStorage;
+			fetchedUser = false;
 		}
 
 		/**
@@ -30,34 +30,34 @@ namespace core{
 		 */
 
 		public function getUser(){
-			if(!$this->fetchedUser){
-				$token = $this->getToken();
+			if(!fetchedUser){
+				$token = getToken();
 				if($token != null){
-					$this->user = $this->userStorage->getUserByToken($token);
+					user = userStorage.getUserByToken($token);
 				}
-				$this->fetchedUser = true;
+				fetchedUser = true;
 			}
-			return $this->user;
+			return user;
 		}
 
 		public function isLoggedIn(){
-			$user = $this->getUser();
+			$user = getUser();
 			return $user != null;
 		}
 
 		public function getToken(){
-			return $this->webContext->getCookie('token');
+			return webContext.getCookie('token');
 		}
 
 		public function getRole(Homegame $homegame){
-			return $this->homegameStorage->getHomegameRole($homegame, $this->getUser());
+			return homegameStorage.getHomegameRole($homegame, getUser());
 		}
 
 		public function isInRole(Homegame $homegame, $roleToCheck){
-			if($this->isAdmin()){
+			if(isAdmin()){
 				return true;
 			}
-			$role = $this->getRole($homegame);
+			$role = getRole($homegame);
 			if($role >= $roleToCheck){
 				return true;
 			}
@@ -65,51 +65,51 @@ namespace core{
 		}
 
 		public function isGuest(Homegame $homegame){
-			return $this->isInRole($homegame, Role::$guest);
+			return isInRole($homegame, Role::$guest);
 		}
 
 		public function isPlayer(Homegame $homegame){
-			return $this->isInRole($homegame, Role::$player);
+			return isInRole($homegame, Role::$player);
 		}
 
 		public function isManager(Homegame $homegame){
-			return $this->isInRole($homegame, Role::$manager);
+			return isInRole($homegame, Role::$manager);
 		}
 
 		public function isAdmin(){
-			return $this->getUser()->isAdmin();
+			return getUser().isAdmin();
 		}
 
 		public function requireUser(){
-			if(!$this->isLoggedIn()){
+			if(!isLoggedIn()){
 				throw new NotLoggedInException();
 			}
 		}
 
 		public function requireRole(Homegame $homegame, $role){
-			$this->requireUser();
-			if(!$this->isInRole($homegame, $role)){
+			requireUser();
+			if(!isInRole($homegame, $role)){
 				throw new AccessDeniedException();
 			}
 		}
 
 		public function requirePlayer(Homegame $homegame){
-			$this->requireUser();
-			if(!$this->isPlayer($homegame)){
+			requireUser();
+			if(!isPlayer($homegame)){
 				throw new AccessDeniedException();
 			}
 		}
 
 		public function requireManager(Homegame $homegame){
-			$this->requireUser();
-			if(!$this->isManager($homegame)){
+			requireUser();
+			if(!isManager($homegame)){
 				throw new AccessDeniedException();
 			}
 		}
 
 		public function requireAdmin(){
-			$this->requireUser();
-			if(!$this->isAdmin()){
+			requireUser();
+			if(!isAdmin()){
 				throw new AccessDeniedException();
 			}
 		}

@@ -14,7 +14,7 @@ namespace app\User{
 		private $userStorage;
 
 		public function __construct(UserStorage $userStorage){
-			$this->userStorage = $userStorage;
+			userStorage = $userStorage;
 		}
 
 		public function getLoginValidator(User $user = null){
@@ -24,42 +24,42 @@ namespace app\User{
 
 		public function getAddUserValidator(User $user){
 			$validator = new CompositeValidator();
-			$validator = $this->buildUserValidator($validator, $user);
-			$validator = $this->buildUniqueUserValidator($validator, $user);
+			$validator = buildUserValidator($validator, $user);
+			$validator = buildUniqueUserValidator($validator, $user);
 			return $validator;
 		}
 
 		public function getEditUserValidator(User $user){
 			$validator = new CompositeValidator();
-			$validator = $this->buildUserValidator($validator, $user);
+			$validator = buildUserValidator($validator, $user);
 			return $validator;
 		}
 
 		public function getChangePasswordValidator($password, $repeatPassword){
 			$validator = new CompositeValidator();
-			$validator->addValidator(new RequiredValidator($password, 'Password can\'t be empty'));
-			$validator->addValidator(new RepeatPasswordValidator($password, $repeatPassword, 'Password can\'t be empty'));
+			$validator.addValidator(new RequiredValidator($password, 'Password can\'t be empty'));
+			$validator.addValidator(new RepeatPasswordValidator($password, $repeatPassword, 'Password can\'t be empty'));
 			return $validator;
 		}
 
 		public function getForgotPasswordValidator($email){
 			$validator = new CompositeValidator();
-			$validator->addValidator(new RequiredValidator($email, 'Email can\'t be empty'));
-			$validator->addValidator(new EmailValidator($email, 'The email address is not valid'));
+			$validator.addValidator(new RequiredValidator($email, 'Email can\'t be empty'));
+			$validator.addValidator(new EmailValidator($email, 'The email address is not valid'));
 			return $validator;
 		}
 
 		private function buildUserValidator(CompositeValidator $validator, User $user){
-			$validator->addValidator(new RequiredValidator($user->getUserName(), 'Login Name can\'t be empty'));
-			$validator->addValidator(new RequiredValidator($user->getDisplayName(), 'Display Name can\'t be empty'));
-			$validator->addValidator(new RequiredValidator($user->getEmail(), 'Email can\'t be empty'));
-			$validator->addValidator(new EmailValidator($user->getEmail(), 'The email address is not valid'));
+			$validator.addValidator(new RequiredValidator($user.getUserName(), 'Login Name can\'t be empty'));
+			$validator.addValidator(new RequiredValidator($user.getDisplayName(), 'Display Name can\'t be empty'));
+			$validator.addValidator(new RequiredValidator($user.getEmail(), 'Email can\'t be empty'));
+			$validator.addValidator(new EmailValidator($user.getEmail(), 'The email address is not valid'));
 			return $validator;
 		}
 
 		private function buildUniqueUserValidator(CompositeValidator $validator, User $user){
-			$validator->addValidator(new UniqueUserNameValidator($user->getUserName(), 'The user name is already in use', $this->userStorage));
-			$validator->addValidator(new UniqueEmailValidator($user->getEmail(), 'The email is already in use', $this->userStorage));
+			$validator.addValidator(new UniqueUserNameValidator($user.getUserName(), 'The user name is already in use', userStorage));
+			$validator.addValidator(new UniqueEmailValidator($user.getEmail(), 'The email is already in use', userStorage));
 			return $validator;
 		}
 

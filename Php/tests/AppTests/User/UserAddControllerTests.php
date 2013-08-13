@@ -21,73 +21,73 @@ namespace tests\AppTests\User{
 		private $userFactory;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->userStorage = TestHelper::getFake(ClassNames::$UserStorage);
-			$this->registrationConfirmationSender = TestHelper::getFake(ClassNames::$RegistrationConfirmationSender);
-			$this->passwordGenerator = TestHelper::getFake(ClassNames::$PasswordGenerator);
-			$this->userValidatorFactory = TestHelper::getFake(ClassNames::$UserValidatorFactory);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			userStorage = TestHelper::getFake(ClassNames::$UserStorage);
+			registrationConfirmationSender = TestHelper::getFake(ClassNames::$RegistrationConfirmationSender);
+			passwordGenerator = TestHelper::getFake(ClassNames::$PasswordGenerator);
+			userValidatorFactory = TestHelper::getFake(ClassNames::$UserValidatorFactory);
 			$encryption = TestHelper::getFake(ClassNames::$Encryption);
-			$this->userFactory = TestHelper::getFake(ClassNames::$UserFactory);
+			userFactory = TestHelper::getFake(ClassNames::$UserFactory);
 			$saltGenerator = new SaltGenerator();
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->sut = new UserAddController($this->userContext, $this->userStorage, $this->registrationConfirmationSender, $this->passwordGenerator, $this->userValidatorFactory, $encryption, $this->userFactory, $saltGenerator, $request);
+			sut = new UserAddController(userContext, userStorage, registrationConfirmationSender, passwordGenerator, userValidatorFactory, $encryption, userFactory, $saltGenerator, $request);
 		}
 
 		function test_ActionAddPost_WithValidParameters_CallsAddUser(){
-			$this->setupValidValidator();
-			$this->userFactory->returns("createUser", new User());
-			$this->userStorage->expectOnce("addUser");
+			setupValidValidator();
+			userFactory.returns("createUser", new User());
+			userStorage.expectOnce("addUser");
 
-			$this->sut->action_add_post();
+			sut.action_add_post();
 		}
 
 		function test_ActionAddPost_WithValidParameters_GeneratesPassword(){
-			$this->setupValidValidator();
-			$this->userFactory->returns("createUser", new User());
-			$this->passwordGenerator->expectOnce("createPassword");
+			setupValidValidator();
+			userFactory.returns("createUser", new User());
+			passwordGenerator.expectOnce("createPassword");
 
-			$this->sut->action_add_post();
+			sut.action_add_post();
 		}
 
 		function test_ActionAddPost_WithValidParameters_SendsEmail(){
-			$this->setupValidValidator();
-			$this->userFactory->returns("createUser", new User());
+			setupValidValidator();
+			userFactory.returns("createUser", new User());
 
-			$this->registrationConfirmationSender->expectOnce("send", array("*", "*"));
+			registrationConfirmationSender.expectOnce("send", array("*", "*"));
 
-			$this->sut->action_add_post();
+			sut.action_add_post();
 		}
 
 		function test_ActionAddPost_WithValidParameters_RedirectsToConfirmation(){
-			$this->setupValidValidator();
-			$this->userFactory->returns("createUser", new User());
+			setupValidValidator();
+			userFactory.returns("createUser", new User());
 
-			$urlModel = $this->sut->action_add_post();
+			$urlModel = sut.action_add_post();
 
-			$this->assertIsA($urlModel, 'app\Urls\UserAddConfirmationUrlModel');
+			assertIsA($urlModel, 'app\Urls\UserAddConfirmationUrlModel');
 		}
 
 		function test_ActionAddPost_WithInvalidParameters_DoesntCallAddUser(){
-			TestHelper::setupNullUser($this->userContext);
-			$this->setupInvalidValidator();
-			$this->userFactory->returns("createUser", new User());
-			$this->userStorage->expectNever("addUser");
+			TestHelper::setupNullUser(userContext);
+			setupInvalidValidator();
+			userFactory.returns("createUser", new User());
+			userStorage.expectNever("addUser");
 
-			$this->sut->action_add_post();
+			sut.action_add_post();
 		}
 
 		function setupValidValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupInvalidValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupValidator(Validator $validator){
-			$this->userValidatorFactory->returns("getAddUserValidator", $validator);
+			userValidatorFactory.returns("getAddUserValidator", $validator);
 		}
 
 	}

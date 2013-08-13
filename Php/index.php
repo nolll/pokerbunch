@@ -18,5 +18,5 @@ $autoLoader = new \AutoLoader();
 $injector = Sharbat::createInjector(new ApplicationModule());
 
 /** @var Application $application */
-$application = $injector->getInstance('Mishiin\Application');
-$application->execute();
+$application = $injector.getInstance('Mishiin\Application');
+$application.execute();

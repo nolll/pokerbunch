@@ -7,21 +7,21 @@ namespace app{
 	class MishiinModule extends AbstractModule {
 
 		public function configure() {
-			$this->bindDispatcher();
+			bindDispatcher();
 		}
 
 		private function bindDispatcher(){
-			$this->bind('Mishiin\Dispatcher')->to('Mishiin\RequestDispatcher')->inSingleton();
+			bind('Mishiin\Dispatcher').to('Mishiin\RequestDispatcher').inSingleton();
 		}
 
 		protected function bindTemplateEngine($className = null){
 			$classNameToBind = $className != null ? $className : 'Mishiin\SmartyEngine';
-			$this->bind('Mishiin\TemplateEngine')->to($classNameToBind)->inNoScope();
+			bind('Mishiin\TemplateEngine').to($classNameToBind).inNoScope();
 		}
 
 		protected function bindParamParser($className = null){
 			$classNameToBind = $className != null ? $className : 'app\AppParamParser';
-			$this->bind('Mishiin\ParamParser')->to($classNameToBind)->inSingleton();
+			bind('Mishiin\ParamParser').to($classNameToBind).inSingleton();
 		}
 
 		/**
@@ -30,7 +30,7 @@ namespace app{
 		 */
 		public function provideRouter() {
 			$routeProvider = new ApplicationRouteProvider();
-			return $routeProvider->getRouter();
+			return $routeProvider.getRouter();
 		}
 
 		/**
@@ -39,7 +39,7 @@ namespace app{
 		 */
 		public function provideRequest(){
 			$requestProvider = new RequestProvider();
-			return $requestProvider->get();
+			return $requestProvider.get();
 		}
 
 		/**

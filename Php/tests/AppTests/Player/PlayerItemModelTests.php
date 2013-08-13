@@ -13,26 +13,26 @@ namespace tests\AppTests\Player{
 		private $player;
 
 		function setUp(){
-			$this->player = new Player();
-			$this->homegame = new Homegame();
+			player = new Player();
+			homegame = new Homegame();
 		}
 
 		function test_Name_IsSet(){
-			$this->player->setDisplayName('a');
+			player.setDisplayName('a');
 
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$this->assertIdentical('a', $sut->name);
+			assertIdentical('a', $sut.name);
 		}
 
 		function test_UrlModel_IsCorrectType(){
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$this->assertIsA($sut->urlModel, 'app\Urls\PlayerDetailsUrlModel');
+			assertIsA($sut.urlModel, 'app\Urls\PlayerDetailsUrlModel');
 		}
 
 		private function getModel(){
-			return new PlayerItemModel($this->homegame, $this->player);
+			return new PlayerItemModel(homegame, player);
 		}
 
 	}

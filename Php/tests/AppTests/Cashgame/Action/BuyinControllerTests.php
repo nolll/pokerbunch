@@ -20,145 +20,145 @@ namespace tests\AppTests\Cashgame\Action{
 		private $cashgameValidatorFactory;
 
 		public function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
-			$this->sut = new BuyinController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerRepositoryMock, $request, $this->cashgameValidatorFactory);
+			cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
+			sut = new BuyinController(userContext, homegameRepositoryMock, cashgameRepositoryMock, playerRepositoryMock, $request, cashgameValidatorFactory);
 		}
 
 		public function test_ActionBuyin_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_buyin("homegame1", "Player 1");
+			sut.action_buyin("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
 			$homegame = new Homegame();
 			$cashgame = new Cashgame();
-			$this->homegameRepositoryMock->returns('getByName', $homegame);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', $homegame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$player = new Player();
-			$player->setUserName('otherUser');
-			$this->playerRepositoryMock->returns('getByName', $player);
+			$player.setUserName('otherUser');
+			playerRepositoryMock.returns('getByName', $player);
 
-			$this->expectException(new AccessDeniedException());
+			expectException(new AccessDeniedException());
 
-			$this->sut->action_buyin("homegame1", "Player 1");
+			sut.action_buyin("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyin_ReturnsModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-            TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+            TestHelper::setupUserWithPlayerRights(userContext);
             $cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$player->setUserName('user1');
-			$this->playerRepositoryMock->returns('getByName', $player);
+			$player.setUserName('user1');
+			playerRepositoryMock.returns('getByName', $player);
 
-			$viewResult = $this->sut->action_buyin("homegame1", "Player 1");
+			$viewResult = sut.action_buyin("homegame1", "Player 1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\BuyinModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\BuyinModel');
 		}
 
 		public function test_ActionBuyinPost_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_buyin_post("homegame1", "Player 1");
+			sut.action_buyin_post("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyinPost_PlayerIsNotInGame_AddsCheckpoint(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidBuyinValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidBuyinValidator();
 
-			$this->cashgameRepositoryMock->expectOnce("addCheckpoint");
+			cashgameRepositoryMock.expectOnce("addCheckpoint");
 
-			$this->sut->action_buyin_post("homegame1", "Player 1");
+			sut.action_buyin_post("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyinPost_GameIsNotStarted_StartsGame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidBuyinValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidBuyinValidator();
 
-			$this->cashgameRepositoryMock->expectOnce("startGame");
+			cashgameRepositoryMock.expectOnce("startGame");
 
-			$this->sut->action_buyin_post("homegame1", "Player 1");
+			sut.action_buyin_post("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyinPost_GameIsStarted_DoesNotStartGame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$cashgame->setIsStarted(true);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			$cashgame.setIsStarted(true);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidBuyinValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidBuyinValidator();
 
-			$this->cashgameRepositoryMock->expectNever("startGame");
+			cashgameRepositoryMock.expectNever("startGame");
 
-			$this->sut->action_buyin_post("homegame1", "Player 1");
+			sut.action_buyin_post("homegame1", "Player 1");
 		}
 
 		public function test_ActionBuyinPost_RedirectsToRunningCashgame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidBuyinValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidBuyinValidator();
 
-			$urlModel = $this->sut->action_buyin_post("homegame1", "Player 1");
+			$urlModel = sut.action_buyin_post("homegame1", "Player 1");
 
-			$this->assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
+			assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
 		}
 
 		public function test_ActionBuyinPost_WithInvalidForm_ReturnsModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$cashgame->setIsStarted(true);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			$cashgame.setIsStarted(true);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$player->setUserName('user1');
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupInvalidBuyinValidator();
+			$player.setUserName('user1');
+			playerRepositoryMock.returns('getByName', $player);
+			setupInvalidBuyinValidator();
 
-			$viewResult = $this->sut->action_buyin_post("homegame1", "Player 1");
+			$viewResult = sut.action_buyin_post("homegame1", "Player 1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\BuyinModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\BuyinModel');
 		}
 
 		private function setupValidBuyinValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupBuyinValidator($validator);
+			setupBuyinValidator($validator);
 		}
 
 		private function setupInvalidBuyinValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupBuyinValidator($validator);
+			setupBuyinValidator($validator);
 		}
 
 		private function setupBuyinValidator(Validator $validator){
-			$this->cashgameValidatorFactory->returns("getBuyinValidator", $validator);
+			cashgameValidatorFactory.returns("getBuyinValidator", $validator);
 		}
 
 	}

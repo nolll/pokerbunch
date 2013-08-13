@@ -6,45 +6,45 @@ namespace tests{
 		private $mockClassName;
 
 		public function __construct($interfaceName, $mockClassName = null){
-			$this->interfaceName = $interfaceName;
-			$this->mockClassName = $mockClassName;
+			interfaceName = $interfaceName;
+			mockClassName = $mockClassName;
 		}
 
 		public function getInterfaceName(){
-			return $this->interfaceName;
+			return interfaceName;
 		}
 
 		public function getMockClassName(){
-			if(!$this->hasMockClassName()){
-				$this->mockClassName = $this->createMockClassName();
+			if(!hasMockClassName()){
+				mockClassName = createMockClassName();
 			}
-			return $this->mockClassName;
+			return mockClassName;
 		}
 
 		private function hasMockClassName(){
-			return $this->mockClassName != null;
+			return mockClassName != null;
 		}
 
 		private function createMockClassName(){
-			if($this->interfaceHasNamespace()){
-				return $this->getNamespacedMockClassName();
+			if(interfaceHasNamespace()){
+				return getNamespacedMockClassName();
 			} else {
-				return $this->getSimpleMockClassName();
+				return getSimpleMockClassName();
 			}
 		}
 
 		private function getSimpleMockClassName(){
-			return "Mock" . $this->interfaceName;
+			return "Mock" . interfaceName;
 		}
 
 		private function getNamespacedMockClassName(){
-			$lastNameSpaceSeparatorPos = $this->lastPos($this->interfaceName, '\\');
-			$className = substr($this->interfaceName, $lastNameSpaceSeparatorPos);
+			$lastNameSpaceSeparatorPos = lastPos(interfaceName, '\\');
+			$className = substr(interfaceName, $lastNameSpaceSeparatorPos);
 			return "Mock" . $className;
 		}
 
 		private function interfaceHasNamespace(){
-			if(strstr($this->interfaceName, '\\') === false){
+			if(strstr(interfaceName, '\\') === false){
 				return false;
 			}
 			return true;

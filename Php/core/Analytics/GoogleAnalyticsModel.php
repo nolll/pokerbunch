@@ -7,7 +7,7 @@ namespace core\Analytics{
 		public $enableAnalytics;
 
 		public function __construct(){
-			$this->enableAnalytics = $this->isInProduction();
+			enableAnalytics = isInProduction();
 		}
 
 		private function isInProduction(){

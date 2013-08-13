@@ -11,8 +11,8 @@ namespace app\Cashgame\Matrix{
 		public $cashgameUrl;
 
 		public function __construct(Homegame $homegame, Cashgame $cashgame, $showYear = false){
-			$this->date = Globalization::formatShortDate($cashgame->getStartTime(), $showYear);
-			$this->cashgameUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
+			date = Globalization::formatShortDate($cashgame.getStartTime(), $showYear);
+			cashgameUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
 		}
 
 	}

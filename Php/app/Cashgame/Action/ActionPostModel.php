@@ -7,7 +7,7 @@ namespace app\Cashgame\Action{
 		public $stack;
 
 		public function __construct(Request $request){
-			$this->stack = $request->getParamPost('stack');
+			stack = $request.getParamPost('stack');
 		}
 
 	}

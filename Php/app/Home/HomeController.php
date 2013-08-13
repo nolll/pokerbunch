@@ -16,20 +16,20 @@ namespace app\Home{
 		public function __construct(UserContext $userContext,
 									HomegameStorage $homegameStorage,
 									CashgameRepository $cashgameRepository) {
-			$this->userContext = $userContext;
-			$this->homegameStorage = $homegameStorage;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameStorage = $homegameStorage;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_index(){
-			$homegame = $this->getHomegame();
-			$runningGame = $this->getRunningGame($homegame);
-			$model = new HomeModel($this->userContext->getUser(), $homegame, $runningGame);
-			return $this->view('app/Home/Home', $model);
+			$homegame = getHomegame();
+			$runningGame = getRunningGame($homegame);
+			$model = new HomeModel(userContext.getUser(), $homegame, $runningGame);
+			return view('app/Home/Home', $model);
 		}
 
 		private function getHomegame(){
-			$games = $this->homegameStorage->getHomegamesByRole($this->userContext->getToken(), Role::$player);
+			$games = homegameStorage.getHomegamesByRole(userContext.getToken(), Role::$player);
 			if(count($games) == 1){
 				return $games[0];
 			}
@@ -40,7 +40,7 @@ namespace app\Home{
 			if($homegame == null){
 				return null;
 			}
-			return $this->cashgameRepository->getRunning($homegame);
+			return cashgameRepository.getRunning($homegame);
 		}
 
 	}

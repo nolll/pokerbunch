@@ -8,9 +8,9 @@ namespace tests\User{
 		function test_Encrypt_ReturnsSha1EncryptedString(){
 			$encryption = new EncryptionImpl();
 
-			$encryptedString = $encryption->encrypt("string", "salt");
+			$encryptedString = $encryption.encrypt("string", "salt");
 
-			$this->assertIdentical(40, strlen($encryptedString));
+			assertIdentical(40, strlen($encryptedString));
 		}
 
 	}

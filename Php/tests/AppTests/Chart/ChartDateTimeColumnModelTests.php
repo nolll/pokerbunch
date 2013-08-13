@@ -9,16 +9,16 @@ namespace tests\AppTests\Chart{
 		private $pattern;
 
 		function getSut(){
-			return new ChartDateTimeColumnModel($this->label, $this->pattern);
+			return new ChartDateTimeColumnModel(label, pattern);
 		}
 
 		function test_Type_IsSetToDateTime(){
-			$this->label = 'any';
-			$this->pattern = 'any';
+			label = 'any';
+			pattern = 'any';
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('datetime', $sut->type);
+			assertEqual('datetime', $sut.type);
 		}
 
 	}

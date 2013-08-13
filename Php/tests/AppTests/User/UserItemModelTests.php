@@ -11,25 +11,25 @@ namespace tests\AppTests\User{
 		private $user;
 
 		function setUp(){
-			$this->user = new User();
+			user = new User();
 		}
 
 		function test_Item_SetsName(){
-			$this->user->setDisplayName('a');
+			user.setDisplayName('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->name);
+			assertIdentical('a', $sut.name);
 		}
 
 		function test_Item_SetsDetailsUrl(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->urlModel, 'app\Urls\UserDetailsUrlModel');
+			assertIsA($sut.urlModel, 'app\Urls\UserDetailsUrlModel');
 		}
 
 		private function getSut(){
-			return new UserItemModel($this->user);
+			return new UserItemModel(user);
 		}
 
 	}

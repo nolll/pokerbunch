@@ -14,26 +14,26 @@ namespace tests\AppTests\User{
 		private $userStorage;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->userStorage = TestHelper::getFake(ClassNames::$UserStorage);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			userStorage = TestHelper::getFake(ClassNames::$UserStorage);
 			$avatarService = TestHelper::getFake(ClassNames::$AvatarService);
-			$this->sut = new UserDetailsController($this->userContext, $this->userStorage, $avatarService);
+			sut = new UserDetailsController(userContext, userStorage, $avatarService);
 		}
 
 		function test_ActionDetails_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_details("user1");
+			sut.action_details("user1");
 		}
 
 		function test_ActionDetails_UserNotFound_ThrowsUserNotFoundException(){
-			$currentUser = TestHelper::setupUser($this->userContext);
-			$currentUser->setUserName('differentUserName');
-			$this->userStorage->returns("getUserByName", null);
-			$this->expectException(new UserNotFoundException());
+			$currentUser = TestHelper::setupUser(userContext);
+			$currentUser.setUserName('differentUserName');
+			userStorage.returns("getUserByName", null);
+			expectException(new UserNotFoundException());
 
-			$this->sut->action_details("user1");
+			sut.action_details("user1");
 		}
 
 	}

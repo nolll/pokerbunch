@@ -7,12 +7,12 @@ namespace core\FormFields{
 		public $fieldId;
 
 		public function __construct($fieldName, $fieldId, $selectedValue){
-			$this->fieldName = $fieldName;
-			if($this->fieldName == null){
-				$this->fieldName = '';
+			fieldName = $fieldName;
+			if(fieldName == null){
+				fieldName = '';
 			}
-			$this->value = $selectedValue;
-			$this->fieldId = $fieldId;
+			value = $selectedValue;
+			fieldId = $fieldId;
 		}
 
 	}

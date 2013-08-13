@@ -11,53 +11,53 @@ namespace app{
 			parent::bindTemplateEngine();
 			parent::bindParamParser('app\AppParamParser');
 
-			$this->bind(ClassNames::$MishiinConfigFactory)->to(ClassNames::$AppConfigFactory)->inSingleton();
-			$this->bind(ClassNames::$UserContext)->to(ClassNames::$UserContextImpl)->inSingleton();
-			$this->bind(ClassNames::$WebContext)->to(ClassNames::$WebContextImpl)->inSingleton();
-			$this->bind(ClassNames::$Timer)->to(ClassNames::$TimerImpl)->inSingleton();
+			bind(ClassNames::$MishiinConfigFactory).to(ClassNames::$AppConfigFactory).inSingleton();
+			bind(ClassNames::$UserContext).to(ClassNames::$UserContextImpl).inSingleton();
+			bind(ClassNames::$WebContext).to(ClassNames::$WebContextImpl).inSingleton();
+			bind(ClassNames::$Timer).to(ClassNames::$TimerImpl).inSingleton();
 
-			$this->bind(ClassNames::$SlugGenerator)->to(ClassNames::$SlugGeneratorImpl)->inSingleton();
-			$this->bind(ClassNames::$HomegameValidatorFactory)->to(ClassNames::$HomegameValidatorFactoryImpl)->inSingleton();
+			bind(ClassNames::$SlugGenerator).to(ClassNames::$SlugGeneratorImpl).inSingleton();
+			bind(ClassNames::$HomegameValidatorFactory).to(ClassNames::$HomegameValidatorFactoryImpl).inSingleton();
 
-			$this->bind(ClassNames::$CashgameValidatorFactory)->to(ClassNames::$CashgameValidatorFactoryImpl)->inSingleton();
+			bind(ClassNames::$CashgameValidatorFactory).to(ClassNames::$CashgameValidatorFactoryImpl).inSingleton();
 
-			$this->bind(ClassNames::$PlayerValidatorFactory)->to(ClassNames::$PlayerValidatorFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$InvitationSender)->to(ClassNames::$InvitationSenderImpl)->inSingleton();
-			$this->bind(ClassNames::$InvitationCodeCreator)->to(ClassNames::$InvitationCodeCreatorImpl)->inSingleton();
+			bind(ClassNames::$PlayerValidatorFactory).to(ClassNames::$PlayerValidatorFactoryImpl).inSingleton();
+			bind(ClassNames::$InvitationSender).to(ClassNames::$InvitationSenderImpl).inSingleton();
+			bind(ClassNames::$InvitationCodeCreator).to(ClassNames::$InvitationCodeCreatorImpl).inSingleton();
 
-			$this->bind(ClassNames::$Encryption)->to(ClassNames::$EncryptionImpl)->inSingleton();
-			$this->bind(ClassNames::$UserFactory)->to(ClassNames::$UserFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$UserValidatorFactory)->to(ClassNames::$UserValidatorFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$RegistrationConfirmationSender)->to(ClassNames::$RegistrationConfirmationSenderImpl)->inSingleton();
-			$this->bind(ClassNames::$PasswordSender)->to(ClassNames::$PasswordSenderImpl)->inSingleton();
+			bind(ClassNames::$Encryption).to(ClassNames::$EncryptionImpl).inSingleton();
+			bind(ClassNames::$UserFactory).to(ClassNames::$UserFactoryImpl).inSingleton();
+			bind(ClassNames::$UserValidatorFactory).to(ClassNames::$UserValidatorFactoryImpl).inSingleton();
+			bind(ClassNames::$RegistrationConfirmationSender).to(ClassNames::$RegistrationConfirmationSenderImpl).inSingleton();
+			bind(ClassNames::$PasswordSender).to(ClassNames::$PasswordSenderImpl).inSingleton();
 
-			$this->bind(ClassNames::$CashgameFactory)->to(ClassNames::$CashgameFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$CashgameSuiteFactory)->to(ClassNames::$CashgameSuiteFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$CashgameResultFactory)->to(ClassNames::$CashgameResultFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$CashgameTotalResultFactory)->to(ClassNames::$CashgameTotalResultFactoryImpl)->inSingleton();
+			bind(ClassNames::$CashgameFactory).to(ClassNames::$CashgameFactoryImpl).inSingleton();
+			bind(ClassNames::$CashgameSuiteFactory).to(ClassNames::$CashgameSuiteFactoryImpl).inSingleton();
+			bind(ClassNames::$CashgameResultFactory).to(ClassNames::$CashgameResultFactoryImpl).inSingleton();
+			bind(ClassNames::$CashgameTotalResultFactory).to(ClassNames::$CashgameTotalResultFactoryImpl).inSingleton();
 
-			$this->bind(ClassNames::$HomegameRepository)->to(ClassNames::$HomegameRepositoryImpl)->inSingleton();
-			$this->bind(ClassNames::$CashgameRepository)->to(ClassNames::$CashgameRepositoryImpl)->inSingleton();
-			$this->bind(ClassNames::$PlayerRepository)->to(ClassNames::$PlayerRepositoryImpl)->inSingleton();
-			$this->bind(ClassNames::$PlayerFactory)->to(ClassNames::$PlayerFactoryImpl)->inSingleton();
+			bind(ClassNames::$HomegameRepository).to(ClassNames::$HomegameRepositoryImpl).inSingleton();
+			bind(ClassNames::$CashgameRepository).to(ClassNames::$CashgameRepositoryImpl).inSingleton();
+			bind(ClassNames::$PlayerRepository).to(ClassNames::$PlayerRepositoryImpl).inSingleton();
+			bind(ClassNames::$PlayerFactory).to(ClassNames::$PlayerFactoryImpl).inSingleton();
 
-			$this->bind(ClassNames::$SocialServiceFactory)->to(ClassNames::$SocialServiceFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$TwitterService)->to(ClassNames::$TwitterServiceImpl)->inSingleton();
-			$this->bind(ClassNames::$ResultSharer)->to(ClassNames::$ResultSharerImpl)->inSingleton();
-			$this->bind(ClassNames::$MessageSenderFactory)->to(ClassNames::$MessageSenderFactoryImpl)->inSingleton();
-			$this->bind(ClassNames::$AvatarService)->to(ClassNames::$GravatarService)->inSingleton();
+			bind(ClassNames::$SocialServiceFactory).to(ClassNames::$SocialServiceFactoryImpl).inSingleton();
+			bind(ClassNames::$TwitterService).to(ClassNames::$TwitterServiceImpl).inSingleton();
+			bind(ClassNames::$ResultSharer).to(ClassNames::$ResultSharerImpl).inSingleton();
+			bind(ClassNames::$MessageSenderFactory).to(ClassNames::$MessageSenderFactoryImpl).inSingleton();
+			bind(ClassNames::$AvatarService).to(ClassNames::$GravatarService).inSingleton();
 
-			$this->bind(ClassNames::$MatrixModelFactory)->to(ClassNames::$MatrixModelFactoryImpl)->inSingleton();
+			bind(ClassNames::$MatrixModelFactory).to(ClassNames::$MatrixModelFactoryImpl).inSingleton();
 
-			$this->bind(ClassNames::$StorageProvider)->to(ClassNames::$MySqlPdo)->inSingleton();
-			$this->bind(ClassNames::$UserStorage)->to(ClassNames::$MySqlUserStorage)->inSingleton();
-			$this->bind(ClassNames::$HomegameStorage)->to(ClassNames::$MySqlHomegameStorage)->inSingleton();
-			$this->bind(ClassNames::$PlayerStorage)->to(ClassNames::$MySqlPlayerStorage)->inSingleton();
-			$this->bind(ClassNames::$CashgameStorage)->to(ClassNames::$MySqlCashgameStorage)->inSingleton();
-			$this->bind(ClassNames::$SharingStorage)->to(ClassNames::$MySqlSharingStorage)->inSingleton();
-			$this->bind(ClassNames::$TwitterStorage)->to(ClassNames::$MySqlTwitterStorage)->inSingleton();
+			bind(ClassNames::$StorageProvider).to(ClassNames::$MySqlPdo).inSingleton();
+			bind(ClassNames::$UserStorage).to(ClassNames::$MySqlUserStorage).inSingleton();
+			bind(ClassNames::$HomegameStorage).to(ClassNames::$MySqlHomegameStorage).inSingleton();
+			bind(ClassNames::$PlayerStorage).to(ClassNames::$MySqlPlayerStorage).inSingleton();
+			bind(ClassNames::$CashgameStorage).to(ClassNames::$MySqlCashgameStorage).inSingleton();
+			bind(ClassNames::$SharingStorage).to(ClassNames::$MySqlSharingStorage).inSingleton();
+			bind(ClassNames::$TwitterStorage).to(ClassNames::$MySqlTwitterStorage).inSingleton();
 
-			$this->bind(ClassNames::$Logger)->to(ClassNames::$DumpLogger)->inSingleton();
+			bind(ClassNames::$Logger).to(ClassNames::$DumpLogger).inSingleton();
 		}
 
 		/**
@@ -66,7 +66,7 @@ namespace app{
 		 */
 		public function provideRouter() {
 			$routeProvider = new ApplicationRouteProvider();
-			return $routeProvider->getRouter();
+			return $routeProvider.getRouter();
 		}
 
 		/**
@@ -75,7 +75,7 @@ namespace app{
 		 */
 		public function provideRequest(){
 			$requestProvider = new RequestProvider();
-			return $requestProvider->get();
+			return $requestProvider.get();
 		}
 
 		/**

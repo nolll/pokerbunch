@@ -15,29 +15,29 @@ namespace tests\AppTests\Cashgame\Facts{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->sut = new CashgameFactsController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			sut = new CashgameFactsController(userContext, homegameRepositoryMock, cashgameRepositoryMock);
 		}
 
 		function test_ActionFacts_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_facts("homegame1");
+			sut.action_facts("homegame1");
 		}
 
 		function test_ActionFacts_ReturnsCorrectModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$suite = new CashgameSuite();
-			$this->cashgameRepositoryMock->returns('getSuite', $suite);
+			cashgameRepositoryMock.returns('getSuite', $suite);
 
-			$viewResult = $this->sut->action_facts("homegame1");
+			$viewResult = sut.action_facts("homegame1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Facts\CashgameFactsModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Facts\CashgameFactsModel');
 		}
 
 	}

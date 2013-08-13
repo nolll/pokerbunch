@@ -9,13 +9,13 @@ namespace app\User{
 
 		public function __construct($subject, $message, \Infrastructure\Data\Interfaces\UserStorage $userStorage){
 			parent::__construct($subject, $message);
-			$this->userStorage = $userStorage;
+			userStorage = $userStorage;
 		}
 
 		public function validateSubject(){
-			$existingUser = $this->userStorage->getUserByName($this->subject);
+			$existingUser = userStorage.getUserByName(subject);
 			if($existingUser != null){
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 			return true;

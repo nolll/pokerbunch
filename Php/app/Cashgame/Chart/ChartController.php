@@ -14,27 +14,27 @@ namespace app\Cashgame\Chart{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_chart($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$suite = $this->cashgameRepository->getSuite($homegame, $year);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			$model = new ChartModel($this->userContext->getUser(), $homegame, $suite, $year, $years, $runningGame);
-			return $this->view('app/Cashgame/Chart/Chart', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$suite = cashgameRepository.getSuite($homegame, $year);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			$model = new ChartModel(userContext.getUser(), $homegame, $suite, $year, $years, $runningGame);
+			return view('app/Cashgame/Chart/Chart', $model);
 		}
 
 		public function action_chartjson($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$suite = $this->cashgameRepository->getSuite($homegame, $year);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$suite = cashgameRepository.getSuite($homegame, $year);
 			$model = new ChartData($homegame, $suite, $year);
-			return $this->json($model);
+			return json($model);
 		}
 
 	}

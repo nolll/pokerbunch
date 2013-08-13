@@ -16,7 +16,7 @@ namespace tests\AppTests\Sharing{
 
 			$sut = new SharingIndexModel($user, false);
 
-			$this->assertIsA($sut->shareToTwitterSettingsUrl, 'app\Urls\TwitterSettingsUrlModel');
+			assertIsA($sut.shareToTwitterSettingsUrl, 'app\Urls\TwitterSettingsUrlModel');
 		}
 
 		function test_ActionIndex_UserIsNotSharingToTwitter_IsSharingToTwitterIsFalse(){
@@ -24,7 +24,7 @@ namespace tests\AppTests\Sharing{
 
 			$sut = new SharingIndexModel($user, false);
 
-			$this->assertFalse($sut->isSharingToTwitter);
+			assertFalse($sut.isSharingToTwitter);
 		}
 
 		function test_ActionIndex_UserIsSharingToTwitter_IsSharingToTwitterIsTrue(){
@@ -32,7 +32,7 @@ namespace tests\AppTests\Sharing{
 
 			$sut = new SharingIndexModel($user, true);
 
-			$this->assertTrue($sut->isSharingToTwitter);
+			assertTrue($sut.isSharingToTwitter);
 		}
 
 	}

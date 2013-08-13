@@ -66,9 +66,9 @@ $reporter = new CustomReporter();
 
 if($runCoverage){
     $coverage = new Coverage(__ROOT__);
-	$coverage->excludeFolder("/../lib");
-	$coverage->excludeFolder("/tests");
-	$coverage->start();
+	$coverage.excludeFolder("/../lib");
+	$coverage.excludeFolder("/tests");
+	$coverage.start();
     $reporter = new CoverageReporter($coverage);
     $title .= " With Coverage";
 }
@@ -77,9 +77,9 @@ $tests = getTestSuite($runIntegration, $runWebTests, $title);
 
 if($showNavigation){
 	$showFullNavigation = !$runCoverage;
-	$tests->printNavigationHtml($runIntegration, $runWebTests, $runCoverage, $showFullNavigation);
+	$tests.printNavigationHtml($runIntegration, $runWebTests, $runCoverage, $showFullNavigation);
 } else {
-	$tests->run($reporter);
+	$tests.run($reporter);
 }
 
-echo('Test time: ' . round($timer->measure(), 2) . ' seconds');
+echo('Test time: ' . round($timer.measure(), 2) . ' seconds');

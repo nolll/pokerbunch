@@ -8,20 +8,20 @@ namespace Infrastructure\Data\Classes {
 		private $checkpoints;
 
 		public function __construct($playerId){
-			$this->playerId = $playerId;
-			$this->checkpoints = array();
+			playerId = $playerId;
+			checkpoints = array();
 		}
 
 		public function getPlayerId(){
-			return $this->playerId;
+			return playerId;
 		}
 
         public function getCheckpoints(){
-            return $this->checkpoints;
+            return checkpoints;
         }
 
 		public function addCheckpoint(Checkpoint $checkpoint){
-			$this->checkpoints[] = $checkpoint;
+			checkpoints[] = $checkpoint;
 		}
 
 	}

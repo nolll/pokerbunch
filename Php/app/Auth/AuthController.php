@@ -23,70 +23,70 @@ namespace app\Auth{
 									UserValidatorFactory $userValidatorFactory,
 									Response $response,
 									Request $request){
-			$this->userStorage = $userStorage;
-			$this->encryption = $encryption;
-			$this->userValidatorFactory = $userValidatorFactory;
-			$this->response = $response;
-			$this->request = $request;
+			userStorage = $userStorage;
+			encryption = $encryption;
+			userValidatorFactory = $userValidatorFactory;
+			response = $response;
+			request = $request;
 		}
 
 		public function action_login(){
-			return $this->showForm();
+			return showForm();
 		}
 
 		public function action_login_post(){
-			$loginName = $this->request->getParamPost('ln');
-			$password = $this->request->getParamPost('pw');
+			$loginName = request.getParamPost('ln');
+			$password = request.getParamPost('pw');
 
-			$user = $this->getLoggedInUser($loginName, $password);
+			$user = getLoggedInUser($loginName, $password);
 
-			$validator = $this->userValidatorFactory->getLoginValidator($user);
-			if($validator->isValid()){
-				$remember = $this->request->getParamPost('remember');
-				$returnUrl = $this->request->getParamPost('return');
-				$this->setCookies($user, $remember);
-				return $this->redirect($this->getReturnUrl($returnUrl));
+			$validator = userValidatorFactory.getLoginValidator($user);
+			if($validator.isValid()){
+				$remember = request.getParamPost('remember');
+				$returnUrl = request.getParamPost('return');
+				setCookies($user, $remember);
+				return redirect(getReturnUrl($returnUrl));
 			} else {
-				return $this->showForm($loginName, $validator->getErrors());
+				return showForm($loginName, $validator.getErrors());
 			}
 		}
 
 		private function getLoggedInUser($loginName, $password){
-			$salt = $this->userStorage->getSalt($loginName);
-			$encryptedPassword = $this->encryption->encrypt($password, $salt);
-			return $this->userStorage->getUserByCredentials($loginName, $encryptedPassword);
+			$salt = userStorage.getSalt($loginName);
+			$encryptedPassword = encryption.encrypt($password, $salt);
+			return userStorage.getUserByCredentials($loginName, $encryptedPassword);
 		}
 
 		public function action_logout(){
-			$this->clearCookies();
-			return $this->redirect(new HomeUrlModel());
+			clearCookies();
+			return redirect(new HomeUrlModel());
 		}
 
 		public function showForm($loginName = null, array $validationErrors = null){
-			$returnUrl = $this->request->getParamGet('return');
+			$returnUrl = request.getParamGet('return');
 			$model = new AuthLoginModel($returnUrl, $loginName);
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/Auth/Login', $model);
+			return view('app/Auth/Login', $model);
 		}
 
 		private function setCookies(User $user, $remember){
 			if($remember){
-				$this->setPersistentCookies($user);
+				setPersistentCookies($user);
 			} else {
-				$this->setSessionCookies($user);
+				setSessionCookies($user);
 			}
 		}
 
 		private function setSessionCookies(User $user){
-			$token = $this->userStorage->getToken($user);
-			$this->response->setSessionCookie('token', $token);
+			$token = userStorage.getToken($user);
+			response.setSessionCookie('token', $token);
 		}
 
 		private function setPersistentCookies(User $user){
-			$token = $this->userStorage->getToken($user);
-			$this->response->setPersistentCookie('token', $token);
+			$token = userStorage.getToken($user);
+			response.setPersistentCookie('token', $token);
 		}
 
 		private function getReturnUrl($returnUrl){
@@ -97,7 +97,7 @@ namespace app\Auth{
 		}
 
 		private function clearCookies(){
-			$this->response->clearCookie('token');
+			response.clearCookie('token');
 		}
 
 	}

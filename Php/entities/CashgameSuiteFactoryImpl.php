@@ -5,14 +5,14 @@ namespace entities{
 		private $cashgameTotalResultFactory;
 
 		public function __construct(CashgameTotalResultFactory $cashgameTotalResultFactory){
-			$this->cashgameTotalResultFactory = $cashgameTotalResultFactory;
+			cashgameTotalResultFactory = $cashgameTotalResultFactory;
 		}
 
 		public function create($cashgames, $players){
 			$suite = new CashgameSuite();
 
 			$totalGameTime = 0;
-			$resultIndex = $this->getPlayerIndex($players);
+			$resultIndex = getPlayerIndex($players);
 			/** @var CashgameResult $bestResult */
 			$bestResult = null;
 			/** @var CashgameResult $worstResult */
@@ -21,35 +21,35 @@ namespace entities{
 			usort($cashgames, 'entities\CashgameComparer::compareStartTime');
 			$cashgames = array_reverse($cashgames);
 			foreach($cashgames as $cashgame){ /** @var $cashgame Cashgame */
-				$results = $cashgame->getResults();
+				$results = $cashgame.getResults();
 				foreach($results as $result){
-					$resultIndex[$result->getPlayer()->getId()][] = $result;
-					if($bestResult == null || $result->getWinnings() > $bestResult->getWinnings()){
+					$resultIndex[$result.getPlayer().getId()][] = $result;
+					if($bestResult == null || $result.getWinnings() > $bestResult.getWinnings()){
 						$bestResult = $result;
 					}
-					if($worstResult == null || $result->getWinnings() < $worstResult->getWinnings()){
+					if($worstResult == null || $result.getWinnings() < $worstResult.getWinnings()){
 						$worstResult = $result;
 					}
 				}
-				$duration = $cashgame->getDuration();
+				$duration = $cashgame.getDuration();
 				$totalGameTime += $duration;
 			}
 
-			$totalResults = $this->getTotalResults($players, $resultIndex);
-			$mostTimeResult = $this->getMostTimeResult($totalResults);
+			$totalResults = getTotalResults($players, $resultIndex);
+			$mostTimeResult = getMostTimeResult($totalResults);
 			$bestTotalResult = reset($totalResults);
 			if(!$bestTotalResult){
 				$bestTotalResult = null;
 			}
 
-			$suite->setTotalResults($totalResults);
-			$suite->setCashgames($cashgames);
-			$suite->setGameCount(count($cashgames));
-			$suite->setTotalGameTime($totalGameTime);
-			$suite->setBestResult($bestResult);
-			$suite->setWorstResult($worstResult);
-			$suite->setMostTimeResult($mostTimeResult);
-			$suite->setBestTotalResult($bestTotalResult);
+			$suite.setTotalResults($totalResults);
+			$suite.setCashgames($cashgames);
+			$suite.setGameCount(count($cashgames));
+			$suite.setTotalGameTime($totalGameTime);
+			$suite.setBestResult($bestResult);
+			$suite.setWorstResult($worstResult);
+			$suite.setMostTimeResult($mostTimeResult);
+			$suite.setBestTotalResult($bestTotalResult);
 
 			return $suite;
 		}
@@ -61,7 +61,7 @@ namespace entities{
 		private function getPlayerIndex(array $players){
 			$hashtable = array();
 			foreach($players as $player){ /** @var $player Player */
-				$hashtable[$player->getId()] = array();
+				$hashtable[$player.getId()] = array();
 			}
 			return $hashtable;
 		}
@@ -74,9 +74,9 @@ namespace entities{
 		private function getTotalResults(array $players, array $resultIndex){
 			$totalResults = array();
 			foreach($players as $player){
-				$playerResults = $resultIndex[$player->getId()];
+				$playerResults = $resultIndex[$player.getId()];
 				if(count($playerResults) > 0){
-					$totalResults[] = $this->cashgameTotalResultFactory->create($player, $playerResults);
+					$totalResults[] = cashgameTotalResultFactory.create($player, $playerResults);
 				}
 			}
 			usort($totalResults, 'entities\CashgameTotalResultComparer::compareResult');
@@ -91,7 +91,7 @@ namespace entities{
 			/** @var CashgameTotalResult $mostTimeResult */
 			$mostTimeResult = null;
 			foreach($results as $result){
-				if($mostTimeResult == null || $result->getTimePlayed() > $mostTimeResult->getTimePlayed()){
+				if($mostTimeResult == null || $result.getTimePlayed() > $mostTimeResult.getTimePlayed()){
 					$mostTimeResult = $result;
 				}
 			}

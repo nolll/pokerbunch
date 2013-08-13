@@ -6,24 +6,24 @@ namespace entities{
 		private $layout;
 
 		public function __construct($symbol = null, $layout = null){
-			$this->symbol = $symbol;
-			$this->layout = $layout;
+			symbol = $symbol;
+			layout = $layout;
 		}
 
 		public function getSymbol(){
-			return $this->symbol;
+			return symbol;
 		}
 
 		public function setSymbol($symbol){
-			$this->symbol = $symbol;
+			symbol = $symbol;
 		}
 
 		public function getLayout(){
-			return $this->layout;
+			return layout;
 		}
 
 		public function setLayout($layout){
-			$this->layout = $layout;
+			layout = $layout;
 		}
 
 	}

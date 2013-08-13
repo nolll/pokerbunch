@@ -58,402 +58,402 @@ namespace tests\CoreTests{
 		function test_HomeUrl(){
 			$sut = new HomeUrlModel();
 
-			$this->assertIdentical("/", $sut->url);
+			assertIdentical("/", $sut.url);
 		}
 
 		function test_AuthLoginUrl(){
 			$sut = new AuthLoginUrlModel();
 
-			$this->assertIdentical("/-/auth/login", $sut->url);
+			assertIdentical("/-/auth/login", $sut.url);
 		}
 
 		function test_AuthLogoutUrl(){
 			$sut = new AuthLogoutUrlModel();
 
-			$this->assertIdentical("/-/auth/logout", $sut->url);
+			assertIdentical("/-/auth/logout", $sut.url);
 		}
 
 		function test_CashgameAddUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new CashgameAddUrlModel($homegame);
 
-			$this->assertIdentical("/abc/cashgame/add", $sut->url);
+			assertIdentical("/abc/cashgame/add", $sut.url);
 		}
 
 		function test_CashgameChartUrl_WithYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = 2010;
 
 			$sut = new CashgameChartUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/chart/2010", $sut->url);
+			assertIdentical("/abc/cashgame/chart/2010", $sut.url);
 		}
 
 		function test_CashgameChartUrl_WithoutYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = null;
 
 			$sut = new CashgameChartUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/chart", $sut->url);
+			assertIdentical("/abc/cashgame/chart", $sut.url);
 		}
 
 		function test_CashgameDeleteUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgameDeleteUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/delete/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/delete/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameDetailsUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgameDetailsUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/details/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/details/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameEditUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgameEditUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/edit/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/edit/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameIndexUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new CashgameIndexUrlModel($homegame);
 
-			$this->assertIdentical("/abc/cashgame/index", $sut->url);
+			assertIdentical("/abc/cashgame/index", $sut.url);
 		}
 
 		function test_CashgameLeaderboardUrl_WithYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = 2010;
 
 			$sut = new CashgameLeaderboardUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/leaderboard/2010", $sut->url);
+			assertIdentical("/abc/cashgame/leaderboard/2010", $sut.url);
 		}
 
 		function test_CashgameLeaderboardUrl_WithoutYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = null;
 
 			$sut = new CashgameLeaderboardUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/leaderboard", $sut->url);
+			assertIdentical("/abc/cashgame/leaderboard", $sut.url);
 		}
 
 		function test_CashgameMatrixUrl_WithYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = 2010;
 
 			$sut = new CashgameMatrixUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/matrix/2010", $sut->url);
+			assertIdentical("/abc/cashgame/matrix/2010", $sut.url);
 		}
 
 		function test_CashgameMatrixUrl_WithoutYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = null;
 
 			$sut = new CashgameMatrixUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/matrix", $sut->url);
+			assertIdentical("/abc/cashgame/matrix", $sut.url);
 		}
 
 		function test_CashgameListingUrl_WithYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = 2010;
 
 			$sut = new CashgameListingUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/listing/2010", $sut->url);
+			assertIdentical("/abc/cashgame/listing/2010", $sut.url);
 		}
 
 		function test_CashgameListingUrl_WithoutYear(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$year = null;
 
 			$sut = new CashgameListingUrlModel($homegame, $year);
 
-			$this->assertIdentical("/abc/cashgame/listing", $sut->url);
+			assertIdentical("/abc/cashgame/listing", $sut.url);
 		}
 
 		function test_CashgameActionUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new CashgameActionUrlModel($homegame, $cashgame, $player);
 
-			$this->assertIdentical("/abc/cashgame/action/2010-01-01/a", $sut->url);
+			assertIdentical("/abc/cashgame/action/2010-01-01/a", $sut.url);
 		}
 
 		function test_CashgameBuyinUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new CashgameBuyinUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/cashgame/buyin/a", $sut->url);
+			assertIdentical("/abc/cashgame/buyin/a", $sut.url);
 		}
 
 		function test_CashgameReportUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new CashgameReportUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/cashgame/report/a", $sut->url);
+			assertIdentical("/abc/cashgame/report/a", $sut.url);
 		}
 
 		function test_CashgameCashoutUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new CashgameCashoutUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/cashgame/cashout/a", $sut->url);
+			assertIdentical("/abc/cashgame/cashout/a", $sut.url);
 		}
 
 		function test_CashgamePublishUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgamePublishUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/publish/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/publish/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameRemoveResultUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgameRemoveResultUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/removeresult/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/removeresult/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameUnpublishUrlModel_ReturnsCorrectUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime('2010-01-01'));
+			$cashgame.setStartTime(new DateTime('2010-01-01'));
 
 			$sut = new CashgameUnpublishUrlModel($homegame, $cashgame);
 
-			$this->assertIdentical("/abc/cashgame/unpublish/2010-01-01", $sut->url);
+			assertIdentical("/abc/cashgame/unpublish/2010-01-01", $sut.url);
 		}
 
 		function test_ChangePasswordConfirmationUrl(){
 			$sut = new ChangePasswordConfirmationUrlModel();
 
-			$this->assertIdentical("/-/password/changed", $sut->url);
+			assertIdentical("/-/password/changed", $sut.url);
 		}
 
 		function test_ChangePasswordFormUrl(){
 			$sut = new ChangePasswordUrlModel();
 
-			$this->assertIdentical("/-/password/change", $sut->url);
+			assertIdentical("/-/password/change", $sut.url);
 		}
 
 		function test_ForgotPasswordConfirmationUrl(){
 			$sut = new ForgotPasswordConfirmationUrlModel();
 
-			$this->assertIdentical("/-/password/sent", $sut->url);
+			assertIdentical("/-/password/sent", $sut.url);
 		}
 
 		function test_ForgotPasswordFormUrl(){
 			$sut = new ForgotPasswordUrlModel();
 
-			$this->assertIdentical("/-/password/forgot", $sut->url);
+			assertIdentical("/-/password/forgot", $sut.url);
 		}
 
 		function test_HomegameAddUrl(){
 			$sut = new HomegameAddUrlModel();
 
-			$this->assertIdentical("/-/game/add", $sut->url);
+			assertIdentical("/-/game/add", $sut.url);
 		}
 
 		function test_HomegameAddConfirmationUrl(){
 			$sut = new HomegameAddConfirmationUrlModel();
 
-			$this->assertIdentical("/-/game/created", $sut->url);
+			assertIdentical("/-/game/created", $sut.url);
 		}
 
 		function test_HomegameDetailsUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new HomegameDetailsUrlModel($homegame);
 
-			$this->assertIdentical("/abc/game/details", $sut->url);
+			assertIdentical("/abc/game/details", $sut.url);
 		}
 
 		function test_HomegameEditUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new HomegameEditUrlModel($homegame);
 
-			$this->assertIdentical("/abc/game/edit", $sut->url);
+			assertIdentical("/abc/game/edit", $sut.url);
 		}
 
 		function test_HomegameJoinUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new HomegameJoinUrlModel($homegame);
 
-			$this->assertIdentical("/abc/game/join", $sut->url);
+			assertIdentical("/abc/game/join", $sut.url);
 		}
 
 		function test_HomegameJoinConfirmationUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new HomegameJoinConfirmationUrlModel($homegame);
 
-			$this->assertIdentical("/abc/game/joined", $sut->url);
+			assertIdentical("/abc/game/joined", $sut.url);
 		}
 
 		function test_HomegameListingUrl(){
 			$sut = new HomegameListingUrlModel();
 
-			$this->assertIdentical("/-/game/listing", $sut->url);
+			assertIdentical("/-/game/listing", $sut.url);
 		}
 
 		function test_PlayerAddUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new PlayerAddUrlModel($homegame);
 
-			$this->assertIdentical("/abc/player/add", $sut->url);
+			assertIdentical("/abc/player/add", $sut.url);
 		}
 
 		function test_PlayerAddConfirmationUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new PlayerAddConfirmationUrlModel($homegame);
 
-			$this->assertIdentical("/abc/player/created", $sut->url);
+			assertIdentical("/abc/player/created", $sut.url);
 		}
 
 		function test_PlayerDeleteUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new PlayerDeleteUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/player/delete/a", $sut->url);
+			assertIdentical("/abc/player/delete/a", $sut.url);
 		}
 
 		function test_PlayerDetailsUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new PlayerDetailsUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/player/details/a", $sut->url);
+			assertIdentical("/abc/player/details/a", $sut.url);
 		}
 
 		function test_PlayerIndexUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 
 			$sut = new PlayerIndexUrlModel($homegame);
 
-			$this->assertIdentical("/abc/player/index", $sut->url);
+			assertIdentical("/abc/player/index", $sut.url);
 		}
 
 		function test_PlayerInviteUrl(){
-			$homegame = $this->getHomegame();
+			$homegame = getHomegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 
 			$sut = new PlayerInviteUrlModel($homegame, $player);
 
-			$this->assertIdentical("/abc/player/invite/a", $sut->url);
+			assertIdentical("/abc/player/invite/a", $sut.url);
 		}
 
 		function test_SharingSettingsUrl(){
 			$sut = new SharingSettingsUrlModel();
 
-			$this->assertIdentical("/-/sharing", $sut->url);
+			assertIdentical("/-/sharing", $sut.url);
 		}
 
 		function test_TwitterSettingsUrl(){
 			$sut = new TwitterSettingsUrlModel();
 
-			$this->assertIdentical("/-/sharing/twitter", $sut->url);
+			assertIdentical("/-/sharing/twitter", $sut.url);
 		}
 
 		function test_TwitterStartShareUrl(){
 			$sut = new TwitterStartShareUrlModel();
 
-			$this->assertIdentical("/-/sharing/twitterstart", $sut->url);
+			assertIdentical("/-/sharing/twitterstart", $sut.url);
 		}
 
 		function test_TwitterStopShareUrl(){
 			$sut = new TwitterStopShareUrlModel();
 
-			$this->assertIdentical("/-/sharing/twitterstop", $sut->url);
+			assertIdentical("/-/sharing/twitterstop", $sut.url);
 		}
 
 		function test_UserAddConfirmationUrl(){
 			$sut = new UserAddConfirmationUrlModel();
 
-			$this->assertIdentical("/-/user/created", $sut->url);
+			assertIdentical("/-/user/created", $sut.url);
 		}
 
 		function test_UserAddFormUrl(){
 			$sut = new UserAddUrlModel();
 
-			$this->assertIdentical("/-/user/add", $sut->url);
+			assertIdentical("/-/user/add", $sut.url);
 		}
 
 		function test_UserDetailsUrl(){
 			$user = new User();
-			$user->setUserName('a');
+			$user.setUserName('a');
 
 			$sut = new UserDetailsUrlModel($user);
 
-			$this->assertIdentical("/-/user/details/a", $sut->url);
+			assertIdentical("/-/user/details/a", $sut.url);
 		}
 
 		function test_UserEditUrl(){
 			$user = new User();
-			$user->setUserName('a');
+			$user.setUserName('a');
 
 			$sut = new UserEditUrlModel($user);
 
-			$this->assertIdentical("/-/user/edit/a", $sut->url);
+			assertIdentical("/-/user/edit/a", $sut.url);
 		}
 
 		function test_UserListingUrl(){
 			$sut = new UserListingUrlModel();
 
-			$this->assertIdentical("/-/user/listing", $sut->url);
+			assertIdentical("/-/user/listing", $sut.url);
 		}
 
 		private function getHomegame(){
 			$homegame = new Homegame();
-			$homegame->setSlug('abc');
+			$homegame.setSlug('abc');
 			return $homegame;
 		}
 

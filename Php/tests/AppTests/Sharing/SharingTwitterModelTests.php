@@ -14,56 +14,56 @@ namespace tests\AppTests\Sharing{
 
 		function setUp(){
 			parent::setUp();
-			$this->user = new User();
-			$this->isSharing = false;
-			$this->credentials = null;
+			user = new User();
+			isSharing = false;
+			credentials = null;
 		}
 
 		private function getSut(){
-			return new SharingTwitterModel($this->user, $this->isSharing, $this->credentials);
+			return new SharingTwitterModel(user, isSharing, credentials);
 		}
 
 		private function getCredentials(){
 			$c = new TwitterCredentials();
-			$c->twitterName = 'nickName';
+			$c.twitterName = 'nickName';
 			return $c;
 		}
 
 		function test_ActionTwitter_IsSharingIsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->isSharing);
+			assertFalse($sut.isSharing);
 		}
 
 		function test_ActionTwitter_WithSharing_IsSharingIsTrue(){
-			$this->isSharing = true;
+			isSharing = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->isSharing);
+			assertTrue($sut.isSharing);
 		}
 
 		function test_ActionTwitter_WithSharingAndCredentials_TwitterNameSet(){
-			$this->isSharing = true;
-			$this->credentials = $this->getCredentials();
+			isSharing = true;
+			credentials = getCredentials();
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("nickName", $sut->twitterName);
+			assertIdentical("nickName", $sut.twitterName);
 		}
 
 		function test_ActionTwitter_PostUrlIsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->postUrl, 'app\Urls\TwitterStartShareUrlModel');
+			assertIsA($sut.postUrl, 'app\Urls\TwitterStartShareUrlModel');
 		}
 
 		function test_ActionTwitter_WithSharing_PostUrlIsSet(){
-			$this->isSharing = true;
+			isSharing = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->postUrl, 'app\Urls\TwitterStopShareUrlModel');
+			assertIsA($sut.postUrl, 'app\Urls\TwitterStopShareUrlModel');
 		}
 
 	}

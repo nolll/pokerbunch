@@ -18,77 +18,77 @@ namespace tests\AppTests\Player{
 		private $playerFactory;
 
 		function setUp(){
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerValidatorFactory = TestHelper::getFake(ClassNames::$PlayerValidatorFactory);
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
+			playerRepositoryMock = getFakePlayerRepository();
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerValidatorFactory = TestHelper::getFake(ClassNames::$PlayerValidatorFactory);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->playerFactory = TestHelper::getFake(ClassNames::$PlayerFactory);
-			$this->sut = new PlayerAddController($this->userContext, $this->playerRepositoryMock, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerValidatorFactory, $request, $this->playerFactory);
+			playerFactory = TestHelper::getFake(ClassNames::$PlayerFactory);
+			sut = new PlayerAddController(userContext, playerRepositoryMock, homegameRepositoryMock, cashgameRepositoryMock, playerValidatorFactory, $request, playerFactory);
 		}
 
 		function test_ActionAdd_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_add("homegame1");
+			sut.action_add("homegame1");
 		}
 
 		function test_ActionAddPost_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_add_post("homegame1");
+			sut.action_add_post("homegame1");
 		}
 
 		function test_ActionAddPost_WithValidPlayer_AddsPlayer(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->playerFactory->returns('create', new Player());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			playerFactory.returns('create', new Player());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidValidator();
 
-			$this->playerRepositoryMock->expectOnce("addPlayer");
+			playerRepositoryMock.expectOnce("addPlayer");
 
-			$this->sut->action_add_post("homegame1");
+			sut.action_add_post("homegame1");
 		}
 
 		function test_ActionAddPost_WithValidPlayer_RedirectsToConfirmation(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->playerFactory->returns('create', new Player());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			playerFactory.returns('create', new Player());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidValidator();
 
-			$urlModel = $this->sut->action_add_post("homegame1");
+			$urlModel = sut.action_add_post("homegame1");
 
-			$this->assertIsA($urlModel, 'app\Urls\PlayerAddConfirmationUrlModel');
+			assertIsA($urlModel, 'app\Urls\PlayerAddConfirmationUrlModel');
 		}
 
 		function test_ActionAddPost_WithInvalidPlayer_DoesntAddPlayer(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->playerFactory->returns('create', new Player());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupInvalidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			playerFactory.returns('create', new Player());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupInvalidValidator();
 
-			$this->playerRepositoryMock->expectNever("addPlayer");
+			playerRepositoryMock.expectNever("addPlayer");
 
-			$this->sut->action_add_post("homegame1");
+			sut.action_add_post("homegame1");
 		}
 
 		function setupValidValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupInvalidValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupValidator(Validator $validator){
-			$this->playerValidatorFactory->returns("getAddPlayerValidator", $validator);
+			playerValidatorFactory.returns("getAddPlayerValidator", $validator);
 		}
 
 	}

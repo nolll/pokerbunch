@@ -6,15 +6,15 @@ namespace config{
 
 		public function __construct(){
 			parent::__construct();
-			$this->values['mode'] = 'dev';
-			$this->values['scriptTimeout'] = 10;
-			$this->values['errorsEnabled'] = true;
-			$this->values['databaseHost'] = '127.0.0.1';
-			$this->values['databaseName'] = 'homegamemanager';
-			$this->values['databaseUserName'] = 'homegame';
-			$this->values['databasePassword'] = 'bobb12br';
-			$this->values['twitterKey'] = '';
-			$this->values['twitterSecret'] = '';
+			values['mode'] = 'dev';
+			values['scriptTimeout'] = 10;
+			values['errorsEnabled'] = true;
+			values['databaseHost'] = '127.0.0.1';
+			values['databaseName'] = 'homegamemanager';
+			values['databaseUserName'] = 'homegame';
+			values['databasePassword'] = 'bobb12br';
+			values['twitterKey'] = '';
+			values['twitterSecret'] = '';
 		}
 
 	}

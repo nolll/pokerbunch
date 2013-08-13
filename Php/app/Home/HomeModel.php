@@ -21,11 +21,11 @@ namespace app\Home{
 									Homegame $homegame = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->isLoggedIn = $user != null;
-			$this->addHomegameUrl = new HomegameAddUrlModel();
-			$this->loginUrl = new AuthLoginUrlModel();
-			$this->registerUrl = new UserAddUrlModel();
-			$this->adminNav = new AdminNavModel($user);
+			isLoggedIn = $user != null;
+			addHomegameUrl = new HomegameAddUrlModel();
+			loginUrl = new AuthLoginUrlModel();
+			registerUrl = new UserAddUrlModel();
+			adminNav = new AdminNavModel($user);
 		}
 
 	}

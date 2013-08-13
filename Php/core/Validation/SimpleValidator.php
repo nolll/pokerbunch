@@ -6,12 +6,12 @@ namespace core\Validation{
 		protected $message;
 
 		public function __construct($subject, $message){
-			$this->subject = $subject;
-			$this->message = $message;
+			subject = $subject;
+			message = $message;
 		}
 
 		public function validate(){
-			$this->validateSubject();
+			validateSubject();
 		}
 
 		abstract function validateSubject();

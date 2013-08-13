@@ -18,32 +18,32 @@ namespace app\Cashgame\Action{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_end($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$user = $this->userContext->getUser();
-			return $this->renderEndGame($user, $homegame);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$user = userContext.getUser();
+			return renderEndGame($user, $homegame);
 		}
 
 		public function renderEndGame(User $user, Homegame $homegame){
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
 			$model = new EndGameModel($user, $homegame, $years, $runningGame);
-			return $this->view('app/Cashgame/Action/EndGame', $model);
+			return view('app/Cashgame/Action/EndGame', $model);
 		}
 
 		public function action_end_post($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$cashgame = $this->cashgameRepository->getRunning($homegame);
-			$this->userContext->requirePlayer($homegame);
-			$this->cashgameRepository->endGame($cashgame);
+			$homegame = homegameRepository.getByName($gameName);
+			$cashgame = cashgameRepository.getRunning($homegame);
+			userContext.requirePlayer($homegame);
+			cashgameRepository.endGame($cashgame);
 			$indexUrl = new CashgameIndexUrlModel($homegame);
-			return $this->redirect($indexUrl);
+			return redirect($indexUrl);
 		}
 
 	}

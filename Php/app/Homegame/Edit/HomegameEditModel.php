@@ -28,23 +28,23 @@ namespace app\Homegame\Edit{
 									Homegame $homegame,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->cancelUrl = new HomegameDetailsUrlModel($homegame);
-			$this->heading = $homegame->getDisplayName() . ' Settings';
-			$currency = $homegame->getCurrency();
-			$this->currencySymbol = $currency->getSymbol();
-			$this->currencyLayoutSelectModel = $this->getCurrencyLayoutSelectModel($currency->getLayout());
-			$this->description = $homegame->getDescription();
-			$this->houseRules = $homegame->getHouseRules();
-			$this->timezoneSelectModel = $this->getTimezoneSelectModel($homegame->getTimezone());
-			$this->defaultBuyin = $homegame->getDefaultBuyin();
-			$this->cashgamesEnabled = $homegame->cashgamesEnabled;
-			$this->tournamentsEnabled = $homegame->tournamentsEnabled;
-			$this->videosEnabled = $homegame->videosEnabled;
+			cancelUrl = new HomegameDetailsUrlModel($homegame);
+			heading = $homegame.getDisplayName() . ' Settings';
+			$currency = $homegame.getCurrency();
+			currencySymbol = $currency.getSymbol();
+			currencyLayoutSelectModel = getCurrencyLayoutSelectModel($currency.getLayout());
+			description = $homegame.getDescription();
+			houseRules = $homegame.getHouseRules();
+			timezoneSelectModel = getTimezoneSelectModel($homegame.getTimezone());
+			defaultBuyin = $homegame.getDefaultBuyin();
+			cashgamesEnabled = $homegame.cashgamesEnabled;
+			tournamentsEnabled = $homegame.tournamentsEnabled;
+			videosEnabled = $homegame.videosEnabled;
 		}
 
 		private function getTimezoneSelectModel(DateTimeZone $timezone){
 			$timezoneNames = Globalization::getTimezoneNames();
-			return new TimezoneFieldModel('timezone', 'timezone', $timezone->getName(), $timezoneNames);
+			return new TimezoneFieldModel('timezone', 'timezone', $timezone.getName(), $timezoneNames);
 		}
 
 		private function getCurrencyLayoutSelectModel($layout){

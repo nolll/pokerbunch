@@ -9,8 +9,8 @@ namespace app\Cashgame{
 		public $text;
 
 		public function __construct(UrlModel $link, $text){
-			$this->link = $link;
-			$this->text = $text;
+			link = $link;
+			text = $text;
 		}
 
 	}

@@ -8,11 +8,11 @@ namespace core{
 		private $request;
 
 		public function __construct(Request $request){
-			$this->request = $request;
+			request = $request;
 		}
 
 		public function getCookie($name){
-			return $this->request->getCookie($name);
+			return request.getCookie($name);
 		}
 
 	}

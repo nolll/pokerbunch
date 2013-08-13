@@ -13,14 +13,14 @@ namespace app\Auth{
 
 		public function __construct($returnUrl = null, $loginName){
 			parent::__construct();
-			$this->returnUrl = $returnUrl;
-			if($this->returnUrl == null){
-				$this->returnUrl = '/';
+			returnUrl = $returnUrl;
+			if(returnUrl == null){
+				returnUrl = '/';
 			}
-			$this->addUserUrl = new UserAddUrlModel();
-			$this->forgotPasswordUrl = new ForgotPasswordUrlModel();
+			addUserUrl = new UserAddUrlModel();
+			forgotPasswordUrl = new ForgotPasswordUrlModel();
 			if($loginName != null){
-				$this->loginName = $loginName;
+				loginName = $loginName;
 			}
 		}
 

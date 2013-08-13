@@ -8,34 +8,34 @@ namespace tests{
 		private $testCases;
 
 		public function __construct($label = "All Tests") {
-			$this->testCases = array();
+			testCases = array();
 			if(isset($_GET["testcase"])){
-				$this->selectedTestCase = $_GET["testcase"];
-				$label = $this->selectedTestCase;
+				selectedTestCase = $_GET["testcase"];
+				$label = selectedTestCase;
 			} else {
-				$this->selectedTestCase = null;
+				selectedTestCase = null;
 			}
 			parent::TestSuite($label);
-			$this->addTestCases();
-			$this->addFiles();
+			addTestCases();
+			addFiles();
 		}
 
 		abstract function addTestCases();
 
 		public function addTestCase($className){
-			$this->testCases[] = $this->getFileName($className);
+			testCases[] = getFileName($className);
 		}
 
 		private function addTestCaseFile($fileName){
-			$this->testCases[] = $fileName;
+			testCases[] = $fileName;
 		}
 
 		protected function addTestCaseNamespace($namespace){
-			$folderName = $this->getFolderName($namespace);
-			$files = $this->getFileNames($folderName);
+			$folderName = getFolderName($namespace);
+			$files = getFileNames($folderName);
 			foreach($files as $file){
-				$fileName = $this->makeRelativePath($file);
-				$this->addTestCaseFile($fileName);
+				$fileName = makeRelativePath($file);
+				addTestCaseFile($fileName);
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace tests{
 			foreach($items as $item){
 				$itemPath = $folder . '/' . $item;
 				if(is_dir($itemPath)){
-					$subFiles = $this->getFileNames($itemPath);
+					$subFiles = getFileNames($itemPath);
 					$files = array_merge($files, $subFiles);
 				} else {
 					$files[] = $itemPath;
@@ -79,14 +79,14 @@ namespace tests{
 		}
 
 		public function printNavigationHtml($runIntegration, $runWebTests, $runCoverage, $fullNavigation = true){
-			$root = $this->getRoot($runIntegration, $runWebTests);
+			$root = getRoot($runIntegration, $runWebTests);
 			$coverageParam = $runCoverage ? '?coverage&' : '?';
-			$heading = $this->getHeading($runIntegration, $runWebTests);
+			$heading = getHeading($runIntegration, $runWebTests);
 			echo("<h1>" . $heading . "</h1>");
 			echo("<a href=\"/test/" . $root . $coverageParam . "\">All Tests</a><br/>");
 			if($fullNavigation){
-				foreach($this->testCases as $fileName){
-					$navName = $this->getNavigationName($fileName);
+				foreach(testCases as $fileName){
+					$navName = getNavigationName($fileName);
 					$navUrl = $root . $coverageParam . "testcase=" . $fileName;
 					echo("<a href=\"$navUrl\">$navName</a><br/>");
 				}
@@ -114,9 +114,9 @@ namespace tests{
 		}
 
 		private function getNavigationName($fileName){
-			$rootFolderRemoved = $this->removeRootNode($fileName);
-			$extentionRemoved = $this->removeExtention($rootFolderRemoved);
-			$extendedSeparators = $this->extendSeparators($extentionRemoved);
+			$rootFolderRemoved = removeRootNode($fileName);
+			$extentionRemoved = removeExtention($rootFolderRemoved);
+			$extendedSeparators = extendSeparators($extentionRemoved);
 			return $extendedSeparators;
 		}
 
@@ -133,8 +133,8 @@ namespace tests{
 		}
 
 		private function addFiles(){
-			foreach($this->testCases as $fileName){
-				if($this->selectedTestCase === null || $this->selectedTestCase === $fileName){
+			foreach(testCases as $fileName){
+				if(selectedTestCase === null || selectedTestCase === $fileName){
 					$path = __ROOT__ . $fileName;
 					parent::addFile($path);
 				}

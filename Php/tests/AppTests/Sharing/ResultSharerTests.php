@@ -20,85 +20,85 @@ namespace tests\AppTests\Sharing{
 
 		function setUp(){
 			parent::setUp();
-			$this->sharingStorage = $this->registerFake(ClassNames::$SharingStorage);
-			$this->userStorage = $this->registerFake(ClassNames::$UserStorage);
-			$this->playerRepository = $this->registerFake(ClassNames::$PlayerRepository);
-			$this->socialServiceFactory = $this->registerFake(ClassNames::$SocialServiceFactory);
-			$this->sut = new ResultSharerImpl($this->sharingStorage, $this->userStorage, $this->socialServiceFactory);;
+			sharingStorage = registerFake(ClassNames::$SharingStorage);
+			userStorage = registerFake(ClassNames::$UserStorage);
+			playerRepository = registerFake(ClassNames::$PlayerRepository);
+			socialServiceFactory = registerFake(ClassNames::$SocialServiceFactory);
+			sut = new ResultSharerImpl(sharingStorage, userStorage, socialServiceFactory);;
 		}
 
 		function test_ShareSingleResult_OneUserHasNoServices_ShareResultIsNeverCalled(){
-			$this->setupPlayer();
+			setupPlayer();
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer(new Player());
-			$this->setupUser();
-			$socialService = $this->setupSocialService();
-			$this->sharingStorage->returns("getServices", array());
+			$cashgameResult.setPlayer(new Player());
+			setupUser();
+			$socialService = setupSocialService();
+			sharingStorage.returns("getServices", array());
 
-			$socialService->expectNever("shareResult");
+			$socialService.expectNever("shareResult");
 
-			$this->sut->shareSingleResult($cashgameResult);
+			sut.shareSingleResult($cashgameResult);
 		}
 
 		function test_ShareSingleResult_UserHasOneService_ShareResultIsCalledOnce(){
-			$player = $this->setupPlayer();
+			$player = setupPlayer();
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
-			$this->setupUser();
-			$socialService = $this->setupSocialService();
-			$this->sharingStorage->returns("getServices", array("service1"));
+			$cashgameResult.setPlayer($player);
+			setupUser();
+			$socialService = setupSocialService();
+			sharingStorage.returns("getServices", array("service1"));
 
-			$socialService->expectOnce("shareResult");
+			$socialService.expectOnce("shareResult");
 
-			$this->sut->shareSingleResult($cashgameResult);
+			sut.shareSingleResult($cashgameResult);
 		}
 
 		function test_ShareSingleResult_UserHasTwoServices_ShareResultIsCalledTwice(){
-			$player = $this->setupPlayer();
+			$player = setupPlayer();
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
-			$this->setupUser();
-			$socialService = $this->setupSocialService();
-			$this->sharingStorage->returns("getServices", array("service1", "service2"));
+			$cashgameResult.setPlayer($player);
+			setupUser();
+			$socialService = setupSocialService();
+			sharingStorage.returns("getServices", array("service1", "service2"));
 
-			$socialService->expectCallCount("shareResult", 2);
+			$socialService.expectCallCount("shareResult", 2);
 
-			$this->sut->shareSingleResult($cashgameResult);
+			sut.shareSingleResult($cashgameResult);
 		}
 
 		function test_ShareResult_TwoUsersHasOneServiceEach_ShareResultCalledTwice(){
 			$cashgame = new Cashgame();
 			$result1 = new CashgameResult();
 			$player1 = new Player();
-			$result1->setPlayer($player1);
+			$result1.setPlayer($player1);
 			$result2 = new CashgameResult();
 			$player2 = new Player();
-			$result2->setPlayer($player2);
-			$cashgame->setResults(array($result1, $result2));
-			$this->setupPlayer();
-			$this->setupUser();
-			$socialService = $this->setupSocialService();
-			$this->sharingStorage->returns("getServices", array("service1"));
+			$result2.setPlayer($player2);
+			$cashgame.setResults(array($result1, $result2));
+			setupPlayer();
+			setupUser();
+			$socialService = setupSocialService();
+			sharingStorage.returns("getServices", array("service1"));
 
-			$socialService->expectCallCount("shareResult", 2);
+			$socialService.expectCallCount("shareResult", 2);
 
-			$this->sut->shareResult($cashgame);
+			sut.shareResult($cashgame);
 		}
 
 		function setupPlayer(){
 			$player = new Player();
-			$this->playerRepository->returns("getPlayerById", $player);
+			playerRepository.returns("getPlayerById", $player);
 			return $player;
 		}
 
 		function setupUser(){
 			$user = new User();
-			$this->userStorage->returns("getUserByName", $user);
+			userStorage.returns("getUserByName", $user);
 		}
 
 		function setupSocialService(){
 			$socialService = TestHelper::getFake('integration\Sharing\SocialService');
-			$this->socialServiceFactory->returns("makeSocialService", $socialService);
+			socialServiceFactory.returns("makeSocialService", $socialService);
 			return $socialService;
 		}
 

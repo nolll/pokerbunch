@@ -13,16 +13,16 @@ namespace app\Sharing\Index{
 
 		public function __construct(UserContext $userContext,
 									SharingStorage $sharingStorage){
-			$this->userContext = $userContext;
-			$this->sharingStorage = $sharingStorage;
+			userContext = $userContext;
+			sharingStorage = $sharingStorage;
 		}
 
 		public function action_index(){
-			$this->userContext->requireUser();
-			$user = $this->userContext->getUser();
-			$isSharing = $this->sharingStorage->isSharing($user, SocialServiceProvider::twitter);
+			userContext.requireUser();
+			$user = userContext.getUser();
+			$isSharing = sharingStorage.isSharing($user, SocialServiceProvider::twitter);
 			$model = new SharingIndexModel($user, $isSharing);
-			return $this->view('app/Sharing/Index/Index', $model);
+			return view('app/Sharing/Index/Index', $model);
 		}
 
 	}

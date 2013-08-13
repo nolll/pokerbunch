@@ -7,10 +7,10 @@ namespace entities{
 				$role = Role::$player;
 			}
 			$player = new Player();
-			$player->setDisplayName($displayName);
-			$player->setRole($role);
-			$player->setUserName($userName);
-			$player->setId($id);
+			$player.setDisplayName($displayName);
+			$player.setRole($role);
+			$player.setUserName($userName);
+			$player.setId($id);
 			return $player;
 		}
 

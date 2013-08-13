@@ -6,8 +6,8 @@ namespace app\User{
 		private $allowedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
 
 		public function createSalt(){
-			$stringGenerator = new RandomStringGenerator($this->saltLength, $this->allowedCharacters);
-			return $stringGenerator->getString();
+			$stringGenerator = new RandomStringGenerator(saltLength, allowedCharacters);
+			return $stringGenerator.getString();
 		}
 
 	}

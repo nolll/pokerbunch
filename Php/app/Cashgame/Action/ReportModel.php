@@ -20,8 +20,8 @@ namespace app\Cashgame\Action{
 									Cashgame $runningGame,
 									$postedAmount = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->reportUrl = new CashgameReportUrlModel($homegame, $player);
-			$this->reportAmount = $postedAmount != null ? $postedAmount : '';
+			reportUrl = new CashgameReportUrlModel($homegame, $player);
+			reportAmount = $postedAmount != null ? $postedAmount : '';
         }
 
 	}

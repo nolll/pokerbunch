@@ -17,34 +17,34 @@ namespace tests\AppTests\Cashgame\Add{
 
 		function setUp(){
 			parent::setUp();
-			$this->user = new User();
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
-			$this->locations = array();
+			user = new User();
+			homegame = new Homegame();
+			cashgame = new Cashgame();
+			locations = array();
 		}
 
 		function test_Location_WithCashgame_IsSet(){
-			$this->cashgame->setLocation('a');
-			$sut = $this->getSut();
+			cashgame.setLocation('a');
+			$sut = getSut();
 
-			$this->assertIdentical($sut->location, 'a');
+			assertIdentical($sut.location, 'a');
 		}
 
 		function test_Location_WithoutCashgame_IsNull(){
-			$this->cashgame = null;
-			$sut = $this->getSut();
+			cashgame = null;
+			$sut = getSut();
 
-			$this->assertNull($sut->location);
+			assertNull($sut.location);
 		}
 
 		function test_LocationSelectModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->locationSelectModel, 'core\FormFields\LocationFieldModel');
+			assertIsA($sut.locationSelectModel, 'core\FormFields\LocationFieldModel');
 		}
 
 		private function getSut(){
-			return new AddModel($this->user, $this->homegame, $this->cashgame, $this->locations);
+			return new AddModel(user, homegame, cashgame, locations);
 		}
 
 	}

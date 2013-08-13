@@ -12,8 +12,8 @@ namespace Infrastructure\Data\MySql {
 
 		public function __construct(StorageProvider $db,
 									UserFactory $userFactory){
-			$this->db = $db;
-			$this->userFactory = $userFactory;
+			db = $db;
+			userFactory = $userFactory;
 		}
 
 		public static function className(){
@@ -21,28 +21,28 @@ namespace Infrastructure\Data\MySql {
 		}
 
 		public function getUserByEmail($email){
-			$sql =	$this->getUserBaseSql();
+			$sql =	getUserBaseSql();
 			$sql .=	"WHERE u.Email = '{$email}'";
-			return $this->getUser($sql);
+			return getUser($sql);
 		}
 
 		public function getUserByName($userName){
-			$sql =	$this->getUserBaseSql();
+			$sql =	getUserBaseSql();
 			$sql .=	"WHERE u.UserName = '{$userName}'";
-			return $this->getUser($sql);
+			return getUser($sql);
 		}
 
 		public function getUserByToken($token){
-			$sql =	$this->getUserBaseSql();
+			$sql =	getUserBaseSql();
 			$sql .=	"WHERE u.Token = '{$token}'";
-			return $this->getUser($sql);
+			return getUser($sql);
 		}
 
 		public function getUserByCredentials($userNameOrEmail, $password){
-			$sql = $this->getUserBaseSql();
+			$sql = getUserBaseSql();
 			$sql .= "WHERE (u.UserName = '{$userNameOrEmail}' OR u.Email = '{$userNameOrEmail}') " .
 					"AND u.Password = '{$password}'";
-			return $this->getUser($sql);
+			return getUser($sql);
 		}
 
 		private function getUserBaseSql(){
@@ -52,20 +52,20 @@ namespace Infrastructure\Data\MySql {
 		}
 
 		private function getUser($sql){
-			$res = $this->db->query($sql);
-			foreach($res->fetchAll() as $row){
-				return $this->userFromDbRow($row);
+			$res = db.query($sql);
+			foreach($res.fetchAll() as $row){
+				return userFromDbRow($row);
 			}
 			return null;
 		}
 
 		public function getUsers(){
-			$sql =	$this->getUserBaseSql();
+			$sql =	getUserBaseSql();
 			$sql .=	"ORDER BY u.DisplayName";
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$users = array();
-			foreach($res->fetchAll() as $row){
-				$users[] = $this->userFromDbRow($row);
+			foreach($res.fetchAll() as $row){
+				$users[] = userFromDbRow($row);
 			}
 			return $users;
 		}
@@ -77,11 +77,11 @@ namespace Infrastructure\Data\MySql {
 		public function updateUser($user){
 			$sql =	"UPDATE user u " .
 					"SET " .
-						"DisplayName = '{$user->getDisplayName()}', " .
-						"RealName = '{$user->getRealName()}', " .
-						"Email = '{$user->getEmail()}' " .
-					"WHERE UserID = {$user->getId()}";
-			$rowCount = $this->db->execute($sql);
+						"DisplayName = '{$user.getDisplayName()}', " .
+						"RealName = '{$user.getRealName()}', " .
+						"Email = '{$user.getEmail()}' " .
+					"WHERE UserID = {$user.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -93,15 +93,15 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"INSERT INTO user " .
 					"(UserName, DisplayName, Email) " .
 					"VALUES " .
-					"('{$user->getUserName()}', '{$user->getDisplayName()}', '{$user->getEmail()}')";
-			$rowCount = $this->db->execute($sql);
-			return $this->db->getLatestInsertId($rowCount > 0);
+					"('{$user.getUserName()}', '{$user.getDisplayName()}', '{$user.getEmail()}')";
+			$rowCount = db.execute($sql);
+			return db.getLatestInsertId($rowCount > 0);
 		}
 
 		public function deleteUser(User $user){
 			$sql =	"DELETE FROM user u " .
-					"WHERE UserID = {$user->getId()}";
-			$rowCount = $this->db->execute($sql);
+					"WHERE UserID = {$user.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -109,9 +109,9 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"SELECT u.Salt " .
 					"FROM user u " .
 					"WHERE (u.UserName = '{$userNameOrEmail}' OR u.Email = '{$userNameOrEmail}')";
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$salt = "";
-			foreach($res->fetchAll() as $row){
+			foreach($res.fetchAll() as $row){
 				$salt = $row["Salt"];
 				break;
 			}
@@ -122,8 +122,8 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"UPDATE user u " .
 				"SET " .
 					"Salt = '{$salt}' " .
-				"WHERE UserName = '{$user->getUserName()}'";
-			$rowCount = $this->db->execute($sql);
+				"WHERE UserName = '{$user.getUserName()}'";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -131,8 +131,8 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"UPDATE user u " .
 				"SET " .
 					"Password = '{$encryptedPassword}' " .
-				"WHERE UserName = '{$user->getUserName()}'";
-			$rowCount = $this->db->execute($sql);
+				"WHERE UserName = '{$user.getUserName()}'";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -140,18 +140,18 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"UPDATE user u " .
 				"SET " .
 					"Token = '{$token}' " .
-				"WHERE UserName = '{$user->getUserName()}'";
-			$rowCount = $this->db->execute($sql);
+				"WHERE UserName = '{$user.getUserName()}'";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
 		public function getToken(User $user){
 			$sql =	"SELECT u.Token " .
 				"FROM user u " .
-				"WHERE u.UserName = '{$user->getUserName()}'";
-			$res = $this->db->query($sql);
+				"WHERE u.UserName = '{$user.getUserName()}'";
+			$res = db.query($sql);
 			$token = null;
-			foreach($res->fetchAll() as $row){
+			foreach($res.fetchAll() as $row){
 				$token = $row["Token"];
 				break;
 			}
@@ -165,7 +165,7 @@ namespace Infrastructure\Data\MySql {
 			$realName = $row["RealName"];
 			$email = $row["Email"];
 			$globalRole = $row["RoleID"];
-			$user = $this->userFactory->createUser($id, $userName, $displayName, $realName, $email, $globalRole);
+			$user = userFactory.createUser($id, $userName, $displayName, $realName, $email, $globalRole);
 			return $user;
 		}
 

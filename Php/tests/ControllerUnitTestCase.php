@@ -6,9 +6,9 @@ namespace tests{
 	class ControllerUnitTestCase extends SharbatUnitTestCase {
 
 		function bind(){
-			$this->bindFakeClass(ClassNames::$Request);
-			$this->bindFakeClass(ClassNames::$Response);
-			$this->bindFakeClass(ClassNames::$TemplateEngine);
+			bindFakeClass(ClassNames::$Request);
+			bindFakeClass(ClassNames::$Response);
+			bindFakeClass(ClassNames::$TemplateEngine);
 		}
 
 	}

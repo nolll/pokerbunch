@@ -32,54 +32,54 @@ namespace app\User\ForgotPassword{
 									Encryption $encryption,
 									SaltGenerator $saltGenerator,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->userStorage = $userStorage;
-			$this->passwordSender = $passwordSender;
-			$this->passwordGenerator = $passwordGenerator;
-			$this->userValidatorFactory = $userValidatorFactory;
-			$this->encryption = $encryption;
-			$this->saltGenerator = $saltGenerator;
-			$this->request = $request;
+			userContext = $userContext;
+			userStorage = $userStorage;
+			passwordSender = $passwordSender;
+			passwordGenerator = $passwordGenerator;
+			userValidatorFactory = $userValidatorFactory;
+			encryption = $encryption;
+			saltGenerator = $saltGenerator;
+			request = $request;
 		}
 
 		public function action_forgot(){
-			return $this->showForm();
+			return showForm();
 		}
 
 		public function action_forgot_post(){
-			$email = $this->request->getParamPost('email');
-			$validator = $this->userValidatorFactory->getForgotPasswordValidator($email);
-			if($validator->isValid()){
-				$user = $this->userStorage->getUserByEmail($email);
+			$email = request.getParamPost('email');
+			$validator = userValidatorFactory.getForgotPasswordValidator($email);
+			if($validator.isValid()){
+				$user = userStorage.getUserByEmail($email);
 				if($user != null){
-					$password = $this->passwordGenerator->createPassword();
-					$this->saveNewPassword($user, $password);
-					$this->passwordSender->send($user, $password);
+					$password = passwordGenerator.createPassword();
+					saveNewPassword($user, $password);
+					passwordSender.send($user, $password);
 				}
-				return $this->redirect(new ForgotPasswordConfirmationUrlModel());
+				return redirect(new ForgotPasswordConfirmationUrlModel());
 			} else {
-				return $this->showForm($validator->getErrors());
+				return showForm($validator.getErrors());
 			}
 		}
 
 		public function action_sent(){
-			$model = new PageModel($this->userContext->getUser());
-			$this->view('app/User/ForgotPassword/Confirmation', $model);
+			$model = new PageModel(userContext.getUser());
+			view('app/User/ForgotPassword/Confirmation', $model);
 		}
 
 		private function saveNewPassword(User $user, $password){
-			$salt = $this->saltGenerator->createSalt();
-			$encryptedPassword = $this->encryption->encrypt($password, $salt);
-			$this->userStorage->setEncryptedPassword($user, $encryptedPassword);
-			$this->userStorage->setSalt($user, $salt);
+			$salt = saltGenerator.createSalt();
+			$encryptedPassword = encryption.encrypt($password, $salt);
+			userStorage.setEncryptedPassword($user, $encryptedPassword);
+			userStorage.setSalt($user, $salt);
 		}
 
 		private function showForm(array $validationErrors = null){
-			$model = new PageModel($this->userContext->getUser());
+			$model = new PageModel(userContext.getUser());
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/User/ForgotPassword/Form', $model);
+			return view('app/User/ForgotPassword/Form', $model);
 		}
 
 	}

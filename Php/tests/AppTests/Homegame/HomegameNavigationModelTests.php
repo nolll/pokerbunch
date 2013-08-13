@@ -10,11 +10,11 @@ namespace tests\AppTests\Homegame{
 
 		function test_Heading_IsSetToHomegameName(){
 			$homegame = new Homegame();
-			$homegame->setDisplayName('a');
+			$homegame.setDisplayName('a');
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIdentical('a', $sut->heading);
+			assertIdentical('a', $sut.heading);
 		}
 
 		function test_HeadingLink_IsCorrectUrlModel(){
@@ -22,7 +22,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIsA($sut->headingLink, 'app\Urls\HomegameDetailsUrlModel');
+			assertIsA($sut.headingLink, 'app\Urls\HomegameDetailsUrlModel');
 		}
 
 		function test_CashgameLink_IsCorrectUrlModel(){
@@ -30,7 +30,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIsA($sut->cashgameLink, 'app\Urls\CashgameIndexUrlModel');
+			assertIsA($sut.cashgameLink, 'app\Urls\CashgameIndexUrlModel');
 		}
 
 		function test_PlayerLink_IsCorrectUrlModel(){
@@ -38,7 +38,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIsA($sut->playerLink, 'app\Urls\PlayerIndexUrlModel');
+			assertIsA($sut.playerLink, 'app\Urls\PlayerIndexUrlModel');
 		}
 
 		function test_CreateLink_IsCorrectUrlModel(){
@@ -46,7 +46,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIsA($sut->createLink, 'app\Urls\CashgameAddUrlModel');
+			assertIsA($sut.createLink, 'app\Urls\CashgameAddUrlModel');
 		}
 
 		function test_RunningLink_WithRunningGame_IsCorrectUrlModel(){
@@ -54,7 +54,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertIsA($sut->runningLink, 'app\Urls\RunningCashgameUrlModel');
+			assertIsA($sut.runningLink, 'app\Urls\RunningCashgameUrlModel');
 		}
 
 		function test_CashgameIsRunning_WithRunningGame_IsTrue(){
@@ -63,7 +63,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame, $cashgame);
 
-			$this->assertTrue($sut->cashgameIsRunning);
+			assertTrue($sut.cashgameIsRunning);
 		}
 
 		function test_CashgameIsRunning_WithoutRunningGame_IsFalse(){
@@ -71,7 +71,7 @@ namespace tests\AppTests\Homegame{
 
 			$sut = new HomegameNavigationModel($homegame);
 
-			$this->assertFalse($sut->cashgameIsRunning);
+			assertFalse($sut.cashgameIsRunning);
 		}
 
 	}

@@ -17,69 +17,69 @@ namespace tests\AppTests\User{
 		private $userValidatorFactory;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->userStorage = TestHelper::getFake(ClassNames::$UserStorage);
-			$this->userValidatorFactory = TestHelper::getFake(ClassNames::$UserValidatorFactory);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			userStorage = TestHelper::getFake(ClassNames::$UserStorage);
+			userValidatorFactory = TestHelper::getFake(ClassNames::$UserValidatorFactory);
 			$encryption = TestHelper::getFake(ClassNames::$Encryption);
 			$saltGenerator = new SaltGenerator();
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->sut = new ChangePasswordController($this->userContext, $this->userStorage, $this->userValidatorFactory, $encryption, $saltGenerator, $request);
+			sut = new ChangePasswordController(userContext, userStorage, userValidatorFactory, $encryption, $saltGenerator, $request);
 		}
 
 		function test_ActionChange_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_change();
+			sut.action_change();
 		}
 
 		function test_ActionChangePost_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_change_post();
+			sut.action_change_post();
 		}
 
 		function test_ActionChangePost_WithEqualValidPasswords_CallsSetEncryptedPasswordAndSetSalt(){
-			TestHelper::setupUser($this->userContext);
-			$this->setupValidValidator();
+			TestHelper::setupUser(userContext);
+			setupValidValidator();
 
-			$this->userStorage->expectOnce("setEncryptedPassword");
-			$this->userStorage->expectOnce("setSalt");
+			userStorage.expectOnce("setEncryptedPassword");
+			userStorage.expectOnce("setSalt");
 
-			$this->sut->action_change_post();
+			sut.action_change_post();
 		}
 
 		function test_ActionChangePost_WithEqualValidPasswords_RedirectsToConfirmation(){
-			TestHelper::setupUser($this->userContext);
-			$this->setupValidValidator();
+			TestHelper::setupUser(userContext);
+			setupValidValidator();
 
-			$urlModel = $this->sut->action_change_post();
+			$urlModel = sut.action_change_post();
 
-			$this->assertIsA($urlModel, 'app\Urls\ChangePasswordConfirmationUrlModel');
+			assertIsA($urlModel, 'app\Urls\ChangePasswordConfirmationUrlModel');
 		}
 
 		function test_ActionChangePost_WithDifferentValidPasswords_DoesntUpdateUser(){
-			TestHelper::setupUser($this->userContext);
-			$this->setupInvalidValidator();
+			TestHelper::setupUser(userContext);
+			setupInvalidValidator();
 
-			$this->userStorage->expectNever("updateUser");
+			userStorage.expectNever("updateUser");
 
-			$this->sut->action_change_post();
+			sut.action_change_post();
 		}
 
 		function setupValidValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupInvalidValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupValidator(Validator $validator){
-			$this->userValidatorFactory->returns("getChangePasswordValidator", $validator);
+			userValidatorFactory.returns("getChangePasswordValidator", $validator);
 		}
 
 	}

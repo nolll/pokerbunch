@@ -9,9 +9,9 @@ namespace tests\User{
 			$passwordLength = 8;
 			$generator = new PasswordGenerator();
 
-			$password = $generator->createPassword();
+			$password = $generator.createPassword();
 
-			$this->assertIdentical($passwordLength, strlen($password));
+			assertIdentical($passwordLength, strlen($password));
 		}
 
 	}

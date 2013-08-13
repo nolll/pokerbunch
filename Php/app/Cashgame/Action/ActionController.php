@@ -31,32 +31,32 @@ namespace app\Cashgame\Action{
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository,
 									PlayerRepository $playerRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
 		}
 
 		public function action_action($gameName, $dateStr, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->cashgame = $this->cashgameRepository->getByDateString($this->homegame, $dateStr);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$this->userContext->requirePlayer($this->homegame);
-			$role = $this->userContext->getRole($this->homegame);
-			$runningGame = $this->cashgameRepository->getRunning($this->homegame);
-			$years = $this->cashgameRepository->getYears($this->homegame);
-			$result = $this->cashgame->getResult($this->player);
-			$model = new ActionModel($this->userContext->getUser(), $this->homegame, $this->cashgame, $this->player, $result, $role, $years, $runningGame);
-			return $this->view('app/Cashgame/Action/Action', $model);
+			homegame = homegameRepository.getByName($gameName);
+			cashgame = cashgameRepository.getByDateString(homegame, $dateStr);
+			player = playerRepository.getByName(homegame, $playerName);
+			userContext.requirePlayer(homegame);
+			$role = userContext.getRole(homegame);
+			$runningGame = cashgameRepository.getRunning(homegame);
+			$years = cashgameRepository.getYears(homegame);
+			$result = cashgame.getResult(player);
+			$model = new ActionModel(userContext.getUser(), homegame, cashgame, player, $result, $role, $years, $runningGame);
+			return view('app/Cashgame/Action/Action', $model);
 		}
 
 		public function action_actionchartjson($gameName, $dateStr, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->cashgame = $this->cashgameRepository->getByDateString($this->homegame, $dateStr);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$result = $this->cashgame->getResult($this->player);
-			$model = new ActionChartData($this->homegame, $this->cashgame, $result);
-			return $this->json($model);
+			homegame = homegameRepository.getByName($gameName);
+			cashgame = cashgameRepository.getByDateString(homegame, $dateStr);
+			player = playerRepository.getByName(homegame, $playerName);
+			$result = cashgame.getResult(player);
+			$model = new ActionChartData(homegame, cashgame, $result);
+			return json($model);
 		}
 
 	}

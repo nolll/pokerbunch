@@ -31,56 +31,56 @@ namespace app\Cashgame\Add{
 									CashgameValidatorFactory $cashgameValidatorFactory,
 									Request $request,
 									CashgameFactory $cashgameFactory){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->cashgameValidatorFactory = $cashgameValidatorFactory;
-			$this->request = $request;
-			$this->cashgameFactory = $cashgameFactory;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			cashgameValidatorFactory = $cashgameValidatorFactory;
+			request = $request;
+			cashgameFactory = $cashgameFactory;
 		}
 
 		public function action_add($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$runningGame = cashgameRepository.getRunning($homegame);
 			if($runningGame != null){
 				throw new AccessDeniedException('Game already running');
 			}
-			return $this->showForm($homegame);
+			return showForm($homegame);
 		}
 
 		public function action_add_post($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$postModel = new AddPostModel($this->request);
-			return $this->handleAddPost($homegame, $postModel);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$postModel = new AddPostModel(request);
+			return handleAddPost($homegame, $postModel);
 		}
 
         public function handleAddPost(Homegame $homegame, AddPostModel $postModel){
-            $cashgame = $this->getCashgame($postModel);
-            $validator = $this->cashgameValidatorFactory->getAddCashgameValidator($homegame, $cashgame);
-            if($validator->isValid()){
-                $this->cashgameRepository->addGame($homegame, $cashgame);
-				return $this->redirect(new RunningCashgameUrlModel($homegame));
+            $cashgame = getCashgame($postModel);
+            $validator = cashgameValidatorFactory.getAddCashgameValidator($homegame, $cashgame);
+            if($validator.isValid()){
+                cashgameRepository.addGame($homegame, $cashgame);
+				return redirect(new RunningCashgameUrlModel($homegame));
             } else {
-                return $this->showForm($homegame, $cashgame, $validator->getErrors());
+                return showForm($homegame, $cashgame, $validator.getErrors());
             }
         }
 
 		private function getCashgame(AddPostModel $postModel){
-			$cashgame = $this->cashgameFactory->create($postModel->location, GameStatus::running);
+			$cashgame = cashgameFactory.create($postModel.location, GameStatus::running);
 			return $cashgame;
 		}
 
 		public function showForm(Homegame $homegame, Cashgame $cashgame = null, array $validationErrors = null){
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$locations = $this->cashgameRepository->getLocations($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			$model = new AddModel($this->userContext->getUser(), $homegame, $cashgame, $locations, $years, $runningGame);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$locations = cashgameRepository.getLocations($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			$model = new AddModel(userContext.getUser(), $homegame, $cashgame, $locations, $years, $runningGame);
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/Cashgame/Add/Add', $model);
+			return view('app/Cashgame/Add/Add', $model);
 		}
 
 	}

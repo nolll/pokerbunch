@@ -13,12 +13,12 @@ namespace core{
 		public $googleAnalyticsModel;
 
 		public function __construct(User $user = null){
-			$this->userNavigationModel = new UserNavigationModel($user);
-			$this->googleAnalyticsModel = new GoogleAnalyticsModel();
+			userNavigationModel = new UserNavigationModel($user);
+			googleAnalyticsModel = new GoogleAnalyticsModel();
 		}
 
 		public function setValidationErrors(array $errors){
-			$this->validationErrors = $errors;
+			validationErrors = $errors;
 		}
 
 	}

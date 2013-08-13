@@ -7,8 +7,8 @@ namespace core\FormFields{
 
 		public function __construct($fieldName, $fieldId, $selectedValue, $items = null, $firstItemText = null){
 			parent::__construct($fieldName, $fieldId, $selectedValue, $items, $firstItemText);
-            $this->listName = $fieldName . "-list";
-            $this->dropdownName = $fieldName . "-dropdown";
+            listName = $fieldName . "-list";
+            dropdownName = $fieldName . "-dropdown";
 		}
 
 	}

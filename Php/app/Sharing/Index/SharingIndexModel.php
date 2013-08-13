@@ -11,8 +11,8 @@ namespace app\Sharing\Index{
 
 		public function __construct(User $user, $isSharing){
 			parent::__construct($user);
-			$this->isSharingToTwitter = $isSharing;
-			$this->shareToTwitterSettingsUrl = new TwitterSettingsUrlModel();
+			isSharingToTwitter = $isSharing;
+			shareToTwitterSettingsUrl = new TwitterSettingsUrlModel();
 		}
 
 	}

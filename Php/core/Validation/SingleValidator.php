@@ -3,9 +3,9 @@ namespace core\Validation{
 	abstract class SingleValidator extends BaseValidator{
 
 		public function isValid(){
-			$this->ensureErrorArray();
-			$this->validate();
-			return count($this->errors) == 0;
+			ensureErrorArray();
+			validate();
+			return count(errors) == 0;
 		}
 
 		protected function isNullOrEmpty($str){

@@ -16,73 +16,73 @@ namespace tests\AppTests\Cashgame\Leaderboard{
 		private $rank;
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->result = new CashgameTotalResult();
+			homegame = new Homegame();
+			result = new CashgameTotalResult();
 			$player = new Player();
-			$player->setDisplayName('player name');
-			$this->result->setPlayer($player);
-			$this->rank = 1;
+			$player.setDisplayName('player name');
+			result.setPlayer($player);
+			rank = 1;
 		}
 
 		function test_TableItem_RankIsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual(1, $sut->rank);
+			assertEqual(1, $sut.rank);
 		}
 
 		function test_TableItem_PlayerNameIsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("player name", $sut->name);
-			$this->assertEqual("player%20name", $sut->urlEncodedName);
+			assertEqual("player name", $sut.name);
+			assertEqual("player%20name", $sut.urlEncodedName);
 		}
 
 		function test_TableItem_TotalResultIsSet(){
-			$this->result->setWinnings(1);
+			result.setWinnings(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("+$1", $sut->totalResult);
+			assertEqual("+$1", $sut.totalResult);
 		}
 
 		function test_TableItem_WithPositiveResult_WinningsClassIsSetToPosResult(){
-			$this->result->setWinnings(1);
-			$sut = $this->getSut();
+			result.setWinnings(1);
+			$sut = getSut();
 
-			$this->assertEqual("pos-result", $sut->resultClass);
+			assertEqual("pos-result", $sut.resultClass);
 		}
 
 		function test_TableItem_WithPositiveResult_WinningsClassIsSetToNegResult(){
-			$this->result->setWinnings(-1);
-			$sut = $this->getSut();
+			result.setWinnings(-1);
+			$sut = getSut();
 
-			$this->assertEqual("neg-result", $sut->resultClass);
+			assertEqual("neg-result", $sut.resultClass);
 		}
 
 		function test_TableItem_WithDuration_DurationIsSet(){
-			$this->result->setTimePlayed(60);
+			result.setTimePlayed(60);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("1h", $sut->gameTime);
+			assertEqual("1h", $sut.gameTime);
 		}
 
 		function test_TableItem_WithDuration_WinrateIsSet(){
-			$this->result->setWinRate(1);
+			result.setWinRate(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("$1/h", $sut->winRate);
+			assertEqual("$1/h", $sut.winRate);
 		}
 
 		function test_TableItem_PlayerUrlIsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->playerUrl, 'app\Urls\PlayerDetailsUrlModel');
+			assertIsA($sut.playerUrl, 'app\Urls\PlayerDetailsUrlModel');
 		}
 
 		function getSut(){
-			return new ItemModel($this->homegame, $this->result, $this->rank);
+			return new ItemModel(homegame, result, rank);
 		}
 
 	}

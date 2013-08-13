@@ -12,7 +12,7 @@ namespace tests\AppTests\Cashgame\Listing{
 		function test_ListTableModel_IsSet(){
 			$sut = new CashgameListingModel(new User(), new Homegame, array());
 
-			$this->assertIsA($sut->listTableModel, 'app\Cashgame\Listing\CashgameTable\CashgameTableModel');
+			assertIsA($sut.listTableModel, 'app\Cashgame\Listing\CashgameTable\CashgameTableModel');
 		}
 
 	}

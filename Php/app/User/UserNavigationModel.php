@@ -13,26 +13,26 @@ namespace app\User{
 	class UserNavigationModel extends NavigationModel{
 
 		public function __construct(User $user = null){
-			$this->heading = 'Account';
-			$this->cssClass = 'user-nav';
+			heading = 'Account';
+			cssClass = 'user-nav';
 
 			if($user == null){
-				$this->setupAnonymous();
+				setupAnonymous();
 			} else {
-				$this->setupLoggedIn($user);
+				setupLoggedIn($user);
 			}
 		}
 
 		private function setupAnonymous(){
-			$this->addNode(new NavigationNode('Sign in', new AuthLoginUrlModel()));
-			$this->addNode(new NavigationNode('Register', new UserAddUrlModel()));
-			$this->addNode(new NavigationNode('Forgot password', new ForgotPasswordUrlModel()));
+			addNode(new NavigationNode('Sign in', new AuthLoginUrlModel()));
+			addNode(new NavigationNode('Register', new UserAddUrlModel()));
+			addNode(new NavigationNode('Forgot password', new ForgotPasswordUrlModel()));
 		}
 
 		private function setupLoggedIn(User $user){
-			$this->addNode(new NavigationNode($user->getDisplayName(), new UserDetailsUrlModel($user)));
-			$this->addNode(new NavigationNode('Sharing', new SharingSettingsUrlModel()));
-			$this->addNode(new NavigationNode('Sign Out', new AuthLogoutUrlModel()));
+			addNode(new NavigationNode($user.getDisplayName(), new UserDetailsUrlModel($user)));
+			addNode(new NavigationNode('Sharing', new SharingSettingsUrlModel()));
+			addNode(new NavigationNode('Sign Out', new AuthLogoutUrlModel()));
 		}
 
 	}

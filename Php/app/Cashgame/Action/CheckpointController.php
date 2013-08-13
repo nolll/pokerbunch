@@ -20,19 +20,19 @@ namespace app\Cashgame\Action{
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository,
 									PlayerRepository $playerRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
 		}
 
 		public function action_deletecheckpoint($gameName, $dateStr, $playerName, $checkpointId){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			$cashgame = $this->cashgameRepository->getByDateString($homegame, $dateStr);
-			$player = $this->playerRepository->getByName($homegame, $playerName);
-			$this->cashgameRepository->deleteCheckpoint($checkpointId);
-			return $this->redirect(new CashgameActionUrlModel($homegame, $cashgame, $player));
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			$cashgame = cashgameRepository.getByDateString($homegame, $dateStr);
+			$player = playerRepository.getByName($homegame, $playerName);
+			cashgameRepository.deleteCheckpoint($checkpointId);
+			return redirect(new CashgameActionUrlModel($homegame, $cashgame, $player));
 		}
 
 	}

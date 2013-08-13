@@ -9,13 +9,13 @@ namespace app\Homegame{
 
 		public function __construct($subject, $message, \Infrastructure\Data\Interfaces\HomegameStorage $homegameStorage){
 			parent::__construct($subject, $message);
-			$this->homegameStorage = $homegameStorage;
+			homegameStorage = $homegameStorage;
 		}
 
 		public function validateSubject(){
-			$existingHomegame = $this->homegameStorage->getRawHomegameByName($this->subject);
+			$existingHomegame = homegameStorage.getRawHomegameByName(subject);
 			if($existingHomegame != null){
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 			return true;

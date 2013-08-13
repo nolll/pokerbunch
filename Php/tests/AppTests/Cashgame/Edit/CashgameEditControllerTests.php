@@ -18,115 +18,115 @@ namespace tests\AppTests\Cashgame\Edit{
 		private $postModel;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
-			$this->postModel = TestHelper::getFake('app\Cashgame\Edit\CashgameEditPostModel');
-			$this->sut = new CashgameEditController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->cashgameValidatorFactory, $this->postModel);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
+			postModel = TestHelper::getFake('app\Cashgame\Edit\CashgameEditPostModel');
+			sut = new CashgameEditController(userContext, homegameRepositoryMock, cashgameRepositoryMock, cashgameValidatorFactory, postModel);
 		}
 
 		function test_ActionEdit_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_edit("homegame1", "2010-01-01");
+			sut.action_edit("homegame1", "2010-01-01");
 		}
 
 		function test_ActionEdit_ReturnsModelOfCorrectType(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getByDate', $cashgame);
-			$this->cashgameRepositoryMock->returns('getLocations', array());
+			cashgameRepositoryMock.returns('getByDate', $cashgame);
+			cashgameRepositoryMock.returns('getLocations', array());
 
-			$viewResult = $this->sut->action_edit("homegame1", "2010-01-01");
+			$viewResult = sut.action_edit("homegame1", "2010-01-01");
 
-			$this->assertIdentical('app\Cashgame\Edit\CashgameEditModel', get_class($viewResult->model));
+			assertIdentical('app\Cashgame\Edit\CashgameEditModel', get_class($viewResult.model));
 		}
 
 		function test_ActionEditPost_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_edit_post("homegame1", "2010-01-01");
+			sut.action_edit_post("homegame1", "2010-01-01");
 		}
 
 		function test_ActionEditPost_WithValidValues_CallsUpdateGame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getByDate', $cashgame);
-			$this->setupValidCashgameValidator();
-			$this->postModel->returns('getCashgame', $cashgame);
+			cashgameRepositoryMock.returns('getByDate', $cashgame);
+			setupValidCashgameValidator();
+			postModel.returns('getCashgame', $cashgame);
 
-			$this->cashgameRepositoryMock->expectOnce("updateGame");
+			cashgameRepositoryMock.expectOnce("updateGame");
 
-			$this->sut->action_edit_post("homegame1", "2010-01-01");
+			sut.action_edit_post("homegame1", "2010-01-01");
 		}
 
 		function test_ActionEditPost_WithValidValues_RedirectsToDetails(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getByDate', $cashgame);
-			$this->setupValidCashgameValidator();
-			$this->postModel->returns('getCashgame', $cashgame);
+			cashgameRepositoryMock.returns('getByDate', $cashgame);
+			setupValidCashgameValidator();
+			postModel.returns('getCashgame', $cashgame);
 
-			$urlModel = $this->sut->action_edit_post("homegame1", "2010-01-01");
+			$urlModel = sut.action_edit_post("homegame1", "2010-01-01");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameDetailsUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameDetailsUrlModel');
 		}
 
 		function test_ActionEditPost_WithInvalidValues_DoesNotCallUpdateGame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getByDate', $cashgame);
-			$this->cashgameRepositoryMock->returns('getLocations', array());
-			$this->setupInvalidCashgameValidator();
-			$this->postModel->returns('getCashgame', $cashgame);
+			cashgameRepositoryMock.returns('getByDate', $cashgame);
+			cashgameRepositoryMock.returns('getLocations', array());
+			setupInvalidCashgameValidator();
+			postModel.returns('getCashgame', $cashgame);
 
-			$this->cashgameRepositoryMock->expectNever("updateGame");
+			cashgameRepositoryMock.expectNever("updateGame");
 
-			$this->sut->action_edit_post("homegame1", "2010-01-01");
+			sut.action_edit_post("homegame1", "2010-01-01");
 		}
 
 		function test_ActionDelete_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_delete("homegame1", "2010-01-01");
+			sut.action_delete("homegame1", "2010-01-01");
 		}
 
 		function test_ActionDelete_WithManagerRights_CallsDeleteAndRedirectsToList(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getByDate', $cashgame);
+			cashgameRepositoryMock.returns('getByDate', $cashgame);
 
-			$this->cashgameRepositoryMock->expectOnce("deleteGame");
+			cashgameRepositoryMock.expectOnce("deleteGame");
 
-			$urlModel = $this->sut->action_delete("homegame1", "2010-01-01");
+			$urlModel = sut.action_delete("homegame1", "2010-01-01");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameListingUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameListingUrlModel');
 		}
 
 		function setupValidCashgameValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupCashgameValidator($validator);
+			setupCashgameValidator($validator);
 		}
 
 		function setupInvalidCashgameValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupCashgameValidator($validator);
+			setupCashgameValidator($validator);
 		}
 
 		function setupCashgameValidator(Validator $validator){
-			$this->cashgameValidatorFactory->returns("getEditCashgameValidator", $validator);
+			cashgameValidatorFactory.returns("getEditCashgameValidator", $validator);
 		}
 
 	}

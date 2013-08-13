@@ -10,21 +10,21 @@ namespace tests\CoreTests{
 
 		function test_EnableAnalytics_SiteIsInProduction_EnableAnalyticsIsTrue(){
 			/*
-			$this->settings->returns("isInProduction", true);
+			settings.returns("isInProduction", true);
 
-			$viewResult = $this->controller->analytics();
+			$viewResult = controller.analytics();
 
-			$this->assertTrue($viewResult->model->enableAnalytics);
+			assertTrue($viewResult.model.enableAnalytics);
 			*/
 		}
 
 		function test_EnableAnalytics_SiteIsNotInProduction_EnableAnalyticsIsFalse(){
 			/*
-			$this->settings->returns("isInProduction", false);
+			settings.returns("isInProduction", false);
 
-			$viewResult = $this->controller->analytics();
+			$viewResult = controller.analytics();
 
-			$this->assertFalse($viewResult->model->enableAnalytics);
+			assertFalse($viewResult.model.enableAnalytics);
 			*/
 		}
 

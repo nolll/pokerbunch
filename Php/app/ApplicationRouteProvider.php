@@ -19,359 +19,359 @@ namespace app{
 		private $builder;
 
 		function __construct() {
-			$this->builder = Router::builder();
-			$this->routeHome();
-			$this->routeAuth();
-			$this->routeUser();
-			$this->routeHomegame();
-			$this->routePlayer();
-			$this->routeCashgame();
-			$this->routeSharing();
+			builder = Router::builder();
+			routeHome();
+			routeAuth();
+			routeUser();
+			routeHomegame();
+			routePlayer();
+			routeCashgame();
+			routeSharing();
 		}
 
 		public function getRouter(){
-			return $this->builder->build();
+			return builder.build();
 		}
 
 		private function routeHome(){
-			$controllerRouteParam = $this->getControllerRouteParam('app\Home\HomeController');
-			$this->builder->createRoute(RouteFormats::home, $controllerRouteParam);
+			$controllerRouteParam = getControllerRouteParam('app\Home\HomeController');
+			builder.createRoute(RouteFormats::home, $controllerRouteParam);
 		}
 
 		private function routeAuth(){
 			$controllerClassName = 'app\Auth\AuthController';
-			$this->addRoute(RouteFormats::authLogin, $controllerClassName);
-			$this->addRoute(RouteFormats::authLogout, $controllerClassName);
+			addRoute(RouteFormats::authLogin, $controllerClassName);
+			addRoute(RouteFormats::authLogout, $controllerClassName);
 		}
 
 		private function routeUser(){
-			$this->routeUserDetails();
-			$this->routeUserEdit();
-			$this->routeUserAdd();
-			$this->routeChangePassword();
-			$this->routeForgotPassword();
-			$this->routeUserListing();
+			routeUserDetails();
+			routeUserEdit();
+			routeUserAdd();
+			routeChangePassword();
+			routeForgotPassword();
+			routeUserListing();
 		}
 
 		private function routeUserDetails(){
 			$controllerClassName = 'app\User\Details\UserDetailsController';
-			$this->addUserRoute(RouteFormats::userDetails, $controllerClassName);
+			addUserRoute(RouteFormats::userDetails, $controllerClassName);
 		}
 
 		private function routeUserEdit(){
 			$controllerClassName = 'app\User\Edit\UserEditController';
-			$this->addUserRoute(RouteFormats::userEdit, $controllerClassName);
+			addUserRoute(RouteFormats::userEdit, $controllerClassName);
 		}
 
 		private function routeUserAdd(){
 			$controllerClassName = 'app\User\Add\UserAddController';
-			$this->addRoute(RouteFormats::userAdd, $controllerClassName);
-			$this->addRoute(RouteFormats::userAddConfirmation, $controllerClassName);
+			addRoute(RouteFormats::userAdd, $controllerClassName);
+			addRoute(RouteFormats::userAddConfirmation, $controllerClassName);
 		}
 
 		private function routeChangePassword(){
 			$controllerClassName = 'app\User\ChangePassword\ChangePasswordController';
-			$this->addRoute(RouteFormats::changePassword, $controllerClassName);
-			$this->addRoute(RouteFormats::changePasswordConfirmation, $controllerClassName);
+			addRoute(RouteFormats::changePassword, $controllerClassName);
+			addRoute(RouteFormats::changePasswordConfirmation, $controllerClassName);
 		}
 
 		private function routeForgotPassword(){
 			$controllerClassName = 'app\User\ForgotPassword\ForgotPasswordController';
-			$this->addRoute(RouteFormats::forgotPassword, $controllerClassName);
-			$this->addRoute(RouteFormats::forgotPasswordConfirmation, $controllerClassName);
+			addRoute(RouteFormats::forgotPassword, $controllerClassName);
+			addRoute(RouteFormats::forgotPasswordConfirmation, $controllerClassName);
 		}
 
 		private function routeUserListing(){
 			$controllerClassName = 'app\User\Listing\UserListingController';
-			$this->addRoute(RouteFormats::userListing, $controllerClassName);
+			addRoute(RouteFormats::userListing, $controllerClassName);
 		}
 
 		private function routeHomegame(){
-			$this->routeHomegameDetails();
-			$this->routeHomegameAdd();
-			$this->routeHomegameEdit();
-			$this->routeHomegameJoin();
-			$this->routeHomegameListing();
+			routeHomegameDetails();
+			routeHomegameAdd();
+			routeHomegameEdit();
+			routeHomegameJoin();
+			routeHomegameListing();
 		}
 
 		private function routeHomegameDetails(){
 			$controllerClassName = 'app\Homegame\Details\HomegameDetailsController';
-			$this->addHomegameRoute(RouteFormats::homegameDetails, $controllerClassName);
+			addHomegameRoute(RouteFormats::homegameDetails, $controllerClassName);
 		}
 
 		private function routeHomegameEdit(){
 			$controllerClassName = 'app\Homegame\Edit\HomegameEditController';
-			$this->addHomegameRoute(RouteFormats::homegameEdit, $controllerClassName);
+			addHomegameRoute(RouteFormats::homegameEdit, $controllerClassName);
 		}
 
 		private function routeHomegameJoin(){
 			$controllerClassName = 'app\Homegame\Join\HomegameJoinController';
-			$this->addHomegameRoute(RouteFormats::homegameJoin, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::homegameJoinConfirmation, $controllerClassName);
+			addHomegameRoute(RouteFormats::homegameJoin, $controllerClassName);
+			addHomegameRoute(RouteFormats::homegameJoinConfirmation, $controllerClassName);
 		}
 
 		private function routeHomegameAdd(){
 			$controllerClassName = 'app\Homegame\Add\HomegameAddController';
-			$this->addRoute(RouteFormats::homegameAdd, $controllerClassName);
-			$this->addRoute(RouteFormats::homegameAddConfirmation, $controllerClassName);
+			addRoute(RouteFormats::homegameAdd, $controllerClassName);
+			addRoute(RouteFormats::homegameAddConfirmation, $controllerClassName);
 		}
 
 		private function routeHomegameListing(){
 			$controllerClassName = 'app\Homegame\Listing\HomegameListingController';
-			$this->addRoute(RouteFormats::homegameListing, $controllerClassName);
+			addRoute(RouteFormats::homegameListing, $controllerClassName);
 		}
 
 		private function routePlayer(){
-			$this->routePlayerIndex();
-			$this->routePlayerAdd();
-			$this->routePlayerDetails();
-			$this->routePlayerInvite();
+			routePlayerIndex();
+			routePlayerAdd();
+			routePlayerDetails();
+			routePlayerInvite();
 		}
 
 		private function routePlayerIndex(){
 			$controllerClassName = 'app\Player\Listing\PlayerListingController';
-			$this->addHomegameRoute(RouteFormats::playerIndex, $controllerClassName);
+			addHomegameRoute(RouteFormats::playerIndex, $controllerClassName);
 		}
 
 		private function routePlayerAdd(){
 			$controllerClassName = 'app\Player\Add\PlayerAddController';
-			$this->addHomegameRoute(RouteFormats::playerAdd, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::playerAddConfirmation, $controllerClassName);
+			addHomegameRoute(RouteFormats::playerAdd, $controllerClassName);
+			addHomegameRoute(RouteFormats::playerAddConfirmation, $controllerClassName);
 		}
 
 		private function routePlayerDetails(){
 			$controllerClassName = 'app\Player\Details\PlayerDetailsController';
-			$this->addPlayerRoute(RouteFormats::playerDetails, $controllerClassName);
-			$this->addPlayerRoute(RouteFormats::playerDelete, $controllerClassName);
+			addPlayerRoute(RouteFormats::playerDetails, $controllerClassName);
+			addPlayerRoute(RouteFormats::playerDelete, $controllerClassName);
 		}
 
 		private function routePlayerInvite(){
 			$controllerClassName = 'app\Player\Invite\PlayerInviteController';
-			$this->addPlayerRoute(RouteFormats::playerInvite, $controllerClassName);
-			$this->addPlayerRoute(RouteFormats::playerInviteConfirmation, $controllerClassName);
+			addPlayerRoute(RouteFormats::playerInvite, $controllerClassName);
+			addPlayerRoute(RouteFormats::playerInviteConfirmation, $controllerClassName);
 		}
 
 		private function routeCashgame(){
-			$this->routeCashgameIndex();
-			$this->routeCashgameDetails();
-			$this->routeCashgameEdit();
-			$this->routeCashgameAdd();
-			$this->routeCashgameChart();
-			$this->routeCashgameLeaderboard();
-			$this->routeCashgameListing();
-			$this->routeCashgameFacts();
-			$this->routeCashgameMatrix();
-			$this->routeCashgameAction();
-			$this->routeCashgameBuyin();
-			$this->routeCashgameReport();
-			$this->routeCashgameCashout();
-			$this->routeCashgameEnd();
-			$this->routeCashgameRunning();
-			$this->routeCashgameCheckpoint();
+			routeCashgameIndex();
+			routeCashgameDetails();
+			routeCashgameEdit();
+			routeCashgameAdd();
+			routeCashgameChart();
+			routeCashgameLeaderboard();
+			routeCashgameListing();
+			routeCashgameFacts();
+			routeCashgameMatrix();
+			routeCashgameAction();
+			routeCashgameBuyin();
+			routeCashgameReport();
+			routeCashgameCashout();
+			routeCashgameEnd();
+			routeCashgameRunning();
+			routeCashgameCheckpoint();
 		}
 
 		private function routeCashgameIndex(){
 			$controllerClassName = 'app\Cashgame\Index\CashgameIndexController';
-			$this->addHomegameRoute(RouteFormats::cashgameIndex, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameIndex, $controllerClassName);
 		}
 
 		private function routeCashgameDetails(){
 			$controllerClassName = 'app\Cashgame\Details\DetailsController';
-			$this->addCashgameRoute(RouteFormats::cashgameDetails, $controllerClassName);
-			$this->addCashgameRoute(RouteFormats::cashgameDetailsChartJson, $controllerClassName);
+			addCashgameRoute(RouteFormats::cashgameDetails, $controllerClassName);
+			addCashgameRoute(RouteFormats::cashgameDetailsChartJson, $controllerClassName);
 		}
 
 		private function routeCashgameEdit(){
 			$controllerClassName = 'app\Cashgame\Edit\CashgameEditController';
-			$this->addCashgameRoute(RouteFormats::cashgameEdit, $controllerClassName);
-			$this->addCashgameRoute(RouteFormats::cashgameDelete, $controllerClassName);
+			addCashgameRoute(RouteFormats::cashgameEdit, $controllerClassName);
+			addCashgameRoute(RouteFormats::cashgameDelete, $controllerClassName);
 		}
 
 		private function routeCashgameAdd(){
 			$controllerClassName = 'app\Cashgame\Add\AddController';
-			$this->addHomegameRoute(RouteFormats::cashgameAdd, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameAdd, $controllerClassName);
 		}
 
 		private function routeCashgameChart(){
 			$controllerClassName = 'app\Cashgame\Chart\ChartController';
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameChartWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameChart, $controllerClassName);
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameChartJsonWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameChartJson, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameChartWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameChart, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameChartJsonWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameChartJson, $controllerClassName);
 		}
 
 		private function routeCashgameListing(){
 			$controllerClassName = 'app\Cashgame\Listing\CashgameListingController';
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameListingWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameListing, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameListingWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameListing, $controllerClassName);
 		}
 
 		private function routeCashgameFacts(){
 			$controllerClassName = 'app\Cashgame\Facts\CashgameFactsController';
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameFactsWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameFacts, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameFactsWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameFacts, $controllerClassName);
 		}
 
 		private function routeCashgameLeaderboard(){
 			$controllerClassName = 'app\Cashgame\Leaderboard\LeaderboardController';
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameLeaderboardWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameLeaderboard, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameLeaderboardWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameLeaderboard, $controllerClassName);
 		}
 
 		private function routeCashgameMatrix(){
 			$controllerClassName = 'app\Cashgame\Matrix\MatrixController';
-			$this->addCashgameSuiteRoute(RouteFormats::cashgameMatrixWithYear, $controllerClassName);
-			$this->addHomegameRoute(RouteFormats::cashgameMatrix, $controllerClassName);
+			addCashgameSuiteRoute(RouteFormats::cashgameMatrixWithYear, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameMatrix, $controllerClassName);
 		}
 
 		private function routeCashgameAction(){
 			$controllerClassName = 'app\Cashgame\Action\ActionController';
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameAction, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::cashgameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::cashgameParameter)
-				->matches(self::datePattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameAction, getRouteParameter(self::homegameParameter), getRouteParameter(self::cashgameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::cashgameParameter)
+				.matches(self::datePattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameActionChartJson, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::cashgameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::cashgameParameter)
-				->matches(self::datePattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameActionChartJson, getRouteParameter(self::homegameParameter), getRouteParameter(self::cashgameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::cashgameParameter)
+				.matches(self::datePattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 		}
 
 		private function routeCashgameBuyin(){
 			$controllerClassName = 'app\Cashgame\Action\BuyinController';
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameBuyin, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameBuyin, getRouteParameter(self::homegameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 		}
 
 		private function routeCashgameReport(){
 			$controllerClassName = 'app\Cashgame\Action\ReportController';
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameReport, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameReport, getRouteParameter(self::homegameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 		}
 
 		private function routeCashgameCashout(){
 			$controllerClassName = 'app\Cashgame\Action\CashoutController';
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameCashout, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameCashout, getRouteParameter(self::homegameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 		}
 
 		private function routeCashgameEnd(){
 			$controllerClassName = 'app\Cashgame\Action\EndGameController';
-			$this->addHomegameRoute(RouteFormats::cashgameEnd, $controllerClassName);
+			addHomegameRoute(RouteFormats::cashgameEnd, $controllerClassName);
 		}
 
 		private function routeCashgameRunning(){
 			$controllerClassName = 'app\Cashgame\Running\RunningController';
-			$this->addHomegameRoute(RouteFormats::runningCashgame, $controllerClassName);
+			addHomegameRoute(RouteFormats::runningCashgame, $controllerClassName);
 		}
 
 		private function routeCashgameCheckpoint(){
 			$controllerClassName = 'app\Cashgame\Action\CheckpointController';
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf(RouteFormats::cashgameCheckpointDelete, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::cashgameParameter), $this->getRouteParameter(self::playerParameter), $this->getRouteParameter(self::checkpointParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::cashgameParameter)
-				->matches(self::datePattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern)
-				->where(self::checkpointParameter)
-				->matches(self::numericPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf(RouteFormats::cashgameCheckpointDelete, getRouteParameter(self::homegameParameter), getRouteParameter(self::cashgameParameter), getRouteParameter(self::playerParameter), getRouteParameter(self::checkpointParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::cashgameParameter)
+				.matches(self::datePattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern)
+				.where(self::checkpointParameter)
+				.matches(self::numericPattern);
 		}
 
 		private function routeSharing(){
-			$this->routeSharingIndex();
-			$this->routeSharingTwitter();
+			routeSharingIndex();
+			routeSharingTwitter();
 		}
 
 		private function routeSharingIndex(){
 			$controllerClassName = 'app\Sharing\Index\SharingIndexController';
-			$this->addRoute(RouteFormats::sharingSettings, $controllerClassName);
+			addRoute(RouteFormats::sharingSettings, $controllerClassName);
 		}
 
 		private function routeSharingTwitter(){
 			$controllerClassName = 'app\Sharing\Twitter\SharingTwitterController';
-			$this->addRoute(RouteFormats::twitterSettings, $controllerClassName);
-			$this->addRoute(RouteFormats::twitterStartShare, $controllerClassName);
-			$this->addRoute(RouteFormats::twitterStopShare, $controllerClassName);
-			$this->addRoute(RouteFormats::twitterCallback, $controllerClassName);
+			addRoute(RouteFormats::twitterSettings, $controllerClassName);
+			addRoute(RouteFormats::twitterStartShare, $controllerClassName);
+			addRoute(RouteFormats::twitterStopShare, $controllerClassName);
+			addRoute(RouteFormats::twitterCallback, $controllerClassName);
 		}
 
 		private function addRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$this->builder->createRoute($format, $params);
+			$params = getControllerRouteParam($controllerClassName);
+			builder.createRoute($format, $params);
 		}
 
 		private function addUserRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf($format, $this->getRouteParameter(self::userParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::userParameter)
-				->matches(self::alphaNumericPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf($format, getRouteParameter(self::userParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::userParameter)
+				.matches(self::alphaNumericPattern);
 		}
 
 		private function addHomegameRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf($format, $this->getRouteParameter(self::homegameParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf($format, getRouteParameter(self::homegameParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern);
 		}
 
 		private function addCashgameRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf($format, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::cashgameParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::cashgameParameter)
-				->matches(self::datePattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf($format, getRouteParameter(self::homegameParameter), getRouteParameter(self::cashgameParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::cashgameParameter)
+				.matches(self::datePattern);
 		}
 
 		private function addCashgameSuiteRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf($format, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::yearParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::yearParameter)
-				->matches(self::numericPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf($format, getRouteParameter(self::homegameParameter), getRouteParameter(self::yearParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::yearParameter)
+				.matches(self::numericPattern);
 		}
 
 		private function addPlayerRoute($format, $controllerClassName){
-			$params = $this->getControllerRouteParam($controllerClassName);
-			$pattern = sprintf($format, $this->getRouteParameter(self::homegameParameter), $this->getRouteParameter(self::playerParameter));
-			$this->builder->createRoute($pattern, $params)
-				->where(self::homegameParameter)
-				->matches(self::alphaNumericPattern)
-				->where(self::playerParameter)
-				->matches(self::alphaNumericWithEscapedUrlCharsPattern);
+			$params = getControllerRouteParam($controllerClassName);
+			$pattern = sprintf($format, getRouteParameter(self::homegameParameter), getRouteParameter(self::playerParameter));
+			builder.createRoute($pattern, $params)
+				.where(self::homegameParameter)
+				.matches(self::alphaNumericPattern)
+				.where(self::playerParameter)
+				.matches(self::alphaNumericWithEscapedUrlCharsPattern);
 		}
 
 		private function getRouteParameter($str){

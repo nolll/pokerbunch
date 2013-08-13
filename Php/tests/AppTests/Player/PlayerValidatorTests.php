@@ -13,62 +13,62 @@ namespace tests\AppTests\Player{
 		private $playerRepository;
 
 		function setUp(){
-			$this->playerRepository = TestHelper::getFake(ClassNames::$PlayerRepository);
+			playerRepository = TestHelper::getFake(ClassNames::$PlayerRepository);
 		}
 
 		function test_IsValid_WithValidValues_ReturnsTrue(){
-			$this->playerRepository->returns('getAll', array());
+			playerRepository.returns('getAll', array());
 			$player = new Player();
-			$player->setDisplayName('a');
-			$validator = $this->getValidator($player);
+			$player.setDisplayName('a');
+			$validator = getValidator($player);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyDisplayName_ReturnsFalse(){
-			$this->playerRepository->returns('getAll', array());
+			playerRepository.returns('getAll', array());
 			$player = new Player();
-			$player->setDisplayName('');
-			$validator = $this->getValidator($player);
+			$player.setDisplayName('');
+			$validator = getValidator($player);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithNonExistingPlayerName_ReturnsTrue(){
 			$homegame = new Homegame();
 			$player = new Player();
-			$player->setDisplayName('a');
-			$this->playerRepository->returns("getAll", array());
-			$validatorFactory = new PlayerValidatorFactoryImpl($this->playerRepository);
-			$validator = $validatorFactory->getAddPlayerValidator($player, $homegame);
+			$player.setDisplayName('a');
+			playerRepository.returns("getAll", array());
+			$validatorFactory = new PlayerValidatorFactoryImpl(playerRepository);
+			$validator = $validatorFactory.getAddPlayerValidator($player, $homegame);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithExistingPlayerName_ReturnsFalse(){
 			$homegame = new Homegame();
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 			$existingPlayer = new Player();
-			$existingPlayer->setDisplayName('a');
+			$existingPlayer.setDisplayName('a');
 			$players = array($existingPlayer);
-			$this->playerRepository->returns('getAll', $players);
-			$validatorFactory = new PlayerValidatorFactoryImpl($this->playerRepository);
-			$validator = $validatorFactory->getAddPlayerValidator($player, $homegame);
+			playerRepository.returns('getAll', $players);
+			$validatorFactory = new PlayerValidatorFactoryImpl(playerRepository);
+			$validator = $validatorFactory.getAddPlayerValidator($player, $homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(Player $player){
 			$homegame = new Homegame();
-			return $this->getValidatorFactory()->getAddPlayerValidator($player, $homegame);
+			return getValidatorFactory().getAddPlayerValidator($player, $homegame);
 		}
 
 		/**
 		 * @return PlayerValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			return new PlayerValidatorFactoryImpl($this->playerRepository);
+			return new PlayerValidatorFactoryImpl(playerRepository);
 		}
 
 	}

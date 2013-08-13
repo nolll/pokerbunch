@@ -4,7 +4,7 @@ namespace core\FormFields{
 	class LocationFieldModel extends ListFieldModel{
 
 		public function __construct($fieldName, $fieldId, $selectedValue, $locations, $firstItemText = null){
-			$items = $this->getSelectItems($locations);
+			$items = getSelectItems($locations);
 			parent::__construct($fieldName, $fieldId, $selectedValue, $items, $firstItemText);
 		}
 

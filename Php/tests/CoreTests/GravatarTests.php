@@ -10,31 +10,31 @@ namespace tests\CoreTests{
 		private $settings;
 
 		function setUp(){
-			$this->settings = TestHelper::getFake(ClassNames::$Settings);
+			settings = TestHelper::getFake(ClassNames::$Settings);
 		}
 
 		function testSmallGravatarUrl(){
 			$gravatarEmail = "henriks@gmail.com";
-			$this->settings->returns('getSiteUrl', 'site-url');
+			settings.returns('getSiteUrl', 'site-url');
 			$expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=40&d=site-url/core/ui/img/pix.gif";
-			$gravatarService = $this->getGravatarService();
+			$gravatarService = getGravatarService();
 
-			$gravatarUrl = $gravatarService->getSmallAvatarUrl($gravatarEmail);
-			$this->assertIdentical($expectedUrl, $gravatarUrl);
+			$gravatarUrl = $gravatarService.getSmallAvatarUrl($gravatarEmail);
+			assertIdentical($expectedUrl, $gravatarUrl);
 		}
 
 		function testLargeGravatarUrl(){
 			$gravatarEmail = "henriks@gmail.com";
-			$this->settings->returns('getSiteUrl', 'site-url');
+			settings.returns('getSiteUrl', 'site-url');
 			$expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=100&d=site-url/core/ui/img/pix.gif";
-			$gravatarService = $this->getGravatarService();
+			$gravatarService = getGravatarService();
 
-			$gravatarUrl = $gravatarService->getLargeAvatarUrl($gravatarEmail);
-			$this->assertIdentical($expectedUrl, $gravatarUrl);
+			$gravatarUrl = $gravatarService.getLargeAvatarUrl($gravatarEmail);
+			assertIdentical($expectedUrl, $gravatarUrl);
 		}
 
 		private function getGravatarService(){
-			return new GravatarService($this->settings);
+			return new GravatarService(settings);
 		}
 
 	}

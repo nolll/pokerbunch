@@ -16,14 +16,14 @@ namespace app\Sharing\Twitter{
 			parent::__construct($user);
 			if($isSharing){
 				if($credentials != null){
-					$this->twitterName = $credentials->twitterName;
+					twitterName = $credentials.twitterName;
 				}
 			}
-			$this->isSharing = $isSharing;
+			isSharing = $isSharing;
 			if($isSharing){
-				$this->postUrl = new TwitterStopShareUrlModel();
+				postUrl = new TwitterStopShareUrlModel();
 			} else {
-				$this->postUrl = new TwitterStartShareUrlModel();
+				postUrl = new TwitterStartShareUrlModel();
 			}
 		}
 

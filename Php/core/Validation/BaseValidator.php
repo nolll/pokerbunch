@@ -5,18 +5,18 @@ namespace core\Validation{
 		protected $errors;
 
 		public function addError($message){
-			$this->ensureErrorArray();
-			$this->errors[] = $message;
+			ensureErrorArray();
+			errors[] = $message;
 		}
 
 		public function getErrors(){
-			$this->ensureErrorArray();
-			return $this->errors;
+			ensureErrorArray();
+			return errors;
 		}
 
 		protected function ensureErrorArray(){
-			if($this->errors == null){
-				$this->errors = array();
+			if(errors == null){
+				errors = array();
 			}
 		}
 

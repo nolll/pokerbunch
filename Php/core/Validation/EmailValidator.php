@@ -3,12 +3,12 @@ namespace core\Validation{
 	class EmailValidator extends SimpleValidator {
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
+			if(isNullOrEmpty(subject)){
 				return true;
-			} else if($this->isEmail($this->subject)){
+			} else if(isEmail(subject)){
 				return true;
 			} else {
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 		}

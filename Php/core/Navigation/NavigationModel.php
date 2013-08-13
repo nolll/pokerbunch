@@ -10,20 +10,20 @@ namespace core\Navigation{
 		public $dataRequire;
 
 		public function __construct($heading = null, $nodes = null, $cssClass = null){
-			$this->nodes = array();
+			nodes = array();
 			if($heading != null){
-				$this->heading = $heading;
+				heading = $heading;
 			}
 			if($nodes != null){
-				$this->nodes = $nodes;
+				nodes = $nodes;
 			}
 			if($cssClass != null){
-				$this->cssClass = $cssClass;
+				cssClass = $cssClass;
 			}
 		}
 
 		protected function addNode(NavigationNode $node){
-			$this->nodes[] = $node;
+			nodes[] = $node;
 		}
 
 	}

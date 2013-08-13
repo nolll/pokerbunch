@@ -26,81 +26,81 @@ namespace entities{
 		private $gameCount;
 
 		public function __construct(){
-			$this->cashgames = array();
-			$this->totalResults = array();
+			cashgames = array();
+			totalResults = array();
 		}
 
 		/**
 		 * @return CashgameTotalResult[]
 		 */
 		public function getTotalResults(){
-			return $this->totalResults;
+			return totalResults;
 		}
 
 		function setTotalResults(array $totalResults){
-			$this->totalResults = $totalResults;
+			totalResults = $totalResults;
 		}
 
 		/**
 		 * @return Cashgame[]
 		 */
 		public function getCashgames(){
-			return $this->cashgames;
+			return cashgames;
 		}
 
 		public function setCashgames(array $cashgames){
-			$this->cashgames = $cashgames;
+			cashgames = $cashgames;
 		}
 
 		public function getGameCount(){
-			return $this->gameCount;
+			return gameCount;
 		}
 
 		public function setGameCount($gameCount){
-			$this->gameCount = $gameCount;
+			gameCount = $gameCount;
 		}
 
 		public function getBestTotalResult(){
-			return $this->bestTotalResult;
+			return bestTotalResult;
 		}
 
 		public function setBestTotalResult(CashgameTotalResult $totalResult = null){
-			$this->bestTotalResult = $totalResult;
+			bestTotalResult = $totalResult;
 		}
 
 		public function getBestResult(){
-			return $this->bestResult;
+			return bestResult;
 		}
 
 		public function setBestResult(CashgameResult $result = null){
-			$this->bestResult = $result;
+			bestResult = $result;
 		}
 
 		public function getWorstResult(){
-			return $this->worstResult;
+			return worstResult;
 		}
 
 		public function setWorstResult(CashgameResult $result = null){
-			$this->worstResult = $result;
+			worstResult = $result;
 		}
 
 		public function getMostTimeResult(){
-			return $this->mostTimeResult;
+			return mostTimeResult;
 		}
 
 		public function setMostTimeResult(CashgameTotalResult $totalResult = null){
-			$this->mostTimeResult = $totalResult;
+			mostTimeResult = $totalResult;
 		}
 
 		/**
 		 * @return int
 		 */
 		public function getTotalGametime(){
-			return $this->totalGameTime;
+			return totalGameTime;
 		}
 
 		public function setTotalGametime($gameTime){
-			$this->totalGameTime = $gameTime;
+			totalGameTime = $gameTime;
 		}
 
 	}

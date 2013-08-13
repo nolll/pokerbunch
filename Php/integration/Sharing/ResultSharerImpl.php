@@ -15,33 +15,33 @@ namespace integration\Sharing{
 		public function __construct(SharingStorage $sharingStorage,
 									UserStorage $userStorage,
 									SocialServiceFactory $socialServiceFactory){
-			$this->sharingStorage = $sharingStorage;
-			$this->userStorage = $userStorage;
-			$this->socialServiceFactory = $socialServiceFactory;
+			sharingStorage = $sharingStorage;
+			userStorage = $userStorage;
+			socialServiceFactory = $socialServiceFactory;
 		}
 
 		public function shareResult(Cashgame $cashgame){
-			$results = $cashgame->getResults();
+			$results = $cashgame.getResults();
 			foreach($results as $result){
-				$this->shareSingleResult($result);
+				shareSingleResult($result);
 			}
 		}
 
 		public function shareSingleResult(CashgameResult $result){
-			$user = $this->getUser($result);
-			$services = $this->sharingStorage->getServices($user);
+			$user = getUser($result);
+			$services = sharingStorage.getServices($user);
 			foreach($services as $serviceName){
-				$this->shareToService($serviceName, $user, $result);
+				shareToService($serviceName, $user, $result);
 			}
 		}
 
 		public function shareToService($serviceName, User $user, CashgameResult $result){
-			$service = $this->socialServiceFactory->makeSocialService($serviceName);
-			$service->shareResult($user, $result->getWinnings());
+			$service = socialServiceFactory.makeSocialService($serviceName);
+			$service.shareResult($user, $result.getWinnings());
 		}
 
 		private function getUser(CashgameResult $result){
-			return $this->userStorage->getUserByName($result->getPlayer()->getUserName());
+			return userStorage.getUserByName($result.getPlayer().getUserName());
 		}
 
 	}

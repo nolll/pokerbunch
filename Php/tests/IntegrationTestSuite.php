@@ -3,15 +3,15 @@ namespace tests{
 	class IntegrationTestSuite extends PokerBunchTestSuite {
 
 		public function addTestCases(){
-			$this->addIntegrationTests();
+			addIntegrationTests();
 		}
 
 		private function addIntegrationTests(){
-			$this->addTestCase('tests\IntegrationTests\GravatarTests');
+			addTestCase('tests\IntegrationTests\GravatarTests');
 
-			$this->addTestCase('tests\IntegrationTests\CashgameStorageTests');
-			$this->addTestCase('tests\IntegrationTests\HomegameStorageTests');
-			$this->addTestCase('tests\IntegrationTests\UserStorageTests');
+			addTestCase('tests\IntegrationTests\CashgameStorageTests');
+			addTestCase('tests\IntegrationTests\HomegameStorageTests');
+			addTestCase('tests\IntegrationTests\UserStorageTests');
 		}
 
 	}

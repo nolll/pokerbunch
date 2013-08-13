@@ -8,13 +8,13 @@ namespace core{
 		private $homegameSlug;
 
 		protected function extractControllerData(){
-			$this->homegameSlug = $this->extractHomegameSlug();
+			homegameSlug = extractHomegameSlug();
 			parent::extractControllerData();
-			$this->insertHomegameParam();
+			insertHomegameParam();
 		}
 
 		protected function extractHomegameSlug(){
-			$slug = $this->urlSegmenter->getNextUrlSegment();
+			$slug = urlSegmenter.getNextUrlSegment();
 			if($slug == '-'){
 				$slug = null;
 			}
@@ -22,17 +22,17 @@ namespace core{
 		}
 
 		private function insertHomegameParam(){
-			if($this->homegameSlug != null){
-				array_unshift($this->params, $this->homegameSlug);
+			if(homegameSlug != null){
+				array_unshift(params, homegameSlug);
 			}
 		}
 
 		protected function getDefaultName(){
-			return $this->homegameSlug != null ? 'game' : $this->defaultName;
+			return homegameSlug != null ? 'game' : defaultName;
 		}
 
 		protected function getDefaultAction(){
-			return $this->homegameSlug != null && $this->name == 'game' ? 'details' : $this->defaultAction;
+			return homegameSlug != null && name == 'game' ? 'details' : defaultAction;
 		}
 
 	}

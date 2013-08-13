@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 		function test_UserNavigationModel_IsSet(){
 			$sut = new PageModel(new User());
 
-			$this->assertIsA($sut->userNavigationModel, 'app\User\UserNavigationModel');
+			assertIsA($sut.userNavigationModel, 'app\User\UserNavigationModel');
 		}
 
 	}

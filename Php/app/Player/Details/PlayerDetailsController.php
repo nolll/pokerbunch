@@ -28,38 +28,38 @@ namespace app\Player\Details{
 									PlayerRepository $playerRepository,
 									UserStorage $userStorage,
 									AvatarModelBuilder $avatarModelBuilder){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->userStorage = $userStorage;
-			$this->avatarModelBuilder = $avatarModelBuilder;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
+			userStorage = $userStorage;
+			avatarModelBuilder = $avatarModelBuilder;
 		}
 
 		public function action_details($gameName, $playerName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$currentUser = $this->userContext->getUser();
-			$player = $this->playerRepository->getByName($homegame, $playerName);
-			$user = $this->userStorage->getUserByName($player->getUserName());
-			$cashgames = $this->cashgameRepository->getPublished($homegame);
-			$isManager = $this->userContext->isInRole($homegame, Role::$manager);
-			$hasPlayed = $this->cashgameRepository->hasPlayed($player);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$model = new PlayerDetailsModel($currentUser, $homegame, $player, $user, $cashgames, $isManager, $hasPlayed, $this->avatarModelBuilder, $runningGame);
-			return $this->view('app/Player/Details/Details', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$currentUser = userContext.getUser();
+			$player = playerRepository.getByName($homegame, $playerName);
+			$user = userStorage.getUserByName($player.getUserName());
+			$cashgames = cashgameRepository.getPublished($homegame);
+			$isManager = userContext.isInRole($homegame, Role::$manager);
+			$hasPlayed = cashgameRepository.hasPlayed($player);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$model = new PlayerDetailsModel($currentUser, $homegame, $player, $user, $cashgames, $isManager, $hasPlayed, avatarModelBuilder, $runningGame);
+			return view('app/Player/Details/Details', $model);
 		}
 
 		public function action_delete($gameName, $playerName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			$player = $this->playerRepository->getByName($homegame, $playerName);
-			$hasPlayed = $this->cashgameRepository->hasPlayed($player);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			$player = playerRepository.getByName($homegame, $playerName);
+			$hasPlayed = cashgameRepository.hasPlayed($player);
 			if($hasPlayed){
-				return $this->redirect(new PlayerDetailsUrlModel($homegame, $player));
+				return redirect(new PlayerDetailsUrlModel($homegame, $player));
 			} else {
-				$this->playerRepository->deletePlayer($player);
-				return $this->redirect(new PlayerIndexUrlModel($homegame));
+				playerRepository.deletePlayer($player);
+				return redirect(new PlayerIndexUrlModel($homegame));
 			}
 		}
 

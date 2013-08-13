@@ -8,18 +8,18 @@ namespace tests{
 		private $fakeBindings;
 
 		public function __construct(){
-			$this->fakeBindings = array();
+			fakeBindings = array();
 		}
 
 		public function addClassBinding(ClassBinding $classBinding){
-			$this->fakeBindings[] = $classBinding;
+			fakeBindings[] = $classBinding;
 		}
 
 		public function configure() {
-			foreach($this->fakeBindings as $classBinding){
-				$this->bind($classBinding->getInterfaceName())
-					->toInstance(TestHelper::getFakeFromClassBinding($classBinding))
-					->inSingleton();
+			foreach(fakeBindings as $classBinding){
+				bind($classBinding.getInterfaceName())
+					.toInstance(TestHelper::getFakeFromClassBinding($classBinding))
+					.inSingleton();
 			}
 		}
 

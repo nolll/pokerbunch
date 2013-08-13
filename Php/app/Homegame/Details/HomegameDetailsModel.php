@@ -19,11 +19,11 @@ namespace app\Homegame\Details{
 									$isInManagerMode,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->displayName = $homegame->getDisplayName();
-			$this->description = $homegame->getDescription();
-			$this->houseRules = $this->formatHouseRules($homegame->getHouseRules());
-			$this->editUrl = new HomegameEditUrlModel($homegame);
-			$this->showEditLink = $isInManagerMode;
+			displayName = $homegame.getDisplayName();
+			description = $homegame.getDescription();
+			houseRules = formatHouseRules($homegame.getHouseRules());
+			editUrl = new HomegameEditUrlModel($homegame);
+			showEditLink = $isInManagerMode;
 		}
 
 		private function formatHouseRules($houseRules){

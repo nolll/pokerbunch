@@ -12,46 +12,46 @@ namespace tests\AppTests\User{
 
 		private function getValidUser(){
 			$user = new User();
-			$user->setUserName('a');
-			$user->setDisplayName('b');
-			$user->setEmail('valid@email.com');
+			$user.setUserName('a');
+			$user.setDisplayName('b');
+			$user.setEmail('valid@email.com');
 			return $user;
 		}
 
 		function test_IsValid_WithNonExistingUserNameAndNonExistingEmail_ReturnsTrue(){
-			$user = $this->getValidUser();
-			$userStorage = $this->getUserStorage();
-			$userStorage->returns("getUserByName", null);
-			$userStorage->returns("getUserByEmail", null);
-			$validator = $this->getValidator($userStorage, $user);
+			$user = getValidUser();
+			$userStorage = getUserStorage();
+			$userStorage.returns("getUserByName", null);
+			$userStorage.returns("getUserByEmail", null);
+			$validator = getValidator($userStorage, $user);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithExistingUserName_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$userStorage = $this->getUserStorage();
+			$user = getValidUser();
+			$userStorage = getUserStorage();
 			$existingUser = new User();
-			$userStorage->returns("getUserByName", $existingUser);
-			$userStorage->returns("getUserByEmail", null);
-			$validator = $this->getValidator($userStorage, $user);
+			$userStorage.returns("getUserByName", $existingUser);
+			$userStorage.returns("getUserByEmail", null);
+			$validator = getValidator($userStorage, $user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithExistingEmail_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$userStorage = $this->getUserStorage();
+			$user = getValidUser();
+			$userStorage = getUserStorage();
 			$existingUser = new User();
-			$userStorage->returns("getUserByName", null);
-			$userStorage->returns("getUserByEmail", $existingUser);
-			$validator = $this->getValidator($userStorage, $user);
+			$userStorage.returns("getUserByName", null);
+			$userStorage.returns("getUserByEmail", $existingUser);
+			$validator = getValidator($userStorage, $user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(UserStorage $userStorage, User $user){
-			return $this->getValidatorFactory($userStorage)->getAddUserValidator($user);
+			return getValidatorFactory($userStorage).getAddUserValidator($user);
 		}
 
 		/**

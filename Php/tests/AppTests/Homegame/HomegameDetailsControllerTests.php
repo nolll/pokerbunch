@@ -13,18 +13,18 @@ namespace tests\AppTests\Homegame{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->sut = new HomegameDetailsController($this->userContext, $this->cashgameRepositoryMock, $this->homegameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			homegameRepositoryMock = getFakeHomegameRepository();
+			sut = new HomegameDetailsController(userContext, cashgameRepositoryMock, homegameRepositoryMock);
 		}
 
 		function test_ActionDetails_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_details('any');
+			sut.action_details('any');
 		}
 
 	}

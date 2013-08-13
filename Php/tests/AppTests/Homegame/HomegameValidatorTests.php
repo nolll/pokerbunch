@@ -13,65 +13,65 @@ namespace tests\AppTests\Homegame{
 
 		private function getValidHomegame(){
 			$homegame = new Homegame();
-			$homegame->setDisplayName('a');
-			$homegame->setCurrency(new CurrencySettings('b', 'c'));
-			$homegame->setTimezone(new DateTimeZone('Europe/Stockholm'));
+			$homegame.setDisplayName('a');
+			$homegame.setCurrency(new CurrencySettings('b', 'c'));
+			$homegame.setTimezone(new DateTimeZone('Europe/Stockholm'));
 			return $homegame;
 		}
 
 		function test_IsValid_WithValidValues_ReturnsTrue(){
-			$homegame = $this->getValidHomegame();
+			$homegame = getValidHomegame();
 
-			$validator = $this->getValidator($homegame);
+			$validator = getValidator($homegame);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyDisplayName_ReturnsFalse(){
-			$homegame = $this->getValidHomegame();
-			$homegame->setDisplayName('');
+			$homegame = getValidHomegame();
+			$homegame.setDisplayName('');
 
-			$validator = $this->getValidator($homegame);
+			$validator = getValidator($homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyCurrencySymbol_ReturnsFalse(){
-			$homegame = $this->getValidHomegame();
-			$homegame->getCurrency()->setSymbol('')
+			$homegame = getValidHomegame();
+			$homegame.getCurrency().setSymbol('')
 			;
-			$validator = $this->getValidator($homegame);
+			$validator = getValidator($homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyCurrencyLayout_ReturnsFalse(){
-			$homegame = $this->getValidHomegame();
-			$homegame->getCurrency()->setLayout('');
+			$homegame = getValidHomegame();
+			$homegame.getCurrency().setLayout('');
 
-			$validator = $this->getValidator($homegame);
+			$validator = getValidator($homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyTimezone_ReturnsFalse(){
-			$homegame = $this->getValidHomegame();
-			$homegame->setTimezone(null);
+			$homegame = getValidHomegame();
+			$homegame.setTimezone(null);
 
-			$validator = $this->getValidator($homegame);
+			$validator = getValidator($homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(Homegame $homegame){
-			return $this->getValidatorFactory()->getAddHomegameValidator($homegame);
+			return getValidatorFactory().getAddHomegameValidator($homegame);
 		}
 
 		/**
 		 * @return HomegameValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			$homegameStorage = $this->getHomegameStorage();
+			$homegameStorage = getHomegameStorage();
 			return new HomegameValidatorFactoryImpl($homegameStorage);
 		}
 

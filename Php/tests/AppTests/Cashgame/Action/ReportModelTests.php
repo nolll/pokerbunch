@@ -16,19 +16,19 @@ namespace tests\AppTests\Cashgame\Action{
 		/** @var Cashgame */
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->player = new Player();
+			homegame = new Homegame();
+			player = new Player();
 		}
 
 		function getSut(){
 			$runningGame = new Cashgame();
-			return new ReportModel(new User(), $this->homegame, $this->player, null, $runningGame);
+			return new ReportModel(new User(), homegame, player, null, $runningGame);
 		}
 
 		function test_ReportUrl_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->reportUrl, 'app\Urls\CashgameReportUrlModel');
+			assertIsA($sut.reportUrl, 'app\Urls\CashgameReportUrlModel');
 		}
 
 	}

@@ -14,23 +14,23 @@ namespace tests\AppTests\Cashgame\Leaderboard{
 		private $suite;
 
 		function setUp(){
-			$this->homegame = new Homegame();
+			homegame = new Homegame();
 		}
 
 		function test_Table_ItemModelsAreSet(){
-			$this->suite = new CashgameSuite();
+			suite = new CashgameSuite();
 			$totalResult = new CashgameTotalResult();
 			$totalResults = array($totalResult, $totalResult);
-			$this->suite->setTotalResults($totalResults);
+			suite.setTotalResults($totalResults);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual(2, count($sut->itemModels));
-			$this->assertIsA($sut->itemModels[0], 'app\Cashgame\Leaderboard\ItemModel');
+			assertEqual(2, count($sut.itemModels));
+			assertIsA($sut.itemModels[0], 'app\Cashgame\Leaderboard\ItemModel');
 		}
 
 		function getSut(){
-			return new TableModel($this->homegame, $this->suite);
+			return new TableModel(homegame, suite);
 		}
 
 	}

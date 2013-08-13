@@ -17,7 +17,7 @@ namespace tests\AppTests\User{
 
 			$sut = new UserListingModel($user, $users);
 
-			$this->assertIdentical(0, count($sut->userModels));
+			assertIdentical(0, count($sut.userModels));
 		}
 
 		function test_UserModels_With3Users_Has3ItemsAndFirstItemIsCorrectType(){
@@ -26,8 +26,8 @@ namespace tests\AppTests\User{
 
 			$sut = new UserListingModel($user, $users);
 
-			$this->assertIsA($sut->userModels[0], 'app\User\Listing\UserItemModel');
-			$this->assertIdentical(3, count($sut->userModels));
+			assertIsA($sut.userModels[0], 'app\User\Listing\UserItemModel');
+			assertIdentical(3, count($sut.userModels));
 		}
 
 	}

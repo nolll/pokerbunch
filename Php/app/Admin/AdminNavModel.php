@@ -9,11 +9,11 @@ namespace app\Admin{
 
 		public function __construct(User $user = null){
 			parent::__construct('Admin', null, 'admin-nav');
-			$isAdmin = $user != null && $user->isAdmin();
+			$isAdmin = $user != null && $user.isAdmin();
 			if($isAdmin){
 				$selected = false;
-				$this->addNode(new NavigationNode('Bunches', new HomegameListingUrlModel(), $selected));
-				$this->addNode(new NavigationNode('Users', new UserListingUrlModel(), $selected));
+				addNode(new NavigationNode('Bunches', new HomegameListingUrlModel(), $selected));
+				addNode(new NavigationNode('Users', new UserListingUrlModel(), $selected));
 			}
 		}
 

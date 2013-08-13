@@ -5,43 +5,43 @@ namespace config{
 	class Settings extends \Mishiin\Settings{
 
 		public function getTwitterKey(){
-			return $this->config->getValue('twitterKey');
+			return config.getValue('twitterKey');
 		}
 
 		public function getTwitterSecret(){
-			return $this->config->getValue('twitterSecret');
+			return config.getValue('twitterSecret');
 		}
 
 		private function getServerMode(){
-			return $this->config->getValue('mode');
+			return config.getValue('mode');
 		}
 
 		public function isInProduction(){
-			return $this->getServerMode() == ServerMode::production;
+			return getServerMode() == ServerMode::production;
 		}
 
 		public function isInTest(){
-			return $this->getServerMode() == ServerMode::test;
+			return getServerMode() == ServerMode::test;
 		}
 
 		public function isInDevelopment(){
-			return $this->getServerMode() == ServerMode::development;
+			return getServerMode() == ServerMode::development;
 		}
 
 		public function getDatabaseHost(){
-			return $this->config->getValue('databaseHost');
+			return config.getValue('databaseHost');
 		}
 
 		public function getDatabaseName(){
-			return $this->config->getValue('databaseName');
+			return config.getValue('databaseName');
 		}
 
 		public function getDatabaseUserName(){
-			return $this->config->getValue('databaseUserName');
+			return config.getValue('databaseUserName');
 		}
 
 		public function getDatabasePassword(){
-			return $this->config->getValue('databasePassword');
+			return config.getValue('databasePassword');
 		}
 
 	}

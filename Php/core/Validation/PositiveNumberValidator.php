@@ -3,18 +3,18 @@ namespace core\Validation{
 	class PositiveNumberValidator extends SimpleValidator {
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
+			if(isNullOrEmpty(subject)){
 				return true;
-			} else if($this->isPositiveNumber($this->subject)){
+			} else if(isPositiveNumber(subject)){
 				return true;
 			} else {
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 		}
 
 		private function isPositiveNumber($number){
-			if($this->isNumeric($number) && $number >= 0){
+			if(isNumeric($number) && $number >= 0){
 				return true;
 			} else {
 				return false;

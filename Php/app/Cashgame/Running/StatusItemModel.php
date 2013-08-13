@@ -31,29 +31,29 @@ namespace app\Cashgame\Running{
 									CashgameResult $result,
 									$isManager,
 									Timer $timer){
-			$this->result = $result;
-			$player = $result->getPlayer();
+			result = $result;
+			$player = $result.getPlayer();
 			if($player != null){
-				$this->name = $player->getDisplayName();
-				$this->playerUrl = new CashgameActionUrlModel($homegame, $cashgame, $player);
+				name = $player.getDisplayName();
+				playerUrl = new CashgameActionUrlModel($homegame, $cashgame, $player);
 				if($isManager){
-					$this->buyinUrl = new CashgameBuyinUrlModel($homegame, $player);
-					$this->reportUrl = new CashgameReportUrlModel($homegame, $player);
-					$this->cashoutUrl = new CashgameCashoutUrlModel($homegame, $player);
+					buyinUrl = new CashgameBuyinUrlModel($homegame, $player);
+					reportUrl = new CashgameReportUrlModel($homegame, $player);
+					cashoutUrl = new CashgameCashoutUrlModel($homegame, $player);
 				}
 			}
-			$this->buyin = Globalization::formatCurrency($homegame->getCurrency(), $result->getBuyin());
-			$this->stack = Globalization::formatCurrency($homegame->getCurrency(), $result->getStack());
-			$winnings = $result->getWinnings();
-			$this->winnings = Globalization::formatResult($homegame->getCurrency(), $winnings);
-			$lastReportedTime = $result->getLastReportTime();
+			buyin = Globalization::formatCurrency($homegame.getCurrency(), $result.getBuyin());
+			stack = Globalization::formatCurrency($homegame.getCurrency(), $result.getStack());
+			$winnings = $result.getWinnings();
+			winnings = Globalization::formatResult($homegame.getCurrency(), $winnings);
+			$lastReportedTime = $result.getLastReportTime();
 			if($lastReportedTime != null){
-				$secondsAgo = $timer->getTime()->getTimestamp() - $lastReportedTime->getTimestamp();
-				$this->time = Globalization::formatTimespan($secondsAgo);
+				$secondsAgo = $timer.getTime().getTimestamp() - $lastReportedTime.getTimestamp();
+				time = Globalization::formatTimespan($secondsAgo);
 			}
-			$this->winningsClass = Util::getWinningsCssClass($winnings);
-			$this->hasCashedOut = $result->getCashoutTime() != null;
-			$this->managerButtonsEnabled = $isManager;
+			winningsClass = Util::getWinningsCssClass($winnings);
+			hasCashedOut = $result.getCashoutTime() != null;
+			managerButtonsEnabled = $isManager;
 		}
 
 	}

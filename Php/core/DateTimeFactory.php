@@ -17,7 +17,7 @@ namespace core{
 
 		public static function toUtc(DateTime $dateTime){
 			$utc = clone $dateTime;
-			$utc->setTimezone(new DateTimeZone('UTC'));
+			$utc.setTimezone(new DateTimeZone('UTC'));
 			return $utc;
 		}
 

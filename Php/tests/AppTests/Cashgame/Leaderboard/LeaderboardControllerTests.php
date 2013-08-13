@@ -14,28 +14,28 @@ namespace tests\AppTests\Cashgame\Leaderboard{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->sut = new LeaderboardController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			sut = new LeaderboardController(userContext, homegameRepositoryMock, cashgameRepositoryMock);
 		}
 
 		function test_ActionLeaderboard_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_leaderboard("homegame1");
+			sut.action_leaderboard("homegame1");
 		}
 
 		function test_ActionLeaderboard_SetsTableModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
-			$this->cashgameRepositoryMock->returns('getSuite', new CashgameSuite());
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
+			cashgameRepositoryMock.returns('getSuite', new CashgameSuite());
 
-			$viewResult = $this->sut->action_leaderboard("homegame1");
+			$viewResult = sut.action_leaderboard("homegame1");
 
-			$this->assertIsA($viewResult->model->tableModel, 'app\Cashgame\Leaderboard\TableModel');
+			assertIsA($viewResult.model.tableModel, 'app\Cashgame\Leaderboard\TableModel');
 		}
 
 	}

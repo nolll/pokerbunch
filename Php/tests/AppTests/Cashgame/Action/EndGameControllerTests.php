@@ -16,51 +16,51 @@ namespace tests\AppTests\Cashgame\Action{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->sut = new EndGameController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			sut = new EndGameController(userContext, homegameRepositoryMock, cashgameRepositoryMock);
 		}
 
 		function test_ActionEndGame_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_end("homegame1");
+			sut.action_end("homegame1");
 		}
 
 		function test_ActionEndGame_ReturnsCorrectModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-            TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+            TestHelper::setupUserWithPlayerRights(userContext);
 			$runningGame = new Cashgame();
-			$runningGame->setStartTime(new DateTime());
-			$this->cashgameRepositoryMock->returns('getRunning', $runningGame);
+			$runningGame.setStartTime(new DateTime());
+			cashgameRepositoryMock.returns('getRunning', $runningGame);
 
-			$viewResult = $this->sut->action_end("homegame1");
+			$viewResult = sut.action_end("homegame1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\EndGameModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\EndGameModel');
 		}
 
 		function test_ActionEndPost_EndsGame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->cashgameRepositoryMock->returns('getRunning', new Cashgame());
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			cashgameRepositoryMock.returns('getRunning', new Cashgame());
 
-			$this->cashgameRepositoryMock->expectOnce("endGame");
+			cashgameRepositoryMock.expectOnce("endGame");
 
-			$this->sut->action_end_post("homegame1");
+			sut.action_end_post("homegame1");
 		}
 
 		function test_ActionEndPost_RedirectsToIndex(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$cashgame = new Cashgame();
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 
-			$urlModel = $this->sut->action_end_post("homegame1");
+			$urlModel = sut.action_end_post("homegame1");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameIndexUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameIndexUrlModel');
 		}
 
 	}

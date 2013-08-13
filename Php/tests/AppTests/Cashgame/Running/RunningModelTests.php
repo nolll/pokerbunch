@@ -21,180 +21,180 @@ namespace tests\AppTests\Cashgame\Running{
 		private $isManager;
 
 		public function setUp(){
-			$this->isManager = false;
+			isManager = false;
 		}
 
 		private function setupHomegameAndRunningCashgameWithOnePlayer(){
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
-			$this->cashgame->setStatus(GameStatus::running);
+			homegame = new Homegame();
+			cashgame = new Cashgame();
+			cashgame.setStatus(GameStatus::running);
 		}
 
 		private function setupPlayerIsInGame(){
-			$this->setupHomegameAndRunningCashgameWithOnePlayer();
+			setupHomegameAndRunningCashgameWithOnePlayer();
 			$result = new CashgameResult();
-			$this->player = new Player();
-			$result->setPlayer($this->player);
-			$this->cashgame->setResults(array($result));
+			player = new Player();
+			$result.setPlayer(player);
+			cashgame.setResults(array($result));
 		}
 
 		private function setupPlayerIsNotInGame(){
-			$this->setupHomegameAndRunningCashgameWithOnePlayer();
-			$this->player = new Player();
+			setupHomegameAndRunningCashgameWithOnePlayer();
+			player = new Player();
 		}
 
 		function test_StartTime_WithStartTime_IsSet(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setIsStarted(true);
-			$this->cashgame->setStartTime(new DateTime('2010-01-01 01:00:00'));
+			setupPlayerIsInGame();
+			cashgame.setIsStarted(true);
+			cashgame.setStartTime(new DateTime('2010-01-01 01:00:00'));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("01:00", $sut->startTime);
+			assertEqual("01:00", $sut.startTime);
 		}
 
 		function test_StartTime_NoStartTime_IsNull(){
-			$this->setupPlayerIsInGame();
+			setupPlayerIsInGame();
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertNull($sut->startTime);
+			assertNull($sut.startTime);
 		}
 
 		function test_ShowStartTime_WithStartTime_IsTrue(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setIsStarted(true);
-			$this->cashgame->setStartTime(new DateTime('2010-01-01 01:00:00'));
+			setupPlayerIsInGame();
+			cashgame.setIsStarted(true);
+			cashgame.setStartTime(new DateTime('2010-01-01 01:00:00'));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showStartTime);
+			assertTrue($sut.showStartTime);
 		}
 
 		function test_ShowStartTime_NoStartTime_IsFalse(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setStartTime(null);
-			$sut = $this->getSut();
-			$this->assertFalse($sut->showStartTime);
+			setupPlayerIsInGame();
+			cashgame.setStartTime(null);
+			$sut = getSut();
+			assertFalse($sut.showStartTime);
 		}
 
 		function test_Location_IsSet(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setLocation('a');
+			setupPlayerIsInGame();
+			cashgame.setLocation('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->location);
+			assertEqual('a', $sut.location);
 		}
 
 		function test_BuyinUrl_IsSet(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
+			setupPlayerIsInGame();
+			$sut = getSut();
 
-			$this->assertIsA($sut->buyinUrl, 'app\Urls\CashgameBuyinUrlModel');
+			assertIsA($sut.buyinUrl, 'app\Urls\CashgameBuyinUrlModel');
 		}
 
 		function test_ReportUrl_IsSet(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
+			setupPlayerIsInGame();
+			$sut = getSut();
 
-			$this->assertIsA($sut->reportUrl, 'app\Urls\CashgameReportUrlModel');
+			assertIsA($sut.reportUrl, 'app\Urls\CashgameReportUrlModel');
 		}
 
 		function test_CashoutUrl_IsSet(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
+			setupPlayerIsInGame();
+			$sut = getSut();
 
-			$this->assertIsA($sut->cashoutUrl, 'app\Urls\CashgameCashoutUrlModel');
+			assertIsA($sut.cashoutUrl, 'app\Urls\CashgameCashoutUrlModel');
 		}
 
 		function test_BuyinButtonEnabled_IsTrue(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
+			setupPlayerIsInGame();
+			$sut = getSut();
 
-			$this->assertTrue($sut->buyinButtonEnabled);
+			assertTrue($sut.buyinButtonEnabled);
 		}
 
 		function test_ReportButtonEnabled_WithPlayerNotInGame_IsFalse(){
-			$this->setupPlayerIsNotInGame();
-			$sut = $this->getSut();
-			$this->assertFalse($sut->reportButtonEnabled);
+			setupPlayerIsNotInGame();
+			$sut = getSut();
+			assertFalse($sut.reportButtonEnabled);
 		}
 
 		function test_ReportButtonEnabled_WithPlayerInGame_IsTrue(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
-			$this->assertTrue($sut->reportButtonEnabled);
+			setupPlayerIsInGame();
+			$sut = getSut();
+			assertTrue($sut.reportButtonEnabled);
 		}
 
 		function test_CashoutButtonEnabled_WithPlayerNotInGame_IsFalse(){
-			$this->setupPlayerIsNotInGame();
-			$sut = $this->getSut();
-			$this->assertFalse($sut->cashoutButtonEnabled);
+			setupPlayerIsNotInGame();
+			$sut = getSut();
+			assertFalse($sut.cashoutButtonEnabled);
 		}
 
 		function test_CashoutButtonEnabled_WithPlayerInGame_IsTrue(){
-			$this->setupPlayerIsInGame();
-			$sut = $this->getSut();
-			$this->assertTrue($sut->cashoutButtonEnabled);
+			setupPlayerIsInGame();
+			$sut = getSut();
+			assertTrue($sut.cashoutButtonEnabled);
 		}
 
 		/*
 		function test_EndGameButtonEnabled_AtLeastOnePlayerIsStillInGame_IsFalse(){
-			$this->setupHomegameAndRunningCashgameWithOnePlayer();
-			$this->cashgame->setStarted();
-			$this->cashgame->setHasActivePlayers();
-			$sut = $this->getSut();
-			$this->assertFalse($sut->cashoutButtonEnabled);
+			setupHomegameAndRunningCashgameWithOnePlayer();
+			cashgame.setStarted();
+			cashgame.setHasActivePlayers();
+			$sut = getSut();
+			assertFalse($sut.cashoutButtonEnabled);
 		}
 
 		function test_EndGameButtonEnabled_AllPlayersCashedOut_IsTrue(){
-			$this->setupHomegameAndRunningCashgameWithOnePlayer();
-			$this->cashgame->setStarted();
-			$sut = $this->getSut();
-			$this->assertTrue($sut->cashoutButtonEnabled);
+			setupHomegameAndRunningCashgameWithOnePlayer();
+			cashgame.setStarted();
+			$sut = getSut();
+			assertTrue($sut.cashoutButtonEnabled);
 		}
 		*/
 
 		function test_StatusTableModel_WithCreatedGame_IsCorrectType(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setIsStarted(true);
+			setupPlayerIsInGame();
+			cashgame.setIsStarted(true);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->statusTableModel, 'app\Cashgame\Running\StatusTableModel');
+			assertIsA($sut.statusTableModel, 'app\Cashgame\Running\StatusTableModel');
 		}
 
 		function test_ShowTable_WithStartedGame_IsTrue(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setIsStarted(true);
+			setupPlayerIsInGame();
+			cashgame.setIsStarted(true);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showTable);
+			assertTrue($sut.showTable);
 		}
 
 		function test_ShowTable_WithStartedGameButNoResults_IsFalse(){
-			$this->setupPlayerIsInGame();
-			$this->cashgame->setStartTime();
+			setupPlayerIsInGame();
+			cashgame.setStartTime();
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showTable);
+			assertFalse($sut.showTable);
 		}
 
 		/*
 		function test_ChartDataUrl_IsSet(){
-			$this->setupPlayerIsInGame();
+			setupPlayerIsInGame();
 
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$this->assertIsA($sut->chartDataUrl, 'app\Urls\CashgameDetailsChartJsonUrlModel');
+			assertIsA($sut.chartDataUrl, 'app\Urls\CashgameDetailsChartJsonUrlModel');
 		}
 		*/
 
 		private function getSut(){
-			return new RunningModel(new User(), $this->homegame, $this->cashgame, $this->player, null, $this->isManager, new TimerFake());
+			return new RunningModel(new User(), homegame, cashgame, player, null, isManager, new TimerFake());
 		}
 
 	}

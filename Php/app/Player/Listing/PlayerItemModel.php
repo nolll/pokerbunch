@@ -11,8 +11,8 @@ namespace app\Player\Listing{
 		public $email;
 
 		public function __construct(Homegame $homegame, Player $player){
-			$this->name = $player->getDisplayName();
-			$this->urlModel = new PlayerDetailsUrlModel($homegame, $player);
+			name = $player.getDisplayName();
+			urlModel = new PlayerDetailsUrlModel($homegame, $player);
 		}
 
 	}

@@ -17,85 +17,85 @@ namespace tests\AppTests\Cashgame\Facts{
 		private $suite;
 
 		public function setUp(){
-			$this->suite = new CashgameSuite();
+			suite = new CashgameSuite();
 		}
 
 		function test_GameCount_SuiteHasGameCount_IsSet(){
-			$this->suite->setGameCount(1);
-			$sut = $this->getSut();
+			suite.setGameCount(1);
+			$sut = getSut();
 
-			$this->assertEqual(1, $sut->gameCount);
+			assertEqual(1, $sut.gameCount);
 		}
 
 		function test_TotalGameTime_SuiteHasTotalGameTime_IsSet(){
-			$this->suite->setTotalGametime(1);
-			$sut = $this->getSut();
+			suite.setTotalGametime(1);
+			$sut = getSut();
 
-			$this->assertEqual(1, $sut->totalGameTime);
+			assertEqual(1, $sut.totalGameTime);
 		}
 
 		function test_BestResultAmount_SuiteHasBestResult_IsSet(){
 			$result = new CashgameResult();
-			$result->setWinnings(1);
-			$this->suite->setBestResult($result);
-			$sut = $this->getSut();
+			$result.setWinnings(1);
+			suite.setBestResult($result);
+			$sut = getSut();
 
-			$this->assertEqual('+$1', $sut->bestResultAmount);
+			assertEqual('+$1', $sut.bestResultAmount);
 		}
 
 		function test_BestResultName_SuiteHasBestResult_IsSet(){
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 			$result = new CashgameResult();
-			$result->setPlayer($player);
-			$this->suite->setBestResult($result);
-			$sut = $this->getSut();
+			$result.setPlayer($player);
+			suite.setBestResult($result);
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->bestResultName);
+			assertEqual('a', $sut.bestResultName);
 		}
 
 		function test_WorstResultAmount_SuiteHasWorstResult_IsSet(){
 			$result = new CashgameResult();
-			$result->setWinnings(1);
-			$this->suite->setWorstResult($result);
-			$sut = $this->getSut();
+			$result.setWinnings(1);
+			suite.setWorstResult($result);
+			$sut = getSut();
 
-			$this->assertIdentical('+$1', $sut->worstResultAmount);
+			assertIdentical('+$1', $sut.worstResultAmount);
 		}
 
 		function test_WorstResultName_SuiteHasWorstResult_IsSet(){
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 			$result = new CashgameResult();
-			$result->setPlayer($player);
-			$this->suite->setWorstResult($result);
-			$sut = $this->getSut();
+			$result.setPlayer($player);
+			suite.setWorstResult($result);
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->worstResultName);
+			assertEqual('a', $sut.worstResultName);
 		}
 
 		function test_MostTimeDuration_SuiteHasBestResult_IsSet(){
 			$result = new CashgameTotalResult();
-			$result->setTimePlayed(1);
-			$this->suite->setMostTimeResult($result);
-			$sut = $this->getSut();
+			$result.setTimePlayed(1);
+			suite.setMostTimeResult($result);
+			$sut = getSut();
 
-			$this->assertIdentical('1m', $sut->mostTimeDuration);
+			assertIdentical('1m', $sut.mostTimeDuration);
 		}
 
 		function test_MostTimeName_SuiteHasBestResult_IsSet(){
 			$player = new Player();
-			$player->setDisplayName('a');
+			$player.setDisplayName('a');
 			$result = new CashgameTotalResult();
-			$result->setPlayer($player);
-			$this->suite->setMostTimeResult($result);
-			$sut = $this->getSut();
+			$result.setPlayer($player);
+			suite.setMostTimeResult($result);
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->mostTimeName);
+			assertEqual('a', $sut.mostTimeName);
 		}
 
 		private function getSut(){
-			return new CashgameFactsModel(new User(), new Homegame(), $this->suite);
+			return new CashgameFactsModel(new User(), new Homegame(), suite);
 		}
 
 	}

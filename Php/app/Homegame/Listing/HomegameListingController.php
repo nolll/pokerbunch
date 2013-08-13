@@ -11,15 +11,15 @@ namespace app\Homegame\Listing{
 
 		public function __construct(UserContext $userContext,
 									HomegameStorage $homegameStorage){
-			$this->userContext = $userContext;
-			$this->homegameStorage = $homegameStorage;
+			userContext = $userContext;
+			homegameStorage = $homegameStorage;
 		}
 
 		public function action_listing(){
-			$this->userContext->requireAdmin();
-			$homegames = $this->homegameStorage->getHomegames();
-			$model = new HomegameListingModel($this->userContext->getUser(), $homegames);
-			return $this->view('app/Homegame/Listing/Listing', $model);
+			userContext.requireAdmin();
+			$homegames = homegameStorage.getHomegames();
+			$model = new HomegameListingModel(userContext.getUser(), $homegames);
+			return view('app/Homegame/Listing/Listing', $model);
 		}
 
     }

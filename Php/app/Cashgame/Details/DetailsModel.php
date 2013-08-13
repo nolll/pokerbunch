@@ -61,69 +61,69 @@ namespace app\Cashgame\Details{
 									$isManager,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegame = $homegame;
-			$this->cashgame = $cashgame;
-			$this->player = $player;
+			homegame = $homegame;
+			cashgame = $cashgame;
+			player = $player;
 
-			$this->heading = sprintf('Cashgame %1$s', Globalization::formatShortDate($cashgame->getStartTime(), true));
-			$this->location = $cashgame->getLocation();
+			heading = sprintf('Cashgame %1$s', Globalization::formatShortDate($cashgame.getStartTime(), true));
+			location = $cashgame.getLocation();
 
-			$duration = $cashgame->getDuration();
-			$this->duration = Globalization::formatDuration($duration);
-			$this->durationEnabled = $duration > 0;
+			$duration = $cashgame.getDuration();
+			duration = Globalization::formatDuration($duration);
+			durationEnabled = $duration > 0;
 
-			$startTime = $cashgame->getStartTime();
-			$this->showStartTime = $cashgame->getStatus() >= GameStatus::running && $startTime != null;
-			if($this->showStartTime){
-				$this->startTime = Globalization::formatTime($startTime);
+			$startTime = $cashgame.getStartTime();
+			showStartTime = $cashgame.getStatus() >= GameStatus::running && $startTime != null;
+			if(showStartTime){
+				startTime = Globalization::formatTime($startTime);
 			}
 
-			$endTime = $cashgame->getEndTime();
-			$this->showEndTime = $cashgame->getStatus() >= GameStatus::finished && $endTime != null;
-			if($this->showEndTime){
-				$this->endTime = Globalization::formatTime($endTime);
+			$endTime = $cashgame.getEndTime();
+			showEndTime = $cashgame.getStatus() >= GameStatus::finished && $endTime != null;
+			if(showEndTime){
+				endTime = Globalization::formatTime($endTime);
 			}
 
-			$this->status = GameStatus::getName($cashgame->getStatus());
+			status = GameStatus::getName($cashgame.getStatus());
 
-			$results = $this->getResults($cashgame);
-			$this->results = $results;
+			$results = getResults($cashgame);
+			results = $results;
 
-			$this->setUrls();
-			$this->setButtons($results, $player, $isManager);
+			setUrls();
+			setButtons($results, $player, $isManager);
 
-			$this->resultTableModel = new ResultTableModel($this->homegame, $this->cashgame);
+			resultTableModel = new ResultTableModel(homegame, cashgame);
 
-			$this->chartDataUrl = new CashgameDetailsChartJsonUrlModel($homegame, $cashgame);
+			chartDataUrl = new CashgameDetailsChartJsonUrlModel($homegame, $cashgame);
 		}
 
 		private function setButtons($results, Player $player, $isManager){
 			$numResults = count($results);
-			$this->enablePublish = $this->publishButtonVisible($isManager, $numResults);
-			$this->enableUnpublish = $this->unpublishButtonVisible($isManager, $numResults);
-			$this->enableEdit = $isManager;
-			$this->enableCheckpointsButton = $this->cashgame->isInGame($player);
+			enablePublish = publishButtonVisible($isManager, $numResults);
+			enableUnpublish = unpublishButtonVisible($isManager, $numResults);
+			enableEdit = $isManager;
+			enableCheckpointsButton = cashgame.isInGame($player);
 		}
 
 		private function setUrls(){
-			$this->publishUrl = new CashgamePublishUrlModel($this->homegame, $this->cashgame);
-			$this->unpublishUrl = new CashgameUnpublishUrlModel($this->homegame, $this->cashgame);
-			$this->editUrl = new CashgameEditUrlModel($this->homegame, $this->cashgame);
-			$this->checkpointsUrl = new CashgameActionUrlModel($this->homegame, $this->cashgame, $this->player);
+			publishUrl = new CashgamePublishUrlModel(homegame, cashgame);
+			unpublishUrl = new CashgameUnpublishUrlModel(homegame, cashgame);
+			editUrl = new CashgameEditUrlModel(homegame, cashgame);
+			checkpointsUrl = new CashgameActionUrlModel(homegame, cashgame, player);
 		}
 
 		private function getResults(Cashgame $cashgame){
-			$results = $cashgame->getResults();
+			$results = $cashgame.getResults();
 			usort($results, 'entities\CashgameResultComparer::compareName');
 			return $results;
 		}
 
 		private function publishButtonVisible($isManager, $numResults){
-			return $isManager && $this->cashgame->getStatus() == GameStatus::finished && $numResults >= 2;
+			return $isManager && cashgame.getStatus() == GameStatus::finished && $numResults >= 2;
 		}
 
 		private function unpublishButtonVisible($isManager){
-			return $isManager && $this->cashgame->getStatus() == GameStatus::published;
+			return $isManager && cashgame.getStatus() == GameStatus::published;
 		}
 
 	}

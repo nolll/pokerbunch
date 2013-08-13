@@ -12,16 +12,16 @@ namespace tests\AppTests\Sharing{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
 			$sharingStorage = TestHelper::getFake(ClassNames::$SharingStorage);
-			$this->sut = new SharingIndexController($this->userContext, $sharingStorage);
+			sut = new SharingIndexController(userContext, $sharingStorage);
 		}
 
 		function test_ActionIndex_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_index("homegame1");
+			sut.action_index("homegame1");
 		}
 
 	}

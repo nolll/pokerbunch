@@ -17,41 +17,41 @@ namespace app\Cashgame{
 		public $yearModels;
 
 		public function __construct(Homegame $homegame, $years, $year = null, $view = null){
-			$this->homegame = $homegame;
-			$this->years = $years != null ? $years : array();
-			$this->view = $view;
+			homegame = $homegame;
+			years = $years != null ? $years : array();
+			view = $view;
 
-			$this->selected = $year != null ? $year : 'All Time';
-			$this->yearModels = array();
+			selected = $year != null ? $year : 'All Time';
+			yearModels = array();
 
-			$this->setupNav();
+			setupNav();
 		}
 
 		private function setupNav(){
-			if($this->years != null){
-				for($i = 0; $i < count($this->years); $i++){
-					$year = $this->years[$i];
-					$this->yearModels[] = new NavigationYearModel($this->getNavigationUrl($year), $year);
+			if(years != null){
+				for($i = 0; $i < count(years); $i++){
+					$year = years[$i];
+					yearModels[] = new NavigationYearModel(getNavigationUrl($year), $year);
 				}
-				$this->yearModels[] = new NavigationYearModel($this->getNavigationUrl(), 'All Time');
+				yearModels[] = new NavigationYearModel(getNavigationUrl(), 'All Time');
 			}
 		}
 
 		private function getNavigationUrl($year = null){
-			if($this->view == 'matrix'){
-				return new CashgameMatrixUrlModel($this->homegame, $year);
+			if(view == 'matrix'){
+				return new CashgameMatrixUrlModel(homegame, $year);
 			}
-			if($this->view == 'leaderboard'){
-				return new CashgameLeaderboardUrlModel($this->homegame, $year);
+			if(view == 'leaderboard'){
+				return new CashgameLeaderboardUrlModel(homegame, $year);
 			}
-			if($this->view == 'chart'){
-				return new CashgameChartUrlModel($this->homegame, $year);
+			if(view == 'chart'){
+				return new CashgameChartUrlModel(homegame, $year);
 			}
-			if($this->view == 'listing'){
-				return new CashgameListingUrlModel($this->homegame, $year);
+			if(view == 'listing'){
+				return new CashgameListingUrlModel(homegame, $year);
 			}
-			if($this->view == 'facts'){
-				return new CashgameFactsUrlModel($this->homegame, $year);
+			if(view == 'facts'){
+				return new CashgameFactsUrlModel(homegame, $year);
 			}
 			return null;
 		}

@@ -9,24 +9,24 @@ namespace app\Player{
 
 		public function __construct($subject, $message, array $players){
 			parent::__construct($subject, $message);
-			$this->players = $players;
+			players = $players;
 		}
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
+			if(isNullOrEmpty(subject)){
 				return true;
-			} else if(!$this->playerExists()) {
+			} else if(!playerExists()) {
 				return true;
 			} else {
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 		}
 
 		private function playerExists(){
-			if($this->players != null){
-				foreach($this->players as $player){ /** @var $player Player */
-					if($player->getDisplayName() == $this->subject){
+			if(players != null){
+				foreach(players as $player){ /** @var $player Player */
+					if($player.getDisplayName() == subject){
 						return true;
 					}
 				}

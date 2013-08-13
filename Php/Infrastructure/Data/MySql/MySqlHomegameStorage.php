@@ -14,7 +14,7 @@ namespace Infrastructure\Data\MySql {
 		private $db;
 
 		public function __construct(StorageProvider $db){
-			$this->db = $db;
+			db = $db;
 		}
 
 		public static function className(){
@@ -25,19 +25,19 @@ namespace Infrastructure\Data\MySql {
 		 * @return Homegame[]
 		 */
 		public function getHomegames(){
-			$sql = $this->getHomegameBaseSql();
+			$sql = getHomegameBaseSql();
 			$sql .= "ORDER BY h.DisplayName";
-			return $this->getHomegamesFromSql($sql);
+			return getHomegamesFromSql($sql);
 		}
 
 		public function getHomegamesByRole($token, $role){
-			$sql = $this->getHomegameBaseSql();
+			$sql = getHomegameBaseSql();
 			$sql .= "INNER JOIN player p on h.HomegameID = p.HomegameID " .
 					"INNER JOIN user u on p.UserID = u.UserID " .
 					"WHERE u.Token = '{$token}' " .
 					"AND p.RoleID >= {$role} " .
 					"ORDER BY h.Name";
-			return $this->getHomegamesFromSql($sql);
+			return getHomegamesFromSql($sql);
 		}
 
 		/**
@@ -45,9 +45,9 @@ namespace Infrastructure\Data\MySql {
 		 * @return Homegame
 		 */
 		public function getHomegameByName($homegameName){
-			$sql = $this->getHomegameBaseSql();
+			$sql = getHomegameBaseSql();
 			$sql .= "WHERE Name = '{$homegameName}'";
-			return $this->getHomegameFromSql($sql);
+			return getHomegameFromSql($sql);
 		}
 
 		/**
@@ -55,17 +55,17 @@ namespace Infrastructure\Data\MySql {
 		 * @return RawHomegame
 		 */
 		public function getRawHomegameByName($homegameName){
-			$sql = $this->getHomegameBaseSql();
+			$sql = getHomegameBaseSql();
 			$sql .= "WHERE Name = '{$homegameName}'";
-			return $this->getRawHomegameFromSql($sql);
+			return getRawHomegameFromSql($sql);
 		}
 
 		public function getHomegameRole(Homegame $homegame, User $user){
 			$sql =	"SELECT p.RoleID " .
 					"FROM player p " .
-					"WHERE p.UserID = " . $user->getId() . " " .
-					"AND p.HomegameID = " . $homegame->getId();
-			return $this->getRoleFromSql($sql);
+					"WHERE p.UserID = " . $user.getId() . " " .
+					"AND p.HomegameID = " . $homegame.getId();
+			return getRoleFromSql($sql);
 		}
 
 		private function getHomegameBaseSql(){
@@ -75,36 +75,36 @@ namespace Infrastructure\Data\MySql {
 		}
 
 		private function getHomegameFromSql($sql){
-			$res = $this->db->query($sql);
-			foreach($res->fetchAll() as $row){
-				return $this->homegameFromDbRow($row);
+			$res = db.query($sql);
+			foreach($res.fetchAll() as $row){
+				return homegameFromDbRow($row);
 			}
 			return null;
 		}
 
 		private function getRawHomegameFromSql($sql){
-			$res = $this->db->query($sql);
-			foreach($res->fetchAll() as $row){
-				return $this->rawHomegameFromDbRow($row);
+			$res = db.query($sql);
+			foreach($res.fetchAll() as $row){
+				return rawHomegameFromDbRow($row);
 			}
 			return null;
 		}
 
 		private function getRoleFromSql($sql){
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$role = Role::$guest;
-			foreach($res->fetchAll() as $row){
-				$role = $this->roleFromDbRow($row);
+			foreach($res.fetchAll() as $row){
+				$role = roleFromDbRow($row);
 				break;
 			}
 			return $role;
 		}
 
 		private function getHomegamesFromSql($sql){
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$homegames = array();
-			foreach($res->fetchAll() as $row){
-				$homegames[] = $this->homegameFromDbRow($row);
+			foreach($res.fetchAll() as $row){
+				$homegames[] = homegameFromDbRow($row);
 			}
 			return $homegames;
 		}
@@ -114,13 +114,13 @@ namespace Infrastructure\Data\MySql {
 		 * @return Homegame
 		 */
 		public function addHomegame(Homegame $homegame){
-			$currency = $homegame->getCurrency();
+			$currency = $homegame.getCurrency();
 			$sql =	"INSERT INTO homegame " .
 					"(Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) " .
 					"VALUES " .
-					"('{$homegame->getSlug()}', '{$homegame->getDisplayName()}', '{$homegame->getDescription()}', '{$currency->getSymbol()}', '{$currency->getLayout()}', '{$homegame->getTimezone()->getName()}', 0, {$this->db->boolToInt($homegame->cashgamesEnabled)}, {$this->db->boolToInt($homegame->tournamentsEnabled)}, {$this->db->boolToInt($homegame->videosEnabled)}, '{$homegame->getHouseRules()}')";
-			$rowCount = $this->db->execute($sql);
-			$homegame->setId($this->db->getLatestInsertId($rowCount > 0));
+					"('{$homegame.getSlug()}', '{$homegame.getDisplayName()}', '{$homegame.getDescription()}', '{$currency.getSymbol()}', '{$currency.getLayout()}', '{$homegame.getTimezone().getName()}', 0, {db.boolToInt($homegame.cashgamesEnabled)}, {db.boolToInt($homegame.tournamentsEnabled)}, {db.boolToInt($homegame.videosEnabled)}, '{$homegame.getHouseRules()}')";
+			$rowCount = db.execute($sql);
+			$homegame.setId(db.getLatestInsertId($rowCount > 0));
 			return $homegame;
 		}
 
@@ -129,22 +129,22 @@ namespace Infrastructure\Data\MySql {
 		 * @return bool
 		 */
 		public function updateHomegame(Homegame $homegame){
-			$currency = $homegame->getCurrency();
+			$currency = $homegame.getCurrency();
 			$sql =	"UPDATE homegame " .
 				"SET " .
-				"Name = '{$homegame->getSlug()}', " .
-				"DisplayName = '{$homegame->getDisplayName()}', " .
-				"Description = '{$homegame->getDescription()}', " .
-				"HouseRules = '{$homegame->getHouseRules()}', " .
-				"Currency = '{$currency->getSymbol()}', " .
-				"CurrencyLayout = '{$currency->getLayout()}', " .
-				"Timezone = '{$homegame->getTimezone()->getName()}', " .
-				"DefaultBuyin = {$homegame->getDefaultBuyin()}, " .
-				"CashgamesEnabled = {$this->db->boolToInt($homegame->cashgamesEnabled)}, " .
-				"TournamentsEnabled = {$this->db->boolToInt($homegame->tournamentsEnabled)}, " .
-				"VideosEnabled = {$this->db->boolToInt($homegame->videosEnabled)} " .
-				"WHERE HomegameID = {$homegame->getId()}";
-			$rowCount = $this->db->execute($sql);
+				"Name = '{$homegame.getSlug()}', " .
+				"DisplayName = '{$homegame.getDisplayName()}', " .
+				"Description = '{$homegame.getDescription()}', " .
+				"HouseRules = '{$homegame.getHouseRules()}', " .
+				"Currency = '{$currency.getSymbol()}', " .
+				"CurrencyLayout = '{$currency.getLayout()}', " .
+				"Timezone = '{$homegame.getTimezone().getName()}', " .
+				"DefaultBuyin = {$homegame.getDefaultBuyin()}, " .
+				"CashgamesEnabled = {db.boolToInt($homegame.cashgamesEnabled)}, " .
+				"TournamentsEnabled = {db.boolToInt($homegame.tournamentsEnabled)}, " .
+				"VideosEnabled = {db.boolToInt($homegame.videosEnabled)} " .
+				"WHERE HomegameID = {$homegame.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -154,41 +154,41 @@ namespace Infrastructure\Data\MySql {
 		 */
 		public function deleteHomegame(Homegame $homegame){
 			$sql =	"DELETE FROM homegame " .
-					"WHERE Name = '{$homegame->getSlug()}'";
-			$rowCount = $this->db->execute($sql);
+					"WHERE Name = '{$homegame.getSlug()}'";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
 		private function homegameFromDbRow($row){
 			$homegame = new Homegame();
-			$homegame->setId($row["HomegameID"]);
-			$homegame->setSlug($row["Name"]);
-			$homegame->setDisplayName($row["DisplayName"]);
-			$homegame->setDescription($row["Description"]);
-			$homegame->setHouseRules($row["HouseRules"]);
-			$homegame->setCurrency(new CurrencySettings($row["Currency"], $row["CurrencyLayout"]));
-			$homegame->setTimezone(new DateTimeZone($row["Timezone"]));
-			$homegame->setDefaultBuyin($row["DefaultBuyin"]);
-			$homegame->cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
-			$homegame->tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
-			$homegame->videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
+			$homegame.setId($row["HomegameID"]);
+			$homegame.setSlug($row["Name"]);
+			$homegame.setDisplayName($row["DisplayName"]);
+			$homegame.setDescription($row["Description"]);
+			$homegame.setHouseRules($row["HouseRules"]);
+			$homegame.setCurrency(new CurrencySettings($row["Currency"], $row["CurrencyLayout"]));
+			$homegame.setTimezone(new DateTimeZone($row["Timezone"]));
+			$homegame.setDefaultBuyin($row["DefaultBuyin"]);
+			$homegame.cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
+			$homegame.tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
+			$homegame.videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
 			return $homegame;
 		}
 
 		private function rawHomegameFromDbRow($row){
 			$homegame = new RawHomegame();
-			$homegame->setId($row["HomegameID"]);
-			$homegame->setSlug($row["Name"]);
-			$homegame->setDisplayName($row["DisplayName"]);
-			$homegame->setDescription($row["Description"]);
-			$homegame->setHouseRules($row["HouseRules"]);
-			$homegame->setCurrencyLayout($row["CurrencyLayout"]);
-			$homegame->setCurrencySymbol($row["Currency"]);
-			$homegame->setTimezoneName($row["Timezone"]);
-			$homegame->setDefaultBuyin($row["DefaultBuyin"]);
-			$homegame->cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
-			$homegame->tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
-			$homegame->videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
+			$homegame.setId($row["HomegameID"]);
+			$homegame.setSlug($row["Name"]);
+			$homegame.setDisplayName($row["DisplayName"]);
+			$homegame.setDescription($row["Description"]);
+			$homegame.setHouseRules($row["HouseRules"]);
+			$homegame.setCurrencyLayout($row["CurrencyLayout"]);
+			$homegame.setCurrencySymbol($row["Currency"]);
+			$homegame.setTimezoneName($row["Timezone"]);
+			$homegame.setDefaultBuyin($row["DefaultBuyin"]);
+			$homegame.cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
+			$homegame.tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
+			$homegame.videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
 			return $homegame;
 		}
 

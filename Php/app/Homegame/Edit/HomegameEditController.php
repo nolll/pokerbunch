@@ -29,58 +29,58 @@ namespace app\Homegame\Edit{
 									HomegameValidatorFactory $homegameValidatorFactory,
 									CashgameRepository $cashgameRepository,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->homegameStorage = $homegameStorage;
-			$this->homegameRepository = $homegameRepository;
-			$this->homegameValidatorFactory = $homegameValidatorFactory;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->request = $request;
+			userContext = $userContext;
+			homegameStorage = $homegameStorage;
+			homegameRepository = $homegameRepository;
+			homegameValidatorFactory = $homegameValidatorFactory;
+			cashgameRepository = $cashgameRepository;
+			request = $request;
 		}
 
 		public function action_edit($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			return $this->showForm($homegame);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			return showForm($homegame);
 		}
 
 		public function action_edit_post($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			$homegame = $this->getPostedHomegame($homegame);
-			$validator = $this->homegameValidatorFactory->getEditHomegameValidator($homegame);
-			if($validator->isValid()){
-				$this->homegameStorage->updateHomegame($homegame);
-				return $this->redirect(new HomegameDetailsUrlModel($homegame));
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			$homegame = getPostedHomegame($homegame);
+			$validator = homegameValidatorFactory.getEditHomegameValidator($homegame);
+			if($validator.isValid()){
+				homegameStorage.updateHomegame($homegame);
+				return redirect(new HomegameDetailsUrlModel($homegame));
 			} else {
-				return $this->showForm($homegame, $validator->getErrors());
+				return showForm($homegame, $validator.getErrors());
 			}
 		}
 
 		private function getPostedHomegame(Homegame $homegame){
-			$homegame->setDescription($this->request->getParamPost('description'));
-			$homegame->setHouseRules($this->request->getParamPost('houserules'));
-			$currencySymbol = $this->request->getParamPost('currencysymbol');
-			$currencyLayout = $this->request->getParamPost('currencylayout');
+			$homegame.setDescription(request.getParamPost('description'));
+			$homegame.setHouseRules(request.getParamPost('houserules'));
+			$currencySymbol = request.getParamPost('currencysymbol');
+			$currencyLayout = request.getParamPost('currencylayout');
 			$currency = new CurrencySettings($currencySymbol, $currencyLayout);
-			$homegame->setCurrency($currency);
-			$timezoneName = $this->request->getParamPost('timezone');
+			$homegame.setCurrency($currency);
+			$timezoneName = request.getParamPost('timezone');
 			if($timezoneName != null){
-				$homegame->setTimezone(new DateTimeZone($timezoneName));
+				$homegame.setTimezone(new DateTimeZone($timezoneName));
 			}
-			$homegame->setDefaultBuyin($this->request->getParamPost('defaultbuyin'));
-			$homegame->cashgamesEnabled = $this->request->getParamPost('cashgames') != null;
-			$homegame->tournamentsEnabled = $this->request->getParamPost('tournaments') != null;
-			$homegame->videosEnabled = $this->request->getParamPost('videos') != null;
+			$homegame.setDefaultBuyin(request.getParamPost('defaultbuyin'));
+			$homegame.cashgamesEnabled = request.getParamPost('cashgames') != null;
+			$homegame.tournamentsEnabled = request.getParamPost('tournaments') != null;
+			$homegame.videosEnabled = request.getParamPost('videos') != null;
 			return $homegame;
 		}
 
 		private function showForm(Homegame $homegame, array $validationErrors = null){
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$model = new HomegameEditModel($this->userContext->getUser(), $homegame, $runningGame);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$model = new HomegameEditModel(userContext.getUser(), $homegame, $runningGame);
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/Homegame/Edit/Edit', $model);
+			return view('app/Homegame/Edit/Edit', $model);
 		}
 
 	}

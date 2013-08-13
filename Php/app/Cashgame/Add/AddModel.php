@@ -21,9 +21,9 @@ namespace app\Cashgame\Add{
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
 			if($cashgame != null){
-				$this->location = $cashgame->getLocation();
+				location = $cashgame.getLocation();
 			}
-			$this->locationSelectModel = $this->getLocationSelectModel($locations, $this->location);
+			locationSelectModel = getLocationSelectModel($locations, location);
 		}
 
 		private function getLocationSelectModel($locations, $location){

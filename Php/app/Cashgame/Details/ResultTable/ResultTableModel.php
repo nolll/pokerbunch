@@ -10,16 +10,16 @@ namespace app\Cashgame\Details\ResultTable{
 
 		public function __construct(Homegame $homegame,
 									Cashgame $cashgame){
-			$results = $this->getSortedResults($cashgame);
+			$results = getSortedResults($cashgame);
 			$resultModels = array();
 			foreach($results as $result){
 				$resultModels[] = new ResultTableItemModel($homegame, $cashgame, $result);
 			}
-			$this->resultModels = $resultModels;
+			resultModels = $resultModels;
 		}
 
 		private function getSortedResults(Cashgame $cashgame){
-			$results = $cashgame->getResults();
+			$results = $cashgame.getResults();
 			usort($results, 'entities\CashgameResultComparer::compareResult');
 			return $results;
 		}

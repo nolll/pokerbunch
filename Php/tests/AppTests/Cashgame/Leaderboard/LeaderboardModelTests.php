@@ -15,7 +15,7 @@ namespace tests\AppTests\Cashgame\Leaderboard{
 
 			$sut = new LeaderboardModel(new User(), $homegame, $suite);
 
-			$this->assertIsA($sut->tableModel, 'app\Cashgame\Leaderboard\TableModel');
+			assertIsA($sut.tableModel, 'app\Cashgame\Leaderboard\TableModel');
 		}
 
 	}

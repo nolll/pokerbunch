@@ -12,59 +12,59 @@ namespace Domain\Classes {
 		private $globalRole;
 
 		public function __construct(){
-			$this->globalRole = Role::$none;
+			globalRole = Role::$none;
 		}
 
 		public function getId(){
-			return $this->id;
+			return id;
 		}
 
 		public function setId($id){
-			$this->id = $id;
+			id = $id;
 		}
 
 		public function getUserName(){
-			return $this->userName;
+			return userName;
 		}
 
 		public function setUserName($userName){
-			$this->userName = $userName;
+			userName = $userName;
 		}
 
 		public function getDisplayName(){
-			return $this->displayName;
+			return displayName;
 		}
 
 		public function setDisplayName($displayName){
-			$this->displayName = $displayName;
+			displayName = $displayName;
 		}
 
 		public function getRealName(){
-			return $this->realName;
+			return realName;
 		}
 
 		public function setRealName($realName){
-			$this->realName = $realName;
+			realName = $realName;
 		}
 
 		public function getEmail(){
-			return $this->email;
+			return email;
 		}
 
 		public function setEmail($email){
-			$this->email = $email;
+			email = $email;
 		}
 
 		public function getGlobalRole(){
-			return $this->globalRole;
+			return globalRole;
 		}
 
 		public function setGlobalRole($globalRole){
-			$this->globalRole = $globalRole;
+			globalRole = $globalRole;
 		}
 
 		public function isAdmin(){
-			return $this->globalRole == Role::$admin;
+			return globalRole == Role::$admin;
 		}
 
 	}

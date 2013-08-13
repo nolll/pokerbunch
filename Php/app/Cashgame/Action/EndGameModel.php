@@ -15,7 +15,7 @@ namespace app\Cashgame\Action{
 									array $years = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->showDiff = true;
+			showDiff = true;
         }
 
 	}

@@ -11,14 +11,14 @@ namespace app{
 		private $homegameRepository;
 
 		public function __construct(HomegameRepository $homegameRepository){
-			$this->homegameRepository = $homegameRepository;
+			homegameRepository = $homegameRepository;
 		}
 		*/
 
 		private $injector;
 
 		public function __construct(Injector $injector){
-			$this->injector = $injector;
+			injector = $injector;
 		}
 
 		protected function parseParam($param, $paramType){
@@ -29,7 +29,7 @@ namespace app{
 				return DateTimeFactory::create($param);
 			}
 			if($paramType == 'entities\Homegame'){
-				return $this->getHomegameRepository()->getByName($param);
+				return getHomegameRepository().getByName($param);
 			}
 			return $param;
 		}
@@ -38,7 +38,7 @@ namespace app{
 		 * @return HomegameRepository
 		 */
 		private function getHomegameRepository(){
-			return $this->injector->getInstance('Domain\Repositories\HomegameRepository');
+			return injector.getInstance('Domain\Repositories\HomegameRepository');
 		}
 
 	}

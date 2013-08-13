@@ -14,97 +14,97 @@ namespace tests\AppTests\Cashgame\Matrix{
 		private $result;
 
 		function setUp(){
-			$this->cashgame = new Cashgame();
-			$this->result = new CashgameResult();
+			cashgame = new Cashgame();
+			result = new CashgameResult();
 		}
 
 		function test_ShowWinnings_WithResult_IsTrue(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showResult);
+			assertTrue($sut.showResult);
 		}
 
 		function test_Buyin_WithResult_IsSet(){
-			$this->result->setBuyin(1);
+			result.setBuyin(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('1', $sut->buyin);
+			assertEqual('1', $sut.buyin);
 		}
 
 		function test_Cashout_WithResult_IsSet(){
-			$this->result->setStack(1);
+			result.setStack(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('1', $sut->cashout);
+			assertEqual('1', $sut.cashout);
 		}
 
 		function test_Winnings_WithResult_IsSet(){
-			$this->result->setWinnings(1);
+			result.setWinnings(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('+1', $sut->winnings);
+			assertIdentical('+1', $sut.winnings);
 		}
 
 		function test_ShowWinnings_WithoutResult_IsFalse(){
-			$this->result = null;
+			result = null;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showResult);
+			assertFalse($sut.showResult);
 		}
 
 		function test_ShowTransactions_ResultWithBuyin_IsTrue(){
-			$this->result->setBuyin(1);
+			result.setBuyin(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showTransactions);
+			assertTrue($sut.showTransactions);
 		}
 
 		function test_ShowTransactions_ResultWithZeroBuyin_IsFalse(){
-			$this->result->setBuyin(0);
+			result.setBuyin(0);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showTransactions);
+			assertFalse($sut.showTransactions);
 		}
 
 		function test_WinningsClass_WithPositiveResult_IsPosResult(){
-			$this->result->setWinnings(1);
+			result.setWinnings(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("pos-result", $sut->resultClass);
+			assertEqual("pos-result", $sut.resultClass);
 		}
 
 		function test_WinningsClass_WithNegativeResult_IsNegResult(){
-			$this->result->setWinnings(-1);
+			result.setWinnings(-1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("neg-result", $sut->resultClass);
+			assertEqual("neg-result", $sut.resultClass);
 		}
 
 		function test_HasBestResult_PlayerWithBestResult_IsTrue(){
 			$cashgameResult = new CashgameResult();
-			$this->cashgame->setResults(array($cashgameResult));
+			cashgame.setResults(array($cashgameResult));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->hasBestResult);
+			assertTrue($sut.hasBestResult);
 		}
 
 		function test_HasBestResult_PlayerWithoutBestResult_IsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->hasBestResult);
+			assertFalse($sut.hasBestResult);
 		}
 
 		function getSut(){
-			return new CellModel($this->cashgame, $this->result);
+			return new CellModel(cashgame, result);
 		}
 
 	}

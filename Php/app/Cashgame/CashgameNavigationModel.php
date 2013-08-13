@@ -9,8 +9,8 @@ namespace app\Cashgame{
 		public $yearNavModel;
 
 		public function __construct(Homegame $homegame, $view, $years, $year = null, Cashgame $runningGame = null){
-			$this->pageNavModel = new CashgamePageNavigationModel($homegame, $year, $view, $runningGame);
-			$this->yearNavModel = new CashgameYearNavigationModel($homegame, $years, $year, $view);
+			pageNavModel = new CashgamePageNavigationModel($homegame, $year, $view, $runningGame);
+			yearNavModel = new CashgameYearNavigationModel($homegame, $years, $year, $view);
 		}
 
 	}

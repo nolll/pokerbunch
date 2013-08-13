@@ -3,8 +3,8 @@ namespace core\Validation{
 	class RequiredValidator extends SimpleValidator {
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
-				$this->addError($this->message);
+			if(isNullOrEmpty(subject)){
+				addError(message);
 				return false;
 			}
 			return true;

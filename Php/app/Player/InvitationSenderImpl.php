@@ -16,31 +16,31 @@ namespace app\Player{
 		public function __construct(MessageSenderFactory $messageSenderFactory,
 									InvitationCodeCreator $invitationCodeCreator,
 									Settings $settings){
-			$this->messageSenderFactory = $messageSenderFactory;
-			$this->invitationCodeCreator = $invitationCodeCreator;
-			$this->settings = $settings;
+			messageSenderFactory = $messageSenderFactory;
+			invitationCodeCreator = $invitationCodeCreator;
+			settings = $settings;
 		}
 
 		public function send(Homegame $homegame, Player $player, $email){
-			$subject = $this->getSubject($homegame);
-			$body = $this->getBody($homegame, $player);
-			$messageSender = $this->messageSenderFactory->getMessageSender();
-			$messageSender->send($email, $subject, $body);
+			$subject = getSubject($homegame);
+			$body = getBody($homegame, $player);
+			$messageSender = messageSenderFactory.getMessageSender();
+			$messageSender.send($email, $subject, $body);
 		}
 
 		public function getSubject(Homegame $homegame){
-			return 'Invitation to Poker Bunch: ' . $homegame->getDisplayName();
+			return 'Invitation to Poker Bunch: ' . $homegame.getDisplayName();
 		}
 
 		public function getBody(Homegame $homegame, Player $player){
-			$siteUrl = $this->settings->getSiteUrl();
+			$siteUrl = settings.getSiteUrl();
 			$joinUrl = new HomegameJoinUrlModel($homegame);
-			$joinUrlStr = $siteUrl . $joinUrl->url;
+			$joinUrlStr = $siteUrl . $joinUrl.url;
 			$userAddUrl = new UserAddUrlModel();
-			$userAddUrlStr = $siteUrl . $userAddUrl->url;
+			$userAddUrlStr = $siteUrl . $userAddUrl.url;
 
-			$invitationCode = $this->invitationCodeCreator->getCode($player);
-			$body = 'You have been invited to join the poker game: ' . $homegame->getDisplayName() . ".\r\n\r\n" .
+			$invitationCode = invitationCodeCreator.getCode($player);
+			$body = 'You have been invited to join the poker game: ' . $homegame.getDisplayName() . ".\r\n\r\n" .
 				'To accept this invitation, go to ' . $joinUrlStr .
 				' and enter this verification code: ' . $invitationCode . "\r\n\r\n" .
 				'If you don\'t have an account, you can register at ' . $userAddUrlStr;

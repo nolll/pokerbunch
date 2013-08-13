@@ -6,14 +6,14 @@ namespace core\Validation{
 	class DateTimeValidator extends SimpleValidator {
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
+			if(isNullOrEmpty(subject)){
 				return true;
 			}
 			try{
-				new DateTime($this->subject);
+				new DateTime(subject);
 				return true;
 			} catch (Exception $e){
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 		}

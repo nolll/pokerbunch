@@ -19,58 +19,58 @@ namespace tests\AppTests\Cashgame\Edit{
 		private $locations;
 
 		function setUp(){
-			$this->user = new User();
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
-			$this->locations = array();
+			user = new User();
+			homegame = new Homegame();
+			cashgame = new Cashgame();
+			locations = array();
 		}
 
 		function test_IsoDate_IsSet(){
-			$this->cashgame->setStartTime(new DateTime("2010-01-01 01:00:00"));
+			cashgame.setStartTime(new DateTime("2010-01-01 01:00:00"));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual("2010-01-01", $sut->isoDate);
+			assertEqual("2010-01-01", $sut.isoDate);
 		}
 
 		function test_CancelUrl_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->cancelUrl, 'app\Urls\CashgameDetailsUrlModel');
+			assertIsA($sut.cancelUrl, 'app\Urls\CashgameDetailsUrlModel');
 		}
 
 		function test_DeleteUrl_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->deleteUrl, 'app\Urls\CashgameDeleteUrlModel');
+			assertIsA($sut.deleteUrl, 'app\Urls\CashgameDeleteUrlModel');
 		}
 
 		function test_EnableDelete_WithPublishedGame_IsFalse(){
-			$this->cashgame->setStatus(GameStatus::published);
+			cashgame.setStatus(GameStatus::published);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->enableDelete);
+			assertFalse($sut.enableDelete);
 		}
 
 		function test_EnableDelete_WithFinishedGame_IsTrue(){
-			$this->cashgame->setStatus(GameStatus::finished);
+			cashgame.setStatus(GameStatus::finished);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->enableDelete);
+			assertTrue($sut.enableDelete);
 		}
 
         function test_LocationSelectModel_IsCorrectType(){
-            $this->locations = array('location 1', 'location 2', 'location 3');
+            locations = array('location 1', 'location 2', 'location 3');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->locationSelectModel, 'core\FormFields\LocationFieldModel');
+			assertIsA($sut.locationSelectModel, 'core\FormFields\LocationFieldModel');
         }
 
 		private function getSut(){
-			return new CashgameEditModel($this->user, $this->homegame, $this->cashgame, $this->locations);
+			return new CashgameEditModel(user, homegame, cashgame, locations);
 		}
 
 	}

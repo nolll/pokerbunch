@@ -14,17 +14,17 @@ namespace tests\AppTests\User{
 		function test_ActionEdit_OutputsUserData(){
 			$currentUser = new User();
 			$user = new User();
-			$user->setUserName('a');
-			$user->setDisplayName('b');
-			$user->setRealName('c');
-			$user->setEmail('d');
+			$user.setUserName('a');
+			$user.setDisplayName('b');
+			$user.setRealName('c');
+			$user.setEmail('d');
 
 			$sut = new UserEditModel($currentUser, $user);
 
-			$this->assertIdentical('a', $sut->userName);
-			$this->assertIdentical('b', $sut->displayName);
-			$this->assertIdentical('c', $sut->realName);
-			$this->assertIdentical('d', $sut->email);
+			assertIdentical('a', $sut.userName);
+			assertIdentical('b', $sut.displayName);
+			assertIdentical('c', $sut.realName);
+			assertIdentical('d', $sut.email);
 		}
 
 	}

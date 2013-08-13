@@ -12,10 +12,10 @@ namespace app\User\Edit{
 
 		public function __construct(User $currentUser, User $user){
 			parent::__construct($currentUser);
-			$this->userName = $user->getUserName();
-			$this->displayName = $user->getDisplayName();
-			$this->realName = $user->getRealName();
-			$this->email = $user->getEmail();
+			userName = $user.getUserName();
+			displayName = $user.getDisplayName();
+			realName = $user.getRealName();
+			email = $user.getEmail();
 		}
 
 	}

@@ -7,9 +7,9 @@ namespace app\Chart{
 		public $pattern;
 
 		public function __construct($type, $label, $pattern = null){
-			$this->type = $type;
-			$this->label = $label;
-			$this->pattern = $pattern;
+			type = $type;
+			label = $label;
+			pattern = $pattern;
 		}
 
 	}

@@ -23,83 +23,83 @@ namespace entities{
 		public $videosEnabled;
 
 		public function __construct(){
-			$this->locations = array();
-			$this->setCurrency(self::getDefaultCurrency());
-			$this->setTimezone(self::getDefaultTimezone());
-			$this->defaultBuyin = 0;
-			$this->cashgamesEnabled = true;
-			$this->tournamentsEnabled = true;
-			$this->videosEnabled = false;
+			locations = array();
+			setCurrency(self::getDefaultCurrency());
+			setTimezone(self::getDefaultTimezone());
+			defaultBuyin = 0;
+			cashgamesEnabled = true;
+			tournamentsEnabled = true;
+			videosEnabled = false;
 		}
 
 		public function getId(){
-			return $this->id;
+			return id;
 		}
 
 		public function setId($id){
-			$this->id = $id;
+			id = $id;
 		}
 
 		public function getSlug(){
-			return $this->slug;
+			return slug;
 		}
 
 		public function setSlug($name){
-			$this->slug = $name;
+			slug = $name;
 		}
 
 		public function getDisplayName(){
-			return $this->displayName;
+			return displayName;
 		}
 
 		public function setDisplayName($displayName){
-			$this->displayName = $displayName;
+			displayName = $displayName;
 		}
 
 		public function getDescription(){
-			return $this->description;
+			return description;
 		}
 
 		public function setDescription($description){
-			$this->description = $description;
+			description = $description;
 		}
 
 		public function getHouseRules(){
-			return $this->houseRules;
+			return houseRules;
 		}
 
 		public function setHouseRules($houseRules){
-			$this->houseRules = $houseRules;
+			houseRules = $houseRules;
 		}
 
 		/**
 		 * @return DateTimeZone
 		 */
 		public function getTimezone(){
-			return $this->timezone;
+			return timezone;
 		}
 
 		public function setTimezone(DateTimeZone $timezone = null){
-			$this->timezone = $timezone;
+			timezone = $timezone;
 		}
 
 		public function getDefaultBuyin(){
-			return $this->defaultBuyin;
+			return defaultBuyin;
 		}
 
 		public function setDefaultBuyin($defaultBuyin){
-			$this->defaultBuyin = $defaultBuyin;
+			defaultBuyin = $defaultBuyin;
 		}
 
 		/**
 		 * @return CurrencySettings
 		 */
 		public function getCurrency(){
-			return $this->currency;
+			return currency;
 		}
 
 		public function setCurrency(CurrencySettings $currency){
-			$this->currency = $currency;
+			currency = $currency;
 		}
 
 		public static function getDefaultTimezone(){

@@ -7,9 +7,9 @@ namespace app\Cashgame\Add{
 		public $location;
 
 		public function __construct(Request $request){
-			$this->location = $request->getParamPost('location');
-			if($this->location == null || $this->location == ''){
-				$this->location = $request->getParamPost('location-dropdown');
+			location = $request.getParamPost('location');
+			if(location == null || location == ''){
+				location = $request.getParamPost('location-dropdown');
 			}
 		}
 

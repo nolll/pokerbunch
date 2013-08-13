@@ -23,7 +23,7 @@ namespace Infrastructure\Data\MySql {
 		private $db;
 
 		public function __construct(StorageProvider $db){
-			$this->db = $db;
+			db = $db;
 		}
 
 		/**
@@ -35,26 +35,26 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"INSERT INTO game " .
 					"(HomegameID, Location, Status) " .
 					"VALUES " .
-					"({$homegame->getId()}, '{$cashgame->getLocation()}', {$cashgame->getStatus()})";
-			$rowCount = $this->db->execute($sql);
-			return $this->db->getLatestInsertId($rowCount > 0);
+					"({$homegame.getId()}, '{$cashgame.getLocation()}', {$cashgame.getStatus()})";
+			$rowCount = db.execute($sql);
+			return db.getLatestInsertId($rowCount > 0);
 		}
 
 		public function deleteGame(Cashgame $cashgame){
 			$sql =	"DELETE FROM game " .
-					"WHERE GameID = {$cashgame->getId()}";
-			$rowCount = $this->db->execute($sql);
+					"WHERE GameID = {$cashgame.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
 		public function addCheckpoint(Cashgame $cashgame, Player $player, Checkpoint $checkpoint){
-			$timestampStr = Globalization::formatIsoDateTime(DateTimeFactory::toUtc($checkpoint->getTimestamp()));
+			$timestampStr = Globalization::formatIsoDateTime(DateTimeFactory::toUtc($checkpoint.getTimestamp()));
 			$sql =	"INSERT INTO cashgamecheckpoint " .
 					"(GameID, PlayerID, Type, Amount, Stack, Timestamp) " .
 					"VALUES " .
-					"({$cashgame->getId()}, {$player->getId()}, {$checkpoint->getType()}, '{$checkpoint->getAmount()}', '{$checkpoint->getStack()}', '{$timestampStr}')";
-			$rowCount = $this->db->execute($sql);
-			return $this->db->getLatestInsertId($rowCount > 0);
+					"({$cashgame.getId()}, {$player.getId()}, {$checkpoint.getType()}, '{$checkpoint.getAmount()}', '{$checkpoint.getStack()}', '{$timestampStr}')";
+			$rowCount = db.execute($sql);
+			return db.getLatestInsertId($rowCount > 0);
 		}
 
 		/**
@@ -64,10 +64,10 @@ namespace Infrastructure\Data\MySql {
 		public function updateCheckpoint(Checkpoint $checkpoint){
 			$sql =	"UPDATE cashgamecheckpoint " .
 					"SET " .
-					"Amount = {$checkpoint->getAmount()}, " .
-					"Stack = {$checkpoint->getStack()} " .
-					"WHERE CheckpointID = {$checkpoint->getId()}";
-			$rowCount = $this->db->execute($sql);
+					"Amount = {$checkpoint.getAmount()}, " .
+					"Stack = {$checkpoint.getStack()} " .
+					"WHERE CheckpointID = {$checkpoint.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -78,7 +78,7 @@ namespace Infrastructure\Data\MySql {
 		public function deleteCheckpoint($id){
 			$sql =	"DELETE FROM cashgamecheckpoint " .
 					"WHERE CheckpointID = {$id}";
-			$rowCount = $this->db->execute($sql);
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
@@ -88,16 +88,16 @@ namespace Infrastructure\Data\MySql {
 					"cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp " .
 					"FROM game g " .
 					"LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID " .
-					"WHERE g.HomegameID = {$homegame->getId()} ";
+					"WHERE g.HomegameID = {$homegame.getId()} ";
 		}
 
 		public function getGame(Homegame $homegame, DateTime $date){
 			$dateStr = Globalization::formatIsoDate($date);
-			$sql =	$this->getGameSql($homegame) .
+			$sql =	getGameSql($homegame) .
 					"AND g.Date = '{$dateStr}' " .
 					"ORDER BY cp.PlayerID, cp.Timestamp";
-			$res = $this->db->query($sql);
-			$cashgames = $this->getGamesFromDbResult($homegame, $res);
+			$res = db.query($sql);
+			$cashgames = getGamesFromDbResult($homegame, $res);
 			if(count($cashgames) == 0){
 				return null;
 			}
@@ -105,7 +105,7 @@ namespace Infrastructure\Data\MySql {
 		}
 
 		public function getGames(Homegame $homegame, $status = null, $year = null){
-			$sql = $this->getGameSql($homegame);
+			$sql = getGameSql($homegame);
 			if($status != null){
 				$sql .= "AND g.Status = {$status} ";
 			}
@@ -113,8 +113,8 @@ namespace Infrastructure\Data\MySql {
 				$sql .= "AND YEAR(g.Date) = {$year} ";
 			}
 			$sql .= "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
-			$res = $this->db->query($sql);
-			return $this->getGamesFromDbResult($homegame, $res);
+			$res = db.query($sql);
+			return getGamesFromDbResult($homegame, $res);
 		}
 
 		private function getGamesFromDbResult(Homegame $homegame, $res){
@@ -123,24 +123,24 @@ namespace Infrastructure\Data\MySql {
 			$currentGameId = -1;
 			$currentResult = null;
 			$currentPlayerId = -1;
-			foreach($res->fetchAll() as $row){
+			foreach($res.fetchAll() as $row){
 				if($row["GameID"] != $currentGameId){
-					$currentGame = $this->rawCashgameFromDbRow($row);
-					$currentGameId = $currentGame->getId();
+					$currentGame = rawCashgameFromDbRow($row);
+					$currentGameId = $currentGame.getId();
 					$cashgames[] = $currentGame;
 					$currentResult = null;
 					$currentPlayerId = -1;
 				}
 				if($row["PlayerID"] != $currentPlayerId){
 					if($row["PlayerID"] != null){
-						$currentResult = $this->rawCashgameResultFromDbRow($row);
-						$currentPlayerId = $currentResult->getPlayerId();
-						$currentGame->addResult($currentResult);
+						$currentResult = rawCashgameResultFromDbRow($row);
+						$currentPlayerId = $currentResult.getPlayerId();
+						$currentGame.addResult($currentResult);
 					}
 				}
 				if($row["CheckpointID"] != null){
-					$checkpoint = $this->checkpointFromDbRow($row, $homegame->getTimezone());
-					$currentResult->addCheckpoint($checkpoint);
+					$checkpoint = checkpointFromDbRow($row, $homegame.getTimezone());
+					$currentResult.addCheckpoint($checkpoint);
 				}
 			}
 			return $cashgames;
@@ -151,30 +151,30 @@ namespace Infrastructure\Data\MySql {
 					"FROM cashgamecheckpoint ccp " .
 					"LEFT JOIN game g ON ccp.GameID = g.GameID " .
 					"LEFT JOIN homegame h ON g.HomegameID = h.HomegameID " .
-					"WHERE h.Name = '{$homegame->getSlug()}' " .
+					"WHERE h.Name = '{$homegame.getSlug()}' " .
 					"ORDER BY 'Year' DESC";
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$years = array();
-			foreach($res->fetchAll() as $row){
+			foreach($res.fetchAll() as $row){
 				$years[] = $row["Year"];
 			}
 			return $years;
 		}
 
 		public function updateGame(RawCashgame $cashgame){
-			$location = $cashgame->getLocation();
-			$date = $cashgame->getDate();
-			$status = $cashgame->getStatus();
-			$id = $cashgame->getId();
-			return $this->db->executePrepared(PreparedStatement::UpdateCashgame, $location, $date, $status, $id);
+			$location = $cashgame.getLocation();
+			$date = $cashgame.getDate();
+			$status = $cashgame.getStatus();
+			$id = $cashgame.getId();
+			return db.executePrepared(PreparedStatement::UpdateCashgame, $location, $date, $status, $id);
 		}
 
 		public function hasPlayed(Player $player){
 			$sql =	"SELECT DISTINCT PlayerID " .
 					"FROM cashgamecheckpoint " .
-					"WHERE PlayerId = {$player->getId()}";
-			$res = $this->db->query($sql);
-			foreach($res->fetchAll() as $row){
+					"WHERE PlayerId = {$player.getId()}";
+			$res = db.query($sql);
+			foreach($res.fetchAll() as $row){
 				return true;
 			}
 			return false;
@@ -184,12 +184,12 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"SELECT DISTINCT g.Location " .
 					"FROM game g " .
 					"LEFT JOIN homegame h ON g.HomegameID = h.HomegameID " .
-					"WHERE Name = '{$homegame->getSlug()}' " .
+					"WHERE Name = '{$homegame.getSlug()}' " .
 					"AND g.Location <> '' " .
 					"ORDER BY g.Location";
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$locations = array();
-			foreach($res->fetchAll() as $row){
+			foreach($res.fetchAll() as $row){
 				$locations[] = $row["Location"];
 			}
 			return $locations;
@@ -216,9 +216,9 @@ namespace Infrastructure\Data\MySql {
 			$amount = (int)$row['Amount'];
 			$stack = (int)$row['Stack'];
 			$timestamp = DateTimeFactory::create($row['Timestamp']);
-			$timestamp->setTimezone($timezone);
-			$checkpoint = $this->createCheckpoint($type, $timestamp, $stack, $amount);
-			$checkpoint->setId($id);
+			$timestamp.setTimezone($timezone);
+			$checkpoint = createCheckpoint($type, $timestamp, $stack, $amount);
+			$checkpoint.setId($id);
 			return $checkpoint;
 		}
 

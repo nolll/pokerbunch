@@ -11,24 +11,24 @@ namespace app\Cashgame\Listing\CashgameTable{
 		public $listItemModels;
 
 		public function __construct(Homegame $homegame, array $cashgames){
-			$this->homegame = $homegame;
-			$this->cashgames = $cashgames;
-			$this->showYear = $this->spansMultipleYears();
-			$this->listItemModels = $this->getListItemModels();
+			homegame = $homegame;
+			cashgames = $cashgames;
+			showYear = spansMultipleYears();
+			listItemModels = getListItemModels();
 		}
 
 		private function getListItemModels(){
 			$models = array();
-			foreach($this->cashgames as $cashgame){
-				$models[] = new CashgameTableItemModel($this->homegame, $cashgame, $this->showYear);
+			foreach(cashgames as $cashgame){
+				$models[] = new CashgameTableItemModel(homegame, $cashgame, showYear);
 			}
 			return $models;
 		}
 
 		private function spansMultipleYears(){
 			$years = array();
-			foreach($this->cashgames as $cashgame){ /** @var $cashgame \entities\Cashgame */
-				$year = $cashgame->getStartTime()->format('Y');
+			foreach(cashgames as $cashgame){ /** @var $cashgame \entities\Cashgame */
+				$year = $cashgame.getStartTime().format('Y');
 				if(!in_array($year, $years)){
 					$years[] = $year;
 				}

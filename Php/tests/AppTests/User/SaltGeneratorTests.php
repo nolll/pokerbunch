@@ -9,9 +9,9 @@ namespace tests\User{
 			$saltLength = 10;
 			$generator = new SaltGenerator();
 
-			$salt = $generator->createSalt();
+			$salt = $generator.createSalt();
 
-			$this->assertIdentical($saltLength, strlen($salt));
+			assertIdentical($saltLength, strlen($salt));
 		}
 
 	}

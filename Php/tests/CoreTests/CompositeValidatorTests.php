@@ -10,60 +10,60 @@ namespace tests\CoreTests{
 		function test_IsValid_WithNoValidators_ReturnsTrue(){
 			$validator = new CompositeValidator();
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithOneValidValidator_ReturnsTrue(){
 			$validator = new CompositeValidator();
-			$validator->addValidator($this->getValidValidator());
+			$validator.addValidator(getValidValidator());
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithOneInvalidValidator_ReturnsFalse(){
 			$validator = new CompositeValidator();
-			$validator->addValidator($this->getInvalidValidator());
+			$validator.addValidator(getInvalidValidator());
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithOneValidAndOneInvalidValidator_ReturnsFalse(){
 			$validator = new CompositeValidator();
-			$validator->addValidator($this->getValidValidator());
-			$validator->addValidator($this->getInvalidValidator());
+			$validator.addValidator(getValidValidator());
+			$validator.addValidator(getInvalidValidator());
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithOneCustomError_ReturnsFalse(){
 			$validator = new CompositeValidator();
-			$validator->addError('Any error');
+			$validator.addError('Any error');
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithErrorsInValidators_ReturnsAllErrors(){
 			$sut = new CompositeValidator();
 			$validator = new ValidatorFake();
-			$validator->setErrors(array('error'));
-			$sut->addValidator($validator);
-			$sut->addValidator($validator);
+			$validator.setErrors(array('error'));
+			$sut.addValidator($validator);
+			$sut.addValidator($validator);
 
-			$result = count($sut->getErrors());
-			$this->assertEqual(2, $result);
+			$result = count($sut.getErrors());
+			assertEqual(2, $result);
 		}
 
 		function getValidValidator(){
-			return $this->getValidator(true);
+			return getValidator(true);
 		}
 
 		function getInvalidValidator(){
-			return $this->getValidator(false);
+			return getValidator(false);
 		}
 
 		function getValidator($isValid){
-			$validator = $this->getFakeValidator();
-			$validator->returns("isValid", $isValid);
+			$validator = getFakeValidator();
+			$validator.returns("isValid", $isValid);
 			return $validator;
 		}
 

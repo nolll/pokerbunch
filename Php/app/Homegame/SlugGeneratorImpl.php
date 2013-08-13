@@ -6,15 +6,15 @@ namespace app\Homegame{
 		}
 
 		public function getSlug($displayName){
-			return $this->generateSlug($displayName);
+			return generateSlug($displayName);
 		}
 
 		private function generateSlug($displayName){
 			if($displayName == null){
 				return null;
 			}
-			$slug = $this->removeSpaces($displayName);
-			$slug = $this->removeCaps($slug);
+			$slug = removeSpaces($displayName);
+			$slug = removeCaps($slug);
 			return $slug;
 		}
 

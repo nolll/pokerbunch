@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new DateTimeValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyValue_ReturnsTrue(){
@@ -19,7 +19,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new DateTimeValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithString_ReturnsFalse(){
@@ -27,7 +27,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new DateTimeValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 	}

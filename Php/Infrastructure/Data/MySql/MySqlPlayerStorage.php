@@ -15,39 +15,39 @@ namespace Infrastructure\Data\MySql {
 
 		public function __construct(StorageProvider $db,
 									PlayerFactory $playerFactory){
-			$this->db = $db;
-			$this->playerFactory = $playerFactory;
+			db = $db;
+			playerFactory = $playerFactory;
 		}
 
 		public function getPlayerById(Homegame $homegame, $id){
-			$sql = $this->getPlayersBaseSql($homegame);
+			$sql = getPlayersBaseSql($homegame);
 			$sql .= "AND p.PlayerID = {$id}";
-			return $this->getPlayerFromSql($sql);
+			return getPlayerFromSql($sql);
 		}
 
 		public function getPlayerByName(Homegame $homegame, $name){
-			$sql = $this->getPlayersBaseSql($homegame);
+			$sql = getPlayersBaseSql($homegame);
 			$sql .= "AND (p.PlayerName = '{$name}' OR u.DisplayName = '{$name}')";
-			return $this->getPlayerFromSql($sql);
+			return getPlayerFromSql($sql);
 		}
 
 		public function getPlayerByUserName(Homegame $homegame, $userName){
-			$sql = $this->getPlayersBaseSql($homegame);
+			$sql = getPlayersBaseSql($homegame);
 			$sql .= "AND u.UserName = '{$userName}'";
-			return $this->getPlayerFromSql($sql);
+			return getPlayerFromSql($sql);
 		}
 
 		public function getPlayers(Homegame $homegame){
-			$sql = $this->getPlayersBaseSql($homegame);
+			$sql = getPlayersBaseSql($homegame);
 			$sql .= "ORDER BY DisplayName";
-			return $this->getPlayersFromSql($sql);
+			return getPlayersFromSql($sql);
 		}
 
 		private function getPlayersBaseSql(Homegame $homegame){
 			$sql =	"SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email " .
 					"FROM player p " .
 					"LEFT JOIN user u on p.UserID = u.UserID " .
-					"WHERE p.HomegameID = {$homegame->getId()} ";
+					"WHERE p.HomegameID = {$homegame.getId()} ";
 			return $sql;
 		}
 
@@ -56,62 +56,62 @@ namespace Infrastructure\Data\MySql {
 			$sql =	"INSERT INTO player " .
 					"(HomegameID, RoleID, Approved, PlayerName) " .
 					"VALUES " .
-					"({$homegame->getId()}, {$role}, 1, '$playerName')";
-			$rowCount = $this->db->execute($sql);
-			return $this->db->getLatestInsertId($rowCount > 0);
+					"({$homegame.getId()}, {$role}, 1, '$playerName')";
+			$rowCount = db.execute($sql);
+			return db.getLatestInsertId($rowCount > 0);
 		}
 
 		public function addPlayerWithUser(Homegame $homegame, User $user, $role){
 			$sql =	"INSERT INTO player " .
 					"(HomegameID, UserID, RoleID, Approved) " .
 					"VALUES " .
-					"({$homegame->getId()}, {$user->getId()}, {$role}, 1)";
-			$rowCount = $this->db->execute($sql);
-			return $this->db->getLatestInsertId($rowCount > 0);
+					"({$homegame.getId()}, {$user.getId()}, {$role}, 1)";
+			$rowCount = db.execute($sql);
+			return db.getLatestInsertId($rowCount > 0);
 		}
 
 		public function joinHomegame(Player $player, Homegame $homegame, User $user){
 			$sql =	"UPDATE player " .
 					"SET " .
-						"HomegameID = {$homegame->getId()}, " .
+						"HomegameID = {$homegame.getId()}, " .
 						"PlayerName = NULL, " .
-						"UserID = {$user->getId()}, " .
-						"RoleID = {$player->getRole()}, " .
+						"UserID = {$user.getId()}, " .
+						"RoleID = {$player.getRole()}, " .
 						"Approved = 1 " .
-					"WHERE PlayerID = {$player->getId()}";
-			$rowCount = $this->db->execute($sql);
+					"WHERE PlayerID = {$player.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
 		public function deletePlayer(Player $player){
 			$sql =	"DELETE FROM player " .
-					"WHERE PlayerID = {$player->getId()}";
-			$rowCount = $this->db->execute($sql);
+					"WHERE PlayerID = {$player.getId()}";
+			$rowCount = db.execute($sql);
 			return $rowCount > 0;
 		}
 
 		private function getPlayerFromSql($sql){
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$player = null;
-			foreach($res->fetchAll() as $row){
-				$player = $this->playerFromDbRow($row);
+			foreach($res.fetchAll() as $row){
+				$player = playerFromDbRow($row);
 				break;
 			}
 			return $player;
 		}
 
 		private function getPlayersFromSql($sql){
-			$res = $this->db->query($sql);
+			$res = db.query($sql);
 			$players = array();
-			foreach($res->fetchAll() as $row){
-				$players[] = $this->playerFromDbRow($row);
+			foreach($res.fetchAll() as $row){
+				$players[] = playerFromDbRow($row);
 			}
 			return $players;
 		}
 
 		private function playerFromDbRow($row){
 			$userName = isset($row["UserName"]) ? $row["UserName"] : null;
-			return $this->playerFactory->create($row["DisplayName"], $row["RoleID"], $userName, $row["PlayerID"]);
+			return playerFactory.create($row["DisplayName"], $row["RoleID"], $userName, $row["PlayerID"]);
 		}
 
 	}

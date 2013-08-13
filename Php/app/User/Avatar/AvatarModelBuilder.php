@@ -8,25 +8,25 @@ namespace app\User\Avatar{
 		private $avatarService;
 
 		public function __construct(AvatarService $avatarService){
-			$this->avatarService = $avatarService;
+			avatarService = $avatarService;
 		}
 
 		public function build($email, $size = AvatarSize::large){
 			$model = new AvatarModel();
 			if($email != null){
-				$model->avatarEnabled = true;
-				$model->avatarUrl = $this->getAvatarUrl($email, $size);
+				$model.avatarEnabled = true;
+				$model.avatarUrl = getAvatarUrl($email, $size);
 			} else {
-				$model->avatarEnabled = false;
+				$model.avatarEnabled = false;
 			}
 			return $model;
 		}
 
 		private function getAvatarUrl($email, $size){
 			if($size == AvatarSize::small){
-				return $this->avatarService->getSmallAvatarUrl($email);
+				return avatarService.getSmallAvatarUrl($email);
 			}
-			return $this->avatarService->getLargeAvatarUrl($email);
+			return avatarService.getLargeAvatarUrl($email);
 		}
 
 	}

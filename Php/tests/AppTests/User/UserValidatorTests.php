@@ -11,60 +11,60 @@ namespace tests\AppTests\User{
 
 		private function getValidUser(){
 			$user = new User();
-			$user->setUserName('a');
-			$user->setDisplayName('b');
-			$user->setEmail('valid@email.com');
+			$user.setUserName('a');
+			$user.setDisplayName('b');
+			$user.setEmail('valid@email.com');
 			return $user;
 		}
 
 		function test_IsValid_WithValidValues_ReturnsTrue(){
-			$user = $this->getValidUser();
-			$validator = $this->getValidator($user);
+			$user = getValidUser();
+			$validator = getValidator($user);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyUserName_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$user->setUserName('');
-			$validator = $this->getValidator($user);
+			$user = getValidUser();
+			$user.setUserName('');
+			$validator = getValidator($user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyDisplayName_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$user->setDisplayName('');
-			$validator = $this->getValidator($user);
+			$user = getValidUser();
+			$user.setDisplayName('');
+			$validator = getValidator($user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyEmail_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$user->setEmail('');
-			$validator = $this->getValidator($user);
+			$user = getValidUser();
+			$user.setEmail('');
+			$validator = getValidator($user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_ValidateEmail_WithInvalidEmail_ReturnsFalse(){
-			$user = $this->getValidUser();
-			$user->setEmail('invalidemail');
-			$validator = $this->getValidator($user);
+			$user = getValidUser();
+			$user.setEmail('invalidemail');
+			$validator = getValidator($user);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(User $user){
-			return $this->getValidatorFactory()->getEditUserValidator($user);
+			return getValidatorFactory().getEditUserValidator($user);
 		}
 
 		/**
 		 * @return UserValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			$userStorage = $this->getUserStorage();
+			$userStorage = getUserStorage();
 			return new UserValidatorFactoryImpl($userStorage);
 		}
 

@@ -15,8 +15,8 @@ namespace tests\StorageTests{
 		private $storageProvider;
 
 		function setUp(){
-			$this->storageProvider = TestHelper::getFake(ClassNames::$StorageProvider);
-			$this->sut = new MySqlCashgameStorage($this->storageProvider);
+			storageProvider = TestHelper::getFake(ClassNames::$StorageProvider);
+			sut = new MySqlCashgameStorage(storageProvider);
 		}
 
 		function test_UpdateGame_CallsExecuteWithCorrectSql(){
@@ -27,9 +27,9 @@ namespace tests\StorageTests{
 			$cashgame = new RawCashgame($id, $location, $status, $date);
 			$expectedSql = PreparedStatement::UpdateCashgame;
 
-			$this->storageProvider->expectOnce("executePrepared", array($expectedSql, $location, $date, $status, $id));
+			storageProvider.expectOnce("executePrepared", array($expectedSql, $location, $date, $status, $id));
 
-			$this->sut->updateGame($cashgame);
+			sut.updateGame($cashgame);
 		}
 
 	}

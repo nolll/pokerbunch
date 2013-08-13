@@ -16,20 +16,20 @@ namespace app\Cashgame\Index{
 		public function __construct(UserContext $userContext,
 									CashgameRepository $cashgameRepository,
 									HomegameRepository $homegameRepository){
-			$this->userContext = $userContext;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->homegameRepository = $homegameRepository;
+			userContext = $userContext;
+			cashgameRepository = $cashgameRepository;
+			homegameRepository = $homegameRepository;
 		}
 
 		public function action_index($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$years = cashgameRepository.getYears($homegame);
 			if(count($years) > 0){
 				$year = $years[0];
-				return $this->redirect(new CashgameMatrixUrlModel($homegame, $year));
+				return redirect(new CashgameMatrixUrlModel($homegame, $year));
 			} else {
-				return $this->redirect(new CashgameAddUrlModel($homegame));
+				return redirect(new CashgameAddUrlModel($homegame));
 			}
 		}
 

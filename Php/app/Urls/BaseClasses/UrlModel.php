@@ -5,11 +5,11 @@ namespace app\Urls\BaseClasses{
 		public $url;
 
 		public function __construct($url){
-			$this->url = $url;
+			url = $url;
 		}
 
 		public function getUrl(){
-			return $this->url;
+			return url;
 		}
 
 	}

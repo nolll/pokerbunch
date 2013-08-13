@@ -17,99 +17,99 @@ namespace tests\AppTests\Cashgame\Listing{
 		private $showYear;
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
-			$this->showYear = false;
+			homegame = new Homegame();
+			cashgame = new Cashgame();
+			showYear = false;
 		}
 
 		function test_TableItem_SetsPlayerCount(){
-			$this->cashgame->setNumPlayers(2);
+			cashgame.setNumPlayers(2);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical(2, $sut->playerCount);
+			assertIdentical(2, $sut.playerCount);
 		}
 
 		function test_TableItem_SetsLocation(){
-			$this->cashgame->setLocation('a');
+			cashgame.setLocation('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->location);
+			assertIdentical('a', $sut.location);
 		}
 
 		function test_TableItem_WithDuration_SetsDuration(){
-			$this->cashgame->setDuration(1);
+			cashgame.setDuration(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("1m", $sut->duration);
+			assertIdentical("1m", $sut.duration);
 		}
 
 		function test_TableItem_SetsTurnover(){
-			$this->cashgame->setTurnOver(1);
+			cashgame.setTurnOver(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("$1", $sut->turnover);
+			assertIdentical("$1", $sut.turnover);
 		}
 
 		function test_TableItem_SetsAvgBuyin(){
-			$this->cashgame->setAverageBuyin(1);
+			cashgame.setAverageBuyin(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("$1", $sut->avgBuyin);
+			assertIdentical("$1", $sut.avgBuyin);
 		}
 
 		function test_TableItem_WithNoPlayers_DoesNotThrowDivisionByZeroException(){
-			$this->cashgame = new Cashgame();
-			$this->cashgame->setStartTime(new DateTime());
+			cashgame = new Cashgame();
+			cashgame.setStartTime(new DateTime());
 
-			$this->getSut();
+			getSut();
 		}
 
 		function test_TableItem_SetsDetailsUrl(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->detailsUrl, 'app\Urls\CashgameDetailsUrlModel');
+			assertIsA($sut.detailsUrl, 'app\Urls\CashgameDetailsUrlModel');
 		}
 
 		function test_TableItem_SetsDisplayDate(){
-			$this->cashgame->setStartTime(new DateTime('2010-01-01 01:00:00'));
+			cashgame.setStartTime(new DateTime('2010-01-01 01:00:00'));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('Jan 1', $sut->displayDate);
+			assertIdentical('Jan 1', $sut.displayDate);
 		}
 
 		function test_TableItem_WithShowDateSetToTrue_SetsDisplayDate(){
-			$this->showYear = true;
-			$this->cashgame->setStartTime(new DateTime('2010-01-01 01:00:00'));
+			showYear = true;
+			cashgame.setStartTime(new DateTime('2010-01-01 01:00:00'));
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('Jan 1 2010', $sut->displayDate);
+			assertIdentical('Jan 1 2010', $sut.displayDate);
 		}
 
 		function test_TableItem_WithPublishedGame_SetsEmptyPublishedClass(){
-			$this->cashgame->setStatus(GameStatus::published);
+			cashgame.setStatus(GameStatus::published);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("", $sut->publishedClass);
+			assertIdentical("", $sut.publishedClass);
 		}
 
 		function test_TableItem_WithUnpublishedGame_SetsPublishedClassToUnpublished(){
-			$this->cashgame->setStatus(GameStatus::finished);
+			cashgame.setStatus(GameStatus::finished);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("unpublished", $sut->publishedClass);
+			assertIdentical("unpublished", $sut.publishedClass);
 		}
 
 		function getSut(){
-			return new CashgameTableItemModel($this->homegame, $this->cashgame, $this->showYear);
+			return new CashgameTableItemModel(homegame, cashgame, showYear);
 		}
 
 	}

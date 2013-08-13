@@ -5,12 +5,12 @@ namespace integration\Sharing{
 		private $twitterService;
 
 		public function __construct(TwitterService $twitterService){
-			$this->twitterService = $twitterService;
+			twitterService = $twitterService;
 		}
 
 		public function makeSocialService($provider){
 			if($provider == SocialServiceProvider::twitter){
-				return $this->twitterService;
+				return twitterService;
 			}
 			return null;
 		}

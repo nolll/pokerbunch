@@ -13,49 +13,49 @@ namespace tests\AppTests\Homegame{
 		private $homegame;
 
 		function setUp(){
-			$this->homegame = new Homegame();
+			homegame = new Homegame();
 		}
 
 		function test_DisplayName_IsSet(){
-			$this->homegame->setDisplayName('a');
+			homegame.setDisplayName('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->displayName);
+			assertIdentical('a', $sut.displayName);
 		}
 
 		function test_Description_IsSet(){
-			$this->homegame->setDescription('a');
+			homegame.setDescription('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->description);
+			assertIdentical('a', $sut.description);
 		}
 
 		function test_CurrencySymbol_IsSet(){
 			$currency = new CurrencySettings();
-			$currency->setSymbol('a');
-			$this->homegame->setCurrency($currency);
+			$currency.setSymbol('a');
+			homegame.setCurrency($currency);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->currencySymbol);
+			assertIdentical('a', $sut.currencySymbol);
 		}
 
 		function test_CurrencyLayoutSelectModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->currencyLayoutSelectModel, 'core\FormFields\CurrencyLayoutFieldModel');
+			assertIsA($sut.currencyLayoutSelectModel, 'core\FormFields\CurrencyLayoutFieldModel');
 		}
 
 		function test_TimezoneSelectModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->timezoneSelectModel, 'core\FormFields\TimezoneFieldModel');
+			assertIsA($sut.timezoneSelectModel, 'core\FormFields\TimezoneFieldModel');
 		}
 
 		private function getSut(){
-			return new HomegameAddModel(new User(), $this->homegame);
+			return new HomegameAddModel(new User(), homegame);
 		}
 
 	}

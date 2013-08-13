@@ -30,32 +30,32 @@ namespace app\Cashgame\Running{
 									PlayerRepository $playerRepository,
 									ResultSharer $resultSharer,
 									Timer $timer){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->resultSharer = $resultSharer;
-			$this->playerRepository = $playerRepository;
-			$this->timer = $timer;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			resultSharer = $resultSharer;
+			playerRepository = $playerRepository;
+			timer = $timer;
 		}
 
 		public function action_running($gameName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$cashgame = $this->cashgameRepository->getRunning($homegame);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$cashgame = cashgameRepository.getRunning($homegame);
 			if($cashgame == null){
-				return $this->redirect(new CashgameIndexUrlModel($homegame));
+				return redirect(new CashgameIndexUrlModel($homegame));
 			}
-			$user = $this->userContext->getUser();
-			$player = $this->playerRepository->getByUserName($homegame, $user->getUserName());
-			$model = $this->getModel($homegame, $cashgame, $player);
-			return $this->view('app/Cashgame/Running/Running', $model);
+			$user = userContext.getUser();
+			$player = playerRepository.getByUserName($homegame, $user.getUserName());
+			$model = getModel($homegame, $cashgame, $player);
+			return view('app/Cashgame/Running/Running', $model);
 		}
 
 		public function getModel(Homegame $homegame, Cashgame $cashgame, Player $player){
-			$isManager = $this->userContext->isInRole($homegame, Role::$manager);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			return new RunningModel($this->userContext->getUser(), $homegame, $cashgame, $player, $years, $isManager, $this->timer, $runningGame);
+			$isManager = userContext.isInRole($homegame, Role::$manager);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			return new RunningModel(userContext.getUser(), $homegame, $cashgame, $player, $years, $isManager, timer, $runningGame);
 		}
 
 	}

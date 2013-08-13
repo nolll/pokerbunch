@@ -20,8 +20,8 @@ namespace app\Cashgame\Action{
 									Cashgame $runningGame,
 									$postedAmount){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->cashoutUrl = new CashgameCashoutUrlModel($homegame, $player);
-			$this->cashoutAmount = $postedAmount != null ? $postedAmount : '';
+			cashoutUrl = new CashgameCashoutUrlModel($homegame, $player);
+			cashoutAmount = $postedAmount != null ? $postedAmount : '';
         }
 
 	}

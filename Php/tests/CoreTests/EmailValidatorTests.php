@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new EmailValidator($email, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithInvalidEmail_ReturnsTrue(){
@@ -19,7 +19,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new EmailValidator($email, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyEmail_ReturnsTrue(){
@@ -27,7 +27,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new EmailValidator($email, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 	}

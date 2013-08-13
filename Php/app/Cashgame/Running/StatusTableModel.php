@@ -15,18 +15,18 @@ namespace app\Cashgame\Running{
 									Cashgame $cashgame,
 									$isManager,
 									Timer $timer = null){
-			$results = $this->getSortedResults($cashgame);
+			$results = getSortedResults($cashgame);
 			$resultModels = array();
 			foreach($results as $result){
 				$resultModels[] = new StatusItemModel($homegame, $cashgame, $result, $isManager, $timer);
 			}
-			$this->statusModels = $resultModels;
-			$this->totalBuyin = Globalization::formatCurrency($homegame->getCurrency(), $cashgame->getTurnover());
-			$this->totalStacks = Globalization::formatCurrency($homegame->getCurrency(), $cashgame->getTotalStacks());
+			statusModels = $resultModels;
+			totalBuyin = Globalization::formatCurrency($homegame.getCurrency(), $cashgame.getTurnover());
+			totalStacks = Globalization::formatCurrency($homegame.getCurrency(), $cashgame.getTotalStacks());
 		}
 
 		private function getSortedResults(Cashgame $cashgame){
-			$results = $cashgame->getResults();
+			$results = $cashgame.getResults();
 			usort($results, 'entities\CashgameResultComparer::compareWinnings');
 			return $results;
 		}

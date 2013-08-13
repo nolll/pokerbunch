@@ -12,18 +12,18 @@ namespace tests\AppTests\Home{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
 			$homegameStorage = TestHelper::getFake(ClassNames::$HomegameStorage);
 			$cashgameRepository = TestHelper::getFake(ClassNames::$CashgameRepository);
-			$this->sut = new HomeController($this->userContext, $homegameStorage, $cashgameRepository);
+			sut = new HomeController(userContext, $homegameStorage, $cashgameRepository);
 		}
 
 		function test_ActionDetails_ReturnsCorrectModel(){
-			$this->userContext->returns("getUser", null);
+			userContext.returns("getUser", null);
 
-			$viewResult = $this->sut->action_index();
+			$viewResult = sut.action_index();
 
-			$this->assertIsA($viewResult->model, 'app\Home\HomeModel');
+			assertIsA($viewResult.model, 'app\Home\HomeModel');
 		}
 
 	}

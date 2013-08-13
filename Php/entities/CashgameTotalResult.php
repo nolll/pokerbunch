@@ -9,61 +9,61 @@ namespace entities{
 		private $winRate;
 
 		public function __construct(){
-			$this->winnings = 0;
-			$this->gameCount = 0;
-			$this->timePlayed = 0;
+			winnings = 0;
+			gameCount = 0;
+			timePlayed = 0;
 		}
 
 		public function getWinnings(){
-			return $this->winnings;
+			return winnings;
 		}
 
 		public function setWinnings($winnings){
-			$this->winnings = $winnings;
+			winnings = $winnings;
 		}
 
 		public function getGameCount(){
-			return $this->gameCount;
+			return gameCount;
 		}
 
 		public function setGameCount($gameCount){
-			$this->gameCount = $gameCount;
+			gameCount = $gameCount;
 		}
 
 		public function getTimePlayed(){
-			return $this->timePlayed;
+			return timePlayed;
 		}
 
 		public function setTimePlayed($timePlayed){
-			$this->timePlayed = $timePlayed;
+			timePlayed = $timePlayed;
 		}
 
 		public function getWinRate(){
-			if($this->winRate == null){
-				if($this->timePlayed == 0){
+			if(winRate == null){
+				if(timePlayed == 0){
 					return 0;
 				}
-				$this->winRate = round($this->getWinnings() / $this->timePlayed * 60);
+				winRate = round(getWinnings() / timePlayed * 60);
 			}
-			return $this->winRate;
+			return winRate;
 		}
 
 		public function setWinRate($winRate){
-			$this->winRate = $winRate;
+			winRate = $winRate;
 		}
 
 		public function getPlayer(){
-			return $this->player;
+			return player;
 		}
 
 		public function setPlayer(Player $player){
-			$this->player = $player;
+			player = $player;
 		}
 
 		public function addGameResult(CashgameResult $result){
-			$this->winnings += $result->getWinnings();
-			$this->gameCount++;
-			$this->timePlayed += $result->getPlayedTime();
+			winnings += $result.getWinnings();
+			gameCount++;
+			timePlayed += $result.getPlayedTime();
 		}
 
 	}

@@ -11,9 +11,9 @@ namespace app\Urls{
 	class CashgameCheckpointDeleteUrlModel extends UrlModel{
 
 		public function __construct(Homegame $homegame, Cashgame $cashgame, Player $player, Checkpoint $checkpoint){
-			$isoDate = UrlFormatter::formatIsoDate($cashgame->getStartTime());
-			$encodedPlayerName = rawurlencode($player->getDisplayName());
-			$url = sprintf(RouteFormats::cashgameCheckpointDelete, $homegame->getSlug(), $isoDate, $encodedPlayerName, $checkpoint->getId());
+			$isoDate = UrlFormatter::formatIsoDate($cashgame.getStartTime());
+			$encodedPlayerName = rawurlencode($player.getDisplayName());
+			$url = sprintf(RouteFormats::cashgameCheckpointDelete, $homegame.getSlug(), $isoDate, $encodedPlayerName, $checkpoint.getId());
 			parent::__construct($url);
 		}
 

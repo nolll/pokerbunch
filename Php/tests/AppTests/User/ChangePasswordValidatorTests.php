@@ -10,35 +10,35 @@ namespace tests\AppTests\User{
 
 		function test_IsValid_WithValidValues_ReturnsTrue(){
 			$password = "password";
-			$validator = $this->getValidator($password, $password);
+			$validator = getValidator($password, $password);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithInvalidPassword_ReturnsFalse(){
 			$password = "";
-			$validator = $this->getValidator($password, $password);
+			$validator = getValidator($password, $password);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithDifferentPasswords_ReturnsFalse(){
 			$password = "password";
 			$repeatPassword = "anotherpassword";
-			$validator = $this->getValidator($password, $repeatPassword);
+			$validator = getValidator($password, $repeatPassword);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator($password, $repeatPassword){
-			return $this->getValidatorFactory()->getChangePasswordValidator($password, $repeatPassword);
+			return getValidatorFactory().getChangePasswordValidator($password, $repeatPassword);
 		}
 
 		/**
 		 * @return UserValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			$userStorage = $this->getUserStorage();
+			$userStorage = getUserStorage();
 			return new UserValidatorFactoryImpl($userStorage);
 		}
 

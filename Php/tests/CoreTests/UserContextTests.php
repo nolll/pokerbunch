@@ -18,135 +18,135 @@ namespace tests\CoreTests{
 
 		function setUp(){
 			parent::setUp();
-			$this->userStorage = $this->registerFake(ClassNames::$UserStorage);
-			$this->homegameStorage = $this->registerFake(ClassNames::$HomegameStorage);
-			$this->webContext = $this->registerFake(ClassNames::$WebContext);
-			$this->userContext = new UserContextImpl($this->webContext, $this->userStorage, $this->homegameStorage);
+			userStorage = registerFake(ClassNames::$UserStorage);
+			homegameStorage = registerFake(ClassNames::$HomegameStorage);
+			webContext = registerFake(ClassNames::$WebContext);
+			userContext = new UserContextImpl(webContext, userStorage, homegameStorage);
 		}
 
 		function test_GetToken_NoTokenExists_ReturnsNull(){
-			$token = $this->userContext->getToken();
+			$token = userContext.getToken();
 
-			$this->assertNull($token);
+			assertNull($token);
 		}
 
 		function test_GetToken_TokenExists_ReturnsToken(){
-			$this->setupToken();
+			setupToken();
 
-			$token = $this->userContext->getToken();
+			$token = userContext.getToken();
 
-			$this->assertIdentical('a token', $token);
+			assertIdentical('a token', $token);
 		}
 
 		function test_GetUser_NoTokenExists_ReturnsNullUser(){
-			$user = $this->userContext->getUser();
+			$user = userContext.getUser();
 
-			$this->assertNull($user);
+			assertNull($user);
 		}
 
 		function test_GetUser_TokenExistsButNoMatchingUser_ReturnsNull(){
-			$this->setupToken();
-			$this->setupNullUser();
+			setupToken();
+			setupNullUser();
 
-			$user = $this->userContext->getUser();
+			$user = userContext.getUser();
 
-			$this->assertNull($user);
+			assertNull($user);
 		}
 
 		function test_GetUser_TokenExistsAndMatchingUserExists_ReturnsUser(){
-			$this->setupToken();
-			$this->setupUser();
+			setupToken();
+			setupUser();
 
-			$user = $this->userContext->getUser();
+			$user = userContext.getUser();
 
-			$this->assertNotNull($user);
+			assertNotNull($user);
 		}
 
 		function test_GetUser_CalledTwice_TokenExists_DatabaseIsOnlyAskedOnce(){
-			$this->setupToken();
-			$this->setupNullUser();
-			$this->userStorage->expectOnce('getUserByToken');
+			setupToken();
+			setupNullUser();
+			userStorage.expectOnce('getUserByToken');
 
-			$this->userContext->getUser();
-			$this->userContext->getUser();
+			userContext.getUser();
+			userContext.getUser();
 		}
 
 		function test_IsLoggedIn_TokenExistsButNoMatchingUser_ReturnsFalse(){
-			$this->setupToken();
-			$this->setupNullUser();
+			setupToken();
+			setupNullUser();
 
-			$result = $this->userContext->isLoggedIn();
+			$result = userContext.isLoggedIn();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_IsLoggedIn_TokenExistsAndMatchingUserExists_ReturnsTrue(){
-			$this->setupToken();
-			$this->setupUser();
+			setupToken();
+			setupUser();
 
-			$result = $this->userContext->isLoggedIn();
+			$result = userContext.isLoggedIn();
 
-			$this->assertTrue($result);
+			assertTrue($result);
 		}
 
 		function test_IsAdmin_WithNonAdminUser_ReturnsFalse(){
-			$this->setupToken();
-			$this->setupUser();
+			setupToken();
+			setupUser();
 
-			$result = $this->userContext->isAdmin();
+			$result = userContext.isAdmin();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_IsAdmin_WithAdminUser_ReturnsTrue(){
-			$this->setupToken();
-			$user = $this->setupUser();
-			$user->setGlobalRole(Role::$admin);
+			setupToken();
+			$user = setupUser();
+			$user.setGlobalRole(Role::$admin);
 
-			$result = $this->userContext->isAdmin();
+			$result = userContext.isAdmin();
 
-			$this->assertTrue($result);
+			assertTrue($result);
 		}
 
 		function test_IsInRole_WithManagerRoleAndPlayerUser_ReturnsFalse(){
-			$this->setupToken();
-			$user = $this->setupUser();
+			setupToken();
+			$user = setupUser();
 			$homegame = new Homegame();
-			$this->homegameStorage->returns('getHomegameRole', Role::$player, array($homegame, $user->getId()));
+			homegameStorage.returns('getHomegameRole', Role::$player, array($homegame, $user.getId()));
 
-			$result = $this->userContext->isInRole($homegame, Role::$manager);
+			$result = userContext.isInRole($homegame, Role::$manager);
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_IsInRole_WithPlayerRoleAndManagerUser_ReturnsTrue(){
-			$this->setupToken();
-			$user = $this->setupUser();
+			setupToken();
+			$user = setupUser();
 			$homegame = new Homegame();
-			$this->homegameStorage->returns('getHomegameRole', Role::$manager, array($homegame, $user));
+			homegameStorage.returns('getHomegameRole', Role::$manager, array($homegame, $user));
 
-			$result = $this->userContext->isInRole($homegame, Role::$player);
+			$result = userContext.isInRole($homegame, Role::$player);
 
-			$this->assertTrue($result);
+			assertTrue($result);
 		}
 
 		function test_IsInRole_WithAdminRoleAndAdminUser_ReturnsTrue(){
-			$this->setupToken();
-			$user = $this->setupUser();
-			$user->setGlobalRole(Role::$admin);
+			setupToken();
+			$user = setupUser();
+			$user.setGlobalRole(Role::$admin);
 			$homegame = new Homegame();
 
-			$result = $this->userContext->isInRole($homegame, Role::$admin);
+			$result = userContext.isInRole($homegame, Role::$admin);
 
-			$this->assertTrue($result);
+			assertTrue($result);
 		}
 
 		function setupToken(){
-			$this->webContext->returns('getCookie', 'a token', array('token'));
+			webContext.returns('getCookie', 'a token', array('token'));
 		}
 
 		function setupNullUser(){
-			$this->userStorage->returns('getUserByToken', null);
+			userStorage.returns('getUserByToken', null);
 			return null;
 		}
 
@@ -154,7 +154,7 @@ namespace tests\CoreTests{
 			if($user == null){
 				$user = new User();
 			}
-			$this->userStorage->returns('getUserByToken', $user);
+			userStorage.returns('getUserByToken', $user);
 			return $user;
         }
 

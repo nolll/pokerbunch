@@ -17,52 +17,52 @@ namespace tests\AppTests\Cashgame\Details{
 		private $cashgame;
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
+			homegame = new Homegame();
+			cashgame = new Cashgame();
 		}
 
 		function test_ResultModels_CashgameWithOnePlayer_FirstItemIsCorrectType(){
-			$this->cashgame = new Cashgame();
-			$this->cashgame->setResults(array(new CashgameResult()));
+			cashgame = new Cashgame();
+			cashgame.setResults(array(new CashgameResult()));
 
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$this->assertEqual(1, count($sut->resultModels));
-			$this->assertIsA($sut->resultModels[0], 'app\Cashgame\Details\ResultTableItem\ResultTableItemModel');
+			assertEqual(1, count($sut.resultModels));
+			assertIsA($sut.resultModels[0], 'app\Cashgame\Details\ResultTableItem\ResultTableItemModel');
 		}
 
 		function test_ResultModels_CashgameWithTwoPlayers_HasTwoItems(){
-			$this->cashgame = new Cashgame();
-			$this->cashgame->setResults(array(new CashgameResult(), new CashgameResult()));
+			cashgame = new Cashgame();
+			cashgame.setResults(array(new CashgameResult(), new CashgameResult()));
 
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$this->assertEqual(2, count($sut->resultModels));
+			assertEqual(2, count($sut.resultModels));
 		}
 
 		function test_ResultModels_CashgameWithTwoPlayers_IsSortedByWinningsDescending(){
-			$this->cashgame->setStartTime(new DateTime());
+			cashgame.setStartTime(new DateTime());
 			$player1 = new Player();
-			$player1->setDisplayName('a');
+			$player1.setDisplayName('a');
 			$result1 = new CashgameResult();
-			$result1->setPlayer($player1);
-			$result1->setWinnings(1);
+			$result1.setPlayer($player1);
+			$result1.setWinnings(1);
 			$player2 = new Player();
-			$player2->setDisplayName('b');
+			$player2.setDisplayName('b');
 			$result2 = new CashgameResult();
-			$result2->setPlayer($player2);
-			$result2->setWinnings(2);
-			$this->cashgame->setResults(array($result1, $result2));
+			$result2.setPlayer($player2);
+			$result2.setWinnings(2);
+			cashgame.setResults(array($result1, $result2));
 
-			$sut = $this->getModel();
+			$sut = getModel();
 
-			$results = $sut->resultModels;
-			$this->assertIdentical('b', $result1Name = $results[0]->name);
-			$this->assertIdentical('a', $result1Name = $results[1]->name);
+			$results = $sut.resultModels;
+			assertIdentical('b', $result1Name = $results[0].name);
+			assertIdentical('a', $result1Name = $results[1].name);
 		}
 
 		function getModel(){
-			return new ResultTableModel($this->homegame, $this->cashgame);
+			return new ResultTableModel(homegame, cashgame);
 		}
 
 	}

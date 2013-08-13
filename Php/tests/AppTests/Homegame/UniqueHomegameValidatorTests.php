@@ -14,33 +14,33 @@ namespace tests\AppTests\Homegame{
 
 		private function getValidHomegame(){
 			$homegame = new Homegame();
-			$homegame->setDisplayName('a');
-			$homegame->setCurrency(new CurrencySettings('b', 'c'));
-			$homegame->setTimezone(new DateTimeZone('Europe/Stockholm'));
+			$homegame.setDisplayName('a');
+			$homegame.setCurrency(new CurrencySettings('b', 'c'));
+			$homegame.setTimezone(new DateTimeZone('Europe/Stockholm'));
 			return $homegame;
 		}
 
 		function test_IsValid_WithNonExistingSlug_ReturnsTrue(){
-			$homegame = $this->getValidHomegame();
-			$homegameStorage = $this->getHomegameStorage();
-			$homegameStorage->returns("getRawHomegameByName", null);
-			$validator = $this->getValidator($homegameStorage, $homegame);
+			$homegame = getValidHomegame();
+			$homegameStorage = getHomegameStorage();
+			$homegameStorage.returns("getRawHomegameByName", null);
+			$validator = getValidator($homegameStorage, $homegame);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithExistingSlug_ReturnsFalse(){
-			$homegame = $this->getValidHomegame();
-			$homegameStorage = $this->getHomegameStorage();
+			$homegame = getValidHomegame();
+			$homegameStorage = getHomegameStorage();
 			$existingHomegame = new Homegame();
-			$homegameStorage->returns("getRawHomegameByName", $existingHomegame);
-			$validator = $this->getValidator($homegameStorage, $homegame);
+			$homegameStorage.returns("getRawHomegameByName", $existingHomegame);
+			$validator = getValidator($homegameStorage, $homegame);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(HomegameStorage $homegameStorage, Homegame $homegame){
-			return $this->getValidatorFactory($homegameStorage)->getAddHomegameValidator($homegame);
+			return getValidatorFactory($homegameStorage).getAddHomegameValidator($homegame);
 		}
 
 		/**

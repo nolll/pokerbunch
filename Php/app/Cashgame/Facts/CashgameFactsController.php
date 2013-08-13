@@ -14,19 +14,19 @@ namespace app\Cashgame\Facts{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_facts($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$suite = $this->cashgameRepository->getSuite($homegame, $year);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			$model = new CashgameFactsModel($this->userContext->getUser(), $homegame, $suite, $years, $year, $runningGame);
-			return $this->view('app/Cashgame/Facts/Facts', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$suite = cashgameRepository.getSuite($homegame, $year);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			$model = new CashgameFactsModel(userContext.getUser(), $homegame, $suite, $years, $year, $runningGame);
+			return view('app/Cashgame/Facts/Facts', $model);
 		}
 
 	}

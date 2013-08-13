@@ -22,75 +22,75 @@ namespace Infrastructure\Data\Classes {
 		public $videosEnabled;
 
 		public function getId(){
-			return $this->id;
+			return id;
 		}
 
 		public function setId($id){
-			$this->id = $id;
+			id = $id;
 		}
 
 		public function getSlug(){
-			return $this->slug;
+			return slug;
 		}
 
 		public function setSlug($name){
-			$this->slug = $name;
+			slug = $name;
 		}
 
 		public function getDisplayName(){
-			return $this->displayName;
+			return displayName;
 		}
 
 		public function setDisplayName($displayName){
-			$this->displayName = $displayName;
+			displayName = $displayName;
 		}
 
 		public function getDescription(){
-			return $this->description;
+			return description;
 		}
 
 		public function setDescription($description){
-			$this->description = $description;
+			description = $description;
 		}
 
 		public function getHouseRules(){
-			return $this->houseRules;
+			return houseRules;
 		}
 
 		public function setHouseRules($houseRules){
-			$this->houseRules = $houseRules;
+			houseRules = $houseRules;
 		}
 
 		public function getTimezoneName(){
-			return $this->timezoneName;
+			return timezoneName;
 		}
 
 		public function setTimezoneName($timezoneName){
-			$this->timezoneName = $timezoneName;
+			timezoneName = $timezoneName;
 		}
 
 		public function getDefaultBuyin(){
-			return $this->defaultBuyin;
+			return defaultBuyin;
 		}
 
 		public function setDefaultBuyin($defaultBuyin){
-			$this->defaultBuyin = $defaultBuyin;
+			defaultBuyin = $defaultBuyin;
 		}
 
 		public function getCurrencyLayout(){
-			return $this->currencyLayout;
+			return currencyLayout;
 		}
 
 		public function setCurrencyLayout($currencyLayout){
-			$this->currencyLayout = $currencyLayout;
+			currencyLayout = $currencyLayout;
 		}
 
 		public function getCurrencySymbol(){
-			return $this->currencySymbol;
+			return currencySymbol;
 		}
 
 		public function setCurrencySymbol($currencySymbol){
-			$this->currencySymbol = $currencySymbol;
+			currencySymbol = $currencySymbol;
 		}
 
 	}

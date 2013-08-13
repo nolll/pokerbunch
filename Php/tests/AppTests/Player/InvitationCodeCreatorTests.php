@@ -14,16 +14,16 @@ namespace tests\AppTests\Player{
 
 		function setUp(){
 			parent::setUp();
-			$this->encryption = $this->registerFake(ClassNames::$Encryption);
-			$this->invitationCodeCreator = $this->getInstance('app\Player\InvitationCodeCreatorImpl');
+			encryption = registerFake(ClassNames::$Encryption);
+			invitationCodeCreator = getInstance('app\Player\InvitationCodeCreatorImpl');
 		}
 
 		function test_GetCode_ReturnsEncryptedPlayerName(){
 			$player = new Player();
-			$this->encryption->returns('encrypt', 'encrypted-player-name');
-			$code = $this->invitationCodeCreator->getCode($player);
+			encryption.returns('encrypt', 'encrypted-player-name');
+			$code = invitationCodeCreator.getCode($player);
 
-			$this->assertIdentical($code, 'encrypted-player-name');
+			assertIdentical($code, 'encrypted-player-name');
 		}
 
 	}

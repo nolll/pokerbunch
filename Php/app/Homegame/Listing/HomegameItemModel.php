@@ -9,8 +9,8 @@ namespace app\Homegame\Listing{
 		public $urlModel;
 
 		public function __construct(Homegame $homegame){
-			$this->name = $homegame->getDisplayName();
-			$this->urlModel = new HomegameDetailsUrlModel($homegame);
+			name = $homegame.getDisplayName();
+			urlModel = new HomegameDetailsUrlModel($homegame);
 		}
 
 	}

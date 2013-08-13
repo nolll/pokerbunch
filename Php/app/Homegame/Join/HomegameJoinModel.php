@@ -9,7 +9,7 @@ namespace app\Homegame\Join{
 
 		public function __construct(User $user, $postedCode){
 			parent::__construct($user);
-			$this->code = $postedCode;
+			code = $postedCode;
 		}
 
 	}

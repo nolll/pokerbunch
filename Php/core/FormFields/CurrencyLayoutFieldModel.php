@@ -4,7 +4,7 @@ namespace core\FormFields{
 	class CurrencyLayoutFieldModel extends SelectFieldModel{
 
 		public function __construct($fieldName, $fieldId, $selectedValue, $firstItemText = null){
-			$items = $this->getSelectItems();
+			$items = getSelectItems();
 			parent::__construct($fieldName, $fieldId, $selectedValue, $items, $firstItemText);
 		}
 

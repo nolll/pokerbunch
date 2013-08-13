@@ -13,33 +13,33 @@ namespace tests{
 		private $injector;
 
 		public function setUp(){
-			$this->binder = new TestBinder();
-			$this->bind();
-			$this->injector = Sharbat::createInjector($this->binder);
+			binder = new TestBinder();
+			bind();
+			injector = Sharbat::createInjector(binder);
 		}
 
 		public function bind(){}
 
 		protected function bindFakeClass($interfaceName, $mockClassName = null){
 			$classBinding = new ClassBinding($interfaceName, $mockClassName);
-			$this->binder->addClassBinding($classBinding);
+			binder.addClassBinding($classBinding);
 		}
 
 		protected function registerFake($interfaceName){
 			$classBinding = new ClassBinding($interfaceName);
 			$instance = TestHelper::getFakeFromClassBinding($classBinding);
-			return $this->registerInstance($interfaceName, $instance);
+			return registerInstance($interfaceName, $instance);
 		}
 
 		protected function registerInstance($interfaceName, $instance){
-			$this->binder->bind($interfaceName)
-				->toInstance($instance)
-				->inSingleton();
-			return $this->injector->getInstance($interfaceName);
+			binder.bind($interfaceName)
+				.toInstance($instance)
+				.inSingleton();
+			return injector.getInstance($interfaceName);
 		}
 
 		protected function getInstance($className){
-			return $this->injector->getInstance($className);
+			return injector.getInstance($className);
 		}
 
 	}

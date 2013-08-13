@@ -13,15 +13,15 @@ namespace app\Cashgame\Edit{
 
 		public function __construct(CashgameFactory $cashgameFactory,
 									Request $request = null){
-			$this->cashgameFactory = $cashgameFactory;
+			cashgameFactory = $cashgameFactory;
 
 			if($request != null){
-				$this->location = $request->getParamPost('location');
+				location = $request.getParamPost('location');
 			}
 		}
 
 		public function getCashgame(Cashgame $cashgame){
-			return $this->cashgameFactory->create($this->location, $cashgame->getStatus(), $cashgame->getId(), $cashgame->getResults());
+			return cashgameFactory.create(location, $cashgame.getStatus(), $cashgame.getId(), $cashgame.getResults());
 		}
 
 	}

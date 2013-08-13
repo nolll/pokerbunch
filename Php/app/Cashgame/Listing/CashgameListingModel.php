@@ -19,8 +19,8 @@ namespace app\Cashgame\Listing{
 									$year = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->listTableModel = new CashgameTableModel($homegame, $cashgames);
-			$this->cashgameNavModel = new CashgameNavigationModel($homegame, 'listing', $years, $year, $runningGame);
+			listTableModel = new CashgameTableModel($homegame, $cashgames);
+			cashgameNavModel = new CashgameNavigationModel($homegame, 'listing', $years, $year, $runningGame);
 		}
 
 	}

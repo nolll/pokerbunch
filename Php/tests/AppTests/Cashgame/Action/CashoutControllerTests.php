@@ -24,136 +24,136 @@ namespace tests\AppTests\Cashgame\Action{
 		private $cashgameValidatorFactory;
 
 		function setUp(){
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
-			$this->sut = new CashoutController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerRepositoryMock, $request, $this->cashgameValidatorFactory);
+			cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
+			sut = new CashoutController(userContext, homegameRepositoryMock, cashgameRepositoryMock, playerRepositoryMock, $request, cashgameValidatorFactory);
 		}
 
 		function test_ActionCashout_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_cashout("homegame1", "Player 1");
+			sut.action_cashout("homegame1", "Player 1");
 		}
 
 		function test_ActionCashout_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
 			$player = new Player();
-			$player->setUserName('otherUser');
+			$player.setUserName('otherUser');
 
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime());
+			$cashgame.setStartTime(new DateTime());
 
-			TestHelper::setupUserWithPlayerRights($this->userContext);
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			TestHelper::setupUserWithPlayerRights(userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			playerRepositoryMock.returns('getByName', $player);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 
-			$this->expectException(new AccessDeniedException());
+			expectException(new AccessDeniedException());
 
-			$this->sut->action_cashout("homegame1", "Player 1");
+			sut.action_cashout("homegame1", "Player 1");
 		}
 
 		function test_ActionCashout_ReturnsCorrectModel(){
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime());
+			$cashgame.setStartTime(new DateTime());
 
 			$player = new Player();
-			$player->setUserName('user1');
+			$player.setUserName('user1');
 
-			TestHelper::setupUserWithPlayerRights($this->userContext);
-			$this->setupValidCashoutValidator();
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-            $this->cashgameRepositoryMock->returns('getRunning', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', $player);
+			TestHelper::setupUserWithPlayerRights(userContext);
+			setupValidCashoutValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+            cashgameRepositoryMock.returns('getRunning', $cashgame);
+			playerRepositoryMock.returns('getByName', $player);
 
-			$viewResult = $this->sut->action_cashout("homegame1", "Player 1");
+			$viewResult = sut.action_cashout("homegame1", "Player 1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\CashoutModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\CashoutModel');
 		}
 
 		function test_ActionCashoutPost_AddsCheckpointAndUpdatesResult(){
 			$player = new Player();
-			$player->setUserName('user1');
-			$player->setId(1);
+			$player.setUserName('user1');
+			$player.setId(1);
 
 			$cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
+			$cashgame.setStatus(GameStatus::running);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
-			$cashgame->setResults(array($cashgameResult));
+			$cashgameResult.setPlayer($player);
+			$cashgame.setResults(array($cashgameResult));
 
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidCashoutValidator();
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', $player);
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidCashoutValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
+			playerRepositoryMock.returns('getByName', $player);
 
-			$this->cashgameRepositoryMock->expectOnce("addCheckpoint");
+			cashgameRepositoryMock.expectOnce("addCheckpoint");
 
-			$this->sut->action_cashout_post("homegame1", "Player 1");
+			sut.action_cashout_post("homegame1", "Player 1");
 		}
 
 		function test_ActionCashoutPost_HasResultsThatAreNotCheckedOut_RedirectsToRunningGame(){
 			$player = new Player();
-			$player->setUserName('user1');
-			$player->setId(1);
+			$player.setUserName('user1');
+			$player.setId(1);
 
 			$cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
+			$cashgame.setStatus(GameStatus::running);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
-			$cashgame->setResults(array($cashgameResult));
+			$cashgameResult.setPlayer($player);
+			$cashgame.setResults(array($cashgameResult));
 
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidCashoutValidator();
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', $player);
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidCashoutValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
+			playerRepositoryMock.returns('getByName', $player);
 
-			$urlModel = $this->sut->action_cashout_post("homegame1", "Player 1");
+			$urlModel = sut.action_cashout_post("homegame1", "Player 1");
 
-			$this->assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
+			assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
 		}
 
 		public function test_ActionCashoutPost_WithInvalidForm_ReturnsModel(){
 			$player = new Player();
-			$player->setUserName('user1');
-			$player->setId(1);
+			$player.setUserName('user1');
+			$player.setId(1);
 
 			$cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
+			$cashgame.setStatus(GameStatus::running);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
-			$cashgame->setResults(array($cashgameResult));
+			$cashgameResult.setPlayer($player);
+			$cashgame.setResults(array($cashgameResult));
 
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupInvalidCashoutValidator();
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', $player);
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupInvalidCashoutValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
+			playerRepositoryMock.returns('getByName', $player);
 
-			$viewResult = $this->sut->action_cashout_post("homegame1", "Player 1");
+			$viewResult = sut.action_cashout_post("homegame1", "Player 1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\CashoutModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\CashoutModel');
 		}
 
 		private function setupValidCashoutValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupCashoutValidator($validator);
+			setupCashoutValidator($validator);
 		}
 
 		private function setupInvalidCashoutValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupCashoutValidator($validator);
+			setupCashoutValidator($validator);
 		}
 
 		private function setupCashoutValidator(Validator $validator){
-			$this->cashgameValidatorFactory->returns("getCashoutValidator", $validator);
+			cashgameValidatorFactory.returns("getCashoutValidator", $validator);
 		}
 
 	}

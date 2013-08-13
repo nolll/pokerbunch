@@ -7,9 +7,9 @@ namespace app\Urls\BaseClasses{
 
 		public function __construct($format, $formatWithYear, Homegame $homegame, $year){
 			if($year != null){
-				$this->url = UrlFormatter::formatHomegameWithYear($formatWithYear, $homegame, $year);
+				url = UrlFormatter::formatHomegameWithYear($formatWithYear, $homegame, $year);
 			} else {
-				$this->url = UrlFormatter::formatHomegame($format, $homegame);
+				url = UrlFormatter::formatHomegame($format, $homegame);
 			}
 		}
 

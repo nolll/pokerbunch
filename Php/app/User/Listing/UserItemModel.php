@@ -8,8 +8,8 @@ namespace app\User\Listing{
 		public $urlModel;
 
 		public function __construct(User $user){
-			$this->name = $user->getDisplayName();
-			$this->urlModel = new UserDetailsUrlModel($user);
+			name = $user.getDisplayName();
+			urlModel = new UserDetailsUrlModel($user);
 		}
 
 	}

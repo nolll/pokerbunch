@@ -24,13 +24,13 @@ namespace tests\RepositoryTests{
 		private $cashgameResultFactory;
 
 		function setUp(){
-			$this->cashgameStorage = TestHelper::getFake(ClassNames::$CashgameStorage);
-			$this->cashgameFactory = TestHelper::getFake(ClassNames::$CashgameFactory);
-			$this->playerStorage = TestHelper::getFake(ClassNames::$PlayerStorage);
-			$this->timer = new TimerFake();
-			$this->cashgameSuiteFactory = TestHelper::getFake(ClassNames::$CashgameSuiteFactory);
-			$this->cashgameResultFactory = TestHelper::getFake(ClassNames::$CashgameResultFactory);
-			$this->sut = new CashgameRepositoryImpl($this->cashgameStorage, $this->cashgameFactory, $this->playerStorage, $this->timer, $this->cashgameSuiteFactory, $this->cashgameResultFactory);
+			cashgameStorage = TestHelper::getFake(ClassNames::$CashgameStorage);
+			cashgameFactory = TestHelper::getFake(ClassNames::$CashgameFactory);
+			playerStorage = TestHelper::getFake(ClassNames::$PlayerStorage);
+			timer = new TimerFake();
+			cashgameSuiteFactory = TestHelper::getFake(ClassNames::$CashgameSuiteFactory);
+			cashgameResultFactory = TestHelper::getFake(ClassNames::$CashgameResultFactory);
+			sut = new CashgameRepositoryImpl(cashgameStorage, cashgameFactory, playerStorage, timer, cashgameSuiteFactory, cashgameResultFactory);
 		}
 
 		function test_StartGame_CallsUpdateGameWithSetsCurrentDateAndStatusRunning(){
@@ -39,19 +39,19 @@ namespace tests\RepositoryTests{
 			$status = GameStatus::created;
 			$date = null;
 			$cashgame = new Cashgame();
-			$cashgame->setId($id);
-			$cashgame->setLocation($location);
-			$cashgame->setStatus($status);
-			$cashgame->setStartTime($date);
+			$cashgame.setId($id);
+			$cashgame.setLocation($location);
+			$cashgame.setStatus($status);
+			$cashgame.setStartTime($date);
 
-			$this->timer->setTime(new DateTime('2001-01-01 01:00:00'));
+			timer.setTime(new DateTime('2001-01-01 01:00:00'));
 			$expectedDate = '2001-01-01';
 			$expectedStatus = GameStatus::running;
 			$expectedRawCashgame = new RawCashgame($id, $location, $expectedStatus, $expectedDate);
 
-			$this->cashgameStorage->expectOnce("updateGame", array($expectedRawCashgame));
+			cashgameStorage.expectOnce("updateGame", array($expectedRawCashgame));
 
-			$this->sut->startGame($cashgame);
+			sut.startGame($cashgame);
 		}
 
 		function test_EndGame_CallsUpdateGameWithSetsCurrentDateAndStatusRunning(){
@@ -60,19 +60,19 @@ namespace tests\RepositoryTests{
 			$status = GameStatus::running;
 			$date = null;
 			$cashgame = new Cashgame();
-			$cashgame->setId($id);
-			$cashgame->setLocation($location);
-			$cashgame->setStatus($status);
-			$cashgame->setStartTime($date);
+			$cashgame.setId($id);
+			$cashgame.setLocation($location);
+			$cashgame.setStatus($status);
+			$cashgame.setStartTime($date);
 
-			$this->timer->setTime(new DateTime('2001-01-01 01:00:00'));
+			timer.setTime(new DateTime('2001-01-01 01:00:00'));
 			$expectedDate = '2001-01-01';
 			$expectedStatus = GameStatus::published;
 			$expectedRawCashgame = new RawCashgame($id, $location, $expectedStatus, $expectedDate);
 
-			$this->cashgameStorage->expectOnce("updateGame", array($expectedRawCashgame));
+			cashgameStorage.expectOnce("updateGame", array($expectedRawCashgame));
 
-			$this->sut->endGame($cashgame);
+			sut.endGame($cashgame);
 		}
 
 	}

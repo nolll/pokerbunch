@@ -17,83 +17,83 @@ namespace tests\AppTests\Homegame{
 		private $homegameValidatorFactory;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameStorage = TestHelper::getFake(ClassNames::$HomegameStorage);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->homegameValidatorFactory = TestHelper::getFake(ClassNames::$HomegameValidatorFactory);
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameStorage = TestHelper::getFake(ClassNames::$HomegameStorage);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			homegameValidatorFactory = TestHelper::getFake(ClassNames::$HomegameValidatorFactory);
+			cashgameRepositoryMock = getFakeCashgameRepository();
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->sut = new HomegameEditController($this->userContext, $this->homegameStorage, $this->homegameRepositoryMock, $this->homegameValidatorFactory, $this->cashgameRepositoryMock, $request);
+			sut = new HomegameEditController(userContext, homegameStorage, homegameRepositoryMock, homegameValidatorFactory, cashgameRepositoryMock, $request);
 		}
 
 		function test_ActionEdit_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_edit("homegame1");
+			sut.action_edit("homegame1");
 		}
 
 		function test_ActionEditPost_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_edit_post("homegame1");
+			sut.action_edit_post("homegame1");
 		}
 
 		function test_ActionEditPost_WithValidHomegame_CallsUpdateHomegame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidValidator();
 
-			$this->homegameStorage->expectOnce("updateHomegame");
+			homegameStorage.expectOnce("updateHomegame");
 
-			$this->sut->action_edit_post("homegame1");
+			sut.action_edit_post("homegame1");
 		}
 
 		function test_ActionEditPost_WithValidHomegame_RedirectsToDetails(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupValidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupValidValidator();
 
-			$urlModel = $this->sut->action_edit_post("homegame1");
+			$urlModel = sut.action_edit_post("homegame1");
 
-			$this->assertIsA($urlModel, 'app\Urls\HomegameDetailsUrlModel');
+			assertIsA($urlModel, 'app\Urls\HomegameDetailsUrlModel');
 		}
 
 		function test_ActionEditPost_WithInvalidHomegame_DoesNotRedirect(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupInvalidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupInvalidValidator();
 
-			$urlModel = $this->sut->action_edit_post("homegame1");
+			$urlModel = sut.action_edit_post("homegame1");
 
-			$this->assertNotA($urlModel, 'app\Urls\HomegameDetailsUrlModel');
+			assertNotA($urlModel, 'app\Urls\HomegameDetailsUrlModel');
 		}
 
 		function test_ActionEditPost_WithInvalidHomegame_DoesntCallUpdateHomegame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->setupInvalidValidator();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			setupInvalidValidator();
 
-			$this->homegameStorage->expectNever("updateHomegame");
+			homegameStorage.expectNever("updateHomegame");
 
-			$this->sut->action_edit_post("homegame1");
+			sut.action_edit_post("homegame1");
 		}
 
 		function setupValidValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupInvalidValidator(){
 			$validator = new ValidatorFake(false);
-			$this->setupValidator($validator);
+			setupValidator($validator);
 		}
 
 		function setupValidator(Validator $validator){
-			$this->homegameValidatorFactory->returns("getEditHomegameValidator", $validator);
+			homegameValidatorFactory.returns("getEditHomegameValidator", $validator);
 		}
 
 	}

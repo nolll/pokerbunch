@@ -8,7 +8,7 @@ namespace app\Cashgame\Action{
 
 		public function __construct(Request $request){
 			parent::__construct($request);
-			$this->amount = $request->getParamPost('amount');
+			amount = $request.getParamPost('amount');
 		}
 
 	}

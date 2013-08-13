@@ -16,42 +16,42 @@ namespace tests\AppTests\Cashgame\Action{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
-			$this->sut = new CheckpointController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
+			sut = new CheckpointController(userContext, homegameRepositoryMock, cashgameRepositoryMock, playerRepositoryMock);
 		}
 
 		function test_ActionDeleteCheckpoint_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
+			sut.action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
 		}
 
 		function test_ActionDeleteCheckpoint_WithId_CallsDeleteCheckpoint(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
+			homegameRepositoryMock.returns('getByName', new Homegame());
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime());
-			$this->cashgameRepositoryMock->returns('getByDateString', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', new Player());
-			$this->cashgameRepositoryMock->expectOnce('deleteCheckpoint');
+			$cashgame.setStartTime(new DateTime());
+			cashgameRepositoryMock.returns('getByDateString', $cashgame);
+			playerRepositoryMock.returns('getByName', new Player());
+			cashgameRepositoryMock.expectOnce('deleteCheckpoint');
 
-			$this->sut->action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
+			sut.action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
 		}
 
 		function test_ActionDeleteCheckpoint_WithId_RedirectsToAction(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
+			homegameRepositoryMock.returns('getByName', new Homegame());
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime());
-			$this->cashgameRepositoryMock->returns('getByDateString', $cashgame);
-			$this->playerRepositoryMock->returns('getByName', new Player());
+			$cashgame.setStartTime(new DateTime());
+			cashgameRepositoryMock.returns('getByDateString', $cashgame);
+			playerRepositoryMock.returns('getByName', new Player());
 
-			$urlModel = $this->sut->action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
+			$urlModel = sut.action_deletecheckpoint("homegame1", "2010-01-01", "Player 1", "1");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameActionUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameActionUrlModel');
 		}
 
 	}

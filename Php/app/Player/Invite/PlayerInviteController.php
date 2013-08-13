@@ -30,54 +30,54 @@ namespace app\Player\Invite{
 									PlayerValidatorFactory $playerValidatorFactory,
 									InvitationSender $invitationSender,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerValidatorFactory = $playerValidatorFactory;
-			$this->invitationSender = $invitationSender;
-			$this->request = $request;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			playerRepository = $playerRepository;
+			cashgameRepository = $cashgameRepository;
+			playerValidatorFactory = $playerValidatorFactory;
+			invitationSender = $invitationSender;
+			request = $request;
 		}
 
 		public function action_invite($gameName, $playerName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			$player = $this->playerRepository->getByName($homegame, $playerName);
-			return $this->showForm($homegame, $player);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			$player = playerRepository.getByName($homegame, $playerName);
+			return showForm($homegame, $player);
 		}
 
 		public function action_invite_post($gameName, $playerName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requireManager($homegame);
-			$player = $this->playerRepository->getByName($homegame, $playerName);
-			$email = $this->getPostedEmail();
-			$validator = $this->playerValidatorFactory->getInvitePlayerValidator($email);
-			if($validator->isValid()){
-				$this->invitationSender->send($homegame, $player, $email);
-				return $this->redirect(new PlayerInviteConfirmationUrlModel($homegame, $player));
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requireManager($homegame);
+			$player = playerRepository.getByName($homegame, $playerName);
+			$email = getPostedEmail();
+			$validator = playerValidatorFactory.getInvitePlayerValidator($email);
+			if($validator.isValid()){
+				invitationSender.send($homegame, $player, $email);
+				return redirect(new PlayerInviteConfirmationUrlModel($homegame, $player));
 			} else {
-				return $this->showForm($homegame, $player, $validator->getErrors());
+				return showForm($homegame, $player, $validator.getErrors());
 			}
 		}
 
 		public function action_invited($gameName, $playerName){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$model = new HomegamePageModel($this->userContext->getUser(), $homegame, $runningGame);
-			return $this->view('app/Player/Invite/Confirmation', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$model = new HomegamePageModel(userContext.getUser(), $homegame, $runningGame);
+			return view('app/Player/Invite/Confirmation', $model);
 		}
 
 		private function showForm(Homegame $homegame, Player $player, array $validationErrors = null){
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$model = new HomegamePageModel($this->userContext->getUser(), $homegame, $runningGame);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$model = new HomegamePageModel(userContext.getUser(), $homegame, $runningGame);
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/Player/Invite/invite', $model);
+			return view('app/Player/Invite/invite', $model);
 		}
 
 		private function getPostedEmail(){
-			return $this->request->getParamPost('email');
+			return request.getParamPost('email');
 		}
 
 	}

@@ -12,8 +12,8 @@ namespace core{
 
 		public static function formatCurrency(CurrencySettings $currency, $amount){
 			$numberFormatted = self::formatNumber($amount);
-			$amountFormatted = str_replace('{AMOUNT}', $numberFormatted, $currency->getLayout());
-			$currencyFormatted = str_replace('{SYMBOL}', $currency->getSymbol(), $amountFormatted);
+			$amountFormatted = str_replace('{AMOUNT}', $numberFormatted, $currency.getLayout());
+			$currencyFormatted = str_replace('{SYMBOL}', $currency.getSymbol(), $amountFormatted);
 			return $currencyFormatted;
 		}
 
@@ -54,27 +54,27 @@ namespace core{
 		}
 
 		public static function formatShortDate(DateTime $date, $includeYear = false){
-			return $date->format(self::getShortDateFormat($includeYear));
+			return $date.format(self::getShortDateFormat($includeYear));
 		}
 
 		public static function formatShortDateTime(DateTime $date, $includeYear = false){
-			return $date->format(self::getShortDateTimeFormat($includeYear));
+			return $date.format(self::getShortDateTimeFormat($includeYear));
 		}
 
 		public static function formatTime(DateTime $date){
-			return $date->format('H:i');
+			return $date.format('H:i');
 		}
 
 		public static function formatIsoDate(DateTime $date){
-			return $date->format('Y-m-d');
+			return $date.format('Y-m-d');
 		}
 
 		public static function formatIsoDateTime(DateTime $date){
-			return $date->format('Y-m-d H:i:s');
+			return $date.format('Y-m-d H:i:s');
 		}
 
 		public static function formatYear(DateTime $date){
-			return $date->format('Y');
+			return $date.format('Y');
 		}
 
 		public static function getTimezoneNames(){

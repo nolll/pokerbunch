@@ -20,13 +20,13 @@ namespace app\Homegame{
 		public $cashgameIsRunning;
 
 		public function __construct(Homegame $homegame, Cashgame $runningGame = null){
-			$this->heading = $homegame->getDisplayName();
-			$this->headingLink = new HomegameDetailsUrlModel($homegame);
-			$this->cashgameLink = new CashgameIndexUrlModel($homegame);
-			$this->playerLink = new PlayerIndexUrlModel($homegame);
-			$this->createLink = new CashgameAddUrlModel($homegame);
-			$this->runningLink = new RunningCashgameUrlModel($homegame);
-			$this->cashgameIsRunning = $runningGame != null;
+			heading = $homegame.getDisplayName();
+			headingLink = new HomegameDetailsUrlModel($homegame);
+			cashgameLink = new CashgameIndexUrlModel($homegame);
+			playerLink = new PlayerIndexUrlModel($homegame);
+			createLink = new CashgameAddUrlModel($homegame);
+			runningLink = new RunningCashgameUrlModel($homegame);
+			cashgameIsRunning = $runningGame != null;
 		}
 
 	}

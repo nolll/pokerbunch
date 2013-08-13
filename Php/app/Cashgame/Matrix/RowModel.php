@@ -25,21 +25,21 @@ namespace app\Cashgame\Matrix{
 		public $cellModels;
 
 		public function __construct(Homegame $homegame, CashgameSuite $suite, CashgameTotalResult $result = null, $rank){
-			$this->rank = $rank;
-			$cashgames = $suite->getCashgames();
+			rank = $rank;
+			$cashgames = $suite.getCashgames();
 
 			if($result != null){
-				$player = $result->getPlayer();
+				$player = $result.getPlayer();
 				if($player != null){
-					$this->name = $player->getDisplayName();
-					$this->urlEncodedName = rawurlencode($player->getDisplayName());
-					$this->playerUrl = new PlayerDetailsUrlModel($homegame, $player);
-					$this->cellModels = $this->getCellModels($cashgames, $player);
+					name = $player.getDisplayName();
+					urlEncodedName = rawurlencode($player.getDisplayName());
+					playerUrl = new PlayerDetailsUrlModel($homegame, $player);
+					cellModels = getCellModels($cashgames, $player);
 				}
 
-				$winnings = $result->getWinnings();
-				$this->totalResult = Globalization::formatResult($homegame->getCurrency(), $winnings);
-				$this->resultClass = Util::getWinningsCssClass($winnings);
+				$winnings = $result.getWinnings();
+				totalResult = Globalization::formatResult($homegame.getCurrency(), $winnings);
+				resultClass = Util::getWinningsCssClass($winnings);
 			}
 		}
 
@@ -47,7 +47,7 @@ namespace app\Cashgame\Matrix{
 			$models = array();
 			if($cashgames != null){
 				foreach($cashgames as $cashgame){ /** @var Cashgame $cashgame */
-					$result = $cashgame->getResult($player);
+					$result = $cashgame.getResult($player);
 					$models[] = new CellModel($cashgame, $result);
 				}
 			}

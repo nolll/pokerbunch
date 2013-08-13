@@ -6,13 +6,13 @@ namespace core\Validation{
 		protected $message;
 
 		public function __construct($subject = null, $message){
-			$this->subject = $subject;
-			$this->message = $message;
+			subject = $subject;
+			message = $message;
 		}
 
 		public function validate(){
-			if($this->subject == null){
-				$this->addError($this->message);
+			if(subject == null){
+				addError(message);
 				return false;
 			}
 			return true;

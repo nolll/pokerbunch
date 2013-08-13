@@ -6,8 +6,8 @@ namespace app\Cashgame\Chart{
 		public $title;
 
 		function __construct($type, $title){
-			$this->type = $type;
-			$this->title = $title;
+			type = $type;
+			title = $title;
 		}
 
 	}

@@ -13,15 +13,15 @@ namespace tests\AppTests\Homegame{
 
 		function setUp(){
 			$homegameStorage = TestHelper::getFake(ClassNames::$HomegameStorage);
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->sut = new HomegameListingController($this->userContext, $homegameStorage);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			sut = new HomegameListingController(userContext, $homegameStorage);
 		}
 
 		function test_ActionIndex_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireAdmin');
-			$this->expectException();
+			userContext.throwOn('requireAdmin');
+			expectException();
 
-			$this->sut->action_listing();
+			sut.action_listing();
 		}
 
 	}

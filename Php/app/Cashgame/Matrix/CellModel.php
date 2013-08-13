@@ -16,15 +16,15 @@ namespace app\Cashgame\Matrix{
 
 		public function __construct(Cashgame $cashgame, CashgameResult $result = null){
 			if($result != null){
-				$this->showResult = true;
-				$this->showTransactions = $result->getBuyin() > 0;
-				$this->buyin = $result->getBuyin();
-				$this->cashout = $result->getStack();
-				$this->winnings = Util::formatWinnings($result->getWinnings());
-				$this->resultClass = Util::getWinningsCssClass($result->getWinnings());
-				$this->hasBestResult = $cashgame->isBestResult($result);
+				showResult = true;
+				showTransactions = $result.getBuyin() > 0;
+				buyin = $result.getBuyin();
+				cashout = $result.getStack();
+				winnings = Util::formatWinnings($result.getWinnings());
+				resultClass = Util::getWinningsCssClass($result.getWinnings());
+				hasBestResult = $cashgame.isBestResult($result);
 			} else {
-				$this->showResult = false;
+				showResult = false;
 			}
 		}
 

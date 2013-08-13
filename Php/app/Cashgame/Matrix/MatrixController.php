@@ -13,16 +13,16 @@ namespace app\Cashgame\Matrix{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									MatrixModelFactory $matrixModelFactory){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->matrixModelFactory = $matrixModelFactory;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			matrixModelFactory = $matrixModelFactory;
 		}
 
 		public function action_matrix($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$model = $this->matrixModelFactory->get($homegame, $this->userContext->getUser(), $year);
-			return $this->view('app/Cashgame/Matrix/Matrix', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$model = matrixModelFactory.get($homegame, userContext.getUser(), $year);
+			return view('app/Cashgame/Matrix/Matrix', $model);
 		}
 
 	}

@@ -12,27 +12,27 @@ namespace Infrastructure\Data\Classes {
 		private $date;
 
 		public function __construct($id, $location, $status, $date){
-			$this->results = array();
-			$this->id = $id;
-			$this->location = $location;
-			$this->status = $status;
-			$this->date = $date;
+			results = array();
+			id = $id;
+			location = $location;
+			status = $status;
+			date = $date;
 		}
 
 		public function getId(){
-			return $this->id;
+			return id;
 		}
 
 		public function getLocation(){
-			return $this->location;
+			return location;
 		}
 
 		public function getStatus(){
-			return $this->status;
+			return status;
 		}
 
 		public function getDate(){
-			return $this->date;
+			return date;
 		}
 
 		/**
@@ -40,14 +40,14 @@ namespace Infrastructure\Data\Classes {
 		 * @return void
 		 */
 		public function addResult(RawCashgameResult $result){
-			$this->results[] = $result;
+			results[] = $result;
 		}
 
 		/**
 		 * @return RawCashgameResult[]
 		 */
 		public function getResults(){
-			return $this->results;
+			return results;
 		}
 
 	}

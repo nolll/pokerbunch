@@ -12,23 +12,23 @@ namespace app\Player\Achievements\SingleAchievements{
 		private $cashgames;
 
 		public function __construct(Player $player, $cashgames, $numberToCheck){
-			$this->player = $player;
-			$this->cashgames = $cashgames;
-			if($this->cashgames == null){
-				$this->earned = false;
+			player = $player;
+			cashgames = $cashgames;
+			if(cashgames == null){
+				earned = false;
 				return;
 			}
-			$this->earned = $this->getNumberOfPlayedGames() >= $numberToCheck;
+			earned = getNumberOfPlayedGames() >= $numberToCheck;
 		}
 
 		public function earned(){
-			return $this->earned;
+			return earned;
 		}
 
 		private function getNumberOfPlayedGames(){
 			$numberOfGames = 0;
-			foreach($this->cashgames as $cashgame){
-				if($cashgame->isInGame($this->player)){
+			foreach(cashgames as $cashgame){
+				if($cashgame.isInGame(player)){
 					$numberOfGames++;
 				}
 			}

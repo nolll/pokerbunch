@@ -7,11 +7,11 @@ namespace app\Cashgame\Leaderboard{
 		public $itemModels;
 
 		public function __construct(Homegame $homegame, CashgameSuite $suite){
-			$this->itemModels = $this->getItemModels($homegame, $suite);
+			itemModels = getItemModels($homegame, $suite);
 		}
 
 		private function getItemModels(Homegame $homegame, CashgameSuite $suite){
-			$results = $suite->getTotalResults();
+			$results = $suite.getTotalResults();
 			$models = array();
 			$rank = 1;
 			foreach($results as $result){

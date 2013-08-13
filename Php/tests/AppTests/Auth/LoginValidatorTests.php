@@ -11,26 +11,26 @@ namespace tests\AppTests\Auth{
 
 		function test_IsValid_WithUser_ReturnsTrue(){
 			$user = new User();
-			$validator = $this->getValidator($user);
+			$validator = getValidator($user);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithNullUser_ReturnsFalse(){
-			$validator = $this->getValidator(null);
+			$validator = getValidator(null);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function getValidator(User $user = null){
-			return $this->getValidatorFactory()->getLoginValidator($user);
+			return getValidatorFactory().getLoginValidator($user);
 		}
 
 		/**
 		 * @return UserValidatorFactory;
 		 */
 		function getValidatorFactory(){
-			$userStorage = $this->getUserStorage();
+			$userStorage = getUserStorage();
 			return new UserValidatorFactoryImpl($userStorage);
 		}
 

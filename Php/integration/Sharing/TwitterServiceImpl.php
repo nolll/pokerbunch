@@ -17,25 +17,25 @@ namespace integration\Sharing{
 
 		public function __construct(TwitterStorage $twitterStorage,
 									Settings $settings){
-			$this->twitterStorage = $twitterStorage;
-			$this->settings = $settings;
+			twitterStorage = $twitterStorage;
+			settings = $settings;
 		}
 
 		public function shareResult(User $user, $amount){
-			$message = $this->getMessage($amount);
-			$this->postToTwitter($user, $message);
+			$message = getMessage($amount);
+			postToTwitter($user, $message);
 		}
 
 		public function getKey(){
-			return $this->settings->getTwitterKey();
+			return settings.getTwitterKey();
 		}
 
 		public function getSecret(){
-			return $this->settings->getTwitterSecret();
+			return settings.getTwitterSecret();
 		}
 
 		public function getCallbackUrl(){
-			return sprintf(RouteFormats::twitterCallback, $this->settings->getSiteUrl());
+			return sprintf(RouteFormats::twitterCallback, settings.getSiteUrl());
 		}
 
 		public function clearAuthSession(){
@@ -44,9 +44,9 @@ namespace integration\Sharing{
 
 		public function getRequestToken(){
 			session_start();
-			$conn = $this->getRequestConnection();
-			$requestToken = $conn->getRequestToken($this->getCallbackUrl());
-			if($conn->http_code != 200){
+			$conn = getRequestConnection();
+			$requestToken = $conn.getRequestToken(getCallbackUrl());
+			if($conn.http_code != 200){
 				return null;
 			}
 			return $requestToken;
@@ -58,8 +58,8 @@ namespace integration\Sharing{
 		}
 
 		public function getAuthUrl($token){
-			$conn = $this->getRequestConnection();
-			return $conn->getAuthorizeURL($token);
+			$conn = getRequestConnection();
+			return $conn.getAuthorizeURL($token);
 		}
 
 		public function verifyTempTokenOrClearSession($tempToken){
@@ -67,16 +67,16 @@ namespace integration\Sharing{
 			/* If the oauth_token is old redirect to the connect page. */
 			if (isset($tempToken) && $_SESSION['oauth_token'] !== $tempToken) {
 				$_SESSION['oauth_status'] = 'oldtoken';
-				$this->clearAuthSession();
+				clearAuthSession();
 				return false;
 			}
 			return true;
 		}
 
 		public function getAccessToken($verifyer){
-			$conn = $this->getAccessConnection();
-			$accessToken = $conn->getAccessToken($verifyer);
-			if($conn->http_code != 200){
+			$conn = getAccessConnection();
+			$accessToken = $conn.getAccessToken($verifyer);
+			if($conn.http_code != 200){
 				return null;
 			}
 			return $accessToken;
@@ -94,26 +94,26 @@ namespace integration\Sharing{
 		}
 
 		private function postToTwitter(User $user, $message){
-			$credentials = $this->twitterStorage->getCredentials($user);
+			$credentials = twitterStorage.getCredentials($user);
 			if($credentials != null){
-				$connection = new TwitterOAuth($this->getKey(), $this->getSecret(), $credentials->key, $credentials->secret);
-				$connection->post('statuses/update', array('status' => $message));
+				$connection = new TwitterOAuth(getKey(), getSecret(), $credentials.key, $credentials.secret);
+				$connection.post('statuses/update', array('status' => $message));
 			}
 		}
 
 		/** @return TwitterOAuth; */
 		private function getRequestConnection(){
-			if($this->requestConnection == null){
-				$this->requestConnection = new TwitterOAuth($this->getKey(), $this->getSecret());
+			if(requestConnection == null){
+				requestConnection = new TwitterOAuth(getKey(), getSecret());
 			}
-			return $this->requestConnection;
+			return requestConnection;
 		}
 
 		private function getAccessConnection(){
-			if($this->accessConnection == null){
-				$this->accessConnection = new TwitterOAuth($this->getKey(), $this->getSecret(), $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+			if(accessConnection == null){
+				accessConnection = new TwitterOAuth(getKey(), getSecret(), $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 			}
-			return $this->accessConnection;
+			return accessConnection;
 		}
 
 	}

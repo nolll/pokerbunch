@@ -10,25 +10,25 @@ namespace app{
 	class UrlFormatter{
 
 		public static function formatHomegame($format, Homegame $homegame){
-			return sprintf($format, $homegame->getSlug());
+			return sprintf($format, $homegame.getSlug());
 		}
 
 		public static function formatHomegameWithYear($format, Homegame $homegame, $year){
-			return sprintf($format, $homegame->getSlug(), $year);
+			return sprintf($format, $homegame.getSlug(), $year);
 		}
 
 		public static function formatCashgame($format, Homegame $homegame, Cashgame $cashgame){
-			$isoDate = self::formatIsoDate($cashgame->getStartTime());
-			return sprintf($format, $homegame->getSlug(), $isoDate);
+			$isoDate = self::formatIsoDate($cashgame.getStartTime());
+			return sprintf($format, $homegame.getSlug(), $isoDate);
 		}
 
 		public static function formatPlayer($format, Homegame $homegame, Player $player){
-			$encodedPlayerName = rawurlencode($player->getDisplayName());
-			return sprintf($format, $homegame->getSlug(), $encodedPlayerName);
+			$encodedPlayerName = rawurlencode($player.getDisplayName());
+			return sprintf($format, $homegame.getSlug(), $encodedPlayerName);
 		}
 
 		public static function formatUser($format, User $user){
-			return sprintf($format, $user->getUserName());
+			return sprintf($format, $user.getUserName());
 		}
 
 		public static function formatIsoDate(DateTime $date){

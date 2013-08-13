@@ -8,13 +8,13 @@ namespace integration\Message{
 		private $folderName;
 
 		public function __construct(){
-			$this->setFolderName();
+			setFolderName();
 		}
 
 		public function send($to, $subject, $body){
-			$content = $this->getContents($to, $subject, $body);
-			$fileName = $this->getFileName();
-			$this->writeFile($content, $fileName);
+			$content = getContents($to, $subject, $body);
+			$fileName = getFileName();
+			writeFile($content, $fileName);
 		}
 
 		private function getFileName(){
@@ -22,11 +22,11 @@ namespace integration\Message{
 			$fileName = Globalization::formatIsoDateTime($now);
 			$fileName = str_replace(' ', '_', $fileName);
 			$fileName = str_replace(':', '.', $fileName);
-			return $this->folderName . '/' . $fileName . '.txt';
+			return folderName . '/' . $fileName . '.txt';
 		}
 
 		private function writeFile($content, $fileName){
-			$this->ensureFolderExists();
+			ensureFolderExists();
 			$file = fopen($fileName, 'w') or die('can\'t open file');
 			fwrite($file, $content);
 			fclose($file);
@@ -40,17 +40,17 @@ namespace integration\Message{
 		}
 
 		private function ensureFolderExists(){
-			if(!file_exists($this->folderName)){
-				$this->createFolder();
+			if(!file_exists(folderName)){
+				createFolder();
 			}
 		}
 
 		private function createFolder(){
-			mkdir($this->folderName);
+			mkdir(folderName);
 		}
 
 		private function setFolderName(){
-			$this->folderName = $_SERVER{'DOCUMENT_ROOT'} . '/maillog';
+			folderName = $_SERVER{'DOCUMENT_ROOT'} . '/maillog';
 		}
 
 	}

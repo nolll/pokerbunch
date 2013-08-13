@@ -13,7 +13,7 @@ namespace app\Player\Add{
 									Homegame $homegame,
 									Cashgame $runningGame){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegameName = $homegame->getDisplayName();
+			homegameName = $homegame.getDisplayName();
 		}
 
 	}

@@ -20,48 +20,48 @@ namespace app\User\Edit{
 									UserStorage $userStorage,
 									UserValidatorFactory $userValidatorFactory,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->userStorage = $userStorage;
-			$this->userValidatorFactory = $userValidatorFactory;
-			$this->request = $request;
+			userContext = $userContext;
+			userStorage = $userStorage;
+			userValidatorFactory = $userValidatorFactory;
+			request = $request;
 		}
 
 		public function action_edit($userName){
-			$this->userContext->requireUser();
-			$user = $this->userStorage->getUserByName($userName);
+			userContext.requireUser();
+			$user = userStorage.getUserByName($userName);
 			if($user == null){
 				throw new UserNotFoundException();
 			}
-			return $this->showForm($user);
+			return showForm($user);
 		}
 
 		public function action_edit_post($userName){
-			$this->userContext->requireUser();
-			$user = $this->getPostedUser($userName);
-			$validator = $this->userValidatorFactory->getEditUserValidator($user);
-			if($validator->isValid()){
-				$this->userStorage->updateUser($user);
-				return $this->redirect(new UserDetailsUrlModel($user));
+			userContext.requireUser();
+			$user = getPostedUser($userName);
+			$validator = userValidatorFactory.getEditUserValidator($user);
+			if($validator.isValid()){
+				userStorage.updateUser($user);
+				return redirect(new UserDetailsUrlModel($user));
 			} else {
-				return $this->showForm($user, $validator->getErrors());
+				return showForm($user, $validator.getErrors());
 			}
 		}
 
 		public function getPostedUser($userName){
-			$user = $this->userStorage->getUserByName($userName);
-			$user->setDisplayName($this->request->getParamPost('displayname'));
-			$user->setRealName($this->request->getParamPost('realname'));
-			$user->setEmail($this->request->getParamPost('email'));
+			$user = userStorage.getUserByName($userName);
+			$user.setDisplayName(request.getParamPost('displayname'));
+			$user.setRealName(request.getParamPost('realname'));
+			$user.setEmail(request.getParamPost('email'));
 			return $user;
 		}
 
 		private function showForm(User $user, array $validationErrors = null){
-			$currentUser = $this->userContext->getUser();
+			$currentUser = userContext.getUser();
 			$model = new UserEditModel($currentUser, $user);
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/User/Edit/Edit', $model);
+			return view('app/User/Edit/Edit', $model);
 		}
 
 	}

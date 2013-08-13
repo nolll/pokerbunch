@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyValue_ReturnsTrue(){
@@ -19,7 +19,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithFloat_ReturnsTrue(){
@@ -27,7 +27,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithZero_ReturnsTrue(){
@@ -35,7 +35,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithNegativeFloat_ReturnsFalse(){
@@ -43,7 +43,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithNegativeInteger_ReturnsFalse(){
@@ -51,7 +51,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithString_ReturnsFalse(){
@@ -59,7 +59,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new PositiveNumberValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 	}

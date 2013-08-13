@@ -20,63 +20,63 @@ namespace app\Cashgame\Action {
 		private $cashgame;
 
 		public function __construct(Homegame $homegame, Cashgame $cashgame){
-			$this->homegame = $homegame;
-			$this->cashgame = $cashgame;
-			$this->addActionColumns();
-			$this->addActionRows();
+			homegame = $homegame;
+			cashgame = $cashgame;
+			addActionColumns();
+			addActionRows();
 		}
 
 		private function addActionRows(){
-			$results = $this->cashgame->getResults();
+			$results = cashgame.getResults();
 			foreach($results as $result){
 				$totalBuyin = 0;
-				$checkpoints = $result->getCheckpoints();
-				$playerName = $result->getPlayer()->getDisplayName();
+				$checkpoints = $result.getCheckpoints();
+				$playerName = $result.getPlayer().getDisplayName();
 				foreach($checkpoints as $checkpoint){
-					if($checkpoint->getType() == CheckpointType::buyin){
-						$totalBuyin += $checkpoint->getAmount();
+					if($checkpoint.getType() == CheckpointType::buyin){
+						$totalBuyin += $checkpoint.getAmount();
 					}
-					$this->addActionRow($checkpoint->getTimestamp(), $checkpoint->getStack() - $totalBuyin, $playerName);
+					addActionRow($checkpoint.getTimestamp(), $checkpoint.getStack() - $totalBuyin, $playerName);
 				}
 			}
-			if($this->cashgame->getStatus() == GameStatus::running){
-				$this->addCurrentStacks($results);
+			if(cashgame.getStatus() == GameStatus::running){
+				addCurrentStacks($results);
 			}
 		}
 
 		private function addCurrentStacks($results){
-			$timestamp = DateTimeFactory::now($this->homegame->getTimezone());
+			$timestamp = DateTimeFactory::now(homegame.getTimezone());
 			$row = new ChartRowModel();
-			$row->addValue(new ChartDateTimeValueModel($timestamp));
+			$row.addValue(new ChartDateTimeValueModel($timestamp));
 			foreach($results as $result){  /** @var $result CashgameResult */
-				$winnings = $result->getStack() - $result->getBuyin();
-				$row->addValue(new ChartValueModel($winnings));
+				$winnings = $result.getStack() - $result.getBuyin();
+				$row.addValue(new ChartValueModel($winnings));
 			}
-			$this->addRow($row);
+			addRow($row);
 		}
 
 		private function addActionColumns(){
 			$timeCol = new ChartDateTimeColumnModel('Time', 'HH:mm');
-			$this->addColumn($timeCol);
-			$playerNames = $this->cashgame->getPlayerNames();
+			addColumn($timeCol);
+			$playerNames = cashgame.getPlayerNames();
 			foreach($playerNames as $playerName){
 				$playerCol = new ChartNumberColumnModel($playerName);
-				$this->addColumn($playerCol);
+				addColumn($playerCol);
 			}
 		}
 
 		private function addActionRow(DateTime $dateTime, $winnings, $currentPlayerName){
 			$row1 = new ChartRowModel();
-			$row1->addValue(new ChartDateTimeValueModel($dateTime));
-			$playerNames = $this->cashgame->getPlayerNames();
+			$row1.addValue(new ChartDateTimeValueModel($dateTime));
+			$playerNames = cashgame.getPlayerNames();
 			foreach($playerNames as $playerName){
 				$val = null;
 				if($playerName == $currentPlayerName){
 					$val = $winnings;
 				}
-				$row1->addValue(new ChartValueModel($val));
+				$row1.addValue(new ChartValueModel($val));
 			}
-			$this->addRow($row1);
+			addRow($row1);
 		}
 
 	}

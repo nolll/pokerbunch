@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 		function test_HomegameNavigationModel_IsSet(){
 			$sut = new HomegamePageModel(new User(), new Homegame());
 
-			$this->assertIsA($sut->homegameNavigationModel, 'app\Homegame\HomegameNavigationModel');
+			assertIsA($sut.homegameNavigationModel, 'app\Homegame\HomegameNavigationModel');
 		}
 
 	}

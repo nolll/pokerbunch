@@ -11,16 +11,16 @@ namespace tests\CoreTests\FormFields{
 
 		function setUp(){
 			$timezones = array('timezone1', 'timezone2');
-			$this->sut = new TimezoneFieldModel('name', 'id', 'timezone1', $timezones);
+			sut = new TimezoneFieldModel('name', 'id', 'timezone1', $timezones);
 		}
 
 		function test_TimezoneField_SetsFieldName(){
-			$this->assertIdentical('name', $this->sut->fieldName);
+			assertIdentical('name', sut.fieldName);
 		}
 
 		function test_TimezoneField_SetsTimezoneNamesAndValues(){
-			$this->assertIdentical(2, count($this->sut->names));
-			$this->assertIdentical(2, count($this->sut->values));
+			assertIdentical(2, count(sut.names));
+			assertIdentical(2, count(sut.values));
 		}
 
 	}

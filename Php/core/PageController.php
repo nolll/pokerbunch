@@ -16,47 +16,47 @@ namespace core{
 			try{
 				parent::invokeRequestedAction();
 			} catch(NotLoggedInException $e){
-				$this->notLoggedIn();
+				notLoggedIn();
 			} catch(AccessDeniedException $e){
-				$this->accessDenied();
+				accessDenied();
 			} catch(Exception $e){
 				//throw $e;
 			}
 		}
 
 		public function view($view, $model = null){
-			$viewResult = $this->getViewResult($view, $model);
-			if($this->controllerContext != null){
-				$this->controllerContext->outputSettings->set();
-				$html = $this->getHtmlOutput($viewResult);
-				$this->controllerContext->response->setBody($html);
-				$this->controllerContext->response->send();
+			$viewResult = getViewResult($view, $model);
+			if(controllerContext != null){
+				controllerContext.outputSettings.set();
+				$html = getHtmlOutput($viewResult);
+				controllerContext.response.setBody($html);
+				controllerContext.response.send();
 			}
 			return $viewResult;
 		}
 
 		public function json($model){
-			$viewResult = $this->getViewResult(null, $model);
-			if($this->controllerContext != null){
-				$this->controllerContext->outputSettings->setContentType('application/json');
-				$this->controllerContext->outputSettings->set();
-				$html = $this->getJsonOutput($viewResult);
-				$this->controllerContext->response->setBody($html);
-				$this->controllerContext->response->send();
+			$viewResult = getViewResult(null, $model);
+			if(controllerContext != null){
+				controllerContext.outputSettings.setContentType('application/json');
+				controllerContext.outputSettings.set();
+				$html = getJsonOutput($viewResult);
+				controllerContext.response.setBody($html);
+				controllerContext.response.send();
 			}
 			return $viewResult;
 		}
 
 		public function error(HttpError $error){
-			if($this->controllerContext != null){
-				$this->controllerContext->response->sendHttpError($error->code);
+			if(controllerContext != null){
+				controllerContext.response.sendHttpError($error.code);
 			}
-			return $this->view($error->view, $error->code);
+			return view($error.view, $error.code);
 		}
 
 		public function redirect(UrlModel $model){
-			if($this->controllerContext != null){
-				$this->controllerContext->response->redirect($model->url);
+			if(controllerContext != null){
+				controllerContext.response.redirect($model.url);
 			}
 			return $model;
 		}
@@ -66,15 +66,15 @@ namespace core{
 		}
 
 		public function notLoggedIn(){
-			return $this->view('app/Error/NotLoggedIn');
+			return view('app/Error/NotLoggedIn');
 		}
 
 		public function accessDenied(){
-			return $this->view('app/Error/AccessDenied');
+			return view('app/Error/AccessDenied');
 		}
 
 		public function getControllerDefinition(){
-			return new HomegameControllerDefinition($this->controllerContext->request->getUri(), $this->controllerContext->request->isPost());
+			return new HomegameControllerDefinition(controllerContext.request.getUri(), controllerContext.request.isPost());
 		}
 
 	}

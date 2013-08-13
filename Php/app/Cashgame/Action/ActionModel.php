@@ -32,36 +32,36 @@ namespace app\Cashgame\Action{
 									array $years = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegame = $homegame;
-			$this->cashgame = $cashgame;
-			$this->player = $player;
-			$this->result = $result;
-			$this->role = $role;
-			$dateString = Globalization::formatShortDate($cashgame->getStartTime(), true);
-			$this->heading = sprintf('Cashgame %1$s, %2$s', $dateString, $player->getDisplayName());
-			$this->checkpoints = $this->getCheckpointModels();
-			$this->chartDataUrl = new CashgameActionChartJsonUrlModel($homegame, $cashgame, $player);
+			homegame = $homegame;
+			cashgame = $cashgame;
+			player = $player;
+			result = $result;
+			role = $role;
+			$dateString = Globalization::formatShortDate($cashgame.getStartTime(), true);
+			heading = sprintf('Cashgame %1$s, %2$s', $dateString, $player.getDisplayName());
+			checkpoints = getCheckpointModels();
+			chartDataUrl = new CashgameActionChartJsonUrlModel($homegame, $cashgame, $player);
         }
 
 		private function getCheckpointModels(){
 			$models = array();
-			$checkpoints = $this->getCheckpoints();
+			$checkpoints = getCheckpoints();
 			foreach($checkpoints as $checkpoint){
-				$models[] = new CheckpointModel($this->homegame, $this->cashgame, $this->player, $checkpoint, $this->role);
+				$models[] = new CheckpointModel(homegame, cashgame, player, $checkpoint, role);
 			}
 			return $models;
 		}
 
 		private function getCheckpoints(){
-			if($this->playerIsInGame()){
-				return $this->result->getCheckpoints();
+			if(playerIsInGame()){
+				return result.getCheckpoints();
 			} else {
 				return array();
 			}
 		}
 
 		private function playerIsInGame(){
-			return $this->result != null;
+			return result != null;
 		}
 
 	}

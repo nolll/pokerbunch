@@ -15,74 +15,74 @@ namespace tests\AppTests\Player{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
 			$userStorage = TestHelper::getFake(ClassNames::$UserStorage);
 			$avatarService = TestHelper::getFake(ClassNames::$AvatarService);
 			$avatarModelBuilder = new AvatarModelBuilder($avatarService);
-			$this->sut = new PlayerDetailsController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerRepositoryMock, $userStorage, $avatarModelBuilder);
+			sut = new PlayerDetailsController(userContext, homegameRepositoryMock, cashgameRepositoryMock, playerRepositoryMock, $userStorage, $avatarModelBuilder);
 		}
 
 		function test_ActionDetails_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_details("homegame1", "Player 1");
+			sut.action_details("homegame1", "Player 1");
 		}
 
 		function test_ActionDelete_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requireManager');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requireManager');
+			expectException();
 
-			$this->sut->action_delete("homegame1", "Player 1");
+			sut.action_delete("homegame1", "Player 1");
 		}
 
 		function test_ActionDelete_WithManagerRightsPlayerHasCashgameResults_RedirectsToDetails(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->playerRepositoryMock->returns('getByName', new Player());
-			$this->cashgameRepositoryMock->returns("hasPlayed", true);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			playerRepositoryMock.returns('getByName', new Player());
+			cashgameRepositoryMock.returns("hasPlayed", true);
 
-			$urlModel = $this->sut->action_delete('homegame1', 'Player 1');
+			$urlModel = sut.action_delete('homegame1', 'Player 1');
 
-			$this->assertIsA($urlModel, 'app\Urls\PlayerDetailsUrlModel');
+			assertIsA($urlModel, 'app\Urls\PlayerDetailsUrlModel');
 		}
 
 		function test_ActionDelete_WithManagerRightsPlayerHasCashgameResults_DoesntCallDeletePlayer(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->playerRepositoryMock->returns('getByName', new Player());
-			$this->cashgameRepositoryMock->returns("hasPlayed", true);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			playerRepositoryMock.returns('getByName', new Player());
+			cashgameRepositoryMock.returns("hasPlayed", true);
 
-			$this->playerRepositoryMock->expectNever('deletePlayer');
+			playerRepositoryMock.expectNever('deletePlayer');
 
-			$this->sut->action_delete('homegame1', 'Player 1');
+			sut.action_delete('homegame1', 'Player 1');
 		}
 
 		function test_ActionDelete_WithManagerRightsPlayerHasNoCashgameResults_CallsDeletePlayer(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->playerRepositoryMock->returns('getByName', new Player());
-			$this->cashgameRepositoryMock->returns("hasPlayed", false);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			playerRepositoryMock.returns('getByName', new Player());
+			cashgameRepositoryMock.returns("hasPlayed", false);
 
-			$this->playerRepositoryMock->expectOnce('deletePlayer');
+			playerRepositoryMock.expectOnce('deletePlayer');
 
-			$this->sut->action_delete('homegame1', 'Player 1');
+			sut.action_delete('homegame1', 'Player 1');
 		}
 
 		function test_ActionDelete_WithManagerRightsPlayerHasNoCashgameResults_RedirectsToPlayerListing(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
-			$this->playerRepositoryMock->returns('getByName', new Player());
-			$this->cashgameRepositoryMock->returns("hasPlayed", false);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
+			playerRepositoryMock.returns('getByName', new Player());
+			cashgameRepositoryMock.returns("hasPlayed", false);
 
-			$urlModel = $this->sut->action_delete('homegame1', 'Player 1');
+			$urlModel = sut.action_delete('homegame1', 'Player 1');
 
-			$this->assertIsA($urlModel, 'app\Urls\PlayerIndexUrlModel');
+			assertIsA($urlModel, 'app\Urls\PlayerIndexUrlModel');
 		}
 
 	}

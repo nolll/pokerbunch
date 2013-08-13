@@ -29,41 +29,41 @@ namespace app\Cashgame\Facts{
 									$year = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegame = $homegame;
-			$this->gameCount = $suite->getGameCount();
-			$this->totalGameTime = Globalization::formatDuration($suite->getTotalGametime());
-			$this->setBestResult($suite->getBestResult());
-			$this->setWorstResult($suite->getWorstResult());
-			$this->setMostTime($suite->getMostTimeResult());
-			$this->cashgameNavModel = new CashgameNavigationModel($homegame, 'facts', $years, $year, $runningGame);
+			homegame = $homegame;
+			gameCount = $suite.getGameCount();
+			totalGameTime = Globalization::formatDuration($suite.getTotalGametime());
+			setBestResult($suite.getBestResult());
+			setWorstResult($suite.getWorstResult());
+			setMostTime($suite.getMostTimeResult());
+			cashgameNavModel = new CashgameNavigationModel($homegame, 'facts', $years, $year, $runningGame);
 		}
 
 		private function setBestResult(CashgameResult $result = null){
 			if($result != null){
-				$this->bestResultAmount = Globalization::formatResult($this->homegame->getCurrency(), $result->getWinnings());
-				$player = $result->getPlayer();
+				bestResultAmount = Globalization::formatResult(homegame.getCurrency(), $result.getWinnings());
+				$player = $result.getPlayer();
 				if($player != null){
-					$this->bestResultName = $player->getDisplayName();
+					bestResultName = $player.getDisplayName();
 				}
 			}
 		}
 
 		private function setWorstResult(CashgameResult $result = null){
 			if($result != null){
-				$this->worstResultAmount = Globalization::formatResult($this->homegame->getCurrency(), $result->getWinnings());
-				$player = $result->getPlayer();
+				worstResultAmount = Globalization::formatResult(homegame.getCurrency(), $result.getWinnings());
+				$player = $result.getPlayer();
 				if($player != null){
-					$this->worstResultName = $player->getDisplayName();
+					worstResultName = $player.getDisplayName();
 				}
 			}
 		}
 
 		private function setMostTime(CashgameTotalResult $result = null){
 			if($result != null){
-				$this->mostTimeDuration = Globalization::formatDuration($result->getTimePlayed());
-				$player = $result->getPlayer();
+				mostTimeDuration = Globalization::formatDuration($result.getTimePlayed());
+				$player = $result.getPlayer();
 				if($player != null){
-					$this->mostTimeName = $player->getDisplayName();
+					mostTimeName = $player.getDisplayName();
 				}
 			}
 		}

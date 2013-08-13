@@ -11,25 +11,25 @@ namespace tests\AppTests\Homegame{
 		private $user;
 
 		function setUp(){
-			$this->user = new User();
+			user = new User();
 		}
 
 		function test_HomegameModels_WithoutHomegames_IsEmptyList(){
 			$homegames = array();
 
-			$sut = new HomegameListingModel($this->user, $homegames);
+			$sut = new HomegameListingModel(user, $homegames);
 
-			$this->assertIdentical(0, count($sut->homegameModels));
+			assertIdentical(0, count($sut.homegameModels));
 		}
 
 		function test_HomegameModels_With3Homegames_IsListWithThreeHomegameItemModels(){
 			$dummyHomegame = new Homegame();
 			$homegames = array($dummyHomegame, $dummyHomegame, $dummyHomegame);
 
-			$sut = new HomegameListingModel($this->user, $homegames);
+			$sut = new HomegameListingModel(user, $homegames);
 
-			$this->assertIsA($sut->homegameModels[0], 'app\Homegame\Listing\HomegameItemModel');
-			$this->assertIdentical(3, count($sut->homegameModels));
+			assertIsA($sut.homegameModels[0], 'app\Homegame\Listing\HomegameItemModel');
+			assertIdentical(3, count($sut.homegameModels));
 		}
 
 	}

@@ -15,28 +15,28 @@ namespace tests\AppTests\Homegame{
 
 		function setUp(){
 			parent::setUp();
-			$this->homegameStorage = $this->registerFake(ClassNames::$HomegameStorage);
-			$this->homegameRepository = new HomegameRepositoryImpl($this->homegameStorage);
+			homegameStorage = registerFake(ClassNames::$HomegameStorage);
+			homegameRepository = new HomegameRepositoryImpl(homegameStorage);
 		}
 
 		function test_GetByName_NoHomegameFound_ReturnsNull(){
-			$this->homegameStorage->returns('getHomegameByName', null);
+			homegameStorage.returns('getHomegameByName', null);
 
-			$homegame = $this->homegameRepository->getByName('anyname');
+			$homegame = homegameRepository.getByName('anyname');
 
-			$this->assertNull($homegame);
+			assertNull($homegame);
 		}
 
 		function test_GetByName_HomegameFound_ReturnsHomegame(){
 			$homegame = new RawHomegame();
-			$homegame->setSlug('a');
-			$homegame->setTimezoneName('UTC');
+			$homegame.setSlug('a');
+			$homegame.setTimezoneName('UTC');
 
-			$this->homegameStorage->returns('getRawHomegameByName', $homegame);
+			homegameStorage.returns('getRawHomegameByName', $homegame);
 
-			$homegame = $this->homegameRepository->getByName('a');
+			$homegame = homegameRepository.getByName('a');
 
-			$this->assertEqual($homegame->getSlug(), 'a');
+			assertEqual($homegame.getSlug(), 'a');
 		}
 
 	}

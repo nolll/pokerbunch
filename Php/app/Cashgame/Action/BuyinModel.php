@@ -24,10 +24,10 @@ namespace app\Cashgame\Action{
 									Cashgame $runningGame,
 									$postedAmount = null){
 			parent::__construct($user, $homegame, $runningGame);
-            $this->result = $runningGame->getResult($player);
-			$this->buyinUrl = new CashgameBuyinUrlModel($homegame, $player);
-			$this->stackFieldEnabled = $runningGame->isInGame($player);
-			$this->buyinAmount = $postedAmount != null ? $postedAmount : $homegame->getDefaultBuyin();
+            result = $runningGame.getResult($player);
+			buyinUrl = new CashgameBuyinUrlModel($homegame, $player);
+			stackFieldEnabled = $runningGame.isInGame($player);
+			buyinAmount = $postedAmount != null ? $postedAmount : $homegame.getDefaultBuyin();
         }
 
 	}

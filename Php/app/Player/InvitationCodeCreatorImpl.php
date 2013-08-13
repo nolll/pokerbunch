@@ -9,11 +9,11 @@ namespace app\Player{
 		private $encryption;
 
 		public function __construct(Encryption $encryption){
-			$this->encryption = $encryption;
+			encryption = $encryption;
 		}
 
 		public function getCode(Player $player){
-			return $this->encryption->encrypt($player->getDisplayName(), $this->salt);
+			return encryption.encrypt($player.getDisplayName(), salt);
 		}
 
 	}

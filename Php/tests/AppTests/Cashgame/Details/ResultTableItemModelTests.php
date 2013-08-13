@@ -19,92 +19,92 @@ namespace tests\AppTests\Cashgame\Details{
 		private $result;
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->cashgame = new Cashgame();
-			$this->cashgame->setStartTime(new DateTime());
-			$this->result = new CashgameResult();
+			homegame = new Homegame();
+			cashgame = new Cashgame();
+			cashgame.setStartTime(new DateTime());
+			result = new CashgameResult();
 		}
 
 		function test_Name_IsSet(){
 			$player = new Player();
-			$player->setDisplayName('a');
-			$this->result->setPlayer($player);
-			$sut = $this->getSut();
+			$player.setDisplayName('a');
+			result.setPlayer($player);
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->name);
+			assertIdentical('a', $sut.name);
 		}
 
 		function test_PlayerUrl_IsCorrectType(){
-			$this->result->setPlayer(new Player());
+			result.setPlayer(new Player());
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->playerUrl, 'app\Urls\CashgameActionUrlModel');
+			assertIsA($sut.playerUrl, 'app\Urls\CashgameActionUrlModel');
 		}
 
 		function test_Buyin_IsSet(){
-			$this->result->setBuyin(1);
-			$sut = $this->getSut();
+			result.setBuyin(1);
+			$sut = getSut();
 
-			$this->assertIdentical("$1", $sut->buyin);
+			assertIdentical("$1", $sut.buyin);
 		}
 
 		function test_Cashout_IsSet(){
-			$this->result->setStack(1);
-			$sut = $this->getSut();
+			result.setStack(1);
+			$sut = getSut();
 
-			$this->assertIdentical("$1", $sut->cashout);
+			assertIdentical("$1", $sut.cashout);
 		}
 
 		function test_Winnings_IsSet(){
-			$this->result->setWinnings(1);
-			$sut = $this->getSut();
+			result.setWinnings(1);
+			$sut = getSut();
 
-			$this->assertIdentical("+$1", $sut->winnings);
+			assertIdentical("+$1", $sut.winnings);
 		}
 
 		function test_WinningsClass_BuyinEqualToCashout_IsEmpty(){
-			$this->result->setBuyin(100);
-			$this->result->setStack(100);
+			result.setBuyin(100);
+			result.setStack(100);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("", $sut->winningsClass);
+			assertIdentical("", $sut.winningsClass);
 		}
 
 		function test_WinningsClass_ResultIsPositive_IsPositive(){
-			$this->result->setWinnings(1);
+			result.setWinnings(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("pos-result", $sut->winningsClass);
+			assertIdentical("pos-result", $sut.winningsClass);
 		}
 
 		function test_WinningsClass_BuyinBiggerThanCashout_IsNegative(){
-			$this->result->setWinnings(-1);
+			result.setWinnings(-1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("neg-result", $sut->winningsClass);
+			assertIdentical("neg-result", $sut.winningsClass);
 		}
 
 		function test_Winrate_WithDuration_IsSet(){
-			$this->result->setPlayedTime(60);
-			$this->result->setWinnings(1);
+			result.setPlayedTime(60);
+			result.setWinnings(1);
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("$1/h", $sut->winrate);
+			assertIdentical("$1/h", $sut.winrate);
 		}
 
 		function test_Winrate_WithoutDuration_IsEmpty(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("", $sut->winrate);
+			assertIdentical("", $sut.winrate);
 		}
 
 		function getSut(){
-			return new ResultTableItemModel($this->homegame, $this->cashgame, $this->result);
+			return new ResultTableItemModel(homegame, cashgame, result);
 		}
 
 	}

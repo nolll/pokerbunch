@@ -14,49 +14,49 @@ namespace tests\AppTests\Cashgame\Index{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->sut = new CashgameIndexController($this->userContext, $this->cashgameRepositoryMock, $this->homegameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			sut = new CashgameIndexController(userContext, cashgameRepositoryMock, homegameRepositoryMock);
 		}
 
 		function test_ActionIndex_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_index("homegame1");
+			sut.action_index("homegame1");
 		}
 
 		function test_ActionAdd_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_index("homegame1");
+			sut.action_index("homegame1");
 		}
 
 		function test_ActionIndex_WithYears_RedirectsToMatrixWithLatestYearSelected(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$years = array(2011, 2010, 2009);
-			$this->cashgameRepositoryMock->returns("getYears", $years);
+			cashgameRepositoryMock.returns("getYears", $years);
 
-			$urlModel = $this->sut->action_index("homegame1");
+			$urlModel = sut.action_index("homegame1");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameMatrixUrlModel');
-			$this->assertTrue(Util::endsWith($urlModel->url, '2011'));
+			assertIsA($urlModel, 'app\Urls\CashgameMatrixUrlModel');
+			assertTrue(Util::endsWith($urlModel.url, '2011'));
 		}
 
 		function test_ActionIndex_NoYears_RedirectsToAddCashgame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$years = array();
-			$this->cashgameRepositoryMock->returns("getYears", $years);
+			cashgameRepositoryMock.returns("getYears", $years);
 
-			$urlModel = $this->sut->action_index("homegame1");
+			$urlModel = sut.action_index("homegame1");
 
-			$this->assertIsA($urlModel, 'app\Urls\CashgameAddUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameAddUrlModel');
 		}
 
 	}

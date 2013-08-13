@@ -27,74 +27,74 @@ namespace app\Sharing\Twitter{
 									TwitterService $twitterService,
 									Response $response,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->sharingStorage = $sharingStorage;
-			$this->twitterStorage = $twitterStorage;
-			$this->twitterService = $twitterService;
-			$this->response = $response;
-			$this->request = $request;
+			userContext = $userContext;
+			sharingStorage = $sharingStorage;
+			twitterStorage = $twitterStorage;
+			twitterService = $twitterService;
+			response = $response;
+			request = $request;
 		}
 
 		public function action_twitter(){
-			$this->userContext->requireUser();
-			$user = $this->userContext->getUser();
-			return $this->showTwitterSharing($user);
+			userContext.requireUser();
+			$user = userContext.getUser();
+			return showTwitterSharing($user);
 		}
 
 		public function showTwitterSharing(User $user){
-			$isSharing = $this->sharingStorage->isSharing($user, SocialServiceProvider::twitter);
-			$credentials = $this->twitterStorage->getCredentials($user);
+			$isSharing = sharingStorage.isSharing($user, SocialServiceProvider::twitter);
+			$credentials = twitterStorage.getCredentials($user);
 			$model = new SharingTwitterModel($user, $isSharing, $credentials);
-			return $this->view('app/Sharing/Twitter/Twitter', $model);
+			return view('app/Sharing/Twitter/Twitter', $model);
 		}
 
 		public function action_twitterstart(){
-			$this->userContext->requireUser();
-			$requestToken = $this->twitterService->getRequestToken();
+			userContext.requireUser();
+			$requestToken = twitterService.getRequestToken();
 			if($requestToken != null){
-				$this->twitterService->saveRequestTokenToSession($requestToken);
-				$url = $this->twitterService->getAuthUrl($requestToken);
-				$this->response->redirect($url);
+				twitterService.saveRequestTokenToSession($requestToken);
+				$url = twitterService.getAuthUrl($requestToken);
+				response.redirect($url);
 			} else {
 				echo('Could not connect to Twitter. Refresh the page or try again later.');
 			}
 		}
 
 		public function action_twitterstop(){
-			$this->userContext->requireUser();
-			$user = $this->userContext->getUser();
-			$this->sharingStorage->removeSharing($user, SocialServiceProvider::twitter);
-			return $this->redirect(new TwitterSettingsUrlModel());
+			userContext.requireUser();
+			$user = userContext.getUser();
+			sharingStorage.removeSharing($user, SocialServiceProvider::twitter);
+			return redirect(new TwitterSettingsUrlModel());
 		}
 
 		public function action_twittercallback(){
-			$this->userContext->requireUser();
-			$user = $this->userContext->getUser();
+			userContext.requireUser();
+			$user = userContext.getUser();
 
-			$oAuthToken = $this->request->getParamGet('oauth_token');
-			$tokenVerified = $this->twitterService->verifyTempTokenOrClearSession($oAuthToken);
+			$oAuthToken = request.getParamGet('oauth_token');
+			$tokenVerified = twitterService.verifyTempTokenOrClearSession($oAuthToken);
 			if($tokenVerified){
-				$oAuthVerifier = $this->request->getParamGet('oauth_verifier');
-				$accessToken = $this->twitterService->getAccessToken($oAuthVerifier);
+				$oAuthVerifier = request.getParamGet('oauth_verifier');
+				$accessToken = twitterService.getAccessToken($oAuthVerifier);
 
-				$this->saveCredentials($user, $accessToken);
-				$this->twitterService->clearSavedRequestTokens();
+				saveCredentials($user, $accessToken);
+				twitterService.clearSavedRequestTokens();
 				if($accessToken != null){
 					$_SESSION['status'] = 'verified';
-					$this->sharingStorage->addSharing($user, SocialServiceProvider::twitter);
+					sharingStorage.addSharing($user, SocialServiceProvider::twitter);
 				} else {
-					$this->twitterService->clearAuthSession();
+					twitterService.clearAuthSession();
 				}
 			}
 
-			return $this->redirect(new TwitterSettingsUrlModel());
+			return redirect(new TwitterSettingsUrlModel());
 		}
 
 		public function saveCredentials(User $user, $accessToken){
 			$credentials = new TwitterCredentials();
-			$credentials->key = $accessToken['oauth_token'];
-			$credentials->secret = $accessToken['oauth_token_secret'];
-			$this->twitterStorage->addCredentials($user, $credentials);
+			$credentials.key = $accessToken['oauth_token'];
+			$credentials.secret = $accessToken['oauth_token_secret'];
+			twitterStorage.addCredentials($user, $credentials);
 		}
 
 	}

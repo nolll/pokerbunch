@@ -9,7 +9,7 @@ namespace app\User\Listing{
 
 		public function __construct(User $user, array $users){
 			parent::__construct($user);
-			$this->userModels = $this->getUserModels($users);
+			userModels = getUserModels($users);
 		}
 
 		private function getUserModels($users){

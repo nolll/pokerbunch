@@ -10,30 +10,30 @@ namespace tests\AppTests\User{
 		function test_Show_DefaultContentSet(){
 			$sut = new UserNavigationModel();
 
-			$this->assertIdentical("Account", $sut->heading);
-			$this->assertIdentical("user-nav", $sut->cssClass);
+			assertIdentical("Account", $sut.heading);
+			assertIdentical("user-nav", $sut.cssClass);
 		}
 
 		function test_Show_NotLoggedIn_AnonymousContent(){
 			$sut = new UserNavigationModel();
 
-			$nodes = $sut->nodes;
-			$this->assertIsA($nodes[0]->urlModel, 'app\Urls\AuthLoginUrlModel');
-			$this->assertIsA($nodes[1]->urlModel, 'app\Urls\UserAddUrlModel');
-			$this->assertIsA($nodes[2]->urlModel, 'app\Urls\ForgotPasswordUrlModel');
+			$nodes = $sut.nodes;
+			assertIsA($nodes[0].urlModel, 'app\Urls\AuthLoginUrlModel');
+			assertIsA($nodes[1].urlModel, 'app\Urls\UserAddUrlModel');
+			assertIsA($nodes[2].urlModel, 'app\Urls\ForgotPasswordUrlModel');
 		}
 
 		function test_Show_LoggedIn_AuthorizedContent(){
 			$user = new User();
-			$user->setDisplayName('a');
+			$user.setDisplayName('a');
 
 			$sut = new UserNavigationModel($user);
 
-			$nodes = $sut->nodes;
-			$this->assertIsA($nodes[0]->urlModel, 'app\Urls\UserDetailsUrlModel');
-			$this->assertIdentical('a', $nodes[0]->name);
-			$this->assertIsA($nodes[1]->urlModel, 'app\Urls\SharingSettingsUrlModel');
-			$this->assertIsA($nodes[2]->urlModel, 'app\Urls\AuthLogoutUrlModel');
+			$nodes = $sut.nodes;
+			assertIsA($nodes[0].urlModel, 'app\Urls\UserDetailsUrlModel');
+			assertIdentical('a', $nodes[0].name);
+			assertIsA($nodes[1].urlModel, 'app\Urls\SharingSettingsUrlModel');
+			assertIsA($nodes[2].urlModel, 'app\Urls\AuthLogoutUrlModel');
 		}
 
 	}

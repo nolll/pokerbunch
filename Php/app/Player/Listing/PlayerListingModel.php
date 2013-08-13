@@ -19,9 +19,9 @@ namespace app\Player\Listing{
 									$isInManagerMode,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->playerModels = $this->getPlayerModels($homegame, $players);
-			$this->addUrl = new PlayerAddUrlModel($homegame);
-			$this->showAddLink = $isInManagerMode;
+			playerModels = getPlayerModels($homegame, $players);
+			addUrl = new PlayerAddUrlModel($homegame);
+			showAddLink = $isInManagerMode;
 		}
 
 		private function getPlayerModels(Homegame $homegame, array $players){

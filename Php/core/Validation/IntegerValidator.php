@@ -5,12 +5,12 @@ namespace core\Validation{
 	class IntegerValidator extends SimpleValidator {
 
 		public function validateSubject(){
-			if($this->isNullOrEmpty($this->subject)){
+			if(isNullOrEmpty(subject)){
 				return true;
-			} else if(Util::isInteger($this->subject)){
+			} else if(Util::isInteger(subject)){
 				return true;
 			} else {
-				$this->addError($this->message);
+				addError(message);
 				return false;
 			}
 		}

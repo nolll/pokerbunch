@@ -15,19 +15,19 @@ namespace tests\AppTests\Cashgame\Chart{
 		private $year;
 
 		function setUp(){
-			$this->homegame = new Homegame();
-			$this->suite = new CashgameSuite();
-			$this->year = null;
+			homegame = new Homegame();
+			suite = new CashgameSuite();
+			year = null;
 		}
 
 		function getSut(){
-			return new ChartModel(new User(), $this->homegame, $this->suite, $this->year);
+			return new ChartModel(new User(), homegame, suite, year);
 		}
 
 		function test_ChartDataUrl_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->chartDataUrl, 'app\Urls\CashgameChartJsonUrlModel');
+			assertIsA($sut.chartDataUrl, 'app\Urls\CashgameChartJsonUrlModel');
 		}
 
 	}

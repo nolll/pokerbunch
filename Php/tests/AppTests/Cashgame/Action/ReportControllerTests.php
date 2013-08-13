@@ -20,87 +20,87 @@ namespace tests\AppTests\Cashgame\Action{
 		private $cashgameValidatorFactory;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
-			$this->sut = new ReportController($this->userContext, $this->homegameRepositoryMock, $this->cashgameRepositoryMock, $this->playerRepositoryMock, $request, $this->cashgameValidatorFactory);
+			cashgameValidatorFactory = TestHelper::getFake(ClassNames::$CashgameValidatorFactory);
+			sut = new ReportController(userContext, homegameRepositoryMock, cashgameRepositoryMock, playerRepositoryMock, $request, cashgameValidatorFactory);
 		}
 
 		function test_ActionReport_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_report("homegame1", "Player 1");
+			sut.action_report("homegame1", "Player 1");
 		}
 
 		function test_ActionReport_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithPlayerRights(userContext);
 			$player = new Player();
-			$player->setUserName('otherUser');
-			$this->playerRepositoryMock->returns('getByName', $player);
+			$player.setUserName('otherUser');
+			playerRepositoryMock.returns('getByName', $player);
 
-			$this->expectException(new AccessDeniedException());
+			expectException(new AccessDeniedException());
 
-			$this->sut->action_report("homegame1", "Player 1");
+			sut.action_report("homegame1", "Player 1");
 		}
 
 		function test_ActionReport_ReturnsCorrectModel(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-            TestHelper::setupUserWithPlayerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+            TestHelper::setupUserWithPlayerRights(userContext);
             $cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			$cashgame.setStatus(GameStatus::running);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$player->setUserName('user1');
-			$this->playerRepositoryMock->returns('getByName', $player);
+			$player.setUserName('user1');
+			playerRepositoryMock.returns('getByName', $player);
 
-			$viewResult = $this->sut->action_report("homegame1", "Player 1");
+			$viewResult = sut.action_report("homegame1", "Player 1");
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Action\ReportModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Action\ReportModel');
 		}
 
 		function test_ActionReportPost_AddsCheckpoint(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			$cashgame.setStatus(GameStatus::running);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidReportValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidReportValidator();
 
-			$this->cashgameRepositoryMock->expectOnce("addCheckpoint");
+			cashgameRepositoryMock.expectOnce("addCheckpoint");
 
-			$this->sut->action_report_post("homegame1", "2010-01-01", "Player 1");
+			sut.action_report_post("homegame1", "2010-01-01", "Player 1");
 		}
 
 		function test_ActionReportPost_RedirectsToRunningCashgame(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights($this->userContext);
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			TestHelper::setupUserWithManagerRights(userContext);
 			$cashgame = new Cashgame();
-			$cashgame->setStatus(GameStatus::running);
-			$this->cashgameRepositoryMock->returns('getRunning', $cashgame);
+			$cashgame.setStatus(GameStatus::running);
+			cashgameRepositoryMock.returns('getRunning', $cashgame);
 			$player = new Player();
-			$this->playerRepositoryMock->returns('getByName', $player);
-			$this->setupValidReportValidator();
+			playerRepositoryMock.returns('getByName', $player);
+			setupValidReportValidator();
 
-			$urlModel = $this->sut->action_report_post("homegame1", "Player 1");
+			$urlModel = sut.action_report_post("homegame1", "Player 1");
 
-			$this->assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
+			assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
 		}
 
 		private function setupValidReportValidator(){
 			$validator = new ValidatorFake(true);
-			$this->setupReportValidator($validator);
+			setupReportValidator($validator);
 		}
 
 		private function setupReportValidator(Validator $validator){
-			$this->cashgameValidatorFactory->returns("getReportValidator", $validator);
+			cashgameValidatorFactory.returns("getReportValidator", $validator);
 		}
 
 	}

@@ -28,13 +28,13 @@ namespace app\Cashgame\Edit{
 									Cashgame $runningGame = null,
 									CashgameEditPostModel $postModel = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegame = $homegame;
-			$this->isoDate = Globalization::formatIsoDate($cashgame->getStartTime());
-			$this->cancelUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
-			$this->deleteUrl = new CashgameDeleteUrlModel($homegame, $cashgame);
-			$this->enableDelete = $cashgame->getStatus() != GameStatus::published;
-			$location = $postModel != null ? $postModel->location : $cashgame->getLocation();
-			$this->locationSelectModel = $this->getLocationSelectModel($locations, $location);
+			homegame = $homegame;
+			isoDate = Globalization::formatIsoDate($cashgame.getStartTime());
+			cancelUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
+			deleteUrl = new CashgameDeleteUrlModel($homegame, $cashgame);
+			enableDelete = $cashgame.getStatus() != GameStatus::published;
+			$location = $postModel != null ? $postModel.location : $cashgame.getLocation();
+			locationSelectModel = getLocationSelectModel($locations, $location);
 		}
 
 		private function getLocationSelectModel($locations, $location){

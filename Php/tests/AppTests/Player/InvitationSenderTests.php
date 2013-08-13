@@ -19,76 +19,76 @@ namespace tests\AppTests\Player{
 
 		function setUp(){
 			parent::setUp();
-			$this->invitationCodeCreator = $this->registerFake(ClassNames::$InvitationCodeCreator);
-			$this->messageSenderFactory = $this->registerFake(ClassNames::$MessageSenderFactory);
-			$this->settings = $this->registerFake(ClassNames::$Settings);
-			$this->invitationSender = $this->getInstance('app\Player\InvitationSenderImpl');
+			invitationCodeCreator = registerFake(ClassNames::$InvitationCodeCreator);
+			messageSenderFactory = registerFake(ClassNames::$MessageSenderFactory);
+			settings = registerFake(ClassNames::$Settings);
+			invitationSender = getInstance('app\Player\InvitationSenderImpl');
 		}
 
 		function test_GetSubject_ReturnsSubjectThatIncludesHomegameDisplayName(){
 			$homegame = new Homegame();
-			$homegame->setDisplayName('abcdefgh');
-			$subject = $this->invitationSender->getSubject($homegame);
+			$homegame.setDisplayName('abcdefgh');
+			$subject = invitationSender.getSubject($homegame);
 
-			$this->assertTrue(strpos($subject, 'abcdefgh'));
+			assertTrue(strpos($subject, 'abcdefgh'));
 		}
 
 		function test_GetBody_ReturnsBodyThatIncludesHomegameDisplayName(){
 			$homegame = new Homegame();
-			$homegame->setDisplayName('abcdefgh');
+			$homegame.setDisplayName('abcdefgh');
 			$player = new Player();
-			$body = $this->invitationSender->getBody($homegame, $player);
+			$body = invitationSender.getBody($homegame, $player);
 
-			$this->assertTrue(strpos($body, 'abcdefgh'));
+			assertTrue(strpos($body, 'abcdefgh'));
 		}
 
 		function test_GetBody_ReturnsBodyThatIncludesSiteUrl(){
 			$homegame = new Homegame();
 			$player = new Player();
-			$this->settings->returns('getSiteUrl', 'site-url');
-			$body = $this->invitationSender->getBody($homegame, $player);
+			settings.returns('getSiteUrl', 'site-url');
+			$body = invitationSender.getBody($homegame, $player);
 
-			$this->assertTrue(strpos($body, 'site-url'));
+			assertTrue(strpos($body, 'site-url'));
 		}
 
 		function test_GetBody_ReturnsBodyThatIncludesJoinUrl(){
 			$homegame = new Homegame();
-			$homegame->setSlug('abc');
+			$homegame.setSlug('abc');
 
 			$player = new Player();
 			$joinUrl = new HomegameJoinUrlModel($homegame);
 
-			$body = $this->invitationSender->getBody($homegame, $player);
+			$body = invitationSender.getBody($homegame, $player);
 
-			$this->assertTrue(strpos($body, $joinUrl->url));
+			assertTrue(strpos($body, $joinUrl.url));
 		}
 
 		function test_GetBody_ReturnsBodyThatIncludesUserAddUrl(){
 			$homegame = new Homegame();
 			$player = new Player();
 			$userAddUrl = new UserAddUrlModel();
-			$body = $this->invitationSender->getBody($homegame, $player);
+			$body = invitationSender.getBody($homegame, $player);
 
-			$this->assertTrue(strpos($body, $userAddUrl->url));
+			assertTrue(strpos($body, $userAddUrl.url));
 		}
 
 		function test_GetBody_ReturnsBodyThatIncludesInvitationCode(){
 			$homegame = new Homegame();
 			$player = new Player();
-			$this->invitationCodeCreator->returns('getCode', 'invitation-code');
-			$body = $this->invitationSender->getBody($homegame, $player);
+			invitationCodeCreator.returns('getCode', 'invitation-code');
+			$body = invitationSender.getBody($homegame, $player);
 
-			$this->assertTrue(strpos($body, 'invitation-code'));
+			assertTrue(strpos($body, 'invitation-code'));
 		}
 
 		function test_Send_CallsSendOnMessageSender(){
 			$homegame = new Homegame();
 			$player = new Player();
 			$messageSender = TestHelper::getFake('integration\Message\MessageSender');
-			$this->messageSenderFactory->returns("getMessageSender", $messageSender);
-			$messageSender->expectOnce("send");
+			messageSenderFactory.returns("getMessageSender", $messageSender);
+			$messageSender.expectOnce("send");
 
-			$this->invitationSender->send($homegame, $player, "anyemail@example.com");
+			invitationSender.send($homegame, $player, "anyemail@example.com");
 		}
 
 	}

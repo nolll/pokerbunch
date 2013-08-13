@@ -15,97 +15,97 @@ namespace tests\AppTests\Sharing{
 		private $twitterService;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->sharingStorage = TestHelper::getFake(ClassNames::$SharingStorage);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			sharingStorage = TestHelper::getFake(ClassNames::$SharingStorage);
 			$twitterStorage = TestHelper::getFake(ClassNames::$TwitterStorage);
-			$this->twitterService = TestHelper::getFake(ClassNames::$TwitterService);
-			$this->response = TestHelper::getFake(ClassNames::$Response);
+			twitterService = TestHelper::getFake(ClassNames::$TwitterService);
+			response = TestHelper::getFake(ClassNames::$Response);
 			$request = TestHelper::getFake(ClassNames::$Request);
-			$this->sut = new SharingTwitterController($this->userContext, $this->sharingStorage, $twitterStorage, $this->twitterService, $this->response, $request);
+			sut = new SharingTwitterController(userContext, sharingStorage, $twitterStorage, twitterService, response, $request);
 		}
 
 		function test_ActionTwitter_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_twitter("homegame1");
+			sut.action_twitter("homegame1");
 		}
 
 		function test_ActionTwitterstart_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_twitterstart();
+			sut.action_twitterstart();
 		}
 
 		function test_ActionTwitterstart_CallsSaveRequestTokenToSession(){
-			TestHelper::setupUser($this->userContext);
+			TestHelper::setupUser(userContext);
 			$notNullObject = "notNull";
-			$this->twitterService->returns("getRequestToken", $notNullObject);
-			$this->twitterService->expectOnce("saveRequestTokenToSession");
+			twitterService.returns("getRequestToken", $notNullObject);
+			twitterService.expectOnce("saveRequestTokenToSession");
 
-			$this->sut->action_twitterstart();
+			sut.action_twitterstart();
 		}
 
 		function test_ActionTwitterstart_CallsGetAuthUrl(){
-			TestHelper::setupUser($this->userContext);
+			TestHelper::setupUser(userContext);
 			$notNullObject = "notNull";
-			$this->twitterService->returns("getRequestToken", $notNullObject);
-			$this->twitterService->expectOnce("getAuthUrl");
+			twitterService.returns("getRequestToken", $notNullObject);
+			twitterService.expectOnce("getAuthUrl");
 
-			$this->sut->action_twitterstart();
+			sut.action_twitterstart();
 		}
 
 		function test_ActionTwitterstart_RedirectsToAuthUrl(){
-			TestHelper::setupUser($this->userContext);
+			TestHelper::setupUser(userContext);
 			$notNullObject = "notNull";
-			$this->twitterService->returns("getRequestToken", $notNullObject);
-			$this->twitterService->returns("getAuthUrl", "authUrl");
-			$this->response->expectOnce("redirect", array("authUrl"));
+			twitterService.returns("getRequestToken", $notNullObject);
+			twitterService.returns("getAuthUrl", "authUrl");
+			response.expectOnce("redirect", array("authUrl"));
 
-			$this->sut->action_twitterstart();
+			sut.action_twitterstart();
 		}
 
 		function test_ActionTwitterstop_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requireUser');
-			$this->expectException();
+			userContext.throwOn('requireUser');
+			expectException();
 
-			$this->sut->action_twitterstop();
+			sut.action_twitterstop();
 		}
 
 		function test_ActionTwitterstop_CallsRemoveSharing(){
-			$user = TestHelper::setupUser($this->userContext);
+			$user = TestHelper::setupUser(userContext);
 
-			$this->sharingStorage->expectOnce("removeSharing", array($user, "twitter"));
+			sharingStorage.expectOnce("removeSharing", array($user, "twitter"));
 
-			$this->sut->action_twitterstop();
+			sut.action_twitterstop();
 		}
 
 		function test_ActionTwitterstop_RedirectsToTwitterSettings(){
-			TestHelper::setupUser($this->userContext);
+			TestHelper::setupUser(userContext);
 
-			$urlModel = $this->sut->action_twitterstop();
+			$urlModel = sut.action_twitterstop();
 
-			$this->assertIsA($urlModel, 'app\Urls\TwitterSettingsUrlModel');
+			assertIsA($urlModel, 'app\Urls\TwitterSettingsUrlModel');
 		}
 
 		function test_ActionTwittercallback_CallsAddSharing(){
-			$user = TestHelper::setupUser($this->userContext);
+			$user = TestHelper::setupUser(userContext);
 
-			$this->twitterService->returns("verifyTempTokenOrClearSession", true);
+			twitterService.returns("verifyTempTokenOrClearSession", true);
 			$notNullObject = "notNull";
-			$this->twitterService->returns("getAccessToken", $notNullObject);
-			$this->sharingStorage->expectOnce("addSharing", array($user, "twitter"));
+			twitterService.returns("getAccessToken", $notNullObject);
+			sharingStorage.expectOnce("addSharing", array($user, "twitter"));
 
-			$this->sut->action_twittercallback();
+			sut.action_twittercallback();
 		}
 
 		function test_ActionTwittercallback_RedirectsToTwitterSettings(){
-			TestHelper::setupUser($this->userContext);
+			TestHelper::setupUser(userContext);
 
-			$urlModel = $this->sut->action_twittercallback();
+			$urlModel = sut.action_twittercallback();
 
-			$this->assertIsA($urlModel, 'app\Urls\TwitterSettingsUrlModel');
+			assertIsA($urlModel, 'app\Urls\TwitterSettingsUrlModel');
 		}
 
 	}

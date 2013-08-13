@@ -14,53 +14,53 @@ namespace tests\AppTests\Cashgame\Action{
 		private $isManager;
 
 		function setUp(){
-			$this->checkpoint = new ReportCheckpoint(new DateTime('2010-01-01 01:00:00'), 200);
-			$this->isManager = false;
+			checkpoint = new ReportCheckpoint(new DateTime('2010-01-01 01:00:00'), 200);
+			isManager = false;
 		}
 
 		function getSut(){
 			$cashgame = new Cashgame();
-			$cashgame->setStartTime(new DateTime());
+			$cashgame.setStartTime(new DateTime());
 			$player = new Player();
-			return new CheckpointModel(new Homegame(), $cashgame, $player, $this->checkpoint, $this->isManager);
+			return new CheckpointModel(new Homegame(), $cashgame, $player, checkpoint, isManager);
 		}
 
 		function test_Timestamp_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical($sut->timestamp, '01:00');
+			assertIdentical($sut.timestamp, '01:00');
 		}
 
 		function test_Description_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical($sut->description, 'Report');
+			assertIdentical($sut.description, 'Report');
 		}
 
 		function test_Stack_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical($sut->stack, '$200');
+			assertIdentical($sut.stack, '$200');
 		}
 
 		function test_ShowLink_NormalUser_IsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showLink);
+			assertFalse($sut.showLink);
 		}
 
 		function test_ShowLink_ManagerUser_IsTrue(){
-			$this->isManager = true;
+			isManager = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showLink);
+			assertTrue($sut.showLink);
 		}
 
 		function test_EditUrl_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->editUrl, 'app\Urls\CashgameCheckpointDeleteUrlModel');
+			assertIsA($sut.editUrl, 'app\Urls\CashgameCheckpointDeleteUrlModel');
 		}
 
 	}

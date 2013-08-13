@@ -14,19 +14,19 @@ namespace app\Cashgame\Leaderboard{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_leaderboard($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$suite = $this->cashgameRepository->getSuite($homegame, $year);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			$model = new LeaderboardModel($this->userContext->getUser(), $homegame, $suite, $years, $year, $runningGame);
-			return $this->view('app/Cashgame/Leaderboard/Leaderboard', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$suite = cashgameRepository.getSuite($homegame, $year);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			$model = new LeaderboardModel(userContext.getUser(), $homegame, $suite, $years, $year, $runningGame);
+			return view('app/Cashgame/Leaderboard/Leaderboard', $model);
 		}
 
 	}

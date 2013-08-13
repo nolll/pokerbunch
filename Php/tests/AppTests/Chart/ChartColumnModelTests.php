@@ -10,39 +10,39 @@ namespace tests\AppTests\Chart{
 		private $pattern;
 
 		function getSut(){
-			return new ChartColumnModel($this->type, $this->label, $this->pattern);
+			return new ChartColumnModel(type, label, pattern);
 		}
 
 		function test_Type_IsSet(){
-			$this->type = 'a';
+			type = 'a';
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->type);
+			assertEqual('a', $sut.type);
 		}
 
 		function test_Label_IsSet(){
-			$this->label = 'a';
+			label = 'a';
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->label);
+			assertEqual('a', $sut.label);
 		}
 
 		function test_Pattern_IsSet(){
-			$this->pattern = 'a';
+			pattern = 'a';
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertEqual('a', $sut->pattern);
+			assertEqual('a', $sut.pattern);
 		}
 
 		function test_Pattern_AcceptsNull(){
-			$this->pattern = null;
+			pattern = null;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertNull($sut->pattern);
+			assertNull($sut.pattern);
 		}
 
 	}

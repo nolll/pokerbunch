@@ -14,36 +14,36 @@ namespace tests\AppTests\User\Avatar{
 
 		function setUp(){
 			parent::setUp();
-			$this->avatarService = $this->registerFake(ClassNames::$AvatarService);
-			$this->modelBuilder = new AvatarModelBuilder($this->avatarService);
+			avatarService = registerFake(ClassNames::$AvatarService);
+			modelBuilder = new AvatarModelBuilder(avatarService);
 		}
 
 		function test_Build_WithEmailAndLargeSize_LargeAvatarUrlIsSetAndAvatarEnabledIsTrue(){
 			$email = "anyemail";
-			$this->avatarService->returns("getLargeAvatarUrl", "avatar-url");
+			avatarService.returns("getLargeAvatarUrl", "avatar-url");
 
-			$model = $this->modelBuilder->build($email, AvatarSize::large);
+			$model = modelBuilder.build($email, AvatarSize::large);
 
-			$this->assertTrue($model->avatarEnabled);
-			$this->assertIdentical("avatar-url", $model->avatarUrl);
+			assertTrue($model.avatarEnabled);
+			assertIdentical("avatar-url", $model.avatarUrl);
 		}
 
 		function test_Build_WithEmailAndSmallSize_LargeAvatarUrlIsSetAndAvatarEnabledIsTrue(){
 			$email = "anyemail";
-			$this->avatarService->returns("getSmallAvatarUrl", "avatar-url");
+			avatarService.returns("getSmallAvatarUrl", "avatar-url");
 
-			$model = $this->modelBuilder->build($email, AvatarSize::small);
+			$model = modelBuilder.build($email, AvatarSize::small);
 
-			$this->assertTrue($model->avatarEnabled);
-			$this->assertIdentical("avatar-url", $model->avatarUrl);
+			assertTrue($model.avatarEnabled);
+			assertIdentical("avatar-url", $model.avatarUrl);
 		}
 
 		function test_Build_NoEmail_AvatarEnabledIsFalse(){
 			$email = null;
 
-			$model = $this->modelBuilder->build($email, AvatarSize::large);
+			$model = modelBuilder.build($email, AvatarSize::large);
 
-			$this->assertFalse($model->avatarEnabled);
+			assertFalse($model.avatarEnabled);
 		}
 
 	}

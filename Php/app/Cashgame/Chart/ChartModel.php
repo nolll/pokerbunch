@@ -25,11 +25,11 @@ namespace app\Cashgame\Chart{
 									array $years = null,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->playerResults = $suite->getTotalResults();
-			$this->cashgames = $suite->getCashgames();
-			$this->year;
-			$this->chartDataUrl = new CashgameChartJsonUrlModel($homegame, $year);
-			$this->cashgameNavModel = new CashgameNavigationModel($homegame, 'chart', $years, $year, $runningGame);
+			playerResults = $suite.getTotalResults();
+			cashgames = $suite.getCashgames();
+			year;
+			chartDataUrl = new CashgameChartJsonUrlModel($homegame, $year);
+			cashgameNavModel = new CashgameNavigationModel($homegame, 'chart', $years, $year, $runningGame);
 		}
 
 	}

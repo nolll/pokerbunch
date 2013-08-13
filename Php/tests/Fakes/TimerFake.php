@@ -8,11 +8,11 @@ namespace tests\Fakes {
 		private $time;
 
 		public function setTime(DateTime $time){
-			$this->time = $time;
+			time = $time;
 		}
 
 		public function getTime(){
-			return $this->time;
+			return time;
 		}
 
 	}

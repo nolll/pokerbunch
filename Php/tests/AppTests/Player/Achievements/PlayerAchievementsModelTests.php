@@ -13,12 +13,12 @@ namespace tests\AppTests\Player\Achievements{
 			$cashgames = array(new Cashgame());
 			$sut = new PlayerAchievementsModel($player, $cashgames);
 
-			$this->assertNotNull($sut->playedOneGame);
-			$this->assertNotNull($sut->playedTenGames);
-			$this->assertNotNull($sut->played50Games);
-			$this->assertNotNull($sut->played100Games);
-            $this->assertNotNull($sut->played200Games);
-			$this->assertNotNull($sut->played500Games);
+			assertNotNull($sut.playedOneGame);
+			assertNotNull($sut.playedTenGames);
+			assertNotNull($sut.played50Games);
+			assertNotNull($sut.played100Games);
+            assertNotNull($sut.played200Games);
+			assertNotNull($sut.played500Games);
 		}
 
 	}

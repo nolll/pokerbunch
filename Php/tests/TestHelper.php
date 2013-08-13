@@ -12,31 +12,31 @@ namespace tests{
 	class TestHelper{
 
 		public static function setupNullUser(UserContext $userContext){
-			$userContext->returns('isLoggedIn', false);
-			$userContext->returns('getUser', null);
+			$userContext.returns('isLoggedIn', false);
+			$userContext.returns('getUser', null);
 			return null;
 		}
 
 		public static function setupUser(UserContext $userContext){
 			$user = new User();
-			$user->setUserName('user1');
-			$userContext->returns('isLoggedIn', true);
-			$userContext->returns('getUser', $user);
+			$user.setUserName('user1');
+			$userContext.returns('isLoggedIn', true);
+			$userContext.returns('getUser', $user);
 			return $user;
 		}
 
 		public static function setupUserWithPlayerRights(UserContext $userContext){
 			$user = self::setupUser($userContext);
-			$userContext->returns('isGuest', true);
-			$userContext->returns('isPlayer', true);
+			$userContext.returns('isGuest', true);
+			$userContext.returns('isPlayer', true);
 			return $user;
 		}
 
 		public static function setupUserWithManagerRights(UserContext $userContext){
 			$user = self::setupUser($userContext);
-			$userContext->returns('isGuest', true);
-			$userContext->returns('isPlayer', true);
-			$userContext->returns('isManager', true);
+			$userContext.returns('isGuest', true);
+			$userContext.returns('isPlayer', true);
+			$userContext.returns('isManager', true);
 			return $user;
 		}
 
@@ -45,12 +45,12 @@ namespace tests{
 		}
 
 		private static function setupRequestParameter(Request $request, $methodName, $paramName, $paramValue){
-			$request->returns($methodName, $paramValue, array($paramName));
+			$request.returns($methodName, $paramValue, array($paramName));
 		}
 
 		public static function getFakeFromClassBinding(ClassBinding $classBinding){
-			$interfaceName = $classBinding->getInterfaceName();
-			$mockClassName = $classBinding->getMockClassName();
+			$interfaceName = $classBinding.getInterfaceName();
+			$mockClassName = $classBinding.getMockClassName();
 			if(self::classLoaded($interfaceName)){
 				Mock::generate($interfaceName, $mockClassName);
 				return new $mockClassName();

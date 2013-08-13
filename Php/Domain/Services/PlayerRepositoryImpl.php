@@ -13,39 +13,39 @@ namespace Domain\Services {
 		private $playerStorage;
 
 		public function __construct(PlayerStorage $playerStorage){
-			$this->playerStorage = $playerStorage;
+			playerStorage = $playerStorage;
 		}
 
 		public function getAll(Homegame $homegame){
-			return $this->playerStorage->getPlayers($homegame);
+			return playerStorage.getPlayers($homegame);
 		}
 
 		public function getPlayerById(Homegame $homegame, $id){
-			return $this->playerStorage->getPlayerById($homegame, $id);
+			return playerStorage.getPlayerById($homegame, $id);
 		}
 
 		public function getByName(Homegame $homegame, $name){
-			return $this->playerStorage->getPlayerByName($homegame, $name);
+			return playerStorage.getPlayerByName($homegame, $name);
 		}
 
 		public function getByUserName(Homegame $homegame, $userName){
-			return $this->playerStorage->getPlayerByUserName($homegame, $userName);
+			return playerStorage.getPlayerByUserName($homegame, $userName);
 		}
 
 		public function addPlayer(Homegame $homegame, $playerName){
-			return $this->playerStorage->addPlayer($homegame, $playerName);
+			return playerStorage.addPlayer($homegame, $playerName);
 		}
 
 		public function addPlayerWithUser(Homegame $homegame, User $user, $role){
-			return $this->playerStorage->addPlayerWithUser($homegame, $user, $role);
+			return playerStorage.addPlayerWithUser($homegame, $user, $role);
 		}
 
 		public function joinHomegame(Player $player, Homegame $homegame, User $user){
-			return $this->playerStorage->joinHomegame($player, $homegame, $user);
+			return playerStorage.joinHomegame($player, $homegame, $user);
 		}
 
 		public function deletePlayer(Player $player){
-			return $this->playerStorage->deletePlayer($player);
+			return playerStorage.deletePlayer($player);
 		}
 
 	}

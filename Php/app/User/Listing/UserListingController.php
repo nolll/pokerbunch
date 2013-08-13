@@ -11,16 +11,16 @@ namespace app\User\Listing{
 
 		public function __construct(UserContext $userContext,
 									UserStorage $userStorage){
-			$this->userContext = $userContext;
-			$this->userStorage = $userStorage;
+			userContext = $userContext;
+			userStorage = $userStorage;
 		}
 
 		public function action_listing(){
-			$this->userContext->requireAdmin();
-			$users = $this->userStorage->getUsers();
-			$model = new UserListingModel($this->userContext->getUser(), $users);
+			userContext.requireAdmin();
+			$users = userStorage.getUsers();
+			$model = new UserListingModel(userContext.getUser(), $users);
 
-			return $this->view('app/User/Listing/Listing', $model);
+			return view('app/User/Listing/Listing', $model);
 		}
 
 	}

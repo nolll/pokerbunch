@@ -9,7 +9,7 @@ namespace app\Homegame\Listing{
 
 		public function __construct(User $user, array $homegames){
 			parent::__construct($user);
-			$this->homegameModels = $this->getHomegameModels($homegames);
+			homegameModels = getHomegameModels($homegames);
 		}
 
 		private function getHomegameModels(array $homegames){

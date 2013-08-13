@@ -9,21 +9,21 @@ namespace core\Navigation{
 		public $selected;
 
 		public function __construct($name, UrlModel $urlModel, $selected = false){
-			$this->name = $name;
-			$this->urlModel = $urlModel;
-			$this->selected = $selected;
+			name = $name;
+			urlModel = $urlModel;
+			selected = $selected;
 		}
 
 		public function getName(){
-			return $this->name;
+			return name;
 		}
 
 		public function getUrl(){
-			return $this->urlModel;
+			return urlModel;
 		}
 
 		public function isSelected(){
-			return $this->selected;
+			return selected;
 		}
 
 	}

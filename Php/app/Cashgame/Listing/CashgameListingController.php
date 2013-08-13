@@ -14,19 +14,19 @@ namespace app\Cashgame\Listing{
 		public function __construct(UserContext $userContext,
 									HomegameRepository $homegameRepository,
 									CashgameRepository $cashgameRepository){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function action_listing($gameName, $year = null){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$games = $this->cashgameRepository->getAll($homegame, $year);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
-			$model = new CashgameListingModel($this->userContext->getUser(), $homegame, $games, $years, $year, $runningGame);
-			return $this->view('app/Cashgame/Listing/Listing', $model);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$games = cashgameRepository.getAll($homegame, $year);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
+			$model = new CashgameListingModel(userContext.getUser(), $homegame, $games, $years, $year, $runningGame);
+			return view('app/Cashgame/Listing/Listing', $model);
 		}
 
 	}

@@ -37,58 +37,58 @@ namespace app\Cashgame\Action{
 									PlayerRepository $playerRepository,
 									Request $request,
 									CashgameValidatorFactory $cashgameValidatorFactory){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->request = $request;
-			$this->cashgameValidatorFactory = $cashgameValidatorFactory;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
+			request = $request;
+			cashgameValidatorFactory = $cashgameValidatorFactory;
 		}
 
 		public function action_buyin($gameName, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$this->userContext->requirePlayer($this->homegame);
-			$runningGame = $this->cashgameRepository->getRunning($this->homegame);
-			return $this->showForm($runningGame);
+			homegame = homegameRepository.getByName($gameName);
+			player = playerRepository.getByName(homegame, $playerName);
+			userContext.requirePlayer(homegame);
+			$runningGame = cashgameRepository.getRunning(homegame);
+			return showForm($runningGame);
 		}
 
 		private function showForm(Cashgame $cashgame, $postedAmount = null, array $errors = null){
-			$user = $this->userContext->getUser();
-			if(!$this->userContext->isAdmin() && $this->player->getUserName() != $user->getUserName()){
+			$user = userContext.getUser();
+			if(!userContext.isAdmin() && player.getUserName() != $user.getUserName()){
 				throw new AccessDeniedException();
 			}
-			$years = $this->cashgameRepository->getYears($this->homegame);
-			$model = new BuyinModel($user, $this->homegame, $this->player, $years, $cashgame, $postedAmount);
+			$years = cashgameRepository.getYears(homegame);
+			$model = new BuyinModel($user, homegame, player, $years, $cashgame, $postedAmount);
 			if($errors != null){
-				$model->setValidationErrors($errors);
+				$model.setValidationErrors($errors);
 			}
-			return $this->view('app/Cashgame/Action/Buyin', $model);
+			return view('app/Cashgame/Action/Buyin', $model);
 		}
 
 		public function action_buyin_post($gameName, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$this->userContext->requirePlayer($this->homegame);
-			$postModel = new BuyinPostModel($this->request);
-			$runningGame = $this->cashgameRepository->getRunning($this->homegame);
-			$validator = $this->cashgameValidatorFactory->getBuyinValidator($postModel);
-			if($validator->isValid()){
-				$checkpoint = $this->getBuyinCheckpoint($postModel);
-				$this->cashgameRepository->addCheckpoint($runningGame, $this->player, $checkpoint);
+			homegame = homegameRepository.getByName($gameName);
+			player = playerRepository.getByName(homegame, $playerName);
+			userContext.requirePlayer(homegame);
+			$postModel = new BuyinPostModel(request);
+			$runningGame = cashgameRepository.getRunning(homegame);
+			$validator = cashgameValidatorFactory.getBuyinValidator($postModel);
+			if($validator.isValid()){
+				$checkpoint = getBuyinCheckpoint($postModel);
+				cashgameRepository.addCheckpoint($runningGame, player, $checkpoint);
 			} else {
-				return $this->showForm($runningGame, $postModel->amount, $validator->getErrors());
+				return showForm($runningGame, $postModel.amount, $validator.getErrors());
 			}
-			if(!$runningGame->isStarted()){
-				$this->cashgameRepository->startGame($runningGame);
+			if(!$runningGame.isStarted()){
+				cashgameRepository.startGame($runningGame);
 			}
-			$runningUrl = new RunningCashgameUrlModel($this->homegame, $runningGame, $this->player);
-			return $this->redirect($runningUrl);
+			$runningUrl = new RunningCashgameUrlModel(homegame, $runningGame, player);
+			return redirect($runningUrl);
 		}
 
 		private function getBuyinCheckpoint(BuyinPostModel $postModel){
-			$timestamp = DateTimeFactory::now($this->homegame->getTimezone());
-			return new BuyinCheckpoint($timestamp, $postModel->stack + $postModel->amount, $postModel->amount);
+			$timestamp = DateTimeFactory::now(homegame.getTimezone());
+			return new BuyinCheckpoint($timestamp, $postModel.stack + $postModel.amount, $postModel.amount);
 		}
 
 	}

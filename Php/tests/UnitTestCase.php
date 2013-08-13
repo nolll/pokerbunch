@@ -15,9 +15,9 @@ namespace tests{
 		protected $cashgameRepositoryMock;
 
 		protected function setupMocks(){
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
+			homegameRepositoryMock = getFakeHomegameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
 		}
 
 		protected function getFakeHomegameRepository(){

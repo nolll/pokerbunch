@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new RequiredValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptySubject_ReturnsFalse(){
@@ -19,7 +19,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new RequiredValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 	}

@@ -35,55 +35,55 @@ namespace app\Cashgame\Action{
 									PlayerRepository $playerRepository,
 									Request $request,
 									CashgameValidatorFactory $cashgameValidatorFactory){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->request = $request;
-			$this->cashgameValidatorFactory = $cashgameValidatorFactory;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
+			request = $request;
+			cashgameValidatorFactory = $cashgameValidatorFactory;
 		}
 
 		public function action_report($gameName, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->cashgame = $this->cashgameRepository->getRunning($this->homegame);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$this->userContext->requirePlayer($this->homegame);
-			$user = $this->userContext->getUser();
-			if(!$this->userContext->isAdmin() && $this->player->getUserName() != $user->getUserName()){
+			homegame = homegameRepository.getByName($gameName);
+			cashgame = cashgameRepository.getRunning(homegame);
+			player = playerRepository.getByName(homegame, $playerName);
+			userContext.requirePlayer(homegame);
+			$user = userContext.getUser();
+			if(!userContext.isAdmin() && player.getUserName() != $user.getUserName()){
 				throw new AccessDeniedException();
 			}
-			return $this->showForm($this->cashgame, $user);
+			return showForm(cashgame, $user);
 		}
 
 		private function showForm(Cashgame $runningGame, User $user, $postedAmount = null, array $errors = null){
-			$years = $this->cashgameRepository->getYears($this->homegame);
-			$model = new ReportModel($user, $this->homegame, $this->player, $years, $runningGame, $postedAmount);
+			$years = cashgameRepository.getYears(homegame);
+			$model = new ReportModel($user, homegame, player, $years, $runningGame, $postedAmount);
 			if($errors != null){
-				$model->setValidationErrors($errors);
+				$model.setValidationErrors($errors);
 			}
-			return $this->view('app/Cashgame/Action/Report', $model);
+			return view('app/Cashgame/Action/Report', $model);
 		}
 
 		public function action_report_post($gameName, $playerName){
-			$this->homegame = $this->homegameRepository->getByName($gameName);
-			$this->cashgame = $this->cashgameRepository->getRunning($this->homegame);
-			$this->player = $this->playerRepository->getByName($this->homegame, $playerName);
-			$this->userContext->requirePlayer($this->homegame);
-			$user = $this->userContext->getUser();
-			$postModel = new ActionPostModel($this->request);
-			$validator = $this->cashgameValidatorFactory->getReportValidator($postModel);
-			if(!$validator->isValid()){
-				return $this->showForm($this->cashgame, $user, $postModel->stack, $validator->getErrors());
+			homegame = homegameRepository.getByName($gameName);
+			cashgame = cashgameRepository.getRunning(homegame);
+			player = playerRepository.getByName(homegame, $playerName);
+			userContext.requirePlayer(homegame);
+			$user = userContext.getUser();
+			$postModel = new ActionPostModel(request);
+			$validator = cashgameValidatorFactory.getReportValidator($postModel);
+			if(!$validator.isValid()){
+				return showForm(cashgame, $user, $postModel.stack, $validator.getErrors());
 			}
-			$checkpoint = $this->getReportCheckpoint($postModel);
-			$this->cashgameRepository->addCheckpoint($this->cashgame, $this->player, $checkpoint);
-			$runningUrl = new RunningCashgameUrlModel($this->homegame, $this->player);
-			return $this->redirect($runningUrl);
+			$checkpoint = getReportCheckpoint($postModel);
+			cashgameRepository.addCheckpoint(cashgame, player, $checkpoint);
+			$runningUrl = new RunningCashgameUrlModel(homegame, player);
+			return redirect($runningUrl);
 		}
 
 		private function getReportCheckpoint(ActionPostModel $postModel){
-			$timestamp = DateTimeFactory::now($this->homegame->getTimezone());
-			return new ReportCheckpoint($timestamp, $postModel->stack);
+			$timestamp = DateTimeFactory::now(homegame.getTimezone());
+			return new ReportCheckpoint($timestamp, $postModel.stack);
 		}
 
 		/** @var Player */

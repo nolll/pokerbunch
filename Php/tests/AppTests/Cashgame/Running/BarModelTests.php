@@ -14,38 +14,38 @@ namespace tests\AppTests\Cashgame\Running{
 		private $runningGame;
 
 		function setUp(){
-			$this->homegame = new Homegame();
+			homegame = new Homegame();
 			$runningGame = null;
 		}
 
 		function test_GameIsRunning_NoRunningGame_IsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->gameIsRunning);
+			assertFalse($sut.gameIsRunning);
 		}
 
 		function test_GameIsRunning_WithRunningGame_IsTrue(){
-			$this->setRunningGame();
+			setRunningGame();
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->gameIsRunning);
+			assertTrue($sut.gameIsRunning);
 		}
 
 		function test_GameUrl_WithRunningGame_IsSet(){
-			$this->setRunningGame();
+			setRunningGame();
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->gameUrl, 'app\Urls\RunningCashgameUrlModel');
+			assertIsA($sut.gameUrl, 'app\Urls\RunningCashgameUrlModel');
 		}
 
 		function setRunningGame(){
-			$this->runningGame = new Cashgame();
+			runningGame = new Cashgame();
 		}
 
 		function getSut(){
-			return new BarModel($this->homegame, $this->runningGame);
+			return new BarModel(homegame, runningGame);
 		}
 
 	}

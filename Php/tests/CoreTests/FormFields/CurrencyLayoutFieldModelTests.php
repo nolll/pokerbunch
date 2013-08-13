@@ -9,16 +9,16 @@ namespace tests\CoreTests\FormFields{
 		private $sut;
 
 		function setUp(){
-			$this->sut = new CurrencyLayoutFieldModel('name', 'id', 'value');
+			sut = new CurrencyLayoutFieldModel('name', 'id', 'value');
 		}
 
 		function test_CurrencyLayoutField_SetsFieldName(){
-			$this->assertIdentical('name', $this->sut->fieldName);
+			assertIdentical('name', sut.fieldName);
 		}
 
 		function test_CurrencyLayoutField_SetsLayoutNamesAndValues(){
-			$this->assertIdentical(4, count($this->sut->names));
-			$this->assertIdentical(4, count($this->sut->values));
+			assertIdentical(4, count(sut.names));
+			assertIdentical(4, count(sut.values));
 		}
 
 	}

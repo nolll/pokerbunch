@@ -15,19 +15,19 @@ namespace app\User\Details{
 		public function __construct(UserContext $userContext,
 									UserStorage $userStorage,
 									AvatarService $avatarService){
-			$this->userContext = $userContext;
-			$this->userStorage = $userStorage;
-			$this->avatarService = $avatarService;
+			userContext = $userContext;
+			userStorage = $userStorage;
+			avatarService = $avatarService;
 		}
 
 		public function action_details($userName){
-			$this->userContext->requireUser();
-			$user = $this->userStorage->getUserByName($userName);
+			userContext.requireUser();
+			$user = userStorage.getUserByName($userName);
 			if($user == null){
 				throw new UserNotFoundException();
 			}
-			$model = new UserDetailsModel($this->userContext->getUser(), $user, $this->avatarService);
-			return $this->view('app/User/Details/Details', $model);
+			$model = new UserDetailsModel(userContext.getUser(), $user, avatarService);
+			return view('app/User/Details/Details', $model);
 		}
 
 	}

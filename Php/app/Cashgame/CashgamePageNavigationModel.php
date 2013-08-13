@@ -23,22 +23,22 @@ namespace app\Cashgame{
 		public $factsLink;
 
 		public function __construct(Homegame $homegame, $year = null, $view = null, Cashgame $runningGame = null){
-			$this->homegame = $homegame;
-			$this->year = $year;
-			$this->view = $view;
-			$this->runningGame = $runningGame;
+			homegame = $homegame;
+			year = $year;
+			view = $view;
+			runningGame = $runningGame;
 
-			$this->selected = $view;
+			selected = $view;
 
-			$this->setupNav();
+			setupNav();
 		}
 
 		private function setupNav(){
-			$this->matrixLink = new CashgameMatrixUrlModel($this->homegame, $this->year);
-			$this->leaderboardLink = new CashgameLeaderboardUrlModel($this->homegame, $this->year);
-			$this->chartLink = new CashgameChartUrlModel($this->homegame, $this->year);
-			$this->listingLink = new CashgameListingUrlModel($this->homegame, $this->year);
-			$this->factsLink = new CashgameFactsUrlModel($this->homegame, $this->year);
+			matrixLink = new CashgameMatrixUrlModel(homegame, year);
+			leaderboardLink = new CashgameLeaderboardUrlModel(homegame, year);
+			chartLink = new CashgameChartUrlModel(homegame, year);
+			listingLink = new CashgameListingUrlModel(homegame, year);
+			factsLink = new CashgameFactsUrlModel(homegame, year);
 		}
 
 	}

@@ -19,31 +19,31 @@ namespace tests\AppTests\Cashgame\Details{
 		private $playerRepository;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->cashgameRepository = TestHelper::getFake(ClassNames::$CashgameRepository);
-			$this->homegameRepository = TestHelper::getFake(ClassNames::$HomegameRepository);
-			$this->playerRepository = TestHelper::getFake(ClassNames::$PlayerRepository);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			cashgameRepository = TestHelper::getFake(ClassNames::$CashgameRepository);
+			homegameRepository = TestHelper::getFake(ClassNames::$HomegameRepository);
+			playerRepository = TestHelper::getFake(ClassNames::$PlayerRepository);
 			$resultSharer = TestHelper::getFake(ClassNames::$ResultSharer);
-			$this->sut = new DetailsController($this->userContext, $this->homegameRepository, $this->cashgameRepository, $this->playerRepository, $resultSharer);
+			sut = new DetailsController(userContext, homegameRepository, cashgameRepository, playerRepository, $resultSharer);
 		}
 
 		function test_ActionDetails_NotAuthorized_ThrowsException(){
-			$this->userContext->throwOn('requirePlayer');
-			$this->homegameRepository->returns('getByName', new Homegame());
-			$this->expectException();
+			userContext.throwOn('requirePlayer');
+			homegameRepository.returns('getByName', new Homegame());
+			expectException();
 
-			$this->sut->action_details('any', '2010-01-01');
+			sut.action_details('any', '2010-01-01');
 		}
 
 		function test_ActionDetails_ReturnsCorrectModel(){
-			TestHelper::setupUserWithPlayerRights($this->userContext);
-			$this->homegameRepository->returns('getByName', new Homegame());
-			$this->cashgameRepository->returns('getByDate', new Cashgame());
-			$this->playerRepository->returns('getByUserName', new Player());
+			TestHelper::setupUserWithPlayerRights(userContext);
+			homegameRepository.returns('getByName', new Homegame());
+			cashgameRepository.returns('getByDate', new Cashgame());
+			playerRepository.returns('getByUserName', new Player());
 
-			$viewResult = $this->sut->action_details('any', '2010-01-01');
+			$viewResult = sut.action_details('any', '2010-01-01');
 
-			$this->assertIsA($viewResult->model, 'app\Cashgame\Details\DetailsModel');
+			assertIsA($viewResult.model, 'app\Cashgame\Details\DetailsModel');
 		}
 
 	}

@@ -11,21 +11,21 @@ namespace tests\AppTests\Homegame{
 		private $homegame;
 
 		function setUp(){
-			$this->homegame = new Homegame();
+			homegame = new Homegame();
 		}
 
 		function test_Item_SetsName(){
-			$this->homegame->setDisplayName('a');
+			homegame.setDisplayName('a');
 
-			$sut = new HomegameItemModel($this->homegame);
+			$sut = new HomegameItemModel(homegame);
 
-			$this->assertIdentical('a', $sut->name);
+			assertIdentical('a', $sut.name);
 		}
 
 		function test_Item_SetsDetailsUrl(){
-			$sut = new HomegameItemModel($this->homegame);
+			$sut = new HomegameItemModel(homegame);
 
-			$this->assertIsA($sut->urlModel, 'app\Urls\HomegameDetailsUrlModel');
+			assertIsA($sut.urlModel, 'app\Urls\HomegameDetailsUrlModel');
 		}
 
 	}

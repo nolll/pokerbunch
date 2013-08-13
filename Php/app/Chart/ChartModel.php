@@ -7,17 +7,17 @@ namespace app\Chart{
 		public $p;
 
 		public function __construct(){
-			$this->cols = array();
-			$this->rows = array();
-			$this->p = null;
+			cols = array();
+			rows = array();
+			p = null;
 		}
 
 		protected function addColumn(ChartColumnModel $col){
-			$this->cols[] = $col;
+			cols[] = $col;
 		}
 
 		protected function addRow(ChartRowModel $row){
-			$this->rows[] = $row;
+			rows[] = $row;
 		}
 
 	}

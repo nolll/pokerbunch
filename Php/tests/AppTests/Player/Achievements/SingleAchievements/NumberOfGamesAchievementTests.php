@@ -15,9 +15,9 @@ namespace tests\AppTests\Player\Achievements\SingleAchievements{
 			$numberToCheck = 1;
 			$sut = new NumberOfGamesAchievement($player, $cashgames, $numberToCheck);
 
-			$result = $sut->earned();
+			$result = $sut.earned();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_Earned_CheckOneWithNoCashgames_ReturnsFalse(){
@@ -26,58 +26,58 @@ namespace tests\AppTests\Player\Achievements\SingleAchievements{
 			$numberToCheck = 1;
 			$sut = new NumberOfGamesAchievement($player, $cashgames, $numberToCheck);
 
-			$result = $sut->earned();
+			$result = $sut.earned();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_Earned_CheckOneWithOneCashgameMatchingPlayer_ReturnsTrue(){
 			$player = new Player();
-			$player->setId(1);
+			$player.setId(1);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
+			$cashgameResult.setPlayer($player);
 			$cashgame = new Cashgame();
-			$cashgame->setResults(array($cashgameResult));
+			$cashgame.setResults(array($cashgameResult));
 			$cashgames = array($cashgame);
 			$numberToCheck = 1;
 			$sut = new NumberOfGamesAchievement($player, $cashgames, $numberToCheck);
 
-			$result = $sut->earned();
+			$result = $sut.earned();
 
-			$this->assertTrue($result);
+			assertTrue($result);
 		}
 
 		function test_Earned_CheckTenWithOneCashgameMatchingPlayer_ReturnsFalse(){
 			$player = new Player();
-			$player->setId(1);
+			$player.setId(1);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
+			$cashgameResult.setPlayer($player);
 			$cashgame = new Cashgame();
-			$cashgame->setResults(array($cashgameResult));
+			$cashgame.setResults(array($cashgameResult));
 			$cashgames = array($cashgame);
 			$numberToCheck = 10;
 			$sut = new NumberOfGamesAchievement($player, $cashgames, $numberToCheck);
 
-			$result = $sut->earned();
+			$result = $sut.earned();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 		function test_Earned_CheckOneWithOneCashgameNotMatchingPlayer_ReturnsFalse(){
 			$player = new Player();
-			$player->setId(1);
+			$player.setId(1);
 			$cashgameResult = new CashgameResult();
-			$cashgameResult->setPlayer($player);
+			$cashgameResult.setPlayer($player);
 			$cashgame = new Cashgame();
-			$cashgame->setResults(array($cashgameResult));
+			$cashgame.setResults(array($cashgameResult));
 			$cashgames = array($cashgame);
 			$player = new Player();
 			$numberToCheck = 1;
 			$sut = new NumberOfGamesAchievement($player, $cashgames, $numberToCheck);
 
-			$result = $sut->earned();
+			$result = $sut.earned();
 
-			$this->assertFalse($result);
+			assertFalse($result);
 		}
 
 	}

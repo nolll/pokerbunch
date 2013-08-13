@@ -7,9 +7,9 @@ namespace app\Cashgame\Chart{
 		public $value;
 
 		function __construct($gameIndex, $playerIndex, $value){
-			$this->gameIndex = $gameIndex;
-			$this->playerIndex = $playerIndex;
-			$this->value = $value;
+			gameIndex = $gameIndex;
+			playerIndex = $playerIndex;
+			value = $value;
 		}
 
 	}

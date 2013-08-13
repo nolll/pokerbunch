@@ -18,18 +18,18 @@ namespace app\Cashgame\Leaderboard{
         public $playerUrl;
 
 		public function __construct(Homegame $homegame, CashgameTotalResult $result = null, $rank){
-			$this->rank = $rank;
+			rank = $rank;
 			if($result != null){
-				$winnings = $result->getWinnings();
-				$this->totalResult = Globalization::formatResult($homegame->getCurrency(), $winnings);
-				$this->resultClass = Util::getWinningsCssClass($winnings);
-				$this->gameTime = Globalization::formatDuration($result->getTimePlayed());
-				$this->winRate = Globalization::formatWinrate($homegame->getCurrency(), $result->getWinRate());
-				$player = $result->getPlayer();
+				$winnings = $result.getWinnings();
+				totalResult = Globalization::formatResult($homegame.getCurrency(), $winnings);
+				resultClass = Util::getWinningsCssClass($winnings);
+				gameTime = Globalization::formatDuration($result.getTimePlayed());
+				winRate = Globalization::formatWinrate($homegame.getCurrency(), $result.getWinRate());
+				$player = $result.getPlayer();
 				if($player != null){
-					$this->name = $player->getDisplayName();
-					$this->urlEncodedName = rawurlencode($player->getDisplayName());
-					$this->playerUrl = new PlayerDetailsUrlModel($homegame, $player);
+					name = $player.getDisplayName();
+					urlEncodedName = rawurlencode($player.getDisplayName());
+					playerUrl = new PlayerDetailsUrlModel($homegame, $player);
 				}
 			}
 		}

@@ -10,9 +10,9 @@ namespace tests\AppTests\Cashgame\Matrix{
 	class MatrixModelTests extends UnitTestCase {
 
 		function test_TableModel_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->tableModel, 'app\Cashgame\Matrix\TableModel');
+			assertIsA($sut.tableModel, 'app\Cashgame\Matrix\TableModel');
 		}
 
 		private function getSut(){

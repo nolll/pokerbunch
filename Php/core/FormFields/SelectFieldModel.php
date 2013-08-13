@@ -7,28 +7,28 @@ namespace core\FormFields{
 
 		public function __construct($fieldName, $fieldId, $selectedValue, $items = null, $firstItemText = null){
 			parent::__construct($fieldName, $fieldId, $selectedValue);
-			$this->initArrays();
-			$this->setFirstItem($firstItemText);
-			$this->setItems($items);
+			initArrays();
+			setFirstItem($firstItemText);
+			setItems($items);
 		}
 
 		private function initArrays(){
-			$this->names = array();
-			$this->values = array();
+			names = array();
+			values = array();
 		}
 
 		private function setFirstItem($firstItemText){
 			if ($firstItemText != null && $firstItemText != '') {
-				$this->names[] = $firstItemText;
-				$this->values[] = '';
+				names[] = $firstItemText;
+				values[] = '';
 			}
 		}
 
 		private function setItems($items){
 			if ($items != null) {
 				foreach ($items as $item) {
-					$this->names[] = $item->name;
-					$this->values[] = $item->value;
+					names[] = $item.name;
+					values[] = $item.value;
 				}
 			}
 		}

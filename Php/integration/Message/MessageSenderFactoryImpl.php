@@ -7,7 +7,7 @@ namespace integration\Message{
 		private $settings;
 
 		public function __construct(Settings $settings){
-			$this->settings = $settings;
+			settings = $settings;
 		}
 
 		public function getMessageSender(){

@@ -15,27 +15,27 @@ namespace tests\AppTests\Cashgame\Matrix{
 		private $matrixModelFactory;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->matrixModelFactory = TestHelper::getFake(ClassNames::$MatrixModelFactory);
-			$this->sut = new MatrixController($this->userContext, $this->homegameRepositoryMock, $this->matrixModelFactory);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			matrixModelFactory = TestHelper::getFake(ClassNames::$MatrixModelFactory);
+			sut = new MatrixController(userContext, homegameRepositoryMock, matrixModelFactory);
 		}
 
 		function test_ActionMatrix_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_matrix("homegame1");
+			sut.action_matrix("homegame1");
 		}
 
 		function test_ActionMatrix_Authorized_ShowsCorrectView(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->returns('getUser', new User());
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.returns('getUser', new User());
 
-			$viewResult = $this->sut->action_matrix("homegame1");
+			$viewResult = sut.action_matrix("homegame1");
 
-			$this->assertEqual('app/Cashgame/Matrix/Matrix', $viewResult->view);
+			assertEqual('app/Cashgame/Matrix/Matrix', $viewResult.view);
 		}
 
 	}

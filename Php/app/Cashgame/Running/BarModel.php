@@ -11,8 +11,8 @@ namespace app\Cashgame\Running{
 
 		public function __construct(Homegame $homegame, Cashgame $runningGame = null){
 			if($runningGame != null){
-				$this->gameIsRunning = true;
-				$this->gameUrl = new RunningCashgameUrlModel($homegame);
+				gameIsRunning = true;
+				gameUrl = new RunningCashgameUrlModel($homegame);
 			}
 		}
 

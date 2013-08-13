@@ -25,47 +25,47 @@ namespace app\User\ChangePassword{
 									Encryption $encryption,
 									SaltGenerator $saltGenerator,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->userStorage = $userStorage;
-			$this->userValidatorFactory = $userValidatorFactory;
-			$this->encryption = $encryption;
-			$this->saltGenerator = $saltGenerator;
-			$this->request = $request;
+			userContext = $userContext;
+			userStorage = $userStorage;
+			userValidatorFactory = $userValidatorFactory;
+			encryption = $encryption;
+			saltGenerator = $saltGenerator;
+			request = $request;
 		}
 
 		public function action_change(){
-			$this->userContext->requireUser();
-			return $this->showForm();
+			userContext.requireUser();
+			return showForm();
 		}
 
 		public function action_change_post(){
-			$this->userContext->requireUser();
-			$user = $this->userContext->getUser();
-			$password = $this->request->getParamPost('password');
-			$repeatPassword = $this->request->getParamPost('repeat');
-			$validator = $this->userValidatorFactory->getChangePasswordValidator($password, $repeatPassword);
-			if($validator->isValid()){
-				$salt = $this->saltGenerator->createSalt();
-				$encryptedPassword = $this->encryption->encrypt($password, $salt);
-				$this->userStorage->setEncryptedPassword($user, $encryptedPassword);
-				$this->userStorage->setSalt($user, $salt);
-				return $this->redirect(new ChangePasswordConfirmationUrlModel());
+			userContext.requireUser();
+			$user = userContext.getUser();
+			$password = request.getParamPost('password');
+			$repeatPassword = request.getParamPost('repeat');
+			$validator = userValidatorFactory.getChangePasswordValidator($password, $repeatPassword);
+			if($validator.isValid()){
+				$salt = saltGenerator.createSalt();
+				$encryptedPassword = encryption.encrypt($password, $salt);
+				userStorage.setEncryptedPassword($user, $encryptedPassword);
+				userStorage.setSalt($user, $salt);
+				return redirect(new ChangePasswordConfirmationUrlModel());
 			} else {
-				return $this->showForm($validator->getErrors());
+				return showForm($validator.getErrors());
 			}
 		}
 
 		public function action_changed(){
-			$model = new PageModel($this->userContext->getUser());
-			$this->view('app/User/ChangePassword/Confirmation', $model);
+			$model = new PageModel(userContext.getUser());
+			view('app/User/ChangePassword/Confirmation', $model);
 		}
 
 		private function showForm(array $validationErrors = null){
-			$model = new PageModel($this->userContext->getUser());
+			$model = new PageModel(userContext.getUser());
 			if($validationErrors != null){
-				$model->setValidationErrors($validationErrors);
+				$model.setValidationErrors($validationErrors);
 			}
-			return $this->view('app/User/ChangePassword/Form', $model);
+			return view('app/User/ChangePassword/Form', $model);
 		}
 
 	}

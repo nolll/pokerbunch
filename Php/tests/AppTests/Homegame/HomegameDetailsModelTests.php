@@ -13,65 +13,65 @@ namespace tests\AppTests\Homegame{
 		private $isInManagerMode;
 
 		function setUp(){
-			$this->user = new User();
-			$this->homegame = new Homegame();
-			$this->isInManagerMode = false;
+			user = new User();
+			homegame = new Homegame();
+			isInManagerMode = false;
 		}
 
 		function test_ActionDetails_SetsDisplayName(){
-			$this->homegame->setDisplayName('a');
+			homegame.setDisplayName('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->displayName);
+			assertIdentical('a', $sut.displayName);
 		}
 
 		function test_ActionDetails_SetsHouseRules(){
-			$this->homegame->setHouseRules('a');
+			homegame.setHouseRules('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->houseRules);
+			assertIdentical('a', $sut.houseRules);
 		}
 
 		function test_ActionDetails_HouseRulesWithLineBreaks_OutputsBrTags(){
-			$this->homegame->setHouseRules("a\n\nb");
+			homegame.setHouseRules("a\n\nb");
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical("a<br>\n<br>\nb", $sut->houseRules);
+			assertIdentical("a<br>\n<br>\nb", $sut.houseRules);
 		}
 
 		function test_ActionDetails_SetsEditUrl(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->editUrl, 'app\Urls\HomegameEditUrlModel');
+			assertIsA($sut.editUrl, 'app\Urls\HomegameEditUrlModel');
 		}
 
 		function test_ActionDetails_SetsDescription(){
-			$this->homegame->setDescription('a');
+			homegame.setDescription('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->description);
+			assertIdentical('a', $sut.description);
 		}
 
 		function test_ActionDetails_WithPlayerRights_DoesNotOutputEditLink(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showEditLink);
+			assertFalse($sut.showEditLink);
 		}
 
 		function test_ActionDetails_WithManagerRights_ShowsEditLink(){
-			$this->isInManagerMode = true;
+			isInManagerMode = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showEditLink);
+			assertTrue($sut.showEditLink);
 		}
 
 		private function getSut(){
-			return new HomegameDetailsModel($this->user, $this->homegame, $this->isInManagerMode);
+			return new HomegameDetailsModel(user, homegame, isInManagerMode);
 		}
 
 	}

@@ -13,15 +13,15 @@ namespace Infrastructure\Data\MySql {
 		private $logger;
 
 		public function __construct(Settings $settings, Logger $logger){
-			$host = $settings->getDatabaseHost();
-			$database = $settings->getDatabaseName();
-			$username = $settings->getDatabaseUserName();
-			$password = $settings->getDatabasePassword();
-			$this->logger = $logger;
-			if(!$this->hasCredentials($host, $database, $username, $password)){
+			$host = $settings.getDatabaseHost();
+			$database = $settings.getDatabaseName();
+			$username = $settings.getDatabaseUserName();
+			$password = $settings.getDatabasePassword();
+			logger = $logger;
+			if(!hasCredentials($host, $database, $username, $password)){
 				throw new DatabaseException("Application: Database variables not set");
 			}
-			$this->conn = new PDO(	"mysql:host={$host};dbname={$database}",
+			conn = new PDO(	"mysql:host={$host};dbname={$database}",
 									$username,
 									$password,
 									array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
@@ -32,23 +32,23 @@ namespace Infrastructure\Data\MySql {
 		 * @return PDOStatement
 		 */
 		public function query($sql){
-			$this->logger->log("sql query: " . $sql);
-			return $this->conn->query($sql);
+			logger.log("sql query: " . $sql);
+			return conn.query($sql);
 		}
 
 		public function execute($sql){
-			$this->logger->log("sql execute: " . $sql);
-			return $this->conn->exec($sql);
+			logger.log("sql execute: " . $sql);
+			return conn.exec($sql);
 		}
 
 		public function executePrepared($preparedSql){
-			$stmt = $this->conn->prepare($preparedSql);
+			$stmt = conn.prepare($preparedSql);
 			$params = array();
 			$numArgs = func_num_args();
 			for($i = 1 ; $i < $numArgs; $i++) {
 				$params[] = func_get_arg($i);
 			}
-			return $stmt->execute($params);
+			return $stmt.execute($params);
 		}
 
 		/**
@@ -59,7 +59,7 @@ namespace Infrastructure\Data\MySql {
 			if(!$success){
 				return null;
 			}
-			return $this->conn->lastInsertId();
+			return conn.lastInsertId();
 		}
 
 		/**
@@ -67,7 +67,7 @@ namespace Infrastructure\Data\MySql {
 		 * @return string
 		 */
 		public function quote($string){
-			return $this->conn->quote($string);
+			return conn.quote($string);
 		}
 
 		/**
@@ -93,7 +93,7 @@ namespace Infrastructure\Data\MySql {
 		}
 
 		public function __destruct(){
-			$this->conn = null;
+			conn = null;
 		}
 
 	}

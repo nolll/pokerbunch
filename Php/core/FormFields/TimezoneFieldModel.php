@@ -3,7 +3,7 @@ namespace core\FormFields{
 	class TimezoneFieldModel extends SelectFieldModel{
 
 		public function __construct($fieldName, $fieldId, $selectedValue, $timezones, $firstItemText = null){
-			$items = $this->getSelectItems($timezones);
+			$items = getSelectItems($timezones);
 			parent::__construct($fieldName, $fieldId, $selectedValue, $items, $firstItemText);
 		}
 

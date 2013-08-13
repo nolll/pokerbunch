@@ -16,19 +16,19 @@ namespace app\Cashgame\Matrix{
 		public $rowModels;
 
 		public function __construct(Homegame $homegame, CashgameSuite $suite){
-			$this->homegame = $homegame;
-			$this->results = $suite->getTotalResults();
-			$this->cashgames = $suite->getCashgames();
-			$this->suite = $suite;
-			$this->showYear = $this->spansMultipleYears();
-			$this->columnHeaderModels = $this->getHeaderModels();
-			$this->rowModels = $this->getRowModels();
+			homegame = $homegame;
+			results = $suite.getTotalResults();
+			cashgames = $suite.getCashgames();
+			suite = $suite;
+			showYear = spansMultipleYears();
+			columnHeaderModels = getHeaderModels();
+			rowModels = getRowModels();
 		}
 
 		private function getHeaderModels(){
 			$models = array();
-			foreach($this->cashgames as $cashgame){
-				$models[] = new ColumnHeaderModel($this->homegame, $cashgame, $this->showYear);
+			foreach(cashgames as $cashgame){
+				$models[] = new ColumnHeaderModel(homegame, $cashgame, showYear);
 			}
 			return $models;
 		}
@@ -36,17 +36,17 @@ namespace app\Cashgame\Matrix{
 		private function getRowModels(){
 			$models = array();
 			$rank = 0;
-			foreach($this->results as $result){
+			foreach(results as $result){
 				$rank++;
-				$models[] = new RowModel($this->homegame, $this->suite, $result, $rank);
+				$models[] = new RowModel(homegame, suite, $result, $rank);
 			}
 			return $models;
 		}
 
 		private function spansMultipleYears(){
 			$years = array();
-			foreach($this->cashgames as $cashgame){
-				$year = $cashgame->getStartTime()->format('Y');
+			foreach(cashgames as $cashgame){
+				$year = $cashgame.getStartTime().format('Y');
 				if(!in_array($year, $years)){
 					$years[] = $year;
 				}

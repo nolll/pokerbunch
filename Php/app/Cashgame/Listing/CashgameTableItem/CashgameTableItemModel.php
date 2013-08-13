@@ -18,19 +18,19 @@ namespace app\Cashgame\Listing\CashgameTableItem{
 		public $publishedClass;
 
 		public function __construct(Homegame $homegame, Cashgame $cashgame, $showYear){
-			$playerCount = $cashgame->getNumPlayers();
-			$this->playerCount = $playerCount;
-			$this->location = $cashgame->getLocation();
-			$this->duration = $this->getDuration($cashgame);
-			$this->turnover = $this->getTurnover($homegame, $cashgame);
-			$this->avgBuyin = $this->getAvgBuyin($homegame, $cashgame, $playerCount);
-			$this->detailsUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
-			$this->displayDate = Globalization::formatShortDate($cashgame->getStartTime(), $showYear);
-			$this->publishedClass = $this->getPublishedClass($cashgame);
+			$playerCount = $cashgame.getNumPlayers();
+			playerCount = $playerCount;
+			location = $cashgame.getLocation();
+			duration = getDuration($cashgame);
+			turnover = getTurnover($homegame, $cashgame);
+			avgBuyin = getAvgBuyin($homegame, $cashgame, $playerCount);
+			detailsUrl = new CashgameDetailsUrlModel($homegame, $cashgame);
+			displayDate = Globalization::formatShortDate($cashgame.getStartTime(), $showYear);
+			publishedClass = getPublishedClass($cashgame);
 		}
 
 		private function getDuration(Cashgame $cashgame){
-			$duration = $cashgame->getDuration();
+			$duration = $cashgame.getDuration();
 			if($duration > 0){
 				return Globalization::formatDuration($duration);
 			} else {
@@ -39,15 +39,15 @@ namespace app\Cashgame\Listing\CashgameTableItem{
 		}
 
 		private function getTurnover(Homegame $homegame, Cashgame $cashgame){
-			return Globalization::formatCurrency($homegame->getCurrency(), $cashgame->getTurnover());
+			return Globalization::formatCurrency($homegame.getCurrency(), $cashgame.getTurnover());
 		}
 
 		private function getAvgBuyin(Homegame $homegame, Cashgame $cashgame, $playerCount){
-			return Globalization::formatCurrency($homegame->getCurrency(), $cashgame->getAverageBuyin());
+			return Globalization::formatCurrency($homegame.getCurrency(), $cashgame.getAverageBuyin());
 		}
 
 		private function getPublishedClass(Cashgame $cashgame){
-			return $cashgame->getStatus() == GameStatus::published ? '' : 'unpublished';
+			return $cashgame.getStatus() == GameStatus::published ? '' : 'unpublished';
 		}
 
 	}

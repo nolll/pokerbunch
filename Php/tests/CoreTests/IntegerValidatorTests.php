@@ -11,7 +11,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new IntegerValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithEmptyValue_ReturnsTrue(){
@@ -19,7 +19,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new IntegerValidator($subject, $errorMessage);
 
-			$this->assertTrue($validator->isValid());
+			assertTrue($validator.isValid());
 		}
 
 		function test_IsValid_WithString_ReturnsFalse(){
@@ -27,7 +27,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new IntegerValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 		function test_IsValid_WithFloat_ReturnsFalse(){
@@ -35,7 +35,7 @@ namespace tests\CoreTests{
 			$errorMessage = "error-message";
 			$validator = new IntegerValidator($subject, $errorMessage);
 
-			$this->assertFalse($validator->isValid());
+			assertFalse($validator.isValid());
 		}
 
 	}

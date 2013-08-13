@@ -19,22 +19,22 @@ namespace app\Cashgame\Details\ResultTableItem{
 		public function __construct(Homegame $homegame,
 									Cashgame $cashgame,
 									CashgameResult $result){
-			$player = $result->getPlayer();
+			$player = $result.getPlayer();
 			if($player != null){
-				$this->name = $player->getDisplayName();
-				$this->playerUrl = new CashgameActionUrlModel($homegame, $cashgame, $player);
+				name = $player.getDisplayName();
+				playerUrl = new CashgameActionUrlModel($homegame, $cashgame, $player);
 			}
-			$this->buyin = Globalization::formatCurrency($homegame->getCurrency(), $result->getBuyin());
-			$this->cashout = Globalization::formatCurrency($homegame->getCurrency(), $result->getStack());
-			$winnings = $result->getWinnings();
-			$this->winnings = Globalization::formatResult($homegame->getCurrency(), $winnings);
-			$this->winningsClass = Util::getWinningsCssClass($winnings);
-			$duration = $result->getPlayedTime();
+			buyin = Globalization::formatCurrency($homegame.getCurrency(), $result.getBuyin());
+			cashout = Globalization::formatCurrency($homegame.getCurrency(), $result.getStack());
+			$winnings = $result.getWinnings();
+			winnings = Globalization::formatResult($homegame.getCurrency(), $winnings);
+			winningsClass = Util::getWinningsCssClass($winnings);
+			$duration = $result.getPlayedTime();
 			if($duration > 0){
 				$winrate = $winrate = round($winnings / $duration * 60);
-				$this->winrate = Globalization::formatWinrate($homegame->getCurrency(), $winrate);
+				winrate = Globalization::formatWinrate($homegame.getCurrency(), $winrate);
 			} else {
-				$this->winrate = '';
+				winrate = '';
 			}
 		}
 

@@ -13,19 +13,19 @@ namespace tests\AppTests\Player{
 		private $userContext;
 
 		function setUp(){
-			$this->userContext = TestHelper::getFake(ClassNames::$UserContext);
-			$this->homegameRepositoryMock = $this->getFakeHomegameRepository();
-			$this->playerRepositoryMock = $this->getFakePlayerRepository();
-			$this->cashgameRepositoryMock = $this->getFakeCashgameRepository();
-			$this->sut = new PlayerListingController($this->userContext, $this->homegameRepositoryMock, $this->playerRepositoryMock, $this->cashgameRepositoryMock);
+			userContext = TestHelper::getFake(ClassNames::$UserContext);
+			homegameRepositoryMock = getFakeHomegameRepository();
+			playerRepositoryMock = getFakePlayerRepository();
+			cashgameRepositoryMock = getFakeCashgameRepository();
+			sut = new PlayerListingController(userContext, homegameRepositoryMock, playerRepositoryMock, cashgameRepositoryMock);
 		}
 
 		function test_ActionIndex_NotAuthorized_ThrowsException(){
-			$this->homegameRepositoryMock->returns('getByName', new Homegame());
-			$this->userContext->throwOn('requirePlayer');
-			$this->expectException();
+			homegameRepositoryMock.returns('getByName', new Homegame());
+			userContext.throwOn('requirePlayer');
+			expectException();
 
-			$this->sut->action_index("homegame1");
+			sut.action_index("homegame1");
 		}
 
 	}

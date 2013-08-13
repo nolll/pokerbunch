@@ -15,18 +15,18 @@ namespace entities{
 			$timePlayed = 0;
 
 			foreach($results as $result){
-				$winnings += $result->getWinnings();
+				$winnings += $result.getWinnings();
 				$gameCount++;
-				$timePlayed += $result->getPlayedTime();
+				$timePlayed += $result.getPlayedTime();
 			}
 
 			$winRate = $timePlayed > 0 ? round($winnings / $timePlayed * 60) : 0;
 
-			$cashgameTotalResult->setPlayer($player);
-			$cashgameTotalResult->setWinnings($winnings);
-			$cashgameTotalResult->setGameCount($gameCount);
-			$cashgameTotalResult->setTimePlayed($timePlayed);
-			$cashgameTotalResult->setWinRate($winRate);
+			$cashgameTotalResult.setPlayer($player);
+			$cashgameTotalResult.setWinnings($winnings);
+			$cashgameTotalResult.setGameCount($gameCount);
+			$cashgameTotalResult.setTimePlayed($timePlayed);
+			$cashgameTotalResult.setWinRate($winRate);
 
 			return $cashgameTotalResult;
 		}

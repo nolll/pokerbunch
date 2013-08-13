@@ -29,43 +29,43 @@ namespace app\Cashgame\Details{
 									CashgameRepository $cashgameRepository,
 									PlayerRepository $playerRepository,
 									ResultSharer $resultSharer){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->cashgameRepository = $cashgameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->resultSharer = $resultSharer;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			cashgameRepository = $cashgameRepository;
+			playerRepository = $playerRepository;
+			resultSharer = $resultSharer;
 		}
 
 		public function action_details($gameName, $dateStr){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$date = DateTimeFactory::create($dateStr, $homegame->getTimezone());
-			$cashgame = $this->cashgameRepository->getByDate($homegame, $date);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$date = DateTimeFactory::create($dateStr, $homegame.getTimezone());
+			$cashgame = cashgameRepository.getByDate($homegame, $date);
 			if($cashgame == null){
-				return $this->error(new HttpNotFoundError());
+				return error(new HttpNotFoundError());
 			}
-			$user = $this->userContext->getUser();
-			$model = $this->getModel($user, $homegame, $cashgame);
-			return $this->view('app/Cashgame/Details/Details', $model);
+			$user = userContext.getUser();
+			$model = getModel($user, $homegame, $cashgame);
+			return view('app/Cashgame/Details/Details', $model);
 		}
 
 		public function action_detailschartjson($gameName, $dateStr){
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$this->userContext->requirePlayer($homegame);
-			$date = DateTimeFactory::create($dateStr, $homegame->getTimezone());
-			$cashgame = $this->cashgameRepository->getByDate($homegame, $date);
+			$homegame = homegameRepository.getByName($gameName);
+			userContext.requirePlayer($homegame);
+			$date = DateTimeFactory::create($dateStr, $homegame.getTimezone());
+			$cashgame = cashgameRepository.getByDate($homegame, $date);
 			if($cashgame == null){
-				return $this->error(new HttpNotFoundError());
+				return error(new HttpNotFoundError());
 			}
 			$model = new GameChartData($homegame, $cashgame);
-			return $this->json($model);
+			return json($model);
 		}
 
 		public function getModel(User $user, Homegame $homegame, Cashgame $cashgame){
-			$player = $this->playerRepository->getByUserName($homegame, $user->getUserName());
-			$isManager = $this->userContext->isInRole($homegame, Role::$manager);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
+			$player = playerRepository.getByUserName($homegame, $user.getUserName());
+			$isManager = userContext.isInRole($homegame, Role::$manager);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
 			return new DetailsModel($user, $homegame, $cashgame, $player, $years, $isManager, $runningGame);
 		}
 

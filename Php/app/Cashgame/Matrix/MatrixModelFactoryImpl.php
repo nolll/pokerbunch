@@ -9,13 +9,13 @@ namespace app\Cashgame\Matrix{
 		private $cashgameRepository;
 
 		public function __construct(CashgameRepository $cashgameRepository){
-			$this->cashgameRepository = $cashgameRepository;
+			cashgameRepository = $cashgameRepository;
 		}
 
 		public function get(Homegame $homegame, User $user, $year = null){
-			$suite = $this->cashgameRepository->getSuite($homegame, $year);
-			$runningGame = $this->cashgameRepository->getRunning($homegame);
-			$years = $this->cashgameRepository->getYears($homegame);
+			$suite = cashgameRepository.getSuite($homegame, $year);
+			$runningGame = cashgameRepository.getRunning($homegame);
+			$years = cashgameRepository.getYears($homegame);
 			return new MatrixModel($user, $homegame, $suite, $years, $year, $runningGame);
 		}
 

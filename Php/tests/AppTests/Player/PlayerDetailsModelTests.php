@@ -24,124 +24,124 @@ namespace tests\AppTests\Player{
 
 		function setUp(){
 			parent::setUp();
-			$this->currentUser = new User();
-			$this->homegame = new Homegame();
-			$this->player = new Player();
-			$this->user = new User();
-			$this->cashgames = array();
-			$this->isManager = false;
-			$this->hasPlayed = false;
+			currentUser = new User();
+			homegame = new Homegame();
+			player = new Player();
+			user = new User();
+			cashgames = array();
+			isManager = false;
+			hasPlayed = false;
 			$avatarService = TestHelper::getFake(ClassNames::$AvatarService);
-			$this->avatarModelBuilder = new AvatarModelBuilder($avatarService);
+			avatarModelBuilder = new AvatarModelBuilder($avatarService);
 		}
 
 		function test_DisplayName_IsSet(){
-			$this->player->setDisplayName('a');
+			player.setDisplayName('a');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('a', $sut->displayName);
+			assertIdentical('a', $sut.displayName);
 		}
 
 		function test_DeleteUrl_IsSet(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->deleteUrl, 'app\Urls\PlayerDeleteUrlModel');
+			assertIsA($sut.deleteUrl, 'app\Urls\PlayerDeleteUrlModel');
 		}
 
 		function test_DeleteEnabled_NotManager_IsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->deleteEnabled);
+			assertFalse($sut.deleteEnabled);
 		}
 
 		function test_DeleteEnabled_IsManagerAndPlayerHasNotPlayed_IsTrue(){
-			$this->isManager = true;
+			isManager = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->deleteEnabled);
+			assertTrue($sut.deleteEnabled);
 		}
 
 		function test_DeleteEnabled_IsManagerAndPlayerHasPlayed_IsFalse(){
-			$this->isManager = true;
-			$this->hasPlayed = true;
+			isManager = true;
+			hasPlayed = true;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->deleteEnabled);
+			assertFalse($sut.deleteEnabled);
 		}
 
 		function test_ShowUserInfo_WithUser_IsTrue(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showUserInfo);
+			assertTrue($sut.showUserInfo);
 		}
 
 		function test_UserUrl_WithUser_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->userUrl, 'app\Urls\UserDetailsUrlModel');
+			assertIsA($sut.userUrl, 'app\Urls\UserDetailsUrlModel');
 		}
 
 		function test_UserEmail_WithUser_IsSet(){
-			$this->user->setEmail('valid@email.com');
+			user.setEmail('valid@email.com');
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIdentical('valid@email.com', $sut->userEmail);
+			assertIdentical('valid@email.com', $sut.userEmail);
 		}
 
 		function test_AvatarModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->avatarModel, 'app\User\Avatar\AvatarModel');
+			assertIsA($sut.avatarModel, 'app\User\Avatar\AvatarModel');
 		}
 
 		function test_PlayerFactsModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->playerFactsModel, 'app\Player\Facts\PlayerFactsModel');
+			assertIsA($sut.playerFactsModel, 'app\Player\Facts\PlayerFactsModel');
 		}
 
 		function test_PlayerAchievementsModel_IsCorrectType(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->playerAchievementsModel, 'app\Player\Achievements\PlayerAchievementsModel');
+			assertIsA($sut.playerAchievementsModel, 'app\Player\Achievements\PlayerAchievementsModel');
 		}
 
 		function test_ShowInvitation_WithUser_IsFalse(){
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showInvitation);
+			assertFalse($sut.showInvitation);
 		}
 
 		function test_ShowUserInfo_WithoutUser_IsFalse(){
-			$this->user = null;
+			user = null;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertFalse($sut->showUserInfo);
+			assertFalse($sut.showUserInfo);
 		}
 
 		function test_ShowInvitation_WithoutUser_IsTrue(){
-			$this->user = null;
+			user = null;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertTrue($sut->showInvitation);
+			assertTrue($sut.showInvitation);
 		}
 
 		function test_InvitationUrl_WithoutUser_IsCorrectType(){
-			$this->user = null;
+			user = null;
 
-			$sut = $this->getSut();
+			$sut = getSut();
 
-			$this->assertIsA($sut->invitationUrl, 'app\Urls\PlayerInviteUrlModel');
+			assertIsA($sut.invitationUrl, 'app\Urls\PlayerInviteUrlModel');
 		}
 
 		private function getSut(){
-			return new PlayerDetailsModel($this->currentUser, $this->homegame, $this->player, $this->user, $this->cashgames, $this->isManager, $this->hasPlayed, $this->avatarModelBuilder);
+			return new PlayerDetailsModel(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, avatarModelBuilder);
 		}
 
 	}

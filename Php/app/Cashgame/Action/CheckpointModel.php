@@ -18,11 +18,11 @@ namespace app\Cashgame\Action{
 		public $editUrl;
 
 		public function __construct(Homegame $homegame, Cashgame $cashgame, Player $player, Checkpoint $checkpoint, $role){
-			$this->description = $checkpoint->getDescription();
-			$this->stack = Globalization::formatCurrency($homegame->getCurrency(), $checkpoint->getStack());
-			$this->timestamp = Globalization::formatTime($checkpoint->getTimestamp());
-			$this->showLink = $role >= Role::$manager;
-			$this->editUrl = new CashgameCheckpointDeleteUrlModel($homegame, $cashgame, $player, $checkpoint);
+			description = $checkpoint.getDescription();
+			stack = Globalization::formatCurrency($homegame.getCurrency(), $checkpoint.getStack());
+			timestamp = Globalization::formatTime($checkpoint.getTimestamp());
+			showLink = $role >= Role::$manager;
+			editUrl = new CashgameCheckpointDeleteUrlModel($homegame, $cashgame, $player, $checkpoint);
 		}
 
 	}

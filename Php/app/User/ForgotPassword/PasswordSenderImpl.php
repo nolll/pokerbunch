@@ -12,15 +12,15 @@ namespace app\User\ForgotPassword{
 
 		public function __construct(MessageSenderFactory $messageSenderFactory,
 									Settings $settings){
-			$this->messageSenderFactory = $messageSenderFactory;
-			$this->settings = $settings;
+			messageSenderFactory = $messageSenderFactory;
+			settings = $settings;
 		}
 
 		public function send(User $user, $password){
-			$subject = $this->getSubject();
-			$body = $this->getBody($password);
-			$messageSender = $this->messageSenderFactory->getMessageSender();
-			$messageSender->send($user->getEmail(), $subject, $body);
+			$subject = getSubject();
+			$body = getBody($password);
+			$messageSender = messageSenderFactory.getMessageSender();
+			$messageSender.send($user.getEmail(), $subject, $body);
 		}
 
 		public function getSubject(){
@@ -28,9 +28,9 @@ namespace app\User\ForgotPassword{
 		}
 
 		public function getBody($password){
-			$siteUrl = $this->settings->getSiteUrl();
+			$siteUrl = settings.getSiteUrl();
 			$loginUrl = new AuthLoginUrlModel();
-			$loginUrlStr = $siteUrl . $loginUrl->url;
+			$loginUrlStr = $siteUrl . $loginUrl.url;
 			$body = "Here is your new password for Poker Bunch:\r\n" .
 				$password . "\r\n\r\n" .
 				"Please sign in here: " . $loginUrlStr;

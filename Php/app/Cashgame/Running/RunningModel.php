@@ -50,58 +50,58 @@ namespace app\Cashgame\Running{
 									Timer $timer,
 									Cashgame $runningGame = null){
 			parent::__construct($user, $homegame, $runningGame);
-			$this->homegame = $homegame;
-			$this->cashgame = $cashgame;
-			$this->player = $player;
+			homegame = $homegame;
+			cashgame = $cashgame;
+			player = $player;
 
-			$this->location = $cashgame->getLocation();
+			location = $cashgame.getLocation();
 
-			if($cashgame->isStarted()){
-				$this->showStartTime = true;
-				$this->startTime = Globalization::formatTime($cashgame->getStartTime());
+			if($cashgame.isStarted()){
+				showStartTime = true;
+				startTime = Globalization::formatTime($cashgame.getStartTime());
 			} else {
-				$this->showStartTime = false;
+				showStartTime = false;
 			}
 
-			$this->setUrls();
+			setUrls();
 
-			$this->setButtons($player);
+			setButtons($player);
 
-			if($cashgame->isStarted()){
-				$this->statusTableModel = new StatusTableModel($this->homegame, $this->cashgame, $isManager, $timer);
-				$this->showTable = true;
+			if($cashgame.isStarted()){
+				statusTableModel = new StatusTableModel(homegame, cashgame, $isManager, $timer);
+				showTable = true;
 			} else {
-				$this->showTable = false;
+				showTable = false;
 			}
 
-			if($cashgame->isStarted()){
-				$this->chartDataUrl = new CashgameDetailsChartJsonUrlModel($homegame, $cashgame);
-				$this->showChart = true;
+			if($cashgame.isStarted()){
+				chartDataUrl = new CashgameDetailsChartJsonUrlModel($homegame, $cashgame);
+				showChart = true;
 			} else {
-				$this->showChart = false;
+				showChart = false;
 			}
 		}
 
 		public function setButtons(Player $player){
-			$canBeEnded = $this->canBeEnded();
+			$canBeEnded = canBeEnded();
 			$canReport = !$canBeEnded;
-			$isInGame = $this->cashgame->isInGame($player);
+			$isInGame = cashgame.isInGame($player);
 
-			$this->buyinButtonEnabled = $canReport;
-			$this->reportButtonEnabled = $canReport && $isInGame;
-			$this->cashoutButtonEnabled = $isInGame;
-			$this->endGameButtonEnabled = $canBeEnded;
+			buyinButtonEnabled = $canReport;
+			reportButtonEnabled = $canReport && $isInGame;
+			cashoutButtonEnabled = $isInGame;
+			endGameButtonEnabled = $canBeEnded;
 		}
 
 		private function canBeEnded(){
-			return $this->cashgame->isStarted() && !$this->cashgame->hasActivePlayers();
+			return cashgame.isStarted() && !cashgame.hasActivePlayers();
 		}
 
 		private function setUrls(){
-			$this->buyinUrl = new CashgameBuyinUrlModel($this->homegame, $this->player);
-			$this->reportUrl = new CashgameReportUrlModel($this->homegame, $this->player);
-			$this->cashoutUrl = new CashgameCashoutUrlModel($this->homegame, $this->player);
-			$this->endGameUrl = new CashgameEndUrlModel($this->homegame);
+			buyinUrl = new CashgameBuyinUrlModel(homegame, player);
+			reportUrl = new CashgameReportUrlModel(homegame, player);
+			cashoutUrl = new CashgameCashoutUrlModel(homegame, player);
+			endGameUrl = new CashgameEndUrlModel(homegame);
 		}
 
 	}

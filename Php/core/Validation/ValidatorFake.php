@@ -6,24 +6,24 @@ namespace core\Validation{
 		private $errors;
 
 		public function __construct($isValid = false){
-			$this->isValid = $isValid;
-			$this->errors = array();
+			isValid = $isValid;
+			errors = array();
 		}
 
 		public function isValid(){
-			return $this->isValid;
+			return isValid;
 		}
 
 		public function setIsValid($isValid){
-			$this->isValid = $isValid;
+			isValid = $isValid;
 		}
 
 		public function getErrors(){
-			return $this->errors;
+			return errors;
 		}
 
 		public function setErrors($errors){
-			$this->errors = $errors;
+			errors = $errors;
 		}
 
 	}

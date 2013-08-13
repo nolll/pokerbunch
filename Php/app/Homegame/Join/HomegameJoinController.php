@@ -24,36 +24,36 @@ namespace app\Homegame\Join{
 									PlayerRepository $playerRepository,
 									InvitationCodeCreator $invitationCodeCreator,
 									Request $request){
-			$this->userContext = $userContext;
-			$this->homegameRepository = $homegameRepository;
-			$this->playerRepository = $playerRepository;
-			$this->invitationCodeCreator = $invitationCodeCreator;
-			$this->request = $request;
+			userContext = $userContext;
+			homegameRepository = $homegameRepository;
+			playerRepository = $playerRepository;
+			invitationCodeCreator = $invitationCodeCreator;
+			request = $request;
 		}
 
 		public function action_join($gameName){
-			$this->userContext->requireUser();
-			return $this->showForm();
+			userContext.requireUser();
+			return showForm();
 		}
 
 		public function action_join_post($gameName){
-			$this->userContext->requireUser();
-			$homegame = $this->homegameRepository->getByName($gameName);
-			$postedCode = $this->request->getParamPost('invitationcode');
-			$player = $this->getMatchedPlayer($homegame, $postedCode);
-			if($player != null && $player->getUserName() == null){
-				$user = $this->userContext->getUser();
-				$this->playerRepository->joinHomegame($player, $homegame, $user);
-				return $this->redirect(new HomegameJoinConfirmationUrlModel($homegame));
+			userContext.requireUser();
+			$homegame = homegameRepository.getByName($gameName);
+			$postedCode = request.getParamPost('invitationcode');
+			$player = getMatchedPlayer($homegame, $postedCode);
+			if($player != null && $player.getUserName() == null){
+				$user = userContext.getUser();
+				playerRepository.joinHomegame($player, $homegame, $user);
+				return redirect(new HomegameJoinConfirmationUrlModel($homegame));
 			} else {
 				$error = 'That code didn\'t work. Please check for errors and try again';
-				return $this->showForm($postedCode, $error);
+				return showForm($postedCode, $error);
 			}
 		}
 
 		public function action_joined($gameName){
-			$model = new PageModel($this->userContext->getUser());
-			return $this->view('app/Homegame/Join/Confirmation', $model);
+			$model = new PageModel(userContext.getUser());
+			return view('app/Homegame/Join/Confirmation', $model);
 		}
 
 		/**
@@ -62,9 +62,9 @@ namespace app\Homegame\Join{
 		 * @return Player
 		 */
 		private function getMatchedPlayer(Homegame $homegame, $postedCode){
-			$players = $this->playerRepository->getAll($homegame);
+			$players = playerRepository.getAll($homegame);
 			foreach ($players as $player) {
-				$playerCode = $this->invitationCodeCreator->getCode($player);
+				$playerCode = invitationCodeCreator.getCode($player);
 				if($playerCode == $postedCode){
 					return $player;
 				}
@@ -73,11 +73,11 @@ namespace app\Homegame\Join{
 		}
 
 		private function showForm($postedCode = '', $error = null){
-			$model = new HomegameJoinModel($this->userContext->getUser(), $postedCode);
+			$model = new HomegameJoinModel(userContext.getUser(), $postedCode);
 			if($error != null){
-				$model->setValidationErrors(array($error));
+				$model.setValidationErrors(array($error));
 			}
-			return $this->view('app/Homegame/Join/Join', $model);
+			return view('app/Homegame/Join/Join', $model);
 		}
 
 	}
