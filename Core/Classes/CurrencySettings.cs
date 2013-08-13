@@ -1,4 +1,4 @@
-namespace entities{
+namespace Core.Classes{
 
 	class CurrencySettings{
 

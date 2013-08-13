@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 
-namespace entities{
+namespace Infrastructure.Factories{
 
 	public interface ICashgameResultFactory{
 

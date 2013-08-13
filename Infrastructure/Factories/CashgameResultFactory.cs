@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using entities;
 
 namespace Infrastructure.Factories
 {
