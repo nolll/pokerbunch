@@ -59,8 +59,8 @@ namespace Infrastructure.Tests.Factories{
             Assert.AreEqual(180, result.Duration);
 		}
 
-		private CashgameFactoryImpl GetSut(){
-			return new CashgameFactoryImpl();
+		private CashgameFactory GetSut(){
+			return new CashgameFactory();
 		}
 
 	}

@@ -5,7 +5,7 @@ using Core.Classes;
 namespace Infrastructure.Factories
 {
 
-    public class CashgameFactoryImpl : ICashgameFactory
+    public class CashgameFactory : ICashgameFactory
     {
 
         public Cashgame Create(string location, GameStatus? status = null, int? id = null,

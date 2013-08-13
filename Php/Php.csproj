@@ -404,7 +404,6 @@
     <None Include="core\Validation\ValidatorFake.php" />
     <None Include="core\WebContext.php" />
     <None Include="core\WebContextImpl.php" />
-    <None Include="Domain\Classes\User.php" />
     <None Include="Domain\Interfaces\HomegameRepository.php" />
     <None Include="Domain\Interfaces\PlayerRepository.php" />
     <None Include="Domain\Services\HomegameRepositoryImpl.php" />
@@ -655,6 +654,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Domain\Classes\" />
     <Folder Include="Infrastructure\Factories\Interfaces\" />
     <Folder Include="Infrastructure\Repositories\" />
     <Folder Include="Services\" />

@@ -56,7 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\Interfaces\ICashgameFactory.cs" />
-    <Compile Include="Factories\CashgameFactoryImpl.cs" />
+    <Compile Include="Factories\CashgameFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
