@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Auth{
 
 	use app\Auth\AuthController;

@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Listing{
 
 	use app\Urls\PlayerDetailsUrlModel;

@@ -1,4 +1,3 @@
-<?php
 namespace core{
 
 	use exceptions\AccessDeniedException;

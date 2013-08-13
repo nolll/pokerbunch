@@ -1,4 +1,3 @@
-<?php
 namespace app\Auth{
 
 	use app\Urls\ForgotPasswordUrlModel;

@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame\Join{
 
 	use core\PageModel;

@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Edit{
 	use core\HomegamePageModel;
 	use entities\Homegame;

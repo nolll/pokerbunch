@@ -1,4 +1,3 @@
-<?php
 namespace config{
 	use Mishiin\ConfigDefault;
 

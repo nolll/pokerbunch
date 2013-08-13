@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Matrix{
 
 	use entities\Homegame;

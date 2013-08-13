@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Invite{
 
 	use core\HomegamePageModel;

@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Homegame{
 
 	use entities\CurrencySettings;

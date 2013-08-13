@@ -1,4 +1,3 @@
-<?php
 namespace app\Sharing\Twitter{
 
 	use Mishiin\Request;

@@ -1,4 +1,3 @@
-<?php
 namespace tests{
 
 	use core\HomegameControllerDefinition;

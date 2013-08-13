@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Achievements\SingleAchievements{
 
 	use entities\Player;

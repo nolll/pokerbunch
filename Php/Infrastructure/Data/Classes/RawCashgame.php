@@ -1,4 +1,3 @@
-<?php
 namespace Infrastructure\Data\Classes {
 
 	use Infrastructure\Data\Classes\RawCashgameResult;

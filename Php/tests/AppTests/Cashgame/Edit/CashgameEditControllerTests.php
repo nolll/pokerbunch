@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Edit{
 
 	use app\Cashgame\Edit\CashgameEditController;

@@ -1,4 +1,3 @@
-<?php
 namespace tests\Fakes {
 
 	use core\Timer;

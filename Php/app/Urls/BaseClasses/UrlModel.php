@@ -1,4 +1,3 @@
-<?php
 namespace app\Urls\BaseClasses{
 
 	class UrlModel{

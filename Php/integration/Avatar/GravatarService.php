@@ -1,4 +1,3 @@
-<?php
 namespace integration\Avatar{
 
 	use config\Settings;

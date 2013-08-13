@@ -1,4 +1,3 @@
-<?php
 namespace entities{
 
 	class CashgameTotalResultFactoryImpl implements CashgameTotalResultFactory{

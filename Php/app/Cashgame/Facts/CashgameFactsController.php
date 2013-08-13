@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Facts{
 
 	use Domain\Interfaces\HomegameRepository;

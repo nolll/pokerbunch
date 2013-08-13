@@ -1,4 +1,3 @@
-<?php
 namespace Domain\Classes {
 
 	use entities\Role;

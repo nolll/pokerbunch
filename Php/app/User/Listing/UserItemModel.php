@@ -1,4 +1,3 @@
-<?php
 namespace app\User\Listing{
 	use Domain\Classes\User;
 	use app\Urls\UserDetailsUrlModel;

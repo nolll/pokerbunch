@@ -1,4 +1,3 @@
-<?php
 namespace tests\CoreTests{
 
 	use tests\TestHelper;

@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Player{
 
 	use app\Player\Details\PlayerDetailsController;

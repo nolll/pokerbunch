@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Edit{
 
 	use entities\CashgameFactory;

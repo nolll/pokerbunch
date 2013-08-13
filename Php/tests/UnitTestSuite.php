@@ -1,4 +1,3 @@
-<?php
 namespace tests{
 
 	class UnitTestSuite extends PokerBunchTestSuite {

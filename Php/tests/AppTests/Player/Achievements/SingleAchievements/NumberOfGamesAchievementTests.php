@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Player\Achievements\SingleAchievements{
 
 	use entities\Cashgame;

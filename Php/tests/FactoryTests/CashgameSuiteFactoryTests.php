@@ -1,4 +1,3 @@
-<?php
 namespace tests\FactoryTests{
 
 	use core\ClassNames;

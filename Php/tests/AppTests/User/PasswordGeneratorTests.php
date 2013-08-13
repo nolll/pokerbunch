@@ -1,4 +1,3 @@
-<?php
 namespace tests\User{
 
 	use app\User\PasswordGenerator;

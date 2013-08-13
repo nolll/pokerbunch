@@ -1,4 +1,3 @@
-<?php
 namespace core\Navigation{
 
 	class NavigationModel {

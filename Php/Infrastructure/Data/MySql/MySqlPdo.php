@@ -1,4 +1,3 @@
-<?php
 namespace Infrastructure\Data\MySql {
 
 	use config\Settings;

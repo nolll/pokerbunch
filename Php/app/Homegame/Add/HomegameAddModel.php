@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame\Add{
 
 	use entities\CurrencySettings;

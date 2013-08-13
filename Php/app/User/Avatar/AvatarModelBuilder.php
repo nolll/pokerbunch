@@ -1,4 +1,3 @@
-<?php
 namespace app\User\Avatar{
 
 	use integration\Avatar\AvatarSize;

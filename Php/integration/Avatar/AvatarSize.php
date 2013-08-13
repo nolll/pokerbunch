@@ -1,4 +1,3 @@
-<?php
 namespace integration\Avatar{
 
 	class AvatarSize{

@@ -1,4 +1,3 @@
-<?php
 namespace app\User\Details{
 
 	use Domain\Classes\User;

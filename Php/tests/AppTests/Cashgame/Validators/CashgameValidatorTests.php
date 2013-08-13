@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Validators{
 
 	use app\Cashgame\CashgameValidatorFactory;

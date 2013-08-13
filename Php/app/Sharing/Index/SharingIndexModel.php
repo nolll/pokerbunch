@@ -1,4 +1,3 @@
-<?php
 namespace app\Sharing\Index{
 
 	use core\PageModel;

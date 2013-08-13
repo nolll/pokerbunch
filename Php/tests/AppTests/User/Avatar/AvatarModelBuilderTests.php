@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\User\Avatar{
 
 	use tests\SharbatUnitTestCase;

@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Matrix{
 
 	use entities\Cashgame;

@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Details\ResultTableItem{
 	use entities\Homegame;
 	use core\Util;

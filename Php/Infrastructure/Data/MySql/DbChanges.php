@@ -1,4 +1,3 @@
-<?php
 /*
 NEXT RELEASE
 ALTER TABLE `game` DROP COLUMN `Notified`, DROP COLUMN `Duration`, DROP COLUMN `StartTime`, DROP COLUMN `EndTime`;

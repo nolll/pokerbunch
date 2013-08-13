@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Details{
 
 	use core\HomegamePageModel;

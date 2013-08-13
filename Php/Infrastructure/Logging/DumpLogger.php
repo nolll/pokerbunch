@@ -1,4 +1,3 @@
-<?php
 namespace Infrastructure\Logging{
 
 	class DumpLogger implements Logger{

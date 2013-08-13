@@ -1,4 +1,3 @@
-<?php
 namespace Domain\Services {
 
 	use core\DateTimeFactory;

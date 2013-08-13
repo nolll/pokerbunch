@@ -1,4 +1,3 @@
-<?php
 namespace app\User\Listing{
 
 	use core\PageController;

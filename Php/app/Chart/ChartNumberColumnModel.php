@@ -1,4 +1,3 @@
-<?php
 namespace app\Chart{
 
 	class ChartNumberColumnModel extends ChartColumnModel {

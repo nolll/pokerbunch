@@ -1,4 +1,3 @@
-<?php
 namespace entities{
 
 	class PlayerFactoryImpl implements PlayerFactory{

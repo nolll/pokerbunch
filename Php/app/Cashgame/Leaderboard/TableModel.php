@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Leaderboard{
 	use entities\CashgameSuite;
 	use entities\Homegame;

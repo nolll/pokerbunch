@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Action{
 
 	use app\Cashgame\Action\ActionChartData;

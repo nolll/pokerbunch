@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Facts{
 
 	use app\Cashgame\Facts\CashgameFactsController;

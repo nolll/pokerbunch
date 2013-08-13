@@ -1,4 +1,3 @@
-<?php
 namespace app\Auth{
 
 	use Mishiin\Request;

@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Achievements{
 
 	use app\Player\Achievements\SingleAchievements\NumberOfGamesAchievement;

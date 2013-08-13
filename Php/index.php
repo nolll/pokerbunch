@@ -1,4 +1,3 @@
-<?php
 use app\ApplicationModule;
 use Mishiin\Application;
 use Sharbat\Sharbat;

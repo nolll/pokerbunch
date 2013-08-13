@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Running{
 
 	use app\Cashgame\Running\RunningController;

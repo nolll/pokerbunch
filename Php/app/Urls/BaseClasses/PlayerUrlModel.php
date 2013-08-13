@@ -1,4 +1,3 @@
-<?php
 namespace app\Urls\BaseClasses{
 
 	use entities\Player;

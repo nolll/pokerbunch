@@ -1,4 +1,3 @@
-<?php
 namespace core\Validation{
 
 	use core\Util;

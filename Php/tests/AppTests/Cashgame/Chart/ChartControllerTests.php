@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Chart{
 
 	use app\Cashgame\Chart\ChartController;

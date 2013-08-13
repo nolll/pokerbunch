@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Listing{
 
 	use app\Cashgame\Listing\CashgameListingController;

@@ -1,4 +1,3 @@
-<?php
 namespace app\User\ForgotPassword{
 
 	use Mishiin\Request;

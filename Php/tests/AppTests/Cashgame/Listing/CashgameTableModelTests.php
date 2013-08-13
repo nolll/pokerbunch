@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Listing{
 
 	use entities\Cashgame;

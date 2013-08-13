@@ -1,4 +1,3 @@
-<?php
 namespace entities{
 
 	use DateTimeZone;

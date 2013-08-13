@@ -1,4 +1,3 @@
-<?php
 namespace integration\Avatar{
 
 	interface AvatarService{

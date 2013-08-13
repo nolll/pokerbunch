@@ -1,4 +1,3 @@
-<?php
 namespace Domain\Interfaces {
 
 	use entities\Homegame;

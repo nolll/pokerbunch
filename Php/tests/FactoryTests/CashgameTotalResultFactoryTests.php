@@ -1,4 +1,3 @@
-<?php
 namespace tests\FactoryTests{
 	use entities\CashgameResult;
 	use entities\CashgameTotalResultFactoryImpl;

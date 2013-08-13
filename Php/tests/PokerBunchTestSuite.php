@@ -1,4 +1,3 @@
-<?php
 namespace tests{
 
 	importlib('/SimpleTest/test_case.php');

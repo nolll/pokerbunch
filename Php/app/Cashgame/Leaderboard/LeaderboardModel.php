@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Leaderboard{
 
 	use app\Cashgame\CashgameNavigationModel;

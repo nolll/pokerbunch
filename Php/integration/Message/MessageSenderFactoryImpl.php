@@ -1,4 +1,3 @@
-<?php
 namespace integration\Message{
 
 	use config\Settings;

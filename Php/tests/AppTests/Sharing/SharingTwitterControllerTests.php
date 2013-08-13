@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Sharing{
 
 	use app\Sharing\Twitter\SharingTwitterController;

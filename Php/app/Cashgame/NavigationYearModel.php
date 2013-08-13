@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame{
 
 	use app\Urls\BaseClasses\UrlModel;

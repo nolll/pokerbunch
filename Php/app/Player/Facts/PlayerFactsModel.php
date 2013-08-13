@@ -1,4 +1,3 @@
-<?php
 namespace app\Player\Facts{
 	use core\Globalization;
 	use entities\Cashgame;

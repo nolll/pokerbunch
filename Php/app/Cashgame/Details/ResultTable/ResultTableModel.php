@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Details\ResultTable{
 	use entities\Cashgame;
 	use app\Cashgame\Details\ResultTableItem\ResultTableItemModel;

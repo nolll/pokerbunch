@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Chart{
 
 	class ChartValue{

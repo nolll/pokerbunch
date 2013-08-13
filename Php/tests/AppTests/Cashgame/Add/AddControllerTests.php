@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Add{
 
 	use app\Cashgame\Add\AddController;

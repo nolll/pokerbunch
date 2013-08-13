@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame{
 
 	class SlugGeneratorImpl implements SlugGenerator{

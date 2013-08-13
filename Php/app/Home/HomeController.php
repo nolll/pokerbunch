@@ -1,4 +1,3 @@
-<?php
 namespace app\Home{
 
 	use core\PageController;

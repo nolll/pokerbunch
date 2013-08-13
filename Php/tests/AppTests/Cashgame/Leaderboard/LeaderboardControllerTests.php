@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Leaderboard{
 
 	use app\Cashgame\Leaderboard\LeaderboardController;

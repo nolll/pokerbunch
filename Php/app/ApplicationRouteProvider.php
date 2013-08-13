@@ -1,4 +1,3 @@
-<?php
 namespace app{
 
 	use Mishiin\Router;

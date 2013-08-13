@@ -1,4 +1,3 @@
-<?php
 namespace tests\CoreTests\FormFields{
 
 	use tests\UnitTestCase;

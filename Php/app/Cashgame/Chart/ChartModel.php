@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Chart{
 
 	use app\Cashgame\CashgameNavigationModel;

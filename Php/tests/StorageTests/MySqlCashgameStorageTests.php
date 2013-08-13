@@ -1,4 +1,3 @@
-<?php
 namespace tests\StorageTests{
 
 	use core\ClassNames;

@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Admin{
 
 	use tests\UnitTestCase;

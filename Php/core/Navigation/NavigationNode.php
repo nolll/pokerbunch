@@ -1,4 +1,3 @@
-<?php
 namespace core\Navigation{
 
 	use app\Urls\BaseClasses\UrlModel;

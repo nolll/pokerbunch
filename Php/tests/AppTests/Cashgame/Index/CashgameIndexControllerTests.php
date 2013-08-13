@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Index{
 
 	use app\Cashgame\Index\CashgameIndexController;

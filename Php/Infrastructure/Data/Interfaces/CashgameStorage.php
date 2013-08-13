@@ -1,4 +1,3 @@
-<?php
 namespace Infrastructure\Data\Interfaces {
 
 	use DateTime;

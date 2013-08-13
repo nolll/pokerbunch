@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Chart{
 
 	use app\Chart\ChartDateTimeColumnModel;

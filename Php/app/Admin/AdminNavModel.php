@@ -1,4 +1,3 @@
-<?php
 namespace app\Admin{
 	use app\Urls\UserListingUrlModel;
 	use core\Navigation\NavigationNode;

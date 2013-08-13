@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame\Action{
 
 	use app\Cashgame\Action\ReportController;

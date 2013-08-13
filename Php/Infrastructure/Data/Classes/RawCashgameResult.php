@@ -1,4 +1,3 @@
-<?php
 namespace Infrastructure\Data\Classes {
 
 	use entities\Checkpoints\Checkpoint;

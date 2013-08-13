@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame\Add{
 
 	use Domain\Interfaces\PlayerRepository;

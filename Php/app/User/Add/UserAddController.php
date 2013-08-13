@@ -1,4 +1,3 @@
-<?php
 namespace app\User\Add{
 
 	use Mishiin\Request;

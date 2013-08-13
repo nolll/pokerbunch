@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame\Listing{
 
 	use entities\Homegame;

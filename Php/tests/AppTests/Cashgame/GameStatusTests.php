@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Cashgame{
 
 	use tests\UnitTestCase;

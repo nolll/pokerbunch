@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Running{
 
 	use app\Urls\CashgameDetailsChartJsonUrlModel;

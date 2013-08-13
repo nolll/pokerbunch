@@ -1,4 +1,3 @@
-<?php
 namespace core{
 
 	use app\User\UserNavigationModel;

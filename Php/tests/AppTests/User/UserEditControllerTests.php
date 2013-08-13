@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\User{
 
 	use app\User\Edit\UserEditController;

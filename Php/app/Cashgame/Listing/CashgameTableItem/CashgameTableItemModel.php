@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Listing\CashgameTableItem{
 	use entities\Homegame;
 	use app\Cashgame\StatusModel;

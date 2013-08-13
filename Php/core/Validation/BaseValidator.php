@@ -1,4 +1,3 @@
-<?php
 namespace core\Validation{
 
 	abstract class BaseValidator implements Validator{

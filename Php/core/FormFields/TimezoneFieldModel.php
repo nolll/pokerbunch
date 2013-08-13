@@ -1,4 +1,3 @@
-<?php
 namespace core\FormFields{
 
 	class TimezoneFieldModel extends SelectFieldModel{

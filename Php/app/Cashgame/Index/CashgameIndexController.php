@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame\Index{
 
 	use Domain\Interfaces\CashgameRepository;

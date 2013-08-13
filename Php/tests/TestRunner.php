@@ -1,4 +1,3 @@
-<?php
 use tests\UnitTestSuite;
 use tests\WebTestSuite;
 use tests\IntegrationTestSuite;

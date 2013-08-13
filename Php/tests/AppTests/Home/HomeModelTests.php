@@ -1,4 +1,3 @@
-<?php
 namespace tests\AppTests\Home{
 
 	use Domain\Classes\User;

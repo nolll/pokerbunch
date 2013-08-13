@@ -1,4 +1,3 @@
-<?php
 namespace core\Analytics{
 
 	use Mishiin\Environment;

@@ -1,4 +1,3 @@
-<?php
 namespace core\Validation{
 
 	class RequiredValidator extends SimpleValidator {

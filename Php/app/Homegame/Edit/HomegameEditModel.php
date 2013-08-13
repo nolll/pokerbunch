@@ -1,4 +1,3 @@
-<?php
 namespace app\Homegame\Edit{
 
 	use core\HomegamePageModel;

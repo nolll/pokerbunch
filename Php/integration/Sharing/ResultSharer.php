@@ -1,4 +1,3 @@
-<?php
 namespace integration\Sharing{
 
 	use entities\Cashgame;

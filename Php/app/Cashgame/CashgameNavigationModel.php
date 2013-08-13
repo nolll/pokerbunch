@@ -1,4 +1,3 @@
-<?php
 namespace app\Cashgame{
 
 	use entities\Cashgame;
