@@ -141,7 +141,7 @@ namespace Infrastructure.Tests.Factories{
 
 		private CashgameResult GetResult(){
 			var player = new Player();
-			var factory = new CashgameResultFactoryImpl();
+			var factory = new CashgameResultFactory();
 			return factory.Create(player, _checkpoints);
 		}
 

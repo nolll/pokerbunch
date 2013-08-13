@@ -2,7 +2,7 @@ using Core.Repositories;
 
 namespace Infrastructure.Repositories {
 	
-	public class CashgameRepositoryImpl : CashgameRepository{
+	public class CashgameRepository : ICashgameRepository{
 
         /*
 	    public CashgameRepositoryImpl()

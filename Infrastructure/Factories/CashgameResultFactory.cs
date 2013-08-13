@@ -6,9 +6,8 @@ using entities;
 
 namespace Infrastructure.Factories
 {
-    public class CashgameResultFactoryImpl : CashgameResultFactory
+    public class CashgameResultFactory : ICashgameResultFactory
     {
-
         public CashgameResult Create(Player player, List<Checkpoint> checkpoints)
         {
             var result = new CashgameResult();

@@ -48,7 +48,7 @@
     <Compile Include="Classes\Role.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\CashgameRepository.cs" />
+    <Compile Include="Repositories\ICashgameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Cashgame.cs" />

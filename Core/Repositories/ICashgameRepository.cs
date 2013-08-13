@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Repositories{
 	
-	public interface CashgameRepository{
+	public interface ICashgameRepository{
 
         /*
         List<Cashgame> getPublished(Homegame homegame, int? year = null);

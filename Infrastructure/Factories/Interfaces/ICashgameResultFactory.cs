@@ -4,7 +4,7 @@ using Core.Classes.Checkpoints;
 
 namespace entities{
 
-	public interface CashgameResultFactory{
+	public interface ICashgameResultFactory{
 
 		CashgameResult Create(Player player, List<Checkpoint> checkpoints);
 

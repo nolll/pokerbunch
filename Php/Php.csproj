@@ -410,12 +410,7 @@
     <None Include="Domain\Services\HomegameRepositoryImpl.php" />
     <None Include="Domain\Services\PlayerRepositoryImpl.php" />
     <None Include="entities\CashgameComparer.php" />
-    <None Include="entities\CashgameFactory.php" />
-    <None Include="entities\CashgameFactoryImpl.php" />
-    <None Include="entities\CashgameResult.php" />
     <None Include="entities\CashgameResultComparer.php" />
-    <None Include="entities\CashgameResultFactory.php" />
-    <None Include="entities\CashgameResultFactoryImpl.php" />
     <None Include="entities\CashgameSuite.php" />
     <None Include="entities\CashgameSuiteFactory.php" />
     <None Include="entities\CashgameSuiteFactoryImpl.php" />
@@ -598,7 +593,6 @@
     <None Include="tests\CoreTests\RequiredValidatorTests.php" />
     <None Include="tests\CoreTests\UrlTests.php" />
     <None Include="tests\CoreTests\UserContextTests.php" />
-    <None Include="tests\FactoryTests\CashgameFactoryTests.php" />
     <None Include="tests\FactoryTests\CashgameSuiteFactoryTests.php" />
     <None Include="tests\FactoryTests\CashgameTotalResultFactoryTests.php" />
     <None Include="tests\Fakes\TimerFake.php" />
