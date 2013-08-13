@@ -1,0 +1,33 @@
+.matrix-container{
+    overflow:auto;
+}
+
+.matrix{
+	tr{
+		border-bottom:1px solid #ddd;
+	}
+
+	td{
+
+		span{
+			display:block;
+		}
+
+		.transaction{
+			@include fontsize(12);
+		}
+	}
+
+	.date-header{
+		text-align: center;
+
+		a{
+			color: #444;
+			font-weight: normal;
+		}
+	}
+
+	.winner{
+		background: #ddd;
+	}
+}

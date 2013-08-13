@@ -1,0 +1,160 @@
+nav{
+    font-family:arial;
+    overflow: hidden;
+
+	ul{
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	h2{
+		margin: 0;
+	}
+
+	a{
+		text-decoration: none;
+	}
+}
+
+.user-nav{
+	background-color: #414141;
+	padding: 15px 0;
+	border-top: 10px solid #818181;
+	@media #{$widthSmall} {
+		background-color:transparent;
+		border-top: none;
+		padding: 0 15px;
+        position:absolute;
+        left:auto;
+        right:0;
+        top:1em;
+    }
+
+	ul{
+		padding: 0;
+	}
+
+	li{
+		float: left;
+		margin: 0 0 0 1em;
+	}
+
+	h2{
+		display: none;
+	}
+
+	a{
+		color: #fff;
+		@media #{$widthSmall} {
+			color: #000;
+		}
+	}
+}
+
+.game-nav{
+	border-bottom: 1px solid #bbb;
+    padding: 0 0 15px 0;
+
+	h2{
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+
+	li{
+		margin: 0 15px 0 0;
+		float: left;
+	}
+
+	a{
+		color: #000;
+	}
+
+	.running-game-link{
+		color: #000;
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		vertical-align: bottom;
+
+		> span{
+			display: none;
+		}
+	}
+
+	.start-game-link{
+		color: #000;
+		display: inline-block;
+		height: 18px;
+		width: 18px;
+		vertical-align: bottom;
+
+		> span{
+			display: none;
+		}
+	}
+}
+
+.content-nav{
+	background: #ddd;
+	border-bottom: 1px solid #bbb;
+	overflow: hidden;
+}
+
+.heading-nav{
+	display: inline;
+	position: relative;
+	background-color: #000;
+	color: #fff;
+	padding: 5px 10px;
+	cursor: pointer;
+
+	> ul{
+		display: none;
+		position: absolute;
+		left: 0;
+		z-index: 10;
+		font-size: 16px;
+		background: #000;
+
+		> li{
+			padding: 7px 12px;
+
+			> a{
+				display: block;
+				white-space: nowrap;
+				color: #fff;
+			}
+		}
+	}
+
+	&:hover > ul{
+		//display: block;
+	}
+}
+
+.cashgame-nav{
+	a{
+		text-transform: lowercase;
+	}
+}
+
+.year-nav{
+
+}
+
+.admin-nav{
+	margin-bottom: 15px;
+
+	h2{
+		display:none;
+	}
+	li{
+		margin: 0 15px 0 0;
+		float:left;
+	}
+
+	a{
+		color: red;
+	}
+}

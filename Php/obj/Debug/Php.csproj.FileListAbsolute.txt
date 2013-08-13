@@ -1,0 +1,5 @@
+C:\Projects\PokerBunch\Php\bin\Debug\Php.dll
+C:\Projects\PokerBunch\Php\bin\Debug\Php.pdb
+C:\Projects\PokerBunch\Php\obj\Debug\Php.csprojResolveAssemblyReference.cache
+C:\Projects\PokerBunch\Php\obj\Debug\Php.dll
+C:\Projects\PokerBunch\Php\obj\Debug\Php.pdb

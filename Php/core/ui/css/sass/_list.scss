@@ -1,0 +1,12 @@
+.list > :nth-child(odd) {
+	background: #eee;
+}
+
+.simple.list{
+	padding:0;
+	list-style-type: none;
+
+	li {
+		padding:5px;
+	}
+}

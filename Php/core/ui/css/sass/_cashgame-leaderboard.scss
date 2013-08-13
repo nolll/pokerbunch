@@ -1,0 +1,65 @@
+.leaderboard{
+	margin: 15px 0;
+
+	dl{
+		height: 3em;
+		margin: 0;
+		padding: 5px;
+		position: relative;
+		@media #{$widthXSmall} {
+			display: table-row;
+			height:auto;
+			padding: 0;
+		}
+	}
+
+	dt{
+		display:none;
+	}
+
+	dd{
+		margin-left: 0;
+		position: absolute;
+		@media #{$widthXSmall} {
+			display: table-cell;
+			padding: 5px;
+			position: static;
+		}
+	}
+
+	.gametime{
+		clear:left;
+	}
+
+	.rank{
+		left:5px;
+		top:5px;
+	}
+
+	.name{
+		left: 35px;
+		top: 5px;
+	}
+
+	.result{
+		right: 5px;
+		top: 5px;
+	}
+
+	.gametime{
+	    left:35px;
+		top:1.75em;
+	}
+
+	.winrate{
+		right:5px;
+		top:1.75em;
+	}
+
+	.rank,
+	.winrate{
+		@media #{$widthXSmall} {
+			text-align: right;
+		}
+	}
+}

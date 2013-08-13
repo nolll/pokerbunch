@@ -1,0 +1,7 @@
+.add-player-button{
+	@media #{$widthXSmall} {
+		position:absolute;
+		top:15px;
+		left:300px;
+	}
+}

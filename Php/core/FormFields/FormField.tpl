@@ -1,0 +1,1 @@
+<input type="text" name="{$model->fieldName}" value="{$model->value}"{if isset($model->fieldId)} id="{$model->fieldId}"{/if}/>

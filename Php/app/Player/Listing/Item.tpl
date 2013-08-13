@@ -1,0 +1,1 @@
+<a href="{$model->urlModel->url}">{$model->name}</a>

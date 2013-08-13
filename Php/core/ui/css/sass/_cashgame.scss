@@ -1,0 +1,64 @@
+dl,
+table{
+	font-family:arial;
+}
+
+table{
+	margin-bottom:10px;
+}
+
+.amount{
+	text-align: right;
+}
+
+.cashgames{
+	th{
+		padding: 5px;
+		text-align: left;
+		vertical-align: bottom;
+	}
+
+	td{
+		vertical-align: top;
+		padding: 5px;
+	}
+
+	th span,
+	td.game-info span{
+		display:block;
+	}
+
+	.details{
+		display:none;
+	}
+
+	.date{
+		text-align: right;
+	}
+
+}
+
+.pos-result{
+	color:green;
+}
+
+.neg-result{
+	color:red;
+}
+
+.add-cashgame-result div{
+    float:left;
+    margin-right:5px;
+}
+
+.unpublished{
+    background-color:#cecece;
+}
+
+.add-cashgame-button{
+	@media #{$widthXSmall} {
+		position:absolute;
+		top:15px;
+		left:300px;
+	}
+}

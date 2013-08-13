@@ -1,0 +1,100 @@
+html{
+    overflow-y: auto;
+}
+
+body{
+	background:#fff;
+    color:$textColor;
+    font-family:arial, verdana;
+	@media #{$widthSmall} {
+		margin-bottom: 15px;
+		background:#fff;
+	}
+	@media #{$widthXLarge} {
+		@include fontsize(18);
+	}
+}
+
+.page-header{
+	background: $greenBg;
+	padding: 15px 15px 0 15px;
+}
+
+.logo{
+	display: none;
+	@media #{$widthSmall} {
+		display: block;
+		padding: 0 0 15px 0;
+	}
+	@media #{$widthLarge} {
+		margin-left: 0px;
+	}
+
+	a{
+		color:#000;
+		display:inline-block;
+		text-decoration:none;
+		font-size: 1em;
+		text-transform: lowercase;
+		@media #{$widthXSmall} {
+			@include fontsize(24);
+		}
+	}
+}
+
+.main{
+	position:relative;
+	background: #fff;
+	margin-bottom: 15px;
+
+	.has-nav{
+		padding-top:40px;
+	}
+}
+
+footer{
+	.content{
+		padding:0 15px;
+		position:relative;
+	}
+}
+
+a{
+	color:#444;
+}
+
+h1{
+	margin:0;
+	font-weight:normal;
+	@include fontsize(18);
+	@include lineheight(24);
+	@media #{$widthXSmall} {
+		@include fontsize(22);
+		@include lineheight(28);
+	}
+}
+
+h2{
+	font-weight:normal;
+	@include fontsize(16);
+	@media #{$widthXSmall} {
+		@include fontsize(18);
+	}
+}
+
+h3{
+	font-size: 1em;
+}
+
+td,
+th{
+	white-space: nowrap;
+}
+
+dl{
+	margin:0;
+}
+
+p{
+	margin: 0 0 1em 0;
+}

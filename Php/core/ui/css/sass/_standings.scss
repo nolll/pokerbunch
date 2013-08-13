@@ -1,0 +1,47 @@
+.standings{
+	.totals{
+		margin-top:20px;
+		margin-bottom:20px;
+		overflow:hidden;
+
+		.title{
+			float:left;
+			width:45%;
+		}
+	}
+	.amounts{
+		float:right;
+		width:55%;
+		div{
+			text-align: right;
+			@media #{$widthXSmall} {
+				float:left;
+				margin-right:10px;
+			}
+		}
+	}
+}
+
+.standings-item{
+	overflow:hidden;
+	padding:5px 0;
+	border-bottom: 1px solid #eee;
+
+	.name{
+		float:left;
+		width:45%;
+	}
+	.time{
+		float:left;
+		width:45%;
+	}
+	.controls{
+		float:left;
+		width:45%;
+	}
+	.control{
+		float:left;
+		margin-right: 10px;
+	}
+
+}

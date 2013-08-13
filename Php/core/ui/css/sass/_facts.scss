@@ -1,0 +1,19 @@
+.facts{
+	display:table;
+
+	div{
+		display:table-row;
+	}
+
+	h3{
+		display:table-cell;
+		white-space: nowrap;
+	}
+
+	p{
+		display:table-cell;
+		padding:5px;
+		white-space: nowrap;
+	}
+
+}
