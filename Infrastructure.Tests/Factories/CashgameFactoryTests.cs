@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Infrastructure.Tests.Factories{
 
-	class CashgameFactoryTests {
+	public class CashgameFactoryTests {
 
 		private DateTime _earliestBuyinTime;
 		private DateTime _earliestCashoutTime;

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +62,13 @@
   <ItemGroup>
     <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\CashgameSuiteFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
