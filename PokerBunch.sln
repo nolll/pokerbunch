@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "PokerBunch.Core\Core.csproj", "{4D5D8057-AFD8-40AF-A756-558E1038F193}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{4D5D8057-AFD8-40AF-A756-558E1038F193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "PokerBunch.Infrastructure\Infrastructure.csproj", "{1F37FC49-5C67-4A88-8201-0615C3ED1323}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{1F37FC49-5C67-4A88-8201-0615C3ED1323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "PokerBunch.Web.Tests\Web.Tests.csproj", "{A9AD7733-D57A-43CB-A5AF-6EA18F621C25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{A9AD7733-D57A-43CB-A5AF-6EA18F621C25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "PokerBunch.Infrastructure.Tests\Infrastructure.Tests.csproj", "{9084C8D4-7388-4B58-AC9A-0117041BE6E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{9084C8D4-7388-4B58-AC9A-0117041BE6E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}"
 EndProject

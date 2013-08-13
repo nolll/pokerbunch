@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9084C8D4-7388-4B58-AC9A-0117041BE6E5}</ProjectGuid>
+    <ProjectGuid>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Infrastructure.Tests</RootNamespace>
-    <AssemblyName>PokerBunch.Infrastructure.Tests</AssemblyName>
+    <RootNamespace>Infrastructure</RootNamespace>
+    <AssemblyName>PokerBunch.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,17 +42,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\CashgameResultFactoryTests.cs" />
+    <Compile Include="Repositories\CashgameRepositoryImpl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokerBunch.Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokerBunch.Infrastructure\Infrastructure.csproj">
-      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
-      <Name>Infrastructure</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\Interfaces\CashgameResultFactory.cs" />
+    <Compile Include="Factories\CashgameResultFactoryImpl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
