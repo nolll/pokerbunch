@@ -186,6 +186,36 @@
   <ItemGroup>
     <Compile Include="Models\NavigationModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegameNavigationModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegameDetailsUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegameUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UrlFormatter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegameListingUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UserListingUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\CashgameIndexUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\PlayerIndexUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\CashgameAddUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\RunningCashgameUrlModel.cs" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
