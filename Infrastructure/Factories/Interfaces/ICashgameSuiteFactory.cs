@@ -3,7 +3,7 @@ using Core.Classes;
 
 namespace Infrastructure.Factories{
 
-	interface ICashgameSuiteFactory{
+	public interface ICashgameSuiteFactory{
 
 		CashgameSuite Create(List<Cashgame> cashgames, List<Player> players);
 

@@ -70,6 +70,25 @@
   <ItemGroup>
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="System\Interfaces\ITimeProvider.cs" />
+    <Compile Include="System\TimeProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="System\DateTimeFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Classes\RawCashgame.cs" />
+    <Compile Include="Data\Classes\RawCashgameResult.cs" />
+    <None Include="Data\Classes\RawHomegame.php" />
+    <Compile Include="Data\Storage\Interfaces\ICashgameStorage.cs" />
+    <None Include="Data\Storage\Interfaces\HomegameStorage.php" />
+    <Compile Include="Data\Storage\Interfaces\IPlayerStorage.cs" />
+    <None Include="Data\Storage\Interfaces\SharingStorage.php" />
+    <None Include="Data\Storage\Interfaces\TwitterStorage.php" />
+    <None Include="Data\Storage\Interfaces\UserStorage.php" />
+    <Compile Include="System\Globalization.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

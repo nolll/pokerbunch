@@ -1,162 +1,172 @@
+using System;
+using System.Collections.Generic;
+using Core.Classes;
+using Core.Classes.Checkpoints;
 using Core.Repositories;
+using Infrastructure.Data.Classes;
+using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Factories;
+using Infrastructure.System;
 
 namespace Infrastructure.Repositories {
 	
 	public class CashgameRepository : ICashgameRepository{
 
-        /*
-	    public CashgameRepositoryImpl()
+	    private readonly ICashgameStorage _cashgameStorage;
+	    private readonly ICashgameFactory _cashgameFactory;
+	    private readonly IPlayerStorage _playerStorage;
+	    private readonly ITimeProvider _timeProvider;
+	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
+	    private readonly ICashgameResultFactory _cashgameResultFactory;
+
+	    public CashgameRepository(
+            ICashgameStorage cashgameStorage,
+			ICashgameFactory cashgameFactory,
+			IPlayerStorage playerStorage,
+			ITimeProvider timeProvider,
+			ICashgameSuiteFactory cashgameSuiteFactory,
+			ICashgameResultFactory cashgameResultFactory)
 	    {
-	        
+	        _cashgameStorage = cashgameStorage;
+	        _cashgameFactory = cashgameFactory;
+	        _playerStorage = playerStorage;
+	        _timeProvider = timeProvider;
+	        _cashgameSuiteFactory = cashgameSuiteFactory;
+	        _cashgameResultFactory = cashgameResultFactory;
 	    }
 
-		public function __construct(CashgameStorage $cashgameStorage,
-									CashgameFactory $cashgameFactory,
-									PlayerStorage $playerStorage,
-									Timer $timer,
-									CashgameSuiteFactory $cashgameSuiteFactory,
-									CashgameResultFactory $cashgameResultFactory){
-			$this->cashgameStorage = $cashgameStorage;
-			$this->playerStorage = $playerStorage;
-			$this->cashgameFactory = $cashgameFactory;
-			$this->timer = $timer;
-			$this->cashgameSuiteFactory = $cashgameSuiteFactory;
-			$this->cashgameResultFactory = $cashgameResultFactory;
+	    public List<Cashgame> GetPublished(Homegame homegame, int? year = null){
+			return getGames(homegame, GameStatus.Published, year);
 		}
 
-		public function getPublished(Homegame $homegame, $year = null){
-			return $this->getGames($homegame, GameStatus::published, $year);
-		}
-
-		public function getRunning(Homegame $homegame){
-			$games = $this->getGames($homegame, GameStatus::running, null);
-			if(count($games) == 0){
+		public Cashgame GetRunning(Homegame homegame){
+			var games = getGames(homegame, GameStatus.Running, null);
+			if(games.Count == 0){
 				return null;
 			}
-			return $games[0];
+			return games[0];
 		}
 
-		public function getAll(Homegame $homegame, $year = null){
-			return $this->getGames($homegame, null, $year);
+		public List<Cashgame> GetAll(Homegame homegame, int? year = null){
+			return getGames(homegame, null, year);
 		}
 
-		public function getByDate(Homegame $homegame, DateTime $date){
-			$rawGame = $this->cashgameStorage->getGame($homegame, $date);
-			$players = $this->playerStorage->getPlayers($homegame);
-			return $this->getGameFromRawGame($rawGame, $players);
+		public Cashgame GetByDate(Homegame homegame, DateTime date){
+			var rawGame = _cashgameStorage.GetGame(homegame, date);
+			var players = _playerStorage.GetPlayers(homegame);
+			return getGameFromRawGame(rawGame, players);
 		}
 
-		public function getByDateString(Homegame $homegame, $dateString){
-			$date = DateTimeFactory::create($dateString, $homegame->getTimezone());
-			return $this->getByDate($homegame, $date);
+		public Cashgame GetByDateString(Homegame homegame, string dateString){
+			var date = DateTimeFactory.create(dateString, homegame.Timezone);
+			return GetByDate(homegame, date);
 		}
 
-		public function getSuite(Homegame $homegame, $year = null){
-			$players = $this->playerStorage->getPlayers($homegame);
-			$cashgames = $this->getPublished($homegame, $year);
-			return $this->cashgameSuiteFactory->create($cashgames, $players);
+		public CashgameSuite GetSuite(Homegame homegame, int? year = null){
+			var players = _playerStorage.GetPlayers(homegame);
+			var cashgames = GetPublished(homegame, year);
+			return _cashgameSuiteFactory.Create(cashgames, players);
 		}
 
-		public function getYears(Homegame $homegame){
-			return $this->cashgameStorage->getYears($homegame);
+		public List<int> GetYears(Homegame homegame){
+			return _cashgameStorage.GetYears(homegame);
 		}
 
-		private function getGames(Homegame $homegame, $status = null, $year = null){
-			$rawGames = $this->cashgameStorage->getGames($homegame, $status, $year);
-			$players = $this->playerStorage->getPlayers($homegame);
-			return $this->getGamesFromRawGames($rawGames, $players);
+		private List<Cashgame> getGames(Homegame homegame, GameStatus? status = null, int? year = null){
+			var rawGames = _cashgameStorage.GetGames(homegame, status, year);
+			var players = _playerStorage.GetPlayers(homegame);
+			return getGamesFromRawGames(rawGames, players);
 		}
 
-		private function getGamesFromRawGames(array $rawGames, array $players){
-			$games = array();
-			foreach($rawGames as $rawGame){
-				$games[] = $this->getGameFromRawGame($rawGame, $players);
+		private List<Cashgame> getGamesFromRawGames(List<RawCashgame> rawGames, List<Player> players){
+			var games = new List<Cashgame>();
+			foreach(var rawGame in rawGames){
+				games.Add(getGameFromRawGame(rawGame, players));
 			}
-			return $games;
+			return games;
 		}
 
-		private function getGameFromRawGame(RawCashgame $rawGame, array $players){
-			$results = array();
-			$rawResults = $rawGame->getResults();
-			foreach($rawResults as $rawResult){
-				$results[] = $this->getResultFromRawResult($rawResult, $players);
+		private Cashgame getGameFromRawGame(RawCashgame rawGame, List<Player> players){
+			var results = new List<CashgameResult>();
+			var rawResults = rawGame.Results;
+			foreach(var rawResult in rawResults){
+				results.Add(getResultFromRawResult(rawResult, players));
 			}
-			return $this->cashgameFactory->create($rawGame->getLocation(), $rawGame->getStatus(), $rawGame->getId(), $results);
+			return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
 		}
 
-		private function getResultFromRawResult(RawCashgameResult $rawResult, array $players){
-			$player = $this->getPlayer($players, $rawResult->getPlayerId());
-			$checkpoints = $rawResult->getCheckpoints();
-			return $this->cashgameResultFactory->create($player, $checkpoints);
+		private CashgameResult getResultFromRawResult(RawCashgameResult rawResult, List<Player> players){
+			var player = getPlayer(players, rawResult.PlayerId);
+			var checkpoints = rawResult.Checkpoints;
+			return _cashgameResultFactory.Create(player, checkpoints);
 		}
 
-		private function getPlayer(array $players, $playerId){
-			foreach($players as $player){
-				if($player->getId() == $playerId){
-					return $player;
+		private Player getPlayer(List<Player> players, int playerId){
+			foreach(var player in players){
+				if(player.Id == playerId){
+					return player;
 				}
 			}
 			return null;
 		}
 
-		public function getLocations(Homegame $homegame){
-			return $this->cashgameStorage->getLocations($homegame);
+		public List<string> GetLocations(Homegame homegame){
+			return _cashgameStorage.GetLocations(homegame);
 		}
 
-		public function deleteGame(Cashgame $cashgame){
-			return $this->cashgameStorage->deleteGame($cashgame);
+		public bool DeleteGame(Cashgame cashgame){
+			return _cashgameStorage.DeleteGame(cashgame);
 		}
 
-		public function addGame(Homegame $homegame, Cashgame $cashgame){
-			return $this->cashgameStorage->addGame($homegame, $cashgame);
+		public int AddGame(Homegame homegame, Cashgame cashgame){
+			return _cashgameStorage.AddGame(homegame, cashgame);
 		}
 
-		public function addCheckpoint(Cashgame $cashgame, Player $player, Checkpoint $checkpoint){
-			$this->cashgameStorage->addCheckpoint($cashgame, $player, $checkpoint);
+		public void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
+			_cashgameStorage.AddCheckpoint(cashgame, player, checkpoint);
 		}
 
-		public function updateCheckpoint(Checkpoint $checkpoint){
-			$this->cashgameStorage->updateCheckpoint($checkpoint);
+		public void UpdateCheckpoint(Checkpoint checkpoint){
+			_cashgameStorage.UpdateCheckpoint(checkpoint);
 		}
 
-		public function deleteCheckpoint($id){
-			$this->cashgameStorage->deleteCheckpoint($id);
+		public void DeleteCheckpoint(int id){
+			_cashgameStorage.DeleteCheckpoint(id);
 		}
 
-		public function updateGame(Cashgame $cashgame){
-			$rawCashgame = $this->getRawCashgame($cashgame);
-			return $this->cashgameStorage->updateGame($rawCashgame);
+		public bool UpdateGame(Cashgame cashgame){
+			var rawCashgame = getRawCashgame(cashgame);
+			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
-		public function startGame(Cashgame $cashgame){
-			$rawCashgame = $this->getRawCashgame($cashgame, GameStatus::running);
-			return $this->cashgameStorage->updateGame($rawCashgame);
+		public bool StartGame(Cashgame cashgame){
+			var rawCashgame = getRawCashgame(cashgame, GameStatus.Running);
+			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
-		public function endGame(Cashgame $cashgame){
-			$rawCashgame = $this->getRawCashgame($cashgame, GameStatus::published);
-			return $this->cashgameStorage->updateGame($rawCashgame);
+		public bool EndGame(Cashgame cashgame){
+			var rawCashgame = getRawCashgame(cashgame, GameStatus.Published);
+			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
-		public function hasPlayed(Player $player){
-			return $this->cashgameStorage->hasPlayed($player);
+		public bool HasPlayed(Player player){
+			return _cashgameStorage.HasPlayed(player);
 		}
 
-		private function getRawCashgame(Cashgame $cashgame, $status = null){
-			$id = $cashgame->getId();
-			$location = $cashgame->getLocation();
-			if($status == null){
-				$status = $cashgame->getStatus();
+		private RawCashgame getRawCashgame(Cashgame cashgame, GameStatus? status = null){
+			var id = cashgame.Id;
+			var location = cashgame.Location;
+			if(!status.HasValue){
+				status = cashgame.Status;
 			}
-			$date = $cashgame->getStartTime();
-			if($date == null){
-				$date = $this->timer->getTime();
+			var date = cashgame.StartTime;
+			if(!date.HasValue){
+				date = _timeProvider.getTime();
 			}
-			$dateStr = Globalization::formatIsoDate($date);
-			return new RawCashgame($id, $location, $status, $dateStr);
+			var dateStr = Globalization.formatIsoDate(date.Value);
+			return new RawCashgame(id, location, status.Value, dateStr);
 		}
-        */
-
+ 
 	}
 
 }

@@ -349,7 +349,6 @@
     <None Include="core\FormFields\SelectFieldItem.php" />
     <None Include="core\FormFields\SelectFieldModel.php" />
     <None Include="core\FormFields\TimezoneFieldModel.php" />
-    <None Include="core\Globalization.php" />
     <None Include="core\HomegameControllerDefinition.php" />
     <None Include="core\HomegamePageModel.php" />
     <None Include="core\Navigation\Navigation.tpl" />
@@ -357,8 +356,6 @@
     <None Include="core\Navigation\NavigationNode.php" />
     <None Include="core\PageController.php" />
     <None Include="core\PageModel.php" />
-    <None Include="core\Timer.php" />
-    <None Include="core\TimerImpl.php" />
     <None Include="core\ui\css\sass\style.scss" />
     <None Include="core\ui\css\sass\tests.scss" />
     <None Include="core\ui\css\sass\_cashgame-leaderboard.scss" />
@@ -413,15 +410,6 @@
     <None Include="exceptions\NotLoggedInException.php" />
     <None Include="exceptions\UserNotFoundException.php" />
     <None Include="index.php" />
-    <None Include="Infrastructure\Data\Classes\RawCashgame.php" />
-    <None Include="Infrastructure\Data\Classes\RawCashgameResult.php" />
-    <None Include="Infrastructure\Data\Classes\RawHomegame.php" />
-    <None Include="Infrastructure\Data\Interfaces\CashgameStorage.php" />
-    <None Include="Infrastructure\Data\Interfaces\HomegameStorage.php" />
-    <None Include="Infrastructure\Data\Interfaces\PlayerStorage.php" />
-    <None Include="Infrastructure\Data\Interfaces\SharingStorage.php" />
-    <None Include="Infrastructure\Data\Interfaces\TwitterStorage.php" />
-    <None Include="Infrastructure\Data\Interfaces\UserStorage.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
     <None Include="Infrastructure\Data\MySql\MySqlCashgameStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlHomegameStorage.php" />
@@ -569,7 +557,6 @@
     <None Include="tests\CoreTests\FormFields\ListFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\LocationFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\TimezoneFieldModelTests.php" />
-    <None Include="tests\CoreTests\GlobalizationTests.php" />
     <None Include="tests\CoreTests\GravatarTests.php" />
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
@@ -639,7 +626,6 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\Classes\" />
     <Folder Include="Infrastructure\Factories\Interfaces\" />
     <Folder Include="Infrastructure\Repositories\" />
     <Folder Include="Services\" />

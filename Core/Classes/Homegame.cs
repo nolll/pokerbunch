@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Classes{
 
-	class Homegame{
+	public class Homegame{
 
 	    public int Id { get; set; }
 	    public string Slug { get; set; }
