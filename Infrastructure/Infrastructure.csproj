@@ -80,14 +80,20 @@
   <ItemGroup>
     <Compile Include="Data\Classes\RawCashgame.cs" />
     <Compile Include="Data\Classes\RawCashgameResult.cs" />
-    <None Include="Data\Classes\RawHomegame.php" />
+    <Compile Include="Data\Classes\RawHomegame.cs" />
     <Compile Include="Data\Storage\Interfaces\ICashgameStorage.cs" />
-    <None Include="Data\Storage\Interfaces\HomegameStorage.php" />
+    <Compile Include="Data\Storage\Interfaces\IHomegameStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\IPlayerStorage.cs" />
-    <None Include="Data\Storage\Interfaces\SharingStorage.php" />
-    <None Include="Data\Storage\Interfaces\TwitterStorage.php" />
-    <None Include="Data\Storage\Interfaces\UserStorage.php" />
+    <Compile Include="Data\Storage\Interfaces\ISharingStorage.cs" />
+    <Compile Include="Data\Storage\Interfaces\ITwitterStorage.cs" />
+    <Compile Include="Data\Storage\Interfaces\IUserStorage.cs" />
     <Compile Include="System\Globalization.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Integration\Classes\TwitterCredentials.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Repositories\PlayerRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

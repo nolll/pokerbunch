@@ -401,10 +401,7 @@
     <None Include="core\Validation\ValidatorFake.php" />
     <None Include="core\WebContext.php" />
     <None Include="core\WebContextImpl.php" />
-    <None Include="Domain\Interfaces\HomegameRepository.php" />
-    <None Include="Domain\Interfaces\PlayerRepository.php" />
     <None Include="Domain\Services\HomegameRepositoryImpl.php" />
-    <None Include="Domain\Services\PlayerRepositoryImpl.php" />
     <None Include="exceptions\AccessDeniedException.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="exceptions\NotLoggedInException.php" />
@@ -436,7 +433,6 @@
     <None Include="integration\Sharing\SocialServiceFactory.php" />
     <None Include="integration\Sharing\SocialServiceFactoryImpl.php" />
     <None Include="integration\Sharing\SocialServiceProvider.php" />
-    <None Include="integration\Sharing\TwitterCredentials.php" />
     <None Include="integration\Sharing\TwitterService.php" />
     <None Include="integration\Sharing\TwitterServiceImpl.php" />
     <None Include="tests\AppTests\Admin\AdminNavModelTests.php" />

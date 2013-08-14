@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
-	public interface HomegameStorage{
+	public interface IHomegameStorage{
 
 		List<Homegame> GetHomegames();
 		List<Homegame> GetHomegamesByRole(string token, int role);

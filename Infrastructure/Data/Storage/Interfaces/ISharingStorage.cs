@@ -3,7 +3,7 @@ using Core.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
-	public interface SharingStorage{
+	public interface ISharingStorage{
 
 		List<string> GetServices(User user);
 		void AddSharing(User user, string sharingProvider);
