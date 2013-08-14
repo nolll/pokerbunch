@@ -314,7 +314,6 @@
     <None Include="config\Settings.php" />
     <None Include="core\Analytics\GoogleAnalytics.tpl" />
     <None Include="core\ClassNames.php" />
-    <None Include="core\DateTimeFactory.php" />
     <None Include="core\FormFields\CurrencyLayoutFieldModel.php" />
     <None Include="core\FormFields\FormField.tpl" />
     <None Include="core\FormFields\FormFieldModel.php" />
@@ -356,8 +355,6 @@
     <None Include="core\ui\font\fontawesome-webfont.ttf" />
     <None Include="core\ui\font\fontawesome-webfont.woff" />
     <None Include="core\ui\font\FontAwesome.otf" />
-    <None Include="core\UserContext.php" />
-    <None Include="core\UserContextImpl.php" />
     <None Include="core\Util.php" />
     <None Include="core\Validation\BaseValidator.php" />
     <None Include="core\Validation\CompositeValidator.php" />
@@ -376,14 +373,11 @@
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
     <None Include="Infrastructure\Data\MySql\MySqlCashgameStorage.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlHomegameStorage.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlPdo.php" />
     <None Include="Infrastructure\Data\MySql\MySqlPlayerStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlUserStorage.php" />
     <None Include="Infrastructure\Data\MySql\PreparedStatement.php" />
-    <None Include="Infrastructure\Data\MySql\StorageProvider.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
     <None Include="integration\Avatar\AvatarService.php" />
@@ -530,7 +524,6 @@
     <None Include="tests\Fakes\TimerFake.php" />
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />
-    <None Include="tests\RepositoryTests\CashgameRepositoryTests.php" />
     <None Include="tests\SharbatUnitTestCase.php" />
     <None Include="tests\StorageTests\MySqlCashgameStorageTests.php" />
     <None Include="tests\TestBinder.php" />
@@ -588,11 +581,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\Admin\" />
-    <Folder Include="Infrastructure\Factories\Interfaces\" />
-    <Folder Include="Infrastructure\Repositories\" />
-    <Folder Include="Services\" />
-    <Folder Include="System\" />
-    <Folder Include="Web\" />
+    <Folder Include="tests\RepositoryTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

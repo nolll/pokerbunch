@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -105,6 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\UserContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Storage\MySqlHomegameStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Storage\Interfaces\IStorageProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Storage\MySqlStorageProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

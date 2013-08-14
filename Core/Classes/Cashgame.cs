@@ -24,7 +24,6 @@ namespace Core.Classes{
 	    {
             Results = new List<CashgameResult>();
 	        Status = GameStatus.Created;
-            StartTime = new DateTime();
 	    }
 
 		public CashgameResult GetResult(Player player){

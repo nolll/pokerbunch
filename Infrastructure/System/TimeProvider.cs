@@ -4,7 +4,7 @@ namespace Infrastructure.System{
 
 	class TimeProvider : ITimeProvider {
 
-		public DateTime getTime(){
+		public DateTime GetTime(){
 			return new DateTime();
 		}
 

@@ -161,7 +161,7 @@ namespace Infrastructure.Repositories {
 			}
 			var date = cashgame.StartTime;
 			if(!date.HasValue){
-				date = _timeProvider.getTime();
+				date = _timeProvider.GetTime();
 			}
 			var dateStr = Globalization.formatIsoDate(date.Value);
 			return new RawCashgame(id, location, status.Value, dateStr);

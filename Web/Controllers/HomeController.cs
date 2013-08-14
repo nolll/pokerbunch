@@ -11,10 +11,7 @@ namespace Web.Controllers{
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly ICashgameRepository _cashgameRepository;
 
-	    public HomeController(
-            IUserContext userContext, 
-            IHomegameStorage homegameStorage, 
-            ICashgameRepository cashgameRepository)
+	    public HomeController(IUserContext userContext, IHomegameStorage homegameStorage, ICashgameRepository cashgameRepository)
 	    {
 	        _userContext = userContext;
 	        _homegameStorage = homegameStorage;
