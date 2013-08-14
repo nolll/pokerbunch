@@ -399,9 +399,7 @@
     <None Include="core\Validation\SingleValidator.php" />
     <None Include="core\Validation\Validator.php" />
     <None Include="core\Validation\ValidatorFake.php" />
-    <None Include="exceptions\AccessDeniedException.php" />
     <None Include="exceptions\DatabaseException.php" />
-    <None Include="exceptions\NotLoggedInException.php" />
     <None Include="exceptions\UserNotFoundException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
@@ -557,7 +555,6 @@
     <None Include="tests\CoreTests\PositiveNumberValidatorTests.php" />
     <None Include="tests\CoreTests\RequiredValidatorTests.php" />
     <None Include="tests\CoreTests\UrlTests.php" />
-    <None Include="tests\CoreTests\UserContextTests.php" />
     <None Include="tests\Fakes\TimerFake.php" />
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />

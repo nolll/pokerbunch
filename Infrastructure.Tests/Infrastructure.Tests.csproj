@@ -60,6 +60,10 @@
       <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tests.Common\Tests.Common.csproj">
+      <Project>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</Project>
+      <Name>Tests.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\CashgameFactoryTests.cs" />
@@ -73,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\HomegameRepositoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Repositories\UserContextTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

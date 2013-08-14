@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Php", "Php\Php.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Common", "Tests.Common\Tests.Common.csproj", "{D30140A0-6006-4D0E-AD74-067EE44F4FC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D30140A0-6006-4D0E-AD74-067EE44F4FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30140A0-6006-4D0E-AD74-067EE44F4FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D30140A0-6006-4D0E-AD74-067EE44F4FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D30140A0-6006-4D0E-AD74-067EE44F4FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +58,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9084C8D4-7388-4B58-AC9A-0117041BE6E5} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
 		{A9AD7733-D57A-43CB-A5AF-6EA18F621C25} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
+		{D30140A0-6006-4D0E-AD74-067EE44F4FC9} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
 	EndGlobalSection
 EndGlobal

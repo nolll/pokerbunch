@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D5D8057-AFD8-40AF-A756-558E1038F193}</ProjectGuid>
+    <ProjectGuid>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core</RootNamespace>
-    <AssemblyName>PokerBunch.Core</AssemblyName>
+    <RootNamespace>Tests.Common</RootNamespace>
+    <AssemblyName>Tests.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\Infrastructure.Tests\bin\Debug\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Infrastructure.Tests\bin\Debug\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,60 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Player.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\Role.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\ICashgameRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\Cashgame.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\GameStatus.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\Checkpoints\BuyinCheckpoint.cs" />
-    <Compile Include="Classes\Checkpoints\CashoutCheckpoint.cs" />
-    <Compile Include="Classes\Checkpoints\Checkpoint.cs" />
-    <Compile Include="Classes\Checkpoints\CheckpointType.cs" />
-    <Compile Include="Classes\Checkpoints\ReportCheckpoint.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\CashgameResult.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\User.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\CashgameTotalResult.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\CashgameSuite.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\CurrencySettings.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classes\Homegame.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\IHomegameRepository.cs" />
-    <Compile Include="Repositories\IPlayerRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\IUserContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Exceptions\NotLoggedInException.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Exceptions\AccessDeniedException.cs" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
