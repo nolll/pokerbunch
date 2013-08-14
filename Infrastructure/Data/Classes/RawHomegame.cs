@@ -1,4 +1,4 @@
-namespace Infrastructure {
+namespace Infrastructure.Data.Classes {
 
 	public class RawHomegame{
 
