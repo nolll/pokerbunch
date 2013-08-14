@@ -216,6 +216,24 @@
   <ItemGroup>
     <Compile Include="Models\RunningCashgameUrlModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UserNavigationModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\ForgotPasswordUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UserDetailsUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\SharingSettingsUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AuthLogoutUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UserUrlModel.cs" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

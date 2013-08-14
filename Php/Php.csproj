@@ -219,12 +219,10 @@
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
     <None Include="app\Site\Errors.tpl" />
     <None Include="app\Site\Financing.tpl" />
-    <None Include="app\Urls\AuthLogoutUrlModel.php" />
     <None Include="app\Urls\BaseClasses\CashgamePlayerUrlModel.php" />
     <None Include="app\Urls\BaseClasses\CashgameUrlModel.php" />
     <None Include="app\Urls\BaseClasses\HomegameYearUrlModel.php" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
-    <None Include="app\Urls\BaseClasses\UserUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameActionUrlModel.php" />
     <None Include="app\Urls\CashgameBuyinUrlModel.php" />
@@ -249,7 +247,6 @@
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\ChangePasswordUrlModel.php" />
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
-    <None Include="app\Urls\ForgotPasswordUrlModel.php" />
     <None Include="app\Urls\HomegameAddConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
     <None Include="app\Urls\HomegameEditUrlModel.php" />
@@ -262,12 +259,10 @@
     <None Include="app\Urls\PlayerDetailsUrlModel.php" />
     <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerInviteUrlModel.php" />
-    <None Include="app\Urls\SharingSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
     <None Include="app\Urls\UserAddConfirmationUrlModel.php" />
-    <None Include="app\Urls\UserDetailsUrlModel.php" />
     <None Include="app\Urls\UserEditUrlModel.php" />
     <None Include="app\User\Add\Add.tpl" />
     <None Include="app\User\Add\Confirmation.tpl" />
@@ -306,7 +301,6 @@
     <None Include="app\User\UniqueUserNameValidator.php" />
     <None Include="app\User\UserFactory.php" />
     <None Include="app\User\UserFactoryImpl.php" />
-    <None Include="app\User\UserNavigationModel.php" />
     <None Include="app\User\UserValidatorFactory.php" />
     <None Include="app\User\UserValidatorFactoryImpl.php" />
     <None Include="app\Version.php" />

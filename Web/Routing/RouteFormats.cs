@@ -5,7 +5,7 @@ namespace Web.Routing{
         //const home = '/';
 
         public const string AuthLogin = "/-/auth/login";
-        //const authLogout = '/-/auth/logout';
+        public const string AuthLogout = "/-/auth/logout";
 
         public const string CashgameAdd = "/%1$s/cashgame/add";
         //const cashgameAddResult = '/%1$s/cashgame/addresult/%2$s';
@@ -41,7 +41,7 @@ namespace Web.Routing{
         //const changePassword = '/-/password/change';
         //const changePasswordConfirmation = '/-/password/changed';
 
-        //const forgotPassword = '/-/password/forgot';
+        public const string ForgotPassword = "/-/password/forgot";
         //const forgotPasswordConfirmation = '/-/password/sent';
 
         public const string HomegameAdd = "/-/game/add";
@@ -60,7 +60,7 @@ namespace Web.Routing{
         //const playerInvite = '/%1$s/player/invite/%2$s';
         //const playerInviteConfirmation = '/%1$s/player/invited/%2$s';
 
-        //const sharingSettings = '/-/sharing';
+        public const string SharingSettings = "/-/sharing";
 
         //const twitterCallback = '%1$s/-/sharing/twittercallback';
         //const twitterSettings = '/-/sharing/twitter';
@@ -69,7 +69,7 @@ namespace Web.Routing{
 
         public const string UserAdd = "/-/user/add";
         //const userAddConfirmation = '/-/user/created';
-        //const userDetails = '/-/user/details/%1$s';
+        public const string UserDetails = "/-/user/details/%1$s";
         //const userEdit = '/-/user/edit/%1$s';
         public const string UserListing = "/-/user/listing";
 

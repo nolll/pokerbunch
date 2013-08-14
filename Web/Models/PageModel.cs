@@ -7,13 +7,12 @@ namespace core{
 	public class PageModel {
 
 	    public List<string> ValidationErrors { get; set; }
-        //todo:Flytta UserNavigationModel
-	    //public UserNavigationModel UserNavModel { get; set; }
+	    public UserNavigationModel UserNavModel { get; set; }
 	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
 
 	    public PageModel(User user)
 	    {
-	        //UserNavModel = new UserNavigationModel(user);
+	        UserNavModel = new UserNavigationModel(user);
 			GoogleAnalyticsModel = new GoogleAnalyticsModel();
 	    }
 

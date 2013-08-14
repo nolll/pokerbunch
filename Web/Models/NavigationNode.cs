@@ -6,7 +6,7 @@ namespace Web.Models{
 	    public UrlModel UrlModel { get; private set; }
 	    public bool Selected { get; private set; }
 
-	    public NavigationNode(string name, UrlModel urlModel, bool selected)
+	    public NavigationNode(string name, UrlModel urlModel, bool selected = false)
 	    {
 	        Name = name;
 	        UrlModel = urlModel;
