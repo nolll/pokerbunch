@@ -128,13 +128,63 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\HomeController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomeModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegamePageModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\PageModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\GoogleAnalyticsModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\HomegameAddUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Routing\RouteFormats.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AuthLoginUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\UserAddUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AdminNavModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\NavigationNode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\NavigationModel.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

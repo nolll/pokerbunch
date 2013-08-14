@@ -1,18 +1,15 @@
-namespace app{
+using System;
+using Core.Classes;
 
-	use core\Globalization;
-	use DateTime;
-	use entities\Homegame;
-	use entities\Cashgame;
-	use entities\Player;
-	use Domain\Classes\User;
+namespace Web.Models{
 
-	class UrlFormatter{
+	public class UrlFormatter{
 
-		public static function formatHomegame($format, Homegame $homegame){
-			return sprintf($format, $homegame.getSlug());
+		public static string FormatHomegame(string format, Homegame homegame){
+			return string.Format(format, homegame.Slug);
 		}
 
+        /*
 		public static function formatHomegameWithYear($format, Homegame $homegame, $year){
 			return sprintf($format, $homegame.getSlug(), $year);
 		}
@@ -32,8 +29,9 @@ namespace app{
 		}
 
 		public static function formatIsoDate(DateTime $date){
-			return Globalization::formatIsoDate($date);
+			return Infrastructure.System.Globalization::formatIsoDate($date);
 		}
+        */
 
 	}
 

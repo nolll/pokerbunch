@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".htaccess" />
-    <None Include="app\Admin\AdminNavModel.php" />
     <None Include="app\ApplicationModule.php" />
     <None Include="app\ApplicationRouteProvider.php" />
     <None Include="app\AppParamParser.php" />
@@ -183,8 +182,6 @@
     <None Include="app\Homegame\SlugGeneratorImpl.php" />
     <None Include="app\Homegame\UniqueSlugValidator.php" />
     <None Include="app\Home\Home.tpl" />
-    <None Include="app\Home\HomeController.php" />
-    <None Include="app\Home\HomeModel.php" />
     <None Include="app\MishiinModule.php" />
     <None Include="app\Page.tpl" />
     <None Include="app\Player\Achievements\PlayerAchievements.tpl" />
@@ -215,7 +212,6 @@
     <None Include="app\Player\PlayerValidatorFactory.php" />
     <None Include="app\Player\PlayerValidatorFactoryImpl.php" />
     <None Include="app\Player\UniquePlayerNameValidator.php" />
-    <None Include="app\RouteFormats.php" />
     <None Include="app\Sharing\Index\Index.tpl" />
     <None Include="app\Sharing\Index\SharingIndexController.php" />
     <None Include="app\Sharing\Index\SharingIndexModel.php" />
@@ -225,14 +221,12 @@
     <None Include="app\Site\Errors.tpl" />
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\UrlFormatter.php" />
-    <None Include="app\Urls\AuthLoginUrlModel.php" />
     <None Include="app\Urls\AuthLogoutUrlModel.php" />
     <None Include="app\Urls\BaseClasses\CashgamePlayerUrlModel.php" />
     <None Include="app\Urls\BaseClasses\CashgameUrlModel.php" />
     <None Include="app\Urls\BaseClasses\HomegameUrlModel.php" />
     <None Include="app\Urls\BaseClasses\HomegameYearUrlModel.php" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
-    <None Include="app\Urls\BaseClasses\UrlModel.php" />
     <None Include="app\Urls\BaseClasses\UserUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameActionUrlModel.php" />
@@ -282,7 +276,6 @@
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
     <None Include="app\Urls\UserAddConfirmationUrlModel.php" />
-    <None Include="app\Urls\UserAddUrlModel.php" />
     <None Include="app\Urls\UserDetailsUrlModel.php" />
     <None Include="app\Urls\UserEditUrlModel.php" />
     <None Include="app\Urls\UserListingUrlModel.php" />
@@ -336,7 +329,6 @@
     <None Include="config\ServerMode.php" />
     <None Include="config\Settings.php" />
     <None Include="core\Analytics\GoogleAnalytics.tpl" />
-    <None Include="core\Analytics\GoogleAnalyticsModel.php" />
     <None Include="core\ClassNames.php" />
     <None Include="core\DateTimeFactory.php" />
     <None Include="core\FormFields\CurrencyLayoutFieldModel.php" />
@@ -350,12 +342,8 @@
     <None Include="core\FormFields\SelectFieldModel.php" />
     <None Include="core\FormFields\TimezoneFieldModel.php" />
     <None Include="core\HomegameControllerDefinition.php" />
-    <None Include="core\HomegamePageModel.php" />
     <None Include="core\Navigation\Navigation.tpl" />
-    <None Include="core\Navigation\NavigationModel.php" />
-    <None Include="core\Navigation\NavigationNode.php" />
     <None Include="core\PageController.php" />
-    <None Include="core\PageModel.php" />
     <None Include="core\ui\css\sass\style.scss" />
     <None Include="core\ui\css\sass\tests.scss" />
     <None Include="core\ui\css\sass\_cashgame-leaderboard.scss" />
@@ -615,6 +603,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\Admin\" />
     <Folder Include="Infrastructure\Factories\Interfaces\" />
     <Folder Include="Infrastructure\Repositories\" />
     <Folder Include="Services\" />
