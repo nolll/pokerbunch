@@ -401,7 +401,6 @@
     <None Include="core\Validation\ValidatorFake.php" />
     <None Include="core\WebContext.php" />
     <None Include="core\WebContextImpl.php" />
-    <None Include="Domain\Services\HomegameRepositoryImpl.php" />
     <None Include="exceptions\AccessDeniedException.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="exceptions\NotLoggedInException.php" />
@@ -497,7 +496,6 @@
     <None Include="tests\AppTests\Homegame\HomegameListingControllerTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameListingModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameNavigationModelTests.php" />
-    <None Include="tests\AppTests\Homegame\HomegameRepositoryTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameValidatorTests.php" />
     <None Include="tests\AppTests\Homegame\SlugGeneratorTests.php" />
     <None Include="tests\AppTests\Homegame\UniqueHomegameValidatorTests.php" />
