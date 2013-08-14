@@ -151,6 +151,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelFactories\HomeModelFactory.cs" />
+    <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />

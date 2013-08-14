@@ -461,7 +461,6 @@
     <None Include="tests\AppTests\Homegame\HomegameValidatorTests.php" />
     <None Include="tests\AppTests\Homegame\SlugGeneratorTests.php" />
     <None Include="tests\AppTests\Homegame\UniqueHomegameValidatorTests.php" />
-    <None Include="tests\AppTests\Home\HomeControllerTests.php" />
     <None Include="tests\AppTests\Home\HomeModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\PlayerAchievementsModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\SingleAchievements\NumberOfGamesAchievementTests.php" />
@@ -521,7 +520,6 @@
     <None Include="tests\CoreTests\PositiveNumberValidatorTests.php" />
     <None Include="tests\CoreTests\RequiredValidatorTests.php" />
     <None Include="tests\CoreTests\UrlTests.php" />
-    <None Include="tests\Fakes\TimerFake.php" />
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />
     <None Include="tests\SharbatUnitTestCase.php" />
@@ -581,7 +579,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\Admin\" />
-    <Folder Include="tests\RepositoryTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
