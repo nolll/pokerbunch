@@ -1,6 +1,7 @@
 using Core.Classes;
+using Web.Models.Url;
 
-namespace Web.Models{
+namespace Web.Models.Navigation{
 
 	public class AdminNavModel : NavigationModel {
 

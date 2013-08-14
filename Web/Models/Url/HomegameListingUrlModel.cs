@@ -1,6 +1,6 @@
 using Web.Routing;
 
-namespace Web.Models{
+namespace Web.Models.Url{
 
 	public class HomegameListingUrlModel : UrlModel{
 

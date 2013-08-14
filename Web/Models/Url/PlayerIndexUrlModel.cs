@@ -1,8 +1,7 @@
 using Core.Classes;
-using Web.Models;
 using Web.Routing;
 
-namespace app{
+namespace Web.Models.Url{
 
 	public class PlayerIndexUrlModel : HomegameUrlModel{
 

@@ -1,6 +1,6 @@
 using Core.Classes;
 
-namespace Web.Models{
+namespace Web.Models.Url{
 
 	public class HomegameUrlModel : UrlModel{
 

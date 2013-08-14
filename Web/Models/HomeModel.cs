@@ -1,4 +1,6 @@
 using Core.Classes;
+using Web.Models.Navigation;
+using Web.Models.Url;
 
 namespace Web.Models{
 

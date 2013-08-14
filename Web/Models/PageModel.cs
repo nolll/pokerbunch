@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Web.Models;
+using Web.Models.Navigation;
 
-namespace core{
+namespace Web.Models{
 
 	public class PageModel {
 

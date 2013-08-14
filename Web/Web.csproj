@@ -160,79 +160,79 @@
     <Compile Include="Models\GoogleAnalyticsModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\Url\UrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomegameAddUrlModel.cs" />
+    <Compile Include="Models\Url\HomegameAddUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Routing\RouteFormats.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AuthLoginUrlModel.cs" />
+    <Compile Include="Models\Url\AuthLoginUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserAddUrlModel.cs" />
+    <Compile Include="Models\Url\UserAddUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AdminNavModel.cs" />
+    <Compile Include="Models\Navigation\AdminNavModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\NavigationNode.cs" />
+    <Compile Include="Models\Navigation\NavigationNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\NavigationModel.cs" />
+    <Compile Include="Models\Navigation\NavigationModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomegameNavigationModel.cs" />
+    <Compile Include="Models\Navigation\HomegameNavigationModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomegameDetailsUrlModel.cs" />
+    <Compile Include="Models\Url\HomegameDetailsUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomegameUrlModel.cs" />
+    <Compile Include="Models\Url\HomegameUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\UrlFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomegameListingUrlModel.cs" />
+    <Compile Include="Models\Url\HomegameListingUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserListingUrlModel.cs" />
+    <Compile Include="Models\Url\UserListingUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CashgameIndexUrlModel.cs" />
+    <Compile Include="Models\Url\CashgameIndexUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\PlayerIndexUrlModel.cs" />
+    <Compile Include="Models\Url\PlayerIndexUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CashgameAddUrlModel.cs" />
+    <Compile Include="Models\Url\CashgameAddUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\RunningCashgameUrlModel.cs" />
+    <Compile Include="Models\Url\RunningCashgameUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserNavigationModel.cs" />
+    <Compile Include="Models\Navigation\UserNavigationModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ForgotPasswordUrlModel.cs" />
+    <Compile Include="Models\Url\ForgotPasswordUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserDetailsUrlModel.cs" />
+    <Compile Include="Models\Url\UserDetailsUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\SharingSettingsUrlModel.cs" />
+    <Compile Include="Models\Url\SharingSettingsUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AuthLogoutUrlModel.cs" />
+    <Compile Include="Models\Url\AuthLogoutUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserUrlModel.cs" />
+    <Compile Include="Models\Url\UserUrlModel.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

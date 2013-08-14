@@ -1,8 +1,7 @@
 using Core.Classes;
 using Web.Routing;
-using app;
 
-namespace Web.Models{
+namespace Web.Models.Url{
 
 	class UserDetailsUrlModel : UserUrlModel{
 

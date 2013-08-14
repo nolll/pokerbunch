@@ -1,4 +1,6 @@
-namespace Web.Models{
+using Web.Models.Url;
+
+namespace Web.Models.Navigation{
 
 	public class NavigationNode{
 

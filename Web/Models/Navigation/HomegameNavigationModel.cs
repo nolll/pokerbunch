@@ -1,7 +1,7 @@
 using Core.Classes;
-using Web.Models;
+using Web.Models.Url;
 
-namespace app{
+namespace Web.Models.Navigation{
 
 	public class HomegameNavigationModel{
 

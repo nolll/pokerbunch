@@ -1,5 +1,5 @@
 using Core.Classes;
-using app;
+using Web.Models.Navigation;
 
 namespace Web.Models{
 

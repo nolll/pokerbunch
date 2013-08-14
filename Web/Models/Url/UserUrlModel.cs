@@ -1,7 +1,6 @@
 using Core.Classes;
-using Web.Models;
 
-namespace app{
+namespace Web.Models.Url{
 
 	class UserUrlModel : UrlModel{
 

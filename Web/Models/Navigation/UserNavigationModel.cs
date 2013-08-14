@@ -1,7 +1,7 @@
 using Core.Classes;
-using app;
+using Web.Models.Url;
 
-namespace Web.Models{
+namespace Web.Models.Navigation{
 
 	public class UserNavigationModel : NavigationModel{
 
