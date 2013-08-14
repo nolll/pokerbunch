@@ -399,8 +399,6 @@
     <None Include="core\Validation\SingleValidator.php" />
     <None Include="core\Validation\Validator.php" />
     <None Include="core\Validation\ValidatorFake.php" />
-    <None Include="core\WebContext.php" />
-    <None Include="core\WebContextImpl.php" />
     <None Include="exceptions\AccessDeniedException.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="exceptions\NotLoggedInException.php" />
