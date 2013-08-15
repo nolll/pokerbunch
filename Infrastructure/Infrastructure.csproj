@@ -126,7 +126,7 @@
     <Compile Include="Factories\UserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Storage\MySqlCashgameStorage.php" />
+    <Compile Include="Data\Storage\MySqlCashgameStorage.cs" />
     <Compile Include="Data\Storage\MySqlPlayerStorage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

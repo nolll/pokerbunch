@@ -372,7 +372,6 @@
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
     <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
-    <None Include="Infrastructure\Data\MySql\PreparedStatement.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
     <None Include="integration\Avatar\AvatarService.php" />

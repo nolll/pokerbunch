@@ -58,7 +58,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		public Cashgame GetByDateString(Homegame homegame, string dateString){
-			var date = DateTimeFactory.create(dateString, homegame.Timezone);
+			var date = DateTimeFactory.Create(dateString, homegame.Timezone);
 			return GetByDate(homegame, date);
 		}
 
@@ -163,7 +163,7 @@ namespace Infrastructure.Repositories {
 			if(!date.HasValue){
 				date = _timeProvider.GetTime();
 			}
-			var dateStr = Globalization.formatIsoDate(date.Value);
+			var dateStr = Globalization.FormatIsoDate(date.Value);
 			return new RawCashgame(id, location, status.Value, dateStr);
 		}
  

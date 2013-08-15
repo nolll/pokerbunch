@@ -21,7 +21,7 @@ namespace Web.Plumbing
 
             // Storage
             container.Register(Component.For<IHomegameStorage>().ImplementedBy<MySqlHomegameStorage>());
-            //container.Register(Component.For<ICashgameStorage>().ImplementedBy<MySqlCashgameStorage>());
+            container.Register(Component.For<ICashgameStorage>().ImplementedBy<MySqlCashgameStorage>());
             container.Register(Component.For<IPlayerStorage>().ImplementedBy<MySqlPlayerStorage>());
             container.Register(Component.For<IUserStorage>().ImplementedBy<MySqlUserStorage>());
             container.Register(Component.For<IStorageProvider>().ImplementedBy<MySqlStorageProvider>());

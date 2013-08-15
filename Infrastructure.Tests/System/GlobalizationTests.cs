@@ -14,7 +14,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(1234, "1 234")]
         [TestCase(1234567890, "1 234 567 890")]
 		public void FormatNumber(int input, string expected){
-			var result = Globalization.formatNumber(input);
+			var result = Globalization.FormatNumber(input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -22,7 +22,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(1234, "1 234 kr")]
 		public void FormatCurrency(int input, string expected){
 			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
-			var result = Globalization.formatCurrency(currency, input);
+			var result = Globalization.FormatCurrency(currency, input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -30,7 +30,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(1234, "1 234 kr/h")]
 		public void FormatWinrate(int input, string expected){
 			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
-			var result = Globalization.formatWinrate(currency, input);
+			var result = Globalization.FormatWinrate(currency, input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -39,7 +39,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(-1234, "-1 234 kr")]
 		public void FormatResult(int input, string expected){
 			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
-			var result = Globalization.formatResult(currency, input);
+			var result = Globalization.FormatResult(currency, input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -47,7 +47,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(300, "5h")]
         [TestCase(301, "5h 1m")]
 		public void FormatDuration(int input, string expected){
-			var result = Globalization.formatDuration(input);
+			var result = Globalization.FormatDuration(input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -55,7 +55,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(45, "1 minute")]
         [TestCase(120, "2 minutes")]
 		public void FormatTimespan(int input, string expected){
-			var result = Globalization.formatTimespan(input);
+			var result = Globalization.FormatTimespan(input);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -63,7 +63,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(true, "Feb 1 2010")]
 		public void FormatShortDate(bool includeYear, string expected){
 			var dateTime = DateTime.Parse("2010-02-01");
-			var result = Globalization.formatShortDate(dateTime, includeYear);
+			var result = Globalization.FormatShortDate(dateTime, includeYear);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -71,7 +71,7 @@ namespace Infrastructure.Tests.System{
         [TestCase(true, "Feb 1 2010 12:28")]
 		public void FormatShortDateTime(bool includeYear, string expected){
 			var dateTime = DateTime.Parse("2010-02-01 12:28:35");
-			var result = Globalization.formatShortDateTime(dateTime, includeYear);
+			var result = Globalization.FormatShortDateTime(dateTime, includeYear);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -80,7 +80,7 @@ namespace Infrastructure.Tests.System{
         {
             var dateTime = DateTime.Parse("2010-02-01 12:28:35");
             const string expected = "12:28";
-            var result = Globalization.formatTime(dateTime);
+            var result = Globalization.FormatTime(dateTime);
             Assert.AreEqual(expected, result);
         }
 
@@ -88,7 +88,7 @@ namespace Infrastructure.Tests.System{
         public void FormatIsoDate(){
 			var dateTime = DateTime.Parse("2010-02-01 12:28:35");
             const string expected = "2010-02-01";
-			var result = Globalization.formatIsoDate(dateTime);
+			var result = Globalization.FormatIsoDate(dateTime);
 			Assert.AreEqual(expected, result);
 		}
 
@@ -96,7 +96,7 @@ namespace Infrastructure.Tests.System{
         public void FormatIsoDateTime(){
 			var dateTime = DateTime.Parse("2010-02-01 12:28:35");
             const string expected = "2010-02-01 12:28:35";
-			var result = Globalization.formatIsoDateTime(dateTime);
+			var result = Globalization.FormatIsoDateTime(dateTime);
 			Assert.AreEqual(expected, result);
 		}
 

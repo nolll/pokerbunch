@@ -10,9 +10,9 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 		int AddGame(Homegame homegame, Cashgame cashgame);
 		bool DeleteGame(Cashgame cashgame);
-        void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint);
-        void UpdateCheckpoint(Checkpoint checkpoint);
-        void DeleteCheckpoint(int id);
+        int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint);
+        bool UpdateCheckpoint(Checkpoint checkpoint);
+        bool DeleteCheckpoint(int id);
 		RawCashgame GetGame(Homegame homegame, DateTime date);
 		List<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null);
 		List<int> GetYears(Homegame homegame);
