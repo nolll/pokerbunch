@@ -11,7 +11,7 @@ namespace Infrastructure.Tests.Repositories{
 	public class CashgameRepositoryTests : MockContainer {
 
 		private CashgameRepository GetSut(){
-			return new CashgameRepository(_cashgameStorageMock.Object, _cashgameFactoryMock.Object, _playerStorageMock.Object, _timeProviderMock.Object, _cashgameSuiteFactoryMock.Object, _cashgameResultFactoryMock.Object);
+			return new CashgameRepository(CashgameStorageMock.Object, CashgameFactoryMock.Object, PlayerStorageMock.Object, TimeProviderMock.Object, CashgameSuiteFactoryMock.Object, CashgameResultFactoryMock.Object);
 		}
 
         [Test]
@@ -21,13 +21,13 @@ namespace Infrastructure.Tests.Repositories{
 			var status = GameStatus.Created;
 			var cashgame = new Cashgame {Id = id, Location = location, Status = status};
 
-            _timeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2001-01-01 01:00:00"));
+            TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2001-01-01 01:00:00"));
 			var expectedDate = "2001-01-01";
 			var expectedStatus = GameStatus.Running;
 
             var recievedDate = "";
             var recievedStatus = GameStatus.Created;
-            _cashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
+            CashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
                                 .Callback(
                                     (RawCashgame rawCashgame) => {
                                         recievedDate = rawCashgame.Date;
@@ -52,7 +52,7 @@ namespace Infrastructure.Tests.Repositories{
 
 			var expectedStatus = GameStatus.Running;
             var recievedStatus = GameStatus.Created;
-            _cashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
+            CashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
                                 .Callback(
                                     (RawCashgame rawCashgame) => {
                                         recievedStatus = rawCashgame.Status;
