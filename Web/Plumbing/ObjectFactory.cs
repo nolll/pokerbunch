@@ -21,14 +21,21 @@ namespace Web.Plumbing
 
             // Storage
             container.Register(Component.For<IHomegameStorage>().ImplementedBy<MySqlHomegameStorage>());
+            //container.Register(Component.For<ICashgameStorage>().ImplementedBy<MySqlCashgameStorage>());
+            container.Register(Component.For<IPlayerStorage>().ImplementedBy<MySqlPlayerStorage>());
             container.Register(Component.For<IUserStorage>().ImplementedBy<MySqlUserStorage>());
             container.Register(Component.For<IStorageProvider>().ImplementedBy<MySqlStorageProvider>());
 
             // System
             container.Register(Component.For<IWebContext>().ImplementedBy<WebContext>());
+            container.Register(Component.For<ITimeProvider>().ImplementedBy<TimeProvider>());
 
             // Core Factories
             container.Register(Component.For<IUserFactory>().ImplementedBy<UserFactory>());
+            container.Register(Component.For<ICashgameFactory>().ImplementedBy<CashgameFactory>());
+            container.Register(Component.For<ICashgameResultFactory>().ImplementedBy<CashgameResultFactory>());
+            container.Register(Component.For<ICashgameTotalResultFactory>().ImplementedBy<CashgameTotalResultFactory>());
+            container.Register(Component.For<ICashgameSuiteFactory>().ImplementedBy<CashgameSuiteFactory>());
 
             // Model Factories
             container.Register(Component.For<IHomeModelFactory>().ImplementedBy<HomeModelFactory>());

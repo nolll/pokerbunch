@@ -125,6 +125,10 @@
     <Compile Include="Factories\Interfaces\IUserFactory.cs" />
     <Compile Include="Factories\UserFactory.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Storage\MySqlCashgameStorage.php" />
+    <Compile Include="Data\Storage\MySqlPlayerStorage.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

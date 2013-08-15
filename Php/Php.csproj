@@ -370,8 +370,6 @@
     <None Include="exceptions\UserNotFoundException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlCashgameStorage.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlPlayerStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
     <None Include="Infrastructure\Data\MySql\PreparedStatement.php" />
