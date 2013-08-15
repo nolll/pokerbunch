@@ -9,40 +9,40 @@ namespace Tests.Common
 {
     public class MockContainer
     {
-        protected Mock<ICashgameRepository> _cashgameRepositoryMock;
+        protected Mock<ICashgameRepository> CashgameRepositoryMock;
 
-        protected Mock<IHomegameStorage> _homegameStorageMock;
-        protected Mock<IUserStorage> _userStorageMock;
-        protected Mock<ICashgameStorage> _cashgameStorageMock;
-        protected Mock<IPlayerStorage> _playerStorageMock;
+        protected Mock<IHomegameStorage> HomegameStorageMock;
+        protected Mock<IUserStorage> UserStorageMock;
+        protected Mock<ICashgameStorage> CashgameStorageMock;
+        protected Mock<IPlayerStorage> PlayerStorageMock;
 
-        protected Mock<ICashgameFactory> _cashgameFactoryMock;
-        protected Mock<ICashgameSuiteFactory> _cashgameSuiteFactoryMock;
-        protected Mock<ICashgameResultFactory> _cashgameResultFactoryMock;
+        protected Mock<ICashgameFactory> CashgameFactoryMock;
+        protected Mock<ICashgameSuiteFactory> CashgameSuiteFactoryMock;
+        protected Mock<ICashgameResultFactory> CashgameResultFactoryMock;
 
-        protected Mock<IWebContext> _webContextMock;
-        protected Mock<IUserContext> _userContextMock;
+        protected Mock<IWebContext> WebContextMock;
+        protected Mock<IUserContext> UserContextMock;
 
-        protected Mock<ITimeProvider> _timeProviderMock;
+        protected Mock<ITimeProvider> TimeProviderMock;
 
         [SetUp]
         public void SetUpMocks()
         {
-            _cashgameRepositoryMock = new Mock<ICashgameRepository>();
+            CashgameRepositoryMock = new Mock<ICashgameRepository>();
 
-            _homegameStorageMock = new Mock<IHomegameStorage>();
-            _userStorageMock = new Mock<IUserStorage>();
-            _cashgameStorageMock = new Mock<ICashgameStorage>();
-            _playerStorageMock = new Mock<IPlayerStorage>();
+            HomegameStorageMock = new Mock<IHomegameStorage>();
+            UserStorageMock = new Mock<IUserStorage>();
+            CashgameStorageMock = new Mock<ICashgameStorage>();
+            PlayerStorageMock = new Mock<IPlayerStorage>();
 
-            _cashgameFactoryMock = new Mock<ICashgameFactory>();
-            _cashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();
-            _cashgameResultFactoryMock = new Mock<ICashgameResultFactory>();
+            CashgameFactoryMock = new Mock<ICashgameFactory>();
+            CashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();
+            CashgameResultFactoryMock = new Mock<ICashgameResultFactory>();
 
-            _webContextMock = new Mock<IWebContext>();
-            _userContextMock = new Mock<IUserContext>();
+            WebContextMock = new Mock<IWebContext>();
+            UserContextMock = new Mock<IUserContext>();
 
-            _timeProviderMock = new Mock<ITimeProvider>();
+            TimeProviderMock = new Mock<ITimeProvider>();
         }
     }
 }
