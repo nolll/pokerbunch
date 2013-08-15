@@ -1,176 +1,187 @@
-/*
+using System;
+using System.Collections.Generic;
+using Core.Classes;
+using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
+using MySql.Data.MySqlClient;
 
 namespace Infrastructure.Data.Storage {
 
-	class MySqlHomegameStorage : IHomegameStorage{
+	public class MySqlHomegameStorage : IHomegameStorage
+    {
+	    private readonly IStorageProvider _storageProvider;
 
-	    public MySqlHomegameStorage()
+	    public MySqlHomegameStorage(IStorageProvider storageProvider)
 	    {
-	        var db = new MySql.Data.MySqlClient()
+	        _storageProvider = storageProvider;
 	    }
 
-		public function __construct(){
-			db = $db;
+		public List<Homegame> GetHomegames(){
+			var sql = GetHomegameBaseSql();
+			sql += "ORDER BY h.DisplayName";
+			return GetHomegamesFromSql(sql);
 		}
 
-		public static function className(){
-			return __CLASS__;
-		}
-
-		public List<Homegame> getHomegames(){
-			$sql = getHomegameBaseSql();
-			$sql .= "ORDER BY h.DisplayName";
-			return getHomegamesFromSql($sql);
-		}
-
-		public function getHomegamesByRole($token, $role){
-			$sql = getHomegameBaseSql();
-			$sql .= "INNER JOIN player p on h.HomegameID = p.HomegameID " .
-					"INNER JOIN user u on p.UserID = u.UserID " .
-					"WHERE u.Token = '{$token}' " .
-					"AND p.RoleID >= {$role} " .
+		public List<Homegame> GetHomegamesByRole(string token, int role){
+			var sql = GetHomegameBaseSql();
+			sql += "INNER JOIN player p on h.HomegameID = p.HomegameID " +
+					"INNER JOIN user u on p.UserID = u.UserID " +
+					"WHERE u.Token = '{0}' " +
+					"AND p.RoleID >= {1} " +
 					"ORDER BY h.Name";
-			return getHomegamesFromSql($sql);
+		    sql = string.Format(sql, token, role);
+			return GetHomegamesFromSql(sql);
 		}
 
-		public Homegame getHomegameByName($homegameName){
-			$sql = getHomegameBaseSql();
-			$sql .= "WHERE Name = '{$homegameName}'";
-			return getHomegameFromSql($sql);
+		public Homegame GetHomegameByName(string homegameName){
+			var sql = GetHomegameBaseSql();
+			sql += "WHERE Name = '{0}'";
+            sql = string.Format(sql, homegameName);
+			return GetHomegameFromSql(sql);
 		}
 
-		public RawHomegame getRawHomegameByName($homegameName){
-			$sql = getHomegameBaseSql();
-			$sql .= "WHERE Name = '{$homegameName}'";
-			return getRawHomegameFromSql($sql);
+		public RawHomegame GetRawHomegameByName(string homegameName){
+			var sql = GetHomegameBaseSql();
+			sql += "WHERE Name = '{0}'";
+            sql = string.Format(sql, homegameName);
+            return GetRawHomegameFromSql(sql);
 		}
 
-		public function getHomegameRole(Homegame $homegame, User $user){
-			$sql =	"SELECT p.RoleID " .
-					"FROM player p " .
-					"WHERE p.UserID = " . $user.getId() . " " .
-					"AND p.HomegameID = " . $homegame.getId();
-			return getRoleFromSql($sql);
+		public int GetHomegameRole(Homegame homegame, User user){
+			var sql =	"SELECT p.RoleID " +
+					"FROM player p " +
+					"WHERE p.UserID = {0} " +
+					"AND p.HomegameID = {1}";
+            sql = string.Format(sql, user.Id, homegame.Id);
+            return GetRoleFromSql(sql);
 		}
 
-		private function getHomegameBaseSql(){
-			$sql =	"SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules " .
-					"FROM homegame h ";
-			return $sql;
+		private string GetHomegameBaseSql()
+		{
+		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules " +
+		                       "FROM homegame h ";
 		}
 
-		private function getHomegameFromSql($sql){
-			$res = db.query($sql);
-			foreach($res.fetchAll() as $row){
-				return homegameFromDbRow($row);
-			}
+	    private Homegame GetHomegameFromSql(string sql){
+			var reader = _storageProvider.Query(sql);
+            while (reader.Read())
+            {
+                return HomegameFromDbRow(reader);
+            }
 			return null;
 		}
 
-		private function getRawHomegameFromSql($sql){
-			$res = db.query($sql);
-			foreach($res.fetchAll() as $row){
-				return rawHomegameFromDbRow($row);
-			}
+		private RawHomegame GetRawHomegameFromSql(string sql){
+			var reader = _storageProvider.Query(sql);
+            while (reader.Read())
+            {
+                return RawHomegameFromDbRow(reader);
+            }
 			return null;
 		}
 
-		private function getRoleFromSql($sql){
-			$res = db.query($sql);
-			$role = Role::$guest;
-			foreach($res.fetchAll() as $row){
-				$role = roleFromDbRow($row);
-				break;
-			}
-			return $role;
+		private int GetRoleFromSql(string sql){
+			var reader = _storageProvider.Query(sql);
+			while (reader.Read())
+            {
+                return RoleFromDbRow(reader);
+            }
+			return (int)Role.Guest;
 		}
 
-		private function getHomegamesFromSql($sql){
-			$res = db.query($sql);
-			$homegames = array();
-			foreach($res.fetchAll() as $row){
-				$homegames[] = homegameFromDbRow($row);
-			}
-			return $homegames;
+		private List<Homegame> GetHomegamesFromSql(string sql){
+            var reader = _storageProvider.Query(sql);
+		    var homegames = new List<Homegame>();
+            while (reader.Read())
+            {
+                homegames.Add(HomegameFromDbRow(reader));
+            }
+			return homegames;
 		}
 
-		public Homegame addHomegame(Homegame $homegame){
-			$currency = $homegame.getCurrency();
-			$sql =	"INSERT INTO homegame " .
-					"(Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) " .
-					"VALUES " .
-					"('{$homegame.getSlug()}', '{$homegame.getDisplayName()}', '{$homegame.getDescription()}', '{$currency.getSymbol()}', '{$currency.getLayout()}', '{$homegame.getTimezone().getName()}', 0, {db.boolToInt($homegame.cashgamesEnabled)}, {db.boolToInt($homegame.tournamentsEnabled)}, {db.boolToInt($homegame.videosEnabled)}, '{$homegame.getHouseRules()}')";
-			$rowCount = db.execute($sql);
-			$homegame.setId(db.getLatestInsertId($rowCount > 0));
-			return $homegame;
+		public Homegame AddHomegame(Homegame homegame){
+			var currency = homegame.Currency;
+			var sql =	"INSERT INTO homegame " +
+					"(Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) " +
+					"VALUES " +
+					"('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}')";
+		    sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, currency.Symbol,
+		                        currency.Layout, homegame.Timezone.Id, _storageProvider.BoolToInt(homegame.CashgamesEnabled),
+		                        _storageProvider.BoolToInt(homegame.TournamentsEnabled),
+		                        _storageProvider.BoolToInt(homegame.VideosEnabled), homegame.HouseRules);
+			var id = _storageProvider.ExecuteInsert(sql);
+			homegame.Id = id;
+			return homegame;
 		}
 
-		public bool updateHomegame(Homegame $homegame){
-			$currency = $homegame.getCurrency();
-			$sql =	"UPDATE homegame " .
-				"SET " .
-				"Name = '{$homegame.getSlug()}', " .
-				"DisplayName = '{$homegame.getDisplayName()}', " .
-				"Description = '{$homegame.getDescription()}', " .
-				"HouseRules = '{$homegame.getHouseRules()}', " .
-				"Currency = '{$currency.getSymbol()}', " .
-				"CurrencyLayout = '{$currency.getLayout()}', " .
-				"Timezone = '{$homegame.getTimezone().getName()}', " .
-				"DefaultBuyin = {$homegame.getDefaultBuyin()}, " .
-				"CashgamesEnabled = {db.boolToInt($homegame.cashgamesEnabled)}, " .
-				"TournamentsEnabled = {db.boolToInt($homegame.tournamentsEnabled)}, " .
-				"VideosEnabled = {db.boolToInt($homegame.videosEnabled)} " .
-				"WHERE HomegameID = {$homegame.getId()}";
-			$rowCount = db.execute($sql);
-			return $rowCount > 0;
+		public bool UpdateHomegame(Homegame homegame){
+			var currency = homegame.Currency;
+			var sql =	"UPDATE homegame " +
+				"SET " +
+				"Name = '{0}', " +
+				"DisplayName = '{1}', " +
+				"Description = '{2}', " +
+				"HouseRules = '{3}', " +
+				"Currency = '{4}', " +
+				"CurrencyLayout = '{5}', " +
+				"Timezone = '{6}', " +
+				"DefaultBuyin = {7}, " +
+				"CashgamesEnabled = {8}, " +
+				"TournamentsEnabled = {9}, " +
+				"VideosEnabled = {10} " +
+				"WHERE HomegameID = {11}";
+            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.HouseRules, currency.Symbol, currency.Layout, homegame.Timezone.Id, homegame.DefaultBuyin, _storageProvider.BoolToInt(homegame.CashgamesEnabled), _storageProvider.BoolToInt(homegame.TournamentsEnabled), _storageProvider.BoolToInt(homegame.VideosEnabled), homegame.Id);
+			var rowCount = _storageProvider.Execute(sql);
+			return rowCount > 0;
 		}
 
-		public bool deleteHomegame(Homegame $homegame){
-			$sql =	"DELETE FROM homegame " .
-					"WHERE Name = '{$homegame.getSlug()}'";
-			$rowCount = db.execute($sql);
-			return $rowCount > 0;
+		public bool DeleteHomegame(Homegame homegame){
+			var sql =	"DELETE FROM homegame " +
+					"WHERE Name = '{0}'";
+            sql = string.Format(sql, homegame.Slug);
+			var rowCount = _storageProvider.Execute(sql);
+			return rowCount > 0;
 		}
 
-		private function homegameFromDbRow($row){
-			$homegame = new Homegame();
-			$homegame.setId($row["HomegameID"]);
-			$homegame.setSlug($row["Name"]);
-			$homegame.setDisplayName($row["DisplayName"]);
-			$homegame.setDescription($row["Description"]);
-			$homegame.setHouseRules($row["HouseRules"]);
-			$homegame.setCurrency(new CurrencySettings($row["Currency"], $row["CurrencyLayout"]));
-			$homegame.setTimezone(new DateTimeZone($row["Timezone"]));
-			$homegame.setDefaultBuyin($row["DefaultBuyin"]);
-			$homegame.cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
-			$homegame.tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
-			$homegame.videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
-			return $homegame;
+		private Homegame HomegameFromDbRow(MySqlDataReader reader){
+			return new Homegame
+			    {
+			        Id = reader.GetInt32("HomegameID"),
+			        Slug = reader.GetString("Name"),
+			        DisplayName = reader.GetString("DisplayName"),
+			        Description = reader.GetString("Description"),
+			        HouseRules = reader.GetString("HouseRules"),
+			        Currency = new CurrencySettings(reader.GetString("Currency"), reader.GetString("CurrencyLayout")),
+			        Timezone = TimeZoneInfo.FindSystemTimeZoneById(reader.GetString("Timezone")),
+			        DefaultBuyin = reader.GetInt32("DefaultBuyin"),
+			        CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
+			        TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
+			        VideosEnabled = reader.GetBoolean("VideosEnabled")
+			    };
 		}
 
-		private function rawHomegameFromDbRow($row){
-			$homegame = new RawHomegame();
-			$homegame.setId($row["HomegameID"]);
-			$homegame.setSlug($row["Name"]);
-			$homegame.setDisplayName($row["DisplayName"]);
-			$homegame.setDescription($row["Description"]);
-			$homegame.setHouseRules($row["HouseRules"]);
-			$homegame.setCurrencyLayout($row["CurrencyLayout"]);
-			$homegame.setCurrencySymbol($row["Currency"]);
-			$homegame.setTimezoneName($row["Timezone"]);
-			$homegame.setDefaultBuyin($row["DefaultBuyin"]);
-			$homegame.cashgamesEnabled = $row["CashgamesEnabled"] == "1" ? true : false;
-			$homegame.tournamentsEnabled = $row["TournamentsEnabled"] == "1" ? true : false;
-			$homegame.videosEnabled = $row["VideosEnabled"] == "1" ? true : false;
-			return $homegame;
+		private RawHomegame RawHomegameFromDbRow(MySqlDataReader reader){
+			return new RawHomegame
+			    {
+			        Id = reader.GetInt32("HomegameID"),
+			        Slug = reader.GetString("Name"),
+			        DisplayName = reader.GetString("DisplayName"),
+			        Description = reader.GetString("Description"),
+			        HouseRules = reader.GetString("HouseRules"),
+			        CurrencyLayout = reader.GetString("CurrencyLayout"),
+			        CurrencySymbol = reader.GetString("Currency"),
+			        TimezoneName = reader.GetString("Timezone"),
+			        DefaultBuyin = reader.GetInt32("DefaultBuyin"),
+			        CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
+			        TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
+			        VideosEnabled = reader.GetBoolean("VideosEnabled")
+			    };
 		}
 
-		private function roleFromDbRow($row){
-			return $row["RoleID"];
+		private int RoleFromDbRow(MySqlDataReader reader){
+			return reader.GetInt32("RoleID");
 		}
 
 	}
 
 }
-*/

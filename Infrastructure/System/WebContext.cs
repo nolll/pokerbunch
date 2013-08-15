@@ -1,8 +1,7 @@
 using System.Web;
 
 namespace Infrastructure.System{
-
-	class WebContext : IWebContext{
+    public class WebContext : IWebContext{
 
 		public string GetCookie(string name)
 		{

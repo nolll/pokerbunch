@@ -14,10 +14,10 @@ namespace Infrastructure.Data.Storage.Interfaces {
 		int AddUser(User user);
 		bool DeleteUser(User user);
         string GetSalt(string userNameOrEmail);
-		void SetSalt(User user, string salt);
-		void SetEncryptedPassword(User user, string encryptedPassword);
+		bool SetSalt(User user, string salt);
+		bool SetEncryptedPassword(User user, string encryptedPassword);
 		string GetToken(User user);
-		void SetToken(User user, string token);
+		bool SetToken(User user, string token);
 
 	}
 

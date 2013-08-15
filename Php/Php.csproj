@@ -299,8 +299,6 @@
     <None Include="app\User\SaltGenerator.php" />
     <None Include="app\User\UniqueEmailValidator.php" />
     <None Include="app\User\UniqueUserNameValidator.php" />
-    <None Include="app\User\UserFactory.php" />
-    <None Include="app\User\UserFactoryImpl.php" />
     <None Include="app\User\UserValidatorFactory.php" />
     <None Include="app\User\UserValidatorFactoryImpl.php" />
     <None Include="app\Version.php" />
@@ -376,7 +374,6 @@
     <None Include="Infrastructure\Data\MySql\MySqlPlayerStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlUserStorage.php" />
     <None Include="Infrastructure\Data\MySql\PreparedStatement.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />

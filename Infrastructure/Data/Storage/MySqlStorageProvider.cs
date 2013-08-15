@@ -1,4 +1,4 @@
-/*
+using Infrastructure.Data.Storage.Interfaces;
 using MySql.Data.MySqlClient;
 
 namespace Infrastructure.Data.Storage {
@@ -19,18 +19,44 @@ namespace Infrastructure.Data.Storage {
 
 		public MySqlDataReader Query(string sql)
 		{
-		    var connection = GetConnection();
-		    var command = new MySqlCommand(sql, connection);
-		    return command.ExecuteReader();
+            using (var connection = GetConnection())
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    return command.ExecuteReader();
+                }    
+            }
 		}
 
-		public int Execute(string sql){
-			var connection = GetConnection();
-		    var command = new MySqlCommand(sql, connection);
-		    return command.ExecuteNonQuery();
-		}
+        public int Execute(string sql)
+        {
+            using (var connection = GetConnection())
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
 
-		public function executePrepared($preparedSql){
+        public int ExecuteInsert(string sql)
+        {
+            using (var connection = GetConnection())
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.ExecuteNonQuery();
+                    return (int)command.LastInsertedId;
+                }
+            }
+        }
+
+        public int BoolToInt(bool boolean){
+			return boolean ? 1 : 0;
+		}
+        
+        /*
+        public function executePrepared($preparedSql){
 			$stmt = conn.prepare($preparedSql);
 			$params = array();
 			$numArgs = func_num_args();
@@ -58,15 +84,11 @@ namespace Infrastructure.Data.Storage {
 					$password != null;
 		}
 
-		public int boolToInt($bool){
-			return $bool ? 1 : 0;
-		}
-
 		public function __destruct(){
 			conn = null;
 		}
+        */
 
 	}
 
 }
-*/
