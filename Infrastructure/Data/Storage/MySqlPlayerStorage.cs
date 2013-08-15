@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using Core.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
@@ -108,12 +109,12 @@ namespace Infrastructure.Data.Storage {
 			return players;
 		}
 
-		private Player PlayerFromDbRow(MySqlDataReader reader)
+		private Player PlayerFromDbRow(IDataReader reader)
 		{
-		    var displayName = reader.GetString("DisplayName");
-            var role = reader.GetInt32("RoleID");
-            var userName = reader.GetString("UserName");
-            var playerId = reader.GetInt32("PlayerID");
+		    var displayName = reader.GetString(reader.GetOrdinal("DisplayName"));
+            var role = reader.GetInt32(reader.GetOrdinal("RoleID"));
+            var userName = reader.GetString(reader.GetOrdinal("UserName"));
+            var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
 			return _playerFactory.Create(displayName, (Role)role, userName, playerId);
 		}
 

@@ -33,6 +33,7 @@ namespace Web.Plumbing
             // Core Factories
             container.Register(Component.For<IUserFactory>().ImplementedBy<UserFactory>());
             container.Register(Component.For<ICashgameFactory>().ImplementedBy<CashgameFactory>());
+            container.Register(Component.For<IPlayerFactory>().ImplementedBy<PlayerFactory>());
             container.Register(Component.For<ICashgameResultFactory>().ImplementedBy<CashgameResultFactory>());
             container.Register(Component.For<ICashgameTotalResultFactory>().ImplementedBy<CashgameTotalResultFactory>());
             container.Register(Component.For<ICashgameSuiteFactory>().ImplementedBy<CashgameSuiteFactory>());

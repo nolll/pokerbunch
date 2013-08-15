@@ -1,3 +1,4 @@
+using System.Data;
 using Infrastructure.Data.Storage.Interfaces;
 using MySql.Data.MySqlClient;
 
@@ -9,7 +10,7 @@ namespace Infrastructure.Data.Storage {
 
 		public MySqlStorageProvider()
 		{
-		    _connectionString = "server=localhost;user=root;database=world;port=3306;password=******;";
+            _connectionString = "server=127.0.0.1;user=homegame;database=homegamemanager;port=3306;password=bobb12br;";
 		}
 
         private MySqlConnection GetConnection()
@@ -17,14 +18,18 @@ namespace Infrastructure.Data.Storage {
             return new MySqlConnection(_connectionString);
         }
 
-		public MySqlDataReader Query(string sql)
+		public IDataReader Query(string sql)
 		{
             using (var connection = GetConnection())
             {
+                connection.Open();
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    return command.ExecuteReader();
-                }    
+                    var mySqlReader = command.ExecuteReader();
+                    var dt = new DataTable();
+                    dt.Load(mySqlReader);
+                    return dt.CreateDataReader();
+                }
             }
 		}
 
@@ -32,6 +37,7 @@ namespace Infrastructure.Data.Storage {
         {
             using (var connection = GetConnection())
             {
+                connection.Open();
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     return command.ExecuteNonQuery();
@@ -43,6 +49,7 @@ namespace Infrastructure.Data.Storage {
         {
             using (var connection = GetConnection())
             {
+                connection.Open();
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.ExecuteNonQuery();

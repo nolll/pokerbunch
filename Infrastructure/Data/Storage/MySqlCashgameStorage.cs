@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
@@ -99,7 +100,7 @@ namespace Infrastructure.Data.Storage {
 			return GetGamesFromDbResult(homegame, reader);
 		}
 
-		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, MySqlDataReader reader){
+		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, IDataReader reader){
 			var cashgames = new List<RawCashgame>();
 			RawCashgame currentGame = null;
 			int currentGameId = -1;
@@ -107,7 +108,7 @@ namespace Infrastructure.Data.Storage {
 			int currentPlayerId = -1;
 			while(reader.Read())
 			{
-			    var gameId = reader.GetInt32("GameID");
+			    var gameId = reader.GetInt32(reader.GetOrdinal("GameID"));
 				if(gameId != currentGameId){
 					currentGame = RawCashgameFromDbRow(reader);
 					currentGameId = currentGame.Id;
@@ -115,7 +116,7 @@ namespace Infrastructure.Data.Storage {
 					currentResult = null;
 					currentPlayerId = -1;
 				}
-			    var playerId = reader.GetInt32("PlayerID");
+			    var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
 				if(playerId != currentPlayerId){
 					if(playerId != 0){ // this was a null-check in the php site
 						currentResult = RawCashgameResultFromDbRow(reader);
@@ -123,7 +124,7 @@ namespace Infrastructure.Data.Storage {
 						currentGame.AddResult(currentResult);
 					}
 				}
-			    var checkpointId = reader.GetInt32("CheckpointID");
+			    var checkpointId = reader.GetInt32(reader.GetOrdinal("CheckpointID"));
 				if(checkpointId != 0){ // this was a null-check in the php site
 					var checkpoint = CheckpointFromDbRow(reader, homegame.Timezone);
 					currentResult.AddCheckpoint(checkpoint);
@@ -143,7 +144,7 @@ namespace Infrastructure.Data.Storage {
 			var reader = _storageProvider.Query(sql);
 			var years = new List<int>();
 			while(reader.Read()){
-				years.Add(reader.GetInt32("Year"));
+				years.Add(reader.GetInt32(reader.GetOrdinal("Year")));
 			}
 			return years;
 		}
@@ -174,35 +175,35 @@ namespace Infrastructure.Data.Storage {
 			var reader = _storageProvider.Query(sql);
 			var locations = new List<string>();
 			while(reader.Read()){
-				locations.Add(reader.GetString("Location"));
+				locations.Add(reader.GetString(reader.GetOrdinal("Location")));
 			}
 			return locations;
 		}
 
-		private RawCashgame RawCashgameFromDbRow(MySqlDataReader reader){
-			var id = reader.GetInt32("GameID");
-		    var location = reader.GetString("Location");
+		private RawCashgame RawCashgameFromDbRow(IDataReader reader){
+			var id = reader.GetInt32(reader.GetOrdinal("GameID"));
+		    var location = reader.GetString(reader.GetOrdinal("Location"));
             if (location == "")
             {
                 location = null;
             }
-			var status = reader.GetInt32("Status");
-			var date = reader.GetString("Date");
+			var status = reader.GetInt32(reader.GetOrdinal("Status"));
+			var date = reader.GetString(reader.GetOrdinal("Date"));
 			return new RawCashgame(id, location, (GameStatus)status, date);
 		}
 
-		private RawCashgameResult RawCashgameResultFromDbRow(MySqlDataReader reader){
-			var playerId = reader.GetInt32("PlayerID");
+		private RawCashgameResult RawCashgameResultFromDbRow(IDataReader reader){
+			var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
 			return new RawCashgameResult(playerId);
 		}
 
-		private Checkpoint CheckpointFromDbRow(MySqlDataReader reader, TimeZoneInfo timezone)
+		private Checkpoint CheckpointFromDbRow(IDataReader reader, TimeZoneInfo timezone)
 		{
-		    var id = reader.GetInt32("CheckpointID");
-			var type = reader.GetInt32("Type");
-			var amount = reader.GetInt32("Amount");
-			var stack = reader.GetInt32("Stack");
-		    var timestamp = reader.GetDateTime("TimeStamp");
+            var id = reader.GetInt32(reader.GetOrdinal("CheckpointID"));
+			var type = reader.GetInt32(reader.GetOrdinal("Type"));
+			var amount = reader.GetInt32(reader.GetOrdinal("Amount"));
+			var stack = reader.GetInt32(reader.GetOrdinal("Stack"));
+		    var timestamp = reader.GetDateTime(reader.GetOrdinal("TimeStamp"));
 		    //todo: adjust for timezone
 			var checkpoint = CreateCheckpoint(type, timestamp, stack, amount);
 			checkpoint.Id = id;

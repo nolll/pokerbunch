@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using Core.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
@@ -105,7 +106,7 @@ namespace Infrastructure.Data.Storage {
             sql = string.Format(sql, userNameOrEmail);
             var reader = _storageProvider.Query(sql);
 			while(reader.Read()){
-				return reader.GetString("Salt");
+				return reader.GetString(reader.GetOrdinal("Salt"));
 			}
 			return "";
 		}
@@ -147,18 +148,18 @@ namespace Infrastructure.Data.Storage {
 			var reader = _storageProvider.Query(sql);
 			while(reader.Read())
 			{
-			    return reader.GetString("Token");
+			    return reader.GetString(reader.GetOrdinal("Token"));
 			}
 			return null;
 		}
 
-		public User UserFromDbRow(MySqlDataReader reader){
-			var id = reader.GetInt32("UserID");
-            var userName = reader.GetString("UserName");
-			var displayName = reader.GetString("DisplayName");
-			var realName = reader.GetString("RealName");
-			var email = reader.GetString("Email");
-			var globalRole = (Role)reader.GetInt32("RoleID");
+        private User UserFromDbRow(IDataReader reader){
+			var id = reader.GetInt32(reader.GetOrdinal("UserID"));
+            var userName = reader.GetString(reader.GetOrdinal("UserName"));
+			var displayName = reader.GetString(reader.GetOrdinal("DisplayName"));
+			var realName = reader.GetString(reader.GetOrdinal("RealName"));
+			var email = reader.GetString(reader.GetOrdinal("Email"));
+			var globalRole = (Role)reader.GetInt32(reader.GetOrdinal("RoleID"));
 			return _userFactory.Create(id, userName, displayName, realName, email, globalRole);
 		}
 

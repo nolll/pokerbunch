@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
@@ -143,43 +144,43 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-		private Homegame HomegameFromDbRow(MySqlDataReader reader){
+		private Homegame HomegameFromDbRow(IDataReader reader){
 			return new Homegame
 			    {
-			        Id = reader.GetInt32("HomegameID"),
-			        Slug = reader.GetString("Name"),
-			        DisplayName = reader.GetString("DisplayName"),
-			        Description = reader.GetString("Description"),
-			        HouseRules = reader.GetString("HouseRules"),
-			        Currency = new CurrencySettings(reader.GetString("Currency"), reader.GetString("CurrencyLayout")),
-			        Timezone = TimeZoneInfo.FindSystemTimeZoneById(reader.GetString("Timezone")),
-			        DefaultBuyin = reader.GetInt32("DefaultBuyin"),
-			        CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
-			        TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
-			        VideosEnabled = reader.GetBoolean("VideosEnabled")
+			        Id = reader.GetInt32(reader.GetOrdinal("HomegameID")),
+			        Slug = reader.GetString(reader.GetOrdinal("Name")),
+			        DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+			        Description = reader.GetString(reader.GetOrdinal("Description")),
+			        HouseRules = reader.GetString(reader.GetOrdinal("HouseRules")),
+			        Currency = new CurrencySettings(reader.GetString(reader.GetOrdinal("Currency")), reader.GetString(reader.GetOrdinal("CurrencyLayout"))),
+			        Timezone = TimeZoneInfo.FindSystemTimeZoneById(reader.GetString(reader.GetOrdinal("Timezone"))),
+			        DefaultBuyin = reader.GetInt32(reader.GetOrdinal("DefaultBuyin")),
+			        CashgamesEnabled = reader.GetBoolean(reader.GetOrdinal("CashgamesEnabled")),
+			        TournamentsEnabled = reader.GetBoolean(reader.GetOrdinal("TournamentsEnabled")),
+			        VideosEnabled = reader.GetBoolean(reader.GetOrdinal("VideosEnabled"))
 			    };
 		}
 
-		private RawHomegame RawHomegameFromDbRow(MySqlDataReader reader){
+		private RawHomegame RawHomegameFromDbRow(IDataReader reader){
 			return new RawHomegame
 			    {
-			        Id = reader.GetInt32("HomegameID"),
-			        Slug = reader.GetString("Name"),
-			        DisplayName = reader.GetString("DisplayName"),
-			        Description = reader.GetString("Description"),
-			        HouseRules = reader.GetString("HouseRules"),
-			        CurrencyLayout = reader.GetString("CurrencyLayout"),
-			        CurrencySymbol = reader.GetString("Currency"),
-			        TimezoneName = reader.GetString("Timezone"),
-			        DefaultBuyin = reader.GetInt32("DefaultBuyin"),
-			        CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
-			        TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
-			        VideosEnabled = reader.GetBoolean("VideosEnabled")
+			        Id = reader.GetInt32(reader.GetOrdinal("HomegameID")),
+			        Slug = reader.GetString(reader.GetOrdinal("Name")),
+			        DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+			        Description = reader.GetString(reader.GetOrdinal("Description")),
+			        HouseRules = reader.GetString(reader.GetOrdinal("HouseRules")),
+			        CurrencyLayout = reader.GetString(reader.GetOrdinal("CurrencyLayout")),
+			        CurrencySymbol = reader.GetString(reader.GetOrdinal("Currency")),
+			        TimezoneName = reader.GetString(reader.GetOrdinal("Timezone")),
+			        DefaultBuyin = reader.GetInt32(reader.GetOrdinal("DefaultBuyin")),
+			        CashgamesEnabled = reader.GetBoolean(reader.GetOrdinal("CashgamesEnabled")),
+			        TournamentsEnabled = reader.GetBoolean(reader.GetOrdinal("TournamentsEnabled")),
+                    VideosEnabled = reader.GetBoolean(reader.GetOrdinal("VideosEnabled"))
 			    };
 		}
 
-		private int RoleFromDbRow(MySqlDataReader reader){
-			return reader.GetInt32("RoleID");
+		private int RoleFromDbRow(IDataReader reader){
+			return reader.GetInt32(reader.GetOrdinal("RoleID"));
 		}
 
 	}
