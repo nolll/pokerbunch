@@ -20,6 +20,11 @@ namespace Web.Models{
 			ValidationErrors = errors;
 		}
 
+	    public virtual string BrowserTitle
+	    {
+            get { return "Poker Bunch"; }
+	    }
+
 	}
 
 }

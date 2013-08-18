@@ -1,18 +1,31 @@
 ﻿@model Web.Models.HomeModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/Layouts/Page.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title>Poker Bunch</title>
-    </head>
-    <body>
-        <div>
-              Poker Bunch
-        </div>
-    </body>
-</html>
+<div class="block gutter">
+	<h1>This is Poker Bunch</h1>
+</div>
+<div class="block gutter">
+    @if (Model.IsLoggedIn)
+    {
+        <p>
+            Poker Bunch helps you keep track of the results in your poker homegames.
+            Please select one of your bunches, or <a href="@Model.AddHomegameUrl.Url">create a new bunch</a>.
+        </p>
+        <p>
+            If you want to join an existing bunch, you will need an invitation from the bunch manager.
+        </p>
+    }
+    else
+    {
+        <p>
+            Poker Bunch helps you keep track of the results in your poker homegames.
+        </p>
+        <p>
+            <a href="@Model.LoginUrl.Url">Sign in</a> if you already have an account, or <a href="@Model.RegisterUrl.Url">register</a> to create a bunch and begin inviting players.
+        </p>
+    }
+    @*{partial view='core\Navigation\Navigation' model=$model->adminNav}*@
+</div>
