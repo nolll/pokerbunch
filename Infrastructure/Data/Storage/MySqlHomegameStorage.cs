@@ -136,10 +136,10 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-		public bool DeleteHomegame(Homegame homegame){
+		public bool DeleteHomegame(string slug){
 			var sql =	"DELETE FROM homegame " +
 					"WHERE Name = '{0}'";
-            sql = string.Format(sql, homegame.Slug);
+            sql = string.Format(sql, slug);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}

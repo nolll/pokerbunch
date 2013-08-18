@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Storage.Interfaces {
         RawHomegame GetRawHomegameByName(string name);
 		Homegame AddHomegame(Homegame homegame);
 		bool UpdateHomegame(Homegame homegame);
-		bool DeleteHomegame(Homegame homegame);
+		bool DeleteHomegame(string slug);
 
 	}
 

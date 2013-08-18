@@ -2,7 +2,7 @@ namespace Web.Routing{
 
 	public class RouteFormats{
 
-        //const home = '/';
+        public const string Home = "/";
 
         public const string AuthLogin = "/-/auth/login";
         public const string AuthLogout = "/-/auth/logout";

@@ -46,8 +46,6 @@
     <None Include="app\ApplicationModule.php" />
     <None Include="app\ApplicationRouteProvider.php" />
     <None Include="app\AppParamParser.php" />
-    <None Include="app\Auth\AuthController.php" />
-    <None Include="app\Auth\AuthLoginModel.php" />
     <None Include="app\Auth\Login.tpl" />
     <None Include="app\Cashgame\Action\Action.tpl" />
     <None Include="app\Cashgame\Action\ActionChartData.php" />
@@ -252,7 +250,6 @@
     <None Include="app\Urls\HomegameEditUrlModel.php" />
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
-    <None Include="app\Urls\HomeUrlModel.php" />
     <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerAddUrlModel.php" />
     <None Include="app\Urls\PlayerDeleteUrlModel.php" />
@@ -282,8 +279,6 @@
     <None Include="app\User\Edit\Edit.tpl" />
     <None Include="app\User\Edit\UserEditController.php" />
     <None Include="app\User\Edit\UserEditModel.php" />
-    <None Include="app\User\Encryption.php" />
-    <None Include="app\User\EncryptionImpl.php" />
     <None Include="app\User\ForgotPassword\Confirmation.tpl" />
     <None Include="app\User\ForgotPassword\ForgotPasswordController.php" />
     <None Include="app\User\ForgotPassword\Form.tpl" />
@@ -299,8 +294,6 @@
     <None Include="app\User\SaltGenerator.php" />
     <None Include="app\User\UniqueEmailValidator.php" />
     <None Include="app\User\UniqueUserNameValidator.php" />
-    <None Include="app\User\UserValidatorFactory.php" />
-    <None Include="app\User\UserValidatorFactoryImpl.php" />
     <None Include="app\Version.php" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
@@ -354,17 +347,11 @@
     <None Include="core\ui\font\fontawesome-webfont.woff" />
     <None Include="core\ui\font\FontAwesome.otf" />
     <None Include="core\Util.php" />
-    <None Include="core\Validation\BaseValidator.php" />
-    <None Include="core\Validation\CompositeValidator.php" />
     <None Include="core\Validation\DateTimeValidator.php" />
     <None Include="core\Validation\EmailValidator.php" />
     <None Include="core\Validation\IntegerValidator.php" />
     <None Include="core\Validation\NotNullValidator.php" />
     <None Include="core\Validation\PositiveNumberValidator.php" />
-    <None Include="core\Validation\RequiredValidator.php" />
-    <None Include="core\Validation\SimpleValidator.php" />
-    <None Include="core\Validation\SingleValidator.php" />
-    <None Include="core\Validation\Validator.php" />
     <None Include="core\Validation\ValidatorFake.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="exceptions\UserNotFoundException.php" />

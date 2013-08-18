@@ -284,6 +284,41 @@
   <ItemGroup>
     <Content Include="Views\Layouts\Page.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AuthController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\Interfaces\IUserValidatorFactory.cs" />
+    <Compile Include="Validators\UserValidatorFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\NotNullValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\SingleValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\Interfaces\Validator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\CompositeValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\RequiredValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Validators\SimpleValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Url\HomeUrlModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AuthLoginModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\Login.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
