@@ -316,7 +316,6 @@
     <None Include="core\FormFields\SelectFieldModel.php" />
     <None Include="core\FormFields\TimezoneFieldModel.php" />
     <None Include="core\HomegameControllerDefinition.php" />
-    <None Include="core\Navigation\Navigation.tpl" />
     <None Include="core\PageController.php" />
     <None Include="core\ui\css\sass\style.scss" />
     <None Include="core\ui\css\sass\tests.scss" />

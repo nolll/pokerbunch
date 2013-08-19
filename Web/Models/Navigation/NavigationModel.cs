@@ -6,7 +6,7 @@ namespace Web.Models.Navigation{
 
 	    public string Heading { get; set; }
 	    public string HeadingLink { get; set; }
-	    public string HeadingIsLinked { get; set; }
+	    public bool HeadingIsLinked { get; set; }
 	    public List<NavigationNode> Nodes { get; set; }
 	    public string CssClass { get; set; }
 	    public string DataRequire { get; set; }

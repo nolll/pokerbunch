@@ -15,6 +15,11 @@ namespace Web.Models.Navigation{
 	        Selected = selected;
 	    }
 
+	    public string CssClass
+	    {
+	        get { return Selected ? "selected" : null; }
+	    }
+
 	}
 
 }
