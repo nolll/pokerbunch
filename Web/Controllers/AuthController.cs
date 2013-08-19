@@ -28,20 +28,16 @@ namespace Web.Controllers{
 			return ShowForm();
 		}
 
-		public ActionResult LoginPost(){
-            var loginName = _webContext.GetPostParam("ln");
-            var password = _webContext.GetPostParam("pw");
-
-			var user = GetLoggedInUser(loginName, password);
+        [HttpPost]
+		public ActionResult Login(AuthLoginModel loginModel){
+			var user = GetLoggedInUser(loginModel.LoginName, loginModel.Password);
 
 			var validator = _userValidatorFactory.GetLoginValidator(user);
 			if(validator.IsValid()){
-				var remember = _webContext.GetPostParam("remember") != null;
-				var returnUrl = _webContext.GetPostParam("return");
-				SetCookies(user, remember);
-				return new RedirectResult(GetReturnUrl(returnUrl).Url);
+				SetCookies(user, loginModel.RememberMe);
+                return new RedirectResult(GetReturnUrl(loginModel.ReturnUrl).Url);
 			}
-            return ShowForm(loginName, validator.GetErrors());
+            return ShowForm(loginModel.LoginName, validator.GetErrors());
 		}
 
 		private User GetLoggedInUser(string loginName, string password){
@@ -57,7 +53,8 @@ namespace Web.Controllers{
 
 		public ActionResult ShowForm(string loginName = null, List<string> validationErrors = null){
 			var returnUrl = _webContext.GetQueryParam("return");
-			var model = new AuthLoginModel(returnUrl, loginName);
+		    var viewModelFactory = new AuthLoginViewModelFactory();
+			var model = viewModelFactory.Create(returnUrl, loginName);
 			if(validationErrors != null){
 				model.SetValidationErrors(validationErrors);
 			}
@@ -95,4 +92,17 @@ namespace Web.Controllers{
 
 	}
 
+    public class AuthLoginViewModelFactory
+    {
+        public AuthLoginModel Create(string returnUrl, string loginName)
+        {
+            return new AuthLoginModel
+                {
+                    ReturnUrl = returnUrl ?? new HomeUrlModel().Url,
+                    AddUserUrl = new UserAddUrlModel(),
+			        ForgotPasswordUrl = new ForgotPasswordUrlModel(),
+                    LoginName = loginName
+                };
+        }
+    }
 }

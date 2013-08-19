@@ -5,5 +5,38 @@
 }
 
 <div class="block gutter">
-	<h1>Login</h1>
+	<h1>Sign in</h1>
+</div>
+<div class="block gutter">
+
+	<p>
+		Please sign in using your username and password. <a href="@Model.ForgotPasswordUrl">Forgot password?</a>
+	</p>
+	<p>
+		If you are a new user, please <a href="@Model.AddUserUrl">register</a>!
+	</p>
+
+	@*{partial view='app\Site\Errors' model=$model->validationErrors}*@
+    
+    @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.ReturnUrl)
+        <fieldset>
+            <p>
+                @Html.LabelFor(model => model.LoginName, "Email or User Name")
+                @Html.TextBoxFor(model => model.LoginName, new { @class = "textfield", autocapitalize = "off" })
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Password, "Password")
+                @Html.PasswordFor(model => model.Password, new { @class = "textfield" })
+            </p>
+            <p class="checkbox-layout">
+                @Html.LabelFor(model => model.RememberMe, "Keep me signed in", new { @class = "checkbox-label" })
+                @Html.CheckBoxFor(model => model.RememberMe)
+            </p>
+        </fieldset>
+        <div class="buttons">
+            <button type="submit" class="action">Sign in</button>
+        </div>
+    }
 </div>

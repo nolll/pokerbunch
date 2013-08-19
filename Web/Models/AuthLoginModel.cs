@@ -8,18 +8,12 @@ namespace Web.Models{
 	    public UserAddUrlModel AddUserUrl { get; set; }
 	    public ForgotPasswordUrlModel ForgotPasswordUrl { get; set; }
 	    public string LoginName { get; set; }
+        public string Password { get; set; }
+	    public bool RememberMe { get; set; }
 
-        public AuthLoginModel(string returnUrl, string loginName) : base(null)
+        public AuthLoginModel() : base(null)
 	    {
-			ReturnUrl = returnUrl;
-			if(ReturnUrl == null){
-				ReturnUrl = new HomeUrlModel().Url;
-			}
-			AddUserUrl = new UserAddUrlModel();
-			ForgotPasswordUrl = new ForgotPasswordUrlModel();
-			if(loginName != null){
-				LoginName = loginName;
-			}
+			
 	    }
 
 	}

@@ -9,6 +9,11 @@ namespace Web.Models.Url{
 	        Url = url;
 	    }
 
+        public override string ToString()
+        {
+            return Url;
+        }
+
 	}
 
 }
