@@ -8,9 +8,9 @@ using Web.Models;
 using Web.Models.Url;
 using Web.Validators;
 
-namespace app{
+namespace Web.Controllers{
 
-	class AuthController : Controller {
+	public class AuthController : Controller {
 	    private readonly IUserStorage _userStorage;
 	    private readonly IEncryptionService _encryptionService;
 	    private readonly IUserValidatorFactory _userValidatorFactory;
@@ -24,12 +24,10 @@ namespace app{
 	        _webContext = webContext;
 	    }
 
-	    [HttpGet]
 		public ActionResult Login(){
 			return ShowForm();
 		}
 
-        [HttpPost]
 		public ActionResult LoginPost(){
             var loginName = _webContext.GetPostParam("ln");
             var password = _webContext.GetPostParam("pw");
@@ -42,9 +40,8 @@ namespace app{
 				var returnUrl = _webContext.GetPostParam("return");
 				SetCookies(user, remember);
 				return new RedirectResult(GetReturnUrl(returnUrl).Url);
-			} else {
-				return ShowForm(loginName, validator.GetErrors());
 			}
+            return ShowForm(loginName, validator.GetErrors());
 		}
 
 		private User GetLoggedInUser(string loginName, string password){

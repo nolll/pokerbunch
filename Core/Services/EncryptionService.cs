@@ -4,8 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace Core.Services{
-
-	class EncryptionService : IEncryptionService{
+    public class EncryptionService : IEncryptionService{
 
 		public string Encrypt(string str, string salt)
 		{

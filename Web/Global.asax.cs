@@ -23,10 +23,15 @@ namespace Web
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RegisterRoutes(RouteTable.Routes);
 
             BootstrapContainer();
             ObjectFactory.RegisterTypes(_windsorContainer);
+        }
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            RouteConfig.RegisterRoutes(routes);
         }
 
         private static void BootstrapContainer()

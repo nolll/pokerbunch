@@ -1,12 +1,14 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories;
+using Web.Validators;
 
 namespace Web.Plumbing
 {
@@ -14,6 +16,9 @@ namespace Web.Plumbing
     {
         public static void RegisterTypes(IWindsorContainer container)
         {
+            // Services
+            container.Register(Component.For<IEncryptionService>().ImplementedBy<EncryptionService>());
+
             // Repositories
             container.Register(Component.For<IHomegameRepository>().ImplementedBy<HomegameRepository>());
             container.Register(Component.For<ICashgameRepository>().ImplementedBy<CashgameRepository>());
@@ -40,6 +45,9 @@ namespace Web.Plumbing
 
             // Model Factories
             container.Register(Component.For<IHomeModelFactory>().ImplementedBy<HomeModelFactory>());
+
+            // Validator Factories
+            container.Register(Component.For<IUserValidatorFactory>().ImplementedBy<UserValidatorFactory>());
         }
     }
 }
