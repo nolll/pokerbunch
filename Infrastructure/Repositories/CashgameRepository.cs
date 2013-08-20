@@ -163,8 +163,7 @@ namespace Infrastructure.Repositories {
 			if(!date.HasValue){
 				date = _timeProvider.GetTime();
 			}
-			var dateStr = Globalization.FormatIsoDate(date.Value);
-			return new RawCashgame(id, location, status.Value, dateStr);
+			return new RawCashgame(id, location, status.Value, date.Value);
 		}
  
 	}

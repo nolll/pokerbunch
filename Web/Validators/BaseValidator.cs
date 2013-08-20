@@ -24,8 +24,7 @@ namespace Web.Validators{
 
 		abstract protected void Validate();
 
-        public abstract bool IsValid();
-
+	    public abstract bool IsValid { get; }
 	}
 
 }

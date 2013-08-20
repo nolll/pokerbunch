@@ -109,12 +109,12 @@ namespace Infrastructure.Data.Storage {
 			return players;
 		}
 
-		private Player PlayerFromDbRow(IDataReader reader)
+		private Player PlayerFromDbRow(StorageDataReader reader)
 		{
-		    var displayName = reader.GetString(reader.GetOrdinal("DisplayName"));
-            var role = reader.GetInt32(reader.GetOrdinal("RoleID"));
-            var userName = reader.GetString(reader.GetOrdinal("UserName"));
-            var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
+		    var displayName = reader.GetString("DisplayName");
+            var role = reader.GetInt("RoleID");
+            var userName = reader.GetString("UserName");
+            var playerId = reader.GetInt("PlayerID");
 			return _playerFactory.Create(displayName, (Role)role, userName, playerId);
 		}
 

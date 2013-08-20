@@ -48,9 +48,10 @@ namespace Infrastructure.Data.Storage {
 		public bool UpdateCheckpoint(Checkpoint checkpoint){
 			var sql =	"UPDATE cashgamecheckpoint " +
 					"SET " +
-					"Amount = {$checkpoint.getAmount()}, " +
-					"Stack = {$checkpoint.getStack()} " +
-					"WHERE CheckpointID = {$checkpoint.getId()}";
+					"Amount = {0}, " +
+					"Stack = {1} " +
+					"WHERE CheckpointID = {2}";
+		    sql = string.Format(sql, checkpoint.Amount, checkpoint.Stack, checkpoint.Id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
@@ -100,7 +101,7 @@ namespace Infrastructure.Data.Storage {
 			return GetGamesFromDbResult(homegame, reader);
 		}
 
-		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, IDataReader reader){
+		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, StorageDataReader reader){
 			var cashgames = new List<RawCashgame>();
 			RawCashgame currentGame = null;
 			int currentGameId = -1;
@@ -108,7 +109,7 @@ namespace Infrastructure.Data.Storage {
 			int currentPlayerId = -1;
 			while(reader.Read())
 			{
-			    var gameId = reader.GetInt32(reader.GetOrdinal("GameID"));
+			    var gameId = reader.GetInt("GameID");
 				if(gameId != currentGameId){
 					currentGame = RawCashgameFromDbRow(reader);
 					currentGameId = currentGame.Id;
@@ -116,7 +117,7 @@ namespace Infrastructure.Data.Storage {
 					currentResult = null;
 					currentPlayerId = -1;
 				}
-			    var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
+			    var playerId = reader.GetInt("PlayerID");
 				if(playerId != currentPlayerId){
 					if(playerId != 0){ // this was a null-check in the php site
 						currentResult = RawCashgameResultFromDbRow(reader);
@@ -124,7 +125,7 @@ namespace Infrastructure.Data.Storage {
 						currentGame.AddResult(currentResult);
 					}
 				}
-			    var checkpointId = reader.GetInt32(reader.GetOrdinal("CheckpointID"));
+			    var checkpointId = reader.GetInt("CheckpointID");
 				if(checkpointId != 0){ // this was a null-check in the php site
 					var checkpoint = CheckpointFromDbRow(reader, homegame.Timezone);
 					currentResult.AddCheckpoint(checkpoint);
@@ -144,7 +145,7 @@ namespace Infrastructure.Data.Storage {
 			var reader = _storageProvider.Query(sql);
 			var years = new List<int>();
 			while(reader.Read()){
-				years.Add(reader.GetInt32(reader.GetOrdinal("Year")));
+				years.Add(reader.GetInt("Year"));
 			}
 			return years;
 		}
@@ -169,41 +170,42 @@ namespace Infrastructure.Data.Storage {
 			var sql =	"SELECT DISTINCT g.Location " +
 					"FROM game g " +
 					"LEFT JOIN homegame h ON g.HomegameID = h.HomegameID " +
-					"WHERE Name = '{$homegame.getSlug()}' " +
+					"WHERE Name = '{0}' " +
 					"AND g.Location <> '' " +
 					"ORDER BY g.Location";
+		    sql = string.Format(sql, homegame.Slug);
 			var reader = _storageProvider.Query(sql);
 			var locations = new List<string>();
 			while(reader.Read()){
-				locations.Add(reader.GetString(reader.GetOrdinal("Location")));
+				locations.Add(reader.GetString("Location"));
 			}
 			return locations;
 		}
 
-		private RawCashgame RawCashgameFromDbRow(IDataReader reader){
-			var id = reader.GetInt32(reader.GetOrdinal("GameID"));
-		    var location = reader.GetString(reader.GetOrdinal("Location"));
+		private RawCashgame RawCashgameFromDbRow(StorageDataReader reader){
+			var id = reader.GetInt("GameID");
+		    var location = reader.GetString("Location");
             if (location == "")
             {
                 location = null;
             }
-			var status = reader.GetInt32(reader.GetOrdinal("Status"));
-			var date = reader.GetString(reader.GetOrdinal("Date"));
+			var status = reader.GetInt("Status");
+			var date = reader.GetDateTime("Date");
 			return new RawCashgame(id, location, (GameStatus)status, date);
 		}
 
-		private RawCashgameResult RawCashgameResultFromDbRow(IDataReader reader){
-			var playerId = reader.GetInt32(reader.GetOrdinal("PlayerID"));
+		private RawCashgameResult RawCashgameResultFromDbRow(StorageDataReader reader){
+			var playerId = reader.GetInt("PlayerID");
 			return new RawCashgameResult(playerId);
 		}
 
-		private Checkpoint CheckpointFromDbRow(IDataReader reader, TimeZoneInfo timezone)
+		private Checkpoint CheckpointFromDbRow(StorageDataReader reader, TimeZoneInfo timezone)
 		{
-            var id = reader.GetInt32(reader.GetOrdinal("CheckpointID"));
-			var type = reader.GetInt32(reader.GetOrdinal("Type"));
-			var amount = reader.GetInt32(reader.GetOrdinal("Amount"));
-			var stack = reader.GetInt32(reader.GetOrdinal("Stack"));
-		    var timestamp = reader.GetDateTime(reader.GetOrdinal("TimeStamp"));
+            var id = reader.GetInt("CheckpointID");
+			var type = reader.GetInt("Type");
+			var amount = reader.GetInt("Amount");
+			var stack = reader.GetInt("Stack");
+		    var timestamp = reader.GetDateTime("TimeStamp");
 		    //todo: adjust for timezone
 			var checkpoint = CreateCheckpoint(type, timestamp, stack, amount);
 			checkpoint.Id = id;

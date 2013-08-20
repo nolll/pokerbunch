@@ -33,7 +33,7 @@ namespace Web.Controllers{
 			var user = GetLoggedInUser(loginModel.LoginName, loginModel.Password);
 
 			var validator = _userValidatorFactory.GetLoginValidator(user);
-			if(validator.IsValid()){
+			if(validator.IsValid){
 				SetCookies(user, loginModel.RememberMe);
                 return new RedirectResult(GetReturnUrl(loginModel.ReturnUrl).Url);
 			}

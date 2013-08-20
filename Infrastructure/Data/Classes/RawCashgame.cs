@@ -9,15 +9,15 @@ namespace Infrastructure.Data.Classes {
 	    public int Id { get; private set; }
 	    public string Location { get; private set; }
 	    public GameStatus Status { get; private set; }
-	    public string Date { get; private set; }
+	    public DateTime Date { get; private set; }
 	    public List<RawCashgameResult> Results { get; private set; }
 
-	    public RawCashgame(int id, string location, GameStatus status, string dateStr)
+	    public RawCashgame(int id, string location, GameStatus status, DateTime date)
 	    {
 	        Id = id;
 	        Location = location;
 	        Status = status;
-	        Date = dateStr;
+	        Date = date;
             Results = new List<RawCashgameResult>();
 	    }
 

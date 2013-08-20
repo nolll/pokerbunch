@@ -1,6 +1,8 @@
 /*
 NEXT RELEASE
 ALTER TABLE `game` DROP COLUMN `Notified`, DROP COLUMN `Duration`, DROP COLUMN `StartTime`, DROP COLUMN `EndTime`;
+ALTER TABLE `homegame` CHANGE COLUMN `CashgamesEnabled` `CashgamesEnabled` BIT NOT NULL DEFAULT b'0' AFTER `CurrencyLayout`, CHANGE COLUMN `TournamentsEnabled` `TournamentsEnabled` BIT NOT NULL DEFAULT b'0' AFTER `CashgamesEnabled`, CHANGE COLUMN `VideosEnabled` `VideosEnabled` BIT NOT NULL DEFAULT b'0' AFTER `TournamentsEnabled`;
+ALTER TABLE `homegame` CHANGE COLUMN `CashgamesEnabled` `CashgamesEnabled` INT(4) NOT NULL DEFAULT '0' AFTER `CurrencyLayout`, CHANGE COLUMN `TournamentsEnabled` `TournamentsEnabled` INT(4) NOT NULL DEFAULT '0' AFTER `CashgamesEnabled`, CHANGE COLUMN `VideosEnabled` `VideosEnabled` INT(4) NOT NULL DEFAULT '0' AFTER `TournamentsEnabled`;
 
 3.0
 ALTER TABLE `game`

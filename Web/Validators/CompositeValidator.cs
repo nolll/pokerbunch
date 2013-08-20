@@ -23,21 +23,26 @@ namespace Web.Validators{
 	    protected override void Validate(){
 			_validated = true;
 			foreach(var validator in _validators){
-				if(!validator.IsValid()){
+				if(!validator.IsValid){
 					_valid = false;
 				}
 			}
 		}
 
-		public override bool IsValid(){
-			if(!_validated){
-				Validate();
-			}
-			EnsureErrorArray();
-			return _valid && Errors.Count == 0;
-		}
+	    public override bool IsValid
+	    {
+	        get
+	        {
+	            if (!_validated)
+	            {
+	                Validate();
+	            }
+	            EnsureErrorArray();
+	            return _valid && Errors.Count == 0;
+	        }
+	    }
 
-		public override List<string> GetErrors(){
+	    public override List<string> GetErrors(){
 			EnsureErrorArray();
 			foreach(var validator in _validators){
                 Errors.AddRange(validator.GetErrors());

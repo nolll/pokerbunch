@@ -1,11 +1,8 @@
-using System.Data;
-using MySql.Data.MySqlClient;
-
 namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface IStorageProvider {
 
-		IDataReader Query(string sql);
+		StorageDataReader Query(string sql);
         int Execute(string sql);
         int ExecuteInsert(string sql);
         int BoolToInt(bool boolean);

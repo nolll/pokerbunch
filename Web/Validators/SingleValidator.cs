@@ -1,14 +1,17 @@
 namespace Web.Validators{
 
 	abstract class SingleValidator : BaseValidator{
+	    public override bool IsValid
+	    {
+	        get
+	        {
+	            EnsureErrorArray();
+	            Validate();
+	            return Errors.Count == 0;
+	        }
+	    }
 
-		public override bool IsValid(){
-			EnsureErrorArray();
-			Validate();
-			return Errors.Count == 0;
-		}
-
-		protected bool IsNullOrEmpty(string str){
+	    protected bool IsNullOrEmpty(string str){
 			return string.IsNullOrEmpty(str);
 		}
 

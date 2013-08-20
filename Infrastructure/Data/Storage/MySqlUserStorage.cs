@@ -86,7 +86,8 @@ namespace Infrastructure.Data.Storage {
 			var sql =	"INSERT INTO user " +
 					"(UserName, DisplayName, Email) " +
 					"VALUES " +
-					"('{$user.getUserName()}', '{$user.getDisplayName()}', '{$user.getEmail()}')";
+					"('{0}', '{1}', '{2}')";
+            sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
@@ -106,7 +107,7 @@ namespace Infrastructure.Data.Storage {
             sql = string.Format(sql, userNameOrEmail);
             var reader = _storageProvider.Query(sql);
 			while(reader.Read()){
-				return reader.GetString(reader.GetOrdinal("Salt"));
+				return reader.GetString("Salt");
 			}
 			return "";
 		}
@@ -144,22 +145,23 @@ namespace Infrastructure.Data.Storage {
 		public string GetToken(User user){
 			var sql =	"SELECT u.Token " +
 				"FROM user u " +
-				"WHERE u.UserName = '{$user.getUserName()}'";
+				"WHERE u.UserName = '{0}'";
+            sql = string.Format(sql, user.UserName);
 			var reader = _storageProvider.Query(sql);
 			while(reader.Read())
 			{
-			    return reader.GetString(reader.GetOrdinal("Token"));
+			    return reader.GetString("Token");
 			}
 			return null;
 		}
 
-        private User UserFromDbRow(IDataReader reader){
-			var id = reader.GetInt32(reader.GetOrdinal("UserID"));
-            var userName = reader.GetString(reader.GetOrdinal("UserName"));
-			var displayName = reader.GetString(reader.GetOrdinal("DisplayName"));
-			var realName = reader.GetString(reader.GetOrdinal("RealName"));
-			var email = reader.GetString(reader.GetOrdinal("Email"));
-			var globalRole = (Role)reader.GetInt32(reader.GetOrdinal("RoleID"));
+        private User UserFromDbRow(StorageDataReader reader){
+			var id = reader.GetInt("UserID");
+            var userName = reader.GetString("UserName");
+			var displayName = reader.GetString("DisplayName");
+			var realName = reader.GetString("RealName");
+			var email = reader.GetString("Email");
+			var globalRole = (Role)reader.GetInt("RoleID");
 			return _userFactory.Create(id, userName, displayName, realName, email, globalRole);
 		}
 

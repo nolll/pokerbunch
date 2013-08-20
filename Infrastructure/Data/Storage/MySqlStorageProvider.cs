@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Storage {
             return new MySqlConnection(_connectionString);
         }
 
-		public IDataReader Query(string sql)
+		public StorageDataReader Query(string sql)
 		{
             using (var connection = GetConnection())
             {
@@ -28,7 +28,7 @@ namespace Infrastructure.Data.Storage {
                     var mySqlReader = command.ExecuteReader();
                     var dt = new DataTable();
                     dt.Load(mySqlReader);
-                    return dt.CreateDataReader();
+                    return new StorageDataReader(dt.CreateDataReader());
                 }
             }
 		}
