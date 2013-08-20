@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
-using MySql.Data.MySqlClient;
 
 namespace Infrastructure.Data.Storage {
 

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Data;
 using Core.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
-using MySql.Data.MySqlClient;
 
 namespace Infrastructure.Data.Storage {
     public class MySqlUserStorage : IUserStorage 

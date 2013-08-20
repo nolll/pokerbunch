@@ -36,11 +36,11 @@ namespace Infrastructure.Repositories {
 	    }
 
 	    public List<Cashgame> GetPublished(Homegame homegame, int? year = null){
-			return getGames(homegame, GameStatus.Published, year);
+			return GetGames(homegame, GameStatus.Published, year);
 		}
 
 		public Cashgame GetRunning(Homegame homegame){
-			var games = getGames(homegame, GameStatus.Running, null);
+			var games = GetGames(homegame, GameStatus.Running, null);
 			if(games.Count == 0){
 				return null;
 			}
@@ -48,13 +48,13 @@ namespace Infrastructure.Repositories {
 		}
 
 		public List<Cashgame> GetAll(Homegame homegame, int? year = null){
-			return getGames(homegame, null, year);
+			return GetGames(homegame, null, year);
 		}
 
 		public Cashgame GetByDate(Homegame homegame, DateTime date){
 			var rawGame = _cashgameStorage.GetGame(homegame, date);
 			var players = _playerStorage.GetPlayers(homegame);
-			return getGameFromRawGame(rawGame, players);
+			return GetGameFromRawGame(rawGame, players);
 		}
 
 		public Cashgame GetByDateString(Homegame homegame, string dateString){
@@ -72,36 +72,36 @@ namespace Infrastructure.Repositories {
 			return _cashgameStorage.GetYears(homegame);
 		}
 
-		private List<Cashgame> getGames(Homegame homegame, GameStatus? status = null, int? year = null){
+		private List<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
 			var rawGames = _cashgameStorage.GetGames(homegame, status, year);
 			var players = _playerStorage.GetPlayers(homegame);
-			return getGamesFromRawGames(rawGames, players);
+			return GetGamesFromRawGames(rawGames, players);
 		}
 
-		private List<Cashgame> getGamesFromRawGames(List<RawCashgame> rawGames, List<Player> players){
+		private List<Cashgame> GetGamesFromRawGames(List<RawCashgame> rawGames, List<Player> players){
 			var games = new List<Cashgame>();
 			foreach(var rawGame in rawGames){
-				games.Add(getGameFromRawGame(rawGame, players));
+				games.Add(GetGameFromRawGame(rawGame, players));
 			}
 			return games;
 		}
 
-		private Cashgame getGameFromRawGame(RawCashgame rawGame, List<Player> players){
+		private Cashgame GetGameFromRawGame(RawCashgame rawGame, List<Player> players){
 			var results = new List<CashgameResult>();
 			var rawResults = rawGame.Results;
 			foreach(var rawResult in rawResults){
-				results.Add(getResultFromRawResult(rawResult, players));
+				results.Add(GetResultFromRawResult(rawResult, players));
 			}
 			return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
 		}
 
-		private CashgameResult getResultFromRawResult(RawCashgameResult rawResult, List<Player> players){
-			var player = getPlayer(players, rawResult.PlayerId);
+		private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult, List<Player> players){
+			var player = GetPlayer(players, rawResult.PlayerId);
 			var checkpoints = rawResult.Checkpoints;
 			return _cashgameResultFactory.Create(player, checkpoints);
 		}
 
-		private Player getPlayer(List<Player> players, int playerId){
+		private Player GetPlayer(List<Player> players, int playerId){
 			foreach(var player in players){
 				if(player.Id == playerId){
 					return player;
