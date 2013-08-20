@@ -71,39 +71,28 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool UpdateUser(User user){
-			var sql =	"UPDATE user u " +
-					"SET " +
-						"DisplayName = '{0}', " +
-						"RealName = '{1}', " +
-						"Email = '{2}' " +
-					"WHERE UserID = {3}";
+			var sql = "UPDATE user u SET DisplayName = '{0}', RealName = '{1}', Email = '{2}' WHERE UserID = {3}";
 		    sql = string.Format(sql, user.DisplayName, user.RealName, user.Email, user.Id);
 		    var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public int AddUser(User user){
-			var sql =	"INSERT INTO user " +
-					"(UserName, DisplayName, Email) " +
-					"VALUES " +
-					"('{0}', '{1}', '{2}')";
+			var sql = "INSERT INTO user (UserName, DisplayName, Email) VALUES ('{0}', '{1}', '{2}')";
             sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
 
 		public bool DeleteUser(User user){
-			var sql =	"DELETE FROM user u " +
-					"WHERE UserID = {0}";
+			var sql = "DELETE FROM user u WHERE UserID = {0}";
             sql = string.Format(sql, user.Id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public string GetSalt(string userNameOrEmail){
-			var sql =	"SELECT u.Salt " +
-					"FROM user u " +
-					"WHERE (u.UserName = '{0}' OR u.Email = '{0}')";
+			var sql = "SELECT u.Salt FROM user u WHERE (u.UserName = '{0}' OR u.Email = '{0}')";
             sql = string.Format(sql, userNameOrEmail);
             var reader = _storageProvider.Query(sql);
 			while(reader.Read()){
@@ -113,39 +102,28 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool SetSalt(User user, string salt){
-			var sql =	"UPDATE user u " +
-				"SET " +
-					"Salt = '{0}' " +
-				"WHERE UserName = '{1}'";
+			var sql = "UPDATE user u SET Salt = '{0}' WHERE UserName = '{1}'";
 		    sql = string.Format(sql, salt, user.UserName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool SetEncryptedPassword(User user, string encryptedPassword){
-			var sql =	"UPDATE user u " +
-				"SET " +
-					"Password = '{0}' " +
-				"WHERE UserName = '{1}'";
+			var sql = "UPDATE user u SET Password = '{0}' WHERE UserName = '{1}'";
 			sql = string.Format(sql, encryptedPassword, user.UserName);
             var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool SetToken(User user, string token){
-			var sql =	"UPDATE user u " +
-				"SET " +
-					"Token = '{0}' " +
-				"WHERE UserName = '{1}'";
+			var sql = "UPDATE user u SET Token = '{0}' WHERE UserName = '{1}'";
             sql = string.Format(sql, token, user.UserName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public string GetToken(User user){
-			var sql =	"SELECT u.Token " +
-				"FROM user u " +
-				"WHERE u.UserName = '{0}'";
+			var sql = "SELECT u.Token FROM user u WHERE u.UserName = '{0}'";
             sql = string.Format(sql, user.UserName);
 			var reader = _storageProvider.Query(sql);
 			while(reader.Read())

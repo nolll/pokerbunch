@@ -19,17 +19,13 @@ namespace Infrastructure.Data.Storage {
 	    }
 
 		public int AddGame(Homegame homegame, Cashgame cashgame){
-			var sql =	"INSERT INTO game " +
-					"(HomegameID, Location, Status) " +
-					"VALUES " +
-					"({0}, '{1}', {2})";
+			var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2})";
 		    sql = string.Format(sql, homegame.Id, cashgame.Location, cashgame.Status);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public bool DeleteGame(Cashgame cashgame){
-			var sql =	"DELETE FROM game " +
-					"WHERE GameID = {0}";
+			var sql = "DELETE FROM game WHERE GameID = {0}";
 		    sql = string.Format(sql, cashgame.Id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
@@ -37,48 +33,34 @@ namespace Infrastructure.Data.Storage {
 
 		public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
 			var timestampStr = Globalization.FormatIsoDateTime(DateTimeFactory.ToUtc(checkpoint.Timestamp));
-			var sql =	"INSERT INTO cashgamecheckpoint " +
-					"(GameID, PlayerID, Type, Amount, Stack, Timestamp) " +
-					"VALUES " +
-					"({0}, {1}, {2}, '{3}', '{4}', '{5}')";
+			var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}')";
             sql = string.Format(sql, cashgame.Id, player.Id, checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public bool UpdateCheckpoint(Checkpoint checkpoint){
-			var sql =	"UPDATE cashgamecheckpoint " +
-					"SET " +
-					"Amount = {0}, " +
-					"Stack = {1} " +
-					"WHERE CheckpointID = {2}";
+			var sql = "UPDATE cashgamecheckpoint SET Amount = {0}, Stack = {1} WHERE CheckpointID = {2}";
 		    sql = string.Format(sql, checkpoint.Amount, checkpoint.Stack, checkpoint.Id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool DeleteCheckpoint(int id){
-			var sql =	"DELETE FROM cashgamecheckpoint WHERE CheckpointID = {0}";
+			var sql = "DELETE FROM cashgamecheckpoint WHERE CheckpointID = {0}";
 		    sql = string.Format(sql, id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		private string GetGameSql(Homegame homegame){
-			var sql =	"SELECT " +
-					"g.GameID, g.Location, g.Status, g.Date, " +
-					"cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp " +
-					"FROM game g " +
-					"LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID " +
-					"WHERE g.HomegameID = {0} ";
+			var sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.HomegameID = {0} ";
 		    sql = string.Format(sql, homegame.Id);
 		    return sql;
 		}
 
 		public RawCashgame GetGame(Homegame homegame, DateTime date){
 			var dateStr = Globalization.FormatIsoDate(date);
-			var sql =	GetGameSql(homegame) +
-					"AND g.Date = '{0}' " +
-					"ORDER BY cp.PlayerID, cp.Timestamp";
+			var sql = GetGameSql(homegame) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
             sql = string.Format(sql, dateStr);
 			var reader = _storageProvider.Query(sql);
 			var cashgames = GetGamesFromDbResult(homegame, reader);
@@ -135,12 +117,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public List<int> GetYears(Homegame homegame){
-			var sql =	"SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' " +
-					"FROM cashgamecheckpoint ccp " +
-					"LEFT JOIN game g ON ccp.GameID = g.GameID " +
-					"LEFT JOIN homegame h ON g.HomegameID = h.HomegameID " +
-					"WHERE h.Name = '{0}' " +
-					"ORDER BY 'Year' DESC";
+			var sql = "SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' FROM cashgamecheckpoint ccp LEFT JOIN game g ON ccp.GameID = g.GameID LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE h.Name = '{0}' ORDER BY 'Year' DESC";
 		    sql = string.Format(sql, homegame.Slug);
 			var reader = _storageProvider.Query(sql);
 			var years = new List<int>();
@@ -158,21 +135,14 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool HasPlayed(Player player){
-			var sql =	"SELECT DISTINCT PlayerID " +
-					"FROM cashgamecheckpoint " +
-					"WHERE PlayerId = {0}";
+			var sql = "SELECT DISTINCT PlayerID FROM cashgamecheckpoint WHERE PlayerId = {0}";
 		    sql = string.Format(sql, player.Id);
 		    var reader = _storageProvider.Query(sql);
 			return reader.Read();
 		}
 
 		public List<string> GetLocations(Homegame homegame){
-			var sql =	"SELECT DISTINCT g.Location " +
-					"FROM game g " +
-					"LEFT JOIN homegame h ON g.HomegameID = h.HomegameID " +
-					"WHERE Name = '{0}' " +
-					"AND g.Location <> '' " +
-					"ORDER BY g.Location";
+			var sql = "SELECT DISTINCT g.Location FROM game g LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE Name = '{0}' AND g.Location <> '' ORDER BY g.Location";
 		    sql = string.Format(sql, homegame.Slug);
 			var reader = _storageProvider.Query(sql);
 			var locations = new List<string>();

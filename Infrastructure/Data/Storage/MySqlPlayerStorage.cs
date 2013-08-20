@@ -44,49 +44,33 @@ namespace Infrastructure.Data.Storage {
 			return GetPlayersFromSql(sql);
 		}
 
-		private string GetPlayersBaseSql(Homegame homegame){
-			var sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email " +
-					"FROM player p " +
-					"LEFT JOIN user u on p.UserID = u.UserID " +
-					"WHERE p.HomegameID = {0} ";
-            return string.Format(sql, homegame.Id);
+		private string GetPlayersBaseSql(Homegame homegame)
+		{
+		    const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email FROM player p LEFT JOIN user u on p.UserID = u.UserID WHERE p.HomegameID = {0} ";
+		    return string.Format(sql, homegame.Id);
 		}
 
-		public int AddPlayer(Homegame homegame, string playerName){
-			var sql =	"INSERT INTO player " +
-					"(HomegameID, RoleID, Approved, PlayerName) " +
-					"VALUES " +
-					"({0}, {1}, 1, '{2}')";
+        public int AddPlayer(Homegame homegame, string playerName){
+			var sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES ({0}, {1}, 1, '{2}')";
 		    sql = string.Format(sql, homegame.Id, (int) Role.Player, playerName);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public int AddPlayerWithUser(Homegame homegame, User user, int role){
-			var sql =	"INSERT INTO player " +
-					"(HomegameID, UserID, RoleID, Approved) " +
-					"VALUES " +
-					"({0}, {1}, {2}, 1)";
+			var sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES ({0}, {1}, {2}, 1)";
 			sql = string.Format(sql, homegame.Id, user.Id, role);
             return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public bool JoinHomegame(Player player, Homegame homegame, User user){
-			var sql =	"UPDATE player " +
-					"SET " +
-						"HomegameID = {0}, " +
-						"PlayerName = NULL, " +
-						"UserID = {1}, " +
-						"RoleID = {2}, " +
-						"Approved = 1 " +
-					"WHERE PlayerID = {3}";
+			var sql = "UPDATE player SET HomegameID = {0}, PlayerName = NULL, UserID = {1}, RoleID = {2}, Approved = 1 WHERE PlayerID = {3}";
 			sql = string.Format(sql, homegame.Id, user.Id, (int)player.Role, player.Id);
             var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool DeletePlayer(Player player){
-			var sql =	"DELETE FROM player " +
-					"WHERE PlayerID = {0}";
+			var sql = "DELETE FROM player WHERE PlayerID = {0}";
 		    sql = string.Format(sql, player.Id);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
