@@ -4,10 +4,17 @@ namespace Web.Models.Url{
 
 	    public string Url { get; private set; }
 
+        protected UrlModel(){}
+
 	    public UrlModel(string url)
 	    {
-	        Url = url;
+	        SetUrl(url);
 	    }
+
+        protected void SetUrl(string url)
+        {
+            Url = url;
+        }
 
         public override string ToString()
         {

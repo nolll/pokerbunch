@@ -1,0 +1,22 @@
+@model Web.Models.Navigation.HomegameNavigationModel
+
+<nav class="game-nav">
+    <h2><a href="@Model.HeadingLink">@Model.Heading</a></h2>
+    <ul>
+        <li>
+            <a href="@Model.CashgameLink"><span>Cashgames</span></a>
+            @if (Model.CashgameIsRunning)
+            {
+                <a href="@Model.RunningLink" class="running-game-link icon-cogs" title="Running Game"><span>Running Game</span></a>
+            }
+            else
+            {
+                <a href="@Model.CreateLink" class="start-game-link icon-plus" title="Add Game"><span>Start Game</span></a>
+            }
+
+        </li>
+        <li>
+            <a href="@Model.PlayerLink"><span>Players</span></a>
+        </li>
+    </ul>
+</nav>

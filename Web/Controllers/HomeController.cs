@@ -1,9 +1,5 @@
 using System.Web.Mvc;
-using Core.Classes;
-using Core.Repositories;
-using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories;
-using Web.Models;
 
 namespace Web.Controllers{
 

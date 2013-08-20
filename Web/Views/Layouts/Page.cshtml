@@ -24,11 +24,10 @@
 			<header class="page-header">
 				<div class="content">
 				    <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
-				    @*
-					{if $model->homegameNavigationModel != null}
-						{partial view='app\Homegame\HomegameNavigation' model=$model->homegameNavigationModel}
-					{/if}
-                    *@
+                    @if (Model.HomegameNavModel != null)
+                    {
+                        @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.HomegameNavModel)
+                    }
 				</div>
 			</header>
             

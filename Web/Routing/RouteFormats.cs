@@ -21,8 +21,8 @@ namespace Web.Routing{
         public const string CashgameIndex = "/{0}/cashgame/index";
         //const cashgameLeaderboard = '/%1$s/cashgame/leaderboard';
         //const cashgameLeaderboardWithYear = '/%1$s/cashgame/leaderboard/%2$s';
-        //const cashgameMatrix = '/%1$s/cashgame/matrix';
-        //const cashgameMatrixWithYear = '/%1$s/cashgame/matrix/%2$s';
+        public const string CashgameMatrix = "/{0}/cashgame/matrix";
+        public const string CashgameMatrixWithYear = "/{0}/cashgame/matrix/{1}";
         //const cashgameListing = '/%1$s/cashgame/listing';
         //const cashgameListingWithYear = '/%1$s/cashgame/listing/%2$s';
         //const cashgameFacts = '/%1$s/cashgame/facts';

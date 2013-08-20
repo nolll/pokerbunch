@@ -103,7 +103,6 @@
     <None Include="app\Cashgame\Facts\CashgameFactsController.php" />
     <None Include="app\Cashgame\Facts\CashgameFactsModel.php" />
     <None Include="app\Cashgame\Facts\Facts.tpl" />
-    <None Include="app\Cashgame\Index\CashgameIndexController.php" />
     <None Include="app\Cashgame\Leaderboard\Item.tpl" />
     <None Include="app\Cashgame\Leaderboard\ItemModel.php" />
     <None Include="app\Cashgame\Leaderboard\Leaderboard.tpl" />
@@ -163,7 +162,6 @@
     <None Include="app\Homegame\Edit\Edit.tpl" />
     <None Include="app\Homegame\Edit\HomegameEditController.php" />
     <None Include="app\Homegame\Edit\HomegameEditModel.php" />
-    <None Include="app\Homegame\HomegameNavigation.tpl" />
     <None Include="app\Homegame\HomegameValidatorFactory.php" />
     <None Include="app\Homegame\HomegameValidatorFactoryImpl.php" />
     <None Include="app\Homegame\Join\Confirmation.tpl" />
@@ -219,7 +217,6 @@
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\CashgamePlayerUrlModel.php" />
     <None Include="app\Urls\BaseClasses\CashgameUrlModel.php" />
-    <None Include="app\Urls\BaseClasses\HomegameYearUrlModel.php" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameActionUrlModel.php" />
@@ -236,7 +233,6 @@
     <None Include="app\Urls\CashgameFactsUrlModel.php" />
     <None Include="app\Urls\CashgameLeaderboardUrlModel.php" />
     <None Include="app\Urls\CashgameListingUrlModel.php" />
-    <None Include="app\Urls\CashgameMatrixUrlModel.php" />
     <None Include="app\Urls\CashgamePublishUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameReportUrlModel.php" />
@@ -559,6 +555,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\Admin\" />
+    <Folder Include="app\Cashgame\Index\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

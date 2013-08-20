@@ -323,6 +323,10 @@
     <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CashgameIndexController.cs" />
+    <Compile Include="Models\Url\CashgameMatrixUrlModel.cs" />
+    <Compile Include="Models\Url\HomegameYearUrlModel.cs" />
+    <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>
   <PropertyGroup>

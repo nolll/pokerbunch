@@ -8,6 +8,7 @@ namespace Web.Models{
 
 	    public List<string> ValidationErrors { get; set; }
 	    public UserNavigationModel UserNavModel { get; set; }
+        public HomegameNavigationModel HomegameNavModel { get; protected set; }
 	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
 
 	    public PageModel(User user)

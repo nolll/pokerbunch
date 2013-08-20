@@ -9,11 +9,9 @@ namespace Web.Models{
 			return string.Format(format, homegame.Slug);
 		}
 
-        /*
-		public static function formatHomegameWithYear($format, Homegame $homegame, $year){
-			return sprintf($format, $homegame.getSlug(), $year);
+		public static string FormatHomegameWithYear(string format, Homegame homegame, int year){
+			return string.Format(format, homegame.Slug, year);
 		}
-        */
 
         /*
 		public static function formatCashgame($format, Homegame $homegame, Cashgame $cashgame){

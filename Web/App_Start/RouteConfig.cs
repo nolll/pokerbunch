@@ -14,9 +14,15 @@ namespace Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "CashgameIndex",
+                "{gameName}/cashgame/index",
+                new { controller = "Cashgame", action = "Index", gameName = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "Login",
-                "-/auth/login",
-                new { controller = "Auth", action = "Login" }
+                "-/auth/Login",
+                new { controller = "Auth", action = "Login", gameName = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -24,6 +30,7 @@ namespace Web
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }
