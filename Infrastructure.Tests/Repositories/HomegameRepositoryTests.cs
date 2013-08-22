@@ -34,7 +34,7 @@ namespace tes{
 		    rawHomegame.Slug = slug;
 			rawHomegame.TimezoneName = "UTC";
 
-		    _homegameStorageMock.Setup(o => o.GetRawHomegameByName(slug)).Returns(rawHomegame);
+		    _homegameStorageMock.Setup(o => o.GetHomegameByName(slug)).Returns(rawHomegame);
 
 		    var sut = GetSut();
             var result = sut.GetByName(slug);

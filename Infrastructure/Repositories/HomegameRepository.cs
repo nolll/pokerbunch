@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Classes;
@@ -16,14 +18,25 @@ namespace Infrastructure.Repositories {
 	    }
 
 		public Homegame GetByName(string name){
-			var rawHomegame = _homegameStorage.GetRawHomegameByName(name);
+			var rawHomegame = _homegameStorage.GetHomegameByName(name);
 			if(rawHomegame == null){
 				return null;
 			}
 			return GetHomegameFromRawHomegame(rawHomegame);
 		}
 
-		private Homegame GetHomegameFromRawHomegame(RawHomegame rawHomegame){
+        public IList<Homegame> GetAll()
+        {
+            var rawHomegames = _homegameStorage.GetHomegames();
+            return GetHomegamesFromRawHomegames(rawHomegames);
+        }
+
+        private IList<Homegame> GetHomegamesFromRawHomegames(IEnumerable<RawHomegame> rawHomegames)
+        {
+            return rawHomegames.Select(GetHomegameFromRawHomegame).ToList();
+        }
+
+	    private Homegame GetHomegameFromRawHomegame(RawHomegame rawHomegame){
 			return new Homegame
 			    {
 			        Id = rawHomegame.Id,

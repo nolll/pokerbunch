@@ -15,27 +15,20 @@ namespace Infrastructure.Data.Storage {
 	        _storageProvider = storageProvider;
 	    }
 
-		public List<Homegame> GetHomegames(){
+		public IList<RawHomegame> GetHomegames(){
 			var sql = GetHomegameBaseSql();
 			sql += "ORDER BY h.DisplayName";
-			return GetHomegamesFromSql(sql);
+			return GetRawHomegamesFromSql(sql);
 		}
 
-		public List<Homegame> GetHomegamesByRole(string token, int role){
+		public IList<Homegame> GetHomegamesByRole(string token, int role){
 			var sql = GetHomegameBaseSql();
 			sql += "INNER JOIN player p on h.HomegameID = p.HomegameID INNER JOIN user u on p.UserID = u.UserID WHERE u.Token = '{0}' AND p.RoleID >= {1} ORDER BY h.Name";
 		    sql = string.Format(sql, token, role);
 			return GetHomegamesFromSql(sql);
 		}
 
-		public Homegame GetHomegameByName(string homegameName){
-			var sql = GetHomegameBaseSql();
-			sql += "WHERE Name = '{0}'";
-            sql = string.Format(sql, homegameName);
-			return GetHomegameFromSql(sql);
-		}
-
-		public RawHomegame GetRawHomegameByName(string homegameName){
+		public RawHomegame GetHomegameByName(string homegameName){
 			var sql = GetHomegameBaseSql();
 			sql += "WHERE Name = '{0}'";
             sql = string.Format(sql, homegameName);
@@ -80,15 +73,27 @@ namespace Infrastructure.Data.Storage {
 			return (int)Role.Guest;
 		}
 
-		private List<Homegame> GetHomegamesFromSql(string sql){
+        private IList<RawHomegame> GetRawHomegamesFromSql(string sql)
+        {
             var reader = _storageProvider.Query(sql);
-		    var homegames = new List<Homegame>();
+            var homegames = new List<RawHomegame>();
+            while (reader.Read())
+            {
+                homegames.Add(RawHomegameFromDbRow(reader));
+            }
+            return homegames;
+        }
+
+        private IList<Homegame> GetHomegamesFromSql(string sql)
+        {
+            var reader = _storageProvider.Query(sql);
+            var homegames = new List<Homegame>();
             while (reader.Read())
             {
                 homegames.Add(HomegameFromDbRow(reader));
             }
-			return homegames;
-		}
+            return homegames;
+        }
 
 		public Homegame AddHomegame(Homegame homegame){
 			var currency = homegame.Currency;

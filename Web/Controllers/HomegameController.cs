@@ -10,19 +10,17 @@ namespace Web.Controllers{
 	public class HomegameController : Controller
     {
 	    private readonly IUserContext _userContext;
-	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameRepository _homegameRepository;
 
-	    public HomegameController(IUserContext userContext, IHomegameStorage homegameStorage, IHomegameRepository homegameRepository)
+	    public HomegameController(IUserContext userContext, IHomegameRepository homegameRepository)
 	    {
 	        _userContext = userContext;
-	        _homegameStorage = homegameStorage;
 	        _homegameRepository = homegameRepository;
 	    }
 
 	    public ActionResult Listing(){
 			_userContext.RequireAdmin();
-			var homegames = _homegameStorage.GetHomegames();
+			var homegames = _homegameRepository.GetAll();
 			var model = new HomegameListingModel(_userContext.GetUser(), homegames);
 			return View(model);
 		}
