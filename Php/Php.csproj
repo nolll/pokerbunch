@@ -168,7 +168,6 @@
     <None Include="app\Homegame\SlugGenerator.php" />
     <None Include="app\Homegame\SlugGeneratorImpl.php" />
     <None Include="app\Homegame\UniqueSlugValidator.php" />
-    <None Include="app\Home\Home.tpl" />
     <None Include="app\MishiinModule.php" />
     <None Include="app\Page.tpl" />
     <None Include="app\Player\Achievements\PlayerAchievements.tpl" />
