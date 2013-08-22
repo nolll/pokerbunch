@@ -1,15 +1,16 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Web.Models.Url;
+using app;
 
-namespace app{
+namespace Web.Controllers{
 
-	class CashgameIndexController : Controller {
+	class CashgameController : Controller {
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IUserContext _userContext;
 	    private readonly ICashgameRepository _cashgameRepository;
 
-	    public CashgameIndexController(IHomegameRepository homegameRepository, IUserContext userContext, ICashgameRepository cashgameRepository)
+	    public CashgameController(IHomegameRepository homegameRepository, IUserContext userContext, ICashgameRepository cashgameRepository)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
