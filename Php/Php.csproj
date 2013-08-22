@@ -156,9 +156,6 @@
     <None Include="app\Homegame\Add\Confirmation.tpl" />
     <None Include="app\Homegame\Add\HomegameAddController.php" />
     <None Include="app\Homegame\Add\HomegameAddModel.php" />
-    <None Include="app\Homegame\Details\Details.tpl" />
-    <None Include="app\Homegame\Details\HomegameDetailsController.php" />
-    <None Include="app\Homegame\Details\HomegameDetailsModel.php" />
     <None Include="app\Homegame\Edit\Edit.tpl" />
     <None Include="app\Homegame\Edit\HomegameEditController.php" />
     <None Include="app\Homegame\Edit\HomegameEditModel.php" />
@@ -168,11 +165,6 @@
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />
     <None Include="app\Homegame\Join\Join.tpl" />
-    <None Include="app\Homegame\Listing\HomegameItemModel.php" />
-    <None Include="app\Homegame\Listing\HomegameListingController.php" />
-    <None Include="app\Homegame\Listing\HomegameListingModel.php" />
-    <None Include="app\Homegame\Listing\Item.tpl" />
-    <None Include="app\Homegame\Listing\Listing.tpl" />
     <None Include="app\Homegame\SlugGenerator.php" />
     <None Include="app\Homegame\SlugGeneratorImpl.php" />
     <None Include="app\Homegame\UniqueSlugValidator.php" />
@@ -243,7 +235,6 @@
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
-    <None Include="app\Urls\HomegameEditUrlModel.php" />
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
     <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
@@ -398,7 +389,6 @@
     <None Include="tests\AppTests\Homegame\HomegameAddControllerTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameAddModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameDetailsControllerTests.php" />
-    <None Include="tests\AppTests\Homegame\HomegameDetailsModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameEditControllerTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameEditModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameItemModelTests.php" />

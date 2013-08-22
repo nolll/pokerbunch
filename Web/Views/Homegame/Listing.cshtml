@@ -1,0 +1,20 @@
+@model Web.Models.HomegameListingModel
+
+@{
+    Layout = "~/Views/Layouts/Page.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Homegames</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="homegames simple list">
+        @foreach(var homegameModel in Model.HomegameModels)
+        {
+            <li>
+                @Html.Partial("Item", homegameModel)
+            </li>
+        }
+    </ul>
+</div>

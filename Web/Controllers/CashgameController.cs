@@ -1,11 +1,10 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Web.Models.Url;
-using app;
 
 namespace Web.Controllers{
 
-	class CashgameController : Controller {
+	public class CashgameController : Controller {
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IUserContext _userContext;
 	    private readonly ICashgameRepository _cashgameRepository;
@@ -17,8 +16,8 @@ namespace Web.Controllers{
 	        _cashgameRepository = cashgameRepository;
 	    }
 
-	    public ActionResult Index(string gameName){
-			var homegame = _homegameRepository.GetByName(gameName);
+	    public ActionResult Index(string game){
+			var homegame = _homegameRepository.GetByName(game);
 			_userContext.RequirePlayer(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
 			if(years.Count > 0){

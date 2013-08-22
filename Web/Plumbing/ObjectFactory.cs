@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using Castle.Core;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Core.Repositories;
 using Core.Services;
@@ -17,37 +18,52 @@ namespace Web.Plumbing
         public static void RegisterTypes(IWindsorContainer container)
         {
             // Services
-            container.Register(Component.For<IEncryptionService>().ImplementedBy<EncryptionService>());
+            RegisterComponent<IEncryptionService, EncryptionService>(container);
 
             // Repositories
-            container.Register(Component.For<IHomegameRepository>().ImplementedBy<HomegameRepository>());
-            container.Register(Component.For<ICashgameRepository>().ImplementedBy<CashgameRepository>());
-            container.Register(Component.For<IUserContext>().ImplementedBy<UserContext>()); // Maybe per web request
+            RegisterComponent<IHomegameRepository, HomegameRepository>(container);
+            RegisterComponent<ICashgameRepository, CashgameRepository>(container);
+            RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
 
             // Storage
-            container.Register(Component.For<IHomegameStorage>().ImplementedBy<MySqlHomegameStorage>());
-            container.Register(Component.For<ICashgameStorage>().ImplementedBy<MySqlCashgameStorage>());
-            container.Register(Component.For<IPlayerStorage>().ImplementedBy<MySqlPlayerStorage>());
-            container.Register(Component.For<IUserStorage>().ImplementedBy<MySqlUserStorage>());
-            container.Register(Component.For<IStorageProvider>().ImplementedBy<MySqlStorageProvider>());
+            RegisterComponent<IHomegameStorage, MySqlHomegameStorage>(container);
+            RegisterComponent<ICashgameStorage, MySqlCashgameStorage>(container);
+            RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
+            RegisterComponent<IUserStorage, MySqlUserStorage>(container);
+            RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
 
             // System
-            container.Register(Component.For<IWebContext>().ImplementedBy<WebContext>());
-            container.Register(Component.For<ITimeProvider>().ImplementedBy<TimeProvider>());
+            RegisterComponent<IWebContext, WebContext>(container);
+            RegisterComponent<ITimeProvider, TimeProvider>(container);
 
             // Core Factories
-            container.Register(Component.For<IUserFactory>().ImplementedBy<UserFactory>());
-            container.Register(Component.For<ICashgameFactory>().ImplementedBy<CashgameFactory>());
-            container.Register(Component.For<IPlayerFactory>().ImplementedBy<PlayerFactory>());
-            container.Register(Component.For<ICashgameResultFactory>().ImplementedBy<CashgameResultFactory>());
-            container.Register(Component.For<ICashgameTotalResultFactory>().ImplementedBy<CashgameTotalResultFactory>());
-            container.Register(Component.For<ICashgameSuiteFactory>().ImplementedBy<CashgameSuiteFactory>());
+            RegisterComponent<IUserFactory, UserFactory>(container);
+            RegisterComponent<ICashgameFactory, CashgameFactory>(container);
+            RegisterComponent<IPlayerFactory, PlayerFactory>(container);
+            RegisterComponent<ICashgameResultFactory, CashgameResultFactory>(container);
+            RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
+            RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
 
             // Model Factories
-            container.Register(Component.For<IHomeModelFactory>().ImplementedBy<HomeModelFactory>());
+            RegisterComponent<IHomeModelFactory, HomeModelFactory>(container);
 
             // Validator Factories
-            container.Register(Component.For<IUserValidatorFactory>().ImplementedBy<UserValidatorFactory>());
+            RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
         }
+
+        private static void RegisterComponent<T, TK>(IWindsorContainer container)
+            where TK : class
+            where T : class
+        {
+            container.Register(Component.For<T, TK>().LifeStyle.Is(LifestyleType.Singleton));
+        }
+
+        private static void RegisterComponent<T, TK>(IWindsorContainer container, LifestyleType lifestyleType)
+            where TK : class
+            where T : class
+        {
+            container.Register(Component.For<T, TK>().LifeStyle.Is(lifestyleType));
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 using Core.Classes;
 using Web.Routing;
 
-namespace app{
+namespace Web.Models.Url{
 
 	class CashgameMatrixUrlModel : HomegameYearUrlModel{
 

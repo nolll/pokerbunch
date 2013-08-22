@@ -14,19 +14,17 @@ namespace Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "CashgameIndex",
-                "{gameName}/cashgame/index",
-                new { controller = "Cashgame", action = "Index", gameName = UrlParameter.Optional }
+                "Site Routes",
+                "-/{controller}/{action}"
             );
 
             routes.MapRoute(
-                "Login",
-                "-/auth/Login",
-                new { controller = "Auth", action = "Login", gameName = UrlParameter.Optional }
+                "Bunch Routes",
+                "{game}/{controller}/{action}"
             );
 
             routes.MapRoute(
-                "Default",
+                "Home",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

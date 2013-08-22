@@ -44,13 +44,13 @@ namespace Web.Routing{
         public const string ForgotPassword = "/-/password/forgot";
         //const forgotPasswordConfirmation = '/-/password/sent';
 
-        public const string HomegameAdd = "/-/game/add";
-        //const homegameAddConfirmation = '/-/game/created';
-        public const string HomegameDetails = "/{0}/game/details";
-        //const homegameEdit = '/%1$s/game/edit';
-        //const homegameJoin = '/%1$s/game/join';
-        //const homegameJoinConfirmation = '/%1$s/game/joined';
-        public const string HomegameListing = "/-/game/listing";
+        public const string HomegameAdd = "/-/homegame/add";
+        //const homegameAddConfirmation = '/-/homegame/created';
+        public const string HomegameDetails = "/{0}/homegame/details";
+        public const string HomegameEdit = "/{0}/homegame/edit";
+        //const homegameJoin = '/%1$s/homegame/join';
+        //const homegameJoinConfirmation = '/%1$s/homegame/joined';
+        public const string HomegameListing = "/-/homegame/listing";
 
         //const playerAdd = '/%1$s/player/add';
         //const playerAddConfirmation = '/%1$s/player/created';

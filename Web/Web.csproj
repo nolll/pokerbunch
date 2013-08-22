@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="ModelFactories\HomeModelFactory.cs" />
     <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
+    <Compile Include="Models\HomegameModels\Listing\HomegameItemModel.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -394,6 +395,13 @@
     <Content Include="FrontEnd\Font\fontawesome-webfont.ttf" />
     <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
+    <Compile Include="Controllers\HomegameController.cs" />
+    <Compile Include="Models\HomegameListingModel.cs" />
+    <None Include="Views\Homegame\Details.cshtml" />
+    <Compile Include="Models\HomegameModels\Details\HomegameDetailsModel.cs" />
+    <Compile Include="Models\Url\HomegameEditUrlModel.cs" />
+    <None Include="Views\Homegame\Item.cshtml" />
+    <None Include="Views\Homegame\Listing.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>
