@@ -37,6 +37,7 @@ namespace Web.Plumbing
             RegisterComponent<ITimeProvider, TimeProvider>(container);
 
             // Core Factories
+            RegisterComponent<IHomegameFactory, HomegameFactory>(container);
             RegisterComponent<IUserFactory, UserFactory>(container);
             RegisterComponent<ICashgameFactory, CashgameFactory>(container);
             RegisterComponent<IPlayerFactory, PlayerFactory>(container);

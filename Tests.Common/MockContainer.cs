@@ -9,6 +9,7 @@ namespace Tests.Common
 {
     public class MockContainer
     {
+        protected Mock<IHomegameRepository> HomegameRepositoryMock;
         protected Mock<ICashgameRepository> CashgameRepositoryMock;
 
         protected Mock<IHomegameStorage> HomegameStorageMock;
@@ -19,6 +20,7 @@ namespace Tests.Common
         protected Mock<ICashgameFactory> CashgameFactoryMock;
         protected Mock<ICashgameSuiteFactory> CashgameSuiteFactoryMock;
         protected Mock<ICashgameResultFactory> CashgameResultFactoryMock;
+        protected Mock<IHomegameFactory> HomegameFactoryMock;
 
         protected Mock<IWebContext> WebContextMock;
         protected Mock<IUserContext> UserContextMock;
@@ -28,6 +30,7 @@ namespace Tests.Common
         [SetUp]
         public void SetUpMocks()
         {
+            HomegameRepositoryMock = new Mock<IHomegameRepository>();
             CashgameRepositoryMock = new Mock<ICashgameRepository>();
 
             HomegameStorageMock = new Mock<IHomegameStorage>();
@@ -38,6 +41,7 @@ namespace Tests.Common
             CashgameFactoryMock = new Mock<ICashgameFactory>();
             CashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();
             CashgameResultFactoryMock = new Mock<ICashgameResultFactory>();
+            HomegameFactoryMock = new Mock<IHomegameFactory>();
 
             WebContextMock = new Mock<IWebContext>();
             UserContextMock = new Mock<IUserContext>();

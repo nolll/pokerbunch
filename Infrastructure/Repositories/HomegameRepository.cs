@@ -5,54 +5,35 @@ using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Factories;
 
 namespace Infrastructure.Repositories {
 
 	public class HomegameRepository : IHomegameRepository{
 
 	    private readonly IHomegameStorage _homegameStorage;
+	    private readonly IHomegameFactory _homegameFactory;
 
-	    public HomegameRepository(IHomegameStorage homegameStorage)
+	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory)
 	    {
 	        _homegameStorage = homegameStorage;
+	        _homegameFactory = homegameFactory;
 	    }
 
-		public Homegame GetByName(string name){
+	    public Homegame GetByName(string name){
 			var rawHomegame = _homegameStorage.GetHomegameByName(name);
 			if(rawHomegame == null){
 				return null;
 			}
-			return GetHomegameFromRawHomegame(rawHomegame);
+			return _homegameFactory.Create(rawHomegame);
 		}
 
         public IList<Homegame> GetAll()
         {
             var rawHomegames = _homegameStorage.GetHomegames();
-            return GetHomegamesFromRawHomegames(rawHomegames);
+            return _homegameFactory.CreateList(rawHomegames);
         }
 
-        private IList<Homegame> GetHomegamesFromRawHomegames(IEnumerable<RawHomegame> rawHomegames)
-        {
-            return rawHomegames.Select(GetHomegameFromRawHomegame).ToList();
-        }
-
-	    private Homegame GetHomegameFromRawHomegame(RawHomegame rawHomegame){
-			return new Homegame
-			    {
-			        Id = rawHomegame.Id,
-			        Slug = rawHomegame.Slug,
-			        DisplayName = rawHomegame.DisplayName,
-			        Description = rawHomegame.Description,
-			        HouseRules = rawHomegame.HouseRules,
-			        Currency = new CurrencySettings(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout),
-                    Timezone = TimeZoneInfo.FindSystemTimeZoneById(rawHomegame.TimezoneName),
-			        DefaultBuyin = rawHomegame.DefaultBuyin,
-			        CashgamesEnabled = rawHomegame.CashgamesEnabled,
-			        TournamentsEnabled = rawHomegame.TournamentsEnabled,
-			        VideosEnabled = rawHomegame.VideosEnabled
-			    };
-		}
-
-	}
+    }
 
 }
