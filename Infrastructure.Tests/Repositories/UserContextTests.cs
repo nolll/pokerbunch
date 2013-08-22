@@ -137,7 +137,7 @@ namespace CoreTests{
 			var user = new User{DisplayName = displayName};
 		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
-            HomegameStorageMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns((int)Role.Player);
+            HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
 
             var sut = GetSut();
 			var result = sut.IsInRole(homegame, Role.Manager);
@@ -153,7 +153,7 @@ namespace CoreTests{
 			var user = new User{DisplayName = displayName};
 		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
-            HomegameStorageMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns((int)Role.Manager);
+            HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
 
             var sut = GetSut();
             var result = sut.IsInRole(homegame, Role.Player);
@@ -178,7 +178,7 @@ namespace CoreTests{
 
         public UserContext GetSut()
         {
-            return new UserContext(WebContextMock.Object, UserStorageMock.Object, HomegameStorageMock.Object);
+            return new UserContext(WebContextMock.Object, UserStorageMock.Object, HomegameStorageMock.Object, HomegameRepositoryMock.Object);
         }
 
 	}

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Classes;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
@@ -7,13 +6,12 @@ namespace Infrastructure.Data.Storage.Interfaces {
 	public interface IHomegameStorage{
 
 		IList<RawHomegame> GetHomegames();
-		IList<Homegame> GetHomegamesByRole(string token, int role);
-		int GetHomegameRole(Homegame homegame, User user);
+        IList<RawHomegame> GetHomegamesByUserId(int userId);
+        int GetHomegameRole(int homegameId, int userId);
         RawHomegame GetHomegameByName(string name);
-		Homegame AddHomegame(Homegame homegame);
-		bool UpdateHomegame(Homegame homegame);
+        RawHomegame AddHomegame(RawHomegame homegame);
+        bool UpdateHomegame(RawHomegame homegame);
 		bool DeleteHomegame(string slug);
-
 	}
 
 }

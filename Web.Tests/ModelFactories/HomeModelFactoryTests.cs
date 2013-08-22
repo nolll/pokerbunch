@@ -16,7 +16,7 @@ namespace Web.Tests.ModelFactories
         [Test]
         public void AllProperties_DefaultState_IsFalse()
         {
-            HomegameStorageMock.Setup(o => o.GetHomegamesByRole(It.IsAny<string>(), It.IsAny<int>()))
+            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                .Returns(new List<Homegame>());
 
             var sut = GetSut();
@@ -32,7 +32,7 @@ namespace Web.Tests.ModelFactories
         [Test]
         public void IsLoggedIn_WithUser_IsTrue()
         {
-            HomegameStorageMock.Setup(o => o.GetHomegamesByRole(It.IsAny<string>(), It.IsAny<int>()))
+            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                .Returns(new List<Homegame>());
             UserContextMock.Setup(o => o.GetUser()).Returns(new User());
 
@@ -45,7 +45,7 @@ namespace Web.Tests.ModelFactories
         [Test]
         public void HomegameNavModel_WithoutHomeGame_IsNull()
         {
-            HomegameStorageMock.Setup(o => o.GetHomegamesByRole(It.IsAny<string>(), It.IsAny<int>()))
+            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                .Returns(new List<Homegame>());
 
             var sut = GetSut();
@@ -57,7 +57,7 @@ namespace Web.Tests.ModelFactories
         [Test]
         public void HomegameNavModel_WithTwoHomeGames_IsNull()
         {
-            HomegameStorageMock.Setup(o => o.GetHomegamesByRole(It.IsAny<string>(), It.IsAny<int>()))
+            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                .Returns(new List<Homegame>{new Homegame(), new Homegame()});
 
             var sut = GetSut();
@@ -69,7 +69,7 @@ namespace Web.Tests.ModelFactories
         [Test]
         public void HomegameNavModel_WithOneHomeGame_IsNotNull()
         {
-            HomegameStorageMock.Setup(o => o.GetHomegamesByRole(It.IsAny<string>(), It.IsAny<int>()))
+            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                .Returns(new List<Homegame> { new Homegame() });
 
             var sut = GetSut();
@@ -80,7 +80,7 @@ namespace Web.Tests.ModelFactories
 
         private HomeModelFactory GetSut()
         {
-            return new HomeModelFactory(UserContextMock.Object, HomegameStorageMock.Object, CashgameRepositoryMock.Object);
+            return new HomeModelFactory(UserContextMock.Object, HomegameRepositoryMock.Object, CashgameRepositoryMock.Object);
         }
     }
 }

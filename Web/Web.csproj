@@ -157,7 +157,7 @@
     <Compile Include="ModelFactories\HomeModelFactory.cs" />
     <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameItemModel.cs" />
-    <Compile Include="Plumbing\ObjectFactory.cs" />
+    <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,13 +8,13 @@ namespace Web.ModelFactories
     public class HomeModelFactory : IHomeModelFactory
     {
         private readonly IUserContext _userContext;
-        private readonly IHomegameStorage _homegameStorage;
+        private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public HomeModelFactory(IUserContext userContext, IHomegameStorage homegameStorage, ICashgameRepository cashgameRepository)
+        public HomeModelFactory(IUserContext userContext, IHomegameRepository homegameRepository, ICashgameRepository cashgameRepository)
         {
             _userContext = userContext;
-            _homegameStorage = homegameStorage;
+            _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
         }
 
@@ -28,12 +28,8 @@ namespace Web.ModelFactories
 
         private Homegame GetHomegame()
         {
-            var games = _homegameStorage.GetHomegamesByRole(_userContext.GetToken(), (int)Role.Player);
-            if (games.Count == 1)
-            {
-                return games[0];
-            }
-            return null;
+            var games = _homegameRepository.GetByUser(_userContext.GetUser());
+            return games.Count == 1 ? games[0] : null;
         }
 
         private Cashgame GetRunningGame(Homegame homegame)

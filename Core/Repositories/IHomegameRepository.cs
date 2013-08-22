@@ -7,6 +7,8 @@ namespace Core.Repositories {
 
 		Homegame GetByName(string name);
 	    IList<Homegame> GetAll();
+        IList<Homegame> GetByUser(User user);
+	    Role GetHomegameRole(Homegame homegame, User user);
 	}
 
 }

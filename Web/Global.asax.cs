@@ -26,7 +26,7 @@ namespace Web
             RegisterRoutes(RouteTable.Routes);
 
             BootstrapContainer();
-            ObjectFactory.RegisterTypes(_windsorContainer);
+            WebObjectFactory.RegisterTypes(_windsorContainer);
         }
 
         public static void RegisterRoutes(RouteCollection routes)

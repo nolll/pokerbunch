@@ -11,15 +11,17 @@ namespace Infrastructure.Repositories{
 	    private readonly IWebContext _webContext;
 	    private readonly IUserStorage _userStorage;
 	    private readonly IHomegameStorage _homegameStorage;
+	    private readonly IHomegameRepository _homegameRepository;
 
 	    private User _user;
 		private bool _fetchedUser;
 
-	    public UserContext(IWebContext webContext, IUserStorage userStorage, IHomegameStorage homegameStorage)
+	    public UserContext(IWebContext webContext, IUserStorage userStorage, IHomegameStorage homegameStorage, IHomegameRepository homegameRepository)
 	    {
 	        _webContext = webContext;
 	        _userStorage = userStorage;
 	        _homegameStorage = homegameStorage;
+	        _homegameRepository = homegameRepository;
 	        _fetchedUser = false;
 	    }
 
@@ -44,7 +46,7 @@ namespace Infrastructure.Repositories{
 		}
 
 		public Role GetRole(Homegame homegame){
-			return (Role)_homegameStorage.GetHomegameRole(homegame, GetUser());
+			return _homegameRepository.GetHomegameRole(homegame, GetUser());
 		}
 
 		public bool IsInRole(Homegame homegame, Role roleToCheck){
