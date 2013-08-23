@@ -18,6 +18,7 @@ namespace Infrastructure.Repositories {
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
+	    private readonly ICheckpointStorage _checkpointStorage;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -25,7 +26,8 @@ namespace Infrastructure.Repositories {
 			IPlayerStorage playerStorage,
 			ITimeProvider timeProvider,
 			ICashgameSuiteFactory cashgameSuiteFactory,
-			ICashgameResultFactory cashgameResultFactory)
+			ICashgameResultFactory cashgameResultFactory,
+            ICheckpointStorage checkpointStorage)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -33,6 +35,7 @@ namespace Infrastructure.Repositories {
 	        _timeProvider = timeProvider;
 	        _cashgameSuiteFactory = cashgameSuiteFactory;
 	        _cashgameResultFactory = cashgameResultFactory;
+	        _checkpointStorage = checkpointStorage;
 	    }
 
 	    public List<Cashgame> GetPublished(Homegame homegame, int? year = null){
@@ -115,23 +118,23 @@ namespace Infrastructure.Repositories {
 		}
 
 		public bool DeleteGame(Cashgame cashgame){
-			return _cashgameStorage.DeleteGame(cashgame);
+			return _cashgameStorage.DeleteGame(cashgame.Id);
 		}
 
 		public int AddGame(Homegame homegame, Cashgame cashgame){
-			return _cashgameStorage.AddGame(homegame, cashgame);
+			return _cashgameStorage.AddGame(homegame.Id, cashgame);
 		}
 
 		public void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
-			_cashgameStorage.AddCheckpoint(cashgame, player, checkpoint);
+			_checkpointStorage.AddCheckpoint(cashgame, player, checkpoint);
 		}
 
 		public void UpdateCheckpoint(Checkpoint checkpoint){
-			_cashgameStorage.UpdateCheckpoint(checkpoint);
+            _checkpointStorage.UpdateCheckpoint(checkpoint);
 		}
 
 		public void DeleteCheckpoint(int id){
-			_cashgameStorage.DeleteCheckpoint(id);
+            _checkpointStorage.DeleteCheckpoint(id);
 		}
 
 		public bool UpdateGame(Cashgame cashgame){

@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Classes\RawCheckpoint.cs" />
+    <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
+    <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Data\Storage\StorageDataReader.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />

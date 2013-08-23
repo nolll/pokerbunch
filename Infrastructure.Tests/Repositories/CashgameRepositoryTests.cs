@@ -11,7 +11,7 @@ namespace Infrastructure.Tests.Repositories{
 	public class CashgameRepositoryTests : MockContainer {
 
 		private CashgameRepository GetSut(){
-			return new CashgameRepository(CashgameStorageMock.Object, CashgameFactoryMock.Object, PlayerStorageMock.Object, TimeProviderMock.Object, CashgameSuiteFactoryMock.Object, CashgameResultFactoryMock.Object);
+			return new CashgameRepository(CashgameStorageMock.Object, CashgameFactoryMock.Object, PlayerStorageMock.Object, TimeProviderMock.Object, CashgameSuiteFactoryMock.Object, CashgameResultFactoryMock.Object, CheckpointStorageMock.Object);
 		}
 
         [Test]

@@ -15,6 +15,7 @@ namespace Tests.Common
         protected Mock<IHomegameStorage> HomegameStorageMock;
         protected Mock<IUserStorage> UserStorageMock;
         protected Mock<ICashgameStorage> CashgameStorageMock;
+        protected Mock<ICheckpointStorage> CheckpointStorageMock;
         protected Mock<IPlayerStorage> PlayerStorageMock;
 
         protected Mock<ICashgameFactory> CashgameFactoryMock;
@@ -36,6 +37,7 @@ namespace Tests.Common
             HomegameStorageMock = new Mock<IHomegameStorage>();
             UserStorageMock = new Mock<IUserStorage>();
             CashgameStorageMock = new Mock<ICashgameStorage>();
+            CheckpointStorageMock = new Mock<ICheckpointStorage>();
             PlayerStorageMock = new Mock<IPlayerStorage>();
 
             CashgameFactoryMock = new Mock<ICashgameFactory>();
