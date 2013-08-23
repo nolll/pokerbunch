@@ -1,1 +1,0 @@
-<th class="date-header"><a href="{$model->cashgameUrl->url}">{$model->date}</a></th>
