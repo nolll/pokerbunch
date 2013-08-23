@@ -24,6 +24,11 @@ namespace Web
             );
 
             routes.MapRoute(
+                "Bunch Routes With Year",
+                "{game}/{controller}/{action}/{year}"
+            );
+
+            routes.MapRoute(
                 "Home",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

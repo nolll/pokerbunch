@@ -1,0 +1,25 @@
+@model Web.Models.TableModel
+  
+<div class="matrix-container">
+    <table class="cashgames matrix">
+        <thead>
+		    <tr>
+			    <th class="title">Rank</th>
+			    <th class="title">Player</th>
+		        <th class="title">Winnings</th>
+                @foreach (var columnHeaderModel in Model.ColumnHeaderModels)
+                {
+                    @Html.Partial("ColumnHeader", columnHeaderModel)
+                }
+		    </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var rowModel in Model.RowModels)
+            {
+                @Html.Partial("Row", rowModel)
+            }
+        </tbody>
+
+    </table>
+</div>

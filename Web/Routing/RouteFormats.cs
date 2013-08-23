@@ -14,7 +14,7 @@ namespace Web.Routing{
         //const cashgameChartJson = '/%1$s/cashgame/chartjson';
         //const cashgameChartJsonWithYear = '/%1$s/cashgame/chartjson/%2$s';
         //const cashgameDelete = '/%1$s/cashgame/delete/%2$s';
-        //const cashgameDetails = '/%1$s/cashgame/details/%2$s';
+        public const string CashgameDetails = "/{0}/cashgame/details/{1}";
         //const cashgameDetailsChartJson = '/%1$s/cashgame/detailschartjson/%2$s';
         //const cashgameEdit = '/%1$s/cashgame/edit/%2$s';
         //const cashgameEnd = '/%1$s/cashgame/end';
@@ -55,7 +55,7 @@ namespace Web.Routing{
         //const playerAdd = '/%1$s/player/add';
         //const playerAddConfirmation = '/%1$s/player/created';
         //const playerDelete = '/%1$s/player/delete/%2$s';
-        //const playerDetails = '/%1$s/player/details/%2$s';
+        public const string PlayerDetails = "/{0}/player/details/{1}";
         public const string PlayerIndex = "/{0}/player/index";
         //const playerInvite = '/%1$s/player/invite/%2$s';
         //const playerInviteConfirmation = '/%1$s/player/invited/%2$s';

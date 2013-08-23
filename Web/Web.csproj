@@ -332,6 +332,7 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Util.cs" />
     <Compile Include="Validators\Interfaces\IUserValidatorFactory.cs" />
     <Compile Include="Validators\UserValidatorFactory.cs" />
   </ItemGroup>
@@ -397,11 +398,28 @@
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\HomegameController.cs" />
     <Compile Include="Models\HomegameListingModel.cs" />
+    <Compile Include="Models\MatrixPageModel.cs" />
+    <Compile Include="ModelFactories\Interfaces\IMatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\MatrixPageModelFactory.cs" />
+    <Compile Include="Models\Url\CashgameUrlModel.cs" />
+    <Compile Include="Models\TableModel.cs" />
+    <Compile Include="Models\ColumnHeaderModel.cs" />
+    <Compile Include="Models\Url\CashgameDetailsUrlModel.cs" />
+    <Compile Include="Models\Navigation\CashgameNavigationModel.cs" />
+    <Compile Include="Models\RowModel.cs" />
+    <Compile Include="Models\CellModel.cs" />
+    <Compile Include="Models\Url\PlayerDetailsUrlModel.cs" />
+    <Compile Include="Models\Url\PlayerUrlModel.cs" />
     <None Include="Views\Homegame\Details.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsModel.cs" />
     <Compile Include="Models\Url\HomegameEditUrlModel.cs" />
     <None Include="Views\Homegame\Item.cshtml" />
     <None Include="Views\Homegame\Listing.cshtml" />
+    <None Include="Views\Cashgame\Cell.cshtml" />
+    <None Include="Views\Cashgame\ColumnHeader.cshtml" />
+    <None Include="Views\Cashgame\Matrix.cshtml" />
+    <None Include="Views\Cashgame\Row.cshtml" />
+    <None Include="Views\Cashgame\Table.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>

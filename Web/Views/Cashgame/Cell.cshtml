@@ -1,0 +1,11 @@
+@model Web.Models.CellModel
+
+<td class="@Model.WinnerClass">
+    @if (@Model.ShowResult){
+        <span class="amount @Model.ResultClass">@Model.Winnings</span>
+        if (Model.ShowTransactions){
+            <span class="transaction amount">in @Model.Buyin</span>
+            <span class="transaction amount">out @Model.Cashout</span>
+        }
+    }
+</td>

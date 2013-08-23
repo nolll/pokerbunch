@@ -76,7 +76,6 @@
     <None Include="app\Cashgame\Add\AddModel.php" />
     <None Include="app\Cashgame\Add\AddPostModel.php" />
     <None Include="app\Cashgame\CashgameNavigation.tpl" />
-    <None Include="app\Cashgame\CashgameNavigationModel.php" />
     <None Include="app\Cashgame\CashgamePageNavigation.tpl" />
     <None Include="app\Cashgame\CashgamePageNavigationModel.php" />
     <None Include="app\Cashgame\CashgameValidatorFactory.php" />
@@ -117,18 +116,9 @@
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTable.tpl" />
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTableModel.php" />
     <None Include="app\Cashgame\Listing\Listing.tpl" />
-    <None Include="app\Cashgame\Matrix\Cell.tpl" />
-    <None Include="app\Cashgame\Matrix\CellModel.php" />
-    <None Include="app\Cashgame\Matrix\ColumnHeader.tpl" />
-    <None Include="app\Cashgame\Matrix\ColumnHeaderModel.php" />
-    <None Include="app\Cashgame\Matrix\Matrix.tpl" />
-    <None Include="app\Cashgame\Matrix\MatrixController.php" />
     <None Include="app\Cashgame\Matrix\MatrixModel.php" />
     <None Include="app\Cashgame\Matrix\MatrixModelFactory.php" />
     <None Include="app\Cashgame\Matrix\MatrixModelFactoryImpl.php" />
-    <None Include="app\Cashgame\Matrix\Row.tpl" />
-    <None Include="app\Cashgame\Matrix\RowModel.php" />
-    <None Include="app\Cashgame\Matrix\Table.tpl" />
     <None Include="app\Cashgame\Matrix\TableModel.php" />
     <None Include="app\Cashgame\NavigationYearModel.php" />
     <None Include="app\Cashgame\Running\Bar.tpl" />
@@ -207,7 +197,6 @@
     <None Include="app\Site\Errors.tpl" />
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\CashgamePlayerUrlModel.php" />
-    <None Include="app\Urls\BaseClasses\CashgameUrlModel.php" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameActionUrlModel.php" />
@@ -218,7 +207,6 @@
     <None Include="app\Urls\CashgameCheckpointDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDetailsChartJsonUrlModel.php" />
-    <None Include="app\Urls\CashgameDetailsUrlModel.php" />
     <None Include="app\Urls\CashgameEditUrlModel.php" />
     <None Include="app\Urls\CashgameEndUrlModel.php" />
     <None Include="app\Urls\CashgameFactsUrlModel.php" />
@@ -239,7 +227,6 @@
     <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerAddUrlModel.php" />
     <None Include="app\Urls\PlayerDeleteUrlModel.php" />
-    <None Include="app\Urls\PlayerDetailsUrlModel.php" />
     <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerInviteUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
@@ -303,7 +290,6 @@
     <None Include="core\FormFields\TimezoneFieldModel.php" />
     <None Include="core\HomegameControllerDefinition.php" />
     <None Include="core\PageController.php" />
-    <None Include="core\Util.php" />
     <None Include="core\Validation\DateTimeValidator.php" />
     <None Include="core\Validation\EmailValidator.php" />
     <None Include="core\Validation\IntegerValidator.php" />

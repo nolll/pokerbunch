@@ -11,6 +11,7 @@ using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories;
 using Web.Validators;
+using app;
 
 namespace Web.Plumbing
 {
@@ -29,6 +30,7 @@ namespace Web.Plumbing
             // Storage
             ObjectFactory.RegisterComponent<IHomegameStorage, MySqlHomegameStorage>(container);
             ObjectFactory.RegisterComponent<ICashgameStorage, MySqlCashgameStorage>(container);
+            ObjectFactory.RegisterComponent<ICheckpointStorage, MySqlCheckpointStorage>(container);
             ObjectFactory.RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
             ObjectFactory.RegisterComponent<IUserStorage, MySqlUserStorage>(container);
             ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
@@ -48,6 +50,7 @@ namespace Web.Plumbing
 
             // Model Factories
             ObjectFactory.RegisterComponent<IHomeModelFactory, HomeModelFactory>(container);
+            ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);

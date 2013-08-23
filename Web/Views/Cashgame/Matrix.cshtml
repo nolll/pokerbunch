@@ -1,0 +1,16 @@
+@model Web.Models.MatrixPageModel
+
+@{
+    Layout = "~/Views/Layouts/Page.cshtml";
+}
+
+@*
+<div class="block gutter">
+	<h1>
+		{partial view='app\Cashgame\CashgameNavigation' model=$model->cashgameNavModel}
+	</h1>
+</div>
+*@
+<div class="block gutter">
+    @Html.Partial("Table", Model.TableModel)
+</div>

@@ -1,0 +1,13 @@
+@model Web.Models.RowModel
+
+<tr>
+    <td class="rank first">@Model.Rank.</td>
+    <td class="name">
+        <a href="@Model.PlayerUrl">@Model.Name</a>
+    </td>
+    <td class="amount result @Model.ResultClass">@Model.TotalResult</td>
+    @foreach (var cellModel in Model.CellModels)
+    {
+        @Html.Partial("Cell", cellModel)
+    }
+</tr>
