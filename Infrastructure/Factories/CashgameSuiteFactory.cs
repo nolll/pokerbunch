@@ -18,7 +18,7 @@ namespace Infrastructure.Factories{
 			CashgameResult bestResult = null;
 			CashgameResult worstResult = null;
 
-	        var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime);
+	        var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
 			foreach(var cashgame in sortedCashgames){
 				var results = cashgame.Results;
 				foreach(var result in results){
@@ -40,8 +40,8 @@ namespace Infrastructure.Factories{
             return new CashgameSuite
                 {
                     TotalResults = totalResults,
-                    Cashgames = cashgames,
-                    GameCount = cashgames.Count,
+                    Cashgames = sortedCashgames,
+                    GameCount = sortedCashgames.Count(),
                     TotalGameTime = totalGameTime,
                     BestResult = bestResult,
                     WorstResult = worstResult,

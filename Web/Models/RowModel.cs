@@ -23,6 +23,7 @@ namespace Web.Models{
 		
 		public RowModel(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank){
 			var cashgames = suite.Cashgames;
+		    Rank = rank;
 
 			if(result != null){
 				var player = result.Player;
@@ -39,7 +40,7 @@ namespace Web.Models{
 			}
 		}
 
-		private List<CellModel> GetCellModels(List<Cashgame> cashgames, Player player)
+		private List<CellModel> GetCellModels(IEnumerable<Cashgame> cashgames, Player player)
 		{
 		    var models = new List<CellModel>();
 			if(cashgames != null){

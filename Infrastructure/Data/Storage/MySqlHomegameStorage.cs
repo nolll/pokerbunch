@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Storage {
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
         {
             var sql = GetHomegameBaseSql();
-            sql += "INNER JOIN player p on h.HomegameID = p.HomegameID WHERE u.UserID = '{0}' ORDER BY h.Name";
+            sql += "INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = '{0}' ORDER BY h.Name";
             sql = string.Format(sql, userId);
             return GetRawHomegameList(sql);
         }

@@ -19,8 +19,8 @@ namespace Web.Controllers{
 	        _matrixPageModelFactory = matrixPageModelFactory;
 	    }
 
-	    public ActionResult Index(string game){
-			var homegame = _homegameRepository.GetByName(game);
+	    public ActionResult Index(string gameName){
+            var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
 			if(years.Count > 0){
@@ -30,8 +30,8 @@ namespace Web.Controllers{
 			return new RedirectResult(new CashgameAddUrlModel(homegame).Url);
 		}
 
-        public ActionResult Matrix(string name, int? year = null){
-			var homegame = _homegameRepository.GetByName(name);
+        public ActionResult Matrix(string gameName, int? year = null){
+            var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var model = _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
 			return View(model);

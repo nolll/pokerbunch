@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Core.Classes{
     public class CashgameSuite {
 
-	    public List<Cashgame> Cashgames { get; set; }
+	    public IList<Cashgame> Cashgames { get; set; }
 	    public List<CashgameTotalResult> TotalResults { get; set; }
 	    public int GameCount { get; set; }
 	    public CashgameTotalResult BestTotalResult { get; set; }

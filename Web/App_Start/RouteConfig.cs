@@ -20,12 +20,12 @@ namespace Web
 
             routes.MapRoute(
                 "Bunch Routes",
-                "{game}/{controller}/{action}"
+                "{gamename}/{controller}/{action}"
             );
 
             routes.MapRoute(
                 "Bunch Routes With Year",
-                "{game}/{controller}/{action}/{year}"
+                "{gamename}/{controller}/{action}/{year}"
             );
 
             routes.MapRoute(
