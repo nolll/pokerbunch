@@ -46,7 +46,6 @@
     <None Include="app\ApplicationModule.php" />
     <None Include="app\ApplicationRouteProvider.php" />
     <None Include="app\AppParamParser.php" />
-    <None Include="app\Auth\Login.tpl" />
     <None Include="app\Cashgame\Action\Action.tpl" />
     <None Include="app\Cashgame\Action\ActionChartData.php" />
     <None Include="app\Cashgame\Action\ActionController.php" />
@@ -116,10 +115,6 @@
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTable.tpl" />
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTableModel.php" />
     <None Include="app\Cashgame\Listing\Listing.tpl" />
-    <None Include="app\Cashgame\Matrix\MatrixModel.php" />
-    <None Include="app\Cashgame\Matrix\MatrixModelFactory.php" />
-    <None Include="app\Cashgame\Matrix\MatrixModelFactoryImpl.php" />
-    <None Include="app\Cashgame\Matrix\TableModel.php" />
     <None Include="app\Cashgame\NavigationYearModel.php" />
     <None Include="app\Cashgame\Running\Bar.tpl" />
     <None Include="app\Cashgame\Running\BarModel.php" />
