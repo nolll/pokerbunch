@@ -155,8 +155,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelFactories\HomeModelFactory.cs" />
-    <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomeModelFactories\IHomePageModelFactory.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixTableCellModel.cs" />
@@ -351,8 +353,6 @@
     <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\HomegameController.cs" />
-    <Compile Include="ModelFactories\Interfaces\IMatrixPageModelFactory.cs" />
-    <Compile Include="ModelFactories\MatrixPageModelFactory.cs" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />
     <None Include="Views\Homegame\HomegameListingItem.cshtml" />

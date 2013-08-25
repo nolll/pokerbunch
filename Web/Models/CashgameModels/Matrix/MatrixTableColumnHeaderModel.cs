@@ -1,7 +1,6 @@
 using Core.Classes;
 using Infrastructure.System;
 using Web.Models.UrlModels;
-using app;
 
 namespace Web.Models.CashgameModels.Matrix{
     public class MatrixTableColumnHeaderModel{

@@ -10,8 +10,10 @@ using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.HomeModelFactories;
+using Web.Models.HomeModels;
 using Web.Validators;
-using app;
 
 namespace Web.Plumbing
 {
@@ -49,7 +51,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
 
             // Model Factories
-            ObjectFactory.RegisterComponent<IHomeModelFactory, HomeModelFactory>(container);
+            ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
 
             // Validator Factories

@@ -1,9 +1,7 @@
 using Core.Classes;
-using Web.Models;
 using Web.Models.CashgameModels.Matrix;
-using app;
 
-namespace Web.ModelFactories{
+namespace Web.ModelFactories.CashgameModelFactories.Matrix{
     public interface IMatrixPageModelFactory {
 
 		MatrixPageModel Create(Homegame homegame, User user, int? year);

@@ -8,6 +8,8 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories;
+using Web.ModelFactories.HomeModelFactories;
+using Web.Models.HomeModels;
 
 namespace Web.Tests.ModelFactories
 {
@@ -78,9 +80,9 @@ namespace Web.Tests.ModelFactories
             Assert.IsNotNull(result.HomegameNavModel);
         }
 
-        private HomeModelFactory GetSut()
+        private HomePageModelFactory GetSut()
         {
-            return new HomeModelFactory(UserContextMock.Object, HomegameRepositoryMock.Object, CashgameRepositoryMock.Object);
+            return new HomePageModelFactory(UserContextMock.Object, HomegameRepositoryMock.Object, CashgameRepositoryMock.Object);
         }
     }
 }

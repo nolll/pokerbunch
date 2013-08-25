@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Web.ModelFactories;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{

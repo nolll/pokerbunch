@@ -1,18 +1,16 @@
-﻿using Core.Classes;
+using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Storage.Interfaces;
-using Web.Models;
 using Web.Models.HomeModels;
 
-namespace Web.ModelFactories
+namespace Web.ModelFactories.HomeModelFactories
 {
-    public class HomeModelFactory : IHomeModelFactory
+    public class HomePageModelFactory : IHomePageModelFactory
     {
         private readonly IUserContext _userContext;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public HomeModelFactory(IUserContext userContext, IHomegameRepository homegameRepository, ICashgameRepository cashgameRepository)
+        public HomePageModelFactory(IUserContext userContext, IHomegameRepository homegameRepository, ICashgameRepository cashgameRepository)
         {
             _userContext = userContext;
             _homegameRepository = homegameRepository;
