@@ -3,7 +3,6 @@ using System.Web;
 using Core.Classes;
 using Infrastructure.System;
 using Web.Models.Url;
-using app;
 
 namespace Web.Models{
     public class RowModel{

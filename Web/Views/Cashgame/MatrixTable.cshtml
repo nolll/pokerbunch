@@ -9,7 +9,7 @@
 		        <th class="title">Winnings</th>
                 @foreach (var columnHeaderModel in Model.ColumnHeaderModels)
                 {
-                    @Html.Partial("ColumnHeader", columnHeaderModel)
+                    @Html.Partial("MatrixTableColumnHeader", columnHeaderModel)
                 }
 		    </tr>
         </thead>
@@ -17,7 +17,7 @@
         <tbody>
             @foreach (var rowModel in Model.RowModels)
             {
-                @Html.Partial("Row", rowModel)
+                @Html.Partial("MatrixTableRow", rowModel)
             }
         </tbody>
 

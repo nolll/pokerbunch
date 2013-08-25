@@ -34,7 +34,7 @@ namespace Web.Controllers{
             var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var model = _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
-			return View(model);
+			return View("MatrixPage", model);
 		}
 
 	}

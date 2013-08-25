@@ -415,11 +415,11 @@
     <Compile Include="Models\Url\HomegameEditUrlModel.cs" />
     <None Include="Views\Homegame\Item.cshtml" />
     <None Include="Views\Homegame\Listing.cshtml" />
-    <None Include="Views\Cashgame\Cell.cshtml" />
-    <None Include="Views\Cashgame\ColumnHeader.cshtml" />
-    <None Include="Views\Cashgame\Matrix.cshtml" />
-    <None Include="Views\Cashgame\Row.cshtml" />
-    <None Include="Views\Cashgame\Table.cshtml" />
+    <None Include="Views\Cashgame\MatrixTableCell.cshtml" />
+    <None Include="Views\Cashgame\MatrixTableColumnHeader.cshtml" />
+    <None Include="Views\Cashgame\MatrixPage.cshtml" />
+    <None Include="Views\Cashgame\MatrixTableRow.cshtml" />
+    <None Include="Views\Cashgame\MatrixTable.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>

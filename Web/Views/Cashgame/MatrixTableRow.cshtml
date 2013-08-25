@@ -8,6 +8,6 @@
     <td class="amount result @Model.ResultClass">@Model.TotalResult</td>
     @foreach (var cellModel in Model.CellModels)
     {
-        @Html.Partial("Cell", cellModel)
+        @Html.Partial("MatrixTableCell", cellModel)
     }
 </tr>
