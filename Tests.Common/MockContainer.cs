@@ -1,4 +1,5 @@
 ﻿using Core.Repositories;
+using Infrastructure.Caching;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.System;
@@ -28,6 +29,8 @@ namespace Tests.Common
 
         protected Mock<ITimeProvider> TimeProviderMock;
 
+        protected Mock<ICacheHandler> CacheHandlerMock;
+
         [SetUp]
         public void SetUpMocks()
         {
@@ -49,6 +52,8 @@ namespace Tests.Common
             UserContextMock = new Mock<IUserContext>();
 
             TimeProviderMock = new Mock<ITimeProvider>();
+
+            CacheHandlerMock = new Mock<ICacheHandler>();
         }
     }
 }

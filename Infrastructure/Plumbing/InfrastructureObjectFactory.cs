@@ -1,18 +1,24 @@
-﻿using Castle.Core;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+﻿using Castle.Windsor;
+using Infrastructure.Caching;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.Plumbing;
 
-namespace Web.Plumbing
+namespace Infrastructure.Plumbing
 {
-    public static class WebObjectFactory
+    public static class InfrastructureObjectFactory
     {
         public static void RegisterTypes(IWindsorContainer container)
         {
             // Storage
             ObjectFactory.RegisterComponent<IHomegameStorage, MySqlHomegameStorage>(container);
+            ObjectFactory.RegisterComponent<ICashgameStorage, MySqlCashgameStorage>(container);
+            ObjectFactory.RegisterComponent<ICheckpointStorage, MySqlCheckpointStorage>(container);
+            ObjectFactory.RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
+            ObjectFactory.RegisterComponent<IUserStorage, MySqlUserStorage>(container);
+            ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
+
+            // Cache
+            ObjectFactory.RegisterComponent<ICacheHandler, CacheHandler>(container);
         }
     }
 }

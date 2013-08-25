@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 using Core.Repositories;
+using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
@@ -13,21 +14,32 @@ namespace Infrastructure.Repositories {
 
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
+	    private readonly ICacheHandler _cacheHandler;
 
-	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory)
+	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheHandler cacheHandler)
 	    {
 	        _homegameStorage = homegameStorage;
 	        _homegameFactory = homegameFactory;
+	        _cacheHandler = cacheHandler;
 	    }
 
         public Homegame GetByName(string name)
         {
-            var rawHomegame = _homegameStorage.GetHomegameByName(name);
-            if (rawHomegame == null)
+            var cacheKey = "Homegame:" + name;
+            var cached = _cacheHandler.Get(cacheKey);
+            if (cached != null)
             {
-                return null;
+                return (Homegame)cached;
             }
-            return _homegameFactory.Create(rawHomegame);
+            var homegame = GetByNameUncached(name);
+            _cacheHandler.Put(cacheKey, homegame, TimeSpan.FromMinutes(10));
+            return homegame;
+        }
+
+        private Homegame GetByNameUncached(string name)
+        {
+            var rawHomegame = _homegameStorage.GetHomegameByName(name);
+            return rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
         }
 
         public IList<Homegame> GetByUser(User user)

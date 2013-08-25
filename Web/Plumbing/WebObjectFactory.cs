@@ -1,5 +1,4 @@
 ﻿using Castle.Core;
-using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Core.Repositories;
 using Core.Services;
@@ -9,10 +8,8 @@ using Infrastructure.Factories;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
-using Web.ModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
-using Web.Models.HomeModels;
 using Web.Validators;
 
 namespace Web.Plumbing
@@ -21,6 +18,8 @@ namespace Web.Plumbing
     {
         public static void RegisterTypes(IWindsorContainer container)
         {
+            InfrastructureObjectFactory.RegisterTypes(container);
+
             // Services
             ObjectFactory.RegisterComponent<IEncryptionService, EncryptionService>(container);
 
@@ -28,14 +27,6 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
             ObjectFactory.RegisterComponent<ICashgameRepository, CashgameRepository>(container);
             ObjectFactory.RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
-
-            // Storage
-            ObjectFactory.RegisterComponent<IHomegameStorage, MySqlHomegameStorage>(container);
-            ObjectFactory.RegisterComponent<ICashgameStorage, MySqlCashgameStorage>(container);
-            ObjectFactory.RegisterComponent<ICheckpointStorage, MySqlCheckpointStorage>(container);
-            ObjectFactory.RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
-            ObjectFactory.RegisterComponent<IUserStorage, MySqlUserStorage>(container);
-            ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
 
             // System
             ObjectFactory.RegisterComponent<IWebContext, WebContext>(container);

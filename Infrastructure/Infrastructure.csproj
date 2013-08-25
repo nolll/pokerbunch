@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheHandler.cs" />
+    <Compile Include="Caching\ICacheHandler.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
@@ -142,6 +144,9 @@
   <ItemGroup>
     <Compile Include="Data\Storage\MySqlCashgameStorage.cs" />
     <Compile Include="Data\Storage\MySqlPlayerStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
