@@ -1,7 +1,7 @@
 using Core.Classes;
 using NUnit.Framework;
 using Web.Models.HomegameModels.Details;
-using Web.Models.Url;
+using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests{
 
@@ -77,8 +77,8 @@ namespace Web.Tests.ModelTests{
 			Assert.IsTrue(sut.ShowEditLink);
 		}
 
-		private HomegameDetailsModel GetSut(){
-			return new HomegameDetailsModel(_user, _homegame, _isInManagerMode);
+		private HomegameDetailsPageModel GetSut(){
+			return new HomegameDetailsPageModel(_user, _homegame, _isInManagerMode);
 		}
 
 	}

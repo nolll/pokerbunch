@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Web.Models.Navigation;
-using Web.Models.Url;
+using Web.Models.NavigationModels;
+using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Matrix{
     public class MatrixPageModel : HomegamePageModel {

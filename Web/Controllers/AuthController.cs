@@ -5,7 +5,8 @@ using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 using Web.Models;
-using Web.Models.Url;
+using Web.Models.AuthModels;
+using Web.Models.UrlModels;
 using Web.Validators;
 
 namespace Web.Controllers{
@@ -29,15 +30,15 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-		public ActionResult Login(AuthLoginModel loginModel){
-			var user = GetLoggedInUser(loginModel.LoginName, loginModel.Password);
+		public ActionResult Login(AuthLoginPageModel loginPageModel){
+			var user = GetLoggedInUser(loginPageModel.LoginName, loginPageModel.Password);
 
 			var validator = _userValidatorFactory.GetLoginValidator(user);
 			if(validator.IsValid){
-				SetCookies(user, loginModel.RememberMe);
-                return new RedirectResult(GetReturnUrl(loginModel.ReturnUrl).Url);
+				SetCookies(user, loginPageModel.RememberMe);
+                return new RedirectResult(GetReturnUrl(loginPageModel.ReturnUrl).Url);
 			}
-            return ShowForm(loginModel.LoginName, validator.GetErrors());
+            return ShowForm(loginPageModel.LoginName, validator.GetErrors());
 		}
 
 		private User GetLoggedInUser(string loginName, string password){
@@ -94,9 +95,9 @@ namespace Web.Controllers{
 
     public class AuthLoginViewModelFactory
     {
-        public AuthLoginModel Create(string returnUrl, string loginName)
+        public AuthLoginPageModel Create(string returnUrl, string loginName)
         {
-            return new AuthLoginModel
+            return new AuthLoginPageModel
                 {
                     ReturnUrl = returnUrl ?? new HomeUrlModel().Url,
                     AddUserUrl = new UserAddUrlModel(),

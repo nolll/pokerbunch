@@ -2,6 +2,7 @@
 using Core.Repositories;
 using Infrastructure.Data.Storage.Interfaces;
 using Web.Models;
+using Web.Models.HomeModels;
 
 namespace Web.ModelFactories
 {
@@ -18,11 +19,11 @@ namespace Web.ModelFactories
             _cashgameRepository = cashgameRepository;
         }
 
-        public HomeModel Create()
+        public HomePageModel Create()
         {
             var homegame = GetHomegame();
             var runningGame = GetRunningGame(homegame);
-            var model = new HomeModel(_userContext.GetUser(), homegame, runningGame);
+            var model = new HomePageModel(_userContext.GetUser(), homegame, runningGame);
             return model;
         }
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Web;
 using Core.Classes;
 using Infrastructure.System;
-using Web.Models.Url;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Matrix{
     public class MatrixTableRowModel{

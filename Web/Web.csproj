@@ -151,17 +151,55 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatters\UrlFormatter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelFactories\HomeModelFactory.cs" />
     <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
+    <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixTableCellModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixTableColumnHeaderModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixTableModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\MatrixTableRowModel.cs" />
-    <Compile Include="Models\HomegameModels\Listing\HomegameItemModel.cs" />
+    <Compile Include="Models\HomegameModels\Listing\HomegameListingItemModel.cs" />
+    <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
+    <Compile Include="Models\HomeModels\HomePageModel.cs" />
+    <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
+    <Compile Include="Models\NavigationModels\AdminNavModel.cs" />
+    <Compile Include="Models\NavigationModels\CashgameNavigationModel.cs" />
+    <Compile Include="Models\NavigationModels\HomegameNavigationModel.cs" />
+    <Compile Include="Models\NavigationModels\NavigationModel.cs" />
+    <Compile Include="Models\NavigationModels\NavigationNode.cs" />
+    <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
+    <Compile Include="Models\PageBaseModels\HomegamePageModel.cs" />
+    <Compile Include="Models\PageBaseModels\PageModel.cs" />
+    <Compile Include="Models\UrlModels\AuthLoginUrlModel.cs" />
+    <Compile Include="Models\UrlModels\AuthLogoutUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameAddUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameAddUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameEditUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameListingUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameYearUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomeUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerUrlModel.cs" />
+    <Compile Include="Models\UrlModels\RunningCashgameUrlModel.cs" />
+    <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserAddUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserListingUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserUrlModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -244,91 +282,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\HomeModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\HomegamePageModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\PageModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\GoogleAnalyticsModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\UrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Url\HomegameAddUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Routing\RouteFormats.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\AuthLoginUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\UserAddUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Navigation\AdminNavModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Navigation\NavigationNode.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Navigation\NavigationModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Navigation\HomegameNavigationModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\HomegameDetailsUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\HomegameUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\UrlFormatter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\HomegameListingUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\UserListingUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\CashgameIndexUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\PlayerIndexUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\CashgameAddUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\RunningCashgameUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Navigation\UserNavigationModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\ForgotPasswordUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\UserDetailsUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\SharingSettingsUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\AuthLogoutUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Url\UserUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layouts\Page.cshtml" />
@@ -361,18 +318,10 @@
     <Compile Include="Validators\SimpleValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Url\HomeUrlModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\AuthLoginModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
-    <Compile Include="Models\Url\CashgameMatrixUrlModel.cs" />
-    <Compile Include="Models\Url\HomegameYearUrlModel.cs" />
     <Content Include="FrontEnd\Css\sass\style.scss" />
     <Content Include="FrontEnd\Css\sass\tests.scss" />
     <Content Include="FrontEnd\Css\sass\_cashgame-leaderboard.scss" />
@@ -402,19 +351,12 @@
     <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\HomegameController.cs" />
-    <Compile Include="Models\HomegameListingModel.cs" />
     <Compile Include="ModelFactories\Interfaces\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\MatrixPageModelFactory.cs" />
-    <Compile Include="Models\Url\CashgameUrlModel.cs" />
-    <Compile Include="Models\Url\CashgameDetailsUrlModel.cs" />
-    <Compile Include="Models\Navigation\CashgameNavigationModel.cs" />
-    <Compile Include="Models\Url\PlayerDetailsUrlModel.cs" />
-    <Compile Include="Models\Url\PlayerUrlModel.cs" />
-    <None Include="Views\Homegame\Details.cshtml" />
-    <Compile Include="Models\HomegameModels\Details\HomegameDetailsModel.cs" />
-    <Compile Include="Models\Url\HomegameEditUrlModel.cs" />
-    <None Include="Views\Homegame\Item.cshtml" />
-    <None Include="Views\Homegame\Listing.cshtml" />
+    <None Include="Views\Homegame\HomegameDetails.cshtml" />
+    <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />
+    <None Include="Views\Homegame\HomegameListingItem.cshtml" />
+    <None Include="Views\Homegame\HomegameListing.cshtml" />
     <None Include="Views\Cashgame\Matrix\MatrixTableCell.cshtml" />
     <None Include="Views\Cashgame\Matrix\MatrixTableColumnHeader.cshtml" />
     <None Include="Views\Cashgame\Matrix\MatrixPage.cshtml" />

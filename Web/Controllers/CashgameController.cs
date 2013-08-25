@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Web.ModelFactories;
-using Web.Models.Url;
+using Web.Models.UrlModels;
 
 namespace Web.Controllers{
 
@@ -34,7 +34,7 @@ namespace Web.Controllers{
             var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var model = _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
-			return View("MatrixPage", model);
+			return View("Matrix/MatrixPage", model);
 		}
 
 	}
