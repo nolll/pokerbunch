@@ -4,8 +4,8 @@ using Core.Classes;
 using Infrastructure.System;
 using Web.Models.Url;
 
-namespace Web.Models{
-    public class RowModel{
+namespace Web.Models.CashgameModels.Matrix{
+    public class MatrixTableRowModel{
 
 	    public int Rank { get; set; }
 	    public string Name { get; set; }
@@ -15,12 +15,12 @@ namespace Web.Models{
 	    public string GameTime { get; set; }
 	    public string WinRate { get; set; }
 	    public UrlModel PlayerUrl { get; set; }
-        public List<CellModel> CellModels { get; set; }
+        public List<MatrixTableCellModel> CellModels { get; set; }
 
 		//public $player;
 		//public $currency;
 		
-		public RowModel(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank){
+		public MatrixTableRowModel(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank){
 			var cashgames = suite.Cashgames;
 		    Rank = rank;
 
@@ -39,13 +39,13 @@ namespace Web.Models{
 			}
 		}
 
-		private List<CellModel> GetCellModels(IEnumerable<Cashgame> cashgames, Player player)
+		private List<MatrixTableCellModel> GetCellModels(IEnumerable<Cashgame> cashgames, Player player)
 		{
-		    var models = new List<CellModel>();
+		    var models = new List<MatrixTableCellModel>();
 			if(cashgames != null){
 				foreach(var cashgame in cashgames){
 					var result = cashgame.GetResult(player);
-					models.Add(new CellModel(cashgame, result));
+					models.Add(new MatrixTableCellModel(cashgame, result));
 				}
 			}
 			return models;

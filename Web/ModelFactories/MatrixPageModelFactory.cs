@@ -2,6 +2,7 @@ using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories;
 using Web.Models;
+using Web.Models.CashgameModels.Matrix;
 
 namespace app{
 

@@ -156,6 +156,11 @@
     </Compile>
     <Compile Include="ModelFactories\HomeModelFactory.cs" />
     <Compile Include="ModelFactories\Interfaces\IHomeModelFactory.cs" />
+    <Compile Include="Models\CashgameModels\Matrix\MatrixPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Matrix\MatrixTableCellModel.cs" />
+    <Compile Include="Models\CashgameModels\Matrix\MatrixTableColumnHeaderModel.cs" />
+    <Compile Include="Models\CashgameModels\Matrix\MatrixTableModel.cs" />
+    <Compile Include="Models\CashgameModels\Matrix\MatrixTableRowModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameItemModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
@@ -398,16 +403,11 @@
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\HomegameController.cs" />
     <Compile Include="Models\HomegameListingModel.cs" />
-    <Compile Include="Models\MatrixPageModel.cs" />
     <Compile Include="ModelFactories\Interfaces\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\MatrixPageModelFactory.cs" />
     <Compile Include="Models\Url\CashgameUrlModel.cs" />
-    <Compile Include="Models\TableModel.cs" />
-    <Compile Include="Models\ColumnHeaderModel.cs" />
     <Compile Include="Models\Url\CashgameDetailsUrlModel.cs" />
     <Compile Include="Models\Navigation\CashgameNavigationModel.cs" />
-    <Compile Include="Models\RowModel.cs" />
-    <Compile Include="Models\CellModel.cs" />
     <Compile Include="Models\Url\PlayerDetailsUrlModel.cs" />
     <Compile Include="Models\Url\PlayerUrlModel.cs" />
     <None Include="Views\Homegame\Details.cshtml" />
@@ -415,11 +415,11 @@
     <Compile Include="Models\Url\HomegameEditUrlModel.cs" />
     <None Include="Views\Homegame\Item.cshtml" />
     <None Include="Views\Homegame\Listing.cshtml" />
-    <None Include="Views\Cashgame\MatrixTableCell.cshtml" />
-    <None Include="Views\Cashgame\MatrixTableColumnHeader.cshtml" />
-    <None Include="Views\Cashgame\MatrixPage.cshtml" />
-    <None Include="Views\Cashgame\MatrixTableRow.cshtml" />
-    <None Include="Views\Cashgame\MatrixTable.cshtml" />
+    <None Include="Views\Cashgame\Matrix\MatrixTableCell.cshtml" />
+    <None Include="Views\Cashgame\Matrix\MatrixTableColumnHeader.cshtml" />
+    <None Include="Views\Cashgame\Matrix\MatrixPage.cshtml" />
+    <None Include="Views\Cashgame\Matrix\MatrixTableRow.cshtml" />
+    <None Include="Views\Cashgame\Matrix\MatrixTable.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>

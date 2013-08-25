@@ -1,7 +1,7 @@
 using Core.Classes;
 
-namespace Web.Models{
-    public class CellModel{
+namespace Web.Models.CashgameModels.Matrix{
+    public class MatrixTableCellModel{
 
 	    public int Buyin { get; set; }
 	    public int Cashout { get; set; }
@@ -12,7 +12,7 @@ namespace Web.Models{
 	    public bool HasBestResult { get; set; }
 	    public string WinnerClass { get; set; }
 
-		public CellModel(Cashgame cashgame, CashgameResult result){
+		public MatrixTableCellModel(Cashgame cashgame, CashgameResult result){
 			if(result != null){
 				ShowResult = true;
 				ShowTransactions = result.Buyin > 0;

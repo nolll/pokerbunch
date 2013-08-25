@@ -1,4 +1,4 @@
-@model Web.Models.MatrixPageModel
+@model Web.Models.CashgameModels.Matrix.MatrixPageModel
 
 @{
     Layout = "~/Views/Layouts/Page.cshtml";
@@ -12,5 +12,5 @@
 </div>
 *@
 <div class="block gutter">
-    @Html.Partial("MatrixTable", Model.TableModel)
+    @Html.Partial("Matrix/MatrixTable", Model.TableModel)
 </div>

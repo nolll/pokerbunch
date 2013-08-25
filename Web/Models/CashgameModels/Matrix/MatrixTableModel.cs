@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 
-namespace Web.Models{
+namespace Web.Models.CashgameModels.Matrix{
 
-	public class TableModel{
+	public class MatrixTableModel{
 
 	    public bool ShowYear { get; set; }
-	    public List<ColumnHeaderModel> ColumnHeaderModels { get; set; }
-	    public List<RowModel> RowModels { get; set; }
+	    public List<MatrixTableColumnHeaderModel> ColumnHeaderModels { get; set; }
+	    public List<MatrixTableRowModel> RowModels { get; set; }
 
-		public TableModel (Homegame homegame, CashgameSuite suite){
+		public MatrixTableModel (Homegame homegame, CashgameSuite suite){
 			var results = suite.TotalResults;
 			var cashgames = suite.Cashgames;
 			ShowYear = SpansMultipleYears(cashgames);
@@ -18,17 +18,17 @@ namespace Web.Models{
             RowModels = GetRowModels(homegame, suite, results);
 		}
 
-		private List<ColumnHeaderModel> GetHeaderModels(Homegame homegame, IEnumerable<Cashgame> cashgames)
+		private List<MatrixTableColumnHeaderModel> GetHeaderModels(Homegame homegame, IEnumerable<Cashgame> cashgames)
 		{
-		    return cashgames.Select(cashgame => new ColumnHeaderModel(homegame, cashgame, ShowYear)).ToList();
+		    return cashgames.Select(cashgame => new MatrixTableColumnHeaderModel(homegame, cashgame, ShowYear)).ToList();
 		}
 
-	    private List<RowModel> GetRowModels(Homegame homegame, CashgameSuite suite, IEnumerable<CashgameTotalResult> results){
-            var models = new List<RowModel>();
+	    private List<MatrixTableRowModel> GetRowModels(Homegame homegame, CashgameSuite suite, IEnumerable<CashgameTotalResult> results){
+            var models = new List<MatrixTableRowModel>();
 			var rank = 0;
 			foreach(var result in results){
 				rank++;
-				models.Add(new RowModel(homegame, suite, result, rank));
+				models.Add(new MatrixTableRowModel(homegame, suite, result, rank));
 			}
 			return models;
 		}
