@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Caching
 {
-    public interface ICacheRepository
+    public interface ICacheContainer
     {
         bool TryGet<T>(string key, out T value) where T : class;
         void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime);

@@ -50,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Caching\CacheRepository.cs" />
-    <Compile Include="Caching\ICacheRepository.cs" />
+    <Compile Include="Caching\CacheContainer.cs" />
+    <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />

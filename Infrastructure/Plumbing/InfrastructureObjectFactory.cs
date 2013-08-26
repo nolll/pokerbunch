@@ -19,7 +19,7 @@ namespace Infrastructure.Plumbing
 
             // Cache
             ObjectFactory.RegisterComponent<ICacheProvider, CacheProvider>(container);
-            ObjectFactory.RegisterComponent<ICacheRepository, CacheRepository>(container);
+            ObjectFactory.RegisterComponent<ICacheContainer, CacheContainer>(container);
         }
     }
 }

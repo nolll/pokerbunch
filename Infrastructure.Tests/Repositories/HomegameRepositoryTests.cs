@@ -44,7 +44,7 @@ namespace tes{
 
         private HomegameRepository GetSut()
         {
-            return new HomegameRepository(HomegameStorageMock.Object, HomegameFactoryMock.Object, CacheRepositoryFake);
+            return new HomegameRepository(HomegameStorageMock.Object, HomegameFactoryMock.Object, CacheContainerFake);
         }
 
 	}

@@ -3,7 +3,7 @@ using Infrastructure.Caching;
 
 namespace Tests.Common
 {
-    class CacheRepositoryFake : ICacheRepository
+    class CacheContainerFake : ICacheContainer
     {
         public bool TryGet<T>(string key, out T value) where T : class
         {

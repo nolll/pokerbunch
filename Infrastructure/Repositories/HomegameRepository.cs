@@ -14,18 +14,18 @@ namespace Infrastructure.Repositories {
 
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
-	    private readonly ICacheRepository _cacheRepository;
+	    private readonly ICacheContainer _cacheContainer;
 
-	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheRepository cacheRepository)
+	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheContainer cacheContainer)
 	    {
 	        _homegameStorage = homegameStorage;
 	        _homegameFactory = homegameFactory;
-	        _cacheRepository = cacheRepository;
+	        _cacheContainer = cacheContainer;
 	    }
 
         public Homegame GetByName(string name)
         {
-            return _cacheRepository.GetCachedIfAvailable(() => GetByNameUncached(name), TimeSpan.FromMinutes(10), "Homegame:", name);
+            return _cacheContainer.GetCachedIfAvailable(() => GetByNameUncached(name), TimeSpan.FromMinutes(10), "Homegame:", name);
         }
 
         private Homegame GetByNameUncached(string name)

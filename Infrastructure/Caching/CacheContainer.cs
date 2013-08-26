@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Infrastructure.Caching
 {
-    public class CacheRepository : ICacheRepository
+    public class CacheContainer : ICacheContainer
     {
         private static readonly ConcurrentDictionary<string, object> CurrentRequests = new ConcurrentDictionary<string, object>();
         private readonly ICacheProvider _cacheProvider;
 
         private readonly CacheableNullValue _nullValue = new CacheableNullValue();
 
-        public CacheRepository(ICacheProvider cacheProvider)
+        public CacheContainer(ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
         }

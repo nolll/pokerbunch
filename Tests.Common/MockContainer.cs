@@ -31,8 +31,8 @@ namespace Tests.Common
         protected Mock<ITimeProvider> TimeProviderMock;
 
         protected Mock<ICacheProvider> CacheProviderMock;
-        protected Mock<ICacheRepository> CacheRepositoryMock;
-        protected ICacheRepository CacheRepositoryFake;
+        protected Mock<ICacheContainer> CacheContainerMock;
+        protected ICacheContainer CacheContainerFake;
 
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
 
@@ -59,8 +59,8 @@ namespace Tests.Common
             TimeProviderMock = new Mock<ITimeProvider>();
 
             CacheProviderMock = new Mock<ICacheProvider>();
-            CacheRepositoryMock = new Mock<ICacheRepository>();
-            CacheRepositoryFake = new CacheRepositoryFake();
+            CacheContainerMock = new Mock<ICacheContainer>();
+            CacheContainerFake = new CacheContainerFake();
 
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
         }
