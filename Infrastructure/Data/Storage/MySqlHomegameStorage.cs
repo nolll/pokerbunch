@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
@@ -20,6 +21,24 @@ namespace Infrastructure.Data.Storage {
 			sql += "ORDER BY h.DisplayName";
 			return GetRawHomegameList(sql);
 		}
+
+        public IList<string> GetAllSlugs()
+        {
+            const string sql = "SELECT h.Name FROM homegame h";
+            var reader = _storageProvider.Query(sql);
+            var slugs = new List<string>();
+            while (reader.Read())
+            {
+                slugs.Add(reader.GetString("Name"));
+            }
+            return slugs;
+        }
+
+        public IList<RawHomegame> GetHomegames(IList<string> slugs)
+        {
+            var sql = GetHomegameBaseSql(slugs);
+            return GetRawHomegameList(sql);
+        }
 
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
         {
@@ -47,6 +66,17 @@ namespace Infrastructure.Data.Storage {
 		{
 		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h ";
 		}
+
+        private string GetHomegameBaseSql(IList<string> slugs)
+        {
+            var slugList = GetSlugListForSql(slugs);
+            return string.Concat(GetHomegameBaseSql(), string.Format("WHERE h.Name IN({0})", slugList));
+        }
+
+        private string GetSlugListForSql(IList<string> slugs)
+        {
+            return string.Join(", ", slugs.Select(o => string.Format("'{0}'", o)).ToArray());
+        }
 
 		public RawHomegame AddHomegame(RawHomegame homegame){
 			var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}')";

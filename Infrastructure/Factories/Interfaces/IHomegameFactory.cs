@@ -7,6 +7,5 @@ namespace Infrastructure.Factories
     public interface IHomegameFactory
     {
         Homegame Create(RawHomegame rawHomegame);
-        IList<Homegame> CreateList(IEnumerable<RawHomegame> rawHomegames);
     }
 }

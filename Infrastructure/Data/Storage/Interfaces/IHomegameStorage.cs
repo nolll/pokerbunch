@@ -12,6 +12,8 @@ namespace Infrastructure.Data.Storage.Interfaces {
         RawHomegame AddHomegame(RawHomegame homegame);
         bool UpdateHomegame(RawHomegame homegame);
 		bool DeleteHomegame(string slug);
+	    IList<string> GetAllSlugs();
+	    IList<RawHomegame> GetHomegames(IList<string> slugs);
 	}
 
 }

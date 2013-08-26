@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories {
 
         public Homegame GetByName(string name)
         {
-            return _cacheContainer.GetCachedIfAvailable(() => GetByNameUncached(name), TimeSpan.FromMinutes(10), "Homegame:", name);
+            return _cacheContainer.GetCachedIfAvailable(() => GetByNameUncached(name), TimeSpan.FromMinutes(10), "Homegame", name);
         }
 
         private Homegame GetByNameUncached(string name)
@@ -41,13 +41,50 @@ namespace Infrastructure.Repositories {
             {
                 return null;
             }
-            return _homegameFactory.CreateList(rawHomegames);
+            return rawHomegames.Select(_homegameFactory.Create).ToList();
         }
 
         public IList<Homegame> GetAll()
         {
-            var rawHomegames = _homegameStorage.GetHomegames();
-            return _homegameFactory.CreateList(rawHomegames);
+            var homegames = new List<Homegame>();
+            var slugs = GetSlugs();
+            var uncachedSlugs = new List<string>();
+            foreach (var slug in slugs)
+            {
+                Homegame cached;
+                var cacheKey = _cacheContainer.ConstructCacheKey("Homegame", slug);
+                if (_cacheContainer.TryGet(cacheKey, out cached))
+                {
+                    homegames.Add(cached);
+                }
+                else
+                {
+                    uncachedSlugs.Add(slug);
+                }
+            }
+
+            if (uncachedSlugs.Count > 0)
+            {
+                var rawHomegames = _homegameStorage.GetHomegames(uncachedSlugs);
+                var newHomegames = rawHomegames.Select(_homegameFactory.Create).ToList();
+                foreach (var homegame in newHomegames)
+                {
+                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey("Homegame", homegame.Slug), homegame, TimeSpan.FromMinutes(10));
+                }
+                homegames.AddRange(newHomegames);
+            }
+
+            return homegames.OrderBy(o => o.DisplayName).ToList();
+        }
+
+        private IList<string> GetSlugs()
+        {
+            return _cacheContainer.GetCachedIfAvailable(GetSlugsUncached, TimeSpan.FromMinutes(10), "Homegame:AllSlugs");
+        } 
+
+        private IList<string> GetSlugsUncached()
+        {
+            return _homegameStorage.GetAllSlugs();
         }
 
         public Role GetHomegameRole(Homegame homegame, User user)

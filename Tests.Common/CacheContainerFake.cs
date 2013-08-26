@@ -11,27 +11,20 @@ namespace Tests.Common
             return true;
         }
 
-        public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
-        {
-            
-        }
-
         public T GetCachedIfAvailable<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName,
                                          params object[] cacheKeyParams) where T : class
         {
             return fetchFromSourceExpression();
         }
 
-        public T GetObjectStoreInCache<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName,
-                                          params object[] cacheKeyParams) where T : class
+        public string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
-            return fetchFromSourceExpression();
+            return null;
         }
 
-        public T GetCachedOrBackupedIfAvailable<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName,
-                                                   params object[] cacheKeyParams) where T : class
+        public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
         {
-            return fetchFromSourceExpression();
+            
         }
     }
 }

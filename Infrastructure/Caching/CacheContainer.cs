@@ -59,6 +59,7 @@ namespace Infrastructure.Caching
             return cachedObject;
         }
 
+        /*
         public T GetObjectStoreInCache<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName, params object[] cacheKeyParams) where T : class
         {
             var cacheKey = ConstructCacheKey(cacheKeyName, cacheKeyParams);
@@ -67,7 +68,9 @@ namespace Infrastructure.Caching
 
             return obj;
         }
+        */
 
+        /*
         public T GetCachedOrBackupedIfAvailable<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName, params object[] cacheKeyParams) where T : class
         {
             var cacheKey = ConstructCacheKey(cacheKeyName, cacheKeyParams);
@@ -133,26 +136,29 @@ namespace Infrastructure.Caching
             }
             return null; // Här hamnar vi enbart om en exception inträffade.
         }
+        */
 
+        /*
         private T GetFromBackup<T>(string cacheKey) where T : class
         {
             T cacheItem;
             TryGet(cacheKey, out cacheItem);
             return cacheItem;
         }
+        */
 
-        private string ConstructCacheKey(string storedProcedureToCall, object[] procedureParameters)
+        public string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
-            // construct a cachekey in the format "storedProcedureToCall_parameter1value_parameter2value_..."
+            // construct a cachekey in the format "typeName:parameter1value:parameter2value:"
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.Append(storedProcedureToCall);
-            stringBuilder.Append("_");
+            stringBuilder.Append(typeName);
+            stringBuilder.Append(":");
 
             foreach (var parameter in procedureParameters)
             {
                 stringBuilder.Append(parameter);
-                stringBuilder.Append("_");
+                stringBuilder.Append(":");
             }
 
             stringBuilder.Remove(stringBuilder.Length - 1, 1);

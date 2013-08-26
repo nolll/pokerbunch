@@ -25,10 +25,5 @@ namespace Infrastructure.Factories
                     VideosEnabled = rawHomegame.VideosEnabled
                 };
         }
-
-        public IList<Homegame> CreateList(IEnumerable<RawHomegame> rawHomegames)
-        {
-            return rawHomegames.Select(Create).ToList();
-        }
     }
 }
