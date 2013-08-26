@@ -5,6 +5,7 @@ using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Tests.Common
 {
@@ -31,6 +32,8 @@ namespace Tests.Common
 
         protected Mock<ICacheHandler> CacheHandlerMock;
 
+        protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
+
         [SetUp]
         public void SetUpMocks()
         {
@@ -54,6 +57,8 @@ namespace Tests.Common
             TimeProviderMock = new Mock<ITimeProvider>();
 
             CacheHandlerMock = new Mock<ICacheHandler>();
+
+            MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
         }
     }
 }

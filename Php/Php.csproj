@@ -352,12 +352,6 @@
     <None Include="tests\AppTests\Cashgame\Listing\CashgameListingModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Listing\CashgameTableItemModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Listing\CashgameTableModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\CellModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\ColumnHeaderModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\MatrixControllerTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\MatrixModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\RowModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Matrix\TableModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Running\BarModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Running\RunningControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Running\RunningModelTests.php" />

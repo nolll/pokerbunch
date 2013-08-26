@@ -59,6 +59,10 @@
       <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Web\Web.csproj">
+      <Project>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</Project>
+      <Name>Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

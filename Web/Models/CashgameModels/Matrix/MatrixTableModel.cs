@@ -11,11 +11,9 @@ namespace Web.Models.CashgameModels.Matrix{
 	    public List<MatrixTableRowModel> RowModels { get; set; }
 
 		public MatrixTableModel (Homegame homegame, CashgameSuite suite){
-			var results = suite.TotalResults;
-			var cashgames = suite.Cashgames;
-			ShowYear = SpansMultipleYears(cashgames);
-			ColumnHeaderModels = GetHeaderModels(homegame, cashgames);
-            RowModels = GetRowModels(homegame, suite, results);
+            ShowYear = SpansMultipleYears(suite.Cashgames);
+            ColumnHeaderModels = GetHeaderModels(homegame, suite.Cashgames);
+            RowModels = GetRowModels(homegame, suite, suite.TotalResults);
 		}
 
 		private List<MatrixTableColumnHeaderModel> GetHeaderModels(Homegame homegame, IEnumerable<Cashgame> cashgames)

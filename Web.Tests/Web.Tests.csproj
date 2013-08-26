@@ -74,7 +74,14 @@
       <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableCellModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableColumnHeaderModelTests.cs" />
+    <Compile Include="ControllerTests\CashgameControllerTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixPageModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableRowModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableModelTests.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\HomegameDetailsModelTests.cs" />
   </ItemGroup>
