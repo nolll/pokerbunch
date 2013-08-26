@@ -18,7 +18,8 @@ namespace Infrastructure.Plumbing
             ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
 
             // Cache
-            ObjectFactory.RegisterComponent<ICacheHandler, CacheHandler>(container);
+            ObjectFactory.RegisterComponent<ICacheProvider, CacheProvider>(container);
+            ObjectFactory.RegisterComponent<ICacheRepository, CacheRepository>(container);
         }
     }
 }

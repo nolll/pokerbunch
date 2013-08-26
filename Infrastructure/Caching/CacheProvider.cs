@@ -4,7 +4,7 @@ using System.Web.Caching;
 
 namespace Infrastructure.Caching
 {
-    public class CacheHandler : ICacheHandler
+    public class CacheProvider : ICacheProvider
     {
         public object Get(string key)
         {
