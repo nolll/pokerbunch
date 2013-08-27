@@ -175,11 +175,6 @@
     <None Include="app\Player\Invite\Confirmation.tpl" />
     <None Include="app\Player\Invite\Invite.tpl" />
     <None Include="app\Player\Invite\PlayerInviteController.php" />
-    <None Include="app\Player\Listing\Item.tpl" />
-    <None Include="app\Player\Listing\Listing.tpl" />
-    <None Include="app\Player\Listing\PlayerItemModel.php" />
-    <None Include="app\Player\Listing\PlayerListingController.php" />
-    <None Include="app\Player\Listing\PlayerListingModel.php" />
     <None Include="app\Player\PlayerValidatorFactory.php" />
     <None Include="app\Player\PlayerValidatorFactoryImpl.php" />
     <None Include="app\Player\UniquePlayerNameValidator.php" />
@@ -220,7 +215,6 @@
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
     <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
-    <None Include="app\Urls\PlayerAddUrlModel.php" />
     <None Include="app\Urls\PlayerDeleteUrlModel.php" />
     <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerInviteUrlModel.php" />
@@ -449,7 +443,9 @@
     <Content Include="googlecd2b6bdc316289ae.html" />
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\Player\Listing\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

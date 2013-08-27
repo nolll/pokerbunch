@@ -26,6 +26,7 @@ namespace Web.Plumbing
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
             ObjectFactory.RegisterComponent<ICashgameRepository, CashgameRepository>(container);
+            ObjectFactory.RegisterComponent<IPlayerRepository, PlayerRepository>(container);
             ObjectFactory.RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
 
             // System

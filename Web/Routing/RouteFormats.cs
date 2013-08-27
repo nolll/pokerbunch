@@ -52,7 +52,7 @@ namespace Web.Routing{
         //const homegameJoinConfirmation = '/%1$s/homegame/joined';
         public const string HomegameListing = "/-/homegame/listing";
 
-        //const playerAdd = '/%1$s/player/add';
+        public const string PlayerAdd = "{0}/player/add";
         //const playerAddConfirmation = '/%1$s/player/created';
         //const playerDelete = '/%1$s/player/delete/%2$s';
         public const string PlayerDetails = "/{0}/player/details/{1}";

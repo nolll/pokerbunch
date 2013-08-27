@@ -1,0 +1,27 @@
+@model Web.Models.PlayerModels.Listing.PlayerListingPageModel
+
+@{
+    Layout = "~/Views/Layouts/Page.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Players</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="players simple list">
+        @foreach (var playerModel in Model.PlayerModels)
+        {
+            <li>
+                @Html.Partial("Item", playerModel)
+            </li>            
+        }
+    </ul>
+    
+    @if (Model.ShowAddLink)
+    {
+        <div class="add-player-button">
+			<a href="@Model.AddUrl" class="button">Add Player</a>
+		</div>
+    }
+</div>

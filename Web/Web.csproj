@@ -353,6 +353,10 @@
     <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\HomegameController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Models\PlayerModels\Listing\PlayerListingPageModel.cs" />
+    <Compile Include="Models\PlayerModels\Listing\PlayerItemModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerAddUrlModel.cs" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />
     <None Include="Views\Homegame\HomegameListingItem.cshtml" />
@@ -364,6 +368,8 @@
     <None Include="Views\Cashgame\Matrix\MatrixTable.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
+    <None Include="Views\Player\Item.cshtml" />
+    <None Include="Views\Player\Listing.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

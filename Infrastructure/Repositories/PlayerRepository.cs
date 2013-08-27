@@ -3,9 +3,9 @@ using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Storage.Interfaces;
 
-namespace Domain {
+namespace Infrastructure.Repositories {
 
-	class PlayerRepository : IPlayerRepository{
+	public class PlayerRepository : IPlayerRepository{
 	    private readonly IPlayerStorage _playerStorage;
 
 	    public PlayerRepository(IPlayerStorage playerStorage)
