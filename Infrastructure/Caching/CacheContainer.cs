@@ -38,6 +38,25 @@ namespace Infrastructure.Caching
             return true;
         }
 
+        public T Get<T>(string key) where T : class
+        {
+            var o = _cacheProvider.Get(key);
+
+            if (o is CacheableNullValue)
+            {
+                // A fake null value was found in the cache
+                return default(T);
+            }
+
+            if (o == null)
+            {
+                // A real null was found, this means that nothing is cached for this key
+                return default(T);
+            }
+
+            return (T)o;
+        }
+
         public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
         {
             _cacheProvider.Put(cacheKey, objectToBeCached ?? _nullValue, cacheTime);

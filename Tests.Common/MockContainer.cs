@@ -32,7 +32,7 @@ namespace Tests.Common
 
         protected Mock<ICacheProvider> CacheProviderMock;
         protected Mock<ICacheContainer> CacheContainerMock;
-        protected ICacheContainer CacheContainerFake;
+        protected CacheContainerFake CacheContainerFake;
 
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
 

@@ -4,7 +4,6 @@ using System.Linq;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Caching;
-using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 
@@ -25,7 +24,19 @@ namespace Infrastructure.Repositories {
 
         public Homegame GetByName(string name)
         {
-            return _cacheContainer.GetCachedIfAvailable(() => GetByNameUncached(name), TimeSpan.FromMinutes(10), "Homegame", name);
+            var cacheKey = _cacheContainer.ConstructCacheKey("Homegame", "AllSlugs");
+            var cached = _cacheContainer.Get<Homegame>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var rawHomegame = _homegameStorage.GetHomegameByName(name);
+            var uncached = rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(10));
+            }
+            return uncached;
         }
 
         private Homegame GetByNameUncached(string name)
@@ -37,10 +48,6 @@ namespace Infrastructure.Repositories {
         public IList<Homegame> GetByUser(User user)
         {
             var rawHomegames = _homegameStorage.GetHomegamesByUserId(user.Id);
-            if (rawHomegames == null)
-            {
-                return null;
-            }
             return rawHomegames.Select(_homegameFactory.Create).ToList();
         }
 
@@ -51,9 +58,9 @@ namespace Infrastructure.Repositories {
             var uncachedSlugs = new List<string>();
             foreach (var slug in slugs)
             {
-                Homegame cached;
                 var cacheKey = _cacheContainer.ConstructCacheKey("Homegame", slug);
-                if (_cacheContainer.TryGet(cacheKey, out cached))
+                var cached = _cacheContainer.Get<Homegame>(cacheKey);
+                if (cached != null)
                 {
                     homegames.Add(cached);
                 }
@@ -79,13 +86,19 @@ namespace Infrastructure.Repositories {
 
         private IList<string> GetSlugs()
         {
-            return _cacheContainer.GetCachedIfAvailable(GetSlugsUncached, TimeSpan.FromMinutes(10), "Homegame:AllSlugs");
+            const string cacheKey = "Homegame:AllSlugs";
+            var cached = _cacheContainer.Get<List<string>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _homegameStorage.GetAllSlugs();
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(10));
+            }
+            return uncached;
         } 
-
-        private IList<string> GetSlugsUncached()
-        {
-            return _homegameStorage.GetAllSlugs();
-        }
 
         public Role GetHomegameRole(Homegame homegame, User user)
         {

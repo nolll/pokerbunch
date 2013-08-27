@@ -11,5 +11,6 @@ namespace Infrastructure.Caching
         //T GetCachedOrBackupedIfAvailable<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName, params object[] cacheKeyParams) where T : class;
         string ConstructCacheKey(string typeName, params object[] procedureParameters);
         void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime);
+        T Get<T>(string key) where T : class;
     }
 }
