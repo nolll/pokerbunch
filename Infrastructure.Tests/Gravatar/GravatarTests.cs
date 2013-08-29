@@ -9,7 +9,7 @@ namespace Infrastructure.Tests.Gravatar{
         [Test]
 		public void SmallGravatarUrl(){
 			const string gravatarEmail = "henriks@gmail.com";
-            const string expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=40&d=site-url/core/ui/img/pix.gif";
+            const string expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=40&d=site-url/FrontEnd/Images/pix.gif";
             SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
 			
             var sut = GetSut();
@@ -21,7 +21,7 @@ namespace Infrastructure.Tests.Gravatar{
         [Test]
 		public void LargeGravatarUrl(){
 			const string gravatarEmail = "henriks@gmail.com";
-			const string expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=100&d=site-url/core/ui/img/pix.gif";
+			const string expectedUrl = "http://www.gravatar.com/avatar/24a827c683a7646cde86696b418b20b4?s=100&d=site-url/FrontEnd/Images/pix.gif";
 			SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
             
             var sut = GetSut();

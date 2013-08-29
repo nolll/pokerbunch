@@ -52,7 +52,7 @@ namespace Infrastructure.Integration.Gravatar{
         }
 
 	    private string GetDefaultImageUrl(){
-			return _settings.GetSiteUrl() + "/core/ui/img/pix.gif";
+			return _settings.GetSiteUrl() + "/FrontEnd/Images/pix.gif";
 
 		}
 
