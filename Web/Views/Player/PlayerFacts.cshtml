@@ -1,24 +1,26 @@
+@model Web.Models.PlayerModels.Facts.PlayerFactsModel
+
 <h2>Player Facts</h2>
 
 <div class="facts">
     <div>
         <h3>Total result</h3>
-        <p>{$model->winnings}</p>
+        <p>@Model.Winnings</p>
     </div>
     <div>
         <h3>Best result</h3>
-        <p>{$model->bestResult}</p>
+        <p>@Model.BestResult</p>
     </div>
     <div>
         <h3>Worst result</h3>
-        <p>{$model->worstResult}</p>
+        <p>@Model.WorstResult</p>
     </div>
     <div>
         <h3>Games played</h3>
-        <p>{$model->gamesPlayed}</p>
+        <p>@Model.GamesPlayed</p>
     </div>
     <div>
         <h3>Time played</h3>
-        <p>{$model->timePlayed}</p>
+        <p>@Model.TimePlayed</p>
     </div>
 </div>

@@ -26,8 +26,8 @@ namespace Web.Controllers{
 			return View("HomegameListing", model);
 		}
 
-        public ActionResult Details(string game){
-			var homegame = _homegameRepository.GetByName(game);
+        public ActionResult Details(string gamename){
+			var homegame = _homegameRepository.GetByName(gamename);
 			_userContext.RequirePlayer(homegame);
 			var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
 			var model = new HomegameDetailsPageModel(_userContext.GetUser(), homegame, isInManagerMode);

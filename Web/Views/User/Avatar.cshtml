@@ -1,0 +1,6 @@
+@model Web.Models.AvatarModel
+
+@if (Model.AvatarEnabled)
+{
+    <img src="@Model.AvatarUrl" alt="User avatar"/>
+}

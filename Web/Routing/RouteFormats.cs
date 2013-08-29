@@ -54,10 +54,10 @@ namespace Web.Routing{
 
         public const string PlayerAdd = "{0}/player/add";
         //const playerAddConfirmation = '/%1$s/player/created';
-        //const playerDelete = '/%1$s/player/delete/%2$s';
+        public const string PlayerDelete = "/{0}/player/delete/{1}";
         public const string PlayerDetails = "/{0}/player/details/{1}";
         public const string PlayerIndex = "/{0}/player/index";
-        //const playerInvite = '/%1$s/player/invite/%2$s';
+        public const string PlayerInvite = "/{0}/player/invite/{1}";
         //const playerInviteConfirmation = '/%1$s/player/invited/%2$s';
 
         public const string SharingSettings = "/-/sharing";

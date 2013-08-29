@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Web
@@ -14,18 +10,33 @@ namespace Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Site Routes",
-                "-/{controller}/{action}"
+                "Auth Routes",
+                "-/auth/{action}",
+                new { controller = "Auth" }
             );
 
             routes.MapRoute(
-                "Bunch Routes",
-                "{gamename}/{controller}/{action}"
+                "Homegame Listing Routes",
+                "-/homegame/{action}",
+                new { controller = "Homegame" }
             );
 
             routes.MapRoute(
-                "Bunch Routes With Year",
-                "{gamename}/{controller}/{action}/{year}"
+                "Homegame Routes",
+                "{gamename}/homegame/{action}",
+                new { controller = "Homegame" }
+            );
+
+            routes.MapRoute(
+                "Cashgame Routes",
+                "{gamename}/cashgame/{action}/{year}",
+                new { controller = "Cashgame", year = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Player Routes",
+                "{gamename}/player/{action}/{playerName}",
+                new { controller = "Player", playerName = UrlParameter.Optional }
             );
 
             routes.MapRoute(

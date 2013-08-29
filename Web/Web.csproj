@@ -177,6 +177,7 @@
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\HomegamePageModel.cs" />
     <Compile Include="Models\PageBaseModels\PageModel.cs" />
+    <Compile Include="Models\PlayerModels\Details\IAvatarModelBuilder.cs" />
     <Compile Include="Models\UrlModels\AuthLoginUrlModel.cs" />
     <Compile Include="Models\UrlModels\AuthLogoutUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameAddUrlModel.cs" />
@@ -357,6 +358,14 @@
     <Compile Include="Models\PlayerModels\Listing\PlayerListingPageModel.cs" />
     <Compile Include="Models\PlayerModels\Listing\PlayerItemModel.cs" />
     <Compile Include="Models\UrlModels\PlayerAddUrlModel.cs" />
+    <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerDeleteUrlModel.cs" />
+    <Compile Include="Models\PlayerModels\Details\AvatarModelBuilder.cs" />
+    <Compile Include="Models\AvatarModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerInviteUrlModel.cs" />
+    <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
+    <Compile Include="Models\PlayerModels\Achievements\PlayerBadgesModel.cs" />
+    <None Include="Views\User\Avatar.cshtml" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />
     <None Include="Views\Homegame\HomegameListingItem.cshtml" />
@@ -368,8 +377,11 @@
     <None Include="Views\Cashgame\Matrix\MatrixTable.cshtml" />
     <None Include="Views\Navigation\HomegameNavigation.cshtml" />
     <None Include="Views\Navigation\Navigation.cshtml" />
+    <None Include="Views\Player\Details.cshtml" />
+    <None Include="Views\Player\PlayerFacts.cshtml" />
     <None Include="Views\Player\Item.cshtml" />
     <None Include="Views\Player\Listing.cshtml" />
+    <None Include="Views\Player\PlayerBadges.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

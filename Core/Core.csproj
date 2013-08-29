@@ -98,6 +98,16 @@
     <Compile Include="Services\Interfaces\IEncryption.cs" />
     <Compile Include="Services\EncryptionService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Interfaces\IAvatarService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\AvatarSize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Achievements\Badge.cs" />
+    <Compile Include="Classes\Achievements\NumberOfGamesBadge.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

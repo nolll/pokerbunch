@@ -1,0 +1,32 @@
+@model Web.Models.PlayerModels.Achievements.PlayerBadgesModel
+
+<h2>Player Achievements</h2>
+
+<div class="achievements">
+    <ul>
+		@if (Model.PlayedOneGame)
+		{
+			<li>Played a game</li>
+		}
+		@if (Model.PlayedTenGames)
+		{
+			<li>Played ten games</li>
+		}
+		@if (Model.Played50Games)
+		{
+			<li>Played 50 games</li>
+		}
+		@if (Model.Played100Games)
+		{
+			<li>Played 100 games</li>
+		}
+		@if (Model.Played200Games)
+		{
+			<li>Played 200 games</li>
+		}
+		@if (Model.Played500Games)
+		{
+			<li>Played 500 games</li>
+		}
+    </ul>
+</div>

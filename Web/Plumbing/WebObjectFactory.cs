@@ -2,14 +2,17 @@
 using Castle.Windsor;
 using Core.Repositories;
 using Core.Services;
+using Infrastructure.Config;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
+using Infrastructure.Integration.Gravatar;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
+using Web.Models.PlayerModels.Details;
 using Web.Validators;
 
 namespace Web.Plumbing
@@ -22,6 +25,7 @@ namespace Web.Plumbing
 
             // Services
             ObjectFactory.RegisterComponent<IEncryptionService, EncryptionService>(container);
+            ObjectFactory.RegisterComponent<IAvatarService, GravatarService>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -32,6 +36,7 @@ namespace Web.Plumbing
             // System
             ObjectFactory.RegisterComponent<IWebContext, WebContext>(container);
             ObjectFactory.RegisterComponent<ITimeProvider, TimeProvider>(container);
+            ObjectFactory.RegisterComponent<ISettings, Settings>(container);
 
             // Core Factories
             ObjectFactory.RegisterComponent<IHomegameFactory, HomegameFactory>(container);
@@ -45,6 +50,7 @@ namespace Web.Plumbing
             // Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAvatarModelBuilder, AvatarModelBuilder>(container);
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);

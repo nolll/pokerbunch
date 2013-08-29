@@ -40,6 +40,7 @@
       <HintPath>..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,7 @@
     <Compile Include="Caching\CacheContainer.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Config\ISettings.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
@@ -149,6 +151,15 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Integration\Gravatar\GravatarService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\ServerMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

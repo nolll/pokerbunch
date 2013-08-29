@@ -155,19 +155,10 @@
     <None Include="app\Homegame\UniqueSlugValidator.php" />
     <None Include="app\MishiinModule.php" />
     <None Include="app\Page.tpl" />
-    <None Include="app\Player\Achievements\PlayerAchievements.tpl" />
-    <None Include="app\Player\Achievements\PlayerAchievementsModel.php" />
-    <None Include="app\Player\Achievements\SingleAchievements\Achievement.php" />
-    <None Include="app\Player\Achievements\SingleAchievements\NumberOfGamesAchievement.php" />
     <None Include="app\Player\Add\Add.tpl" />
     <None Include="app\Player\Add\Confirmation.tpl" />
     <None Include="app\Player\Add\PlayerAddConfirmationModel.php" />
     <None Include="app\Player\Add\PlayerAddController.php" />
-    <None Include="app\Player\Details\Details.tpl" />
-    <None Include="app\Player\Details\PlayerDetailsController.php" />
-    <None Include="app\Player\Details\PlayerDetailsModel.php" />
-    <None Include="app\Player\Facts\PlayerFacts.tpl" />
-    <None Include="app\Player\Facts\PlayerFactsModel.php" />
     <None Include="app\Player\InvitationCodeCreator.php" />
     <None Include="app\Player\InvitationCodeCreatorImpl.php" />
     <None Include="app\Player\InvitationSender.php" />
@@ -215,9 +206,7 @@
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
     <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
-    <None Include="app\Urls\PlayerDeleteUrlModel.php" />
     <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
-    <None Include="app\Urls\PlayerInviteUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
@@ -228,9 +217,6 @@
     <None Include="app\User\Add\RegistrationConfirmationSender.php" />
     <None Include="app\User\Add\RegistrationConfirmationSenderImpl.php" />
     <None Include="app\User\Add\UserAddController.php" />
-    <None Include="app\User\Avatar\Avatar.tpl" />
-    <None Include="app\User\Avatar\AvatarModel.php" />
-    <None Include="app\User\Avatar\AvatarModelBuilder.php" />
     <None Include="app\User\ChangePassword\ChangePasswordController.php" />
     <None Include="app\User\ChangePassword\Confirmation.tpl" />
     <None Include="app\User\ChangePassword\Form.tpl" />
@@ -263,8 +249,6 @@
     <None Include="config\ConfigProduction.php" />
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
-    <None Include="config\ServerMode.php" />
-    <None Include="config\Settings.php" />
     <None Include="core\Analytics\GoogleAnalytics.tpl" />
     <None Include="core\ClassNames.php" />
     <None Include="core\FormFields\CurrencyLayoutFieldModel.php" />
@@ -293,9 +277,6 @@
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
-    <None Include="integration\Avatar\AvatarService.php" />
-    <None Include="integration\Avatar\AvatarSize.php" />
-    <None Include="integration\Avatar\GravatarService.php" />
     <None Include="integration\Message\EmailMessageSender.php" />
     <None Include="integration\Message\FileLoggingMessageSender.php" />
     <None Include="integration\Message\MessageSender.php" />
@@ -418,7 +399,6 @@
     <None Include="tests\CoreTests\FormFields\ListFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\LocationFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\TimezoneFieldModelTests.php" />
-    <None Include="tests\CoreTests\GravatarTests.php" />
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
     <None Include="tests\CoreTests\IntegerValidatorTests.php" />
@@ -445,6 +425,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\Player\Listing\" />
+    <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

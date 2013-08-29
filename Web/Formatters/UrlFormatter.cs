@@ -25,8 +25,8 @@ namespace Web.Formatters{
 		}
 
 		public static string FormatPlayer(string format, Homegame homegame, Player player){
-			var encodedPlayerName = HttpUtility.UrlEncode(player.DisplayName);
-			return string.Format(format, homegame.Slug, false);
+			var encodedPlayerName = HttpUtility.UrlPathEncode(player.DisplayName);
+            return string.Format(format, homegame.Slug, encodedPlayerName);
 		}
 
 		public static string FormatUser(string format, User user){

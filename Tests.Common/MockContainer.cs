@@ -1,5 +1,6 @@
 ﻿using Core.Repositories;
 using Infrastructure.Caching;
+using Infrastructure.Config;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.System;
@@ -36,6 +37,8 @@ namespace Tests.Common
 
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
 
+        protected Mock<ISettings> SettingsMock;
+
         [SetUp]
         public void SetUpMocks()
         {
@@ -63,6 +66,8 @@ namespace Tests.Common
             CacheContainerFake = new CacheContainerFake();
 
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
+
+            SettingsMock = new Mock<ISettings>();
         }
 
     }

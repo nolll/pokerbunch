@@ -9,7 +9,9 @@ using Infrastructure.Factories;
 
 namespace Infrastructure.Repositories {
 
-	public class HomegameRepository : IHomegameRepository{
+	public class HomegameRepository : IHomegameRepository
+	{
+	    private const string BaseCacheKey = "Homegame";
 
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
@@ -24,7 +26,7 @@ namespace Infrastructure.Repositories {
 
         public Homegame GetByName(string name)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey("Homegame", "AllSlugs");
+            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, name);
             var cached = _cacheContainer.Get<Homegame>(cacheKey);
             if (cached != null)
             {
@@ -58,7 +60,7 @@ namespace Infrastructure.Repositories {
             var uncachedSlugs = new List<string>();
             foreach (var slug in slugs)
             {
-                var cacheKey = _cacheContainer.ConstructCacheKey("Homegame", slug);
+                var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, slug);
                 var cached = _cacheContainer.Get<Homegame>(cacheKey);
                 if (cached != null)
                 {
@@ -76,7 +78,7 @@ namespace Infrastructure.Repositories {
                 var newHomegames = rawHomegames.Select(_homegameFactory.Create).ToList();
                 foreach (var homegame in newHomegames)
                 {
-                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey("Homegame", homegame.Slug), homegame, TimeSpan.FromMinutes(10));
+                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(BaseCacheKey, homegame.Slug), homegame, TimeSpan.FromMinutes(10));
                 }
                 homegames.AddRange(newHomegames);
             }
@@ -86,7 +88,7 @@ namespace Infrastructure.Repositories {
 
         private IList<string> GetSlugs()
         {
-            const string cacheKey = "Homegame:AllSlugs";
+            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, "AllSlugs");
             var cached = _cacheContainer.Get<List<string>>(cacheKey);
             if (cached != null)
             {
