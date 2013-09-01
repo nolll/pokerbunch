@@ -151,10 +151,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
     <Compile Include="Formatters\UrlFormatter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelFactories\AuthModelFactories\IAuthLoginPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />

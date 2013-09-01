@@ -4,7 +4,7 @@ using Core.Classes;
 using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
-using Web.Models;
+using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 using Web.Models.UrlModels;
 using Web.Validators;
@@ -16,13 +16,15 @@ namespace Web.Controllers{
 	    private readonly IEncryptionService _encryptionService;
 	    private readonly IUserValidatorFactory _userValidatorFactory;
 	    private readonly IWebContext _webContext;
+	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
 
-	    public AuthController(IUserStorage userStorage, IEncryptionService encryptionService, IUserValidatorFactory userValidatorFactory, IWebContext webContext)
+	    public AuthController(IUserStorage userStorage, IEncryptionService encryptionService, IUserValidatorFactory userValidatorFactory, IWebContext webContext, IAuthLoginPageModelFactory authLoginPageModelFactory)
 	    {
 	        _userStorage = userStorage;
 	        _encryptionService = encryptionService;
 	        _userValidatorFactory = userValidatorFactory;
 	        _webContext = webContext;
+	        _authLoginPageModelFactory = authLoginPageModelFactory;
 	    }
 
 		public ActionResult Login(){
@@ -54,8 +56,7 @@ namespace Web.Controllers{
 
 		public ActionResult ShowForm(string loginName = null, List<string> validationErrors = null){
 			var returnUrl = _webContext.GetQueryParam("return");
-		    var viewModelFactory = new AuthLoginViewModelFactory();
-			var model = viewModelFactory.Create(returnUrl, loginName);
+			var model = _authLoginPageModelFactory.Create(returnUrl, loginName);
 			if(validationErrors != null){
 				model.SetValidationErrors(validationErrors);
 			}
@@ -92,18 +93,4 @@ namespace Web.Controllers{
 		}
 
 	}
-
-    public class AuthLoginViewModelFactory
-    {
-        public AuthLoginPageModel Create(string returnUrl, string loginName)
-        {
-            return new AuthLoginPageModel
-                {
-                    ReturnUrl = returnUrl ?? new HomeUrlModel().Url,
-                    AddUserUrl = new UserAddUrlModel(),
-			        ForgotPasswordUrl = new ForgotPasswordUrlModel(),
-                    LoginName = loginName
-                };
-        }
-    }
 }

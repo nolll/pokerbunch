@@ -291,7 +291,6 @@
     <None Include="integration\Sharing\TwitterService.php" />
     <None Include="integration\Sharing\TwitterServiceImpl.php" />
     <None Include="tests\AppTests\Auth\AuthControllerTests.php" />
-    <None Include="tests\AppTests\Auth\AuthLoginModelTests.php" />
     <None Include="tests\AppTests\Auth\LoginValidatorTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionModelTests.php" />

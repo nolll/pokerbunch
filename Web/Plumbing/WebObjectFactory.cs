@@ -10,6 +10,7 @@ using Infrastructure.Integration.Gravatar;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
+using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
 using Web.Models.PlayerModels.Details;
@@ -51,6 +52,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAvatarModelBuilder, AvatarModelBuilder>(container);
+            ObjectFactory.RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>(container);
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
