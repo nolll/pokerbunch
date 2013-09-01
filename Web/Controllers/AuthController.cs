@@ -51,7 +51,7 @@ namespace Web.Controllers{
 
 		public ActionResult Logout(){
 			ClearCookies();
-			return new RedirectResult(new HomeUrlModel().Url);
+		    return RedirectToAction("Index", "Home");
 		}
 
 		public ActionResult ShowForm(string loginName = null, List<string> validationErrors = null){

@@ -7,7 +7,9 @@ using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
+using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Validators;
 
 namespace Tests.Common
 {
@@ -39,6 +41,8 @@ namespace Tests.Common
         protected CacheContainerFake CacheContainerFake;
 
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
+        protected Mock<IUserValidatorFactory> UserValidatorFactoryMock;
+        protected Mock<IAuthLoginPageModelFactory> AuthLoginPageModelFactoryMock;
 
         protected Mock<ISettings> SettingsMock;
 
@@ -71,6 +75,8 @@ namespace Tests.Common
             CacheContainerFake = new CacheContainerFake();
 
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
+            UserValidatorFactoryMock = new Mock<IUserValidatorFactory>();
+            AuthLoginPageModelFactoryMock = new Mock<IAuthLoginPageModelFactory>();
 
             SettingsMock = new Mock<ISettings>();
         }
