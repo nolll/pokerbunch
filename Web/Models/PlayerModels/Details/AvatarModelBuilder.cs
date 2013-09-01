@@ -25,9 +25,9 @@ namespace Web.Models.PlayerModels.Details{
 
 		private string GetAvatarUrl(string email, AvatarSize size){
 			if(size == AvatarSize.Small){
-				return _avatarService.getSmallAvatarUrl(email);
+				return _avatarService.GetSmallAvatarUrl(email);
 			}
-			return _avatarService.getLargeAvatarUrl(email);
+			return _avatarService.GetLargeAvatarUrl(email);
 		}
 
 	}

@@ -1,4 +1,5 @@
 ﻿using Core.Repositories;
+using Core.Services;
 using Infrastructure.Caching;
 using Infrastructure.Config;
 using Infrastructure.Data.Storage.Interfaces;
@@ -29,6 +30,8 @@ namespace Tests.Common
         protected Mock<IWebContext> WebContextMock;
         protected Mock<IUserContext> UserContextMock;
 
+        protected Mock<IEncryptionService> EncryptionServiceMock;
+
         protected Mock<ITimeProvider> TimeProviderMock;
 
         protected Mock<ICacheProvider> CacheProviderMock;
@@ -58,6 +61,8 @@ namespace Tests.Common
 
             WebContextMock = new Mock<IWebContext>();
             UserContextMock = new Mock<IUserContext>();
+
+            EncryptionServiceMock = new Mock<IEncryptionService>();
 
             TimeProviderMock = new Mock<ITimeProvider>();
 
