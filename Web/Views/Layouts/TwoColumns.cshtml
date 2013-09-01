@@ -1,0 +1,21 @@
+﻿@model Web.Models.PageBaseModels.PageModel
+
+@{
+    Layout = "Page.cshtml";
+}
+
+@if (IsSectionDefined("Aside1")){
+    <div class="region width1 aside1">
+        @RenderSection("Aside1")
+    </div>
+}
+
+<div class="region width2">
+    @RenderBody()
+</div>
+                
+@if (IsSectionDefined("Aside2")){
+    <div class="region width1 aside2">
+        @RenderSection("Aside2")
+    </div>
+}

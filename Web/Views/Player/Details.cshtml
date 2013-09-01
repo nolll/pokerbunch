@@ -1,15 +1,15 @@
 @model Web.Models.PlayerModels.Details.PlayerDetailsPageModel
 
 @{
-    Layout = "~/Views/Layouts/Page.cshtml";
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
 }
 
 <div class="block gutter">
 	<h1>@Model.DisplayName</h1>
 </div>
 <div class="block gutter">
-    @Html.Partial("PlayerFacts", Model.PlayerFactsModel);
-    @Html.Partial("PlayerBadges", Model.PlayerBadgesModel);
+    @Html.Partial("PlayerFacts", Model.PlayerFactsModel)
+    @Html.Partial("PlayerBadges", Model.PlayerBadgesModel)
     
     @if (Model.DeleteEnabled)
     {
@@ -18,8 +18,7 @@
         </p>
     }
 </div>
-{/block}
-{block name=aside2}
+@section Aside2{
 	<div class="block gutter">
 		@if (Model.ShowUserInfo){
             @Html.Partial("~/Views/User/Avatar.cshtml", Model.AvatarModel);
@@ -32,4 +31,4 @@
 			</p>
 		}
 	</div>
-{/block}
+}

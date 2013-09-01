@@ -365,6 +365,8 @@
     <Compile Include="Models\UrlModels\PlayerInviteUrlModel.cs" />
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
     <Compile Include="Models\PlayerModels\Achievements\PlayerBadgesModel.cs" />
+    <Content Include="Views\Layouts\OneColumn.cshtml" />
+    <Content Include="Views\Layouts\TwoColumns.cshtml" />
     <None Include="Views\User\Avatar.cshtml" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />

@@ -44,31 +44,7 @@
             *@
 
 			<div class="main container">
-				@*{block name=full hide=true}*@
-					<div class="region width3">
-						@RenderBody()
-					</div>
-				@*{/block}*@
-                
-			    @*
-			    {block name=aside1 hide=true}
-					<div class="region width1 aside1">
-						{$smarty.block.child}
-					</div>
-				{/block}
-
-				{block name=page hide=true}
-					<div class="region width2">
-						{$smarty.block.child}
-					</div>
-				{/block}
-
-				{block name=aside2 hide=true}
-					<div class="region width1 aside2">
-						{$smarty.block.child}
-					</div>
-				{/block}
-                *@
+				@RenderBody()
 			</div>
             
             @*
