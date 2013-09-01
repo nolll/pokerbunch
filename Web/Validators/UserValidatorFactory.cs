@@ -3,7 +3,7 @@ using Infrastructure.Data.Storage.Interfaces;
 
 namespace Web.Validators{
 
-	class UserValidatorFactory : IUserValidatorFactory
+	public class UserValidatorFactory : IUserValidatorFactory
     {
 	    private readonly IUserStorage _userStorage;
 

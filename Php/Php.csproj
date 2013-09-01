@@ -268,7 +268,6 @@
     <None Include="core\Validation\IntegerValidator.php" />
     <None Include="core\Validation\NotNullValidator.php" />
     <None Include="core\Validation\PositiveNumberValidator.php" />
-    <None Include="core\Validation\ValidatorFake.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="exceptions\UserNotFoundException.php" />
     <None Include="index.php" />
@@ -290,8 +289,6 @@
     <None Include="integration\Sharing\SocialServiceProvider.php" />
     <None Include="integration\Sharing\TwitterService.php" />
     <None Include="integration\Sharing\TwitterServiceImpl.php" />
-    <None Include="tests\AppTests\Auth\AuthControllerTests.php" />
-    <None Include="tests\AppTests\Auth\LoginValidatorTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\BuyinControllerTests.php" />
