@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Web.ModelFactories;
 using Web.ModelFactories.HomeModelFactories;
-using Web.Models.HomeModels;
 
 namespace Web.Tests.ModelFactories
 {
-    class HomeModelFactoryTests : MockContainer
+    class HomePageModelFactoryTests : MockContainer
     {
         [Test]
         public void AllProperties_DefaultState_IsFalse()

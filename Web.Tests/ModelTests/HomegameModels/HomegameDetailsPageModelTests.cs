@@ -3,9 +3,9 @@ using NUnit.Framework;
 using Web.Models.HomegameModels.Details;
 using Web.Models.UrlModels;
 
-namespace Web.Tests.ModelTests{
+namespace Web.Tests.ModelTests.HomegameModels{
 
-	class HomegameDetailsModelTests {
+	public class HomegameDetailsPageModelTests {
 
 		private User _user;
 		private Homegame _homegame;

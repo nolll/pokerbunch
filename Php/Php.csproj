@@ -343,7 +343,6 @@
     <None Include="tests\AppTests\Homegame\HomegameValidatorTests.php" />
     <None Include="tests\AppTests\Homegame\SlugGeneratorTests.php" />
     <None Include="tests\AppTests\Homegame\UniqueHomegameValidatorTests.php" />
-    <None Include="tests\AppTests\Home\HomeModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\PlayerAchievementsModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\SingleAchievements\NumberOfGamesAchievementTests.php" />
     <None Include="tests\AppTests\Player\InvitationCodeCreatorTests.php" />

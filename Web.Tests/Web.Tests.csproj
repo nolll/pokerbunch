@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactories\HomeModelFactoryTests.cs" />
+    <Compile Include="ModelFactories\HomePageModelFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\RouteTests.cs" />
   </ItemGroup>
@@ -83,7 +83,7 @@
     <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\HomegameDetailsModelTests.cs" />
+    <Compile Include="ModelTests\HomegameModels\HomegameDetailsPageModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\NavigationModels\AdminNavModelTests.cs" />
