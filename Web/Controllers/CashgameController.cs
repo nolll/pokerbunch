@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Repositories;
 using Web.ModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Models.CashgameModels.Leaderboard;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{
@@ -36,6 +37,16 @@ namespace Web.Controllers{
 			_userContext.RequirePlayer(homegame);
 			var model = _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
 			return View("Matrix/MatrixPage", model);
+		}
+
+        public ActionResult Leaderboard(string gameName, int? year = null){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var suite = _cashgameRepository.GetSuite(homegame, year);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = new LeaderboardPageModel(_userContext.GetUser(), homegame, suite, years, year, runningGame);
+			return View("Leaderboard/LeaderboardPage", model);
 		}
 
 	}

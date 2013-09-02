@@ -1,0 +1,20 @@
+@model Web.Models.CashgameModels.Leaderboard.LeaderboardTableItemModel
+
+<dl>
+    <dt>Rank</dt>
+    <dd class="rank first">@Model.Rank.</dd>
+
+    <dt>Player</dt>
+    <dd class="name">
+        <a href="{$model->playerUrl->url}">@Model.Name</a>
+    </dd>
+
+    <dt>Winnings</dt>
+    <dd class="amount result {$model->resultClass}">@Model.TotalResult</dd>
+
+    <dt>Time played</dt>
+    <dd class="gametime">@Model.GameTime</dd>
+
+    <dt>Winrate</dt>
+    <dd class="winrate">@Model.WinRate</dd>
+</dl>

@@ -18,6 +18,14 @@ namespace Web.Models.CashgameModels.Matrix{
 			CashgameNavModel = new CashgameNavigationModel(homegame, "matrix", years, year, runningGame);
 	    }
 
+        public override string BrowserTitle
+        {
+            get
+            {
+                return "Cashgame Matrix";
+            }
+        }
+
 	}
 
 }

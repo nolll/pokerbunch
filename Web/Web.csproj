@@ -369,6 +369,12 @@
     <Compile Include="Models\PlayerModels\Achievements\PlayerBadgesModel.cs" />
     <Content Include="Views\Layouts\OneColumn.cshtml" />
     <Content Include="Views\Layouts\TwoColumns.cshtml" />
+    <Compile Include="Models\CashgameModels\Leaderboard\LeaderboardPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Leaderboard\LeaderboardTableModel.cs" />
+    <Compile Include="Models\CashgameModels\Leaderboard\LeaderboardTableItemModel.cs" />
+    <None Include="Views\Cashgame\Leaderboard\LeaderboardTableItem.cshtml" />
+    <None Include="Views\Cashgame\Leaderboard\LeaderboardPage.cshtml" />
+    <None Include="Views\Cashgame\Leaderboard\LeaderboardTable.cshtml" />
     <None Include="Views\User\Avatar.cshtml" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />

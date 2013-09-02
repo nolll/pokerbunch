@@ -101,13 +101,6 @@
     <None Include="app\Cashgame\Facts\CashgameFactsController.php" />
     <None Include="app\Cashgame\Facts\CashgameFactsModel.php" />
     <None Include="app\Cashgame\Facts\Facts.tpl" />
-    <None Include="app\Cashgame\Leaderboard\Item.tpl" />
-    <None Include="app\Cashgame\Leaderboard\ItemModel.php" />
-    <None Include="app\Cashgame\Leaderboard\Leaderboard.tpl" />
-    <None Include="app\Cashgame\Leaderboard\LeaderboardController.php" />
-    <None Include="app\Cashgame\Leaderboard\LeaderboardModel.php" />
-    <None Include="app\Cashgame\Leaderboard\Table.tpl" />
-    <None Include="app\Cashgame\Leaderboard\TableModel.php" />
     <None Include="app\Cashgame\Listing\CashgameListingController.php" />
     <None Include="app\Cashgame\Listing\CashgameListingModel.php" />
     <None Include="app\Cashgame\Listing\CashgameTableItem\CashgameTableItem.tpl" />
@@ -315,7 +308,6 @@
     <None Include="tests\AppTests\Cashgame\GameStatusTests.php" />
     <None Include="tests\AppTests\Cashgame\Index\CashgameIndexControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Leaderboard\ItemModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Leaderboard\LeaderboardControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Leaderboard\LeaderboardModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Leaderboard\TableModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Listing\CashgameListingControllerTests.php" />
