@@ -74,13 +74,8 @@
     <None Include="app\Cashgame\Add\AddController.php" />
     <None Include="app\Cashgame\Add\AddModel.php" />
     <None Include="app\Cashgame\Add\AddPostModel.php" />
-    <None Include="app\Cashgame\CashgameNavigation.tpl" />
-    <None Include="app\Cashgame\CashgamePageNavigation.tpl" />
-    <None Include="app\Cashgame\CashgamePageNavigationModel.php" />
     <None Include="app\Cashgame\CashgameValidatorFactory.php" />
     <None Include="app\Cashgame\CashgameValidatorFactoryImpl.php" />
-    <None Include="app\Cashgame\CashgameYearNavigation.tpl" />
-    <None Include="app\Cashgame\CashgameYearNavigationModel.php" />
     <None Include="app\Cashgame\Chart\Chart.tpl" />
     <None Include="app\Cashgame\Chart\ChartController.php" />
     <None Include="app\Cashgame\Chart\ChartData.php" />
@@ -108,7 +103,6 @@
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTable.tpl" />
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTableModel.php" />
     <None Include="app\Cashgame\Listing\Listing.tpl" />
-    <None Include="app\Cashgame\NavigationYearModel.php" />
     <None Include="app\Cashgame\Running\Bar.tpl" />
     <None Include="app\Cashgame\Running\BarModel.php" />
     <None Include="app\Cashgame\Running\Running.tpl" />
@@ -177,15 +171,11 @@
     <None Include="app\Urls\CashgameBuyinUrlModel.php" />
     <None Include="app\Urls\CashgameCashoutUrlModel.php" />
     <None Include="app\Urls\CashgameChartJsonUrlModel.php" />
-    <None Include="app\Urls\CashgameChartUrlModel.php" />
     <None Include="app\Urls\CashgameCheckpointDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDetailsChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameEditUrlModel.php" />
     <None Include="app\Urls\CashgameEndUrlModel.php" />
-    <None Include="app\Urls\CashgameFactsUrlModel.php" />
-    <None Include="app\Urls\CashgameLeaderboardUrlModel.php" />
-    <None Include="app\Urls\CashgameListingUrlModel.php" />
     <None Include="app\Urls\CashgamePublishUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameReportUrlModel.php" />

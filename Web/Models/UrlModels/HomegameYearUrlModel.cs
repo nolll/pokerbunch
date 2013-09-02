@@ -3,7 +3,7 @@ using Web.Formatters;
 
 namespace Web.Models.UrlModels{
 
-	class HomegameYearUrlModel : UrlModel{
+	public class HomegameYearUrlModel : UrlModel{
 
 	    public HomegameYearUrlModel(string format, string formatWithYear, Homegame homegame, int? year)
 	    {

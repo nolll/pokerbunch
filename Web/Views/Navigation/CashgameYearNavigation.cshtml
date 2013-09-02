@@ -1,0 +1,7 @@
+@model Web.Models.NavigationModels.CashgameYearNavigationModel
+<nav class="heading-nav year-nav" data-require="heading-nav"><span>@Model.Selected</span><ul>
+    @foreach (var yearModel in Model.YearModels)
+    {
+        <li><a href="@yearModel.Link">@yearModel.Text</a></li>
+    }                                                                                          
+</ul></nav>

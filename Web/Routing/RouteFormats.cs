@@ -9,8 +9,8 @@ namespace Web.Routing{
 
         public const string CashgameAdd = "/{0}/cashgame/add";
         //const cashgameAddResult = '/%1$s/cashgame/addresult/%2$s';
-        //const cashgameChart = '/%1$s/cashgame/chart';
-        //const cashgameChartWithYear = '/%1$s/cashgame/chart/%2$s';
+        public const string CashgameChart = "/{0}/cashgame/chart";
+        public const string CashgameChartWithYear = "/{0}/cashgame/chart/{1}";
         //const cashgameChartJson = '/%1$s/cashgame/chartjson';
         //const cashgameChartJsonWithYear = '/%1$s/cashgame/chartjson/%2$s';
         //const cashgameDelete = '/%1$s/cashgame/delete/%2$s';
@@ -19,14 +19,14 @@ namespace Web.Routing{
         //const cashgameEdit = '/%1$s/cashgame/edit/%2$s';
         //const cashgameEnd = '/%1$s/cashgame/end';
         public const string CashgameIndex = "/{0}/cashgame/index";
-        //const cashgameLeaderboard = '/%1$s/cashgame/leaderboard';
-        //const cashgameLeaderboardWithYear = '/%1$s/cashgame/leaderboard/%2$s';
+        public const string CashgameLeaderboard = "/{0}/cashgame/leaderboard";
+        public const string CashgameLeaderboardWithYear = "/{0}/cashgame/leaderboard/{1}";
         public const string CashgameMatrix = "/{0}/cashgame/matrix";
         public const string CashgameMatrixWithYear = "/{0}/cashgame/matrix/{1}";
-        //const cashgameListing = '/%1$s/cashgame/listing';
-        //const cashgameListingWithYear = '/%1$s/cashgame/listing/%2$s';
-        //const cashgameFacts = '/%1$s/cashgame/facts';
-        //const cashgameFactsWithYear = '/%1$s/cashgame/facts/%2$s';
+        public const string CashgameListing = "/{0}/cashgame/listing";
+        public const string CashgameListingWithYear = "/{0}/cashgame/listing/{1}";
+        public const string CashgameFacts = "/{0}/cashgame/facts";
+        public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         //const cashgameAction = '/%1$s/cashgame/action/%2$s/%3$s';
         //const cashgameActionChartJson = '/%1$s/cashgame/actionchartjson/%2$s/%3$s';
         //const cashgameBuyin = '/%1$s/cashgame/buyin/%2$s';
