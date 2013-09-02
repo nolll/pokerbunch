@@ -70,7 +70,7 @@ namespace Web.Tests.ControllerTests{
 
         private CashgameController GetSut()
         {
-            return new CashgameController(HomegameRepositoryMock.Object, UserContextMock.Object, CashgameRepositoryMock.Object, MatrixPageModelFactoryMock.Object);
+            return new CashgameController(HomegameRepositoryMock.Object, UserContextMock.Object, CashgameRepositoryMock.Object, PlayerRepositoryMock.Object, MatrixPageModelFactoryMock.Object);
         }
 
 	}

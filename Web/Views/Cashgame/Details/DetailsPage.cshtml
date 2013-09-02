@@ -1,0 +1,57 @@
+@model Web.Models.CashgameModels.Details.DetailsPageModel
+
+@{
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
+}
+
+@section ContentTop{
+	<div class="block gutter">
+		<h1>@Model.Heading</h1>
+	</div>
+}
+
+@section Aside2{
+    <div class="block gutter">
+        <dl class="cashgame-meta">
+            <dt>Status</dt>
+            <dd>@Model.Status</dd>
+            @if (Model.ShowStartTime)
+            {
+                <dt>Start Time</dt>
+                <dd>@Model.StartTime</dd>
+            }
+            @if (Model.ShowEndTime)
+            {
+                <dt>End Time</dt>
+                <dd>@Model.EndTime</dd>
+            }
+            @if (Model.DurationEnabled)
+            {
+                <dt>Duration</dt>
+                <dd>@Model.Duration</dd>
+            }
+            <dt>Location</dt>
+            <dd>@Model.Location</dd>
+        </dl>
+
+        @if (Model.EnableEdit)
+        {
+            <p>
+                <a href="@Model.EditUrl" class="button">Edit Cashgame</a>
+            </p>
+        }
+    </div>
+}
+
+<div class="block gutter">
+    @Html.Partial("Details/ResultTable", Model.ResultTableModel)
+
+    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+
+    <div class="buttons">
+        @if (Model.EnableCheckpointsButton){
+            <a href="@Model.CheckpointsUrl" class="button action">My Details</a>
+        }
+    </div>
+
+</div>

@@ -27,7 +27,7 @@ namespace Web.Models.CashgameModels.Leaderboard{
 				var player = result.Player;
 				if(player != null){
 					Name = player.DisplayName;
-					UrlEncodedName = HttpUtility.UrlEncode(player.DisplayName);
+                    UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName);
 					PlayerUrl = new PlayerDetailsUrlModel(homegame, player);
 				}
 			}

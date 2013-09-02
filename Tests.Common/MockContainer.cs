@@ -17,6 +17,7 @@ namespace Tests.Common
     {
         protected Mock<IHomegameRepository> HomegameRepositoryMock;
         protected Mock<ICashgameRepository> CashgameRepositoryMock;
+        protected Mock<IPlayerRepository> PlayerRepositoryMock;
 
         protected Mock<IHomegameStorage> HomegameStorageMock;
         protected Mock<IUserStorage> UserStorageMock;
@@ -51,6 +52,7 @@ namespace Tests.Common
         {
             HomegameRepositoryMock = new Mock<IHomegameRepository>();
             CashgameRepositoryMock = new Mock<ICashgameRepository>();
+            PlayerRepositoryMock = new Mock<IPlayerRepository>();
 
             HomegameStorageMock = new Mock<IHomegameStorage>();
             UserStorageMock = new Mock<IUserStorage>();

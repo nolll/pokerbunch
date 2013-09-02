@@ -37,7 +37,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			var sut = GetSut();
 
 			Assert.AreEqual("player name", sut.Name);
-			Assert.AreEqual("player+name", sut.UrlEncodedName);
+			Assert.AreEqual("player%20name", sut.UrlEncodedName);
 		}
 
 		[Test]

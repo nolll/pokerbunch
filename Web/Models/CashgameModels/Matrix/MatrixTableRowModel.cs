@@ -28,7 +28,7 @@ namespace Web.Models.CashgameModels.Matrix{
 				var player = result.Player;
 				if(player != null){
 					Name = player.DisplayName;
-					UrlEncodedName = HttpUtility.UrlEncode(player.DisplayName);
+                    UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName);
 					PlayerUrl = new PlayerDetailsUrlModel(homegame, player);
 					CellModels = GetCellModels(cashgames, player);
 				}

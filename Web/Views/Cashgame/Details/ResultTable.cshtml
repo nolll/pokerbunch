@@ -1,0 +1,21 @@
+@model Web.Models.CashgameModels.Details.ResultTableModel
+
+<h2>Results</h2>
+
+<table class="cashgames">
+    <thead>
+    <tr>
+        <th>Player</th>
+        <th>Buyin</th>
+        <th>Cashout</th>
+        <th>Result</th>
+        <th>Winrate</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var resultModel in Model.ResultModels)
+        {
+            @Html.Partial("Details/ResultTableItem", resultModel)
+        }
+    </tbody>
+</table>

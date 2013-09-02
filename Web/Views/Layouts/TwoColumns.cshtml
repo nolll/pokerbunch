@@ -4,6 +4,12 @@
     Layout = "Page.cshtml";
 }
 
+@if (IsSectionDefined("ContentTop")){
+    <div class="region width3">
+        @RenderSection("ContentTop")
+    </div>
+}
+
 @if (IsSectionDefined("Aside1")){
     <div class="region width1 aside1">
         @RenderSection("Aside1")
