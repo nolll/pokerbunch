@@ -4,7 +4,6 @@ using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Facts;
 using Web.Models.UrlModels;
-using app;
 
 namespace Web.Models.PlayerModels.Details{
 

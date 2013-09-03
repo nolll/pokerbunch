@@ -28,6 +28,18 @@ namespace Web
             );
 
             routes.MapRoute(
+                "Cashgame Detail Routes",
+                "{gamename}/cashgame/details/{datestr}",
+                new { controller = "Cashgame", action = "Details", dateStr = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Cashgame Detail Chart Routes",
+                "{gamename}/cashgame/detailschartjson/{datestr}",
+                new { controller = "Cashgame", action = "DetailsChartJson", dateStr = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "Cashgame Routes",
                 "{gamename}/cashgame/{action}/{year}",
                 new { controller = "Cashgame", year = UrlParameter.Optional }

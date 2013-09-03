@@ -1,8 +1,7 @@
 using Core.Classes;
-using Web.Models.UrlModels;
 using Web.Routing;
 
-namespace app{
+namespace Web.Models.UrlModels{
 
 	class PlayerDeleteUrlModel : PlayerUrlModel{
 

@@ -66,7 +66,6 @@
     <None Include="app\Cashgame\Action\EndGameController.php" />
     <None Include="app\Cashgame\Action\EndGameModel.php" />
     <None Include="app\Cashgame\Action\GameChart.tpl" />
-    <None Include="app\Cashgame\Action\GameChartData.php" />
     <None Include="app\Cashgame\Action\Report.tpl" />
     <None Include="app\Cashgame\Action\ReportController.php" />
     <None Include="app\Cashgame\Action\ReportModel.php" />
@@ -105,13 +104,6 @@
     <None Include="app\Cashgame\Running\StatusItemModel.php" />
     <None Include="app\Cashgame\Running\StatusTable.tpl" />
     <None Include="app\Cashgame\Running\StatusTableModel.php" />
-    <None Include="app\Chart\ChartColumnModel.php" />
-    <None Include="app\Chart\ChartDateTimeColumnModel.php" />
-    <None Include="app\Chart\ChartDateTimeValueModel.php" />
-    <None Include="app\Chart\ChartModel.php" />
-    <None Include="app\Chart\ChartNumberColumnModel.php" />
-    <None Include="app\Chart\ChartRowModel.php" />
-    <None Include="app\Chart\ChartValueModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
     <None Include="app\Error\HttpError.php" />
     <None Include="app\Error\HttpNotFoundError.php" />

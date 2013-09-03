@@ -6,6 +6,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Leaderboard;
 using Web.Models.UrlModels;
+using Web.Views.Cashgame.Chart;
 
 namespace Web.Controllers{
 
@@ -58,7 +59,7 @@ namespace Web.Controllers{
 			return View("Leaderboard/LeaderboardPage", model);
 		}
 
-        public ActionResult action_details(string gameName, string dateStr){
+        public ActionResult Details(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
@@ -69,6 +70,20 @@ namespace Web.Controllers{
 			var user = _userContext.GetUser();
 			var model = GetDetailsModel(user, homegame, cashgame);
 			return View("Details/DetailsPage", model);
+		}
+
+        public JsonResult DetailsChartJson(string gameName, string dateStr){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			if(cashgame == null){
+                //todo: find out how to handle 404 for Json requests
+                //return new HttpNotFoundResult();
+			    return null;
+			}
+			var model = new GameChartData(homegame, cashgame);
+			return Json((object)model);
 		}
 
         private DetailsPageModel GetDetailsModel(User user, Homegame homegame, Cashgame cashgame){

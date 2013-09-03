@@ -379,7 +379,6 @@
     <Compile Include="Models\UrlModels\CashgameLeaderboardUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameListingUrlModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationYearModel.cs" />
-    <Content Include="Controllers\DetailsController.php" />
     <Compile Include="Models\CashgameModels\Details\DetailsPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgamePublishUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameUnpublishUrlModel.cs" />
@@ -389,6 +388,14 @@
     <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Details\ResultTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\ResultTableItemModel.cs" />
+    <Compile Include="Views\Cashgame\Chart\GameChartData.cs" />
+    <Compile Include="Models\ChartModels\ChartModel.cs" />
+    <Compile Include="Models\ChartModels\ChartColumnModel.cs" />
+    <Compile Include="Models\ChartModels\ChartRowModel.cs" />
+    <Compile Include="Models\ChartModels\ChartValueModel.cs" />
+    <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
+    <Compile Include="Models\ChartModels\ChartDateTimeColumnModel.cs" />
+    <Compile Include="Models\ChartModels\ChartNumberColumnModel.cs" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
     <None Include="Views\Cashgame\Details\DetailsPage.cshtml" />

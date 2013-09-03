@@ -5,7 +5,6 @@ using Infrastructure.Data.Storage.Interfaces;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Listing;
 using Web.Models.UrlModels;
-using app;
 
 namespace Web.Controllers{
 
