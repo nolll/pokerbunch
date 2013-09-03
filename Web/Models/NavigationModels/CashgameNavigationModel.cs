@@ -7,7 +7,7 @@ namespace Web.Models.NavigationModels{
         public CashgamePageNavigationModel PageNavModel { get; set; }
         public CashgameYearNavigationModel YearNavModel { get; set; }
 
-        public CashgameNavigationModel(Homegame homegame, string view, List<int> years, int? year, Cashgame runningGame){
+        public CashgameNavigationModel(Homegame homegame, string view, IList<int> years, int? year, Cashgame runningGame){
 			PageNavModel = new CashgamePageNavigationModel(homegame, year, view, runningGame);
 			YearNavModel = new CashgameYearNavigationModel(homegame, years, year, view);
 		}

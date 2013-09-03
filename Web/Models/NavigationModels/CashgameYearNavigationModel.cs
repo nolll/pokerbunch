@@ -10,12 +10,12 @@ namespace Web.Models.NavigationModels{
         public string Selected { get; set; }
         public List<NavigationYearModel> YearModels { get; set; }
 
-		public CashgameYearNavigationModel(Homegame homegame, List<int> years, int? year = null, string view = null){
+		public CashgameYearNavigationModel(Homegame homegame, IList<int> years, int? year = null, string view = null){
 			Selected = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : "All Time";
 			YearModels = GetYearModels(homegame, view, years);
 		}
 
-		private List<NavigationYearModel> GetYearModels(Homegame homegame, string view, List<int> years)
+		private List<NavigationYearModel> GetYearModels(Homegame homegame, string view, IList<int> years)
 		{
 		    var yearModels = new List<NavigationYearModel>();
             if(years != null){

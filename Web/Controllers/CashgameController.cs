@@ -86,6 +86,16 @@ namespace Web.Controllers{
 			return Json((object)model);
 		}
 
+        public ActionResult Facts(string gameName, int? year = null){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var suite = _cashgameRepository.GetSuite(homegame, year);
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = new CashgameFactsModel(_userContext.GetUser(), homegame, suite, years, year, runningGame);
+			return View("Facts/FactsPage", model);
+		}
+
         private DetailsPageModel GetDetailsModel(User user, Homegame homegame, Cashgame cashgame){
 			var player = _playerRepository.GetByUserName(homegame, user.UserName);
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);

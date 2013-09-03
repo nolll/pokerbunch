@@ -85,8 +85,6 @@
     <None Include="app\Cashgame\Edit\CashgameEditModel.php" />
     <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
     <None Include="app\Cashgame\Edit\Edit.tpl" />
-    <None Include="app\Cashgame\Facts\CashgameFactsController.php" />
-    <None Include="app\Cashgame\Facts\CashgameFactsModel.php" />
     <None Include="app\Cashgame\Facts\Facts.tpl" />
     <None Include="app\Cashgame\Listing\CashgameListingController.php" />
     <None Include="app\Cashgame\Listing\CashgameListingModel.php" />

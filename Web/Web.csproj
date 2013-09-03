@@ -397,6 +397,7 @@
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeColumnModel.cs" />
     <Compile Include="Models\ChartModels\ChartNumberColumnModel.cs" />
+    <Compile Include="Models\CashgameModels\Facts\CashgameFactsPageModel.cs" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
     <None Include="Views\Cashgame\Details\DetailsPage.cshtml" />
