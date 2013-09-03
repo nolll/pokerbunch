@@ -3,9 +3,11 @@ using System.Collections.Generic;
 namespace Web.Models.ChartModels{
 
 	public class ChartModel {
-
+        
 	    public List<ChartColumnModel> Cols { get; set; }
+
         public List<ChartRowModel> Rows { get; set; }
+
 	    public string P { get; set; }
 
         public ChartModel(){
