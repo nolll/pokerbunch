@@ -401,6 +401,7 @@
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
     <None Include="Views\Cashgame\Details\DetailsPage.cshtml" />
+    <None Include="Views\Cashgame\Facts\FactsPage.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTableItem.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardPage.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTable.cshtml" />

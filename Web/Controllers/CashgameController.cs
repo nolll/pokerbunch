@@ -4,6 +4,7 @@ using Core.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Details;
+using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.Leaderboard;
 using Web.Models.UrlModels;
 using Web.Views.Cashgame.Chart;
@@ -92,7 +93,7 @@ namespace Web.Controllers{
 			var suite = _cashgameRepository.GetSuite(homegame, year);
             var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
-			var model = new CashgameFactsModel(_userContext.GetUser(), homegame, suite, years, year, runningGame);
+			var model = new CashgameFactsPageModel(_userContext.GetUser(), homegame, suite, years, year, runningGame);
 			return View("Facts/FactsPage", model);
 		}
 

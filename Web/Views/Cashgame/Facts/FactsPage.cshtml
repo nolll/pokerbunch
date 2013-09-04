@@ -1,0 +1,41 @@
+@model Web.Models.CashgameModels.Facts.CashgameFactsPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>
+		@Html.Partial("~/Views/Navigation/CashgameNavigation.cshtml", Model.CashgameNavModel)
+	</h1>
+</div>
+
+<div class="block gutter">
+	<dl>
+		<dt>Number of games</dt>
+		<dd>@Model.GameCount</dd>
+
+		<dt>Best Result</dt>
+		<dd>@Model.BestResultName: @Model.BestResultAmount</dd>
+
+		<dt>Worst Result</dt>
+		<dd>@Model.WorstResultName: @Model.WorstResultAmount</dd>
+
+		<dt>Total Time Played</dt>
+		<dd>@Model.TotalGameTime</dd>
+
+		<dt>Most Time Played</dt>
+		<dd>@Model.MostTimeName: @Model.MostTimeDuration</dd>
+
+		<!--
+		BiggestTotalBuyin
+		BiggestTotalCashout
+		BestTotalResult
+		BiggestBuyin
+		BiggestCashout
+		BiggestComeback
+		MostGamesPlayed
+		HighestWinrate
+		-->
+	</dl>
+</div>

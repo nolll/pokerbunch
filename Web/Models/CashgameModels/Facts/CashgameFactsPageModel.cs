@@ -4,7 +4,7 @@ using Infrastructure.System;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 
-namespace app{
+namespace Web.Models.CashgameModels.Facts{
 
 	public class CashgameFactsPageModel : HomegamePageModel {
 
@@ -58,6 +58,11 @@ namespace app{
 				}
 			}
 		}
+
+        public override string BrowserTitle
+        {
+            get { return "Cashgame Facts"; }
+        }
 
 	}
 
