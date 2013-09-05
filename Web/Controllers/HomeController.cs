@@ -1,7 +1,5 @@
 using System.Web.Mvc;
-using Web.ModelFactories;
 using Web.ModelFactories.HomeModelFactories;
-using Web.Models.HomeModels;
 
 namespace Web.Controllers{
 

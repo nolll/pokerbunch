@@ -56,6 +56,7 @@ namespace Web.Plumbing
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameValidatorFactory, CashgameValidatorFactory>(container);
         }
 
     }

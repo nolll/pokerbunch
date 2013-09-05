@@ -1,23 +1,16 @@
-namespace app\Cashgame{
+using Core.Classes;
 
-	use app\Cashgame\Action\ActionPostModel;
-	use app\Cashgame\Action\BuyinPostModel;
-	use core\Validation\PositiveNumberValidator;
-	use entities\Cashgame;
-	use app\Cashgame\Edit\CashgameEditPostModel;
-	use core\Validation\CompositeValidator;
-	use app\Cashgame\CashgameValidatorFactory;
-	use core\Validation\RequiredValidator;
-	use entities\Homegame;
+namespace Web.Validators{
 
-	class CashgameValidatorFactoryImpl implements CashgameValidatorFactory{
+	public class CashgameValidatorFactory : ICashgameValidatorFactory{
 
-		public function getAddCashgameValidator(Homegame $homegame, Cashgame $cashgame){
-			$validator = new CompositeValidator();
-			$validator.addValidator(new RequiredValidator($cashgame.getLocation(), 'Location can\'t be empty'));
-			return $validator;
+		public Validator GetAddCashgameValidator(Homegame homegame, Cashgame cashgame){
+			var validator = new CompositeValidator();
+			validator.AddValidator(new RequiredValidator(cashgame.Location, "Location can't be empty"));
+			return validator;
 		}
 
+        /*
 		public function getEditCashgameValidator(CashgameEditPostModel $postModel){
 			$validator = new CompositeValidator();
 			$validator.addValidator(new RequiredValidator($postModel.location, 'Location can\'t be empty'));
@@ -45,6 +38,7 @@ namespace app\Cashgame{
 			$validator.addValidator(new PositiveNumberValidator($postModel.stack, "Stack size can't be negative"));
 			return $validator;
 		}
+        */
 
 	}
 

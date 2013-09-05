@@ -18,8 +18,8 @@ namespace Infrastructure.Data.Storage {
 
 		public int AddGame(int homegameId, Cashgame cashgame){
 			var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2})";
-		    sql = string.Format(sql, homegameId, cashgame.Location, cashgame.Status);
-			return _storageProvider.ExecuteInsert(sql);
+		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
+		    return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public bool DeleteGame(int cashgameId){

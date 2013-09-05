@@ -1,8 +1,6 @@
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Storage.Interfaces;
-using Web.Models;
 using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Listing;
 

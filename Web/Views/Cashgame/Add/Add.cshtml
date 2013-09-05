@@ -1,0 +1,25 @@
+@model Web.Models.CashgameModels.Add.AddModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>New Cashgame</h1>
+</div>
+<div class="block gutter">
+    
+    @Html.Partial("~/Views/Forms/Errors.cshtml", Model.ValidationErrors)
+
+    <form method="post">
+        <fieldset>
+            <p>
+                <label for="location">Enter Location</label>
+                @Html.Partial("~/Views/Forms/ListField.cshtml", Model.LocationSelectModel)
+            </p>
+        </fieldset>
+        <div class="buttons">
+            <button type="submit" class="action">Create</button>
+        </div>
+    </form>
+</div>

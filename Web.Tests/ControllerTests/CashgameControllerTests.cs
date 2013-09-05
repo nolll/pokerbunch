@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.Controllers;
 using Web.Models.CashgameModels.Leaderboard;
+using Web.Validators;
 
 namespace Web.Tests.ControllerTests{
 
@@ -70,7 +71,15 @@ namespace Web.Tests.ControllerTests{
 
         private CashgameController GetSut()
         {
-            return new CashgameController(HomegameRepositoryMock.Object, UserContextMock.Object, CashgameRepositoryMock.Object, PlayerRepositoryMock.Object, MatrixPageModelFactoryMock.Object);
+            return new CashgameController(
+                HomegameRepositoryMock.Object, 
+                UserContextMock.Object, 
+                CashgameRepositoryMock.Object, 
+                PlayerRepositoryMock.Object, 
+                MatrixPageModelFactoryMock.Object, 
+                WebContextMock.Object,
+                CashgameValidatorFactoryMock.Object,
+                CashgameFactoryMock.Object);
         }
 
 	}

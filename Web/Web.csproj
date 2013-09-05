@@ -398,6 +398,17 @@
     <Compile Include="Models\ChartModels\ChartDateTimeColumnModel.cs" />
     <Compile Include="Models\ChartModels\ChartNumberColumnModel.cs" />
     <Compile Include="Models\CashgameModels\Facts\CashgameFactsPageModel.cs" />
+    <None Include="Controllers\AddController.php" />
+    <Compile Include="Models\CashgameModels\Add\AddModel.cs" />
+    <Compile Include="Models\FormModels\LocationFieldModel.cs" />
+    <Compile Include="Models\FormModels\ListFieldModel.cs" />
+    <Compile Include="Models\FormModels\SelectFieldModel.cs" />
+    <Compile Include="Models\FormModels\FormFieldModel.cs" />
+    <Compile Include="Models\FormModels\SelectFieldItem.cs" />
+    <Compile Include="Models\CashgameModels\Add\AddPostModel.cs" />
+    <Compile Include="Validators\ICashgameValidatorFactory.cs" />
+    <Compile Include="Validators\CashgameValidatorFactory.cs" />
+    <None Include="Views\Cashgame\Add\Add.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
     <None Include="Views\Cashgame\Details\DetailsPage.cshtml" />
@@ -405,6 +416,8 @@
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTableItem.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardPage.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTable.cshtml" />
+    <None Include="Views\Forms\Errors.cshtml" />
+    <None Include="Views\Forms\ListField.cshtml" />
     <None Include="Views\Navigation\CashgameNavigation.cshtml" />
     <None Include="Views\Navigation\CashgamePageNavigation.cshtml" />
     <None Include="Views\Navigation\CashgameYearNavigation.cshtml" />

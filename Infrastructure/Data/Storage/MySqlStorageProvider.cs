@@ -10,7 +10,7 @@ namespace Infrastructure.Data.Storage {
 
 		public MySqlStorageProvider()
 		{
-            _connectionString = "server=127.0.0.1;user=homegame;database=homegamemanager;port=3306;password=bobb12br;";
+            _connectionString = "server=127.0.0.1;user=homegame;database=homegamemanager;port=3306;password=bobb12br;Convert Zero Datetime=True;";
 		}
 
         private MySqlConnection GetConnection()

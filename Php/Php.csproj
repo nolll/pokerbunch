@@ -69,12 +69,6 @@
     <None Include="app\Cashgame\Action\Report.tpl" />
     <None Include="app\Cashgame\Action\ReportController.php" />
     <None Include="app\Cashgame\Action\ReportModel.php" />
-    <None Include="app\Cashgame\Add\Add.tpl" />
-    <None Include="app\Cashgame\Add\AddController.php" />
-    <None Include="app\Cashgame\Add\AddModel.php" />
-    <None Include="app\Cashgame\Add\AddPostModel.php" />
-    <None Include="app\Cashgame\CashgameValidatorFactory.php" />
-    <None Include="app\Cashgame\CashgameValidatorFactoryImpl.php" />
     <None Include="app\Cashgame\Chart\Chart.tpl" />
     <None Include="app\Cashgame\Chart\ChartController.php" />
     <None Include="app\Cashgame\Chart\ChartData.php" />
@@ -144,7 +138,6 @@
     <None Include="app\Sharing\Twitter\SharingTwitterController.php" />
     <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
-    <None Include="app\Site\Errors.tpl" />
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
@@ -212,13 +205,7 @@
     <None Include="core\ClassNames.php" />
     <None Include="core\FormFields\CurrencyLayoutFieldModel.php" />
     <None Include="core\FormFields\FormField.tpl" />
-    <None Include="core\FormFields\FormFieldModel.php" />
-    <None Include="core\FormFields\ListField.tpl" />
-    <None Include="core\FormFields\ListFieldModel.php" />
-    <None Include="core\FormFields\LocationFieldModel.php" />
     <None Include="core\FormFields\SelectField.tpl" />
-    <None Include="core\FormFields\SelectFieldItem.php" />
-    <None Include="core\FormFields\SelectFieldModel.php" />
     <None Include="core\FormFields\TimezoneFieldModel.php" />
     <None Include="core\HomegameControllerDefinition.php" />
     <None Include="core\PageController.php" />
@@ -376,6 +363,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\Cashgame\Add\" />
     <Folder Include="app\Player\Listing\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>

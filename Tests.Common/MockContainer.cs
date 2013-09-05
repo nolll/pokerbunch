@@ -44,6 +44,7 @@ namespace Tests.Common
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
         protected Mock<IUserValidatorFactory> UserValidatorFactoryMock;
         protected Mock<IAuthLoginPageModelFactory> AuthLoginPageModelFactoryMock;
+        protected Mock<ICashgameValidatorFactory> CashgameValidatorFactoryMock;
 
         protected Mock<ISettings> SettingsMock;
 
@@ -79,6 +80,7 @@ namespace Tests.Common
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
             UserValidatorFactoryMock = new Mock<IUserValidatorFactory>();
             AuthLoginPageModelFactoryMock = new Mock<IAuthLoginPageModelFactory>();
+            CashgameValidatorFactoryMock = new Mock<ICashgameValidatorFactory>();
 
             SettingsMock = new Mock<ISettings>();
         }
