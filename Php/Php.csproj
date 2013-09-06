@@ -258,9 +258,6 @@
     <None Include="tests\AppTests\Cashgame\Listing\CashgameTableModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Running\BarModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Running\RunningControllerTests.php" />
-    <None Include="tests\AppTests\Cashgame\Running\RunningModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Running\StatusItemModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Running\StatusTableModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Validators\CashgameValidatorTests.php" />
     <None Include="tests\AppTests\Chart\ChartColumnModelTests.php" />
     <None Include="tests\AppTests\Chart\ChartDateTimeColumnModelTests.php" />

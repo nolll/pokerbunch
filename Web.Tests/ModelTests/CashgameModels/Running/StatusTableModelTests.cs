@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.Models.CashgameModels.Running;
 
-namespace tests{
+namespace Web.Tests.ModelTests.CashgameModels.Running{
 
 	public class StatusTableModelTests : MockContainer{
 
