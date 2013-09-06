@@ -414,6 +414,7 @@
     <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StatusTableModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StatusItemModel.cs" />
+    <Compile Include="Models\CashgameModels\Listing\CashgameTableItemModel.cs" />
     <None Include="Views\Cashgame\Add\Add.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />

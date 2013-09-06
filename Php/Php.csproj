@@ -82,7 +82,6 @@
     <None Include="app\Cashgame\Listing\CashgameListingController.php" />
     <None Include="app\Cashgame\Listing\CashgameListingModel.php" />
     <None Include="app\Cashgame\Listing\CashgameTableItem\CashgameTableItem.tpl" />
-    <None Include="app\Cashgame\Listing\CashgameTableItem\CashgameTableItemModel.php" />
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTable.tpl" />
     <None Include="app\Cashgame\Listing\CashgameTable\CashgameTableModel.php" />
     <None Include="app\Cashgame\Listing\Listing.tpl" />
@@ -349,7 +348,6 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\Player\Listing\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
