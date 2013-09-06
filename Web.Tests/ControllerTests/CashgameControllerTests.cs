@@ -79,7 +79,8 @@ namespace Web.Tests.ControllerTests{
                 MatrixPageModelFactoryMock.Object, 
                 WebContextMock.Object,
                 CashgameValidatorFactoryMock.Object,
-                CashgameFactoryMock.Object);
+                CashgameFactoryMock.Object,
+                TimeProviderMock.Object);
         }
 
 	}

@@ -1,0 +1,76 @@
+@model Web.Models.CashgameModels.Running.RunningPageModel
+
+@{
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Running Cashgame</h1>
+</div>
+
+<div class="button-list">
+	@if (Model.ReportButtonEnabled)
+	{
+        <a href="@Model.ReportUrl" class="icon-button action">
+			<i class="icon-reorder"></i>
+			Report
+		</a>
+	}
+
+	@if (Model.BuyinButtonEnabled)
+	{
+	    <a href="@Model.BuyinUrl" class="icon-button action">
+			<i class="icon-money"></i>
+			Buy In
+		</a>
+	}
+
+	@if (Model.CashoutButtonEnabled)
+	{
+        <a href="@Model.CashoutUrl" class="icon-button action">
+			<i class="icon-signout"></i>
+			Cash Out
+		</a>
+	}
+	
+	@if (@Model.EndGameButtonEnabled)
+	{
+	    <a href="@Model.EndGameUrl" class="icon-button action">
+			<i class="icon-signout"></i>
+			End Game
+		</a>
+	}
+</div>
+
+<div class="block gutter">
+	@if (Model.ShowTable)
+	{
+        if (Model.StatusTableModel != null)
+        {
+            @Html.Partial("Running/StatusTable", Model.StatusTableModel)
+        }
+	}
+	else
+	{
+	    @:No one has joined the game yet.
+	}
+		
+	@if (Model.ShowChart)
+	{
+	    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+	}
+</div>
+
+@section Aside2{
+    <div class="block gutter">
+		<dl class="cashgame-meta">
+			@if (Model.ShowStartTime)
+			{
+				<dt>Start Time</dt>
+				<dd>@Model.StartTime</dd>
+			}
+			<dt>Location</dt>
+			<dd>@Model.Location</dd>
+		</dl>
+	</div>
+}

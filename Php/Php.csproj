@@ -88,13 +88,6 @@
     <None Include="app\Cashgame\Listing\Listing.tpl" />
     <None Include="app\Cashgame\Running\Bar.tpl" />
     <None Include="app\Cashgame\Running\BarModel.php" />
-    <None Include="app\Cashgame\Running\Running.tpl" />
-    <None Include="app\Cashgame\Running\RunningController.php" />
-    <None Include="app\Cashgame\Running\RunningModel.php" />
-    <None Include="app\Cashgame\Running\StatusItem.tpl" />
-    <None Include="app\Cashgame\Running\StatusItemModel.php" />
-    <None Include="app\Cashgame\Running\StatusTable.tpl" />
-    <None Include="app\Cashgame\Running\StatusTableModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
     <None Include="app\Error\HttpError.php" />
     <None Include="app\Error\HttpNotFoundError.php" />
@@ -141,14 +134,10 @@
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
-    <None Include="app\Urls\CashgameBuyinUrlModel.php" />
-    <None Include="app\Urls\CashgameCashoutUrlModel.php" />
     <None Include="app\Urls\CashgameChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameCheckpointDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDeleteUrlModel.php" />
-    <None Include="app\Urls\CashgameEndUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
-    <None Include="app\Urls\CashgameReportUrlModel.php" />
     <None Include="app\Urls\CashgameStartUrlModel.php" />
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\ChangePasswordUrlModel.php" />
@@ -363,7 +352,6 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\Cashgame\Add\" />
     <Folder Include="app\Player\Listing\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>

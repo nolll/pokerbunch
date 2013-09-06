@@ -10,6 +10,7 @@ using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
 using Web.Validators;
 using Web.Views.Cashgame.Chart;
@@ -25,6 +26,7 @@ namespace Web.Controllers{
 	    private readonly IWebContext _webContext;
 	    private readonly ICashgameValidatorFactory _cashgameValidatorFactory;
 	    private readonly ICashgameFactory _cashgameFactory;
+	    private readonly ITimeProvider _timeProvider;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -34,7 +36,8 @@ namespace Web.Controllers{
             IMatrixPageModelFactory matrixPageModelFactory,
             IWebContext webContext,
             ICashgameValidatorFactory cashgameValidatorFactory,
-            ICashgameFactory cashgameFactory)
+            ICashgameFactory cashgameFactory,
+            ITimeProvider timeProvider)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -44,6 +47,7 @@ namespace Web.Controllers{
 	        _webContext = webContext;
 	        _cashgameValidatorFactory = cashgameValidatorFactory;
 	        _cashgameFactory = cashgameFactory;
+	        _timeProvider = timeProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -118,7 +122,7 @@ namespace Web.Controllers{
 			if(runningGame != null){
 				throw new AccessDeniedException("Game already running");
 			}
-			return ShowForm(homegame);
+			return ShowAddForm(homegame);
 		}
 
         [HttpPost]
@@ -129,6 +133,26 @@ namespace Web.Controllers{
 			return HandleAddPost(homegame, postModel);
 		}
 
+        public ActionResult Running(string gameName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var cashgame = _cashgameRepository.GetRunning(homegame);
+			if(cashgame == null){
+                return new RedirectResult(new CashgameIndexUrlModel(homegame).Url);
+			}
+			var user = _userContext.GetUser();
+			var player = _playerRepository.GetByUserName(homegame, user.UserName);
+			var model = GetModel(homegame, cashgame, player);
+			return View("Running/RunningPage", model);
+		}
+
+		public RunningPageModel GetModel(Homegame homegame, Cashgame cashgame, Player player){
+			var isManager = _userContext.IsInRole(homegame, Role.Manager);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			return new RunningPageModel(_userContext.GetUser(), homegame, cashgame, player, years, isManager, _timeProvider, runningGame);
+		}
+
         private DetailsPageModel GetDetailsModel(User user, Homegame homegame, Cashgame cashgame){
 			var player = _playerRepository.GetByUserName(homegame, user.UserName);
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
@@ -137,7 +161,7 @@ namespace Web.Controllers{
 			return new DetailsPageModel(user, homegame, cashgame, player, years, isManager, runningGame);
 		}
 
-        private ActionResult ShowForm(Homegame homegame, Cashgame cashgame = null, List<string> validationErrors = null){
+        private ActionResult ShowAddForm(Homegame homegame, Cashgame cashgame = null, List<string> validationErrors = null){
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var locations = _cashgameRepository.GetLocations(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
@@ -155,7 +179,7 @@ namespace Web.Controllers{
                 _cashgameRepository.AddGame(homegame, cashgame);
                 return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
             }
-            return ShowForm(homegame, cashgame, validator.GetErrors());
+            return ShowAddForm(homegame, cashgame, validator.GetErrors());
         }
 
 		private Cashgame GetCashgame(AddPostModel postModel){

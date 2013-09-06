@@ -44,15 +44,14 @@ namespace Infrastructure.System{
 			return m + "m";
 		}
 
-		public static string FormatTimespan(int secondsAgo){
-			var minutes = (int)Math.Round((double)secondsAgo / 60);
-			if(minutes == 0){
+		public static string FormatTimespan(TimeSpan timespan){
+			if(timespan.Minutes == 0){
 				return "now";
 			}
-			if(minutes == 1){
+			if(timespan.Minutes == 1){
 				return "1 minute";
 			}
-			return minutes + " minutes";
+			return timespan.Minutes + " minutes";
 		}
 
 		public static string FormatShortDate(DateTime date, bool includeYear = false){

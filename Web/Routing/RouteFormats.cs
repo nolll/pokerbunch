@@ -17,7 +17,7 @@ namespace Web.Routing{
         public const string CashgameDetails = "/{0}/cashgame/details/{1}";
         public const string CashgameDetailsChartJson = "{0}/cashgame/detailschartjson/{1}";
         public const string CashgameEdit = "/{0}/cashgame/edit/{1}";
-        //const cashgameEnd = '/%1$s/cashgame/end';
+        public const string CashgameEnd = "/{0}/cashgame/end";
         public const string CashgameIndex = "/{0}/cashgame/index";
         public const string CashgameLeaderboard = "/{0}/cashgame/leaderboard";
         public const string CashgameLeaderboardWithYear = "/{0}/cashgame/leaderboard/{1}";
@@ -29,9 +29,9 @@ namespace Web.Routing{
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
         //const cashgameActionChartJson = '/%1$s/cashgame/actionchartjson/%2$s/%3$s';
-        //const cashgameBuyin = '/%1$s/cashgame/buyin/%2$s';
-        //const cashgameReport = '/%1$s/cashgame/report/%2$s';
-        //const cashgameCashout = '/%1$s/cashgame/cashout/%2$s';
+        public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
+        public const string CashgameReport = "/{0}/cashgame/report/{1}";
+        public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";
         public const string CashgamePublish = "/{0}/cashgame/publish/{1}";
         //const cashgameRemoveResult = '/%1$s/cashgame/removeresult/%2$s';
         public const string CashgameUnpublish = "/{0}/cashgame/unpublish/{1}";

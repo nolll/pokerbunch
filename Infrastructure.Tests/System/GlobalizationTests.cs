@@ -52,10 +52,12 @@ namespace Infrastructure.Tests.System{
 		}
 
         [TestCase(1, "now")]
-        [TestCase(45, "1 minute")]
+        [TestCase(60, "1 minute")]
         [TestCase(120, "2 minutes")]
-		public void FormatTimespan(int input, string expected){
-			var result = Globalization.FormatTimespan(input);
+		public void FormatTimespan(int input, string expected)
+        {
+            var timespan = TimeSpan.FromSeconds(input);
+			var result = Globalization.FormatTimespan(timespan);
 			Assert.AreEqual(expected, result);
 		}
 

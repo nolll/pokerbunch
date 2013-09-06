@@ -1,0 +1,18 @@
+@model Web.Models.CashgameModels.Running.StatusTableModel
+<div class="standings">
+	<div>
+		@foreach (var statusModel in Model.StatusModels)
+		{
+            @Html.Partial("Running/StatusItem", statusModel)
+		}
+	</div>
+
+	<div class="totals">
+		<div class="title">Totals: </div>
+		<div class="amounts">
+			<div class="amount"><i title="Total Buy in" class="icon-signin"></i> @Model.TotalBuyin</div>
+			<div class="amount"><i title="Total Stacks" class="icon-reorder"></i> @Model.TotalStacks</div>
+		</div>
+	</div>
+
+</div>
