@@ -1,0 +1,11 @@
+@model Web.Models.CashgameModels.Listing.CashgameTableItemModel
+<tr class="@Model.PublishedClass">
+    <td class="date">
+        <a href="@Model.DetailsUrl" class="date">@Model.DisplayDate</a>
+    </td>
+    <td>@Model.PlayerCount</td>
+    <td>@Model.Location</td>
+    <td>@Model.Duration</td>
+    <td>@Model.Turnover</td>
+    <td>@Model.AvgBuyin</td>
+</tr>

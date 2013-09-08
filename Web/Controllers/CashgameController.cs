@@ -10,6 +10,7 @@ using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Listing;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
 using Web.Validators;
@@ -146,7 +147,17 @@ namespace Web.Controllers{
 			return View("Running/RunningPage", model);
 		}
 
-		public RunningPageModel GetModel(Homegame homegame, Cashgame cashgame, Player player){
+        public ActionResult Listing(string gameName, int? year = null){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var games = _cashgameRepository.GetAll(homegame, year);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = new CashgameListingModel(_userContext.GetUser(), homegame, games, years, year, runningGame);
+            return View("Listing/Listing", model);
+		}
+
+		private RunningPageModel GetModel(Homegame homegame, Cashgame cashgame, Player player){
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);

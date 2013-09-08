@@ -1,3 +1,4 @@
+@model Web.Models.CashgameModels.Listing.CashgameTableModel
 <table class="cashgames">
     <thead>
     <tr>
@@ -10,8 +11,9 @@
     </tr>
     </thead>
     <tbody>
-		{foreach $model->listItemModels as $listItemModel}
-			{partial view='app\Cashgame\Listing\CashgameTableItem\CashgameTableItem' model=$listItemModel}
-		{/foreach}
+        @foreach (var listItemModel in Model.ListItemModels)
+        {
+            @Html.Partial("Listing/CashgameTableItem", listItemModel);
+        }
     </tbody>
 </table>

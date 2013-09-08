@@ -79,12 +79,6 @@
     <None Include="app\Cashgame\Edit\CashgameEditModel.php" />
     <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
     <None Include="app\Cashgame\Edit\Edit.tpl" />
-    <None Include="app\Cashgame\Listing\CashgameListingController.php" />
-    <None Include="app\Cashgame\Listing\CashgameListingModel.php" />
-    <None Include="app\Cashgame\Listing\CashgameTableItem\CashgameTableItem.tpl" />
-    <None Include="app\Cashgame\Listing\CashgameTable\CashgameTable.tpl" />
-    <None Include="app\Cashgame\Listing\CashgameTable\CashgameTableModel.php" />
-    <None Include="app\Cashgame\Listing\Listing.tpl" />
     <None Include="app\Cashgame\Running\Bar.tpl" />
     <None Include="app\Cashgame\Running\BarModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />

@@ -415,6 +415,8 @@
     <Compile Include="Models\CashgameModels\Running\StatusTableModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StatusItemModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameTableItemModel.cs" />
+    <Compile Include="Models\CashgameModels\Listing\CashgameTableModel.cs" />
+    <Compile Include="Models\CashgameModels\Listing\CashgameListingModel.cs" />
     <None Include="Views\Cashgame\Add\Add.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
@@ -423,6 +425,9 @@
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTableItem.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardPage.cshtml" />
     <None Include="Views\Cashgame\Leaderboard\LeaderboardTable.cshtml" />
+    <None Include="Views\Cashgame\Listing\CashgameTableItem.cshtml" />
+    <None Include="Views\Cashgame\Listing\CashgameTable.cshtml" />
+    <None Include="Views\Cashgame\Listing\Listing.cshtml" />
     <None Include="Views\Cashgame\Running\RunningPage.cshtml" />
     <None Include="Views\Cashgame\Running\StatusItem.cshtml" />
     <None Include="Views\Cashgame\Running\StatusTable.cshtml" />
