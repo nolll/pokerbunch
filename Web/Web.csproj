@@ -420,7 +420,7 @@
     <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
     <None Include="Views\User\Details.cshtml" />
-    <Compile Include="Controllers\Details\UserController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsModel.cs" />
     <Compile Include="Models\UrlModels\UserEditUrlModel.cs" />
     <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs" />

@@ -22,6 +22,12 @@ namespace Web
             );
 
             routes.MapRoute(
+                "User",
+                "-/user/{action}/{userName}",
+                new { controller = "User", userName = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "Homegame",
                 "{gamename}/homegame/{action}",
                 new { controller = "Homegame" }

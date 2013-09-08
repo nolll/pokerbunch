@@ -3,12 +3,11 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.Repositories;
 using Web.Models.UserModels;
 
-namespace Web.Controllers.Details{
+namespace Web.Controllers{
 
-	class UserController : Controller {
+	public class UserController : Controller {
 	    private readonly IUserContext _userContext;
 	    private readonly IUserStorage _userStorage;
 	    private readonly IAvatarService _avatarService;
