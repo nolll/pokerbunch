@@ -6,15 +6,19 @@ namespace Web.Models.ChartModels{
 	    public string v { get; set; }
 	    public string f { get; set; }
 
-        public ChartValueModel(string val)
+        public ChartValueModel()
         {
-            v = val;
             f = null;
         }
 
-        public ChartValueModel(int val)
-            : this(val.ToString(CultureInfo.InvariantCulture))
+        public ChartValueModel(string val) : this()
         {
+            v = val;
+        }
+
+        public ChartValueModel(int? val) : this()
+        {
+            v = val.HasValue ? val.Value.ToString(CultureInfo.InvariantCulture) : null;
         }
 
 	}

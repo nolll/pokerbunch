@@ -7,6 +7,7 @@ using Infrastructure.Factories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Add;
+using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.Leaderboard;
@@ -14,7 +15,6 @@ using Web.Models.CashgameModels.Listing;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
 using Web.Validators;
-using Web.Views.Cashgame.Chart;
 
 namespace Web.Controllers{
 
@@ -143,7 +143,7 @@ namespace Web.Controllers{
 			}
 			var user = _userContext.GetUser();
 			var player = _playerRepository.GetByUserName(homegame, user.UserName);
-			var model = GetModel(homegame, cashgame, player);
+			var model = GetRunningPageModel(homegame, cashgame, player);
 			return View("Running/RunningPage", model);
 		}
 
@@ -157,7 +157,24 @@ namespace Web.Controllers{
             return View("Listing/Listing", model);
 		}
 
-		private RunningPageModel GetModel(Homegame homegame, Cashgame cashgame, Player player){
+        public ActionResult Chart(string gameName, int? year = null){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = new ChartPageModel(_userContext.GetUser(), homegame, year, years, runningGame);
+            return View("Chart/Chart", model);
+		}
+
+        public JsonResult ChartJson(string gameName, int? year = null){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var suite = _cashgameRepository.GetSuite(homegame, year);
+			var model = new ChartData(suite);
+            return Json(model, JsonRequestBehavior.AllowGet);
+		}
+        
+		private RunningPageModel GetRunningPageModel(Homegame homegame, Cashgame cashgame, Player player){
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);

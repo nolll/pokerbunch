@@ -6,16 +6,16 @@ using Core.Classes.Checkpoints;
 using Infrastructure.System;
 using Web.Models.ChartModels;
 
-namespace Web.Views.Cashgame.Chart {
+namespace Web.Models.CashgameModels.Details {
 
 	public class GameChartData : ChartModel{
 
-		public GameChartData(Homegame homegame, Core.Classes.Cashgame cashgame){
+		public GameChartData(Homegame homegame, Cashgame cashgame){
 			AddActionColumns(cashgame);
 			AddActionRows(homegame, cashgame);
 		}
 
-		private void AddActionRows(Homegame homegame, Core.Classes.Cashgame cashgame){
+		private void AddActionRows(Homegame homegame, Cashgame cashgame){
 			var results = cashgame.Results;
 			foreach(var result in results){
 				var totalBuyin = 0;
@@ -44,7 +44,7 @@ namespace Web.Views.Cashgame.Chart {
 			AddRow(row);
 		}
 
-		private void AddActionColumns(Core.Classes.Cashgame cashgame){
+		private void AddActionColumns(Cashgame cashgame){
 			AddColumn(new ChartDateTimeColumnModel("Time", "HH:mm"));
 			var playerNames = cashgame.GetPlayerNames();
 			foreach(var playerName in playerNames){
@@ -52,7 +52,7 @@ namespace Web.Views.Cashgame.Chart {
 			}
 		}
 
-		private void AddActionRow(Core.Classes.Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName){
+		private void AddActionRow(Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName){
 			var row1 = new ChartRowModel();
 			row1.AddValue(new ChartDateTimeValueModel(dateTime));
 			var playerNames = cashgame.GetPlayerNames();

@@ -1,0 +1,15 @@
+@model Web.Models.CashgameModels.Chart.ChartPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>
+		@Html.Partial("~/Views/Navigation/CashgameNavigation.cshtml", Model.CashgameNavModel)
+	</h1>
+</div>
+
+<div class="block gutter">
+	<div data-require="cashgame-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+</div>

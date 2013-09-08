@@ -389,7 +389,7 @@
     <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Details\ResultTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\ResultTableItemModel.cs" />
-    <Compile Include="Views\Cashgame\Chart\GameChartData.cs" />
+    <Compile Include="Models\CashgameModels\Details\GameChartData.cs" />
     <Compile Include="Models\ChartModels\ChartModel.cs" />
     <Compile Include="Models\ChartModels\ChartColumnModel.cs" />
     <Compile Include="Models\ChartModels\ChartRowModel.cs" />
@@ -417,7 +417,11 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameTableModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameListingModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
+    <Compile Include="Models\CashgameModels\Chart\ChartData.cs" />
     <None Include="Views\Cashgame\Add\Add.cshtml" />
+    <Compile Include="Models\CashgameModels\Chart\ChartPageModel.cs" />
+    <None Include="Views\Cashgame\Chart\Chart.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTable.cshtml" />
     <None Include="Views\Cashgame\Details\ResultTableItem.cshtml" />
     <None Include="Views\Cashgame\Details\DetailsPage.cshtml" />

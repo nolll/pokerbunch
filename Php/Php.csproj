@@ -69,10 +69,6 @@
     <None Include="app\Cashgame\Action\Report.tpl" />
     <None Include="app\Cashgame\Action\ReportController.php" />
     <None Include="app\Cashgame\Action\ReportModel.php" />
-    <None Include="app\Cashgame\Chart\Chart.tpl" />
-    <None Include="app\Cashgame\Chart\ChartController.php" />
-    <None Include="app\Cashgame\Chart\ChartData.php" />
-    <None Include="app\Cashgame\Chart\ChartModel.php" />
     <None Include="app\Cashgame\Chart\ChartTitle.php" />
     <None Include="app\Cashgame\Chart\ChartValue.php" />
     <None Include="app\Cashgame\Edit\CashgameEditController.php" />
@@ -127,7 +123,6 @@
     <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
-    <None Include="app\Urls\CashgameChartJsonUrlModel.php" />
     <None Include="app\Urls\CashgameCheckpointDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
