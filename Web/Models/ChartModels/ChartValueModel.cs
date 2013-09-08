@@ -3,13 +3,13 @@ using System.Globalization;
 namespace Web.Models.ChartModels{
     public class ChartValueModel {
 
-	    public string V { get; set; }
-	    public string F { get; set; }
+	    public string v { get; set; }
+	    public string f { get; set; }
 
         public ChartValueModel(string val)
         {
-            V = val;
-            F = null;
+            v = val;
+            f = null;
         }
 
         public ChartValueModel(int val)

@@ -2,14 +2,14 @@ namespace Web.Models.ChartModels{
 
 	public class ChartColumnModel {
 
-		public string Type { get; set; }
-		public string Label { get; set; }
-	    public string Pattern { get; set; }
+		public string type { get; set; }
+		public string label { get; set; }
+	    public string pattern { get; set; }
 
 	    public ChartColumnModel(string type, string label, string pattern = null){
-			Type = type;
-			Label = label;
-			Pattern = pattern;
+			this.type = type;
+			this.label = label;
+			this.pattern = pattern;
 		}
 
 	}

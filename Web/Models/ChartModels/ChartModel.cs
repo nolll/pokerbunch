@@ -4,24 +4,22 @@ namespace Web.Models.ChartModels{
 
 	public class ChartModel {
         
-	    public List<ChartColumnModel> Cols { get; set; }
-
-        public List<ChartRowModel> Rows { get; set; }
-
-	    public string P { get; set; }
+	    public List<ChartColumnModel> cols { get; set; }
+        public List<ChartRowModel> rows { get; set; }
+        public string p { get; set; }
 
         public ChartModel(){
-            Cols = new List<ChartColumnModel>();
-            Rows = new List<ChartRowModel>();
-			P = null;
+            cols = new List<ChartColumnModel>();
+            rows = new List<ChartRowModel>();
+			p = null;
 		}
 
 		protected void AddColumn(ChartColumnModel col){
-			Cols.Add(col);
+			cols.Add(col);
 		}
 
 		protected void AddRow(ChartRowModel row){
-			Rows.Add(row);
+			rows.Add(row);
 		}
 
 	}

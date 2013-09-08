@@ -1,13 +1,13 @@
 requirejs.config({
-    baseUrl: "/core/ui/js",
+    baseUrl: "/FrontEnd/js",
     paths: {
         async: "lib/async",
         propertyParser: "lib/propertyParser",
         goog: "lib/goog",
-        "pubsub": "lib/jquery.pubsub",
-        "metadata": "lib/jquery.metadata",
-        "tinynav": "lib/tinynav.min",
-        "debouncedresize": "lib/jquery.debouncedresize"
+        pubsub: "lib/jquery.pubsub",
+        metadata: "lib/jquery.metadata",
+        tinynav: "lib/tinynav.min",
+        debouncedresize: "lib/jquery.debouncedresize"
     },
     shim: {
         "pubsub": {

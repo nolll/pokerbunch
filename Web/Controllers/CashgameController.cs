@@ -103,7 +103,7 @@ namespace Web.Controllers{
 			    return null;
 			}
 			var model = new GameChartData(homegame, cashgame);
-			return Json((object)model);
+            return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
         public ActionResult Facts(string gameName, int? year = null){
