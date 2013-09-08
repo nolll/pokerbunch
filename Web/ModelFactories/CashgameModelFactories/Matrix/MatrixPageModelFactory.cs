@@ -13,11 +13,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	        _cashgameRepository = cashgameRepository;
 	    }
 
-		public MatrixPageModel Create(Homegame homegame, User user, int? year){
+		public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
 			var suite = _cashgameRepository.GetSuite(homegame, year);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
-			return new MatrixPageModel(user, homegame, suite, years, year, runningGame);
+			return new CashgameMatrixPageModel(user, homegame, suite, years, year, runningGame);
 		}
 
 	}

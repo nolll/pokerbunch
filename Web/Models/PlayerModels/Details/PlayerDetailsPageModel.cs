@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Web.ModelFactories.MiscModelFactories;
+using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Facts;
@@ -30,7 +32,7 @@ namespace Web.Models.PlayerModels.Details{
 			List<Cashgame> cashgames,
 			bool isManager,
 			bool hasPlayed,
-			IAvatarModelBuilder avatarModelBuilder,
+			IAvatarModelFactory avatarModelFactory,
 			Cashgame runningGame = null) : base(currentUser, homegame, runningGame)
         {
 			DisplayName = player.DisplayName;
@@ -42,7 +44,7 @@ namespace Web.Models.PlayerModels.Details{
 			if(hasUser){
 				UserUrl = new UserDetailsUrlModel(user);
 				UserEmail = user.Email;
-				AvatarModel = avatarModelBuilder.Build(user.Email);
+				AvatarModel = avatarModelFactory.Create(user.Email);
 			} else {
 				InvitationUrl = new PlayerInviteUrlModel(homegame, player);
 			}

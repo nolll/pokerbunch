@@ -75,12 +75,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableCellModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableColumnHeaderModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableCellModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModelTests.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixPageModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableRowModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\MatrixTableModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixPageModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableRowModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\HomegameModels\HomegameDetailsPageModelTests.cs" />
@@ -101,9 +101,9 @@
     <Compile Include="ValidatorFactoryTests\UserValidatorFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\CashgameModels\Running\RunningPageModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Running\StatusItemModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Running\StatusTableModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Running\RunningCashgamePageModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableItemModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableModelTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

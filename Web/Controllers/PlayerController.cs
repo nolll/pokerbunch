@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Storage.Interfaces;
+using Web.ModelFactories.MiscModelFactories;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Listing;
 using Web.Models.UrlModels;
@@ -15,7 +16,7 @@ namespace Web.Controllers{
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IUserStorage _userStorage;
-	    private readonly IAvatarModelBuilder _avatarModelBuilder;
+	    private readonly IAvatarModelFactory _avatarModelFactory;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -23,14 +24,14 @@ namespace Web.Controllers{
 			IPlayerRepository playerRepository,
 			ICashgameRepository cashgameRepository,
             IUserStorage userStorage,
-            IAvatarModelBuilder avatarModelBuilder)
+            IAvatarModelFactory avatarModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
 	        _playerRepository = playerRepository;
 	        _cashgameRepository = cashgameRepository;
 	        _userStorage = userStorage;
-	        _avatarModelBuilder = avatarModelBuilder;
+	        _avatarModelFactory = avatarModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -53,7 +54,7 @@ namespace Web.Controllers{
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var hasPlayed = _cashgameRepository.HasPlayed(player);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			var model = new PlayerDetailsPageModel(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, _avatarModelBuilder, runningGame);
+			var model = new PlayerDetailsPageModel(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, _avatarModelFactory, runningGame);
 			return View("Details", model);
 		}
 

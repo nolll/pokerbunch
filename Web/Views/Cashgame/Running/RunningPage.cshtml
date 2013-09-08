@@ -1,4 +1,4 @@
-@model Web.Models.CashgameModels.Running.RunningPageModel
+@model Web.Models.CashgameModels.Running.RunningCashgamePageModel
 
 @{
     Layout = "~/Views/Layouts/TwoColumns.cshtml";
@@ -45,9 +45,9 @@
 <div class="block gutter">
 	@if (Model.ShowTable)
 	{
-        if (Model.StatusTableModel != null)
+        if (Model.RunningCashgameTableModel != null)
         {
-            @Html.Partial("Running/StatusTable", Model.StatusTableModel)
+            @Html.Partial("Running/StatusTable", Model.RunningCashgameTableModel)
         }
 	}
 	else

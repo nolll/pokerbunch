@@ -1,4 +1,4 @@
-@model Web.Models.CashgameModels.Details.DetailsPageModel
+@model Web.Models.CashgameModels.Details.CashgameDetailsPageModel
 
 @{
     Layout = "~/Views/Layouts/TwoColumns.cshtml";
@@ -44,7 +44,7 @@
 }
 
 <div class="block gutter">
-    @Html.Partial("Details/ResultTable", Model.ResultTableModel)
+    @Html.Partial("Details/ResultTable", Model.CashgameDetailsTableModel)
 
     <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
 

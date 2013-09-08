@@ -1,4 +1,4 @@
-@model Web.Models.CashgameModels.Listing.CashgameListingModel
+@model Web.Models.CashgameModels.Listing.CashgameListingPageModel
 
 @{
     Layout = "~/Views/Layouts/OneColumn.cshtml";
@@ -10,5 +10,5 @@
 	</h1>
 </div>
 <div class="block gutter">
-    @Html.Partial("Listing/CashgameTable", Model.ListTableModel)
+    @Html.Partial("Listing/CashgameTable", Model.ListingTableModel)
 </div>

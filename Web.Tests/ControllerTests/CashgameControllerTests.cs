@@ -64,7 +64,7 @@ namespace Web.Tests.ControllerTests{
 			var result = sut.Leaderboard("homegame1") as ViewResult;
 
             Assert.IsNotNull(result);
-		    var model = result.Model as LeaderboardPageModel;
+		    var model = result.Model as CashgameLeaderboardPageModel;
             Assert.IsNotNull(model);
 			Assert.IsNotNull(model.TableModel);
 		}
