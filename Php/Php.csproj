@@ -103,7 +103,7 @@
     <None Include="app\Player\Add\Add.tpl" />
     <None Include="app\Player\Add\Confirmation.tpl" />
     <None Include="app\Player\Add\PlayerAddConfirmationModel.php" />
-    <None Include="app\Player\Add\PlayerAddController.php" />
+    <Content Include="app\Player\Add\PlayerAddController.php" />
     <None Include="app\Player\InvitationCodeCreator.php" />
     <None Include="app\Player\InvitationCodeCreatorImpl.php" />
     <None Include="app\Player\InvitationSender.php" />
@@ -128,7 +128,6 @@
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameStartUrlModel.php" />
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
-    <None Include="app\Urls\ChangePasswordUrlModel.php" />
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
@@ -140,7 +139,6 @@
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
     <None Include="app\Urls\UserAddConfirmationUrlModel.php" />
-    <None Include="app\Urls\UserEditUrlModel.php" />
     <None Include="app\User\Add\Add.tpl" />
     <None Include="app\User\Add\Confirmation.tpl" />
     <None Include="app\User\Add\RegistrationConfirmationSender.php" />
@@ -150,9 +148,6 @@
     <None Include="app\User\ChangePassword\Confirmation.tpl" />
     <None Include="app\User\ChangePassword\Form.tpl" />
     <None Include="app\User\ChangePassword\RepeatPasswordValidator.php" />
-    <None Include="app\User\Details\Details.tpl" />
-    <None Include="app\User\Details\UserDetailsController.php" />
-    <None Include="app\User\Details\UserDetailsModel.php" />
     <None Include="app\User\Edit\Edit.tpl" />
     <None Include="app\User\Edit\UserEditController.php" />
     <None Include="app\User\Edit\UserEditModel.php" />
@@ -192,7 +187,6 @@
     <None Include="core\Validation\NotNullValidator.php" />
     <None Include="core\Validation\PositiveNumberValidator.php" />
     <None Include="exceptions\DatabaseException.php" />
-    <None Include="exceptions\UserNotFoundException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
     <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />

@@ -1,0 +1,42 @@
+@model Web.Models.UserModels.UserDetailsModel
+
+@{
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
+}
+
+@section Aside1{
+    <div class="block gutter">
+		@Html.Partial("~/Views/Misc/Avatar.cshtml", Model.AvatarModel);
+	</div>
+}
+<div class="block gutter">
+	<h1>User Profile</h1>
+</div>
+<div class="block gutter">
+	<h2>Login Name</h2>
+	<p>
+		@Model.UserName
+	</p>
+	<h2>Display Name</h2>
+	<p>
+		@Model.DisplayName
+	</p>
+	<h2>Real Name</h2>
+	<p>
+		@Model.RealName
+	</p>
+	<h2>Email</h2>
+	<p>
+		@Model.Email
+	</p>
+	@if (Model.ShowEditLink)
+	{
+	    <p>
+			<a href="@Model.EditLink">Edit Profile</a>
+			@if (Model.ShowPasswordLink)
+			{
+			    <a href="@Model.ChangePasswordLink">Change Password</a>
+			}
+		</p>
+	}
+</div>

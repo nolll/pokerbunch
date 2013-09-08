@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
-using app;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Chart{
     public class CashgameChartPageModel : HomegamePageModel {

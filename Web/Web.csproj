@@ -419,6 +419,11 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameListingPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
+    <None Include="Views\User\Details.cshtml" />
+    <Compile Include="Controllers\Details\UserController.cs" />
+    <Compile Include="Models\UserModels\UserDetailsModel.cs" />
+    <Compile Include="Models\UrlModels\UserEditUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs" />
     <None Include="Views\Cashgame\Add\Add.cshtml" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartPageModel.cs" />
     <None Include="Views\Cashgame\Chart\Chart.cshtml" />
@@ -440,7 +445,7 @@
     <None Include="Views\Navigation\CashgameNavigation.cshtml" />
     <None Include="Views\Navigation\CashgamePageNavigation.cshtml" />
     <None Include="Views\Navigation\CashgameYearNavigation.cshtml" />
-    <None Include="Views\User\Avatar.cshtml" />
+    <None Include="Views\Misc\Avatar.cshtml" />
     <None Include="Views\Homegame\HomegameDetails.cshtml" />
     <Compile Include="Models\HomegameModels\Details\HomegameDetailsPageModel.cs" />
     <None Include="Views\Homegame\HomegameListingItem.cshtml" />

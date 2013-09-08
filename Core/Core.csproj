@@ -108,6 +108,9 @@
     <Compile Include="Classes\Achievements\Badge.cs" />
     <Compile Include="Classes\Achievements\NumberOfGamesBadge.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

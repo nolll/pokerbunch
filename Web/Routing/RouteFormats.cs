@@ -38,7 +38,7 @@ namespace Web.Routing{
         public const string RunningCashgame = "/{0}/cashgame/running";
         //const cashgameCheckpointDelete = '/%1$s/cashgame/deletecheckpoint/%2$s/%3$s/%4$s';
 
-        //const changePassword = '/-/password/change';
+        public const string ChangePassword = "/-/password/change";
         //const changePasswordConfirmation = '/-/password/changed';
 
         public const string ForgotPassword = "/-/password/forgot";
@@ -70,7 +70,7 @@ namespace Web.Routing{
         public const string UserAdd = "/-/user/add";
         //const userAddConfirmation = '/-/user/created';
         public const string UserDetails = "/-/user/details/{0}";
-        //const userEdit = '/-/user/edit/%1$s';
+        public const string UserEdit = "/-/user/edit/{0}";
         public const string UserListing = "/-/user/listing";
 
 	}
