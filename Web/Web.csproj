@@ -152,6 +152,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\HomegameModelMapper.cs" />
+    <Compile Include="Controllers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
     <Compile Include="Formatters\UrlFormatter.cs" />
     <Compile Include="Global.asax.cs">
@@ -168,6 +170,7 @@
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\HomegameAddConfirmationModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingItemModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
@@ -312,7 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Validators\BaseValidator.cs" />
-    <Compile Include="Validators\Interfaces\Validator.cs" />
+    <Compile Include="Validators\Interfaces\IValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Validators\CompositeValidator.cs" />
@@ -419,6 +422,16 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameListingPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\HomegameAddModel.cs" />
+    <Compile Include="Models\FormModels\CurrencyLayoutFieldModel.cs" />
+    <Compile Include="Models\FormModels\TimezoneFieldModel.cs" />
+    <Compile Include="Validators\Interfaces\IHomegameValidatorFactory.cs" />
+    <Compile Include="Validators\HomegameValidatorFactory.cs" />
+    <Compile Include="Validators\UniqueSlugValidator.cs" />
+    <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
+    <None Include="Views\Forms\SelectField.cshtml" />
+    <None Include="Views\Homegame\AddHomegame.cshtml" />
+    <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsModel.cs" />

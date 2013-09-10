@@ -4,19 +4,19 @@ namespace Web.Validators{
 
 	class CompositeValidator : BaseValidator{
 
-		private List<Validator> _validators;
+		private List<IValidator> _validators;
 
 		private bool _valid;
 		private bool _validated;
 
 	    public CompositeValidator()
 	    {
-	        _validators = new List<Validator>();
+	        _validators = new List<IValidator>();
 			_validated = false;
 			_valid = true;
 	    }
 
-		public void AddValidator(Validator validator){
+		public void AddValidator(IValidator validator){
 			_validators.Add(validator);
 		}
 

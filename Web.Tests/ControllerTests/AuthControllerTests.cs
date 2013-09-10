@@ -121,7 +121,7 @@ namespace Web.Tests.ControllerTests{
             SetupValidator(validator);
 		}
 
-        private void SetupValidator(Validator validator){
+        private void SetupValidator(IValidator validator){
 			UserValidatorFactoryMock.Setup(o => o.GetLoginValidator(It.IsAny<User>())).Returns(validator);
 		}
 

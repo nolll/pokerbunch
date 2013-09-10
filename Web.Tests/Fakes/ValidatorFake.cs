@@ -3,7 +3,7 @@ using Web.Validators;
 
 namespace Web.Tests.Fakes{
 
-	public class ValidatorFake : Validator{
+	public class ValidatorFake : IValidator{
 
 	    public bool IsValid { get; set; }
 	    public List<string> Errors { get; set; }

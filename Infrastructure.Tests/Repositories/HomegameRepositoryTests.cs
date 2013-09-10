@@ -124,7 +124,7 @@ namespace Infrastructure.Tests.Repositories{
 
         private HomegameRepository GetSut()
         {
-            return new HomegameRepository(HomegameStorageMock.Object, HomegameFactoryMock.Object, CacheContainerMock.Object);
+            return new HomegameRepository(HomegameStorageMock.Object, HomegameFactoryMock.Object, CacheContainerMock.Object, RawHomegameFactoryMock.Object);
         }
 
 	}

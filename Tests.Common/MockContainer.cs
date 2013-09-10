@@ -2,6 +2,7 @@
 using Core.Services;
 using Infrastructure.Caching;
 using Infrastructure.Config;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.System;
@@ -24,6 +25,8 @@ namespace Tests.Common
         protected Mock<ICashgameStorage> CashgameStorageMock;
         protected Mock<ICheckpointStorage> CheckpointStorageMock;
         protected Mock<IPlayerStorage> PlayerStorageMock;
+
+        protected Mock<IRawHomegameFactory> RawHomegameFactoryMock;
 
         protected Mock<ICashgameFactory> CashgameFactoryMock;
         protected Mock<ICashgameSuiteFactory> CashgameSuiteFactoryMock;
@@ -60,6 +63,8 @@ namespace Tests.Common
             CashgameStorageMock = new Mock<ICashgameStorage>();
             CheckpointStorageMock = new Mock<ICheckpointStorage>();
             PlayerStorageMock = new Mock<IPlayerStorage>();
+
+            RawHomegameFactoryMock = new Mock<IRawHomegameFactory>();
 
             CashgameFactoryMock = new Mock<ICashgameFactory>();
             CashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();

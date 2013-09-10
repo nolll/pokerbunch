@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Web.Validators{
 
-	public abstract class BaseValidator : Validator{
+	public abstract class BaseValidator : IValidator{
 
         protected List<string> Errors;
 

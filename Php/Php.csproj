@@ -69,35 +69,26 @@
     <None Include="app\Cashgame\Action\Report.tpl" />
     <None Include="app\Cashgame\Action\ReportController.php" />
     <None Include="app\Cashgame\Action\ReportModel.php" />
-    <None Include="app\Cashgame\Chart\ChartTitle.php" />
-    <None Include="app\Cashgame\Chart\ChartValue.php" />
+    <None Include="NotUsed\ChartTitle.php" />
+    <None Include="NotUsed\ChartValue.php" />
     <None Include="app\Cashgame\Edit\CashgameEditController.php" />
     <None Include="app\Cashgame\Edit\CashgameEditModel.php" />
     <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
     <None Include="app\Cashgame\Edit\Edit.tpl" />
-    <None Include="app\Cashgame\Running\Bar.tpl" />
-    <None Include="app\Cashgame\Running\BarModel.php" />
+    <None Include="NotUsed\Bar.tpl" />
+    <None Include="NotUsed\BarModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
     <None Include="app\Error\HttpError.php" />
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Homegame\Add\Add.tpl" />
-    <None Include="app\Homegame\Add\Confirmation.tpl" />
-    <None Include="app\Homegame\Add\HomegameAddController.php" />
-    <None Include="app\Homegame\Add\HomegameAddModel.php" />
     <None Include="app\Homegame\Edit\Edit.tpl" />
     <None Include="app\Homegame\Edit\HomegameEditController.php" />
     <None Include="app\Homegame\Edit\HomegameEditModel.php" />
-    <None Include="app\Homegame\HomegameValidatorFactory.php" />
-    <None Include="app\Homegame\HomegameValidatorFactoryImpl.php" />
     <None Include="app\Homegame\Join\Confirmation.tpl" />
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />
     <None Include="app\Homegame\Join\Join.tpl" />
-    <None Include="app\Homegame\SlugGenerator.php" />
-    <None Include="app\Homegame\SlugGeneratorImpl.php" />
-    <None Include="app\Homegame\UniqueSlugValidator.php" />
     <None Include="app\MishiinModule.php" />
     <None Include="app\Page.tpl" />
     <None Include="app\Player\Add\Add.tpl" />
@@ -129,7 +120,6 @@
     <None Include="app\Urls\CashgameStartUrlModel.php" />
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
-    <None Include="app\Urls\HomegameAddConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
@@ -175,10 +165,7 @@
     <None Include="config\IntegrationTestSettings.php" />
     <None Include="core\Analytics\GoogleAnalytics.tpl" />
     <None Include="core\ClassNames.php" />
-    <None Include="core\FormFields\CurrencyLayoutFieldModel.php" />
     <None Include="core\FormFields\FormField.tpl" />
-    <None Include="core\FormFields\SelectField.tpl" />
-    <None Include="core\FormFields\TimezoneFieldModel.php" />
     <None Include="core\HomegameControllerDefinition.php" />
     <None Include="core\PageController.php" />
     <None Include="core\Validation\DateTimeValidator.php" />
@@ -331,6 +318,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\Homegame\Add\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

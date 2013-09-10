@@ -4,7 +4,7 @@ namespace Web.Validators{
 
 	public interface IUserValidatorFactory{
 
-		Validator GetLoginValidator(User user);
+		IValidator GetLoginValidator(User user);
         /*
         Validator GetAddUserValidator(User user);
         Validator GetEditUserValidator(User user);

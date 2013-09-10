@@ -4,6 +4,8 @@ using System.Linq;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Caching;
+using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 
@@ -16,12 +18,14 @@ namespace Infrastructure.Repositories {
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
 	    private readonly ICacheContainer _cacheContainer;
+	    private readonly IRawHomegameFactory _rawHomegameFactory;
 
-	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheContainer cacheContainer)
+	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheContainer cacheContainer, IRawHomegameFactory rawHomegameFactory)
 	    {
 	        _homegameStorage = homegameStorage;
 	        _homegameFactory = homegameFactory;
 	        _cacheContainer = cacheContainer;
+	        _rawHomegameFactory = rawHomegameFactory;
 	    }
 
         public Homegame GetByName(string name)
@@ -107,6 +111,12 @@ namespace Infrastructure.Repositories {
             return (Role) _homegameStorage.GetHomegameRole(homegame.Id, user.Id);
         }
 
-    }
+	    public Homegame AddHomegame(Homegame homegame)
+	    {
+	        var rawHomegame = _rawHomegameFactory.Create(homegame);
+	        rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
+	        return _homegameFactory.Create(rawHomegame);
+	    }
+	}
 
 }

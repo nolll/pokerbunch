@@ -1,6 +1,5 @@
 namespace Web.Validators{
-
-	abstract class SingleValidator : BaseValidator{
+    public abstract class SingleValidator : BaseValidator{
 	    public override bool IsValid
 	    {
 	        get

@@ -1,0 +1,42 @@
+@model Web.Models.HomegameModels.Add.HomegameAddModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Create Homegame</h1>
+</div>
+<div class="block gutter">
+	
+    @Html.Partial("~/Views/Forms/Errors.cshtml", Model.ValidationErrors)
+
+    @using (Html.BeginForm("Add", "Homegame", FormMethod.Post))
+    {
+		<fieldset>
+            <p>
+                @Html.LabelFor(model => model.DisplayName, "Display Name")
+                @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
+            </p>
+			<p>
+                @Html.LabelFor(model => model.Description, "Description")
+                @Html.TextBoxFor(model => model.Description, new { @class = "textfield" })
+			</p>
+			<p>
+                @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol")
+                @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
+			</p>
+			<p>
+			    <label>Currency Layout</label>
+                @Html.Partial("~/Views/Forms/SelectField.cshtml", Model.CurrencyLayoutSelectModel)
+			</p>
+			<p>
+				<label>Timezone</label>
+			    @Html.Partial("~/Views/Forms/SelectField.cshtml", Model.TimezoneSelectModel)
+			</p>
+		</fieldset>
+		<div class="buttons">
+			<button class="action" type="submit">Save</button>
+		</div>
+	}
+</div>

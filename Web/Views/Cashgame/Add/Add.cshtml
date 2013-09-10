@@ -1,3 +1,4 @@
+@using Web.Controllers
 @model Web.Models.CashgameModels.Add.AddCashgamePageModel
 
 @{
@@ -11,7 +12,8 @@
     
     @Html.Partial("~/Views/Forms/Errors.cshtml", Model.ValidationErrors)
 
-    <form method="post">
+    @using (Html.BeginForm("Add", "Cashgame", FormMethod.Post))
+    {
         <fieldset>
             <p>
                 <label for="location">Enter Location</label>
@@ -21,5 +23,5 @@
         <div class="buttons">
             <button type="submit" class="action">Create</button>
         </div>
-    </form>
+    }
 </div>

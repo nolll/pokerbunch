@@ -45,7 +45,7 @@ namespace Web.Routing{
         //const forgotPasswordConfirmation = '/-/password/sent';
 
         public const string HomegameAdd = "/-/homegame/add";
-        //const homegameAddConfirmation = '/-/homegame/created';
+        public const string HomegameAddConfirmation = "/-/homegame/created";
         public const string HomegameDetails = "/{0}/homegame/details";
         public const string HomegameEdit = "/{0}/homegame/edit";
         //const homegameJoin = '/%1$s/homegame/join';

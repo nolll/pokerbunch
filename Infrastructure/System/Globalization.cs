@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Core.Classes;
+using System.Linq;
 
 namespace Infrastructure.System{
 
@@ -79,8 +80,9 @@ namespace Infrastructure.System{
             return date.ToString("yyyy", CultureInfo.InvariantCulture);
 		}
 
-		public static List<string> GetTimezoneNames(){
-			return new List<string>();//array_values(array_diff(DateTimeZone::listIdentifiers(), self::getInvalidTimezoneNames()));
+		public static IList<TimeZoneInfo> GetTimezones()
+		{
+		    return TimeZoneInfo.GetSystemTimeZones();
 		}
 
 		public static string GetDefaultTimezoneName(){

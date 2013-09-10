@@ -4,7 +4,7 @@ namespace Web.Validators{
 
 	public class CashgameValidatorFactory : ICashgameValidatorFactory{
 
-		public Validator GetAddCashgameValidator(Homegame homegame, Cashgame cashgame){
+		public IValidator GetAddCashgameValidator(Homegame homegame, Cashgame cashgame){
 			var validator = new CompositeValidator();
 			validator.AddValidator(new RequiredValidator(cashgame.Location, "Location can't be empty"));
 			return validator;

@@ -12,7 +12,7 @@ namespace Web.Validators{
 	        _userStorage = userStorage;
 	    }
 
-		public Validator GetLoginValidator(User user)
+		public IValidator GetLoginValidator(User user)
 		{
 		    const string message = "There was something wrong with your username or password. Please try again.";
 		    return new NotNullValidator(user, message);

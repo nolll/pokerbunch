@@ -1,6 +1,7 @@
-namespace Web.Validators{
-
-	abstract class SimpleValidator : SingleValidator {
+namespace Web.Validators
+{
+    public abstract class SimpleValidator : SingleValidator
+    {
 	    protected readonly string Subject;
 	    protected readonly string Message;
 

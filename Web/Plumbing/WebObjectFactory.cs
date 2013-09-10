@@ -3,18 +3,16 @@ using Castle.Windsor;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Config;
-using Infrastructure.Data.Storage;
-using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
+using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.MiscModelFactories;
-using Web.Models.PlayerModels.Details;
 using Web.Validators;
 
 namespace Web.Plumbing
@@ -58,6 +56,13 @@ namespace Web.Plumbing
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameValidatorFactory, CashgameValidatorFactory>(container);
+            ObjectFactory.RegisterComponent<IHomegameValidatorFactory, HomegameValidatorFactory>(container);
+
+            // Mappers
+            ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
+
+            // Misc
+            ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
         }
 
     }

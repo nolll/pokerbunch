@@ -16,7 +16,7 @@ namespace Web
             );
 
             routes.MapRoute(
-                "Homegame Listing",
+                "Homegame Actions",
                 "-/homegame/{action}",
                 new { controller = "Homegame" }
             );
