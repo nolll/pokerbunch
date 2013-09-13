@@ -5,12 +5,16 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Listing{
 
-	public class HomegameListingPageModel : PageProperties {
+	public class HomegameListingPageModel : IPageModel {
 
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 	    public IList<HomegameListingItemModel> HomegameModels { get; set; }
 
-	    public HomegameListingPageModel(User user, IEnumerable<Homegame> homegames) : base(user)
+	    public HomegameListingPageModel(User user, IEnumerable<Homegame> homegames)
 	    {
+	        BrowserTitle = "Homegame List";
+            PageProperties = new PageProperties(user);
 	        HomegameModels = GetHomegameModels(homegames);
 	    }
 
@@ -19,13 +23,6 @@ namespace Web.Models.HomegameModels.Listing{
 		    return homegames.Select(homegame => new HomegameListingItemModel(homegame)).ToList();
 		}
 
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Homegame List";
-            }
-        }
 	}
 
 }

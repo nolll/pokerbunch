@@ -5,8 +5,10 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Listing{
 
-	public class PlayerListingPageModel : PageProperties {
+	public class PlayerListingPageModel : IPageModel {
 
+        public string BrowserTitle { get; set; }
+        public PageProperties PageProperties { get; set; }
         public List<PlayerItemModel> PlayerModels { get; set; }
 	    public UrlModel AddUrl { get; set; }
 	    public bool ShowAddLink { get; set; }
@@ -16,8 +18,10 @@ namespace Web.Models.PlayerModels.Listing{
 			Homegame homegame,
 			IList<Player> players,
 			bool isInManagerMode,
-			Cashgame runningGame = null) : base(user, homegame, runningGame)
-        {
+			Cashgame runningGame = null)
+		{
+		    BrowserTitle = "Player List";
+            PageProperties = new PageProperties(user, homegame, runningGame);
 			PlayerModels = GetPlayerModels(homegame, players);
 			AddUrl = new PlayerAddUrlModel(homegame);
 			ShowAddLink = isInManagerMode;
@@ -30,14 +34,6 @@ namespace Web.Models.PlayerModels.Listing{
 			}
 			return models;
 		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Player List";
-            }
-        }
 
 	}
 

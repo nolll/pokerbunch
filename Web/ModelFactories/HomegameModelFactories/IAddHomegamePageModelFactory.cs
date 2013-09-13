@@ -1,11 +1,11 @@
 using Core.Classes;
 using Web.Models.HomegameModels.Add;
 
-namespace Web.Controllers
+namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IAddHomegamePageModelFactory
     {
-        AddHomegamePageModel Create(User user, Homegame homegame = null);
-        AddHomegamePageModel ReBuild(User user, AddHomegamePageModel model);
+        AddHomegamePageModel Create(User user);
+        AddHomegamePageModel Create(User user, AddHomegamePostModel postModel);
     }
 }

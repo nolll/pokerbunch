@@ -5,10 +5,12 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Listing{
 
-	public class CashgameListingPageModel : PageProperties {
+	public class CashgameListingPageModel : IPageModel {
 
-		public CashgameListingTableModel ListingTableModel;
-		public CashgameNavigationModel CashgameNavModel;
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
+        public CashgameListingTableModel ListingTableModel { get; set; }
+        public CashgameNavigationModel CashgameNavModel { get; set; }
 
 		public CashgameListingPageModel(User user,
 									Homegame homegame,
@@ -16,16 +18,12 @@ namespace Web.Models.CashgameModels.Listing{
 									List<int>  years,
 									int? year,
 									Cashgame runningGame)
-            : base(user, homegame, runningGame)
-        {
+		{
+            BrowserTitle = "Cashgame List";
+            PageProperties = new PageProperties(user, homegame, runningGame);
 			ListingTableModel = new CashgameListingTableModel(homegame, cashgames);
 			CashgameNavModel = new CashgameNavigationModel(homegame, "listing", years, year, runningGame);
 		}
-
-        public override string BrowserTitle
-        {
-            get { return "Cashgame List"; }
-        }
 
 	}
 

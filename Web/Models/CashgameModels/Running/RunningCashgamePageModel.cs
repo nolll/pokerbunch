@@ -6,7 +6,10 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Running{
 
-	public class RunningCashgamePageModel : PageProperties {
+	public class RunningCashgamePageModel : IPageModel {
+
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 
         public string StartTime { get; set; }
         public bool ShowStartTime { get; set; }
@@ -31,8 +34,9 @@ namespace Web.Models.CashgameModels.Running{
         public bool ShowChart { get; set; }
 
 		public RunningCashgamePageModel(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, ITimeProvider timer, Cashgame runningGame = null)
-            : base(user, homegame, runningGame)
-        {
+		{
+            BrowserTitle = "Running Cashgame";
+            PageProperties = new PageProperties(user, homegame, runningGame);
 			Location = cashgame.Location;
 
 			if(cashgame.IsStarted){
@@ -81,14 +85,6 @@ namespace Web.Models.CashgameModels.Running{
 			CashoutUrl = new CashgameCashoutUrlModel(homegame, player);
 			EndGameUrl = new CashgameEndUrlModel(homegame);
 		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Running Cashgame";
-            }
-        }
 
 	}
 

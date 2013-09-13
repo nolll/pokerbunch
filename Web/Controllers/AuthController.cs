@@ -58,7 +58,8 @@ namespace Web.Controllers{
 			var returnUrl = _webContext.GetQueryParam("return");
 			var model = _authLoginPageModelFactory.Create(returnUrl, loginName);
 			if(validationErrors != null){
-				model.SetValidationErrors(validationErrors);
+				//todo: Fix validation
+                //model.SetValidationErrors(validationErrors);
 			}
             return View("Login", model);
 		}

@@ -6,8 +6,10 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts{
 
-	public class CashgameFactsPageModel : PageProperties {
+	public class CashgameFactsPageModel : IPageModel {
 
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 	    public CashgameNavigationModel CashgameNavModel { get; set; }
 	    public int GameCount { get; set; }
 		public string TotalGameTime { get; set; }
@@ -19,8 +21,9 @@ namespace Web.Models.CashgameModels.Facts{
 		public string MostTimeName { get; set; }
 
 		public CashgameFactsPageModel(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year = null, Cashgame runningGame = null)
-            : base(user, homegame, runningGame)
-        {
+		{
+            BrowserTitle = "Cashgame Facts";
+            PageProperties = new PageProperties(user, homegame, runningGame);
 			GameCount = suite.GameCount;
 			TotalGameTime = Globalization.FormatDuration(suite.TotalGameTime);
 			SetBestResult(homegame, suite.BestResult);
@@ -58,11 +61,6 @@ namespace Web.Models.CashgameModels.Facts{
 				}
 			}
 		}
-
-        public override string BrowserTitle
-        {
-            get { return "Cashgame Facts"; }
-        }
 
 	}
 

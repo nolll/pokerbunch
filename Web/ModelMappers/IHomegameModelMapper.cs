@@ -5,6 +5,6 @@ namespace Web.ModelMappers
 {
     public interface IHomegameModelMapper
     {
-        Homegame GetHomegame(AddHomegamePageModel model);
+        Homegame GetHomegame(AddHomegamePostModel postModel);
     }
 }

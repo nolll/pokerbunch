@@ -7,8 +7,10 @@ using System.Linq;
 
 namespace Web.Models.CashgameModels.Details{
 
-	public class CashgameDetailsPageModel : PageProperties {
+	public class CashgameDetailsPageModel : IPageModel {
 
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 	    public string Heading { get; set; }
 	    public string Date { get; set; }
 	    public string Duration { get; set; }
@@ -42,8 +44,10 @@ namespace Web.Models.CashgameModels.Details{
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; set; }
 
 		public CashgameDetailsPageModel(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, Cashgame runningGame = null)
-            : base(user, homegame, runningGame)
-        {
+		{
+		    BrowserTitle = "Cashgame";
+            PageProperties = new PageProperties(user, homegame, runningGame);
+
             var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
 			Heading = string.Format("Cashgame {0}", dateStr);
 			Location = cashgame.Location;
@@ -70,14 +74,6 @@ namespace Web.Models.CashgameModels.Details{
 
 			CashgameDetailsTableModel = new CashgameDetailsTableModel(homegame, cashgame);
 		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Cashgame";
-            }
-        }
 
 		private void SetButtons(Cashgame cashgame, Player player, bool isManager){
 			var numResults = cashgame.Results.Count;

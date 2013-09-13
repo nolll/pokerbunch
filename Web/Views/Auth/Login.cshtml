@@ -16,7 +16,7 @@
 		If you are a new user, please <a href="@Model.AddUserUrl">register</a>!
 	</p>
 
-	@Html.Partial("~/Views/Forms/Errors.cshtml", Model.ValidationErrors)
+	@Html.Partial("~/Views/Forms/Errors.cshtml")
     
     @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
     {

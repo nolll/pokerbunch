@@ -7,8 +7,10 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.UserModels{
 
-	public class UserDetailsModel : PageProperties {
+	public class UserDetailsModel : IPageModel {
 
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 		public string UserName { get; set; }
 		public string DisplayName { get; set; }
 		public string RealName { get; set; }
@@ -20,8 +22,9 @@ namespace Web.Models.UserModels{
 		public AvatarModel AvatarModel { get; set; }
 
 		public UserDetailsModel(User currentUser, User displayUser, IAvatarService avatarService)
-            : base(currentUser)
-        {
+		{
+            BrowserTitle = "User Details";
+            PageProperties = new PageProperties(currentUser);
 			UserName = displayUser.UserName;
 			DisplayName = displayUser.DisplayName;
 			RealName = displayUser.RealName;
@@ -44,11 +47,6 @@ namespace Web.Models.UserModels{
 				ChangePasswordLink = new ChangePasswordUrlModel();
 			}
 		}
-
-        public override string BrowserTitle
-        {
-            get { return "User Details"; }
-        }
 
 	}
 

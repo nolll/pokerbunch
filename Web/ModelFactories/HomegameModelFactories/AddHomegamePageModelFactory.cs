@@ -1,56 +1,35 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
 using Infrastructure.System;
-using Web.Controllers;
 using Web.Models.HomegameModels.Add;
-using Web.Models.MiscModels;
-using Web.Models.NavigationModels;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegamePageModelFactory : IAddHomegamePageModelFactory
     {
-        public AddHomegamePageModel Create(User user, Homegame homegame = null)
+        public AddHomegamePageModel Create(User user)
         {
-            var timezone = GetTimeZone(homegame);
-            var currency = GetCurrency(homegame);
-
-            var model = new AddHomegamePageModel(user)
+            return new AddHomegamePageModel
                 {
-                    DisplayName = homegame != null ? homegame.DisplayName : null,
-                    Description = homegame != null ? homegame.Description : null,
-                    TimeZone = timezone.Id,
-			        CurrencySymbol = currency.Symbol,
-                    CurrencyLayout = currency.Layout
+                    BrowserTitle = "Create Homegame",
+                    PageProperties = new PageProperties(user),
+                    TimezoneSelectModel = GetTimezoneSelectModel(),
+                    CurrencyLayoutSelectModel = GetCurrencyLayoutSelectModel()
                 };
-            return FillModel(user, model);
         }
 
-        public AddHomegamePageModel ReBuild(User user, AddHomegamePageModel model)
+        public AddHomegamePageModel Create(User user, AddHomegamePostModel postModel)
         {
-            return FillModel(user, model);
-        }
-
-        private AddHomegamePageModel FillModel(User user, AddHomegamePageModel model)
-        {
-            model.UserNavModel = new UserNavigationModel(user);
-            model.GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            model.TimezoneSelectModel = GetTimezoneSelectModel();
-            model.CurrencyLayoutSelectModel = GetCurrencyLayoutSelectModel();
+            var model = Create(user);
+            model.DisplayName = postModel.DisplayName;
+            model.Description = postModel.Description;
+            model.TimeZone = postModel.TimeZone;
+            model.CurrencySymbol = postModel.CurrencySymbol;
+            model.CurrencyLayout = postModel.CurrencyLayout;
             return model;
-        }
-
-        private TimeZoneInfo GetTimeZone(Homegame homegame)
-        {
-            return homegame != null ? homegame.Timezone : Homegame.DefaultTimezone;
-        }
-
-        private CurrencySettings GetCurrency(Homegame homegame)
-        {
-            return homegame != null ? homegame.Currency : Homegame.DefaultCurrency;
         }
 
         private List<SelectListItem> GetTimezoneSelectModel()

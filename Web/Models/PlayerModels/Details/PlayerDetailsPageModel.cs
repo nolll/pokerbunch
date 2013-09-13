@@ -9,8 +9,10 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Details{
 
-	public class PlayerDetailsPageModel : PageProperties {
+	public class PlayerDetailsPageModel : IPageModel {
 
+        public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 	    public bool ShowUserInfo { get; set; }
 	    public bool ShowInvitation { get; set; }
 		public string DisplayName { get; set; }
@@ -33,8 +35,10 @@ namespace Web.Models.PlayerModels.Details{
 			bool isManager,
 			bool hasPlayed,
 			IAvatarModelFactory avatarModelFactory,
-			Cashgame runningGame = null) : base(currentUser, homegame, runningGame)
-        {
+			Cashgame runningGame = null)
+		{
+		    BrowserTitle = "Player Details";
+            PageProperties = new PageProperties(currentUser, homegame, runningGame);
 			DisplayName = player.DisplayName;
 			DeleteUrl = new PlayerDeleteUrlModel(homegame, player);
 			DeleteEnabled = isManager && !hasPlayed;
@@ -51,14 +55,6 @@ namespace Web.Models.PlayerModels.Details{
 			PlayerFactsModel = new PlayerFactsModel(homegame, cashgames, player);
 			PlayerBadgesModel = new PlayerBadgesModel(player, cashgames);
 		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Player Details";
-            }
-        }
 
 	}
 

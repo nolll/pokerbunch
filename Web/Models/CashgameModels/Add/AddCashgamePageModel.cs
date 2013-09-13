@@ -5,33 +5,26 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add{
 
-	public class AddCashgamePageModel : PageProperties {
+	public class AddCashgamePageModel : AddCashgamePostModel, IPageModel {
 
-	    public string Date { get; set; }
+        public string BrowserTitle { get; set; }
+        public PageProperties PageProperties { get; set; }
 	    public string Location { get; set; }
 	    public LocationFieldModel LocationSelectModel { get; set; }
 
-	    public AddCashgamePageModel()
-            : base(null)
-        {}
-
-		public AddCashgamePageModel(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years = null, Cashgame runningGame = null)
-            : base(user, homegame, runningGame)
+        public AddCashgamePageModel(User user, Homegame homegame, IEnumerable<string> locations)
         {
-			if(cashgame != null){
-				Location = cashgame.Location;
-			}
+            BrowserTitle = "New Cashgame";
+            PageProperties = new PageProperties(user, homegame);
             LocationSelectModel = new LocationFieldModel("location", "location", Location, locations, "choose one");
-		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "New Cashgame";
-            }
         }
-        
+
+        public AddCashgamePageModel(User user, Homegame homegame, IEnumerable<string> locations, AddCashgamePostModel postModel)
+            : this(user, homegame, locations)
+    	{
+	        Location = postModel.Location;
+	    }
+
 	}
 
 }

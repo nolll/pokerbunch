@@ -3,20 +3,16 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add{
 
-	public class HomegameAddConfirmationModel : PageProperties {
+	public class HomegameAddConfirmationModel : IPageModel {
+
+	    public string BrowserTitle { get; set; }
+	    public PageProperties PageProperties { get; set; }
 
 	    public HomegameAddConfirmationModel(User user)
-            : base(user)
 	    {
+	        BrowserTitle = "Homegame Created";
+            PageProperties = new PageProperties(user);
 	    }
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Homegame Created";
-            }
-        }
 
 	}
 

@@ -131,15 +131,24 @@ namespace Web.Controllers{
 			if(runningGame != null){
 				throw new AccessDeniedException("Game already running");
 			}
-			return ShowAddForm(homegame);
+            var locations = _cashgameRepository.GetLocations(homegame);
+            var model = new AddCashgamePageModel(_userContext.GetUser(), homegame, locations);
+			return ShowAddForm(model);
 		}
 
         [HttpPost]
-        public ActionResult Add(string gameName, AddCashgamePageModel addCashgamePageModel){
+        public ActionResult Add(string gameName, AddCashgamePostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var postModel = new AddCashgamePostModel(_webContext.GetPostParam("location"), _webContext.GetPostParam("location-dropdown"));
-			return HandleAddPost(homegame, postModel);
+            if (ModelState.IsValid)
+            {
+                var cashgame = GetCashgame(postModel);
+                _cashgameRepository.AddGame(homegame, cashgame);
+                return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
+            }
+            var locations = _cashgameRepository.GetLocations(homegame);
+            var model = new AddCashgamePageModel(_userContext.GetUser(), homegame, locations, postModel);
+            return ShowAddForm(model);
 		}
 
         public ActionResult Running(string gameName){
@@ -264,27 +273,10 @@ namespace Web.Controllers{
 			return new CashgameDetailsPageModel(user, homegame, cashgame, player, years, isManager, runningGame);
 		}
 
-        private ActionResult ShowAddForm(Homegame homegame, Cashgame cashgame = null, List<string> validationErrors = null){
-			var runningGame = _cashgameRepository.GetRunning(homegame);
-			var locations = _cashgameRepository.GetLocations(homegame);
-			var years = _cashgameRepository.GetYears(homegame);
-			var model = new AddCashgamePageModel(_userContext.GetUser(), homegame, cashgame, locations, years, runningGame);
-			if(validationErrors != null){
-				//todo: fix validation
-                model.SetValidationErrors(validationErrors);
-			}
+        private ActionResult ShowAddForm(AddCashgamePageModel model)
+        {
 			return View("Add/Add", model);
 		}
-
-        private ActionResult HandleAddPost(Homegame homegame, AddCashgamePostModel addCashgamePostModel){
-            var cashgame = GetCashgame(addCashgamePostModel);
-            var validator = _cashgameValidatorFactory.GetAddCashgameValidator(homegame, cashgame);
-            if(validator.IsValid){
-                _cashgameRepository.AddGame(homegame, cashgame);
-                return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
-            }
-            return ShowAddForm(homegame, cashgame, validator.GetErrors());
-        }
 
 		private Cashgame GetCashgame(AddCashgamePostModel addCashgamePostModel){
 			return _cashgameFactory.Create(addCashgamePostModel.Location, GameStatus.Running);

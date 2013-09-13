@@ -14,16 +14,16 @@ namespace Web.ModelMappers
             _slugGenerator = slugGenerator;
         }
 
-        public Homegame GetHomegame(AddHomegamePageModel model)
+        public Homegame GetHomegame(AddHomegamePostModel postModel)
         {
             return new Homegame
                 {
-                    DisplayName = model.DisplayName,
-                    Currency = new CurrencySettings(model.CurrencySymbol, model.CurrencyLayout),
-                    Timezone = TimeZoneInfo.FindSystemTimeZoneById(model.TimeZone),
-                    Description = model.Description,
+                    DisplayName = postModel.DisplayName,
+                    Currency = new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout),
+                    Timezone = TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
+                    Description = postModel.Description,
                     DefaultBuyin = 200,
-                    Slug = _slugGenerator.GetSlug(model.DisplayName)
+                    Slug = _slugGenerator.GetSlug(postModel.DisplayName)
                 };
         }
     }

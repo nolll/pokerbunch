@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
+using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelMappers;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Listing;
-using Web.Validators;
 using app;
 
 namespace Web.Controllers{
@@ -15,25 +15,25 @@ namespace Web.Controllers{
     {
 	    private readonly IUserContext _userContext;
 	    private readonly IHomegameRepository _homegameRepository;
-	    private readonly IHomegameValidatorFactory _homegameValidatorFactory;
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly IHomegameModelMapper _modelMapper;
 	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
+	    private readonly ISlugGenerator _slugGenerator;
 
 	    public HomegameController(
             IUserContext userContext,
             IHomegameRepository homegameRepository,
-            IHomegameValidatorFactory homegameValidatorFactory,
             IPlayerRepository playerRepository,
             IHomegameModelMapper modelMapper,
-            IAddHomegamePageModelFactory addHomegamePageModelFactory)
+            IAddHomegamePageModelFactory addHomegamePageModelFactory,
+            ISlugGenerator slugGenerator)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
-	        _homegameValidatorFactory = homegameValidatorFactory;
 	        _playerRepository = playerRepository;
 	        _modelMapper = modelMapper;
 	        _addHomegamePageModelFactory = addHomegamePageModelFactory;
+	        _slugGenerator = slugGenerator;
 	    }
 
 	    public ActionResult Listing(){
@@ -59,29 +59,39 @@ namespace Web.Controllers{
         }
 
         [HttpPost]
-        public ActionResult Add(AddHomegamePageModel addHomegamePageModel){
+        public ActionResult Add(AddHomegamePostModel postModel){
 			_userContext.RequireUser();
-            var validator = _homegameValidatorFactory.GetAddHomegameValidator(addHomegamePageModel);
-			if(validator.IsValid){
-			    var homegame = _modelMapper.GetHomegame(addHomegamePageModel);
-				homegame = _homegameRepository.AddHomegame(homegame);
-				var user = _userContext.GetUser();
-				_playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
-                return new RedirectResult(new HomegameAddConfirmationUrlModel().Url);
+			if(ModelState.IsValid){
+                if (!HomegameExists(postModel))
+                {
+                    var homegame = _modelMapper.GetHomegame(postModel);
+                    homegame = _homegameRepository.AddHomegame(homegame);
+                    var user = _userContext.GetUser();
+                    _playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
+                    return new RedirectResult(new HomegameAddConfirmationUrlModel().Url);
+                }
+                else
+                {
+                    ModelState.AddModelError("homegame_exists", "The Homegame name is not available");
+                }
 			}
-            var model = _addHomegamePageModelFactory.ReBuild(_userContext.GetUser(), addHomegamePageModel);
-			return ShowForm(model, validator.GetErrors());
+            var model = _addHomegamePageModelFactory.Create(_userContext.GetUser(), postModel);
+			return ShowForm(model);
 		}
+
+        private bool HomegameExists(AddHomegamePostModel postModel)
+        {
+            var slug = _slugGenerator.GetSlug(postModel.DisplayName);
+            var homegame = _homegameRepository.GetByName(slug);
+            return homegame != null;
+        }
 
 		public ActionResult Created(){
 			var model = new HomegameAddConfirmationModel(_userContext.GetUser());
 			return View("AddHomegameConfirmation", model);
 		}
 
-        private ActionResult ShowForm(AddHomegamePageModel model = null, List<string> validationErrors = null){
-            if(validationErrors != null){
-				model.SetValidationErrors(validationErrors);
-			}
+        private ActionResult ShowForm(AddHomegamePageModel model = null){
 			return View("AddHomegame", model);
 		}
 

@@ -7,16 +7,19 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Action{
 
-    public class ActionModel : PageProperties {
+    public class ActionModel : IPageModel {
 
+        public string BrowserTitle { get; set; }
+        public PageProperties PageProperties { get; set; }
         public List<CheckpointModel> Checkpoints { get; set; }
         public UrlModel CashoutUrl { get; set; }
 		public UrlModel ChartDataUrl { get; set; }
 		public string Heading { get; set; }
 
         public ActionModel(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role, List<int> years = null, Cashgame runningGame = null)
-            : base (user, homegame, runningGame)
         {
+            BrowserTitle = "Player Actions";
+            PageProperties = new PageProperties(user, homegame, runningGame);
 			var dateString = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
 			Heading = string.Format("Cashgame {0}, {1}", dateString, player.DisplayName);
 			Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role);
@@ -40,14 +43,6 @@ namespace Web.Models.CashgameModels.Action{
         private bool PlayerIsInGame(CashgameResult result){
 			return result != null;
 		}
-
-        public override string BrowserTitle
-        {
-            get
-            {
-                return "Player Actions";
-            }
-        }
 
 	}
 
