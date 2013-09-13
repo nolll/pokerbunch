@@ -186,7 +186,6 @@
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
-    <Compile Include="Models\PageBaseModels\HomegamePageProperties.cs" />
     <Compile Include="Models\PageBaseModels\IPageModel.cs" />
     <Compile Include="Models\PageBaseModels\PageProperties.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IAvatarModelFactory.cs" />
