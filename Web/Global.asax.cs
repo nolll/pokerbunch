@@ -31,6 +31,29 @@ namespace Web
             WebObjectFactory.RegisterTypes(_windsorContainer);
         }
 
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            EnsureLowercaseUrl();
+        }
+
+        private void EnsureLowercaseUrl()
+        {
+            // Don't rewrite requests for content (.png, .css) or scripts (.js)
+            if (Request.Url.AbsolutePath.Contains("/Frontend/"))
+                return;
+
+            // If uppercase chars exist, redirect to a lowercase version
+            var url = Request.Url.ToString();
+            if (Regex.IsMatch(url, @"[A-Z]"))
+            {
+                Response.Clear();
+                Response.Status = "301 Moved Permanently";
+                Response.StatusCode = (int)HttpStatusCode.MovedPermanently;
+                Response.AddHeader("Location", url.ToLower());
+                Response.End();
+            }
+        }
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             RouteConfig.RegisterRoutes(routes);
