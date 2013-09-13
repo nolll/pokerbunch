@@ -152,6 +152,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\IHomePageModelFactory.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableCellModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
@@ -183,8 +186,9 @@
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
-    <Compile Include="Models\PageBaseModels\HomegamePageModel.cs" />
-    <Compile Include="Models\PageBaseModels\PageModel.cs" />
+    <Compile Include="Models\PageBaseModels\HomegamePageProperties.cs" />
+    <Compile Include="Models\PageBaseModels\IPageModel.cs" />
+    <Compile Include="Models\PageBaseModels\PageProperties.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IAvatarModelFactory.cs" />
     <Compile Include="Models\UrlModels\AuthLoginUrlModel.cs" />
     <Compile Include="Models\UrlModels\AuthLogoutUrlModel.cs" />

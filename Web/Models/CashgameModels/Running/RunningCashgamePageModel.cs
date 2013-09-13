@@ -6,7 +6,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Running{
 
-	public class RunningCashgamePageModel : HomegamePageModel {
+	public class RunningCashgamePageModel : PageProperties {
 
         public string StartTime { get; set; }
         public bool ShowStartTime { get; set; }

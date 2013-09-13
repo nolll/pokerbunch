@@ -5,7 +5,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Listing{
 
-	public class PlayerListingPageModel : HomegamePageModel {
+	public class PlayerListingPageModel : PageProperties {
 
         public List<PlayerItemModel> PlayerModels { get; set; }
 	    public UrlModel AddUrl { get; set; }

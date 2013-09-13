@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Listing{
 
-	public class CashgameListingPageModel : HomegamePageModel {
+	public class CashgameListingPageModel : PageProperties {
 
 		public CashgameListingTableModel ListingTableModel;
 		public CashgameNavigationModel CashgameNavModel;

@@ -7,6 +7,7 @@ using Core.Exceptions;
 using Core.Repositories;
 using Infrastructure.Factories;
 using Infrastructure.System;
+using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
@@ -32,6 +33,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameValidatorFactory _cashgameValidatorFactory;
 	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly ITimeProvider _timeProvider;
+	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -42,7 +44,8 @@ namespace Web.Controllers{
             IWebContext webContext,
             ICashgameValidatorFactory cashgameValidatorFactory,
             ICashgameFactory cashgameFactory,
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            IBuyinPageModelFactory buyinPageModelFactory)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -53,6 +56,7 @@ namespace Web.Controllers{
 	        _cashgameValidatorFactory = cashgameValidatorFactory;
 	        _cashgameFactory = cashgameFactory;
 	        _timeProvider = timeProvider;
+	        _buyinPageModelFactory = buyinPageModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -204,43 +208,44 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			var player = _playerRepository.GetByName(homegame, playerName);
 			_userContext.RequirePlayer(homegame);
+            var user = _userContext.GetUser();
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			return ShowBuyinForm(homegame, runningGame, player);
+            var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame);
+			return ShowBuyinForm(user, player, model);
 		}
 
         [HttpPost]
-        public ActionResult Buyin(string gameName, string playerName, BuyinPageModel model){
+        public ActionResult Buyin(string gameName, string playerName, BuyinPostModel postedModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			var player = _playerRepository.GetByName(homegame, playerName);
 			_userContext.RequirePlayer(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			//var validator = _cashgameValidatorFactory.GetBuyinValidator(model);
 			if(ModelState.IsValid){
-				var checkpoint = GetBuyinCheckpoint(homegame, model);
+				var checkpoint = GetBuyinCheckpoint(homegame, postedModel);
 				_cashgameRepository.AddCheckpoint(runningGame, player, checkpoint);
+                if(!runningGame.IsStarted){
+			    	_cashgameRepository.StartGame(runningGame);
+			    }
 			} else {
-				return ShowBuyinForm(homegame, runningGame, player, model);
-			}
-			if(!runningGame.IsStarted){
-				_cashgameRepository.StartGame(runningGame);
+                var user = _userContext.GetUser();
+			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postedModel);
+				return ShowBuyinForm(user, player, model);
 			}
 			var runningUrl = new RunningCashgameUrlModel(homegame);
             return new RedirectResult(runningUrl.Url);
 		}
 
-		private Checkpoint GetBuyinCheckpoint(Homegame homegame, BuyinPageModel model){
+		private Checkpoint GetBuyinCheckpoint(Homegame homegame, BuyinPostModel model){
 			var timestamp = DateTimeFactory.Now(homegame.Timezone);
 			return new BuyinCheckpoint(timestamp, model.StackAmount + model.BuyinAmount, model.BuyinAmount);
 		}
 
-        private ActionResult ShowBuyinForm(Homegame homegame, Cashgame cashgame, Player player, BuyinPageModel postedModel = null){
-			var user = _userContext.GetUser();
+        private ActionResult ShowBuyinForm(User user, Player player, BuyinPageModel model){
 			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
 				throw new AccessDeniedException();
 			}
-            var model = postedModel != null
-                            ? new BuyinPageModel(user, homegame, player, cashgame, postedModel)
-                            : new BuyinPageModel(user, homegame, player, cashgame);
+
 			return View("Buyin/Buyin", model);
 		}
         
@@ -265,7 +270,8 @@ namespace Web.Controllers{
 			var years = _cashgameRepository.GetYears(homegame);
 			var model = new AddCashgamePageModel(_userContext.GetUser(), homegame, cashgame, locations, years, runningGame);
 			if(validationErrors != null){
-				model.SetValidationErrors(validationErrors);
+				//todo: fix validation
+                model.SetValidationErrors(validationErrors);
 			}
 			return View("Add/Add", model);
 		}
@@ -285,5 +291,4 @@ namespace Web.Controllers{
 		}
 
 	}
-
 }

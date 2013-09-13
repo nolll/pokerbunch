@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Listing{
 
-	public class HomegameListingPageModel : PageModel {
+	public class HomegameListingPageModel : PageProperties {
 
 	    public IList<HomegameListingItemModel> HomegameModels { get; set; }
 

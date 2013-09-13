@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Leaderboard{
 
-	public class CashgameLeaderboardPageModel : HomegamePageModel {
+	public class CashgameLeaderboardPageModel : PageProperties {
 
 	    public CashgameLeaderboardTableModel TableModel { get; set; }
 	    public CashgameNavigationModel CashgameNavModel { get; set; }

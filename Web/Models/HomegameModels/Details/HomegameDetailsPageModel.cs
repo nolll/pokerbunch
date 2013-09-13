@@ -4,7 +4,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.HomegameModels.Details{
 
-	public class HomegameDetailsPageModel : HomegamePageModel {
+	public class HomegameDetailsPageModel : PageProperties {
 
 	    public string DisplayName { get; set; }
 	    public string Description { get; set; }

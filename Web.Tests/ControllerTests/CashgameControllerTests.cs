@@ -80,7 +80,8 @@ namespace Web.Tests.ControllerTests{
                 WebContextMock.Object,
                 CashgameValidatorFactoryMock.Object,
                 CashgameFactoryMock.Object,
-                TimeProviderMock.Object);
+                TimeProviderMock.Object,
+                BuyinPageModelFactoryMock.Object);
         }
 
 	}

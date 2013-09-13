@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Web.Models.CashgameModels.Details{
 
-	public class CashgameDetailsPageModel : HomegamePageModel {
+	public class CashgameDetailsPageModel : PageProperties {
 
 	    public string Heading { get; set; }
 	    public string Date { get; set; }

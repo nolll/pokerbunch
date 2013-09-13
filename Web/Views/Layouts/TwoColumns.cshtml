@@ -1,4 +1,4 @@
-﻿@model Web.Models.PageBaseModels.PageModel
+﻿@model Web.Models.PageBaseModels.IPageModel
 
 @{
     Layout = "Page.cshtml";
@@ -19,7 +19,7 @@
 <div class="region width2">
     @RenderBody()
 </div>
-                
+
 @if (IsSectionDefined("Aside2")){
     <div class="region width1 aside2">
         @RenderSection("Aside2")

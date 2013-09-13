@@ -3,7 +3,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.AuthModels{
 
-	public class AuthLoginPageModel : PageModel {
+	public class AuthLoginPageModel : PageProperties {
 
 	    public string ReturnUrl { get; set; }
 	    public UserAddUrlModel AddUserUrl { get; set; }

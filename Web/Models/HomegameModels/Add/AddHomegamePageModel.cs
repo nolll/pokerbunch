@@ -1,10 +1,16 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Core.Classes;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add{
 
-	public class AddHomegamePageModel : PageModel {
+	public class AddHomegamePageModel : PageProperties {
+
+	    public AddHomegamePageModel(User user)
+            : base(user)
+	    {
+	    }
 
 	    public string DisplayName { get; set; }
 	    public string Description { get; set; }

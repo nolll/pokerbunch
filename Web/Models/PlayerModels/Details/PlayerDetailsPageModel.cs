@@ -9,7 +9,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Details{
 
-	public class PlayerDetailsPageModel : HomegamePageModel {
+	public class PlayerDetailsPageModel : PageProperties {
 
 	    public bool ShowUserInfo { get; set; }
 	    public bool ShowInvitation { get; set; }

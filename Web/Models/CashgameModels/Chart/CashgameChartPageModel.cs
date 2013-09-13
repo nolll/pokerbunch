@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Chart{
-    public class CashgameChartPageModel : HomegamePageModel {
+    public class CashgameChartPageModel : PageProperties {
 
 		public CashgameNavigationModel CashgameNavModel { get; set; }
 		public CashgameChartJsonUrlModel ChartDataUrl { get; set; }

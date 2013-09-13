@@ -18,7 +18,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             var timezone = GetTimeZone(homegame);
             var currency = GetCurrency(homegame);
 
-            var model = new AddHomegamePageModel
+            var model = new AddHomegamePageModel(user)
                 {
                     DisplayName = homegame != null ? homegame.DisplayName : null,
                     Description = homegame != null ? homegame.Description : null,

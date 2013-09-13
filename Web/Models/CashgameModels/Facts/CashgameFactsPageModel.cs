@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts{
 
-	public class CashgameFactsPageModel : HomegamePageModel {
+	public class CashgameFactsPageModel : PageProperties {
 
 	    public CashgameNavigationModel CashgameNavModel { get; set; }
 	    public int GameCount { get; set; }

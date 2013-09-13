@@ -5,7 +5,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.HomeModels{
 
-	public class HomePageModel : HomegamePageModel {
+	public class HomePageModel : PageProperties {
 
 	    public bool IsLoggedIn { get; private set; }
 	    public UrlModel AddHomegameUrl { get; private set; }

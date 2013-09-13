@@ -7,7 +7,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Action{
 
-    public class ActionModel : HomegamePageModel {
+    public class ActionModel : PageProperties {
 
         public List<CheckpointModel> Checkpoints { get; set; }
         public UrlModel CashoutUrl { get; set; }

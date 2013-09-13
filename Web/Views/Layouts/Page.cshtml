@@ -1,4 +1,4 @@
-﻿@model Web.Models.PageBaseModels.PageModel
+﻿@model Web.Models.PageBaseModels.IPageModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,9 +22,9 @@
 			<header class="page-header">
 				<div class="content">
 				    <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
-                    @if (Model.HomegameNavModel != null)
+                    @if (Model.PageProperties.HomegameNavModel != null)
                     {
-                        @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.HomegameNavModel)
+                        @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.PageProperties.HomegameNavModel)
                     }
 				</div>
 			</header>

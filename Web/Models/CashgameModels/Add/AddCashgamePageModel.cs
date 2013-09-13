@@ -5,13 +5,15 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add{
 
-	public class AddCashgamePageModel : HomegamePageModel {
+	public class AddCashgamePageModel : PageProperties {
 
 	    public string Date { get; set; }
 	    public string Location { get; set; }
 	    public LocationFieldModel LocationSelectModel { get; set; }
 
-	    public AddCashgamePageModel(){}
+	    public AddCashgamePageModel()
+            : base(null)
+        {}
 
 		public AddCashgamePageModel(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years = null, Cashgame runningGame = null)
             : base(user, homegame, runningGame)

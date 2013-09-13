@@ -9,6 +9,7 @@ using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Web.ModelFactories.AuthModelFactories;
+using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Validators;
 
@@ -51,6 +52,8 @@ namespace Tests.Common
 
         protected Mock<ISettings> SettingsMock;
 
+        protected Mock<IBuyinPageModelFactory> BuyinPageModelFactoryMock;
+
         [SetUp]
         public void SetUpMocks()
         {
@@ -88,6 +91,8 @@ namespace Tests.Common
             CashgameValidatorFactoryMock = new Mock<ICashgameValidatorFactory>();
 
             SettingsMock = new Mock<ISettings>();
+
+            BuyinPageModelFactoryMock = new Mock<IBuyinPageModelFactory>();
         }
 
     }

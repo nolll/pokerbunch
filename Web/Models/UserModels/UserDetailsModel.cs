@@ -7,7 +7,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.UserModels{
 
-	public class UserDetailsModel : PageModel {
+	public class UserDetailsModel : PageProperties {
 
 		public string UserName { get; set; }
 		public string DisplayName { get; set; }

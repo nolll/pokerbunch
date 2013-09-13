@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Matrix{
-    public class CashgameMatrixPageModel : HomegamePageModel {
+    public class CashgameMatrixPageModel : PageProperties {
 
 	    public CashgameNavigationModel CashgameNavModel { get; set; }
 	    public CashgameMatrixTableModel TableModel { get; set; }
