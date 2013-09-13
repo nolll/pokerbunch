@@ -48,14 +48,26 @@ namespace Web
 
             routes.MapRoute(
                 "Cashgame Details",
-                "{gamename}/cashgame/details/{datestr}",
-                new { controller = "Cashgame", action = "Details", dateStr = UrlParameter.Optional }
+                "{gamename}/cashgame/details/{dateStr}",
+                new { controller = "Cashgame", action = "Details" }
             );
 
             routes.MapRoute(
                 "Cashgame Details Chart",
                 "{gamename}/cashgame/detailschartjson/{datestr}",
-                new { controller = "Cashgame", action = "DetailsChartJson", dateStr = UrlParameter.Optional }
+                new { controller = "Cashgame", action = "DetailsChartJson" }
+            );
+
+            routes.MapRoute(
+                "Cashgame Actions",
+                "{gamename}/cashgame/action/{dateStr}/{playerName}",
+                new { controller = "Cashgame", action = "Action" }
+            );
+
+            routes.MapRoute(
+                "Cashgame Actions Chart",
+                "{gamename}/cashgame/actionchartjson/{dateStr}/{playerName}",
+                new { controller = "Cashgame", action = "ActionChartJson" }
             );
 
             routes.MapRoute(

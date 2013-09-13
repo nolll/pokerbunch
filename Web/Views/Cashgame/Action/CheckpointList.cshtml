@@ -2,6 +2,8 @@
 <ul class="checkpoint-list">
     @foreach (var checkpoint in Model)
     {
-        @Html.Partial("Action/CheckpointItem", checkpoint)
+        <li class="checkpoint">
+            @Html.Partial("Action/CheckpointItem", checkpoint)
+        </li>
     }
 </ul>

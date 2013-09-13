@@ -28,7 +28,7 @@ namespace Web.Routing{
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
-        public const string CashgameActionChartJson = "/{0}/cashgame/actionchartjson/{1}/{3}";
+        public const string CashgameActionChartJson = "/{0}/cashgame/actionchartjson/{1}/{2}";
         public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
         public const string CashgameReport = "/{0}/cashgame/report/{1}";
         public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";

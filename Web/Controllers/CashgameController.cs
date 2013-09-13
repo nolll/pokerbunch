@@ -194,7 +194,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, playerName);
 			var result = cashgame.GetResult(player);
 			var model = new ActionChartData(homegame, cashgame, result);
-			return Json(model);
+            return Json(model, JsonRequestBehavior.AllowGet);
 		}
         
 		private RunningCashgamePageModel GetRunningPageModel(Homegame homegame, Cashgame cashgame, Player player){
