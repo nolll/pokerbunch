@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
 using Infrastructure.System;
-using Web.Models.FormModels;
+using Web.Controllers;
 using Web.Models.HomegameModels.Add;
 using Web.Models.MiscModels;
 using Web.Models.NavigationModels;
 
-namespace Web.Controllers
+namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegamePageModelFactory : IAddHomegamePageModelFactory
     {
@@ -18,18 +18,29 @@ namespace Web.Controllers
             var timezone = GetTimeZone(homegame);
             var currency = GetCurrency(homegame);
 
-            return new AddHomegamePageModel
+            var model = new AddHomegamePageModel
                 {
-                    UserNavModel = new UserNavigationModel(user),
-			        GoogleAnalyticsModel = new GoogleAnalyticsModel(),
                     DisplayName = homegame != null ? homegame.DisplayName : null,
                     Description = homegame != null ? homegame.Description : null,
                     TimeZone = timezone.Id,
-                    TimezoneSelectModel = GetTimezoneSelectModel(),
 			        CurrencySymbol = currency.Symbol,
-                    CurrencyLayout = currency.Layout,
-			        CurrencyLayoutSelectModel = GetCurrencyLayoutSelectModel()
+                    CurrencyLayout = currency.Layout
                 };
+            return FillModel(user, model);
+        }
+
+        public AddHomegamePageModel ReBuild(User user, AddHomegamePageModel model)
+        {
+            return FillModel(user, model);
+        }
+
+        private AddHomegamePageModel FillModel(User user, AddHomegamePageModel model)
+        {
+            model.UserNavModel = new UserNavigationModel(user);
+            model.GoogleAnalyticsModel = new GoogleAnalyticsModel();
+            model.TimezoneSelectModel = GetTimezoneSelectModel();
+            model.CurrencyLayoutSelectModel = GetCurrencyLayoutSelectModel();
+            return model;
         }
 
         private TimeZoneInfo GetTimeZone(Homegame homegame)

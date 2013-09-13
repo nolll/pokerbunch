@@ -12,6 +12,7 @@ using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
+using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.Validators;
 

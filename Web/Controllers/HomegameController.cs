@@ -68,31 +68,14 @@ namespace Web.Controllers{
 				_playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
                 return new RedirectResult(new HomegameAddConfirmationUrlModel().Url);
 			}
+            var model = _addHomegamePageModelFactory.ReBuild(_userContext.GetUser(), addHomegamePageModel);
 			return ShowForm(addHomegamePageModel, validator.GetErrors());
 		}
 
-		public ActionResult action_created(){
+		public ActionResult Created(){
 			var model = new HomegameAddConfirmationModel(_userContext.GetUser());
 			return View("AddHomegameConfirmation", model);
 		}
-
-        /*
-		private function getPostedHomegame(){
-			$homegame = new Homegame();
-			$homegame.setDisplayName(request.getParamPost('displayname'));
-			$currencySymbol = request.getParamPost('currencysymbol');
-			$currencyLayout = request.getParamPost('currencylayout');
-			$currency = new CurrencySettings($currencySymbol, $currencyLayout);
-			$homegame.setCurrency($currency);
-			$timezoneName = request.getParamPost('timezone');
-			if($timezoneName != null){
-				$homegame.setTimezone(new DateTimeZone($timezoneName));
-			}
-			$homegame.setDescription(request.getParamPost('description'));
-			$homegame.setSlug(slugGenerator.getSlug($homegame.getDisplayName()));
-			return $homegame;
-		}
-        */
 
         private ActionResult ShowForm(AddHomegamePageModel model = null, List<string> validationErrors = null){
             if(validationErrors != null){
