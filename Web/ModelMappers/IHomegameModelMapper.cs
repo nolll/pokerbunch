@@ -1,7 +1,7 @@
 using Core.Classes;
 using Web.Models.HomegameModels.Add;
 
-namespace Web.Controllers
+namespace Web.ModelMappers
 {
     public interface IHomegameModelMapper
     {

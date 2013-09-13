@@ -8,6 +8,7 @@ using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
+using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Facts;
@@ -195,6 +196,27 @@ namespace Web.Controllers{
 			var result = cashgame.GetResult(player);
 			var model = new ActionChartData(homegame, cashgame, result);
             return Json(model, JsonRequestBehavior.AllowGet);
+		}
+
+        public ActionResult Buyin(string gameName, string playerName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var player = _playerRepository.GetByName(homegame, playerName);
+			_userContext.RequirePlayer(homegame);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			return ShowBuyinForm(homegame, runningGame, player);
+		}
+
+        private ActionResult ShowBuyinForm(Homegame homegame, Cashgame cashgame, Player player, int? postedAmount = null, List<string> errors = null){
+			var user = _userContext.GetUser();
+			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+				throw new AccessDeniedException();
+			}
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = new BuyinModel(user, homegame, player, cashgame, postedAmount);
+			if(errors != null){
+				model.SetValidationErrors(errors);
+			}
+			return View("Buyin/Buyin", model);
 		}
         
 		private RunningCashgamePageModel GetRunningPageModel(Homegame homegame, Cashgame cashgame, Player player){

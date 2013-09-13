@@ -44,20 +44,13 @@
   <ItemGroup>
     <None Include=".htaccess" />
     <None Include="app\Cashgame\Action\ActionPostModel.php" />
-    <None Include="app\Cashgame\Action\Buyin.tpl" />
-    <None Include="app\Cashgame\Action\BuyinController.php" />
-    <None Include="app\Cashgame\Action\BuyinModel.php" />
     <None Include="app\Cashgame\Action\BuyinPostModel.php" />
     <None Include="app\Cashgame\Action\Cashout.tpl" />
-    <None Include="app\Cashgame\Action\CashoutController.php" />
     <None Include="app\Cashgame\Action\CashoutModel.php" />
-    <None Include="app\Cashgame\Action\CheckpointController.php" />
     <None Include="app\Cashgame\Action\EndGame.tpl" />
-    <None Include="app\Cashgame\Action\EndGameController.php" />
     <None Include="app\Cashgame\Action\EndGameModel.php" />
     <None Include="app\Cashgame\Action\GameChart.tpl" />
     <None Include="app\Cashgame\Action\Report.tpl" />
-    <None Include="app\Cashgame\Action\ReportController.php" />
     <None Include="app\Cashgame\Action\ReportModel.php" />
     <None Include="NotUsed\ChartTitle.php" />
     <None Include="NotUsed\ChartValue.php" />

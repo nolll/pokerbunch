@@ -1,0 +1,34 @@
+@model Web.Models.CashgameModels.Buyin.BuyinModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+    <h2>Buy In</h2>
+</div>
+<div class="block gutter">
+
+@Html.Partial("~/Views/Forms/Errors.cshtml", Model.ValidationErrors)
+
+@using (Html.BeginForm("Buyin", "Cashgame", FormMethod.Post))
+{
+    <fieldset>
+        <div>
+            amount:
+            @Html.TextBoxFor(model => model.BuyinAmount, new { @class = "numberfield", pattern = "[0-9]*", required = true, min="0", data_require="focus-text-selector" })
+        </div>
+        <div>
+            @if (Model.StackFieldEnabled)
+            {
+                @:stack size before buyin:
+                @Html.TextBoxFor(model => model.StackAmount, new { @class = "numberfield", pattern = "[0-9]*", required = true, min="0", data_require="focus-text-selector" })
+            }
+        </div>
+        <div class="buttons">
+            <button type="submit" class="action">Buy In</button>
+        </div>
+    </fieldset>
+}
+    
+</div>

@@ -3,7 +3,7 @@ using Core.Classes;
 using Core.Services;
 using Web.Models.HomegameModels.Add;
 
-namespace Web.Controllers
+namespace Web.ModelMappers
 {
     public class HomegameModelMapper : IHomegameModelMapper
     {

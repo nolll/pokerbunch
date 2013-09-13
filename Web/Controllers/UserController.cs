@@ -19,10 +19,10 @@ namespace Web.Controllers{
 	        _avatarService = avatarService;
 	    }
 
-		public ActionResult Details(string userName){
+		public ActionResult Details(string name){
 			_userContext.RequireUser();
-			var user = _userStorage.GetUserByName(userName);
-			if(user == null){
+			var user = _userStorage.GetUserByName(name);
+			if(name == null){
 				throw new UserNotFoundException();
 			}
 			var model = new UserDetailsModel(_userContext.GetUser(), user, _avatarService);

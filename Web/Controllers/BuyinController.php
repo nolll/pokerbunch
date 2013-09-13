@@ -45,26 +45,7 @@ namespace app\Cashgame\Action{
 			cashgameValidatorFactory = $cashgameValidatorFactory;
 		}
 
-		public function action_buyin($gameName, $playerName){
-			homegame = homegameRepository.getByName($gameName);
-			player = playerRepository.getByName(homegame, $playerName);
-			userContext.requirePlayer(homegame);
-			$runningGame = cashgameRepository.getRunning(homegame);
-			return showForm($runningGame);
-		}
-
-		private function showForm(Cashgame $cashgame, $postedAmount = null, array $errors = null){
-			$user = userContext.getUser();
-			if(!userContext.isAdmin() && player.getUserName() != $user.getUserName()){
-				throw new AccessDeniedException();
-			}
-			$years = cashgameRepository.getYears(homegame);
-			$model = new BuyinModel($user, homegame, player, $years, $cashgame, $postedAmount);
-			if($errors != null){
-				$model.setValidationErrors($errors);
-			}
-			return view('app/Cashgame/Action/Buyin', $model);
-		}
+		
 
 		public function action_buyin_post($gameName, $playerName){
 			homegame = homegameRepository.getByName($gameName);

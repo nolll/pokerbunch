@@ -153,8 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
-    <Compile Include="Controllers\HomegameModelMapper.cs" />
-    <Compile Include="Controllers\IHomegameModelMapper.cs" />
+    <Compile Include="ModelMappers\HomegameModelMapper.cs" />
+    <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
     <Compile Include="Formatters\UrlFormatter.cs" />
     <Compile Include="Global.asax.cs">
@@ -434,9 +434,16 @@
     <Compile Include="Models\UrlModels\CashgameCheckpointDeleteUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
     <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs" />
+    <Content Include="Controllers\BuyinController.php" />
+    <Content Include="Controllers\CashoutController.php" />
+    <Content Include="Controllers\CheckpointController.php" />
+    <Content Include="Controllers\EndGameController.php" />
+    <Content Include="Controllers\ReportController.php" />
+    <Compile Include="Models\CashgameModels\Buyin\BuyinModel.cs" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
+    <None Include="Views\Cashgame\Buyin\Buyin.cshtml" />
     <None Include="Views\Forms\SelectField.cshtml" />
     <None Include="Views\Homegame\AddHomegame.cshtml" />
     <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />
