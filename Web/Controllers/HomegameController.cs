@@ -69,7 +69,7 @@ namespace Web.Controllers{
                 return new RedirectResult(new HomegameAddConfirmationUrlModel().Url);
 			}
             var model = _addHomegamePageModelFactory.ReBuild(_userContext.GetUser(), addHomegamePageModel);
-			return ShowForm(addHomegamePageModel, validator.GetErrors());
+			return ShowForm(model, validator.GetErrors());
 		}
 
 		public ActionResult Created(){
