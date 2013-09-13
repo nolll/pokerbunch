@@ -1,14 +1,15 @@
 using Core.Classes;
+using Web.Models.CashgameModels.Buyin;
 
 namespace Web.Validators{
 
 	public interface ICashgameValidatorFactory{
 
 		IValidator GetAddCashgameValidator(Homegame homegame, Cashgame cashgame);
-		//Validator GetEditCashgameValidator(CashgameEditPostModel postModel);
-		//Validator GetBuyinValidator(BuyinPostModel postModel);
-		//Validator GetCashoutValidator(ActionPostModel postModel);
-		//Validator GetReportValidator(ActionPostModel postModel);
+		//IValidator GetEditCashgameValidator(CashgameEditPostModel postModel);
+		//IValidator GetBuyinValidator(BuyinModel postModel);
+		//IValidator GetCashoutValidator(ActionPostModel postModel);
+		//IValidator GetReportValidator(ActionPostModel postModel);
 
 	}
 

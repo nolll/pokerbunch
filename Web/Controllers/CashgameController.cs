@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
+using Core.Classes.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
 using Infrastructure.Factories;
@@ -206,16 +208,39 @@ namespace Web.Controllers{
 			return ShowBuyinForm(homegame, runningGame, player);
 		}
 
-        private ActionResult ShowBuyinForm(Homegame homegame, Cashgame cashgame, Player player, int? postedAmount = null, List<string> errors = null){
+        [HttpPost]
+        public ActionResult Buyin(string gameName, string playerName, BuyinPageModel model){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var player = _playerRepository.GetByName(homegame, playerName);
+			_userContext.RequirePlayer(homegame);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			//var validator = _cashgameValidatorFactory.GetBuyinValidator(model);
+			if(ModelState.IsValid){
+				var checkpoint = GetBuyinCheckpoint(homegame, model);
+				_cashgameRepository.AddCheckpoint(runningGame, player, checkpoint);
+			} else {
+				return ShowBuyinForm(homegame, runningGame, player, model);
+			}
+			if(!runningGame.IsStarted){
+				_cashgameRepository.StartGame(runningGame);
+			}
+			var runningUrl = new RunningCashgameUrlModel(homegame);
+            return new RedirectResult(runningUrl.Url);
+		}
+
+		private Checkpoint GetBuyinCheckpoint(Homegame homegame, BuyinPageModel model){
+			var timestamp = DateTimeFactory.Now(homegame.Timezone);
+			return new BuyinCheckpoint(timestamp, model.StackAmount + model.BuyinAmount, model.BuyinAmount);
+		}
+
+        private ActionResult ShowBuyinForm(Homegame homegame, Cashgame cashgame, Player player, BuyinPageModel postedModel = null){
 			var user = _userContext.GetUser();
 			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
 				throw new AccessDeniedException();
 			}
-			var years = _cashgameRepository.GetYears(homegame);
-			var model = new BuyinModel(user, homegame, player, cashgame, postedAmount);
-			if(errors != null){
-				model.SetValidationErrors(errors);
-			}
+            var model = postedModel != null
+                            ? new BuyinPageModel(user, homegame, player, cashgame, postedModel)
+                            : new BuyinPageModel(user, homegame, player, cashgame);
 			return View("Buyin/Buyin", model);
 		}
         

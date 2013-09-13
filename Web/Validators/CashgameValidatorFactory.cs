@@ -1,4 +1,5 @@
 using Core.Classes;
+using Web.Models.CashgameModels.Buyin;
 
 namespace Web.Validators{
 
@@ -17,14 +18,14 @@ namespace Web.Validators{
 			return $validator;
 		}
 
-		public function getBuyinValidator(BuyinPostModel $postModel){
-			$validator = new CompositeValidator();
-			$validator.addValidator(new RequiredValidator($postModel.amount, "Amount can't be empty"));
-			$validator.addValidator(new PositiveNumberValidator($postModel.amount, 'Amount needs to be positive'));
-			$validator.addValidator(new PositiveNumberValidator($postModel.stack, "Stack size can't be negative"));
-			return $validator;
+		public function GetBuyinValidator(BuyinModel $postModel){
+			var validator = new CompositeValidator();
+			validator.addValidator(new RequiredValidator($postModel.amount, "Amount can't be empty"));
+			validator.addValidator(new PositiveNumberValidator($postModel.amount, 'Amount needs to be positive'));
+			validator.addValidator(new PositiveNumberValidator($postModel.stack, "Stack size can't be negative"));
+			return validator;
 		}
-
+        
 		public function getCashoutValidator(ActionPostModel $postModel){
 			$validator = new CompositeValidator();
 			$validator.addValidator(new RequiredValidator($postModel.stack, "Stack can't be empty"));

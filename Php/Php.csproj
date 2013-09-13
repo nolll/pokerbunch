@@ -145,7 +145,6 @@
     <None Include="core\Validation\EmailValidator.php" />
     <None Include="core\Validation\IntegerValidator.php" />
     <None Include="core\Validation\NotNullValidator.php" />
-    <None Include="core\Validation\PositiveNumberValidator.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />

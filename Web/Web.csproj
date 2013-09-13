@@ -434,12 +434,12 @@
     <Compile Include="Models\UrlModels\CashgameCheckpointDeleteUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
     <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs" />
-    <Content Include="Controllers\BuyinController.php" />
     <Content Include="Controllers\CashoutController.php" />
     <Content Include="Controllers\CheckpointController.php" />
     <Content Include="Controllers\EndGameController.php" />
     <Content Include="Controllers\ReportController.php" />
-    <Compile Include="Models\CashgameModels\Buyin\BuyinModel.cs" />
+    <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
+    <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
