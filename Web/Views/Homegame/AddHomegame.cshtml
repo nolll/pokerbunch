@@ -1,4 +1,4 @@
-@model Web.Models.HomegameModels.Add.HomegameAddModel
+@model Web.Models.HomegameModels.Add.AddHomegamePageModel
 
 @{
     Layout = "~/Views/Layouts/OneColumn.cshtml";
@@ -27,13 +27,13 @@
                 @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
 			</p>
 			<p>
-			    <label>Currency Layout</label>
-                @Html.Partial("~/Views/Forms/SelectField.cshtml", Model.CurrencyLayoutSelectModel)
+			    <label>@Html.LabelFor(model => model.CurrencyLayout, "Currency Layout")</label>
+                @Html.DropDownListFor(x => x.CurrencyLayout, Model.CurrencyLayoutSelectModel, new {@id = "currencylayout"})
 			</p>
-			<p>
-				<label>Timezone</label>
-			    @Html.Partial("~/Views/Forms/SelectField.cshtml", Model.TimezoneSelectModel)
-			</p>
+		    <p>
+		        <label>@Html.LabelFor(model => model.TimeZone, "Timezone")</label>
+                @Html.DropDownListFor(x => x.TimeZone, Model.TimezoneSelectModel, new {@id = "timezone"})
+		    </p>
 		</fieldset>
 		<div class="buttons">
 			<button class="action" type="submit">Save</button>

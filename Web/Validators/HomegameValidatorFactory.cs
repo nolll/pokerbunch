@@ -16,7 +16,7 @@ namespace Web.Validators{
 	        _slugGenerator = slugGenerator;
 	    }
 
-	    public IValidator GetAddHomegameValidator(HomegameAddModel model)
+	    public IValidator GetAddHomegameValidator(AddHomegamePageModel model)
         {
 			IValidator validator = new CompositeValidator();
 			validator = BuildHomegameValidator(validator as CompositeValidator, model);
@@ -32,16 +32,16 @@ namespace Web.Validators{
 		}
         */
 
-        private IValidator BuildHomegameValidator(CompositeValidator validator, HomegameAddModel model)
+        private IValidator BuildHomegameValidator(CompositeValidator validator, AddHomegamePageModel model)
         {
 			validator.AddValidator(new RequiredValidator(model.DisplayName, "Display Name can't be empty"));
 			validator.AddValidator(new RequiredValidator(model.CurrencySymbol, "Currency Symbol can't be empty"));
-			validator.AddValidator(new RequiredValidator(model.CurrencyLayoutSelectModel.Value, "Currency Layout can't be empty"));
-			validator.AddValidator(new RequiredValidator(model.TimezoneSelectModel.Value, "Timezone can't be empty"));
+			validator.AddValidator(new RequiredValidator(model.CurrencyLayout, "Currency Layout can't be empty"));
+			validator.AddValidator(new RequiredValidator(model.TimeZone, "Timezone can't be empty"));
 			return validator;
 		}
 
-        private IValidator BuildUniqueHomegameValidator(CompositeValidator validator, HomegameAddModel model)
+        private IValidator BuildUniqueHomegameValidator(CompositeValidator validator, AddHomegamePageModel model)
         {
             var slug = _slugGenerator.GetSlug(model.DisplayName);
 			validator.AddValidator(new UniqueSlugValidator(slug, "The Homegame name is not available", _homegameStorage));

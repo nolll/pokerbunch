@@ -12,13 +12,16 @@ namespace Web.Models.PageBaseModels{
         public HomegameNavigationModel HomegameNavModel { get; protected set; }
 	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
 
-	    public PageModel(){}
+	    public PageModel()
+	    {
+            ValidationErrors = new List<string>();
+	    }
 
 	    public PageModel(User user)
+            : this() 
 	    {
 	        UserNavModel = new UserNavigationModel(user);
 			GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            ValidationErrors = new List<string>();
 	    }
 
 		public void SetValidationErrors(List<string> errors){

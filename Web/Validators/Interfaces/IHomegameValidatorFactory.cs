@@ -5,7 +5,7 @@ namespace Web.Validators{
 
 	public interface IHomegameValidatorFactory{
 
-        IValidator GetAddHomegameValidator(HomegameAddModel model);
+        IValidator GetAddHomegameValidator(AddHomegamePageModel model);
 		//IValidator GetEditHomegameValidator(Homegame homegame);
 
 	}

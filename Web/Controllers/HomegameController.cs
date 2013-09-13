@@ -17,19 +17,22 @@ namespace Web.Controllers{
 	    private readonly IHomegameValidatorFactory _homegameValidatorFactory;
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly IHomegameModelMapper _modelMapper;
+	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
 
 	    public HomegameController(
             IUserContext userContext,
             IHomegameRepository homegameRepository,
             IHomegameValidatorFactory homegameValidatorFactory,
             IPlayerRepository playerRepository,
-            IHomegameModelMapper modelMapper)
+            IHomegameModelMapper modelMapper,
+            IAddHomegamePageModelFactory addHomegamePageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
 	        _homegameValidatorFactory = homegameValidatorFactory;
 	        _playerRepository = playerRepository;
 	        _modelMapper = modelMapper;
+	        _addHomegamePageModelFactory = addHomegamePageModelFactory;
 	    }
 
 	    public ActionResult Listing(){
@@ -50,12 +53,12 @@ namespace Web.Controllers{
         public ActionResult Add()
         {
             _userContext.RequireUser();
-            var model = new HomegameAddModel(_userContext.GetUser());
+            var model = _addHomegamePageModelFactory.Create(_userContext.GetUser());
             return ShowForm(model);
         }
 
         [HttpPost]
-        public ActionResult Add(HomegameAddModel addHomegamePageModel){
+        public ActionResult Add(AddHomegamePageModel addHomegamePageModel){
 			_userContext.RequireUser();
             var validator = _homegameValidatorFactory.GetAddHomegameValidator(addHomegamePageModel);
 			if(validator.IsValid){
@@ -91,7 +94,7 @@ namespace Web.Controllers{
 		}
         */
 
-        private ActionResult ShowForm(HomegameAddModel model = null, List<string> validationErrors = null){
+        private ActionResult ShowForm(AddHomegamePageModel model = null, List<string> validationErrors = null){
             if(validationErrors != null){
 				model.SetValidationErrors(validationErrors);
 			}

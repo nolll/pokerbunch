@@ -14,16 +14,17 @@ namespace Web.Controllers
             _slugGenerator = slugGenerator;
         }
 
-        public Homegame GetHomegame(HomegameAddModel model)
+        public Homegame GetHomegame(AddHomegamePageModel model)
         {
-            var homegame = new Homegame();
-            homegame.DisplayName = model.DisplayName;
-            homegame.Currency = new CurrencySettings(model.CurrencySymbol, model.CurrencyLayoutSelectModel.Value);
-            homegame.Timezone = TimeZoneInfo.FindSystemTimeZoneById(model.TimezoneSelectModel.Value);
-            homegame.Description = model.Description;
-            homegame.DefaultBuyin = 200;
-            homegame.Slug = _slugGenerator.GetSlug(homegame.DisplayName);
-            return homegame;
+            return new Homegame
+                {
+                    DisplayName = model.DisplayName,
+                    Currency = new CurrencySettings(model.CurrencySymbol, model.CurrencyLayout),
+                    Timezone = TimeZoneInfo.FindSystemTimeZoneById(model.TimeZone),
+                    Description = model.Description,
+                    DefaultBuyin = 200,
+                    Slug = _slugGenerator.GetSlug(model.DisplayName)
+                };
         }
     }
 }

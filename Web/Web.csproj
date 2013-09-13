@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
     <Compile Include="Controllers\HomegameModelMapper.cs" />
     <Compile Include="Controllers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="ModelFactories\AuthModelFactories\IAuthLoginPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\IHomePageModelFactory.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
@@ -422,9 +424,7 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameListingPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\HomegameAddModel.cs" />
-    <Compile Include="Models\FormModels\CurrencyLayoutFieldModel.cs" />
-    <Compile Include="Models\FormModels\TimezoneFieldModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
     <Compile Include="Validators\Interfaces\IHomegameValidatorFactory.cs" />
     <Compile Include="Validators\HomegameValidatorFactory.cs" />
     <Compile Include="Validators\UniqueSlugValidator.cs" />

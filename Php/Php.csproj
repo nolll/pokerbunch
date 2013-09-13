@@ -231,7 +231,6 @@
     <None Include="tests\AppTests\Chart\ChartColumnModelTests.php" />
     <None Include="tests\AppTests\Chart\ChartDateTimeColumnModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameAddControllerTests.php" />
-    <None Include="tests\AppTests\Homegame\HomegameAddModelTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameDetailsControllerTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameEditControllerTests.php" />
     <None Include="tests\AppTests\Homegame\HomegameEditModelTests.php" />
