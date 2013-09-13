@@ -140,6 +140,7 @@ namespace Web.Controllers{
         public ActionResult Add(string gameName, AddCashgamePostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
+            //todo: validation for the composite location select field
             if (ModelState.IsValid)
             {
                 var cashgame = GetCashgame(postModel);
