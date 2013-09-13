@@ -1,0 +1,7 @@
+@model List<Web.Models.CashgameModels.Action.CheckpointModel>
+<ul class="checkpoint-list">
+    @foreach (var checkpoint in Model)
+    {
+        @Html.Partial("Action/CheckpointItem", checkpoint)
+    }
+</ul>

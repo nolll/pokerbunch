@@ -6,6 +6,7 @@ using Core.Repositories;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
@@ -172,6 +173,28 @@ namespace Web.Controllers{
 			var suite = _cashgameRepository.GetSuite(homegame, year);
 			var model = new CashgameSuiteChartModel(suite);
             return Json(model, JsonRequestBehavior.AllowGet);
+		}
+
+        public ActionResult Action(string gameName, string dateStr, string playerName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+			var player = _playerRepository.GetByName(homegame, playerName);
+			_userContext.RequirePlayer(homegame);
+			var role = _userContext.GetRole(homegame);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var result = cashgame.GetResult(player);
+			var model = new ActionModel(_userContext.GetUser(), homegame, cashgame, player, result, role, years, runningGame);
+			return View("Action/Action", model);
+		}
+
+		public JsonResult ActionChartJson(string gameName, string dateStr, string playerName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+			var player = _playerRepository.GetByName(homegame, playerName);
+			var result = cashgame.GetResult(player);
+			var model = new ActionChartData(homegame, cashgame, result);
+			return Json(model);
 		}
         
 		private RunningCashgamePageModel GetRunningPageModel(Homegame homegame, Cashgame cashgame, Player player){

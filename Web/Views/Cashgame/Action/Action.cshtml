@@ -1,0 +1,21 @@
+@model Web.Models.CashgameModels.Action.ActionModel
+
+@{
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
+}
+
+<div class="block gutter">
+	<h1>@Model.Heading}</h1>
+</div>
+<div class="block gutter">
+	<div>
+		<div data-require="cashgame-action-chart" data-url="@Model.ChartDataUrl}">Loading chart...</div>
+	</div>
+</div>
+
+@section Aside2{
+    <div class="block gutter">
+        @Html.Partial("Action/CheckpointList", Model.Checkpoints)
+    </div>
+}
+

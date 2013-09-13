@@ -1,0 +1,10 @@
+@model Web.Models.CashgameModels.Action.CheckpointModel
+@if (Model.ShowLink)
+{
+    <a href="@Model.EditUrl" data-require="delete-confirmation" data-message="Delete checkpoint?">@Model.Timestamp</a>
+}
+else
+{
+    @Model.Timestamp
+}
+@Model.Description: @Model.Stack

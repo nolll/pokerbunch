@@ -43,13 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".htaccess" />
-    <None Include="app\ApplicationModule.php" />
-    <None Include="app\ApplicationRouteProvider.php" />
-    <None Include="app\AppParamParser.php" />
-    <None Include="app\Cashgame\Action\Action.tpl" />
-    <None Include="app\Cashgame\Action\ActionChartData.php" />
-    <None Include="app\Cashgame\Action\ActionController.php" />
-    <None Include="app\Cashgame\Action\ActionModel.php" />
     <None Include="app\Cashgame\Action\ActionPostModel.php" />
     <None Include="app\Cashgame\Action\Buyin.tpl" />
     <None Include="app\Cashgame\Action\BuyinController.php" />
@@ -59,9 +52,6 @@
     <None Include="app\Cashgame\Action\CashoutController.php" />
     <None Include="app\Cashgame\Action\CashoutModel.php" />
     <None Include="app\Cashgame\Action\CheckpointController.php" />
-    <None Include="app\Cashgame\Action\CheckpointItem.tpl" />
-    <None Include="app\Cashgame\Action\CheckpointList.tpl" />
-    <None Include="app\Cashgame\Action\CheckpointModel.php" />
     <None Include="app\Cashgame\Action\EndGame.tpl" />
     <None Include="app\Cashgame\Action\EndGameController.php" />
     <None Include="app\Cashgame\Action\EndGameModel.php" />
@@ -89,8 +79,6 @@
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />
     <None Include="app\Homegame\Join\Join.tpl" />
-    <None Include="app\MishiinModule.php" />
-    <None Include="app\Page.tpl" />
     <None Include="app\Player\Add\Add.tpl" />
     <None Include="app\Player\Add\Confirmation.tpl" />
     <None Include="app\Player\Add\PlayerAddConfirmationModel.php" />
@@ -111,10 +99,7 @@
     <None Include="app\Sharing\Twitter\SharingTwitterController.php" />
     <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
-    <None Include="app\Site\Financing.tpl" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
-    <None Include="app\Urls\CashgameActionChartJsonUrlModel.php" />
-    <None Include="app\Urls\CashgameCheckpointDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameStartUrlModel.php" />
@@ -156,7 +141,6 @@
     <None Include="app\User\SaltGenerator.php" />
     <None Include="app\User\UniqueEmailValidator.php" />
     <None Include="app\User\UniqueUserNameValidator.php" />
-    <None Include="app\Version.php" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
     <None Include="config\ConfigFactory.php" />
@@ -164,10 +148,6 @@
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
     <None Include="core\Analytics\GoogleAnalytics.tpl" />
-    <None Include="core\ClassNames.php" />
-    <None Include="core\FormFields\FormField.tpl" />
-    <None Include="core\HomegameControllerDefinition.php" />
-    <None Include="core\PageController.php" />
     <None Include="core\Validation\DateTimeValidator.php" />
     <None Include="core\Validation\EmailValidator.php" />
     <None Include="core\Validation\IntegerValidator.php" />

@@ -28,7 +28,7 @@ namespace Web.Routing{
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
-        //const cashgameActionChartJson = '/%1$s/cashgame/actionchartjson/%2$s/%3$s';
+        public const string CashgameActionChartJson = "/{0}/cashgame/actionchartjson/{1}/{3}";
         public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
         public const string CashgameReport = "/{0}/cashgame/report/{1}";
         public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";
@@ -36,7 +36,7 @@ namespace Web.Routing{
         //const cashgameRemoveResult = '/%1$s/cashgame/removeresult/%2$s';
         public const string CashgameUnpublish = "/{0}/cashgame/unpublish/{1}";
         public const string RunningCashgame = "/{0}/cashgame/running";
-        //const cashgameCheckpointDelete = '/%1$s/cashgame/deletecheckpoint/%2$s/%3$s/%4$s';
+        public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
 
         public const string ChangePassword = "/-/password/change";
         //const changePasswordConfirmation = '/-/password/changed';
