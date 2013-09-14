@@ -6,7 +6,7 @@ namespace Web.Models.CashgameModels.Buyin
     {
         [Range(1, int.MaxValue, ErrorMessage = "Amount needs to be positive")]
         public int BuyinAmount { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Stack can't be negative")]
+        [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
         public int StackAmount { get; set; }
     }
 }

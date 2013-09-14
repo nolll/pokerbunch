@@ -5,17 +5,22 @@ namespace Infrastructure.System{
 	public static class DateTimeFactory{
 
 		public static DateTime Now(TimeZoneInfo timezone = null){
-			return Create(null, timezone);
+			return Create(DateTime.Now, timezone);
 		}
 
 		public static DateTime Create(string str, TimeZoneInfo timezone = null)
 		{
-		    var date = DateTime.Parse(str);
+		    var dateTime = DateTime.Parse(str);
+		    return Create(dateTime, timezone);
+		}
+
+        private static DateTime Create(DateTime dateTime, TimeZoneInfo timezone = null)
+        {
             if(timezone != null){
 				//todo: adjust for timezone
 			}
-		    return date;
-		}
+		    return dateTime;
+        }
 
 		public static DateTime ToUtc(DateTime dateTime){
             //todo: adjust for timezone

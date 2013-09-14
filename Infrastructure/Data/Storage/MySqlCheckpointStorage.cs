@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 
@@ -19,7 +16,7 @@ namespace Infrastructure.Data.Storage {
 		public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
 			var timestampStr = Globalization.FormatIsoDateTime(DateTimeFactory.ToUtc(checkpoint.Timestamp));
 			var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}')";
-            sql = string.Format(sql, cashgame.Id, player.Id, checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
+            sql = string.Format(sql, cashgame.Id, player.Id, (int)checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 

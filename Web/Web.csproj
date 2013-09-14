@@ -154,6 +154,8 @@
   <ItemGroup>
     <Compile Include="ModelFactories\CashgameModelFactories\ActionPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\AddCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\IReportPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ReportPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameChartPageModelFactory.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
+    <Compile Include="Models\CashgameModels\Report\ReportPostModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegameConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingItemModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
@@ -472,11 +475,13 @@
     <Content Include="Controllers\EndGameController.php" />
     <Content Include="Controllers\ReportController.php" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
     <None Include="Views\Cashgame\Buyin\Buyin.cshtml" />
+    <None Include="Views\Cashgame\Report\Report.cshtml" />
     <None Include="Views\Forms\SelectField.cshtml" />
     <None Include="Views\Homegame\AddHomegame.cshtml" />
     <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />

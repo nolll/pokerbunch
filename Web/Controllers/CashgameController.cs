@@ -13,9 +13,7 @@ using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
-using Web.Models.CashgameModels.Facts;
-using Web.Models.CashgameModels.Leaderboard;
-using Web.Models.CashgameModels.Listing;
+using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
 
@@ -30,6 +28,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
+	    private readonly IReportPageModelFactory _reportPageModelFactory;
 	    private readonly IActionPageModelFactory _actionPageModelFactory;
 	    private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
@@ -48,6 +47,7 @@ namespace Web.Controllers{
             ICashgameFactory cashgameFactory,
             ITimeProvider timeProvider,
             IBuyinPageModelFactory buyinPageModelFactory,
+            IReportPageModelFactory reportPageModelFactory,
             IActionPageModelFactory actionPageModelFactory,
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
@@ -65,6 +65,7 @@ namespace Web.Controllers{
 	        _cashgameFactory = cashgameFactory;
 	        _timeProvider = timeProvider;
 	        _buyinPageModelFactory = buyinPageModelFactory;
+	        _reportPageModelFactory = reportPageModelFactory;
 	        _actionPageModelFactory = actionPageModelFactory;
 	        _addCashgamePageModelFactory = addCashgamePageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
@@ -249,7 +250,6 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			//var validator = _cashgameValidatorFactory.GetBuyinValidator(model);
 			if(ModelState.IsValid){
 				var checkpoint = GetBuyinCheckpoint(homegame, postedModel);
 				_cashgameRepository.AddCheckpoint(runningGame, player, checkpoint);
@@ -263,6 +263,24 @@ namespace Web.Controllers{
 			}
 			var runningUrl = new RunningCashgameUrlModel(homegame);
             return new RedirectResult(runningUrl.Url);
+		}
+
+        public ActionResult Report(string gameName, string name){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var cashgame = _cashgameRepository.GetRunning(homegame);
+			var player = _playerRepository.GetByName(homegame, name);
+			_userContext.RequirePlayer(homegame);
+			var user = _userContext.GetUser();
+			var model = _reportPageModelFactory.Create(user, homegame, player, cashgame);
+			return ShowReportForm(player, user, model);
+		}
+
+        private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){
+            if (!_userContext.IsAdmin() && player.UserName != user.UserName)
+            {
+                throw new AccessDeniedException();
+            }
+            return View("Report/Report", model);
 		}
 
 		private Checkpoint GetBuyinCheckpoint(Homegame homegame, BuyinPostModel model){

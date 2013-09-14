@@ -30,6 +30,7 @@ namespace Web.Tests.ModelFactories
 
             Assert.IsNotNull(result.HomegameNavModel);
         }
+
         private PagePropertiesFactory GetSut()
         {
             return new PagePropertiesFactory();
