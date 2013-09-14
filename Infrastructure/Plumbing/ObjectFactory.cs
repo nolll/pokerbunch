@@ -10,7 +10,7 @@ namespace Infrastructure.Plumbing
             where TK : class
             where T : class
         {
-            container.Register(Component.For<T, TK>().LifeStyle.Is(LifestyleType.Singleton));
+            RegisterComponent<T, TK>(container, LifestyleType.Singleton);
         }
 
         public static void RegisterComponent<T, TK>(IWindsorContainer container, LifestyleType lifestyleType)

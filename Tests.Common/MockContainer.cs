@@ -12,6 +12,7 @@ using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.ModelFactories.UserModelFactories;
 using Web.Validators;
 
 namespace Tests.Common
@@ -55,6 +56,7 @@ namespace Tests.Common
 
         protected Mock<IBuyinPageModelFactory> BuyinPageModelFactoryMock;
         protected Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
+        protected Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -96,6 +98,7 @@ namespace Tests.Common
 
             BuyinPageModelFactoryMock = new Mock<IBuyinPageModelFactory>();
             PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
+            UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
         }
 
     }

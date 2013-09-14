@@ -1,22 +1,24 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
-using Web.Models.UserModels;
+using Web.ModelFactories.UserModelFactories;
 
 namespace Web.Controllers{
 
 	public class UserController : Controller {
 	    private readonly IUserContext _userContext;
 	    private readonly IUserStorage _userStorage;
-	    private readonly IAvatarService _avatarService;
+	    private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
 
-	    public UserController(IUserContext userContext, IUserStorage userStorage, IAvatarService avatarService)
+	    public UserController(
+            IUserContext userContext,
+            IUserStorage userStorage,
+            IUserDetailsPageModelFactory userDetailsPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _userStorage = userStorage;
-	        _avatarService = avatarService;
+	        _userDetailsPageModelFactory = userDetailsPageModelFactory;
 	    }
 
 		public ActionResult Details(string name){
@@ -25,7 +27,7 @@ namespace Web.Controllers{
 			if(name == null){
 				throw new UserNotFoundException();
 			}
-			var model = new UserDetailsPageModel(_userContext.GetUser(), user, _avatarService);
+			var model = _userDetailsPageModelFactory.Create(_userContext.GetUser(), user);
 			return View("Details", model);
 		}
 

@@ -15,6 +15,8 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
+using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Validators;
 
@@ -57,6 +59,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
+            ObjectFactory.RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>(container);
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
