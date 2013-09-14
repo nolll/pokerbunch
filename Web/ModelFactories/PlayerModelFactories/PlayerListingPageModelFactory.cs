@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Listing;
 using Web.Models.UrlModels;
 

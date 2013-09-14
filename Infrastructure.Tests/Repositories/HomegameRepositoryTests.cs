@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;

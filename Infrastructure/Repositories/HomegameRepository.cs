@@ -4,7 +4,6 @@ using System.Linq;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Caching;
-using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;

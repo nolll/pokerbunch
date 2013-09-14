@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Add;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
 {

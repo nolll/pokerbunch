@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Core.Classes;
-using System.Linq;
 
 namespace Infrastructure.System{
 

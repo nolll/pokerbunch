@@ -272,7 +272,6 @@
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />
     <None Include="tests\SharbatUnitTestCase.php" />
-    <None Include="tests\StorageTests\MySqlCashgameStorageTests.php" />
     <None Include="tests\TestBinder.php" />
     <None Include="tests\TestHelper.php" />
     <None Include="tests\TestRunner.php" />
@@ -287,7 +286,6 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\Homegame\Add\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
