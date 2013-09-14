@@ -9,6 +9,7 @@ using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
@@ -64,6 +65,14 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameLeaderboardPageModelFactory, CashgameLeaderboardPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameListingPageModelFactory, CashgameListingPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);

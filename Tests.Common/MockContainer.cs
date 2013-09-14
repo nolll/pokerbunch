@@ -9,6 +9,7 @@ using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Web.ModelFactories.AuthModelFactories;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -55,6 +56,14 @@ namespace Tests.Common
         protected Mock<ISettings> SettingsMock;
 
         protected Mock<IBuyinPageModelFactory> BuyinPageModelFactoryMock;
+        protected Mock<IActionPageModelFactory> ActionPageModelFactoryMock;
+        protected Mock<IAddCashgamePageModelFactory> AddCashgamePageModelFactoryMock;
+        protected Mock<ICashgameChartPageModelFactory> CashgameChartPageModelFactoryMock;
+        protected Mock<ICashgameDetailsPageModelFactory> CashgameDetailsPageModelFactoryMock;
+        protected Mock<ICashgameFactsPageModelFactory> CashgameFactsPageModelFactoryMock;
+        protected Mock<ICashgameLeaderboardPageModelFactory> CashgameLeaderboardPageModelFactoryMock;
+        protected Mock<ICashgameListingPageModelFactory> CashgameListingPageModelFactoryMock;
+        protected Mock<IRunningCashgamePageModelFactory> RunningCashgamePageModelFactoryMock;
         protected Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
         protected Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
 
@@ -97,6 +106,14 @@ namespace Tests.Common
             SettingsMock = new Mock<ISettings>();
 
             BuyinPageModelFactoryMock = new Mock<IBuyinPageModelFactory>();
+            ActionPageModelFactoryMock = new Mock<IActionPageModelFactory>();
+            AddCashgamePageModelFactoryMock = new Mock<IAddCashgamePageModelFactory>();
+            CashgameChartPageModelFactoryMock = new Mock<ICashgameChartPageModelFactory>();
+            CashgameDetailsPageModelFactoryMock = new Mock<ICashgameDetailsPageModelFactory>();
+            CashgameFactsPageModelFactoryMock = new Mock<ICashgameFactsPageModelFactory>();
+            CashgameLeaderboardPageModelFactoryMock = new Mock<ICashgameLeaderboardPageModelFactory>();
+            CashgameListingPageModelFactoryMock = new Mock<ICashgameListingPageModelFactory>();
+            RunningCashgamePageModelFactoryMock = new Mock<IRunningCashgamePageModelFactory>();
             PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
             UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
         }

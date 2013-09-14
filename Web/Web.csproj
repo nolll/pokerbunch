@@ -152,8 +152,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\CashgameModelFactories\ActionPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\AddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameChartPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameFactsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameLeaderboardPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameListingPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\IActionPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\IAddCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameChartPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameFactsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameLeaderboardPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameListingPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\IRunningCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageModelFactory.cs" />
@@ -446,7 +462,7 @@
     <Compile Include="Validators\HomegameValidatorFactory.cs" />
     <Compile Include="Validators\UniqueSlugValidator.cs" />
     <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
-    <Compile Include="Models\CashgameModels\Action\ActionModel.cs" />
+    <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
     <Compile Include="Models\UrlModels\CashgameCheckpointDeleteUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />

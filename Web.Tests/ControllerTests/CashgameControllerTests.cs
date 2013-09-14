@@ -55,33 +55,25 @@ namespace Web.Tests.ControllerTests{
 			Assert.AreEqual("Leaderboard/LeaderboardPage", viewResult.ViewName);
 		}
 
-		[Test]
-		public void ActionLeaderboard_SetsTableModel(){
-			HomegameRepositoryMock.Setup(o => o.GetByName("homegame1")).Returns(new Homegame());
-			CashgameRepositoryMock.Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
-
-            var sut = GetSut();
-			var result = sut.Leaderboard("homegame1") as ViewResult;
-
-            Assert.IsNotNull(result);
-		    var model = result.Model as CashgameLeaderboardPageModel;
-            Assert.IsNotNull(model);
-			Assert.IsNotNull(model.TableModel);
-		}
-
         private CashgameController GetSut()
         {
             return new CashgameController(
-                HomegameRepositoryMock.Object, 
+                HomegameRepositoryMock.Object,
                 UserContextMock.Object, 
                 CashgameRepositoryMock.Object, 
                 PlayerRepositoryMock.Object, 
-                MatrixPageModelFactoryMock.Object, 
-                WebContextMock.Object,
-                CashgameValidatorFactoryMock.Object,
+                MatrixPageModelFactoryMock.Object,
                 CashgameFactoryMock.Object,
                 TimeProviderMock.Object,
-                BuyinPageModelFactoryMock.Object);
+                BuyinPageModelFactoryMock.Object,
+                ActionPageModelFactoryMock.Object,
+                AddCashgamePageModelFactoryMock.Object,
+                CashgameChartPageModelFactoryMock.Object,
+                CashgameDetailsPageModelFactoryMock.Object,
+                CashgameFactsPageModelFactoryMock.Object,
+                CashgameLeaderboardPageModelFactoryMock.Object,
+                CashgameListingPageModelFactoryMock.Object,
+                RunningCashgamePageModelFactoryMock.Object);
         }
 
 	}

@@ -47,7 +47,7 @@ namespace Infrastructure.Config{
 
         public string GetSiteUrl()
         {
-            return ConfigurationManager.AppSettings.Get("siteUrl");
+            return ConfigurationManager.AppSettings.Get("SiteUrl");
         }
 
 	}

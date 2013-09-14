@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
 
@@ -30,18 +31,18 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.IsStarted = true;
 			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
 
-			var sut = GetSut();
+			var result = GetResult();
 
-			Assert.AreEqual("01:00", sut.StartTime);
+			Assert.AreEqual("01:00", result.StartTime);
 		}
 
 		[Test]
         public void StartTime_NoStartTime_IsNull(){
 			SetupPlayerIsInGame();
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.IsNull(sut.StartTime);
+            Assert.IsNull(result.StartTime);
 		}
 
 		[Test]
@@ -50,18 +51,19 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.IsStarted = true;
 			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.IsTrue(sut.ShowStartTime);
+            Assert.IsTrue(result.ShowStartTime);
 		}
 
 		[Test]
         public void ShowStartTime_NoStartTime_IsFalse(){
 			SetupPlayerIsInGame();
 			_cashgame.StartTime = null;
-			
-            var sut = GetSut();
-			Assert.IsFalse(sut.ShowStartTime);
+
+            var result = GetResult();
+
+            Assert.IsFalse(result.ShowStartTime);
 		}
 
 		[Test]
@@ -69,80 +71,81 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			SetupPlayerIsInGame();
 		    _cashgame.Location = "a";
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.AreEqual("a", sut.Location);
+            Assert.AreEqual("a", result.Location);
 		}
 
 		[Test]
         public void BuyinUrl_IsSet(){
 			SetupPlayerIsInGame();
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameBuyinUrlModel>(sut.BuyinUrl);
+            Assert.IsInstanceOf<CashgameBuyinUrlModel>(result.BuyinUrl);
 		}
 
 		[Test]
         public void ReportUrl_IsSet(){
 			SetupPlayerIsInGame();
-			
-            var sut = GetSut();
 
-			Assert.IsInstanceOf<CashgameReportUrlModel>(sut.ReportUrl);
+            var result = GetResult();
+
+            Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
 		}
 
 		[Test]
         public void CashoutUrl_IsSet(){
 			SetupPlayerIsInGame();
-			var sut = GetSut();
 
-			Assert.IsInstanceOf<CashgameCashoutUrlModel>(sut.CashoutUrl);
+            var result = GetResult();
+
+            Assert.IsInstanceOf<CashgameCashoutUrlModel>(result.CashoutUrl);
 		}
 
 		[Test]
         public void BuyinButtonEnabled_IsTrue(){
 			SetupPlayerIsInGame();
-			
-            var sut = GetSut();
 
-			Assert.IsTrue(sut.BuyinButtonEnabled);
+            var result = GetResult();
+
+            Assert.IsTrue(result.BuyinButtonEnabled);
 		}
 
 		[Test]
         public void ReportButtonEnabled_WithPlayerNotInGame_IsFalse(){
 			SetupPlayerIsNotInGame();
-			
-            var sut = GetSut();
-			
-            Assert.IsFalse(sut.ReportButtonEnabled);
+
+            var result = GetResult();
+
+            Assert.IsFalse(result.ReportButtonEnabled);
 		}
 
 		[Test]
         public void ReportButtonEnabled_WithPlayerInGame_IsTrue(){
 			SetupPlayerIsInGame();
-			
-            var sut = GetSut();
-			
-            Assert.IsTrue(sut.ReportButtonEnabled);
+
+            var result = GetResult();
+
+            Assert.IsTrue(result.ReportButtonEnabled);
 		}
 
 		[Test]
         public void CashoutButtonEnabled_WithPlayerNotInGame_IsFalse(){
 			SetupPlayerIsNotInGame();
-			
-            var sut = GetSut();
-			
-            Assert.IsFalse(sut.CashoutButtonEnabled);
+
+            var result = GetResult();
+
+            Assert.IsFalse(result.CashoutButtonEnabled);
 		}
 
 		[Test]
         public void CashoutButtonEnabled_WithPlayerInGame_IsTrue(){
 			SetupPlayerIsInGame();
-			
-            var sut = GetSut();
-			
-            Assert.IsTrue(sut.CashoutButtonEnabled);
+
+            var result = GetResult();
+
+            Assert.IsTrue(result.CashoutButtonEnabled);
 		}
 
         //todo: Fix old tests
@@ -172,9 +175,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.IsStarted = true;
             _cashgame.StartTime = new DateTime();
 
-			var sut = GetSut();
+            var result = GetResult();
 
-            Assert.IsInstanceOf<RunningCashgameTableModel>(sut.RunningCashgameTableModel);
+            Assert.IsInstanceOf<RunningCashgameTableModel>(result.RunningCashgameTableModel);
 		}
 
 		[Test]
@@ -183,9 +186,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.IsStarted = true;
             _cashgame.StartTime = new DateTime();
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.IsTrue(sut.ShowTable);
+            Assert.IsTrue(result.ShowTable);
 		}
 
 		[Test]
@@ -193,9 +196,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			SetupPlayerIsInGame();
 			_cashgame.StartTime = new DateTime();
 
-			var sut = GetSut();
+            var result = GetResult();
 
-			Assert.IsFalse(sut.ShowTable);
+			Assert.IsFalse(result.ShowTable);
 		}
 
         //todo: fix old test
@@ -226,8 +229,13 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_player = new Player();
 		}
 
-		private RunningCashgamePageModel GetSut(){
-			return new RunningCashgamePageModel(new User(), _homegame, _cashgame, _player, null, _isManager, TimeProviderMock.Object);
+        private RunningCashgamePageModel GetResult()
+        {
+            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, TimeProviderMock.Object);
+        }
+
+		private RunningCashgamePageModelFactory GetSut(){
+			return new RunningCashgamePageModelFactory();
 		}
 
 	}
