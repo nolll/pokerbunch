@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactories\HomePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactories\PagePropertiesFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\RouteTests.cs" />
   </ItemGroup>

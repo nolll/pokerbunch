@@ -454,7 +454,7 @@
     <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Models\UserModels\UserDetailsModel.cs" />
+    <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
     <Compile Include="Models\UrlModels\UserEditUrlModel.cs" />
     <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs" />
     <None Include="Views\Cashgame\Add\Add.cshtml" />

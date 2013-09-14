@@ -25,7 +25,7 @@ namespace Web.Controllers{
 			if(name == null){
 				throw new UserNotFoundException();
 			}
-			var model = new UserDetailsModel(_userContext.GetUser(), user, _avatarService);
+			var model = new UserDetailsPageModel(_userContext.GetUser(), user, _avatarService);
 			return View("Details", model);
 		}
 

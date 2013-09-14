@@ -38,45 +38,13 @@ namespace Web.Tests.ModelFactories
             Assert.IsTrue(result.IsLoggedIn);
         }
 
-        [Test]
-        public void HomegameNavModel_WithoutHomeGame_IsNull()
-        {
-            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
-                               .Returns(new List<Homegame>());
-
-            var sut = GetSut();
-            var result = sut.Create();
-
-            Assert.IsNull(result.PageProperties.HomegameNavModel);
-        }
-
-        [Test]
-        public void HomegameNavModel_WithTwoHomeGames_IsNull()
-        {
-            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
-                               .Returns(new List<Homegame>{new Homegame(), new Homegame()});
-
-            var sut = GetSut();
-            var result = sut.Create();
-
-            Assert.IsNull(result.PageProperties.HomegameNavModel);
-        }
-
-        [Test]
-        public void HomegameNavModel_WithOneHomeGame_IsNotNull()
-        {
-            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
-                               .Returns(new List<Homegame> { new Homegame() });
-
-            var sut = GetSut();
-            var result = sut.Create();
-
-            Assert.IsNotNull(result.PageProperties.HomegameNavModel);
-        }
-
         private HomePageModelFactory GetSut()
         {
-            return new HomePageModelFactory(UserContextMock.Object, HomegameRepositoryMock.Object, CashgameRepositoryMock.Object);
+            return new HomePageModelFactory(
+                UserContextMock.Object, 
+                HomegameRepositoryMock.Object, 
+                CashgameRepositoryMock.Object, 
+                PagePropertiesFactoryMock.Object);
         }
     }
 }

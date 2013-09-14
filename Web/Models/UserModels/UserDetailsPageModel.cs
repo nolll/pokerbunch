@@ -7,7 +7,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.UserModels{
 
-	public class UserDetailsModel : IPageModel {
+	public class UserDetailsPageModel : IPageModel {
 
 	    public string BrowserTitle { get; set; }
 	    public PageProperties PageProperties { get; set; }
@@ -21,7 +21,7 @@ namespace Web.Models.UserModels{
 		public bool ShowPasswordLink { get; set; }
 		public AvatarModel AvatarModel { get; set; }
 
-		public UserDetailsModel(User currentUser, User displayUser, IAvatarService avatarService)
+		public UserDetailsPageModel(User currentUser, User displayUser, IAvatarService avatarService)
 		{
             BrowserTitle = "User Details";
             PageProperties = new PageProperties(currentUser);
