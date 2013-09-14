@@ -79,7 +79,6 @@
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableCellModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModelTests.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixPageModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableRowModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableModelTests.cs" />
   </ItemGroup>

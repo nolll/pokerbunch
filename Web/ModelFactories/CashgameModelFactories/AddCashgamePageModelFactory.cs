@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Add;
 using Web.Models.PageBaseModels;
 
@@ -9,12 +10,19 @@ namespace Web.ModelFactories.CashgameModelFactories
 {
     public class AddCashgamePageModelFactory : IAddCashgamePageModelFactory
     {
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+
+        public AddCashgamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        {
+            _pagePropertiesFactory = pagePropertiesFactory;
+        }
+
         public AddCashgamePageModel Create(User user, Homegame homegame, IEnumerable<string> locations)
         {
             return new AddCashgamePageModel
                 {
                     BrowserTitle = "New Cashgame",
-                    PageProperties = new PageProperties(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
                     Locations = locations.Select(l => new SelectListItem{Text = l, Value = l})
                 };
         }

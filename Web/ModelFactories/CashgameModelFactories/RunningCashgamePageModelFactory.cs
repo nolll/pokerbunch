@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.System;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
 using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
@@ -9,12 +10,19 @@ namespace Web.ModelFactories.CashgameModelFactories
 {
     public class RunningCashgamePageModelFactory : IRunningCashgamePageModelFactory
     {
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+
+        public RunningCashgamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        {
+            _pagePropertiesFactory = pagePropertiesFactory;
+        }
+
         public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, ITimeProvider timer, Cashgame runningGame = null)
         {
             var model = new RunningCashgamePageModel();
 
             model.BrowserTitle = "Running Cashgame";
-            model.PageProperties = new PageProperties(user, homegame, runningGame);
+            model.PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame);
             model.Location = cashgame.Location;
 
             if (cashgame.IsStarted)

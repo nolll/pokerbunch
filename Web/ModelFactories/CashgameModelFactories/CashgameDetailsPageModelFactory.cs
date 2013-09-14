@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.System;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
 using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
@@ -9,6 +10,13 @@ namespace Web.ModelFactories.CashgameModelFactories
 {
     public class CashgameDetailsPageModelFactory : ICashgameDetailsPageModelFactory
     {
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+
+        public CashgameDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        {
+            _pagePropertiesFactory = pagePropertiesFactory;
+        }
+
         public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, Cashgame runningGame = null)
         {
             var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
@@ -19,7 +27,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             var model = new CashgameDetailsPageModel
                 {
                     BrowserTitle = "Cashgame",
-                    PageProperties = new PageProperties(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Heading = string.Format("Cashgame {0}", dateStr),
 			        Location = cashgame.Location,
                     Duration = Globalization.FormatDuration(cashgame.Duration),

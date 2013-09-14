@@ -235,7 +235,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
         }
 
 		private RunningCashgamePageModelFactory GetSut(){
-			return new RunningCashgamePageModelFactory();
+			return new RunningCashgamePageModelFactory(PagePropertiesFactoryMock.Object);
 		}
 
 	}
