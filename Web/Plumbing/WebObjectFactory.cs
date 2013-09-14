@@ -8,7 +8,6 @@ using Infrastructure.Integration.Gravatar;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.System;
-using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
@@ -16,6 +15,7 @@ using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Validators;
@@ -61,6 +61,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
             ObjectFactory.RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IPlayerListingPageModelFactory, PlayerListingPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>(container);
 
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);

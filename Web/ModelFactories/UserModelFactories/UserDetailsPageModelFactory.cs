@@ -1,6 +1,6 @@
 ﻿using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
-using Web.Models.PageBaseModels;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
 using Web.Models.UserModels;
 
@@ -9,10 +9,12 @@ namespace Web.ModelFactories.UserModelFactories
     public class UserDetailsPageModelFactory : IUserDetailsPageModelFactory
     {
         private readonly IAvatarModelFactory _avatarModelFactory;
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
 
-        public UserDetailsPageModelFactory(IAvatarModelFactory avatarModelFactory)
+        public UserDetailsPageModelFactory(IAvatarModelFactory avatarModelFactory, IPagePropertiesFactory pagePropertiesFactory)
         {
             _avatarModelFactory = avatarModelFactory;
+            _pagePropertiesFactory = pagePropertiesFactory;
         }
 
         public UserDetailsPageModel Create(User currentUser, User displayUser)
@@ -20,7 +22,7 @@ namespace Web.ModelFactories.UserModelFactories
             var model = new UserDetailsPageModel
                 {
                     BrowserTitle = "User Details",
-                    PageProperties = new PageProperties(currentUser),
+                    PageProperties = _pagePropertiesFactory.Create(currentUser),
                     UserName = displayUser.UserName,
                     DisplayName = displayUser.DisplayName,
                     RealName = displayUser.RealName,

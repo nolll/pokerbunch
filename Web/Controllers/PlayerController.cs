@@ -3,8 +3,7 @@ using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories.MiscModelFactories;
-using Web.Models.PlayerModels.Details;
-using Web.Models.PlayerModels.Listing;
+using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{
@@ -17,6 +16,8 @@ namespace Web.Controllers{
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IUserStorage _userStorage;
 	    private readonly IAvatarModelFactory _avatarModelFactory;
+	    private readonly IPlayerListingPageModelFactory _playerListingPageModelFactory;
+	    private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -24,7 +25,9 @@ namespace Web.Controllers{
 			IPlayerRepository playerRepository,
 			ICashgameRepository cashgameRepository,
             IUserStorage userStorage,
-            IAvatarModelFactory avatarModelFactory)
+            IAvatarModelFactory avatarModelFactory,
+            IPlayerListingPageModelFactory playerListingPageModelFactory,
+            IPlayerDetailsPageModelFactory playerDetailsPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -32,6 +35,8 @@ namespace Web.Controllers{
 	        _cashgameRepository = cashgameRepository;
 	        _userStorage = userStorage;
 	        _avatarModelFactory = avatarModelFactory;
+	        _playerListingPageModelFactory = playerListingPageModelFactory;
+	        _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -40,28 +45,28 @@ namespace Web.Controllers{
 			var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
 			var players = _playerRepository.GetAll(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			var model = new PlayerListingPageModel(_userContext.GetUser(), homegame, players, isInManagerMode, runningGame);
+			var model = _playerListingPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode, runningGame);
 			return View("Listing", model);
 		}
 
-        public ActionResult Details(string gameName, string playerName){
+        public ActionResult Details(string gameName, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var currentUser = _userContext.GetUser();
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			var user = _userStorage.GetUserByName(player.UserName);
 			var cashgames = _cashgameRepository.GetPublished(homegame);
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var hasPlayed = _cashgameRepository.HasPlayed(player);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			var model = new PlayerDetailsPageModel(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, _avatarModelFactory, runningGame);
+			var model = _playerDetailsPageModelFactory.Create(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, _avatarModelFactory, runningGame);
 			return View("Details", model);
 		}
 
-		public ActionResult Delete(string gameName, string playerName){
+		public ActionResult Delete(string gameName, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			var hasPlayed = _cashgameRepository.HasPlayed(player);
 			if(hasPlayed){
 				return Redirect(new PlayerDetailsUrlModel(homegame, player).ToString());

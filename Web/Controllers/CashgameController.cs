@@ -195,10 +195,10 @@ namespace Web.Controllers{
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Action(string gameName, string dateStr, string playerName){
+        public ActionResult Action(string gameName, string dateStr, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var role = _userContext.GetRole(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
@@ -208,18 +208,18 @@ namespace Web.Controllers{
 			return View("Action/Action", model);
 		}
 
-		public JsonResult ActionChartJson(string gameName, string dateStr, string playerName){
+		public JsonResult ActionChartJson(string gameName, string dateStr, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			var result = cashgame.GetResult(player);
 			var model = new ActionChartData(homegame, cashgame, result);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Buyin(string gameName, string playerName){
+        public ActionResult Buyin(string gameName, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
             var user = _userContext.GetUser();
 			var runningGame = _cashgameRepository.GetRunning(homegame);
@@ -228,9 +228,9 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Buyin(string gameName, string playerName, BuyinPostModel postedModel){
+        public ActionResult Buyin(string gameName, string name, BuyinPostModel postedModel){
 			var homegame = _homegameRepository.GetByName(gameName);
-			var player = _playerRepository.GetByName(homegame, playerName);
+			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			//var validator = _cashgameValidatorFactory.GetBuyinValidator(model);
