@@ -4,7 +4,6 @@ using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
 {
@@ -17,7 +16,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year = null, Cashgame runningGame = null)
+        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years = null, int? year = null, Cashgame runningGame = null)
         {
             var model = new CashgameFactsPageModel
                 {
