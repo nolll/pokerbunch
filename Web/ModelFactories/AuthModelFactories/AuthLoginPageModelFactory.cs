@@ -1,4 +1,5 @@
 using Web.Models.AuthModels;
+using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.AuthModelFactories
@@ -9,6 +10,8 @@ namespace Web.ModelFactories.AuthModelFactories
         {
             return new AuthLoginPageModel
                 {
+                    BrowserTitle = "Login",
+                    PageProperties = new PageProperties(null),
                     ReturnUrl = returnUrl ?? new HomeUrlModel().Url,
                     AddUserUrl = new UserAddUrlModel(),
                     ForgotPasswordUrl = new ForgotPasswordUrlModel(),

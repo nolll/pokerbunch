@@ -11,8 +11,7 @@
 	
     @Html.Partial("~/Views/Forms/Errors.cshtml")
 
-    @using (Html.BeginForm("Add", "Homegame", FormMethod.Post))
-    {
+    <form method="post">
 		<fieldset>
             <p>
                 @Html.LabelFor(model => model.DisplayName, "Display Name")
@@ -38,5 +37,5 @@
 		<div class="buttons">
 			<button class="action" type="submit">Save</button>
 		</div>
-	}
+	</form>
 </div>

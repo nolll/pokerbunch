@@ -11,8 +11,7 @@
 
 @Html.Partial("~/Views/Forms/Errors.cshtml")
 
-@using (Html.BeginForm("Buyin", "Cashgame", FormMethod.Post))
-{
+<form method="post">
     <fieldset>
         <div>
             amount:
@@ -29,6 +28,6 @@
             <button type="submit" class="action">Buy In</button>
         </div>
     </fieldset>
-}
+</form>
     
 </div>

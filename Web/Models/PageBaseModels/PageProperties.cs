@@ -4,10 +4,10 @@ using Web.Models.NavigationModels;
 
 namespace Web.Models.PageBaseModels
 {
-    public class PageProperties {
+    public sealed class PageProperties {
 
 	    public UserNavigationModel UserNavModel { get; set; }
-        public HomegameNavigationModel HomegameNavModel { get; protected set; }
+        public HomegameNavigationModel HomegameNavModel { get; set; }
 	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
 
 	    public PageProperties(User user, Homegame homegame = null, Cashgame runningGame = null)

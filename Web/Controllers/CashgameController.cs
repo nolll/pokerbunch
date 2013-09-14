@@ -140,12 +140,15 @@ namespace Web.Controllers{
         public ActionResult Add(string gameName, AddCashgamePostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-            //todo: validation for the composite location select field
             if (ModelState.IsValid)
             {
-                var cashgame = GetCashgame(postModel);
-                _cashgameRepository.AddGame(homegame, cashgame);
-                return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
+                if (postModel.HasLocation)
+                {
+                    var cashgame = GetCashgame(postModel);
+                    _cashgameRepository.AddGame(homegame, cashgame);
+                    return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
+                }
+                ModelState.AddModelError("no_location", "Please enter a location");
             }
             var locations = _cashgameRepository.GetLocations(homegame);
             var model = new AddCashgamePageModel(_userContext.GetUser(), homegame, locations, postModel);
@@ -279,7 +282,8 @@ namespace Web.Controllers{
 			return View("Add/Add", model);
 		}
 
-		private Cashgame GetCashgame(AddCashgamePostModel addCashgamePostModel){
+		private Cashgame GetCashgame(AddCashgamePostModel addCashgamePostModel)
+		{
 			return _cashgameFactory.Create(addCashgamePostModel.Location, GameStatus.Running);
 		}
 

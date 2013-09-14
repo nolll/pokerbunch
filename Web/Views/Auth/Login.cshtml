@@ -18,8 +18,7 @@
 
 	@Html.Partial("~/Views/Forms/Errors.cshtml")
     
-    @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
-    {
+    <form method="post">
         @Html.HiddenFor(model => model.ReturnUrl)
         <fieldset>
             <p>
@@ -38,5 +37,5 @@
         <div class="buttons">
             <button type="submit" class="action">Sign in</button>
         </div>
-    }
+    </form>
 </div>

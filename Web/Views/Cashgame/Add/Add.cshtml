@@ -12,16 +12,20 @@
     
     @Html.Partial("~/Views/Forms/Errors.cshtml")
 
-    @using (Html.BeginForm("Add", "Cashgame", FormMethod.Post))
-    {
+    <form method="post">
         <fieldset>
             <p>
-                <label for="location">Enter Location</label>
-                @Html.Partial("~/Views/Forms/ListField.cshtml", Model.LocationSelectModel)
+                @Html.LabelFor(model => model.TypedLocation, "Enter Location")
+                @Html.TextBoxFor(model => model.TypedLocation, new { @class="textfield", list = "location-list"})
+
+                <datalist id="location-list">
+                    @Html.LabelFor(model => model.SelectedLocation, "or")
+                    @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations)
+                </datalist>
             </p>
         </fieldset>
         <div class="buttons">
             <button type="submit" class="action">Create</button>
         </div>
-    }
+    </form>
 </div>

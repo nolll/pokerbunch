@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Web.Mvc;
 using Core.Classes;
-using Web.Models.FormModels;
 using Web.Models.PageBaseModels;
+using System.Linq;
 
 namespace Web.Models.CashgameModels.Add{
 
@@ -9,21 +10,21 @@ namespace Web.Models.CashgameModels.Add{
 
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
-	    public string Location { get; set; }
-	    public LocationFieldModel LocationSelectModel { get; set; }
+        public IEnumerable<SelectListItem> Locations { get; set; }
 
         public AddCashgamePageModel(User user, Homegame homegame, IEnumerable<string> locations)
         {
             BrowserTitle = "New Cashgame";
             PageProperties = new PageProperties(user, homegame);
-            LocationSelectModel = new LocationFieldModel("location", "location", Location, locations, "choose one");
+            Locations = locations.Select(l => new SelectListItem{Text = l, Value = l});
         }
 
         public AddCashgamePageModel(User user, Homegame homegame, IEnumerable<string> locations, AddCashgamePostModel postModel)
             : this(user, homegame, locations)
     	{
-	        Location = postModel.Location;
-	    }
+	        TypedLocation = postModel.TypedLocation;
+            SelectedLocation = postModel.SelectedLocation;
+    	}
 
 	}
 

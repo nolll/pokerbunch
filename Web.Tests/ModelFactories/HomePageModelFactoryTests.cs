@@ -47,7 +47,7 @@ namespace Web.Tests.ModelFactories
             var sut = GetSut();
             var result = sut.Create();
 
-            Assert.IsNull(result.HomegameNavModel);
+            Assert.IsNull(result.PageProperties.HomegameNavModel);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Web.Tests.ModelFactories
             var sut = GetSut();
             var result = sut.Create();
 
-            Assert.IsNull(result.HomegameNavModel);
+            Assert.IsNull(result.PageProperties.HomegameNavModel);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Web.Tests.ModelFactories
             var sut = GetSut();
             var result = sut.Create();
 
-            Assert.IsNotNull(result.HomegameNavModel);
+            Assert.IsNotNull(result.PageProperties.HomegameNavModel);
         }
 
         private HomePageModelFactory GetSut()
