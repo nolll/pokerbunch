@@ -52,18 +52,23 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
 
-            // Model Factories
+            // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
             ObjectFactory.RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAddHomegameConfirmationPageModelFactory, AddHomegameConfirmationPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
             ObjectFactory.RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IPlayerListingPageModelFactory, PlayerListingPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>(container);
 
+            // Model Factories
+            ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
+            ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
+            
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameValidatorFactory, CashgameValidatorFactory>(container);

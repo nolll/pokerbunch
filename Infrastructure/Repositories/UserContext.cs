@@ -10,17 +10,18 @@ namespace Infrastructure.Repositories{
 
 	    private readonly IWebContext _webContext;
 	    private readonly IUserStorage _userStorage;
-	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameRepository _homegameRepository;
 
 	    private User _user;
 		private bool _fetchedUser;
 
-	    public UserContext(IWebContext webContext, IUserStorage userStorage, IHomegameStorage homegameStorage, IHomegameRepository homegameRepository)
+	    public UserContext(
+            IWebContext webContext, 
+            IUserStorage userStorage, 
+            IHomegameRepository homegameRepository)
 	    {
 	        _webContext = webContext;
 	        _userStorage = userStorage;
-	        _homegameStorage = homegameStorage;
 	        _homegameRepository = homegameRepository;
 	        _fetchedUser = false;
 	    }

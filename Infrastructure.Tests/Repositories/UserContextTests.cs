@@ -178,7 +178,10 @@ namespace CoreTests{
 
         public UserContext GetSut()
         {
-            return new UserContext(WebContextMock.Object, UserStorageMock.Object, HomegameStorageMock.Object, HomegameRepositoryMock.Object);
+            return new UserContext(
+                WebContextMock.Object, 
+                UserStorageMock.Object, 
+                HomegameRepositoryMock.Object);
         }
 
 	}

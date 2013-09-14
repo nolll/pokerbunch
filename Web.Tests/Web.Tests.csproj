@@ -84,7 +84,7 @@
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\HomegameModels\HomegameDetailsPageModelTests.cs" />
+    <Compile Include="ModelTests\HomegameModels\HomegameDetailsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\NavigationModels\AdminNavModelTests.cs" />

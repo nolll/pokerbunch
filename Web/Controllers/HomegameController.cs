@@ -6,7 +6,6 @@ using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelMappers;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;
-using Web.Models.HomegameModels.Listing;
 using app;
 
 namespace Web.Controllers{
@@ -18,7 +17,10 @@ namespace Web.Controllers{
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly IHomegameModelMapper _modelMapper;
 	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
+	    private readonly IAddHomegameConfirmationPageModelFactory _addHomegameConfirmationPageModelFactory;
 	    private readonly ISlugGenerator _slugGenerator;
+	    private readonly IHomegameListingPageModelFactory _homegameListingPageModelFactory;
+	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
 
 	    public HomegameController(
             IUserContext userContext,
@@ -26,20 +28,26 @@ namespace Web.Controllers{
             IPlayerRepository playerRepository,
             IHomegameModelMapper modelMapper,
             IAddHomegamePageModelFactory addHomegamePageModelFactory,
-            ISlugGenerator slugGenerator)
+            IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
+            ISlugGenerator slugGenerator,
+            IHomegameListingPageModelFactory homegameListingPageModelFactory,
+            IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
 	        _playerRepository = playerRepository;
 	        _modelMapper = modelMapper;
 	        _addHomegamePageModelFactory = addHomegamePageModelFactory;
+	        _addHomegameConfirmationPageModelFactory = addHomegameConfirmationPageModelFactory;
 	        _slugGenerator = slugGenerator;
+	        _homegameListingPageModelFactory = homegameListingPageModelFactory;
+	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
 	    }
 
 	    public ActionResult Listing(){
 			_userContext.RequireAdmin();
 			var homegames = _homegameRepository.GetAll();
-			var model = new HomegameListingPageModel(_userContext.GetUser(), homegames);
+			var model = _homegameListingPageModelFactory.Create(_userContext.GetUser(), homegames);
 			return View("HomegameListing", model);
 		}
 
@@ -47,7 +55,7 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
-			var model = new HomegameDetailsPageModel(_userContext.GetUser(), homegame, isInManagerMode);
+			var model = _homegameDetailsPageModelFactory.Create(_userContext.GetUser(), homegame, isInManagerMode);
 			return View("HomegameDetails", model);
 		}
 
@@ -87,7 +95,7 @@ namespace Web.Controllers{
         }
 
 		public ActionResult Created(){
-			var model = new HomegameAddConfirmationModel(_userContext.GetUser());
+			var model = _addHomegameConfirmationPageModelFactory.Create(_userContext.GetUser());
 			return View("AddHomegameConfirmation", model);
 		}
 

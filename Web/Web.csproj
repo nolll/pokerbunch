@@ -154,7 +154,13 @@
   <ItemGroup>
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\HomegameListingPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerDetailsPageModelFactory.cs" />
@@ -183,7 +189,7 @@
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\HomegameAddConfirmationModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\AddHomegameConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingItemModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
