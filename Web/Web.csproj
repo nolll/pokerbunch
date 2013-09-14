@@ -155,6 +155,8 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
+    <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />

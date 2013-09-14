@@ -11,6 +11,7 @@ using NUnit.Framework;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Validators;
 
 namespace Tests.Common
@@ -53,6 +54,7 @@ namespace Tests.Common
         protected Mock<ISettings> SettingsMock;
 
         protected Mock<IBuyinPageModelFactory> BuyinPageModelFactoryMock;
+        protected Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -93,6 +95,7 @@ namespace Tests.Common
             SettingsMock = new Mock<ISettings>();
 
             BuyinPageModelFactoryMock = new Mock<IBuyinPageModelFactory>();
+            PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
         }
 
     }

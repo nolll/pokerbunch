@@ -1,10 +1,11 @@
 using NUnit.Framework;
+using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.AuthModels{
 
-	public class AuthLoginPageModelTests
+	public class AuthLoginPageModelTests : MockContainer
 	{
 		[Test]
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
@@ -50,7 +51,7 @@ namespace Web.Tests.ModelTests.AuthModels{
 
         private AuthLoginPageModelFactory GetSut()
         {
-            return new AuthLoginPageModelFactory();
+            return new AuthLoginPageModelFactory(PagePropertiesFactoryMock.Object);
         }
 
 	}

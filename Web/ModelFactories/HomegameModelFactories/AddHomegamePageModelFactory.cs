@@ -3,19 +3,26 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
 using Infrastructure.System;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegamePageModelFactory : IAddHomegamePageModelFactory
     {
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+
+        public AddHomegamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        {
+            _pagePropertiesFactory = pagePropertiesFactory;
+        }
+
         public AddHomegamePageModel Create(User user)
         {
             return new AddHomegamePageModel
                 {
                     BrowserTitle = "Create Homegame",
-                    PageProperties = new PageProperties(user),
+                    PageProperties = _pagePropertiesFactory.Create(user),
                     TimezoneSelectModel = GetTimezoneSelectModel(),
                     CurrencyLayoutSelectModel = GetCurrencyLayoutSelectModel()
                 };

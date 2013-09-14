@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
 using NUnit.Framework;
+using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 
 namespace Web.Tests.ModelFactories{
 
-	public class AddHomegamePageModelFactoryTests
+	public class AddHomegamePageModelFactoryTests : MockContainer
 	{
-
 	    private User _user;
 		private AddHomegamePostModel _postModel;
 
@@ -69,7 +69,7 @@ namespace Web.Tests.ModelFactories{
 		}
 
 		private AddHomegamePageModelFactory GetSut(){
-			return new AddHomegamePageModelFactory();
+			return new AddHomegamePageModelFactory(PagePropertiesFactoryMock.Object);
 		}
 
 	}

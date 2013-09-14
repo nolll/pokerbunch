@@ -1,17 +1,24 @@
 using Core.Classes;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Buyin;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Buyin
 {
     public class BuyinPageModelFactory : IBuyinPageModelFactory
     {
+        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+
+        public BuyinPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        {
+            _pagePropertiesFactory = pagePropertiesFactory;
+        }
+
         public BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame)
         {
             return new BuyinPageModel
                 {
                     BrowserTitle = "Buy In",
-                    PageProperties = new PageProperties(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     StackFieldEnabled = runningGame.IsInGame(player)
                 };
         }
