@@ -14,6 +14,7 @@ using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
+using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
@@ -31,6 +32,7 @@ namespace Web.Controllers{
 	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
 	    private readonly IReportPageModelFactory _reportPageModelFactory;
 	    private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
+	    private readonly IEndPageModelFactory _endPageModelFactory;
 	    private readonly IActionPageModelFactory _actionPageModelFactory;
 	    private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
@@ -51,6 +53,7 @@ namespace Web.Controllers{
             IBuyinPageModelFactory buyinPageModelFactory,
             IReportPageModelFactory reportPageModelFactory,
             ICashoutPageModelFactory cashoutPageModelFactory,
+            IEndPageModelFactory endPageModelFactory,
             IActionPageModelFactory actionPageModelFactory,
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
@@ -70,6 +73,7 @@ namespace Web.Controllers{
 	        _buyinPageModelFactory = buyinPageModelFactory;
 	        _reportPageModelFactory = reportPageModelFactory;
 	        _cashoutPageModelFactory = cashoutPageModelFactory;
+	        _endPageModelFactory = endPageModelFactory;
 	        _actionPageModelFactory = actionPageModelFactory;
 	        _addCashgamePageModelFactory = addCashgamePageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
@@ -343,6 +347,25 @@ namespace Web.Controllers{
 			}
             var model = _cashoutPageModelFactory.Create(user, homegame, runningGame, postModel);
             return View("Cashout/Cashout", model);
+		}
+
+        public ActionResult End(string gameName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequirePlayer(homegame);
+			var user = _userContext.GetUser();
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+			var model = _endPageModelFactory.Create(user, homegame, runningGame);
+			return View("End/End", model);
+		}
+
+        [HttpPost]
+		public ActionResult End(string gameName, EndPageModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var cashgame = _cashgameRepository.GetRunning(homegame);
+			_userContext.RequirePlayer(homegame);
+			_cashgameRepository.EndGame(cashgame);
+			var indexUrl = new CashgameIndexUrlModel(homegame);
+			return new RedirectResult(indexUrl.Url);
 		}
 
 		private Checkpoint getCashoutCheckpoint(Homegame homegame, CashoutPostModel postModel){

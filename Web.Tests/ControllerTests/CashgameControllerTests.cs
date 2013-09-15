@@ -68,6 +68,7 @@ namespace Web.Tests.ControllerTests{
                 BuyinPageModelFactoryMock.Object,
                 ReportPageModelFactoryMock.Object,
                 CashoutPageModelFactoryMock.Object,
+                EndPageModelFactoryMock.Object,
                 ActionPageModelFactoryMock.Object,
                 AddCashgamePageModelFactoryMock.Object,
                 CashgameChartPageModelFactoryMock.Object,

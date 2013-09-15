@@ -2,7 +2,6 @@ using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Report;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
 {
