@@ -292,6 +292,16 @@ namespace Web.Controllers{
             return ShowReportForm(player, user, model);
 		}
 
+        public ActionResult DeleteCheckpoint(string gameName, string dateStr, string name, int id){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+			var player = _playerRepository.GetByName(homegame, name);
+			_cashgameRepository.DeleteCheckpoint(id);
+            var actionsUrl = new CashgameActionUrlModel(homegame, cashgame, player);
+            return new RedirectResult(actionsUrl.Url);
+		}
+
 		private Checkpoint GetReportCheckpoint(Homegame homegame, ReportPostModel postModel){
 			var timestamp = DateTimeFactory.Now(homegame.Timezone);
 			return new ReportCheckpoint(timestamp, postModel.StackAmount);

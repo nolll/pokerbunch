@@ -50,7 +50,15 @@ namespace Web
             routes.MapRoute(
                 "Bunch Routes with date and name",
                 "{gameName}/{controller}/{action}/{dateStr}/{name}",
-                new { }
+                new { },
+                new { dateStr = @"\d{4}-\d{2}-\d{2}" }
+            );
+
+            routes.MapRoute(
+                "Bunch Routes with date, name and id",
+                "{gameName}/{controller}/{action}/{dateStr}/{name}/{id}",
+                new { },
+                new { dateStr = @"\d{4}-\d{2}-\d{2}", id = @"^[0-9]+$" }
             );
 
             routes.MapRoute(

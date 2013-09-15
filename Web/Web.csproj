@@ -471,9 +471,7 @@
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
     <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs" />
     <Content Include="Controllers\CashoutController.php" />
-    <Content Include="Controllers\CheckpointController.php" />
     <Content Include="Controllers\EndGameController.php" />
-    <Content Include="Controllers\ReportController.php" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
