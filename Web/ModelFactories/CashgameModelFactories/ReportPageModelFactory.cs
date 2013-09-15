@@ -21,7 +21,6 @@ namespace Web.ModelFactories.CashgameModelFactories
                 {
                     BrowserTitle = "Report Stack",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-			        ReportUrl = new CashgameReportUrlModel(homegame, player)
                 };
         }
 

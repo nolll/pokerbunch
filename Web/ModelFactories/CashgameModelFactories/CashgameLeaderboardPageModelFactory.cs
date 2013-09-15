@@ -3,7 +3,6 @@ using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Leaderboard;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
 {

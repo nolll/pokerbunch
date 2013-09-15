@@ -11,6 +11,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
+using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Report;
@@ -29,6 +30,7 @@ namespace Web.Controllers{
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
 	    private readonly IReportPageModelFactory _reportPageModelFactory;
+	    private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
 	    private readonly IActionPageModelFactory _actionPageModelFactory;
 	    private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
@@ -48,6 +50,7 @@ namespace Web.Controllers{
             ITimeProvider timeProvider,
             IBuyinPageModelFactory buyinPageModelFactory,
             IReportPageModelFactory reportPageModelFactory,
+            ICashoutPageModelFactory cashoutPageModelFactory,
             IActionPageModelFactory actionPageModelFactory,
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
@@ -66,6 +69,7 @@ namespace Web.Controllers{
 	        _timeProvider = timeProvider;
 	        _buyinPageModelFactory = buyinPageModelFactory;
 	        _reportPageModelFactory = reportPageModelFactory;
+	        _cashoutPageModelFactory = cashoutPageModelFactory;
 	        _actionPageModelFactory = actionPageModelFactory;
 	        _addCashgamePageModelFactory = addCashgamePageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
@@ -300,6 +304,50 @@ namespace Web.Controllers{
 			_cashgameRepository.DeleteCheckpoint(id);
             var actionsUrl = new CashgameActionUrlModel(homegame, cashgame, player);
             return new RedirectResult(actionsUrl.Url);
+		}
+
+        public ActionResult Cashout(string gameName, string name){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var player = _playerRepository.GetByName(homegame, name);
+			_userContext.RequirePlayer(homegame);
+			var user = _userContext.GetUser();
+			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+				throw new AccessDeniedException();
+			}
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _cashoutPageModelFactory.Create(user, homegame, runningGame);
+            return View("Cashout/Cashout", model);
+		}
+
+        [HttpPost]
+        public ActionResult Cashout(string gameName, string name, CashoutPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var player = _playerRepository.GetByName(homegame, name);
+			_userContext.RequirePlayer(homegame);
+			var user = _userContext.GetUser();
+			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+				throw new AccessDeniedException();
+			}
+			var postedCheckpoint = getCashoutCheckpoint(homegame, postModel);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var result = runningGame.GetResult(player);
+			if(ModelState.IsValid){
+				if(result.CashoutCheckpoint != null){
+					result.CashoutCheckpoint.Stack = postedCheckpoint.Stack;
+					_cashgameRepository.UpdateCheckpoint(result.CashoutCheckpoint);
+				} else {
+					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
+				}
+                var runningUrl = new RunningCashgameUrlModel(homegame);
+			    return new RedirectResult(runningUrl.Url);
+			}
+            var model = _cashoutPageModelFactory.Create(user, homegame, runningGame, postModel);
+            return View("Cashout/Cashout", model);
+		}
+
+		private Checkpoint getCashoutCheckpoint(Homegame homegame, CashoutPostModel postModel){
+			var timestamp = DateTimeFactory.Now(homegame.Timezone);
+			return new CashoutCheckpoint(timestamp, postModel.StackAmount);
 		}
 
 		private Checkpoint GetReportCheckpoint(Homegame homegame, ReportPostModel postModel){

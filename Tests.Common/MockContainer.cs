@@ -57,6 +57,7 @@ namespace Tests.Common
 
         protected Mock<IBuyinPageModelFactory> BuyinPageModelFactoryMock;
         protected Mock<IReportPageModelFactory> ReportPageModelFactoryMock;
+        protected Mock<ICashoutPageModelFactory> CashoutPageModelFactoryMock;
         protected Mock<IActionPageModelFactory> ActionPageModelFactoryMock;
         protected Mock<IAddCashgamePageModelFactory> AddCashgamePageModelFactoryMock;
         protected Mock<ICashgameChartPageModelFactory> CashgameChartPageModelFactoryMock;
@@ -108,6 +109,7 @@ namespace Tests.Common
 
             BuyinPageModelFactoryMock = new Mock<IBuyinPageModelFactory>();
             ReportPageModelFactoryMock = new Mock<IReportPageModelFactory>();
+            CashoutPageModelFactoryMock = new Mock<ICashoutPageModelFactory>();
             ActionPageModelFactoryMock = new Mock<IActionPageModelFactory>();
             AddCashgamePageModelFactoryMock = new Mock<IAddCashgamePageModelFactory>();
             CashgameChartPageModelFactoryMock = new Mock<ICashgameChartPageModelFactory>();

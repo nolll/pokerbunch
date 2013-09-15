@@ -43,10 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".htaccess" />
-    <None Include="app\Cashgame\Action\ActionPostModel.php" />
-    <None Include="app\Cashgame\Action\BuyinPostModel.php" />
-    <None Include="app\Cashgame\Action\Cashout.tpl" />
-    <None Include="app\Cashgame\Action\CashoutModel.php" />
     <None Include="app\Cashgame\Action\EndGame.tpl" />
     <None Include="app\Cashgame\Action\EndGameModel.php" />
     <None Include="app\Cashgame\Action\GameChart.tpl" />
