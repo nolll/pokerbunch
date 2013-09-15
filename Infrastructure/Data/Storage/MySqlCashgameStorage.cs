@@ -105,7 +105,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool UpdateGame(RawCashgame cashgame){
-            var sql = "UPDATE game SET Location = {0}, Date = {1}, Status = {2} WHERE GameID = {3}";
+            var sql = "UPDATE game SET Location = '{0}', Date = '{1}', Status = {2} WHERE GameID = {3}";
 		    sql = string.Format(sql, cashgame.Location, cashgame.Date, cashgame.Status, cashgame.Id);
 		    var rowCount = _storageProvider.Execute(sql);
 		    return rowCount > 0;
@@ -138,7 +138,7 @@ namespace Infrastructure.Data.Storage {
             }
 			var status = reader.GetInt("Status");
 			var date = reader.GetDateTime("Date");
-			return new RawCashgame(id, location, (GameStatus)status, date);
+			return new RawCashgame(id, location, status, date);
 		}
 
 		private RawCashgameResult RawCashgameResultFromDbRow(StorageDataReader reader){

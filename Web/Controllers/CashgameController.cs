@@ -275,6 +275,28 @@ namespace Web.Controllers{
 			return ShowReportForm(player, user, model);
 		}
 
+        [HttpPost]
+        public ActionResult Report(string gameName, string name, ReportPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var cashgame = _cashgameRepository.GetRunning(homegame);
+			var player = _playerRepository.GetByName(homegame, name);
+			_userContext.RequirePlayer(homegame);
+			var user = _userContext.GetUser();
+			if(ModelState.IsValid){
+				var checkpoint = GetReportCheckpoint(homegame, postModel);
+			    _cashgameRepository.AddCheckpoint(cashgame, player, checkpoint);
+			    var runningUrl = new RunningCashgameUrlModel(homegame);
+                return new RedirectResult(runningUrl.Url);
+			}
+            var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
+            return ShowReportForm(player, user, model);
+		}
+
+		private Checkpoint GetReportCheckpoint(Homegame homegame, ReportPostModel postModel){
+			var timestamp = DateTimeFactory.Now(homegame.Timezone);
+			return new ReportCheckpoint(timestamp, postModel.StackAmount);
+		}
+
         private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){
             if (!_userContext.IsAdmin() && player.UserName != user.UserName)
             {
@@ -318,7 +340,7 @@ namespace Web.Controllers{
 
 		private Cashgame GetCashgame(AddCashgamePostModel addCashgamePostModel)
 		{
-			return _cashgameFactory.Create(addCashgamePostModel.Location, GameStatus.Running);
+			return _cashgameFactory.Create(addCashgamePostModel.Location, (int)GameStatus.Running);
 		}
 
 	}

@@ -138,17 +138,17 @@ namespace Infrastructure.Repositories {
 		}
 
 		public bool UpdateGame(Cashgame cashgame){
-			var rawCashgame = getRawCashgame(cashgame);
+			var rawCashgame = GetRawCashgame(cashgame);
 			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
 		public bool StartGame(Cashgame cashgame){
-			var rawCashgame = getRawCashgame(cashgame, GameStatus.Running);
+			var rawCashgame = GetRawCashgame(cashgame, GameStatus.Running);
 			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
 		public bool EndGame(Cashgame cashgame){
-			var rawCashgame = getRawCashgame(cashgame, GameStatus.Published);
+			var rawCashgame = GetRawCashgame(cashgame, GameStatus.Published);
 			return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
@@ -156,7 +156,7 @@ namespace Infrastructure.Repositories {
 			return _cashgameStorage.HasPlayed(player);
 		}
 
-		private RawCashgame getRawCashgame(Cashgame cashgame, GameStatus? status = null){
+		private RawCashgame GetRawCashgame(Cashgame cashgame, GameStatus? status = null){
 			var id = cashgame.Id;
 			var location = cashgame.Location;
 			if(!status.HasValue){
@@ -166,7 +166,7 @@ namespace Infrastructure.Repositories {
 			if(!date.HasValue){
 				date = _timeProvider.GetTime();
 			}
-			return new RawCashgame(id, location, status.Value, date.Value);
+			return new RawCashgame(id, location, (int)status.Value, date.Value);
 		}
  
 	}

@@ -49,7 +49,7 @@ namespace Infrastructure.Tests.Factories{
         [Test]
 		public void Get_CashgamePropertiesAreSet(){
 			var sut = GetSut();
-			var result = sut.Create(_location, _status, _id, _results);
+			var result = sut.Create(_location, (int)_status, _id, _results);
 
 			Assert.AreEqual(_location, result.Location);
             Assert.AreEqual(_status, result.Status);

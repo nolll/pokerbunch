@@ -6,7 +6,7 @@ namespace Infrastructure.Factories
 {
     public class CashgameFactory : ICashgameFactory
     {
-        public Cashgame Create(string location, GameStatus? status = null, int? id = null, List<CashgameResult> results = null)
+        public Cashgame Create(string location, int? status = null, int? id = null, List<CashgameResult> results = null)
         {
             if (results == null)
             {
@@ -22,7 +22,7 @@ namespace Infrastructure.Factories
             var cashgame = new Cashgame
                 {
                     Location = location,
-                    Status = status.HasValue ? status.Value : GameStatus.Created,
+                    Status = status.HasValue ? (GameStatus)status.Value : GameStatus.Created,
                     Id = id.HasValue ? id.Value : 0,
                     Results = results,
                     PlayerCount = playerCount,

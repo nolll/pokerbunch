@@ -23,10 +23,10 @@ namespace Infrastructure.Tests.Repositories{
 
             TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2001-01-01 01:00:00"));
 			var expectedDate = DateTime.Parse("2001-01-01");
-			var expectedStatus = GameStatus.Running;
+			var expectedStatus = (int)GameStatus.Running;
 
             var recievedDate = DateTime.MinValue;
-            var recievedStatus = GameStatus.Created;
+            var recievedStatus = (int)GameStatus.Created;
             CashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
                                 .Callback(
                                     (RawCashgame rawCashgame) => {
@@ -52,8 +52,8 @@ namespace Infrastructure.Tests.Repositories{
 
             var cashgame = new Cashgame {Id = id, Location = location, Status = status, StartTime = startTime};
 
-			var expectedStatus = GameStatus.Running;
-            var recievedStatus = GameStatus.Created;
+			var expectedStatus = (int)GameStatus.Running;
+            var recievedStatus = (int)GameStatus.Created;
             CashgameStorageMock.Setup(o => o.UpdateGame(It.IsAny<RawCashgame>()))
                                 .Callback(
                                     (RawCashgame rawCashgame) => {
