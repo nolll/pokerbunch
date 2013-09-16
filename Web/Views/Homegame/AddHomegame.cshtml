@@ -27,11 +27,11 @@
 			</p>
 			<p>
 			    <label>@Html.LabelFor(model => model.CurrencyLayout, "Currency Layout")</label>
-                @Html.DropDownListFor(x => x.CurrencyLayout, Model.CurrencyLayoutSelectModel, new {@id = "currencylayout"})
+                @Html.DropDownListFor(x => x.CurrencyLayout, Model.CurrencyLayoutSelectItems, new {@id = "currencylayout"})
 			</p>
 		    <p>
 		        <label>@Html.LabelFor(model => model.TimeZone, "Timezone")</label>
-                @Html.DropDownListFor(x => x.TimeZone, Model.TimezoneSelectModel, new {@id = "timezone"})
+                @Html.DropDownListFor(x => x.TimeZone, Model.TimezoneSelectItems, new {@id = "timezone"})
 		    </p>
 		</fieldset>
 		<div class="buttons">

@@ -45,8 +45,6 @@
     <None Include=".htaccess" />
     <None Include="NotUsed\ChartTitle.php" />
     <None Include="NotUsed\ChartValue.php" />
-    <None Include="app\Cashgame\Edit\CashgameEditController.php" />
-    <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
     <None Include="NotUsed\Bar.tpl" />
     <None Include="NotUsed\BarModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
@@ -54,9 +52,6 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Homegame\Edit\Edit.tpl" />
-    <None Include="app\Homegame\Edit\HomegameEditController.php" />
-    <None Include="app\Homegame\Edit\HomegameEditModel.php" />
     <None Include="app\Homegame\Join\Confirmation.tpl" />
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />

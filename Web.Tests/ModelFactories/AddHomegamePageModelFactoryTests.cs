@@ -57,7 +57,7 @@ namespace Web.Tests.ModelFactories{
 			var sut = GetSut();
 		    var result = sut.Create(_user);
 
-			Assert.IsInstanceOf<List<SelectListItem>>(result.CurrencyLayoutSelectModel);
+			Assert.IsInstanceOf<List<SelectListItem>>(result.CurrencyLayoutSelectItems);
 		}
 
 		[Test]
@@ -65,7 +65,7 @@ namespace Web.Tests.ModelFactories{
 			var sut = GetSut();
 		    var result = sut.Create(_user);
 
-            Assert.IsInstanceOf<List<SelectListItem>>(result.TimezoneSelectModel);
+            Assert.IsInstanceOf<List<SelectListItem>>(result.TimezoneSelectItems);
 		}
 
 		private AddHomegamePageModelFactory GetSut(){
