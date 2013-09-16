@@ -1,0 +1,39 @@
+@using Web.Controllers
+@model Web.Models.CashgameModels.Edit.CashgameEditPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Edit Cashgame</h1>
+</div>
+<div class="block gutter">
+    
+    @Html.Partial("~/Views/Forms/Errors.cshtml")
+
+    <form method="post">
+        <fieldset>
+            <p>
+				@Model.IsoDate
+			</p>
+            <p>
+                @Html.LabelFor(model => model.TypedLocation, "Enter Location")
+                @Html.TextBoxFor(model => model.TypedLocation, new { @class="textfield", list = "location-list"})
+
+                <datalist id="location-list">
+                    @Html.LabelFor(model => model.SelectedLocation, "or")
+                    @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations)
+                </datalist>
+            </p>
+        </fieldset>
+        <div class="buttons">
+            <button type="submit" class="action">Save Changes</button>
+            @if (Model.EnableDelete)
+            {
+                <a href="@Model.DeleteUrl" class="button warning" data-require="delete-confirmation" data-message="Delete Cashgame?">Delete</a>
+            }
+			<a href="@Model.CancelUrl" class="button">Cancel</a>
+        </div>
+    </form>
+</div>

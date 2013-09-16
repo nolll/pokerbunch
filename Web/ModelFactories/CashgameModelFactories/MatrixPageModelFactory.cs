@@ -4,7 +4,7 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
 
-namespace Web.ModelFactories.CashgameModelFactories.Matrix{
+namespace Web.ModelFactories.CashgameModelFactories{
 
 	class MatrixPageModelFactory : IMatrixPageModelFactory
     {

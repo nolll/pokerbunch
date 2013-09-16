@@ -154,27 +154,29 @@
   <ItemGroup>
     <Compile Include="ModelFactories\CashgameModelFactories\ActionPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\AddCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\EndPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashoutPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameEditPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashoutPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashoutPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\IEndPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\IReportPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IEndPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IReportPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\ReportPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\BuyinPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IBuyinPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameFactsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameLeaderboardPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameListingPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\IActionPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\IAddCashgamePageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameChartPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameDetailsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameFactsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameLeaderboardPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameListingPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\IRunningCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IActionPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IAddCashgamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameChartPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameFactsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameLeaderboardPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameListingPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IRunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
@@ -191,6 +193,8 @@
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserDetailsPageModelFactory.cs" />
+    <Compile Include="ModelMappers\CashgameModelMapper.cs" />
+    <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
@@ -199,8 +203,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelFactories\AuthModelFactories\IAuthLoginPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IMatrixPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\MatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\IHomePageModelFactory.cs" />
@@ -208,6 +212,7 @@
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />
+    <Compile Include="Models\CashgameModels\Edit\CashgameEditPostModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableCellModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
@@ -479,12 +484,15 @@
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
+    <Compile Include="Models\CashgameModels\Edit\CashgameEditPageModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameDeleteUrlModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
     <None Include="Views\Cashgame\Buyin\Buyin.cshtml" />
     <None Include="Views\Cashgame\Cashout\Cashout.cshtml" />
+    <None Include="Views\Cashgame\Edit\Edit.cshtml" />
     <None Include="Views\Cashgame\End\End.cshtml" />
     <None Include="Views\Cashgame\Report\Report.cshtml" />
     <None Include="Views\Forms\SelectField.cshtml" />

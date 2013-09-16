@@ -1,7 +1,7 @@
 using Core.Classes;
 using Web.Models.CashgameModels.Buyin;
 
-namespace Web.ModelFactories.CashgameModelFactories.Buyin
+namespace Web.ModelFactories.CashgameModelFactories
 {
     public interface IBuyinPageModelFactory
     {

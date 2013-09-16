@@ -6,14 +6,14 @@ using Core.Repositories;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelMappers;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
+using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
@@ -37,10 +37,12 @@ namespace Web.Controllers{
 	    private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
 	    private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
+	    private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
 	    private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
 	    private readonly ICashgameLeaderboardPageModelFactory _cashgameLeaderboardPageModelFactory;
 	    private readonly ICashgameListingPageModelFactory _cashgameListingPageModelFactory;
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
+	    private readonly ICashgameModelMapper _cashgameModelMapper;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -58,10 +60,12 @@ namespace Web.Controllers{
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
+            ICashgameEditPageModelFactory cashgameEditPageModelFactory,
             ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
             ICashgameLeaderboardPageModelFactory cashgameLeaderboardPageModelFactory,
             ICashgameListingPageModelFactory cashgameListingPageModelFactory,
-            IRunningCashgamePageModelFactory runningCashgamePageModelFactory)
+            IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
+            ICashgameModelMapper cashgameModelMapper)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -78,10 +82,12 @@ namespace Web.Controllers{
 	        _addCashgamePageModelFactory = addCashgamePageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
 	        _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
+	        _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
 	        _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
 	        _cashgameLeaderboardPageModelFactory = cashgameLeaderboardPageModelFactory;
 	        _cashgameListingPageModelFactory = cashgameListingPageModelFactory;
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
+	        _cashgameModelMapper = cashgameModelMapper;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -178,6 +184,37 @@ namespace Web.Controllers{
             var locations = _cashgameRepository.GetLocations(homegame);
             var model = _addCashgamePageModelFactory.Create(_userContext.GetUser(), homegame, locations, postModel);
             return ShowAddForm(model);
+		}
+
+        public ActionResult Edit(string gameName, string dateStr){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var locations = _cashgameRepository.GetLocations(homegame);
+			var years = _cashgameRepository.GetYears(homegame);
+			var model = _cashgameEditPageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, locations, years, runningGame);
+			return View("Edit/Edit", model);
+		}
+
+        [HttpPost]
+		public ActionResult Edit(string gameName, string dateStr, CashgameEditPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			if(ModelState.IsValid)
+			{
+			    cashgame = _cashgameModelMapper.GetCashgame(cashgame, postModel);
+				_cashgameRepository.UpdateGame(cashgame);
+				var detailsUrl = new CashgameDetailsUrlModel(homegame, cashgame);
+				return new RedirectResult(detailsUrl.Url);
+			}
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var locations = _cashgameRepository.GetLocations(homegame);
+			var model = _cashgameEditPageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, locations, null, runningGame, postModel);
+            return View("Edit/Edit", model);
 		}
 
         public ActionResult Running(string gameName){

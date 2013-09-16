@@ -5,8 +5,7 @@ using Core.Services;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelMappers;
 using Web.Models.HomegameModels.Add;
-using Web.Models.HomegameModels.Details;
-using app;
+using Web.Models.UrlModels;
 
 namespace Web.Controllers{
 

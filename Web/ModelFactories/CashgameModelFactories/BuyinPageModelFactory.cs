@@ -2,7 +2,7 @@ using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Buyin;
 
-namespace Web.ModelFactories.CashgameModelFactories.Buyin
+namespace Web.ModelFactories.CashgameModelFactories
 {
     public class BuyinPageModelFactory : IBuyinPageModelFactory
     {

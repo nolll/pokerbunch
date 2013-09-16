@@ -19,7 +19,7 @@ namespace Infrastructure.Factories
             var buyinSum = GetBuyinSum(results);
             var cashoutSum = GetCashoutSum(results);
 
-            var cashgame = new Cashgame
+            return new Cashgame
                 {
                     Location = location,
                     Status = status.HasValue ? (GameStatus)status.Value : GameStatus.Created,
@@ -36,11 +36,9 @@ namespace Infrastructure.Factories
                     TotalStacks = GetTotalStacks(results),
                     AverageBuyin = GetAverageBuyin(buyinSum, playerCount)
                 };
-
-            return cashgame;
         }
 
-        private DateTime? GetStartTime(List<CashgameResult> results)
+        private DateTime? GetStartTime(IEnumerable<CashgameResult> results)
         {
             DateTime? startTime = null;
             foreach (var result in results)
@@ -53,7 +51,7 @@ namespace Infrastructure.Factories
             return startTime;
         }
 
-        private DateTime? GetEndTime(List<CashgameResult> results)
+        private DateTime? GetEndTime(IEnumerable<CashgameResult> results)
         {
             DateTime? endTime = null;
             foreach (var result in results)
@@ -76,7 +74,7 @@ namespace Infrastructure.Factories
             return (int) Math.Round(timespan.Value.TotalMinutes);
         }
 
-        private int GetBuyinSum(List<CashgameResult> results)
+        private int GetBuyinSum(IEnumerable<CashgameResult> results)
         {
             var buyinSum = 0;
             foreach (var result in results)
@@ -86,7 +84,7 @@ namespace Infrastructure.Factories
             return buyinSum;
         }
 
-        private int GetCashoutSum(List<CashgameResult> results)
+        private int GetCashoutSum(IEnumerable<CashgameResult> results)
         {
             var cashoutSum = 0;
             foreach (var result in results)
@@ -96,7 +94,7 @@ namespace Infrastructure.Factories
             return cashoutSum;
         }
 
-        private bool HasActivePlayers(List<CashgameResult> results)
+        private bool HasActivePlayers(IEnumerable<CashgameResult> results)
         {
             foreach (var result in results)
             {
@@ -108,7 +106,7 @@ namespace Infrastructure.Factories
             return false;
         }
 
-        private int GetTotalStacks(List<CashgameResult> results)
+        private int GetTotalStacks(IEnumerable<CashgameResult> results)
         {
             var sum = 0;
             foreach (var result in results)

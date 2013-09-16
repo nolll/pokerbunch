@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Controllers;
+using Web.ModelMappers;
 using Web.Models.CashgameModels.Leaderboard;
 using Web.Validators;
 
@@ -73,10 +74,12 @@ namespace Web.Tests.ControllerTests{
                 AddCashgamePageModelFactoryMock.Object,
                 CashgameChartPageModelFactoryMock.Object,
                 CashgameDetailsPageModelFactoryMock.Object,
+                CashgameEditPageModelFactoryMock.Object,
                 CashgameFactsPageModelFactoryMock.Object,
                 CashgameLeaderboardPageModelFactoryMock.Object,
                 CashgameListingPageModelFactoryMock.Object,
-                RunningCashgamePageModelFactoryMock.Object);
+                RunningCashgamePageModelFactoryMock.Object,
+                CashgameModelMapperMock.Object);
         }
 
 	}

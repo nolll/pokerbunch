@@ -10,8 +10,6 @@ using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
@@ -70,6 +68,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>(container);
@@ -88,6 +87,7 @@ namespace Web.Plumbing
 
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
+            ObjectFactory.RegisterComponent<ICashgameModelMapper, CashgameModelMapper>(container);
 
             // Misc
             ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);

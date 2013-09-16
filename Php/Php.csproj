@@ -43,13 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".htaccess" />
-    <None Include="app\Cashgame\Action\GameChart.tpl" />
     <None Include="NotUsed\ChartTitle.php" />
     <None Include="NotUsed\ChartValue.php" />
     <None Include="app\Cashgame\Edit\CashgameEditController.php" />
-    <None Include="app\Cashgame\Edit\CashgameEditModel.php" />
     <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
-    <None Include="app\Cashgame\Edit\Edit.tpl" />
     <None Include="NotUsed\Bar.tpl" />
     <None Include="NotUsed\BarModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
@@ -85,7 +82,6 @@
     <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
-    <None Include="app\Urls\CashgameDeleteUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameStartUrlModel.php" />
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
