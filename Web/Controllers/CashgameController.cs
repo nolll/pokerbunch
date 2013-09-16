@@ -415,6 +415,16 @@ namespace Web.Controllers{
 			return new ReportCheckpoint(timestamp, postModel.StackAmount);
 		}
 
+        public ActionResult Delete(string gameName, string dateStr){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			_cashgameRepository.DeleteGame(cashgame);
+			var listUrl = new CashgameListingUrlModel(homegame, date.Year);
+			return new RedirectResult(listUrl.Url);
+		}
+
         private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){
             if (!_userContext.IsAdmin() && player.UserName != user.UserName)
             {

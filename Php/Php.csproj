@@ -45,8 +45,6 @@
     <None Include=".htaccess" />
     <None Include="NotUsed\ChartTitle.php" />
     <None Include="NotUsed\ChartValue.php" />
-    <None Include="app\Cashgame\Edit\CashgameEditController.php" />
-    <None Include="app\Cashgame\Edit\CashgameEditPostModel.php" />
     <None Include="NotUsed\Bar.tpl" />
     <None Include="NotUsed\BarModel.php" />
     <None Include="app\Error\AccessDenied.tpl" />
