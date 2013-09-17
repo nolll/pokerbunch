@@ -2,8 +2,10 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Storage.Interfaces;
+using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
+using Web.Models.PlayerModels.Add;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{
@@ -18,6 +20,8 @@ namespace Web.Controllers{
 	    private readonly IAvatarModelFactory _avatarModelFactory;
 	    private readonly IPlayerListingPageModelFactory _playerListingPageModelFactory;
 	    private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
+	    private readonly IAddPlayerPageModelFactory _addPlayerPageModelFactory;
+	    private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -27,7 +31,9 @@ namespace Web.Controllers{
             IUserStorage userStorage,
             IAvatarModelFactory avatarModelFactory,
             IPlayerListingPageModelFactory playerListingPageModelFactory,
-            IPlayerDetailsPageModelFactory playerDetailsPageModelFactory)
+            IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
+            IAddPlayerPageModelFactory addPlayerPageModelFactory,
+            IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -37,6 +43,8 @@ namespace Web.Controllers{
 	        _avatarModelFactory = avatarModelFactory;
 	        _playerListingPageModelFactory = playerListingPageModelFactory;
 	        _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
+	        _addPlayerPageModelFactory = addPlayerPageModelFactory;
+	        _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -63,6 +71,35 @@ namespace Web.Controllers{
 			return View("Details", model);
 		}
 
+        public ActionResult Add(string gameName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+            return View("Add", model);
+		}
+
+        [HttpPost]
+        public ActionResult Add(string gameName, AddPlayerPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			if(ModelState.IsValid){
+				_playerRepository.AddPlayer(homegame, postModel.Name);
+				return new RedirectResult(new PlayerAddConfirmationUrlModel(homegame).Url);
+			} else {
+                var runningGame = _cashgameRepository.GetRunning(homegame);
+                var model = _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+				return View("Add", model);
+			}
+		}
+
+        public ActionResult Created(string gameName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+			var model = _addPlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			return View("AddConfirmation", model);
+		}
+
 		public ActionResult Delete(string gameName, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
@@ -76,5 +113,4 @@ namespace Web.Controllers{
 		}
 
     }
-
 }

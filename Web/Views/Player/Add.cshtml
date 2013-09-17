@@ -1,0 +1,25 @@
+@model Web.Models.PlayerModels.Add.AddPlayerPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Add Player</h1>
+</div>
+<div class="block gutter">
+	
+    @Html.Partial("~/Views/Forms/Errors.cshtml")
+
+    <form method="post">
+		<fieldset>
+			<p>
+                @Html.LabelFor(model => model.Name, "Player Name")
+                @Html.TextBoxFor(model => model.Name, new { @class = "textfield" })
+			</p>
+		</fieldset>
+		<div class="buttons">
+			<button class="action" type="submit">Add</button>
+		</div>
+	</form>
+</div>

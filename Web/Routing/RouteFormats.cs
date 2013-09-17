@@ -52,8 +52,8 @@ namespace Web.Routing{
         //const homegameJoinConfirmation = '/%1$s/homegame/joined';
         public const string HomegameListing = "/-/homegame/listing";
 
-        public const string PlayerAdd = "{0}/player/add";
-        //const playerAddConfirmation = '/%1$s/player/created';
+        public const string PlayerAdd = "/{0}/player/add";
+        public const string PlayerAddConfirmation = "/{0}/player/created";
         public const string PlayerDelete = "/{0}/player/delete/{1}";
         public const string PlayerDetails = "/{0}/player/details/{1}";
         public const string PlayerIndex = "/{0}/player/index";

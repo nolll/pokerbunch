@@ -56,10 +56,6 @@
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />
     <None Include="app\Homegame\Join\Join.tpl" />
-    <None Include="app\Player\Add\Add.tpl" />
-    <None Include="app\Player\Add\Confirmation.tpl" />
-    <None Include="app\Player\Add\PlayerAddConfirmationModel.php" />
-    <Content Include="app\Player\Add\PlayerAddController.php" />
     <None Include="app\Player\InvitationCodeCreator.php" />
     <None Include="app\Player\InvitationCodeCreatorImpl.php" />
     <None Include="app\Player\InvitationSender.php" />
@@ -84,7 +80,6 @@
     <None Include="app\Urls\HomegameAddUrlModel.php" />
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameJoinUrlModel.php" />
-    <None Include="app\Urls\PlayerAddConfirmationUrlModel.php" />
     <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
@@ -270,6 +265,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\Player\Add\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
