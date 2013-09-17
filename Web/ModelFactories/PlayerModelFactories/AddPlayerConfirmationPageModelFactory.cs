@@ -19,7 +19,8 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new AddPlayerConfirmationPageModel
                 {
                     BrowserTitle = "Player Added",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame)
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    HomegameName = homegame.DisplayName
                 };
         }
     }

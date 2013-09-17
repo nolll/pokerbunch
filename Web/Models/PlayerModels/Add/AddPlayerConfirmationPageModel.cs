@@ -6,6 +6,7 @@ namespace Web.Models.PlayerModels.Add{
 
 	    public string BrowserTitle { get; set; }
 	    public PageProperties PageProperties { get; set; }
+	    public string HomegameName { get; set; }
 	}
 
 }

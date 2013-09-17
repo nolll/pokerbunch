@@ -18,8 +18,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new AddPlayerPageModel
                 {
                     BrowserTitle = "Add Player",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-                    HomegameName = homegame.DisplayName
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame)
                 };
         }
 
