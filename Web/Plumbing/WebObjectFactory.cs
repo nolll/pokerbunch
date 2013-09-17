@@ -66,6 +66,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>(container);

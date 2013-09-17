@@ -180,10 +180,12 @@
     <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\HomegameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
@@ -220,6 +222,8 @@
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPostModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegameConfirmationPageModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\AddHomegamePostModel.cs" />
+    <Compile Include="Models\HomegameModels\Edit\HomegameEditPostModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingItemModel.cs" />
     <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
@@ -486,6 +490,7 @@
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\CashgameEditPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgameDeleteUrlModel.cs" />
+    <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -498,6 +503,7 @@
     <None Include="Views\Forms\SelectField.cshtml" />
     <None Include="Views\Homegame\AddHomegame.cshtml" />
     <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />
+    <Content Include="Views\Homegame\Edit\Edit.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />

@@ -52,9 +52,6 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Homegame\Edit\Edit.tpl" />
-    <None Include="app\Homegame\Edit\HomegameEditController.php" />
-    <None Include="app\Homegame\Edit\HomegameEditModel.php" />
     <None Include="app\Homegame\Join\Confirmation.tpl" />
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Homegame\Join\HomegameJoinModel.php" />

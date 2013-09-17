@@ -2,9 +2,11 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
 using Core.Services;
+using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelMappers;
 using Web.Models.HomegameModels.Add;
+using Web.Models.HomegameModels.Edit;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{
@@ -20,6 +22,8 @@ namespace Web.Controllers{
 	    private readonly ISlugGenerator _slugGenerator;
 	    private readonly IHomegameListingPageModelFactory _homegameListingPageModelFactory;
 	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
+	    private readonly ICashgameRepository _cashgameRepository;
+	    private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
 
 	    public HomegameController(
             IUserContext userContext,
@@ -30,7 +34,9 @@ namespace Web.Controllers{
             IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
             ISlugGenerator slugGenerator,
             IHomegameListingPageModelFactory homegameListingPageModelFactory,
-            IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory)
+            IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
+            ICashgameRepository cashgameRepository,
+            IHomegameEditPageModelFactory homegameEditPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -41,6 +47,8 @@ namespace Web.Controllers{
 	        _slugGenerator = slugGenerator;
 	        _homegameListingPageModelFactory = homegameListingPageModelFactory;
 	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
+	        _cashgameRepository = cashgameRepository;
+	        _homegameEditPageModelFactory = homegameEditPageModelFactory;
 	    }
 
 	    public ActionResult Listing(){
@@ -86,21 +94,64 @@ namespace Web.Controllers{
 			return ShowForm(model);
 		}
 
+        public ActionResult Created(){
+			var model = _addHomegameConfirmationPageModelFactory.Create(_userContext.GetUser());
+			return View("AddHomegameConfirmation", model);
+		}
+
+        public ActionResult Edit(string gameName){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+			var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			return View("Edit/Edit", model);
+		}
+
+        [HttpPost]
+		public ActionResult Edit(string gameName, HomegameEditPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			if(ModelState.IsValid)
+			{
+			    var postedHomegame = _modelMapper.GetHomegame(homegame, postModel);
+				_homegameRepository.SaveHomegame(postedHomegame);
+				return new RedirectResult(new HomegameDetailsUrlModel(postedHomegame).Url);
+			}
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+			return View("Edit/Edit", model);
+		}
+
+        /*
+		private function getPostedHomegame(Homegame $homegame){
+			$homegame.setDescription(request.getParamPost('description'));
+			$homegame.setHouseRules(request.getParamPost('houserules'));
+			$currencySymbol = request.getParamPost('currencysymbol');
+			$currencyLayout = request.getParamPost('currencylayout');
+			$currency = new CurrencySettings($currencySymbol, $currencyLayout);
+			$homegame.setCurrency($currency);
+			$timezoneName = request.getParamPost('timezone');
+			if($timezoneName != null){
+				$homegame.setTimezone(new DateTimeZone($timezoneName));
+			}
+			$homegame.setDefaultBuyin(request.getParamPost('defaultbuyin'));
+			$homegame.cashgamesEnabled = request.getParamPost('cashgames') != null;
+			$homegame.tournamentsEnabled = request.getParamPost('tournaments') != null;
+			$homegame.videosEnabled = request.getParamPost('videos') != null;
+			return $homegame;
+		}
+        */
+
+        private ActionResult ShowForm(AddHomegamePageModel model = null){
+			return View("AddHomegame", model);
+		}
+
         private bool HomegameExists(AddHomegamePostModel postModel)
         {
             var slug = _slugGenerator.GetSlug(postModel.DisplayName);
             var homegame = _homegameRepository.GetByName(slug);
             return homegame != null;
         }
-
-		public ActionResult Created(){
-			var model = _addHomegameConfirmationPageModelFactory.Create(_userContext.GetUser());
-			return View("AddHomegameConfirmation", model);
-		}
-
-        private ActionResult ShowForm(AddHomegamePageModel model = null){
-			return View("AddHomegame", model);
-		}
-
+		
     }
 }

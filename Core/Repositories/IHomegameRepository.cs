@@ -10,6 +10,7 @@ namespace Core.Repositories {
         IList<Homegame> GetByUser(User user);
 	    Role GetHomegameRole(Homegame homegame, User user);
 	    Homegame AddHomegame(Homegame homegame);
+	    bool SaveHomegame(Homegame homegame);
 	}
 
 }

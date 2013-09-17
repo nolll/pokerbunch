@@ -36,6 +36,7 @@ namespace Web.Tests.Routing
         }
 
         [TestCase("/bunchname/homegame/details", "Homegame", "Details")]
+        [TestCase("/bunchname/homegame/edit", "Homegame", "Edit")]
         [TestCase("/bunchname/player/index", "Player", "Index")]
         [TestCase("/bunchname/cashgame/index", "Cashgame", "Index")]
         [TestCase("/bunchname/cashgame/add", "Cashgame", "Add")]

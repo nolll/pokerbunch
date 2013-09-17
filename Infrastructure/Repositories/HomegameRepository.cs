@@ -44,12 +44,6 @@ namespace Infrastructure.Repositories {
             return uncached;
         }
 
-        private Homegame GetByNameUncached(string name)
-        {
-            var rawHomegame = _homegameStorage.GetHomegameByName(name);
-            return rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
-        }
-
         public IList<Homegame> GetByUser(User user)
         {
             var rawHomegames = _homegameStorage.GetHomegamesByUserId(user.Id);
@@ -110,12 +104,21 @@ namespace Infrastructure.Repositories {
             return (Role) _homegameStorage.GetHomegameRole(homegame.Id, user.Id);
         }
 
-	    public Homegame AddHomegame(Homegame homegame)
-	    {
-	        var rawHomegame = _rawHomegameFactory.Create(homegame);
-	        rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
-	        return _homegameFactory.Create(rawHomegame);
-	    }
+        public Homegame AddHomegame(Homegame homegame)
+        {
+            var rawHomegame = _rawHomegameFactory.Create(homegame);
+            rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
+            return _homegameFactory.Create(rawHomegame);
+        }
+
+        public bool SaveHomegame(Homegame homegame)
+        {
+            var rawHomegame = _rawHomegameFactory.Create(homegame);
+            var success = _homegameStorage.UpdateHomegame(rawHomegame);
+            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, homegame.Slug);
+            _cacheContainer.Remove(cacheKey);
+            return success;
+        }
 	}
 
 }
