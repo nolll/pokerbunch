@@ -8,6 +8,8 @@ UPDATE `homegame` SET `Timezone`='W. Europe Standard Time' WHERE  `HomegameID`=3
 UPDATE `homegame` SET `Timezone`='W. Europe Standard Time' WHERE  `HomegameID`=4;
 UPDATE `homegame` SET `Timezone`='W. Europe Standard Time' WHERE  `HomegameID`=5;
 UPDATE `homegame` SET `Timezone`='W. Europe Standard Time' WHERE  `HomegameID`=6;
+ALTER TABLE `homegame` CHANGE COLUMN `Description` `Description` VARCHAR(50) NULL AFTER `DisplayName`, CHANGE COLUMN `HouseRules` `HouseRules` TEXT NULL AFTER `VideosEnabled`;
+
 
 3.0
 ALTER TABLE `game`

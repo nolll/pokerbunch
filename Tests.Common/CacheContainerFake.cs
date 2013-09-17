@@ -38,7 +38,10 @@ namespace Tests.Common
 
         public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
         {
-            
+        }
+
+        public void Remove(string cacheKey)
+        {
         }
 
         public void SetFakedCacheKey(string fakedCacheKey)
@@ -48,7 +51,6 @@ namespace Tests.Common
 
         public void SetFakedCacheValue<T>(T obj)
         {
-            
         }
 
     }

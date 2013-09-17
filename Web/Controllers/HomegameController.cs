@@ -18,13 +18,12 @@ namespace Web.Controllers{
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly IHomegameModelMapper _modelMapper;
 	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
-        private readonly IHomegameEditPageModelFactory _HomegameEditPageModelFactory;
 	    private readonly IAddHomegameConfirmationPageModelFactory _addHomegameConfirmationPageModelFactory;
 	    private readonly ISlugGenerator _slugGenerator;
 	    private readonly IHomegameListingPageModelFactory _homegameListingPageModelFactory;
 	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
-	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly ICashgameRepository _cashgameRepository;
+	    private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
 
 	    public HomegameController(
             IUserContext userContext,
@@ -36,8 +35,8 @@ namespace Web.Controllers{
             ISlugGenerator slugGenerator,
             IHomegameListingPageModelFactory homegameListingPageModelFactory,
             IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
-            IHomegameStorage homegameStorage,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            IHomegameEditPageModelFactory homegameEditPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -48,8 +47,8 @@ namespace Web.Controllers{
 	        _slugGenerator = slugGenerator;
 	        _homegameListingPageModelFactory = homegameListingPageModelFactory;
 	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
-	        _homegameStorage = homegameStorage;
 	        _cashgameRepository = cashgameRepository;
+	        _homegameEditPageModelFactory = homegameEditPageModelFactory;
 	    }
 
 	    public ActionResult Listing(){
@@ -104,7 +103,7 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
             var runningGame = _cashgameRepository.GetRunning(homegame);
-			var model = _HomegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
 			return View("Edit/Edit", model);
 		}
 
@@ -115,11 +114,11 @@ namespace Web.Controllers{
 			if(ModelState.IsValid)
 			{
 			    var postedHomegame = _modelMapper.GetHomegame(homegame, postModel);
-				_homegameStorage.UpdateHomegame(postedHomegame);
+				_homegameRepository.SaveHomegame(postedHomegame);
 				return new RedirectResult(new HomegameDetailsUrlModel(postedHomegame).Url);
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
-            var model = _HomegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+            var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
 			return View("Edit/Edit", model);
 		}
 

@@ -62,6 +62,11 @@ namespace Infrastructure.Caching
             _cacheProvider.Put(cacheKey, objectToBeCached ?? _nullValue, cacheTime);
         }
 
+        public void Remove(string cacheKey)
+        {
+            _cacheProvider.Remove(cacheKey);
+        }
+
         public T GetCachedIfAvailable<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKeyName, params object[] cacheKeyParams) where T : class
         {
             T cachedObject;

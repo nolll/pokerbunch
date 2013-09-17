@@ -15,5 +15,10 @@ namespace Infrastructure.Caching
         {
             HttpContext.Current.Cache.Insert(key, obj, null, Cache.NoAbsoluteExpiration, time);
         }
+
+        public void Remove(string key)
+        {
+            HttpContext.Current.Cache.Remove(key);
+        }
     }
 }

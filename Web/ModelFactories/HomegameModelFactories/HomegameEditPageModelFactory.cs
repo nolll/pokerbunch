@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Core.Classes;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.UrlModels;
 
@@ -29,12 +28,14 @@ namespace Web.ModelFactories.HomegameModelFactories
 		            PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 			        CancelUrl = new HomegameDetailsUrlModel(homegame),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
-			        CurrencySymbol = currency.Symbol,
-			        CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel(),
 			        Description = homegame.Description,
 			        HouseRules = homegame.HouseRules,
-			        TimezoneSelectItems = GetTimezoneSelectModel(),
 			        DefaultBuyin = homegame.DefaultBuyin,
+                    TimeZone = homegame.Timezone.Id,
+                    TimezoneSelectItems = GetTimezoneSelectModel(),
+                    CurrencySymbol = currency.Symbol,
+			        CurrencyLayout = homegame.Currency.Layout,
+			        CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
 			        //CashgamesEnabled = homegame.CashgamesEnabled,
 			        //TournamentsEnabled = homegame.TournamentsEnabled,
 			        //VideosEnabled = homegame.VideosEnabled
