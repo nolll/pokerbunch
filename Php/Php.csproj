@@ -58,11 +58,6 @@
     <None Include="app\Homegame\Join\Join.tpl" />
     <None Include="app\Player\InvitationCodeCreator.php" />
     <None Include="app\Player\InvitationCodeCreatorImpl.php" />
-    <None Include="app\Player\InvitationSender.php" />
-    <None Include="app\Player\InvitationSenderImpl.php" />
-    <None Include="app\Player\Invite\Confirmation.tpl" />
-    <None Include="app\Player\Invite\Invite.tpl" />
-    <None Include="app\Player\Invite\PlayerInviteController.php" />
     <None Include="app\Player\PlayerValidatorFactory.php" />
     <None Include="app\Player\PlayerValidatorFactoryImpl.php" />
     <None Include="app\Player\UniquePlayerNameValidator.php" />
@@ -79,8 +74,6 @@
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
     <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
-    <None Include="app\Urls\HomegameJoinUrlModel.php" />
-    <None Include="app\Urls\PlayerInviteConfirmationUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
@@ -265,7 +258,6 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\Player\Add\" />
     <Folder Include="integration\Avatar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

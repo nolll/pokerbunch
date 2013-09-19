@@ -48,7 +48,7 @@ namespace Web.Routing{
         public const string HomegameAddConfirmation = "/-/homegame/created";
         public const string HomegameDetails = "/{0}/homegame/details";
         public const string HomegameEdit = "/{0}/homegame/edit";
-        //const homegameJoin = '/%1$s/homegame/join';
+        public const string HomegameJoin = "/{0}/homegame/join";
         //const homegameJoinConfirmation = '/%1$s/homegame/joined';
         public const string HomegameListing = "/-/homegame/listing";
 
@@ -58,7 +58,7 @@ namespace Web.Routing{
         public const string PlayerDetails = "/{0}/player/details/{1}";
         public const string PlayerIndex = "/{0}/player/index";
         public const string PlayerInvite = "/{0}/player/invite/{1}";
-        //const playerInviteConfirmation = '/%1$s/player/invited/%2$s';
+        public const string PlayerInviteConfirmation = "/{0}/player/invited/{1}";
 
         public const string SharingSettings = "/-/sharing";
 

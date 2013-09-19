@@ -1,8 +1,8 @@
 using Web.Models.PageBaseModels;
 
-namespace Web.Models.PlayerModels.Add
+namespace Web.Models.PlayerModels.Invite
 {
-    public class AddPlayerPageModel : AddPlayerPostModel, IPageModel
+    public class InvitePlayerPageModel : InvitePlayerPostModel, IPageModel
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }

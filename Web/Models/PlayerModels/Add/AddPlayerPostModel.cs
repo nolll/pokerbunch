@@ -4,7 +4,7 @@ namespace Web.Models.PlayerModels.Add
 {
     public class AddPlayerPostModel
     {
-        [Required]
+        [Required(ErrorMessage = "Name can't be empty")]
         public string Name { get; set; }
 	}
 }

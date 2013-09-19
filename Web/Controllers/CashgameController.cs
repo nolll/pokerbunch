@@ -96,9 +96,9 @@ namespace Web.Controllers{
 			var years = _cashgameRepository.GetYears(homegame);
 			if(years.Count > 0){
 				var year = years[0];
-				return new RedirectResult(new CashgameMatrixUrlModel(homegame, year).Url);
+				return Redirect(new CashgameMatrixUrlModel(homegame, year).Url);
 			}
-			return new RedirectResult(new CashgameAddUrlModel(homegame).Url);
+			return Redirect(new CashgameAddUrlModel(homegame).Url);
 		}
 
         public ActionResult Matrix(string gameName, int? year = null){
@@ -177,7 +177,7 @@ namespace Web.Controllers{
                 {
                     var cashgame = GetCashgame(postModel);
                     _cashgameRepository.AddGame(homegame, cashgame);
-                    return new RedirectResult(new RunningCashgameUrlModel(homegame).Url);
+                    return Redirect(new RunningCashgameUrlModel(homegame).Url);
                 }
                 ModelState.AddModelError("no_location", "Please enter a location");
             }
@@ -209,7 +209,7 @@ namespace Web.Controllers{
 			    cashgame = _cashgameModelMapper.GetCashgame(cashgame, postModel);
 				_cashgameRepository.UpdateGame(cashgame);
 				var detailsUrl = new CashgameDetailsUrlModel(homegame, cashgame);
-				return new RedirectResult(detailsUrl.Url);
+				return Redirect(detailsUrl.Url);
 			}
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var locations = _cashgameRepository.GetLocations(homegame);
@@ -222,7 +222,7 @@ namespace Web.Controllers{
 			_userContext.RequirePlayer(homegame);
 			var cashgame = _cashgameRepository.GetRunning(homegame);
 			if(cashgame == null){
-                return new RedirectResult(new CashgameIndexUrlModel(homegame).Url);
+                return Redirect(new CashgameIndexUrlModel(homegame).Url);
 			}
 			var user = _userContext.GetUser();
 			var player = _playerRepository.GetByUserName(homegame, user.UserName);
@@ -307,7 +307,7 @@ namespace Web.Controllers{
 				return ShowBuyinForm(user, player, model);
 			}
 			var runningUrl = new RunningCashgameUrlModel(homegame);
-            return new RedirectResult(runningUrl.Url);
+            return Redirect(runningUrl.Url);
 		}
 
         public ActionResult Report(string gameName, string name){
@@ -331,7 +331,7 @@ namespace Web.Controllers{
 				var checkpoint = GetReportCheckpoint(homegame, postModel);
 			    _cashgameRepository.AddCheckpoint(cashgame, player, checkpoint);
 			    var runningUrl = new RunningCashgameUrlModel(homegame);
-                return new RedirectResult(runningUrl.Url);
+                return Redirect(runningUrl.Url);
 			}
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
             return ShowReportForm(player, user, model);
@@ -344,7 +344,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_cashgameRepository.DeleteCheckpoint(id);
             var actionsUrl = new CashgameActionUrlModel(homegame, cashgame, player);
-            return new RedirectResult(actionsUrl.Url);
+            return Redirect(actionsUrl.Url);
 		}
 
         public ActionResult Cashout(string gameName, string name){
@@ -380,7 +380,7 @@ namespace Web.Controllers{
 					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}
                 var runningUrl = new RunningCashgameUrlModel(homegame);
-			    return new RedirectResult(runningUrl.Url);
+                return Redirect(runningUrl.Url);
 			}
             var model = _cashoutPageModelFactory.Create(user, homegame, runningGame, postModel);
             return View("Cashout/Cashout", model);
@@ -402,7 +402,7 @@ namespace Web.Controllers{
 			_userContext.RequirePlayer(homegame);
 			_cashgameRepository.EndGame(cashgame);
 			var indexUrl = new CashgameIndexUrlModel(homegame);
-			return new RedirectResult(indexUrl.Url);
+            return Redirect(indexUrl.Url);
 		}
 
 		private Checkpoint getCashoutCheckpoint(Homegame homegame, CashoutPostModel postModel){
@@ -422,7 +422,7 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			_cashgameRepository.DeleteGame(cashgame);
 			var listUrl = new CashgameListingUrlModel(homegame, date.Year);
-			return new RedirectResult(listUrl.Url);
+            return Redirect(listUrl.Url);
 		}
 
         private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){
