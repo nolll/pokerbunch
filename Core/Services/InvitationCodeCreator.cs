@@ -1,8 +1,6 @@
 using Core.Classes;
-using Core.Services;
-using Web.Services.Interfaces;
 
-namespace Web.Services
+namespace Core.Services
 {
 	public class InvitationCodeCreator : IInvitationCodeCreator
     {

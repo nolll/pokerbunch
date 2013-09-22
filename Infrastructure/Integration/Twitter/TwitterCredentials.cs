@@ -1,4 +1,4 @@
-namespace Infrastructure.Integration.Classes{
+namespace Infrastructure.Integration.Twitter{
 
 	public class TwitterCredentials{
 

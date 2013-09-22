@@ -1,5 +1,5 @@
 using Core.Classes;
-using Infrastructure.Integration.Classes;
+using Infrastructure.Integration.Twitter;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 

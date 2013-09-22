@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
@@ -8,7 +9,6 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 using Web.Models.UrlModels;
-using Web.Services.Interfaces;
 
 namespace Web.Controllers{
 

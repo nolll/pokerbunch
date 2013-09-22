@@ -1,8 +1,5 @@
 using Core.Classes;
-using Infrastructure.Config;
-using Infrastructure.Services;
-using Web.Models.UrlModels;
-using Web.Services.Interfaces;
+using Core.Services;
 
 namespace Web.Services{
 
@@ -10,15 +7,18 @@ namespace Web.Services{
 	    private readonly IMessageSender _messageSender;
 	    private readonly IInvitationCodeCreator _invitationCodeCreator;
 	    private readonly ISettings _settings;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public InvitationSender(
             IMessageSender messageSender,
             IInvitationCodeCreator invitationCodeCreator,
-			ISettings settings)
+			ISettings settings,
+            IUrlProvider urlProvider)
 	    {
 	        _messageSender = messageSender;
 	        _invitationCodeCreator = invitationCodeCreator;
 	        _settings = settings;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public void Send(Homegame homegame, Player player, string email){
@@ -33,10 +33,10 @@ namespace Web.Services{
 
 	    private string GetBody(Homegame homegame, Player player){
 			var siteUrl = _settings.GetSiteUrl();
-			var joinUrl = new HomegameJoinUrlModel(homegame);
-			var joinUrlStr = siteUrl + joinUrl.Url;
-			var userAddUrl = new UserAddUrlModel();
-			var userAddUrlStr = siteUrl + userAddUrl.Url;
+	        var joinUrl = _urlProvider.GetJoinHomegameUrl(homegame);
+			var joinUrlStr = siteUrl + joinUrl;
+	        var userAddUrl = _urlProvider.GetAddUserUrl();
+			var userAddUrlStr = siteUrl + userAddUrl;
 
 			var invitationCode = _invitationCodeCreator.GetCode(player);
 			var body = "You have been invited to join the poker game: " + homegame.DisplayName + ".\r\n\r\n" +

@@ -1,4 +1,4 @@
-namespace Infrastructure.Config
+namespace Core.Services
 {
     public interface ISettings
     {

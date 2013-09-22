@@ -1,4 +1,5 @@
 using System.Configuration;
+using Core.Services;
 
 namespace Infrastructure.Config{
     public class Settings : ISettings

@@ -19,7 +19,6 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Services;
-using Web.Services.Interfaces;
 using Web.Validators;
 
 namespace Web.Plumbing
@@ -36,6 +35,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>(container);
             ObjectFactory.RegisterComponent<IInvitationSender, InvitationSender>(container);
             ObjectFactory.RegisterComponent<IMessageSender, MessageSender>(container);
+            ObjectFactory.RegisterComponent<IUrlProvider, UrlProvider>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);

@@ -1,6 +1,6 @@
 using Core.Classes;
 
-namespace Web.Services.Interfaces{
+namespace Core.Services{
     public interface IInvitationCodeCreator{
 
 		string GetCode(Player player);

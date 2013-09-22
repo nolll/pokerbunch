@@ -54,7 +54,6 @@
     <Compile Include="Caching\CacheContainer.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="Config\ISettings.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />
     <Compile Include="Data\Factories\RawHomegameFactory.cs" />
@@ -116,7 +115,7 @@
     <Compile Include="System\Globalization.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\Classes\TwitterCredentials.cs" />
+    <Compile Include="Integration\Twitter\TwitterCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\PlayerRepository.cs" />
@@ -165,9 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\EmailMessageSender.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\MessageSender.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

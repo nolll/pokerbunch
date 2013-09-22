@@ -1,4 +1,4 @@
-namespace Infrastructure.Services{
+namespace Core.Services{
 
 	public interface IMessageSender{
 
