@@ -2,7 +2,7 @@ using System.Net.Mail;
 
 namespace Infrastructure.Services{
 
-	public class EmailMessageSender : IMessageSender{
+	public class MessageSender : IMessageSender{
 
 		public void Send(string to, string subject, string body)
         {

@@ -7,16 +7,16 @@ using Web.Services.Interfaces;
 namespace Web.Services{
 
 	public class InvitationSender : IInvitationSender{
-	    private readonly IMessageSenderFactory _messageSenderFactory;
+	    private readonly IMessageSender _messageSender;
 	    private readonly IInvitationCodeCreator _invitationCodeCreator;
 	    private readonly ISettings _settings;
 
 	    public InvitationSender(
-            IMessageSenderFactory messageSenderFactory,
+            IMessageSender messageSender,
             IInvitationCodeCreator invitationCodeCreator,
 			ISettings settings)
 	    {
-	        _messageSenderFactory = messageSenderFactory;
+	        _messageSender = messageSender;
 	        _invitationCodeCreator = invitationCodeCreator;
 	        _settings = settings;
 	    }
@@ -24,8 +24,7 @@ namespace Web.Services{
 	    public void Send(Homegame homegame, Player player, string email){
 			var subject = GetSubject(homegame);
 			var body = GetBody(homegame, player);
-			var messageSender = _messageSenderFactory.GetMessageSender();
-			messageSender.Send(email, subject, body);
+			_messageSender.Send(email, subject, body);
 		}
 
 	    private string GetSubject(Homegame homegame){

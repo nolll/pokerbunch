@@ -35,6 +35,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAvatarService, GravatarService>(container);
             ObjectFactory.RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>(container);
             ObjectFactory.RegisterComponent<IInvitationSender, InvitationSender>(container);
+            ObjectFactory.RegisterComponent<IMessageSender, MessageSender>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -55,7 +56,6 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameResultFactory, CashgameResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
-            ObjectFactory.RegisterComponent<IMessageSenderFactory, MessageSenderFactory>(container);
 
             // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);

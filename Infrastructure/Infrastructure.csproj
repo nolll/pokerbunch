@@ -164,10 +164,6 @@
     <Compile Include="Config\ServerMode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\IMessageSenderFactory.cs" />
-    <Compile Include="Services\MessageSenderFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Services\EmailMessageSender.cs" />
   </ItemGroup>
   <ItemGroup>
