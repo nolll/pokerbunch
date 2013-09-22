@@ -121,7 +121,7 @@
     <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
-    <None Include="integration\Message\FileLoggingMessageSender.php" />
+    <None Include="NotUsed\FileLoggingMessageSender.php" />
     <None Include="integration\Sharing\ResultSharer.php" />
     <None Include="integration\Sharing\ResultSharerImpl.php" />
     <None Include="integration\Sharing\SocialService.php" />
@@ -251,9 +251,7 @@
     <Content Include="googlecd2b6bdc316289ae.html" />
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="integration\Avatar\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

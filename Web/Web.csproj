@@ -508,7 +508,6 @@
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameJoinUrlModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />

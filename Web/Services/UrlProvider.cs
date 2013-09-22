@@ -1,6 +1,7 @@
 ﻿using Core.Classes;
 using Core.Services;
-using Web.Models.UrlModels;
+using Web.Formatters;
+using Web.Routing;
 
 namespace Web.Services
 {
@@ -8,14 +9,12 @@ namespace Web.Services
     {
         public string GetJoinHomegameUrl(Homegame homegame)
         {
-            var urlModel = new HomegameJoinUrlModel(homegame);
-            return urlModel.Url;
+            return UrlFormatter.FormatHomegame(RouteFormats.HomegameJoin, homegame);
         }
 
         public string GetAddUserUrl()
         {
-            var urlModel = new UserAddUrlModel();
-            return urlModel.Url;
+            return RouteFormats.UserAdd;
         }
     }
 }
