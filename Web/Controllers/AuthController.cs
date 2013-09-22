@@ -38,7 +38,7 @@ namespace Web.Controllers{
 			var validator = _userValidatorFactory.GetLoginValidator(user);
 			if(validator.IsValid){
 				SetCookies(user, loginPageModel.RememberMe);
-                return new RedirectResult(GetReturnUrl(loginPageModel.ReturnUrl).Url);
+                return Redirect(GetReturnUrl(loginPageModel.ReturnUrl).Url);
 			}
             return ShowForm(loginPageModel.LoginName, validator.GetErrors());
 		}

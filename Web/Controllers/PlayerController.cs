@@ -6,7 +6,9 @@ using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
+using Web.Models.PlayerModels.Invite;
 using Web.Models.UrlModels;
+using Web.Services.Interfaces;
 
 namespace Web.Controllers{
 
@@ -22,6 +24,9 @@ namespace Web.Controllers{
 	    private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
 	    private readonly IAddPlayerPageModelFactory _addPlayerPageModelFactory;
 	    private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
+	    private readonly IInvitePlayerPageModelFactory _invitePlayerPageModelFactory;
+	    private readonly IInvitePlayerConfirmationPageModelFactory _invitePlayerConfirmationPageModelFactory;
+	    private readonly IInvitationSender _invitationSender;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -33,7 +38,10 @@ namespace Web.Controllers{
             IPlayerListingPageModelFactory playerListingPageModelFactory,
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
             IAddPlayerPageModelFactory addPlayerPageModelFactory,
-            IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory)
+            IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory,
+            IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
+            IInvitePlayerConfirmationPageModelFactory invitePlayerConfirmationPageModelFactory,
+            IInvitationSender invitationSender)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -45,6 +53,9 @@ namespace Web.Controllers{
 	        _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
 	        _addPlayerPageModelFactory = addPlayerPageModelFactory;
 	        _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
+	        _invitePlayerPageModelFactory = invitePlayerPageModelFactory;
+	        _invitePlayerConfirmationPageModelFactory = invitePlayerConfirmationPageModelFactory;
+	        _invitationSender = invitationSender;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -85,7 +96,7 @@ namespace Web.Controllers{
 			_userContext.RequireManager(homegame);
 			if(ModelState.IsValid){
 				_playerRepository.AddPlayer(homegame, postModel.Name);
-				return new RedirectResult(new PlayerAddConfirmationUrlModel(homegame).Url);
+				return Redirect(new PlayerAddConfirmationUrlModel(homegame).Url);
 			} else {
                 var runningGame = _cashgameRepository.GetRunning(homegame);
                 var model = _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
@@ -110,6 +121,38 @@ namespace Web.Controllers{
 			}
 			_playerRepository.DeletePlayer(player);
 			return Redirect(new PlayerIndexUrlModel(homegame).ToString());
+		}
+
+        public ActionResult Invite(string gameName, string name){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			return ShowInviteForm(homegame);
+		}
+
+        [HttpPost]
+		public ActionResult Invite(string gameName, string name, InvitePlayerPostModel postModel){
+			var homegame = _homegameRepository.GetByName(gameName);
+			_userContext.RequireManager(homegame);
+			var player = _playerRepository.GetByName(homegame, name);
+			if(ModelState.IsValid){
+				_invitationSender.Send(homegame, player, postModel.Email);
+				return Redirect(new PlayerInviteConfirmationUrlModel(homegame, player).Url);
+			} else {
+				return ShowInviteForm(homegame);
+			}
+		}
+
+		public ActionResult Invited(string gameName, string name){
+			var homegame = _homegameRepository.GetByName(gameName);
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _invitePlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			return View("InviteConfirmation", model);
+		}
+
+		private ActionResult ShowInviteForm(Homegame homegame){
+			var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _invitePlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			return View("Invite", model);
 		}
 
     }

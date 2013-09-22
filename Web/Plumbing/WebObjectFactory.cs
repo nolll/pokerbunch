@@ -7,6 +7,7 @@ using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories;
@@ -17,6 +18,8 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
+using Web.Services;
+using Web.Services.Interfaces;
 using Web.Validators;
 
 namespace Web.Plumbing
@@ -30,6 +33,8 @@ namespace Web.Plumbing
             // Services
             ObjectFactory.RegisterComponent<IEncryptionService, EncryptionService>(container);
             ObjectFactory.RegisterComponent<IAvatarService, GravatarService>(container);
+            ObjectFactory.RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>(container);
+            ObjectFactory.RegisterComponent<IInvitationSender, InvitationSender>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -50,6 +55,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameResultFactory, CashgameResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
+            ObjectFactory.RegisterComponent<IMessageSenderFactory, MessageSenderFactory>(container);
 
             // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
@@ -78,6 +84,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddPlayerPageModelFactory, AddPlayerPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IInvitePlayerPageModelFactory, InvitePlayerPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);

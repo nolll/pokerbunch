@@ -83,7 +83,7 @@ namespace Web.Controllers{
                     homegame = _homegameRepository.AddHomegame(homegame);
                     var user = _userContext.GetUser();
                     _playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
-                    return new RedirectResult(new HomegameAddConfirmationUrlModel().Url);
+                    return Redirect(new HomegameAddConfirmationUrlModel().Url);
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace Web.Controllers{
 			{
 			    var postedHomegame = _modelMapper.GetHomegame(homegame, postModel);
 				_homegameRepository.SaveHomegame(postedHomegame);
-				return new RedirectResult(new HomegameDetailsUrlModel(postedHomegame).Url);
+                return Redirect(new HomegameDetailsUrlModel(postedHomegame).Url);
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);

@@ -1,0 +1,29 @@
+@model Web.Models.PlayerModels.Invite.InvitePlayerPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Invite Player</h1>
+</div>
+<div class="block gutter">
+	
+    @Html.Partial("~/Views/Forms/Errors.cshtml")
+    
+    <p>
+		Invite this player to see his own results.
+	</p>
+
+    <form method="post">
+		<fieldset>
+			<p>
+                @Html.LabelFor(model => model.Email, "Email")
+                @Html.TextBoxFor(model => model.Email, new { @class = "textfield" })
+			</p>
+		</fieldset>
+		<div class="buttons">
+			<button class="action" type="submit">Invite</button>
+		</div>
+	</form>
+</div>

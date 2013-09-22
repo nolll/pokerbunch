@@ -191,6 +191,10 @@
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IinvitePlayerPageModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\InvitePlayerConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\InvitePlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IAddPlayerConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IAddPlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerDetailsPageModelFactory.cs" />
@@ -244,6 +248,9 @@
     <Compile Include="Models\PlayerModels\Add\AddPlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerPostModel.cs" />
+    <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
+    <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
+    <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
     <Compile Include="Models\UrlModels\AuthLoginUrlModel.cs" />
     <Compile Include="Models\UrlModels\AuthLogoutUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameAddUrlModel.cs" />
@@ -363,6 +370,8 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Interfaces\IInvitationSender.cs" />
+    <Compile Include="Services\InvitationSender.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Validators\Interfaces\IUserValidatorFactory.cs" />
     <Compile Include="Validators\UserValidatorFactory.cs" />
@@ -499,6 +508,10 @@
     <Compile Include="Models\UrlModels\CashgameDeleteUrlModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameJoinUrlModel.cs" />
+    <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
+    <Compile Include="Services\InvitationCodeCreator.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -514,6 +527,8 @@
     <Content Include="Views\Homegame\Edit\Edit.cshtml" />
     <None Include="Views\Player\Add.cshtml" />
     <None Include="Views\Player\AddConfirmation.cshtml" />
+    <None Include="Views\Player\InviteConfirmation.cshtml" />
+    <None Include="Views\Player\Invite.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
