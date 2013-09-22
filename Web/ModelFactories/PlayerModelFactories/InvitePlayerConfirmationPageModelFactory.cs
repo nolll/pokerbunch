@@ -19,7 +19,7 @@ namespace Web.ModelFactories.PlayerModelFactories
         {
             return new InvitePlayerConfirmationPageModel
                 {
-                    BrowserTitle = "Player Added",
+                    BrowserTitle = "Player Invited",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                 };
         }

@@ -1,12 +1,15 @@
 using Core.Classes;
-using Core.Services;
+using Infrastructure.Config;
+using Infrastructure.Services;
+using Web.Models.UrlModels;
+using Web.Services.Interfaces;
 
-namespace app\Player{
+namespace Web.Services{
 
 	public class InvitationSender : IInvitationSender{
-	    private readonly MessageSenderFactory _messageSenderFactory;
-	    private readonly InvitationCodeCreator _invitationCodeCreator;
-	    private readonly Settings _settings;
+	    private readonly IMessageSenderFactory _messageSenderFactory;
+	    private readonly IInvitationCodeCreator _invitationCodeCreator;
+	    private readonly ISettings _settings;
 
 	    public InvitationSender(
             IMessageSenderFactory messageSenderFactory,
@@ -19,24 +22,24 @@ namespace app\Player{
 	    }
 
 	    public void Send(Homegame homegame, Player player, string email){
-			var subject = getSubject(homegame);
-			var body = getBody(homegame, player);
-			messageSender = _messageSenderFactory.getMessageSender();
-			messageSender.send(email, subject, body);
+			var subject = GetSubject(homegame);
+			var body = GetBody(homegame, player);
+			var messageSender = _messageSenderFactory.GetMessageSender();
+			messageSender.Send(email, subject, body);
 		}
 
-		public string getSubject(Homegame homegame){
+	    private string GetSubject(Homegame homegame){
 			return "Invitation to Poker Bunch: " + homegame.DisplayName;
 		}
 
-		public string getBody(Homegame homegame, Player player){
-			var siteUrl = _settings.getSiteUrl();
+	    private string GetBody(Homegame homegame, Player player){
+			var siteUrl = _settings.GetSiteUrl();
 			var joinUrl = new HomegameJoinUrlModel(homegame);
-			var joinUrlStr = siteUrl + joinUrl.url;
+			var joinUrlStr = siteUrl + joinUrl.Url;
 			var userAddUrl = new UserAddUrlModel();
 			var userAddUrlStr = siteUrl + userAddUrl.Url;
 
-			var invitationCode = _invitationCodeCreator.getCode(player);
+			var invitationCode = _invitationCodeCreator.GetCode(player);
 			var body = "You have been invited to join the poker game: " + homegame.DisplayName + ".\r\n\r\n" +
 				"To accept this invitation, go to " + joinUrlStr +
 				" and enter this verification code: " + invitationCode + "\r\n\r\n" +

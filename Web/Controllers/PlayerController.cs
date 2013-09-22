@@ -8,6 +8,7 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 using Web.Models.UrlModels;
+using Web.Services.Interfaces;
 
 namespace Web.Controllers{
 
@@ -25,6 +26,7 @@ namespace Web.Controllers{
 	    private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
 	    private readonly IInvitePlayerPageModelFactory _invitePlayerPageModelFactory;
 	    private readonly IInvitePlayerConfirmationPageModelFactory _invitePlayerConfirmationPageModelFactory;
+	    private readonly IInvitationSender _invitationSender;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -38,7 +40,8 @@ namespace Web.Controllers{
             IAddPlayerPageModelFactory addPlayerPageModelFactory,
             IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory,
             IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
-            IInvitePlayerConfirmationPageModelFactory invitePlayerConfirmationPageModelFactory)
+            IInvitePlayerConfirmationPageModelFactory invitePlayerConfirmationPageModelFactory,
+            IInvitationSender invitationSender)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -52,6 +55,7 @@ namespace Web.Controllers{
 	        _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
 	        _invitePlayerPageModelFactory = invitePlayerPageModelFactory;
 	        _invitePlayerConfirmationPageModelFactory = invitePlayerConfirmationPageModelFactory;
+	        _invitationSender = invitationSender;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -125,12 +129,13 @@ namespace Web.Controllers{
 			return ShowInviteForm(homegame);
 		}
 
+        [HttpPost]
 		public ActionResult Invite(string gameName, string name, InvitePlayerPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
 			var player = _playerRepository.GetByName(homegame, name);
 			if(ModelState.IsValid){
-				_invitationSender.Send(homegame, player, email);
+				_invitationSender.Send(homegame, player, postModel.Email);
 				return Redirect(new PlayerInviteConfirmationUrlModel(homegame, player).Url);
 			} else {
 				return ShowInviteForm(homegame);

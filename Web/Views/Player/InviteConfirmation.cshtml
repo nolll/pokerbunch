@@ -1,12 +1,14 @@
-{extends file="app/Page.tpl"}
-{block name='title'}Player Invited{/block}
-{block name=full}
-	<div class="block gutter">
-		<h1>Player Invited</h1>
-	</div>
-	<div class="block gutter">
-		<p>
-			The player was invited.
-		</p>
-	</div>
-{/block}
+@model Web.Models.PlayerModels.Invite.InvitePlayerConfirmationPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Player Invited</h1>
+</div>
+<div class="block gutter">
+	<p>
+		The player was invited.
+	</p>
+</div>

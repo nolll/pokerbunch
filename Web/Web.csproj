@@ -370,6 +370,8 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Interfaces\IInvitationSender.cs" />
+    <Compile Include="Services\InvitationSender.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Validators\Interfaces\IUserValidatorFactory.cs" />
     <Compile Include="Validators\UserValidatorFactory.cs" />
@@ -508,6 +510,8 @@
     <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomegameJoinUrlModel.cs" />
+    <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
+    <Compile Include="Services\InvitationCodeCreator.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />

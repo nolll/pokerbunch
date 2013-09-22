@@ -163,6 +163,16 @@
   <ItemGroup>
     <Compile Include="Config\ServerMode.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\IMessageSenderFactory.cs" />
+    <Compile Include="Services\MessageSenderFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\EmailMessageSender.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\MessageSender.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

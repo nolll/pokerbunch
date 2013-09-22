@@ -1,6 +1,6 @@
 using Core.Classes;
 
-namespace Core.Services{
+namespace Web.Services.Interfaces{
 
 	public interface IInvitationSender{
 
