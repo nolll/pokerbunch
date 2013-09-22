@@ -147,7 +147,6 @@
     <None Include="tests\AppTests\Cashgame\Chart\ChartModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Details\DetailsControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Details\DetailsModelTests.php" />
-    <None Include="tests\AppTests\Cashgame\Details\ResultTableItemModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Details\ResultTableModelTests.php" />
     <None Include="tests\AppTests\Cashgame\Edit\CashgameEditControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Edit\CashgameEditModelTests.php" />
