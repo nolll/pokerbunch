@@ -50,10 +50,7 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Homegame\Join\Confirmation.tpl" />
     <None Include="app\Homegame\Join\HomegameJoinController.php" />
-    <None Include="app\Homegame\Join\HomegameJoinModel.php" />
-    <None Include="app\Homegame\Join\Join.tpl" />
     <None Include="app\Player\PlayerValidatorFactory.php" />
     <None Include="app\Player\PlayerValidatorFactoryImpl.php" />
     <None Include="app\Player\UniquePlayerNameValidator.php" />
@@ -69,7 +66,6 @@
     <None Include="app\Urls\ChangePasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
-    <None Include="app\Urls\HomegameJoinConfirmationUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />

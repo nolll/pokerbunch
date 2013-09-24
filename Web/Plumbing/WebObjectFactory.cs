@@ -86,6 +86,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IInvitePlayerPageModelFactory, InvitePlayerPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);

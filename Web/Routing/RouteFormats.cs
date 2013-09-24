@@ -49,7 +49,7 @@ namespace Web.Routing{
         public const string HomegameDetails = "/{0}/homegame/details";
         public const string HomegameEdit = "/{0}/homegame/edit";
         public const string HomegameJoin = "/{0}/homegame/join";
-        //const homegameJoinConfirmation = '/%1$s/homegame/joined';
+        public const string HomegameJoinConfirmation = "/{0}/homegame/joined";
         public const string HomegameListing = "/-/homegame/listing";
 
         public const string PlayerAdd = "/{0}/player/add";

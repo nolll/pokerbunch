@@ -2,11 +2,11 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelMappers;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
+using Web.Models.HomegameModels.Join;
 using Web.Models.UrlModels;
 
 namespace Web.Controllers{
@@ -24,6 +24,9 @@ namespace Web.Controllers{
 	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
+	    private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
+	    private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
+	    private readonly IInvitationCodeCreator _invitationCodeCreator;
 
 	    public HomegameController(
             IUserContext userContext,
@@ -36,7 +39,10 @@ namespace Web.Controllers{
             IHomegameListingPageModelFactory homegameListingPageModelFactory,
             IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
             ICashgameRepository cashgameRepository,
-            IHomegameEditPageModelFactory homegameEditPageModelFactory)
+            IHomegameEditPageModelFactory homegameEditPageModelFactory,
+            IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
+            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory,
+            IInvitationCodeCreator invitationCodeCreator)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -49,6 +55,9 @@ namespace Web.Controllers{
 	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
 	        _cashgameRepository = cashgameRepository;
 	        _homegameEditPageModelFactory = homegameEditPageModelFactory;
+	        _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
+	        _joinHomegameConfirmationPageModelFactory = joinHomegameConfirmationPageModelFactory;
+	        _invitationCodeCreator = invitationCodeCreator;
 	    }
 
 	    public ActionResult Listing(){
@@ -70,7 +79,7 @@ namespace Web.Controllers{
         {
             _userContext.RequireUser();
             var model = _addHomegamePageModelFactory.Create(_userContext.GetUser());
-            return ShowForm(model);
+            return View("AddHomegame", model);
         }
 
         [HttpPost]
@@ -91,7 +100,7 @@ namespace Web.Controllers{
                 }
 			}
             var model = _addHomegamePageModelFactory.Create(_userContext.GetUser(), postModel);
-			return ShowForm(model);
+			return View("AddHomegame", model);
 		}
 
         public ActionResult Created(){
@@ -122,28 +131,45 @@ namespace Web.Controllers{
 			return View("Edit/Edit", model);
 		}
 
-        /*
-		private function getPostedHomegame(Homegame $homegame){
-			$homegame.setDescription(request.getParamPost('description'));
-			$homegame.setHouseRules(request.getParamPost('houserules'));
-			$currencySymbol = request.getParamPost('currencysymbol');
-			$currencyLayout = request.getParamPost('currencylayout');
-			$currency = new CurrencySettings($currencySymbol, $currencyLayout);
-			$homegame.setCurrency($currency);
-			$timezoneName = request.getParamPost('timezone');
-			if($timezoneName != null){
-				$homegame.setTimezone(new DateTimeZone($timezoneName));
-			}
-			$homegame.setDefaultBuyin(request.getParamPost('defaultbuyin'));
-			$homegame.cashgamesEnabled = request.getParamPost('cashgames') != null;
-			$homegame.tournamentsEnabled = request.getParamPost('tournaments') != null;
-			$homegame.videosEnabled = request.getParamPost('videos') != null;
-			return $homegame;
+        public ActionResult Join(string gameName){
+			_userContext.RequireUser();
+            var model = _joinHomegamePageModelFactory.Create(_userContext.GetUser());
+			return View("Join/Join", model);
 		}
-        */
 
-        private ActionResult ShowForm(AddHomegamePageModel model = null){
-			return View("AddHomegame", model);
+        [HttpPost]
+		public ActionResult Join(string gameName, JoinHomegamePostModel postModel){
+			_userContext.RequireUser();
+			var homegame = _homegameRepository.GetByName(gameName);
+            if (ModelState.IsValid)
+            {
+                var player = GetMatchedPlayer(homegame, postModel.Code);
+                if(player != null && player.UserName == null){
+				    var user = _userContext.GetUser();
+				    _playerRepository.JoinHomegame(player, homegame, user);
+				    return Redirect(new HomegameJoinConfirmationUrlModel(homegame).Url);
+			    }
+            }
+            ModelState.AddModelError("joincode", "That code didn't work. Please check for errors and try again");
+			var model = _joinHomegamePageModelFactory.Create(_userContext.GetUser());
+			return View("Join/Join", model);
+		}
+
+		public ActionResult Joined(string gameName)
+		{
+		    var model = _joinHomegameConfirmationPageModelFactory.Create(_userContext.GetUser());
+			return View("Join/Confirmation", model);
+		}
+
+		private Player GetMatchedPlayer(Homegame homegame, string postedCode){
+			var players = _playerRepository.GetAll(homegame);
+			foreach (var player in players) {
+				var code = _invitationCodeCreator.GetCode(player);
+				if(code == postedCode){
+					return player;
+				}
+			}
+			return null;
 		}
 
         private bool HomegameExists(AddHomegamePostModel postModel)
