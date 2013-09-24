@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Core.Classes;
-using Moq;
+﻿using Core.Classes;
 using NUnit.Framework;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactories
+namespace Web.Tests.ModelFactoryTests
 {
     public class PagePropertiesFactoryTests
     {

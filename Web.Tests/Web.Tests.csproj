@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactories\HomePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactories\PagePropertiesFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\PagePropertiesFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\RouteTests.cs" />
   </ItemGroup>
@@ -106,10 +106,10 @@
     <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactories\AddHomegamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\AddHomegamePageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactories\CashgameFactsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameFactsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModelTests.cs" />
@@ -117,7 +117,7 @@
   <ItemGroup>
     <Compile Include="ModelTests\CashgameModels\Action\ActionPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Action\BuyinPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Action\CashoutModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Action\CashoutPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Action\CheckpointModelTests.cs" />
     <None Include="ModelTests\CashgameModels\Edit\CashgameEditModelTests.php" />
     <Compile Include="ModelTests\CashgameModels\Action\ReportPageModelFactoryTests.cs" />

@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Cashout;
 
 namespace Web.Tests.ModelTests.CashgameModels.Action{
 
-    class CashoutModelTests : MockContainer {
+    class CashoutPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		
