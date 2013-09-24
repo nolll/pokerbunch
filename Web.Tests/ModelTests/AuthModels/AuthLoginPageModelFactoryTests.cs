@@ -5,7 +5,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.AuthModels{
 
-	public class AuthLoginPageModelTests : MockContainer
+	public class AuthLoginPageModelFactoryTests : MockContainer
 	{
 		[Test]
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()

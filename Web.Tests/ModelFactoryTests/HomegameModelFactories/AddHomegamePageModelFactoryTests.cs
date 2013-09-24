@@ -6,7 +6,7 @@ using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 
-namespace Web.Tests.ModelFactoryTests{
+namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 	public class AddHomegamePageModelFactoryTests : MockContainer
 	{

@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomeModelFactories;
 
-namespace Web.Tests.ModelFactoryTests
+namespace Web.Tests.ModelFactoryTests.HomeModelFactories
 {
     class HomePageModelFactoryTests : MockContainer
     {

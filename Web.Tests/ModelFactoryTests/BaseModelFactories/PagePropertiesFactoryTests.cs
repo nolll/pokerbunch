@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactoryTests
+namespace Web.Tests.ModelFactoryTests.BaseModelFactories
 {
     public class PagePropertiesFactoryTests
     {

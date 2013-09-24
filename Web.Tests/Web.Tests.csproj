@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\HomePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\PagePropertiesFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\RouteTests.cs" />
   </ItemGroup>
@@ -89,7 +89,7 @@
     <Compile Include="ModelTests\NavigationModels\AdminNavModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\AuthModels\AuthLoginPageModelTests.cs" />
+    <Compile Include="ModelTests\AuthModels\AuthLoginPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
@@ -106,10 +106,10 @@
     <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\AddHomegamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\CashgameFactsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameFactsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModelTests.cs" />
