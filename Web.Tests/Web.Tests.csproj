@@ -119,7 +119,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\BuyinPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashoutPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\CheckpointModelTests.cs" />
-    <None Include="ModelTests\CashgameModels\Edit\CashgameEditModelTests.php" />
+    <Compile Include="ModelTests\CashgameModels\Edit\CashgameEditPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\ReportPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\AddCashgamePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameChartPageModelFactoryTests.cs" />
