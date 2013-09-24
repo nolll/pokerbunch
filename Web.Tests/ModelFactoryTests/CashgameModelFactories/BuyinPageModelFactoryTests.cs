@@ -5,7 +5,7 @@ using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Buyin;
 
-namespace Web.Tests.ModelTests.CashgameModels.Action{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
 	class BuyinPageModelFactoryTests : MockContainer {
 

@@ -89,7 +89,7 @@
     <Compile Include="ModelTests\NavigationModels\AdminNavModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\AuthModels\AuthLoginPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
@@ -115,20 +115,20 @@
     <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\CashgameModels\Action\ActionPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Action\BuyinPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Action\CashoutPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Action\CheckpointModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\ActionPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\BuyinPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashoutPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\CheckpointModelTests.cs" />
     <None Include="ModelTests\CashgameModels\Edit\CashgameEditModelTests.php" />
-    <Compile Include="ModelTests\CashgameModels\Action\ReportPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Add\AddCashgamePageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Chart\CashgameChartPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\ReportPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\AddCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameChartPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameLeaderboardTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameListingPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableItemModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />

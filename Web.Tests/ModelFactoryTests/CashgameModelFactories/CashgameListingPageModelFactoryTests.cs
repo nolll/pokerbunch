@@ -5,7 +5,7 @@ using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Listing;
 
-namespace Web.Tests.ModelTests.CashgameModels.Listing{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
 	public class CashgameListingPageModelFactoryTests : MockContainer {
 

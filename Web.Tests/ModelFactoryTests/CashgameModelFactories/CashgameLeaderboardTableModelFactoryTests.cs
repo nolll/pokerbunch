@@ -4,7 +4,7 @@ using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Leaderboard;
 
-namespace Web.Tests.ModelTests.CashgameModels.Leaderboard{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
 	public class CashgameLeaderboardTableModelFactoryTests : MockContainer {
 

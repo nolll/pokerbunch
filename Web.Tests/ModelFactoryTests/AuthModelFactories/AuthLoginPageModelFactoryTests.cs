@@ -3,7 +3,7 @@ using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.UrlModels;
 
-namespace Web.Tests.ModelTests.AuthModels{
+namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
 	public class AuthLoginPageModelFactoryTests : MockContainer
 	{
