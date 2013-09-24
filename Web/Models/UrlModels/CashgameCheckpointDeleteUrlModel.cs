@@ -6,7 +6,7 @@ using Web.Routing;
 
 namespace Web.Models.UrlModels{
 
-	class CashgameCheckpointDeleteUrlModel : UrlModel{
+	public class CashgameCheckpointDeleteUrlModel : UrlModel{
 
 		public CashgameCheckpointDeleteUrlModel(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint)
 			: base(GetUrl(homegame, cashgame, player, checkpoint)) {}

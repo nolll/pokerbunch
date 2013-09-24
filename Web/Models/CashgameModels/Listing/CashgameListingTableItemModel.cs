@@ -23,7 +23,7 @@ namespace Web.Models.CashgameModels.Listing{
 			Turnover = GetTurnover(homegame, cashgame);
 			AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount);
 			DetailsUrl = new CashgameDetailsUrlModel(homegame, cashgame);
-			DisplayDate = Globalization.FormatShortDate(cashgame.StartTime.Value, showYear);
+			DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null;
 			PublishedClass = GetPublishedClass(cashgame);
 		}
 

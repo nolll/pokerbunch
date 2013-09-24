@@ -508,6 +508,7 @@
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -517,6 +518,7 @@
     <None Include="Views\Cashgame\Edit\Edit.cshtml" />
     <None Include="Views\Cashgame\End\End.cshtml" />
     <None Include="Views\Cashgame\Report\Report.cshtml" />
+    <None Include="Views\Cashgame\Running\Bar.cshtml" />
     <None Include="Views\Forms\SelectField.cshtml" />
     <None Include="Views\Homegame\AddHomegame.cshtml" />
     <None Include="Views\Homegame\AddHomegameConfirmation.cshtml" />

@@ -6,7 +6,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Details{
 
-	public class CashgameDetailsTableItemModel {
+	public class CashgameDetailsTableItemModelTests {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;
@@ -110,8 +110,8 @@ namespace Web.Tests.ModelTests.CashgameModels.Details{
 			Assert.AreEqual("", sut.Winrate);
 		}
 
-		private Models.CashgameModels.Details.CashgameDetailsTableItemModel GetSut(){
-			return new Models.CashgameModels.Details.CashgameDetailsTableItemModel(_homegame, _cashgame, _result);
+		private CashgameDetailsTableItemModel GetSut(){
+			return new CashgameDetailsTableItemModel(_homegame, _cashgame, _result);
 		}
 
 	}

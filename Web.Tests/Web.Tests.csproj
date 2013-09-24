@@ -112,7 +112,26 @@
     <Compile Include="ModelFactories\CashgameFactsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
+    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModelTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelTests\CashgameModels\Action\ActionPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Action\BuyinPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Action\CashoutModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Action\CheckpointModelTests.cs" />
+    <None Include="ModelTests\CashgameModels\Edit\CashgameEditModelTests.php" />
+    <Compile Include="ModelTests\CashgameModels\Action\ReportPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Add\AddCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Chart\CashgameChartPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingPageModelFactoryTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableItemModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableModelTests.cs" />
+    <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
