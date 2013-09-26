@@ -206,7 +206,9 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IUserListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\UserListingPageModelFactory.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
     <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
@@ -517,6 +519,8 @@
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegamePageModel.cs" />
     <Compile Include="Models\UrlModels\HomegameJoinConfirmationUrlModel.cs" />
+    <Compile Include="Models\UserModels\Listing\UserItemModel.cs" />
+    <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -580,6 +584,8 @@
     <None Include="Views\Player\Item.cshtml" />
     <None Include="Views\Player\Listing.cshtml" />
     <None Include="Views\Player\PlayerBadges.cshtml" />
+    <None Include="Views\User\Listing\Item.cshtml" />
+    <None Include="Views\User\Listing\Listing.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

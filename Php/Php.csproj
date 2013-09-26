@@ -50,7 +50,6 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Homegame\Join\HomegameJoinController.php" />
     <None Include="app\Player\PlayerValidatorFactory.php" />
     <None Include="app\Player\PlayerValidatorFactoryImpl.php" />
     <None Include="app\Player\UniquePlayerNameValidator.php" />
@@ -87,11 +86,6 @@
     <None Include="app\User\ForgotPassword\Form.tpl" />
     <None Include="app\User\ForgotPassword\PasswordSender.php" />
     <None Include="app\User\ForgotPassword\PasswordSenderImpl.php" />
-    <None Include="app\User\Listing\Item.tpl" />
-    <None Include="app\User\Listing\Listing.tpl" />
-    <None Include="app\User\Listing\UserItemModel.php" />
-    <None Include="app\User\Listing\UserListingController.php" />
-    <None Include="app\User\Listing\UserListingModel.php" />
     <None Include="app\User\PasswordGenerator.php" />
     <None Include="app\User\RandomStringGenerator.php" />
     <None Include="app\User\SaltGenerator.php" />
