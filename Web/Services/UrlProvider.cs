@@ -16,5 +16,10 @@ namespace Web.Services
         {
             return RouteFormats.UserAdd;
         }
+
+        public string GetAuthLoginUrl()
+        {
+            return RouteFormats.AuthLogin;
+        }
     }
 }

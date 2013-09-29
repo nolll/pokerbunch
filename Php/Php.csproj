@@ -68,12 +68,6 @@
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
-    <None Include="app\Urls\UserAddConfirmationUrlModel.php" />
-    <None Include="app\User\Add\Add.tpl" />
-    <None Include="app\User\Add\Confirmation.tpl" />
-    <None Include="app\User\Add\RegistrationConfirmationSender.php" />
-    <None Include="app\User\Add\RegistrationConfirmationSenderImpl.php" />
-    <None Include="app\User\Add\UserAddController.php" />
     <None Include="app\User\ChangePassword\ChangePasswordController.php" />
     <None Include="app\User\ChangePassword\Confirmation.tpl" />
     <None Include="app\User\ChangePassword\Form.tpl" />
@@ -86,11 +80,6 @@
     <None Include="app\User\ForgotPassword\Form.tpl" />
     <None Include="app\User\ForgotPassword\PasswordSender.php" />
     <None Include="app\User\ForgotPassword\PasswordSenderImpl.php" />
-    <None Include="app\User\PasswordGenerator.php" />
-    <None Include="app\User\RandomStringGenerator.php" />
-    <None Include="app\User\SaltGenerator.php" />
-    <None Include="app\User\UniqueEmailValidator.php" />
-    <None Include="app\User\UniqueUserNameValidator.php" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
     <None Include="config\ConfigFactory.php" />

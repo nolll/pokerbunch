@@ -36,6 +36,11 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IInvitationSender, InvitationSender>(container);
             ObjectFactory.RegisterComponent<IMessageSender, MessageSender>(container);
             ObjectFactory.RegisterComponent<IUrlProvider, UrlProvider>(container);
+            ObjectFactory.RegisterComponent<IUserService, UserService>(container);
+            ObjectFactory.RegisterComponent<IPasswordGenerator, PasswordGenerator>(container);
+            ObjectFactory.RegisterComponent<ISaltGenerator, SaltGenerator>(container);
+            ObjectFactory.RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>(container);
+            ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -89,6 +94,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IUserListingPageModelFactory, UserListingPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
@@ -102,9 +109,7 @@ namespace Web.Plumbing
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
             ObjectFactory.RegisterComponent<ICashgameModelMapper, CashgameModelMapper>(container);
-
-            // Misc
-            ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
+            ObjectFactory.RegisterComponent<IUserModelMapper, UserModelMapper>(container);
         }
 
     }

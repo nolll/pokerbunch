@@ -68,7 +68,7 @@ namespace Web.Routing{
         //const twitterStopShare = '/-/sharing/twitterstop';
 
         public const string UserAdd = "/-/user/add";
-        //const userAddConfirmation = '/-/user/created';
+        public const string UserAddConfirmation = "/-/user/created";
         public const string UserDetails = "/-/user/details/{0}";
         public const string UserEdit = "/-/user/edit/{0}";
         public const string UserListing = "/-/user/listing";

@@ -94,10 +94,7 @@ namespace Web.Controllers{
                     _playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
                     return Redirect(new HomegameAddConfirmationUrlModel().Url);
                 }
-                else
-                {
-                    ModelState.AddModelError("homegame_exists", "The Homegame name is not available");
-                }
+                ModelState.AddModelError("homegame_exists", "The Homegame name is not available");
 			}
             var model = _addHomegamePageModelFactory.Create(_userContext.GetUser(), postModel);
 			return View("AddHomegame", model);

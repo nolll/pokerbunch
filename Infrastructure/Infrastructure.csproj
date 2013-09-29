@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Factories\HomegameFactory.cs" />
     <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="System\Interfaces\ITimeProvider.cs" />
     <Compile Include="System\TimeProvider.cs" />
   </ItemGroup>

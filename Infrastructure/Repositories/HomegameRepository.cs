@@ -46,6 +46,10 @@ namespace Infrastructure.Repositories {
 
         public IList<Homegame> GetByUser(User user)
         {
+            if (user == null)
+            {
+                return new List<Homegame>();
+            }
             var rawHomegames = _homegameStorage.GetHomegamesByUserId(user.Id);
             return rawHomegames.Select(_homegameFactory.Create).ToList();
         }

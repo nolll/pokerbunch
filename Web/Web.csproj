@@ -205,11 +205,17 @@
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerListingPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\AddUserConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\AddUserPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IAddUserConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IAddUserPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserListingPageModelFactory.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
+    <Compile Include="ModelMappers\UserModelMapper.cs" />
+    <Compile Include="ModelMappers\IUserModelMapper.cs" />
     <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
@@ -284,6 +290,9 @@
     <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\UserListingUrlModel.cs" />
     <Compile Include="Models\UrlModels\UserUrlModel.cs" />
+    <Compile Include="Models\UserModels\Add\AddUserConfirmationPageModel.cs" />
+    <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
+    <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -521,6 +530,7 @@
     <Compile Include="Models\UrlModels\HomegameJoinConfirmationUrlModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserItemModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
+    <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -541,6 +551,8 @@
     <None Include="Views\Player\AddConfirmation.cshtml" />
     <None Include="Views\Player\InviteConfirmation.cshtml" />
     <None Include="Views\Player\Invite.cshtml" />
+    <None Include="Views\User\Add\Add.cshtml" />
+    <None Include="Views\User\Add\Confirmation.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />

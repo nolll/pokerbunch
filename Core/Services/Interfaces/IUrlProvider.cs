@@ -6,5 +6,6 @@ namespace Core.Services
     {
         string GetJoinHomegameUrl(Homegame homegame);
         string GetAddUserUrl();
+        string GetAuthLoginUrl();
     }
 }

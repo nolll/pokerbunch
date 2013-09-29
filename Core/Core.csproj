@@ -120,7 +120,19 @@
     <Compile Include="Services\Interfaces\IUrlProvider.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationSender.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
+    <Compile Include="Services\Interfaces\IPasswordGenerator.cs" />
+    <Compile Include="Services\ISaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\PasswordGenerator.cs" />
+    <Compile Include="Services\RandomStringGenerator.cs" />
+    <Compile Include="Services\SaltGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\IRegistrationConfirmationSender.cs" />
+    <Compile Include="Services\RegistrationConfirmationSender.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,38 @@
+@model Web.Models.UserModels.Add.AddUserPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Register</h1>
+</div>
+<div class="block gutter">
+	
+    <p>
+		When you register, a password will be sent to the email address you provide.
+		This password can be changed after you log in
+	</p>
+
+    @Html.Partial("~/Views/Forms/Errors.cshtml")
+    
+    <form method="post">
+		<fieldset>
+            <p>
+                @Html.LabelFor(model => model.UserName, "Login Name")
+                @Html.TextBoxFor(model => model.UserName, new { @class = "textfield" })
+            </p>
+			<p>
+                @Html.LabelFor(model => model.DisplayName, "Display Name")
+                @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
+            </p>
+			<p>
+                @Html.LabelFor(model => model.Email, "Email")
+                @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "textfield" })
+            </p>
+		</fieldset>
+		<div class="buttons">
+			<button class="action" type="submit">Register</button>
+		</div>
+	</form>
+</div>
