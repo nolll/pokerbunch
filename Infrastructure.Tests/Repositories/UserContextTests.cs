@@ -63,20 +63,6 @@ namespace CoreTests{
 		}
 
 		[Test]
-        public void GetUser_CalledTwice_TokenExists_DatabaseIsOnlyAskedOnce(){
-			const string token = "a";
-		    var callCount = 0;
-            WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Callback(() => callCount++);
-
-		    var sut = GetSut();
-			sut.GetUser();
-			sut.GetUser();
-
-            Assert.AreEqual(1, callCount);
-		}
-
-		[Test]
         public void IsLoggedIn_TokenExistsButNoMatchingUser_ReturnsFalse(){
 			const string token = "a";
             WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);

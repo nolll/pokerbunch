@@ -207,6 +207,8 @@
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerListingPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\AddUserConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\AddUserPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IEditUserPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\EditUserPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IAddUserConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IAddUserPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserDetailsPageModelFactory.cs" />
@@ -293,6 +295,8 @@
     <Compile Include="Models\UserModels\Add\AddUserConfirmationPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />
+    <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
+    <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -596,6 +600,7 @@
     <None Include="Views\Player\Item.cshtml" />
     <None Include="Views\Player\Listing.cshtml" />
     <None Include="Views\Player\PlayerBadges.cshtml" />
+    <None Include="Views\User\Edit\Edit.cshtml" />
     <None Include="Views\User\Listing\Item.cshtml" />
     <None Include="Views\User\Listing\Listing.cshtml" />
   </ItemGroup>

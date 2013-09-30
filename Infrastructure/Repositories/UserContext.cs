@@ -12,9 +12,6 @@ namespace Infrastructure.Repositories{
 	    private readonly IUserStorage _userStorage;
 	    private readonly IHomegameRepository _homegameRepository;
 
-	    private User _user;
-		private bool _fetchedUser;
-
 	    public UserContext(
             IWebContext webContext, 
             IUserStorage userStorage, 
@@ -23,18 +20,14 @@ namespace Infrastructure.Repositories{
 	        _webContext = webContext;
 	        _userStorage = userStorage;
 	        _homegameRepository = homegameRepository;
-	        _fetchedUser = false;
 	    }
 
 		public User GetUser(){
-			if(!_fetchedUser){
-				var token = GetToken();
-				if(token != null){
-					_user = _userStorage.GetUserByToken(token);
-				}
-				_fetchedUser = true;
+			var token = GetToken();
+			if(token != null){
+				return _userStorage.GetUserByToken(token);
 			}
-			return _user;
+		    return null;
 		}
 
 		public bool IsLoggedIn(){

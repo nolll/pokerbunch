@@ -72,9 +72,6 @@
     <None Include="app\User\ChangePassword\Confirmation.tpl" />
     <None Include="app\User\ChangePassword\Form.tpl" />
     <None Include="app\User\ChangePassword\RepeatPasswordValidator.php" />
-    <None Include="app\User\Edit\Edit.tpl" />
-    <None Include="app\User\Edit\UserEditController.php" />
-    <None Include="app\User\Edit\UserEditModel.php" />
     <None Include="app\User\ForgotPassword\Confirmation.tpl" />
     <None Include="app\User\ForgotPassword\ForgotPasswordController.php" />
     <None Include="app\User\ForgotPassword\Form.tpl" />

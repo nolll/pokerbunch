@@ -29,7 +29,7 @@ namespace Infrastructure.System{
         {
             if (Request.Cookies[token] != null)
             {
-                var myCookie = new HttpCookie(token) {Expires = _timeProvider.GetTime().AddDays(-1d)};
+                var myCookie = new HttpCookie(token) {Expires = _timeProvider.GetTime().AddDays(-1)};
                 Response.Cookies.Add(myCookie);
             }
         }

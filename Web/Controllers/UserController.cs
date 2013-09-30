@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
@@ -7,6 +8,7 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
+using Web.Models.UserModels.Edit;
 
 namespace Web.Controllers{
 
@@ -23,6 +25,7 @@ namespace Web.Controllers{
 	    private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
 	    private readonly IAddUserPageModelFactory _addUserPageModelFactory;
 	    private readonly IAddUserConfirmationPageModelFactory _addUserConfirmationPageModelFactory;
+	    private readonly IEditUserPageModelFactory _editUserPageModelFactory;
 
 	    public UserController(
             IUserContext userContext,
@@ -36,7 +39,8 @@ namespace Web.Controllers{
             IUserModelMapper userModelMapper,
             IRegistrationConfirmationSender registrationConfirmationSender,
             IAddUserPageModelFactory addUserPageModelFactory,
-            IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory)
+            IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
+            IEditUserPageModelFactory editUserPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _userStorage = userStorage;
@@ -50,6 +54,7 @@ namespace Web.Controllers{
 	        _registrationConfirmationSender = registrationConfirmationSender;
 	        _addUserPageModelFactory = addUserPageModelFactory;
 	        _addUserConfirmationPageModelFactory = addUserConfirmationPageModelFactory;
+	        _editUserPageModelFactory = editUserPageModelFactory;
 	    }
 
 		public ActionResult Details(string name){
@@ -113,6 +118,29 @@ namespace Web.Controllers{
 		{
 		    var model = _addUserConfirmationPageModelFactory.Create(_userContext.GetUser());
 			return View("Add/Confirmation", model);
+		}
+
+        public ActionResult Edit(string name){
+			_userContext.RequireUser();
+			var user = _userStorage.GetUserByName(name);
+			if(user == null){
+				throw new UserNotFoundException();
+			}
+            var model = _editUserPageModelFactory.Create(user);
+            return View("Edit/Edit", model);
+		}
+
+        [HttpPost]
+		public ActionResult Edit(string name, EditUserPostModel postModel){
+			_userContext.RequireUser();
+			var user = _userStorage.GetUserByName(name);
+            if(ModelState.IsValid){
+				user = _userModelMapper.GetUser(user, postModel);
+			    _userStorage.UpdateUser(user);
+				return Redirect(new UserDetailsUrlModel(user).Url);
+			}
+            var model = _editUserPageModelFactory.Create(user, postModel);
+            return View("Edit/Edit", model);
 		}
 
 	}

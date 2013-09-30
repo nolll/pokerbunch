@@ -1,0 +1,38 @@
+@model Web.Models.UserModels.Edit.EditUserPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Edit Profile</h1>
+</div>
+<div class="block gutter">
+	
+    @Html.Partial("~/Views/Forms/Errors.cshtml")
+    
+    <h2>Login Name</h2>
+	<p>
+		@Model.UserName
+	</p>
+
+    <form method="post">
+		<fieldset>
+            <p>
+                @Html.LabelFor(model => model.DisplayName, "Display Name")
+                @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
+            </p>
+			<p>
+                @Html.LabelFor(model => model.RealName, "Real Name")
+                @Html.TextBoxFor(model => model.RealName, new { @class = "textfield" })
+            </p>
+			<p>
+                @Html.LabelFor(model => model.Email, "Email")
+                @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "textfield" })
+            </p>
+		</fieldset>
+		<div class="buttons">
+			<button class="action" type="submit">Save</button>
+		</div>
+	</form>
+</div>

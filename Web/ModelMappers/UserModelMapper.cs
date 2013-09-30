@@ -1,5 +1,6 @@
 using Core.Classes;
 using Web.Models.UserModels.Add;
+using Web.Models.UserModels.Edit;
 
 namespace Web.ModelMappers
 {
@@ -11,10 +12,23 @@ namespace Web.ModelMappers
             {
                 UserName = postModel.UserName,
                 DisplayName = postModel.DisplayName,
+                RealName = string.Empty,
                 Email = postModel.Email,
                 GlobalRole = Role.Player,
-                Id = 0,
-                RealName = string.Empty
+                Id = 0
+            };
+        }
+
+        public User GetUser(User user, EditUserPostModel postModel)
+        {
+            return new User
+            {
+                UserName = user.UserName,
+                DisplayName = postModel.DisplayName,
+                RealName = postModel.RealName,
+                Email = postModel.Email,
+                GlobalRole = user.GlobalRole,
+                Id = user.Id,
             };
         }
     }
