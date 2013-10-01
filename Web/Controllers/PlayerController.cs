@@ -94,14 +94,19 @@ namespace Web.Controllers{
         public ActionResult Add(string gameName, AddPlayerPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			if(ModelState.IsValid){
-				_playerRepository.AddPlayer(homegame, postModel.Name);
-				return Redirect(new PlayerAddConfirmationUrlModel(homegame).Url);
-			} else {
-                var runningGame = _cashgameRepository.GetRunning(homegame);
-                var model = _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
-				return View("Add", model);
+			if(ModelState.IsValid)
+			{
+			    var existingPlayer = _playerRepository.GetByName(homegame, postModel.Name);
+                if (existingPlayer == null)
+                {
+                    _playerRepository.AddPlayer(homegame, postModel.Name);
+                    return Redirect(new PlayerAddConfirmationUrlModel(homegame).Url);
+                }
+                ModelState.AddModelError("player_exists", "The Display Name is in use by someone else");
 			}
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+            var model = _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+			return View("Add", model);
 		}
 
         public ActionResult Created(string gameName){
