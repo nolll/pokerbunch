@@ -38,9 +38,6 @@ namespace Web.Routing{
         public const string RunningCashgame = "/{0}/cashgame/running";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
 
-        public const string ForgotPassword = "/-/password/forgot";
-        //const forgotPasswordConfirmation = '/-/password/sent';
-
         public const string HomegameAdd = "/-/homegame/add";
         public const string HomegameAddConfirmation = "/-/homegame/created";
         public const string HomegameDetails = "/{0}/homegame/details";
@@ -71,6 +68,8 @@ namespace Web.Routing{
         public const string UserListing = "/-/user/listing";
         public const string ChangePassword = "/-/user/changepassword";
         public const string ChangePasswordConfirmation = "/-/user/changedpassword";
+        public const string ForgotPassword = "/-/user/forgotpassword";
+        public const string ForgotPasswordConfirmation = "/-/user/passwordsent";
 
 	}
 

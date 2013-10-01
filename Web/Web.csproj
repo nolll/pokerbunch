@@ -153,6 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactories\UserModelFactories\ChangePasswordPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
@@ -300,6 +302,9 @@
     <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordConfirmationPageModel.cs" />
+    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordConfirmationPageModel.cs" />
+    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPageModel.cs" />
+    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPostModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
@@ -541,6 +546,7 @@
     <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -609,6 +615,8 @@
     <None Include="Views\Player\Listing.cshtml" />
     <None Include="Views\Player\PlayerBadges.cshtml" />
     <None Include="Views\User\Edit\Edit.cshtml" />
+    <None Include="Views\User\ForgotPassword\Confirmation.cshtml" />
+    <None Include="Views\User\ForgotPassword\ForgotPassword.cshtml" />
     <None Include="Views\User\Listing\Item.cshtml" />
     <None Include="Views\User\Listing\Listing.cshtml" />
   </ItemGroup>

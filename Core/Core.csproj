@@ -134,6 +134,10 @@
     <Compile Include="Services\IRegistrationConfirmationSender.cs" />
     <Compile Include="Services\RegistrationConfirmationSender.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Interfaces\IPasswordSender.cs" />
+    <Compile Include="Services\PasswordSender.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

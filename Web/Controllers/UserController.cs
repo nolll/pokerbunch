@@ -9,6 +9,7 @@ using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
+using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers{
 
@@ -27,6 +28,8 @@ namespace Web.Controllers{
 	    private readonly IAddUserConfirmationPageModelFactory _addUserConfirmationPageModelFactory;
 	    private readonly IEditUserPageModelFactory _editUserPageModelFactory;
 	    private readonly IChangePasswordPageModelFactory _changePasswordPageModelFactory;
+	    private readonly IForgotPasswordPageModelFactory _forgotPasswordPageModelFactory;
+	    private readonly IPasswordSender _passwordSender;
 
 	    public UserController(
             IUserContext userContext,
@@ -42,7 +45,9 @@ namespace Web.Controllers{
             IAddUserPageModelFactory addUserPageModelFactory,
             IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
             IEditUserPageModelFactory editUserPageModelFactory,
-            IChangePasswordPageModelFactory changePasswordPageModelFactory)
+            IChangePasswordPageModelFactory changePasswordPageModelFactory,
+            IForgotPasswordPageModelFactory forgotPasswordPageModelFactory,
+            IPasswordSender passwordSender)
 	    {
 	        _userContext = userContext;
 	        _userStorage = userStorage;
@@ -58,6 +63,8 @@ namespace Web.Controllers{
 	        _addUserConfirmationPageModelFactory = addUserConfirmationPageModelFactory;
 	        _editUserPageModelFactory = editUserPageModelFactory;
 	        _changePasswordPageModelFactory = changePasswordPageModelFactory;
+	        _forgotPasswordPageModelFactory = forgotPasswordPageModelFactory;
+	        _passwordSender = passwordSender;
 	    }
 
 		public ActionResult Details(string name){
@@ -175,6 +182,35 @@ namespace Web.Controllers{
 		public ActionResult ChangedPassword(){
             var model = _changePasswordPageModelFactory.CreateConfirmation(_userContext.GetUser());
 			return View("ChangePassword/Confirmation", model);
+		}
+
+        public ActionResult ForgotPassword()
+        {
+            var model = _forgotPasswordPageModelFactory.Create(_userContext.GetUser());
+			return View("ForgotPassword/ForgotPassword", model);
+		}
+
+        [HttpPost]
+		public ActionResult ForgotPassword(ForgotPasswordPostModel postModel){
+    		if(ModelState.IsValid){
+				var user = _userStorage.GetUserByEmail(postModel.Email);
+				if(user != null){
+					var password = _passwordGenerator.CreatePassword();
+					var salt = _saltGenerator.CreateSalt();
+			        var encryptedPassword = _encryptionService.Encrypt(password, salt);
+			        _userStorage.SetEncryptedPassword(user, encryptedPassword);
+			        _userStorage.SetSalt(user, salt);
+					_passwordSender.Send(user, password);
+				}
+				return Redirect(new ForgotPasswordConfirmationUrlModel().Url);
+			}
+            var model = _forgotPasswordPageModelFactory.Create(_userContext.GetUser(), postModel);
+			return View("ForgotPassword/ForgotPassword", model);
+		}
+
+		public ActionResult PasswordSent(){
+			var model = _forgotPasswordPageModelFactory.CreateConfirmation(_userContext.GetUser());
+			return View("ForgotPassword/Confirmation", model);
 		}
 
 	}

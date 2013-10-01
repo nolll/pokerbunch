@@ -59,17 +59,10 @@
     <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
     <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
     <None Include="app\Urls\CashgameStartUrlModel.php" />
-    <None Include="app\Urls\ForgotPasswordConfirmationUrlModel.php" />
     <None Include="app\Urls\HomegameAddUrlModel.php" />
     <None Include="app\Urls\TwitterSettingsUrlModel.php" />
     <None Include="app\Urls\TwitterStartShareUrlModel.php" />
     <None Include="app\Urls\TwitterStopShareUrlModel.php" />
-    <None Include="app\User\ChangePassword\ChangePasswordController.php" />
-    <None Include="app\User\ForgotPassword\Confirmation.tpl" />
-    <None Include="app\User\ForgotPassword\ForgotPasswordController.php" />
-    <None Include="app\User\ForgotPassword\Form.tpl" />
-    <None Include="app\User\ForgotPassword\PasswordSender.php" />
-    <None Include="app\User\ForgotPassword\PasswordSenderImpl.php" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
     <None Include="config\ConfigFactory.php" />

@@ -41,6 +41,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ISaltGenerator, SaltGenerator>(container);
             ObjectFactory.RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>(container);
             ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
+            ObjectFactory.RegisterComponent<IPasswordSender, PasswordSender>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -98,6 +99,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IChangePasswordPageModelFactory, ChangePasswordPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
