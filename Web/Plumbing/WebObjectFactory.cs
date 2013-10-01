@@ -97,6 +97,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<IChangePasswordPageModelFactory, ChangePasswordPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);

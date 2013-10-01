@@ -152,6 +152,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\UserModelFactories\ChangePasswordPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
+    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
+    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegamePageModelFactory.cs" />
@@ -295,6 +299,7 @@
     <Compile Include="Models\UserModels\Add\AddUserConfirmationPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />
+    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordConfirmationPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
@@ -535,6 +540,7 @@
     <Compile Include="Models\UserModels\Listing\UserItemModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
     <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
@@ -557,6 +563,8 @@
     <None Include="Views\Player\Invite.cshtml" />
     <None Include="Views\User\Add\Add.cshtml" />
     <None Include="Views\User\Add\Confirmation.cshtml" />
+    <None Include="Views\User\ChangePassword\Confirmation.cshtml" />
+    <None Include="Views\User\ChangePassword\ChangePassword.cshtml" />
     <None Include="Views\User\Details.cshtml" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />

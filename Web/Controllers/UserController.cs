@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
@@ -8,6 +7,7 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
+using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 
 namespace Web.Controllers{
@@ -26,6 +26,7 @@ namespace Web.Controllers{
 	    private readonly IAddUserPageModelFactory _addUserPageModelFactory;
 	    private readonly IAddUserConfirmationPageModelFactory _addUserConfirmationPageModelFactory;
 	    private readonly IEditUserPageModelFactory _editUserPageModelFactory;
+	    private readonly IChangePasswordPageModelFactory _changePasswordPageModelFactory;
 
 	    public UserController(
             IUserContext userContext,
@@ -40,7 +41,8 @@ namespace Web.Controllers{
             IRegistrationConfirmationSender registrationConfirmationSender,
             IAddUserPageModelFactory addUserPageModelFactory,
             IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
-            IEditUserPageModelFactory editUserPageModelFactory)
+            IEditUserPageModelFactory editUserPageModelFactory,
+            IChangePasswordPageModelFactory changePasswordPageModelFactory)
 	    {
 	        _userContext = userContext;
 	        _userStorage = userStorage;
@@ -55,6 +57,7 @@ namespace Web.Controllers{
 	        _addUserPageModelFactory = addUserPageModelFactory;
 	        _addUserConfirmationPageModelFactory = addUserConfirmationPageModelFactory;
 	        _editUserPageModelFactory = editUserPageModelFactory;
+	        _changePasswordPageModelFactory = changePasswordPageModelFactory;
 	    }
 
 		public ActionResult Details(string name){
@@ -143,6 +146,36 @@ namespace Web.Controllers{
             return View("Edit/Edit", model);
 		}
 
-	}
+        public ActionResult ChangePassword()
+        {
+			_userContext.RequireUser();
+            var model = _changePasswordPageModelFactory.Create(_userContext.GetUser()); 
+			return View("ChangePassword/ChangePassword", model);
+		}
 
+        [HttpPost]
+		public ActionResult ChangePassword(ChangePasswordPostModel postModel){
+			_userContext.RequireUser();
+			var user = _userContext.GetUser();
+			if(ModelState.IsValid){
+                if (postModel.Password == postModel.Repeat)
+                {
+                    var salt = _saltGenerator.CreateSalt();
+    				var encryptedPassword = _encryptionService.Encrypt(postModel.Password, salt);
+	    			_userStorage.SetEncryptedPassword(user, encryptedPassword);
+		    		_userStorage.SetSalt(user, salt);
+			    	return Redirect(new ChangePasswordConfirmationUrlModel().Url);
+                }
+                ModelState.AddModelError("password_mismatch", "The passwords does not match");
+			}
+            var model = _changePasswordPageModelFactory.Create(_userContext.GetUser()); 
+			return View("ChangePassword/ChangePassword", model);
+		}
+
+		public ActionResult ChangedPassword(){
+            var model = _changePasswordPageModelFactory.CreateConfirmation(_userContext.GetUser());
+			return View("ChangePassword/Confirmation", model);
+		}
+
+	}
 }
