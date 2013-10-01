@@ -47,9 +47,7 @@
 				@RenderBody()
 			</div>
             
-            @*
-		    {partial view='core\Navigation\Navigation' model=$model->userNavigationModel}
-            *@
+            @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.PageProperties.UserNavModel)
 		
 		    @*
 		    <footer>
