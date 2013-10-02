@@ -1,0 +1,26 @@
+@model Web.Models.SharingModels.SharingIndexPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Sharing</h1>
+</div>
+<div class="block gutter">
+    <p>
+		This is your sharing settings
+	</p>
+	<h2>Twitter</h2>
+	<p>
+		@if (Model.IsSharingToTwitter)
+		{
+            <text>You are sharing to twitter.</text>
+		}
+		else
+        {
+			<text>You are not sharing to twitter.</text>
+		}
+		<a href="@Model.ShareToTwitterSettingsUrl">Settings</a>
+	</p>
+</div>

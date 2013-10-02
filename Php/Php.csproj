@@ -50,9 +50,6 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Sharing\Index\Index.tpl" />
-    <None Include="app\Sharing\Index\SharingIndexController.php" />
-    <None Include="app\Sharing\Index\SharingIndexModel.php" />
     <None Include="app\Sharing\Twitter\SharingTwitterController.php" />
     <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
@@ -75,7 +72,6 @@
     <None Include="integration\Sharing\SocialService.php" />
     <None Include="integration\Sharing\SocialServiceFactory.php" />
     <None Include="integration\Sharing\SocialServiceFactoryImpl.php" />
-    <None Include="integration\Sharing\SocialServiceProvider.php" />
     <None Include="integration\Sharing\TwitterService.php" />
     <None Include="integration\Sharing\TwitterServiceImpl.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionControllerTests.php" />
@@ -174,7 +170,9 @@
     <Content Include="googlecd2b6bdc316289ae.html" />
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\Sharing\Index\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

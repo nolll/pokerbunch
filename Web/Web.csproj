@@ -154,6 +154,8 @@
   <ItemGroup>
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
+    <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageModelFactory.cs" />
+    <Compile Include="ModelFactories\SharingModelFactories\SharingIndexPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\ChangePasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
@@ -527,6 +529,8 @@
     <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs" />
+    <Compile Include="Controllers\SharingController.cs" />
+    <Compile Include="Models\SharingModels\SharingIndexPageModel.cs" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
@@ -547,6 +551,7 @@
     <None Include="Views\Player\AddConfirmation.cshtml" />
     <None Include="Views\Player\InviteConfirmation.cshtml" />
     <None Include="Views\Player\Invite.cshtml" />
+    <None Include="Views\Sharing\Index.cshtml" />
     <None Include="Views\User\Add\Add.cshtml" />
     <None Include="Views\User\Add\Confirmation.cshtml" />
     <None Include="Views\User\ChangePassword\Confirmation.cshtml" />
