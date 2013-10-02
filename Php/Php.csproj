@@ -62,8 +62,6 @@
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlSharingStorage.php" />
-    <None Include="Infrastructure\Data\MySql\MySqlTwitterStorage.php" />
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
     <None Include="NotUsed\FileLoggingMessageSender.php" />
