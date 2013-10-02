@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
+using Web.Models.AuthModels;
 using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
@@ -11,7 +12,8 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
 		{
 		    var sut = GetSut();
-		    var result = sut.Create(null, "anyname");
+
+		    var result = sut.Create();
 
 			Assert.AreEqual("/", result.ReturnUrl);
 		}
@@ -19,8 +21,10 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ReturnUrl_WithReturnUrl_IsSet()
 		{
+            WebContextMock.Setup(o => o.GetQueryParam("return")).Returns("return-url");
+
 		    var sut = GetSut();
-            var result = sut.Create("return-url", "anyname");
+            var result = sut.Create();
 
 			Assert.AreEqual("return-url", result.ReturnUrl);
 		}
@@ -28,7 +32,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void AddUserUrl_IsSet(){
             var sut = GetSut();
-			var result = sut.Create("anyurl", "anyname");
+			var result = sut.Create();
 
 			Assert.IsInstanceOf<UserAddUrlModel>(result.AddUserUrl);
 		}
@@ -36,22 +40,25 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ForgotPasswordUrl_IsSet(){
             var sut = GetSut();
-			var result = sut.Create("anyurl", "anyname");
+			var result = sut.Create();
 
 			Assert.IsInstanceOf<ForgotPasswordUrlModel>(result.ForgotPasswordUrl);
 		}
 
 		[Test]
-        public void LoginName_IsSet(){
+        public void LoginName_IsSet()
+		{
+		    var postModel = new AuthLoginPostModel {LoginName = "login-name"};
+
             var sut = GetSut();
-			var result = sut.Create("anyurl", "login-name");
+			var result = sut.Create(postModel);
 
 			Assert.AreEqual(result.LoginName, "login-name");
 		}
 
         private AuthLoginPageModelFactory GetSut()
         {
-            return new AuthLoginPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new AuthLoginPageModelFactory(PagePropertiesFactoryMock.Object, WebContextMock.Object);
         }
 
 	}

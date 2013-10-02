@@ -95,12 +95,6 @@
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fakes\ValidatorFake.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ValidatorFactoryTests\UserValidatorFactoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ModelTests\CashgameModels\Running\RunningCashgamePageModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableItemModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Running\RunningCashgameTableModelTests.cs" />

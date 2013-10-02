@@ -1,7 +1,6 @@
 ﻿using Core.Repositories;
 using Core.Services;
 using Infrastructure.Caching;
-using Infrastructure.Config;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
@@ -14,7 +13,6 @@ using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
-using Web.Validators;
 
 namespace Tests.Common
 {
@@ -49,9 +47,7 @@ namespace Tests.Common
         protected CacheContainerFake CacheContainerFake;
 
         protected Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
-        protected Mock<IUserValidatorFactory> UserValidatorFactoryMock;
         protected Mock<IAuthLoginPageModelFactory> AuthLoginPageModelFactoryMock;
-        protected Mock<ICashgameValidatorFactory> CashgameValidatorFactoryMock;
 
         protected Mock<ISettings> SettingsMock;
 
@@ -105,9 +101,7 @@ namespace Tests.Common
             CacheContainerFake = new CacheContainerFake();
 
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
-            UserValidatorFactoryMock = new Mock<IUserValidatorFactory>();
             AuthLoginPageModelFactoryMock = new Mock<IAuthLoginPageModelFactory>();
-            CashgameValidatorFactoryMock = new Mock<ICashgameValidatorFactory>();
 
             SettingsMock = new Mock<ISettings>();
 

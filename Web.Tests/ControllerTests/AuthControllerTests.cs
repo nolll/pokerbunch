@@ -5,8 +5,6 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.Controllers;
 using Web.Models.AuthModels;
-using Web.Tests.Fakes;
-using Web.Validators;
 
 namespace Web.Tests.ControllerTests{
 
@@ -16,7 +14,6 @@ namespace Web.Tests.ControllerTests{
         public void ActionLoginPost_UserExistsButNoReturnUrl_RedirectsToRoot(){
 			var user = new User();
 		    UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            SetupValidValidator();
 
             var sut = GetSut();
 
@@ -31,7 +28,6 @@ namespace Web.Tests.ControllerTests{
         public void ActionLoginPost_UserExistsAndWithReturnUrl_RedirectsToReturnUrl(){
 			var user = new User();
             UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-			SetupValidValidator();
 
             var sut = GetSut();
 
@@ -45,16 +41,15 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
         public void ActionLoginPost_UserNotFound_ShowsForm(){
-			SetupInvalidValidator();
-            AuthLoginPageModelFactoryMock.Setup(o => o.Create(It.IsAny<string>(), It.IsAny<string>())).Returns(new AuthLoginPageModel());
+            AuthLoginPageModelFactoryMock.Setup(o => o.Create()).Returns(new AuthLoginPageModel());
 
             var sut = GetSut();
+            sut.ModelState.AddModelError("fake_error", "");
 
-            var loginPageModel = new AuthLoginPageModel();
+            var loginPageModel = new AuthLoginPostModel();
 			var result = sut.Login(loginPageModel) as ViewResult;
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOf<AuthLoginPageModel>(result.Model);
             Assert.AreEqual("Login", result.ViewName);
 		}
 
@@ -66,7 +61,6 @@ namespace Web.Tests.ControllerTests{
 			var user = new User();
             UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 		    UserStorageMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
-			SetupValidValidator();
 
             var sut = GetSut();
 			sut.Login(new AuthLoginPageModel());
@@ -81,7 +75,6 @@ namespace Web.Tests.ControllerTests{
             var user = new User();
             UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             UserStorageMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
-            SetupValidValidator();
 
             var sut = GetSut();
             sut.Login(new AuthLoginPageModel{RememberMe = true});
@@ -95,7 +88,7 @@ namespace Web.Tests.ControllerTests{
             
             var sut = GetSut();
 
-            var result = sut.Logout() as RedirectToRouteResult;
+            sut.Logout();
 
             WebContextMock.Verify(o => o.ClearCookie(cookieName));
 		}
@@ -111,23 +104,13 @@ namespace Web.Tests.ControllerTests{
             Assert.AreEqual("Home", result.RouteValues["controller"]);
 		}
         
-        private void SetupValidValidator(){
-			var validator = new ValidatorFake();
-			SetupValidator(validator);
-		}
-
-        private void SetupInvalidValidator(){
-			var validator = new ValidatorFake {IsValid = false};
-            SetupValidator(validator);
-		}
-
-        private void SetupValidator(IValidator validator){
-			UserValidatorFactoryMock.Setup(o => o.GetLoginValidator(It.IsAny<User>())).Returns(validator);
-		}
-
         private AuthController GetSut()
         {
-            return new AuthController(UserStorageMock.Object, EncryptionServiceMock.Object, UserValidatorFactoryMock.Object, WebContextMock.Object, AuthLoginPageModelFactoryMock.Object);
+            return new AuthController(
+                UserStorageMock.Object, 
+                EncryptionServiceMock.Object, 
+                WebContextMock.Object, 
+                AuthLoginPageModelFactoryMock.Object);
         }
 
 	}

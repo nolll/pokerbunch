@@ -158,6 +158,7 @@
     <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
+    <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -405,27 +406,6 @@
   <ItemGroup>
     <Compile Include="Services\UrlProvider.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="Validators\Interfaces\IUserValidatorFactory.cs" />
-    <Compile Include="Validators\UserValidatorFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\NotNullValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\SingleValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\BaseValidator.cs" />
-    <Compile Include="Validators\Interfaces\IValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\CompositeValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\RequiredValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Validators\SimpleValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />
@@ -509,8 +489,6 @@
     <Compile Include="Models\FormModels\FormFieldModel.cs" />
     <Compile Include="Models\FormModels\SelectFieldItem.cs" />
     <Compile Include="Models\CashgameModels\Add\AddCashgamePostModel.cs" />
-    <Compile Include="Validators\ICashgameValidatorFactory.cs" />
-    <Compile Include="Validators\CashgameValidatorFactory.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePageModel.cs" />
     <Compile Include="Models\UrlModels\CashgameBuyinUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs" />
@@ -524,9 +502,6 @@
     <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
-    <Compile Include="Validators\Interfaces\IHomegameValidatorFactory.cs" />
-    <Compile Include="Validators\HomegameValidatorFactory.cs" />
-    <Compile Include="Validators\UniqueSlugValidator.cs" />
     <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
@@ -549,7 +524,6 @@
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs" />
-    <None Include="Validators\PositiveNumberValidator.php" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />

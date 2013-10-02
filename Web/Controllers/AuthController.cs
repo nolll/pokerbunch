@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Services;
@@ -7,40 +6,43 @@ using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 using Web.Models.UrlModels;
-using Web.Validators;
 
 namespace Web.Controllers{
 
 	public class AuthController : Controller {
 	    private readonly IUserStorage _userStorage;
 	    private readonly IEncryptionService _encryptionService;
-	    private readonly IUserValidatorFactory _userValidatorFactory;
 	    private readonly IWebContext _webContext;
 	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
 
-	    public AuthController(IUserStorage userStorage, IEncryptionService encryptionService, IUserValidatorFactory userValidatorFactory, IWebContext webContext, IAuthLoginPageModelFactory authLoginPageModelFactory)
+	    public AuthController(
+            IUserStorage userStorage, 
+            IEncryptionService encryptionService, 
+            IWebContext webContext, 
+            IAuthLoginPageModelFactory authLoginPageModelFactory)
 	    {
 	        _userStorage = userStorage;
 	        _encryptionService = encryptionService;
-	        _userValidatorFactory = userValidatorFactory;
 	        _webContext = webContext;
 	        _authLoginPageModelFactory = authLoginPageModelFactory;
 	    }
 
 		public ActionResult Login(){
-			return ShowForm();
+            var model = _authLoginPageModelFactory.Create();
+            return View("Login", model);
 		}
 
         [HttpPost]
-		public ActionResult Login(AuthLoginPageModel loginPageModel){
-			var user = GetLoggedInUser(loginPageModel.LoginName, loginPageModel.Password);
-
-			var validator = _userValidatorFactory.GetLoginValidator(user);
-			if(validator.IsValid){
-				SetCookies(user, loginPageModel.RememberMe);
-                return Redirect(GetReturnUrl(loginPageModel.ReturnUrl).Url);
+		public ActionResult Login(AuthLoginPostModel postModel){
+            var user = GetLoggedInUser(postModel.LoginName, postModel.Password);
+            if (user != null)
+            {
+            	SetCookies(user, postModel.RememberMe);
+                return Redirect(GetReturnUrl(postModel.ReturnUrl).Url);
 			}
-            return ShowForm(loginPageModel.LoginName, validator.GetErrors());
+            ModelState.AddModelError("login_error", "There was something wrong with your username or password. Please try again.");
+            var model = _authLoginPageModelFactory.Create(postModel);
+            return View("Login", model);
 		}
 
 		private User GetLoggedInUser(string loginName, string password){
@@ -52,16 +54,6 @@ namespace Web.Controllers{
 		public ActionResult Logout(){
 			ClearCookies();
 		    return RedirectToAction("Index", "Home");
-		}
-
-		public ActionResult ShowForm(string loginName = null, List<string> validationErrors = null){
-			var returnUrl = _webContext.GetQueryParam("return");
-			var model = _authLoginPageModelFactory.Create(returnUrl, loginName);
-			if(validationErrors != null){
-				//todo: Fix validation
-                //model.SetValidationErrors(validationErrors);
-			}
-            return View("Login", model);
 		}
 
 		private void SetCookies(User user, bool remember){

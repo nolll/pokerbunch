@@ -4,6 +4,7 @@ namespace Web.ModelFactories.AuthModelFactories
 {
     public interface IAuthLoginPageModelFactory
     {
-        AuthLoginPageModel Create(string returnUrl, string loginName);
+        AuthLoginPageModel Create();
+        AuthLoginPageModel Create(AuthLoginPostModel postModel);
     }
 }

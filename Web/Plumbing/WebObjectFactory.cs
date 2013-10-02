@@ -19,7 +19,6 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Services;
-using Web.Validators;
 
 namespace Web.Plumbing
 {
@@ -106,11 +105,6 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
             ObjectFactory.RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>(container);
             
-            // Validator Factories
-            ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameValidatorFactory, CashgameValidatorFactory>(container);
-            ObjectFactory.RegisterComponent<IHomegameValidatorFactory, HomegameValidatorFactory>(container);
-
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
             ObjectFactory.RegisterComponent<ICashgameModelMapper, CashgameModelMapper>(container);

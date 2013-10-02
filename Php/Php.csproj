@@ -69,9 +69,6 @@
     <None Include="config\ConfigProduction.php" />
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
-    <None Include="core\Validation\DateTimeValidator.php" />
-    <None Include="core\Validation\EmailValidator.php" />
-    <None Include="core\Validation\IntegerValidator.php" />
     <None Include="core\Validation\NotNullValidator.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
@@ -162,15 +159,12 @@
     <None Include="tests\ControllerUnitTestCase.php" />
     <None Include="tests\CoreTests\Analytics\GoogleAnalyticsControllerTests.php" />
     <None Include="tests\CoreTests\CompositeValidatorTests.php" />
-    <None Include="tests\CoreTests\DateTimeValidatorTests.php" />
-    <None Include="tests\CoreTests\EmailValidatorTests.php" />
     <None Include="tests\CoreTests\FormFields\CurrencyLayoutFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\ListFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\LocationFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\TimezoneFieldModelTests.php" />
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
-    <None Include="tests\CoreTests\IntegerValidatorTests.php" />
     <None Include="tests\CoreTests\PageModelTests.php" />
     <None Include="tests\CoreTests\PositiveNumberValidatorTests.php" />
     <None Include="tests\CoreTests\RequiredValidatorTests.php" />
