@@ -56,20 +56,12 @@
     <None Include="app\Sharing\Twitter\SharingTwitterController.php" />
     <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
     <None Include="app\Sharing\Twitter\Twitter.tpl" />
-    <None Include="app\Urls\BaseClasses\PlayerUrlModel.php" />
-    <None Include="app\Urls\CashgameRemoveResultUrlModel.php" />
-    <None Include="app\Urls\CashgameStartUrlModel.php" />
-    <None Include="app\Urls\HomegameAddUrlModel.php" />
-    <None Include="app\Urls\TwitterSettingsUrlModel.php" />
-    <None Include="app\Urls\TwitterStartShareUrlModel.php" />
-    <None Include="app\Urls\TwitterStopShareUrlModel.php" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
     <None Include="config\ConfigFactory.php" />
     <None Include="config\ConfigProduction.php" />
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
-    <None Include="core\Validation\NotNullValidator.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
     <None Include="Infrastructure\Data\MySql\DbChanges.php" />
@@ -158,7 +150,6 @@
     <None Include="tests\ClassBinding.php" />
     <None Include="tests\ControllerUnitTestCase.php" />
     <None Include="tests\CoreTests\Analytics\GoogleAnalyticsControllerTests.php" />
-    <None Include="tests\CoreTests\CompositeValidatorTests.php" />
     <None Include="tests\CoreTests\FormFields\CurrencyLayoutFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\ListFieldModelTests.php" />
     <None Include="tests\CoreTests\FormFields\LocationFieldModelTests.php" />
@@ -166,8 +157,6 @@
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
     <None Include="tests\CoreTests\PageModelTests.php" />
-    <None Include="tests\CoreTests\PositiveNumberValidatorTests.php" />
-    <None Include="tests\CoreTests\RequiredValidatorTests.php" />
     <None Include="tests\CoreTests\UrlTests.php" />
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />

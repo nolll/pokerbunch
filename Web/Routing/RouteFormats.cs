@@ -57,9 +57,9 @@ namespace Web.Routing{
         public const string SharingSettings = "/-/sharing";
 
         //const twitterCallback = '%1$s/-/sharing/twittercallback';
-        //const twitterSettings = '/-/sharing/twitter';
-        //const twitterStartShare = '/-/sharing/twitterstart';
-        //const twitterStopShare = '/-/sharing/twitterstop';
+        public const string TwitterSettings = "/-/sharing/twitter";
+        public const string TwitterStartShare = "/-/sharing/twitterstart";
+        public const string TwitterStopShare = "/-/sharing/twitterstop";
 
         public const string UserAdd = "/-/user/add";
         public const string UserAddConfirmation = "/-/user/created";

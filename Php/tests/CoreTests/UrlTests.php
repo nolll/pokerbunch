@@ -36,7 +36,6 @@ namespace tests\CoreTests{
 	use app\Urls\ForgotPasswordUrlModel;
 	use app\Urls\ChangePasswordUrlModel;
 	use app\Urls\ChangePasswordConfirmationUrlModel;
-	use app\Urls\CashgameRemoveResultUrlModel;
 	use app\Urls\CashgameListingUrlModel;
 	use app\Urls\CashgameMatrixUrlModel;
 	use app\Urls\CashgameLeaderboardUrlModel;
@@ -241,16 +240,6 @@ namespace tests\CoreTests{
 			$sut = new CashgamePublishUrlModel($homegame, $cashgame);
 
 			assertIdentical("/abc/cashgame/publish/2010-01-01", $sut.url);
-		}
-
-		function test_CashgameRemoveResultUrl(){
-			$homegame = getHomegame();
-			$cashgame = new Cashgame();
-			$cashgame.setStartTime(new DateTime('2010-01-01'));
-
-			$sut = new CashgameRemoveResultUrlModel($homegame, $cashgame);
-
-			assertIdentical("/abc/cashgame/removeresult/2010-01-01", $sut.url);
 		}
 
 		function test_CashgameUnpublishUrlModel_ReturnsCorrectUrl(){

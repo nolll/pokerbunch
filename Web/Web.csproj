@@ -524,6 +524,9 @@
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs" />
+    <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs" />
+    <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs" />
     <None Include="Views\Cashgame\Action\Action.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <None Include="Views\Cashgame\Action\CheckpointList.cshtml" />
