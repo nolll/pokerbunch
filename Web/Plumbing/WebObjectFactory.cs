@@ -104,6 +104,7 @@ namespace Web.Plumbing
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
             ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
+            ObjectFactory.RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>(container);
             
             // Validator Factories
             ObjectFactory.RegisterComponent<IUserValidatorFactory, UserValidatorFactory>(container);

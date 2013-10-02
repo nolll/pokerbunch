@@ -25,6 +25,11 @@ namespace Infrastructure.System{
             return Request.QueryString.Get(key);
         }
 
+        public string GetHost()
+        {
+            return Request.Url.Host.Replace("www.", "");
+        }
+
         public void ClearCookie(string token)
         {
             if (Request.Cookies[token] != null)

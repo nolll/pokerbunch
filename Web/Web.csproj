@@ -152,6 +152,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
+    <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\ChangePasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
@@ -563,6 +565,7 @@
     <Content Include="Views\Homegame\Edit\Edit.cshtml" />
     <None Include="Views\Homegame\Join\Confirmation.cshtml" />
     <None Include="Views\Homegame\Join\Join.cshtml" />
+    <None Include="Views\Misc\GoogleAnalytics.cshtml" />
     <None Include="Views\Player\Add.cshtml" />
     <None Include="Views\Player\AddConfirmation.cshtml" />
     <None Include="Views\Player\InviteConfirmation.cshtml" />

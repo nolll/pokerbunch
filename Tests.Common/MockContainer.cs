@@ -10,6 +10,7 @@ using Moq;
 using NUnit.Framework;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories;
+using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
@@ -70,6 +71,7 @@ namespace Tests.Common
         protected Mock<ICashgameModelMapper> CashgameModelMapperMock;
         protected Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
         protected Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
+        protected Mock<IGoogleAnalyticsModelFactory> GoogleAnalyticsModelFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -125,6 +127,7 @@ namespace Tests.Common
             CashgameModelMapperMock = new Mock<ICashgameModelMapper>();
             PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
             UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
+            GoogleAnalyticsModelFactoryMock = new Mock<IGoogleAnalyticsModelFactory>();
         }
 
     }

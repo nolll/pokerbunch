@@ -1,4 +1,6 @@
 ﻿using Core.Classes;
+using Infrastructure.System;
+using Web.ModelFactories.MiscModelFactories;
 using Web.Models.MiscModels;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
@@ -7,6 +9,13 @@ namespace Web.ModelFactories.PageBaseModelFactories
 {
     public class PagePropertiesFactory : IPagePropertiesFactory
     {
+        private readonly IGoogleAnalyticsModelFactory _googleAnalyticsModelFactory;
+
+        public PagePropertiesFactory(IGoogleAnalyticsModelFactory googleAnalyticsModelFactory)
+        {
+            _googleAnalyticsModelFactory = googleAnalyticsModelFactory;
+        }
+
         public PageProperties Create()
         {
             return Create(null);
@@ -22,7 +31,7 @@ namespace Web.ModelFactories.PageBaseModelFactories
             return new PageProperties
                 {
                     UserNavModel = new UserNavigationModel(user),
-			        GoogleAnalyticsModel = new GoogleAnalyticsModel(),
+			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
                     HomegameNavModel = homegame != null ? new HomegameNavigationModel(homegame, runningGame) : null
                 };
         }

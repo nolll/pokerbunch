@@ -69,7 +69,6 @@
     <None Include="config\ConfigProduction.php" />
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
-    <None Include="core\Analytics\GoogleAnalytics.tpl" />
     <None Include="core\Validation\DateTimeValidator.php" />
     <None Include="core\Validation\EmailValidator.php" />
     <None Include="core\Validation\IntegerValidator.php" />

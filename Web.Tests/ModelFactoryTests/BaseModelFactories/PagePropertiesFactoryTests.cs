@@ -1,10 +1,11 @@
 ﻿using Core.Classes;
 using NUnit.Framework;
+using Tests.Common;
 using Web.ModelFactories.PageBaseModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.BaseModelFactories
 {
-    public class PagePropertiesFactoryTests
+    public class PagePropertiesFactoryTests : MockContainer
     {
         [Test]
         public void Create_WithoutHomeGame_HomegameNavModelIsNull()
@@ -31,7 +32,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
 
         private PagePropertiesFactory GetSut()
         {
-            return new PagePropertiesFactory();
+            return new PagePropertiesFactory(GoogleAnalyticsModelFactoryMock.Object);
         }
 
     }
