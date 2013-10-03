@@ -85,7 +85,6 @@
     <None Include="tests\AppTests\Homegame\HomegameNavigationModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\PlayerAchievementsModelTests.php" />
     <None Include="tests\AppTests\Player\Achievements\SingleAchievements\NumberOfGamesAchievementTests.php" />
-    <None Include="tests\AppTests\Player\InvitationCodeCreatorTests.php" />
     <None Include="tests\AppTests\Player\InvitationSenderTests.php" />
     <None Include="tests\AppTests\Player\PlayerAddControllerTests.php" />
     <None Include="tests\AppTests\Player\PlayerDetailsControllerTests.php" />
@@ -102,7 +101,6 @@
     <None Include="tests\AppTests\Sharing\SharingTwitterModelTests.php" />
     <None Include="tests\AppTests\User\Avatar\AvatarModelBuilderTests.php" />
     <None Include="tests\AppTests\User\ChangePasswordControllerTests.php" />
-    <None Include="tests\AppTests\User\EncryptionTests.php" />
     <None Include="tests\AppTests\User\ForgotPasswordControllerTests.php" />
     <None Include="tests\AppTests\User\PasswordSenderTests.php" />
     <None Include="tests\AppTests\User\RegistrationConfirmationSenderTests.php" />
