@@ -118,7 +118,6 @@
     <None Include="tests\AppTests\User\UniqueUserValidatorTests.php" />
     <None Include="tests\AppTests\User\UserAddControllerTests.php" />
     <None Include="tests\AppTests\User\UserDetailsControllerTests.php" />
-    <None Include="tests\AppTests\User\UserDetailsModelTests.php" />
     <None Include="tests\AppTests\User\UserEditControllerTests.php" />
     <None Include="tests\AppTests\User\UserEditModelTests.php" />
     <None Include="tests\AppTests\User\UserItemModelTests.php" />

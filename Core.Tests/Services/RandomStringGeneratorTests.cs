@@ -43,6 +43,19 @@ namespace Core.Tests.Services
             Assert.AreEqual(expected, result);
         }
 
+        [Test]
+        public void GetString_CalledTwice_ReturnsDifferentStrings()
+        {
+            const int specifiedLength = 10;
+            const string allowedCharacters = "abcdefghij";
+
+            var sut = GetSut();
+            var result1 = sut.GetString(specifiedLength, allowedCharacters);
+            var result2 = sut.GetString(specifiedLength, allowedCharacters);
+
+            Assert.AreNotEqual(result1, result2);
+        }
+
         private RandomStringGenerator GetSut()
         {
             return new RandomStringGenerator();

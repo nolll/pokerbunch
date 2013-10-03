@@ -69,6 +69,7 @@ namespace Tests.Common
         protected Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
         protected Mock<IGoogleAnalyticsModelFactory> GoogleAnalyticsModelFactoryMock;
         protected Mock<IRandomStringGenerator> RandomStringGeneratorMock;
+        protected Mock<IAvatarModelFactory> AvatarModelFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -124,6 +125,7 @@ namespace Tests.Common
             UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
             GoogleAnalyticsModelFactoryMock = new Mock<IGoogleAnalyticsModelFactory>();
             RandomStringGeneratorMock = new Mock<IRandomStringGenerator>();
+            AvatarModelFactoryMock = new Mock<IAvatarModelFactory>();
         }
 
     }
