@@ -177,6 +177,7 @@
     <Compile Include="Integration\Twitter\TwitterIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Storage\Sql\Changes.sql" />
     <None Include="packages.config" />
     <Compile Include="Services\ResultSharerImpl.cs" />
     <Compile Include="Services\SocialServiceProvider.cs" />

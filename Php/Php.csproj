@@ -58,9 +58,6 @@
     <None Include="config\IntegrationTestSettings.php" />
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
-    <None Include="Infrastructure\Data\MySql\DbChanges.php" />
-    <None Include="Infrastructure\Logging\DumpLogger.php" />
-    <None Include="Infrastructure\Logging\Logger.php" />
     <None Include="NotUsed\FileLoggingMessageSender.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\BuyinControllerTests.php" />
@@ -131,13 +128,7 @@
     <None Include="tests\AppTests\User\UserListingModelTests.php" />
     <None Include="tests\AppTests\User\UserNavigationModelTests.php" />
     <None Include="tests\AppTests\User\UserValidatorTests.php" />
-    <None Include="tests\ClassBinding.php" />
-    <None Include="tests\ControllerUnitTestCase.php" />
     <None Include="tests\CoreTests\Analytics\GoogleAnalyticsControllerTests.php" />
-    <None Include="tests\CoreTests\FormFields\CurrencyLayoutFieldModelTests.php" />
-    <None Include="tests\CoreTests\FormFields\ListFieldModelTests.php" />
-    <None Include="tests\CoreTests\FormFields\LocationFieldModelTests.php" />
-    <None Include="tests\CoreTests\FormFields\TimezoneFieldModelTests.php" />
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
     <None Include="tests\CoreTests\PageModelTests.php" />
@@ -145,10 +136,7 @@
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />
     <None Include="tests\SharbatUnitTestCase.php" />
-    <None Include="tests\TestBinder.php" />
     <None Include="tests\TestHelper.php" />
-    <None Include="tests\TestRunner.php" />
-    <None Include="tests\TestTimer.php" />
     <None Include="tests\UnitTestCase.php" />
     <None Include="tests\UnitTestSuite.php" />
     <None Include="tests\WebTestSuite.php" />
@@ -156,11 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="googlecd2b6bdc316289ae.html" />
-    <Content Include="tests\TestViews.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="integration\Sharing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
