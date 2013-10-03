@@ -56,6 +56,7 @@
     <Compile Include="Services\PasswordGeneratorTests.cs" />
     <Compile Include="Services\RandomStringGeneratorTests.cs" />
     <Compile Include="Services\SaltGeneratorTests.cs" />
+    <Compile Include="Services\SlugGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
