@@ -132,7 +132,6 @@
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
     <None Include="tests\CoreTests\PageModelTests.php" />
-    <None Include="tests\CoreTests\UrlTests.php" />
     <None Include="tests\IntegrationTestSuite.php" />
     <None Include="tests\PokerBunchTestSuite.php" />
     <None Include="tests\SharbatUnitTestCase.php" />
