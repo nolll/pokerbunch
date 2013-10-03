@@ -17,6 +17,8 @@ namespace Infrastructure.Plumbing
             ObjectFactory.RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
             ObjectFactory.RegisterComponent<IUserStorage, MySqlUserStorage>(container);
             ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
+            ObjectFactory.RegisterComponent<ISharingStorage, MySqlSharingStorage>(container);
+            ObjectFactory.RegisterComponent<ITwitterStorage, MySqlTwitterStorage>(container);
 
             // Raw Factories
             ObjectFactory.RegisterComponent<IRawHomegameFactory, RawHomegameFactory>(container);

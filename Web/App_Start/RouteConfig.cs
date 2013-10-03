@@ -13,7 +13,7 @@ namespace Web
             routes.MapRoute(
                 "Site Routes",
                 "-/{controller}/{action}",
-                new { }
+                new { action = "Index" }
             );
 
             routes.MapRoute(

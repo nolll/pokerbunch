@@ -52,6 +52,21 @@ namespace Infrastructure.System{
             Response.SetCookie(cookie);
         }
 
+        public void SetSession(string name, object value)
+        {
+            HttpContext.Current.Session[name] = value;
+        }
+
+        public object GetSession(string name)
+        {
+            return HttpContext.Current.Session[name];
+        }
+
+        public void ClearSession()
+        {
+            HttpContext.Current.Session.Clear();
+        }
+
         private HttpCookie CreateCookie(string name, string value)
         {
             return new HttpCookie(name, value);

@@ -5,6 +5,7 @@ using Core.Services;
 using Infrastructure.Config;
 using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
+using Infrastructure.Integration.Twitter;
 using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -16,6 +17,7 @@ using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
+using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Services;
@@ -41,6 +43,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>(container);
             ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
             ObjectFactory.RegisterComponent<IPasswordSender, PasswordSender>(container);
+            ObjectFactory.RegisterComponent<ITwitterIntegration, TwitterIntegration>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
@@ -99,6 +102,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IChangePasswordPageModelFactory, ChangePasswordPageModelFactory>(container);
             ObjectFactory.RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ISharingIndexPageModelFactory, SharingIndexPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);

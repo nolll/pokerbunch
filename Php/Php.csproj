@@ -50,9 +50,6 @@
     <None Include="app\Error\HttpNotFoundError.php" />
     <None Include="app\Error\NotFound.tpl" />
     <None Include="app\Error\NotLoggedIn.tpl" />
-    <None Include="app\Sharing\Twitter\SharingTwitterController.php" />
-    <None Include="app\Sharing\Twitter\SharingTwitterModel.php" />
-    <None Include="app\Sharing\Twitter\Twitter.tpl" />
     <None Include="config\ConfigDatabaseTest.php" />
     <None Include="config\ConfigDevelopment.php" />
     <None Include="config\ConfigFactory.php" />
@@ -65,13 +62,6 @@
     <None Include="Infrastructure\Logging\DumpLogger.php" />
     <None Include="Infrastructure\Logging\Logger.php" />
     <None Include="NotUsed\FileLoggingMessageSender.php" />
-    <None Include="integration\Sharing\ResultSharer.php" />
-    <None Include="integration\Sharing\ResultSharerImpl.php" />
-    <None Include="integration\Sharing\SocialService.php" />
-    <None Include="integration\Sharing\SocialServiceFactory.php" />
-    <None Include="integration\Sharing\SocialServiceFactoryImpl.php" />
-    <None Include="integration\Sharing\TwitterService.php" />
-    <None Include="integration\Sharing\TwitterServiceImpl.php" />
     <None Include="tests\AppTests\Cashgame\Action\ActionControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\BuyinControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\CashoutControllerTests.php" />
@@ -169,7 +159,7 @@
     <Content Include="tests\TestViews.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\Sharing\Index\" />
+    <Folder Include="integration\Sharing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

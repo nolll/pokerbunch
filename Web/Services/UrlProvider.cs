@@ -7,9 +7,11 @@ namespace Web.Services
 {
     public class UrlProvider : IUrlProvider
     {
-        public string GetJoinHomegameUrl(Homegame homegame)
+        private readonly ISettings _settings;
+
+        public UrlProvider(ISettings settings)
         {
-            return UrlFormatter.FormatHomegame(RouteFormats.HomegameJoin, homegame);
+            _settings = settings;
         }
 
         public string GetAddUserUrl()
@@ -20,6 +22,16 @@ namespace Web.Services
         public string GetAuthLoginUrl()
         {
             return RouteFormats.AuthLogin;
+        }
+
+        public string GetJoinHomegameUrl(Homegame homegame)
+        {
+            return UrlFormatter.FormatHomegame(RouteFormats.HomegameJoin, homegame);
+        }
+
+        public string GetTwitterCallbackUrl()
+        {
+            return string.Format(RouteFormats.TwitterCallback, _settings.GetSiteUrl());
         }
     }
 }

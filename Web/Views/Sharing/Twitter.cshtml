@@ -1,0 +1,31 @@
+@model Web.Models.SharingModels.SharingTwitterPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Share to Twitter</h1>
+</div>
+<div class="block gutter">
+    <form method="post" action="@Model.PostUrl">
+		@if (Model.IsSharing)
+		{
+            <p>
+				You are sharing to twitter. Your Twitter user name is &quot;@Model.TwitterName&quot;
+			</p>
+			<div class="buttons">
+				<button class="action" type="submit">Stop Sharing</button>
+			</div>
+		}
+		else
+		{
+		    <p>
+				You are not sharing to twitter.
+			</p>
+			<div class="buttons">
+				<button class="action" type="submit">Start Sharing</button>
+			</div>
+		}
+	</form>
+</div>

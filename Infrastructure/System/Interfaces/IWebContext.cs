@@ -9,6 +9,9 @@ namespace Infrastructure.System{
 	    void ClearCookie(string name);
 	    void SetSessionCookie(string name, string value);
 	    void SetPersistentCookie(string name, string value);
+	    void SetSession(string name, object value);
+	    object GetSession(string name);
+	    void ClearSession();
 	}
 
 }

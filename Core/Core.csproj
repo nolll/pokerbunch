@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +140,15 @@
     <Compile Include="Services\PasswordSender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SocialServiceProvider.cs" />
+    <Compile Include="Classes\SocialServiceIdentifier.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Interfaces\ITwitterIntegration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Interfaces\IResultSharer.cs" />
+    <Compile Include="Services\Interfaces\ISocialService.cs" />
+    <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

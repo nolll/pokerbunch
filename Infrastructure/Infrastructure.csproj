@@ -36,8 +36,14 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Hammock.ClientProfile">
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -48,6 +54,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TweetSharp">
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\TweetSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheProvider.cs" />
@@ -116,9 +125,6 @@
     <Compile Include="System\Globalization.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\Twitter\TwitterCredentials.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Repositories\PlayerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +164,6 @@
     <Compile Include="Integration\Gravatar\GravatarService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Settings.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Config\ServerMode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,14 @@
   <ItemGroup>
     <Compile Include="Data\Storage\MySqlSharingStorage.cs" />
     <Compile Include="Data\Storage\MySqlTwitterStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Integration\Twitter\TwitterIntegration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Compile Include="Services\ResultSharerImpl.cs" />
+    <Compile Include="Services\SocialServiceProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
