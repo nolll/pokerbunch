@@ -154,6 +154,8 @@
   <ItemGroup>
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\IHomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageModelFactory.cs" />
