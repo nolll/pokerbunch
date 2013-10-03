@@ -68,6 +68,7 @@ namespace Tests.Common
         protected Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
         protected Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
         protected Mock<IGoogleAnalyticsModelFactory> GoogleAnalyticsModelFactoryMock;
+        protected Mock<IRandomStringGenerator> RandomStringGeneratorMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -122,6 +123,7 @@ namespace Tests.Common
             PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
             UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
             GoogleAnalyticsModelFactoryMock = new Mock<IGoogleAnalyticsModelFactory>();
+            RandomStringGeneratorMock = new Mock<IRandomStringGenerator>();
         }
 
     }

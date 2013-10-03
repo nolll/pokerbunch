@@ -2,7 +2,6 @@
 using Castle.Windsor;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Config;
 using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
 using Infrastructure.Integration.Twitter;
@@ -44,6 +43,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
             ObjectFactory.RegisterComponent<IPasswordSender, PasswordSender>(container);
             ObjectFactory.RegisterComponent<ITwitterIntegration, TwitterIntegration>(container);
+            ObjectFactory.RegisterComponent<IRandomStringGenerator, RandomStringGenerator>(container);
 
             // Repositories
             ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);

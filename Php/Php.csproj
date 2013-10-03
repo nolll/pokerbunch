@@ -113,10 +113,8 @@
     <None Include="tests\AppTests\User\EncryptionTests.php" />
     <None Include="tests\AppTests\User\ForgotPasswordControllerTests.php" />
     <None Include="tests\AppTests\User\ForgotPasswordValidatorTests.php" />
-    <None Include="tests\AppTests\User\PasswordGeneratorTests.php" />
     <None Include="tests\AppTests\User\PasswordSenderTests.php" />
     <None Include="tests\AppTests\User\RegistrationConfirmationSenderTests.php" />
-    <None Include="tests\AppTests\User\SaltGeneratorTests.php" />
     <None Include="tests\AppTests\User\UniqueUserValidatorTests.php" />
     <None Include="tests\AppTests\User\UserAddControllerTests.php" />
     <None Include="tests\AppTests\User\UserDetailsControllerTests.php" />

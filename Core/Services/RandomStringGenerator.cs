@@ -3,25 +3,26 @@ using System.Text;
 
 namespace Core.Services{
 
-	public class RandomStringGenerator {
+	public class RandomStringGenerator : IRandomStringGenerator
+	{
+	    private readonly Random _random;
 
-		private readonly int _stringLength;
-		private readonly string _allowedCharacters;
-
-		public RandomStringGenerator(int stringLength, string allowedCharacters){
-			_stringLength = stringLength;
-			_allowedCharacters = allowedCharacters;
+		public RandomStringGenerator(){
+            _random = new Random();
 		}
 
-		public string GetString()
+		public string GetString(int stringLength, string allowedCharacters)
 		{
-		    var random = new Random();
-		    var max = _allowedCharacters.Length - 1;
+            if (string.IsNullOrEmpty(allowedCharacters))
+            {
+                return string.Empty;
+            }
+		    var max = allowedCharacters.Length - 1;
 		    var str = new StringBuilder();
-			for(var i = 0; i < _stringLength; i++)
+			for(var i = 0; i < stringLength; i++)
 			{
-			    var randomPos = random.Next(max);
-			    str.Append(_allowedCharacters.Substring(randomPos, 1));
+			    var randomPos = _random.Next(max);
+			    str.Append(allowedCharacters.Substring(randomPos, 1));
 			}
 			return str.ToString();
 		}
