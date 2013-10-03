@@ -131,7 +131,7 @@
     <Compile Include="ModelTests\UrlModels\UrlModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsModelTests.cs" />
+    <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

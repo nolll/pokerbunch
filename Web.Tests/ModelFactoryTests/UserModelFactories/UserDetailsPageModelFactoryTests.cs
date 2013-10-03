@@ -8,7 +8,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
-	public class UserDetailsModelTests : MockContainer {
+	public class UserDetailsPageModelFactoryTests : MockContainer {
 
 		[Test]
         public void ActionDetails_SetsUserData(){
