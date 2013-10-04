@@ -1,29 +1,29 @@
 using Core.Classes;
+using Core.Repositories;
 using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Integration.Twitter;
 
 namespace Infrastructure.Services{
 
 	public class SocialServiceProvider : ISocialServiceProvider
     {
-	    private readonly ITwitterStorage _twitterStorage;
+	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ISettings _settings;
 	    private readonly IUrlProvider _urlProvider;
 
 	    public SocialServiceProvider(
-            ITwitterStorage twitterStorage,
+            ITwitterRepository twitterRepository,
             ISettings settings,
             IUrlProvider urlProvider)
 	    {
-	        _twitterStorage = twitterStorage;
+	        _twitterRepository = twitterRepository;
 	        _settings = settings;
 	        _urlProvider = urlProvider;
 	    }
 
 	    public ISocialService Get(string identifier){
 			if(identifier == SocialServiceIdentifier.Twitter){
-				return new TwitterIntegration(_twitterStorage, _settings, _urlProvider);
+				return new TwitterIntegration(_twitterRepository, _settings, _urlProvider);
 			}
 			return null;
 		}

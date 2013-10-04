@@ -1,22 +1,22 @@
 using System;
 using Core.Classes;
+using Core.Repositories;
 using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
 using TweetSharp;
 
 namespace Infrastructure.Integration.Twitter{
 
 	public class TwitterIntegration : ISocialService, ITwitterIntegration{
-	    private readonly ITwitterStorage _twitterStorage;
+	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ISettings _settings;
 	    private readonly IUrlProvider _urlProvider;
 
 	    public TwitterIntegration(
-            ITwitterStorage twitterStorage,
+            ITwitterRepository twitterRepository,
             ISettings settings,
             IUrlProvider urlProvider)
 	    {
-	        _twitterStorage = twitterStorage;
+	        _twitterRepository = twitterRepository;
 	        _settings = settings;
 	        _urlProvider = urlProvider;
 	    }
@@ -80,7 +80,7 @@ namespace Infrastructure.Integration.Twitter{
 
         private void PostToTwitter(User user, string message)
         {
-            var credentials = _twitterStorage.GetCredentials(user);
+            var credentials = _twitterRepository.GetCredentials(user);
             if (credentials != null)
             {
                 var connection = new TwitterService(GetKey(), GetSecret(), credentials.Key, credentials.Secret);

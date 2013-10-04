@@ -1,13 +1,11 @@
 using Core.Classes;
 
-namespace Infrastructure.Data.Storage.Interfaces {
+namespace Core.Repositories {
 
-	public interface ITwitterStorage{
+	public interface ITwitterRepository{
 
 		TwitterCredentials GetCredentials(User user);
 		int AddCredentials(User user, TwitterCredentials credentials);
-		bool ClearCredentials(User user);
 
 	}
-
 }

@@ -87,6 +87,7 @@
     <Compile Include="Repositories\IPlayerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\ITwitterRepository.cs" />
     <Compile Include="Repositories\IUserContext.cs" />
   </ItemGroup>
   <ItemGroup>

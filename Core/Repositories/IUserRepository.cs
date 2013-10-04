@@ -12,7 +12,6 @@ namespace Core.Repositories
         IList<User> GetUsers();
         bool UpdateUser(User user);
         int AddUser(User user);
-        bool DeleteUser(User user);
         string GetSalt(string userNameOrEmail);
         bool SetSalt(User user, string salt);
         bool SetEncryptedPassword(User user, string encryptedPassword);

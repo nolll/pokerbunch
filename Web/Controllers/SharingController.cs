@@ -14,7 +14,7 @@ namespace Web.Controllers{
 	    private readonly ISharingStorage _sharingStorage;
 	    private readonly ISharingIndexPageModelFactory _sharingIndexPageModelFactory;
 	    private readonly IWebContext _webContext;
-	    private readonly ITwitterStorage _twitterStorage;
+	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ITwitterIntegration _twitterIntegration;
 	    private readonly ISharingTwitterPageModelFactory _sharingTwitterPageModelFactory;
 
@@ -23,7 +23,7 @@ namespace Web.Controllers{
 			ISharingStorage sharingStorage,
             ISharingIndexPageModelFactory sharingIndexPageModelFactory,
             IWebContext webContext,
-            ITwitterStorage twitterStorage,
+            ITwitterRepository twitterRepository,
             ITwitterIntegration twitterIntegration,
             ISharingTwitterPageModelFactory sharingTwitterPageModelFactory)
 	    {
@@ -31,7 +31,7 @@ namespace Web.Controllers{
 	        _sharingStorage = sharingStorage;
 	        _sharingIndexPageModelFactory = sharingIndexPageModelFactory;
 	        _webContext = webContext;
-	        _twitterStorage = twitterStorage;
+	        _twitterRepository = twitterRepository;
 	        _twitterIntegration = twitterIntegration;
 	        _sharingTwitterPageModelFactory = sharingTwitterPageModelFactory;
 	    }
@@ -48,7 +48,7 @@ namespace Web.Controllers{
 			_userContext.RequireUser();
 			var user = _userContext.GetUser();
 			var isSharing = _sharingStorage.IsSharing(user, SocialServiceIdentifier.Twitter);
-			var credentials = _twitterStorage.GetCredentials(user);
+			var credentials = _twitterRepository.GetCredentials(user);
 			var model = _sharingTwitterPageModelFactory.Create(user, isSharing, credentials);
 			return View("Twitter", model);
 		}
@@ -73,7 +73,7 @@ namespace Web.Controllers{
             var token = _webContext.GetQueryParam("oauth_token");
             var verifier = _webContext.GetQueryParam("oauth_verifier");
             var twitterCredentials = _twitterIntegration.GetCredentials(token, verifier);
-            _twitterStorage.AddCredentials(user, twitterCredentials);
+            _twitterRepository.AddCredentials(user, twitterCredentials);
             _sharingStorage.AddSharing(user, SocialServiceIdentifier.Twitter);
 			return Redirect(new TwitterSettingsUrlModel().Url);
 		}
