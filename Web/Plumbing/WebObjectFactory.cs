@@ -14,6 +14,7 @@ using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
+using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
@@ -113,6 +114,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
             ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
             ObjectFactory.RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>(container);
+            ObjectFactory.RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>(container);
             
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);

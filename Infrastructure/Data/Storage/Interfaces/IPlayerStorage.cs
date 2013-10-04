@@ -5,14 +5,14 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface IPlayerStorage{
 
-		Player GetPlayerById(Homegame homegame, int id);
-		Player GetPlayerByName(Homegame homegame, string name);
-		Player GetPlayerByUserName(Homegame homegame, string userName);
-		List<Player> GetPlayers(Homegame homegame);
-		int AddPlayer(Homegame homegame, string playerName);
-		int AddPlayerWithUser(Homegame homegame, User user, int role);
-        bool JoinHomegame(Player player, Homegame homegame, User user);
-        bool DeletePlayer(Player player);
+        Player GetPlayerById(int homegameId, int id);
+        Player GetPlayerByName(int homegameId, string name);
+        Player GetPlayerByUserName(int homegameId, string userName);
+        List<Player> GetPlayers(int homegameId);
+        int AddPlayer(int homegameId, string playerName);
+        int AddPlayerWithUser(int homegameId, int userId, int role);
+        bool JoinHomegame(int playerId, int role, int homegameId, int userId);
+        bool DeletePlayer(int playerId);
 
 	}
 

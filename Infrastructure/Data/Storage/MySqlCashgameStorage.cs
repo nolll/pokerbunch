@@ -63,9 +63,9 @@ namespace Infrastructure.Data.Storage {
 		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, StorageDataReader reader){
 			var cashgames = new List<RawCashgame>();
 			RawCashgame currentGame = null;
-			int currentGameId = -1;
+			var currentGameId = -1;
 			RawCashgameResult currentResult = null;
-			int currentPlayerId = -1;
+			var currentPlayerId = -1;
 			while(reader.Read())
 			{
 			    var gameId = reader.GetInt("GameID");
