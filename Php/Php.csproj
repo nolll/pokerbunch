@@ -59,7 +59,6 @@
     <None Include="exceptions\DatabaseException.php" />
     <None Include="index.php" />
     <None Include="NotUsed\FileLoggingMessageSender.php" />
-    <None Include="tests\AppTests\Cashgame\Action\BuyinControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\CashoutControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\CheckpointControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\EndGameControllerTests.php" />
