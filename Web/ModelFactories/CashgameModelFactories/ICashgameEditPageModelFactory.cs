@@ -6,7 +6,7 @@ namespace Web.ModelFactories.CashgameModelFactories
 {
     public interface ICashgameEditPageModelFactory
     {
-        CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years, Cashgame runningGame);
-        CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years, Cashgame runningGame, CashgameEditPostModel postModel);
+        CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame);
+        CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame, CashgameEditPostModel postModel);
     }
 }

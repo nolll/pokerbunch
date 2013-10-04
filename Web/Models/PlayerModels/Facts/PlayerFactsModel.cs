@@ -12,7 +12,8 @@ namespace Web.Models.PlayerModels.Facts{
 	    public int GamesPlayed { get; set; }
 	    public string TimePlayed { get; set; }
 
-        public PlayerFactsModel(Homegame homegame, List<Cashgame> cashgames, Player player){
+        public PlayerFactsModel(Homegame homegame, IEnumerable<Cashgame> cashgames, Player player)
+        {
 			var filteredGames = FilterCashgames(cashgames, player);
 			Winnings = Globalization.FormatResult(homegame.Currency, GetWinnings(filteredGames, player));
 			BestResult = Globalization.FormatResult(homegame.Currency, GetBestResult(filteredGames, player));
@@ -21,7 +22,7 @@ namespace Web.Models.PlayerModels.Facts{
 			TimePlayed = Globalization.FormatDuration(GetMinutesPlayed(filteredGames));
 		}
 
-		public List<Cashgame> FilterCashgames(List<Cashgame> cashgames, Player player){
+		public List<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, Player player){
 			var filteredCashgames = new List<Cashgame>();
 			foreach(var cashgame in cashgames){
 				if(cashgame.IsInGame(player)){
@@ -31,7 +32,7 @@ namespace Web.Models.PlayerModels.Facts{
 			return filteredCashgames;
 		}
 
-		public int GetWinnings(List<Cashgame> cashgames, Player player){
+		public int GetWinnings(IEnumerable<Cashgame> cashgames, Player player){
 			var winnings = 0;
 			foreach(var cashgame in cashgames){
 				var result = cashgame.GetResult(player);
@@ -42,7 +43,7 @@ namespace Web.Models.PlayerModels.Facts{
 			return winnings;
 		}
 
-		public int GetBestResult(List<Cashgame> cashgames, Player player){
+		public int GetBestResult(IEnumerable<Cashgame> cashgames, Player player){
 			int? best = null;
 			foreach(var cashgame in cashgames){
 				var result = cashgame.GetResult(player);
@@ -53,7 +54,7 @@ namespace Web.Models.PlayerModels.Facts{
 			return best.HasValue ? best.Value : 0;
 		}
 
-		public int GetWorstResult(List<Cashgame> cashgames, Player player){
+		public int GetWorstResult(IEnumerable<Cashgame> cashgames, Player player){
 			int? worst = null;
 			foreach(var cashgame in cashgames){
 				var result = cashgame.GetResult(player);
@@ -64,7 +65,7 @@ namespace Web.Models.PlayerModels.Facts{
 			return worst.HasValue ? worst.Value : 0;
 		}
 
-		public int GetMinutesPlayed(List<Cashgame> cashgames){
+		public int GetMinutesPlayed(IEnumerable<Cashgame> cashgames){
 			var timePlayed = 0;
 			foreach(var cashgame in cashgames){
 				timePlayed += cashgame.Duration;

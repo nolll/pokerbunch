@@ -12,15 +12,17 @@ namespace Web.Models.PlayerModels.Achievements{
         public bool Played100Games { get; set; }
         public bool Played200Games { get; set; }
         public bool Played500Games { get; set; }
-        
-        public PlayerBadgesModel(Player player, List<Cashgame> cashgames){
+
+        public PlayerBadgesModel(Player player, IList<Cashgame> cashgames)
+        {
 			if(player == null || cashgames == null){
 				return;
 			}
 			SetNumberOfGamesBadges(player, cashgames);
 		}
 
-		private void SetNumberOfGamesBadges(Player player, List<Cashgame> cashgames){
+        private void SetNumberOfGamesBadges(Player player, IList<Cashgame> cashgames)
+        {
 			var n1 = new NumberOfGamesBadge(player, cashgames, 1);
             PlayedOneGame = n1.WasEarned;
 

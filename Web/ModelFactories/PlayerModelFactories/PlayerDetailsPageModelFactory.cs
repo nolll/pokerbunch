@@ -2,7 +2,6 @@
 using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Facts;
@@ -19,7 +18,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, List<Cashgame> cashgames, bool isManager, bool hasPlayed, IAvatarModelFactory avatarModelFactory, Cashgame runningGame = null)
+        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed, IAvatarModelFactory avatarModelFactory, Cashgame runningGame = null)
         {
             var hasUser = user != null;
 

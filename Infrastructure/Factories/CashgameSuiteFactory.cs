@@ -12,7 +12,8 @@ namespace Infrastructure.Factories{
 		    _cashgameTotalResultFactory = cashgameTotalResultFactory;
 		}
 
-	    public CashgameSuite Create(List<Cashgame> cashgames, List<Player> players){
+        public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
+        {
 			var totalGameTime = 0;
 			var resultIndex = GetPlayerIndex(players);
 			CashgameResult bestResult = null;
@@ -50,15 +51,17 @@ namespace Infrastructure.Factories{
                 };
 		}
 
-		private Dictionary<int, List<CashgameResult>> GetPlayerIndex(List<Player> players){
-			var dictionary = new Dictionary<int, List<CashgameResult>>();
+        private Dictionary<int, IList<CashgameResult>> GetPlayerIndex(IEnumerable<Player> players)
+        {
+            var dictionary = new Dictionary<int, IList<CashgameResult>>();
 			foreach(var player in players){
 				dictionary[player.Id] = new List<CashgameResult>();
 			}
 			return dictionary;
 		}
 
-		private List<CashgameTotalResult> GetTotalResults(List<Player> players, Dictionary<int, List<CashgameResult>> resultIndex){
+        private List<CashgameTotalResult> GetTotalResults(IEnumerable<Player> players, IDictionary<int, IList<CashgameResult>> resultIndex)
+        {
 			var totalResults = new List<CashgameTotalResult>();
 			foreach(var player in players){
 				var playerResults = resultIndex[player.Id];

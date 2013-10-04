@@ -7,14 +7,14 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface ICashgameStorage{
 
-		int AddGame(int homegameId, Cashgame cashgame);
+		int AddGame(int homegameId, RawCashgame cashgame);
 		bool DeleteGame(int cashgameId);
 		RawCashgame GetGame(Homegame homegame, DateTime date);
-		List<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null);
-		List<int> GetYears(Homegame homegame);
+		IList<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null);
+		IList<int> GetYears(string slug);
 		bool UpdateGame(RawCashgame cashgame);
-		bool HasPlayed(Player player);
-        List<string> GetLocations(Homegame homegame);
+		bool HasPlayed(int playerId);
+        IList<string> GetLocations(string slug);
 
 	}
 

@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Storage {
 	        _storageProvider = storageProvider;
 	    }
 
-		public int AddGame(int homegameId, Cashgame cashgame){
+		public int AddGame(int homegameId, RawCashgame cashgame){
 			var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2})";
 		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
 		    return _storageProvider.ExecuteInsert(sql);
@@ -47,7 +47,7 @@ namespace Infrastructure.Data.Storage {
 			return cashgames[0];
 		}
 
-		public List<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
+		public IList<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
 			var sql = GetGameSql(homegame);
 			if(status.HasValue){
 				sql += string.Format("AND g.Status = {0} ", (int)status.Value);
@@ -93,9 +93,9 @@ namespace Infrastructure.Data.Storage {
 			return cashgames;
 		}
 
-		public List<int> GetYears(Homegame homegame){
+		public IList<int> GetYears(string slug){
 			var sql = "SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' FROM cashgamecheckpoint ccp LEFT JOIN game g ON ccp.GameID = g.GameID LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE h.Name = '{0}' ORDER BY 'Year' DESC";
-		    sql = string.Format(sql, homegame.Slug);
+		    sql = string.Format(sql, slug);
 			var reader = _storageProvider.Query(sql);
 			var years = new List<int>();
 			while(reader.Read()){
@@ -111,16 +111,16 @@ namespace Infrastructure.Data.Storage {
 		    return rowCount > 0;
 		}
 
-		public bool HasPlayed(Player player){
+		public bool HasPlayed(int playerId){
 			var sql = "SELECT DISTINCT PlayerID FROM cashgamecheckpoint WHERE PlayerId = {0}";
-		    sql = string.Format(sql, player.Id);
+		    sql = string.Format(sql, playerId);
 		    var reader = _storageProvider.Query(sql);
 			return reader.Read();
 		}
 
-		public List<string> GetLocations(Homegame homegame){
+		public IList<string> GetLocations(string slug){
 			var sql = "SELECT DISTINCT g.Location FROM game g LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE Name = '{0}' AND g.Location <> '' ORDER BY g.Location";
-		    sql = string.Format(sql, homegame.Slug);
+		    sql = string.Format(sql, slug);
 			var reader = _storageProvider.Query(sql);
 			var locations = new List<string>();
 			while(reader.Read()){

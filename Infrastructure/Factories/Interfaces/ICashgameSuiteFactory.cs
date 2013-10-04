@@ -5,7 +5,7 @@ namespace Infrastructure.Factories{
 
 	public interface ICashgameSuiteFactory{
 
-		CashgameSuite Create(List<Cashgame> cashgames, List<Player> players);
+        CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players);
 
 	}
 

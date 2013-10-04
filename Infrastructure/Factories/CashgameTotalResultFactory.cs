@@ -6,7 +6,8 @@ namespace Infrastructure.Factories{
 
 	public class CashgameTotalResultFactory : ICashgameTotalResultFactory{
 
-		public CashgameTotalResult Create(Player player, List<CashgameResult> results){
+        public CashgameTotalResult Create(Player player, IList<CashgameResult> results)
+        {
 			var winnings = 0;
 			var gameCount = 0;
 			var timePlayed = 0;

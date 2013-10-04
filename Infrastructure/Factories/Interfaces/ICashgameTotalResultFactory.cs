@@ -5,7 +5,7 @@ namespace Infrastructure.Factories{
 
     public interface ICashgameTotalResultFactory{
 
-		CashgameTotalResult Create(Player player, List<CashgameResult> results);
+        CashgameTotalResult Create(Player player, IList<CashgameResult> results);
 
 	}
 

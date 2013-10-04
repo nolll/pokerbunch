@@ -18,7 +18,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years, Cashgame runningGame)
+        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame)
         {
             return new CashgameEditPageModel
                 {
@@ -34,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                 };
         }
 
-        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, List<string> locations, List<int> years, Cashgame runningGame, CashgameEditPostModel postModel)
+        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame, CashgameEditPostModel postModel)
         {
             var model = Create(user, homegame, cashgame, locations, years, runningGame);
 

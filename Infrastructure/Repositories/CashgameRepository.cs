@@ -38,7 +38,7 @@ namespace Infrastructure.Repositories {
 	        _checkpointRepository = checkpointRepository;
 	    }
 
-	    public List<Cashgame> GetPublished(Homegame homegame, int? year = null){
+	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){
 			return GetGames(homegame, GameStatus.Published, year);
 		}
 
@@ -50,7 +50,8 @@ namespace Infrastructure.Repositories {
 			return games[0];
 		}
 
-		public List<Cashgame> GetAll(Homegame homegame, int? year = null){
+        public IList<Cashgame> GetAll(Homegame homegame, int? year = null)
+        {
 			return GetGames(homegame, null, year);
 		}
 
@@ -71,17 +72,17 @@ namespace Infrastructure.Repositories {
 			return _cashgameSuiteFactory.Create(cashgames, players);
 		}
 
-		public List<int> GetYears(Homegame homegame){
-			return _cashgameStorage.GetYears(homegame);
+		public IList<int> GetYears(Homegame homegame){
+			return _cashgameStorage.GetYears(homegame.Slug);
 		}
 
-		private List<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
+		private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
 			var rawGames = _cashgameStorage.GetGames(homegame, status, year);
 			var players = _playerRepository.GetAll(homegame);
 			return GetGamesFromRawGames(rawGames, players);
 		}
 
-		private List<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players){
+		private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players){
 			var games = new List<Cashgame>();
 			foreach(var rawGame in rawGames){
 				games.Add(GetGameFromRawGame(rawGame, players));
@@ -113,16 +114,19 @@ namespace Infrastructure.Repositories {
 			return null;
 		}
 
-		public List<string> GetLocations(Homegame homegame){
-			return _cashgameStorage.GetLocations(homegame);
+        public IList<string> GetLocations(Homegame homegame)
+        {
+			return _cashgameStorage.GetLocations(homegame.Slug);
 		}
 
 		public bool DeleteGame(Cashgame cashgame){
 			return _cashgameStorage.DeleteGame(cashgame.Id);
 		}
 
-		public int AddGame(Homegame homegame, Cashgame cashgame){
-			return _cashgameStorage.AddGame(homegame.Id, cashgame);
+		public int AddGame(Homegame homegame, Cashgame cashgame)
+		{
+		    var rawCashgame = GetRawCashgame(cashgame);
+			return _cashgameStorage.AddGame(homegame.Id, rawCashgame);
 		}
 
 		public void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
@@ -153,7 +157,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		public bool HasPlayed(Player player){
-			return _cashgameStorage.HasPlayed(player);
+			return _cashgameStorage.HasPlayed(player.Id);
 		}
 
 		private RawCashgame GetRawCashgame(Cashgame cashgame, GameStatus? status = null){

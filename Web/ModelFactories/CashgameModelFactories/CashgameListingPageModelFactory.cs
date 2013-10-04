@@ -15,7 +15,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public CashgameListingPageModel Create(User user, Homegame homegame, List<Cashgame> cashgames, List<int> years, int? year, Cashgame runningGame)
+        public CashgameListingPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, int? year, Cashgame runningGame)
         {
             return new CashgameListingPageModel
                 {

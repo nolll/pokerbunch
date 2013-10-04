@@ -8,7 +8,8 @@ namespace Web.Models.CashgameModels.Listing{
 		public bool ShowYear { get; set; }
 		public List<CashgameListingTableItemModel> ListItemModels { get; set; }
 
-		public CashgameListingTableModel(Homegame homegame, List<Cashgame> cashgames){
+        public CashgameListingTableModel(Homegame homegame, IList<Cashgame> cashgames)
+        {
 			ShowYear = SpansMultipleYears(cashgames);
 			ListItemModels = GetListItemModels(homegame, cashgames, ShowYear);
 		}

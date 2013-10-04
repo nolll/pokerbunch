@@ -3,7 +3,6 @@ using Core.Classes;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
-using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
@@ -17,7 +16,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, ITimeProvider timer, Cashgame runningGame = null)
+        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, ITimeProvider timer, Cashgame runningGame = null)
         {
             var model = new RunningCashgamePageModel();
 

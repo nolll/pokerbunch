@@ -17,7 +17,7 @@ namespace Web.ModelFactories.CashgameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, List<int> years, bool isManager, Cashgame runningGame = null)
+        public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
         {
             var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
