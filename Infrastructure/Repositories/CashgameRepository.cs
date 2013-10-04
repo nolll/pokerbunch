@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories {
 
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICashgameFactory _cashgameFactory;
-	    private readonly IPlayerStorage _playerStorage;
+	    private readonly IPlayerRepository _playerRepository;
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
@@ -23,7 +23,7 @@ namespace Infrastructure.Repositories {
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
 			ICashgameFactory cashgameFactory,
-			IPlayerStorage playerStorage,
+            IPlayerRepository playerRepository,
 			ITimeProvider timeProvider,
 			ICashgameSuiteFactory cashgameSuiteFactory,
 			ICashgameResultFactory cashgameResultFactory,
@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories {
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
-	        _playerStorage = playerStorage;
+	        _playerRepository = playerRepository;
 	        _timeProvider = timeProvider;
 	        _cashgameSuiteFactory = cashgameSuiteFactory;
 	        _cashgameResultFactory = cashgameResultFactory;
@@ -56,7 +56,7 @@ namespace Infrastructure.Repositories {
 
 		public Cashgame GetByDate(Homegame homegame, DateTime date){
 			var rawGame = _cashgameStorage.GetGame(homegame, date);
-			var players = _playerStorage.GetPlayers(homegame);
+			var players = _playerRepository.GetAll(homegame);
 			return GetGameFromRawGame(rawGame, players);
 		}
 
@@ -66,7 +66,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		public CashgameSuite GetSuite(Homegame homegame, int? year = null){
-			var players = _playerStorage.GetPlayers(homegame);
+			var players = _playerRepository.GetAll(homegame);
 			var cashgames = GetPublished(homegame, year);
 			return _cashgameSuiteFactory.Create(cashgames, players);
 		}
@@ -77,11 +77,11 @@ namespace Infrastructure.Repositories {
 
 		private List<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
 			var rawGames = _cashgameStorage.GetGames(homegame, status, year);
-			var players = _playerStorage.GetPlayers(homegame);
+			var players = _playerRepository.GetAll(homegame);
 			return GetGamesFromRawGames(rawGames, players);
 		}
 
-		private List<Cashgame> GetGamesFromRawGames(List<RawCashgame> rawGames, List<Player> players){
+		private List<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players){
 			var games = new List<Cashgame>();
 			foreach(var rawGame in rawGames){
 				games.Add(GetGameFromRawGame(rawGame, players));
