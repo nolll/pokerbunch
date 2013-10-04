@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Factories\HomegameFactory.cs" />
     <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
+    <Compile Include="Repositories\CheckpointRepository.cs" />
     <Compile Include="Repositories\SharingRepository.cs" />
     <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

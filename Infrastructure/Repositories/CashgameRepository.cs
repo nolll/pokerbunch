@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories {
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
-	    private readonly ICheckpointStorage _checkpointStorage;
+	    private readonly ICheckpointRepository _checkpointRepository;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -27,7 +27,7 @@ namespace Infrastructure.Repositories {
 			ITimeProvider timeProvider,
 			ICashgameSuiteFactory cashgameSuiteFactory,
 			ICashgameResultFactory cashgameResultFactory,
-            ICheckpointStorage checkpointStorage)
+            ICheckpointRepository checkpointRepository)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -35,7 +35,7 @@ namespace Infrastructure.Repositories {
 	        _timeProvider = timeProvider;
 	        _cashgameSuiteFactory = cashgameSuiteFactory;
 	        _cashgameResultFactory = cashgameResultFactory;
-	        _checkpointStorage = checkpointStorage;
+	        _checkpointRepository = checkpointRepository;
 	    }
 
 	    public List<Cashgame> GetPublished(Homegame homegame, int? year = null){
@@ -126,15 +126,15 @@ namespace Infrastructure.Repositories {
 		}
 
 		public void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
-			_checkpointStorage.AddCheckpoint(cashgame, player, checkpoint);
+			_checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
 		}
 
 		public void UpdateCheckpoint(Checkpoint checkpoint){
-            _checkpointStorage.UpdateCheckpoint(checkpoint);
+            _checkpointRepository.UpdateCheckpoint(checkpoint);
 		}
 
 		public void DeleteCheckpoint(int id){
-            _checkpointStorage.DeleteCheckpoint(id);
+            _checkpointRepository.DeleteCheckpoint(id);
 		}
 
 		public bool UpdateGame(Cashgame cashgame){

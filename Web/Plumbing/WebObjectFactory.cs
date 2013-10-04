@@ -52,6 +52,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IUserRepository, UserRepository>(container);
             ObjectFactory.RegisterComponent<ITwitterRepository, TwitterRepository>(container);
             ObjectFactory.RegisterComponent<ISharingRepository, SharingRepository>(container);
+            ObjectFactory.RegisterComponent<ICheckpointRepository, CheckpointRepository>(container);
             ObjectFactory.RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
 
             // System

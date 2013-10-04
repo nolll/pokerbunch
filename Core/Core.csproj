@@ -83,6 +83,7 @@
     <Compile Include="Classes\Homegame.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\ICheckpointRepository.cs" />
     <Compile Include="Repositories\IHomegameRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
   </ItemGroup>
