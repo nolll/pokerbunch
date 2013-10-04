@@ -7,14 +7,6 @@ namespace Infrastructure.Data.Storage.Interfaces {
         int ExecuteInsert(string sql);
         int BoolToInt(bool boolean);
 
-        /*
-		function executePrepared($sql);
-
-		function getLatestInsertId($success = true);
-
-		function quote($string);
-        */
-
 	}
 
 }
