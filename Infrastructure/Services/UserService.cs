@@ -1,26 +1,26 @@
-﻿using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
+﻿using Core.Repositories;
+using Core.Services;
 
 namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserStorage _userStorage;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserStorage userStorage)
+        public UserService(IUserRepository userRepository)
         {
-            _userStorage = userStorage;
+            _userRepository = userRepository;
         }
 
         public bool IsUserNameAvailable(string userName)
         {
-            var user = _userStorage.GetUserByName(userName);
+            var user = _userRepository.GetUserByName(userName);
             return user == null;
         }
 
         public bool IsEmailAvailable(string email)
         {
-            var user = _userStorage.GetUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(email);
 			return user == null;
         }
     }

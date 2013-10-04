@@ -4,6 +4,7 @@ using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
+using Infrastructure.Repositories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
@@ -22,6 +23,7 @@ namespace Tests.Common
         protected Mock<IHomegameRepository> HomegameRepositoryMock;
         protected Mock<ICashgameRepository> CashgameRepositoryMock;
         protected Mock<IPlayerRepository> PlayerRepositoryMock;
+        protected Mock<IUserRepository> UserRepositoryMock;
         protected Mock<IHomegameStorage> HomegameStorageMock;
         protected Mock<IUserStorage> UserStorageMock;
         protected Mock<ICashgameStorage> CashgameStorageMock;
@@ -69,6 +71,7 @@ namespace Tests.Common
             HomegameRepositoryMock = new Mock<IHomegameRepository>();
             CashgameRepositoryMock = new Mock<ICashgameRepository>();
             PlayerRepositoryMock = new Mock<IPlayerRepository>();
+            UserRepositoryMock = new Mock<IUserRepository>();
             HomegameStorageMock = new Mock<IHomegameStorage>();
             UserStorageMock = new Mock<IUserStorage>();
             CashgameStorageMock = new Mock<ICashgameStorage>();

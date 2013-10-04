@@ -6,6 +6,6 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public interface IUserListingPageModelFactory
     {
-        UserListingPageModel Create(User user, List<User> users);
+        UserListingPageModel Create(User user, IList<User> users);
     }
 }

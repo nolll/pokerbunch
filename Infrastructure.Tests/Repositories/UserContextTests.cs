@@ -3,7 +3,7 @@ using Infrastructure.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace CoreTests{
+namespace Infrastructure.Tests.Repositories{
 
 	public class UserContextTests : MockContainer {
 
@@ -54,7 +54,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+		    UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.GetUser();
@@ -79,7 +79,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.IsLoggedIn();
@@ -93,7 +93,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -107,7 +107,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -121,7 +121,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
             HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
 
@@ -137,7 +137,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
             HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
 
@@ -153,7 +153,7 @@ namespace CoreTests{
 		    const string displayName = "b";
 			WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
-		    UserStorageMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
 
             var sut = GetSut();
@@ -166,7 +166,7 @@ namespace CoreTests{
         {
             return new UserContext(
                 WebContextMock.Object, 
-                UserStorageMock.Object, 
+                UserRepositoryMock.Object, 
                 HomegameRepositoryMock.Object);
         }
 

@@ -1,7 +1,6 @@
 using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
-using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 
 namespace Infrastructure.Repositories{
@@ -9,23 +8,23 @@ namespace Infrastructure.Repositories{
 	public class UserContext : IUserContext{
 
 	    private readonly IWebContext _webContext;
-	    private readonly IUserStorage _userStorage;
+	    private readonly IUserRepository _userRepository;
 	    private readonly IHomegameRepository _homegameRepository;
 
 	    public UserContext(
-            IWebContext webContext, 
-            IUserStorage userStorage, 
+            IWebContext webContext,
+            IUserRepository userRepository,
             IHomegameRepository homegameRepository)
 	    {
 	        _webContext = webContext;
-	        _userStorage = userStorage;
+	        _userRepository = userRepository;
 	        _homegameRepository = homegameRepository;
 	    }
 
 		public User GetUser(){
 			var token = GetToken();
 			if(token != null){
-				return _userStorage.GetUserByToken(token);
+				return _userRepository.GetUserByToken(token);
 			}
 		    return null;
 		}
@@ -35,7 +34,7 @@ namespace Infrastructure.Repositories{
 			return user != null;
 		}
 
-		public string  GetToken(){
+		public string GetToken(){
 			return _webContext.GetCookie("token");
 		}
 

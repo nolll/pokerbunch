@@ -18,7 +18,7 @@ namespace Web.Controllers{
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly ICashgameRepository _cashgameRepository;
-	    private readonly IUserStorage _userStorage;
+	    private readonly IUserRepository _userRepository;
 	    private readonly IAvatarModelFactory _avatarModelFactory;
 	    private readonly IPlayerListingPageModelFactory _playerListingPageModelFactory;
 	    private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
@@ -33,7 +33,7 @@ namespace Web.Controllers{
 			IHomegameRepository homegameRepository,
 			IPlayerRepository playerRepository,
 			ICashgameRepository cashgameRepository,
-            IUserStorage userStorage,
+            IUserRepository userRepository,
             IAvatarModelFactory avatarModelFactory,
             IPlayerListingPageModelFactory playerListingPageModelFactory,
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
@@ -47,7 +47,7 @@ namespace Web.Controllers{
 	        _homegameRepository = homegameRepository;
 	        _playerRepository = playerRepository;
 	        _cashgameRepository = cashgameRepository;
-	        _userStorage = userStorage;
+	        _userRepository = userRepository;
 	        _avatarModelFactory = avatarModelFactory;
 	        _playerListingPageModelFactory = playerListingPageModelFactory;
 	        _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
@@ -73,7 +73,7 @@ namespace Web.Controllers{
 			_userContext.RequirePlayer(homegame);
 			var currentUser = _userContext.GetUser();
 			var player = _playerRepository.GetByName(homegame, name);
-			var user = _userStorage.GetUserByName(player.UserName);
+			var user = _userRepository.GetUserByName(player.UserName);
 			var cashgames = _cashgameRepository.GetPublished(homegame);
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var hasPlayed = _cashgameRepository.HasPlayed(player);

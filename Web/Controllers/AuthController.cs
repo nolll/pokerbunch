@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Core.Classes;
+using Core.Repositories;
 using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
@@ -10,18 +10,18 @@ using Web.Models.UrlModels;
 namespace Web.Controllers{
 
 	public class AuthController : Controller {
-	    private readonly IUserStorage _userStorage;
+	    private readonly IUserRepository _userRepository;
 	    private readonly IEncryptionService _encryptionService;
 	    private readonly IWebContext _webContext;
 	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
 
 	    public AuthController(
-            IUserStorage userStorage, 
+            IUserRepository userRepository,
             IEncryptionService encryptionService, 
             IWebContext webContext, 
             IAuthLoginPageModelFactory authLoginPageModelFactory)
 	    {
-	        _userStorage = userStorage;
+	        _userRepository = userRepository;
 	        _encryptionService = encryptionService;
 	        _webContext = webContext;
 	        _authLoginPageModelFactory = authLoginPageModelFactory;
@@ -46,9 +46,9 @@ namespace Web.Controllers{
 		}
 
 		private User GetLoggedInUser(string loginName, string password){
-			var salt = _userStorage.GetSalt(loginName);
+			var salt = _userRepository.GetSalt(loginName);
 			var encryptedPassword = _encryptionService.Encrypt(password, salt);
-			return _userStorage.GetUserByCredentials(loginName, encryptedPassword);
+			return _userRepository.GetUserByCredentials(loginName, encryptedPassword);
 		}
 
 		public ActionResult Logout(){
@@ -65,12 +65,12 @@ namespace Web.Controllers{
 		}
 
 		private void SetSessionCookies(User user){
-			var token = _userStorage.GetToken(user);
+			var token = _userRepository.GetToken(user);
 			_webContext.SetSessionCookie("token", token);
 		}
 
 		private void SetPersistentCookies(User user){
-			var token = _userStorage.GetToken(user);
+			var token = _userRepository.GetToken(user);
 			_webContext.SetPersistentCookie("token", token);
 		}
 

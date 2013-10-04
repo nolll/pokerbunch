@@ -1,4 +1,5 @@
 using Core.Classes;
+using Core.Repositories;
 using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
 
@@ -7,16 +8,16 @@ namespace Infrastructure.Services{
 	public class ResultSharerImpl : IResultSharer
     {
 	    private readonly ISharingStorage _sharingStorage;
-	    private readonly IUserStorage _userStorage;
+	    private readonly IUserRepository _userRepository;
 	    private readonly ISocialServiceProvider _socialServiceFactory;
 
 	    public ResultSharerImpl(
             ISharingStorage sharingStorage,
-			IUserStorage userStorage,
+			IUserRepository userRepository,
 			ISocialServiceProvider socialServiceFactory)
 	    {
 	        _sharingStorage = sharingStorage;
-	        _userStorage = userStorage;
+	        _userRepository = userRepository;
 	        _socialServiceFactory = socialServiceFactory;
 	    }
 
@@ -40,7 +41,7 @@ namespace Infrastructure.Services{
 		}
 
 		private User GetUser(CashgameResult result){
-			return _userStorage.GetUserByName(result.Player.UserName);
+			return _userRepository.GetUserByName(result.Player.UserName);
 		}
 
 	}

@@ -13,7 +13,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
         public void ActionLoginPost_UserExistsButNoReturnUrl_RedirectsToRoot(){
 			var user = new User();
-		    UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
 
@@ -27,7 +27,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
         public void ActionLoginPost_UserExistsAndWithReturnUrl_RedirectsToReturnUrl(){
 			var user = new User();
-            UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
 
@@ -59,8 +59,8 @@ namespace Web.Tests.ControllerTests{
 		    const string cookieName = "token";
 		    const string tokenName = "a";
 			var user = new User();
-            UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-		    UserStorageMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
 
             var sut = GetSut();
 			sut.Login(new AuthLoginPageModel());
@@ -73,8 +73,8 @@ namespace Web.Tests.ControllerTests{
             const string cookieName = "token";
             const string tokenName = "a";
             var user = new User();
-            UserStorageMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            UserStorageMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
 
             var sut = GetSut();
             sut.Login(new AuthLoginPageModel{RememberMe = true});
@@ -107,7 +107,7 @@ namespace Web.Tests.ControllerTests{
         private AuthController GetSut()
         {
             return new AuthController(
-                UserStorageMock.Object, 
+                UserRepositoryMock.Object, 
                 EncryptionServiceMock.Object, 
                 WebContextMock.Object, 
                 AuthLoginPageModelFactoryMock.Object);

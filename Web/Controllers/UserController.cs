@@ -2,7 +2,6 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Data.Storage.Interfaces;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Models.UrlModels;
@@ -15,8 +14,8 @@ namespace Web.Controllers{
 
 	public class UserController : Controller {
 	    private readonly IUserContext _userContext;
-	    private readonly IUserStorage _userStorage;
-	    private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
 	    private readonly IUserListingPageModelFactory _userListingPageModelFactory;
 	    private readonly IUserService _userService;
 	    private readonly IPasswordGenerator _passwordGenerator;
@@ -33,7 +32,7 @@ namespace Web.Controllers{
 
 	    public UserController(
             IUserContext userContext,
-            IUserStorage userStorage,
+            IUserRepository userRepository,
             IUserDetailsPageModelFactory userDetailsPageModelFactory,
             IUserListingPageModelFactory userListingPageModelFactory,
             IUserService userService,
@@ -50,7 +49,7 @@ namespace Web.Controllers{
             IPasswordSender passwordSender)
 	    {
 	        _userContext = userContext;
-	        _userStorage = userStorage;
+            _userRepository = userRepository;
 	        _userDetailsPageModelFactory = userDetailsPageModelFactory;
 	        _userListingPageModelFactory = userListingPageModelFactory;
 	        _userService = userService;
@@ -69,7 +68,7 @@ namespace Web.Controllers{
 
 		public ActionResult Details(string name){
 			_userContext.RequireUser();
-			var user = _userStorage.GetUserByName(name);
+			var user = _userRepository.GetUserByName(name);
 			if(name == null){
 				throw new UserNotFoundException();
 			}
@@ -79,7 +78,7 @@ namespace Web.Controllers{
 
         public ActionResult Listing(){
 			_userContext.RequireAdmin();
-			var users = _userStorage.GetUsers();
+			var users = _userRepository.GetUsers();
 			var model = _userListingPageModelFactory.Create(_userContext.GetUser(), users);
 
 			return View("Listing/Listing", model);
@@ -108,14 +107,14 @@ namespace Web.Controllers{
                 if (!hasError)
                 {
                     var user = _userModelMapper.GetUser(postModel);
-                    _userStorage.AddUser(user);
+                    _userRepository.AddUser(user);
 				    var password = _passwordGenerator.CreatePassword();
 				    var salt = _saltGenerator.CreateSalt();
 				    var encryptedPassword = _encryptionService.Encrypt(password, salt);
 			        var token = _encryptionService.Encrypt(postModel.UserName, salt);
-				    _userStorage.SetToken(user, token);
-				    _userStorage.SetEncryptedPassword(user, encryptedPassword);
-				    _userStorage.SetSalt(user, salt);
+				    _userRepository.SetToken(user, token);
+				    _userRepository.SetEncryptedPassword(user, encryptedPassword);
+				    _userRepository.SetSalt(user, salt);
 				    _registrationConfirmationSender.Send(user, password);
 				    return Redirect(new UserAddConfirmationUrlModel().Url);
                 }
@@ -132,7 +131,7 @@ namespace Web.Controllers{
 
         public ActionResult Edit(string name){
 			_userContext.RequireUser();
-			var user = _userStorage.GetUserByName(name);
+			var user = _userRepository.GetUserByName(name);
 			if(user == null){
 				throw new UserNotFoundException();
 			}
@@ -143,10 +142,10 @@ namespace Web.Controllers{
         [HttpPost]
 		public ActionResult Edit(string name, EditUserPostModel postModel){
 			_userContext.RequireUser();
-			var user = _userStorage.GetUserByName(name);
+			var user = _userRepository.GetUserByName(name);
             if(ModelState.IsValid){
 				user = _userModelMapper.GetUser(user, postModel);
-			    _userStorage.UpdateUser(user);
+			    _userRepository.UpdateUser(user);
 				return Redirect(new UserDetailsUrlModel(user).Url);
 			}
             var model = _editUserPageModelFactory.Create(user, postModel);
@@ -169,8 +168,8 @@ namespace Web.Controllers{
                 {
                     var salt = _saltGenerator.CreateSalt();
     				var encryptedPassword = _encryptionService.Encrypt(postModel.Password, salt);
-	    			_userStorage.SetEncryptedPassword(user, encryptedPassword);
-		    		_userStorage.SetSalt(user, salt);
+	    			_userRepository.SetEncryptedPassword(user, encryptedPassword);
+		    		_userRepository.SetSalt(user, salt);
 			    	return Redirect(new ChangePasswordConfirmationUrlModel().Url);
                 }
                 ModelState.AddModelError("password_mismatch", "The passwords does not match");
@@ -193,13 +192,13 @@ namespace Web.Controllers{
         [HttpPost]
 		public ActionResult ForgotPassword(ForgotPasswordPostModel postModel){
     		if(ModelState.IsValid){
-				var user = _userStorage.GetUserByEmail(postModel.Email);
+				var user = _userRepository.GetUserByEmail(postModel.Email);
 				if(user != null){
 					var password = _passwordGenerator.CreatePassword();
 					var salt = _saltGenerator.CreateSalt();
 			        var encryptedPassword = _encryptionService.Encrypt(password, salt);
-			        _userStorage.SetEncryptedPassword(user, encryptedPassword);
-			        _userStorage.SetSalt(user, salt);
+			        _userRepository.SetEncryptedPassword(user, encryptedPassword);
+			        _userRepository.SetSalt(user, salt);
 					_passwordSender.Send(user, password);
 				}
 				return Redirect(new ForgotPasswordConfirmationUrlModel().Url);

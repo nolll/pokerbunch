@@ -96,6 +96,7 @@
     <Compile Include="Exceptions\AccessDeniedException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
   </ItemGroup>
