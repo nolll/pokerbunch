@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
@@ -75,6 +76,39 @@ namespace Web.Tests.ControllerTests{
             var viewResult = (ViewResult)sut.Details("homegame1", "2010-01-01");
 
             Assert.AreEqual("Details/DetailsPage", viewResult.ViewName);
+		}
+
+        [Test]
+		public void ActionAction_NotAuthorized_ThrowsException(){
+			HomegameRepositoryMock.Setup(o => o.GetByName("homegame1")).Returns(new Homegame());
+			UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+
+            var sut = GetSut();
+
+            Assert.Throws<AccessDeniedException>(() => sut.Action("homegame1", "2010-01-01", "Player 1"));
+		}
+
+		[Test]
+		public void ActionAction_ReturnsCorrectModel()
+		{
+		    const string dateStr = "2010-01-01";
+		    const string slug = "homegame1";
+		    const string playerName = "Player 1";
+		    const string userName = "user1";
+		    var homegame = new Homegame();
+		    var user = new User();
+            var player = new Player {UserName = userName, Id = 1};
+		    var cashgameResult = new CashgameResult {Player = player};
+		    var cashgame = new Cashgame {Results = new List<CashgameResult> {cashgameResult}};
+		    HomegameRepositoryMock.Setup(o => o.GetByName(slug)).Returns(homegame);
+            UserContextMock.Setup(o => o.GetUser()).Returns(user);
+		    CashgameRepositoryMock.Setup(o => o.GetByDateString(homegame, dateStr)).Returns(cashgame);
+		    PlayerRepositoryMock.Setup(o => o.GetByName(homegame, playerName)).Returns(player);
+
+			var sut = GetSut();
+            var viewResult = (ViewResult)sut.Action(slug, dateStr, playerName);
+
+            Assert.AreEqual("Action/Action", viewResult.ViewName);
 		}
 
         private CashgameController GetSut()
