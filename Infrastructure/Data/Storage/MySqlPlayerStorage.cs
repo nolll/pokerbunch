@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.Factories;
 
 namespace Infrastructure.Data.Storage
 {
     public class MySqlPlayerStorage : IPlayerStorage
     {
 	    private readonly IStorageProvider _storageProvider;
-	    private readonly IPlayerFactory _playerFactory;
+	    private readonly IRawPlayerFactory _rawPlayerFactory;
 
-	    public MySqlPlayerStorage(IStorageProvider storageProvider, IPlayerFactory playerFactory)
+	    public MySqlPlayerStorage(IStorageProvider storageProvider, IRawPlayerFactory rawPlayerFactory)
 	    {
 	        _storageProvider = storageProvider;
-	        _playerFactory = playerFactory;
+	        _rawPlayerFactory = rawPlayerFactory;
 	    }
 
-		public Player GetPlayerById(int homegameId, int id)
+		public RawPlayer GetPlayerById(int homegameId, int id)
         {
 			var baseSql = GetPlayersBaseSql(homegameId);
 			const string format = "{0} AND p.PlayerID = {1}";
@@ -24,7 +25,7 @@ namespace Infrastructure.Data.Storage
 			return GetPlayerFromSql(sql);
 		}
 
-		public Player GetPlayerByName(int homegameId, string name)
+		public RawPlayer GetPlayerByName(int homegameId, string name)
         {
             var baseSql = GetPlayersBaseSql(homegameId);
 			const string format = "{0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
@@ -32,7 +33,7 @@ namespace Infrastructure.Data.Storage
 			return GetPlayerFromSql(sql);
 		}
 
-		public Player GetPlayerByUserName(int homegameId, string userName)
+		public RawPlayer GetPlayerByUserName(int homegameId, string userName)
         {
             var baseSql = GetPlayersBaseSql(homegameId);
 			const string format = "{0} AND u.UserName = '{1}'";
@@ -40,7 +41,7 @@ namespace Infrastructure.Data.Storage
 			return GetPlayerFromSql(sql);
 		}
 
-		public List<Player> GetPlayers(int homegameId)
+		public IList<RawPlayer> GetPlayers(int homegameId)
         {
             var baseSql = GetPlayersBaseSql(homegameId);
 			const string format = "{0} ORDER BY DisplayName";
@@ -84,34 +85,25 @@ namespace Infrastructure.Data.Storage
 			return rowCount > 0;
 		}
 
-		private Player GetPlayerFromSql(string sql)
+		private RawPlayer GetPlayerFromSql(string sql)
         {
             var reader = _storageProvider.Query(sql);
 			while(reader.Read())
             {
-				return PlayerFromDbRow(reader);
+				return _rawPlayerFactory.Create(reader);
 			}
 			return null;
 		}
 
-		private List<Player> GetPlayersFromSql(string sql)
+		private List<RawPlayer> GetPlayersFromSql(string sql)
         {
             var reader = _storageProvider.Query(sql);
-		    var players = new List<Player>();
+		    var players = new List<RawPlayer>();
 			while(reader.Read())
             {
-				players.Add(PlayerFromDbRow(reader));
+				players.Add(_rawPlayerFactory.Create(reader));
 			}
 			return players;
-		}
-
-		private Player PlayerFromDbRow(StorageDataReader reader)
-		{
-		    var displayName = reader.GetString("DisplayName");
-            var role = reader.GetInt("RoleID");
-            var userName = reader.GetString("UserName");
-            var playerId = reader.GetInt("PlayerID");
-			return _playerFactory.Create(displayName, (Role)role, userName, playerId);
 		}
 
 	}

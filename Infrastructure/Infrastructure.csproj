@@ -63,8 +63,13 @@
     <Compile Include="Caching\CacheContainer.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Data\Classes\RawPlayer.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Classes\RawUser.cs" />
+    <Compile Include="Data\Factories\Interfaces\IRawCashgameFactory.cs" />
+    <Compile Include="Data\Factories\RawCashgameFactory.cs" />
+    <Compile Include="Data\Factories\RawPlayerFactory.cs" />
+    <Compile Include="Data\Factories\Interfaces\IRawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawUserFactory.cs" />
     <Compile Include="Data\Factories\RawUserFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />

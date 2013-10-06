@@ -16,15 +16,11 @@ namespace Infrastructure.System{
 
         private static DateTime Create(DateTime dateTime, TimeZoneInfo timezone = null)
         {
-            if(timezone != null){
-				//todo: adjust for timezone
-			}
-		    return dateTime;
+            return timezone != null ? TimeZoneInfo.ConvertTime(dateTime, timezone) : dateTime;
         }
 
-		public static DateTime ToUtc(DateTime dateTime){
-            //todo: adjust for timezone
-			return dateTime;
+	    public static DateTime ToUtc(DateTime dateTime){
+			return TimeZoneInfo.ConvertTimeToUtc(dateTime);
 		}
 
 	}

@@ -26,15 +26,14 @@ namespace Infrastructure.Data.Storage
 
         public bool GetBoolean(string key)
         {
-            //var ordinal = _reader.GetOrdinal(key);
-            //return !_reader.IsDBNull(ordinal) && _reader.GetBoolean(ordinal);
             return GetInt(key) == 1;
         }
 
         public DateTime GetDateTime(string key)
         {
             var ordinal = _reader.GetOrdinal(key);
-            return _reader.IsDBNull(ordinal) ? DateTime.MinValue : _reader.GetDateTime(ordinal);
+            var dateTime = _reader.IsDBNull(ordinal) ? DateTime.MinValue : _reader.GetDateTime(ordinal);
+            return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
         }
 
         public bool Read()

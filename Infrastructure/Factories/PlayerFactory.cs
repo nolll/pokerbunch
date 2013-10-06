@@ -1,18 +1,19 @@
 using Core.Classes;
+using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Factories{
     public class PlayerFactory : IPlayerFactory{
 
-		public Player Create(string displayName, Role role = Role.Player, string userName = null, int id = 0){
+		public Player Create(RawPlayer rawPlayer)
+        {
             return new Player
-                {
-                    DisplayName = displayName, 
-                    Role = role, 
-                    UserName = userName, 
-                    Id = id
-                };
-		}
-
-	}
+            {
+                DisplayName = rawPlayer.DisplayName,
+                Role = (Role)rawPlayer.Role,
+                UserName = rawPlayer.UserName,
+                Id = rawPlayer.Id
+            };
+        }
+    }
 
 }

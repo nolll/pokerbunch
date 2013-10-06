@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 
@@ -9,13 +10,17 @@ namespace Infrastructure.Data.Storage {
     public class MySqlCashgameStorage : ICashgameStorage
     {
 	    private readonly IStorageProvider _storageProvider;
+        private readonly IRawCashgameFactory _rawCashgameFactory;
 
-	    public MySqlCashgameStorage(IStorageProvider storageProvider)
+        public MySqlCashgameStorage(
+            IStorageProvider storageProvider,
+            IRawCashgameFactory rawCashgameFactory)
 	    {
 	        _storageProvider = storageProvider;
+	        _rawCashgameFactory = rawCashgameFactory;
 	    }
 
-		public int AddGame(int homegameId, RawCashgame cashgame){
+        public int AddGame(int homegameId, RawCashgame cashgame){
 			var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2})";
 		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
 		    return _storageProvider.ExecuteInsert(sql);
@@ -68,8 +73,9 @@ namespace Infrastructure.Data.Storage {
 			while(reader.Read())
 			{
 			    var gameId = reader.GetInt("GameID");
-				if(gameId != currentGameId){
-					currentGame = RawCashgameFromDbRow(reader);
+				if(gameId != currentGameId)
+				{
+				    currentGame = _rawCashgameFactory.Create(reader);
 					currentGameId = currentGame.Id;
 					cashgames.Add(currentGame);
 					currentResult = null;
@@ -126,18 +132,6 @@ namespace Infrastructure.Data.Storage {
 				locations.Add(reader.GetString("Location"));
 			}
 			return locations;
-		}
-
-		private RawCashgame RawCashgameFromDbRow(StorageDataReader reader){
-			var id = reader.GetInt("GameID");
-		    var location = reader.GetString("Location");
-            if (location == "")
-            {
-                location = null;
-            }
-			var status = reader.GetInt("Status");
-			var date = reader.GetDateTime("Date");
-			return new RawCashgame(id, location, status, date);
 		}
 
 		private RawCashgameResult RawCashgameResultFromDbRow(StorageDataReader reader){

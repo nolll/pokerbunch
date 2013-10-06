@@ -65,6 +65,7 @@ namespace Tests.Common
         protected Mock<IAvatarModelFactory> AvatarModelFactoryMock;
         protected Mock<IHomegameNavigationModelFactory> HomegameNavigationModelFactoryMock;
         protected Mock<ICheckpointRepository> CheckpointRepositoryMock;
+        protected Mock<IRawCashgameFactory> RawCashgameFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -114,6 +115,7 @@ namespace Tests.Common
             AvatarModelFactoryMock = new Mock<IAvatarModelFactory>();
             HomegameNavigationModelFactoryMock = new Mock<IHomegameNavigationModelFactory>();
             CheckpointRepositoryMock = new Mock<ICheckpointRepository>();
+            RawCashgameFactoryMock = new Mock<IRawCashgameFactory>();
         }
 
     }
