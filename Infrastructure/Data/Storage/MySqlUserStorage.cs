@@ -1,90 +1,90 @@
 using System.Collections.Generic;
-using Core.Classes;
+using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.Factories;
 
 namespace Infrastructure.Data.Storage {
     public class MySqlUserStorage : IUserStorage 
     {
 	    private readonly IStorageProvider _storageProvider;
-	    private readonly IUserFactory _userFactory;
+	    private readonly IRawUserFactory _rawUserFactory;
 
-	    public MySqlUserStorage(IStorageProvider storageProvider, IUserFactory userFactory)
+	    public MySqlUserStorage(IStorageProvider storageProvider, IRawUserFactory rawUserFactory)
 	    {
 	        _storageProvider = storageProvider;
-	        _userFactory = userFactory;
+	        _rawUserFactory = rawUserFactory;
 	    }
 
-		public User GetUserByEmail(string email){
+		public RawUser GetUserByEmail(string email){
 			var sql = GetUserBaseSql();
 			sql += "WHERE u.Email = '{0}'";
 		    sql = string.Format(sql, email);
-			return getUser(sql);
+			return GetUser(sql);
 		}
 
-		public User GetUserByName(string userName){
+		public RawUser GetUserByName(string userName){
 			var sql = GetUserBaseSql();
 			sql += "WHERE u.UserName = '{0}'";
             sql = string.Format(sql, userName);
-			return getUser(sql);
+			return GetUser(sql);
 		}
 
-		public User GetUserByToken(string token){
+		public RawUser GetUserByToken(string token){
 			var sql =	GetUserBaseSql();
 			sql +=	"WHERE u.Token = '{0}'";
 			sql = string.Format(sql, token);
-            return getUser(sql);
+            return GetUser(sql);
 		}
 
-		public User GetUserByCredentials(string userNameOrEmail, string password){
+		public RawUser GetUserByCredentials(string userNameOrEmail, string password){
 			var sql = GetUserBaseSql();
 			sql += "WHERE (u.UserName = '{0}' OR u.Email = '{0}') AND u.Password = '{1}'";
 			sql = string.Format(sql, userNameOrEmail, password);
-            return getUser(sql);
+            return GetUser(sql);
 		}
 
 		private string GetUserBaseSql(){
 			return "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM user u ";
 		}
 
-		private User getUser(string sql){
+		private RawUser GetUser(string sql){
             var reader = _storageProvider.Query(sql);
             while (reader.Read())
             {
-                return UserFromDbRow(reader);
+                return _rawUserFactory.Create(reader);
             }
 			return null;
 		}
 
-		public List<User> GetUsers(){
+		public List<RawUser> GetUsers(){
 			var sql =	GetUserBaseSql();
 			sql +=	"ORDER BY u.DisplayName";
 			var reader = _storageProvider.Query(sql);
-			var users = new List<User>();
+			var users = new List<RawUser>();
             while (reader.Read())
             {
-                users.Add(UserFromDbRow(reader));
+                users.Add(_rawUserFactory.Create(reader));
             }
 			return users;
 		}
 
-		public bool UpdateUser(User user){
+		public bool UpdateUser(RawUser user){
 			var sql = "UPDATE user u SET DisplayName = '{0}', RealName = '{1}', Email = '{2}' WHERE UserID = {3}";
 		    sql = string.Format(sql, user.DisplayName, user.RealName, user.Email, user.Id);
 		    var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
-		public int AddUser(User user){
+		public int AddUser(RawUser user){
 			var sql = "INSERT INTO user (UserName, DisplayName, Email) VALUES ('{0}', '{1}', '{2}')";
             sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
 
-		public bool DeleteUser(User user){
+		public bool DeleteUser(int userId){
 			var sql = "DELETE FROM user u WHERE UserID = {0}";
-            sql = string.Format(sql, user.Id);
+            sql = string.Format(sql, userId);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
@@ -99,46 +99,36 @@ namespace Infrastructure.Data.Storage {
 			return "";
 		}
 
-		public bool SetSalt(User user, string salt){
+		public bool SetSalt(string userName, string salt){
 			var sql = "UPDATE user u SET Salt = '{0}' WHERE UserName = '{1}'";
-		    sql = string.Format(sql, salt, user.UserName);
+		    sql = string.Format(sql, salt, userName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
-		public bool SetEncryptedPassword(User user, string encryptedPassword){
+		public bool SetEncryptedPassword(string userName, string encryptedPassword){
 			var sql = "UPDATE user u SET Password = '{0}' WHERE UserName = '{1}'";
-			sql = string.Format(sql, encryptedPassword, user.UserName);
+			sql = string.Format(sql, encryptedPassword, userName);
             var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
-		public bool SetToken(User user, string token){
+		public bool SetToken(string userName, string token){
 			var sql = "UPDATE user u SET Token = '{0}' WHERE UserName = '{1}'";
-            sql = string.Format(sql, token, user.UserName);
+            sql = string.Format(sql, token, userName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
-		public string GetToken(User user){
+		public string GetToken(string userName){
 			var sql = "SELECT u.Token FROM user u WHERE u.UserName = '{0}'";
-            sql = string.Format(sql, user.UserName);
+            sql = string.Format(sql, userName);
 			var reader = _storageProvider.Query(sql);
 			while(reader.Read())
 			{
 			    return reader.GetString("Token");
 			}
 			return null;
-		}
-
-        private User UserFromDbRow(StorageDataReader reader){
-			var id = reader.GetInt("UserID");
-            var userName = reader.GetString("UserName");
-			var displayName = reader.GetString("DisplayName");
-			var realName = reader.GetString("RealName");
-			var email = reader.GetString("Email");
-			var globalRole = (Role)reader.GetInt("RoleID");
-			return _userFactory.Create(id, userName, displayName, realName, email, globalRole);
 		}
 
 	}

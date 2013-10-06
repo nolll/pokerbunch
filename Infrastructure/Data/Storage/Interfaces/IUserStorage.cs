@@ -1,23 +1,23 @@
 using System.Collections.Generic;
-using Core.Classes;
+using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface IUserStorage{
 
-		User GetUserByEmail(string email);
-		User GetUserByName(string userName);
-		User GetUserByToken(string token);
-		User GetUserByCredentials(string userNameOrEmail, string password);
-		List<User> GetUsers();
-		bool UpdateUser(User user);
-		int AddUser(User user);
-		bool DeleteUser(User user);
+		RawUser GetUserByEmail(string email);
+        RawUser GetUserByName(string userName);
+        RawUser GetUserByToken(string token);
+        RawUser GetUserByCredentials(string userNameOrEmail, string password);
+		List<RawUser> GetUsers();
+		bool UpdateUser(RawUser user);
+		int AddUser(RawUser user);
+		bool DeleteUser(int userId);
         string GetSalt(string userNameOrEmail);
-		bool SetSalt(User user, string salt);
-		bool SetEncryptedPassword(User user, string encryptedPassword);
-		string GetToken(User user);
-		bool SetToken(User user, string token);
+		bool SetSalt(string userName, string salt);
+		bool SetEncryptedPassword(string userName, string encryptedPassword);
+		string GetToken(string userName);
+		bool SetToken(string userName, string token);
 
 	}
 

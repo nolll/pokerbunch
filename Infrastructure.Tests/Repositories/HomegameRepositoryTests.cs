@@ -8,7 +8,8 @@ using Tests.Common;
 
 namespace Infrastructure.Tests.Repositories{
 
-	public class HomegameRepositoryTests : MockContainer
+	public class 
+        HomegameRepositoryTests : MockContainer
 	{
         [Test]
 		public void GetByName_NoHomegameFound_ReturnsNull()

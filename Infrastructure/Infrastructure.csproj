@@ -64,6 +64,9 @@
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
+    <Compile Include="Data\Classes\RawUser.cs" />
+    <Compile Include="Data\Factories\Interfaces\IRawUserFactory.cs" />
+    <Compile Include="Data\Factories\RawUserFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />
     <Compile Include="Data\Factories\RawHomegameFactory.cs" />
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
