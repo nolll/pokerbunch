@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage.Interfaces;
@@ -29,26 +28,26 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-		private string GetGameSql(Homegame homegame){
+		private string GetGameSql(int homegameId){
 			var sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.HomegameID = {0} ";
-		    sql = string.Format(sql, homegame.Id);
+		    sql = string.Format(sql, homegameId);
 		    return sql;
 		}
 
-		public RawCashgame GetGame(Homegame homegame, DateTime date){
+		public RawCashgame GetGame(int homegameId, DateTime date, TimeZoneInfo timeZone){
 			var dateStr = Globalization.FormatIsoDate(date);
-			var sql = GetGameSql(homegame) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
+			var sql = GetGameSql(homegameId) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
             sql = string.Format(sql, dateStr);
 			var reader = _storageProvider.Query(sql);
-			var cashgames = GetGamesFromDbResult(homegame, reader);
+			var cashgames = GetGamesFromDbResult(reader, timeZone);
 			if(cashgames.Count == 0){
 				return null;
 			}
 			return cashgames[0];
 		}
 
-		public IList<RawCashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
-			var sql = GetGameSql(homegame);
+		public IList<RawCashgame> GetGames(int homegameId, TimeZoneInfo timeZone, int? status = null, int? year = null){
+			var sql = GetGameSql(homegameId);
 			if(status.HasValue){
 				sql += string.Format("AND g.Status = {0} ", (int)status.Value);
 			}
@@ -57,10 +56,10 @@ namespace Infrastructure.Data.Storage {
 			}
 			sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
             var reader = _storageProvider.Query(sql);
-			return GetGamesFromDbResult(homegame, reader);
+			return GetGamesFromDbResult(reader, timeZone);
 		}
 
-		private List<RawCashgame> GetGamesFromDbResult(Homegame homegame, StorageDataReader reader){
+		private List<RawCashgame> GetGamesFromDbResult(StorageDataReader reader, TimeZoneInfo timeZone){
 			var cashgames = new List<RawCashgame>();
 			RawCashgame currentGame = null;
 			var currentGameId = -1;
@@ -86,7 +85,7 @@ namespace Infrastructure.Data.Storage {
 				}
 			    var checkpointId = reader.GetInt("CheckpointID");
 				if(checkpointId != 0){ // this was a null-check in the php site
-					var checkpoint = CheckpointFromDbRow(reader, homegame.Timezone);
+					var checkpoint = CheckpointFromDbRow(reader, timeZone);
 					currentResult.AddCheckpoint(checkpoint);
 				}
 			}
@@ -152,8 +151,7 @@ namespace Infrastructure.Data.Storage {
 			var type = reader.GetInt("Type");
 			var amount = reader.GetInt("Amount");
 			var stack = reader.GetInt("Stack");
-		    var timestamp = reader.GetDateTime("TimeStamp");
-		    //todo: adjust for timezone
+		    var timestamp = TimeZoneInfo.ConvertTime(reader.GetDateTime("TimeStamp"), timezone);
 			var checkpoint = CreateCheckpoint(type, timestamp, stack, amount);
 			checkpoint.Id = id;
 			return checkpoint;

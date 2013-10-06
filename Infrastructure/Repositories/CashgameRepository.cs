@@ -56,7 +56,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		public Cashgame GetByDate(Homegame homegame, DateTime date){
-			var rawGame = _cashgameStorage.GetGame(homegame, date);
+			var rawGame = _cashgameStorage.GetGame(homegame.Id, date, homegame.Timezone);
 			var players = _playerRepository.GetAll(homegame);
 			return GetGameFromRawGame(rawGame, players);
 		}
@@ -77,7 +77,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
-			var rawGames = _cashgameStorage.GetGames(homegame, status, year);
+			var rawGames = _cashgameStorage.GetGames(homegame.Id, homegame.Timezone, (int?)status, year);
 			var players = _playerRepository.GetAll(homegame);
 			return GetGamesFromRawGames(rawGames, players);
 		}
