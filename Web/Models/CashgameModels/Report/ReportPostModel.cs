@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Web.Models.CashgameModels.Buyin
+namespace Web.Models.CashgameModels.Report
 {
     public class ReportPostModel
     {

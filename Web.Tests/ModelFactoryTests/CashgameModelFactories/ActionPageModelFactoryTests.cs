@@ -39,7 +39,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
         public void Checkpoints_WithOneCheckpoint_HasOneCheckpoint(){
 			var timestamp = DateTime.Parse("2010-01-01 01:00:00");
 			const int stack = 1;
-			var checkpoint = new ReportCheckpoint(timestamp, stack);
+			var checkpoint = new Checkpoint{Timestamp = timestamp, Stack = stack};
 			_result.Checkpoints = new List<Checkpoint>{checkpoint};
 
 			var sut = GetSut();

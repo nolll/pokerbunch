@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 
@@ -40,7 +41,7 @@ namespace Infrastructure.Factories
 
         private int GetBuyinSum(List<Checkpoint> checkpoints)
         {
-            var buyinCheckpoints = GetCheckpointsOfType(checkpoints, typeof (BuyinCheckpoint));
+            var buyinCheckpoints = GetCheckpointsOfType(checkpoints, CheckpointType.Buyin);
             var buyin = 0;
             foreach (var checkpoint in buyinCheckpoints)
             {
@@ -49,12 +50,12 @@ namespace Infrastructure.Factories
             return buyin;
         }
 
-        private List<Checkpoint> GetCheckpointsOfType(List<Checkpoint> checkpoints, Type type)
+        private List<Checkpoint> GetCheckpointsOfType(IEnumerable<Checkpoint> checkpoints, CheckpointType type)
         {
             var typedCheckpoints = new List<Checkpoint>();
             foreach (var checkpoint in checkpoints)
             {
-                if (checkpoint.GetType() == type)
+                if (checkpoint.Type == type)
                 {
                     typedCheckpoints.Add(checkpoint);
                 }
@@ -62,18 +63,18 @@ namespace Infrastructure.Factories
             return typedCheckpoints;
         }
 
-        private int GetStack(List<Checkpoint> checkpoints)
+        private int GetStack(IReadOnlyList<Checkpoint> checkpoints)
         {
             var checkpoint = GetLastCheckpoint(checkpoints);
             return checkpoint != null ? checkpoint.Stack : 0;
         }
 
-        private Checkpoint GetLastCheckpoint(List<Checkpoint> checkpoints)
+        private Checkpoint GetLastCheckpoint(IReadOnlyList<Checkpoint> checkpoints)
         {
             return checkpoints.Count > 0 ? checkpoints[checkpoints.Count - 1] : null;
         }
 
-        private DateTime? GetBuyinTime(List<Checkpoint> checkpoints)
+        private DateTime? GetBuyinTime(IEnumerable<Checkpoint> checkpoints)
         {
             var checkpoint = GetFirstBuyinCheckpoint(checkpoints);
             if (checkpoint == null)
@@ -83,26 +84,19 @@ namespace Infrastructure.Factories
             return checkpoint.Timestamp;
         }
         
-        private Checkpoint GetFirstBuyinCheckpoint(List<Checkpoint> checkpoints)
+        private Checkpoint GetFirstBuyinCheckpoint(IEnumerable<Checkpoint> checkpoints)
         {
-            return GetCheckpointOfType(checkpoints, typeof (BuyinCheckpoint));
+            return GetCheckpointOfType(checkpoints, CheckpointType.Buyin);
         }
 
-        private Checkpoint GetCashoutCheckpoint(List<Checkpoint> checkpoints)
+        private Checkpoint GetCashoutCheckpoint(IEnumerable<Checkpoint> checkpoints)
         {
-            return GetCheckpointOfType(checkpoints, typeof (CashoutCheckpoint));
+            return GetCheckpointOfType(checkpoints, CheckpointType.Cashout);
         }
 
-        private Checkpoint GetCheckpointOfType(List<Checkpoint> checkpoints, Type type)
+        private Checkpoint GetCheckpointOfType(IEnumerable<Checkpoint> checkpoints, CheckpointType type)
         {
-            foreach (var checkpoint in checkpoints)
-            {
-                if (checkpoint.GetType() == type)
-                {
-                    return checkpoint;
-                }
-            }
-            return null;
+            return checkpoints.FirstOrDefault(checkpoint => checkpoint.Type == type);
         }
 
         private int GetPlayedTime(DateTime? startTime = null, DateTime? endTime = null)
@@ -125,9 +119,9 @@ namespace Infrastructure.Factories
             return checkpoint.Timestamp;
         }
 
-        public bool HasReported(List<Checkpoint> checkpoints)
+        private bool HasReported(IEnumerable<Checkpoint> checkpoints)
         {
-            var reportCheckpoints = GetCheckpointsOfType(checkpoints, typeof (ReportCheckpoint));
+            var reportCheckpoints = GetCheckpointsOfType(checkpoints, CheckpointType.Report);
             return reportCheckpoints.Count > 0;
         }
 

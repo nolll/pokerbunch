@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
@@ -11,13 +10,16 @@ namespace Infrastructure.Data.Storage {
     {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IRawCashgameFactory _rawCashgameFactory;
+        private readonly IRawCheckpointFactory _rawCheckpointFactory;
 
         public MySqlCashgameStorage(
             IStorageProvider storageProvider,
-            IRawCashgameFactory rawCashgameFactory)
+            IRawCashgameFactory rawCashgameFactory,
+            IRawCheckpointFactory rawCheckpointFactory)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
+            _rawCheckpointFactory = rawCheckpointFactory;
 	    }
 
         public int AddGame(int homegameId, RawCashgame cashgame){
@@ -91,7 +93,7 @@ namespace Infrastructure.Data.Storage {
 				}
 			    var checkpointId = reader.GetInt("CheckpointID");
 				if(checkpointId != 0){ // this was a null-check in the php site
-					var checkpoint = CheckpointFromDbRow(reader, timeZone);
+					var checkpoint = _rawCheckpointFactory.Create(reader, timeZone);
 					currentResult.AddCheckpoint(checkpoint);
 				}
 			}
@@ -137,28 +139,6 @@ namespace Infrastructure.Data.Storage {
 		private RawCashgameResult RawCashgameResultFromDbRow(StorageDataReader reader){
 			var playerId = reader.GetInt("PlayerID");
 			return new RawCashgameResult(playerId);
-		}
-
-		private Checkpoint CheckpointFromDbRow(StorageDataReader reader, TimeZoneInfo timezone)
-		{
-            var id = reader.GetInt("CheckpointID");
-			var type = reader.GetInt("Type");
-			var amount = reader.GetInt("Amount");
-			var stack = reader.GetInt("Stack");
-		    var timestamp = TimeZoneInfo.ConvertTime(reader.GetDateTime("TimeStamp"), timezone);
-			var checkpoint = CreateCheckpoint(type, timestamp, stack, amount);
-			checkpoint.Id = id;
-			return checkpoint;
-		}
-
-		private Checkpoint CreateCheckpoint(int type, DateTime timestamp, int stack, int amount){
-			if(type == 1){
-				return new BuyinCheckpoint(timestamp, stack, amount);
-			}
-            if (type == 2){
-				return new CashoutCheckpoint(timestamp, stack);
-			}
-			return new ReportCheckpoint(timestamp, stack);
 		}
 
 	}

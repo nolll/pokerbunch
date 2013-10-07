@@ -15,7 +15,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Action{
 
         [SetUp]
 		public void SetUp(){
-			_checkpoint = new ReportCheckpoint(DateTime.Parse("2010-01-01 01:00:00"), 200);
+			_checkpoint = new Checkpoint{Timestamp = DateTime.Parse("2010-01-01 01:00:00"), Stack = 200};
 			_role = Role.Player;
 		}
 

@@ -8,6 +8,7 @@ using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using Infrastructure.System;
+using System.Linq;
 
 namespace Infrastructure.Repositories {
 	
@@ -20,6 +21,7 @@ namespace Infrastructure.Repositories {
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
+	    private readonly ICheckpointFactory _checkpointFactory;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -28,7 +30,8 @@ namespace Infrastructure.Repositories {
 			ICashgameSuiteFactory cashgameSuiteFactory,
 			ICashgameResultFactory cashgameResultFactory,
             ICheckpointRepository checkpointRepository,
-            IRawCashgameFactory rawCashgameFactory)
+            IRawCashgameFactory rawCashgameFactory,
+            ICheckpointFactory checkpointFactory)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -37,6 +40,7 @@ namespace Infrastructure.Repositories {
 	        _cashgameResultFactory = cashgameResultFactory;
 	        _checkpointRepository = checkpointRepository;
 	        _rawCashgameFactory = rawCashgameFactory;
+	        _checkpointFactory = checkpointFactory;
 	    }
 
 	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){
@@ -102,7 +106,7 @@ namespace Infrastructure.Repositories {
 
 		private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult, List<Player> players){
 			var player = GetPlayer(players, rawResult.PlayerId);
-			var checkpoints = rawResult.Checkpoints;
+			var checkpoints = rawResult.Checkpoints.Select(_checkpointFactory.Create).ToList();
 			return _cashgameResultFactory.Create(player, checkpoints);
 		}
 

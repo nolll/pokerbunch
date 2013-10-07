@@ -267,7 +267,8 @@ namespace Web.Tests.ControllerTests{
                 CashgameLeaderboardPageModelFactoryMock.Object,
                 CashgameListingPageModelFactoryMock.Object,
                 RunningCashgamePageModelFactoryMock.Object,
-                CashgameModelMapperMock.Object);
+                CashgameModelMapperMock.Object,
+                CheckpointModelMapperMock.Object);
         }
 
 	}

@@ -4,7 +4,6 @@ using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
-using Infrastructure.Repositories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
@@ -31,6 +30,7 @@ namespace Tests.Common
         protected Mock<IPlayerStorage> PlayerStorageMock;
         protected Mock<IRawHomegameFactory> RawHomegameFactoryMock;
         protected Mock<ICashgameFactory> CashgameFactoryMock;
+        protected Mock<ICheckpointFactory> CheckpointFactoryMock;
         protected Mock<ICashgameSuiteFactory> CashgameSuiteFactoryMock;
         protected Mock<ICashgameResultFactory> CashgameResultFactoryMock;
         protected Mock<IHomegameFactory> HomegameFactoryMock;
@@ -66,6 +66,7 @@ namespace Tests.Common
         protected Mock<IHomegameNavigationModelFactory> HomegameNavigationModelFactoryMock;
         protected Mock<ICheckpointRepository> CheckpointRepositoryMock;
         protected Mock<IRawCashgameFactory> RawCashgameFactoryMock;
+        protected Mock<ICheckpointModelMapper> CheckpointModelMapperMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -81,6 +82,7 @@ namespace Tests.Common
             PlayerStorageMock = new Mock<IPlayerStorage>();
             RawHomegameFactoryMock = new Mock<IRawHomegameFactory>();
             CashgameFactoryMock = new Mock<ICashgameFactory>();
+            CheckpointFactoryMock = new Mock<ICheckpointFactory>();
             CashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();
             CashgameResultFactoryMock = new Mock<ICashgameResultFactory>();
             HomegameFactoryMock = new Mock<IHomegameFactory>();
@@ -116,7 +118,9 @@ namespace Tests.Common
             HomegameNavigationModelFactoryMock = new Mock<IHomegameNavigationModelFactory>();
             CheckpointRepositoryMock = new Mock<ICheckpointRepository>();
             RawCashgameFactoryMock = new Mock<IRawCashgameFactory>();
+            CheckpointModelMapperMock = new Mock<ICheckpointModelMapper>();
         }
 
     }
+
 }

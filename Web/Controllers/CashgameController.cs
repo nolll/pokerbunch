@@ -43,6 +43,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameListingPageModelFactory _cashgameListingPageModelFactory;
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
+	    private readonly ICheckpointModelMapper _checkpointModelMapper;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -65,7 +66,8 @@ namespace Web.Controllers{
             ICashgameLeaderboardPageModelFactory cashgameLeaderboardPageModelFactory,
             ICashgameListingPageModelFactory cashgameListingPageModelFactory,
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
-            ICashgameModelMapper cashgameModelMapper)
+            ICashgameModelMapper cashgameModelMapper,
+            ICheckpointModelMapper checkpointModelMapper)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -88,6 +90,7 @@ namespace Web.Controllers{
 	        _cashgameListingPageModelFactory = cashgameListingPageModelFactory;
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
 	        _cashgameModelMapper = cashgameModelMapper;
+	        _checkpointModelMapper = checkpointModelMapper;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -290,20 +293,21 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Buyin(string gameName, string name, BuyinPostModel postedModel){
+        public ActionResult Buyin(string gameName, string name, BuyinPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
-			if(ModelState.IsValid){
-				var checkpoint = GetBuyinCheckpoint(homegame, postedModel);
+			if(ModelState.IsValid)
+			{
+			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
 				_cashgameRepository.AddCheckpoint(runningGame, player, checkpoint);
                 if(!runningGame.IsStarted){
 			    	_cashgameRepository.StartGame(runningGame);
 			    }
 			} else {
                 var user = _userContext.GetUser();
-			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postedModel);
+			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postModel);
 				return ShowBuyinForm(user, player, model);
 			}
 			var runningUrl = new RunningCashgameUrlModel(homegame);
@@ -327,8 +331,9 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var user = _userContext.GetUser();
-			if(ModelState.IsValid){
-				var checkpoint = GetReportCheckpoint(homegame, postModel);
+			if(ModelState.IsValid)
+			{
+			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
 			    _cashgameRepository.AddCheckpoint(cashgame, player, checkpoint);
 			    var runningUrl = new RunningCashgameUrlModel(homegame);
                 return Redirect(runningUrl.Url);
@@ -369,7 +374,7 @@ namespace Web.Controllers{
 			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
 				throw new AccessDeniedException();
 			}
-			var postedCheckpoint = getCashoutCheckpoint(homegame, postModel);
+            var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var result = runningGame.GetResult(player);
 			if(ModelState.IsValid){
@@ -405,16 +410,6 @@ namespace Web.Controllers{
             return Redirect(indexUrl.Url);
 		}
 
-		private Checkpoint getCashoutCheckpoint(Homegame homegame, CashoutPostModel postModel){
-			var timestamp = DateTimeFactory.Now(homegame.Timezone);
-			return new CashoutCheckpoint(timestamp, postModel.StackAmount);
-		}
-
-		private Checkpoint GetReportCheckpoint(Homegame homegame, ReportPostModel postModel){
-			var timestamp = DateTimeFactory.Now(homegame.Timezone);
-			return new ReportCheckpoint(timestamp, postModel.StackAmount);
-		}
-
         public ActionResult Delete(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
@@ -432,12 +427,7 @@ namespace Web.Controllers{
             }
             return View("Report/Report", model);
 		}
-
-		private Checkpoint GetBuyinCheckpoint(Homegame homegame, BuyinPostModel model){
-			var timestamp = DateTimeFactory.Now(homegame.Timezone);
-			return new BuyinCheckpoint(timestamp, model.StackAmount + model.BuyinAmount, model.BuyinAmount);
-		}
-
+        
         private ActionResult ShowBuyinForm(User user, Player player, BuyinPageModel model){
 			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
 				throw new AccessDeniedException();

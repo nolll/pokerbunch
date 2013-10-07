@@ -69,6 +69,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameResultFactory, CashgameResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
+            ObjectFactory.RegisterComponent<ICheckpointFactory, CheckpointFactory>(container);
 
             // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
@@ -120,6 +121,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
             ObjectFactory.RegisterComponent<ICashgameModelMapper, CashgameModelMapper>(container);
             ObjectFactory.RegisterComponent<IUserModelMapper, UserModelMapper>(container);
+            ObjectFactory.RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>(container);
         }
 
     }

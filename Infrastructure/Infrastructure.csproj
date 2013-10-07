@@ -66,7 +66,9 @@
     <Compile Include="Data\Classes\RawPlayer.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Classes\RawUser.cs" />
+    <Compile Include="Data\Factories\Interfaces\IRawCheckpointFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawCashgameFactory.cs" />
+    <Compile Include="Data\Factories\RawCheckpointFactory.cs" />
     <Compile Include="Data\Factories\RawCashgameFactory.cs" />
     <Compile Include="Data\Factories\RawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawPlayerFactory.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Data\Storage\StorageDataReader.cs" />
+    <Compile Include="Factories\CheckpointFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />

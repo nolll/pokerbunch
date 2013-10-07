@@ -12,8 +12,9 @@ namespace Web.Models.CashgameModels.Action{
 		public bool ShowLink { get; set; }
 		public UrlModel EditUrl { get; set; }
 
-		public CheckpointModel(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint, Role role){
-			Description = checkpoint.Description;
+		public CheckpointModel(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint, Role role)
+		{
+		    Description = CheckpointTypeName.GetName(checkpoint.Type);
 			Stack = Globalization.FormatCurrency(homegame.Currency, checkpoint.Stack);
 			Timestamp = Globalization.FormatTime(checkpoint.Timestamp);
 			ShowLink = role >= Role.Manager;

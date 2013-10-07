@@ -58,11 +58,8 @@
     <Compile Include="Classes\GameStatus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Checkpoints\BuyinCheckpoint.cs" />
-    <Compile Include="Classes\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Classes\Checkpoints\Checkpoint.cs" />
     <Compile Include="Classes\Checkpoints\CheckpointType.cs" />
-    <Compile Include="Classes\Checkpoints\ReportCheckpoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CashgameResult.cs" />
