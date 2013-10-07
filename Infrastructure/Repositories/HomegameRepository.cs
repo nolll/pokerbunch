@@ -10,7 +10,7 @@ using Infrastructure.Factories;
 
 namespace Infrastructure.Repositories {
 
-	public class HomegameRepository : IHomegameRepository
+    internal class HomegameRepository : IHomegameRepository
 	{
 	    private const string BaseCacheKey = "Homegame";
 

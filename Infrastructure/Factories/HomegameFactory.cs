@@ -4,7 +4,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Factories
 {
-    public class HomegameFactory : IHomegameFactory
+    internal class HomegameFactory : IHomegameFactory
     {
         public Homegame Create(RawHomegame rawHomegame)
         {

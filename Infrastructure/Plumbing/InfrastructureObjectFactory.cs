@@ -4,6 +4,7 @@ using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Factories;
 using Infrastructure.Repositories;
 
 namespace Infrastructure.Plumbing
@@ -23,8 +24,12 @@ namespace Infrastructure.Plumbing
             ObjectFactory.RegisterComponent<ITwitterStorage, MySqlTwitterStorage>(container);
 
             // Repositories
+            ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
             ObjectFactory.RegisterComponent<ITwitterRepository, TwitterRepository>(container);
 
+            // Core Factories
+            ObjectFactory.RegisterComponent<IHomegameFactory, HomegameFactory>(container);
+            
             // Raw Factories
             ObjectFactory.RegisterComponent<IRawHomegameFactory, RawHomegameFactory>(container);
             ObjectFactory.RegisterComponent<IRawUserFactory, RawUserFactory>(container);

@@ -1,6 +1,6 @@
 namespace Infrastructure.Data.Classes {
 
-	public class RawHomegame{
+	internal class RawHomegame{
 
 	    public int Id { get; set; }
 	    public string Slug { get; set; }
