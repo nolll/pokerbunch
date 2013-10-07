@@ -6,7 +6,7 @@ using Infrastructure.Factories;
 
 namespace Infrastructure.Repositories
 {
-    public class TwitterRepository : ITwitterRepository
+    internal class TwitterRepository : ITwitterRepository
     {
         private readonly ITwitterStorage _twitterStorage;
         private readonly IRawTwitterCredentialsFactory _rawTwitterCredentialsFactory;

@@ -3,7 +3,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Factories
 {
-    public interface ITwitterCredentialsFactory
+    internal interface ITwitterCredentialsFactory
     {
         TwitterCredentials Create(RawTwitterCredentials rawCredentials);
     }

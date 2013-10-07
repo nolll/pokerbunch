@@ -2,7 +2,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
-	public interface ITwitterStorage{
+	internal interface ITwitterStorage{
 
 		RawTwitterCredentials GetCredentials(int userId);
 		int AddCredentials(int userId, RawTwitterCredentials credentials);
