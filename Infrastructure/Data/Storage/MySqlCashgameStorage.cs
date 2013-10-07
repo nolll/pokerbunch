@@ -41,19 +41,19 @@ namespace Infrastructure.Data.Storage {
 		    return sql;
 		}
 
-		public RawCashgame GetGame(int homegameId, DateTime date, TimeZoneInfo timeZone){
+		public RawCashgame GetGame(int homegameId, DateTime date){
 			var dateStr = Globalization.FormatIsoDate(date);
 			var sql = GetGameSql(homegameId) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
             sql = string.Format(sql, dateStr);
 			var reader = _storageProvider.Query(sql);
-			var cashgames = GetGamesFromDbResult(reader, timeZone);
+			var cashgames = GetGamesFromDbResult(reader);
 			if(cashgames.Count == 0){
 				return null;
 			}
 			return cashgames[0];
 		}
 
-		public IList<RawCashgame> GetGames(int homegameId, TimeZoneInfo timeZone, int? status = null, int? year = null){
+		public IList<RawCashgame> GetGames(int homegameId, int? status = null, int? year = null){
 			var sql = GetGameSql(homegameId);
 			if(status.HasValue){
 				sql += string.Format("AND g.Status = {0} ", (int)status.Value);
@@ -63,10 +63,10 @@ namespace Infrastructure.Data.Storage {
 			}
 			sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
             var reader = _storageProvider.Query(sql);
-			return GetGamesFromDbResult(reader, timeZone);
+			return GetGamesFromDbResult(reader);
 		}
 
-		private List<RawCashgame> GetGamesFromDbResult(StorageDataReader reader, TimeZoneInfo timeZone){
+		private List<RawCashgame> GetGamesFromDbResult(StorageDataReader reader){
 			var cashgames = new List<RawCashgame>();
 			RawCashgame currentGame = null;
 			var currentGameId = -1;
@@ -93,7 +93,7 @@ namespace Infrastructure.Data.Storage {
 				}
 			    var checkpointId = reader.GetInt("CheckpointID");
 				if(checkpointId != 0){ // this was a null-check in the php site
-					var checkpoint = _rawCheckpointFactory.Create(reader, timeZone);
+					var checkpoint = _rawCheckpointFactory.Create(reader);
 					currentResult.AddCheckpoint(checkpoint);
 				}
 			}

@@ -1,12 +1,11 @@
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface ICheckpointStorage{
 
-		int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint);
-        bool UpdateCheckpoint(Checkpoint checkpoint);
+		int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint);
+        bool UpdateCheckpoint(RawCheckpoint checkpoint);
         bool DeleteCheckpoint(int id);
 		
 	}

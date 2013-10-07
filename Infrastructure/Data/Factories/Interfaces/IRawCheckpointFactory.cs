@@ -7,7 +7,7 @@ namespace Infrastructure.Data.Factories
 {
     public interface IRawCheckpointFactory
     {
-        RawCheckpoint Create(StorageDataReader reader, TimeZoneInfo timeZone);
+        RawCheckpoint Create(StorageDataReader reader);
         RawCheckpoint Create(Checkpoint checkpoint);
     }
 }

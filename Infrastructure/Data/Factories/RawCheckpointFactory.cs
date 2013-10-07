@@ -7,7 +7,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawCheckpointFactory : IRawCheckpointFactory
     {
-        public RawCheckpoint Create(StorageDataReader reader, TimeZoneInfo timeZone)
+        public RawCheckpoint Create(StorageDataReader reader)
         {
             return new RawCheckpoint
                 {
@@ -17,12 +17,18 @@ namespace Infrastructure.Data.Factories
                     Stack = reader.GetInt("Stack"),
                     Timestamp = reader.GetDateTime("TimeStamp")
                 };
-            //var timestamp = TimeZoneInfo.ConvertTime(reader.GetDateTime("TimeStamp"), timeZone);
         }
 
         public RawCheckpoint Create(Checkpoint checkpoint)
         {
-            throw new global::System.NotImplementedException();
+            return new RawCheckpoint
+            {
+                Id = checkpoint.Id,
+                Type = (int)checkpoint.Type,
+                Amount = checkpoint.Amount,
+                Stack = checkpoint.Stack,
+                Timestamp = TimeZoneInfo.ConvertTimeToUtc(checkpoint.Timestamp)
+            };
         }
     }
 }

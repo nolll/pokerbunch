@@ -1,3 +1,4 @@
+using System;
 using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
 
@@ -5,7 +6,7 @@ namespace Infrastructure.Factories{
 
 	public interface ICheckpointFactory{
 
-        Checkpoint Create(RawCheckpoint rawCheckpoint);
+        Checkpoint Create(RawCheckpoint rawCheckpoint, TimeZoneInfo timeZoneInfo);
 
 	}
 }

@@ -61,9 +61,9 @@ namespace Infrastructure.Repositories {
 		}
 
 		public Cashgame GetByDate(Homegame homegame, DateTime date){
-			var rawGame = _cashgameStorage.GetGame(homegame.Id, date, homegame.Timezone);
+			var rawGame = _cashgameStorage.GetGame(homegame.Id, date);
 			var players = _playerRepository.GetAll(homegame);
-			return GetGameFromRawGame(rawGame, players);
+			return GetGameFromRawGame(rawGame, players, homegame.Timezone);
 		}
 
 		public Cashgame GetByDateString(Homegame homegame, string dateString){
@@ -82,35 +82,35 @@ namespace Infrastructure.Repositories {
 		}
 
 		private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
-			var rawGames = _cashgameStorage.GetGames(homegame.Id, homegame.Timezone, (int?)status, year);
+			var rawGames = _cashgameStorage.GetGames(homegame.Id, (int?)status, year);
 			var players = _playerRepository.GetAll(homegame);
-			return GetGamesFromRawGames(rawGames, players);
+			return GetGamesFromRawGames(rawGames, players, homegame.Timezone);
 		}
 
-		private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players){
+		private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players, TimeZoneInfo timeZone){
 			var games = new List<Cashgame>();
 			foreach(var rawGame in rawGames){
-				games.Add(GetGameFromRawGame(rawGame, players));
+				games.Add(GetGameFromRawGame(rawGame, players, timeZone));
 			}
 			return games;
 		}
 
-		private Cashgame GetGameFromRawGame(RawCashgame rawGame, List<Player> players){
+		private Cashgame GetGameFromRawGame(RawCashgame rawGame, List<Player> players, TimeZoneInfo timeZone){
 			var results = new List<CashgameResult>();
 			var rawResults = rawGame.Results;
 			foreach(var rawResult in rawResults){
-				results.Add(GetResultFromRawResult(rawResult, players));
+				results.Add(GetResultFromRawResult(rawResult, players, timeZone));
 			}
 			return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
 		}
 
-		private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult, List<Player> players){
+		private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult, IEnumerable<Player> players, TimeZoneInfo timeZone){
 			var player = GetPlayer(players, rawResult.PlayerId);
-			var checkpoints = rawResult.Checkpoints.Select(_checkpointFactory.Create).ToList();
+			var checkpoints = rawResult.Checkpoints.Select(o => _checkpointFactory.Create(o, timeZone)).ToList();
 			return _cashgameResultFactory.Create(player, checkpoints);
 		}
 
-		private Player GetPlayer(List<Player> players, int playerId){
+		private Player GetPlayer(IEnumerable<Player> players, int playerId){
 			foreach(var player in players){
 				if(player.Id == playerId){
 					return player;
