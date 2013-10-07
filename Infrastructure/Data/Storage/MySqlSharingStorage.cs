@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Classes;
 using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
@@ -13,27 +12,27 @@ namespace Infrastructure.Data.Storage {
 	        _storageProvider = storageProvider;
 	    }
 
-	    public IList<string> GetServices(User user){
+	    public IList<string> GetServices(int userId){
 			var sql = "SELECT us.ServiceName FROM usersharing us WHERE us.UserID = {0}";
-	        sql = string.Format(sql, user.Id);
+	        sql = string.Format(sql, userId);
 			return GetServicesFromSql(sql);
 		}
 
-		public bool IsSharing(User user, string sharingProvider){
+		public bool IsSharing(int userId, string sharingProvider){
 			var sql = "SELECT us.UserID, us.ServiceName FROM usersharing us WHERE us.UserID = {0} AND us.ServiceName = '{1}'";
-		    sql = string.Format(sql, user.Id, sharingProvider);
+		    sql = string.Format(sql, userId, sharingProvider);
 			return GetSharingStatusFromSql(sql);
 		}
 
-		public void AddSharing(User user, string sharingProvider){
+		public void AddSharing(int userId, string sharingProvider){
 			var sql = "INSERT INTO usersharing (UserID, ServiceName) VALUES ({0}, '{1}')";
-            sql = string.Format(sql, user.Id, sharingProvider);
+            sql = string.Format(sql, userId, sharingProvider);
 			_storageProvider.ExecuteInsert(sql);
 		}
 
-		public void RemoveSharing(User user, string sharingProvider){
+		public void RemoveSharing(int userId, string sharingProvider){
 			var sql = "DELETE FROM usersharing WHERE UserID = {0} AND ServiceName = '{1}'";
-			sql = string.Format(sql, user.Id, sharingProvider);
+			sql = string.Format(sql, userId, sharingProvider);
             _storageProvider.Execute(sql);
 		}
 

@@ -15,12 +15,12 @@ namespace Infrastructure.Repositories
 
         public TwitterCredentials GetCredentials(User user)
         {
-            return _twitterStorage.GetCredentials(user);
+            return _twitterStorage.GetCredentials(user.Id);
         }
 
         public int AddCredentials(User user, TwitterCredentials credentials)
         {
-            return _twitterStorage.AddCredentials(user, credentials);
+            return _twitterStorage.AddCredentials(user.Id, credentials);
         }
 
     }

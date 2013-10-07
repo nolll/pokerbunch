@@ -4,9 +4,9 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface ITwitterStorage{
 
-		TwitterCredentials GetCredentials(User user);
-		int AddCredentials(User user, TwitterCredentials credentials);
-		bool ClearCredentials(User user);
+		TwitterCredentials GetCredentials(int userId);
+		int AddCredentials(int userId, TwitterCredentials credentials);
+		bool ClearCredentials(int userId);
 
 	}
 

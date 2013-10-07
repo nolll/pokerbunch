@@ -5,10 +5,10 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface ISharingStorage{
 
-		IList<string> GetServices(User user);
-		void AddSharing(User user, string sharingProvider);
-		void RemoveSharing(User user, string sharingProvider);
-		bool IsSharing(User user, string sharingProvider);
+		IList<string> GetServices(int userId);
+        void AddSharing(int userId, string sharingProvider);
+        void RemoveSharing(int userId, string sharingProvider);
+        bool IsSharing(int userId, string sharingProvider);
 
 	}
 
