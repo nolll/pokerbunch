@@ -14,7 +14,7 @@ namespace Infrastructure.Factories
                 Timestamp = TimeZoneInfo.ConvertTime(rawCheckpoint.Timestamp, timeZone),
                 Stack = rawCheckpoint.Stack,
                 Amount = rawCheckpoint.Amount,
-                Id = 1
+                Id = rawCheckpoint.Id
             };
         }
     }

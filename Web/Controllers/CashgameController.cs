@@ -374,13 +374,12 @@ namespace Web.Controllers{
 			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
 				throw new AccessDeniedException();
 			}
-            var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
-			var runningGame = _cashgameRepository.GetRunning(homegame);
-			var result = runningGame.GetResult(player);
+            var runningGame = _cashgameRepository.GetRunning(homegame);
+            var result = runningGame.GetResult(player);
+            var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint, homegame.Timezone);
 			if(ModelState.IsValid){
 				if(result.CashoutCheckpoint != null){
-					result.CashoutCheckpoint.Stack = postedCheckpoint.Stack;
-					_cashgameRepository.UpdateCheckpoint(result.CashoutCheckpoint);
+                    _cashgameRepository.UpdateCheckpoint(postedCheckpoint);
 				} else {
 					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}

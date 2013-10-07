@@ -16,13 +16,14 @@ namespace Web.ModelMappers
             _timeProvider = timeProvider;
         }
 
-        public Checkpoint GetCheckpoint(CashoutPostModel postModel, TimeZoneInfo timeZone)
+        public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint, TimeZoneInfo timeZone)
         {
             return new Checkpoint
             {
                 Stack = postModel.StackAmount,
                 Timestamp = _timeProvider.GetTime(timeZone),
-                Type = CheckpointType.Cashout
+                Type = CheckpointType.Cashout,
+                Id = existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
             };
         }
 
