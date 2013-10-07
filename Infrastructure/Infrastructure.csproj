@@ -66,13 +66,16 @@
     <Compile Include="Data\Classes\RawPlayer.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Classes\RawUser.cs" />
+    <Compile Include="Data\Classes\RawTwitterCredentials.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawCheckpointFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawCashgameFactory.cs" />
+    <Compile Include="Data\Factories\Interfaces\IRawTwitterCredentialsFactory.cs" />
     <Compile Include="Data\Factories\RawCheckpointFactory.cs" />
     <Compile Include="Data\Factories\RawCashgameFactory.cs" />
     <Compile Include="Data\Factories\RawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawUserFactory.cs" />
+    <Compile Include="Data\Factories\RawTwitterCredentialsFactory.cs" />
     <Compile Include="Data\Factories\RawUserFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />
     <Compile Include="Data\Factories\RawHomegameFactory.cs" />
@@ -82,6 +85,8 @@
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
+    <Compile Include="Factories\ITwitterCredentialsFactory.cs" />
+    <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
