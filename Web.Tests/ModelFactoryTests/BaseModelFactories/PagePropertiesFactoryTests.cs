@@ -38,7 +38,8 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         {
             return new PagePropertiesFactory(
                 GoogleAnalyticsModelFactoryMock.Object,
-                HomegameNavigationModelFactoryMock.Object);
+                HomegameNavigationModelFactoryMock.Object,
+                UserNavigationModelFactoryMock.Object);
         }
 
     }

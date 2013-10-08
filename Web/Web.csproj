@@ -154,8 +154,12 @@
   <ItemGroup>
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\IAdminNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\IUserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\IHomegameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageModelFactory.cs" />
@@ -269,12 +273,10 @@
     <Compile Include="Models\HomegameModels\Listing\HomegameListingPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
     <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
-    <Compile Include="Models\NavigationModels\AdminNavModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\HomegameNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
-    <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\IPageModel.cs" />
     <Compile Include="Models\PageBaseModels\PageProperties.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IAvatarModelFactory.cs" />

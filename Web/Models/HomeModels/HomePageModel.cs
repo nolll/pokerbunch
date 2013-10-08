@@ -12,7 +12,7 @@ namespace Web.Models.HomeModels{
 	    public UrlModel AddHomegameUrl { get; set; }
         public UrlModel LoginUrl { get; set; }
         public UrlModel RegisterUrl { get; set; }
-	    public AdminNavModel AdminNav { get; set; }
+	    public NavigationModel AdminNav { get; set; }
 
 	}
 

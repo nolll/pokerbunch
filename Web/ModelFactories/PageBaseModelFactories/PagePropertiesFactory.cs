@@ -10,13 +10,16 @@ namespace Web.ModelFactories.PageBaseModelFactories
     {
         private readonly IGoogleAnalyticsModelFactory _googleAnalyticsModelFactory;
         private readonly IHomegameNavigationModelFactory _homegameNavigationModelFactory;
+        private readonly IUserNavigationModelFactory _userNavigationModelFactory;
 
         public PagePropertiesFactory(
             IGoogleAnalyticsModelFactory googleAnalyticsModelFactory,
-            IHomegameNavigationModelFactory homegameNavigationModelFactory)
+            IHomegameNavigationModelFactory homegameNavigationModelFactory,
+            IUserNavigationModelFactory userNavigationModelFactory)
         {
             _googleAnalyticsModelFactory = googleAnalyticsModelFactory;
             _homegameNavigationModelFactory = homegameNavigationModelFactory;
+            _userNavigationModelFactory = userNavigationModelFactory;
         }
 
         public PageProperties Create()
@@ -33,7 +36,7 @@ namespace Web.ModelFactories.PageBaseModelFactories
         {
             return new PageProperties
                 {
-                    UserNavModel = new UserNavigationModel(user),
+                    UserNavModel = _userNavigationModelFactory.Create(user),
 			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
                     HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame, runningGame) : null
                 };

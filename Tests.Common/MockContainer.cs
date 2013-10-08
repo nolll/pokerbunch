@@ -64,9 +64,11 @@ namespace Tests.Common
         protected Mock<IRandomStringGenerator> RandomStringGeneratorMock;
         protected Mock<IAvatarModelFactory> AvatarModelFactoryMock;
         protected Mock<IHomegameNavigationModelFactory> HomegameNavigationModelFactoryMock;
+        protected Mock<IUserNavigationModelFactory> UserNavigationModelFactoryMock;
         protected Mock<ICheckpointRepository> CheckpointRepositoryMock;
         protected Mock<IRawCashgameFactory> RawCashgameFactoryMock;
         protected Mock<ICheckpointModelMapper> CheckpointModelMapperMock;
+        protected Mock<IAdminNavigationModelFactory> AdminNavigationModelFactoryMock;
 
         [SetUp]
         public void SetUpMocks()
@@ -116,9 +118,11 @@ namespace Tests.Common
             RandomStringGeneratorMock = new Mock<IRandomStringGenerator>();
             AvatarModelFactoryMock = new Mock<IAvatarModelFactory>();
             HomegameNavigationModelFactoryMock = new Mock<IHomegameNavigationModelFactory>();
+            UserNavigationModelFactoryMock = new Mock<IUserNavigationModelFactory>();
             CheckpointRepositoryMock = new Mock<ICheckpointRepository>();
             RawCashgameFactoryMock = new Mock<IRawCashgameFactory>();
             CheckpointModelMapperMock = new Mock<ICheckpointModelMapper>();
+            AdminNavigationModelFactoryMock = new Mock<IAdminNavigationModelFactory>();
         }
 
     }

@@ -6,23 +6,14 @@ namespace Web.Models.NavigationModels{
 
 	    public string Heading { get; set; }
 	    public bool HeadingIsLinked { get; set; }
-	    public List<NavigationNode> Nodes { get; set; }
+	    public IList<NavigationNode> Nodes { get; set; }
 	    public string CssClass { get; set; }
 	    public string DataRequire { get; set; }
 
-	    public NavigationModel(string heading, List<NavigationNode> nodes, string cssClass)
+	    public NavigationModel()
 	    {
 	        Nodes = new List<NavigationNode>();
-			if(nodes != null){
-				Nodes = nodes;
-			}
-            Heading = heading;
-			CssClass = cssClass;
 	    }
-
-		protected void AddNode(NavigationNode node){
-			Nodes.Add(node);
-		}
 
 	}
 

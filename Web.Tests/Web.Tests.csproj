@@ -86,7 +86,7 @@
     <Compile Include="ModelTests\HomegameModels\HomegameDetailsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\NavigationModels\AdminNavModelTests.cs" />
+    <Compile Include="ModelFactoryTests\NavigationModelFactories\AdminNavigationModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
