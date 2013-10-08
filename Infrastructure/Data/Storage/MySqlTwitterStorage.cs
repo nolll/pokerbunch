@@ -4,7 +4,7 @@ using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
 
-	internal class MySqlTwitterStorage : ITwitterStorage
+	public class MySqlTwitterStorage : ITwitterStorage
     {
 	    private readonly IStorageProvider _storageProvider;
 	    private readonly IRawTwitterCredentialsFactory _rawTwitterCredentialsFactory;

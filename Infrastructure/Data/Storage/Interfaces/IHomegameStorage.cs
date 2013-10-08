@@ -3,7 +3,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
-	internal interface IHomegameStorage{
+	public interface IHomegameStorage{
 
 		IList<RawHomegame> GetHomegames();
         IList<RawHomegame> GetHomegamesByUserId(int userId);

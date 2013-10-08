@@ -114,17 +114,7 @@
     <None Include="tests\CoreTests\HomegameControllerDefinitionTests.php" />
     <None Include="tests\CoreTests\HomegamePageModelTests.php" />
     <None Include="tests\CoreTests\PageModelTests.php" />
-    <None Include="tests\IntegrationTestSuite.php" />
-    <None Include="tests\PokerBunchTestSuite.php" />
-    <None Include="tests\SharbatUnitTestCase.php" />
     <None Include="tests\TestHelper.php" />
-    <None Include="tests\UnitTestCase.php" />
-    <None Include="tests\UnitTestSuite.php" />
-    <None Include="tests\WebTestSuite.php" />
-    <None Include="tests\WebTests\WebTests.php" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="googlecd2b6bdc316289ae.html" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

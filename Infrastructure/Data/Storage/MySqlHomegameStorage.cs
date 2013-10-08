@@ -6,7 +6,7 @@ using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
 
-    internal class MySqlHomegameStorage : IHomegameStorage
+	public class MySqlHomegameStorage : IHomegameStorage
     {
 	    private readonly IStorageProvider _storageProvider;
 

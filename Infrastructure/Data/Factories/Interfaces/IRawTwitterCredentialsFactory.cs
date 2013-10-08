@@ -4,7 +4,7 @@ using Infrastructure.Data.Storage;
 
 namespace Infrastructure.Data.Factories
 {
-    internal interface IRawTwitterCredentialsFactory
+    public interface IRawTwitterCredentialsFactory
     {
         RawTwitterCredentials Create(StorageDataReader reader);
         RawTwitterCredentials Create(TwitterCredentials credentials);

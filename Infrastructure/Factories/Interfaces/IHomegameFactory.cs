@@ -3,7 +3,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Factories
 {
-    internal interface IHomegameFactory
+    public interface IHomegameFactory
     {
         Homegame Create(RawHomegame rawHomegame);
     }

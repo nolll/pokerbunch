@@ -4,7 +4,7 @@ using Infrastructure.Data.Storage;
 
 namespace Infrastructure.Data.Factories
 {
-    internal interface IRawHomegameFactory
+    public interface IRawHomegameFactory
     {
         RawHomegame Create(StorageDataReader reader);
         RawHomegame Create(Homegame homegame);

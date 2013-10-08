@@ -47,9 +47,11 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IRandomStringGenerator, RandomStringGenerator>(container);
 
             // Repositories
+            ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
             ObjectFactory.RegisterComponent<ICashgameRepository, CashgameRepository>(container);
             ObjectFactory.RegisterComponent<IPlayerRepository, PlayerRepository>(container);
             ObjectFactory.RegisterComponent<IUserRepository, UserRepository>(container);
+            ObjectFactory.RegisterComponent<ITwitterRepository, TwitterRepository>(container);
             ObjectFactory.RegisterComponent<ISharingRepository, SharingRepository>(container);
             ObjectFactory.RegisterComponent<ICheckpointRepository, CheckpointRepository>(container);
             ObjectFactory.RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
@@ -60,6 +62,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ISettings, Settings>(container);
 
             // Core Factories
+            ObjectFactory.RegisterComponent<IHomegameFactory, HomegameFactory>(container);
             ObjectFactory.RegisterComponent<IUserFactory, UserFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameFactory, CashgameFactory>(container);
             ObjectFactory.RegisterComponent<IPlayerFactory, PlayerFactory>(container);
