@@ -42,9 +42,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".htaccess" />
-    <None Include="NotUsed\ChartTitle.php" />
-    <None Include="NotUsed\ChartValue.php" />
     <None Include="app\Error\AccessDenied.tpl" />
     <None Include="app\Error\HttpError.php" />
     <None Include="app\Error\HttpNotFoundError.php" />
@@ -57,8 +54,6 @@
     <None Include="config\ConfigTest.php" />
     <None Include="config\IntegrationTestSettings.php" />
     <None Include="exceptions\DatabaseException.php" />
-    <None Include="index.php" />
-    <None Include="NotUsed\FileLoggingMessageSender.php" />
     <None Include="tests\AppTests\Cashgame\Action\CashoutControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\CheckpointControllerTests.php" />
     <None Include="tests\AppTests\Cashgame\Action\EndGameControllerTests.php" />
