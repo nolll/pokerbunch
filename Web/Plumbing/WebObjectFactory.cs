@@ -116,6 +116,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
             ObjectFactory.RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>(container);
             ObjectFactory.RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>(container);
+            ObjectFactory.RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>(container);
+            ObjectFactory.RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>(container);
             
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
