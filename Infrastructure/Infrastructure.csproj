@@ -79,6 +79,14 @@
     <Compile Include="Data\Factories\RawUserFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />
     <Compile Include="Data\Factories\RawHomegameFactory.cs" />
+    <Compile Include="Data\Storage\SqlServerCashgameStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerCheckpointStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerHomegameStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerPlayerStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerSharingStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerTwitterStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerUserStorage.cs" />
+    <Compile Include="Data\Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Data\Storage\StorageDataReader.cs" />

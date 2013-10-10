@@ -11,14 +11,14 @@ namespace Infrastructure.Plumbing
         public static void RegisterTypes(IWindsorContainer container)
         {
             // Storage
-            ObjectFactory.RegisterComponent<IHomegameStorage, MySqlHomegameStorage>(container);
-            ObjectFactory.RegisterComponent<ICashgameStorage, MySqlCashgameStorage>(container);
-            ObjectFactory.RegisterComponent<ICheckpointStorage, MySqlCheckpointStorage>(container);
-            ObjectFactory.RegisterComponent<IPlayerStorage, MySqlPlayerStorage>(container);
-            ObjectFactory.RegisterComponent<IUserStorage, MySqlUserStorage>(container);
-            ObjectFactory.RegisterComponent<IStorageProvider, MySqlStorageProvider>(container);
-            ObjectFactory.RegisterComponent<ISharingStorage, MySqlSharingStorage>(container);
-            ObjectFactory.RegisterComponent<ITwitterStorage, MySqlTwitterStorage>(container);
+            ObjectFactory.RegisterComponent<IHomegameStorage, SqlServerHomegameStorage>(container);
+            ObjectFactory.RegisterComponent<ICashgameStorage, SqlServerCashgameStorage>(container);
+            ObjectFactory.RegisterComponent<ICheckpointStorage, SqlServerCheckpointStorage>(container);
+            ObjectFactory.RegisterComponent<IPlayerStorage, SqlServerPlayerStorage>(container);
+            ObjectFactory.RegisterComponent<IUserStorage, SqlServerUserStorage>(container);
+            ObjectFactory.RegisterComponent<IStorageProvider, SqlServerStorageProvider>(container);
+            ObjectFactory.RegisterComponent<ISharingStorage, SqlServerSharingStorage>(container);
+            ObjectFactory.RegisterComponent<ITwitterStorage, SqlServerTwitterStorage>(container);
 
             // Raw Factories
             ObjectFactory.RegisterComponent<IRawHomegameFactory, RawHomegameFactory>(container);

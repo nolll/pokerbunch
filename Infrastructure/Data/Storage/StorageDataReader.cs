@@ -26,7 +26,8 @@ namespace Infrastructure.Data.Storage
 
         public bool GetBoolean(string key)
         {
-            return GetInt(key) == 1;
+            var ordinal = _reader.GetOrdinal(key);
+            return !_reader.IsDBNull(ordinal) && _reader.GetBoolean(ordinal);
         }
 
         public DateTime GetDateTime(string key)
