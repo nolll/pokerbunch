@@ -39,7 +39,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashoutPageModelFactory GetSut()
         {
-            return new CashoutPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new CashoutPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

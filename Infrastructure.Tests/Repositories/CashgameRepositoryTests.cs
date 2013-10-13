@@ -13,12 +13,12 @@ namespace Infrastructure.Tests.Repositories{
 			var cashgame = new Cashgame();
 		    var rawCashgame = new RawCashgame();
 
-		    RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Running)).Returns(rawCashgame);
+            WebMocks.RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Running)).Returns(rawCashgame);
 
             var sut = GetSut();
 			sut.StartGame(cashgame);
 
-            CashgameStorageMock.Verify(o => o.UpdateGame(rawCashgame));
+            WebMocks.CashgameStorageMock.Verify(o => o.UpdateGame(rawCashgame));
 		}
 
 		[Test]
@@ -26,25 +26,25 @@ namespace Infrastructure.Tests.Repositories{
             var cashgame = new Cashgame();
             var rawCashgame = new RawCashgame();
 
-            RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
+            WebMocks.RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
 
             var sut = GetSut();
 			sut.EndGame(cashgame);
 
-            CashgameStorageMock.Verify(o => o.UpdateGame(rawCashgame));
+            WebMocks.CashgameStorageMock.Verify(o => o.UpdateGame(rawCashgame));
 		}
 
         private CashgameRepository GetSut()
         {
             return new CashgameRepository(
-                CashgameStorageMock.Object, 
-                CashgameFactoryMock.Object, 
-                PlayerRepositoryMock.Object, 
-                CashgameSuiteFactoryMock.Object, 
-                CashgameResultFactoryMock.Object, 
-                CheckpointRepositoryMock.Object,
-                RawCashgameFactoryMock.Object,
-                CheckpointFactoryMock.Object);
+                WebMocks.CashgameStorageMock.Object,
+                WebMocks.CashgameFactoryMock.Object,
+                WebMocks.PlayerRepositoryMock.Object,
+                WebMocks.CashgameSuiteFactoryMock.Object,
+                WebMocks.CashgameResultFactoryMock.Object,
+                WebMocks.CheckpointRepositoryMock.Object,
+                WebMocks.RawCashgameFactoryMock.Object,
+                WebMocks.CheckpointFactoryMock.Object);
         }
 
 	}

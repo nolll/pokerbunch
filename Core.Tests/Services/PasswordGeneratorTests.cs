@@ -11,7 +11,7 @@ namespace Core.Tests.Services{
         public void CreatePassword_Returns8CharPassword(){
 			const string expectedPassword = "a";
 
-		    RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedPassword);
+            WebMocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedPassword);
 
 		    var sut = GetSut();
             var result = sut.CreatePassword();
@@ -21,7 +21,7 @@ namespace Core.Tests.Services{
 
         private PasswordGenerator GetSut()
         {
-            return new PasswordGenerator(RandomStringGeneratorMock.Object);
+            return new PasswordGenerator(WebMocks.RandomStringGeneratorMock.Object);
         }
 
 	}

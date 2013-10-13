@@ -13,7 +13,7 @@ namespace Core.Tests.Services{
         {
             const string playerName = "a";
 			var player = new Player{DisplayName = playerName};
-			EncryptionServiceMock.Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
+            WebMocks.EncryptionServiceMock.Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
 
             var sut = GetSut();
             var result = sut.GetCode(player);
@@ -23,7 +23,7 @@ namespace Core.Tests.Services{
 
         private InvitationCodeCreator GetSut()
         {
-            return new InvitationCodeCreator(EncryptionServiceMock.Object);
+            return new InvitationCodeCreator(WebMocks.EncryptionServiceMock.Object);
         }
 
 	}

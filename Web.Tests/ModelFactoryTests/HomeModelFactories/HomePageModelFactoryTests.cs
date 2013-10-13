@@ -7,12 +7,12 @@ using Web.ModelFactories.HomeModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomeModelFactories
 {
-    internal class HomePageModelFactoryTests : MockContainer
+    public class HomePageModelFactoryTests : MockContainer
     {
         [Test]
         public void AllProperties_DefaultState_IsFalse()
         {
-            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
+            WebMocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                   .Returns(new List<Homegame>());
 
             var sut = GetSut();
@@ -27,9 +27,9 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         [Test]
         public void IsLoggedIn_WithUser_IsTrue()
         {
-            HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
+            WebMocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                   .Returns(new List<Homegame>());
-            UserContextMock.Setup(o => o.GetUser()).Returns(new User());
+            WebMocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
 
             var sut = GetSut();
             var result = sut.Create();
@@ -41,11 +41,11 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         {
             return new HomePageModelFactory
                 (
-                UserContextMock.Object,
-                HomegameRepositoryMock.Object,
-                CashgameRepositoryMock.Object,
-                PagePropertiesFactoryMock.Object,
-                AdminNavigationModelFactoryMock.Object
+                WebMocks.UserContextMock.Object,
+                WebMocks.HomegameRepositoryMock.Object,
+                WebMocks.CashgameRepositoryMock.Object,
+                WebMocks.PagePropertiesFactoryMock.Object,
+                WebMocks.AdminNavigationModelFactoryMock.Object
                 );
         }
     }

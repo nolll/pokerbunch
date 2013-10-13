@@ -12,7 +12,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
         [Test]
 		public void ListTableModel_IsSet()
         {
-            var sut = new CashgameListingPageModelFactory(PagePropertiesFactoryMock.Object);
+            var sut = new CashgameListingPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 			var result = sut.Create(new User(), new Homegame(), new List<Cashgame>(), null, null, null);
 
 			Assert.IsInstanceOf<CashgameListingTableModel>(result.ListingTableModel);

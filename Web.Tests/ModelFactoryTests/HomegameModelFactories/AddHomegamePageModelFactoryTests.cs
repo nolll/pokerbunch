@@ -69,7 +69,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		}
 
 		private AddHomegamePageModelFactory GetSut(){
-			return new AddHomegamePageModelFactory(PagePropertiesFactoryMock.Object);
+            return new AddHomegamePageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

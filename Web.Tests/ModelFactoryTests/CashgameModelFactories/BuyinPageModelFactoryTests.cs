@@ -66,7 +66,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
         
         private BuyinPageModelFactory GetSut(){
-            return new BuyinPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new BuyinPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 		}
 		
 	}

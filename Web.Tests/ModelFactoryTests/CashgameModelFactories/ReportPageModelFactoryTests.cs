@@ -24,7 +24,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private ReportPageModelFactory GetSut()
         {
-            return new ReportPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new ReportPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

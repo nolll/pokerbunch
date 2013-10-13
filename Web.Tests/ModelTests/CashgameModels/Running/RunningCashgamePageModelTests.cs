@@ -231,11 +231,11 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 
         private RunningCashgamePageModel GetResult()
         {
-            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, TimeProviderMock.Object);
+            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, WebMocks.TimeProviderMock.Object);
         }
 
 		private RunningCashgamePageModelFactory GetSut(){
-			return new RunningCashgamePageModelFactory(PagePropertiesFactoryMock.Object);
+            return new RunningCashgamePageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

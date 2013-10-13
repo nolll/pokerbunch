@@ -427,7 +427,7 @@ namespace Web.Tests.ModelTests.UrlModels{
 
         private UrlProvider GetSut()
         {
-            return new UrlProvider(SettingsMock.Object);
+            return new UrlProvider(WebMocks.SettingsMock.Object);
         }
 
 		private Homegame GetHomegame(){

@@ -13,7 +13,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 			var homegame = new Homegame();
 			var suite = new CashgameSuite();
 
-            var sut = new CashgameLeaderboardPageModelFactory(PagePropertiesFactoryMock.Object);
+            var sut = new CashgameLeaderboardPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 			var result = sut.Create(new User(), homegame, suite, null, null, null);
 
             Assert.IsInstanceOf<CashgameLeaderboardTableModel>(result.TableModel);

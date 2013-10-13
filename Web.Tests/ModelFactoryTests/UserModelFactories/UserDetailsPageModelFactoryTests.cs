@@ -31,7 +31,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 			    {
 			        Email = email
 			    };
-		    AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
+            WebMocks.AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -97,7 +97,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         
         private UserDetailsPageModelFactory GetSut()
         {
-            return new UserDetailsPageModelFactory(AvatarModelFactoryMock.Object, PagePropertiesFactoryMock.Object);
+            return new UserDetailsPageModelFactory(WebMocks.AvatarModelFactoryMock.Object, WebMocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

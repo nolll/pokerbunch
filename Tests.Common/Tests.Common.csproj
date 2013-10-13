@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheContainerFake.cs" />
+    <Compile Include="WebMocks.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

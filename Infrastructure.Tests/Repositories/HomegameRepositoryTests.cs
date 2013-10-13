@@ -29,8 +29,8 @@ namespace Infrastructure.Tests.Repositories{
 		    var rawHomegame = new RawHomegame {Slug = slug, TimezoneName = "UTC"};
 		    var expectedHomegame = new Homegame {Slug = slug};
 
-		    HomegameStorageMock.Setup(o => o.GetHomegameByName(slug)).Returns(rawHomegame);
-		    HomegameFactoryMock.Setup(o => o.Create(rawHomegame)).Returns(expectedHomegame);
+            WebMocks.HomegameStorageMock.Setup(o => o.GetHomegameByName(slug)).Returns(rawHomegame);
+            WebMocks.HomegameFactoryMock.Setup(o => o.Create(rawHomegame)).Returns(expectedHomegame);
 
 		    var sut = GetSut();
             var result = sut.GetByName(slug);
@@ -45,8 +45,8 @@ namespace Infrastructure.Tests.Repositories{
 	        var user = new User{Id = userId};
 	        var rawHomegames = new List<RawHomegame>{new RawHomegame()};
 
-	        HomegameStorageMock.Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);
-	        HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            WebMocks.HomegameStorageMock.Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);
+            WebMocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
 
 	        var sut = GetSut();
 
@@ -60,9 +60,9 @@ namespace Infrastructure.Tests.Repositories{
 	    {
 	        var slugs = new List<string> {"a", "b"};
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame(), new RawHomegame() };
-	        HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
-	        HomegameStorageMock.Setup(o => o.GetHomegames(slugs)).Returns(homegamesFromDatabase);
-	        HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            WebMocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
+            WebMocks.HomegameStorageMock.Setup(o => o.GetHomegames(slugs)).Returns(homegamesFromDatabase);
+            WebMocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
 
 	        var sut = GetSut();
 
@@ -81,13 +81,13 @@ namespace Infrastructure.Tests.Repositories{
             var slugs = new List<string> { slugA, slugB };
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame() };
             var homegameFromCache = new Homegame();
-            HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
-            HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
-            CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
-            CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
-            CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
-            CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns((Homegame)null);
-            HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            WebMocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
+            WebMocks.HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
+            WebMocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
+            WebMocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
+            WebMocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
+            WebMocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns((Homegame)null);
+            WebMocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
 
             var sut = GetSut();
 
@@ -106,13 +106,13 @@ namespace Infrastructure.Tests.Repositories{
             var slugs = new List<string> { slugA, slugB };
             var homegamesFromDatabase = new List<RawHomegame> { };
             var homegameFromCache = new Homegame();
-            HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
-            HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
-            CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
-            CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
-            CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
-            CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns(homegameFromCache);
-            HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            WebMocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
+            WebMocks.HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
+            WebMocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
+            WebMocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
+            WebMocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
+            WebMocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns(homegameFromCache);
+            WebMocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
 
             var sut = GetSut();
 
@@ -123,7 +123,7 @@ namespace Infrastructure.Tests.Repositories{
 
         private HomegameRepository GetSut()
         {
-            return new HomegameRepository(HomegameStorageMock.Object, HomegameFactoryMock.Object, CacheContainerMock.Object, RawHomegameFactoryMock.Object);
+            return new HomegameRepository(WebMocks.HomegameStorageMock.Object, WebMocks.HomegameFactoryMock.Object, WebMocks.CacheContainerMock.Object, WebMocks.RawHomegameFactoryMock.Object);
         }
 
 	}

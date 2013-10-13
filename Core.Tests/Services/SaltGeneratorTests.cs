@@ -12,7 +12,7 @@ namespace Core.Tests.Services{
         {
             const string expectedSalt = "a";
 
-            RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedSalt);
+            WebMocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedSalt);
 
             var sut = GetSut();
             var result = sut.CreateSalt();
@@ -22,7 +22,7 @@ namespace Core.Tests.Services{
 
         private SaltGenerator GetSut()
         {
-            return new SaltGenerator(RandomStringGeneratorMock.Object);
+            return new SaltGenerator(WebMocks.RandomStringGeneratorMock.Object);
         }
 
 	}

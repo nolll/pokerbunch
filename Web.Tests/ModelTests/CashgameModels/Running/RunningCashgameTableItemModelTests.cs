@@ -72,7 +72,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		[Test]
 		public void Time_IsSetToDifferenceBetweenNowAndLastCheckpoint(){
 			SetLastCheckpointTime(DateTime.Parse("2010-01-01 01:00:00"));
-			TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
+            WebMocks.TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
 			var sut = GetSut();
 
 			Assert.AreEqual("1 minute", sut.Time);
@@ -171,7 +171,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		private RunningCashgameTableItemModel GetSut(){
-			return new RunningCashgameTableItemModel(_homegame, _cashgame, _result, _isManager, TimeProviderMock.Object);
+            return new RunningCashgameTableItemModel(_homegame, _cashgame, _result, _isManager, WebMocks.TimeProviderMock.Object);
 		}
 
 		private void SetLastCheckpointTime(DateTime time){

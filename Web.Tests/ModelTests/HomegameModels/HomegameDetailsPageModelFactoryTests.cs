@@ -93,7 +93,7 @@ namespace Web.Tests.ModelTests.HomegameModels{
 		}
 
 		private HomegameDetailsPageModelFactory GetSut(){
-            return new HomegameDetailsPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new HomegameDetailsPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

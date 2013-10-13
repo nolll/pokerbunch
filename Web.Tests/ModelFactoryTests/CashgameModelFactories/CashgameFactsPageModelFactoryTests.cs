@@ -102,7 +102,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
         }
 
 		private CashgameFactsPageModelFactory GetSut(){
-			return new CashgameFactsPageModelFactory(PagePropertiesFactoryMock.Object);
+            return new CashgameFactsPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

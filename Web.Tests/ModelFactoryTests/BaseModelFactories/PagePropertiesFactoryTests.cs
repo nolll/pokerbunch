@@ -13,7 +13,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         public void Create_WithoutHomeGame_HomegameNavModelIsNull()
         {
             var user = new User();
-            HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
+            WebMocks.HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
             var result = sut.Create(user);
@@ -26,7 +26,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         {
             var user = new User();
             var homegame = new Homegame();
-            HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
+            WebMocks.HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
             var result = sut.Create(user, homegame);
@@ -37,9 +37,9 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         private PagePropertiesFactory GetSut()
         {
             return new PagePropertiesFactory(
-                GoogleAnalyticsModelFactoryMock.Object,
-                HomegameNavigationModelFactoryMock.Object,
-                UserNavigationModelFactoryMock.Object);
+                WebMocks.GoogleAnalyticsModelFactoryMock.Object,
+                WebMocks.HomegameNavigationModelFactoryMock.Object,
+                WebMocks.UserNavigationModelFactoryMock.Object);
         }
 
     }

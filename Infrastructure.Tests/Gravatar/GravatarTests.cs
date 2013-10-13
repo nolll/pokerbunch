@@ -13,8 +13,8 @@ namespace Infrastructure.Tests.Gravatar{
 		public void SmallGravatarUrl(){
 	        const string expectedUrlFormat = "http://www.gravatar.com/avatar/{0}?s=40&d=site-url/FrontEnd/Images/pix.gif";
 	        var expected = string.Format(expectedUrlFormat, TestHash);
-	        EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
-            SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
+            WebMocks.EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
+            WebMocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
 			
             var sut = GetSut();
 
@@ -26,8 +26,8 @@ namespace Infrastructure.Tests.Gravatar{
 		public void LargeGravatarUrl(){
 			const string expectedUrlFormat = "http://www.gravatar.com/avatar/{0}?s=100&d=site-url/FrontEnd/Images/pix.gif";
             var expected = string.Format(expectedUrlFormat, TestHash);
-            EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
-			SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
+            WebMocks.EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
+            WebMocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
             
             var sut = GetSut();
 
@@ -36,7 +36,7 @@ namespace Infrastructure.Tests.Gravatar{
 		}
 
 		private GravatarService GetSut(){
-			return new GravatarService(SettingsMock.Object, EncryptionServiceMock.Object);
+            return new GravatarService(WebMocks.SettingsMock.Object, WebMocks.EncryptionServiceMock.Object);
 		}
 
 	}

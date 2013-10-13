@@ -28,7 +28,7 @@ namespace Infrastructure.Tests.Data.Factories
         private RawCashgameFactory GetSut()
         {
             return new RawCashgameFactory(
-                TimeProviderMock.Object);
+                WebMocks.TimeProviderMock.Object);
         }
     }
 }

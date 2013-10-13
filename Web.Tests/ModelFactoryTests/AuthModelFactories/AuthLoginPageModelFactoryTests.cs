@@ -21,7 +21,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ReturnUrl_WithReturnUrl_IsSet()
 		{
-            WebContextMock.Setup(o => o.GetQueryParam("return")).Returns("return-url");
+            WebMocks.WebContextMock.Setup(o => o.GetQueryParam("return")).Returns("return-url");
 
 		    var sut = GetSut();
             var result = sut.Create();
@@ -58,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
         private AuthLoginPageModelFactory GetSut()
         {
-            return new AuthLoginPageModelFactory(PagePropertiesFactoryMock.Object, WebContextMock.Object);
+            return new AuthLoginPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object, WebMocks.WebContextMock.Object);
         }
 
 	}

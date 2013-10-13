@@ -72,7 +72,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		private RunningCashgameTableModel GetSut(){
-			return new RunningCashgameTableModel(_homegame, _cashgame, false, TimeProviderMock.Object);
+            return new RunningCashgameTableModel(_homegame, _cashgame, false, WebMocks.TimeProviderMock.Object);
 		}
 
 	}
