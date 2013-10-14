@@ -8,7 +8,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Action{
 	
-	public class CheckpointModelTests : MockContainer {
+	public class CheckpointModelTests : WebMockContainer {
 
 		private Checkpoint _checkpoint;
 		private Role _role;

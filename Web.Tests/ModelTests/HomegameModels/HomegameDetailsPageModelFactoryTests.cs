@@ -6,7 +6,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.HomegameModels{
 
-	public class HomegameDetailsPageModelFactoryTests : MockContainer
+	public class HomegameDetailsPageModelFactoryTests : WebMockContainer
     {
 
 		private User _user;
@@ -93,7 +93,7 @@ namespace Web.Tests.ModelTests.HomegameModels{
 		}
 
 		private HomegameDetailsPageModelFactory GetSut(){
-            return new HomegameDetailsPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new HomegameDetailsPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

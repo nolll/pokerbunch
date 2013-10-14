@@ -7,7 +7,7 @@ using Web.Services;
 
 namespace Web.Tests.ModelTests.UrlModels{
 
-	public class UrlModelTests : MockContainer {
+	public class UrlModelTests : WebMockContainer {
 
 		[Test]
         public void HomeUrl(){
@@ -427,7 +427,7 @@ namespace Web.Tests.ModelTests.UrlModels{
 
         private UrlProvider GetSut()
         {
-            return new UrlProvider(WebMocks.SettingsMock.Object);
+            return new UrlProvider(Mocks.SettingsMock.Object);
         }
 
 		private Homegame GetHomegame(){

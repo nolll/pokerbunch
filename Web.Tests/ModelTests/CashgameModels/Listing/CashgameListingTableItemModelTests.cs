@@ -7,7 +7,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Listing{
 
-	public class CashgameListingTableItemModelTests : MockContainer {
+	public class CashgameListingTableItemModelTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;

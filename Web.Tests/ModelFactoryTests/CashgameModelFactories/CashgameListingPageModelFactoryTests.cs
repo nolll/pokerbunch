@@ -7,12 +7,12 @@ using Web.Models.CashgameModels.Listing;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	public class CashgameListingPageModelFactoryTests : MockContainer {
+	public class CashgameListingPageModelFactoryTests : WebMockContainer {
 
         [Test]
 		public void ListTableModel_IsSet()
         {
-            var sut = new CashgameListingPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            var sut = new CashgameListingPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 			var result = sut.Create(new User(), new Homegame(), new List<Cashgame>(), null, null, null);
 
 			Assert.IsInstanceOf<CashgameListingTableModel>(result.ListingTableModel);

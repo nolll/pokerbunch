@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Add;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	public class AddCashgamePageModelFactoryTests : MockContainer {
+	public class AddCashgamePageModelFactoryTests : WebMockContainer {
 
 		private User _user;
 		private Homegame _homegame;
@@ -58,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private AddCashgamePageModelFactory GetSut()
         {
-            return new AddCashgamePageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new AddCashgamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

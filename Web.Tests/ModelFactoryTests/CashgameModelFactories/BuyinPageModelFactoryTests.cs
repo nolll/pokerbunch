@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Buyin;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	class BuyinPageModelFactoryTests : MockContainer {
+	class BuyinPageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Player _player;
@@ -66,7 +66,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
         
         private BuyinPageModelFactory GetSut(){
-            return new BuyinPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new BuyinPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 		
 	}

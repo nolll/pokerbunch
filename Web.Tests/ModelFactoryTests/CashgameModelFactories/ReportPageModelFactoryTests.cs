@@ -6,7 +6,7 @@ using Web.Models.CashgameModels.Report;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	public class ReportPageModelFactoryTests : MockContainer {
+	public class ReportPageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Player _player;
@@ -24,7 +24,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private ReportPageModelFactory GetSut()
         {
-            return new ReportPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new ReportPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

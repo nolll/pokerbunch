@@ -6,14 +6,14 @@ using Tests.Common;
 
 namespace Core.Tests.Services{
 
-	public class InvitationCodeCreatorTests : MockContainer {
+	public class InvitationCodeCreatorTests : WebMockContainer {
 
         [Test]
 		public void GetCode_ReturnsEncryptedPlayerName()
         {
             const string playerName = "a";
 			var player = new Player{DisplayName = playerName};
-            WebMocks.EncryptionServiceMock.Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
+            Mocks.EncryptionServiceMock.Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
 
             var sut = GetSut();
             var result = sut.GetCode(player);
@@ -23,7 +23,7 @@ namespace Core.Tests.Services{
 
         private InvitationCodeCreator GetSut()
         {
-            return new InvitationCodeCreator(WebMocks.EncryptionServiceMock.Object);
+            return new InvitationCodeCreator(Mocks.EncryptionServiceMock.Object);
         }
 
 	}

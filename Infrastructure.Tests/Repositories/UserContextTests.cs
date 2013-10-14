@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Infrastructure.Tests.Repositories{
 
-	public class UserContextTests : MockContainer {
+	public class UserContextTests : InfrastructureMockContainer {
 
 		[Test]
         public void GetToken_NoTokenExists_ReturnsNull()
@@ -20,7 +20,7 @@ namespace Infrastructure.Tests.Repositories{
         public void GetToken_TokenExists_ReturnsToken()
         {
             const string token = "a";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 
             var sut = GetSut();
 			var result = sut.GetToken();
@@ -40,7 +40,7 @@ namespace Infrastructure.Tests.Repositories{
         public void GetUser_TokenExistsButNoMatchingUser_ReturnsNull()
 		{
 		    const string token = "a";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 
             var sut = GetSut();
 			var result = sut.GetUser();
@@ -52,9 +52,9 @@ namespace Infrastructure.Tests.Repositories{
         public void GetUser_TokenExistsAndMatchingUserExists_ReturnsUser(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.GetUser();
@@ -65,7 +65,7 @@ namespace Infrastructure.Tests.Repositories{
 		[Test]
         public void IsLoggedIn_TokenExistsButNoMatchingUser_ReturnsFalse(){
 			const string token = "a";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 
             var sut = GetSut();
 			var result = sut.IsLoggedIn();
@@ -77,9 +77,9 @@ namespace Infrastructure.Tests.Repositories{
         public void IsLoggedIn_TokenExistsAndMatchingUserExists_ReturnsTrue(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.IsLoggedIn();
@@ -91,9 +91,9 @@ namespace Infrastructure.Tests.Repositories{
         public void IsAdmin_WithNonAdminUser_ReturnsFalse(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -105,9 +105,9 @@ namespace Infrastructure.Tests.Repositories{
         public void IsAdmin_WithAdminUser_ReturnsTrue(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -119,11 +119,11 @@ namespace Infrastructure.Tests.Repositories{
         public void IsInRole_WithManagerRoleAndPlayerUser_ReturnsFalse(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
-            WebMocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
 
             var sut = GetSut();
 			var result = sut.IsInRole(homegame, Role.Manager);
@@ -135,11 +135,11 @@ namespace Infrastructure.Tests.Repositories{
         public void IsInRole_WithPlayerRoleAndManagerUser_ReturnsTrue(){
 			const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
-            WebMocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
 
             var sut = GetSut();
             var result = sut.IsInRole(homegame, Role.Player);
@@ -151,9 +151,9 @@ namespace Infrastructure.Tests.Repositories{
         public void IsInRole_WithAdminRoleAndAdminUser_ReturnsTrue(){
             const string token = "a";
 		    const string displayName = "b";
-            WebMocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
+            Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new Homegame();
 
             var sut = GetSut();
@@ -165,9 +165,9 @@ namespace Infrastructure.Tests.Repositories{
         public UserContext GetSut()
         {
             return new UserContext(
-                WebMocks.WebContextMock.Object,
-                WebMocks.UserRepositoryMock.Object,
-                WebMocks.HomegameRepositoryMock.Object);
+                Mocks.WebContextMock.Object,
+                Mocks.UserRepositoryMock.Object,
+                Mocks.HomegameRepositoryMock.Object);
         }
 
 	}

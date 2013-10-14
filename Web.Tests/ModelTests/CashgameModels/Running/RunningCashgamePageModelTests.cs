@@ -9,7 +9,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Running{
 
-	class RunningCashgamePageModelTests : MockContainer {
+	class RunningCashgamePageModelTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;
@@ -231,11 +231,11 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 
         private RunningCashgamePageModel GetResult()
         {
-            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, WebMocks.TimeProviderMock.Object);
+            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, Mocks.TimeProviderMock.Object);
         }
 
 		private RunningCashgamePageModelFactory GetSut(){
-            return new RunningCashgamePageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new RunningCashgamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

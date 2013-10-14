@@ -8,7 +8,7 @@ using Web.Models.HomegameModels.Add;
 
 namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
-	public class AddHomegamePageModelFactoryTests : MockContainer
+	public class AddHomegamePageModelFactoryTests : WebMockContainer
 	{
 	    private User _user;
 		private AddHomegamePostModel _postModel;
@@ -69,7 +69,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		}
 
 		private AddHomegamePageModelFactory GetSut(){
-            return new AddHomegamePageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new AddHomegamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

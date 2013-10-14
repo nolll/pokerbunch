@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Infrastructure.Tests.Data.Factories
 {
-    public class RawCashgameFactoryTests : MockContainer
+    public class RawCashgameFactoryTests : InfrastructureMockContainer
     {
         [Test]
         public void Create_WithoutStatus_StatusIsSetFromCashgame()
@@ -28,7 +28,7 @@ namespace Infrastructure.Tests.Data.Factories
         private RawCashgameFactory GetSut()
         {
             return new RawCashgameFactory(
-                WebMocks.TimeProviderMock.Object);
+                Mocks.TimeProviderMock.Object);
         }
     }
 }

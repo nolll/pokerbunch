@@ -8,7 +8,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	class CashgameChartPageModelFactoryTests : MockContainer {
+	class CashgameChartPageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private CashgameSuite _suite;
@@ -36,7 +36,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashgameChartPageModelFactory GetSut()
 		{
-            return new CashgameChartPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new CashgameChartPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

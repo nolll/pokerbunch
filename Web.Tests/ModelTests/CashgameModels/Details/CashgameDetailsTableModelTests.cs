@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Details;
 
 namespace Web.Tests.ModelTests.CashgameModels.Details{
 
-	public class CashgameDetailsTableModelTests : MockContainer {
+	public class CashgameDetailsTableModelTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;

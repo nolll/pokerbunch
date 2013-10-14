@@ -5,13 +5,13 @@ using Tests.Common;
 
 namespace Core.Tests.Services{
 
-	public class PasswordGeneratorTests : MockContainer {
+	public class PasswordGeneratorTests : WebMockContainer {
 
 		[Test]
         public void CreatePassword_Returns8CharPassword(){
 			const string expectedPassword = "a";
 
-            WebMocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedPassword);
+            Mocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedPassword);
 
 		    var sut = GetSut();
             var result = sut.CreatePassword();
@@ -21,7 +21,7 @@ namespace Core.Tests.Services{
 
         private PasswordGenerator GetSut()
         {
-            return new PasswordGenerator(WebMocks.RandomStringGeneratorMock.Object);
+            return new PasswordGenerator(Mocks.RandomStringGeneratorMock.Object);
         }
 
 	}

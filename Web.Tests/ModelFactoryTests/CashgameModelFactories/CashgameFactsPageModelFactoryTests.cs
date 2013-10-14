@@ -6,7 +6,7 @@ using Web.Models.CashgameModels.Facts;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	public class CashgameFactsPageModelFactoryTests : MockContainer
+	public class CashgameFactsPageModelFactoryTests : WebMockContainer
     {
         private CashgameSuite _suite;
 
@@ -102,7 +102,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
         }
 
 		private CashgameFactsPageModelFactory GetSut(){
-            return new CashgameFactsPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new CashgameFactsPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

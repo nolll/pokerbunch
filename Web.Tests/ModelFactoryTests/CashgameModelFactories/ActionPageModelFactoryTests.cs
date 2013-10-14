@@ -9,7 +9,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-	public class ActionPageModelFactoryTests : MockContainer {
+	public class ActionPageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Player _player;
@@ -58,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
         private ActionPageModelFactory GetSut(){
-            return new ActionPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new ActionPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
 		}
 
 	}

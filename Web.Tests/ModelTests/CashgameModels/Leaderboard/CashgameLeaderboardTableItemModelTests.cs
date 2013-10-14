@@ -6,7 +6,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Leaderboard{
 
-	public class CashgameLeaderboardTableItemModelTests : MockContainer {
+	public class CashgameLeaderboardTableItemModelTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private CashgameTotalResult _result;

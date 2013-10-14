@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Cashout;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
-    class CashoutPageModelFactoryTests : MockContainer {
+    class CashoutPageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		
@@ -39,7 +39,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashoutPageModelFactory GetSut()
         {
-            return new CashoutPageModelFactory(WebMocks.PagePropertiesFactoryMock.Object);
+            return new CashoutPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

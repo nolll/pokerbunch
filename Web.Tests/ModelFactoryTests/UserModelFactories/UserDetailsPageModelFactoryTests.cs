@@ -8,7 +8,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
-	public class UserDetailsPageModelFactoryTests : MockContainer {
+	public class UserDetailsPageModelFactoryTests : WebMockContainer {
 
 		[Test]
         public void ActionDetails_SetsUserData(){
@@ -31,7 +31,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 			    {
 			        Email = email
 			    };
-            WebMocks.AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
+            Mocks.AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -97,7 +97,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         
         private UserDetailsPageModelFactory GetSut()
         {
-            return new UserDetailsPageModelFactory(WebMocks.AvatarModelFactoryMock.Object, WebMocks.PagePropertiesFactoryMock.Object);
+            return new UserDetailsPageModelFactory(Mocks.AvatarModelFactoryMock.Object, Mocks.PagePropertiesFactoryMock.Object);
         }
 
 	}

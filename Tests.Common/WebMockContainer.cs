@@ -2,14 +2,14 @@
 
 namespace Tests.Common
 {
-    public class MockContainer
+    public class WebMockContainer
     {
-        protected WebMocks WebMocks;
+        protected WebMocks Mocks;
 
         [SetUp]
         public void SetUpMocks()
         {
-            WebMocks = new WebMocks();
+            Mocks = new WebMocks();
         }
 
     }

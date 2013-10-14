@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Running;
 
 namespace Web.Tests.ModelTests.CashgameModels.Running{
 
-	public class RunningCashgameTableModelTests : MockContainer{
+	public class RunningCashgameTableModelTests : WebMockContainer{
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;
@@ -72,7 +72,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		private RunningCashgameTableModel GetSut(){
-            return new RunningCashgameTableModel(_homegame, _cashgame, false, WebMocks.TimeProviderMock.Object);
+            return new RunningCashgameTableModel(_homegame, _cashgame, false, Mocks.TimeProviderMock.Object);
 		}
 
 	}

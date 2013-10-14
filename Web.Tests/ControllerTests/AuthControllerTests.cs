@@ -8,12 +8,12 @@ using Web.Models.AuthModels;
 
 namespace Web.Tests.ControllerTests{
 
-	public class AuthControllerTests : MockContainer {
+	public class AuthControllerTests : WebMockContainer {
 
 		[Test]
         public void ActionLoginPost_UserExistsButNoReturnUrl_RedirectsToRoot(){
 			var user = new User();
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
 
@@ -27,7 +27,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
         public void ActionLoginPost_UserExistsAndWithReturnUrl_RedirectsToReturnUrl(){
 			var user = new User();
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
 
@@ -41,7 +41,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
         public void ActionLoginPost_UserNotFound_ShowsForm(){
-            WebMocks.AuthLoginPageModelFactoryMock.Setup(o => o.Create()).Returns(new AuthLoginPageModel());
+            Mocks.AuthLoginPageModelFactoryMock.Setup(o => o.Create()).Returns(new AuthLoginPageModel());
 
             var sut = GetSut();
             sut.ModelState.AddModelError("fake_error", "");
@@ -59,13 +59,13 @@ namespace Web.Tests.ControllerTests{
 		    const string cookieName = "token";
 		    const string tokenName = "a";
 			var user = new User();
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            WebMocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
 
             var sut = GetSut();
 			sut.Login(new AuthLoginPageModel());
 
-            WebMocks.WebContextMock.Verify(o => o.SetSessionCookie(cookieName, tokenName));
+            Mocks.WebContextMock.Verify(o => o.SetSessionCookie(cookieName, tokenName));
 		}
 
         [Test]
@@ -73,13 +73,13 @@ namespace Web.Tests.ControllerTests{
             const string cookieName = "token";
             const string tokenName = "a";
             var user = new User();
-            WebMocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            WebMocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
 
             var sut = GetSut();
             sut.Login(new AuthLoginPageModel{RememberMe = true});
 
-            WebMocks.WebContextMock.Verify(o => o.SetPersistentCookie(cookieName, tokenName));
+            Mocks.WebContextMock.Verify(o => o.SetPersistentCookie(cookieName, tokenName));
 		}
 
 		[Test]
@@ -90,7 +90,7 @@ namespace Web.Tests.ControllerTests{
 
             sut.Logout();
 
-            WebMocks.WebContextMock.Verify(o => o.ClearCookie(cookieName));
+            Mocks.WebContextMock.Verify(o => o.ClearCookie(cookieName));
 		}
 
 		[Test]
@@ -107,10 +107,10 @@ namespace Web.Tests.ControllerTests{
         private AuthController GetSut()
         {
             return new AuthController(
-                WebMocks.UserRepositoryMock.Object,
-                WebMocks.EncryptionServiceMock.Object,
-                WebMocks.WebContextMock.Object,
-                WebMocks.AuthLoginPageModelFactoryMock.Object);
+                Mocks.UserRepositoryMock.Object,
+                Mocks.EncryptionServiceMock.Object,
+                Mocks.WebContextMock.Object,
+                Mocks.AuthLoginPageModelFactoryMock.Object);
         }
 
 	}

@@ -5,14 +5,14 @@ using Tests.Common;
 
 namespace Core.Tests.Services{
 
-	public class SaltGeneratorTests : MockContainer {
+	public class SaltGeneratorTests : WebMockContainer {
 
         [Test]
         public void CreateSalt_Returns10CharSalt()
         {
             const string expectedSalt = "a";
 
-            WebMocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedSalt);
+            Mocks.RandomStringGeneratorMock.Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedSalt);
 
             var sut = GetSut();
             var result = sut.CreateSalt();
@@ -22,7 +22,7 @@ namespace Core.Tests.Services{
 
         private SaltGenerator GetSut()
         {
-            return new SaltGenerator(WebMocks.RandomStringGeneratorMock.Object);
+            return new SaltGenerator(Mocks.RandomStringGeneratorMock.Object);
         }
 
 	}
