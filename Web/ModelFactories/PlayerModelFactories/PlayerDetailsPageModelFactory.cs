@@ -12,13 +12,17 @@ namespace Web.ModelFactories.PlayerModelFactories
     public class PlayerDetailsPageModelFactory : IPlayerDetailsPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IAvatarModelFactory _avatarModelFactory;
 
-        public PlayerDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public PlayerDetailsPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IAvatarModelFactory avatarModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _avatarModelFactory = avatarModelFactory;
         }
 
-        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed, IAvatarModelFactory avatarModelFactory, Cashgame runningGame = null)
+        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed, Cashgame runningGame = null)
         {
             var hasUser = user != null;
 
@@ -39,7 +43,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             {
                 model.UserUrl = new UserDetailsUrlModel(user);
                 model.UserEmail = user.Email;
-                model.AvatarModel = avatarModelFactory.Create(user.Email);
+                model.AvatarModel = _avatarModelFactory.Create(user.Email);
             }
             else
             {

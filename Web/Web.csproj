@@ -170,6 +170,8 @@
     <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
     <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
+    <Compile Include="ModelServices\Interfaces\IPlayerModelService.cs" />
+    <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
