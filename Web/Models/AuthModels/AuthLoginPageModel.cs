@@ -7,7 +7,7 @@ namespace Web.Models.AuthModels{
     {
 	    public string BrowserTitle { get; set; }
 	    public PageProperties PageProperties { get; set; }
-	    public UserAddUrlModel AddUserUrl { get; set; }
+	    public string AddUserUrl { get; set; }
 	    public ForgotPasswordUrlModel ForgotPasswordUrl { get; set; }
 	}
 

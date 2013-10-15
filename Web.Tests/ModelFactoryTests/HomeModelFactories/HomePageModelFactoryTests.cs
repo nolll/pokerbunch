@@ -12,6 +12,11 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         [Test]
         public void AllProperties_DefaultState_IsFalse()
         {
+            const string loginUrl = "a";
+            const string addUserUrl = "b";
+            Mocks.UrlProviderMock.Setup(o => o.GetLoginUrl()).Returns(loginUrl);
+            Mocks.UrlProviderMock.Setup(o => o.GetAddUserUrl()).Returns(addUserUrl);
+
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                   .Returns(new List<Homegame>());
 
@@ -20,8 +25,8 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsNotNull(result.AddHomegameUrl);
-            Assert.IsNotNull(result.LoginUrl);
-            Assert.IsNotNull(result.RegisterUrl);
+            Assert.AreEqual(loginUrl,result.LoginUrl);
+            Assert.AreEqual(addUserUrl, result.RegisterUrl);
         }
 
         [Test]
@@ -39,14 +44,13 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
 
         private HomePageModelFactory GetSut()
         {
-            return new HomePageModelFactory
-                (
+            return new HomePageModelFactory(
                 Mocks.UserContextMock.Object,
                 Mocks.HomegameRepositoryMock.Object,
                 Mocks.CashgameRepositoryMock.Object,
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.AdminNavigationModelFactoryMock.Object
-                );
+                Mocks.AdminNavigationModelFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
     }
 }

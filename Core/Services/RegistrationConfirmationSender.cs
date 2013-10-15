@@ -30,7 +30,7 @@ namespace Core.Services{
 
 	    private string GetBody(string password){
 			var siteUrl = _settings.GetSiteUrl();
-			var loginUrl = _urlProvider.GetAuthLoginUrl();
+			var loginUrl = _urlProvider.GetLoginUrl();
 			var loginUrlStr = siteUrl + loginUrl;
 			var body = "Thanks for registering with Poker Bunch.\r\n\r\n" +
 				"Here is your password:\r\n" +

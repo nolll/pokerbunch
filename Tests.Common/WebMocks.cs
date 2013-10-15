@@ -60,6 +60,7 @@ namespace Tests.Common
         public readonly Mock<ICheckpointRepository> CheckpointRepositoryMock;
         public readonly Mock<ICheckpointModelMapper> CheckpointModelMapperMock;
         public readonly Mock<IAdminNavigationModelFactory> AdminNavigationModelFactoryMock;
+        public readonly Mock<IUrlProvider> UrlProviderMock;
 
         public WebMocks()
         {
@@ -106,6 +107,7 @@ namespace Tests.Common
             CheckpointRepositoryMock = new Mock<ICheckpointRepository>();
             CheckpointModelMapperMock = new Mock<ICheckpointModelMapper>();
             AdminNavigationModelFactoryMock = new Mock<IAdminNavigationModelFactory>();
+            UrlProviderMock = new Mock<IUrlProvider>();
         }
 
     }

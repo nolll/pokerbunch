@@ -17,18 +17,22 @@ namespace Web.Tests.ModelTests.UrlModels{
 		}
 
 		[Test]
-        public void AuthLoginUrl(){
-			var sut = new AuthLoginUrlModel();
+        public void LoginUrl()
+        {
+            var sut = GetSut();
+            var result = sut.GetLoginUrl();
 
-			Assert.AreEqual("/-/auth/login", sut.Url);
-		}
+            Assert.AreEqual("/-/auth/login", result);
+        }
 
-		[Test]
-        public void AuthLogoutUrl(){
-			var sut = new AuthLogoutUrlModel();
+        [Test]
+        public void LogoutUrl()
+        {
+            var sut = GetSut();
+            var result = sut.GetLogoutUrl();
 
-			Assert.AreEqual("/-/auth/logout", sut.Url);
-		}
+            Assert.AreEqual("/-/auth/logout", result);
+        }
 
 		[Test]
         public void CashgameAddUrl(){
@@ -394,10 +398,12 @@ namespace Web.Tests.ModelTests.UrlModels{
 		}
 
 		[Test]
-        public void UserAddFormUrl(){
-			var sut = new UserAddUrlModel();
+        public void AddUserUrl()
+		{
+		    var sut = GetSut();
+		    var result = sut.GetAddUserUrl();
 
-			Assert.AreEqual("/-/user/add", sut.Url);
+			Assert.AreEqual("/-/user/add", result);
 		}
 
 		[Test]
@@ -424,6 +430,18 @@ namespace Web.Tests.ModelTests.UrlModels{
 
 			Assert.AreEqual("/-/user/listing", sut.Url);
 		}
+
+	    [Test]
+	    public void TwitterCallBackUrl()
+	    {
+	        const string siteUrl = "http://siteurl";
+	        Mocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns(siteUrl);
+
+	        var sut = GetSut();
+	        var result = sut.GetTwitterCallbackUrl();
+
+            Assert.AreEqual("http://siteurl/-/sharing/twittercallback", result);
+	    }
 
         private UrlProvider GetSut()
         {

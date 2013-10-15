@@ -1,3 +1,4 @@
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.AuthModels;
@@ -9,11 +10,16 @@ namespace Web.ModelFactories.AuthModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IWebContext _webContext;
+        private readonly IUrlProvider _urlProvider;
 
-        public AuthLoginPageModelFactory(IPagePropertiesFactory pagePropertiesFactory, IWebContext webContext)
+        public AuthLoginPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory, 
+            IWebContext webContext,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _webContext = webContext;
+            _urlProvider = urlProvider;
         }
 
         public AuthLoginPageModel Create()
@@ -25,7 +31,7 @@ namespace Web.ModelFactories.AuthModelFactories
                     BrowserTitle = "Login",
                     PageProperties = _pagePropertiesFactory.Create(),
                     ReturnUrl = returnUrl,
-                    AddUserUrl = new UserAddUrlModel(),
+                    AddUserUrl = _urlProvider.GetAddUserUrl(),
                     ForgotPasswordUrl = new ForgotPasswordUrlModel(),
                 };
         }

@@ -288,8 +288,6 @@
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UrlModels\AuthLoginUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AuthLogoutUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameAddUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />

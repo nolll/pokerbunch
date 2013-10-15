@@ -26,7 +26,7 @@ namespace Core.Services{
 
 	    private string getBody(string password){
 			var siteUrl = _settings.GetSiteUrl();
-			var loginUrl = _urlProvider.GetAuthLoginUrl();
+			var loginUrl = _urlProvider.GetLoginUrl();
 			var loginUrlStr = siteUrl + loginUrl;
 			var body = "Here is your new password for Poker Bunch:\r\n" +
 				password + "\r\n\r\n" +

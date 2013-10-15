@@ -1,5 +1,6 @@
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
@@ -14,19 +15,22 @@ namespace Web.ModelFactories.HomeModelFactories
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAdminNavigationModelFactory _adminNavigationFactory;
+        private readonly IUrlProvider _urlProvider;
 
         public HomePageModelFactory(
             IUserContext userContext, 
             IHomegameRepository homegameRepository, 
             ICashgameRepository cashgameRepository,
             IPagePropertiesFactory pagePropertiesFactory,
-            IAdminNavigationModelFactory adminNavigationFactory)
+            IAdminNavigationModelFactory adminNavigationFactory,
+            IUrlProvider urlProvider)
         {
             _userContext = userContext;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _pagePropertiesFactory = pagePropertiesFactory;
             _adminNavigationFactory = adminNavigationFactory;
+            _urlProvider = urlProvider;
         }
 
         public HomePageModel Create()
@@ -40,8 +44,8 @@ namespace Web.ModelFactories.HomeModelFactories
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 			        IsLoggedIn = user != null,
                     AddHomegameUrl = new HomegameAddUrlModel(),
-                    LoginUrl = new AuthLoginUrlModel(),
-                    RegisterUrl = new UserAddUrlModel(),
+                    LoginUrl = _urlProvider.GetLoginUrl(),
+                    RegisterUrl = _urlProvider.GetAddUserUrl(),
 			        AdminNav = _adminNavigationFactory.Create(user)
                 };
         }

@@ -30,11 +30,15 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		}
 
 		[Test]
-        public void AddUserUrl_IsSet(){
+        public void AddUserUrl_IsSet()
+		{
+		    const string loginUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetAddUserUrl()).Returns(loginUrl);
+
             var sut = GetSut();
 			var result = sut.Create();
 
-			Assert.IsInstanceOf<UserAddUrlModel>(result.AddUserUrl);
+			Assert.AreEqual(loginUrl, result.AddUserUrl);
 		}
 
 		[Test]
@@ -58,7 +62,10 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
         private AuthLoginPageModelFactory GetSut()
         {
-            return new AuthLoginPageModelFactory(Mocks.PagePropertiesFactoryMock.Object, Mocks.WebContextMock.Object);
+            return new AuthLoginPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object, 
+                Mocks.WebContextMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

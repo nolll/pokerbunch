@@ -4,8 +4,9 @@ namespace Core.Services
 {
     public interface IUrlProvider
     {
+        string GetLogoutUrl();
         string GetAddUserUrl();
-        string GetAuthLoginUrl();
+        string GetLoginUrl();
         string GetJoinHomegameUrl(Homegame homegame);
         string GetTwitterCallbackUrl();
     }
