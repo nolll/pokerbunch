@@ -307,7 +307,6 @@
     <Compile Include="Models\UrlModels\RunningCashgameUrlModel.cs" />
     <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs" />
     <Compile Include="Models\UrlModels\UrlModel.cs" />
-    <Compile Include="Models\UrlModels\UserAddUrlModel.cs" />
     <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\UserListingUrlModel.cs" />
     <Compile Include="Models\UrlModels\UserUrlModel.cs" />
