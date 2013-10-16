@@ -10,10 +10,12 @@ namespace Web.Tests.ModelTests.UrlModels{
 	public class UrlModelTests : WebMockContainer {
 
 		[Test]
-        public void HomeUrl(){
-			var sut = new HomeUrlModel();
+        public void HomeUrl()
+        {
+            var sut = GetSut();
+		    var result = sut.GetHomeUrl();
 
-			Assert.AreEqual("/", sut.Url);
+			Assert.AreEqual("/", result);
 		}
 
 		[Test]
@@ -38,9 +40,10 @@ namespace Web.Tests.ModelTests.UrlModels{
         public void CashgameAddUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameAddUrlModel(homegame);
+            var sut = GetSut();
+		    var result = sut.GetCashgameAddUrl(homegame);
 
-			Assert.AreEqual("/abc/cashgame/add", sut.Url);
+			Assert.AreEqual("/abc/cashgame/add", result);
 		}
 
 		[Test]
@@ -48,18 +51,20 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			const int year = 2010;
 
-			var sut = new CashgameChartUrlModel(homegame, year);
+            var sut = GetSut();
+            var result = sut.GetCashgameChartUrl(homegame, year);
 
-			Assert.AreEqual("/abc/cashgame/chart/2010", sut.Url);
+			Assert.AreEqual("/abc/cashgame/chart/2010", result);
 		}
 
 		[Test]
         public void CashgameChartUrl_WithoutYear(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameChartUrlModel(homegame, null);
+            var sut = GetSut();
+            var result = sut.GetCashgameChartUrl(homegame, null);
 
-			Assert.AreEqual("/abc/cashgame/chart", sut.Url);
+			Assert.AreEqual("/abc/cashgame/chart", result);
 		}
 
 		[Test]
@@ -67,9 +72,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
 
-			var sut = new CashgameDeleteUrlModel(homegame, cashgame);
+            var sut = GetSut();
+            var result = sut.GetCashgameDeleteUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/delete/2010-01-01", sut.Url);
+			Assert.AreEqual("/abc/cashgame/delete/2010-01-01", result);
 		}
 
 		[Test]
@@ -77,9 +83,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
 
-			var sut = new CashgameDetailsUrlModel(homegame, cashgame);
+            var sut = GetSut();
+            var result = sut.GetCashgameDetailsUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/details/2010-01-01", sut.Url);
+			Assert.AreEqual("/abc/cashgame/details/2010-01-01", result);
 		}
 
 		[Test]
@@ -87,37 +94,41 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
 
-			var sut = new CashgameEditUrlModel(homegame, cashgame);
+            var sut = GetSut();
+            var result = sut.GetCashgameEditUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/edit/2010-01-01", sut.Url);
+			Assert.AreEqual("/abc/cashgame/edit/2010-01-01", result);
 		}
 
 		[Test]
         public void CashgameIndexUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameIndexUrlModel(homegame);
+            var sut = GetSut();
+			var result = sut.GetCashgameIndexUrl(homegame);
 
-			Assert.AreEqual("/abc/cashgame/index", sut.Url);
+			Assert.AreEqual("/abc/cashgame/index", result);
 		}
 
 		[Test]
         public void CashgameLeaderboardUrl_WithYear(){
 			var homegame = GetHomegame();
 			const int year = 2010;
-            
-            var sut = new CashgameLeaderboardUrlModel(homegame, year);
 
-			Assert.AreEqual("/abc/cashgame/leaderboard/2010", sut.Url);
+            var sut = GetSut();
+            var result = sut.GetCashgameLeaderboardUrl(homegame, year);
+
+			Assert.AreEqual("/abc/cashgame/leaderboard/2010", result);
 		}
 
 		[Test]
         public void CashgameLeaderboardUrl_WithoutYear(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameLeaderboardUrlModel(homegame, null);
+            var sut = GetSut();
+            var result = sut.GetCashgameLeaderboardUrl(homegame, null);
 
-			Assert.AreEqual("/abc/cashgame/leaderboard", sut.Url);
+			Assert.AreEqual("/abc/cashgame/leaderboard", result);
 		}
 
 		[Test]
@@ -125,18 +136,20 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			const int year = 2010;
 
-			var sut = new CashgameMatrixUrlModel(homegame, year);
+            var sut = GetSut();
+            var result = sut.GetCashgameMatrixUrl(homegame, year);
 
-			Assert.AreEqual("/abc/cashgame/matrix/2010", sut.Url);
+			Assert.AreEqual("/abc/cashgame/matrix/2010", result);
 		}
 
 		[Test]
         public void CashgameMatrixUrl_WithoutYear(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameMatrixUrlModel(homegame, null);
+            var sut = GetSut();
+            var result = sut.GetCashgameMatrixUrl(homegame, null);
 
-			Assert.AreEqual("/abc/cashgame/matrix", sut.Url);
+			Assert.AreEqual("/abc/cashgame/matrix", result);
 		}
 
 		[Test]
@@ -144,18 +157,20 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			const int year = 2010;
 
-			var sut = new CashgameListingUrlModel(homegame, year);
+            var sut = GetSut();
+            var result = sut.GetCashgameListingUrl(homegame, year);
 
-			Assert.AreEqual("/abc/cashgame/listing/2010", sut.Url);
+			Assert.AreEqual("/abc/cashgame/listing/2010", result);
 		}
 
 		[Test]
         public void CashgameListingUrl_WithoutYear(){
 			var homegame = GetHomegame();
 
-			var sut = new CashgameListingUrlModel(homegame, null);
+            var sut = GetSut();
+            var result = sut.GetCashgameListingUrl(homegame, null);
 
-			Assert.AreEqual("/abc/cashgame/listing", sut.Url);
+			Assert.AreEqual("/abc/cashgame/listing", result);
 		}
 
 		[Test]
@@ -164,9 +179,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
 		    var player = new Player {DisplayName = "a"};
 
-		    var sut = new CashgameActionUrlModel(homegame, cashgame, player);
+            var sut = GetSut();
+            var result = sut.GetCashgameActionUrl(homegame, cashgame, player);
 
-			Assert.AreEqual("/abc/cashgame/action/2010-01-01/a", sut.Url);
+			Assert.AreEqual("/abc/cashgame/action/2010-01-01/a", result);
 		}
 
 		[Test]
@@ -174,9 +190,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var player = new Player {DisplayName = "a"};
 
-		    var sut = new CashgameBuyinUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetCashgameBuyinUrl(homegame, player);
 
-			Assert.AreEqual("/abc/cashgame/buyin/a", sut.Url);
+			Assert.AreEqual("/abc/cashgame/buyin/a", result);
 		}
 
 		[Test]
@@ -184,9 +201,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var player = new Player {DisplayName = "a"};
 
-			var sut = new CashgameReportUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetCashgameReportUrl(homegame, player);
 
-			Assert.AreEqual("/abc/cashgame/report/a", sut.Url);
+			Assert.AreEqual("/abc/cashgame/report/a", result);
 		}
 
 		[Test]
@@ -194,9 +212,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var player = new Player {DisplayName = "a"};
 
-			var sut = new CashgameCashoutUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetCashgameCashoutUrl(homegame, player);
 
-			Assert.AreEqual("/abc/cashgame/cashout/a", sut.Url);
+			Assert.AreEqual("/abc/cashgame/cashout/a", result);
 		}
 
 		[Test]
@@ -204,9 +223,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
 
-			var sut = new CashgamePublishUrlModel(homegame, cashgame);
+            var sut = GetSut();
+            var result = sut.GetCashgamePublishUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/publish/2010-01-01", sut.Url);
+			Assert.AreEqual("/abc/cashgame/publish/2010-01-01", result);
 		}
 
 		[Test]
@@ -214,69 +234,78 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
             var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
 
-			var sut = new CashgameUnpublishUrlModel(homegame, cashgame);
+            var sut = GetSut();
+            var result = sut.GetCashgameUnpublishUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/unpublish/2010-01-01", sut.Url);
+			Assert.AreEqual("/abc/cashgame/unpublish/2010-01-01", result);
 		}
 
 		[Test]
         public void ChangePasswordConfirmationUrl(){
-			var sut = new ChangePasswordConfirmationUrlModel();
+            var sut = GetSut();
+            var result = sut.GetChangePasswordConfirmationUrl();
 
-            Assert.AreEqual("/-/user/changedpassword", sut.Url);
+            Assert.AreEqual("/-/user/changedpassword", result);
 		}
 
 		[Test]
         public void ChangePasswordFormUrl(){
-			var sut = new ChangePasswordUrlModel();
+            var sut = GetSut();
+            var result = sut.GetChangePasswordUrl();
 
-            Assert.AreEqual("/-/user/changepassword", sut.Url);
+            Assert.AreEqual("/-/user/changepassword", result);
 		}
 
 		[Test]
         public void ForgotPasswordConfirmationUrl(){
-			var sut = new ForgotPasswordConfirmationUrlModel();
+            var sut = GetSut();
+            var result = sut.GetForgotPasswordConfirmationUrl();
 
-            Assert.AreEqual("/-/user/passwordsent", sut.Url);
+            Assert.AreEqual("/-/user/passwordsent", result);
 		}
 
 		[Test]
         public void ForgotPasswordFormUrl(){
-			var sut = new ForgotPasswordUrlModel();
+            var sut = GetSut();
+            var result = sut.GetForgotPasswordUrl();
 
-            Assert.AreEqual("/-/user/forgotpassword", sut.Url);
+            Assert.AreEqual("/-/user/forgotpassword", result);
 		}
 
 		[Test]
         public void HomegameAddUrl(){
-			var sut = new HomegameAddUrlModel();
+            var sut = GetSut();
+            var result = sut.GetHomegameAddUrl();
 
-            Assert.AreEqual("/-/homegame/add", sut.Url);
+            Assert.AreEqual("/-/homegame/add", result);
 		}
 
 		[Test]
         public void HomegameAddConfirmationUrl(){
-			var sut = new HomegameAddConfirmationUrlModel();
+            var sut = GetSut();
+            var result = sut.GetHomegameAddConfirmationUrl();
 
-            Assert.AreEqual("/-/homegame/created", sut.Url);
+            Assert.AreEqual("/-/homegame/created", result);
 		}
 
 		[Test]
         public void HomegameDetailsUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new HomegameDetailsUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetHomegameDetailsUrl(homegame);
 
-            Assert.AreEqual("/abc/homegame/details", sut.Url);
+            Assert.AreEqual("/abc/homegame/details", result);
 		}
 
 		[Test]
         public void HomegameEditUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new HomegameEditUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetHomegameEditUrl(homegame);
 
-			Assert.AreEqual("/abc/homegame/edit", sut.Url);
+			Assert.AreEqual("/abc/homegame/edit", result);
 		}
 
 		[Test]
@@ -293,34 +322,38 @@ namespace Web.Tests.ModelTests.UrlModels{
         public void HomegameJoinConfirmationUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new HomegameJoinConfirmationUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetHomegameJoinConfirmationUrl(homegame);
 
-			Assert.AreEqual("/abc/homegame/joined", sut.Url);
+			Assert.AreEqual("/abc/homegame/joined", result);
 		}
 
 		[Test]
         public void HomegameListingUrl(){
-			var sut = new HomegameListingUrlModel();
+            var sut = GetSut();
+            var result = sut.GetHomegameListingUrl();
 
-			Assert.AreEqual("/-/homegame/listing", sut.Url);
+			Assert.AreEqual("/-/homegame/listing", result);
 		}
 
 		[Test]
         public void PlayerAddUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new PlayerAddUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetPlayerAddUrl(homegame);
 
-			Assert.AreEqual("/abc/player/add", sut.Url);
+			Assert.AreEqual("/abc/player/add", result);
 		}
 
 		[Test]
         public void PlayerAddConfirmationUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new PlayerAddConfirmationUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetPlayerAddConfirmationUrl(homegame);
 
-			Assert.AreEqual("/abc/player/created", sut.Url);
+			Assert.AreEqual("/abc/player/created", result);
 		}
 
 		[Test]
@@ -328,9 +361,10 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
 			var player = new Player {DisplayName = "a"};
 
-		    var sut = new PlayerDeleteUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetPlayerDeleteUrl(homegame, player);
 
-			Assert.AreEqual("/abc/player/delete/a", sut.Url);
+			Assert.AreEqual("/abc/player/delete/a", result);
 		}
 
 		[Test]
@@ -338,18 +372,20 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
             var player = new Player { DisplayName = "a" };
 
-			var sut = new PlayerDetailsUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetPlayerDetailsUrl(homegame, player);
 
-			Assert.AreEqual("/abc/player/details/a", sut.Url);
+			Assert.AreEqual("/abc/player/details/a", result);
 		}
 
 		[Test]
         public void PlayerIndexUrl(){
 			var homegame = GetHomegame();
 
-			var sut = new PlayerIndexUrlModel(homegame);
+            var sut = GetSut();
+            var result = sut.GetPlayerIndexUrl(homegame);
 
-			Assert.AreEqual("/abc/player/index", sut.Url);
+			Assert.AreEqual("/abc/player/index", result);
 		}
 
 		[Test]
@@ -357,44 +393,50 @@ namespace Web.Tests.ModelTests.UrlModels{
 			var homegame = GetHomegame();
             var player = new Player { DisplayName = "a" };
 
-			var sut = new PlayerInviteUrlModel(homegame, player);
+            var sut = GetSut();
+            var result = sut.GetPlayerInviteUrl(homegame, player);
 
-			Assert.AreEqual("/abc/player/invite/a", sut.Url);
+			Assert.AreEqual("/abc/player/invite/a", result);
 		}
 
 		[Test]
         public void SharingSettingsUrl(){
-			var sut = new SharingSettingsUrlModel();
+            var sut = GetSut();
+            var result = sut.GetSharingSettingsUrl();
 
-			Assert.AreEqual("/-/sharing", sut.Url);
+			Assert.AreEqual("/-/sharing", result);
 		}
 
 		[Test]
         public void TwitterSettingsUrl(){
-			var sut = new TwitterSettingsUrlModel();
+            var sut = GetSut();
+            var result = sut.GetTwitterSettingsUrl();
 
-			Assert.AreEqual("/-/sharing/twitter", sut.Url);
+			Assert.AreEqual("/-/sharing/twitter", result);
 		}
 
 		[Test]
         public void TwitterStartShareUrl(){
-			var sut = new TwitterStartShareUrlModel();
+            var sut = GetSut();
+            var result = sut.GetTwitterStartShareUrl();
 
-			Assert.AreEqual("/-/sharing/twitterstart", sut.Url);
+			Assert.AreEqual("/-/sharing/twitterstart", result);
 		}
 
 		[Test]
         public void TwitterStopShareUrl(){
-			var sut = new TwitterStopShareUrlModel();
+            var sut = GetSut();
+            var result = sut.GetTwitterStopShareUrl();
 
-			Assert.AreEqual("/-/sharing/twitterstop", sut.Url);
+			Assert.AreEqual("/-/sharing/twitterstop", result);
 		}
 
 		[Test]
         public void UserAddConfirmationUrl(){
-			var sut = new UserAddConfirmationUrlModel();
+            var sut = GetSut();
+            var result = sut.GetUserAddConfirmationUrl();
 
-			Assert.AreEqual("/-/user/created", sut.Url);
+			Assert.AreEqual("/-/user/created", result);
 		}
 
 		[Test]
@@ -410,25 +452,28 @@ namespace Web.Tests.ModelTests.UrlModels{
         public void UserDetailsUrl(){
 			var user = new User {UserName = "a"};
 
-		    var sut = new UserDetailsUrlModel(user);
+            var sut = GetSut();
+            var result = sut.GetUserDetailsUrl(user);
 
-			Assert.AreEqual("/-/user/details/a", sut.Url);
+			Assert.AreEqual("/-/user/details/a", result);
 		}
 
 		[Test]
         public void UserEditUrl(){
             var user = new User { UserName = "a" };
 
-			var sut = new UserEditUrlModel(user);
+            var sut = GetSut();
+            var result = sut.GetUserEditUrl(user);
 
-			Assert.AreEqual("/-/user/edit/a", sut.Url);
+			Assert.AreEqual("/-/user/edit/a", result);
 		}
 
 		[Test]
         public void UserListingUrl(){
-			var sut = new UserListingUrlModel();
+            var sut = GetSut();
+            var result = sut.GetUserListingUrl();
 
-			Assert.AreEqual("/-/user/listing", sut.Url);
+			Assert.AreEqual("/-/user/listing", result);
 		}
 
 	    [Test]
