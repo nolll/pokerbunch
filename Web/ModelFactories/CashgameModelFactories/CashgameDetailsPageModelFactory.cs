@@ -10,10 +10,12 @@ namespace Web.ModelFactories.CashgameModelFactories
     public class CashgameDetailsPageModelFactory : ICashgameDetailsPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly ICashgameDetailsTableModelFactory _cashgameDetailsTableModelFactory;
 
-        public CashgameDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public CashgameDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory, ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _cashgameDetailsTableModelFactory = cashgameDetailsTableModelFactory;
         }
 
         public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
@@ -35,7 +37,7 @@ namespace Web.ModelFactories.CashgameModelFactories
 			        ShowEndTime = showEndTime,
 			        EndTime = showEndTime ? Globalization.FormatTime(cashgame.EndTime.Value) : null,
                     Status = GameStatusName.GetName(cashgame.Status),
-                    CashgameDetailsTableModel = new CashgameDetailsTableModel(homegame, cashgame),
+                    CashgameDetailsTableModel = _cashgameDetailsTableModelFactory.Create(homegame, cashgame),
                     EnableEdit = isManager,
                     EnableCheckpointsButton = cashgame.IsInGame(player),
                     EditUrl = new CashgameEditUrlModel(homegame, cashgame),
@@ -45,6 +47,5 @@ namespace Web.ModelFactories.CashgameModelFactories
 
             return model;
         }
-
     }
 }

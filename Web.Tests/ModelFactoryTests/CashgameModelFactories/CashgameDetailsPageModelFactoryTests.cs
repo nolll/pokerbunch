@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
@@ -172,10 +173,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
 		[Test]
-		public void ResultTableModel_WithCreatedGame_IsCorrectType(){
-			var result = GetResult();
+		public void ResultTableModel_WithCreatedGame_IsCorrectType()
+		{
+		    Mocks.CashgameDetailsTableModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
+		         .Returns(new CashgameDetailsTableModel());
+            
+            var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameDetailsTableModel>(result.CashgameDetailsTableModel);
+			Assert.IsNotNull(result.CashgameDetailsTableModel);
 		}
 
 		[Test]

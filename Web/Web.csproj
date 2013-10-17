@@ -152,6 +152,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsTableModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
