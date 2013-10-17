@@ -61,6 +61,7 @@ namespace Tests.Common
         public readonly Mock<ICheckpointModelMapper> CheckpointModelMapperMock;
         public readonly Mock<IAdminNavigationModelFactory> AdminNavigationModelFactoryMock;
         public readonly Mock<IUrlProvider> UrlProviderMock;
+        public readonly Mock<ICashgameDetailsTableModelFactory> CashgameDetailsTableModelFactoryMock;
 
         public WebMocks()
         {
@@ -108,6 +109,7 @@ namespace Tests.Common
             CheckpointModelMapperMock = new Mock<ICheckpointModelMapper>();
             AdminNavigationModelFactoryMock = new Mock<IAdminNavigationModelFactory>();
             UrlProviderMock = new Mock<IUrlProvider>();
+            CashgameDetailsTableModelFactoryMock = new Mock<ICashgameDetailsTableModelFactory>();
         }
 
     }

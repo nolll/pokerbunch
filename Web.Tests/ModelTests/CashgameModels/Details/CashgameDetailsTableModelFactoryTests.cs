@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Details;
 
 namespace Web.Tests.ModelTests.CashgameModels.Details{
 
-	public class CashgameDetailsTableModelTests : WebMockContainer {
+	public class CashgameDetailsTableModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;
@@ -23,9 +24,10 @@ namespace Web.Tests.ModelTests.CashgameModels.Details{
 			_cashgame = new Cashgame {Results = new List<CashgameResult> {new CashgameResult()}};
 
             var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame);
 
-			Assert.AreEqual(1, sut.ResultModels.Count);
-			Assert.IsInstanceOf<CashgameDetailsTableItemModel>(sut.ResultModels[0]);
+			Assert.AreEqual(1, result.ResultModels.Count);
+			Assert.IsInstanceOf<CashgameDetailsTableItemModel>(result.ResultModels[0]);
 		}
 
 		[Test]
@@ -33,8 +35,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Details{
 			_cashgame = new Cashgame {Results = new List<CashgameResult> {new CashgameResult(), new CashgameResult()}};
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame);
 
-			Assert.AreEqual(2, sut.ResultModels.Count);
+            Assert.AreEqual(2, result.ResultModels.Count);
 		}
 
 		[Test]
@@ -47,13 +50,15 @@ namespace Web.Tests.ModelTests.CashgameModels.Details{
 		    _cashgame.Results = new List<CashgameResult>{result1, result2};
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame);
 
-			Assert.AreEqual("b", sut.ResultModels[0].Name);
-            Assert.AreEqual("a", sut.ResultModels[1].Name);
+            Assert.AreEqual("b", result.ResultModels[0].Name);
+            Assert.AreEqual("a", result.ResultModels[1].Name);
 		}
 
-		private CashgameDetailsTableModel GetSut(){
-			return new CashgameDetailsTableModel(_homegame, _cashgame);
+		private CashgameDetailsTableModelFactory GetSut()
+		{
+		    return new CashgameDetailsTableModelFactory();
 		}
 
 	}
