@@ -1,4 +1,5 @@
-﻿using Core.Classes;
+﻿using System.Web;
+using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Services;
 using Web.Formatters;
@@ -43,42 +44,44 @@ namespace Web.Services
 
         public string GetCashgameActionChartJsonUrl(Homegame homegame, Cashgame cashgame, Player player)
         {
-            return new CashgameActionChartJsonUrlModel(homegame, cashgame, player).Url;
+            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, homegame, cashgame, player);
         }
 
         public string GetCashgameActionUrl(Homegame homegame, Cashgame cashgame, Player player)
         {
-            return new CashgameActionUrlModel(homegame, cashgame, player).Url;
+            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, homegame, cashgame, player);
         }
 
         public string GetCashgameAddUrl(Homegame homegame)
         {
-            return new CashgameAddUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.CashgameAdd, homegame);
         }
 
         public string GetCashgameBuyinUrl(Homegame homegame, Player player)
         {
-            return new CashgameBuyinUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.CashgameBuyin, homegame, player);
         }
 
         public string GetCashgameCashoutUrl(Homegame homegame, Player player)
         {
-            return new CashgameCashoutUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.CashgameCashout, homegame, player);
         }
 
         public string GetCashgameChartJsonUrl(Homegame homegame, int? year)
         {
-            return new CashgameChartJsonUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameChartJson, RouteFormats.CashgameChartJsonWithYear, homegame, year);
         }
 
         public string GetCashgameChartUrl(Homegame homegame, int? year)
         {
-            return new CashgameChartUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameChart, RouteFormats.CashgameChartWithYear, homegame, year);
         }
 
         public string GetCashgameCheckpointDeleteUrl(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint)
         {
-            return new CashgameCheckpointDeleteUrlModel(homegame, cashgame, player, checkpoint).Url;
+            var isoDate = cashgame.StartTime.HasValue ? UrlFormatter.FormatIsoDate(cashgame.StartTime.Value) : string.Empty;
+            var encodedPlayerName = HttpUtility.UrlPathEncode(player.DisplayName);
+            return string.Format(RouteFormats.CashgameCheckpointDelete, homegame.Slug, isoDate, encodedPlayerName, checkpoint.Id);
         }
 
         public string GetCashgameDeleteUrl(Homegame homegame, Cashgame cashgame)
@@ -131,19 +134,9 @@ namespace Web.Services
             return new CashgameMatrixUrlModel(homegame, year).Url;
         }
 
-        public string GetCashgamePublishUrl(Homegame homegame, Cashgame cashgame)
-        {
-            return new CashgamePublishUrlModel(homegame, cashgame).Url;
-        }
-
         public string GetCashgameReportUrl(Homegame homegame, Player player)
         {
             return new CashgameReportUrlModel(homegame, player).Url;
-        }
-
-        public string GetCashgameUnpublishUrl(Homegame homegame, Cashgame cashgame)
-        {
-            return new CashgameUnpublishUrlModel(homegame, cashgame).Url;
         }
 
         public string GetChangePasswordConfirmationUrl()
@@ -281,5 +274,26 @@ namespace Web.Services
             return new UserListingUrlModel().Url;
         }
 
+        private string GetCashgamePlayerUrl(string format, Homegame homegame, Cashgame cashgame, Player player)
+        {
+            var isoDate = cashgame.StartTime.HasValue ? UrlFormatter.FormatIsoDate(cashgame.StartTime.Value) : string.Empty;
+            var encodedPlayerName = HttpUtility.UrlPathEncode(player.DisplayName);
+            return string.Format(format, homegame.Slug, isoDate, encodedPlayerName);
+        }
+
+        private string GetHomegameUrl(string format, Homegame homegame)
+        {
+            return UrlFormatter.FormatHomegame(format, homegame);
+        }
+
+        private string GetPlayerUrl(string format, Homegame homegame, Player player)
+        {
+            return UrlFormatter.FormatPlayer(format, homegame, player);
+        }
+
+        private string GetHomegameYearUrl(string format, string formatWithYear, Homegame homegame, int? year)
+        {
+            return year.HasValue ? UrlFormatter.FormatHomegameWithYear(formatWithYear, homegame, year.Value) : UrlFormatter.FormatHomegame(format, homegame);
+        }
     }
 }

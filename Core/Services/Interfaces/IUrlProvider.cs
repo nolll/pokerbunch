@@ -28,9 +28,7 @@ namespace Core.Services
         string GetCashgameLeaderboardUrl(Homegame homegame, int? year);
         string GetCashgameListingUrl(Homegame homegame, int? year);
         string GetCashgameMatrixUrl(Homegame homegame, int? year);
-        string GetCashgamePublishUrl(Homegame homegame, Cashgame cashgame);
         string GetCashgameReportUrl(Homegame homegame, Player player);
-        string GetCashgameUnpublishUrl(Homegame homegame, Cashgame cashgame);
         string GetChangePasswordConfirmationUrl();
         string GetChangePasswordUrl();
         string GetForgotPasswordConfirmationUrl();

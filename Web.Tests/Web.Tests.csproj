@@ -128,7 +128,7 @@
     <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\UrlModels\UrlModelTests.cs" />
+    <Compile Include="ModelTests\UrlModels\UrlProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />

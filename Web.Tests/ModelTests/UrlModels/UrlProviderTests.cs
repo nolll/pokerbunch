@@ -219,28 +219,6 @@ namespace Web.Tests.ModelTests.UrlModels{
 		}
 
 		[Test]
-        public void CashgamePublishUrlModel_ReturnsCorrectUrl(){
-			var homegame = GetHomegame();
-			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
-
-            var sut = GetSut();
-            var result = sut.GetCashgamePublishUrl(homegame, cashgame);
-
-			Assert.AreEqual("/abc/cashgame/publish/2010-01-01", result);
-		}
-
-		[Test]
-        public void CashgameUnpublishUrlModel_ReturnsCorrectUrl(){
-			var homegame = GetHomegame();
-            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
-
-            var sut = GetSut();
-            var result = sut.GetCashgameUnpublishUrl(homegame, cashgame);
-
-			Assert.AreEqual("/abc/cashgame/unpublish/2010-01-01", result);
-		}
-
-		[Test]
         public void ChangePasswordConfirmationUrl(){
             var sut = GetSut();
             var result = sut.GetChangePasswordConfirmationUrl();
