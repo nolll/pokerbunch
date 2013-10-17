@@ -1,13 +1,13 @@
 using System;
 using Core.Classes;
+using Core.Classes.Checkpoints;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.Tests.ModelTests.UrlModels{
 
-	public class UrlModelTests : WebMockContainer {
+	public class UrlProviderTests : WebMockContainer {
 
 		[Test]
         public void HomeUrl()
@@ -486,6 +486,103 @@ namespace Web.Tests.ModelTests.UrlModels{
 	        var result = sut.GetTwitterCallbackUrl();
 
             Assert.AreEqual("http://siteurl/-/sharing/twittercallback", result);
+	    }
+
+	    [Test]
+	    public void GetCashgameActionChartJsonUrl()
+	    {
+            var homegame = GetHomegame();
+            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
+            var player = new Player { DisplayName = "a" };
+
+            var sut = GetSut();
+            var result = sut.GetCashgameActionChartJsonUrl(homegame, cashgame, player);
+
+            Assert.AreEqual("/abc/cashgame/actionchartjson/2010-01-01/a", result);
+	    }
+
+        [Test]
+	    public void GetCashgameChartJsonUrl()
+	    {
+            var homegame = GetHomegame();
+            const int year = 2010;
+
+	        var sut = GetSut();
+            var result = sut.GetCashgameChartJsonUrl(homegame, year);
+
+            Assert.AreEqual("/abc/cashgame/chartjson/2010", result);
+	    }
+
+        [Test]
+	    public void GetCashgameCheckpointDeleteUrl()
+	    {
+            var homegame = GetHomegame();
+            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
+            var player = new Player { DisplayName = "a" };
+            var checkpoint = new Checkpoint{ Id = 1 };
+
+	        var sut = GetSut();
+            var result = sut.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint);
+
+            Assert.AreEqual("/abc/cashgame/deletecheckpoint/2010-01-01/a/1", result);
+	    }
+
+        [Test]
+	    public void GetCashgameDetailsChartJsonUrl()
+	    {
+            var homegame = GetHomegame();
+            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
+
+	        var sut = GetSut();
+            var result = sut.GetCashgameDetailsChartJsonUrl(homegame, cashgame);
+
+            Assert.AreEqual("/abc/cashgame/detailschartjson/2010-01-01", result);
+	    }
+
+        [Test]
+	    public void GetCashgameEndUrl()
+	    {
+            var homegame = GetHomegame();
+
+	        var sut = GetSut();
+            var result = sut.GetCashgameEndUrl(homegame);
+
+            Assert.AreEqual("/abc/cashgame/end", result);
+	    }
+
+        [Test]
+	    public void GetCashgameFactsUrl()
+	    {
+            var homegame = GetHomegame();
+            const int year = 2010;
+
+	        var sut = GetSut();
+            var result = sut.GetCashgameFactsUrl(homegame, year);
+
+            Assert.AreEqual("/abc/cashgame/facts/2010", result);
+	    }
+
+        [Test]
+	    public void GetPlayerInviteConfirmationUrl()
+	    {
+            var homegame = GetHomegame();
+            var player = new Player { DisplayName = "a" };
+
+            var sut = GetSut();
+            var result = sut.GetPlayerInviteConfirmationUrl(homegame, player);
+
+            Assert.AreEqual("/abc/player/invited/a", result);
+	    }
+
+        [Test]
+        public void GetRunningCashgameUrl()
+	    {
+            var homegame = GetHomegame();
+
+	        var sut = GetSut();
+            var result = sut.GetRunningCashgameUrl(homegame);
+
+            Assert.AreEqual("/abc/cashgame/running", result);
 	    }
 
         private UrlProvider GetSut()
