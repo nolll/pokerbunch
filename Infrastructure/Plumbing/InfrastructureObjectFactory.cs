@@ -26,6 +26,7 @@ namespace Infrastructure.Plumbing
             ObjectFactory.RegisterComponent<IRawCashgameFactory, RawCashgameFactory>(container);
             ObjectFactory.RegisterComponent<IRawPlayerFactory, RawPlayerFactory>(container);
             ObjectFactory.RegisterComponent<IRawCheckpointFactory, RawCheckpointFactory>(container);
+            ObjectFactory.RegisterComponent<IRawTwitterCredentialsFactory, RawTwitterCredentialsFactory>(container);
 
             // Cache
             ObjectFactory.RegisterComponent<ICacheProvider, CacheProvider>(container);

@@ -140,9 +140,7 @@ namespace Web.Controllers{
 			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			if(cashgame == null){
-                //todo: find out how to handle 404 for Json requests
-                //return new HttpNotFoundResult();
-			    return null;
+                return new HttpNotFoundResult();
 			}
 			var model = new CashgameDetailsChartModel(homegame, cashgame);
             return Json(model, JsonRequestBehavior.AllowGet);

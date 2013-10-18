@@ -18,19 +18,19 @@ namespace Infrastructure.Data.Storage {
 	    }
 
 	    public RawTwitterCredentials GetCredentials(int userId){
-			var sql = "SELECT ut.UserID, ut.TwitterName, ut.Key, ut.Secret FROM usertwitter ut WHERE ut.UserID = {0}";
+			var sql = "SELECT ut.UserId, ut.TwitterName, ut.[Key], ut.Secret FROM usertwitter ut WHERE ut.UserId = {0}";
 	        sql = string.Format(sql, userId);
 			return GetCredentialsFromSql(sql);
 		}
 
 		public int AddCredentials(int userId, RawTwitterCredentials credentials){
-            var sql = "INSERT INTO usertwitter (UserID, TwitterName, `Key`, Secret) OUTPUT INSERTED.ID VALUES ({0}, '{1}', '{2}')";
+            var sql = "INSERT INTO usertwitter (UserId, TwitterName, [Key], Secret) OUTPUT INSERTED.ID VALUES ({0}, '{1}', '{2}')";
 			sql = string.Format(sql, userId, credentials.Key, credentials.Secret);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 
 		public bool ClearCredentials(int userId){
-			var sql = "DELETE FROM usertwitter WHERE UserID = {0}";
+			var sql = "DELETE FROM usertwitter WHERE UserId = {0}";
 			sql = string.Format(sql, userId);
             var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;

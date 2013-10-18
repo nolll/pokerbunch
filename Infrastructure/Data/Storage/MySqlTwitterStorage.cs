@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public int AddCredentials(int userId, RawTwitterCredentials credentials){
-			var sql = "INSERT INTO usertwitter (UserID, TwitterName, `Key`, Secret) VALUES ({0}, '{1}', '{2}')";
+			var sql = "INSERT INTO usertwitter (UserID, TwitterName, [Key], Secret) VALUES ({0}, '{1}', '{2}')";
 			sql = string.Format(sql, userId, credentials.Key, credentials.Secret);
 			return _storageProvider.ExecuteInsert(sql);
 		}

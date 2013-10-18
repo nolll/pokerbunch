@@ -70,6 +70,7 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
             ObjectFactory.RegisterComponent<ICheckpointFactory, CheckpointFactory>(container);
+            ObjectFactory.RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>(container);
 
             // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
