@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Infrastructure.System;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.CashgameModels.Running;
 
 namespace Web.Tests.ModelTests.CashgameModels.Running{
@@ -19,13 +22,13 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		[Test]
-        public void StatusModels_CashgameWithOnePlayer_FirstItemIsCorrectType(){
+        public void StatusModels_CashgameWithOnePlayer_ContainsOneItem(){
 			_cashgame.Results = new List<CashgameResult>{new CashgameResult()};
 
 			var sut = GetSut();
+		    var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual(1, sut.StatusModels.Count);
-		    Assert.IsInstanceOf<RunningCashgameTableItemModel>(sut.StatusModels[0]);
+			Assert.AreEqual(1, result.StatusModels.Count);
         }
 
 		[Test]
@@ -33,8 +36,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.Results = new List<CashgameResult>{new CashgameResult(), new CashgameResult()};
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual(2, sut.StatusModels.Count);
+			Assert.AreEqual(2, result.StatusModels.Count);
 		}
 
 		[Test]
@@ -42,8 +46,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.Turnover = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual("$1", sut.TotalBuyin);
+			Assert.AreEqual("$1", result.TotalBuyin);
 		}
 
 		[Test]
@@ -51,28 +56,38 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_cashgame.TotalStacks = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual("$1", sut.TotalStacks);
+			Assert.AreEqual("$1", result.TotalStacks);
 		}
 
 		[Test]
-        public void StatusModels_CashgameWithTwoPlayers_IsSortedByWinningsDescending(){
-			_cashgame.StartTime = new DateTime();
-			var player1 = new Player {DisplayName = "a"};
+        public void StatusModels_CashgameWithTwoPlayers_IsSortedByWinningsDescending()
+		{
+		    const string playerName1 = "a";
+		    const string playerName2 = "b";
+            _cashgame.StartTime = new DateTime();
+			var player1 = new Player {DisplayName = playerName1};
 		    var result1 = new CashgameResult {Player = player1, Winnings = 1};
-		    var player2 = new Player {DisplayName = "b"};
+		    var player2 = new Player {DisplayName = playerName2};
 		    var result2 = new CashgameResult {Player = player2, Winnings = 2};
 		    _cashgame.Results = new List<CashgameResult>{result1, result2};
 
-			var sut = GetSut();
+            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, _cashgame, result1, It.IsAny<bool>()))
+                 .Returns(new RunningCashgameTableItemModel { Name = playerName1 });
+            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, _cashgame, result2, It.IsAny<bool>()))
+                 .Returns(new RunningCashgameTableItemModel { Name = playerName2 });
 
-			var results = sut.StatusModels;
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, false);
+
+			var results = result.StatusModels;
 			Assert.AreEqual("b", results[0].Name);
 			Assert.AreEqual("a", results[1].Name);
 		}
 
-		private RunningCashgameTableModel GetSut(){
-            return new RunningCashgameTableModel(_homegame, _cashgame, false, Mocks.TimeProviderMock.Object);
+		private RunningCashgameTableModelFactory GetSut(){
+            return new RunningCashgameTableModelFactory(Mocks.RunningCashgameTableItemModelFactoryMock.Object);
 		}
 
 	}

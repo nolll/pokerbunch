@@ -153,7 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IRunningCashgameTableItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
@@ -175,6 +178,9 @@
     <Compile Include="ModelServices\Interfaces\IPlayerModelService.cs" />
     <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsTableItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgameTableItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgameTableModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -187,7 +193,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\AddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\EndPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\ICashgameEditPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashoutPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\CashoutPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IEndPageModelFactory.cs" />
@@ -290,7 +296,6 @@
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameAddUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs" />
@@ -480,9 +485,7 @@
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />
     <Compile Include="Models\UrlModels\CashgamePublishUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameUnpublishUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameActionUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameEditUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgamePlayerUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
@@ -503,7 +506,6 @@
     <Compile Include="Models\FormModels\SelectFieldItem.cs" />
     <Compile Include="Models\CashgameModels\Add\AddCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameBuyinUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameEndUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs" />
@@ -520,7 +522,6 @@
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
     <Compile Include="Models\UrlModels\CashgameCheckpointDeleteUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
-    <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />

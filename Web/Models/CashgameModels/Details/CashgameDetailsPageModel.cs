@@ -20,14 +20,10 @@ namespace Web.Models.CashgameModels.Details{
 
         public bool EnableEdit { get; set; }
         public bool EnableCheckpointsButton { get; set; }
-        public bool EnablePublish { get; set; }
-        public bool EnableUnpublish { get; set; }
         public bool DurationEnabled { get; set; }
 
         public UrlModel EditUrl { get; set; }
-        public UrlModel CheckpointsUrl { get; set; }
-        public UrlModel PublishUrl { get; set; }
-        public UrlModel UnpublishUrl { get; set; }
+        public string CheckpointsUrl { get; set; }
         public UrlModel ChartDataUrl { get; set; }
 
         public string Status { get; set; }

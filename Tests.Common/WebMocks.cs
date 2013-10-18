@@ -62,6 +62,9 @@ namespace Tests.Common
         public readonly Mock<IAdminNavigationModelFactory> AdminNavigationModelFactoryMock;
         public readonly Mock<IUrlProvider> UrlProviderMock;
         public readonly Mock<ICashgameDetailsTableModelFactory> CashgameDetailsTableModelFactoryMock;
+        public readonly Mock<ICashgameDetailsTableItemModelFactory> CashgameDetailsTableItemModelFactoryMock;
+        public readonly Mock<IRunningCashgameTableModelFactory> RunningCashgameTableModelFactoryMock;
+        public readonly Mock<IRunningCashgameTableItemModelFactory> RunningCashgameTableItemModelFactoryMock;
 
         public WebMocks()
         {
@@ -110,6 +113,9 @@ namespace Tests.Common
             AdminNavigationModelFactoryMock = new Mock<IAdminNavigationModelFactory>();
             UrlProviderMock = new Mock<IUrlProvider>();
             CashgameDetailsTableModelFactoryMock = new Mock<ICashgameDetailsTableModelFactory>();
+            CashgameDetailsTableItemModelFactoryMock = new Mock<ICashgameDetailsTableItemModelFactory>();
+            RunningCashgameTableModelFactoryMock = new Mock<IRunningCashgameTableModelFactory>();
+            RunningCashgameTableItemModelFactoryMock = new Mock<IRunningCashgameTableItemModelFactory>();
         }
 
     }

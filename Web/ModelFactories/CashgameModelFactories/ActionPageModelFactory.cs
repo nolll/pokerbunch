@@ -2,20 +2,24 @@
 using System.Linq;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Action;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories
 {
     public class ActionPageModelFactory : IActionPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public ActionPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public ActionPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public ActionPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role, IList<int> years = null, Cashgame runningGame = null)
@@ -28,7 +32,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Heading = string.Format("Cashgame {0}, {1}", dateString, player.DisplayName),
                     Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role),
-                    ChartDataUrl = new CashgameActionChartJsonUrlModel(homegame, cashgame, player)
+                    ChartDataUrl = _urlProvider.GetCashgameActionChartJsonUrl(homegame, cashgame, player)
                 };
         }
 

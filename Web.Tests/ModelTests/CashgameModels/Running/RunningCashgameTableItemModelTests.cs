@@ -2,7 +2,7 @@ using System;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Models.CashgameModels.Running;
+using Web.ModelFactories.CashgameModelFactories;
 using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Running{
@@ -28,18 +28,24 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
             _result.Player = player;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("a", sut.Name);
+			Assert.AreEqual("a", result.Name);
 		}
 
 		[Test]
-		public void PlayerUrl_IsSet(){
+		public void PlayerUrl_IsSet()
+		{
+		    const string playerUrl = "a";
 			var player = new Player();
 			_result.Player = player;
 
-			var sut = GetSut();
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, player)).Returns(playerUrl);
 
-			Assert.IsInstanceOf<CashgameActionUrlModel>(sut.PlayerUrl);
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
+
+			Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}
 
 		[Test]
@@ -47,8 +53,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Buyin = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("$1", sut.Buyin);
+			Assert.AreEqual("$1", result.Buyin);
 		}
 
 		[Test]
@@ -56,8 +63,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Stack = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("$1", sut.Stack);
+			Assert.AreEqual("$1", result.Stack);
 		}
 
 		[Test]
@@ -65,17 +73,20 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Winnings = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("+$1", sut.Winnings);
+			Assert.AreEqual("+$1", result.Winnings);
 		}
 
 		[Test]
 		public void Time_IsSetToDifferenceBetweenNowAndLastCheckpoint(){
 			SetLastCheckpointTime(DateTime.Parse("2010-01-01 01:00:00"));
             Mocks.TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
-			var sut = GetSut();
 
-			Assert.AreEqual("1 minute", sut.Time);
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
+
+			Assert.AreEqual("1 minute", result.Time);
 		}
 
 		[Test]
@@ -84,8 +95,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Stack = 100;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("", sut.WinningsClass);
+			Assert.AreEqual("", result.WinningsClass);
 		}
 
 		[Test]
@@ -93,8 +105,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Winnings = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("pos-result", sut.WinningsClass);
+			Assert.AreEqual("pos-result", result.WinningsClass);
 		}
 
 		[Test]
@@ -102,15 +115,17 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Winnings = -1;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("neg-result", sut.WinningsClass);
+			Assert.AreEqual("neg-result", result.WinningsClass);
 		}
 
 		[Test]
 		public void ManagerButtonsEnabled_WithoutManager_IsFalse(){
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsFalse(sut.ManagerButtonsEnabled);
+			Assert.IsFalse(result.ManagerButtonsEnabled);
 		}
 
 		[Test]
@@ -118,19 +133,25 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_isManager = true;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsTrue(sut.ManagerButtonsEnabled);
+			Assert.IsTrue(result.ManagerButtonsEnabled);
 		}
 
 		[Test]
-		public void BuyinUrl_WithManager_IsCorrectType(){
+		public void BuyinUrl_WithManager_IsCorrectType()
+		{
+		    const string buyinUrl = "a";
 			_isManager = true;
 			var player = new Player();
 			_result.Player = player;
 
-			var sut = GetSut();
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameBuyinUrl(_homegame, player)).Returns(buyinUrl);
 
-			Assert.IsInstanceOf<CashgameBuyinUrlModel>(sut.BuyinUrl);
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
+
+			Assert.AreEqual(buyinUrl, result.BuyinUrl);
 		}
 
 		[Test]
@@ -140,8 +161,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Player = player;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsInstanceOf<CashgameReportUrlModel>(sut.ReportUrl);
+			Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
 		}
 
 		[Test]
@@ -151,27 +173,33 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 			_result.Player = player;
 
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsInstanceOf<CashgameCashoutUrlModel>(sut.CashoutUrl);
+			Assert.IsInstanceOf<CashgameCashoutUrlModel>(result.CashoutUrl);
 		}
 
 		[Test]
 		public void HasCheckedOut_ResultWithoutCashoutTime_ReturnsFalse(){
 			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsFalse(sut.HasCashedOut);
+			Assert.IsFalse(result.HasCashedOut);
 		}
 
 		[Test]
 		public void HasCheckedOut_ResultWithCashoutTime_ReturnsTrue(){
 			_result.CashoutTime = new DateTime();
-			var sut = GetSut();
 
-			Assert.IsTrue(sut.HasCashedOut);
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
+
+			Assert.IsTrue(result.HasCashedOut);
 		}
 
-		private RunningCashgameTableItemModel GetSut(){
-            return new RunningCashgameTableItemModel(_homegame, _cashgame, _result, _isManager, Mocks.TimeProviderMock.Object);
+		private RunningCashgameTableItemModelFactory GetSut(){
+            return new RunningCashgameTableItemModelFactory(
+                Mocks.UrlProviderMock.Object,
+                Mocks.TimeProviderMock.Object);
 		}
 
 		private void SetLastCheckpointTime(DateTime time){

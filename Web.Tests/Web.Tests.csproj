@@ -106,7 +106,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameFactsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableItemModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsTableItemModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactoryTests\CashgameModelFactories\ActionPageModelFactoryTests.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\AddCashgamePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameChartPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Details\CashgameDetailsTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModelTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameLeaderboardTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />

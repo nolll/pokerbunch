@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.Classes;
-using Core.Classes.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories;
@@ -28,7 +28,6 @@ namespace Web.Controllers{
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly IMatrixPageModelFactory _matrixPageModelFactory;
 	    private readonly ICashgameFactory _cashgameFactory;
-	    private readonly ITimeProvider _timeProvider;
 	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
 	    private readonly IReportPageModelFactory _reportPageModelFactory;
 	    private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
@@ -44,6 +43,7 @@ namespace Web.Controllers{
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
 	    private readonly ICheckpointModelMapper _checkpointModelMapper;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -52,7 +52,6 @@ namespace Web.Controllers{
             IPlayerRepository playerRepository, 
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameFactory cashgameFactory,
-            ITimeProvider timeProvider,
             IBuyinPageModelFactory buyinPageModelFactory,
             IReportPageModelFactory reportPageModelFactory,
             ICashoutPageModelFactory cashoutPageModelFactory,
@@ -67,7 +66,8 @@ namespace Web.Controllers{
             ICashgameListingPageModelFactory cashgameListingPageModelFactory,
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
             ICashgameModelMapper cashgameModelMapper,
-            ICheckpointModelMapper checkpointModelMapper)
+            ICheckpointModelMapper checkpointModelMapper,
+            IUrlProvider urlProvider)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -75,7 +75,6 @@ namespace Web.Controllers{
 	        _playerRepository = playerRepository;
 	        _matrixPageModelFactory = matrixPageModelFactory;
 	        _cashgameFactory = cashgameFactory;
-	        _timeProvider = timeProvider;
 	        _buyinPageModelFactory = buyinPageModelFactory;
 	        _reportPageModelFactory = reportPageModelFactory;
 	        _cashoutPageModelFactory = cashoutPageModelFactory;
@@ -91,6 +90,7 @@ namespace Web.Controllers{
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
 	        _cashgameModelMapper = cashgameModelMapper;
 	        _checkpointModelMapper = checkpointModelMapper;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -101,7 +101,7 @@ namespace Web.Controllers{
 				var year = years[0];
 				return Redirect(new CashgameMatrixUrlModel(homegame, year).Url);
 			}
-			return Redirect(new CashgameAddUrlModel(homegame).Url);
+			return Redirect(_urlProvider.GetCashgameAddUrl(homegame));
 		}
 
         public ActionResult Matrix(string gameName, int? year = null){
@@ -348,8 +348,8 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, name);
 			_cashgameRepository.DeleteCheckpoint(id);
-            var actionsUrl = new CashgameActionUrlModel(homegame, cashgame, player);
-            return Redirect(actionsUrl.Url);
+            var actionsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player);
+            return Redirect(actionsUrl);
 		}
 
         public ActionResult Cashout(string gameName, string name){
@@ -439,7 +439,7 @@ namespace Web.Controllers{
 			var isManager = _userContext.IsInRole(homegame, Role.Manager);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
-			return _runningCashgamePageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, player, years, isManager, _timeProvider, runningGame);
+			return _runningCashgamePageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, player, years, isManager, runningGame);
 		}
 
         private CashgameDetailsPageModel GetDetailsModel(User user, Homegame homegame, Cashgame cashgame){

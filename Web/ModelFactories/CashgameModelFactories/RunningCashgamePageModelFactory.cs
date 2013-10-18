@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
@@ -10,13 +11,20 @@ namespace Web.ModelFactories.CashgameModelFactories
     public class RunningCashgamePageModelFactory : IRunningCashgamePageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public RunningCashgamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public RunningCashgamePageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
+            _urlProvider = urlProvider;
         }
 
-        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, ITimeProvider timer, Cashgame runningGame = null)
+        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
         {
             var model = new RunningCashgamePageModel();
 
@@ -34,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                 model.ShowStartTime = false;
             }
 
-            model.BuyinUrl = new CashgameBuyinUrlModel(homegame, player);
+            model.BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player);
             model.ReportUrl = new CashgameReportUrlModel(homegame, player);
             model.CashoutUrl = new CashgameCashoutUrlModel(homegame, player);
             model.EndGameUrl = new CashgameEndUrlModel(homegame);
@@ -50,7 +58,7 @@ namespace Web.ModelFactories.CashgameModelFactories
 
             if (cashgame.IsStarted)
             {
-                model.RunningCashgameTableModel = new RunningCashgameTableModel(homegame, cashgame, isManager, timer);
+                model.RunningCashgameTableModel = _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager);
                 model.ShowTable = true;
             }
             else

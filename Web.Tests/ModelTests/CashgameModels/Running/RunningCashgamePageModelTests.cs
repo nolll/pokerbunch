@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Infrastructure.System;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
@@ -77,12 +79,15 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		[Test]
-        public void BuyinUrl_IsSet(){
-			SetupPlayerIsInGame();
+        public void BuyinUrl_IsSet()
+		{
+		    const string buyinUrl = "a";
+            SetupPlayerIsInGame();
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameBuyinUrl(_homegame, _player)).Returns(buyinUrl);
 
             var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameBuyinUrlModel>(result.BuyinUrl);
+            Assert.AreEqual(buyinUrl, result.BuyinUrl);
 		}
 
 		[Test]
@@ -170,17 +175,6 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		*/
 
 		[Test]
-        public void StatusTableModel_WithCreatedGame_IsCorrectType(){
-			SetupPlayerIsInGame();
-			_cashgame.IsStarted = true;
-            _cashgame.StartTime = new DateTime();
-
-            var result = GetResult();
-
-            Assert.IsInstanceOf<RunningCashgameTableModel>(result.RunningCashgameTableModel);
-		}
-
-		[Test]
         public void ShowTable_WithStartedGame_IsTrue(){
 			SetupPlayerIsInGame();
 			_cashgame.IsStarted = true;
@@ -231,11 +225,14 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 
         private RunningCashgamePageModel GetResult()
         {
-            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager, Mocks.TimeProviderMock.Object);
+            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager);
         }
 
 		private RunningCashgamePageModelFactory GetSut(){
-            return new RunningCashgamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new RunningCashgamePageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.RunningCashgameTableModelFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
 		}
 
 	}

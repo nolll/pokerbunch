@@ -253,7 +253,6 @@ namespace Web.Tests.ControllerTests{
                 Mocks.PlayerRepositoryMock.Object,
                 Mocks.MatrixPageModelFactoryMock.Object,
                 Mocks.CashgameFactoryMock.Object,
-                Mocks.TimeProviderMock.Object,
                 Mocks.BuyinPageModelFactoryMock.Object,
                 Mocks.ReportPageModelFactoryMock.Object,
                 Mocks.CashoutPageModelFactoryMock.Object,
@@ -268,7 +267,8 @@ namespace Web.Tests.ControllerTests{
                 Mocks.CashgameListingPageModelFactoryMock.Object,
                 Mocks.RunningCashgamePageModelFactoryMock.Object,
                 Mocks.CashgameModelMapperMock.Object,
-                Mocks.CheckpointModelMapperMock.Object);
+                Mocks.CheckpointModelMapperMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

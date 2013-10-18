@@ -89,10 +89,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
 		[Test]
-		public void CheckpointsUrl_IsCorrectType(){
+		public void CheckpointsUrl_IsCorrectType()
+		{
+		    const string actionUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, _player)).Returns(actionUrl);
+
 			var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameActionUrlModel>(result.CheckpointsUrl);
+			Assert.AreEqual(actionUrl, result.CheckpointsUrl);
 		}
 
 		[Test]
@@ -196,7 +200,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashgameDetailsPageModelFactory GetSut()
         {
-            return new CashgameDetailsPageModelFactory(Mocks.PagePropertiesFactoryMock.Object, Mocks.CashgameDetailsTableModelFactoryMock.Object);
+            return new CashgameDetailsPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object, 
+                Mocks.CashgameDetailsTableModelFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

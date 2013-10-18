@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
@@ -11,11 +12,16 @@ namespace Web.ModelFactories.CashgameModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameDetailsTableModelFactory _cashgameDetailsTableModelFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public CashgameDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory, ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory)
+        public CashgameDetailsPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory, 
+            ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameDetailsTableModelFactory = cashgameDetailsTableModelFactory;
+            _urlProvider = urlProvider;
         }
 
         public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
@@ -41,7 +47,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                     EnableEdit = isManager,
                     EnableCheckpointsButton = cashgame.IsInGame(player),
                     EditUrl = new CashgameEditUrlModel(homegame, cashgame),
-                    CheckpointsUrl = new CashgameActionUrlModel(homegame, cashgame, player),
+                    CheckpointsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player),
                     ChartDataUrl = new CashgameDetailsChartJsonUrlModel(homegame, cashgame)
                 };
 

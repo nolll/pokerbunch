@@ -7,13 +7,20 @@ namespace Web.ModelFactories.CashgameModelFactories
 {
     public class CashgameDetailsTableModelFactory : ICashgameDetailsTableModelFactory
     {
+        private readonly ICashgameDetailsTableItemModelFactory _cashgameDetailsTableItemModelFactory;
+
+        public CashgameDetailsTableModelFactory(ICashgameDetailsTableItemModelFactory cashgameDetailsTableItemModelFactory)
+        {
+            _cashgameDetailsTableItemModelFactory = cashgameDetailsTableItemModelFactory;
+        }
+
         public CashgameDetailsTableModel Create(Homegame homegame, Cashgame cashgame)
         {
             var results = GetSortedResults(cashgame);
             var resultModels = new List<CashgameDetailsTableItemModel>();
             foreach (var result in results)
             {
-                resultModels.Add(new CashgameDetailsTableItemModel(homegame, cashgame, result));
+                resultModels.Add(_cashgameDetailsTableItemModelFactory.Create(homegame, cashgame, result));
             }
 
             return new CashgameDetailsTableModel

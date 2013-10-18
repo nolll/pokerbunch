@@ -50,15 +50,21 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
 		[Test]
-        public void ChartDataUrl_IsSet(){
+        public void ChartDataUrl_IsSet()
+		{
+		    const string chartDataUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionChartJsonUrl(_homegame, _cashgame, _player)).Returns(chartDataUrl);
+
 			var sut = GetSut();
             var result = sut.Create(new User(), _homegame, _cashgame, _player, _result, Role.Player);
 
-            Assert.IsInstanceOf<CashgameActionChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.AreEqual(chartDataUrl, result.ChartDataUrl);
 		}
 
         private ActionPageModelFactory GetSut(){
-            return new ActionPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new ActionPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
 		}
 
 	}

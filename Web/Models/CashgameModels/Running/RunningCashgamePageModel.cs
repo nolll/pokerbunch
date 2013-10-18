@@ -18,7 +18,7 @@ namespace Web.Models.CashgameModels.Running{
         public bool CashoutButtonEnabled { get; set; }
         public bool EndGameButtonEnabled { get; set; }
 
-        public UrlModel BuyinUrl { get; set; }
+        public string BuyinUrl { get; set; }
         public UrlModel ReportUrl { get; set; }
         public UrlModel CashoutUrl { get; set; }
         public UrlModel EndGameUrl { get; set; }
