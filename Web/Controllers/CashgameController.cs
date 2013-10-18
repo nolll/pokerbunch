@@ -134,7 +134,7 @@ namespace Web.Controllers{
 			return View("Details/DetailsPage", model);
 		}
 
-        public JsonResult DetailsChartJson(string gameName, string dateStr){
+        public ActionResult DetailsChartJson(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
