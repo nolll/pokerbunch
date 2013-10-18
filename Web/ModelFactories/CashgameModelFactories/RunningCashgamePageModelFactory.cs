@@ -26,57 +26,30 @@ namespace Web.ModelFactories.CashgameModelFactories
 
         public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
         {
-            var model = new RunningCashgamePageModel();
-
-            model.BrowserTitle = "Running Cashgame";
-            model.PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame);
-            model.Location = cashgame.Location;
-
-            if (cashgame.IsStarted)
-            {
-                model.ShowStartTime = true;
-                model.StartTime = Globalization.FormatTime(cashgame.StartTime.Value);
-            }
-            else
-            {
-                model.ShowStartTime = false;
-            }
-
-            model.BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player);
-            model.ReportUrl = new CashgameReportUrlModel(homegame, player);
-            model.CashoutUrl = new CashgameCashoutUrlModel(homegame, player);
-            model.EndGameUrl = new CashgameEndUrlModel(homegame);
-
             var canBeEnded = CanBeEnded(cashgame);
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player);
-
-            model.BuyinButtonEnabled = canReport;
-            model.ReportButtonEnabled = canReport && isInGame;
-            model.CashoutButtonEnabled = isInGame;
-            model.EndGameButtonEnabled = canBeEnded;
-
-            if (cashgame.IsStarted)
-            {
-                model.RunningCashgameTableModel = _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager);
-                model.ShowTable = true;
-            }
-            else
-            {
-                model.ShowTable = false;
-            }
-
-            if (cashgame.IsStarted)
-            {
-                model.ChartDataUrl = new CashgameDetailsChartJsonUrlModel(homegame, cashgame);
-                model.ShowChart = true;
-            }
-            else
-            {
-                model.ShowChart = false;
-            }
-
-            return model;
+            
+            return new RunningCashgamePageModel
+                {
+                    BrowserTitle = "Running Cashgame",
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    Location = cashgame.Location,
+                    ShowStartTime = cashgame.IsStarted,
+                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? Globalization.FormatTime(cashgame.StartTime.Value) : null,
+                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
+                    ReportUrl = new CashgameReportUrlModel(homegame, player),
+                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),
+                    EndGameUrl = new CashgameEndUrlModel(homegame),
+                    BuyinButtonEnabled = canReport,
+                    ReportButtonEnabled = canReport && isInGame,
+                    CashoutButtonEnabled = isInGame,
+                    EndGameButtonEnabled = canBeEnded,
+                    ShowTable = cashgame.IsStarted,
+                    RunningCashgameTableModel = cashgame.IsStarted ? _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager) : null,
+                    ShowChart = cashgame.IsStarted,
+                    ChartDataUrl = cashgame.IsStarted ? new CashgameDetailsChartJsonUrlModel(homegame, cashgame) : null
+                };
         }
 
         private bool CanBeEnded(Cashgame cashgame)

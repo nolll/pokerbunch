@@ -167,15 +167,19 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		[Test]
-		public void CashoutUrl_WithManager_IsCorrectType(){
-			_isManager = true;
+		public void CashoutUrl_WithManager_IsCorrectType()
+		{
+		    const string cashoutUrl = "a";
+            _isManager = true;
 			var player = new Player();
 			_result.Player = player;
+
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameCashoutUrl(_homegame, player)).Returns(cashoutUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsInstanceOf<CashgameCashoutUrlModel>(result.CashoutUrl);
+			Assert.AreEqual(cashoutUrl, result.CashoutUrl);
 		}
 
 		[Test]

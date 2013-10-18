@@ -28,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                     PlayerUrl = result.Player != null ? _urlProvider.GetCashgameActionUrl(homegame, cashgame, result.Player) : null,
                     BuyinUrl = result.Player != null && isManager ? _urlProvider.GetCashgameBuyinUrl(homegame, result.Player) : null,
                     ReportUrl = result.Player != null && isManager ? new CashgameReportUrlModel(homegame, result.Player) : null,
-                    CashoutUrl = result.Player != null && isManager ? new CashgameCashoutUrlModel(homegame, result.Player) : null,
+                    CashoutUrl = result.Player != null && isManager ? _urlProvider.GetCashgameCashoutUrl(homegame, result.Player) : null,
                     Buyin = Globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = Globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = Globalization.FormatResult(homegame.Currency, result.Winnings),

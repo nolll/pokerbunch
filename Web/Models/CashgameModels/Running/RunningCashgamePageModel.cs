@@ -20,7 +20,7 @@ namespace Web.Models.CashgameModels.Running{
 
         public string BuyinUrl { get; set; }
         public UrlModel ReportUrl { get; set; }
-        public UrlModel CashoutUrl { get; set; }
+        public string CashoutUrl { get; set; }
         public UrlModel EndGameUrl { get; set; }
 
         public RunningCashgameTableModel RunningCashgameTableModel { get; set; }

@@ -100,12 +100,16 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		[Test]
-        public void CashoutUrl_IsSet(){
+        public void CashoutUrl_IsSet()
+		{
+		    const string cashoutUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameCashoutUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(cashoutUrl);
+
 			SetupPlayerIsInGame();
 
             var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameCashoutUrlModel>(result.CashoutUrl);
+            Assert.AreEqual(cashoutUrl, result.CashoutUrl);
 		}
 
 		[Test]

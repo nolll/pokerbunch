@@ -506,7 +506,6 @@
     <Compile Include="Models\FormModels\SelectFieldItem.cs" />
     <Compile Include="Models\CashgameModels\Add\AddCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameEndUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameTableModel.cs" />
