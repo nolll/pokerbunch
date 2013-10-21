@@ -43,10 +43,13 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
 		[Test]
         public void ForgotPasswordUrl_IsSet(){
+            const string forgotPasswordUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetForgotPasswordUrl()).Returns(forgotPasswordUrl);
+
             var sut = GetSut();
 			var result = sut.Create();
 
-			Assert.IsInstanceOf<ForgotPasswordUrlModel>(result.ForgotPasswordUrl);
+			Assert.AreEqual(forgotPasswordUrl, result.ForgotPasswordUrl);
 		}
 
 		[Test]

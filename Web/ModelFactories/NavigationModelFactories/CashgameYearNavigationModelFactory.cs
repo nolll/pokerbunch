@@ -44,11 +44,11 @@ namespace Web.ModelFactories.NavigationModelFactories
         {
             if (view == "matrix")
             {
-                return new CashgameMatrixUrlModel(homegame, year).Url;
+                return _urlProvider.GetCashgameMatrixUrl(homegame, year);
             }
             if (view == "leaderboard")
             {
-                return new CashgameLeaderboardUrlModel(homegame, year).Url;
+                return _urlProvider.GetCashgameLeaderboardUrl(homegame, year);
             }
             if (view == "chart")
             {
@@ -56,11 +56,11 @@ namespace Web.ModelFactories.NavigationModelFactories
             }
             if (view == "listing")
             {
-                return new CashgameListingUrlModel(homegame, year).Url;
+                return _urlProvider.GetCashgameListingUrl(homegame, year);
             }
             if (view == "facts")
             {
-                return new CashgameFactsUrlModel(homegame, year).Url;
+                return _urlProvider.GetCashgameFactsUrl(homegame, year);
             }
             return null;
         }

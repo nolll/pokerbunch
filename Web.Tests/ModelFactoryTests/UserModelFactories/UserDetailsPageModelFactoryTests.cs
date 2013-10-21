@@ -43,11 +43,14 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         public void ActionDetails_ViewOwnUser_OutputsEditLink(){
 			var user = new User();
 
+            const string editUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(user)).Returns(editUrl);
+
 			var sut = GetSut();
 			var result = sut.Create(user, user);
 
 			Assert.IsTrue(result.ShowEditLink);
-			Assert.IsInstanceOf<UserEditUrlModel>(result.EditLink);
+            Assert.AreEqual(editUrl, result.EditLink);
 		}
 
         [Test]
@@ -55,22 +58,28 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 			var currentUser = new User {UserName = "a", GlobalRole = Role.Admin};
             var displayUser = new User {UserName = "b"};
 
+            const string editUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(displayUser)).Returns(editUrl);
+
 			var sut = GetSut();
 			var result = sut.Create(currentUser, displayUser);
 
 			Assert.IsTrue(result.ShowEditLink);
-			Assert.IsInstanceOf<UserEditUrlModel>(result.EditLink);
+			Assert.AreEqual(editUrl, result.EditLink);
 		}
 
 		[Test]
         public void ActionDetails_ViewOwnUser_OutputsChangePasswordLink(){
 			var user = new User();
 
+            const string changePasswordUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetChangePasswordUrl()).Returns(changePasswordUrl);
+
 			var sut = GetSut();
 			var result = sut.Create(user, user);
 
 			Assert.IsTrue(result.ShowPasswordLink);
-            Assert.IsInstanceOf<ChangePasswordUrlModel>(result.ChangePasswordLink);
+            Assert.AreEqual(changePasswordUrl, result.ChangePasswordLink);
 		}
 
 		[Test]
@@ -97,7 +106,10 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         
         private UserDetailsPageModelFactory GetSut()
         {
-            return new UserDetailsPageModelFactory(Mocks.AvatarModelFactoryMock.Object, Mocks.PagePropertiesFactoryMock.Object);
+            return new UserDetailsPageModelFactory(
+                Mocks.AvatarModelFactoryMock.Object, 
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

@@ -312,12 +312,6 @@
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameAddUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomegameEditUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomegameListingUrlModel.cs" />
@@ -493,14 +487,8 @@
     <Compile Include="Models\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModel.cs" />
     <Compile Include="Models\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameFactsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameLeaderboardUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameListingUrlModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationYearModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgamePublishUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameUnpublishUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameEditUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsChartModel.cs" />
@@ -520,8 +508,6 @@
     <Compile Include="Models\FormModels\SelectFieldItem.cs" />
     <Compile Include="Models\CashgameModels\Add\AddCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameEndUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameTableModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameListingTableItemModel.cs" />
@@ -529,7 +515,6 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameListingPageModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
@@ -546,8 +531,6 @@
     <Compile Include="Models\UserModels\Listing\UserItemModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs" />
@@ -586,7 +569,6 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
     <Compile Include="Models\UrlModels\UserEditUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs" />
     <Content Include="Views\Cashgame\Add\Add.cshtml" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartPageModel.cs" />
     <Content Include="Views\Cashgame\Chart\Chart.cshtml" />

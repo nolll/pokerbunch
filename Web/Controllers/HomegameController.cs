@@ -27,6 +27,7 @@ namespace Web.Controllers{
 	    private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
 	    private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
 	    private readonly IInvitationCodeCreator _invitationCodeCreator;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public HomegameController(
             IUserContext userContext,
@@ -42,7 +43,8 @@ namespace Web.Controllers{
             IHomegameEditPageModelFactory homegameEditPageModelFactory,
             IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
             IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory,
-            IInvitationCodeCreator invitationCodeCreator)
+            IInvitationCodeCreator invitationCodeCreator,
+            IUrlProvider urlProvider)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -58,6 +60,7 @@ namespace Web.Controllers{
 	        _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
 	        _joinHomegameConfirmationPageModelFactory = joinHomegameConfirmationPageModelFactory;
 	        _invitationCodeCreator = invitationCodeCreator;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public ActionResult Listing(){
@@ -92,7 +95,7 @@ namespace Web.Controllers{
                     homegame = _homegameRepository.AddHomegame(homegame);
                     var user = _userContext.GetUser();
                     _playerRepository.AddPlayerWithUser(homegame, user, Role.Manager);
-                    return Redirect(new HomegameAddConfirmationUrlModel().Url);
+                    return Redirect(_urlProvider.GetHomegameAddConfirmationUrl());
                 }
                 ModelState.AddModelError("homegame_exists", "The Homegame name is not available");
 			}

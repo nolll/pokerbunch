@@ -156,15 +156,19 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
 		}
 
 		[Test]
-		public void ReportUrl_WithManager_IsCorrectType(){
+		public void ReportUrl_WithManager_IsCorrectType()
+		{
+		    const string reportUrl = "a";
 			_isManager = true;
 			var player = new Player();
 			_result.Player = player;
 
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameReportUrl(_homegame, player)).Returns(reportUrl);
+
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
+			Assert.AreEqual(reportUrl, result.ReportUrl);
 		}
 
 		[Test]

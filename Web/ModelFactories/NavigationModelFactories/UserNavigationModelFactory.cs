@@ -43,7 +43,7 @@ namespace Web.ModelFactories.NavigationModelFactories
                 {
                     new NavigationNode("Sign in", _urlProvider.GetLoginUrl()),
                     new NavigationNode("Register", _urlProvider.GetAddUserUrl()),
-                    new NavigationNode("Forgot password", new ForgotPasswordUrlModel())
+                    new NavigationNode("Forgot password", _urlProvider.GetForgotPasswordUrl())
                 };
         }
 
@@ -51,8 +51,8 @@ namespace Web.ModelFactories.NavigationModelFactories
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode(user.DisplayName, new UserDetailsUrlModel(user)),
-			        new NavigationNode("Sharing", new SharingSettingsUrlModel()),
+                    new NavigationNode(user.DisplayName, _urlProvider.GetUserDetailsUrl(user)),
+			        new NavigationNode("Sharing", _urlProvider.GetSharingSettingsUrl()),
 			        new NavigationNode("Sign Out", _urlProvider.GetLogoutUrl())
                 };
 		}

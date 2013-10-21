@@ -43,7 +43,7 @@ namespace Web.ModelFactories.HomeModelFactories
                     BrowserTitle = "Poker Bunch",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 			        IsLoggedIn = user != null,
-                    AddHomegameUrl = new HomegameAddUrlModel(),
+                    AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
                     LoginUrl = _urlProvider.GetLoginUrl(),
                     RegisterUrl = _urlProvider.GetAddUserUrl(),
 			        AdminNav = _adminNavigationFactory.Create(user)

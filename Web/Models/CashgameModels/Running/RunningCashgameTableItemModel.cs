@@ -13,7 +13,7 @@ namespace Web.Models.CashgameModels.Running{
 		public string WinningsClass { get; set; }
 		public bool ManagerButtonsEnabled { get; set; }
 		public string BuyinUrl { get; set; }
-		public UrlModel ReportUrl { get; set; }
+		public string ReportUrl { get; set; }
 		public string CashoutUrl { get; set; }
 		public bool HasCashedOut { get; set; }
 	}

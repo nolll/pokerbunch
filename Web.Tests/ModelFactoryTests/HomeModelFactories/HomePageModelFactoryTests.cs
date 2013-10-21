@@ -14,17 +14,18 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         {
             const string loginUrl = "a";
             const string addUserUrl = "b";
+            const string addHomegameUrl = "c";
             Mocks.UrlProviderMock.Setup(o => o.GetLoginUrl()).Returns(loginUrl);
             Mocks.UrlProviderMock.Setup(o => o.GetAddUserUrl()).Returns(addUserUrl);
+            Mocks.UrlProviderMock.Setup(o => o.GetHomegameAddUrl()).Returns(addHomegameUrl);
 
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
-                                  .Returns(new List<Homegame>());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
 
             var sut = GetSut();
             var result = sut.Create();
 
             Assert.IsFalse(result.IsLoggedIn);
-            Assert.IsNotNull(result.AddHomegameUrl);
+            Assert.AreEqual(addHomegameUrl, result.AddHomegameUrl);
             Assert.AreEqual(loginUrl,result.LoginUrl);
             Assert.AreEqual(addUserUrl, result.RegisterUrl);
         }

@@ -29,6 +29,7 @@ namespace Web.Controllers{
 	    private readonly IChangePasswordPageModelFactory _changePasswordPageModelFactory;
 	    private readonly IForgotPasswordPageModelFactory _forgotPasswordPageModelFactory;
 	    private readonly IPasswordSender _passwordSender;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public UserController(
             IUserContext userContext,
@@ -46,7 +47,8 @@ namespace Web.Controllers{
             IEditUserPageModelFactory editUserPageModelFactory,
             IChangePasswordPageModelFactory changePasswordPageModelFactory,
             IForgotPasswordPageModelFactory forgotPasswordPageModelFactory,
-            IPasswordSender passwordSender)
+            IPasswordSender passwordSender,
+            IUrlProvider urlProvider)
 	    {
 	        _userContext = userContext;
             _userRepository = userRepository;
@@ -64,6 +66,7 @@ namespace Web.Controllers{
 	        _changePasswordPageModelFactory = changePasswordPageModelFactory;
 	        _forgotPasswordPageModelFactory = forgotPasswordPageModelFactory;
 	        _passwordSender = passwordSender;
+	        _urlProvider = urlProvider;
 	    }
 
 		public ActionResult Details(string name){
@@ -170,7 +173,7 @@ namespace Web.Controllers{
     				var encryptedPassword = _encryptionService.Encrypt(postModel.Password, salt);
 	    			_userRepository.SetEncryptedPassword(user, encryptedPassword);
 		    		_userRepository.SetSalt(user, salt);
-			    	return Redirect(new ChangePasswordConfirmationUrlModel().Url);
+			    	return Redirect(_urlProvider.GetChangePasswordConfirmationUrl());
                 }
                 ModelState.AddModelError("password_mismatch", "The passwords does not match");
 			}
@@ -201,7 +204,7 @@ namespace Web.Controllers{
 			        _userRepository.SetSalt(user, salt);
 					_passwordSender.Send(user, password);
 				}
-				return Redirect(new ForgotPasswordConfirmationUrlModel().Url);
+				return Redirect(_urlProvider.GetForgotPasswordConfirmationUrl());
 			}
             var model = _forgotPasswordPageModelFactory.Create(_userContext.GetUser(), postModel);
 			return View("ForgotPassword/ForgotPassword", model);

@@ -32,7 +32,7 @@ namespace Web.ModelFactories.AuthModelFactories
                     PageProperties = _pagePropertiesFactory.Create(),
                     ReturnUrl = returnUrl,
                     AddUserUrl = _urlProvider.GetAddUserUrl(),
-                    ForgotPasswordUrl = new ForgotPasswordUrlModel(),
+                    ForgotPasswordUrl = _urlProvider.GetForgotPasswordUrl()
                 };
         }
 

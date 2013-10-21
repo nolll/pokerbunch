@@ -19,11 +19,11 @@ namespace Web.ModelFactories.NavigationModelFactories
             return new HomegameNavigationModel
                 {
                     Heading = homegame.DisplayName,
-			        HeadingLink = new HomegameDetailsUrlModel(homegame),
-			        CashgameLink = new CashgameIndexUrlModel(homegame),
-			        PlayerLink = new PlayerIndexUrlModel(homegame),
+			        HeadingLink = _urlProvider.GetHomegameDetailsUrl(homegame),
+			        CashgameLink = _urlProvider.GetCashgameIndexUrl(homegame),
+                    PlayerLink = _urlProvider.GetPlayerIndexUrl(homegame),
 			        CreateLink = _urlProvider.GetCashgameAddUrl(homegame),
-			        RunningLink = new RunningCashgameUrlModel(homegame),
+                    RunningLink = _urlProvider.GetRunningCashgameUrl(homegame),
 			        CashgameIsRunning = runningGame != null
                 };
         }

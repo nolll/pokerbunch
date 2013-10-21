@@ -19,11 +19,11 @@ namespace Web.ModelFactories.NavigationModelFactories
             return new CashgamePageNavigationModel
                 {
                     Selected = view,
-                    MatrixLink = new CashgameMatrixUrlModel(homegame, year),
-			        LeaderboardLink = new CashgameLeaderboardUrlModel(homegame, year),
+                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(homegame, year),
+                    LeaderboardLink = _urlProvider.GetCashgameLeaderboardUrl(homegame, year),
 			        ChartLink = _urlProvider.GetCashgameChartUrl(homegame, year),
-			        ListingLink = new CashgameListingUrlModel(homegame, year),
-			        FactsLink = new CashgameFactsUrlModel(homegame, year)
+                    ListingLink = _urlProvider.GetCashgameListingUrl(homegame, year),
+                    FactsLink = _urlProvider.GetCashgameFactsUrl(homegame, year)
                 };
         }
     }

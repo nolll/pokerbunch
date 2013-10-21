@@ -113,7 +113,7 @@ namespace Web.Controllers{
 			var years = _cashgameRepository.GetYears(homegame);
 			if(years.Count > 0){
 				var year = years[0];
-				return Redirect(new CashgameMatrixUrlModel(homegame, year).Url);
+				return Redirect(_urlProvider.GetCashgameMatrixUrl(homegame, year));
 			}
 			return Redirect(_urlProvider.GetCashgameAddUrl(homegame));
 		}
@@ -237,7 +237,7 @@ namespace Web.Controllers{
 			_userContext.RequirePlayer(homegame);
 			var cashgame = _cashgameRepository.GetRunning(homegame);
 			if(cashgame == null){
-                return Redirect(new CashgameIndexUrlModel(homegame).Url);
+                return Redirect(_urlProvider.GetCashgameIndexUrl(homegame));
 			}
 			var user = _userContext.GetUser();
 			var player = _playerRepository.GetByUserName(homegame, user.UserName);
@@ -417,8 +417,7 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetRunning(homegame);
 			_userContext.RequirePlayer(homegame);
 			_cashgameRepository.EndGame(cashgame);
-			var indexUrl = new CashgameIndexUrlModel(homegame);
-            return Redirect(indexUrl.Url);
+            return Redirect(_urlProvider.GetCashgameIndexUrl(homegame));
 		}
 
         public ActionResult Delete(string gameName, string dateStr){
@@ -427,8 +426,8 @@ namespace Web.Controllers{
 			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			_cashgameRepository.DeleteGame(cashgame);
-			var listUrl = new CashgameListingUrlModel(homegame, date.Year);
-            return Redirect(listUrl.Url);
+			var listUrl = _urlProvider.GetCashgameListingUrl(homegame, date.Year);
+            return Redirect(listUrl);
 		}
 
         private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){

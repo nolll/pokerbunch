@@ -1,4 +1,5 @@
 ﻿using Core.Classes;
+using Core.Services;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
@@ -10,11 +11,16 @@ namespace Web.ModelFactories.UserModelFactories
     {
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public UserDetailsPageModelFactory(IAvatarModelFactory avatarModelFactory, IPagePropertiesFactory pagePropertiesFactory)
+        public UserDetailsPageModelFactory(
+            IAvatarModelFactory avatarModelFactory, 
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _avatarModelFactory = avatarModelFactory;
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public UserDetailsPageModel Create(User currentUser, User displayUser)
@@ -37,13 +43,13 @@ namespace Web.ModelFactories.UserModelFactories
             if (currentUser.IsAdmin || isViewingCurrentUser)
             {
                 model.ShowEditLink = true;
-                model.EditLink = new UserEditUrlModel(displayUser);
+                model.EditLink = _urlProvider.GetUserEditUrl(displayUser);
             }
 
             if (isViewingCurrentUser)
             {
                 model.ShowPasswordLink = true;
-                model.ChangePasswordLink = new ChangePasswordUrlModel();
+                model.ChangePasswordLink = _urlProvider.GetChangePasswordUrl();
             }
 
             return model;

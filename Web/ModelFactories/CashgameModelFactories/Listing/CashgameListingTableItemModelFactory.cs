@@ -1,4 +1,5 @@
 using Core.Classes;
+using Core.Services;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Listing;
 using Web.Models.UrlModels;
@@ -7,6 +8,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
 {
     public class CashgameListingTableItemModelFactory : ICashgameListingTableItemModelFactory
     {
+        private readonly IUrlProvider _urlProvider;
+
+        public CashgameListingTableItemModelFactory(IUrlProvider urlProvider)
+        {
+            _urlProvider = urlProvider;
+        }
+
         public CashgameListingTableItemModel Create(Homegame homegame, Cashgame cashgame, bool showYear)
         {
             var playerCount = cashgame.PlayerCount;
@@ -18,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
                     Duration = GetDuration(cashgame),
                     Turnover = GetTurnover(homegame, cashgame),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
-                    DetailsUrl = new CashgameDetailsUrlModel(homegame, cashgame),
+                    DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
                     DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     PublishedClass = GetPublishedClass(cashgame)
                 };
