@@ -1,18 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
-using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Running;
-using Web.Models.UrlModels;
 
-namespace Web.Tests.ModelTests.CashgameModels.Running{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
-	class RunningCashgamePageModelTests : WebMockContainer {
+	class RunningCashgamePageModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;

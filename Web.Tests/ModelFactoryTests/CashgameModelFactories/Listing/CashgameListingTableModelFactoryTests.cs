@@ -7,9 +7,9 @@ using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.Models.CashgameModels.Listing;
 
-namespace Web.Tests.ModelTests.CashgameModels.Listing{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
-	public class CashgameListingTableModelTests : WebMockContainer {
+	public class CashgameListingTableModelFactoryTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private List<Cashgame> _cashgames;

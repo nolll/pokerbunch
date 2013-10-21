@@ -5,14 +5,14 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 
-namespace Web.Tests.ModelTests.CashgameModels.Matrix{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
-	public class CashgameMatrixTableModelTests : WebMockContainer
+	public class CashgameMatrixTableModelFactoryTests : WebMockContainer
 	{
 		private readonly Homegame _homegame;
 		private List<Cashgame> _cashgames;
 
-	    public CashgameMatrixTableModelTests()
+	    public CashgameMatrixTableModelFactoryTests()
 	    {
             _homegame = new Homegame();
         }

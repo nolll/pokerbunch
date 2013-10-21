@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.Services;
 
-namespace Web.Tests.ModelTests.UrlModels{
+namespace Web.Tests.ServiceTests{
 
 	public class UrlProviderTests : WebMockContainer {
 
