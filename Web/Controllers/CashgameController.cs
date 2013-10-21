@@ -192,7 +192,7 @@ namespace Web.Controllers{
                 {
                     var cashgame = GetCashgame(postModel);
                     _cashgameRepository.AddGame(homegame, cashgame);
-                    return Redirect(new RunningCashgameUrlModel(homegame).Url);
+                    return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
                 }
                 ModelState.AddModelError("no_location", "Please enter a location");
             }
@@ -322,8 +322,7 @@ namespace Web.Controllers{
 			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postModel);
 				return ShowBuyinForm(user, player, model);
 			}
-			var runningUrl = new RunningCashgameUrlModel(homegame);
-            return Redirect(runningUrl.Url);
+            return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 		}
 
         public ActionResult Report(string gameName, string name){
@@ -347,8 +346,7 @@ namespace Web.Controllers{
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
 			    _cashgameRepository.AddCheckpoint(cashgame, player, checkpoint);
-			    var runningUrl = new RunningCashgameUrlModel(homegame);
-                return Redirect(runningUrl.Url);
+                return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
             return ShowReportForm(player, user, model);
@@ -395,8 +393,7 @@ namespace Web.Controllers{
 				} else {
 					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}
-                var runningUrl = new RunningCashgameUrlModel(homegame);
-                return Redirect(runningUrl.Url);
+                return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _cashoutPageModelFactory.Create(user, homegame, runningGame, postModel);
             return View("Cashout/Cashout", model);

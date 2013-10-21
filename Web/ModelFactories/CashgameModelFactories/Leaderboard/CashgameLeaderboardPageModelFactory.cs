@@ -10,13 +10,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
+        private readonly ICashgameLeaderboardTableModelFactory _cashgameLeaderboardTableModelFactory;
 
         public CashgameLeaderboardPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgameNavigationModelFactory cashgameNavigationModelFactory)
+            ICashgameNavigationModelFactory cashgameNavigationModelFactory,
+            ICashgameLeaderboardTableModelFactory cashgameLeaderboardTableModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
+            _cashgameLeaderboardTableModelFactory = cashgameLeaderboardTableModelFactory;
         }
 
         public CashgameLeaderboardPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year, Cashgame runningGame)
@@ -25,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
                 {
                     BrowserTitle = "Cashgame Leaderboard",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-			        TableModel = new CashgameLeaderboardTableModel(homegame, suite),
+			        TableModel = _cashgameLeaderboardTableModelFactory.Create(homegame, suite),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "leaderboard", years, year, runningGame)
                 };
         }

@@ -112,10 +112,10 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			var hasPlayed = _cashgameRepository.HasPlayed(player);
 			if(hasPlayed){
-				return Redirect(new PlayerDetailsUrlModel(homegame, player).ToString());
+				return Redirect(_urlProvider.GetPlayerDetailsUrl(homegame, player));
 			}
 			_playerRepository.DeletePlayer(player);
-			return Redirect(new PlayerIndexUrlModel(homegame).ToString());
+			return Redirect(_urlProvider.GetPlayerIndexUrl(homegame));
 		}
 
         public ActionResult Invite(string gameName, string name){
@@ -131,7 +131,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			if(ModelState.IsValid){
 				_invitationSender.Send(homegame, player, postModel.Email);
-				return Redirect(new PlayerInviteConfirmationUrlModel(homegame, player).Url);
+				return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(homegame, player));
 			} else {
 				return ShowInviteForm(homegame);
 			}

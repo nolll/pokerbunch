@@ -9,10 +9,14 @@ namespace Web.ModelFactories.UserModelFactories
     public class UserListingPageModelFactory : IUserListingPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUserItemModelFactory _userItemModelFactory;
 
-        public UserListingPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public UserListingPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUserItemModelFactory userItemModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _userItemModelFactory = userItemModelFactory;
         }
 
         public UserListingPageModel Create(User user, IList<User> users)
@@ -27,7 +31,7 @@ namespace Web.ModelFactories.UserModelFactories
         
         private List<UserItemModel> GetUserModels(IEnumerable<User> users)
         {
-            return users.Select(user => new UserItemModel(user)).ToList();
+            return users.Select(_userItemModelFactory.Create).ToList();
         }
     }
 }

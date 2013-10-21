@@ -119,7 +119,7 @@ namespace Web.Controllers{
 				    _userRepository.SetEncryptedPassword(user, encryptedPassword);
 				    _userRepository.SetSalt(user, salt);
 				    _registrationConfirmationSender.Send(user, password);
-				    return Redirect(new UserAddConfirmationUrlModel().Url);
+				    return Redirect(_urlProvider.GetUserAddConfirmationUrl());
                 }
 			}
             var model = _addUserPageModelFactory.Create(_userContext.GetUser(), postModel);
@@ -149,7 +149,7 @@ namespace Web.Controllers{
             if(ModelState.IsValid){
 				user = _userModelMapper.GetUser(user, postModel);
 			    _userRepository.UpdateUser(user);
-				return Redirect(new UserDetailsUrlModel(user).Url);
+				return Redirect(_urlProvider.GetUserDetailsUrl(user));
 			}
             var model = _editUserPageModelFactory.Create(user, postModel);
             return View("Edit/Edit", model);

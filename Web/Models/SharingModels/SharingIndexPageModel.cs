@@ -1,5 +1,4 @@
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.SharingModels{
 
@@ -8,7 +7,7 @@ namespace Web.Models.SharingModels{
         public PageProperties PageProperties { get; set; }
 	    public string BrowserTitle { get; set; }
 		public bool IsSharingToTwitter { get; set; }
-		public UrlModel ShareToTwitterSettingsUrl { get; set; }
+		public string ShareToTwitterSettingsUrl { get; set; }
 	}
 
 }

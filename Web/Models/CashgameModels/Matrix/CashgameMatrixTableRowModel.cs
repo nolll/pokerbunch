@@ -16,9 +16,6 @@ namespace Web.Models.CashgameModels.Matrix{
 	    public string WinRate { get; set; }
 	    public UrlModel PlayerUrl { get; set; }
         public List<CashgameMatrixTableCellModel> CellModels { get; set; }
-
-		//public $player;
-		//public $currency;
 		
 		public CashgameMatrixTableRowModel(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank){
 			var cashgames = suite.Cashgames;

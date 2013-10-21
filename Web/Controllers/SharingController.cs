@@ -16,6 +16,7 @@ namespace Web.Controllers{
 	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ITwitterIntegration _twitterIntegration;
 	    private readonly ISharingTwitterPageModelFactory _sharingTwitterPageModelFactory;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public SharingController(
             IUserContext userContext,
@@ -24,7 +25,8 @@ namespace Web.Controllers{
             IWebContext webContext,
             ITwitterRepository twitterRepository,
             ITwitterIntegration twitterIntegration,
-            ISharingTwitterPageModelFactory sharingTwitterPageModelFactory)
+            ISharingTwitterPageModelFactory sharingTwitterPageModelFactory,
+            IUrlProvider urlProvider)
 	    {
 	        _userContext = userContext;
 	        _sharingRepository = sharingRepository;
@@ -33,6 +35,7 @@ namespace Web.Controllers{
 	        _twitterRepository = twitterRepository;
 	        _twitterIntegration = twitterIntegration;
 	        _sharingTwitterPageModelFactory = sharingTwitterPageModelFactory;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public ActionResult Index(){
@@ -62,7 +65,7 @@ namespace Web.Controllers{
 			_userContext.RequireUser();
 			var user = _userContext.GetUser();
 			_sharingRepository.RemoveSharing(user, SocialServiceIdentifier.Twitter);
-			return Redirect(new TwitterSettingsUrlModel().Url);
+			return Redirect(_urlProvider.GetTwitterSettingsUrl());
 		}
 
         public ActionResult TwitterCallback()
@@ -74,7 +77,7 @@ namespace Web.Controllers{
             var twitterCredentials = _twitterIntegration.GetCredentials(token, verifier);
             _twitterRepository.AddCredentials(user, twitterCredentials);
             _sharingRepository.AddSharing(user, SocialServiceIdentifier.Twitter);
-			return Redirect(new TwitterSettingsUrlModel().Url);
+            return Redirect(_urlProvider.GetTwitterSettingsUrl());
 		}
 
 	}

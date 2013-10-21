@@ -1,4 +1,5 @@
 ﻿using Core.Classes;
+using Core.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
 using Web.Models.UrlModels;
@@ -8,10 +9,14 @@ namespace Web.ModelFactories.SharingModelFactories
     public class SharingTwitterPageModelFactory : ISharingTwitterPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public SharingTwitterPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public SharingTwitterPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public SharingTwitterPageModel Create(User user, bool isSharing, TwitterCredentials credentials)
@@ -28,13 +33,13 @@ namespace Web.ModelFactories.SharingModelFactories
                 };
         }
 
-        private UrlModel GetPostUrlModel(bool isSharing)
+        private string GetPostUrlModel(bool isSharing)
         {
             if (isSharing)
             {
-                return new TwitterStopShareUrlModel();
+                return _urlProvider.GetTwitterStopShareUrl();
             }
-            return new TwitterStartShareUrlModel();
+            return _urlProvider.GetTwitterStartShareUrl();
         }
     }
 }

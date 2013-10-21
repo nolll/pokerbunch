@@ -128,13 +128,13 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Leaderboard\CashgameLeaderboardPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingTableItemModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\UrlModels\UrlProviderTests.cs" />
