@@ -3,7 +3,6 @@ using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Services;
 using Web.Formatters;
-using Web.Models.UrlModels;
 using Web.Routing;
 
 namespace Web.Services
@@ -86,192 +85,192 @@ namespace Web.Services
 
         public string GetCashgameDeleteUrl(Homegame homegame, Cashgame cashgame)
         {
-            return new CashgameDeleteUrlModel(homegame, cashgame).Url;
+            return GetCashgameUrl(RouteFormats.CashgameDelete, homegame, cashgame);
         }
 
         public string GetCashgameDetailsChartJsonUrl(Homegame homegame, Cashgame cashgame)
         {
-            return new CashgameDetailsChartJsonUrlModel(homegame, cashgame).Url;
+            return GetCashgameUrl(RouteFormats.CashgameDetailsChartJson, homegame, cashgame);
         }
 
         public string GetCashgameDetailsUrl(Homegame homegame, Cashgame cashgame)
         {
-            return new CashgameDetailsUrlModel(homegame, cashgame).Url;
+            return GetCashgameUrl(RouteFormats.CashgameDetails, homegame, cashgame);
         }
 
         public string GetCashgameEditUrl(Homegame homegame, Cashgame cashgame)
         {
-            return new CashgameEditUrlModel(homegame, cashgame).Url;
+            return GetCashgameUrl(RouteFormats.CashgameEdit, homegame, cashgame);
         }
 
         public string GetCashgameEndUrl(Homegame homegame)
         {
-            return new CashgameEndUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.CashgameEnd, homegame);
         }
 
         public string GetCashgameFactsUrl(Homegame homegame, int? year)
         {
-            return new CashgameFactsUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, homegame, year);
         }
 
         public string GetCashgameIndexUrl(Homegame homegame)
         {
-            return new CashgameIndexUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.CashgameIndex, homegame);
         }
 
         public string GetCashgameLeaderboardUrl(Homegame homegame, int? year)
         {
-            return new CashgameLeaderboardUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameLeaderboard, RouteFormats.CashgameLeaderboardWithYear, homegame, year);
         }
 
         public string GetCashgameListingUrl(Homegame homegame, int? year)
         {
-            return new CashgameListingUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameListing, RouteFormats.CashgameListingWithYear, homegame, year);
         }
 
         public string GetCashgameMatrixUrl(Homegame homegame, int? year)
         {
-            return new CashgameMatrixUrlModel(homegame, year).Url;
+            return GetHomegameYearUrl(RouteFormats.CashgameMatrix, RouteFormats.CashgameMatrixWithYear, homegame, year);
         }
 
         public string GetCashgameReportUrl(Homegame homegame, Player player)
         {
-            return new CashgameReportUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.CashgameReport, homegame, player);
         }
 
         public string GetChangePasswordConfirmationUrl()
         {
-            return new ChangePasswordConfirmationUrlModel().Url;
+            return RouteFormats.ChangePasswordConfirmation;
         }
 
         public string GetChangePasswordUrl()
         {
-            return new ChangePasswordUrlModel().Url;
+            return RouteFormats.ChangePassword;
         }
 
         public string GetForgotPasswordConfirmationUrl()
         {
-            return new ForgotPasswordConfirmationUrlModel().Url;
+            return RouteFormats.ForgotPasswordConfirmation;
         }
 
         public string GetForgotPasswordUrl()
         {
-            return new ForgotPasswordUrlModel().Url;
+            return RouteFormats.ForgotPassword;
         }
 
         public string GetHomegameAddConfirmationUrl()
         {
-            return new HomegameAddConfirmationUrlModel().Url;
+            return RouteFormats.HomegameAddConfirmation;
         }
 
         public string GetHomegameAddUrl()
         {
-            return new HomegameAddUrlModel().Url;
+            return RouteFormats.HomegameAdd;
         }
 
         public string GetHomegameDetailsUrl(Homegame homegame)
         {
-            return new HomegameDetailsUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.HomegameDetails, homegame);
         }
 
         public string GetHomegameEditUrl(Homegame homegame)
         {
-            return new HomegameEditUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.HomegameEdit, homegame);
         }
 
         public string GetHomegameJoinConfirmationUrl(Homegame homegame)
         {
-            return new HomegameJoinConfirmationUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.HomegameJoinConfirmation, homegame);
         }
 
         public string GetHomegameListingUrl()
         {
-            return new HomegameListingUrlModel().Url;
+            return RouteFormats.HomegameListing;
         }
 
         public string GetHomeUrl()
         {
-            return new HomeUrlModel().Url;
+            return RouteFormats.Home;
         }
 
         public string GetPlayerAddConfirmationUrl(Homegame homegame)
         {
-            return new PlayerAddConfirmationUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.PlayerAddConfirmation, homegame);
         }
 
         public string GetPlayerAddUrl(Homegame homegame)
         {
-            return new PlayerAddUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.PlayerAdd, homegame);
         }
 
         public string GetPlayerDeleteUrl(Homegame homegame, Player player)
         {
-            return new PlayerDeleteUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.PlayerDelete, homegame, player);
         }
 
         public string GetPlayerDetailsUrl(Homegame homegame, Player player)
         {
-            return new PlayerDetailsUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.PlayerDetails, homegame, player);
         }
 
         public string GetPlayerIndexUrl(Homegame homegame)
         {
-            return new PlayerIndexUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.PlayerIndex, homegame);
         }
 
         public string GetPlayerInviteConfirmationUrl(Homegame homegame, Player player)
         {
-            return new PlayerInviteConfirmationUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.PlayerInviteConfirmation, homegame, player);
         }
 
         public string GetPlayerInviteUrl(Homegame homegame, Player player)
         {
-            return new PlayerInviteUrlModel(homegame, player).Url;
+            return GetPlayerUrl(RouteFormats.PlayerInvite, homegame, player);
         }
 
         public string GetRunningCashgameUrl(Homegame homegame)
         {
-            return new RunningCashgameUrlModel(homegame).Url;
+            return GetHomegameUrl(RouteFormats.RunningCashgame, homegame);
         }
 
         public string GetSharingSettingsUrl()
         {
-            return new SharingSettingsUrlModel().Url;
+            return RouteFormats.SharingSettings;
         }
 
         public string GetTwitterSettingsUrl()
         {
-            return new TwitterSettingsUrlModel().Url;
+            return RouteFormats.TwitterSettings;
         }
 
         public string GetTwitterStartShareUrl()
         {
-            return new TwitterStartShareUrlModel().Url;
+            return RouteFormats.TwitterStartShare;
         }
 
         public string GetTwitterStopShareUrl()
         {
-            return new TwitterStopShareUrlModel().Url;
+            return RouteFormats.TwitterStopShare;
         }
         
         public string GetUserAddConfirmationUrl()
         {
-            return new UserAddConfirmationUrlModel().Url;
+            return RouteFormats.UserAddConfirmation;
         }
 
         public string GetUserDetailsUrl(User user)
         {
-            return new UserDetailsUrlModel(user).Url;
+            return GetUserUrl(RouteFormats.UserDetails, user);
         }
 
         public string GetUserEditUrl(User user)
         {
-            return new UserEditUrlModel(user).Url;
+            return GetUserUrl(RouteFormats.UserEdit, user);
         }
 
         public string GetUserListingUrl()
         {
-            return new UserListingUrlModel().Url;
+            return RouteFormats.UserListing;
         }
 
         private string GetCashgamePlayerUrl(string format, Homegame homegame, Cashgame cashgame, Player player)
@@ -289,6 +288,16 @@ namespace Web.Services
         private string GetPlayerUrl(string format, Homegame homegame, Player player)
         {
             return UrlFormatter.FormatPlayer(format, homegame, player);
+        }
+
+        private string GetCashgameUrl(string format, Homegame homegame, Cashgame cashgame)
+        {
+            return UrlFormatter.FormatCashgame(format, homegame, cashgame);
+        }
+
+        private string GetUserUrl(string format, User user)
+        {
+            return UrlFormatter.FormatUser(format, user);
         }
 
         private string GetHomegameYearUrl(string format, string formatWithYear, Homegame homegame, int? year)

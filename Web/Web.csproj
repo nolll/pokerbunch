@@ -525,7 +525,6 @@
     <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameCheckpointDeleteUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
