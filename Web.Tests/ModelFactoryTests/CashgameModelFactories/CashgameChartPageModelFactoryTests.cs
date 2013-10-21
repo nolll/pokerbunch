@@ -22,10 +22,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
         [Test]
-		public void test_ChartDataUrl_IsSet(){
+		public void test_ChartDataUrl_IsSet()
+        {
+            const string chartJsonUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetCashgameChartJsonUrl(_homegame, _year)).Returns(chartJsonUrl);
+
 			var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.AreEqual(chartJsonUrl, result.ChartDataUrl);
 		}
 
 	    private CashgameChartPageModel GetResult()
@@ -36,7 +40,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashgameChartPageModelFactory GetSut()
 		{
-            return new CashgameChartPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new CashgameChartPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
 		}
 
 	}

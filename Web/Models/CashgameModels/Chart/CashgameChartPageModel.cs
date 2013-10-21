@@ -1,6 +1,5 @@
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Chart
 {
@@ -9,7 +8,7 @@ namespace Web.Models.CashgameModels.Chart
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
 		public CashgameNavigationModel CashgameNavModel { get; set; }
-		public CashgameChartJsonUrlModel ChartDataUrl { get; set; }
+		public string ChartDataUrl { get; set; }
 	}
 
 }

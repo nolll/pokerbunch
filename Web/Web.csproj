@@ -513,7 +513,6 @@
     <Compile Include="Models\CashgameModels\Listing\CashgameListingTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameListingTableModel.cs" />
     <Compile Include="Models\CashgameModels\Listing\CashgameListingPageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameSuiteChartModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
     <Compile Include="Models\UrlModels\HomegameAddConfirmationUrlModel.cs" />
