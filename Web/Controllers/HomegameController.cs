@@ -124,7 +124,7 @@ namespace Web.Controllers{
 			{
 			    var postedHomegame = _modelMapper.GetHomegame(homegame, postModel);
 				_homegameRepository.SaveHomegame(postedHomegame);
-                return Redirect(new HomegameDetailsUrlModel(postedHomegame).Url);
+                return Redirect(_urlProvider.GetHomegameDetailsUrl(postedHomegame));
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
@@ -147,7 +147,7 @@ namespace Web.Controllers{
                 if(player != null && player.UserName == null){
 				    var user = _userContext.GetUser();
 				    _playerRepository.JoinHomegame(player, homegame, user);
-				    return Redirect(new HomegameJoinConfirmationUrlModel(homegame).Url);
+				    return Redirect(_urlProvider.GetHomegameJoinConfirmationUrl(homegame));
 			    }
             }
             ModelState.AddModelError("joincode", "That code didn't work. Please check for errors and try again");

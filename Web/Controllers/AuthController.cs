@@ -14,17 +14,20 @@ namespace Web.Controllers{
 	    private readonly IEncryptionService _encryptionService;
 	    private readonly IWebContext _webContext;
 	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public AuthController(
             IUserRepository userRepository,
             IEncryptionService encryptionService, 
             IWebContext webContext, 
-            IAuthLoginPageModelFactory authLoginPageModelFactory)
+            IAuthLoginPageModelFactory authLoginPageModelFactory,
+            IUrlProvider urlProvider)
 	    {
 	        _userRepository = userRepository;
 	        _encryptionService = encryptionService;
 	        _webContext = webContext;
 	        _authLoginPageModelFactory = authLoginPageModelFactory;
+	        _urlProvider = urlProvider;
 	    }
 
 		public ActionResult Login(){
@@ -38,7 +41,7 @@ namespace Web.Controllers{
             if (user != null)
             {
             	SetCookies(user, postModel.RememberMe);
-                return Redirect(GetReturnUrl(postModel.ReturnUrl).Url);
+                return Redirect(GetReturnUrl(postModel.ReturnUrl));
 			}
             ModelState.AddModelError("login_error", "There was something wrong with your username or password. Please try again.");
             var model = _authLoginPageModelFactory.Create(postModel);
@@ -74,11 +77,11 @@ namespace Web.Controllers{
 			_webContext.SetPersistentCookie("token", token);
 		}
 
-		private UrlModel GetReturnUrl(string returnUrl){
+		private string GetReturnUrl(string returnUrl){
 			if(string.IsNullOrEmpty(returnUrl)){
-				return new HomeUrlModel();
+				return _urlProvider.GetHomeUrl();
 			}
-			return new UrlModel(returnUrl);
+			return returnUrl;
 		}
 
 		private void ClearCookies(){

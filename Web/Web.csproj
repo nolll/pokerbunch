@@ -163,6 +163,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameListingItemModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Listing\CashgameListingTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Listing\CashgameListingTableModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\HomegameListingItemModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -312,12 +314,7 @@
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameEditUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameListingUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomegameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameYearUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomeUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerUrlModel.cs" />
@@ -472,9 +469,7 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Models\PlayerModels\Listing\PlayerListingPageModel.cs" />
     <Compile Include="Models\PlayerModels\Listing\PlayerItemModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerAddUrlModel.cs" />
     <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerDeleteUrlModel.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\AvatarModelFactory.cs" />
     <Compile Include="Models\MiscModels\AvatarModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteUrlModel.cs" />
@@ -523,11 +518,9 @@
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\CashgameEditPageModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegamePageModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameJoinConfirmationUrlModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserItemModel.cs" />
     <Compile Include="Models\UserModels\Listing\UserListingPageModel.cs" />
     <Compile Include="Models\UrlModels\UserAddConfirmationUrlModel.cs" />

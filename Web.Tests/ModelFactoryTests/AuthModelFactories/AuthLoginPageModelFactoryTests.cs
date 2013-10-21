@@ -2,7 +2,6 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
-using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
@@ -11,11 +10,14 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
 		{
+            const string homeUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns(homeUrl);
+
 		    var sut = GetSut();
 
 		    var result = sut.Create();
 
-			Assert.AreEqual("/", result.ReturnUrl);
+			Assert.AreEqual(homeUrl, result.ReturnUrl);
 		}
 
 		[Test]

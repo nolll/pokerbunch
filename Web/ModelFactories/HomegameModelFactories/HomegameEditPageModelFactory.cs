@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Edit;
@@ -12,10 +13,14 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class HomegameEditPageModelFactory : IHomegameEditPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public HomegameEditPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public HomegameEditPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame)
@@ -26,7 +31,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Edit Homegame",
 		            PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-			        CancelUrl = new HomegameDetailsUrlModel(homegame),
+			        CancelUrl = _urlProvider.GetHomegameDetailsUrl(homegame),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
 			        Description = homegame.Description,
 			        HouseRules = homegame.HouseRules,

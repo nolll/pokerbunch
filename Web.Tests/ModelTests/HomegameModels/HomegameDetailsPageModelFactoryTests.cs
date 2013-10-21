@@ -54,11 +54,14 @@ namespace Web.Tests.ModelTests.HomegameModels{
 
 		[Test]
         public void Create_SetsEditUrl()
-        {
+		{
+		    const string editUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetHomegameEditUrl(_homegame)).Returns(editUrl);
+
 			var sut = GetSut();
             var result = sut.Create(_user, _homegame, _isInManagerMode);
 
-			Assert.IsInstanceOf<HomegameEditUrlModel>(result.EditUrl);
+			Assert.AreEqual(editUrl, result.EditUrl);
 		}
 
 		[Test]
@@ -93,7 +96,9 @@ namespace Web.Tests.ModelTests.HomegameModels{
 		}
 
 		private HomegameDetailsPageModelFactory GetSut(){
-            return new HomegameDetailsPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new HomegameDetailsPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
 		}
 
 	}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Achievements;
@@ -13,13 +14,16 @@ namespace Web.ModelFactories.PlayerModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAvatarModelFactory _avatarModelFactory;
+        private readonly IUrlProvider _urlProvider;
 
         public PlayerDetailsPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IAvatarModelFactory avatarModelFactory)
+            IAvatarModelFactory avatarModelFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _avatarModelFactory = avatarModelFactory;
+            _urlProvider = urlProvider;
         }
 
         public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed, Cashgame runningGame = null)
@@ -31,7 +35,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     BrowserTitle = "Player Details",
                     PageProperties = _pagePropertiesFactory.Create(currentUser, homegame, runningGame),
                     DisplayName = player.DisplayName,
-                    DeleteUrl = new PlayerDeleteUrlModel(homegame, player),
+                    DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame, player),
                     DeleteEnabled = isManager && !hasPlayed,
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,
@@ -41,13 +45,13 @@ namespace Web.ModelFactories.PlayerModelFactories
 
             if (hasUser)
             {
-                model.UserUrl = new UserDetailsUrlModel(user);
+                model.UserUrl = _urlProvider.GetUserDetailsUrl(user);
                 model.UserEmail = user.Email;
                 model.AvatarModel = _avatarModelFactory.Create(user.Email);
             }
             else
             {
-                model.InvitationUrl = new PlayerInviteUrlModel(homegame, player);
+                model.InvitationUrl = _urlProvider.GetPlayerInviteUrl(homegame, player);
             }
             return model;
         }

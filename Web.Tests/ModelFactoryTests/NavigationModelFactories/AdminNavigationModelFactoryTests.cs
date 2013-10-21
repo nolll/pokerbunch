@@ -1,11 +1,11 @@
 using Core.Classes;
 using NUnit.Framework;
+using Tests.Common;
 using Web.ModelFactories.NavigationModelFactories;
-using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 
-	public class AdminNavigationModelFactoryTests
+	public class AdminNavigationModelFactoryTests : WebMockContainer
 	{
 	    private User _user;
 
@@ -43,18 +43,26 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 		}
 
 		[Test]
-		public void Show_WithAdminUser_SetsNodes(){
+		public void Show_WithAdminUser_SetsNodes()
+		{
+		    const string homegameListUrl = "a";
+            const string userListUrl = "b";
+
+            Mocks.UrlProviderMock.Setup(o => o.GetHomegameListingUrl()).Returns(homegameListUrl);
+            Mocks.UrlProviderMock.Setup(o => o.GetUserListingUrl()).Returns(userListUrl);
+
 			_user = new User {GlobalRole = Role.Admin};
 		    var sut = GetSut();
             var result = sut.Create(_user);
 
-			Assert.IsInstanceOf<HomegameListingUrlModel>(result.Nodes[0].UrlModel);
-			Assert.IsInstanceOf<UserListingUrlModel>(result.Nodes[1].UrlModel);
+            Assert.AreEqual(homegameListUrl, result.Nodes[0].UrlModel);
+			Assert.AreEqual(userListUrl, result.Nodes[1].UrlModel);
 		}
 
         private AdminNavigationModelFactory GetSut()
         {
-            return new AdminNavigationModelFactory();
+            return new AdminNavigationModelFactory(
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

@@ -24,6 +24,7 @@ namespace Web.Controllers{
 	    private readonly IInvitePlayerConfirmationPageModelFactory _invitePlayerConfirmationPageModelFactory;
 	    private readonly IInvitationSender _invitationSender;
 	    private readonly IPlayerModelService _playerModelService;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public PlayerController(
             IUserContext userContext,
@@ -36,7 +37,8 @@ namespace Web.Controllers{
             IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
             IInvitePlayerConfirmationPageModelFactory invitePlayerConfirmationPageModelFactory,
             IInvitationSender invitationSender,
-            IPlayerModelService playerModelService)
+            IPlayerModelService playerModelService,
+            IUrlProvider urlProvider)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
@@ -49,6 +51,7 @@ namespace Web.Controllers{
 	        _invitePlayerConfirmationPageModelFactory = invitePlayerConfirmationPageModelFactory;
 	        _invitationSender = invitationSender;
 	        _playerModelService = playerModelService;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -87,7 +90,7 @@ namespace Web.Controllers{
                 if (existingPlayer == null)
                 {
                     _playerRepository.AddPlayer(homegame, postModel.Name);
-                    return Redirect(new PlayerAddConfirmationUrlModel(homegame).Url);
+                    return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(homegame));
                 }
                 ModelState.AddModelError("player_exists", "The Display Name is in use by someone else");
 			}

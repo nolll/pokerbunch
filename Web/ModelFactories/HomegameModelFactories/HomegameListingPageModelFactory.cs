@@ -9,10 +9,14 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class HomegameListingPageModelFactory : IHomegameListingPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IHomegameListingItemModelFactory _homegameListingItemModelFactory;
 
-        public HomegameListingPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public HomegameListingPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IHomegameListingItemModelFactory homegameListingItemModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _homegameListingItemModelFactory = homegameListingItemModelFactory;
         }
 
         public HomegameListingPageModel Create(User user, IEnumerable<Homegame> homegames)
@@ -27,7 +31,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private IList<HomegameListingItemModel> GetHomegameModels(IEnumerable<Homegame> homegames)
         {
-            return homegames.Select(homegame => new HomegameListingItemModel(homegame)).ToList();
+            return homegames.Select(homegame => _homegameListingItemModelFactory.Create(homegame)).ToList();
         }
     }
 }

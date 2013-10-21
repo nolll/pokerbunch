@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
 using Web.Models.NavigationModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.NavigationModelFactories
 {
     public class AdminNavigationModelFactory : IAdminNavigationModelFactory
     {
+        private readonly IUrlProvider _urlProvider;
+
+        public AdminNavigationModelFactory(IUrlProvider urlProvider)
+        {
+            _urlProvider = urlProvider;
+        }
+
         public NavigationModel Create(User user)
         {
             return new NavigationModel
@@ -15,8 +22,6 @@ namespace Web.ModelFactories.NavigationModelFactories
                     CssClass = "admin-nav",
                     Nodes = GetNodes(user)
                 };
-            
-           
         }
 
         private IList<NavigationNode> GetNodes(User user)
@@ -27,8 +32,8 @@ namespace Web.ModelFactories.NavigationModelFactories
                 const bool selected = false;
                 return new List<NavigationNode>
                     {
-                        new NavigationNode("Bunches", new HomegameListingUrlModel(), selected),
-                        new NavigationNode("Users", new UserListingUrlModel(), selected)
+                        new NavigationNode("Bunches", _urlProvider.GetHomegameListingUrl(), selected),
+                        new NavigationNode("Users", _urlProvider.GetUserListingUrl(), selected)
                     };
             }
 

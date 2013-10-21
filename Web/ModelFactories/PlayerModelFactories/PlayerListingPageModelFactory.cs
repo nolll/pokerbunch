@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Listing;
 using Web.Models.UrlModels;
@@ -10,10 +11,14 @@ namespace Web.ModelFactories.PlayerModelFactories
     public class PlayerListingPageModelFactory : IPlayerListingPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public PlayerListingPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public PlayerListingPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public PlayerListingPageModel Create(User user, Homegame homegame, List<Player> players, bool isInManagerMode, Cashgame runningGame)
@@ -23,7 +28,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     BrowserTitle = "Player List",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 			        PlayerModels = GetPlayerModels(homegame, players),
-			        AddUrl = new PlayerAddUrlModel(homegame),
+			        AddUrl = _urlProvider.GetPlayerAddUrl(homegame),
 			        ShowAddLink = isInManagerMode
                 };
         }

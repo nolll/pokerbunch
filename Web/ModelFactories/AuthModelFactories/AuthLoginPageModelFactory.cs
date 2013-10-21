@@ -24,7 +24,7 @@ namespace Web.ModelFactories.AuthModelFactories
 
         public AuthLoginPageModel Create()
         {
-            var returnUrl = _webContext.GetQueryParam("return") ?? new HomeUrlModel().Url;
+            var returnUrl = _webContext.GetQueryParam("return") ?? _urlProvider.GetHomeUrl();
 
             return new AuthLoginPageModel
                 {

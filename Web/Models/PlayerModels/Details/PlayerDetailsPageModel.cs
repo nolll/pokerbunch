@@ -2,7 +2,6 @@ using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Facts;
-using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Details{
 
@@ -14,9 +13,9 @@ namespace Web.Models.PlayerModels.Details{
 	    public bool ShowInvitation { get; set; }
 		public string DisplayName { get; set; }
 		public bool DeleteEnabled { get; set; }
-		public UrlModel DeleteUrl { get; set; }
-		public UrlModel UserUrl { get; set; }
-		public UrlModel InvitationUrl { get; set; }
+		public string DeleteUrl { get; set; }
+		public string UserUrl { get; set; }
+		public string InvitationUrl { get; set; }
 		public string UserEmail { get; set; }
 		public AvatarModel AvatarModel { get; set; }
 		public PlayerFactsModel PlayerFactsModel { get; set; }

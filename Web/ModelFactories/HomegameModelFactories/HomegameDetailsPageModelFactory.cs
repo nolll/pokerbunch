@@ -1,4 +1,5 @@
 ﻿using Core.Classes;
+using Core.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Details;
 using Web.Models.UrlModels;
@@ -8,10 +9,14 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class HomegameDetailsPageModelFactory : IHomegameDetailsPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public HomegameDetailsPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public HomegameDetailsPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public HomegameDetailsPageModel Create(User user, Homegame homegame, bool isInManagerMode, Cashgame runningGame = null)
@@ -26,7 +31,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 			        Description = homegame.Description,
 			        HouseRules = houseRules,
 	                ShowHouseRules = !string.IsNullOrEmpty(houseRules),
-			        EditUrl = new HomegameEditUrlModel(homegame),
+			        EditUrl = _urlProvider.GetHomegameEditUrl(homegame),
 			        ShowEditLink = isInManagerMode
                 };
         }

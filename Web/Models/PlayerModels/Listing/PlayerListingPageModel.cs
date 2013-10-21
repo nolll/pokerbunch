@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Core.Classes;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Listing{
 
@@ -10,7 +8,7 @@ namespace Web.Models.PlayerModels.Listing{
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public List<PlayerItemModel> PlayerModels { get; set; }
-	    public UrlModel AddUrl { get; set; }
+	    public string AddUrl { get; set; }
 	    public bool ShowAddLink { get; set; }
     }
 
