@@ -103,26 +103,26 @@
     <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameFactsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Facts\CashgameFactsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\ActionPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\BuyinPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashoutPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CheckpointModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameEditPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\ReportPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\AddCashgamePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameChartPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameDetailsTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\ActionPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Buyin\BuyinPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Cashout\CashoutPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\CheckpointModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Edit\CashgameEditPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Report\ReportPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Add\AddCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModelTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameLeaderboardTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\CashgameListingPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingPageModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableItemModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />
@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

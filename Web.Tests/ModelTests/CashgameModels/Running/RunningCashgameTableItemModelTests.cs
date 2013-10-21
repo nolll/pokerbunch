@@ -3,6 +3,7 @@ using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories;
+using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelTests.CashgameModels.Running{
