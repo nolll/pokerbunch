@@ -42,7 +42,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		{
             return new CashgameChartPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.CashgameNavigationModelFactoryMock.Object);
 		}
 
 	}

@@ -1,5 +1,6 @@
 using Core.Classes;
 using Core.Repositories;
+using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
@@ -10,13 +11,16 @@ namespace Web.ModelFactories.CashgameModelFactories{
     {
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IPagePropertiesFactory _pagePropertiesFactory;
+	    private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
 
 	    public MatrixPageModelFactory(
             ICashgameRepository cashgameRepository,
-            IPagePropertiesFactory pagePropertiesFactory)
+            IPagePropertiesFactory pagePropertiesFactory,
+            ICashgameNavigationModelFactory cashgameNavigationModelFactory)
 	    {
 	        _cashgameRepository = cashgameRepository;
 	        _pagePropertiesFactory = pagePropertiesFactory;
+	        _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
 	    }
 
 	    public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
@@ -28,7 +32,7 @@ namespace Web.ModelFactories.CashgameModelFactories{
 			        BrowserTitle = "Cashgame Matrix",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 	                TableModel = new CashgameMatrixTableModel(homegame, suite),
-			        CashgameNavModel = new CashgameNavigationModel(homegame, "matrix", years, year, runningGame)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "matrix", years, year, runningGame)
 			    };
 		}
 

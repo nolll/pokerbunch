@@ -160,7 +160,11 @@
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\CashgameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\CashgameYearNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\IAdminNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameYearNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\IUserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\IHomegameNavigationModelFactory.cs" />
@@ -181,6 +185,8 @@
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\RunningCashgameTableModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\CashgamePageNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\ICashgamePageNavigationModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -477,7 +483,6 @@
     <Compile Include="Models\CashgameModels\Leaderboard\CashgameLeaderboardTableItemModel.cs" />
     <Compile Include="Models\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameChartUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameFactsUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameLeaderboardUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameListingUrlModel.cs" />

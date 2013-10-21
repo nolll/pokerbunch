@@ -119,6 +119,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>(container);
             ObjectFactory.RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>(container);
             ObjectFactory.RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameNavigationModelFactory, CashgameNavigationModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>(container);
             
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);

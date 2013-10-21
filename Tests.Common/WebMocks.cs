@@ -65,6 +65,7 @@ namespace Tests.Common
         public readonly Mock<ICashgameDetailsTableItemModelFactory> CashgameDetailsTableItemModelFactoryMock;
         public readonly Mock<IRunningCashgameTableModelFactory> RunningCashgameTableModelFactoryMock;
         public readonly Mock<IRunningCashgameTableItemModelFactory> RunningCashgameTableItemModelFactoryMock;
+        public readonly Mock<ICashgameNavigationModelFactory> CashgameNavigationModelFactoryMock;
 
         public WebMocks()
         {
@@ -116,6 +117,7 @@ namespace Tests.Common
             CashgameDetailsTableItemModelFactoryMock = new Mock<ICashgameDetailsTableItemModelFactory>();
             RunningCashgameTableModelFactoryMock = new Mock<IRunningCashgameTableModelFactory>();
             RunningCashgameTableItemModelFactoryMock = new Mock<IRunningCashgameTableItemModelFactory>();
+            CashgameNavigationModelFactoryMock = new Mock<ICashgameNavigationModelFactory>();
         }
 
     }
