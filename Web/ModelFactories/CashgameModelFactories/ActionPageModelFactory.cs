@@ -13,13 +13,16 @@ namespace Web.ModelFactories.CashgameModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUrlProvider _urlProvider;
+        private readonly ICheckpointModelFactory _checkpointModelFactory;
 
         public ActionPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            ICheckpointModelFactory checkpointModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
+            _checkpointModelFactory = checkpointModelFactory;
         }
 
         public ActionPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role, IList<int> years = null, Cashgame runningGame = null)
@@ -39,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories
         private List<CheckpointModel> GetCheckpointModels(Homegame homegame, Cashgame cashgame, CashgameResult result, Player player, Role role)
         {
             var checkpoints = GetCheckpoints(result);
-            return checkpoints.Select(checkpoint => new CheckpointModel(homegame, cashgame, player, checkpoint, role)).ToList();
+            return checkpoints.Select(checkpoint => _checkpointModelFactory.Create(homegame, cashgame, player, checkpoint, role)).ToList();
         }
 
         private IEnumerable<Checkpoint> GetCheckpoints(CashgameResult result)

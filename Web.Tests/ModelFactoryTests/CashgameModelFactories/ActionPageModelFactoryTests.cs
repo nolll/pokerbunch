@@ -64,7 +64,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
         private ActionPageModelFactory GetSut(){
             return new ActionPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.CheckpointModelFactoryMock.Object);
 		}
 
 	}

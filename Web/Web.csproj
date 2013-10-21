@@ -153,6 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelFactories\CashgameModelFactories\CashgameDetailsTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\CheckpointModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\ICheckpointModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\ICashgameDetailsTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Interfaces\IRunningCashgameTableItemModelFactory.cs" />
