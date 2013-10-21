@@ -5,33 +5,39 @@ using Castle.Windsor;
 
 namespace Infrastructure.Plumbing
 {
-    public abstract class ObjectFactory
+    public abstract class ObjectFactory : IDisposable
     {
-        public static void RegisterComponent<T, TK>(IWindsorContainer container)
+        private readonly IWindsorContainer _container;
+        private readonly LifestyleType _lifestyleType;
+
+        protected ObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        {
+            _container = container;
+            _lifestyleType = lifestyleType;
+        }
+
+        protected void RegisterComponent<T, TK>()
             where TK : class
             where T : class
         {
-            RegisterComponent<T, TK>(container, LifestyleType.Singleton);
+            RegisterComponent<T, TK>(_lifestyleType);
         }
 
-        public static void RegisterComponent<T, TK>(IWindsorContainer container, LifestyleType lifestyleType)
+        public void RegisterComponent<T, TK>(LifestyleType lifestyleType)
             where TK : class
             where T : class
         {
-            container.Register(Component.For<T, TK>().LifeStyle.Is(lifestyleType));
+            _container.Register(Component.For<T, TK>().LifeStyle.Is(lifestyleType));
         }
 
-        public static bool CanResolve(IWindsorContainer container, Type t)
+        public void ResolveOrThrow(Type t)
         {
-            try
-            {
-                container.Resolve(t);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
+            _container.Resolve(t);
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }

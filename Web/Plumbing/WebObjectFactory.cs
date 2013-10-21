@@ -38,122 +38,126 @@ using Web.Services;
 
 namespace Web.Plumbing
 {
-    public static class WebObjectFactory
+    public class WebObjectFactory : InfrastructureObjectFactory
     {
-        public static void RegisterTypes(IWindsorContainer container)
+        public WebObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+            : base(container, lifestyleType)
         {
-            InfrastructureObjectFactory.RegisterTypes(container);
+            RegisterTypes();
+        }
 
+        private void RegisterTypes()
+        {
             // Services
-            ObjectFactory.RegisterComponent<IEncryptionService, EncryptionService>(container);
-            ObjectFactory.RegisterComponent<IAvatarService, GravatarService>(container);
-            ObjectFactory.RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>(container);
-            ObjectFactory.RegisterComponent<IInvitationSender, InvitationSender>(container);
-            ObjectFactory.RegisterComponent<IMessageSender, MessageSender>(container);
-            ObjectFactory.RegisterComponent<IUrlProvider, UrlProvider>(container);
-            ObjectFactory.RegisterComponent<IUserService, UserService>(container);
-            ObjectFactory.RegisterComponent<IPasswordGenerator, PasswordGenerator>(container);
-            ObjectFactory.RegisterComponent<ISaltGenerator, SaltGenerator>(container);
-            ObjectFactory.RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>(container);
-            ObjectFactory.RegisterComponent<ISlugGenerator, SlugGenerator>(container);
-            ObjectFactory.RegisterComponent<IPasswordSender, PasswordSender>(container);
-            ObjectFactory.RegisterComponent<ITwitterIntegration, TwitterIntegration>(container);
-            ObjectFactory.RegisterComponent<IRandomStringGenerator, RandomStringGenerator>(container);
+            RegisterComponent<IEncryptionService, EncryptionService>();
+            RegisterComponent<IAvatarService, GravatarService>();
+            RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>();
+            RegisterComponent<IInvitationSender, InvitationSender>();
+            RegisterComponent<IMessageSender, MessageSender>();
+            RegisterComponent<IUrlProvider, UrlProvider>();
+            RegisterComponent<IUserService, UserService>();
+            RegisterComponent<IPasswordGenerator, PasswordGenerator>();
+            RegisterComponent<ISaltGenerator, SaltGenerator>();
+            RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
+            RegisterComponent<ISlugGenerator, SlugGenerator>();
+            RegisterComponent<IPasswordSender, PasswordSender>();
+            RegisterComponent<ITwitterIntegration, TwitterIntegration>();
+            RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
 
             // Repositories
-            ObjectFactory.RegisterComponent<IHomegameRepository, HomegameRepository>(container);
-            ObjectFactory.RegisterComponent<ICashgameRepository, CashgameRepository>(container);
-            ObjectFactory.RegisterComponent<IPlayerRepository, PlayerRepository>(container);
-            ObjectFactory.RegisterComponent<IUserRepository, UserRepository>(container);
-            ObjectFactory.RegisterComponent<ITwitterRepository, TwitterRepository>(container);
-            ObjectFactory.RegisterComponent<ISharingRepository, SharingRepository>(container);
-            ObjectFactory.RegisterComponent<ICheckpointRepository, CheckpointRepository>(container);
-            ObjectFactory.RegisterComponent<IUserContext, UserContext>(container, LifestyleType.PerWebRequest);
+            RegisterComponent<IHomegameRepository, HomegameRepository>();
+            RegisterComponent<ICashgameRepository, CashgameRepository>();
+            RegisterComponent<IPlayerRepository, PlayerRepository>();
+            RegisterComponent<IUserRepository, UserRepository>();
+            RegisterComponent<ITwitterRepository, TwitterRepository>();
+            RegisterComponent<ISharingRepository, SharingRepository>();
+            RegisterComponent<ICheckpointRepository, CheckpointRepository>();
+            RegisterComponent<IUserContext, UserContext>();
 
             // System
-            ObjectFactory.RegisterComponent<IWebContext, WebContext>(container);
-            ObjectFactory.RegisterComponent<ITimeProvider, TimeProvider>(container);
-            ObjectFactory.RegisterComponent<ISettings, Settings>(container);
+            RegisterComponent<IWebContext, WebContext>();
+            RegisterComponent<ITimeProvider, TimeProvider>();
+            RegisterComponent<ISettings, Settings>();
 
             // Core Factories
-            ObjectFactory.RegisterComponent<IHomegameFactory, HomegameFactory>(container);
-            ObjectFactory.RegisterComponent<IUserFactory, UserFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameFactory, CashgameFactory>(container);
-            ObjectFactory.RegisterComponent<IPlayerFactory, PlayerFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameResultFactory, CashgameResultFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>(container);
-            ObjectFactory.RegisterComponent<ICheckpointFactory, CheckpointFactory>(container);
-            ObjectFactory.RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>(container);
+            RegisterComponent<IHomegameFactory, HomegameFactory>();
+            RegisterComponent<IUserFactory, UserFactory>();
+            RegisterComponent<ICashgameFactory, CashgameFactory>();
+            RegisterComponent<IPlayerFactory, PlayerFactory>();
+            RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
+            RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
+            RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
+            RegisterComponent<ICheckpointFactory, CheckpointFactory>();
+            RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 
             // Model Services
-            ObjectFactory.RegisterComponent<IPlayerModelService, PlayerModelService>(container);
+            RegisterComponent<IPlayerModelService, PlayerModelService>();
 
             // Page Model Factories
-            ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddHomegameConfirmationPageModelFactory, AddHomegameConfirmationPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IReportPageModelFactory, ReportPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashoutPageModelFactory, CashoutPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IEndPageModelFactory, EndPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IPlayerListingPageModelFactory, PlayerListingPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameLeaderboardPageModelFactory, CashgameLeaderboardPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameListingPageModelFactory, CashgameListingPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddPlayerPageModelFactory, AddPlayerPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IInvitePlayerPageModelFactory, InvitePlayerPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IUserListingPageModelFactory, UserListingPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IChangePasswordPageModelFactory, ChangePasswordPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ISharingIndexPageModelFactory, SharingIndexPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameListingTableModelFactory, CashgameListingTableModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameListingTableItemModelFactory, CashgameListingTableItemModelFactory>(container);
+            RegisterComponent<IHomePageModelFactory, HomePageModelFactory>();
+            RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>();
+            RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>();
+            RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>();
+            RegisterComponent<IAddHomegameConfirmationPageModelFactory, AddHomegameConfirmationPageModelFactory>();
+            RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>();
+            RegisterComponent<IReportPageModelFactory, ReportPageModelFactory>();
+            RegisterComponent<ICashoutPageModelFactory, CashoutPageModelFactory>();
+            RegisterComponent<IEndPageModelFactory, EndPageModelFactory>();
+            RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>();
+            RegisterComponent<IPlayerListingPageModelFactory, PlayerListingPageModelFactory>();
+            RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>();
+            RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>();
+            RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>();
+            RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>();
+            RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>();
+            RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>();
+            RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>();
+            RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>();
+            RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>();
+            RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>();
+            RegisterComponent<ICashgameLeaderboardPageModelFactory, CashgameLeaderboardPageModelFactory>();
+            RegisterComponent<ICashgameListingPageModelFactory, CashgameListingPageModelFactory>();
+            RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>();
+            RegisterComponent<IAddPlayerPageModelFactory, AddPlayerPageModelFactory>();
+            RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>();
+            RegisterComponent<IInvitePlayerPageModelFactory, InvitePlayerPageModelFactory>();
+            RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>();
+            RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>();
+            RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>();
+            RegisterComponent<IUserListingPageModelFactory, UserListingPageModelFactory>();
+            RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>();
+            RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>();
+            RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>();
+            RegisterComponent<IChangePasswordPageModelFactory, ChangePasswordPageModelFactory>();
+            RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>();
+            RegisterComponent<ISharingIndexPageModelFactory, SharingIndexPageModelFactory>();
+            RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>();
+            RegisterComponent<ICashgameListingTableModelFactory, CashgameListingTableModelFactory>();
+            RegisterComponent<ICashgameListingTableItemModelFactory, CashgameListingTableItemModelFactory>();
 
             // Model Factories
-            ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
-            ObjectFactory.RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>(container);
-            ObjectFactory.RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>(container);
-            ObjectFactory.RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>(container);
-            ObjectFactory.RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>(container);
-            ObjectFactory.RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameNavigationModelFactory, CashgameNavigationModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICheckpointModelFactory, CheckpointModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>(container);
-            ObjectFactory.RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>(container);
-            ObjectFactory.RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>(container);
-            ObjectFactory.RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>(container);
+            RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();
+            RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>();
+            RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
+            RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>();
+            RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
+            RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
+            RegisterComponent<ICashgameNavigationModelFactory, CashgameNavigationModelFactory>();
+            RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>();
+            RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>();
+            RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>();
+            RegisterComponent<ICheckpointModelFactory, CheckpointModelFactory>();
+            RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
+            RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
+            RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
+            RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
+            RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>();
             
             // Mappers
-            ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);
-            ObjectFactory.RegisterComponent<ICashgameModelMapper, CashgameModelMapper>(container);
-            ObjectFactory.RegisterComponent<IUserModelMapper, UserModelMapper>(container);
-            ObjectFactory.RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>(container);
+            RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();
+            RegisterComponent<ICashgameModelMapper, CashgameModelMapper>();
+            RegisterComponent<IUserModelMapper, UserModelMapper>();
+            RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>();
         }
 
     }

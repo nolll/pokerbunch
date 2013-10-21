@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Infrastructure.Plumbing;
 using Web.Plumbing;
 
 namespace Web
@@ -17,7 +15,7 @@ namespace Web
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static IWindsorContainer _windsorContainer;
+        private static ObjectFactory _objectFactory;
 
         protected void Application_Start()
         {
@@ -28,7 +26,6 @@ namespace Web
             RegisterRoutes(RouteTable.Routes);
 
             BootstrapContainer();
-            WebObjectFactory.RegisterTypes(_windsorContainer);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -61,15 +58,15 @@ namespace Web
 
         private static void BootstrapContainer()
         {
-            _windsorContainer = new WindsorContainer()
-                .Install(FromAssembly.This());
-            var controllerFactory = new WindsorControllerFactory(_windsorContainer.Kernel);
+            var windsorContainer = new WindsorContainer().Install(FromAssembly.This());
+            _objectFactory = new WebObjectFactory(windsorContainer);
+            var controllerFactory = new WindsorControllerFactory(windsorContainer.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
         }
 
         protected void Application_End()
         {
-            _windsorContainer.Dispose();
+            _objectFactory.Dispose();
         }
     }
 }

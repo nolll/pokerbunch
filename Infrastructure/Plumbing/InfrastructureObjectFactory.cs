@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using Castle.Core;
+using Castle.Windsor;
 using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage;
@@ -6,31 +7,37 @@ using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Plumbing
 {
-    public static class InfrastructureObjectFactory
+    public class InfrastructureObjectFactory : ObjectFactory
     {
-        public static void RegisterTypes(IWindsorContainer container)
+        public InfrastructureObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+            : base(container, lifestyleType)
+        {
+            RegisterTypes();
+        }
+
+        private void RegisterTypes()
         {
             // Storage
-            ObjectFactory.RegisterComponent<IHomegameStorage, SqlServerHomegameStorage>(container);
-            ObjectFactory.RegisterComponent<ICashgameStorage, SqlServerCashgameStorage>(container);
-            ObjectFactory.RegisterComponent<ICheckpointStorage, SqlServerCheckpointStorage>(container);
-            ObjectFactory.RegisterComponent<IPlayerStorage, SqlServerPlayerStorage>(container);
-            ObjectFactory.RegisterComponent<IUserStorage, SqlServerUserStorage>(container);
-            ObjectFactory.RegisterComponent<IStorageProvider, SqlServerStorageProvider>(container);
-            ObjectFactory.RegisterComponent<ISharingStorage, SqlServerSharingStorage>(container);
-            ObjectFactory.RegisterComponent<ITwitterStorage, SqlServerTwitterStorage>(container);
+            RegisterComponent<IHomegameStorage, SqlServerHomegameStorage>();
+            RegisterComponent<ICashgameStorage, SqlServerCashgameStorage>();
+            RegisterComponent<ICheckpointStorage, SqlServerCheckpointStorage>();
+            RegisterComponent<IPlayerStorage, SqlServerPlayerStorage>();
+            RegisterComponent<IUserStorage, SqlServerUserStorage>();
+            RegisterComponent<IStorageProvider, SqlServerStorageProvider>();
+            RegisterComponent<ISharingStorage, SqlServerSharingStorage>();
+            RegisterComponent<ITwitterStorage, SqlServerTwitterStorage>();
 
             // Raw Factories
-            ObjectFactory.RegisterComponent<IRawHomegameFactory, RawHomegameFactory>(container);
-            ObjectFactory.RegisterComponent<IRawUserFactory, RawUserFactory>(container);
-            ObjectFactory.RegisterComponent<IRawCashgameFactory, RawCashgameFactory>(container);
-            ObjectFactory.RegisterComponent<IRawPlayerFactory, RawPlayerFactory>(container);
-            ObjectFactory.RegisterComponent<IRawCheckpointFactory, RawCheckpointFactory>(container);
-            ObjectFactory.RegisterComponent<IRawTwitterCredentialsFactory, RawTwitterCredentialsFactory>(container);
+            RegisterComponent<IRawHomegameFactory, RawHomegameFactory>();
+            RegisterComponent<IRawUserFactory, RawUserFactory>();
+            RegisterComponent<IRawCashgameFactory, RawCashgameFactory>();
+            RegisterComponent<IRawPlayerFactory, RawPlayerFactory>();
+            RegisterComponent<IRawCheckpointFactory, RawCheckpointFactory>();
+            RegisterComponent<IRawTwitterCredentialsFactory, RawTwitterCredentialsFactory>();
 
             // Cache
-            ObjectFactory.RegisterComponent<ICacheProvider, CacheProvider>(container);
-            ObjectFactory.RegisterComponent<ICacheContainer, CacheContainer>(container);
+            RegisterComponent<ICacheProvider, CacheProvider>();
+            RegisterComponent<ICacheContainer, CacheContainer>();
         }
     }
 }
