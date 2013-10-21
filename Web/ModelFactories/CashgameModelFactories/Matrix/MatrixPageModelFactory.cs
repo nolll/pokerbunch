@@ -11,15 +11,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IPagePropertiesFactory _pagePropertiesFactory;
 	    private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
+	    private readonly ICashgameMatrixTableModelFactory _cashgameMatrixTableModelFactory;
 
 	    public MatrixPageModelFactory(
             ICashgameRepository cashgameRepository,
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgameNavigationModelFactory cashgameNavigationModelFactory)
+            ICashgameNavigationModelFactory cashgameNavigationModelFactory,
+            ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory)
 	    {
 	        _cashgameRepository = cashgameRepository;
 	        _pagePropertiesFactory = pagePropertiesFactory;
 	        _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
+	        _cashgameMatrixTableModelFactory = cashgameMatrixTableModelFactory;
 	    }
 
 	    public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
@@ -30,7 +33,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 			    {
 			        BrowserTitle = "Cashgame Matrix",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-	                TableModel = new CashgameMatrixTableModel(homegame, suite),
+	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "matrix", years, year, runningGame)
 			    };
 		}

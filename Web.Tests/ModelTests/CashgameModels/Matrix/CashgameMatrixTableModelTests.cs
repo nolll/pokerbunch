@@ -2,55 +2,74 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
-using Web.Models.CashgameModels.Matrix;
+using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
-	public class CashgameMatrixTableModelTests {
-
-		private Homegame _homegame;
+	public class CashgameMatrixTableModelTests : WebMockContainer
+	{
+		private readonly Homegame _homegame;
 		private List<Cashgame> _cashgames;
+
+	    public CashgameMatrixTableModelTests()
+	    {
+            _homegame = new Homegame();
+        }
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new Homegame();
-			_cashgames = GetCashgames();
 		}
+
+        private CashgameSuite GetSuite(IList<Cashgame> cashgames)
+        {
+            var totalResult = new CashgameTotalResult();
+            return new CashgameSuite
+            {
+                Cashgames = cashgames,
+                TotalResults = new List<CashgameTotalResult>
+			            {
+			                totalResult, totalResult
+			            }
+            };
+        }
         
 		[Test]
 		public void Results_IsCorrectLength(){
-			var sut = GetSut();
+            _cashgames = GetCashgames();
+		    var suite = GetSuite(_cashgames);
 
-			Assert.AreEqual(2, sut.RowModels.Count);
+            var sut = GetSut();
+		    var result = sut.Create(_homegame, suite);
+
+			Assert.AreEqual(2, result.RowModels.Count);
 		}
 
 		[Test]
 		public void ShowYear_IsFalse(){
-			var sut = GetSut();
+            _cashgames = GetCashgames();
+            var suite = GetSuite(_cashgames);
 
-			Assert.IsFalse(sut.ShowYear);
+            var sut = GetSut();
+            var result = sut.Create(_homegame, suite);
+
+			Assert.IsFalse(result.ShowYear);
 		}
 
 		[Test]
 		public void ShowYear_SpansMultipleYears_IsTrue(){
 			_cashgames = GetCashgames(2010, 2011);
-			var sut = GetSut();
+            var suite = GetSuite(_cashgames);
 
-			Assert.IsTrue(sut.ShowYear);
+			var sut = GetSut();
+            var result = sut.Create(_homegame, suite);
+
+			Assert.IsTrue(result.ShowYear);
 		}
 
-		private CashgameMatrixTableModel GetSut(){
-            var totalResult = new CashgameTotalResult();
-			var suite = new CashgameSuite
-			    {
-			        Cashgames = _cashgames,
-			        TotalResults = new List<CashgameTotalResult>
-			            {
-			                totalResult, totalResult
-			            }
-			    };
-		    ;
-			return new CashgameMatrixTableModel(_homegame, suite);
+		private CashgameMatrixTableModelFactory GetSut(){
+			return new CashgameMatrixTableModelFactory(
+                Mocks.CashgameMatrixTableColumnHeaderModelFactoryMock.Object);
 		}
 
 		private List<Cashgame> GetCashgames(int yearOne = 2010, int yearTwo = 2010)

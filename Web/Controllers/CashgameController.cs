@@ -223,8 +223,8 @@ namespace Web.Controllers{
 			{
 			    cashgame = _cashgameModelMapper.GetCashgame(cashgame, postModel);
 				_cashgameRepository.UpdateGame(cashgame);
-				var detailsUrl = new CashgameDetailsUrlModel(homegame, cashgame);
-				return Redirect(detailsUrl.Url);
+				var detailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame);
+				return Redirect(detailsUrl);
 			}
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var locations = _cashgameRepository.GetLocations(homegame);

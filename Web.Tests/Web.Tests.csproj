@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableCellModelTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactoryTests.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableRowModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Matrix\CashgameMatrixTableModelTests.cs" />
@@ -123,7 +123,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Leaderboard\CashgameLeaderboardTableModelTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingPageModelFactoryTests.cs" />
-    <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableItemModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingTableItemModelFactoryTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Listing\CashgameListingTableModelTests.cs" />
     <Compile Include="ModelTests\CashgameModels\Running\BarModelTests.cs" />
   </ItemGroup>

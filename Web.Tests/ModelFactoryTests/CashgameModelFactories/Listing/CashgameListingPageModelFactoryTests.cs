@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Listing;
@@ -12,8 +13,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
         [Test]
 		public void ListTableModel_IsSet()
         {
+            var homegame = new Homegame();
+            var cashgames = new List<Cashgame>();
+            Mocks.CashgameListingTableModelFactoryMock.Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListingTableModel());
+
             var sut = GetSut();
-			var result = sut.Create(new User(), new Homegame(), new List<Cashgame>(), null, null, null);
+			var result = sut.Create(new User(), homegame, cashgames, null, null, null);
 
 			Assert.IsInstanceOf<CashgameListingTableModel>(result.ListingTableModel);
 		}
@@ -22,7 +27,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
         {
             return new CashgameListingPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.CashgameNavigationModelFactoryMock.Object);
+                Mocks.CashgameNavigationModelFactoryMock.Object,
+                Mocks.CashgameListingTableModelFactoryMock.Object);
         }
 
 	}

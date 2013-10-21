@@ -157,6 +157,10 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ICheckpointModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Listing\ICashgameListingTableItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Listing\ICashgameListingTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableColumnHeaderModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
@@ -189,6 +193,10 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\CashgamePageNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\ICashgamePageNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Listing\CashgameListingTableItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Listing\CashgameListingTableModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />

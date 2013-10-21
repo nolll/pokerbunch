@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
+using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.Models.CashgameModels.Listing;
 
 namespace Web.Tests.ModelTests.CashgameModels.Listing{
 
-	public class CashgameListingTableModelTests {
+	public class CashgameListingTableModelTests : WebMockContainer {
 
 		private Homegame _homegame;
 		private List<Cashgame> _cashgames;
@@ -19,16 +22,20 @@ namespace Web.Tests.ModelTests.CashgameModels.Listing{
 
 		[Test]
 		public void Table_WithOneCashgame_OneItemIsCorrectType(){
+            Mocks.CashgameListingTableItemModelFactoryMock.Setup(o => o.Create(_homegame, It.IsAny<Cashgame>(), It.IsAny<bool>())).Returns(new CashgameListingTableItemModel());
+
 			_cashgames = GetCashgames();
 
 			var sut = GetSut();
+		    var result = sut.Create(_homegame, _cashgames);
 
-            Assert.IsInstanceOf<CashgameListingTableItemModel>(sut.ListItemModels[0]);
-			Assert.AreEqual(3, sut.ListItemModels.Count);
+            Assert.IsInstanceOf<CashgameListingTableItemModel>(result.ListItemModels[0]);
+			Assert.AreEqual(3, result.ListItemModels.Count);
 		}
 
-		private CashgameListingTableModel GetSut(){
-			return new CashgameListingTableModel(_homegame, _cashgames);
+		private CashgameListingTableModelFactory GetSut(){
+			return new CashgameListingTableModelFactory(
+                Mocks.CashgameListingTableItemModelFactoryMock.Object);
 		}
 
 		private List<Cashgame> GetCashgames(){
