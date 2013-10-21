@@ -493,7 +493,6 @@
     <Compile Include="Models\UrlModels\CashgamePublishUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameUnpublishUrlModel.cs" />
     <Compile Include="Models\UrlModels\CashgameEditUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsChartModel.cs" />
@@ -530,7 +529,6 @@
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\CashgameEditPageModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameDeleteUrlModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\UrlModels\PlayerAddConfirmationUrlModel.cs" />
     <Compile Include="Models\UrlModels\PlayerInviteConfirmationUrlModel.cs" />

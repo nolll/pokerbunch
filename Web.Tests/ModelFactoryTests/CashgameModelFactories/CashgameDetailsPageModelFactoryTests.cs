@@ -83,9 +83,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
 		[Test]
 		public void EditUrl_IsCorrectType(){
+            const string editUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetCashgameEditUrl(_homegame, _cashgame)).Returns(editUrl);
+
 			var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameEditUrlModel>(result.EditUrl);
+			Assert.AreEqual(editUrl, result.EditUrl);
 		}
 
 		[Test]
@@ -188,10 +191,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
 		[Test]
-		public void ChartDataUrl_IsSet(){
+		public void ChartDataUrl_IsSet()
+		{
+		    const string chartDataUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame, _cashgame)).Returns(chartDataUrl);
+
 			var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameDetailsChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.AreEqual(chartDataUrl, result.ChartDataUrl);
 		}
 
 		private CashgameDetailsPageModel GetResult(){

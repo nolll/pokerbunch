@@ -46,9 +46,9 @@ namespace Web.ModelFactories.CashgameModelFactories
                     CashgameDetailsTableModel = _cashgameDetailsTableModelFactory.Create(homegame, cashgame),
                     EnableEdit = isManager,
                     EnableCheckpointsButton = cashgame.IsInGame(player),
-                    EditUrl = new CashgameEditUrlModel(homegame, cashgame),
+                    EditUrl = _urlProvider.GetCashgameEditUrl(homegame, cashgame),
                     CheckpointsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player),
-                    ChartDataUrl = new CashgameDetailsChartJsonUrlModel(homegame, cashgame)
+                    ChartDataUrl = _urlProvider.GetCashgameDetailsChartJsonUrl(homegame, cashgame)
                 };
 
             return model;

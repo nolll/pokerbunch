@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Core.Classes;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Edit;
@@ -12,10 +13,14 @@ namespace Web.ModelFactories.CashgameModelFactories
     public class CashgameEditPageModelFactory : ICashgameEditPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUrlProvider _urlProvider;
 
-        public CashgameEditPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public CashgameEditPageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUrlProvider urlProvider)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _urlProvider = urlProvider;
         }
 
         public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame)
@@ -25,8 +30,8 @@ namespace Web.ModelFactories.CashgameModelFactories
                     BrowserTitle = "Edit Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     IsoDate = cashgame.StartTime.HasValue ? Globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
-			        CancelUrl = new CashgameDetailsUrlModel(homegame, cashgame),
-			        DeleteUrl = new CashgameDeleteUrlModel(homegame, cashgame),
+			        CancelUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
+			        DeleteUrl = _urlProvider.GetCashgameDeleteUrl(homegame, cashgame),
 			        EnableDelete = cashgame.Status != GameStatus.Published,
                     TypedLocation = cashgame.Location,
                     SelectedLocation = cashgame.Location,

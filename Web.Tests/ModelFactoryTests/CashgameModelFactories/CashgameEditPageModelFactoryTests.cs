@@ -35,17 +35,25 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 		}
 
 		[Test]
-		public void CancelUrl_IsSet(){
+		public void CancelUrl_IsSet()
+		{
+		    const string detailsUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsUrl(_homegame, _cashgame)).Returns(detailsUrl);
+
 			var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.CancelUrl);
+			Assert.AreEqual(detailsUrl, result.CancelUrl);
 		}
 
 		[Test]
-		public void DeleteUrl_IsSet(){
-			var result = GetResult();
+		public void DeleteUrl_IsSet()
+        {
+            const string deleteUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDeleteUrl(_homegame, _cashgame)).Returns(deleteUrl);
+            
+            var result = GetResult();
 
-			Assert.IsInstanceOf<CashgameDeleteUrlModel>(result.DeleteUrl);
+			Assert.AreEqual(deleteUrl, result.DeleteUrl);
 		}
 
 		[Test]
@@ -81,7 +89,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories{
 
         private CashgameEditPageModelFactory GetSut()
         {
-            return new CashgameEditPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new CashgameEditPageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.UrlProviderMock.Object);
         }
 
 	}

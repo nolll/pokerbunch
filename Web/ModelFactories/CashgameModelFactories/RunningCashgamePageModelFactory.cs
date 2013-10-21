@@ -38,9 +38,9 @@ namespace Web.ModelFactories.CashgameModelFactories
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? Globalization.FormatTime(cashgame.StartTime.Value) : null,
                     BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
-                    ReportUrl = new CashgameReportUrlModel(homegame, player),
+                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
                     CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),
-                    EndGameUrl = new CashgameEndUrlModel(homegame),
+                    EndGameUrl = _urlProvider.GetCashgameEndUrl(homegame),
                     BuyinButtonEnabled = canReport,
                     ReportButtonEnabled = canReport && isInGame,
                     CashoutButtonEnabled = isInGame,
@@ -48,7 +48,7 @@ namespace Web.ModelFactories.CashgameModelFactories
                     ShowTable = cashgame.IsStarted,
                     RunningCashgameTableModel = cashgame.IsStarted ? _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager) : null,
                     ShowChart = cashgame.IsStarted,
-                    ChartDataUrl = cashgame.IsStarted ? new CashgameDetailsChartJsonUrlModel(homegame, cashgame) : null
+                    ChartDataUrl = cashgame.IsStarted ? _urlProvider.GetCashgameDetailsChartJsonUrl(homegame, cashgame) : null
                 };
         }
 

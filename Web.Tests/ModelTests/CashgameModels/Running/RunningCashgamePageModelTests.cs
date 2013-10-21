@@ -94,9 +94,12 @@ namespace Web.Tests.ModelTests.CashgameModels.Running{
         public void ReportUrl_IsSet(){
 			SetupPlayerIsInGame();
 
+		    const string reportUrl = "a";
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameReportUrl(_homegame, _player)).Returns(reportUrl);
+
             var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
+            Assert.AreEqual(reportUrl, result.ReportUrl);
 		}
 
 		[Test]
