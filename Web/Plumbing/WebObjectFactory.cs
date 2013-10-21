@@ -10,7 +10,6 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
-using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
@@ -34,6 +33,7 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
+using Web.ModelServices;
 using Web.Services;
 
 namespace Web.Plumbing
@@ -86,6 +86,9 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<ICheckpointFactory, CheckpointFactory>(container);
             ObjectFactory.RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>(container);
 
+            // Model Services
+            ObjectFactory.RegisterComponent<IPlayerModelService, PlayerModelService>(container);
+
             // Page Model Factories
             ObjectFactory.RegisterComponent<IHomePageModelFactory, HomePageModelFactory>(container);
             ObjectFactory.RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>(container);
@@ -125,6 +128,8 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>(container);
             ObjectFactory.RegisterComponent<ISharingIndexPageModelFactory, SharingIndexPageModelFactory>(container);
             ObjectFactory.RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameListingTableModelFactory, CashgameListingTableModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameListingTableItemModelFactory, CashgameListingTableItemModelFactory>(container);
 
             // Model Factories
             ObjectFactory.RegisterComponent<IAvatarModelFactory, AvatarModelFactory>(container);
@@ -135,6 +140,14 @@ namespace Web.Plumbing
             ObjectFactory.RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgameNavigationModelFactory, CashgameNavigationModelFactory>(container);
             ObjectFactory.RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICheckpointModelFactory, CheckpointModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>(container);
+            ObjectFactory.RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>(container);
+            ObjectFactory.RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>(container);
+            ObjectFactory.RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>(container);
             
             // Mappers
             ObjectFactory.RegisterComponent<IHomegameModelMapper, HomegameModelMapper>(container);

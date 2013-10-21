@@ -1,3 +1,4 @@
+using System;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -18,6 +19,19 @@ namespace Infrastructure.Plumbing
             where T : class
         {
             container.Register(Component.For<T, TK>().LifeStyle.Is(lifestyleType));
+        }
+
+        public static bool CanResolve(IWindsorContainer container, Type t)
+        {
+            try
+            {
+                container.Resolve(t);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
