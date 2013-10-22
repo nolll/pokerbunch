@@ -20,8 +20,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
             return new CheckpointModel
                 {
                     Description = CheckpointTypeName.GetName(checkpoint.Type),
-                    Stack = Globalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
-                    Timestamp = Globalization.FormatTime(checkpoint.Timestamp),
+                    Stack = StaticGlobalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
+                    Timestamp = StaticGlobalization.FormatTime(checkpoint.Timestamp),
                     ShowLink = role >= Role.Manager,
                     EditUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint)
                 };

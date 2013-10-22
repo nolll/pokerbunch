@@ -11,15 +11,18 @@ namespace Infrastructure.Data.Storage {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IRawCashgameFactory _rawCashgameFactory;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
+        private readonly IGlobalization _globalization;
 
         public MySqlCashgameStorage(
             IStorageProvider storageProvider,
             IRawCashgameFactory rawCashgameFactory,
-            IRawCheckpointFactory rawCheckpointFactory)
+            IRawCheckpointFactory rawCheckpointFactory,
+            IGlobalization globalization)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
             _rawCheckpointFactory = rawCheckpointFactory;
+            _globalization = globalization;
 	    }
 
         public int AddGame(int homegameId, RawCashgame cashgame){
@@ -42,7 +45,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public RawCashgame GetGame(int homegameId, DateTime date){
-			var dateStr = Globalization.FormatIsoDate(date);
+			var dateStr = _globalization.FormatIsoDate(date);
 			var sql = GetGameSql(homegameId) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
             sql = string.Format(sql, dateStr);
 			var reader = _storageProvider.Query(sql);

@@ -34,7 +34,7 @@ namespace Web.Formatters{
 		}
 
     	public static string FormatIsoDate(DateTime date){
-			return Globalization.FormatIsoDate(date);
+			return StaticGlobalization.FormatIsoDate(date);
 		}
 
 	}

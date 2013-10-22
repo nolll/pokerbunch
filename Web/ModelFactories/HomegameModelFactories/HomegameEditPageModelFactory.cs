@@ -58,13 +58,13 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private List<SelectListItem> GetTimezoneSelectModel()
         {
-            var timezones = Globalization.GetTimezones();
+            var timezones = StaticGlobalization.GetTimezones();
             return timezones.Select(t => new SelectListItem{ Text = t.DisplayName, Value = t.Id }).ToList();
         }
 
         private List<SelectListItem> GetCurrencyLayoutSelectModel()
         {
-            var layouts = Globalization.GetCurrencyLayouts();
+            var layouts = StaticGlobalization.GetCurrencyLayouts();
             var items = new List<SelectListItem>();
             if (layouts != null)
             {

@@ -15,11 +15,11 @@ namespace Web.Models.PlayerModels.Facts{
         public PlayerFactsModel(Homegame homegame, IEnumerable<Cashgame> cashgames, Player player)
         {
 			var filteredGames = FilterCashgames(cashgames, player);
-			Winnings = Globalization.FormatResult(homegame.Currency, GetWinnings(filteredGames, player));
-			BestResult = Globalization.FormatResult(homegame.Currency, GetBestResult(filteredGames, player));
-			WorstResult = Globalization.FormatResult(homegame.Currency, GetWorstResult(filteredGames, player));
+			Winnings = StaticGlobalization.FormatResult(homegame.Currency, GetWinnings(filteredGames, player));
+			BestResult = StaticGlobalization.FormatResult(homegame.Currency, GetBestResult(filteredGames, player));
+			WorstResult = StaticGlobalization.FormatResult(homegame.Currency, GetWorstResult(filteredGames, player));
 			GamesPlayed = filteredGames.Count;
-			TimePlayed = Globalization.FormatDuration(GetMinutesPlayed(filteredGames));
+			TimePlayed = StaticGlobalization.FormatDuration(GetMinutesPlayed(filteredGames));
 		}
 
 		public List<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, Player player){

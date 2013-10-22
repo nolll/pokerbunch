@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
                     Turnover = GetTurnover(homegame, cashgame),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
                     DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
-                    DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
+                    DisplayDate = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     PublishedClass = GetPublishedClass(cashgame)
                 };
         }
@@ -36,19 +36,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
             var duration = cashgame.Duration;
             if (duration > 0)
             {
-                return Globalization.FormatDuration(duration);
+                return StaticGlobalization.FormatDuration(duration);
             }
             return string.Empty;
         }
 
         private string GetTurnover(Homegame homegame, Cashgame cashgame)
         {
-            return Globalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
+            return StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
         }
 
         private string GetAvgBuyin(Homegame homegame, Cashgame cashgame, int playerCount)
         {
-            return Globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
+            return StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
         }
 
         private string GetPublishedClass(Cashgame cashgame)

@@ -6,14 +6,18 @@ namespace Infrastructure.Data.Storage {
     public class MySqlCheckpointStorage : ICheckpointStorage
     {
 	    private readonly IStorageProvider _storageProvider;
+        private readonly IGlobalization _globalization;
 
-        public MySqlCheckpointStorage(IStorageProvider storageProvider)
-	    {
-	        _storageProvider = storageProvider;
-	    }
+        public MySqlCheckpointStorage(
+            IStorageProvider storageProvider,
+            IGlobalization globalization)
+        {
+            _storageProvider = storageProvider;
+            _globalization = globalization;
+        }
 
-		public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint){
-			var timestampStr = Globalization.FormatIsoDateTime(DateTimeFactory.ToUtc(checkpoint.Timestamp));
+        public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint){
+			var timestampStr = _globalization.FormatIsoDateTime(DateTimeFactory.ToUtc(checkpoint.Timestamp));
 			var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}')";
             sql = string.Format(sql, cashgameId, playerId, checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
 			return _storageProvider.ExecuteInsert(sql);

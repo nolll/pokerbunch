@@ -25,7 +25,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
         {
-            var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
+            var dateStr = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
             
@@ -35,12 +35,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Heading = string.Format("Cashgame {0}", dateStr),
 			        Location = cashgame.Location,
-                    Duration = Globalization.FormatDuration(cashgame.Duration),
+                    Duration = StaticGlobalization.FormatDuration(cashgame.Duration),
 			        DurationEnabled = cashgame.Duration > 0,
                     ShowStartTime = showStartTime,
-			        StartTime = showStartTime ? Globalization.FormatTime(cashgame.StartTime.Value) : null,
+			        StartTime = showStartTime ? StaticGlobalization.FormatTime(cashgame.StartTime.Value) : null,
 			        ShowEndTime = showEndTime,
-			        EndTime = showEndTime ? Globalization.FormatTime(cashgame.EndTime.Value) : null,
+			        EndTime = showEndTime ? StaticGlobalization.FormatTime(cashgame.EndTime.Value) : null,
                     Status = GameStatusName.GetName(cashgame.Status),
                     CashgameDetailsTableModel = _cashgameDetailsTableModelFactory.Create(homegame, cashgame),
                     EnableEdit = isManager,

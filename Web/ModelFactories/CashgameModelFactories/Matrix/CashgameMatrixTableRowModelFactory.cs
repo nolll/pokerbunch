@@ -37,7 +37,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player),
                     CellModels = GetCellModels(cashgames, player),
-                    TotalResult = Globalization.FormatResult(homegame.Currency, winnings),
+                    TotalResult = StaticGlobalization.FormatResult(homegame.Currency, winnings),
                     ResultClass = _resultFormatter.GetWinningsCssClass(winnings)
                 };
         }

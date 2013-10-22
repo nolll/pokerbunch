@@ -28,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
                 {
                     BrowserTitle = "Edit Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-                    IsoDate = cashgame.StartTime.HasValue ? Globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
+                    IsoDate = cashgame.StartTime.HasValue ? StaticGlobalization.FormatIsoDate(cashgame.StartTime.Value) : null,
 			        CancelUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
 			        DeleteUrl = _urlProvider.GetCashgameDeleteUrl(homegame, cashgame),
 			        EnableDelete = cashgame.Status != GameStatus.Published,

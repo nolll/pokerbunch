@@ -26,9 +26,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 {
                     Name = result.Player != null ? result.Player.DisplayName : null,
                     PlayerUrl = result.Player != null ? _urlProvider.GetCashgameActionUrl(homegame, cashgame, result.Player) : null,
-                    Buyin = Globalization.FormatCurrency(homegame.Currency, result.Buyin),
-                    Cashout = Globalization.FormatCurrency(homegame.Currency, result.Stack),
-                    Winnings = Globalization.FormatResult(homegame.Currency, result.Winnings),
+                    Buyin = StaticGlobalization.FormatCurrency(homegame.Currency, result.Buyin),
+                    Cashout = StaticGlobalization.FormatCurrency(homegame.Currency, result.Stack),
+                    Winnings = StaticGlobalization.FormatResult(homegame.Currency, result.Winnings),
                     WinningsClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     Winrate = GetWinRate(result, homegame.Currency)
                 };
@@ -39,7 +39,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             if (result.PlayedTime > 0)
             {
                 var winrate = (int)Math.Round((double)result.Winnings / result.PlayedTime * 60);
-                return Globalization.FormatWinrate(currency, winrate);
+                return StaticGlobalization.FormatWinrate(currency, winrate);
             }
             return string.Empty;
         }

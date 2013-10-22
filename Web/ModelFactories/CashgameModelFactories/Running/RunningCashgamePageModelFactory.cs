@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
-                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? Globalization.FormatTime(cashgame.StartTime.Value) : null,
+                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? StaticGlobalization.FormatTime(cashgame.StartTime.Value) : null,
                     BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
                     ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
                     CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),

@@ -135,6 +135,8 @@
     <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="System\Globalization.cs" />
+    <Compile Include="System\Interfaces\IGlobalization.cs" />
     <Compile Include="System\Interfaces\ITimeProvider.cs" />
     <Compile Include="System\TimeProvider.cs" />
   </ItemGroup>
@@ -151,7 +153,7 @@
     <Compile Include="Data\Storage\Interfaces\ISharingStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ITwitterStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\IUserStorage.cs" />
-    <Compile Include="System\Globalization.cs" />
+    <Compile Include="System\StaticGlobalization.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\PlayerRepository.cs" />

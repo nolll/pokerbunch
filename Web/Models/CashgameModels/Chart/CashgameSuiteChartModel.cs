@@ -70,7 +70,7 @@ namespace Web.Models.CashgameModels.Chart {
 
 		private void AddGameRow(Cashgame cashgame, IDictionary<int, int?> currentSum){
 			var row1 = new ChartRowModel();
-		    var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
+		    var dateStr = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
             row1.AddValue(new ChartValueModel(dateStr));
 			foreach(var result in _results){
 				var sum = currentSum[result.Player.Id];

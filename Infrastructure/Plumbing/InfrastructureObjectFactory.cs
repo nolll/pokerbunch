@@ -4,6 +4,7 @@ using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.System;
 
 namespace Infrastructure.Plumbing
 {
@@ -38,6 +39,9 @@ namespace Infrastructure.Plumbing
             // Cache
             RegisterComponent<ICacheProvider, CacheProvider>();
             RegisterComponent<ICacheContainer, CacheContainer>();
+
+            // System
+            RegisterComponent<IGlobalization, Globalization>();
         }
     }
 }

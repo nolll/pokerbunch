@@ -28,8 +28,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgameTableModel
                 {
                     StatusModels = resultModels,
-                    TotalBuyin = Globalization.FormatCurrency(homegame.Currency, cashgame.Turnover),
-                    TotalStacks = Globalization.FormatCurrency(homegame.Currency, cashgame.TotalStacks)
+                    TotalBuyin = StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.Turnover),
+                    TotalStacks = StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.TotalStacks)
                 };
         }
 

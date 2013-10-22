@@ -27,7 +27,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 
         public ActionPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role, IList<int> years = null, Cashgame runningGame = null)
         {
-            var dateString = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
+            var dateString = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
 
             return new ActionPageModel
                 {

@@ -32,9 +32,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     BuyinUrl = result.Player != null && isManager ? _urlProvider.GetCashgameBuyinUrl(homegame, result.Player) : null,
                     ReportUrl = result.Player != null && isManager ? _urlProvider.GetCashgameReportUrl(homegame, result.Player) : null,
                     CashoutUrl = result.Player != null && isManager ? _urlProvider.GetCashgameCashoutUrl(homegame, result.Player) : null,
-                    Buyin = Globalization.FormatCurrency(homegame.Currency, result.Buyin),
-                    Stack = Globalization.FormatCurrency(homegame.Currency, result.Stack),
-                    Winnings = Globalization.FormatResult(homegame.Currency, result.Winnings),
+                    Buyin = StaticGlobalization.FormatCurrency(homegame.Currency, result.Buyin),
+                    Stack = StaticGlobalization.FormatCurrency(homegame.Currency, result.Stack),
+                    Winnings = StaticGlobalization.FormatResult(homegame.Currency, result.Winnings),
                     Time = GetTime(result.LastReportTime),
                     WinningsClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     HasCashedOut = result.CashoutTime != null,
@@ -47,7 +47,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             if (lastReportedTime.HasValue)
             {
                 var timespan = _timeProvider.GetTime() - lastReportedTime.Value;
-                return Globalization.FormatTimespan(timespan);
+                return StaticGlobalization.FormatTimespan(timespan);
             }
             return null;
         }

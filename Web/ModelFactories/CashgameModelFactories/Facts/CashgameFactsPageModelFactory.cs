@@ -27,13 +27,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
                     BrowserTitle = "Cashgame Facts",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
 			        GameCount = suite.GameCount,
-			        TotalGameTime = Globalization.FormatDuration(suite.TotalGameTime),
+			        TotalGameTime = StaticGlobalization.FormatDuration(suite.TotalGameTime),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year, runningGame)
                 };
 
             if (suite.BestResult != null)
             {
-                model.BestResultAmount = Globalization.FormatResult(homegame.Currency, suite.BestResult.Winnings);
+                model.BestResultAmount = StaticGlobalization.FormatResult(homegame.Currency, suite.BestResult.Winnings);
                 if (suite.BestResult.Player != null)
                 {
                     model.BestResultName = suite.BestResult.Player.DisplayName;
@@ -42,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 
             if (suite.WorstResult != null)
             {
-                model.WorstResultAmount = Globalization.FormatResult(homegame.Currency, suite.WorstResult.Winnings);
+                model.WorstResultAmount = StaticGlobalization.FormatResult(homegame.Currency, suite.WorstResult.Winnings);
                 if (suite.WorstResult.Player != null)
                 {
                     model.WorstResultName = suite.WorstResult.Player.DisplayName;
@@ -51,7 +51,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 
             if (suite.MostTimeResult != null)
             {
-                model.MostTimeDuration = Globalization.FormatDuration(suite.MostTimeResult.TimePlayed);
+                model.MostTimeDuration = StaticGlobalization.FormatDuration(suite.MostTimeResult.TimePlayed);
                 if (suite.MostTimeResult.Player != null)
                 {
                     model.MostTimeName = suite.MostTimeResult.Player.DisplayName;
