@@ -284,7 +284,6 @@
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
     <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
-    <Compile Include="Formatters\UrlFormatter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

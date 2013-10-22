@@ -91,6 +91,7 @@ namespace Tests.Common
         public readonly Mock<IBarModelFactory> BarModelFactoryMock;
         public readonly Mock<ICashgameMatrixTableCellModelFactory> CashgameMatrixTableCellModelFactoryMock;
         public readonly Mock<IResultFormatter> ResultFormatterMock;
+        public readonly Mock<IGlobalization> GlobalizationMock;
         
         public WebMocks()
         {
@@ -153,6 +154,7 @@ namespace Tests.Common
             BarModelFactoryMock = new Mock<IBarModelFactory>();
             CashgameMatrixTableCellModelFactoryMock = new Mock<ICashgameMatrixTableCellModelFactory>();
             ResultFormatterMock = new Mock<IResultFormatter>();
+            GlobalizationMock = new Mock<IGlobalization>();
         }
 
     }

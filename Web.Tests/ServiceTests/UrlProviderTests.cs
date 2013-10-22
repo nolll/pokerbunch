@@ -1,6 +1,7 @@
 using System;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Services;
@@ -68,36 +69,52 @@ namespace Web.Tests.ServiceTests{
 		}
 
 		[Test]
-        public void CashgameDeleteUrl(){
+        public void CashgameDeleteUrl()
+		{
+		    const string formattedDate = "a";
+
 			var homegame = GetHomegame();
-			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
+		    var dateTime = DateTime.Parse("2010-01-01");
+			var cashgame = new Cashgame {StartTime = dateTime};
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameDeleteUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/delete/2010-01-01", result);
+			Assert.AreEqual("/abc/cashgame/delete/a", result);
 		}
 
 		[Test]
         public void CashgameDetailsUrl(){
-			var homegame = GetHomegame();
-			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
+            const string formattedDate = "a";
+            
+            var homegame = GetHomegame();
+            var dateTime = DateTime.Parse("2010-01-01");
+            var cashgame = new Cashgame {StartTime = dateTime};
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameDetailsUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/details/2010-01-01", result);
+			Assert.AreEqual("/abc/cashgame/details/a", result);
 		}
 
 		[Test]
         public void CashgameEditUrlModel_ReturnsCorrectUrl(){
-			var homegame = GetHomegame();
-			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
+            const string formattedDate = "a";
+            
+            var homegame = GetHomegame();
+            var dateTime = DateTime.Parse("2010-01-01");
+            var cashgame = new Cashgame {StartTime = dateTime};
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameEditUrl(homegame, cashgame);
 
-			Assert.AreEqual("/abc/cashgame/edit/2010-01-01", result);
+			Assert.AreEqual("/abc/cashgame/edit/a", result);
 		}
 
 		[Test]
@@ -174,15 +191,22 @@ namespace Web.Tests.ServiceTests{
 		}
 
 		[Test]
-        public void CashgameActionUrlModel_ReturnsCorrectUrl(){
+        public void CashgameActionUrlModel_ReturnsCorrectUrl()
+		{
+		    const string formattedDate = "a";
+		    const string displayName = "b";
+
 			var homegame = GetHomegame();
-			var cashgame = new Cashgame {StartTime = DateTime.Parse("2010-01-01")};
-		    var player = new Player {DisplayName = "a"};
+		    var dateTime = DateTime.Parse("2010-01-01");
+		    var cashgame = new Cashgame{StartTime = dateTime};
+		    var player = new Player {DisplayName = displayName};
+
+		    Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameActionUrl(homegame, cashgame, player);
 
-			Assert.AreEqual("/abc/cashgame/action/2010-01-01/a", result);
+			Assert.AreEqual("/abc/cashgame/action/a/b", result);
 		}
 
 		[Test]
@@ -469,14 +493,19 @@ namespace Web.Tests.ServiceTests{
 	    [Test]
 	    public void GetCashgameActionChartJsonUrl()
 	    {
+	        const string formattedDate = "a";
+
             var homegame = GetHomegame();
-            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
-            var player = new Player { DisplayName = "a" };
+	        var dateTime = DateTime.Parse("2010-01-01");
+            var cashgame = new Cashgame { StartTime = dateTime };
+            var player = new Player { DisplayName = "b" };
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameActionChartJsonUrl(homegame, cashgame, player);
 
-            Assert.AreEqual("/abc/cashgame/actionchartjson/2010-01-01/a", result);
+            Assert.AreEqual("/abc/cashgame/actionchartjson/a/b", result);
 	    }
 
         [Test]
@@ -493,28 +522,38 @@ namespace Web.Tests.ServiceTests{
 
         [Test]
 	    public void GetCashgameCheckpointDeleteUrl()
-	    {
+        {
+            const string formattedDate = "a";
+
             var homegame = GetHomegame();
-            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
-            var player = new Player { DisplayName = "a" };
+            var dateTime = DateTime.Parse("2010-01-01");
+            var cashgame = new Cashgame { StartTime = dateTime };
+            var player = new Player { DisplayName = "b" };
             var checkpoint = new Checkpoint{ Id = 1 };
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
 	        var sut = GetSut();
             var result = sut.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint);
 
-            Assert.AreEqual("/abc/cashgame/deletecheckpoint/2010-01-01/a/1", result);
+            Assert.AreEqual("/abc/cashgame/deletecheckpoint/a/b/1", result);
 	    }
 
         [Test]
 	    public void GetCashgameDetailsChartJsonUrl()
 	    {
-            var homegame = GetHomegame();
-            var cashgame = new Cashgame { StartTime = DateTime.Parse("2010-01-01") };
+            const string formattedDate = "a";
 
+            var homegame = GetHomegame();
+            var dateTime = DateTime.Parse("2010-01-01");
+            var cashgame = new Cashgame { StartTime = dateTime };
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            
 	        var sut = GetSut();
             var result = sut.GetCashgameDetailsChartJsonUrl(homegame, cashgame);
 
-            Assert.AreEqual("/abc/cashgame/detailschartjson/2010-01-01", result);
+            Assert.AreEqual("/abc/cashgame/detailschartjson/a", result);
 	    }
 
         [Test]
@@ -565,7 +604,9 @@ namespace Web.Tests.ServiceTests{
 
         private UrlProvider GetSut()
         {
-            return new UrlProvider(Mocks.SettingsMock.Object);
+            return new UrlProvider(
+                Mocks.SettingsMock.Object,
+                Mocks.GlobalizationMock.Object);
         }
 
 		private Homegame GetHomegame(){
