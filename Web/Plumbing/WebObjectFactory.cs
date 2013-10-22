@@ -161,7 +161,8 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();
             RegisterComponent<ICashgameMatrixTableCellModelFactory, CashgameMatrixTableCellModelFactory>();
-            
+            RegisterComponent<IPlayerFactsModelFactory, PlayerFactsModelFactory>();
+
             // Mappers
             RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();
             RegisterComponent<ICashgameModelMapper, CashgameModelMapper>();
