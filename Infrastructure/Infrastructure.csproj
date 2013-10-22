@@ -153,7 +153,6 @@
     <Compile Include="Data\Storage\Interfaces\ISharingStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ITwitterStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\IUserStorage.cs" />
-    <Compile Include="System\StaticGlobalization.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\PlayerRepository.cs" />
