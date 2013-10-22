@@ -1,7 +1,6 @@
 ﻿using Core.Classes;
 using Core.Services;
 using Web.Models.NavigationModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.NavigationModelFactories
 {

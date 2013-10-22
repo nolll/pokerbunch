@@ -1,5 +1,3 @@
-using Web.Models.UrlModels;
-
 namespace Web.Models.NavigationModels{
     public class NavigationYearModel{
 

@@ -2,10 +2,8 @@ using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
-using Web.Models.CashgameModels.Leaderboard;
-using Web.Models.UrlModels;
 
-namespace Web.Tests.ModelTests.CashgameModels.Leaderboard{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
 	public class CashgameLeaderboardTableItemModelFactoryTests : WebMockContainer {
 

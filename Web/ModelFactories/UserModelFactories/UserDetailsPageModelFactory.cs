@@ -2,7 +2,6 @@
 using Core.Services;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.UrlModels;
 using Web.Models.UserModels;
 
 namespace Web.ModelFactories.UserModelFactories

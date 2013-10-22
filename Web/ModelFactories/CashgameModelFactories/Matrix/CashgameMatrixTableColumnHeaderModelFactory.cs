@@ -2,7 +2,6 @@ using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Matrix;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {

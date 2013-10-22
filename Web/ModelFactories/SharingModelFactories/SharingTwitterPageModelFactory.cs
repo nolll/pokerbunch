@@ -2,7 +2,6 @@
 using Core.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.SharingModelFactories
 {

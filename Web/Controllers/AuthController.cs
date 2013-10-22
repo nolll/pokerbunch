@@ -5,7 +5,6 @@ using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
-using Web.Models.UrlModels;
 
 namespace Web.Controllers{
 

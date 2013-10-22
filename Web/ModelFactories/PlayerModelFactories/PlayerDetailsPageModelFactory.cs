@@ -6,7 +6,6 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Facts;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {

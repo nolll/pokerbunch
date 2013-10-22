@@ -2,7 +2,6 @@ using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.AuthModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.AuthModelFactories
 {

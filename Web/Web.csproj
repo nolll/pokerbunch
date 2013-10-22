@@ -163,6 +163,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Listing\ICashgameListingTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableColumnHeaderModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IBarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\IHomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IPlayerItemModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageModelFactory.cs" />
@@ -206,6 +208,8 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Leaderboard\CashgameLeaderboardTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\PlayerItemModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -321,9 +325,6 @@
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\UrlModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserConfirmationPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
     <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />

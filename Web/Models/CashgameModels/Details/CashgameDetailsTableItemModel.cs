@@ -1,5 +1,3 @@
-using Web.Models.UrlModels;
-
 namespace Web.Models.CashgameModels.Details{
 	
 	public class CashgameDetailsTableItemModel{

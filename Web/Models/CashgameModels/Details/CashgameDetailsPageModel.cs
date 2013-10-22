@@ -1,5 +1,4 @@
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Details{
 

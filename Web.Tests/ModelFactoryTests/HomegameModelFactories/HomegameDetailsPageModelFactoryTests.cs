@@ -2,9 +2,8 @@ using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.Models.UrlModels;
 
-namespace Web.Tests.ModelTests.HomegameModels{
+namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 	public class HomegameDetailsPageModelFactoryTests : WebMockContainer
     {

@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.MiscModels;
-using Web.Models.UrlModels;
 
 namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 

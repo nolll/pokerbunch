@@ -82,6 +82,7 @@ namespace Tests.Common
         public readonly Mock<ICashgameNavigationModelFactory> CashgameNavigationModelFactoryMock;
         public readonly Mock<ICheckpointModelFactory> CheckpointModelFactoryMock;
         public readonly Mock<ICashgameMatrixTableColumnHeaderModelFactory> CashgameMatrixTableColumnHeaderModelFactoryMock;
+        public readonly Mock<ICashgameMatrixTableRowModelFactory> CashgameMatrixTableRowModelFactoryMock;
         public readonly Mock<ICashgameListingTableModelFactory> CashgameListingTableModelFactoryMock; 
         public readonly Mock<ICashgameListingTableItemModelFactory> CashgameListingTableItemModelFactoryMock;
         public readonly Mock<ICashgameLeaderboardTableModelFactory> CashgameLeaderboardTableModelFactoryMock;
@@ -141,6 +142,7 @@ namespace Tests.Common
             CashgameNavigationModelFactoryMock = new Mock<ICashgameNavigationModelFactory>();
             CheckpointModelFactoryMock = new Mock<ICheckpointModelFactory>();
             CashgameMatrixTableColumnHeaderModelFactoryMock = new Mock<ICashgameMatrixTableColumnHeaderModelFactory>();
+            CashgameMatrixTableRowModelFactoryMock = new Mock<ICashgameMatrixTableRowModelFactory>();
             CashgameListingTableModelFactoryMock = new Mock<ICashgameListingTableModelFactory>();
             CashgameListingTableItemModelFactoryMock = new Mock<ICashgameListingTableItemModelFactory>();
             CashgameLeaderboardTableModelFactoryMock = new Mock<ICashgameLeaderboardTableModelFactory>();

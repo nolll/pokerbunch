@@ -8,10 +8,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
     public class CashgameMatrixTableModelFactory : ICashgameMatrixTableModelFactory
     {
         private readonly ICashgameMatrixTableColumnHeaderModelFactory _cashgameMatrixTableColumnHeaderModelFactory;
+        private readonly ICashgameMatrixTableRowModelFactory _cashgameMatrixTableRowModelFactory;
 
-        public CashgameMatrixTableModelFactory(ICashgameMatrixTableColumnHeaderModelFactory cashgameMatrixTableColumnHeaderModelFactory)
+        public CashgameMatrixTableModelFactory(
+            ICashgameMatrixTableColumnHeaderModelFactory cashgameMatrixTableColumnHeaderModelFactory,
+            ICashgameMatrixTableRowModelFactory cashgameMatrixTableRowModelFactory)
         {
             _cashgameMatrixTableColumnHeaderModelFactory = cashgameMatrixTableColumnHeaderModelFactory;
+            _cashgameMatrixTableRowModelFactory = cashgameMatrixTableRowModelFactory;
         }
 
         public CashgameMatrixTableModel Create(Homegame homegame, CashgameSuite suite)
@@ -38,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             foreach (var result in results)
             {
                 rank++;
-                models.Add(new CashgameMatrixTableRowModel(homegame, suite, result, rank));
+                models.Add(_cashgameMatrixTableRowModelFactory.Create(homegame, suite, result, rank));
             }
             return models;
         }

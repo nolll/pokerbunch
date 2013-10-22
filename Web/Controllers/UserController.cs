@@ -4,7 +4,6 @@ using Core.Repositories;
 using Core.Services;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
-using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;

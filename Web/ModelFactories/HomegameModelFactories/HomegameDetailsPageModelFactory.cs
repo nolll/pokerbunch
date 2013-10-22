@@ -2,7 +2,6 @@
 using Core.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Details;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {

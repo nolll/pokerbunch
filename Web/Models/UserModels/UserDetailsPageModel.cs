@@ -1,6 +1,5 @@
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.UserModels{
 
