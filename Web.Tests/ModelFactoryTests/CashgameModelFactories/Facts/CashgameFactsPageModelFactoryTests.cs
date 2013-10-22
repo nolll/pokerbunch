@@ -1,4 +1,5 @@
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Facts;
@@ -25,22 +26,31 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		}
 
 		[Test]
-        public void TotalGameTime_SuiteHasTotalGameTime_IsSet(){
-			_suite.TotalGameTime = 1;
+        public void TotalGameTime_SuiteHasTotalGameTime_IsSet()
+		{
+		    const string formattedDuration = "a";
+            _suite.TotalGameTime = 1;
+
+		    Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_suite.TotalGameTime)).Returns(formattedDuration);
 			
             var result = GetResult();
 
-			Assert.AreEqual("1m", result.TotalGameTime);
+			Assert.AreEqual(formattedDuration, result.TotalGameTime);
 		}
 
 		[Test]
-        public void BestResultAmount_SuiteHasBestResult_IsSet(){
-			var cashgameResult = new CashgameResult {Winnings = 1};
+        public void BestResultAmount_SuiteHasBestResult_IsSet()
+		{
+		    const string formattedWinnings = "a";
+		    const int winnings = 1;
+			var cashgameResult = new CashgameResult {Winnings = winnings};
 		    _suite.BestResult = cashgameResult;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
 			var result = GetResult();
 
-			Assert.AreEqual("+$1", result.BestResultAmount);
+			Assert.AreEqual(formattedWinnings, result.BestResultAmount);
 		}
 
 		[Test]
@@ -56,12 +66,16 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 		[Test]
         public void WorstResultAmount_SuiteHasWorstResult_IsSet(){
-			var cashgameResult = new CashgameResult {Winnings = 1};
+            const string formattedWinnings = "a";
+            const int winnings = 1;
+			var cashgameResult = new CashgameResult {Winnings = winnings};
 		    _suite.WorstResult = cashgameResult;
-			
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
+
             var result = GetResult();
 
-            Assert.AreEqual("+$1", result.WorstResultAmount);
+            Assert.AreEqual(formattedWinnings, result.WorstResultAmount);
 		}
 
 		[Test]
@@ -76,13 +90,18 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		}
 
 		[Test]
-        public void MostTimeDuration_SuiteHasBestResult_IsSet(){
-			var cashgameResult = new CashgameTotalResult {TimePlayed = 1};
+        public void MostTimeDuration_SuiteHasBestResult_IsSet()
+		{
+		    const string formattedTime = "a";
+		    const int timePlayed = 1;
+			var cashgameResult = new CashgameTotalResult {TimePlayed = timePlayed};
 		    _suite.MostTimeResult = cashgameResult;
-			
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
+
             var result = GetResult();
 
-			Assert.AreEqual("1m", result.MostTimeDuration);
+			Assert.AreEqual(formattedTime, result.MostTimeDuration);
 		}
 
 		[Test]
@@ -104,7 +123,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		private CashgameFactsPageModelFactory GetSut(){
             return new CashgameFactsPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.CashgameNavigationModelFactoryMock.Object);
+                Mocks.CashgameNavigationModelFactoryMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

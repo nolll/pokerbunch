@@ -13,15 +13,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameMatrixTableCellModelFactory _cashgameMatrixTableCellModelFactory;
         private readonly IResultFormatter _resultFormatter;
+        private readonly IGlobalization _globalization;
 
         public CashgameMatrixTableRowModelFactory(
             IUrlProvider urlProvider,
             ICashgameMatrixTableCellModelFactory cashgameMatrixTableCellModelFactory,
-            IResultFormatter resultFormatter)
+            IResultFormatter resultFormatter,
+            IGlobalization globalization)
         {
             _urlProvider = urlProvider;
             _cashgameMatrixTableCellModelFactory = cashgameMatrixTableCellModelFactory;
             _resultFormatter = resultFormatter;
+            _globalization = globalization;
         }
 
         public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank)
@@ -37,7 +40,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player),
                     CellModels = GetCellModels(cashgames, player),
-                    TotalResult = StaticGlobalization.FormatResult(homegame.Currency, winnings),
+                    TotalResult = _globalization.FormatResult(homegame.Currency, winnings),
                     ResultClass = _resultFormatter.GetWinningsCssClass(winnings)
                 };
         }

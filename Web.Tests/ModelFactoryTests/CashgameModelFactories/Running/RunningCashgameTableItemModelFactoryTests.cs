@@ -1,5 +1,6 @@
 using System;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Running;
@@ -48,44 +49,61 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		}
 
 		[Test]
-		public void Buyin_IsSet(){
+		public void Buyin_IsSet()
+		{
+		    const string formatted = "a";
 			_result.Buyin = 1;
 
-			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
-
-			Assert.AreEqual("$1", result.Buyin);
-		}
-
-		[Test]
-		public void test_Stack_IsSet(){
-			_result.Stack = 1;
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _result.Buyin)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("$1", result.Stack);
+			Assert.AreEqual(formatted, result.Buyin);
 		}
 
 		[Test]
-		public void Winnings_IsSet(){
+		public void test_Stack_IsSet()
+        {
+            const string formatted = "a";
+            _result.Stack = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _result.Stack)).Returns(formatted);
+
+			var sut = GetSut();
+            var result = sut.Create(_homegame, _cashgame, _result, _isManager);
+
+			Assert.AreEqual(formatted, result.Stack);
+		}
+
+		[Test]
+		public void Winnings_IsSet()
+		{
+		    const string formatted = "a";
 			_result.Winnings = 1;
 
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formatted);
+
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("+$1", result.Winnings);
+			Assert.AreEqual(formatted, result.Winnings);
 		}
 
 		[Test]
-		public void Time_IsSetToDifferenceBetweenNowAndLastCheckpoint(){
+		public void Time_IsSetToDifferenceBetweenNowAndLastCheckpoint()
+		{
+		    const string formatted = "a";
+		    var expectedTimespan = new TimeSpan(0, 1, 0);
+
 			SetLastCheckpointTime(DateTime.Parse("2010-01-01 01:00:00"));
             Mocks.TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
+            Mocks.GlobalizationMock.Setup(o => o.FormatTimespan(expectedTimespan)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result, _isManager);
 
-			Assert.AreEqual("1 minute", result.Time);
+			Assert.AreEqual(formatted, result.Time);
 		}
 
 		[Test]
@@ -187,7 +205,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             return new RunningCashgameTableItemModelFactory(
                 Mocks.UrlProviderMock.Object,
                 Mocks.TimeProviderMock.Object,
-                Mocks.ResultFormatterMock.Object);
+                Mocks.ResultFormatterMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 		private void SetLastCheckpointTime(DateTime time){

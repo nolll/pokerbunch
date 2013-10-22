@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
@@ -48,13 +49,17 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		}
 
 		[Test]
-		public void TableRow_TotalResultIsSet(){
+		public void TableRow_TotalResultIsSet()
+		{
+		    const string formatted = "a";
 			_result.Winnings = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _result, _rank);
 
-			Assert.AreEqual("+$1", result.TotalResult);
+			Assert.AreEqual(formatted, result.TotalResult);
 		}
 
 		[Test]
@@ -88,22 +93,22 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 			Assert.AreEqual(1, result.CellModels.Count);
 		}
 
-		private CashgameMatrixTableRowModelFactory GetSut()
-		{
-		    return new CashgameMatrixTableRowModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.CashgameMatrixTableCellModelFactoryMock.Object,
-                Mocks.ResultFormatterMock.Object);
-		}
-
-        private CashgameSuite GetSuite()
+		private CashgameSuite GetSuite()
         {
             return new CashgameSuite
             {
                 Cashgames = new List<Cashgame>{new Cashgame()}
             };
         }
-
+    
+        private CashgameMatrixTableRowModelFactory GetSut()
+		{
+		    return new CashgameMatrixTableRowModelFactory(
+                Mocks.UrlProviderMock.Object,
+                Mocks.CashgameMatrixTableCellModelFactoryMock.Object,
+                Mocks.ResultFormatterMock.Object,
+                Mocks.GlobalizationMock.Object);
+		}
 	}
 
 }

@@ -41,23 +41,31 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		}
 
 		[Test]
-        public void TotalBuyin_CashgameWithTwoPlayers_IsSumOfBuyins(){
+        public void TotalBuyin_CashgameWithTwoPlayers_IsSumOfBuyins()
+		{
+		    const string formatted = "a";
 			_cashgame.Turnover = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.Turnover)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual("$1", result.TotalBuyin);
+			Assert.AreEqual(formatted, result.TotalBuyin);
 		}
 
 		[Test]
-        public void TotalStacks_CashgameWithTwoPlayers_IsSumOfCurrentStacks(){
-			_cashgame.TotalStacks = 1;
+        public void TotalStacks_CashgameWithTwoPlayers_IsSumOfCurrentStacks()
+		{
+		    const string formatted = "a";
+            _cashgame.TotalStacks = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.TotalStacks)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, false);
 
-			Assert.AreEqual("$1", result.TotalStacks);
+            Assert.AreEqual(formatted, result.TotalStacks);
 		}
 
 		[Test]
@@ -86,7 +94,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		}
 
 		private RunningCashgameTableModelFactory GetSut(){
-            return new RunningCashgameTableModelFactory(Mocks.RunningCashgameTableItemModelFactoryMock.Object);
+            return new RunningCashgameTableModelFactory(
+                Mocks.RunningCashgameTableItemModelFactoryMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

@@ -12,15 +12,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
         private readonly IUrlProvider _urlProvider;
+        private readonly IGlobalization _globalization;
 
         public RunningCashgamePageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _urlProvider = urlProvider;
+            _globalization = globalization;
         }
 
         public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
@@ -35,7 +38,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
-                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? StaticGlobalization.FormatTime(cashgame.StartTime.Value) : null,
+                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? _globalization.FormatTime(cashgame.StartTime.Value) : null,
                     BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
                     ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
                     CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),

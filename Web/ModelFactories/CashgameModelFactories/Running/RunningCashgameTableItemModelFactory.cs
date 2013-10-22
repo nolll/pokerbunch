@@ -12,15 +12,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IUrlProvider _urlProvider;
         private readonly ITimeProvider _timeProvider;
         private readonly IResultFormatter _resultFormatter;
+        private readonly IGlobalization _globalization;
 
         public RunningCashgameTableItemModelFactory(
             IUrlProvider urlProvider,
             ITimeProvider timeProvider,
-            IResultFormatter resultFormatter)
+            IResultFormatter resultFormatter,
+            IGlobalization globalization)
         {
             _urlProvider = urlProvider;
             _timeProvider = timeProvider;
             _resultFormatter = resultFormatter;
+            _globalization = globalization;
         }
 
         public RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result, bool isManager)
@@ -32,9 +35,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     BuyinUrl = result.Player != null && isManager ? _urlProvider.GetCashgameBuyinUrl(homegame, result.Player) : null,
                     ReportUrl = result.Player != null && isManager ? _urlProvider.GetCashgameReportUrl(homegame, result.Player) : null,
                     CashoutUrl = result.Player != null && isManager ? _urlProvider.GetCashgameCashoutUrl(homegame, result.Player) : null,
-                    Buyin = StaticGlobalization.FormatCurrency(homegame.Currency, result.Buyin),
-                    Stack = StaticGlobalization.FormatCurrency(homegame.Currency, result.Stack),
-                    Winnings = StaticGlobalization.FormatResult(homegame.Currency, result.Winnings),
+                    Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
+                    Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
+                    Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),
                     Time = GetTime(result.LastReportTime),
                     WinningsClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     HasCashedOut = result.CashoutTime != null,
@@ -47,7 +50,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             if (lastReportedTime.HasValue)
             {
                 var timespan = _timeProvider.GetTime() - lastReportedTime.Value;
-                return StaticGlobalization.FormatTimespan(timespan);
+                return _globalization.FormatTimespan(timespan);
             }
             return null;
         }

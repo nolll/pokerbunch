@@ -1,5 +1,6 @@
 using System;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Listing;
@@ -40,33 +41,45 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		}
 
 		[Test]
-		public void TableItem_WithDuration_SetsDuration(){
+		public void TableItem_WithDuration_SetsDuration()
+		{
+		    const string formatted = "a";
 			_cashgame.Duration = 1;
 
+            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_cashgame.Duration)).Returns(formatted);
+
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-            Assert.AreEqual("1m", result.Duration);
+            Assert.AreEqual(formatted, result.Duration);
 		}
 
 		[Test]
-		public void TableItem_SetsTurnover(){
+		public void TableItem_SetsTurnover()
+        {
+            const string formatted = "a";
 			_cashgame.Turnover = 1;
 
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.Turnover)).Returns(formatted);
+
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-            Assert.AreEqual("$1", result.Turnover);
+            Assert.AreEqual(formatted, result.Turnover);
 		}
 
 		[Test]
-		public void TableItem_SetsAvgBuyin(){
+		public void TableItem_SetsAvgBuyin()
+		{
+		    const string formatted = "a";
 			_cashgame.AverageBuyin = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.AverageBuyin)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-            Assert.AreEqual("$1", result.AvgBuyin);
+            Assert.AreEqual(formatted, result.AvgBuyin);
 		}
 
 		[Test]
@@ -90,24 +103,33 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		}
 
 		[Test]
-		public void TableItem_SetsDisplayDate(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+		public void TableItem_SetsDisplayDate()
+		{
+		    const string formatted = "a";
+		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
+			_cashgame.StartTime = startTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-            Assert.AreEqual("Jan 1", result.DisplayDate);
+            Assert.AreEqual(formatted, result.DisplayDate);
 		}
 
 		[Test]
 		public void TableItem_WithShowDateSetToTrue_SetsDisplayDate(){
-			_showYear = true;
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+            const string formatted = "a";
+            _showYear = true;
+		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
+			_cashgame.StartTime = startTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-            Assert.AreEqual("Jan 1 2010", result.DisplayDate);
+            Assert.AreEqual(formatted, result.DisplayDate);
 		}
 
 		[Test]
@@ -132,7 +154,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
 		private CashgameListingTableItemModelFactory GetSut(){
 			return new CashgameListingTableItemModelFactory(
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

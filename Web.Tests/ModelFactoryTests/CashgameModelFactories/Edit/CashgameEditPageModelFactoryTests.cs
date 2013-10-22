@@ -25,12 +25,17 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 		}
 
         [Test]
-		public void IsoDate_IsSet(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+		public void IsoDate_IsSet()
+        {
+            const string formattedStartDate = "a";
+            var startTime = DateTime.Parse("2010-01-01 01:00:00");
+			_cashgame.StartTime = startTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
 
 			var result = GetResult();
 
-			Assert.AreEqual("2010-01-01", result.IsoDate);
+			Assert.AreEqual(formattedStartDate, result.IsoDate);
 		}
 
 		[Test]
@@ -90,7 +95,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
         {
             return new CashgameEditPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.GlobalizationMock.Object);
         }
 
 	}

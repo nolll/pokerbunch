@@ -8,10 +8,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
     public class CashgameListingTableItemModelFactory : ICashgameListingTableItemModelFactory
     {
         private readonly IUrlProvider _urlProvider;
+        private readonly IGlobalization _globalization;
 
-        public CashgameListingTableItemModelFactory(IUrlProvider urlProvider)
+        public CashgameListingTableItemModelFactory(
+            IUrlProvider urlProvider,
+            IGlobalization globalization)
         {
             _urlProvider = urlProvider;
+            _globalization = globalization;
         }
 
         public CashgameListingTableItemModel Create(Homegame homegame, Cashgame cashgame, bool showYear)
@@ -26,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
                     Turnover = GetTurnover(homegame, cashgame),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
                     DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
-                    DisplayDate = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
+                    DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     PublishedClass = GetPublishedClass(cashgame)
                 };
         }
@@ -36,19 +40,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
             var duration = cashgame.Duration;
             if (duration > 0)
             {
-                return StaticGlobalization.FormatDuration(duration);
+                return _globalization.FormatDuration(duration);
             }
             return string.Empty;
         }
 
         private string GetTurnover(Homegame homegame, Cashgame cashgame)
         {
-            return StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
+            return _globalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
         }
 
         private string GetAvgBuyin(Homegame homegame, Cashgame cashgame, int playerCount)
         {
-            return StaticGlobalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
+            return _globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
         }
 
         private string GetPublishedClass(Cashgame cashgame)

@@ -1,4 +1,5 @@
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
@@ -39,13 +40,17 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		}
 
 		[Test]
-		public void TableItem_TotalResultIsSet(){
+		public void TableItem_TotalResultIsSet()
+		{
+		    const string formattedResult = "a";
 			_result.Winnings = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
 
-			Assert.AreEqual("+$1", result.TotalResult);
+			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
 
 		[Test]
@@ -60,23 +65,31 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		}
 
 		[Test]
-		public void TableItem_WithDuration_DurationIsSet(){
-			_result.TimePlayed = 60;
+		public void TableItem_WithDuration_DurationIsSet()
+		{
+		    const string formattedTime = "a";
+            _result.TimePlayed = 60;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_result.TimePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
 
-			Assert.AreEqual("1h", result.GameTime);
+            Assert.AreEqual(formattedTime, result.GameTime);
 		}
 
 		[Test]
-		public void TableItem_WithDuration_WinrateIsSet(){
-			_result.WinRate = 1;
+		public void TableItem_WithDuration_WinrateIsSet()
+		{
+		    const string formattedWinRate = "a";
+            _result.WinRate = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), _result.WinRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
 
-			Assert.AreEqual("$1/h", result.WinRate);
+			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
 
 		[Test]
@@ -94,7 +107,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		private CashgameLeaderboardTableItemModelFactory GetSut(){
 			return new CashgameLeaderboardTableItemModelFactory(
                 Mocks.UrlProviderMock.Object,
-                Mocks.ResultFormatterMock.Object);
+                Mocks.ResultFormatterMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

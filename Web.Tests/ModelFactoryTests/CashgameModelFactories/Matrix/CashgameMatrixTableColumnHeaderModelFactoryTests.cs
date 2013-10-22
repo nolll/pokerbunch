@@ -21,23 +21,31 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
         [Test]
 		public void ColumnHeader_DateIsSet(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01");
+            const string formatted = "a";
+            var startTime = DateTime.Parse("2010-01-01");
+            _cashgame.StartTime = startTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-			Assert.AreEqual("Jan 1", result.Date);
+			Assert.AreEqual(formatted, result.Date);
 		}
 
 		[Test]
 		public void ColumnHeader_ShowYearIsTrue_DateWithYearIsSet(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01");
+            const string formatted = "a";
+            var startTime = DateTime.Parse("2010-01-01");
+            _cashgame.StartTime = startTime;
 		    _showYear = true;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _showYear);
 
-			Assert.AreEqual("Jan 1 2010", result.Date);
+            Assert.AreEqual(formatted, result.Date);
 		}
 
 		[Test]
@@ -55,7 +63,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
         private CashgameMatrixTableColumnHeaderModelFactory GetSut()
         {
             return new CashgameMatrixTableColumnHeaderModelFactory(
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.GlobalizationMock.Object);
         }
 
 	}

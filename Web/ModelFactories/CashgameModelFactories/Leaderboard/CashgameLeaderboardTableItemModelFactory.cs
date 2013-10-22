@@ -11,13 +11,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
     {
         private readonly IUrlProvider _urlProvider;
         private readonly IResultFormatter _resultFormatter;
+        private readonly IGlobalization _globalization;
 
         public CashgameLeaderboardTableItemModelFactory(
             IUrlProvider urlProvider,
-            IResultFormatter resultFormatter)
+            IResultFormatter resultFormatter,
+            IGlobalization globalization)
         {
             _urlProvider = urlProvider;
             _resultFormatter = resultFormatter;
+            _globalization = globalization;
         }
 
         public CashgameLeaderboardTableItemModel Create(Homegame homegame, CashgameTotalResult result, int rank)
@@ -28,10 +31,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             return new CashgameLeaderboardTableItemModel
                 {
                     Rank = rank,
-                    TotalResult = StaticGlobalization.FormatResult(homegame.Currency, winnings),
+                    TotalResult = _globalization.FormatResult(homegame.Currency, winnings),
                     ResultClass = _resultFormatter.GetWinningsCssClass(winnings),
-                    GameTime = StaticGlobalization.FormatDuration(result.TimePlayed),
-                    WinRate = StaticGlobalization.FormatWinrate(homegame.Currency, result.WinRate),
+                    GameTime = _globalization.FormatDuration(result.TimePlayed),
+                    WinRate = _globalization.FormatWinrate(homegame.Currency, result.WinRate),
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player)

@@ -26,14 +26,19 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		}
 
 		[Test]
-        public void StartTime_WithStartTime_IsSet(){
+        public void StartTime_WithStartTime_IsSet()
+		{
+		    const string formatted = "a";
 			SetupPlayerIsInGame();
 			_cashgame.IsStarted = true;
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
+			_cashgame.StartTime = startTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatTime(startTime)).Returns(formatted);
 
 			var result = GetResult();
 
-			Assert.AreEqual("01:00", result.StartTime);
+			Assert.AreEqual(formatted, result.StartTime);
 		}
 
 		[Test]
@@ -237,7 +242,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             return new RunningCashgamePageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
                 Mocks.RunningCashgameTableModelFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

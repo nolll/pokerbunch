@@ -13,13 +13,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUrlProvider _urlProvider;
+        private readonly IGlobalization _globalization;
 
         public CashgameEditPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
+            _globalization = globalization;
         }
 
         public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame)
@@ -28,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
                 {
                     BrowserTitle = "Edit Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
-                    IsoDate = cashgame.StartTime.HasValue ? StaticGlobalization.FormatIsoDate(cashgame.StartTime.Value) : null,
+                    IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
 			        CancelUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
 			        DeleteUrl = _urlProvider.GetCashgameDeleteUrl(homegame, cashgame),
 			        EnableDelete = cashgame.Status != GameStatus.Published,
