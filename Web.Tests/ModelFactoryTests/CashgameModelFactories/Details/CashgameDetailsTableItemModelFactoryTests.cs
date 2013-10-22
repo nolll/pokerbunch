@@ -1,5 +1,6 @@
 using System;
 using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Details;
@@ -46,39 +47,50 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		[Test]
-        public void Buyin_IsSet(){
+        public void Buyin_IsSet()
+		{
+		    const string formattedBuyin = "a";
 			_result.Buyin = 1;
-			
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _result.Buyin)).Returns(formattedBuyin);
+
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
 
-			Assert.AreEqual("$1", result.Buyin);
+			Assert.AreEqual(formattedBuyin, result.Buyin);
 		}
 
 		[Test]
         public void Cashout_IsSet(){
-			_result.Stack = 1;
-			
+            const string formattedStack = "a";
+            _result.Stack = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _result.Stack)).Returns(formattedStack);
+
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
 
-			Assert.AreEqual("$1", result.Cashout);
+			Assert.AreEqual("a", result.Cashout);
 		}
 
 		[Test]
         public void Winnings_IsSet(){
-			_result.Winnings = 1;
-			
+            const string formattedWinnings = "a";
+            _result.Winnings = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formattedWinnings);
+
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
 
-			Assert.AreEqual("+$1", result.Winnings);
+			Assert.AreEqual(formattedWinnings, result.Winnings);
 		}
 
 		[Test]
         public void WinningsClass_IsSet(){
 		    const string resultClass = "a";
-		    Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
+		    
+            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
@@ -87,14 +99,18 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		[Test]
-        public void Winrate_WithDuration_IsSet(){
+        public void Winrate_WithDuration_IsSet()
+		{
+		    const string formattedWinrate = "a";
 			_result.PlayedTime = 60;
 			_result.Winnings = 1;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formattedWinrate);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
 
-			Assert.AreEqual("$1/h", result.Winrate);
+			Assert.AreEqual(formattedWinrate, result.Winrate);
 		}
 
 		[Test]
@@ -108,7 +124,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		private CashgameDetailsTableItemModelFactory GetSut(){
             return new CashgameDetailsTableItemModelFactory(
                 Mocks.UrlProviderMock.Object,
-                Mocks.ResultFormatterMock.Object);
+                Mocks.ResultFormatterMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

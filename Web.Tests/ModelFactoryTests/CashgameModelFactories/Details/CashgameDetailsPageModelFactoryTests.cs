@@ -25,21 +25,31 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
         [Test]
-		public void Heading_IsSet(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+		public void Heading_IsSet()
+        {
+            const string formattedDate = "a";
+
+            var dateTime = DateTime.Parse("2010-01-01 01:00:00");
+            _cashgame.StartTime = dateTime;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(dateTime, true)).Returns(formattedDate);
 
             var result = GetResult();
 
-			Assert.AreEqual("Cashgame Jan 1 2010", result.Heading);
+			Assert.AreEqual("Cashgame a", result.Heading);
 		}
 
 		[Test]
-		public void Duration_IsSet(){
+		public void Duration_IsSet()
+		{
+		    const string formattedDuration = "a";
 			_cashgame.Duration = 1;
+
+		    Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_cashgame.Duration)).Returns(formattedDuration);
 
 			var result = GetResult();
 
-			Assert.AreEqual("1m", result.Duration);
+            Assert.AreEqual(formattedDuration, result.Duration);
 		}
 
 		[Test]
@@ -52,23 +62,32 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		[Test]
-		public void StartTime_WithRunningGame_IsSet(){
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+		public void StartTime_WithRunningGame_IsSet()
+		{
+		    const string formattedTime = "a";
+		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
+			_cashgame.StartTime = startTime;
 			_cashgame.Status = GameStatus.Running;
+
+		    Mocks.GlobalizationMock.Setup(o => o.FormatTime(startTime)).Returns(formattedTime);
 
 			var result = GetResult();
 
-			Assert.AreEqual("01:00", result.StartTime);
+            Assert.AreEqual(formattedTime, result.StartTime);
 		}
 
 		[Test]
 		public void EndTime_WithFinishedGame_IsSet(){
-			_cashgame.EndTime = DateTime.Parse("2010-01-01 01:00:00");
+            const string formattedTime = "a";
+            var endTime = DateTime.Parse("2010-01-01 01:00:00");
+            _cashgame.EndTime = endTime;
 			_cashgame.Status = GameStatus.Finished;
+
+            Mocks.GlobalizationMock.Setup(o => o.FormatTime(endTime)).Returns(formattedTime);
 
 			var result = GetResult();
 
-			Assert.AreEqual("01:00", result.EndTime);
+			Assert.AreEqual(formattedTime, result.EndTime);
 		}
 
 		[Test]
@@ -209,7 +228,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             return new CashgameDetailsPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object, 
                 Mocks.CashgameDetailsTableModelFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.GlobalizationMock.Object);
         }
 
 	}
