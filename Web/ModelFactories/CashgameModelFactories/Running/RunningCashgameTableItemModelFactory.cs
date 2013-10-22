@@ -3,6 +3,7 @@ using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Running;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
@@ -10,13 +11,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     {
         private readonly IUrlProvider _urlProvider;
         private readonly ITimeProvider _timeProvider;
+        private readonly IResultFormatter _resultFormatter;
 
         public RunningCashgameTableItemModelFactory(
             IUrlProvider urlProvider,
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            IResultFormatter resultFormatter)
         {
             _urlProvider = urlProvider;
             _timeProvider = timeProvider;
+            _resultFormatter = resultFormatter;
         }
 
         public RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result, bool isManager)
@@ -32,7 +36,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     Stack = Globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = Globalization.FormatResult(homegame.Currency, result.Winnings),
                     Time = GetTime(result.LastReportTime),
-                    WinningsClass = Util.GetWinningsCssClass(result.Winnings),
+                    WinningsClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     HasCashedOut = result.CashoutTime != null,
                     ManagerButtonsEnabled = isManager
                 };

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
-using Web.Models.CashgameModels.Matrix;
+using Tests.Common;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
-	public class CashgameMatrixTableCellModelTests {
+	public class CashgameMatrixTableCellModelTests : WebMockContainer {
 
 		private Cashgame _cashgame;
 		private CashgameResult _result;
@@ -19,8 +20,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
         [Test]
 		public void ShowWinnings_WithResult_IsTrue(){
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsTrue(sut.ShowResult);
+			Assert.IsTrue(result.ShowResult);
 		}
 
 		[Test]
@@ -28,8 +30,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_result.Buyin = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.AreEqual(1, sut.Buyin);
+			Assert.AreEqual(1, result.Buyin);
 		}
 
 		[Test]
@@ -37,17 +40,20 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_result.Stack = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.AreEqual(1, sut.Cashout);
+			Assert.AreEqual(1, result.Cashout);
 		}
 
 		[Test]
 		public void Winnings_WithResult_IsSet(){
-			_result.Winnings = 1;
+            const string expectedResult = "a";
+            Mocks.ResultFormatterMock.Setup(o => o.FormatWinnings(_result.Winnings)).Returns(expectedResult);
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.AreEqual("+1", sut.Winnings);
+			Assert.AreEqual(expectedResult, result.Winnings);
 		}
 
 		[Test]
@@ -55,8 +61,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_result = null;
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsFalse(sut.ShowResult);
+			Assert.IsFalse(result.ShowResult);
 		}
 
 		[Test]
@@ -64,8 +71,9 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_result.Buyin = 1;
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsTrue(sut.ShowTransactions);
+			Assert.IsTrue(result.ShowTransactions);
 		}
 
 		[Test]
@@ -73,26 +81,20 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_result.Buyin = 0;
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsFalse(sut.ShowTransactions);
+			Assert.IsFalse(result.ShowTransactions);
 		}
 
 		[Test]
-		public void WinningsClass_WithPositiveResult_IsPosResult(){
-			_result.Winnings = 1;
+		public void WinningsClass_IsSet(){
+            const string resultClass = "a";
+            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.AreEqual("pos-result", sut.ResultClass);
-		}
-
-		[Test]
-		public void WinningsClass_WithNegativeResult_IsNegResult(){
-			_result.Winnings = -1;
-
-			var sut = GetSut();
-
-			Assert.AreEqual("neg-result", sut.ResultClass);
+			Assert.AreEqual(resultClass, result.ResultClass);
 		}
 
 		[Test]
@@ -101,19 +103,22 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 			_cashgame.Results = new List<CashgameResult>{cashgameResult};
 
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsTrue(sut.HasBestResult);
+            Assert.IsTrue(result.HasBestResult);
 		}
 
 		[Test]
 		public void HasBestResult_PlayerWithoutBestResult_IsFalse(){
 			var sut = GetSut();
+            var result = sut.Create(_cashgame, _result);
 
-			Assert.IsFalse(sut.HasBestResult);
+            Assert.IsFalse(result.HasBestResult);
 		}
 
-		private CashgameMatrixTableCellModel GetSut(){
-			return new CashgameMatrixTableCellModel(_cashgame, _result);
+		private CashgameMatrixTableCellModelFactory GetSut(){
+			return new CashgameMatrixTableCellModelFactory(
+                Mocks.ResultFormatterMock.Object);
 		}
 
 	}

@@ -76,34 +76,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		[Test]
-        public void WinningsClass_BuyinEqualToCashout_IsEmpty(){
-			_result.Buyin = 100;
-			_result.Stack = 100;
+        public void WinningsClass_IsSet(){
+		    const string resultClass = "a";
+		    Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _result);
 
-			Assert.AreEqual("", result.WinningsClass);
-		}
-
-		[Test]
-        public void WinningsClass_ResultIsPositive_IsPositive(){
-			_result.Winnings = 1;
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, _result);
-
-			Assert.AreEqual("pos-result", result.WinningsClass);
-		}
-
-		[Test]
-        public void WinningsClass_BuyinBiggerThanCashout_IsNegative(){
-			_result.Winnings = -1;
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, _result);
-
-			Assert.AreEqual("neg-result", result.WinningsClass);
+			Assert.AreEqual(resultClass, result.WinningsClass);
 		}
 
 		[Test]
@@ -126,7 +106,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		private CashgameDetailsTableItemModelFactory GetSut(){
-            return new CashgameDetailsTableItemModelFactory(Mocks.UrlProviderMock.Object);
+            return new CashgameDetailsTableItemModelFactory(
+                Mocks.UrlProviderMock.Object,
+                Mocks.ResultFormatterMock.Object);
 		}
 
 	}

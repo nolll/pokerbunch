@@ -161,6 +161,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Leaderboard\ICashgameLeaderboardTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Listing\ICashgameListingTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Listing\ICashgameListingTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableColumnHeaderModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableRowModelFactory.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerItemModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -430,9 +432,10 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\IResultFormatter.cs" />
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\UrlProvider.cs" />
-    <Compile Include="Util.cs" />
+    <Compile Include="Services\ResultFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />

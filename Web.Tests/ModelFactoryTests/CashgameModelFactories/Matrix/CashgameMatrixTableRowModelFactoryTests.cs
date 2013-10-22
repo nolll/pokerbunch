@@ -58,23 +58,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		}
 
 		[Test]
-		public void TableRow_WithPositiveResult_WinningsClassIsSetToPosResult(){
-			_result.Winnings = 1;
+		public void TableRow_WinningsClassIsSet(){
+			const string resultClass = "a";
+            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _result, _rank);
 
-			Assert.AreEqual("pos-result", result.ResultClass);
-		}
-
-		[Test]
-		public void TableRow_WithPositiveResult_WinningsClassIsSetToNegResult(){
-			_result.Winnings = -1;
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, _result, _rank);
-
-			Assert.AreEqual("neg-result", result.ResultClass);
+			Assert.AreEqual(resultClass, result.ResultClass);
 		}
 
 		[Test]
@@ -95,13 +86,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
             var result = sut.Create(_homegame, _suite, _result, _rank);
 
 			Assert.AreEqual(1, result.CellModels.Count);
-			Assert.IsInstanceOf<CashgameMatrixTableCellModel>(result.CellModels[0]);
 		}
 
 		private CashgameMatrixTableRowModelFactory GetSut()
 		{
 		    return new CashgameMatrixTableRowModelFactory(
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.CashgameMatrixTableCellModelFactoryMock.Object,
+                Mocks.ResultFormatterMock.Object);
 		}
 
         private CashgameSuite GetSuite()

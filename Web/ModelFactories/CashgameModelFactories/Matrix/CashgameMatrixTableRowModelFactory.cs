@@ -4,16 +4,24 @@ using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Matrix;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public class CashgameMatrixTableRowModelFactory : ICashgameMatrixTableRowModelFactory
     {
         private readonly IUrlProvider _urlProvider;
+        private readonly ICashgameMatrixTableCellModelFactory _cashgameMatrixTableCellModelFactory;
+        private readonly IResultFormatter _resultFormatter;
 
-        public CashgameMatrixTableRowModelFactory(IUrlProvider urlProvider)
+        public CashgameMatrixTableRowModelFactory(
+            IUrlProvider urlProvider,
+            ICashgameMatrixTableCellModelFactory cashgameMatrixTableCellModelFactory,
+            IResultFormatter resultFormatter)
         {
             _urlProvider = urlProvider;
+            _cashgameMatrixTableCellModelFactory = cashgameMatrixTableCellModelFactory;
+            _resultFormatter = resultFormatter;
         }
 
         public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank)
@@ -30,7 +38,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player),
                     CellModels = GetCellModels(cashgames, player),
                     TotalResult = Globalization.FormatResult(homegame.Currency, winnings),
-                    ResultClass = Util.GetWinningsCssClass(winnings)
+                    ResultClass = _resultFormatter.GetWinningsCssClass(winnings)
                 };
         }
 
@@ -42,7 +50,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                 foreach (var cashgame in cashgames)
                 {
                     var result = cashgame.GetResult(player);
-                    models.Add(new CashgameMatrixTableCellModel(cashgame, result));
+                    models.Add(_cashgameMatrixTableCellModelFactory.Create(cashgame, result));
                 }
             }
             return models;

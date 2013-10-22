@@ -26,6 +26,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
+using Web.Services;
 
 namespace Tests.Common
 {
@@ -88,6 +89,8 @@ namespace Tests.Common
         public readonly Mock<ICashgameLeaderboardTableModelFactory> CashgameLeaderboardTableModelFactoryMock;
         public readonly Mock<ICashgameLeaderboardTableItemModelFactory> CashgameLeaderboardTableItemModelFactoryMock;
         public readonly Mock<IBarModelFactory> BarModelFactoryMock;
+        public readonly Mock<ICashgameMatrixTableCellModelFactory> CashgameMatrixTableCellModelFactoryMock;
+        public readonly Mock<IResultFormatter> ResultFormatterMock;
         
         public WebMocks()
         {
@@ -148,6 +151,8 @@ namespace Tests.Common
             CashgameLeaderboardTableModelFactoryMock = new Mock<ICashgameLeaderboardTableModelFactory>();
             CashgameLeaderboardTableItemModelFactoryMock = new Mock<ICashgameLeaderboardTableItemModelFactory>();
             BarModelFactoryMock = new Mock<IBarModelFactory>();
+            CashgameMatrixTableCellModelFactoryMock = new Mock<ICashgameMatrixTableCellModelFactory>();
+            ResultFormatterMock = new Mock<IResultFormatter>();
         }
 
     }

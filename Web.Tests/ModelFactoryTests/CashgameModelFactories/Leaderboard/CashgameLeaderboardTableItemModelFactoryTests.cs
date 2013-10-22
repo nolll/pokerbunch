@@ -49,23 +49,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		}
 
 		[Test]
-		public void TableItem_WithPositiveResult_WinningsClassIsSetToPosResult(){
-			_result.Winnings = 1;
+		public void TableItem_WinningsClassIsSet(){
+            const string resultClass = "a";
+            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
 
-			Assert.AreEqual("pos-result", result.ResultClass);
-		}
-
-		[Test]
-		public void TableItem_WithPositiveResult_WinningsClassIsSetToNegResult(){
-			_result.Winnings = -1;
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, _result, _rank);
-
-			Assert.AreEqual("neg-result", result.ResultClass);
+			Assert.AreEqual(resultClass, result.ResultClass);
 		}
 
 		[Test]
@@ -102,7 +93,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
 		private CashgameLeaderboardTableItemModelFactory GetSut(){
 			return new CashgameLeaderboardTableItemModelFactory(
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.ResultFormatterMock.Object);
 		}
 
 	}

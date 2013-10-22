@@ -63,6 +63,7 @@ namespace Web.Plumbing
             RegisterComponent<IPasswordSender, PasswordSender>();
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
+            RegisterComponent<IResultFormatter, ResultFormatter>();
 
             // Repositories
             RegisterComponent<IHomegameRepository, HomegameRepository>();
@@ -159,6 +160,7 @@ namespace Web.Plumbing
             RegisterComponent<IBarModelFactory, BarModelFactory>();
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();
+            RegisterComponent<ICashgameMatrixTableCellModelFactory, CashgameMatrixTableCellModelFactory>();
             
             // Mappers
             RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();

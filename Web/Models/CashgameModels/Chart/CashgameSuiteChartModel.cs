@@ -7,8 +7,8 @@ namespace Web.Models.CashgameModels.Chart {
 
 	public class CashgameSuiteChartModel : ChartModel{
 
-		private CashgameSuite _suite;
-		private IList<CashgameTotalResult> _results;
+		private readonly CashgameSuite _suite;
+		private readonly IList<CashgameTotalResult> _results;
 		private Dictionary<int, int?> _playerSum;
 
 		public CashgameSuiteChartModel(CashgameSuite suite){

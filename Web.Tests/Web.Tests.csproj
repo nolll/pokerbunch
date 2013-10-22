@@ -137,6 +137,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceTests\ResultFormatterTests.cs" />
     <Compile Include="ServiceTests\UrlProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
