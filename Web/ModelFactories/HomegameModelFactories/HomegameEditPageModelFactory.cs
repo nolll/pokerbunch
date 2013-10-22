@@ -13,13 +13,16 @@ namespace Web.ModelFactories.HomegameModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUrlProvider _urlProvider;
+        private readonly IGlobalization _globalization;
 
         public HomegameEditPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
+            _globalization = globalization;
         }
 
         public HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame)
@@ -58,13 +61,13 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private List<SelectListItem> GetTimezoneSelectModel()
         {
-            var timezones = StaticGlobalization.GetTimezones();
+            var timezones = _globalization.GetTimezones();
             return timezones.Select(t => new SelectListItem{ Text = t.DisplayName, Value = t.Id }).ToList();
         }
 
         private List<SelectListItem> GetCurrencyLayoutSelectModel()
         {
-            var layouts = StaticGlobalization.GetCurrencyLayouts();
+            var layouts = _globalization.GetCurrencyLayouts();
             var items = new List<SelectListItem>();
             if (layouts != null)
             {

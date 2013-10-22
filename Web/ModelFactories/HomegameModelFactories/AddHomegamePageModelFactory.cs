@@ -11,10 +11,14 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class AddHomegamePageModelFactory : IAddHomegamePageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IGlobalization _globalization;
 
-        public AddHomegamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public AddHomegamePageModelFactory(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _globalization = globalization;
         }
 
         public AddHomegamePageModel Create(User user)
@@ -41,13 +45,13 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private List<SelectListItem> GetTimezoneSelectModel()
         {
-            var timezones = StaticGlobalization.GetTimezones();
+            var timezones = _globalization.GetTimezones();
             return timezones.Select(t => new SelectListItem{ Text = t.DisplayName, Value = t.Id }).ToList();
         }
 
         private List<SelectListItem> GetCurrencyLayoutSelectModel()
         {
-            var layouts = StaticGlobalization.GetCurrencyLayouts();
+            var layouts = _globalization.GetCurrencyLayouts();
             var items = new List<SelectListItem>();
             if (layouts != null)
             {

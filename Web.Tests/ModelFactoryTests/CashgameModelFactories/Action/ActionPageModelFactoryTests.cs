@@ -25,13 +25,16 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 
 		[Test]
         public void Heading_IsSet(){
-			_player.DisplayName = "a";
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+			_player.DisplayName = "b";
+		    var dateTime = DateTime.Parse("2010-01-01 01:00:00");
+		    _cashgame.StartTime = dateTime;
+
+		    Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
 
 			var sut = GetSut();
 		    var result = sut.Create(new User(), _homegame, _cashgame, _player, _result, Role.Player);
 
-			Assert.AreEqual(result.Heading, "Cashgame Jan 1 2010, a");
+			Assert.AreEqual(result.Heading, "Cashgame a, b");
 		}
 
 		[Test]
@@ -64,7 +67,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
             return new ActionPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object,
                 Mocks.UrlProviderMock.Object,
-                Mocks.CheckpointModelFactoryMock.Object);
+                Mocks.CheckpointModelFactoryMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

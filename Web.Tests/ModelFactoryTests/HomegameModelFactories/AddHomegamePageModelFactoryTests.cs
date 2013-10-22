@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
@@ -24,6 +25,8 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		{
 		    _postModel.DisplayName = "a";
 
+		    Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+
 			var sut = GetSut();
             var result = sut.Create(_user, _postModel);
 
@@ -34,6 +37,8 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
         public void Description_WithPostModel_IsSet()
         {
             _postModel.Description = "a";
+
+            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
             var result = sut.Create(_user, _postModel);
@@ -46,6 +51,8 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
         {
 		    _postModel.CurrencySymbol = "a";
 
+            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+
 			var sut = GetSut();
 		    var result = sut.Create(_user, _postModel);
 
@@ -54,7 +61,9 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		[Test]
         public void CurrencyLayoutSelectModel_IsCorrectType(){
-			var sut = GetSut();
+            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            
+            var sut = GetSut();
 		    var result = sut.Create(_user);
 
 			Assert.IsInstanceOf<List<SelectListItem>>(result.CurrencyLayoutSelectItems);
@@ -62,14 +71,18 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		[Test]
         public void TimezoneSelectModel_IsCorrectType(){
-			var sut = GetSut();
+            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            
+            var sut = GetSut();
 		    var result = sut.Create(_user);
 
             Assert.IsInstanceOf<List<SelectListItem>>(result.TimezoneSelectItems);
 		}
 
 		private AddHomegamePageModelFactory GetSut(){
-            return new AddHomegamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new AddHomegamePageModelFactory(
+                Mocks.PagePropertiesFactoryMock.Object,
+                Mocks.GlobalizationMock.Object);
 		}
 
 	}

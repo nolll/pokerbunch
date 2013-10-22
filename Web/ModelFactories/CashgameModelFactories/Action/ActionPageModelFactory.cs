@@ -14,20 +14,23 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUrlProvider _urlProvider;
         private readonly ICheckpointModelFactory _checkpointModelFactory;
+        private readonly IGlobalization _globalization;
 
         public ActionPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IUrlProvider urlProvider,
-            ICheckpointModelFactory checkpointModelFactory)
+            ICheckpointModelFactory checkpointModelFactory,
+            IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
             _checkpointModelFactory = checkpointModelFactory;
+            _globalization = globalization;
         }
 
         public ActionPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role, IList<int> years = null, Cashgame runningGame = null)
         {
-            var dateString = cashgame.StartTime.HasValue ? StaticGlobalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
+            var dateString = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
 
             return new ActionPageModel
                 {
