@@ -4,8 +4,8 @@ namespace Web.Models.ChartModels{
 
 	public class ChartModel {
         
-	    public List<ChartColumnModel> cols { get; set; }
-        public List<ChartRowModel> rows { get; set; }
+	    public IList<ChartColumnModel> cols { get; set; }
+        public IList<ChartRowModel> rows { get; set; }
         public string p { get; set; }
 
         public ChartModel(){

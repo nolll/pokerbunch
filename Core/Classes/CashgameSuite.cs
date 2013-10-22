@@ -4,7 +4,7 @@ namespace Core.Classes{
     public class CashgameSuite {
 
 	    public IList<Cashgame> Cashgames { get; set; }
-	    public List<CashgameTotalResult> TotalResults { get; set; }
+	    public IList<CashgameTotalResult> TotalResults { get; set; }
 	    public int GameCount { get; set; }
 	    public CashgameTotalResult BestTotalResult { get; set; }
 	    public CashgameResult BestResult { get; set; }

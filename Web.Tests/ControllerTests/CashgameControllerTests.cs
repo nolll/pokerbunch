@@ -268,7 +268,8 @@ namespace Web.Tests.ControllerTests{
                 Mocks.RunningCashgamePageModelFactoryMock.Object,
                 Mocks.CashgameModelMapperMock.Object,
                 Mocks.CheckpointModelMapperMock.Object,
-                Mocks.UrlProviderMock.Object);
+                Mocks.UrlProviderMock.Object,
+                Mocks.CashgameSuiteChartModelFactoryMock.Object);
         }
 
 	}

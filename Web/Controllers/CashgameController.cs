@@ -57,6 +57,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
 	    private readonly ICheckpointModelMapper _checkpointModelMapper;
 	    private readonly IUrlProvider _urlProvider;
+	    private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -80,7 +81,8 @@ namespace Web.Controllers{
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
             ICashgameModelMapper cashgameModelMapper,
             ICheckpointModelMapper checkpointModelMapper,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -104,6 +106,7 @@ namespace Web.Controllers{
 	        _cashgameModelMapper = cashgameModelMapper;
 	        _checkpointModelMapper = checkpointModelMapper;
 	        _urlProvider = urlProvider;
+	        _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -267,7 +270,7 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var suite = _cashgameRepository.GetSuite(homegame, year);
-			var model = new CashgameSuiteChartModel(suite);
+			var model = _cashgameSuiteChartModelFactory.Create(suite);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
