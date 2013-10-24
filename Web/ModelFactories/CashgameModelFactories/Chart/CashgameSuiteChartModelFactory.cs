@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Infrastructure.System;
 using Web.Models.ChartModels;
@@ -66,37 +67,35 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 
         private IList<ChartColumnModel> GetColumnModels(IEnumerable<CashgameTotalResult> results)
         {
-            var columnModels = new List<ChartColumnModel>();
-            columnModels.Add(new ChartColumnModel("string", "Date"));
-            foreach (var playerResult in results)
-            {
-                columnModels.Add(new ChartColumnModel("number", playerResult.Player.DisplayName));
-            }
+            var columnModels = new List<ChartColumnModel> {new ChartColumnModel("string", "Date")};
+            columnModels.AddRange(results.Select(playerResult => new ChartColumnModel("number", playerResult.Player.DisplayName)));
             return columnModels;
         }
 
         private ChartRowModel GetFirstRow(IEnumerable<CashgameTotalResult> results)
         {
-            var row1 = new ChartRowModel();
-            row1.AddValue(new ChartValueModel());
-            foreach (var result in results)
-            {
-                row1.AddValue(new ChartValueModel(0));
-            }
-            return row1;
+            var values = new List<ChartValueModel> {new ChartValueModel()};
+            values.AddRange(results.Select(result => new ChartValueModel(0)));
+            return new ChartRowModel
+                {
+                    c = values
+                };
         }
 
         private ChartRowModel GetRowModel(Cashgame cashgame, IEnumerable<CashgameTotalResult> results, IDictionary<int, int?> currentSum)
         {
-            var row1 = new ChartRowModel();
+            var values = new List<ChartValueModel>();
             var dateStr = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
-            row1.AddValue(new ChartValueModel(dateStr));
+            values.Add(new ChartValueModel(dateStr));
             foreach (var result in results)
             {
                 var sum = currentSum[result.Player.Id];
-                row1.AddValue(new ChartValueModel(sum));
+                values.Add(new ChartValueModel(sum));
             }
-            return row1;
+            return new ChartRowModel
+                {
+                    c = values
+                };
         }
     }
 }

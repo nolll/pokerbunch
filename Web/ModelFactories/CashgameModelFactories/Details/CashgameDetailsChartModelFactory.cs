@@ -48,14 +48,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private ChartRowModel GetCurrentStacks(Homegame homegame, IEnumerable<CashgameResult> results)
         {
             var timestamp = DateTimeFactory.Now(homegame.Timezone);
-            var row = new ChartRowModel();
-            row.AddValue(new ChartDateTimeValueModel(timestamp));
-            foreach (var result in results)
-            {
-                var winnings = result.Stack - result.Buyin;
-                row.AddValue(new ChartValueModel(winnings));
-            }
-            return row;
+            var values = new List<ChartValueModel> {new ChartDateTimeValueModel(timestamp)};
+            values.AddRange(results.Select(result => new ChartValueModel(result.Winnings)));
+            return new ChartRowModel
+                {
+                    c = values
+                };
         }
 
         private IList<ChartColumnModel> GetActionColumns(Cashgame cashgame)
@@ -68,8 +66,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetActionRow(Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName)
         {
-            var row1 = new ChartRowModel();
-            row1.AddValue(new ChartDateTimeValueModel(dateTime));
+            var values = new List<ChartValueModel>();
+            values.Add(new ChartDateTimeValueModel(dateTime));
             var playerNames = cashgame.GetPlayerNames();
             foreach (var playerName in playerNames)
             {
@@ -78,9 +76,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 {
                     val = winnings.ToString(CultureInfo.InvariantCulture);
                 }
-                row1.AddValue(new ChartValueModel(val));
+                values.Add(new ChartValueModel(val));
             }
-            return row1;
+            return new ChartRowModel
+                {
+                    c = values
+                };
         }
     }
 }

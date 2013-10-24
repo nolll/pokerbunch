@@ -9,10 +9,6 @@ namespace Web.Models.ChartModels{
 			c = new List<ChartValueModel>();
 		}
 
-		public void AddValue(ChartValueModel val){
-			c.Add(val);
-		}
-
 	}
 
 }

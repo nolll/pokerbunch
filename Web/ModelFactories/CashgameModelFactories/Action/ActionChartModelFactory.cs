@@ -73,11 +73,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 
         private ChartRowModel GetActionRow(DateTime dateTime, int stack, int buyin)
         {
-            var row = new ChartRowModel();
-            row.AddValue(new ChartDateTimeValueModel(dateTime));
-            row.AddValue(new ChartValueModel(stack));
-            row.AddValue(new ChartValueModel(buyin));
-            return row;
+            var values = new List<ChartValueModel>
+                {
+                    new ChartDateTimeValueModel(dateTime),
+                    new ChartValueModel(stack),
+                    new ChartValueModel(buyin)
+                };
+            return new ChartRowModel
+                {
+                    c = values
+                };
         }
     }
 }

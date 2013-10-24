@@ -14,14 +14,6 @@ namespace Web.Models.ChartModels{
 			p = null;
 		}
 
-		protected void AddColumn(ChartColumnModel col){
-			cols.Add(col);
-		}
-
-		protected void AddRow(ChartRowModel row){
-			rows.Add(row);
-		}
-
 	}
 
 }
