@@ -5,7 +5,6 @@ using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;
 using Infrastructure.System;
-using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
@@ -25,7 +24,6 @@ using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
-using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
@@ -58,6 +56,7 @@ namespace Web.Controllers{
 	    private readonly ICheckpointModelMapper _checkpointModelMapper;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
+	    private readonly IActionChartModelFactory _actionChartModelFactory;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -82,7 +81,8 @@ namespace Web.Controllers{
             ICashgameModelMapper cashgameModelMapper,
             ICheckpointModelMapper checkpointModelMapper,
             IUrlProvider urlProvider,
-            ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory)
+            ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
+            IActionChartModelFactory actionChartModelFactory)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -107,6 +107,7 @@ namespace Web.Controllers{
 	        _checkpointModelMapper = checkpointModelMapper;
 	        _urlProvider = urlProvider;
 	        _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
+	        _actionChartModelFactory = actionChartModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -292,7 +293,7 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, name);
 			var result = cashgame.GetResult(player);
-			var model = new ActionChartData(homegame, cashgame, result);
+			var model = _actionChartModelFactory.Create(homegame, cashgame, result);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 

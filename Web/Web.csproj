@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\CheckpointModelFactory.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerFactsModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameSuiteChartModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -518,7 +520,6 @@
     <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
-    <Compile Include="Models\CashgameModels\Action\ActionChartData.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
