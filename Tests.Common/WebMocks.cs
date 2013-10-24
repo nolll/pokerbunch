@@ -94,6 +94,7 @@ namespace Tests.Common
         public readonly Mock<IGlobalization> GlobalizationMock;
         public readonly Mock<ICashgameSuiteChartModelFactory> CashgameSuiteChartModelFactoryMock;
         public readonly Mock<IActionChartModelFactory> ActionChartModelFactoryMock;
+        public readonly Mock<ICashgameDetailsChartModelFactory> CashgameDetailsChartModelFactoryMock;
         
         public WebMocks()
         {
@@ -159,6 +160,7 @@ namespace Tests.Common
             GlobalizationMock = new Mock<IGlobalization>();
             CashgameSuiteChartModelFactoryMock = new Mock<ICashgameSuiteChartModelFactory>();
             ActionChartModelFactoryMock = new Mock<IActionChartModelFactory>();
+            CashgameDetailsChartModelFactoryMock = new Mock<ICashgameDetailsChartModelFactory>();
         }
 
     }

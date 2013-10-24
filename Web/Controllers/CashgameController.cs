@@ -20,7 +20,6 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
-using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
@@ -57,6 +56,7 @@ namespace Web.Controllers{
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
 	    private readonly IActionChartModelFactory _actionChartModelFactory;
+	    private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -82,7 +82,8 @@ namespace Web.Controllers{
             ICheckpointModelMapper checkpointModelMapper,
             IUrlProvider urlProvider,
             ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
-            IActionChartModelFactory actionChartModelFactory)
+            IActionChartModelFactory actionChartModelFactory,
+            ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -108,6 +109,7 @@ namespace Web.Controllers{
 	        _urlProvider = urlProvider;
 	        _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
 	        _actionChartModelFactory = actionChartModelFactory;
+	        _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -159,7 +161,7 @@ namespace Web.Controllers{
 			if(cashgame == null){
                 return new HttpNotFoundResult();
 			}
-			var model = new CashgameDetailsChartModel(homegame, cashgame);
+			var model = _cashgameDetailsChartModelFactory.Create(homegame, cashgame);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
