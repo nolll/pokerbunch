@@ -5,12 +5,24 @@ using System.Linq;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
+using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
     public class CashgameDetailsChartModelFactory : ICashgameDetailsChartModelFactory
     {
+        private readonly ITimeProvider _timeProvider;
+        private readonly IChartValueModelFactory _chartValueModelFactory;
+
+        public CashgameDetailsChartModelFactory(
+            ITimeProvider timeProvider,
+            IChartValueModelFactory chartValueModelFactory)
+        {
+            _timeProvider = timeProvider;
+            _chartValueModelFactory = chartValueModelFactory;
+        }
+
         public ChartModel Create(Homegame homegame, Cashgame cashgame)
         {
             return new ChartModel
@@ -47,9 +59,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetCurrentStacks(Homegame homegame, IEnumerable<CashgameResult> results)
         {
-            var timestamp = DateTimeFactory.Now(homegame.Timezone);
-            var values = new List<ChartValueModel> {new ChartDateTimeValueModel(timestamp)};
-            values.AddRange(results.Select(result => new ChartValueModel(result.Winnings)));
+            var timestamp = _timeProvider.GetTime(homegame.Timezone);
+            var values = new List<ChartValueModel> {_chartValueModelFactory.Create(timestamp)};
+            values.AddRange(results.Select(result => _chartValueModelFactory.Create(result.Winnings)));
             return new ChartRowModel
                 {
                     c = values
@@ -67,7 +79,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private ChartRowModel GetActionRow(Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName)
         {
             var values = new List<ChartValueModel>();
-            values.Add(new ChartDateTimeValueModel(dateTime));
+            values.Add(_chartValueModelFactory.Create(dateTime));
             var playerNames = cashgame.GetPlayerNames();
             foreach (var playerName in playerNames)
             {
@@ -76,7 +88,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 {
                     val = winnings.ToString(CultureInfo.InvariantCulture);
                 }
-                values.Add(new ChartValueModel(val));
+                values.Add(_chartValueModelFactory.Create(val));
             }
             return new ChartRowModel
                 {

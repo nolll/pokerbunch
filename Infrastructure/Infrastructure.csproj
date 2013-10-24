@@ -141,9 +141,6 @@
     <Compile Include="System\TimeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="System\DateTimeFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Data\Classes\RawCashgame.cs" />
     <Compile Include="Data\Classes\RawCashgameResult.cs" />
     <Compile Include="Data\Classes\RawHomegame.cs" />

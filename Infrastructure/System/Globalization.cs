@@ -123,17 +123,17 @@ namespace Infrastructure.System{
 		        };
 		}
 
-        private static string GetShortDateFormat(bool includeYear = false)
+        private string GetShortDateFormat(bool includeYear = false)
         {
             return includeYear ? "MMM d yyyy" : "MMM d";
         }
 
-        private static string GetShortDateTimeFormat(bool includeYear = false)
+        private string GetShortDateTimeFormat(bool includeYear = false)
         {
             return includeYear ? "MMM d yyyy HH:mm" : "MMM d HH:mm";
         }
 
-        private static List<string> GetInvalidTimezoneNames()
+        private List<string> GetInvalidTimezoneNames()
         {
             return new List<string>{
 						"Brazil/Acre","Brazil/DeNoronha","Brazil/East","Brazil/West","Canada/Atlantic","Canada/Central",

@@ -57,6 +57,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
 	    private readonly IActionChartModelFactory _actionChartModelFactory;
 	    private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
+	    private readonly ITimeProvider _timeProvider;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -83,7 +84,8 @@ namespace Web.Controllers{
             IUrlProvider urlProvider,
             ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
             IActionChartModelFactory actionChartModelFactory,
-            ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory)
+            ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
+            ITimeProvider timeProvider)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -110,6 +112,7 @@ namespace Web.Controllers{
 	        _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
 	        _actionChartModelFactory = actionChartModelFactory;
 	        _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
+	        _timeProvider = timeProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -143,7 +146,7 @@ namespace Web.Controllers{
         public ActionResult Details(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			if(cashgame == null){
                 return new HttpNotFoundResult();
@@ -156,7 +159,7 @@ namespace Web.Controllers{
         public ActionResult DetailsChartJson(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			if(cashgame == null){
                 return new HttpNotFoundResult();
@@ -209,7 +212,7 @@ namespace Web.Controllers{
         public ActionResult Edit(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var locations = _cashgameRepository.GetLocations(homegame);
@@ -222,7 +225,7 @@ namespace Web.Controllers{
 		public ActionResult Edit(string gameName, string dateStr, CashgameEditPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			if(ModelState.IsValid)
 			{
@@ -425,7 +428,7 @@ namespace Web.Controllers{
         public ActionResult Delete(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = DateTimeFactory.Create(dateStr, homegame.Timezone);
+			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
 			var cashgame = _cashgameRepository.GetByDate(homegame, date);
 			_cashgameRepository.DeleteGame(cashgame);
 			var listUrl = _urlProvider.GetCashgameListingUrl(homegame, date.Year);

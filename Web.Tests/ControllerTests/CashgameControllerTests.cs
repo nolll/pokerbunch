@@ -271,7 +271,8 @@ namespace Web.Tests.ControllerTests{
                 Mocks.UrlProviderMock.Object,
                 Mocks.CashgameSuiteChartModelFactoryMock.Object,
                 Mocks.ActionChartModelFactoryMock.Object,
-                Mocks.CashgameDetailsChartModelFactoryMock.Object);
+                Mocks.CashgameDetailsChartModelFactoryMock.Object,
+                Mocks.TimeProviderMock.Object);
         }
 
 	}

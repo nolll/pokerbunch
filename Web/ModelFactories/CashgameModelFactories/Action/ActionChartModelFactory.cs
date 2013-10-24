@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
+using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
 {
     public class ActionChartModelFactory : IActionChartModelFactory
     {
+        private readonly ITimeProvider _timeProvider;
+        private readonly IChartValueModelFactory _chartValueModelFactory;
+
+        public ActionChartModelFactory(
+            ITimeProvider timeProvider,
+            IChartValueModelFactory chartValueModelFactory)
+        {
+            _timeProvider = timeProvider;
+            _chartValueModelFactory = chartValueModelFactory;
+        }
+
         public ChartModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result)
         {
             return new ChartModel
@@ -38,7 +50,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
             }
             if (cashgame.Status == GameStatus.Running)
             {
-                var timestamp = DateTimeFactory.Now(homegame.Timezone);
+                var timestamp = _timeProvider.GetTime(homegame.Timezone);
                 rowModels.Add(GetActionRow(timestamp, result.Stack, result.Buyin));
             }
             return rowModels;
@@ -75,9 +87,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         {
             var values = new List<ChartValueModel>
                 {
-                    new ChartDateTimeValueModel(dateTime),
-                    new ChartValueModel(stack),
-                    new ChartValueModel(buyin)
+                    _chartValueModelFactory.Create(dateTime),
+                    _chartValueModelFactory.Create(stack),
+                    _chartValueModelFactory.Create(buyin)
                 };
             return new ChartRowModel
                 {

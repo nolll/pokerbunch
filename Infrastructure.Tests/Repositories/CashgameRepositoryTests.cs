@@ -43,7 +43,8 @@ namespace Infrastructure.Tests.Repositories{
                 Mocks.CashgameResultFactoryMock.Object,
                 Mocks.CheckpointRepositoryMock.Object,
                 Mocks.RawCashgameFactoryMock.Object,
-                Mocks.CheckpointFactoryMock.Object);
+                Mocks.CheckpointFactoryMock.Object,
+                Mocks.TimeProviderMock.Object);
         }
 
 	}

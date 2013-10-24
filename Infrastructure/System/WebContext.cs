@@ -72,12 +72,12 @@ namespace Infrastructure.System{
             return new HttpCookie(name, value);
         }
 
-        private static HttpRequest Request
+        private HttpRequest Request
 	    {
 	        get { return HttpContext.Current.Request; }
 	    }
 
-        private static HttpResponse Response
+        private HttpResponse Response
         {
             get { return HttpContext.Current.Response; }
         }

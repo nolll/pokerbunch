@@ -22,6 +22,7 @@ namespace Infrastructure.Repositories {
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICheckpointFactory _checkpointFactory;
+	    private readonly ITimeProvider _timeProvider;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -31,7 +32,8 @@ namespace Infrastructure.Repositories {
 			ICashgameResultFactory cashgameResultFactory,
             ICheckpointRepository checkpointRepository,
             IRawCashgameFactory rawCashgameFactory,
-            ICheckpointFactory checkpointFactory)
+            ICheckpointFactory checkpointFactory,
+            ITimeProvider timeProvider)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -41,6 +43,7 @@ namespace Infrastructure.Repositories {
 	        _checkpointRepository = checkpointRepository;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _checkpointFactory = checkpointFactory;
+	        _timeProvider = timeProvider;
 	    }
 
 	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){
@@ -67,7 +70,7 @@ namespace Infrastructure.Repositories {
 		}
 
 		public Cashgame GetByDateString(Homegame homegame, string dateString){
-			var date = DateTimeFactory.Create(dateString, homegame.Timezone);
+			var date = _timeProvider.Parse(dateString, homegame.Timezone);
 			return GetByDate(homegame, date);
 		}
 

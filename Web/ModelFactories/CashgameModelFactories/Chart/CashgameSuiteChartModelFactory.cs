@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 using Infrastructure.System;
+using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
@@ -9,10 +10,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
     public class CashgameSuiteChartModelFactory : ICashgameSuiteChartModelFactory
     {
         private readonly IGlobalization _globalization;
+        private readonly IChartValueModelFactory _chartValueModelFactory;
 
-        public CashgameSuiteChartModelFactory(IGlobalization globalization)
+        public CashgameSuiteChartModelFactory(
+            IGlobalization globalization,
+            IChartValueModelFactory chartValueModelFactory)
         {
             _globalization = globalization;
+            _chartValueModelFactory = chartValueModelFactory;
         }
 
         public ChartModel Create(CashgameSuite suite)
@@ -74,8 +79,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 
         private ChartRowModel GetFirstRow(IEnumerable<CashgameTotalResult> results)
         {
-            var values = new List<ChartValueModel> {new ChartValueModel()};
-            values.AddRange(results.Select(result => new ChartValueModel(0)));
+            var values = new List<ChartValueModel> {_chartValueModelFactory.Create()};
+            values.AddRange(results.Select(result => _chartValueModelFactory.Create(0)));
             return new ChartRowModel
                 {
                     c = values
@@ -86,11 +91,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         {
             var values = new List<ChartValueModel>();
             var dateStr = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
-            values.Add(new ChartValueModel(dateStr));
+            values.Add(_chartValueModelFactory.Create(dateStr));
             foreach (var result in results)
             {
                 var sum = currentSum[result.Player.Id];
-                values.Add(new ChartValueModel(sum));
+                values.Add(_chartValueModelFactory.Create(sum));
             }
             return new ChartRowModel
                 {

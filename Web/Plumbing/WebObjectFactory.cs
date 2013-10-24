@@ -24,6 +24,7 @@ using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
+using Web.ModelFactories.ChartModelFactories;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
@@ -165,6 +166,7 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameSuiteChartModelFactory, CashgameSuiteChartModelFactory>();
             RegisterComponent<IActionChartModelFactory, ActionChartModelFactory>();
             RegisterComponent<ICashgameDetailsChartModelFactory, CashgameDetailsChartModelFactory>();
+            RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
 
             // Mappers
             RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();
