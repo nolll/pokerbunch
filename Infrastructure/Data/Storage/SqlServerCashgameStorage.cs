@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.System;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerCashgameStorage : ICashgameStorage
@@ -11,18 +9,15 @@ namespace Infrastructure.Data.Storage {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IRawCashgameFactory _rawCashgameFactory;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
-        private readonly IGlobalization _globalization;
 
         public SqlServerCashgameStorage(
             IStorageProvider storageProvider,
             IRawCashgameFactory rawCashgameFactory,
-            IRawCheckpointFactory rawCheckpointFactory,
-            IGlobalization globalization)
+            IRawCheckpointFactory rawCheckpointFactory)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
             _rawCheckpointFactory = rawCheckpointFactory;
-            _globalization = globalization;
 	    }
 
         public int AddGame(int homegameId, RawCashgame cashgame){
