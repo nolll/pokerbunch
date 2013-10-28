@@ -13,6 +13,7 @@ namespace Infrastructure.Repositories {
 	public class HomegameRepository : IHomegameRepository
 	{
 	    private const string HomegameCacheKey = "Homegame";
+        private const string HomegameListCacheKey = "HomegameList";
 
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
@@ -87,7 +88,7 @@ namespace Infrastructure.Repositories {
             return homegames.OrderBy(o => o.DisplayName).ToList();
         }
 
-        private IList<string> GetSlugs()
+        private IEnumerable<string> GetSlugs()
         {
             var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, "AllSlugs");
             var cached = _cacheContainer.Get<List<string>>(cacheKey);
@@ -112,6 +113,7 @@ namespace Infrastructure.Repositories {
         {
             var rawHomegame = _rawHomegameFactory.Create(homegame);
             rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
+            ClearHomegameListFromCache();
             return _homegameFactory.Create(rawHomegame);
         }
 
@@ -119,10 +121,22 @@ namespace Infrastructure.Repositories {
         {
             var rawHomegame = _rawHomegameFactory.Create(homegame);
             var success = _homegameStorage.UpdateHomegame(rawHomegame);
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, homegame.Slug);
-            _cacheContainer.Remove(cacheKey);
+            ClearHomegameFromCache(homegame.Slug);
             return success;
         }
+
+        private void ClearHomegameFromCache(string slug)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, slug);
+            _cacheContainer.Remove(cacheKey);
+        }
+
+        private void ClearHomegameListFromCache()
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameListCacheKey);
+            _cacheContainer.Remove(cacheKey);
+        }
+
 	}
 
 }
