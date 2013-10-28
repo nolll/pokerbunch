@@ -63,15 +63,10 @@ namespace Infrastructure.Repositories {
 			return GetGames(homegame, null, year);
 		}
 
-		public Cashgame GetByDate(Homegame homegame, DateTime date){
-			var rawGame = _cashgameStorage.GetGame(homegame.Id, date);
-			var players = _playerRepository.GetAll(homegame);
-			return GetGameFromRawGame(rawGame, players, homegame.Timezone);
-		}
-
 		public Cashgame GetByDateString(Homegame homegame, string dateString){
-			var date = _timeProvider.Parse(dateString, homegame.Timezone);
-			return GetByDate(homegame, date);
+            var rawGame = _cashgameStorage.GetGame(homegame.Id, dateString);
+            var players = _playerRepository.GetAll(homegame);
+            return GetGameFromRawGame(rawGame, players, homegame.Timezone);
 		}
 
 		public CashgameSuite GetSuite(Homegame homegame, int? year = null){

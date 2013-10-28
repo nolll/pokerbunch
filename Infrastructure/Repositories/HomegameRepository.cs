@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories {
 
 	public class HomegameRepository : IHomegameRepository
 	{
-	    private const string BaseCacheKey = "Homegame";
+	    private const string HomegameCacheKey = "Homegame";
 
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories {
 
         public Homegame GetByName(string name)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, name);
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, name);
             var cached = _cacheContainer.Get<Homegame>(cacheKey);
             if (cached != null)
             {
@@ -39,7 +39,7 @@ namespace Infrastructure.Repositories {
             var uncached = rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(10));
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -61,7 +61,7 @@ namespace Infrastructure.Repositories {
             var uncachedSlugs = new List<string>();
             foreach (var slug in slugs)
             {
-                var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, slug);
+                var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, slug);
                 var cached = _cacheContainer.Get<Homegame>(cacheKey);
                 if (cached != null)
                 {
@@ -79,7 +79,7 @@ namespace Infrastructure.Repositories {
                 var newHomegames = rawHomegames.Select(_homegameFactory.Create).ToList();
                 foreach (var homegame in newHomegames)
                 {
-                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(BaseCacheKey, homegame.Slug), homegame, TimeSpan.FromMinutes(10));
+                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(HomegameCacheKey, homegame.Slug), homegame, TimeSpan.FromMinutes(CacheTime.Long));
                 }
                 homegames.AddRange(newHomegames);
             }
@@ -89,7 +89,7 @@ namespace Infrastructure.Repositories {
 
         private IList<string> GetSlugs()
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, "AllSlugs");
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, "AllSlugs");
             var cached = _cacheContainer.Get<List<string>>(cacheKey);
             if (cached != null)
             {
@@ -98,7 +98,7 @@ namespace Infrastructure.Repositories {
             var uncached = _homegameStorage.GetAllSlugs();
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(10));
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         } 
@@ -119,7 +119,7 @@ namespace Infrastructure.Repositories {
         {
             var rawHomegame = _rawHomegameFactory.Create(homegame);
             var success = _homegameStorage.UpdateHomegame(rawHomegame);
-            var cacheKey = _cacheContainer.ConstructCacheKey(BaseCacheKey, homegame.Slug);
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, homegame.Slug);
             _cacheContainer.Remove(cacheKey);
             return success;
         }

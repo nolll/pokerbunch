@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using Core.Services;
@@ -66,7 +67,7 @@ namespace Infrastructure.Data.Storage {
                 connection.Open();
                 using (var command = new SqlCommand(sql, connection))
                 {
-                    return (int)command.ExecuteScalar();
+                    return Convert.ToInt32(command.ExecuteScalar());
                 }
             }
         }

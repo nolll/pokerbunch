@@ -146,8 +146,7 @@ namespace Web.Controllers{
         public ActionResult Details(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			if(cashgame == null){
                 return new HttpNotFoundResult();
 			}
@@ -159,8 +158,7 @@ namespace Web.Controllers{
         public ActionResult DetailsChartJson(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			if(cashgame == null){
                 return new HttpNotFoundResult();
 			}
@@ -212,8 +210,7 @@ namespace Web.Controllers{
         public ActionResult Edit(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var locations = _cashgameRepository.GetLocations(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
@@ -225,8 +222,7 @@ namespace Web.Controllers{
 		public ActionResult Edit(string gameName, string dateStr, CashgameEditPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			if(ModelState.IsValid)
 			{
 			    cashgame = _cashgameModelMapper.GetCashgame(cashgame, postModel);
@@ -428,10 +424,10 @@ namespace Web.Controllers{
         public ActionResult Delete(string gameName, string dateStr){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-			var cashgame = _cashgameRepository.GetByDate(homegame, date);
+			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			_cashgameRepository.DeleteGame(cashgame);
-			var listUrl = _urlProvider.GetCashgameListingUrl(homegame, date.Year);
+            var date = _timeProvider.Parse(dateStr, homegame.Timezone);
+            var listUrl = _urlProvider.GetCashgameListingUrl(homegame, date.Year);
             return Redirect(listUrl);
 		}
 

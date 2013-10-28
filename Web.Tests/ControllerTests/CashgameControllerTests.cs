@@ -74,7 +74,7 @@ namespace Web.Tests.ControllerTests{
 		public void Details_ReturnsCorrectView(){
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDate(It.IsAny<Homegame>(), It.IsAny<DateTime>())).Returns(new Cashgame());
+            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Cashgame());
             Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Player());
             
             var sut = GetSut();

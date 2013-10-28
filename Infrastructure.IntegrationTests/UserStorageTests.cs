@@ -42,7 +42,7 @@ namespace Infrastructure.IntegrationTests
 
         private SqlServerUserStorage GetSut()
         {
-            const string connectionString = "Server=tcp:o5ctpblaqd.database.windows.net,1433;Database=pokerbunch-dev;User ID=pokerbunch@o5ctpblaqd;Password=3Sugfisk;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;";
+            const string connectionString = "Server=AMERICA;Database=pokerbunch-test;User ID=pokerbunch;Password=3Sugfisk;Trusted_Connection=False;Encrypt=False;Connection Timeout=30;";
             var storageProvider = new SqlServerStorageProvider(connectionString);
             var rawUserFactory = new RawUserFactory();
             return new SqlServerUserStorage(storageProvider, rawUserFactory);

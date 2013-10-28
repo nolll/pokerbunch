@@ -3,9 +3,14 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Storage.Interfaces {
 
-	public interface IUserStorage{
-
-		RawUser GetUserByEmail(string email);
+	public interface IUserStorage
+    {
+        RawUser GetUserById(int id);
+        int? GetUserIdByEmail(string email);
+        int? GetUserIdByName(string userName);
+        int? GetUserIdByToken(string token);
+        int? GetUserIdByCredentials(string userNameOrEmail, string password);
+        RawUser GetUserByEmail(string email);
         RawUser GetUserByName(string userName);
         RawUser GetUserByToken(string token);
         RawUser GetUserByCredentials(string userNameOrEmail, string password);
@@ -19,6 +24,6 @@ namespace Infrastructure.Data.Storage.Interfaces {
 		string GetToken(string userName);
 		bool SetToken(string userName, string token);
 
-	}
+    }
 
 }

@@ -99,10 +99,10 @@ CREATE TABLE [dbo].[TournamentResult] (
 
 CREATE TABLE [dbo].[User] (
     [UserId]      INT           NOT NULL IDENTITY(1,1),
-    [Token]       NVARCHAR (50) NOT NULL,
+    [Token]       NVARCHAR (50) NULL,
     [UserName]    NVARCHAR (50) NOT NULL,
-    [Password]    NVARCHAR (50) NOT NULL,
-    [Salt]        NVARCHAR (50) NOT NULL,
+    [Password]    NVARCHAR (50) NULL,
+    [Salt]        NVARCHAR (50) NULL,
     [RoleId]      INT           NOT NULL,
     [RealName]    NVARCHAR (50) NULL,
     [DisplayName] NVARCHAR (50) NOT NULL,

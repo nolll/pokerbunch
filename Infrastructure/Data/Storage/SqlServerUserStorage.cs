@@ -15,7 +15,47 @@ namespace Infrastructure.Data.Storage {
 	        _rawUserFactory = rawUserFactory;
 	    }
 
-		public RawUser GetUserByEmail(string email){
+        public RawUser GetUserById(int id)
+        {
+            var sql = GetUserBaseSql();
+            sql += "WHERE u.UserId = {0}";
+            sql = string.Format(sql, id);
+            return GetUser(sql);
+        }
+
+        public int? GetUserIdByEmail(string email)
+        {
+            var sql = GetUserIdBaseSql();
+            sql += "WHERE u.Email = '{0}'";
+            sql = string.Format(sql, email);
+            return GetUserId(sql);
+        }
+
+        public int? GetUserIdByName(string userName)
+        {
+            var sql = GetUserIdBaseSql();
+            sql += "WHERE u.UserName = '{0}'";
+            sql = string.Format(sql, userName);
+            return GetUserId(sql);
+        }
+
+        public int? GetUserIdByToken(string token)
+        {
+            var sql = GetUserIdBaseSql();
+            sql += "WHERE u.Token = '{0}'";
+            sql = string.Format(sql, token);
+            return GetUserId(sql);
+        }
+
+        public int? GetUserIdByCredentials(string userNameOrEmail, string password)
+        {
+            var sql = GetUserIdBaseSql();
+            sql += "WHERE (u.UserName = '{0}' OR u.Email = '{0}') AND u.Password = '{1}'";
+            sql = string.Format(sql, userNameOrEmail, password);
+            return GetUserId(sql);
+        }
+
+        public RawUser GetUserByEmail(string email){
 			var sql = GetUserBaseSql();
 			sql += "WHERE u.Email = '{0}'";
 		    sql = string.Format(sql, email);
@@ -30,8 +70,8 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public RawUser GetUserByToken(string token){
-			var sql =	GetUserBaseSql();
-			sql +=	"WHERE u.Token = '{0}'";
+			var sql = GetUserBaseSql();
+			sql += "WHERE u.Token = '{0}'";
 			sql = string.Format(sql, token);
             return GetUser(sql);
 		}
@@ -43,18 +83,35 @@ namespace Infrastructure.Data.Storage {
             return GetUser(sql);
 		}
 
-		private string GetUserBaseSql(){
-			return "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ";
-		}
+        private string GetUserBaseSql()
+        {
+            return "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ";
+        }
 
-		private RawUser GetUser(string sql){
+        private string GetUserIdBaseSql()
+        {
+            return "SELECT u.UserID FROM [User] u ";
+        }
+
+        private RawUser GetUser(string sql)
+        {
             var reader = _storageProvider.Query(sql);
             while (reader.Read())
             {
                 return _rawUserFactory.Create(reader);
             }
-			return null;
-		}
+            return null;
+        }
+
+        private int? GetUserId(string sql)
+        {
+            var reader = _storageProvider.Query(sql);
+            while (reader.Read())
+            {
+                return reader.GetInt("UserID");
+            }
+            return null;
+        }
 
 		public List<RawUser> GetUsers(){
 			var sql =	GetUserBaseSql();
@@ -76,7 +133,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public int AddUser(RawUser user){
-            var sql = "INSERT INTO [user] (UserName, DisplayName, Email) VALUES ('{0}', '{1}', '{2}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId) VALUES ('{0}', '{1}', '{2}', 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;

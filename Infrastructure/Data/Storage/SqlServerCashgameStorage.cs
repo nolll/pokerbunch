@@ -44,8 +44,7 @@ namespace Infrastructure.Data.Storage {
 		    return sql;
 		}
 
-		public RawCashgame GetGame(int homegameId, DateTime date){
-			var dateStr = _globalization.FormatIsoDate(date);
+		public RawCashgame GetGame(int homegameId, string dateStr){
 			var sql = GetGameSql(homegameId) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
             sql = string.Format(sql, dateStr);
 			var reader = _storageProvider.Query(sql);

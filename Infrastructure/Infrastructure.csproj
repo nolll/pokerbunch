@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\CacheContainer.cs" />
+    <Compile Include="Caching\CacheTime.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Data\Classes\RawPlayer.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="Data\Storage\SqlServerTwitterStorage.cs" />
     <Compile Include="Data\Storage\SqlServerUserStorage.cs" />
     <Compile Include="Data\Storage\SqlServerStorageProvider.cs" />
-    <Compile Include="Data\Storage\MySqlCheckpointStorage.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Data\Storage\StorageDataReader.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
@@ -165,24 +165,11 @@
     <Compile Include="Repositories\UserContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Storage\MySqlHomegameStorage.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Data\Storage\Interfaces\IStorageProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\Storage\MySqlStorageProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\Storage\MySqlUserStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\Interfaces\IUserFactory.cs" />
     <Compile Include="Factories\UserFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\Storage\MySqlCashgameStorage.cs" />
-    <Compile Include="Data\Storage\MySqlPlayerStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -195,10 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\EmailMessageSender.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\Storage\MySqlSharingStorage.cs" />
-    <Compile Include="Data\Storage\MySqlTwitterStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Twitter\TwitterIntegration.cs" />

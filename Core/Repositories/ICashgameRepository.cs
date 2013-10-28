@@ -10,7 +10,6 @@ namespace Core.Repositories{
         IList<Cashgame> GetPublished(Homegame homegame, int? year = null);
 		Cashgame GetRunning(Homegame homegame);
 		IList<Cashgame> GetAll(Homegame homegame, int? year = null);
-		Cashgame GetByDate(Homegame homegame, DateTime date);
         Cashgame GetByDateString(Homegame homegame, string dateString);
 		CashgameSuite GetSuite(Homegame homegame, int? year = null);
         IList<int> GetYears(Homegame homegame);

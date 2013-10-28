@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Infrastructure.Data.Classes;
 
@@ -8,7 +7,7 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 		int AddGame(int homegameId, RawCashgame cashgame);
 		bool DeleteGame(int cashgameId);
-		RawCashgame GetGame(int homegameId, DateTime date);
+		RawCashgame GetGame(int homegameId, string dateStr);
         IList<RawCashgame> GetGames(int homegameId, int? status = null, int? year = null);
 		IList<int> GetYears(string slug);
 		bool UpdateGame(RawCashgame cashgame);
