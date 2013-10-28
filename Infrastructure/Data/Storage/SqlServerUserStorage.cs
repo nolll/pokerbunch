@@ -69,21 +69,21 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool UpdateUser(RawUser user){
-            var sql = "UPDATE [user] u SET DisplayName = '{0}', RealName = '{1}', Email = '{2}' WHERE UserID = {3}";
+            var sql = "UPDATE [user] SET DisplayName = '{0}', RealName = '{1}', Email = '{2}' WHERE UserID = {3}";
 		    sql = string.Format(sql, user.DisplayName, user.RealName, user.Email, user.Id);
 		    var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public int AddUser(RawUser user){
-            var sql = "INSERT INTO [user] (UserName, DisplayName, Email) OUTPUT INSERTED.ID VALUES ('{0}', '{1}', '{2}')";
+            var sql = "INSERT INTO [user] (UserName, DisplayName, Email) VALUES ('{0}', '{1}', '{2}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
 
 		public bool DeleteUser(int userId){
-            var sql = "DELETE FROM [user] u WHERE UserID = {0}";
+            var sql = "DELETE FROM [user] WHERE UserID = {0}";
             sql = string.Format(sql, userId);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
@@ -100,21 +100,21 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public bool SetSalt(string userName, string salt){
-            var sql = "UPDATE [user] u SET Salt = '{0}' WHERE UserName = '{1}'";
+            var sql = "UPDATE [user] SET Salt = '{0}' WHERE UserName = '{1}'";
 		    sql = string.Format(sql, salt, userName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool SetEncryptedPassword(string userName, string encryptedPassword){
-            var sql = "UPDATE [user] u SET Password = '{0}' WHERE UserName = '{1}'";
+            var sql = "UPDATE [user] SET Password = '{0}' WHERE UserName = '{1}'";
 			sql = string.Format(sql, encryptedPassword, userName);
             var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
 		public bool SetToken(string userName, string token){
-            var sql = "UPDATE [user] u SET Token = '{0}' WHERE UserName = '{1}'";
+            var sql = "UPDATE [user] SET Token = '{0}' WHERE UserName = '{1}'";
             sql = string.Format(sql, token, userName);
 			var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;

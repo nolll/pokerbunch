@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Storage {
 
         public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint){
 			var timestampStr = _globalization.FormatIsoDateTime(_timeProvider.ConvertToUtc(checkpoint.Timestamp));
-            var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) OUTPUT INSERTED.ID VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}')";
+            var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             sql = string.Format(sql, cashgameId, playerId, checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
 			return _storageProvider.ExecuteInsert(sql);
 		}

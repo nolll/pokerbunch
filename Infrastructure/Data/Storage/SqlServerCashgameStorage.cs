@@ -26,7 +26,7 @@ namespace Infrastructure.Data.Storage {
 	    }
 
         public int AddGame(int homegameId, RawCashgame cashgame){
-            var sql = "INSERT INTO game (HomegameID, Location, Status) OUTPUT INSERTED.ID VALUES ({0}, '{1}', {2})";
+            var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2}) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
 		    return _storageProvider.ExecuteInsert(sql);
 		}

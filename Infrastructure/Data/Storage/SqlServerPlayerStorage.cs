@@ -57,14 +57,14 @@ namespace Infrastructure.Data.Storage
 
         public int AddPlayer(int homegameId, string playerName)
         {
-            const string format = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) OUTPUT INSERTED.ID VALUES ({0}, {1}, 1, '{2}')";
+            const string format = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES ({0}, {1}, 1, '{2}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var sql = string.Format(format, homegameId, (int)Role.Player, playerName);
 			return _storageProvider.ExecuteInsert(sql);
 		}
 
         public int AddPlayerWithUser(int homegameId, int userId, int role)
         {
-            const string format = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) OUTPUT INSERTED.ID VALUES ({0}, {1}, {2}, 1)";
+            const string format = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES ({0}, {1}, {2}, 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var sql = string.Format(format, homegameId, userId, role);
             return _storageProvider.ExecuteInsert(sql);
 		}

@@ -78,7 +78,7 @@ namespace Infrastructure.Data.Storage {
         }
 
 		public RawHomegame AddHomegame(RawHomegame homegame){
-            var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) OUTPUT INSERTED.ID VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}')";
+            var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 		    sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.CurrencySymbol,
 		                        homegame.CurrencyLayout, homegame.TimezoneName, _storageProvider.BoolToInt(homegame.CashgamesEnabled),
 		                        _storageProvider.BoolToInt(homegame.TournamentsEnabled),

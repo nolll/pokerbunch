@@ -7,16 +7,30 @@ namespace Infrastructure.Data.Storage {
 
 	public class SqlServerStorageProvider : IStorageProvider{
 	    private readonly ISettings _settings;
+	    private readonly string _connectionString;
 
         public SqlServerStorageProvider(ISettings settings)
         {
             _settings = settings;
         }
 
+        public SqlServerStorageProvider(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
 	    private SqlConnection GetConnection()
         {
-            return new SqlConnection(_settings.GetConnectionString());
+            return new SqlConnection(ConnectionString);
         }
+
+	    private string ConnectionString
+	    {
+	        get
+	        {
+	            return _settings != null ? _settings.GetConnectionString() : _connectionString;
+	        }
+	    }
 
 		public StorageDataReader Query(string sql)
 		{

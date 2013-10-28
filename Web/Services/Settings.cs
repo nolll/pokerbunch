@@ -6,8 +6,7 @@ using Infrastructure.Config;
 namespace Web.Services{
     public class Settings : ISettings
 	{
-
-		public string GetTwitterKey(){
+        public string GetTwitterKey(){
             return WebConfigurationManager.AppSettings.Get("TwitterKey");
 		}
 
@@ -31,24 +30,7 @@ namespace Web.Services{
 			return GetServerMode() == ServerMode.Development;
 		}
 
-		public string GetDatabaseHost(){
-            return WebConfigurationManager.AppSettings.Get("DatabaseHost");
-		}
-
-		public string GetDatabaseName(){
-            return WebConfigurationManager.AppSettings.Get("DatabaseName");
-		}
-
-		public string GetDatabaseUserName(){
-            return WebConfigurationManager.AppSettings.Get("DatabaseUserName");
-		}
-
-		public string GetDatabasePassword()
-		{
-            return WebConfigurationManager.AppSettings.Get("DatabasePassword");
-		}
-
-        public string GetConnectionString()
+		public string GetConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString;
         }

@@ -25,7 +25,7 @@ namespace Infrastructure.Data.Storage {
 		}
 
 		public void AddSharing(int userId, string sharingProvider){
-            var sql = "INSERT INTO usersharing (UserID, ServiceName) OUTPUT INSERTED.ID VALUES ({0}, '{1}')";
+            var sql = "INSERT INTO usersharing (UserID, ServiceName) OUTPUT INSERTED.UserId VALUES ({0}, '{1}')";
             sql = string.Format(sql, userId, sharingProvider);
 			_storageProvider.ExecuteInsert(sql);
 		}
