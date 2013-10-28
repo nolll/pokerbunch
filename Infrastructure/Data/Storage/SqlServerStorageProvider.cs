@@ -1,21 +1,21 @@
 using System.Data;
 using System.Data.SqlClient;
+using Core.Services;
 using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
 
 	public class SqlServerStorageProvider : IStorageProvider{
+	    private readonly ISettings _settings;
 
-		private readonly string _connectionString;
-
-        public SqlServerStorageProvider()
-		{
-            _connectionString = "Server=tcp:o5ctpblaqd.database.windows.net,1433;Database=pokerbunch;User ID=pokerbunch@o5ctpblaqd;Password=3Sugfisk;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;";
-		}
-
-        private SqlConnection GetConnection()
+        public SqlServerStorageProvider(ISettings settings)
         {
-            return new SqlConnection(_connectionString);
+            _settings = settings;
+        }
+
+	    private SqlConnection GetConnection()
+        {
+            return new SqlConnection(_settings.GetConnectionString());
         }
 
 		public StorageDataReader Query(string sql)

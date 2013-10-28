@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Web.Configuration;
 using Core.Services;
 using Infrastructure.Config;
@@ -46,6 +47,11 @@ namespace Web.Services{
 		{
             return WebConfigurationManager.AppSettings.Get("DatabasePassword");
 		}
+
+        public string GetConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString;
+        }
 
         public string GetSiteUrl()
         {

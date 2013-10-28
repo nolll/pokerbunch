@@ -78,8 +78,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetActionRow(Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName)
         {
-            var values = new List<ChartValueModel>();
-            values.Add(_chartValueModelFactory.Create(dateTime));
+            var values = new List<ChartValueModel> {_chartValueModelFactory.Create(dateTime)};
             var playerNames = cashgame.GetPlayerNames();
             foreach (var playerName in playerNames)
             {
