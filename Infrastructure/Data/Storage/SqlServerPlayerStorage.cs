@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
@@ -41,19 +42,40 @@ namespace Infrastructure.Data.Storage
 			return GetPlayerFromSql(sql);
 		}
 
-		public IList<RawPlayer> GetPlayers(int homegameId)
+        public IList<RawPlayer> GetPlayers(IEnumerable<int> ids)
         {
-            var baseSql = GetPlayersBaseSql(homegameId);
-			const string format = "{0} ORDER BY DisplayName";
-		    var sql = string.Format(format, baseSql);
-			return GetPlayersFromSql(sql);
-		}
+            var sql = GetPlayersBaseSql(ids);
+            return GetPlayersFromSql(sql);
+        }
 
-		private string GetPlayersBaseSql(int homegameId)
-		{
-		    const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = {0} ";
-		    return string.Format(sql, homegameId);
-		}
+        public IList<int> GetPlayerIds(int homegameId)
+        {
+            const string baseSql = "SELECT p.PlayerID FROM player p WHERE p.HomegameID = {0}";
+            var sql = string.Format(baseSql, homegameId);
+            return GetPlayerIdsFromSql(sql);
+        }
+
+        private string GetPlayersBaseSql()
+        {
+            return "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email FROM player p LEFT JOIN [user] u on p.UserID = u.UserID ";
+        }
+
+        private string GetPlayersBaseSql(int homegameId)
+        {
+            var sql = string.Concat(GetPlayersBaseSql(), "WHERE p.HomegameID = {0} ");
+            return string.Format(sql, homegameId);
+        }
+
+        private string GetPlayersBaseSql(IEnumerable<int> ids)
+        {
+            var idList = GetIdListForSql(ids);
+            return string.Concat(GetPlayersBaseSql(), string.Format("WHERE p.PlayerID IN({0})", idList));
+        }
+
+        private string GetIdListForSql(IEnumerable<int> ids)
+        {
+            return string.Join(", ", ids.Select(o => string.Format("{0}", o)).ToArray());
+        }
 
         public int AddPlayer(int homegameId, string playerName)
         {
@@ -95,16 +117,27 @@ namespace Infrastructure.Data.Storage
 			return null;
 		}
 
-		private List<RawPlayer> GetPlayersFromSql(string sql)
+        private List<RawPlayer> GetPlayersFromSql(string sql)
         {
             var reader = _storageProvider.Query(sql);
-		    var players = new List<RawPlayer>();
-			while(reader.Read())
+            var players = new List<RawPlayer>();
+            while (reader.Read())
             {
-				players.Add(_rawPlayerFactory.Create(reader));
-			}
-			return players;
-		}
+                players.Add(_rawPlayerFactory.Create(reader));
+            }
+            return players;
+        }
+
+        private List<int> GetPlayerIdsFromSql(string sql)
+        {
+            var reader = _storageProvider.Query(sql);
+            var ids = new List<int>();
+            while (reader.Read())
+            {
+                ids.Add(reader.GetInt("PlayerID"));
+            }
+            return ids;
+        }
 
 	}
 

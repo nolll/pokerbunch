@@ -8,7 +8,8 @@ namespace Infrastructure.Data.Storage.Interfaces {
         RawPlayer GetPlayerById(int homegameId, int id);
         RawPlayer GetPlayerByName(int homegameId, string name);
         RawPlayer GetPlayerByUserName(int homegameId, string userName);
-        IList<RawPlayer> GetPlayers(int homegameId);
+        IList<RawPlayer> GetPlayers(IEnumerable<int> playerIds);
+        IList<int> GetPlayerIds(int homegameId);
         int AddPlayer(int homegameId, string playerName);
         int AddPlayerWithUser(int homegameId, int userId, int role);
         bool JoinHomegame(int playerId, int role, int homegameId, int userId);

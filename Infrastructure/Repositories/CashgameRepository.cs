@@ -22,7 +22,6 @@ namespace Infrastructure.Repositories {
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICheckpointFactory _checkpointFactory;
-	    private readonly ITimeProvider _timeProvider;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -32,8 +31,7 @@ namespace Infrastructure.Repositories {
 			ICashgameResultFactory cashgameResultFactory,
             ICheckpointRepository checkpointRepository,
             IRawCashgameFactory rawCashgameFactory,
-            ICheckpointFactory checkpointFactory,
-            ITimeProvider timeProvider)
+            ICheckpointFactory checkpointFactory)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -43,7 +41,6 @@ namespace Infrastructure.Repositories {
 	        _checkpointRepository = checkpointRepository;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _checkpointFactory = checkpointFactory;
-	        _timeProvider = timeProvider;
 	    }
 
 	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){

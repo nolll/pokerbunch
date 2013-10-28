@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
+using Infrastructure.Caching;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using System.Linq;
@@ -9,20 +11,71 @@ namespace Infrastructure.Repositories {
 
 	public class PlayerRepository : IPlayerRepository
     {
+        private const string PlayerCacheKey = "Player";
+        private const string HomegamePlayersCacheKey = "HomegamePlayers";
+
 	    private readonly IPlayerStorage _playerStorage;
 	    private readonly IPlayerFactory _playerFactory;
+	    private readonly ICacheContainer _cacheContainer;
 
 	    public PlayerRepository(
             IPlayerStorage playerStorage,
-            IPlayerFactory playerFactory)
+            IPlayerFactory playerFactory,
+            ICacheContainer cacheContainer)
 	    {
 	        _playerStorage = playerStorage;
 	        _playerFactory = playerFactory;
+	        _cacheContainer = cacheContainer;
 	    }
 
-	    public List<Player> GetAll(Homegame homegame){
-			return _playerStorage.GetPlayers(homegame.Id).Select(_playerFactory.Create).ToList();
+	    public List<Player> GetAll(Homegame homegame)
+	    {
+            var players = new List<Player>();
+            var playerIds = GetPlayerIds(homegame);
+            var uncachedIds = new List<int>();
+            foreach (var id in playerIds)
+            {
+                var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, id);
+                var cached = _cacheContainer.Get<Player>(cacheKey);
+                if (cached != null)
+                {
+                    players.Add(cached);
+                }
+                else
+                {
+                    uncachedIds.Add(id);
+                }
+            }
+
+            if (uncachedIds.Count > 0)
+            {
+                var rawPlayers = _playerStorage.GetPlayers(uncachedIds);
+                var newPlayers = rawPlayers.Select(_playerFactory.Create).ToList();
+                foreach (var player in newPlayers)
+                {
+                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(PlayerCacheKey, player.Id), player, TimeSpan.FromMinutes(CacheTime.Long));
+                }
+                players.AddRange(newPlayers);
+            }
+
+            return players.OrderBy(o => o.DisplayName).ToList();
 		}
+
+        private IEnumerable<int> GetPlayerIds(Homegame homegame)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegamePlayersCacheKey, homegame.Id);
+            var cached = _cacheContainer.Get<List<int>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _playerStorage.GetPlayerIds(homegame.Id);
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
 
 		public Player GetPlayerById(Homegame homegame, int id){
             var rawPlayer = _playerStorage.GetPlayerById(homegame.Id, id);

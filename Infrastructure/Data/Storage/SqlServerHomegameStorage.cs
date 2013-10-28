@@ -66,13 +66,13 @@ namespace Infrastructure.Data.Storage {
 		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h ";
 		}
 
-        private string GetHomegameBaseSql(IList<string> slugs)
+        private string GetHomegameBaseSql(IEnumerable<string> slugs)
         {
             var slugList = GetSlugListForSql(slugs);
             return string.Concat(GetHomegameBaseSql(), string.Format("WHERE h.Name IN({0})", slugList));
         }
 
-        private string GetSlugListForSql(IList<string> slugs)
+        private string GetSlugListForSql(IEnumerable<string> slugs)
         {
             return string.Join(", ", slugs.Select(o => string.Format("'{0}'", o)).ToArray());
         }
