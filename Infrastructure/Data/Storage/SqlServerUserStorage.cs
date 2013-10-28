@@ -55,34 +55,6 @@ namespace Infrastructure.Data.Storage {
             return GetUserId(sql);
         }
 
-        public RawUser GetUserByEmail(string email){
-			var sql = GetUserBaseSql();
-			sql += "WHERE u.Email = '{0}'";
-		    sql = string.Format(sql, email);
-			return GetUser(sql);
-		}
-
-		public RawUser GetUserByName(string userName){
-			var sql = GetUserBaseSql();
-			sql += "WHERE u.UserName = '{0}'";
-            sql = string.Format(sql, userName);
-			return GetUser(sql);
-		}
-
-		public RawUser GetUserByToken(string token){
-			var sql = GetUserBaseSql();
-			sql += "WHERE u.Token = '{0}'";
-			sql = string.Format(sql, token);
-            return GetUser(sql);
-		}
-
-		public RawUser GetUserByCredentials(string userNameOrEmail, string password){
-			var sql = GetUserBaseSql();
-			sql += "WHERE (u.UserName = '{0}' OR u.Email = '{0}') AND u.Password = '{1}'";
-			sql = string.Format(sql, userNameOrEmail, password);
-            return GetUser(sql);
-		}
-
         private string GetUserBaseSql()
         {
             return "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ";

@@ -18,29 +18,39 @@ namespace Infrastructure.Data.Storage
 	        _rawPlayerFactory = rawPlayerFactory;
 	    }
 
-		public RawPlayer GetPlayerById(int homegameId, int id)
+		public RawPlayer GetPlayerById(int id)
         {
-			var baseSql = GetPlayersBaseSql(homegameId);
+			var baseSql = GetPlayersBaseSql();
 			const string format = "{0} AND p.PlayerID = {1}";
             var sql = string.Format(format, baseSql, id);
 			return GetPlayerFromSql(sql);
 		}
 
-		public RawPlayer GetPlayerByName(int homegameId, string name)
+        public int? GetPlayerIdByName(int homegameId, string name)
         {
-            var baseSql = GetPlayersBaseSql(homegameId);
-			const string format = "{0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
-		    var sql = string.Format(format, baseSql, name);
-			return GetPlayerFromSql(sql);
-		}
+            var baseSql = GetPlayerIdBaseSql(homegameId);
+            const string format = "{0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
+            var sql = string.Format(format, baseSql, name);
+            return GetPlayerId(sql);
+        }
 
-		public RawPlayer GetPlayerByUserName(int homegameId, string userName)
+        public int? GetPlayerIdByUserName(int homegameId, string userName)
         {
-            var baseSql = GetPlayersBaseSql(homegameId);
-			const string format = "{0} AND u.UserName = '{1}'";
+            var baseSql = GetPlayerIdBaseSql(homegameId);
+            const string format = "{0} AND u.UserName = '{1}'";
             var sql = string.Format(format, baseSql, userName);
-			return GetPlayerFromSql(sql);
-		}
+            return GetPlayerId(sql);
+        }
+
+        private int? GetPlayerId(string sql)
+        {
+            var reader = _storageProvider.Query(sql);
+            while (reader.Read())
+            {
+                return reader.GetInt("PlayerID");
+            }
+            return null;
+        }
 
         public IList<RawPlayer> GetPlayers(IEnumerable<int> ids)
         {
@@ -58,6 +68,11 @@ namespace Infrastructure.Data.Storage
         private string GetPlayersBaseSql()
         {
             return "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, COALESCE(p.PlayerName, u.DisplayName) AS DisplayName, u.UserName, u.Email FROM player p LEFT JOIN [user] u on p.UserID = u.UserID ";
+        }
+
+        private string GetPlayerIdBaseSql(int homegameId)
+        {
+            return string.Format("SELECT p.PlayerID FROM player p WHERE p.HomegameID = {0} ", homegameId);
         }
 
         private string GetPlayersBaseSql(int homegameId)

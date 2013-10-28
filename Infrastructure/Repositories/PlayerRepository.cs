@@ -77,36 +77,70 @@ namespace Infrastructure.Repositories {
             return uncached;
         }
 
-		public Player GetPlayerById(Homegame homegame, int id){
-            var rawPlayer = _playerStorage.GetPlayerById(homegame.Id, id);
-			return _playerFactory.Create(rawPlayer);
-		}
+        public Player GetPlayerById(int id)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, id);
+            var cached = _cacheContainer.Get<Player>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var rawUser = _playerStorage.GetPlayerById(id);
+            var uncached = rawUser != null ? _playerFactory.Create(rawUser) : null;
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
 
 		public Player GetByName(Homegame homegame, string name){
-			var rawPlayer = _playerStorage.GetPlayerByName(homegame.Id, name);
-            return _playerFactory.Create(rawPlayer);
+			var playerId = _playerStorage.GetPlayerIdByName(homegame.Id, name);
+		    return playerId.HasValue ? GetPlayerById(playerId.Value) : null;
 		}
 
 		public Player GetByUserName(Homegame homegame, string userName){
-            var rawPlayer = _playerStorage.GetPlayerByUserName(homegame.Id, userName);
-            return _playerFactory.Create(rawPlayer);
+            var playerId = _playerStorage.GetPlayerIdByUserName(homegame.Id, userName);
+            return playerId.HasValue ? GetPlayerById(playerId.Value) : null;
 		}
 
 		public int AddPlayer(Homegame homegame, string playerName){
-			return _playerStorage.AddPlayer(homegame.Id, playerName);
+            var playerId = _playerStorage.AddPlayer(homegame.Id, playerName);
+            ClearPlayerListFromCache(homegame.Id);
+		    return playerId;
 		}
 
 		public int AddPlayerWithUser(Homegame homegame, User user, Role role){
-			return _playerStorage.AddPlayerWithUser(homegame.Id, user.Id, (int)role);
+            var playerId = _playerStorage.AddPlayerWithUser(homegame.Id, user.Id, (int)role);
+            ClearPlayerListFromCache(homegame.Id);
+		    return playerId;
 		}
 
 		public bool JoinHomegame(Player player, Homegame homegame, User user){
-			return _playerStorage.JoinHomegame(player.Id, (int)player.Role, homegame.Id, user.Id);
+            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, homegame.Id, user.Id);
+            ClearPlayerFromCache(player.Id);
+            ClearPlayerListFromCache(homegame.Id);
+		    return success;
 		}
 
-		public bool DeletePlayer(Player player){
-			return _playerStorage.DeletePlayer(player.Id);
+		public bool DeletePlayer(Homegame homegame, Player player){
+			var success = _playerStorage.DeletePlayer(player.Id);
+            ClearPlayerFromCache(player.Id);
+            ClearPlayerListFromCache(homegame.Id);
+            return success;
 		}
+
+        private void ClearPlayerFromCache(int playerId)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, playerId);
+            _cacheContainer.Remove(cacheKey);
+        }
+
+        private void ClearPlayerListFromCache(int homegameId)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(HomegamePlayersCacheKey, homegameId);
+            _cacheContainer.Remove(cacheKey);
+        }
 
 	}
 

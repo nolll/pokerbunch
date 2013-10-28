@@ -5,9 +5,9 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface IPlayerStorage{
 
-        RawPlayer GetPlayerById(int homegameId, int id);
-        RawPlayer GetPlayerByName(int homegameId, string name);
-        RawPlayer GetPlayerByUserName(int homegameId, string userName);
+        RawPlayer GetPlayerById(int id);
+        int? GetPlayerIdByName(int homegameId, string name);
+        int? GetPlayerIdByUserName(int homegameId, string userName);
         IList<RawPlayer> GetPlayers(IEnumerable<int> playerIds);
         IList<int> GetPlayerIds(int homegameId);
         int AddPlayer(int homegameId, string playerName);

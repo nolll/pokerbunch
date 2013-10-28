@@ -10,10 +10,6 @@ namespace Infrastructure.Data.Storage.Interfaces {
         int? GetUserIdByName(string userName);
         int? GetUserIdByToken(string token);
         int? GetUserIdByCredentials(string userNameOrEmail, string password);
-        RawUser GetUserByEmail(string email);
-        RawUser GetUserByName(string userName);
-        RawUser GetUserByToken(string token);
-        RawUser GetUserByCredentials(string userNameOrEmail, string password);
 		List<RawUser> GetUsers();
 		bool UpdateUser(RawUser user);
 		int AddUser(RawUser user);

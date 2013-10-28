@@ -113,7 +113,7 @@ namespace Web.Controllers{
 			if(hasPlayed){
 				return Redirect(_urlProvider.GetPlayerDetailsUrl(homegame, player));
 			}
-			_playerRepository.DeletePlayer(player);
+			_playerRepository.DeletePlayer(homegame, player);
 			return Redirect(_urlProvider.GetPlayerIndexUrl(homegame));
 		}
 
