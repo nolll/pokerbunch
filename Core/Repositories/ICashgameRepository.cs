@@ -17,7 +17,7 @@ namespace Core.Repositories{
 		bool DeleteGame(Cashgame cashgame);
 		int AddGame(Homegame homegame, Cashgame cashgame);
 	    void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint);
-	    void UpdateCheckpoint(Checkpoint checkpoint);
+        void UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint);
 	    void DeleteCheckpoint(int id);
 		bool UpdateGame(Cashgame cashgame);
         bool StartGame(Cashgame cashgame);

@@ -1,4 +1,5 @@
 using System;
+using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Buyin;

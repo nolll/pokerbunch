@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Repositories;
+using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
-using Infrastructure.System;
 using System.Linq;
 
 namespace Infrastructure.Repositories {
 	
 	public class CashgameRepository : ICashgameRepository{
+
+        private const string CashgameCacheKey = "Cashgame";
+        private const string CashgameIdCacheKey = "CashgameId";
+        private const string CashgameYearsCacheKey = "CashgameYears";
 
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICashgameFactory _cashgameFactory;
@@ -22,6 +27,8 @@ namespace Infrastructure.Repositories {
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICheckpointFactory _checkpointFactory;
+	    private readonly ICacheContainer _cacheContainer;
+	    private readonly ICheckpointStorage _checkpointStorage;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -31,7 +38,9 @@ namespace Infrastructure.Repositories {
 			ICashgameResultFactory cashgameResultFactory,
             ICheckpointRepository checkpointRepository,
             IRawCashgameFactory rawCashgameFactory,
-            ICheckpointFactory checkpointFactory)
+            ICheckpointFactory checkpointFactory,
+            ICacheContainer cacheContainer,
+            ICheckpointStorage checkpointStorage)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -41,6 +50,8 @@ namespace Infrastructure.Repositories {
 	        _checkpointRepository = checkpointRepository;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _checkpointFactory = checkpointFactory;
+	        _cacheContainer = cacheContainer;
+	        _checkpointStorage = checkpointStorage;
 	    }
 
 	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){
@@ -60,11 +71,48 @@ namespace Infrastructure.Repositories {
 			return GetGames(homegame, null, year);
 		}
 
-		public Cashgame GetByDateString(Homegame homegame, string dateString){
-            var rawGame = _cashgameStorage.GetGame(homegame.Id, dateString);
+        public Cashgame GetByDateString(Homegame homegame, string dateString)
+        {
+            var cashgameId = GetCashgameId(homegame.Id, dateString);
+            if (!cashgameId.HasValue)
+                return null;
+            return GetCashgameById(homegame, cashgameId.Value);
+        }
+
+        private Cashgame GetCashgameById(Homegame homegame, int id)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(CashgameCacheKey, id);
+            var cached = _cacheContainer.Get<Cashgame>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var rawGame = _cashgameStorage.GetGame(id);
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(id);
             var players = _playerRepository.GetAll(homegame);
-            return GetGameFromRawGame(rawGame, players, homegame.Timezone);
-		}
+            var uncached = GetGameFromRawGame(rawGame, rawCheckpoints, players, homegame.Timezone);
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
+
+        private int? GetCashgameId(int homegameId, string dateString)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(CashgameIdCacheKey, homegameId, dateString);
+            var cached = _cacheContainer.Get<string>(cacheKey);
+            if (cached != null)
+            {
+                return int.Parse(cached);
+            }
+            var uncached = _cashgameStorage.GetCashgameId(homegameId, dateString);
+            if (uncached.HasValue)
+            {
+                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
 
 		public CashgameSuite GetSuite(Homegame homegame, int? year = null){
 			var players = _playerRepository.GetAll(homegame);
@@ -72,9 +120,21 @@ namespace Infrastructure.Repositories {
 			return _cashgameSuiteFactory.Create(cashgames, players);
 		}
 
-		public IList<int> GetYears(Homegame homegame){
-			return _cashgameStorage.GetYears(homegame.Slug);
-		}
+        public IList<int> GetYears(Homegame homegame)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(CashgameYearsCacheKey, homegame.Slug);
+            var cached = _cacheContainer.Get<List<int>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _cashgameStorage.GetYears(homegame.Slug);
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
 
 		private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
 			var rawGames = _cashgameStorage.GetGames(homegame.Id, (int?)status, year);
@@ -82,22 +142,50 @@ namespace Infrastructure.Repositories {
 			return GetGamesFromRawGames(rawGames, players, homegame.Timezone);
 		}
 
-		private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgame> rawGames, List<Player> players, TimeZoneInfo timeZone){
-			var games = new List<Cashgame>();
-			foreach(var rawGame in rawGames){
-				games.Add(GetGameFromRawGame(rawGame, players, timeZone));
-			}
-			return games;
-		}
+        private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgameWithResults> rawGames, List<Player> players, TimeZoneInfo timeZone)
+        {
+            return rawGames.Select(rawGame => GetGameFromRawGame(rawGame, players, timeZone)).ToList();
+        }
 
-		private Cashgame GetGameFromRawGame(RawCashgame rawGame, List<Player> players, TimeZoneInfo timeZone){
-			var results = new List<CashgameResult>();
-			var rawResults = rawGame.Results;
-			foreach(var rawResult in rawResults){
-				results.Add(GetResultFromRawResult(rawResult, players, timeZone));
-			}
-			return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
-		}
+	    private Cashgame GetGameFromRawGame(RawCashgameWithResults rawGame, List<Player> players, TimeZoneInfo timeZone)
+        {
+            var results = new List<CashgameResult>();
+            var rawResults = rawGame.Results;
+            foreach (var rawResult in rawResults)
+            {
+                results.Add(GetResultFromRawResult(rawResult, players, timeZone));
+            }
+            return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+        }
+
+        private Cashgame GetGameFromRawGame(RawCashgame rawGame, IList<RawCheckpoint> rawCheckpoints, List<Player> players, TimeZoneInfo timeZone)
+        {
+            var results = new List<CashgameResult>();
+            var rawResults = GetRawResults(rawCheckpoints);
+            foreach (var rawResult in rawResults)
+            {
+                results.Add(GetResultFromRawResult(rawResult, players, timeZone));
+            }
+            return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+        }
+
+        private IList<RawCashgameResult> GetRawResults(IEnumerable<RawCheckpoint> rawCheckpoints)
+        {
+            var results = new List<RawCashgameResult>();
+            RawCashgameResult currentResult = null;
+            var currentPlayerId = -1;
+            foreach (var rawCheckpoint in rawCheckpoints)
+            {
+                if (currentResult == null || rawCheckpoint.PlayerId != currentPlayerId)
+                {
+                    currentResult = new RawCashgameResult(rawCheckpoint.PlayerId);
+                    currentPlayerId = currentResult.PlayerId;
+                    results.Add(currentResult);
+                }
+                currentResult.AddCheckpoint(rawCheckpoint);
+            }
+            return results;
+        }
 
 		private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult, IEnumerable<Player> players, TimeZoneInfo timeZone){
 			var player = GetPlayer(players, rawResult.PlayerId);
@@ -133,8 +221,9 @@ namespace Infrastructure.Repositories {
 			_checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
 		}
 
-		public void UpdateCheckpoint(Checkpoint checkpoint){
-            _checkpointRepository.UpdateCheckpoint(checkpoint);
+        public void UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint)
+        {
+            _checkpointRepository.UpdateCheckpoint(cashgame, checkpoint);
 		}
 
 		public void DeleteCheckpoint(int id){

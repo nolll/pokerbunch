@@ -6,7 +6,7 @@ namespace Infrastructure.Data.Factories
 {
     public interface IRawCashgameFactory
     {
-        RawCashgame Create(StorageDataReader reader);
-        RawCashgame Create(Cashgame cashgame, GameStatus? status = null);
+        RawCashgameWithResults Create(StorageDataReader reader);
+        RawCashgameWithResults Create(Cashgame cashgame, GameStatus? status = null);
     }
 }

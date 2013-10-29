@@ -64,6 +64,7 @@
     <Compile Include="Caching\CacheTime.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Data\Classes\RawCashgameWithResults.cs" />
     <Compile Include="Data\Classes\RawPlayer.cs" />
     <Compile Include="Data\Classes\RawCheckpoint.cs" />
     <Compile Include="Data\Classes\RawUser.cs" />

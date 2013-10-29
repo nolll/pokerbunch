@@ -393,7 +393,7 @@ namespace Web.Controllers{
             var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint, homegame.Timezone);
 			if(ModelState.IsValid){
 				if(result.CashoutCheckpoint != null){
-                    _cashgameRepository.UpdateCheckpoint(postedCheckpoint);
+                    _cashgameRepository.UpdateCheckpoint(runningGame, postedCheckpoint);
 				} else {
 					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}

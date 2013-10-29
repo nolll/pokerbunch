@@ -21,13 +21,13 @@ namespace Infrastructure.Repositories
 
         public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint)
         {
-            var rawCheckpoint = _rawCheckpointFactory.Create(checkpoint);
+            var rawCheckpoint = _rawCheckpointFactory.Create(cashgame, checkpoint);
             return _checkpointStorage.AddCheckpoint(cashgame.Id, player.Id, rawCheckpoint);
         }
 
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        public bool UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint)
         {
-            var rawCheckpoint = _rawCheckpointFactory.Create(checkpoint);
+            var rawCheckpoint = _rawCheckpointFactory.Create(cashgame, checkpoint);
             return _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
         }
 

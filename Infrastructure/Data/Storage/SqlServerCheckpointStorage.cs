@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.System;
 
@@ -8,15 +10,18 @@ namespace Infrastructure.Data.Storage {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IGlobalization _globalization;
         private readonly ITimeProvider _timeProvider;
+        private readonly IRawCheckpointFactory _rawCheckpointFactory;
 
         public SqlServerCheckpointStorage(
             IStorageProvider storageProvider,
             IGlobalization globalization,
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            IRawCheckpointFactory rawCheckpointFactory)
         {
             _storageProvider = storageProvider;
             _globalization = globalization;
             _timeProvider = timeProvider;
+            _rawCheckpointFactory = rawCheckpointFactory;
         }
 
         public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint){
@@ -40,6 +45,25 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-	}
+        public IList<RawCheckpoint> GetCheckpoints(int cashgameId)
+        {
+            const string format = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = {0} ORDER BY cp.PlayerID, cp.Timestamp";
+            var sql = string.Format(format, cashgameId);
+            var reader = _storageProvider.Query(sql);
+            return GetCheckpointsFromDbResult(reader);
+        }
+
+        private List<RawCheckpoint> GetCheckpointsFromDbResult(StorageDataReader reader)
+        {
+            var checkpoints = new List<RawCheckpoint>();
+            while (reader.Read())
+            {
+                var checkpoint = _rawCheckpointFactory.Create(reader);
+                checkpoints.Add(checkpoint);
+            }
+            return checkpoints;
+        }
+
+    }
 
 }

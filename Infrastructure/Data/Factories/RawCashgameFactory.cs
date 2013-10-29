@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Factories
             _timeProvider = timeProvider;
         }
 
-        public RawCashgame Create(StorageDataReader reader)
+        public RawCashgameWithResults Create(StorageDataReader reader)
         {
             var location = reader.GetString("Location");
             if (location == "")
@@ -23,7 +23,7 @@ namespace Infrastructure.Data.Factories
                 location = null;
             }
 
-            return new RawCashgame
+            return new RawCashgameWithResults
                 {
                     Id = reader.GetInt("GameID"),
                     Location = location,
@@ -33,9 +33,9 @@ namespace Infrastructure.Data.Factories
                 };
         }
 
-        public RawCashgame Create(Cashgame cashgame, GameStatus? status = null)
+        public RawCashgameWithResults Create(Cashgame cashgame, GameStatus? status = null)
         {
-            return new RawCashgame
+            return new RawCashgameWithResults
             {
                 Id = cashgame.Id,
                 Location = cashgame.Location,

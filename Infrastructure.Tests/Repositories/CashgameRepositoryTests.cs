@@ -10,7 +10,7 @@ namespace Infrastructure.Tests.Repositories{
 		[Test]
 		public void StartGame_CallsUpdateWithRawCashgame(){
 			var cashgame = new Cashgame();
-		    var rawCashgame = new RawCashgame();
+            var rawCashgame = new RawCashgameWithResults();
 
             Mocks.RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Running)).Returns(rawCashgame);
 
@@ -23,7 +23,7 @@ namespace Infrastructure.Tests.Repositories{
 		[Test]
 		public void EndGame_CallsUpdateGameAndSetsCurrentDateAndStatusPublished(){
             var cashgame = new Cashgame();
-            var rawCashgame = new RawCashgame();
+            var rawCashgame = new RawCashgameWithResults();
 
             Mocks.RawCashgameFactoryMock.Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
 
@@ -43,7 +43,9 @@ namespace Infrastructure.Tests.Repositories{
                 Mocks.CashgameResultFactoryMock.Object,
                 Mocks.CheckpointRepositoryMock.Object,
                 Mocks.RawCashgameFactoryMock.Object,
-                Mocks.CheckpointFactoryMock.Object);
+                Mocks.CheckpointFactoryMock.Object,
+                Mocks.CacheContainerFake,
+                Mocks.CheckpointStorageMock.Object);
         }
 
 	}

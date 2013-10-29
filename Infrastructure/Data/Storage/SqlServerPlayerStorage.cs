@@ -28,17 +28,15 @@ namespace Infrastructure.Data.Storage
 
         public int? GetPlayerIdByName(int homegameId, string name)
         {
-            var baseSql = GetPlayerIdBaseSql(homegameId);
-            const string format = "{0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
-            var sql = string.Format(format, baseSql, name);
+            const string format = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = {0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
+            var sql = string.Format(format, homegameId, name);
             return GetPlayerId(sql);
         }
 
         public int? GetPlayerIdByUserName(int homegameId, string userName)
         {
-            var baseSql = GetPlayerIdBaseSql(homegameId);
-            const string format = "{0} AND u.UserName = '{1}'";
-            var sql = string.Format(format, baseSql, userName);
+            const string format = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = {0} AND u.UserName = '{1}'";
+            var sql = string.Format(format, homegameId, userName);
             return GetPlayerId(sql);
         }
 

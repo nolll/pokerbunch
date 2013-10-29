@@ -20,7 +20,8 @@ namespace Infrastructure.Data.Storage {
             _rawCheckpointFactory = rawCheckpointFactory;
 	    }
 
-        public int AddGame(int homegameId, RawCashgame cashgame){
+        public int AddGame(int homegameId, RawCashgameWithResults cashgame)
+        {
             var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2}) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
 		    return _storageProvider.ExecuteInsert(sql);
@@ -33,24 +34,51 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-		private string GetGameSql(int homegameId){
-			var sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.HomegameID = {0} ";
-		    sql = string.Format(sql, homegameId);
-		    return sql;
-		}
+        private string GetGameSql()
+        {
+            return "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID ";
+        }
 
-		public RawCashgame GetGame(int homegameId, string dateStr){
-			var sql = GetGameSql(homegameId) + "AND g.Date = '{0}' ORDER BY cp.PlayerID, cp.Timestamp";
+        private string GetGameSql(int homegameId)
+        {
+            var sql = string.Concat(GetGameSql(), "WHERE g.HomegameID = {0} ");
+            return string.Format(sql, homegameId);
+        }
+
+        private string GetGameIdSql(int homegameId)
+        {
+            var sql = "SELECT g.GameID FROM game g WHERE g.HomegameID = {0} ";
+            sql = string.Format(sql, homegameId);
+            return sql;
+        }
+
+        public RawCashgame GetGame(int cashgameId)
+        {
+            var sql = string.Concat(GetGameSql(), "WHERE g.GameID = {0}");
+            sql = string.Format(sql, cashgameId);
+            var reader = _storageProvider.Query(sql);
+            var cashgames = GetGamesFromDbResult(reader);
+            if (cashgames.Count == 0)
+            {
+                return null;
+            }
+            return cashgames[0];
+        }
+
+        public int? GetCashgameId(int homegameId, string dateStr)
+        {
+            var sql = GetGameIdSql(homegameId) + "AND g.Date = '{0}'";
             sql = string.Format(sql, dateStr);
-			var reader = _storageProvider.Query(sql);
-			var cashgames = GetGamesFromDbResult(reader);
-			if(cashgames.Count == 0){
-				return null;
-			}
-			return cashgames[0];
-		}
+            var reader = _storageProvider.Query(sql);
+            if (reader.Read())
+            {
+                return reader.GetInt("GameID");
+            }
+            return null;
+        }
 
-		public IList<RawCashgame> GetGames(int homegameId, int? status = null, int? year = null){
+        public IList<RawCashgameWithResults> GetGames(int homegameId, int? status = null, int? year = null)
+        {
 			var sql = GetGameSql(homegameId);
 			if(status.HasValue){
 				sql += string.Format("AND g.Status = {0} ", (int)status.Value);
@@ -63,9 +91,9 @@ namespace Infrastructure.Data.Storage {
 			return GetGamesFromDbResult(reader);
 		}
 
-		private List<RawCashgame> GetGamesFromDbResult(StorageDataReader reader){
-			var cashgames = new List<RawCashgame>();
-			RawCashgame currentGame = null;
+		private List<RawCashgameWithResults> GetGamesFromDbResult(StorageDataReader reader){
+            var cashgames = new List<RawCashgameWithResults>();
+            RawCashgameWithResults currentGame = null;
 			var currentGameId = -1;
 			RawCashgameResult currentResult = null;
 			var currentPlayerId = -1;
@@ -108,7 +136,8 @@ namespace Infrastructure.Data.Storage {
 			return years;
 		}
 
-		public bool UpdateGame(RawCashgame cashgame){
+        public bool UpdateGame(RawCashgameWithResults cashgame)
+        {
             var sql = "UPDATE game SET Location = '{0}', Date = '{1}', Status = {2} WHERE GameID = {3}";
 		    sql = string.Format(sql, cashgame.Location, cashgame.Date, cashgame.Status, cashgame.Id);
 		    var rowCount = _storageProvider.Execute(sql);
