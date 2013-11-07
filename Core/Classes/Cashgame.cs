@@ -12,7 +12,7 @@ namespace Core.Classes{
 	    public DateTime? StartTime { get; set; }
 	    public DateTime? EndTime { get; set; }
 	    public int Duration { get; set; }
-        public List<CashgameResult> Results { get; set; }
+        public IList<CashgameResult> Results { get; set; }
 	    public int PlayerCount { get; set; }
 	    public int Diff { get; set; }
 	    public int Turnover { get; set; }

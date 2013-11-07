@@ -16,6 +16,7 @@ namespace Infrastructure.Repositories {
 
         private const string CashgameCacheKey = "Cashgame";
         private const string CashgameIdCacheKey = "CashgameId";
+        private const string CashgameIdsCacheKey = "CashgameIds";
         private const string CashgameYearsCacheKey = "CashgameYears";
 
 	    private readonly ICashgameStorage _cashgameStorage;
@@ -52,11 +53,11 @@ namespace Infrastructure.Repositories {
 
         public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
         {
-            return GetGames(homegame, GameStatus.Published, year);
+            return GetGamesNew(homegame, GameStatus.Published, year);
         }
 
 		public Cashgame GetRunning(Homegame homegame){
-			var games = GetGames(homegame, GameStatus.Running, null);
+			var games = GetGamesNew(homegame, GameStatus.Running);
 			if(games.Count == 0){
 				return null;
 			}
@@ -65,7 +66,7 @@ namespace Infrastructure.Repositories {
 
         public IList<Cashgame> GetAll(Homegame homegame, int? year = null)
         {
-			return GetGames(homegame, null, year);
+			return GetGamesNew(homegame, null, year);
 		}
 
         public Cashgame GetByDateString(Homegame homegame, string dateString)
@@ -133,11 +134,55 @@ namespace Infrastructure.Repositories {
             return uncached;
         }
 
-		private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null){
-			var rawGames = _cashgameStorage.GetGames(homegame.Id, (int?)status, year);
-			var players = _playerRepository.GetAll(homegame);
-			return GetGamesFromRawGames(rawGames, players, homegame.Timezone);
-		}
+        private IList<Cashgame> GetGamesNew(Homegame homegame, GameStatus? status = null, int? year = null)
+        {
+            var cashgames = new List<Cashgame>();
+            var ids = GetGameIds(homegame, status, year);
+            var uncachedIds = new List<int>();
+            foreach (var id in ids)
+            {
+                var cacheKey = _cacheContainer.ConstructCacheKey(CashgameCacheKey, id);
+                var cached = _cacheContainer.Get<Cashgame>(cacheKey);
+                if (cached != null)
+                {
+                    cashgames.Add(cached);
+                }
+                else
+                {
+                    uncachedIds.Add(id);
+                }
+            }
+
+            if (uncachedIds.Count > 0)
+            {
+                var rawCashgames = _cashgameStorage.GetGames(uncachedIds);
+                var players = _playerRepository.GetAll(homegame);
+                var newCashgames = GetGamesFromRawGames(rawCashgames, players, homegame.Timezone);
+                foreach (var cashgame in newCashgames)
+                {
+                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(CashgameCacheKey, cashgame.Id), cashgame, TimeSpan.FromMinutes(CacheTime.Long));
+                }
+                cashgames.AddRange(newCashgames);
+            }
+
+            return cashgames.OrderBy(o => o.Id).ToList();
+        }
+
+        private IEnumerable<int> GetGameIds(Homegame homegame, GameStatus? status = null, int? year = null)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, status, year);
+            var cached = _cacheContainer.Get<List<int>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _cashgameStorage.GetGameIds(homegame.Id, (int?)status, year);
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
+        }
 
         private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgameWithResults> rawGames, List<Player> players, TimeZoneInfo timeZone)
         {

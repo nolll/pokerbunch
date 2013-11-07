@@ -102,7 +102,7 @@ namespace Infrastructure.Repositories {
                 _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
-        } 
+        }
 
         public Role GetHomegameRole(Homegame homegame, User user)
         {

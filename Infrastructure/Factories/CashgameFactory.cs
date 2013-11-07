@@ -6,7 +6,7 @@ namespace Infrastructure.Factories
 {
     public class CashgameFactory : ICashgameFactory
     {
-        public Cashgame Create(string location, int? status = null, int? id = null, List<CashgameResult> results = null)
+        public Cashgame Create(string location, int? status = null, int? id = null, IList<CashgameResult> results = null)
         {
             if (results == null)
             {

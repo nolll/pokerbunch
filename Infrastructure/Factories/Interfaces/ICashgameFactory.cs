@@ -5,7 +5,7 @@ namespace Infrastructure.Factories{
 
 	public interface ICashgameFactory{
 
-		Cashgame Create(string location, int? status, int? id = null, List<CashgameResult> results = null);
+		Cashgame Create(string location, int? status, int? id = null, IList<CashgameResult> results = null);
 
 	}
 

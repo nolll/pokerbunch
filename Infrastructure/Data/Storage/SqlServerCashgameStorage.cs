@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
@@ -79,17 +80,55 @@ namespace Infrastructure.Data.Storage {
 
         public IList<RawCashgameWithResults> GetGames(int homegameId, int? status = null, int? year = null)
         {
-			var sql = GetGameSql(homegameId);
-			if(status.HasValue){
-				sql += string.Format("AND g.Status = {0} ", (int)status.Value);
-			}
-			if(year.HasValue){
-				sql += string.Format("AND YEAR(g.Date) = {0} ", year.Value);
-			}
-			sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
+            var sql = GetGameSql(homegameId);
+            if (status.HasValue)
+            {
+                sql += string.Format("AND g.Status = {0} ", (int)status.Value);
+            }
+            if (year.HasValue)
+            {
+                sql += string.Format("AND YEAR(g.Date) = {0} ", year.Value);
+            }
+            sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
             var reader = _storageProvider.Query(sql);
-			return GetGamesFromDbResult(reader);
-		}
+            return GetGamesFromDbResult(reader);
+        }
+
+        public IList<RawCashgameWithResults> GetGames(IList<int> ids)
+        {
+            var sql = GetGameSql();
+            var idList = GetIdListForSql(ids);
+            sql += string.Format("WHERE g.GameID IN ({0}) ", idList);
+            sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
+            var reader = _storageProvider.Query(sql);
+            return GetGamesFromDbResult(reader);
+        }
+
+        private string GetIdListForSql(IEnumerable<int> ids)
+        {
+            return string.Join(", ", ids.Select(o => string.Format("{0}", o)).ToArray());
+        }
+
+        public IList<int> GetGameIds(int homegameId, int? status = null, int? year = null)
+        {
+            var sql = GetGameIdSql(homegameId);
+            if (status.HasValue)
+            {
+                sql += string.Format("AND g.Status = {0} ", (int)status.Value);
+            }
+            if (year.HasValue)
+            {
+                sql += string.Format("AND YEAR(g.Date) = {0} ", year.Value);
+            }
+            //sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
+            var reader = _storageProvider.Query(sql);
+            var ids = new List<int>();
+            while (reader.Read())
+            {
+                ids.Add(reader.GetInt("GameID"));
+            }
+            return ids;
+        }
 
 		private List<RawCashgameWithResults> GetGamesFromDbResult(StorageDataReader reader){
             var cashgames = new List<RawCashgameWithResults>();
