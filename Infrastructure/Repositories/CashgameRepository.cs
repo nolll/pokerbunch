@@ -12,6 +12,13 @@ using System.Linq;
 
 namespace Infrastructure.Repositories {
 
+    public class CashgameSearchCriteria
+    {
+        public Homegame Homegame { get; set; }
+        public GameStatus? Status { get; set; }
+        public int? Year { get; set; }
+    }
+
 	public class CashgameRepository : ICashgameRepository{
 
         private const string CashgameCacheKey = "Cashgame";
@@ -51,13 +58,18 @@ namespace Infrastructure.Repositories {
 	        _checkpointStorage = checkpointStorage;
 	    }
 
+        public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
+        {
+            return GetGames(searchCriteria.Homegame, searchCriteria.Status, searchCriteria.Year);
+        }
+
         public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
         {
-            return GetGamesNew(homegame, GameStatus.Published, year);
+            return GetGames(homegame, GameStatus.Published, year);
         }
 
 		public Cashgame GetRunning(Homegame homegame){
-			var games = GetGamesNew(homegame, GameStatus.Running);
+			var games = GetGames(homegame, GameStatus.Running);
 			if(games.Count == 0){
 				return null;
 			}
@@ -66,7 +78,7 @@ namespace Infrastructure.Repositories {
 
         public IList<Cashgame> GetAll(Homegame homegame, int? year = null)
         {
-			return GetGamesNew(homegame, null, year);
+			return GetGames(homegame, null, year);
 		}
 
         public Cashgame GetByDateString(Homegame homegame, string dateString)
@@ -134,7 +146,7 @@ namespace Infrastructure.Repositories {
             return uncached;
         }
 
-        private IList<Cashgame> GetGamesNew(Homegame homegame, GameStatus? status = null, int? year = null)
+        private IList<Cashgame> GetGames(Homegame homegame, GameStatus? status = null, int? year = null)
         {
             var cashgames = new List<Cashgame>();
             var ids = GetGameIds(homegame, status, year);
