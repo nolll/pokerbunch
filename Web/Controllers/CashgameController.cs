@@ -324,6 +324,7 @@ namespace Web.Controllers{
                 if(!runningGame.IsStarted){
 			    	_cashgameRepository.StartGame(runningGame);
 			    }
+                _cashgameRepository.ClearCashgameFromCache(runningGame);
 			} else {
                 var user = _userContext.GetUser();
 			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postModel);
@@ -353,6 +354,7 @@ namespace Web.Controllers{
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
                 _checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
+                _cashgameRepository.ClearCashgameFromCache(cashgame);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
@@ -400,6 +402,7 @@ namespace Web.Controllers{
 				} else {
                     _checkpointRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}
+                _cashgameRepository.ClearCashgameFromCache(runningGame);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _cashoutPageModelFactory.Create(user, homegame, runningGame, postModel);
@@ -421,6 +424,8 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetRunning(homegame);
 			_userContext.RequirePlayer(homegame);
 			_cashgameRepository.EndGame(cashgame);
+            _cashgameRepository.ClearCashgameFromCache(cashgame);
+            _cashgameRepository.ClearCashgameListFromCache(homegame, cashgame);
             return Redirect(_urlProvider.GetCashgameIndexUrl(homegame));
 		}
 

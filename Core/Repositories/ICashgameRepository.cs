@@ -19,6 +19,8 @@ namespace Core.Repositories{
         bool EndGame(Cashgame cashgame);
 		bool HasPlayed(Player player);
 
+	    void ClearCashgameFromCache(Cashgame cashgame);
+	    void ClearCashgameListFromCache(Homegame homegame, Cashgame cashgame);
 	}
 
 }

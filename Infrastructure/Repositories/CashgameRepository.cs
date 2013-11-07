@@ -11,7 +11,7 @@ using Infrastructure.Factories;
 using System.Linq;
 
 namespace Infrastructure.Repositories {
-	
+
 	public class CashgameRepository : ICashgameRepository{
 
         private const string CashgameCacheKey = "Cashgame";
@@ -277,6 +277,23 @@ namespace Infrastructure.Repositories {
 		public bool HasPlayed(Player player){
 			return _cashgameStorage.HasPlayed(player.Id);
 		}
+
+	    public void ClearCashgameFromCache(Cashgame cashgame)
+        {
+            var cacheKey = _cacheContainer.ConstructCacheKey(CashgameCacheKey, cashgame.Id);
+            _cacheContainer.Remove(cacheKey);
+        }
+
+	    public void ClearCashgameListFromCache(Homegame homegame, Cashgame cashgame)
+        {
+            var allTimeCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id);
+            _cacheContainer.Remove(allTimeCacheKey);
+            if (cashgame.StartTime.HasValue)
+            {
+                var currentYearCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id, cashgame.StartTime.Value.Year);
+                _cacheContainer.Remove(currentYearCacheKey);
+            }
+        }
 
 	}
 
