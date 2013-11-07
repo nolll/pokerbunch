@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Core.Classes;
-using Core.Classes.Checkpoints;
 
 namespace Core.Repositories{
 	
@@ -16,9 +14,6 @@ namespace Core.Repositories{
 		IList<string> GetLocations(Homegame homegame);
 		bool DeleteGame(Cashgame cashgame);
 		int AddGame(Homegame homegame, Cashgame cashgame);
-	    void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint);
-        void UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint);
-	    void DeleteCheckpoint(int id);
 		bool UpdateGame(Cashgame cashgame);
         bool StartGame(Cashgame cashgame);
         bool EndGame(Cashgame cashgame);

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Web.ModelFactories.MiscModelFactories;
 using Web.Models.PlayerModels.Details;
 
 namespace Web.ModelFactories.PlayerModelFactories

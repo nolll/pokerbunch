@@ -41,7 +41,6 @@ namespace Infrastructure.Tests.Repositories{
                 Mocks.PlayerRepositoryMock.Object,
                 Mocks.CashgameSuiteFactoryMock.Object,
                 Mocks.CashgameResultFactoryMock.Object,
-                Mocks.CheckpointRepositoryMock.Object,
                 Mocks.RawCashgameFactoryMock.Object,
                 Mocks.CheckpointFactoryMock.Object,
                 Mocks.CacheContainerFake,

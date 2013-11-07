@@ -41,7 +41,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     DeleteEnabled = isManager && !hasPlayed,
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,
-                    PlayerFactsModel = _playerFactsModelFactory.Create(homegame, cashgames, player),
+                    PlayerFactsModel = _playerFactsModelFactory.Create(homegame.Currency, cashgames, player),
                     PlayerBadgesModel = new PlayerBadgesModel(player, cashgames)
                 };
 

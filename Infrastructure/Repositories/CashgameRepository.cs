@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Core.Classes;
-using Core.Classes.Checkpoints;
 using Core.Repositories;
 using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
@@ -24,7 +23,6 @@ namespace Infrastructure.Repositories {
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
-	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICheckpointFactory _checkpointFactory;
 	    private readonly ICacheContainer _cacheContainer;
@@ -36,7 +34,6 @@ namespace Infrastructure.Repositories {
             IPlayerRepository playerRepository,
 			ICashgameSuiteFactory cashgameSuiteFactory,
 			ICashgameResultFactory cashgameResultFactory,
-            ICheckpointRepository checkpointRepository,
             IRawCashgameFactory rawCashgameFactory,
             ICheckpointFactory checkpointFactory,
             ICacheContainer cacheContainer,
@@ -47,16 +44,16 @@ namespace Infrastructure.Repositories {
 	        _playerRepository = playerRepository;
 	        _cashgameSuiteFactory = cashgameSuiteFactory;
 	        _cashgameResultFactory = cashgameResultFactory;
-	        _checkpointRepository = checkpointRepository;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _checkpointFactory = checkpointFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
 	    }
 
-	    public IList<Cashgame> GetPublished(Homegame homegame, int? year = null){
-			return GetGames(homegame, GameStatus.Published, year);
-		}
+        public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
+        {
+            return GetGames(homegame, GameStatus.Published, year);
+        }
 
 		public Cashgame GetRunning(Homegame homegame){
 			var games = GetGames(homegame, GameStatus.Running, null);
@@ -158,7 +155,7 @@ namespace Infrastructure.Repositories {
             return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
         }
 
-        private Cashgame GetGameFromRawGame(RawCashgame rawGame, IList<RawCheckpoint> rawCheckpoints, List<Player> players, TimeZoneInfo timeZone)
+        private Cashgame GetGameFromRawGame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints, List<Player> players, TimeZoneInfo timeZone)
         {
             var results = new List<CashgameResult>();
             var rawResults = GetRawResults(rawCheckpoints);
@@ -169,7 +166,7 @@ namespace Infrastructure.Repositories {
             return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
         }
 
-        private IList<RawCashgameResult> GetRawResults(IEnumerable<RawCheckpoint> rawCheckpoints)
+        private IEnumerable<RawCashgameResult> GetRawResults(IEnumerable<RawCheckpoint> rawCheckpoints)
         {
             var results = new List<RawCashgameResult>();
             RawCashgameResult currentResult = null;
@@ -215,19 +212,6 @@ namespace Infrastructure.Repositories {
 		{
 		    var rawCashgame = _rawCashgameFactory.Create(cashgame);
 			return _cashgameStorage.AddGame(homegame.Id, rawCashgame);
-		}
-
-		public void AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint){
-			_checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
-		}
-
-        public void UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint)
-        {
-            _checkpointRepository.UpdateCheckpoint(cashgame, checkpoint);
-		}
-
-		public void DeleteCheckpoint(int id){
-            _checkpointRepository.DeleteCheckpoint(id);
 		}
 
 		public bool UpdateGame(Cashgame cashgame){

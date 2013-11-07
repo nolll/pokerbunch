@@ -58,6 +58,7 @@ namespace Web.Controllers{
 	    private readonly IActionChartModelFactory _actionChartModelFactory;
 	    private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
 	    private readonly ITimeProvider _timeProvider;
+	    private readonly ICheckpointRepository _checkpointRepository;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -85,7 +86,8 @@ namespace Web.Controllers{
             ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
             IActionChartModelFactory actionChartModelFactory,
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            ICheckpointRepository checkpointRepository)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -113,6 +115,7 @@ namespace Web.Controllers{
 	        _actionChartModelFactory = actionChartModelFactory;
 	        _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
 	        _timeProvider = timeProvider;
+	        _checkpointRepository = checkpointRepository;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -317,7 +320,7 @@ namespace Web.Controllers{
 			if(ModelState.IsValid)
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
-				_cashgameRepository.AddCheckpoint(runningGame, player, checkpoint);
+				_checkpointRepository.AddCheckpoint(runningGame, player, checkpoint);
                 if(!runningGame.IsStarted){
 			    	_cashgameRepository.StartGame(runningGame);
 			    }
@@ -349,7 +352,7 @@ namespace Web.Controllers{
 			if(ModelState.IsValid)
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
-			    _cashgameRepository.AddCheckpoint(cashgame, player, checkpoint);
+                _checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
@@ -361,7 +364,7 @@ namespace Web.Controllers{
 			_userContext.RequireManager(homegame);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, name);
-			_cashgameRepository.DeleteCheckpoint(id);
+            _checkpointRepository.DeleteCheckpoint(id);
             var actionsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player);
             return Redirect(actionsUrl);
 		}
@@ -393,9 +396,9 @@ namespace Web.Controllers{
             var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint, homegame.Timezone);
 			if(ModelState.IsValid){
 				if(result.CashoutCheckpoint != null){
-                    _cashgameRepository.UpdateCheckpoint(runningGame, postedCheckpoint);
+                    _checkpointRepository.UpdateCheckpoint(runningGame, postedCheckpoint);
 				} else {
-					_cashgameRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
+                    _checkpointRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}

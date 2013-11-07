@@ -14,15 +14,15 @@ namespace Web.ModelFactories.PlayerModelFactories
             _globalization = globalization;
         }
 
-        public PlayerFactsModel Create(Homegame homegame, IEnumerable<Cashgame> cashgames, Player player)
+        public PlayerFactsModel Create(CurrencySettings currency, IEnumerable<Cashgame> cashgames, Player player)
         {
             var filteredGames = FilterCashgames(cashgames, player);
 
             return new PlayerFactsModel
                 {
-                    Winnings = _globalization.FormatResult(homegame.Currency, GetWinnings(filteredGames, player)),
-                    BestResult = _globalization.FormatResult(homegame.Currency, GetBestResult(filteredGames, player)),
-                    WorstResult = _globalization.FormatResult(homegame.Currency, GetWorstResult(filteredGames, player)),
+                    Winnings = _globalization.FormatResult(currency, GetWinnings(filteredGames, player)),
+                    BestResult = _globalization.FormatResult(currency, GetBestResult(filteredGames, player)),
+                    WorstResult = _globalization.FormatResult(currency, GetWorstResult(filteredGames, player)),
                     GamesPlayed = filteredGames.Count,
                     TimePlayed = _globalization.FormatDuration(GetMinutesPlayed(filteredGames))
                 };

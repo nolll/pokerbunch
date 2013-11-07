@@ -6,6 +6,6 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IPlayerFactsModelFactory
     {
-        PlayerFactsModel Create(Homegame homegame, IEnumerable<Cashgame> cashgames, Player player);
+        PlayerFactsModel Create(CurrencySettings currency, IEnumerable<Cashgame> cashgames, Player player);
     }
 }
