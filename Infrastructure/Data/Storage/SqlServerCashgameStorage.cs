@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.System;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerCashgameStorage : ICashgameStorage
@@ -10,21 +13,29 @@ namespace Infrastructure.Data.Storage {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IRawCashgameFactory _rawCashgameFactory;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
+        private readonly IGlobalization _globalization;
+        private readonly ITimeProvider _timeProvider;
 
         public SqlServerCashgameStorage(
             IStorageProvider storageProvider,
             IRawCashgameFactory rawCashgameFactory,
-            IRawCheckpointFactory rawCheckpointFactory)
+            IRawCheckpointFactory rawCheckpointFactory,
+            IGlobalization globalization,
+            ITimeProvider timeProvider)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
             _rawCheckpointFactory = rawCheckpointFactory;
+            _globalization = globalization;
+            _timeProvider = timeProvider;
 	    }
 
-        public int AddGame(int homegameId, RawCashgameWithResults cashgame)
+        public int AddGame(Homegame homegame, RawCashgameWithResults cashgame)
         {
-            var sql = "INSERT INTO game (HomegameID, Location, Status) VALUES ({0}, '{1}', {2}) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-		    sql = string.Format(sql, homegameId, cashgame.Location, (int)cashgame.Status);
+            var sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES ({0}, '{1}', {2}, '{3}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, homegame.Timezone);
+            var date = _globalization.FormatIsoDate(timezoneAdjustedDate);
+		    sql = string.Format(sql, homegame.Id, cashgame.Location, (int)cashgame.Status, date);
 		    return _storageProvider.ExecuteInsert(sql);
 		}
 

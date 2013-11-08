@@ -33,6 +33,9 @@ CREATE TABLE [dbo].[Game] (
     PRIMARY KEY CLUSTERED ([GameId] ASC)
 );
 
+ALTER TABLE [dbo].[Game] ADD CONSTRAINT [DF_Game_Timestamp] DEFAULT (getdate()) FOR [Timestamp]
+GO
+
 CREATE TABLE [dbo].[Homegame] (
     [HomegameId]         INT           NOT NULL IDENTITY(1,1),
     [Name]               NVARCHAR (50) NOT NULL,

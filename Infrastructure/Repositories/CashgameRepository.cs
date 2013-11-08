@@ -268,7 +268,7 @@ namespace Infrastructure.Repositories {
 		public int AddGame(Homegame homegame, Cashgame cashgame)
 		{
 		    var rawCashgame = _rawCashgameFactory.Create(cashgame);
-			return _cashgameStorage.AddGame(homegame.Id, rawCashgame);
+			return _cashgameStorage.AddGame(homegame, rawCashgame);
 		}
 
 		public bool UpdateGame(Cashgame cashgame){
