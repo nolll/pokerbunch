@@ -6,6 +6,7 @@ using Core.Exceptions;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.Controllers;
 
 namespace Web.Tests.ControllerTests{
@@ -19,7 +20,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void Matrix_NotAuthorized_ThrowsException(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -29,7 +30,7 @@ namespace Web.Tests.ControllerTests{
 
 		[Test]
 		public void Matrix_Authorized_ShowsCorrectView(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
 
 		    var sut = GetSut();
@@ -40,7 +41,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void Leaderboard_NotAuthorized_ThrowsException(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -50,7 +51,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void Leaderboard_Authorized_ShowsCorrectView(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.CashgameRepositoryMock.Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
 
@@ -62,7 +63,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void Details_NotAuthorized_ThrowsException(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -72,7 +73,7 @@ namespace Web.Tests.ControllerTests{
 
 		[Test]
 		public void Details_ReturnsCorrectView(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
             Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Player());
@@ -85,7 +86,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void ActionAction_NotAuthorized_ThrowsException(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -96,7 +97,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void ActionAction_ReturnsCorrectModel()
 		{
-		    var homegame = new Homegame();
+		    var homegame = new FakeHomegame();
 		    var user = new User();
             var player = new Player {UserName = UserName, Id = 1};
 		    var cashgameResult = new CashgameResult {Player = player};
@@ -114,7 +115,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
 		public void ActionBuyin_NotAuthorized_ThrowsException(){
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
+            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -124,7 +125,7 @@ namespace Web.Tests.ControllerTests{
 
 		[Test]
 		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
-			var homegame = new Homegame();
+			var homegame = new FakeHomegame();
 			var cashgame = new FakeCashgame();
 		    var user = new User();
 			var player = new Player {UserName = "otherUser"};

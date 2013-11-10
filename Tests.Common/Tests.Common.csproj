@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheContainerFake.cs" />
+    <Compile Include="FakeClasses\FakeCashgame.cs" />
+    <Compile Include="FakeClasses\FakeHomegame.cs" />
     <Compile Include="WebMocks.cs" />
     <Compile Include="WebMockContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

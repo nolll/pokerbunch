@@ -4,6 +4,7 @@ using Core.Classes;
 using Core.Classes.Checkpoints;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
@@ -17,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_player = new Player();
 			_cashgame = new FakeCashgame();
 			_result = new CashgameResult {Player = _player};

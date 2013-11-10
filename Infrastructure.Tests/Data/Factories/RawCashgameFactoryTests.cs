@@ -2,6 +2,7 @@
 using Infrastructure.Data.Factories;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Data.Factories
 {

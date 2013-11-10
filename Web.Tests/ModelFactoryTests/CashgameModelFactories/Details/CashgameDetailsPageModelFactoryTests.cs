@@ -4,6 +4,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.Models.CashgameModels.Details;
 
@@ -18,7 +19,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		[SetUp]
         public void SetUp(){
 			_isManager = false;
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_player = new Player();
 		}
 

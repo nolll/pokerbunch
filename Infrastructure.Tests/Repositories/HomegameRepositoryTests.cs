@@ -4,6 +4,7 @@ using Infrastructure.Data.Classes;
 using Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Repositories{
 
@@ -25,7 +26,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string slug = "a";
 
 		    var rawHomegame = new RawHomegame {Slug = slug, TimezoneName = "UTC"};
-		    var expectedHomegame = new Homegame {Slug = slug};
+		    var expectedHomegame = new FakeHomegame(slug: slug);
 
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegameByName(slug)).Returns(rawHomegame);
             Mocks.HomegameFactoryMock.Setup(o => o.Create(rawHomegame)).Returns(expectedHomegame);
@@ -44,7 +45,7 @@ namespace Infrastructure.Tests.Repositories{
 	        var rawHomegames = new List<RawHomegame>{new RawHomegame()};
 
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);
-            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
 	        var sut = GetSut();
 
@@ -60,7 +61,7 @@ namespace Infrastructure.Tests.Repositories{
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame(), new RawHomegame() };
             Mocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegames(slugs)).Returns(homegamesFromDatabase);
-            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
 	        var sut = GetSut();
 
@@ -78,14 +79,14 @@ namespace Infrastructure.Tests.Repositories{
             const string cacheKeyB = "cachekeyB";
             var slugs = new List<string> { slugA, slugB };
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame() };
-            var homegameFromCache = new Homegame();
+            var homegameFromCache = new FakeHomegame();
             Mocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
             Mocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
             Mocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
             Mocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
             Mocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns((Homegame)null);
-            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
             var sut = GetSut();
 
@@ -103,14 +104,14 @@ namespace Infrastructure.Tests.Repositories{
             const string cacheKeyB = "cachekeyB";
             var slugs = new List<string> { slugA, slugB };
             var homegamesFromDatabase = new List<RawHomegame> { };
-            var homegameFromCache = new Homegame();
+            var homegameFromCache = new FakeHomegame();
             Mocks.HomegameStorageMock.Setup(o => o.GetAllSlugs()).Returns(slugs);
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegames(It.IsAny<List<string>>())).Returns(homegamesFromDatabase);
             Mocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugA)).Returns(cacheKeyA);
             Mocks.CacheContainerMock.Setup(o => o.ConstructCacheKey(It.IsAny<string>(), slugB)).Returns(cacheKeyB);
             Mocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyA)).Returns(homegameFromCache);
             Mocks.CacheContainerMock.Setup(o => o.Get<Homegame>(cacheKeyB)).Returns(homegameFromCache);
-            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new Homegame());
+            Mocks.HomegameFactoryMock.Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
             var sut = GetSut();
 

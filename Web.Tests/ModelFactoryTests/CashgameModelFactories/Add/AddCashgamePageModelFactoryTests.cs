@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.Models.CashgameModels.Add;
 
@@ -17,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
         [SetUp]
 		public void SetUp(){
 			_user = new User();
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_locations = new List<string>();
 		}
 

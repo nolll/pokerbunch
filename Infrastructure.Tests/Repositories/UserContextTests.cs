@@ -2,6 +2,7 @@ using Core.Classes;
 using Infrastructure.Repositories;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Repositories{
 
@@ -122,7 +123,7 @@ namespace Infrastructure.Tests.Repositories{
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
 
             var sut = GetSut();
@@ -138,7 +139,7 @@ namespace Infrastructure.Tests.Repositories{
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName};
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
 
             var sut = GetSut();
@@ -154,7 +155,7 @@ namespace Infrastructure.Tests.Repositories{
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
 
             var sut = GetSut();
             var result = sut.IsInRole(homegame, Role.Admin);

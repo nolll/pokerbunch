@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.Models.CashgameModels.Edit;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 
@@ -18,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
         [SetUp]
 		public void SetUp(){
 			_user = new User();
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_locations = new List<string>();
 		}
 

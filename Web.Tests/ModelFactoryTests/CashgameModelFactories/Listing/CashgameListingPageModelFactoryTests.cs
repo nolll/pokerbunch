@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.Models.CashgameModels.Listing;
 
@@ -13,7 +13,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
         [Test]
 		public void ListTableModel_IsSet()
         {
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var cashgames = new List<Cashgame>();
             Mocks.CashgameListingTableModelFactoryMock.Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListingTableModel());
 

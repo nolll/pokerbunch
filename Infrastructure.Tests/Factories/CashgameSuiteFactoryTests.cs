@@ -3,6 +3,7 @@ using Core.Classes;
 using Infrastructure.Factories;
 using Moq;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 

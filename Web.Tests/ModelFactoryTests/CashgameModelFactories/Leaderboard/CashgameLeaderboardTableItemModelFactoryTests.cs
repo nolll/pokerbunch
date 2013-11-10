@@ -2,6 +2,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
@@ -15,7 +16,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_result = new CashgameTotalResult();
 			_player = new Player {DisplayName = "player name"};
             _result.Player = _player;

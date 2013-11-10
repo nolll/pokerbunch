@@ -1,6 +1,7 @@
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
@@ -9,76 +10,83 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
     {
 
 		private User _user;
-		private Homegame _homegame;
 		private bool _isInManagerMode;
 
         [SetUp]
 		public void SetUp(){
 			_user = new User();
-			_homegame = new Homegame();
 			_isInManagerMode = false;
 		}
 
         [Test]
-		public void Create_SetsDisplayName(){
-			_homegame.DisplayName = "a";
+		public void Create_SetsDisplayName()
+        {
+            const string displayName = "a";
+            var homegame = new FakeHomegame(displayName: displayName);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
-			Assert.AreEqual("a", result.DisplayName);
+			Assert.AreEqual(displayName, result.DisplayName);
 		}
 
 		[Test]
         public void Create_SetsHouseRules()
-        {
-			_homegame.HouseRules = "a";
+		{
+		    const string houseRules = "a";
+            var homegame = new FakeHomegame(houseRules: houseRules);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
-			Assert.AreEqual("a", result.HouseRules);
+			Assert.AreEqual(houseRules, result.HouseRules);
 		}
 
 		[Test]
         public void Create_HouseRulesWithLineBreaks_OutputsBrTags()
-        {
-			_homegame.HouseRules = "a\n\rb";
+		{
+            const string houseRules = "a\n\rb";
+            const string formattedHouseRules = "a<br />\n\rb";
+            var homegame = new FakeHomegame(houseRules: houseRules);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
-			Assert.AreEqual("a<br />\n\rb", result.HouseRules);
+			Assert.AreEqual(formattedHouseRules, result.HouseRules);
 		}
 
 		[Test]
         public void Create_SetsEditUrl()
 		{
 		    const string editUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetHomegameEditUrl(_homegame)).Returns(editUrl);
+		    var homegame = new FakeHomegame();
+		    Mocks.UrlProviderMock.Setup(o => o.GetHomegameEditUrl(homegame)).Returns(editUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
 			Assert.AreEqual(editUrl, result.EditUrl);
 		}
 
 		[Test]
         public void Create_SetsDescription()
-        {
-			_homegame.Description = "a";
+		{
+		    const string description = "a";
+            var homegame = new FakeHomegame(description: description);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
-			Assert.AreEqual("a", result.Description);
+			Assert.AreEqual(description, result.Description);
 		}
 
 		[Test]
         public void Create_WithPlayerRights_DoesNotOutputEditLink()
-        {
+		{
+		    var homegame = new FakeHomegame();
+
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
 			Assert.IsFalse(result.ShowEditLink);
 		}
@@ -86,10 +94,11 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		[Test]
         public void Create_WithManagerRights_ShowsEditLink()
         {
-			_isInManagerMode = true;
+            var homegame = new FakeHomegame();
+            _isInManagerMode = true;
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _homegame, _isInManagerMode);
+            var result = sut.Create(_user, homegame, _isInManagerMode);
 
 			Assert.IsTrue(result.ShowEditLink);
 		}

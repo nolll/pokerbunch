@@ -4,6 +4,7 @@ using Core.Classes.Checkpoints;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.Services;
 
 namespace Web.Tests.ServiceTests{
@@ -610,7 +611,7 @@ namespace Web.Tests.ServiceTests{
         }
 
 		private Homegame GetHomegame(){
-			return new Homegame {Slug = "abc"};
+            return new FakeHomegame(slug: "abc");
 		}
 
 	}

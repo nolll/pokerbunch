@@ -1,6 +1,7 @@
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 using Web.Models.CashgameModels.Leaderboard;
 
@@ -10,7 +11,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
         [Test]
 		public void ActionLeaderboard_SetsTableModel(){
-			var homegame = new Homegame();
+			var homegame = new FakeHomegame();
 			var suite = new CashgameSuite();
 
             Mocks.CashgameLeaderboardTableModelFactoryMock.Setup(o => o.Create(homegame, suite)).Returns(new CashgameLeaderboardTableModel());

@@ -4,6 +4,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
@@ -15,7 +16,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string formatted = "a";
 		    const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
@@ -33,7 +34,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
         public void StartTime_NoStartTime_IsNull()
 		{
 		    const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -48,7 +49,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
         public void ShowStartTime_WithStartTime_IsTrue()
         {
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, isStarted: true, startTime: DateTime.Parse("2010-01-01 01:00:00"));
@@ -62,7 +63,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ShowStartTime_NoStartTime_IsFalse(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -76,7 +77,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void Location_IsSet(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, location: "a");
@@ -92,7 +93,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
             const bool isManager = false;
 		    const string buyinUrl = "a";
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -107,7 +108,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ReportUrl_IsSet(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -126,7 +127,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             const bool isManager = false;
 		    const string cashoutUrl = "a";
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameCashoutUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(cashoutUrl);
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -140,7 +141,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void BuyinButtonEnabled_IsTrue(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -154,7 +155,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ReportButtonEnabled_WithPlayerNotInGame_IsFalse(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgame = new FakeCashgame(status: GameStatus.Running);
 
@@ -167,7 +168,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ReportButtonEnabled_WithPlayerInGame_IsTrue(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
@@ -181,7 +182,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void CashoutButtonEnabled_WithPlayerNotInGame_IsFalse(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgame = new FakeCashgame(status: GameStatus.Running);
 
@@ -194,7 +195,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void CashoutButtonEnabled_WithPlayerInGame_IsTrue(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgameResults = new List<CashgameResult> { cashgameResult };
@@ -230,7 +231,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ShowTable_WithStartedGame_IsTrue(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResults = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResults }, startTime: new DateTime(), isStarted: true);
@@ -244,7 +245,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void ShowTable_WithStartedGameButNoResults_IsFalse(){
             const bool isManager = false;
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             var player = new Player();
             var cashgameResult = new CashgameResult { Player = player };
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, startTime: new DateTime());

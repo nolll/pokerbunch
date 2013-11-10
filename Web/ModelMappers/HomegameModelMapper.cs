@@ -18,32 +18,31 @@ namespace Web.ModelMappers
         public Homegame GetHomegame(AddHomegamePostModel postModel)
         {
             return new Homegame
-            {
-                DisplayName = postModel.DisplayName,
-                Currency = new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout),
-                Timezone = TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
-                Description = postModel.Description,
-                DefaultBuyin = 200,
-                Slug = _slugGenerator.GetSlug(postModel.DisplayName)
-            };
+                (
+                    0,
+                    _slugGenerator.GetSlug(postModel.DisplayName),
+                    postModel.DisplayName,
+                    postModel.Description,
+                    string.Empty,
+                    TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
+                    200,
+                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout)
+                );
         }
 
         public Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
         {
             return new Homegame
-            {
-                Id = homegame.Id,
-                Slug = homegame.Slug,
-                DisplayName = homegame.DisplayName,
-                Description = postModel.Description,
-                HouseRules = postModel.HouseRules,
-                Currency = new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout),
-                Timezone = TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
-                DefaultBuyin = postModel.DefaultBuyin,
-                //CashgamesEnabled = rawHomegame.CashgamesEnabled,
-                //TournamentsEnabled = rawHomegame.TournamentsEnabled,
-                //VideosEnabled = rawHomegame.VideosEnabled
-            };
+                (
+                    homegame.Id,
+                    homegame.Slug,
+                    homegame.DisplayName,
+                    postModel.Description,
+                    postModel.HouseRules,
+                    TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
+                    postModel.DefaultBuyin,
+                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout)
+                );
         }
     }
 }

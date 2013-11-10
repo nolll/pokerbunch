@@ -2,6 +2,7 @@ using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Repositories;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Repositories{
 

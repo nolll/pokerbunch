@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Tests.ModelTests.CashgameModels.Matrix{

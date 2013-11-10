@@ -2,6 +2,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.Models.CashgameModels.Facts;
 
@@ -117,7 +118,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
         private CashgameFactsPageModel GetResult()
         {
-            return GetSut().Create(new User(), new Homegame(), _suite);
+            return GetSut().Create(new User(), new FakeHomegame(), _suite);
         }
 
 		private CashgameFactsPageModelFactory GetSut(){

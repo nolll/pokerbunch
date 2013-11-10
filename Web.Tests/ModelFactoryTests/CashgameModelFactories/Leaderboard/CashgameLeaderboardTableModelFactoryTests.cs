@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
@@ -12,7 +13,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 		}
 
         [Test]

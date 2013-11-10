@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.Models.CashgameModels.Chart;
 
@@ -15,7 +16,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new Homegame();
+			_homegame = new FakeHomegame();
 			_suite = new CashgameSuite();
 			_year = null;
 		}

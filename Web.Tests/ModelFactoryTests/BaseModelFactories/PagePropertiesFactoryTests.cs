@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.NavigationModels;
 
@@ -25,7 +26,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         public void HomegameNavModel_WithOneHomeGame_IsNotNull()
         {
             var user = new User();
-            var homegame = new Homegame();
+            var homegame = new FakeHomegame();
             Mocks.HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();

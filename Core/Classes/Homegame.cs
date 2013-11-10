@@ -1,29 +1,49 @@
 using System;
 
 namespace Core.Classes{
+    public class Homegame{
 
-	public class Homegame{
+	    public int Id { get; private set; }
+	    public string Slug { get; private set; }
+        public string DisplayName { get; private set; }
+        public string Description { get; private set; }
+        public string HouseRules { get; private set; }
+        public TimeZoneInfo Timezone { get; private set; }
+	    public int DefaultBuyin { get; private set; }
+	    public CurrencySettings Currency { get; private set; }
+	    public bool CashgamesEnabled { get; private set; }
+        public bool TournamentsEnabled { get; private set; }
+        public bool VideosEnabled { get; private set; }
 
-	    public int Id { get; set; }
-	    public string Slug { get; set; }
-	    public string DisplayName { get; set; }
-	    public string Description { get; set; }
-	    public string HouseRules { get; set; }
-        public TimeZoneInfo Timezone { get; set; }
-	    public int DefaultBuyin { get; set; }
-	    public CurrencySettings Currency { get; set; }
-	    public bool CashgamesEnabled { get; set; }
-        public bool TournamentsEnabled { get; set; }
-        public bool VideosEnabled { get; set; }
+	    public Homegame(
+            int id, 
+            string slug, 
+            string displayName, 
+            string description, 
+            string houseRules, 
+            TimeZoneInfo timezone, 
+            int defaultBuyin, 
+            CurrencySettings currency
+            )
+	    {
+	        Id = id;
+	        Slug = slug;
+	        DisplayName = displayName;
+	        Description = description;
+	        HouseRules = houseRules;
+	        Timezone = timezone;
+	        DefaultBuyin = defaultBuyin;
+	        Currency = currency;
+	        CashgamesEnabled = true;
+	        TournamentsEnabled = false;
+	        VideosEnabled = false;
+	    }
 
-	    public Homegame()
+	    private Homegame()
 	    {
             Currency = DefaultCurrency;
             Timezone = DefaultTimezone;
             DefaultBuyin = 0;
-            CashgamesEnabled = true;
-            TournamentsEnabled = false;
-            VideosEnabled = false;
 	    }
 
 		public static TimeZoneInfo DefaultTimezone{

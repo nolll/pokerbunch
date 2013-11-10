@@ -9,19 +9,16 @@ namespace Infrastructure.Factories
         public Homegame Create(RawHomegame rawHomegame)
         {
             return new Homegame
-                {
-                    Id = rawHomegame.Id,
-                    Slug = rawHomegame.Slug,
-                    DisplayName = rawHomegame.DisplayName,
-                    Description = rawHomegame.Description,
-                    HouseRules = rawHomegame.HouseRules,
-                    Currency = new CurrencySettings(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout),
-                    Timezone = TimeZoneInfo.FindSystemTimeZoneById(rawHomegame.TimezoneName),
-                    DefaultBuyin = rawHomegame.DefaultBuyin,
-                    CashgamesEnabled = rawHomegame.CashgamesEnabled,
-                    TournamentsEnabled = rawHomegame.TournamentsEnabled,
-                    VideosEnabled = rawHomegame.VideosEnabled
-                };
+                (
+                    rawHomegame.Id,
+                    rawHomegame.Slug,
+                    rawHomegame.DisplayName,
+                    rawHomegame.Description,
+                    rawHomegame.HouseRules,
+                    TimeZoneInfo.FindSystemTimeZoneById(rawHomegame.TimezoneName),
+                    rawHomegame.DefaultBuyin,
+                    new CurrencySettings(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout)
+                );
         }
 
     }
