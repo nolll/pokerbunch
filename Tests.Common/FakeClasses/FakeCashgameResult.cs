@@ -11,7 +11,7 @@ namespace Tests.Common.FakeClasses
             Player player = default(Player),
             int buyin = default(int),
             int winnings = default(int),
-            List<Checkpoint> checkpoints = default(List<Checkpoint>),
+            IList<Checkpoint> checkpoints = default(IList<Checkpoint>),
             DateTime? buyinTime = default(DateTime?),
             DateTime? cashoutTime = default(DateTime?),
             int playedTime = default(int),

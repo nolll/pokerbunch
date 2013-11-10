@@ -4,5 +4,6 @@ namespace Web.Models.PageBaseModels
     {
         PageProperties PageProperties { get; }
         string BrowserTitle { get; }
+
     }
 }

@@ -29,34 +29,12 @@
                 </div>
             </header>
             
-            @*
-		    {block name=top hide=true}
-				<div class="content-top">
-					{$smarty.block.child}
-				</div>
-			{/block}
-
-			{block name=nav hide=true}
-				<div class="content-nav">
-					{$smarty.block.child}
-				</div>
-			{/block}
-            *@
-
             <div class="main container">
                 @RenderBody()
             </div>
             
             @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.PageProperties.UserNavModel)
 		
-            @*
-		    <footer>
-				<div class="content">
-					{block name=footer}{/block}
-				</div>
-			</footer>
-            *@
-
         </div>
         
         <!--[if lt IE 9]>
@@ -64,10 +42,8 @@
             <script src="/FrontEnd/js/lib/respond.min.js"></script>
         <![endif]-->
         <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require-2.1.2-jquery-1.8.2.min.js"></script>
-
-        @*
-	    {partial view='core\Analytics\GoogleAnalytics' model=$model->googleAnalyticsModel}
-        *@
+        
+        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.PageProperties.GoogleAnalyticsModel)
 
     </body>
 

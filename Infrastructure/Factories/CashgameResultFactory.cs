@@ -37,7 +37,7 @@ namespace Infrastructure.Factories
                 );
         }
 
-        private int GetBuyinSum(List<Checkpoint> checkpoints)
+        private int GetBuyinSum(IEnumerable<Checkpoint> checkpoints)
         {
             var buyinCheckpoints = GetCheckpointsOfType(checkpoints, CheckpointType.Buyin);
             var buyin = 0;
