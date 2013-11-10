@@ -120,7 +120,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
         private CashgameFactsPageModel GetResult()
         {
-            return GetSut().Create(new User(), new FakeHomegame(), _suite);
+            return GetSut().Create(new FakeUser(), new FakeHomegame(), _suite);
         }
 
 		private CashgameFactsPageModelFactory GetSut(){

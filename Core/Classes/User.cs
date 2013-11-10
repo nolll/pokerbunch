@@ -1,17 +1,21 @@
 namespace Core.Classes {
+    public class User{
 
-	public class User{
+	    public int Id { get; private set; }
+        public string UserName { get; private set; }
+        public string DisplayName { get; private set; }
+        public string RealName { get; private set; }
+        public string Email { get; private set; }
+        public Role GlobalRole { get; private set; }
 
-	    public int Id { get; set; }
-	    public string UserName { get; set; }
-	    public string DisplayName { get; set; }
-	    public string RealName { get; set; }
-	    public string Email { get; set; }
-	    public Role GlobalRole { get; set; }
-
-	    public User()
+	    public User(int id, string userName, string displayName, string realName, string email, Role globalRole)
 	    {
-	        GlobalRole = Role.None;
+	        Id = id;
+	        UserName = userName;
+	        DisplayName = displayName;
+	        RealName = realName;
+	        Email = email;
+	        GlobalRole = globalRole;
 	    }
 
 	    public bool IsAdmin

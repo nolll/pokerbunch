@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 
@@ -16,7 +17,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
         [SetUp]
 		public void SetUp(){
-            _user = new User();
+            _user = new FakeUser();
 			_postModel = new AddHomegamePostModel();
 		}
 

@@ -13,7 +13,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         [Test]
         public void Create_WithoutHomeGame_HomegameNavModelIsNull()
         {
-            var user = new User();
+            var user = new FakeUser();
             Mocks.HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
@@ -25,7 +25,7 @@ namespace Web.Tests.ModelFactoryTests.BaseModelFactories
         [Test]
         public void HomegameNavModel_WithOneHomeGame_IsNotNull()
         {
-            var user = new User();
+            var user = new FakeUser();
             var homegame = new FakeHomegame();
             Mocks.HomegameNavigationModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>())).Returns(new HomegameNavigationModel());
 

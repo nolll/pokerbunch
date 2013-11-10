@@ -35,7 +35,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
 	    private CashgameChartPageModel GetResult()
 	    {
 	        var years = new List<int> {1, 2, 3};
-            return GetSut().Create(new User(), _homegame, _year, years, null);
+            return GetSut().Create(new FakeUser(), _homegame, _year, years, null);
 		}
 
         private CashgameChartPageModelFactory GetSut()

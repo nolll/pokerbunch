@@ -30,7 +30,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void Matrix_Authorized_ShowsCorrectView(){
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
+            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Matrix(Slug);
@@ -52,7 +52,7 @@ namespace Web.Tests.ControllerTests{
 		public void Leaderboard_Authorized_ShowsCorrectView(){
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.CashgameRepositoryMock.Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
+            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Leaderboard(Slug);
@@ -73,7 +73,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void Details_ReturnsCorrectView(){
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
+            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
             Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakePlayer());
             
@@ -97,7 +97,7 @@ namespace Web.Tests.ControllerTests{
 		public void ActionAction_ReturnsCorrectModel()
 		{
 		    var homegame = new FakeHomegame();
-		    var user = new User();
+		    var user = new FakeUser();
             var player = new FakePlayer(userName: UserName, id: 1);
 		    var cashgameResult = new CashgameResult {Player = player};
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
@@ -126,7 +126,7 @@ namespace Web.Tests.ControllerTests{
 		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
 			var homegame = new FakeHomegame();
 			var cashgame = new FakeCashgame();
-		    var user = new User();
+		    var user = new FakeUser();
 			var player = new FakePlayer(userName: "otherUser");
 
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);

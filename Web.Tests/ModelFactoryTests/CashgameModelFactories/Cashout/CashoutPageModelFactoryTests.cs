@@ -22,7 +22,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
             var runningGame = new FakeCashgame(startTime: new DateTime());
             
             var sut = GetSut();
-            var result = sut.Create(new User(), _homegame, runningGame);
+            var result = sut.Create(new FakeUser(), _homegame, runningGame);
 
 			Assert.AreEqual(result.StackAmount, 0);
 		}
@@ -33,7 +33,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
             var postModel = new CashoutPostModel{ StackAmount = 1 };
 
             var sut = GetSut();
-            var result = sut.Create(new User(), _homegame, runningGame, postModel);
+            var result = sut.Create(new FakeUser(), _homegame, runningGame, postModel);
 
             Assert.AreEqual(1, result.StackAmount);
 		}

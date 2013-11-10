@@ -41,7 +41,7 @@ namespace Infrastructure.Tests.Repositories{
 	    public void GetByUser_HomegameStorageReturnsOneRawHomegame_ReturnsOneHomegame()
 	    {
 	        const int userId = 1;
-	        var user = new User{Id = userId};
+	        var user = new FakeUser(userId);
 	        var rawHomegames = new List<RawHomegame>{new RawHomegame()};
 
             Mocks.HomegameStorageMock.Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);

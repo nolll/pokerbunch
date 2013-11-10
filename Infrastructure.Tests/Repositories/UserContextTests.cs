@@ -54,7 +54,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName};
+			var user = new FakeUser(displayName: displayName);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
@@ -79,7 +79,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName};
+			var user = new FakeUser(displayName: displayName);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
@@ -93,7 +93,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName};
+			var user = new FakeUser(displayName: displayName);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
@@ -107,7 +107,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
+			var user = new FakeUser(displayName: displayName, globalRole: Role.Admin);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
 
             var sut = GetSut();
@@ -121,7 +121,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName};
+			var user = new FakeUser(displayName: displayName);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
             Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
@@ -137,7 +137,7 @@ namespace Infrastructure.Tests.Repositories{
 			const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName};
+			var user = new FakeUser(displayName: displayName);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
             Mocks.HomegameRepositoryMock.Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
@@ -153,7 +153,7 @@ namespace Infrastructure.Tests.Repositories{
             const string token = "a";
 		    const string displayName = "b";
             Mocks.WebContextMock.Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new User{DisplayName = displayName, GlobalRole = Role.Admin};
+			var user = new FakeUser(displayName: displayName, globalRole: Role.Admin);
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
 

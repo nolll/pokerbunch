@@ -18,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
             Mocks.CashgameListingTableModelFactoryMock.Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListingTableModel());
 
             var sut = GetSut();
-			var result = sut.Create(new User(), homegame, cashgames, null, null, null);
+            var result = sut.Create(new FakeUser(), homegame, cashgames, null, null, null);
 
 			Assert.IsInstanceOf<CashgameListingTableModel>(result.ListingTableModel);
 		}

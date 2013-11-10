@@ -453,7 +453,7 @@ namespace Web.Tests.ServiceTests{
 
 		[Test]
         public void UserDetailsUrl(){
-			var user = new User {UserName = "a"};
+            var user = new FakeUser(userName: "a");
 
             var sut = GetSut();
             var result = sut.GetUserDetailsUrl(user);
@@ -463,7 +463,7 @@ namespace Web.Tests.ServiceTests{
 
 		[Test]
         public void UserEditUrl(){
-            var user = new User { UserName = "a" };
+            var user = new FakeUser(userName: "a");
 
             var sut = GetSut();
             var result = sut.GetUserEditUrl(user);

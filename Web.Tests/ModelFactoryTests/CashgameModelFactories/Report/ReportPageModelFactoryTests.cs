@@ -20,7 +20,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
 
         private ReportPageModel GetResult(){
 			var runningGame = new FakeCashgame();
-			return GetSut().Create(new User(), _homegame, _player, runningGame);
+            return GetSut().Create(new FakeUser(), _homegame, _player, runningGame);
 		}
 
         private ReportPageModelFactory GetSut()

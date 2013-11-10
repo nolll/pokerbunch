@@ -17,7 +17,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 
         [SetUp]
 		public void SetUp(){
-			_user = new User();
+            _user = new FakeUser();
 			_homegame = new FakeHomegame();
 			_locations = new List<string>();
 		}

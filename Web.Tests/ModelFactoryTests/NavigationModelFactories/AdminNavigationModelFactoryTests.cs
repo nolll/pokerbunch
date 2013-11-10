@@ -1,6 +1,7 @@
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.NavigationModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
@@ -17,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 
         [Test]
 		public void Show_AdminUser_DefaultContentSet(){
-			_user = new User {GlobalRole = Role.Admin};
+            _user = new FakeUser(globalRole: Role.Admin);
             var sut = GetSut();
             var result = sut.Create(_user);
 
@@ -35,7 +36,7 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 
 		[Test]
 		public void Show_WithNonAdminUser_NoNodes(){
-			_user = new User();
+            _user = new FakeUser();
 			var sut = GetSut();
             var result = sut.Create(_user);
 
@@ -51,7 +52,7 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
             Mocks.UrlProviderMock.Setup(o => o.GetHomegameListingUrl()).Returns(homegameListUrl);
             Mocks.UrlProviderMock.Setup(o => o.GetUserListingUrl()).Returns(userListUrl);
 
-			_user = new User {GlobalRole = Role.Admin};
+            _user = new FakeUser(globalRole: Role.Admin);
 		    var sut = GetSut();
             var result = sut.Create(_user);
 

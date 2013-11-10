@@ -24,6 +24,30 @@ namespace Tests.Common.FakeClasses
                 defaultBuyin,
                 currency)
         {
+            if (currency == null)
+            {
+                Currency = DefaultCurrency;
+            }
+            if (timezone == null)
+            {
+                Timezone = DefaultTimezone;
+            }
+        }
+
+        private static TimeZoneInfo DefaultTimezone
+        {
+            get
+            {
+                return TimeZoneInfo.Utc;
+            }
+        }
+
+        private static CurrencySettings DefaultCurrency
+        {
+            get
+            {
+                return new CurrencySettings("$", "{SYMBOL}{AMOUNT}");
+            }
         }
     }
 }

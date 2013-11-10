@@ -14,7 +14,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
         [SetUp]
 		public void SetUp(){
-			_user = new User();
+            _user = new FakeUser();
 			_isInManagerMode = false;
 		}
 

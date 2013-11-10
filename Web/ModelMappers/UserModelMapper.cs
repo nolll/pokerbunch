@@ -8,28 +8,24 @@ namespace Web.ModelMappers
     {
         public User GetUser(AddUserPostModel postModel)
         {
-            return new User
-            {
-                UserName = postModel.UserName,
-                DisplayName = postModel.DisplayName,
-                RealName = string.Empty,
-                Email = postModel.Email,
-                GlobalRole = Role.Player,
-                Id = 0
-            };
+            return new User(
+                0,
+                postModel.UserName,
+                postModel.DisplayName,
+                string.Empty,
+                postModel.Email,
+                Role.Player);
         }
 
         public User GetUser(User user, EditUserPostModel postModel)
         {
-            return new User
-            {
-                UserName = user.UserName,
-                DisplayName = postModel.DisplayName,
-                RealName = postModel.RealName,
-                Email = postModel.Email,
-                GlobalRole = user.GlobalRole,
-                Id = user.Id,
-            };
+            return new User(
+                user.Id,
+                user.UserName,
+                postModel.DisplayName,
+                postModel.RealName,
+                postModel.Email,
+                user.GlobalRole);
         }
     }
 }

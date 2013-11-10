@@ -8,14 +8,14 @@ namespace Infrastructure.Factories{
         public User Create(RawUser rawUser)
         {
             return new User
-            {
-                Id = rawUser.Id,
-                UserName = rawUser.UserName,
-                DisplayName = rawUser.DisplayName,
-                RealName = rawUser.RealName,
-                Email = rawUser.Email,
-                GlobalRole = (Role)rawUser.GlobalRole
-            };
+            (
+                rawUser.Id,
+                rawUser.UserName,
+                rawUser.DisplayName,
+                rawUser.RealName,
+                rawUser.Email,
+                (Role)rawUser.GlobalRole
+            );
         }
     }
 

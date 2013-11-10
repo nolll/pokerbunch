@@ -25,7 +25,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult>{cashgameResult});
 
 			var sut = GetSut();
-            var result = sut.Create(new User(), homegame, player, cashgame);
+            var result = sut.Create(new FakeUser(), homegame, player, cashgame);
 
 			Assert.IsTrue(result.StackFieldEnabled);
 		}
@@ -37,7 +37,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 		    var cashgame = new FakeCashgame();
 
 			var sut = GetSut();
-            var result = sut.Create(new User(), homegame, player, cashgame);
+            var result = sut.Create(new FakeUser(), homegame, player, cashgame);
 
 			Assert.IsFalse(result.StackFieldEnabled);
 		}
@@ -49,7 +49,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
             var cashgame = new FakeCashgame();
 
 			var sut = GetSut();
-            var result = sut.Create(new User(), homegame, player, cashgame);
+            var result = sut.Create(new FakeUser(), homegame, player, cashgame);
 
 			Assert.AreEqual(1, result.BuyinAmount);
 		}
@@ -62,7 +62,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
             var cashgame = new FakeCashgame();
 
 			var sut = GetSut();
-            var result = sut.Create(new User(), homegame, player, cashgame, _postModel);
+            var result = sut.Create(new FakeUser(), homegame, player, cashgame, _postModel);
 
 			Assert.AreEqual(2, result.BuyinAmount);
 		}

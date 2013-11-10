@@ -3,6 +3,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomeModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomeModelFactories
@@ -35,7 +36,7 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         {
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByUser(It.IsAny<User>()))
                                   .Returns(new List<Homegame>());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
+            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
 
             var sut = GetSut();
             var result = sut.Create();

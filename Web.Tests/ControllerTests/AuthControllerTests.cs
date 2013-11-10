@@ -3,6 +3,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.Controllers;
 using Web.Models.AuthModels;
 
@@ -12,7 +13,7 @@ namespace Web.Tests.ControllerTests{
 
 		[Test]
         public void ActionLoginPost_UserExistsButNoReturnUrl_RedirectsToRoot(){
-			var user = new User();
+			var user = new FakeUser();
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
 		    const string homeUrl = "a";
@@ -29,7 +30,7 @@ namespace Web.Tests.ControllerTests{
 
         [Test]
         public void ActionLoginPost_UserExistsAndWithReturnUrl_RedirectsToReturnUrl(){
-			var user = new User();
+			var user = new FakeUser();
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
@@ -61,7 +62,7 @@ namespace Web.Tests.ControllerTests{
 		{
 		    const string cookieName = "token";
 		    const string tokenName = "a";
-			var user = new User();
+			var user = new FakeUser();
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
             Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");
@@ -76,7 +77,7 @@ namespace Web.Tests.ControllerTests{
         public void ActionLoginPost_UserFoundAndRememberChecked_SetsPersistentCookie(){
             const string cookieName = "token";
             const string tokenName = "a";
-            var user = new User();
+            var user = new FakeUser();
             Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
             Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");

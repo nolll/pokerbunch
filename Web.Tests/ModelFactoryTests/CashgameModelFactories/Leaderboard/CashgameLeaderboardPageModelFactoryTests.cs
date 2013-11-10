@@ -17,7 +17,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             Mocks.CashgameLeaderboardTableModelFactoryMock.Setup(o => o.Create(homegame, suite)).Returns(new CashgameLeaderboardTableModel());
 
             var sut = GetSut();
-			var result = sut.Create(new User(), homegame, suite, null, null, null);
+            var result = sut.Create(new FakeUser(), homegame, suite, null, null, null);
 
             Assert.IsInstanceOf<CashgameLeaderboardTableModel>(result.TableModel);
 		}

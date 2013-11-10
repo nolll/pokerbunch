@@ -2,6 +2,7 @@ using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.MiscModels;
 
@@ -11,7 +12,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
 		[Test]
         public void ActionDetails_SetsUserData(){
-			var user = new User {UserName = "a", DisplayName = "b", RealName = "c", Email = "d"};
+            var user = new FakeUser(userName: "a", displayName: "b", realName: "c", email: "d");
 
 		    var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -26,10 +27,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         public void ActionDetails_SetsAvatarModel()
 		{
 		    const string email = "a";
-            var user = new User
-			    {
-			        Email = email
-			    };
+		    var user = new FakeUser(email: email);
             Mocks.AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
 
 			var sut = GetSut();
@@ -40,7 +38,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
         [Test]
         public void ActionDetails_ViewOwnUser_OutputsEditLink(){
-			var user = new User();
+            var user = new FakeUser();
 
             const string editUrl = "a";
             Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(user)).Returns(editUrl);
@@ -54,8 +52,8 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
         [Test]
         public void ActionDetails_ViewOtherUserWithAdminUser_OutputsEditLink(){
-			var currentUser = new User {UserName = "a", GlobalRole = Role.Admin};
-            var displayUser = new User {UserName = "b"};
+            var currentUser = new FakeUser(userName: "a", globalRole: Role.Admin);
+            var displayUser = new FakeUser(userName: "b");
 
             const string editUrl = "a";
             Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(displayUser)).Returns(editUrl);
@@ -69,7 +67,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
 		[Test]
         public void ActionDetails_ViewOwnUser_OutputsChangePasswordLink(){
-			var user = new User();
+            var user = new FakeUser();
 
             const string changePasswordUrl = "a";
 		    Mocks.UrlProviderMock.Setup(o => o.GetChangePasswordUrl()).Returns(changePasswordUrl);
@@ -83,8 +81,8 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
 		[Test]
         public void ActionDetails_ViewOtherUser_DoesNotOutputEditLink(){
-			var currentUser = new User {UserName = "a"};
-		    var displayUser = new User {UserName = "b"};
+            var currentUser = new FakeUser(userName: "a");
+            var displayUser = new FakeUser(userName: "b");
 		    
             var sut = GetSut();
 			var result = sut.Create(currentUser, displayUser);
@@ -94,8 +92,8 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
         [Test]
         public void ActionDetails_ViewOtherUserWithAdminUser_DoesNotOutputPasswordLink(){
-			var currentUser = new User {UserName = "a", GlobalRole = Role.Admin};
-            var displayUser = new User {UserName = "b"};
+            var currentUser = new FakeUser(userName: "a", globalRole: Role.Admin);
+            var displayUser = new FakeUser(userName: "b");
 
             var sut = GetSut();
 			var result = sut.Create(currentUser, displayUser);
