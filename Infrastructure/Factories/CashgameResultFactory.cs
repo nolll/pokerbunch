@@ -10,8 +10,6 @@ namespace Infrastructure.Factories
     {
         public CashgameResult Create(Player player, List<Checkpoint> checkpoints)
         {
-            var result = new CashgameResult();
-
             var buyin = GetBuyinSum(checkpoints);
             var stack = GetStack(checkpoints);
             var winnings = stack - buyin;
@@ -24,19 +22,19 @@ namespace Infrastructure.Factories
             var playedTime = GetPlayedTime(buyinTime, cashoutTime);
             var hasReported = HasReported(checkpoints);
 
-            result.Player = player;
-            result.Checkpoints = checkpoints;
-            result.Buyin = buyin;
-            result.Stack = stack;
-            result.Winnings = winnings;
-            result.BuyinTime = buyinTime;
-            result.CashoutTime = cashoutTime;
-            result.LastReportTime = lastReportTime;
-            result.PlayedTime = playedTime;
-            result.CashoutCheckpoint = cashoutCheckpoint;
-            result.HasReported = hasReported;
-
-            return result;
+            return new CashgameResult(
+                player,
+                buyin,
+                winnings,
+                checkpoints,
+                buyinTime,
+                cashoutTime,
+                playedTime,
+                stack,
+                lastReportTime,
+                cashoutCheckpoint,
+                hasReported
+                );
         }
 
         private int GetBuyinSum(List<Checkpoint> checkpoints)

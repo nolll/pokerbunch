@@ -44,7 +44,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		{
 		    const string formattedWinnings = "a";
 		    const int winnings = 1;
-			var cashgameResult = new CashgameResult {Winnings = winnings};
+			var cashgameResult = new FakeCashgameResult(winnings: winnings);
 		    _suite.BestResult = cashgameResult;
 
             Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
@@ -57,7 +57,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		[Test]
         public void BestResultName_SuiteHasBestResult_IsSet(){
 			var player = new FakePlayer(displayName: "a");
-		    var cashgameResult = new CashgameResult {Player = player};
+		    var cashgameResult = new FakeCashgameResult(player);
 		    _suite.BestResult = cashgameResult;
 			
             var result = GetResult();
@@ -69,7 +69,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
         public void WorstResultAmount_SuiteHasWorstResult_IsSet(){
             const string formattedWinnings = "a";
             const int winnings = 1;
-			var cashgameResult = new CashgameResult {Winnings = winnings};
+			var cashgameResult = new FakeCashgameResult(winnings: winnings);
 		    _suite.WorstResult = cashgameResult;
 
             Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
@@ -82,7 +82,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		[Test]
         public void WorstResultName_SuiteHasWorstResult_IsSet(){
 			var player = new FakePlayer(displayName: "a");
-		    var cashgameResult = new CashgameResult {Player = player};
+		    var cashgameResult = new FakeCashgameResult(player);
 		    _suite.WorstResult = cashgameResult;
 
 			var result = GetResult();

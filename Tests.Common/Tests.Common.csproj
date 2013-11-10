@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CacheContainerFake.cs" />
     <Compile Include="FakeClasses\FakeCashgame.cs" />
+    <Compile Include="FakeClasses\FakeCashgameResult.cs" />
     <Compile Include="FakeClasses\FakeHomegame.cs" />
     <Compile Include="FakeClasses\FakePlayer.cs" />
     <Compile Include="FakeClasses\FakeUser.cs" />

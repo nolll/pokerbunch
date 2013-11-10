@@ -3,26 +3,45 @@ using System.Collections.Generic;
 using Core.Classes.Checkpoints;
 
 namespace Core.Classes{
+    public class CashgameResult{
 
-	public class CashgameResult{
+	    public Player Player { get; private set; }
+        public int Buyin { get; private set; }
+        public int Winnings { get; private set; }
+        public List<Checkpoint> Checkpoints { get; protected set; }
+        public DateTime? BuyinTime { get; private set; }
+        public DateTime? CashoutTime { get; private set; }
+        public int PlayedTime { get; private set; }
+        public int Stack { get; private set; }
+        public DateTime? LastReportTime { get; private set; }
+        public Checkpoint CashoutCheckpoint { get; private set; }
+        public bool HasReported { get; private set; }
 
-	    public Player Player { get; set; }
-	    public int Buyin { get; set; }
-	    public int Winnings { get; set; }
-	    public List<Checkpoint> Checkpoints { get; set; }
-	    public DateTime? BuyinTime { get; set; }
-	    public DateTime? CashoutTime { get; set; }
-	    public int PlayedTime { get; set; }
-	    public int Stack { get; set; }
-	    public DateTime? LastReportTime { get; set; }
-	    public Checkpoint CashoutCheckpoint { get; set; }
-	    public bool HasReported { get; set; }
-
-	    public CashgameResult()
+	    public CashgameResult(
+            Player player, 
+            int buyin, 
+            int winnings, 
+            List<Checkpoint> checkpoints, 
+            DateTime? buyinTime, 
+            DateTime? cashoutTime, 
+            int playedTime, 
+            int stack, 
+            DateTime? lastReportTime, 
+            Checkpoint cashoutCheckpoint, 
+            bool hasReported)
 	    {
-	        Checkpoints = new List<Checkpoint>();
+	        Player = player;
+	        Buyin = buyin;
+	        Winnings = winnings;
+	        Checkpoints = checkpoints;
+	        BuyinTime = buyinTime;
+	        CashoutTime = cashoutTime;
+	        PlayedTime = playedTime;
+	        Stack = stack;
+	        LastReportTime = lastReportTime;
+	        CashoutCheckpoint = cashoutCheckpoint;
+	        HasReported = hasReported;
 	    }
-
 	}
 
 }

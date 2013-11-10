@@ -20,7 +20,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
         [Test]
 		public void ResultModels_CashgameWithOnePlayer_ContainsOneItem(){
-			var cashgame = new FakeCashgame(results: new List<CashgameResult> {new CashgameResult()});
+			var cashgame = new FakeCashgame(results: new List<CashgameResult> {new FakeCashgameResult()});
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame);
@@ -30,7 +30,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
 		[Test]
 		public void ResultModels_CashgameWithTwoPlayers_HasTwoItems(){
-			var cashgame = new FakeCashgame(results: new List<CashgameResult> {new CashgameResult(), new CashgameResult()});
+			var cashgame = new FakeCashgame(results: new List<CashgameResult> {new FakeCashgameResult(), new FakeCashgameResult()});
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame);
@@ -44,9 +44,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		    const string displayName1 = "a";
             const string displayName2 = "b";
 			var player1 = new FakePlayer(displayName: "a");
-		    var result1 = new CashgameResult {Player = player1, Winnings = 1};
+		    var result1 = new FakeCashgameResult(player1, winnings: 1);
 		    var player2 = new FakePlayer(displayName: "b");
-		    var result2 = new CashgameResult {Player = player2, Winnings = 2};
+		    var result2 = new FakeCashgameResult(player2, winnings: 2);
 		    var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult> {result1, result2});
 
 		    Mocks.CashgameDetailsTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result1)).Returns(new CashgameDetailsTableItemModel{ Name = displayName1 });

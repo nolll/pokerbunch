@@ -107,15 +107,15 @@ namespace Infrastructure.Tests.Factories{
 
 		    var resultList1 = new List<CashgameResult>
 		        {
-		            new CashgameResult {Winnings = -1, PlayedTime = 1, Player = player1},
-		            new CashgameResult {Winnings = 1, PlayedTime = 2, Player = player2}
+		            new FakeCashgameResult(winnings: -1, playedTime: 1, player: player1),
+		            new FakeCashgameResult(winnings: 1, playedTime: 2, player: player2)
 		        };
 		    var cashgame1 = new FakeCashgame(results: resultList1);
 
 		    var resultList2 = new List<CashgameResult>
 		        {
-		            new CashgameResult {Winnings = -2, PlayedTime = 1, Player = player1},
-		            new CashgameResult {Winnings = 2, PlayedTime = 2, Player = player2}
+		            new FakeCashgameResult(winnings: -2, playedTime: 1, player: player1),
+		            new FakeCashgameResult(winnings: 2, playedTime: 2, player: player2)
 		        };
 		    var cashgame2 = new FakeCashgame(results: resultList2);
 

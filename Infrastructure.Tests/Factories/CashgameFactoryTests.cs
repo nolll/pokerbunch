@@ -28,18 +28,18 @@ namespace Infrastructure.Tests.Factories{
 
             _results = new List<CashgameResult>
                 {
-                    new CashgameResult
-                        {
-                            Player = new FakePlayer(),
-                            BuyinTime = _earliestBuyinTime,
-                            CashoutTime = _earliestCashoutTime
-                        },
-                    new CashgameResult
-                        {
-                            Player = new FakePlayer(),
-                            BuyinTime = _latestBuyinTime,
-                            CashoutTime = _latestCashoutTime
-                        }
+                    new FakeCashgameResult
+                        (
+                            new FakePlayer(),
+                            buyinTime: _earliestBuyinTime,
+                            cashoutTime: _earliestCashoutTime
+                        ),
+                    new FakeCashgameResult
+                        (
+                            new FakePlayer(),
+                            buyinTime: _latestBuyinTime,
+                            cashoutTime: _latestCashoutTime
+                        )
                 };
 
 			_location = "a";

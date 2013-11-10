@@ -10,79 +10,84 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 	public class CashgameMatrixTableCellModelTests : WebMockContainer {
 
 		private Cashgame _cashgame;
-		private CashgameResult _result;
 
         [SetUp]
 		public void SetUp(){
 			_cashgame = new FakeCashgame();
-			_result = new CashgameResult();
 		}
 
         [Test]
-		public void ShowWinnings_WithResult_IsTrue(){
-			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+		public void ShowWinnings_WithResult_IsTrue()
+        {
+            var cashgameResult = new FakeCashgameResult();
+
+            var sut = GetSut();
+            var result = sut.Create(_cashgame, cashgameResult);
 
 			Assert.IsTrue(result.ShowResult);
 		}
 
 		[Test]
-		public void Buyin_WithResult_IsSet(){
-			_result.Buyin = 1;
+		public void Buyin_WithResult_IsSet()
+		{
+		    const int buyin = 1;
+            var cashgameResult = new FakeCashgameResult(buyin: buyin);
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
-			Assert.AreEqual(1, result.Buyin);
+			Assert.AreEqual(buyin, result.Buyin);
 		}
 
 		[Test]
 		public void Cashout_WithResult_IsSet(){
-			_result.Stack = 1;
+            const int stack = 1;
+            var cashgameResult = new FakeCashgameResult(stack: stack);
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
-			Assert.AreEqual(1, result.Cashout);
+			Assert.AreEqual(stack, result.Cashout);
 		}
 
 		[Test]
 		public void Winnings_WithResult_IsSet(){
             const string expectedResult = "a";
-            Mocks.ResultFormatterMock.Setup(o => o.FormatWinnings(_result.Winnings)).Returns(expectedResult);
+            const int winnings = 1;
+            var cashgameResult = new FakeCashgameResult(winnings: winnings);
+            Mocks.ResultFormatterMock.Setup(o => o.FormatWinnings(winnings)).Returns(expectedResult);
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
 			Assert.AreEqual(expectedResult, result.Winnings);
 		}
 
 		[Test]
 		public void ShowWinnings_WithoutResult_IsFalse(){
-			_result = null;
-
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, null);
 
 			Assert.IsFalse(result.ShowResult);
 		}
 
 		[Test]
 		public void ShowTransactions_ResultWithBuyin_IsTrue(){
-			_result.Buyin = 1;
+            const int buyin = 1;
+            var cashgameResult = new FakeCashgameResult(buyin: buyin);
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
 			Assert.IsTrue(result.ShowTransactions);
 		}
 
 		[Test]
 		public void ShowTransactions_ResultWithZeroBuyin_IsFalse(){
-			_result.Buyin = 0;
+            var cashgameResult = new FakeCashgameResult();
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
 			Assert.IsFalse(result.ShowTransactions);
 		}
@@ -90,29 +95,33 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 		[Test]
 		public void WinningsClass_IsSet(){
             const string resultClass = "a";
-            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
+            const int winnings = 1;
+            var cashgameResult = new FakeCashgameResult(winnings: winnings);
+            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(_cashgame, cashgameResult);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
 
 		[Test]
 		public void HasBestResult_PlayerWithBestResult_IsTrue(){
-			var cashgameResult = new CashgameResult();
+			var cashgameResult = new FakeCashgameResult();
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
 
 			var sut = GetSut();
-            var result = sut.Create(cashgame, _result);
+            var result = sut.Create(cashgame, cashgameResult);
 
             Assert.IsTrue(result.HasBestResult);
 		}
 
 		[Test]
 		public void HasBestResult_PlayerWithoutBestResult_IsFalse(){
-			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var cashgameResult = new FakeCashgameResult();
+		    
+            var sut = GetSut();
+            var result = sut.Create(_cashgame, cashgameResult);
 
             Assert.IsFalse(result.HasBestResult);
 		}

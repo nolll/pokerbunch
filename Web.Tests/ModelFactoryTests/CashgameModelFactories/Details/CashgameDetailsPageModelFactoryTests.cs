@@ -174,7 +174,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		[Test]
 		public void EnableCheckpointsButton_WithPlayerInGame_IsTrue(){
             var player = new FakePlayer(1);
-            var cashgameResult = new CashgameResult {Player = player};
+            var cashgameResult = new FakeCashgameResult(player);
             var cashgame = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();

@@ -23,7 +23,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		[Test]
         public void Heading_IsSet(){
             var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new CashgameResult { Player = player };
+            var cashgameResult = new FakeCashgameResult(player);
 		    var dateTime = DateTime.Parse("2010-01-01 01:00:00");
 		    _cashgame = new FakeCashgame(startTime: dateTime);
 
@@ -41,8 +41,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 			const int stack = 1;
 			var checkpoint = new Checkpoint{Timestamp = timestamp, Stack = stack};
             var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new CashgameResult { Player = player };
-            cashgameResult.Checkpoints = new List<Checkpoint>{checkpoint};
+            var cashgameResult = new FakeCashgameResult(player, checkpoints: new List<Checkpoint> { checkpoint });
 
 			var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
@@ -56,7 +55,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		{
 		    const string chartDataUrl = "a";
             var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new CashgameResult { Player = player };
+            var cashgameResult = new FakeCashgameResult(player);
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionChartJsonUrl(_homegame, _cashgame, player)).Returns(chartDataUrl);
 
 			var sut = GetSut();

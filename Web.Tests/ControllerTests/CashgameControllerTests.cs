@@ -99,7 +99,7 @@ namespace Web.Tests.ControllerTests{
 		    var homegame = new FakeHomegame();
 		    var user = new FakeUser();
             var player = new FakePlayer(userName: UserName, id: 1);
-		    var cashgameResult = new CashgameResult {Player = player};
+		    var cashgameResult = new FakeCashgameResult(player);
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(user);
