@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Factories;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
@@ -29,13 +30,13 @@ namespace Infrastructure.Tests.Factories{
                 {
                     new CashgameResult
                         {
-                            Player = new Player(),
+                            Player = new FakePlayer(),
                             BuyinTime = _earliestBuyinTime,
                             CashoutTime = _earliestCashoutTime
                         },
                     new CashgameResult
                         {
-                            Player = new Player(),
+                            Player = new FakePlayer(),
                             BuyinTime = _latestBuyinTime,
                             CashoutTime = _latestCashoutTime
                         }

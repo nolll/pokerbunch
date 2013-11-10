@@ -25,7 +25,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
         [Test]
 		public void Name_IsSets(){
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
             _result.Player = player;
 
 			var sut = GetSut();
@@ -38,7 +38,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		public void PlayerUrl_IsSet()
 		{
 		    const string playerUrl = "a";
-			var player = new Player();
+			var player = new FakePlayer();
 			_result.Player = player;
 
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, player)).Returns(playerUrl);
@@ -141,7 +141,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string buyinUrl = "a";
 			_isManager = true;
-			var player = new Player();
+			var player = new FakePlayer();
 			_result.Player = player;
 
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameBuyinUrl(_homegame, player)).Returns(buyinUrl);
@@ -157,7 +157,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string reportUrl = "a";
 			_isManager = true;
-			var player = new Player();
+			var player = new FakePlayer();
 			_result.Player = player;
 
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameReportUrl(_homegame, player)).Returns(reportUrl);
@@ -173,7 +173,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string cashoutUrl = "a";
             _isManager = true;
-			var player = new Player();
+			var player = new FakePlayer();
 			_result.Player = player;
 
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameCashoutUrl(_homegame, player)).Returns(cashoutUrl);

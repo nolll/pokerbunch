@@ -5,7 +5,6 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
-using Web.Models.CashgameModels.Matrix;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
@@ -21,14 +20,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void SetUp(){
 			_homegame = new FakeHomegame();
             _suite = GetSuite();
-            _player = new Player
-                {
-                    DisplayName = "player name"
-                };
-            _result = new CashgameTotalResult
-                {
-                    Player = _player
-                };
+            _player = new FakePlayer(displayName: "player name");
+            _result = new CashgameTotalResult {Player = _player};
             _rank = 1;
 		}
 

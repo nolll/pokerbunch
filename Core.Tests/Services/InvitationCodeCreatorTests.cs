@@ -1,8 +1,8 @@
-using Core.Classes;
 using Core.Services;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 
 namespace Core.Tests.Services{
 
@@ -12,7 +12,7 @@ namespace Core.Tests.Services{
 		public void GetCode_ReturnsEncryptedPlayerName()
         {
             const string playerName = "a";
-			var player = new Player{DisplayName = playerName};
+			var player = new FakePlayer(displayName: playerName);
             Mocks.EncryptionServiceMock.Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
 
             var sut = GetSut();

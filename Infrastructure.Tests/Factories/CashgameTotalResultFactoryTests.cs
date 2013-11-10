@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Factories;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
@@ -16,7 +17,7 @@ namespace Infrastructure.Tests.Factories{
 
         private CashgameTotalResult GetResultWithTwoResults()
         {
-			var player = new Player();
+			var player = new FakePlayer();
 			var sut = new CashgameTotalResultFactory();
 			var cashgameResult = GetResult();
 			var totalResults = new List<CashgameResult> {cashgameResult, cashgameResult};
@@ -24,7 +25,7 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private CashgameResult GetResult(){
-			var player = new Player();
+			var player = new FakePlayer();
 			return new CashgameResult {Player = player, Winnings = 1};
 		}
 

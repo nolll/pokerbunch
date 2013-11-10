@@ -56,7 +56,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 		[Test]
         public void BestResultName_SuiteHasBestResult_IsSet(){
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 		    var cashgameResult = new CashgameResult {Player = player};
 		    _suite.BestResult = cashgameResult;
 			
@@ -81,7 +81,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 		[Test]
         public void WorstResultName_SuiteHasWorstResult_IsSet(){
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 		    var cashgameResult = new CashgameResult {Player = player};
 		    _suite.WorstResult = cashgameResult;
 
@@ -106,14 +106,16 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		}
 
 		[Test]
-        public void MostTimeName_SuiteHasBestResult_IsSet(){
-			var player = new Player {DisplayName = "a"};
+        public void MostTimeName_SuiteHasBestResult_IsSet()
+		{
+		    const string displayName = "a";
+			var player = new FakePlayer(displayName: displayName);
 		    var cashgameResult = new CashgameTotalResult {Player = player};
 		    _suite.MostTimeResult = cashgameResult;
 			
             var result = GetResult();
 
-			Assert.AreEqual("a", result.MostTimeName);
+			Assert.AreEqual(displayName, result.MostTimeName);
 		}
 
         private CashgameFactsPageModel GetResult()

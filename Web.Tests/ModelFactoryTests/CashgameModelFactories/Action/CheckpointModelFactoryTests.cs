@@ -23,7 +23,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 	    {
             _homegame = new FakeHomegame();
             _cashgame = new FakeCashgame(startTime: new DateTime());
-            _player = new Player();
+            _player = new FakePlayer();
 	    }
 
         [SetUp]

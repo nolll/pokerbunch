@@ -75,9 +75,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string playerName1 = "a";
 		    const string playerName2 = "b";
-			var player1 = new Player {DisplayName = playerName1};
+			var player1 = new FakePlayer(displayName: playerName1);
 		    var result1 = new CashgameResult {Player = player1, Winnings = 1};
-		    var player2 = new Player {DisplayName = playerName2};
+		    var player2 = new FakePlayer(displayName: playerName2);
 		    var result2 = new CashgameResult {Player = player2, Winnings = 2};
             var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
 

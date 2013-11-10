@@ -200,7 +200,7 @@ namespace Web.Tests.ServiceTests{
 			var homegame = GetHomegame();
 		    var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
-		    var player = new Player {DisplayName = displayName};
+		    var player = new FakePlayer(displayName: displayName);
 
 		    Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
@@ -213,7 +213,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void CashgameBuyinUrlModel_ReturnsCorrectUrl(){
 			var homegame = GetHomegame();
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetCashgameBuyinUrl(homegame, player);
@@ -224,7 +224,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void CashgameReportUrlModel_ReturnsCorrectUrl(){
 			var homegame = GetHomegame();
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetCashgameReportUrl(homegame, player);
@@ -235,7 +235,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void CashgameCashoutUrlModel_ReturnsCorrectUrl(){
 			var homegame = GetHomegame();
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetCashgameCashoutUrl(homegame, player);
@@ -362,7 +362,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void PlayerDeleteUrl(){
 			var homegame = GetHomegame();
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetPlayerDeleteUrl(homegame, player);
@@ -373,7 +373,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void PlayerDetailsUrl(){
 			var homegame = GetHomegame();
-            var player = new Player { DisplayName = "a" };
+            var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetPlayerDetailsUrl(homegame, player);
@@ -394,7 +394,7 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void PlayerInviteUrl(){
 			var homegame = GetHomegame();
-            var player = new Player { DisplayName = "a" };
+            var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetPlayerInviteUrl(homegame, player);
@@ -499,7 +499,7 @@ namespace Web.Tests.ServiceTests{
             var homegame = GetHomegame();
 	        var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
-            var player = new Player { DisplayName = "b" };
+            var player = new FakePlayer(displayName: "b");
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
@@ -529,7 +529,7 @@ namespace Web.Tests.ServiceTests{
             var homegame = GetHomegame();
             var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
-            var player = new Player { DisplayName = "b" };
+            var player = new FakePlayer(displayName: "b");
             var checkpoint = new Checkpoint{ Id = 1 };
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
@@ -584,7 +584,7 @@ namespace Web.Tests.ServiceTests{
 	    public void GetPlayerInviteConfirmationUrl()
 	    {
             var homegame = GetHomegame();
-            var player = new Player { DisplayName = "a" };
+            var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
             var result = sut.GetPlayerInviteConfirmationUrl(homegame, player);

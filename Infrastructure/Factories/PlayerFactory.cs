@@ -7,12 +7,12 @@ namespace Infrastructure.Factories{
 		public Player Create(RawPlayer rawPlayer)
         {
             return new Player
-            {
-                DisplayName = rawPlayer.DisplayName,
-                Role = (Role)rawPlayer.Role,
-                UserName = rawPlayer.UserName,
-                Id = rawPlayer.Id
-            };
+            (
+                rawPlayer.Id,
+                rawPlayer.UserName,
+                rawPlayer.DisplayName,
+                (Role)rawPlayer.Role
+            );
         }
     }
 

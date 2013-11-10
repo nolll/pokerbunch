@@ -18,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		public void SetUp(){
 			_homegame = new FakeHomegame();
 			_result = new CashgameTotalResult();
-			_player = new Player {DisplayName = "player name"};
+			_player = new FakePlayer(displayName: "player name");
             _result.Player = _player;
 			_rank = 1;
 		}

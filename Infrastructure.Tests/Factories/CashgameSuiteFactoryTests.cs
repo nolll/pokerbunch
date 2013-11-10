@@ -102,8 +102,8 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer(){
-			var player1 = new Player {Id = 1};
-            var player2 = new Player {Id = 2};
+			var player1 = new FakePlayer(1);
+            var player2 = new FakePlayer(2);
 
 		    var resultList1 = new List<CashgameResult>
 		        {

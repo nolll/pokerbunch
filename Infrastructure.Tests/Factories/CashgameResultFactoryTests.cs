@@ -4,6 +4,7 @@ using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.Factories;
 using NUnit.Framework;
+using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
@@ -140,7 +141,7 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private CashgameResult GetResult(){
-			var player = new Player();
+			var player = new FakePlayer();
 			var factory = new CashgameResultFactory();
 			return factory.Create(player, _checkpoints);
 		}

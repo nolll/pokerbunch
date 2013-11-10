@@ -15,7 +15,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
         [SetUp]
 		public void SetUp(){
 			_homegame = new FakeHomegame();
-			_player = new Player();
+			_player = new FakePlayer();
 		}
 
         private ReportPageModel GetResult(){

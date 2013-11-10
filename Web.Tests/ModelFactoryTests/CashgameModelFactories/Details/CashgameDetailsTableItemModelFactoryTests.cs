@@ -23,7 +23,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
 		[Test]
         public void Name_IsSet(){
-			var player = new Player {DisplayName = "a"};
+			var player = new FakePlayer(displayName: "a");
 		    _result.Player = player;
 			
             var sut = GetSut();
@@ -36,7 +36,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
         public void PlayerUrl_IsSet()
 		{
 		    const string playerUrl = "a";
-            var player = new Player();
+            var player = new FakePlayer();
 		    _result.Player = player;
 
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, player)).Returns(playerUrl);

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
@@ -76,7 +75,7 @@ namespace Web.Tests.ControllerTests{
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
             Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
-            Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Player());
+            Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakePlayer());
             
             var sut = GetSut();
             var viewResult = (ViewResult)sut.Details(Slug, DateStr);
@@ -99,7 +98,7 @@ namespace Web.Tests.ControllerTests{
 		{
 		    var homegame = new FakeHomegame();
 		    var user = new User();
-            var player = new Player {UserName = UserName, Id = 1};
+            var player = new FakePlayer(userName: UserName, id: 1);
 		    var cashgameResult = new CashgameResult {Player = player};
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
@@ -128,7 +127,7 @@ namespace Web.Tests.ControllerTests{
 			var homegame = new FakeHomegame();
 			var cashgame = new FakeCashgame();
 		    var user = new User();
-			var player = new Player {UserName = "otherUser"};
+			var player = new FakePlayer(userName: "otherUser");
 
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
             Mocks.CashgameRepositoryMock.Setup(o => o.GetRunning(homegame)).Returns(cashgame);
