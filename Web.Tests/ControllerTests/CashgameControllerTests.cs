@@ -74,7 +74,7 @@ namespace Web.Tests.ControllerTests{
 		public void Details_ReturnsCorrectView(){
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(new Homegame());
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new User());
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Cashgame());
+            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new Player());
             
             var sut = GetSut();
@@ -100,7 +100,7 @@ namespace Web.Tests.ControllerTests{
 		    var user = new User();
             var player = new Player {UserName = UserName, Id = 1};
 		    var cashgameResult = new CashgameResult {Player = player};
-		    var cashgame = new Cashgame {Results = new List<CashgameResult> {cashgameResult}};
+		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
             Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(user);
             Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
@@ -125,7 +125,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
 			var homegame = new Homegame();
-			var cashgame = new Cashgame();
+			var cashgame = new FakeCashgame();
 		    var user = new User();
 			var player = new Player {UserName = "otherUser"};
 

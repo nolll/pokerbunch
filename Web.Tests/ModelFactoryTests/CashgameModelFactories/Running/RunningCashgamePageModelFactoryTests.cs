@@ -5,78 +5,84 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.Models.CashgameModels.Running;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 	class RunningCashgamePageModelFactoryTests : WebMockContainer {
 
-		private Homegame _homegame;
-		private Cashgame _cashgame;
-		private Player _player;
-		private bool _isManager;
-
-        [SetUp]
-		public void SetUp()
-        {
-            _homegame = null;
-            _cashgame = null;
-            _player = null;
-			_isManager = false;
-		}
-
 		[Test]
         public void StartTime_WithStartTime_IsSet()
 		{
 		    const string formatted = "a";
-			SetupPlayerIsInGame();
-			_cashgame.IsStarted = true;
+		    const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
-			_cashgame.StartTime = startTime;
+            var cashgame = new FakeCashgame(status: GameStatus.Running, isStarted: true, startTime: startTime, results: new List<CashgameResult> { cashgameResult });
 
             Mocks.GlobalizationMock.Setup(o => o.FormatTime(startTime)).Returns(formatted);
 
-			var result = GetResult();
+		    var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
 			Assert.AreEqual(formatted, result.StartTime);
 		}
 
 		[Test]
-        public void StartTime_NoStartTime_IsNull(){
-			SetupPlayerIsInGame();
+        public void StartTime_NoStartTime_IsNull()
+		{
+		    const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsNull(result.StartTime);
 		}
 
 		[Test]
-        public void ShowStartTime_WithStartTime_IsTrue(){
-			SetupPlayerIsInGame();
-			_cashgame.IsStarted = true;
-			_cashgame.StartTime = DateTime.Parse("2010-01-01 01:00:00");
+        public void ShowStartTime_WithStartTime_IsTrue()
+        {
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, isStarted: true, startTime: DateTime.Parse("2010-01-01 01:00:00"));
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsTrue(result.ShowStartTime);
 		}
 
 		[Test]
         public void ShowStartTime_NoStartTime_IsFalse(){
-			SetupPlayerIsInGame();
-			_cashgame.StartTime = null;
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsFalse(result.ShowStartTime);
 		}
 
 		[Test]
         public void Location_IsSet(){
-			SetupPlayerIsInGame();
-		    _cashgame.Location = "a";
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, location: "a");
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.AreEqual("a", result.Location);
 		}
@@ -84,23 +90,32 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void BuyinUrl_IsSet()
 		{
+            const bool isManager = false;
 		    const string buyinUrl = "a";
-            SetupPlayerIsInGame();
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameBuyinUrl(_homegame, _player)).Returns(buyinUrl);
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameBuyinUrl(homegame, player)).Returns(buyinUrl);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.AreEqual(buyinUrl, result.BuyinUrl);
 		}
 
 		[Test]
         public void ReportUrl_IsSet(){
-			SetupPlayerIsInGame();
-
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 		    const string reportUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameReportUrl(_homegame, _player)).Returns(reportUrl);
+		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameReportUrl(homegame, player)).Returns(reportUrl);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.AreEqual(reportUrl, result.ReportUrl);
 		}
@@ -108,57 +123,85 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void CashoutUrl_IsSet()
 		{
+            const bool isManager = false;
 		    const string cashoutUrl = "a";
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameCashoutUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(cashoutUrl);
-
-			SetupPlayerIsInGame();
-
-            var result = GetResult();
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
+            
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.AreEqual(cashoutUrl, result.CashoutUrl);
 		}
 
 		[Test]
         public void BuyinButtonEnabled_IsTrue(){
-			SetupPlayerIsInGame();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsTrue(result.BuyinButtonEnabled);
 		}
 
 		[Test]
         public void ReportButtonEnabled_WithPlayerNotInGame_IsFalse(){
-			SetupPlayerIsNotInGame();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgame = new FakeCashgame(status: GameStatus.Running);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsFalse(result.ReportButtonEnabled);
 		}
 
 		[Test]
         public void ReportButtonEnabled_WithPlayerInGame_IsTrue(){
-			SetupPlayerIsInGame();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsTrue(result.ReportButtonEnabled);
 		}
 
 		[Test]
         public void CashoutButtonEnabled_WithPlayerNotInGame_IsFalse(){
-			SetupPlayerIsNotInGame();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgame = new FakeCashgame(status: GameStatus.Running);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsFalse(result.CashoutButtonEnabled);
 		}
 
 		[Test]
         public void CashoutButtonEnabled_WithPlayerInGame_IsTrue(){
-			SetupPlayerIsInGame();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgameResults = new List<CashgameResult> { cashgameResult };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: cashgameResults);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsTrue(result.CashoutButtonEnabled);
 		}
@@ -186,21 +229,28 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 		[Test]
         public void ShowTable_WithStartedGame_IsTrue(){
-			SetupPlayerIsInGame();
-			_cashgame.IsStarted = true;
-            _cashgame.StartTime = new DateTime();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResults = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResults }, startTime: new DateTime(), isStarted: true);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
             Assert.IsTrue(result.ShowTable);
 		}
 
 		[Test]
         public void ShowTable_WithStartedGameButNoResults_IsFalse(){
-			SetupPlayerIsInGame();
-			_cashgame.StartTime = new DateTime();
+            const bool isManager = false;
+            var homegame = new Homegame();
+            var player = new Player();
+            var cashgameResult = new CashgameResult { Player = player };
+            var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, startTime: new DateTime());
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new User(), homegame, cashgame, player, null, isManager);
 
 			Assert.IsFalse(result.ShowTable);
 		}
@@ -215,28 +265,6 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 			assertIsA(sut.chartDataUrl, 'app\Urls\CashgameDetailsChartJsonUrlModel');
 		}
 		*/
-
-        private void SetupHomegameAndRunningCashgameWithOnePlayer(){
-			_homegame = new Homegame();
-			_cashgame = new Cashgame {Status = GameStatus.Running};
-        }
-
-		private void SetupPlayerIsInGame(){
-			SetupHomegameAndRunningCashgameWithOnePlayer();
-			_player = new Player();
-			var result = new CashgameResult {Player = _player};
-		    _cashgame.Results = new List<CashgameResult>{result};
-		}
-
-		private void SetupPlayerIsNotInGame(){
-			SetupHomegameAndRunningCashgameWithOnePlayer();
-			_player = new Player();
-		}
-
-        private RunningCashgamePageModel GetResult()
-        {
-            return GetSut().Create(new User(), _homegame, _cashgame, _player, null, _isManager);
-        }
 
 		private RunningCashgamePageModelFactory GetSut(){
             return new RunningCashgamePageModelFactory(

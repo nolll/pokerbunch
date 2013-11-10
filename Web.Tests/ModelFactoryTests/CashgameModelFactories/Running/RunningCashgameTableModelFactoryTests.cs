@@ -12,30 +12,29 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 	public class RunningCashgameTableModelFactoryTests : WebMockContainer{
 
 		private Homegame _homegame;
-		private Cashgame _cashgame;
 
         [SetUp]
 		public void SetUp(){
 			_homegame = new Homegame();
-			_cashgame = new Cashgame();
 		}
 
 		[Test]
         public void StatusModels_CashgameWithOnePlayer_ContainsOneItem(){
-			_cashgame.Results = new List<CashgameResult>{new CashgameResult()};
+			var results = new List<CashgameResult>{new CashgameResult()};
+            var cashgame = new FakeCashgame(results: results);
 
 			var sut = GetSut();
-		    var result = sut.Create(_homegame, _cashgame, false);
+		    var result = sut.Create(_homegame, cashgame, false);
 
 			Assert.AreEqual(1, result.StatusModels.Count);
         }
 
 		[Test]
         public void StatusModels_CashgameWithTwoPlayers_HasTwoItems(){
-			_cashgame.Results = new List<CashgameResult>{new CashgameResult(), new CashgameResult()};
+			var cashgame = new FakeCashgame(results: new List<CashgameResult>{new CashgameResult(), new CashgameResult()});
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, false);
+            var result = sut.Create(_homegame, cashgame, false);
 
 			Assert.AreEqual(2, result.StatusModels.Count);
 		}
@@ -44,12 +43,13 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
         public void TotalBuyin_CashgameWithTwoPlayers_IsSumOfBuyins()
 		{
 		    const string formatted = "a";
-			_cashgame.Turnover = 1;
+		    const int turnover = 1;
+			var cashgame = new FakeCashgame(turnover: 1);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.Turnover)).Returns(formatted);
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, false);
+            var result = sut.Create(_homegame, cashgame, false);
 
 			Assert.AreEqual(formatted, result.TotalBuyin);
 		}
@@ -58,12 +58,13 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
         public void TotalStacks_CashgameWithTwoPlayers_IsSumOfCurrentStacks()
 		{
 		    const string formatted = "a";
-            _cashgame.TotalStacks = 1;
+		    const int totalStacks = 1;
+            var cashgame = new FakeCashgame(totalStacks: totalStacks);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _cashgame.TotalStacks)).Returns(formatted);
+            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalStacks)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, false);
+            var result = sut.Create(_homegame, cashgame, false);
 
             Assert.AreEqual(formatted, result.TotalStacks);
 		}
@@ -73,20 +74,19 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string playerName1 = "a";
 		    const string playerName2 = "b";
-            _cashgame.StartTime = new DateTime();
 			var player1 = new Player {DisplayName = playerName1};
 		    var result1 = new CashgameResult {Player = player1, Winnings = 1};
 		    var player2 = new Player {DisplayName = playerName2};
 		    var result2 = new CashgameResult {Player = player2, Winnings = 2};
-		    _cashgame.Results = new List<CashgameResult>{result1, result2};
+            var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
 
-            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, _cashgame, result1, It.IsAny<bool>()))
+            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result1, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName1 });
-            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, _cashgame, result2, It.IsAny<bool>()))
+            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result2, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName2 });
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _cashgame, false);
+            var result = sut.Create(_homegame, cashgame, false);
 
 			var results = result.StatusModels;
 			Assert.AreEqual("b", results[0].Name);

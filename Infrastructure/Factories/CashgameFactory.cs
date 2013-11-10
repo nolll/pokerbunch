@@ -19,23 +19,22 @@ namespace Infrastructure.Factories
             var buyinSum = GetBuyinSum(results);
             var cashoutSum = GetCashoutSum(results);
 
-            return new Cashgame
-                {
-                    Location = location,
-                    Status = status.HasValue ? (GameStatus)status.Value : GameStatus.Created,
-                    Id = id.HasValue ? id.Value : 0,
-                    Results = results,
-                    PlayerCount = playerCount,
-                    StartTime = startTime,
-                    EndTime = endTime,
-                    Duration = GetDuration(startTime, endTime),
-                    IsStarted = startTime.HasValue,
-                    Turnover = buyinSum,
-                    Diff = buyinSum - cashoutSum,
-                    HasActivePlayers = HasActivePlayers(results),
-                    TotalStacks = GetTotalStacks(results),
-                    AverageBuyin = GetAverageBuyin(buyinSum, playerCount)
-                };
+            return new Cashgame(
+                id.HasValue ? id.Value : 0,
+                location,
+                status.HasValue ? (GameStatus)status.Value : GameStatus.Created,
+                startTime.HasValue,
+                startTime,
+                endTime,
+                GetDuration(startTime, endTime),
+                results,
+                playerCount,
+                buyinSum - cashoutSum,
+                buyinSum,
+                HasActivePlayers(results),
+                GetTotalStacks(results),
+                GetAverageBuyin(buyinSum, playerCount)
+                );
         }
 
         private DateTime? GetStartTime(IEnumerable<CashgameResult> results)

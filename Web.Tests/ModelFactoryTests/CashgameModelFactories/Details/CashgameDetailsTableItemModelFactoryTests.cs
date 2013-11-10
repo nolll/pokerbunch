@@ -16,7 +16,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
         [SetUp]
 		public void SetUp(){
 			_homegame = new Homegame();
-			_cashgame = new Cashgame {StartTime = new DateTime()};
+			_cashgame = new FakeCashgame(startTime: new DateTime());
             _result = new CashgameResult();
 		}
 

@@ -39,9 +39,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		}
 
 		private List<Cashgame> GetCashgames(){
-			var cashgame1 = new Cashgame {Status = GameStatus.Finished, StartTime = DateTime.Parse("2010-01-01 01:00:00")};
-		    var cashgame2 = new Cashgame {Status = GameStatus.Published, StartTime = DateTime.Parse("2010-01-02 01:00:00")};
-		    var cashgame3 = new Cashgame {Status = GameStatus.Published, StartTime = DateTime.Parse("2011-01-01 01:00:00")};
+            var cashgame1 = new FakeCashgame(status: GameStatus.Finished, startTime: DateTime.Parse("2010-01-01 01:00:00"));
+            var cashgame2 = new FakeCashgame(status: GameStatus.Published, startTime: DateTime.Parse("2010-01-02 01:00:00"));
+            var cashgame3 = new FakeCashgame(status: GameStatus.Published, startTime: DateTime.Parse("2011-01-01 01:00:00"));
 		    return new List<Cashgame>{cashgame1, cashgame2, cashgame3};
 		}
 

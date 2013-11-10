@@ -13,7 +13,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
         [SetUp]
 		public void SetUp(){
-			_cashgame = new Cashgame();
+			_cashgame = new FakeCashgame();
 			_result = new CashgameResult();
 		}
 
@@ -100,10 +100,10 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 		[Test]
 		public void HasBestResult_PlayerWithBestResult_IsTrue(){
 			var cashgameResult = new CashgameResult();
-			_cashgame.Results = new List<CashgameResult>{cashgameResult};
+		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
 
 			var sut = GetSut();
-            var result = sut.Create(_cashgame, _result);
+            var result = sut.Create(cashgame, _result);
 
             Assert.IsTrue(result.HasBestResult);
 		}

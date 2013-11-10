@@ -77,21 +77,21 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		{
 		    return new List<Cashgame>
 		        {
-		            new Cashgame
-		                {
-		                    Status = GameStatus.Finished,
-		                    StartTime = GetTestDate(yearOne)
-		                },
-		            new Cashgame
-		                {
-		                    Status = GameStatus.Published,
-		                    StartTime = GetTestDate(yearOne)
-		                },
-		            new Cashgame
-		                {
-		                    Status = GameStatus.Published,
-		                    StartTime = GetTestDate(yearTwo)
-		                }
+		            new FakeCashgame
+		                (
+		                    status: GameStatus.Finished,
+		                    startTime: GetTestDate(yearOne)
+		                ),
+		            new FakeCashgame
+		                (
+		                    status: GameStatus.Published,
+		                    startTime: GetTestDate(yearOne)
+		                ),
+		            new FakeCashgame
+		                (
+		                    status: GameStatus.Published,
+		                    startTime: GetTestDate(yearTwo)
+		                )
 		        };
 		}
 

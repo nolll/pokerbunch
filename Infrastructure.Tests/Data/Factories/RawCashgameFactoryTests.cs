@@ -11,7 +11,7 @@ namespace Infrastructure.Tests.Data.Factories
         public void Create_WithoutStatus_StatusIsSetFromCashgame()
         {
             var sut = GetSut();
-            var result = sut.Create(new Cashgame { Status = GameStatus.Published });
+            var result = sut.Create(new FakeCashgame (status: GameStatus.Published));
 
             Assert.AreEqual(result.Status, (int)GameStatus.Published);
         }
@@ -20,7 +20,7 @@ namespace Infrastructure.Tests.Data.Factories
         public void Create_WithStatus_StatusIsSet()
         {
             var sut = GetSut();
-            var result = sut.Create(new Cashgame { Status = GameStatus.Created }, GameStatus.Published);
+            var result = sut.Create(new FakeCashgame (status: GameStatus.Created), GameStatus.Published);
 
             Assert.AreEqual(result.Status, (int)GameStatus.Published);
         }

@@ -19,7 +19,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		public void SetUp(){
 			_homegame = new Homegame();
 			_player = new Player();
-			_cashgame = new Cashgame();
+			_cashgame = new FakeCashgame();
 			_result = new CashgameResult {Player = _player};
 		}
 
@@ -27,7 +27,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
         public void Heading_IsSet(){
 			_player.DisplayName = "b";
 		    var dateTime = DateTime.Parse("2010-01-01 01:00:00");
-		    _cashgame.StartTime = dateTime;
+		    _cashgame = new FakeCashgame(startTime: dateTime);
 
 		    Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
 

@@ -33,7 +33,7 @@ namespace Infrastructure.Tests.Factories{
 
 		[Test]
 		public void GetCashgames_ReturnsTheCashgames(){
-			var cashgame = new Cashgame {Id = 1};
+			var cashgame = new FakeCashgame(id: 1);
 		    _cashgames.Add(cashgame);
 
 		    var result = GetResult();
@@ -44,7 +44,7 @@ namespace Infrastructure.Tests.Factories{
 
 		[Test]
 		public void GetGameCount_ReturnsCorrectCount(){
-			var cashgame = new Cashgame();
+			var cashgame = new FakeCashgame();
 			_cashgames.Add(cashgame);
 
 		    var result = GetResult();
@@ -90,8 +90,8 @@ namespace Infrastructure.Tests.Factories{
 
 		[Test]
 		public void GetTotalGameTime_ReturnsTheSumOfTheGameDurations(){
-			var cashgame1 = new Cashgame {Duration = 1};
-		    var cashgame2 = new Cashgame {Duration = 2};
+			var cashgame1 = new FakeCashgame (duration: 1);
+		    var cashgame2 = new FakeCashgame (duration: 2);
 
 		    _cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
@@ -109,14 +109,14 @@ namespace Infrastructure.Tests.Factories{
 		            new CashgameResult {Winnings = -1, PlayedTime = 1, Player = player1},
 		            new CashgameResult {Winnings = 1, PlayedTime = 2, Player = player2}
 		        };
-		    var cashgame1 = new Cashgame {Results = resultList1};
+		    var cashgame1 = new FakeCashgame(results: resultList1);
 
 		    var resultList2 = new List<CashgameResult>
 		        {
 		            new CashgameResult {Winnings = -2, PlayedTime = 1, Player = player1},
 		            new CashgameResult {Winnings = 2, PlayedTime = 2, Player = player2}
 		        };
-		    var cashgame2 = new Cashgame {Results = resultList2};
+		    var cashgame2 = new FakeCashgame(results: resultList2);
 
 		    _cashgames = new List<Cashgame>{cashgame1, cashgame2};
 			_players = new List<Player>{player1, player2};

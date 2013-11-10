@@ -21,7 +21,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 	    public CheckpointModelFactoryTests()
 	    {
             _homegame = new Homegame();
-            _cashgame = new Cashgame { StartTime = new DateTime() };
+            _cashgame = new FakeCashgame(startTime: new DateTime());
             _player = new Player();
 	    }
 

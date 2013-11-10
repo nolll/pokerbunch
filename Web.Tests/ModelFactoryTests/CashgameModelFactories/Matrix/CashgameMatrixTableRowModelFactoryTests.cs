@@ -97,7 +97,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
         {
             return new CashgameSuite
             {
-                Cashgames = new List<Cashgame>{new Cashgame()}
+                Cashgames = new List<Cashgame>{new FakeCashgame()}
             };
         }
     

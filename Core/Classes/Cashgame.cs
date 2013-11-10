@@ -3,30 +3,101 @@ using System.Collections.Generic;
 
 namespace Core.Classes{
 
+    public class FakeCashgame : Cashgame
+    {
+        public FakeCashgame(
+            int id = default(int),
+            string location = default(string),
+            GameStatus status = default(GameStatus),
+            bool isStarted = default(bool),
+            DateTime? startTime = default(DateTime?),
+            DateTime? endTime = default(DateTime?),
+            int duration = default(int),
+            IList<CashgameResult> results = default(IList<CashgameResult>),
+            int playerCount = default(int),
+            int diff = default(int),
+            int turnover = default(int),
+            bool hasActivePlayers = default(bool),
+            int totalStacks = default(int),
+            int averageBuyin = default(int)
+            )
+            :
+            base(
+            id,
+	        location,
+	        status,
+	        isStarted,
+	        startTime,
+	        endTime,
+	        duration,
+            results,
+	        playerCount,
+	        diff,
+	        turnover,
+	        hasActivePlayers,
+            totalStacks,
+	        averageBuyin
+            )
+        {
+            if (results == null)
+            {
+                Results = new List<CashgameResult>();
+            }
+        }
+
+    }
+
 	public class Cashgame{
 
-	    public int Id { get; set; }
-	    public string Location { get; set; }
-	    public GameStatus Status { get; set; }
-	    public bool IsStarted { get; set; }
-	    public DateTime? StartTime { get; set; }
-	    public DateTime? EndTime { get; set; }
-	    public int Duration { get; set; }
-        public IList<CashgameResult> Results { get; set; }
-	    public int PlayerCount { get; set; }
-	    public int Diff { get; set; }
-	    public int Turnover { get; set; }
-	    public bool HasActivePlayers { get; set; }
-	    public int TotalStacks { get; set; }
-	    public int AverageBuyin { get; set; }
+	    public int Id { get; private set; }
+        public string Location { get; private set; }
+        public GameStatus Status { get; private set; }
+        public bool IsStarted { get; private set; }
+        public DateTime? StartTime { get; private set; }
+        public DateTime? EndTime { get; private set; }
+        public int Duration { get; private set; }
+        public IList<CashgameResult> Results { get; protected set; }
+        public int PlayerCount { get; private set; }
+        public int Diff { get; private set; }
+        public int Turnover { get; private set; }
+        public bool HasActivePlayers { get; private set; }
+        public int TotalStacks { get; private set; }
+        public int AverageBuyin { get; private set; }
 
-	    public Cashgame()
-	    {
-            Results = new List<CashgameResult>();
-	        Status = GameStatus.Created;
-	    }
+        public Cashgame(
+            int id,
+	        string location,
+	        GameStatus status,
+	        bool isStarted,
+	        DateTime? startTime,
+	        DateTime? endTime,
+	        int duration,
+            IList<CashgameResult> results,
+	        int playerCount,
+	        int diff,
+	        int turnover,
+	        bool hasActivePlayers,
+            int totalStacks,
+	        int averageBuyin
+            )
+        {
+            Id = id;
+            Location = location;
+            Status = status;
+            IsStarted = isStarted;
+            StartTime = startTime;
+            EndTime = endTime;
+            Duration = duration;
+            Results = results;
+            PlayerCount = playerCount;
+            Diff = diff;
+            Turnover = turnover;
+            HasActivePlayers = hasActivePlayers;
+            TotalStacks = totalStacks;
+            AverageBuyin = averageBuyin;
+        }
 
-		public CashgameResult GetResult(Player player){
+	    public CashgameResult GetResult(Player player){
 			foreach(var result in Results){
 				if(result.Player.Id == player.Id){
 					return result;

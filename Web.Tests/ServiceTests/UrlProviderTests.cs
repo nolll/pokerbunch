@@ -75,7 +75,7 @@ namespace Web.Tests.ServiceTests{
 
 			var homegame = GetHomegame();
 		    var dateTime = DateTime.Parse("2010-01-01");
-			var cashgame = new Cashgame {StartTime = dateTime};
+            var cashgame = new FakeCashgame(startTime: dateTime);
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
@@ -91,7 +91,7 @@ namespace Web.Tests.ServiceTests{
             
             var homegame = GetHomegame();
             var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new Cashgame {StartTime = dateTime};
+            var cashgame = new FakeCashgame(startTime: dateTime);
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
@@ -107,7 +107,7 @@ namespace Web.Tests.ServiceTests{
             
             var homegame = GetHomegame();
             var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new Cashgame {StartTime = dateTime};
+            var cashgame = new FakeCashgame(startTime: dateTime);
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
@@ -198,7 +198,7 @@ namespace Web.Tests.ServiceTests{
 
 			var homegame = GetHomegame();
 		    var dateTime = DateTime.Parse("2010-01-01");
-		    var cashgame = new Cashgame{StartTime = dateTime};
+            var cashgame = new FakeCashgame(startTime: dateTime);
 		    var player = new Player {DisplayName = displayName};
 
 		    Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
@@ -497,7 +497,7 @@ namespace Web.Tests.ServiceTests{
 
             var homegame = GetHomegame();
 	        var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new Cashgame { StartTime = dateTime };
+            var cashgame = new FakeCashgame(startTime: dateTime);
             var player = new Player { DisplayName = "b" };
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
@@ -527,7 +527,7 @@ namespace Web.Tests.ServiceTests{
 
             var homegame = GetHomegame();
             var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new Cashgame { StartTime = dateTime };
+            var cashgame = new FakeCashgame(startTime: dateTime);
             var player = new Player { DisplayName = "b" };
             var checkpoint = new Checkpoint{ Id = 1 };
 
@@ -546,7 +546,7 @@ namespace Web.Tests.ServiceTests{
 
             var homegame = GetHomegame();
             var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new Cashgame { StartTime = dateTime };
+            var cashgame = new FakeCashgame(startTime: dateTime);
 
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
             

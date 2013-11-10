@@ -27,7 +27,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 		[Test]
         public void GameIsRunning_WithRunningGame_IsTrue(){
-			_runningGame = new Cashgame();
+			_runningGame = new FakeCashgame();
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
@@ -37,7 +37,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 		[Test]
         public void GameUrl_WithRunningGame_IsSet(){
-			_runningGame = new Cashgame();
+			_runningGame = new FakeCashgame();
 
 		    const string runningGameUrl = "a";
 		    Mocks.UrlProviderMock.Setup(o => o.GetRunningCashgameUrl(_homegame)).Returns(runningGameUrl);
