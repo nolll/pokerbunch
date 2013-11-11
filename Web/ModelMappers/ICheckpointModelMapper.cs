@@ -1,4 +1,3 @@
-using System;
 using Core.Classes.Checkpoints;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
@@ -8,8 +7,8 @@ namespace Web.ModelMappers
 {
     public interface ICheckpointModelMapper
     {
-        Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint, TimeZoneInfo timeZone);
-        Checkpoint GetCheckpoint(ReportPostModel postModel, TimeZoneInfo timeZone);
-        Checkpoint GetCheckpoint(BuyinPostModel postModel, TimeZoneInfo timeZone);
+        Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint);
+        Checkpoint GetCheckpoint(ReportPostModel postModel);
+        Checkpoint GetCheckpoint(BuyinPostModel postModel);
     }
 }

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Infrastructure.System;
 
 namespace Infrastructure.Factories
 {
     public class CashgameResultFactory : ICashgameResultFactory
     {
+        private readonly ITimeProvider _timeProvider;
+
+        public CashgameResultFactory(ITimeProvider timeProvider)
+        {
+            _timeProvider = timeProvider;
+        }
+
         public CashgameResult Create(Player player, List<Checkpoint> checkpoints)
         {
             var buyin = GetBuyinSum(checkpoints);
@@ -112,7 +120,7 @@ namespace Infrastructure.Factories
             var checkpoint = GetLastCheckpoint(checkpoints);
             if (checkpoint == null)
             {
-                return new DateTime();
+                return _timeProvider.GetTime();
             }
             return checkpoint.Timestamp;
         }

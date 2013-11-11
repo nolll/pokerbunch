@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
@@ -41,9 +42,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     Duration = _globalization.FormatDuration(cashgame.Duration),
 			        DurationEnabled = cashgame.Duration > 0,
                     ShowStartTime = showStartTime,
-			        StartTime = showStartTime ? _globalization.FormatTime(cashgame.StartTime.Value) : null,
+			        StartTime = showStartTime ? _globalization.FormatTime(TimeZoneInfo.ConvertTime(cashgame.StartTime.Value, homegame.Timezone)) : null,
 			        ShowEndTime = showEndTime,
-			        EndTime = showEndTime ? _globalization.FormatTime(cashgame.EndTime.Value) : null,
+                    EndTime = showEndTime ? _globalization.FormatTime(TimeZoneInfo.ConvertTime(cashgame.EndTime.Value, homegame.Timezone)) : null,
                     Status = GameStatusName.GetName(cashgame.Status),
                     CashgameDetailsTableModel = _cashgameDetailsTableModelFactory.Create(homegame, cashgame),
                     EnableEdit = isManager,

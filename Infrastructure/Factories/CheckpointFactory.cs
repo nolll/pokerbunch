@@ -6,12 +6,12 @@ namespace Infrastructure.Factories
 {
     public class CheckpointFactory : ICheckpointFactory
     {
-        public Checkpoint Create(RawCheckpoint rawCheckpoint, TimeZoneInfo timeZone)
+        public Checkpoint Create(RawCheckpoint rawCheckpoint)
         {
             return new Checkpoint
             {
                 Type = (CheckpointType)rawCheckpoint.Type,
-                Timestamp = TimeZoneInfo.ConvertTime(rawCheckpoint.Timestamp, timeZone),
+                Timestamp = rawCheckpoint.Timestamp,
                 Stack = rawCheckpoint.Stack,
                 Amount = rawCheckpoint.Amount,
                 Id = rawCheckpoint.Id

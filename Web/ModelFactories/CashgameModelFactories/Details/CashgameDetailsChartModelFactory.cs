@@ -47,7 +47,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     {
                         totalBuyin += checkpoint.Amount;
                     }
-                    rowModels.Add(GetActionRow(cashgame, checkpoint.Timestamp, checkpoint.Stack - totalBuyin, playerName));
+                    var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone);
+                    rowModels.Add(GetActionRow(cashgame, localTime, checkpoint.Stack - totalBuyin, playerName));
                 }
             }
             if (cashgame.Status == GameStatus.Running)
@@ -59,7 +60,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetCurrentStacks(Homegame homegame, IEnumerable<CashgameResult> results)
         {
-            var timestamp = _timeProvider.GetTime(homegame.Timezone);
+            var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), homegame.Timezone);
             var values = new List<ChartValueModel> {_chartValueModelFactory.Create(timestamp)};
             values.AddRange(results.Select(result => _chartValueModelFactory.Create(result.Winnings)));
             return new ChartRowModel

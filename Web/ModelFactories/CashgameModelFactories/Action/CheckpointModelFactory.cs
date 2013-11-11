@@ -1,3 +1,4 @@
+using System;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Services;
@@ -25,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                 {
                     Description = CheckpointTypeName.GetName(checkpoint.Type),
                     Stack = _globalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
-                    Timestamp = _globalization.FormatTime(checkpoint.Timestamp),
+                    Timestamp = _globalization.FormatTime(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone)),
                     ShowLink = role >= Role.Manager,
                     EditUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint)
                 };

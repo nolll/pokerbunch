@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Data.Classes;
@@ -28,7 +29,7 @@ namespace Infrastructure.Data.Factories
                     Id = reader.GetInt("GameID"),
                     Location = location,
                     Status = reader.GetInt("Status"),
-                    Date = reader.GetDateTime("Date"),
+                    Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTime("Date")),
                     Results = new List<RawCashgameResult>()
                 };
         }

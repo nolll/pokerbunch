@@ -42,16 +42,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     if (totalBuyin > 0)
                     {
                         var stackBefore = checkpoint.Stack - checkpoint.Amount;
-                        rowModels.Add(GetActionRow(checkpoint.Timestamp, stackBefore, totalBuyin));
+                        rowModels.Add(GetActionRow(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone), stackBefore, totalBuyin));
                     }
                     totalBuyin += checkpoint.Amount;
                 }
-                rowModels.Add(GetActionRow(checkpoint.Timestamp, checkpoint.Stack, totalBuyin));
+                rowModels.Add(GetActionRow(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone), checkpoint.Stack, totalBuyin));
             }
             if (cashgame.Status == GameStatus.Running)
             {
-                var timestamp = _timeProvider.GetTime(homegame.Timezone);
-                rowModels.Add(GetActionRow(timestamp, result.Stack, result.Buyin));
+                rowModels.Add(GetActionRow(TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), homegame.Timezone), result.Stack, result.Buyin));
             }
             return rowModels;
         }

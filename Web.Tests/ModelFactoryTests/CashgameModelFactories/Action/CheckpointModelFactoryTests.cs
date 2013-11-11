@@ -43,7 +43,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		public void Timestamp_IsSet()
         {
             const string formattedTimestamp = "a";
-            Mocks.GlobalizationMock.Setup(o => o.FormatTime(_timestamp)).Returns(formattedTimestamp);
+            Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTimestamp);
             
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);

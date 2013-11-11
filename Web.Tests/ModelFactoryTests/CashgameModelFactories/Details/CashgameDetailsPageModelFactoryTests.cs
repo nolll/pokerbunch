@@ -73,7 +73,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(startTime: startTime, status: GameStatus.Running);
             var player = new FakePlayer();
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatTime(startTime)).Returns(formattedTime);
+		    Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, null, _isManager);
@@ -88,7 +88,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(endTime: endTime, status: GameStatus.Finished);
             var player = new FakePlayer();
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatTime(endTime)).Returns(formattedTime);
+            Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, null, _isManager);

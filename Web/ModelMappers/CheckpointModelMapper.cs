@@ -1,5 +1,4 @@
 using System;
-using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Buyin;
@@ -17,34 +16,34 @@ namespace Web.ModelMappers
             _timeProvider = timeProvider;
         }
 
-        public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint, TimeZoneInfo timeZone)
+        public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
             return new Checkpoint
             {
                 Stack = postModel.StackAmount,
-                Timestamp = _timeProvider.GetTime(timeZone),
+                Timestamp = _timeProvider.GetTime(),
                 Type = CheckpointType.Cashout,
                 Id = existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
             };
         }
 
-        public Checkpoint GetCheckpoint(ReportPostModel postModel, TimeZoneInfo timeZone)
+        public Checkpoint GetCheckpoint(ReportPostModel postModel)
         {
             return new Checkpoint
             {
                 Stack = postModel.StackAmount,
-                Timestamp = _timeProvider.GetTime(timeZone),
+                Timestamp = _timeProvider.GetTime(),
                 Type = CheckpointType.Report
             };
         }
 
-        public Checkpoint GetCheckpoint(BuyinPostModel postModel, TimeZoneInfo timeZone)
+        public Checkpoint GetCheckpoint(BuyinPostModel postModel)
         {
             return new Checkpoint
             {
                 Amount = postModel.BuyinAmount,
                 Stack = postModel.StackAmount + postModel.BuyinAmount,
-                Timestamp = _timeProvider.GetTime(timeZone),
+                Timestamp = _timeProvider.GetTime(),
                 Type = CheckpointType.Buyin
             };
         }

@@ -8,9 +8,9 @@ using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
-	public class CashgameResultFactoryTests {
-
-		private List<Checkpoint> _checkpoints;
+	public class CashgameResultFactoryTests : InfrastructureMockContainer
+    {
+        private List<Checkpoint> _checkpoints;
 
         [SetUp]
 		public void SetUp(){
@@ -142,7 +142,7 @@ namespace Infrastructure.Tests.Factories{
 
 		private CashgameResult GetResult(){
 			var player = new FakePlayer();
-			var factory = new CashgameResultFactory();
+			var factory = new CashgameResultFactory(Mocks.TimeProviderMock.Object);
 			return factory.Create(player, _checkpoints);
 		}
 

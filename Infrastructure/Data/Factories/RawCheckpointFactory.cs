@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Factories
                     Type = reader.GetInt("Type"),
                     Amount = reader.GetInt("Amount"),
                     Stack = reader.GetInt("Stack"),
-                    Timestamp = reader.GetDateTime("TimeStamp")
+                    Timestamp = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTime("TimeStamp"))
                 };
         }
 
@@ -31,7 +31,7 @@ namespace Infrastructure.Data.Factories
                 Type = (int)checkpoint.Type,
                 Amount = checkpoint.Amount,
                 Stack = checkpoint.Stack,
-                Timestamp = TimeZoneInfo.ConvertTimeToUtc(checkpoint.Timestamp)
+                Timestamp = checkpoint.Timestamp
             };
         }
     }

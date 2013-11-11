@@ -319,7 +319,7 @@ namespace Web.Controllers{
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			if(ModelState.IsValid)
 			{
-			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
+			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel);
 				_checkpointRepository.AddCheckpoint(runningGame, player, checkpoint);
                 if(!runningGame.IsStarted){
 			    	_cashgameRepository.StartGame(runningGame);
@@ -352,7 +352,7 @@ namespace Web.Controllers{
 			var user = _userContext.GetUser();
 			if(ModelState.IsValid)
 			{
-			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel, homegame.Timezone);
+			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel);
                 _checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
                 _cashgameRepository.ClearCashgameFromCache(cashgame);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
@@ -395,7 +395,7 @@ namespace Web.Controllers{
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var result = runningGame.GetResult(player);
-            var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint, homegame.Timezone);
+            var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint);
 			if(ModelState.IsValid){
 				if(result.CashoutCheckpoint != null){
                     _checkpointRepository.UpdateCheckpoint(runningGame, postedCheckpoint);

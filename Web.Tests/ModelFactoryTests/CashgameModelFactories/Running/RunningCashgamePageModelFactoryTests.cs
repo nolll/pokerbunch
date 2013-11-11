@@ -22,7 +22,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(status: GameStatus.Running, isStarted: true, startTime: startTime, results: new List<CashgameResult> { cashgameResult });
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatTime(startTime)).Returns(formatted);
+            Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formatted);
 
 		    var sut = GetSut();
             var result = sut.Create(new FakeUser(), homegame, cashgame, player, null, isManager);

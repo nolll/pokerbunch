@@ -5,7 +5,7 @@ namespace Infrastructure.System{
 
         public DateTime GetTime()
         {
-            return DateTime.Now;
+            return DateTime.UtcNow;
         }
 
         public DateTime GetTime(TimeZoneInfo timeZone)

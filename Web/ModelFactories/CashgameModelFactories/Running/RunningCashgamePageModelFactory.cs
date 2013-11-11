@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
@@ -38,7 +39,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
-                    StartTime = cashgame.IsStarted && cashgame.StartTime.HasValue ? _globalization.FormatTime(cashgame.StartTime.Value) : null,
+                    StartTime = GetStartTime(cashgame, homegame.Timezone),
                     BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
                     ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
                     CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),
@@ -52,6 +53,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     ShowChart = cashgame.IsStarted,
                     ChartDataUrl = cashgame.IsStarted ? _urlProvider.GetCashgameDetailsChartJsonUrl(homegame, cashgame) : null
                 };
+        }
+
+        private string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)
+        {
+            if (cashgame.IsStarted && cashgame.StartTime.HasValue)
+            {
+                var localTime = TimeZoneInfo.ConvertTime(cashgame.StartTime.Value, timezone);
+                return _globalization.FormatTime(localTime);
+            }
+            return null;
         }
 
         private bool CanBeEnded(Cashgame cashgame)
