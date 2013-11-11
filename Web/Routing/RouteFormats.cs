@@ -32,9 +32,7 @@ namespace Web.Routing{
         public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
         public const string CashgameReport = "/{0}/cashgame/report/{1}";
         public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";
-        public const string CashgamePublish = "/{0}/cashgame/publish/{1}";
         //const cashgameRemoveResult = '/%1$s/cashgame/removeresult/%2$s';
-        public const string CashgameUnpublish = "/{0}/cashgame/unpublish/{1}";
         public const string RunningCashgame = "/{0}/cashgame/running";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
 
