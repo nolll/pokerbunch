@@ -45,7 +45,8 @@ namespace Infrastructure.Tests.Repositories{
                 Mocks.RawCashgameFactoryMock.Object,
                 Mocks.CheckpointFactoryMock.Object,
                 Mocks.CacheContainerFake,
-                Mocks.CheckpointStorageMock.Object);
+                Mocks.CheckpointStorageMock.Object,
+                Mocks.TimeProviderMock.Object);
         }
 
 	}

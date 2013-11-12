@@ -40,6 +40,7 @@ namespace Infrastructure.Caching
 
         public T Get<T>(string key) where T : class
         {
+            return null;
             var o = _cacheProvider.Get(key);
 
             if (o is CacheableNullValue)

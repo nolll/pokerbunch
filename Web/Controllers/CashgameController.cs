@@ -201,6 +201,7 @@ namespace Web.Controllers{
                 {
                     var cashgame = GetCashgame(postModel);
                     _cashgameRepository.AddGame(homegame, cashgame);
+                    _cashgameRepository.ClearCashgameListFromCache(homegame, cashgame);
                     return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
                 }
                 ModelState.AddModelError("no_location", "Please enter a location");

@@ -9,6 +9,7 @@ using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
 using Infrastructure.Factories;
 using System.Linq;
+using Infrastructure.System;
 
 namespace Infrastructure.Repositories {
 
@@ -35,6 +36,7 @@ namespace Infrastructure.Repositories {
 	    private readonly ICheckpointFactory _checkpointFactory;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
+	    private readonly ITimeProvider _timeProvider;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -45,7 +47,8 @@ namespace Infrastructure.Repositories {
             IRawCashgameFactory rawCashgameFactory,
             ICheckpointFactory checkpointFactory,
             ICacheContainer cacheContainer,
-            ICheckpointStorage checkpointStorage)
+            ICheckpointStorage checkpointStorage,
+            ITimeProvider timeProvider)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -56,6 +59,7 @@ namespace Infrastructure.Repositories {
 	        _checkpointFactory = checkpointFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
+	        _timeProvider = timeProvider;
 	    }
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
@@ -300,11 +304,9 @@ namespace Infrastructure.Repositories {
         {
             var allTimeCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id);
             _cacheContainer.Remove(allTimeCacheKey);
-            if (cashgame.StartTime.HasValue)
-            {
-                var currentYearCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id, cashgame.StartTime.Value.Year);
-                _cacheContainer.Remove(currentYearCacheKey);
-            }
+	        var yearToClear = cashgame.StartTime.HasValue ? cashgame.StartTime.Value.Year : _timeProvider.GetTime().Year;
+            var currentYearCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id, yearToClear);
+            _cacheContainer.Remove(currentYearCacheKey);
         }
 
 	}
