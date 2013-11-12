@@ -536,9 +536,10 @@
     <Compile Include="Controllers\SharingController.cs" />
     <Compile Include="Models\SharingModels\SharingIndexPageModel.cs" />
     <Compile Include="Models\SharingModels\SharingTwitterPageModel.cs" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch - Web Deploy.pubxml" />
-    <None Include="Views\Cashgame\Action\Action.cshtml" />
+    <Content Include="Views\Cashgame\Action\Action.cshtml" />
     <Content Include="Views\Cashgame\Action\CheckpointItem.cshtml" />
     <Content Include="Views\Cashgame\Action\CheckpointList.cshtml" />
     <Content Include="Views\Cashgame\Buyin\Buyin.cshtml" />
