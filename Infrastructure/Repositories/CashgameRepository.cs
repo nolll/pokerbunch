@@ -107,7 +107,7 @@ namespace Infrastructure.Repositories {
             var uncached = GetGameFromRawGame(rawGame, rawCheckpoints, players);
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -123,7 +123,7 @@ namespace Infrastructure.Repositories {
             var uncached = _cashgameStorage.GetCashgameId(homegameId, dateString);
             if (uncached.HasValue)
             {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -145,7 +145,7 @@ namespace Infrastructure.Repositories {
             var uncached = _cashgameStorage.GetYears(homegame.Slug);
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -176,7 +176,7 @@ namespace Infrastructure.Repositories {
                 var newCashgames = GetGamesFromRawGames(rawCashgames, players);
                 foreach (var cashgame in newCashgames)
                 {
-                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(CashgameCacheKey, cashgame.Id), cashgame, TimeSpan.FromMinutes(CacheTime.Long));
+                    _cacheContainer.FakeInsert(_cacheContainer.ConstructCacheKey(CashgameCacheKey, cashgame.Id), cashgame, TimeSpan.FromMinutes(CacheTime.Long));
                 }
                 cashgames.AddRange(newCashgames);
             }
@@ -195,7 +195,7 @@ namespace Infrastructure.Repositories {
             var uncached = _cashgameStorage.GetGameIds(homegame.Id, (int?)status, year);
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -297,16 +297,16 @@ namespace Infrastructure.Repositories {
 	    public void ClearCashgameFromCache(Cashgame cashgame)
         {
             var cacheKey = _cacheContainer.ConstructCacheKey(CashgameCacheKey, cashgame.Id);
-            _cacheContainer.Remove(cacheKey);
+            _cacheContainer.FakeRemove(cacheKey);
         }
 
 	    public void ClearCashgameListFromCache(Homegame homegame, Cashgame cashgame)
         {
             var allTimeCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id);
-            _cacheContainer.Remove(allTimeCacheKey);
+            _cacheContainer.FakeRemove(allTimeCacheKey);
 	        var yearToClear = cashgame.StartTime.HasValue ? cashgame.StartTime.Value.Year : _timeProvider.GetTime().Year;
             var currentYearCacheKey = _cacheContainer.ConstructCacheKey(CashgameIdsCacheKey, homegame.Id, yearToClear);
-            _cacheContainer.Remove(currentYearCacheKey);
+            _cacheContainer.FakeRemove(currentYearCacheKey);
         }
 
 	}

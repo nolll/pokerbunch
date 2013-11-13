@@ -6,10 +6,10 @@ namespace Tests.Common.FakeClasses
     {
         public FakePlayer(
             int id = default(int),
-            string userName = default(string),
+            int userId = default(int),
             string displayName = default(string),
             Role role = default(Role))
-            : base(id, userName, displayName, role)
+            : base(id, userId, displayName, role)
         {
         }
     }

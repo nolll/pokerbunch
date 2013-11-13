@@ -377,7 +377,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var user = _userContext.GetUser();
-			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+			if(!_userContext.IsAdmin() && player.UserId != user.Id){
 				throw new AccessDeniedException();
 			}
 			var runningGame = _cashgameRepository.GetRunning(homegame);
@@ -391,7 +391,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var user = _userContext.GetUser();
-			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+			if(!_userContext.IsAdmin() && player.UserId != user.Id){
 				throw new AccessDeniedException();
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
@@ -441,7 +441,7 @@ namespace Web.Controllers{
 		}
 
         private ActionResult ShowReportForm(Player player, User user, ReportPageModel model){
-            if (!_userContext.IsAdmin() && player.UserName != user.UserName)
+            if (!_userContext.IsAdmin() && player.UserId != user.Id)
             {
                 throw new AccessDeniedException();
             }
@@ -449,7 +449,7 @@ namespace Web.Controllers{
 		}
         
         private ActionResult ShowBuyinForm(User user, Player player, BuyinPageModel model){
-			if(!_userContext.IsAdmin() && player.UserName != user.UserName){
+			if(!_userContext.IsAdmin() && player.UserId != user.Id){
 				throw new AccessDeniedException();
 			}
 

@@ -30,7 +30,7 @@ namespace Web.ModelServices
         public PlayerDetailsPageModel GetDetailsModel(User currentUser, Homegame homegame, string playerName)
         {
             var player = _playerRepository.GetByName(homegame, playerName);
-            var user = _userRepository.GetUserByName(player.UserName);
+            var user = _userRepository.GetUserById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
             var isManager = _userContext.IsInRole(homegame, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);

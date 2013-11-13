@@ -13,29 +13,34 @@ namespace Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private const string UserCacheKey = "User";
         private const string UserIdCacheKey = "UserId";
 
         private readonly IUserStorage _userStorage;
         private readonly IUserFactory _userFactory;
         private readonly IRawUserFactory _rawUserFactory;
         private readonly ICacheContainer _cacheContainer;
+        private readonly ICacheKeyProvider _cacheKeyProvider;
+        private readonly ICacheBuster _cacheBuster;
 
         public UserRepository(
             IUserStorage userStorage,
             IUserFactory userFactory,
             IRawUserFactory rawUserFactory,
-            ICacheContainer cacheContainer)
+            ICacheContainer cacheContainer,
+            ICacheKeyProvider cacheKeyProvider,
+            ICacheBuster cacheBuster)
         {
             _userStorage = userStorage;
             _userFactory = userFactory;
             _rawUserFactory = rawUserFactory;
             _cacheContainer = cacheContainer;
+            _cacheKeyProvider = cacheKeyProvider;
+            _cacheBuster = cacheBuster;
         }
 
         public User GetUserById(int id)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(UserCacheKey, id);
+            var cacheKey = _cacheKeyProvider.SingleUserKey(id);
             var cached = _cacheContainer.Get<User>(cacheKey);
             if (cached != null)
             {
@@ -45,7 +50,7 @@ namespace Infrastructure.Repositories
             var uncached = rawUser != null ? _userFactory.Create(rawUser) : null;
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -67,7 +72,7 @@ namespace Infrastructure.Repositories
             var uncached = _userStorage.GetUserIdByEmail(email);
             if (uncached.HasValue)
             {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -83,7 +88,7 @@ namespace Infrastructure.Repositories
             var uncached = _userStorage.GetUserIdByToken(token);
             if (uncached.HasValue)
             {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -105,7 +110,7 @@ namespace Infrastructure.Repositories
             var uncached = _userStorage.GetUserIdByName(userName);
             if (uncached.HasValue)
             {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -122,21 +127,70 @@ namespace Infrastructure.Repositories
             return userId.HasValue ? GetUserById(userId.Value) : null;
         }
 
-        public IList<User> GetUsers()
+        public IList<User> GetAll()
         {
-            return _userStorage.GetUsers().Select(_userFactory.Create).ToList();
+            var users = new List<User>();
+            var userIds = GetUserIds();
+            var uncachedIds = new List<int>();
+            foreach (var id in userIds)
+            {
+                var cacheKey = _cacheKeyProvider.SingleUserKey(id);
+                var cached = _cacheContainer.Get<User>(cacheKey);
+                if (cached != null)
+                {
+                    users.Add(cached);
+                }
+                else
+                {
+                    uncachedIds.Add(id);
+                }
+            }
+
+            if (uncachedIds.Count > 0)
+            {
+                var rawUsers = _userStorage.GetUsers(uncachedIds);
+                var newUsers = rawUsers.Select(_userFactory.Create).ToList();
+                foreach (var user in newUsers)
+                {
+                    var cacheKey = _cacheKeyProvider.SingleUserKey(user.Id);
+                    _cacheContainer.FakeInsert(cacheKey, user, TimeSpan.FromMinutes(CacheTime.Long));
+                }
+                users.AddRange(newUsers);
+            }
+
+            return users.OrderBy(o => o.DisplayName).ToList();
+        }
+
+        private IEnumerable<int> GetUserIds()
+        {
+            var cacheKey = _cacheKeyProvider.UserIdsKey();
+            var cached = _cacheContainer.Get<List<int>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _userStorage.GetUserIds();
+            if (uncached != null)
+            {
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
         }
 
         public bool UpdateUser(User user)
         {
             var rawUser = _rawUserFactory.Create(user);
-            return _userStorage.UpdateUser(rawUser);
+            var updated = _userStorage.UpdateUser(rawUser);
+            _cacheBuster.UserUpdated(user.Id);
+            return updated;
         }
 
         public int AddUser(User user)
         {
             var rawUser = _rawUserFactory.Create(user);
-            return _userStorage.AddUser(rawUser);
+            var id = _userStorage.AddUser(rawUser);
+            _cacheBuster.UserAdded();
+            return id;
         }
 
         public bool DeleteUser(User user)

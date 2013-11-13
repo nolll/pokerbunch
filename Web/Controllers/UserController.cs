@@ -80,7 +80,7 @@ namespace Web.Controllers{
 
         public ActionResult Listing(){
 			_userContext.RequireAdmin();
-			var users = _userRepository.GetUsers();
+			var users = _userRepository.GetAll();
 			var model = _userListingPageModelFactory.Create(_userContext.GetUser(), users);
 
 			return View("Listing/Listing", model);

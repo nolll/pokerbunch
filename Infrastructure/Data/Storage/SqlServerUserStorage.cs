@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
@@ -85,17 +86,38 @@ namespace Infrastructure.Data.Storage {
             return null;
         }
 
-		public List<RawUser> GetUsers(){
-			var sql =	GetUserBaseSql();
-			sql +=	"ORDER BY u.DisplayName";
-			var reader = _storageProvider.Query(sql);
-			var users = new List<RawUser>();
+        public IList<RawUser> GetUsers(IList<int> ids)
+        {
+            var baseStatement = GetUserBaseSql();
+            const string statement = "{0} WHERE u.UserID IN({1})";
+            var idList = GetIdListForSql(ids);
+            var sql = string.Format(statement, baseStatement, idList);
+            var reader = _storageProvider.Query(sql);
+            var users = new List<RawUser>();
             while (reader.Read())
             {
                 users.Add(_rawUserFactory.Create(reader));
             }
-			return users;
-		}
+            return users;
+        }
+
+        private string GetIdListForSql(IEnumerable<int> ids)
+        {
+            return string.Join(", ", ids.Select(o => string.Format("{0}", o)).ToArray());
+        }
+
+        public IList<int> GetUserIds()
+        {
+            var sql = GetUserBaseSql();
+            sql += "ORDER BY u.DisplayName";
+            var reader = _storageProvider.Query(sql);
+            var ids = new List<int>();
+            while (reader.Read())
+            {
+                ids.Add(reader.GetInt("UserID"));
+            }
+            return ids;
+        }
 
 		public bool UpdateUser(RawUser user){
             var sql = "UPDATE [user] SET DisplayName = '{0}', RealName = '{1}', Email = '{2}' WHERE UserID = {3}";

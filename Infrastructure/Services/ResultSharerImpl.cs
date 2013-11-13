@@ -40,7 +40,7 @@ namespace Infrastructure.Services{
 		}
 
 		private User GetUser(CashgameResult result){
-			return _userRepository.GetUserByName(result.Player.UserName);
+			return _userRepository.GetUserById(result.Player.UserId);
 		}
 
 	}

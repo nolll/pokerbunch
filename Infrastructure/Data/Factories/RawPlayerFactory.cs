@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Infrastructure.Data.Classes;
+﻿using Infrastructure.Data.Classes;
 using Infrastructure.Data.Storage;
 
 namespace Infrastructure.Data.Factories
@@ -10,9 +9,9 @@ namespace Infrastructure.Data.Factories
         {
             return new RawPlayer
             {
-                DisplayName = reader.GetString("DisplayName"),
+                DisplayName = reader.GetString("PlayerName"),
                 Role = reader.GetInt("RoleID"),
-                UserName = reader.GetString("UserName"),
+                UserId = reader.GetInt("UserID"),
                 Id = reader.GetInt("PlayerID")
             };
         }

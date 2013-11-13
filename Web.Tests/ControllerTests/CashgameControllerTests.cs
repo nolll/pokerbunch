@@ -98,7 +98,7 @@ namespace Web.Tests.ControllerTests{
 		{
 		    var homegame = new FakeHomegame();
 		    var user = new FakeUser();
-            var player = new FakePlayer(userName: UserName, id: 1);
+            var player = new FakePlayer(id: 1);
 		    var cashgameResult = new FakeCashgameResult(player);
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
@@ -123,11 +123,14 @@ namespace Web.Tests.ControllerTests{
 		}
 
 		[Test]
-		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException(){
+		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException()
+		{
+		    const int firstUserId = 1;
+		    const int secondUserId = 2;
 			var homegame = new FakeHomegame();
 			var cashgame = new FakeCashgame();
-		    var user = new FakeUser();
-			var player = new FakePlayer(userName: "otherUser");
+		    var user = new FakeUser(id: firstUserId);
+			var player = new FakePlayer(userId: secondUserId);
 
             Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(Slug)).Returns(homegame);
             Mocks.CashgameRepositoryMock.Setup(o => o.GetRunning(homegame)).Returns(cashgame);

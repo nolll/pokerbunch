@@ -143,7 +143,7 @@ namespace Web.Controllers{
             if (ModelState.IsValid)
             {
                 var player = GetMatchedPlayer(homegame, postModel.Code);
-                if(player != null && player.UserName == null){
+                if(player != null && player.IsUser){
 				    var user = _userContext.GetUser();
 				    _playerRepository.JoinHomegame(player, homegame, user);
 				    return Redirect(_urlProvider.GetHomegameJoinConfirmationUrl(homegame));

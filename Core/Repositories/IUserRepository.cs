@@ -5,11 +5,12 @@ namespace Core.Repositories
 {
     public interface IUserRepository
     {
+        User GetUserById(int id);
         User GetUserByEmail(string email);
         User GetUserByToken(string token);
         User GetUserByName(string userName);
         User GetUserByCredentials(string userNameOrEmail, string password);
-        IList<User> GetUsers();
+        IList<User> GetAll();
         bool UpdateUser(User user);
         int AddUser(User user);
         string GetSalt(string userNameOrEmail);

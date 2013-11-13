@@ -59,10 +59,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheKeyProvider.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\CacheContainer.cs" />
     <Compile Include="Caching\CacheTime.cs" />
     <Compile Include="Caching\ICacheContainer.cs" />
+    <Compile Include="Caching\ICacheKeyProvider.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Data\Classes\RawCashgameWithResults.cs" />
     <Compile Include="Data\Classes\RawPlayer.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheBuster.cs" />
     <Compile Include="Repositories\CashgameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +135,7 @@
     <Compile Include="Factories\HomegameFactory.cs" />
     <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
     <Compile Include="Repositories\CheckpointRepository.cs" />
+    <Compile Include="Caching\ICacheBuster.cs" />
     <Compile Include="Repositories\SharingRepository.cs" />
     <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

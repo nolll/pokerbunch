@@ -53,7 +53,7 @@ namespace Infrastructure.Repositories {
                 var newPlayers = rawPlayers.Select(_playerFactory.Create).ToList();
                 foreach (var player in newPlayers)
                 {
-                    _cacheContainer.Insert(_cacheContainer.ConstructCacheKey(PlayerCacheKey, player.Id), player, TimeSpan.FromMinutes(CacheTime.Long));
+                    _cacheContainer.FakeInsert(_cacheContainer.ConstructCacheKey(PlayerCacheKey, player.Id), player, TimeSpan.FromMinutes(CacheTime.Long));
                 }
                 players.AddRange(newPlayers);
             }
@@ -72,7 +72,7 @@ namespace Infrastructure.Repositories {
             var uncached = _playerStorage.GetPlayerIds(homegame.Id);
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -89,7 +89,7 @@ namespace Infrastructure.Repositories {
             var uncached = rawUser != null ? _playerFactory.Create(rawUser) : null;
             if (uncached != null)
             {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -133,13 +133,13 @@ namespace Infrastructure.Repositories {
         private void ClearPlayerFromCache(int playerId)
         {
             var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, playerId);
-            _cacheContainer.Remove(cacheKey);
+            _cacheContainer.FakeRemove(cacheKey);
         }
 
         private void ClearPlayerListFromCache(int homegameId)
         {
             var cacheKey = _cacheContainer.ConstructCacheKey(HomegamePlayersCacheKey, homegameId);
-            _cacheContainer.Remove(cacheKey);
+            _cacheContainer.FakeRemove(cacheKey);
         }
 
 	}
