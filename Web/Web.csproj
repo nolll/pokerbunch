@@ -346,6 +346,7 @@
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserItemModelFactory.cs" />
+    <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebObjectFactory.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />

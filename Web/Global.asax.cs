@@ -19,6 +19,8 @@ namespace Web
 
         protected void Application_Start()
         {
+            ModelBinders.Binders.DefaultBinder = new TrimModelBinder();
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
