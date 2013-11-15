@@ -13,19 +13,17 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame)
+        public AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame, AddPlayerPostModel postModel = null)
         {
-            return new AddPlayerPageModel
+            var model = new AddPlayerPageModel
                 {
                     BrowserTitle = "Add Player",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame)
                 };
-        }
-
-        public AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame, AddPlayerPostModel postModel)
-        {
-            var model = Create(user, homegame, runningGame);
-            model.Name = postModel.Name;
+            if (postModel != null)
+            {
+                model.Name = postModel.Name;
+            }
             return model;
         }
     }

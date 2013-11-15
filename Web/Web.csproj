@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableModelFactory.cs" />
@@ -198,7 +199,12 @@
     <Compile Include="ModelFactories\UserModelFactories\IUserItemModelFactory.cs" />
     <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
+    <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="ModelServices\Interfaces\IPlayerModelService.cs" />
+    <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />
+    <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
+    <Compile Include="Commands\PlayerCommands\PlayerCommandProvider.cs" />
     <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactory.cs" />

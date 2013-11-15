@@ -5,7 +5,6 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IAddPlayerPageModelFactory
     {
-        AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame);
-        AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame, AddPlayerPostModel postModel);
+        AddPlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame, AddPlayerPostModel postModel = null);
     }
 }

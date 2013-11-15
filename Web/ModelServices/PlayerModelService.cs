@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Core.Classes;
+﻿using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
@@ -93,44 +91,4 @@ namespace Web.ModelServices
         }
 
     }
-
-
-    public class PlayerCommandProvider
-    {
-        public Command GetInviteCommand()
-        {
-            return new InvitePlayerCommand();
-        }
-    }
-
-    public abstract class Command
-    {
-        public List<ValidationResult> Errors { get; set; }
-
-        protected bool IsValid(object model)
-        {
-            var context = new ValidationContext(model, null, null);
-            if (!Validator.TryValidateObject(model, context, Errors))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool Succeeded
-        {
-            get { return Errors.Count == 0; }
-        }
-
-        public abstract bool Execute();
-    }
-
-    public class InvitePlayerCommand : Command
-    {
-        public override bool Execute()
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
 }

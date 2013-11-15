@@ -1,38 +1,39 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Core.Services;
+using Web.Commands;
+using Web.Commands.PlayerCommands;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 
 namespace Web.Controllers{
-
-	public class PlayerController : Controller
+    public class PlayerController : ControllerBase
     {
 	    private readonly IUserContext _userContext;
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IPlayerRepository _playerRepository;
 	    private readonly ICashgameRepository _cashgameRepository;
-	    private readonly IInvitationSender _invitationSender;
 	    private readonly IPlayerModelService _playerModelService;
 	    private readonly IUrlProvider _urlProvider;
+	    private readonly IPlayerCommandProvider _playerCommandProvider;
 
 	    public PlayerController(
             IUserContext userContext,
 			IHomegameRepository homegameRepository,
 			IPlayerRepository playerRepository,
 			ICashgameRepository cashgameRepository,
-            IInvitationSender invitationSender,
             IPlayerModelService playerModelService,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IPlayerCommandProvider playerCommandProvider)
 	    {
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
 	        _playerRepository = playerRepository;
 	        _cashgameRepository = cashgameRepository;
-	        _invitationSender = invitationSender;
 	        _playerModelService = playerModelService;
 	        _urlProvider = urlProvider;
+	        _playerCommandProvider = playerCommandProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -60,17 +61,13 @@ namespace Web.Controllers{
         public ActionResult Add(string gameName, AddPlayerPostModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-			if(ModelState.IsValid)
-			{
-			    var existingPlayer = _playerRepository.GetByName(homegame, postModel.Name);
-                if (existingPlayer == null)
-                {
-                    _playerRepository.AddPlayer(homegame, postModel.Name);
-                    return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(homegame));
-                }
-                ModelState.AddModelError("player_exists", "The Display Name is in use by someone else");
-			}
-            var model = _playerModelService.GetAddModel(homegame, postModel);
+            var command = _playerCommandProvider.GetAddCommand(homegame, postModel);
+            if (command.Execute())
+            {
+                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(homegame));
+            }
+            AddModelErrors(command.Errors);
+			var model = _playerModelService.GetAddModel(homegame, postModel);
 			return View("Add", model);
 		}
 
@@ -104,20 +101,21 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
 			var player = _playerRepository.GetByName(homegame, name);
-			if(ModelState.IsValid){
-				_invitationSender.Send(homegame, player, postModel.Email);
-				return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(homegame, player));
-			}
+            var command = _playerCommandProvider.GetInviteCommand(homegame, player, postModel);
+            if (command.Execute())
+            {
+                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(homegame, player));
+            }
+            AddModelErrors(command.Errors);
             var model = _playerModelService.GetInviteModel(homegame);
             return View("Invite", model);
 		}
 
-		public ActionResult Invited(string gameName, string name){
+	    public ActionResult Invited(string gameName, string name){
 			var homegame = _homegameRepository.GetByName(gameName);
 		    var model = _playerModelService.GetInviteConfirmationModel(homegame);
 			return View("InviteConfirmation", model);
 		}
-
     }
 
 }
