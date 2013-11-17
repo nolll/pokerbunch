@@ -24,7 +24,7 @@ namespace Web.Commands.PlayerCommands
             var existingPlayer = _playerRepository.GetByName(_homegame, _model.Name);
             if (existingPlayer != null)
             {
-                Errors.Add(new ValidationResult("The Display Name is in use by someone else"));
+                AddError("The Display Name is in use by someone else");
                 return false;
             }
             _playerRepository.AddPlayer(_homegame, _model.Name);

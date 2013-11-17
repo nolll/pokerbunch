@@ -1,7 +1,6 @@
 using System.Web.Mvc;
 using Core.Repositories;
 using Core.Services;
-using Web.Commands;
 using Web.Commands.PlayerCommands;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
@@ -13,7 +12,6 @@ namespace Web.Controllers{
 	    private readonly IUserContext _userContext;
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IPlayerRepository _playerRepository;
-	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IPlayerModelService _playerModelService;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IPlayerCommandProvider _playerCommandProvider;
@@ -22,7 +20,6 @@ namespace Web.Controllers{
             IUserContext userContext,
 			IHomegameRepository homegameRepository,
 			IPlayerRepository playerRepository,
-			ICashgameRepository cashgameRepository,
             IPlayerModelService playerModelService,
             IUrlProvider urlProvider,
             IPlayerCommandProvider playerCommandProvider)
@@ -30,7 +27,6 @@ namespace Web.Controllers{
 	        _userContext = userContext;
 	        _homegameRepository = homegameRepository;
 	        _playerRepository = playerRepository;
-	        _cashgameRepository = cashgameRepository;
 	        _playerModelService = playerModelService;
 	        _urlProvider = urlProvider;
 	        _playerCommandProvider = playerCommandProvider;
@@ -81,12 +77,12 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
 			var player = _playerRepository.GetByName(homegame, name);
-			var hasPlayed = _cashgameRepository.HasPlayed(player);
-			if(hasPlayed){
-				return Redirect(_urlProvider.GetPlayerDetailsUrl(homegame, player));
-			}
-			_playerRepository.DeletePlayer(homegame, player);
-			return Redirect(_urlProvider.GetPlayerIndexUrl(homegame));
+		    var command = _playerCommandProvider.GetDeleteCommand(homegame, player);
+            if (command.Execute())
+            {
+                return Redirect(_urlProvider.GetPlayerIndexUrl(homegame));
+            }
+    		return Redirect(_urlProvider.GetPlayerDetailsUrl(homegame, player));
 		}
 
         public ActionResult Invite(string gameName, string name){

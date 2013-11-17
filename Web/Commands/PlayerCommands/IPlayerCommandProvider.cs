@@ -8,5 +8,6 @@ namespace Web.Commands.PlayerCommands
     {
         Command GetInviteCommand(Homegame homegame, Player player, InvitePlayerPostModel model);
         Command GetAddCommand(Homegame homegame, AddPlayerPostModel model);
+        Command GetDeleteCommand(Homegame homegame, Player player);
     }
 }

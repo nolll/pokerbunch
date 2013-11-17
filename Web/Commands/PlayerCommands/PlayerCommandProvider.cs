@@ -10,13 +10,16 @@ namespace Web.Commands.PlayerCommands
     {
         private readonly IInvitationSender _invitationSender;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
         public PlayerCommandProvider(
             IInvitationSender invitationSender,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            ICashgameRepository cashgameRepository)
         {
             _invitationSender = invitationSender;
             _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
         public Command GetInviteCommand(Homegame homegame, Player player, InvitePlayerPostModel model)
@@ -27,6 +30,11 @@ namespace Web.Commands.PlayerCommands
         public Command GetAddCommand(Homegame homegame, AddPlayerPostModel model)
         {
             return new AddPlayerCommand(_playerRepository, homegame, model);
+        }
+
+        public Command GetDeleteCommand(Homegame homegame, Player player)
+        {
+            return new DeletePlayerCommand(_cashgameRepository, _playerRepository, homegame, player);
         }
     }
 }
