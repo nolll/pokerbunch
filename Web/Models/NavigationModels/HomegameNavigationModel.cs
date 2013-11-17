@@ -6,9 +6,6 @@ namespace Web.Models.NavigationModels{
 	    public string HeadingLink { get; set; }
         public string CashgameLink { get; set; }
         public string PlayerLink { get; set; }
-        public string CreateLink { get; set; }
-        public string RunningLink { get; set; }
-		public bool CashgameIsRunning { get; set; }
 
 	}
 

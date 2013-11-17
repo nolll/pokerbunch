@@ -22,14 +22,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Listing
             _cashgameListingTableModelFactory = cashgameListingTableModelFactory;
         }
 
-        public CashgameListingPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, int? year, Cashgame runningGame)
+        public CashgameListingPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, int? year)
         {
             return new CashgameListingPageModel
                 {
                     BrowserTitle = "Cashgame List",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        ListingTableModel = _cashgameListingTableModelFactory.Create(homegame, cashgames),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "listing", years, year, runningGame)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "listing", years, year)
                 };
         }
     }

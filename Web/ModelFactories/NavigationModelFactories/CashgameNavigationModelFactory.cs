@@ -17,11 +17,11 @@ namespace Web.ModelFactories.NavigationModelFactories
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
-        public CashgameNavigationModel Create(Homegame homegame, string view, IList<int> years, int? year, Cashgame runningGame)
+        public CashgameNavigationModel Create(Homegame homegame, string view, IList<int> years, int? year)
         {
             return new CashgameNavigationModel
                 {
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, year, view, runningGame),
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, year, view),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, year, view)
                 };
         }

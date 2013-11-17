@@ -13,7 +13,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             _urlProvider = urlProvider;
         }
 
-        public CashgamePageNavigationModel Create(Homegame homegame, int? year = null, string view = null, Cashgame runningGame = null)
+        public CashgamePageNavigationModel Create(Homegame homegame, int? year = null, string view = null)
         {
             return new CashgamePageNavigationModel
                 {

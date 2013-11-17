@@ -32,7 +32,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
             Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.AreEqual(formattedStartDate, result.IsoDate);
 		}
@@ -45,7 +45,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.AreEqual(detailsUrl, result.CancelUrl);
 		}
@@ -58,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDeleteUrl(_homegame, cashgame)).Returns(deleteUrl);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.AreEqual(deleteUrl, result.DeleteUrl);
 		}
@@ -68,7 +68,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame(status: GameStatus.Published);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.IsFalse(result.EnableDelete);
 		}
@@ -78,7 +78,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame(status: GameStatus.Finished);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.IsTrue(result.EnableDelete);
 		}
@@ -89,7 +89,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame();
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null, null);
+            var result = sut.Create(_user, _homegame, cashgame, _locations);
 
 			Assert.IsInstanceOf<IEnumerable<SelectListItem>>(result.Locations);
         }

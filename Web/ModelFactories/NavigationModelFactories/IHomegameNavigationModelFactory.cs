@@ -5,6 +5,6 @@ namespace Web.ModelFactories.NavigationModelFactories
 {
     public interface IHomegameNavigationModelFactory
     {
-        HomegameNavigationModel Create(Homegame homegame, Cashgame runningGame);
+        HomegameNavigationModel Create(Homegame homegame);
     }
 }

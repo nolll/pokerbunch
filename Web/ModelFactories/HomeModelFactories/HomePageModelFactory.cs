@@ -35,12 +35,11 @@ namespace Web.ModelFactories.HomeModelFactories
         public HomePageModel Create()
         {
             var homegame = GetHomegame();
-            var runningGame = GetRunningGame(homegame);
             var user = _userContext.GetUser();
             return new HomePageModel
                 {
                     BrowserTitle = "Poker Bunch",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        IsLoggedIn = user != null,
                     AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
                     LoginUrl = _urlProvider.GetLoginUrl(),
@@ -53,15 +52,6 @@ namespace Web.ModelFactories.HomeModelFactories
         {
             var games = _homegameRepository.GetByUser(_userContext.GetUser());
             return games.Count == 1 ? games[0] : null;
-        }
-
-        private Cashgame GetRunningGame(Homegame homegame)
-        {
-            if (homegame == null)
-            {
-                return null;
-            }
-            return _cashgameRepository.GetRunning(homegame);
         }
     }
 }

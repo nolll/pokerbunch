@@ -28,10 +28,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             var model = new CashgameFactsPageModel
                 {
                     BrowserTitle = "Cashgame Facts",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        GameCount = suite.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(suite.TotalGameTime),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year, runningGame)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year)
                 };
 
             if (suite.BestResult != null)

@@ -5,7 +5,6 @@ using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Achievements;
 using Web.Models.PlayerModels.Details;
-using Web.Models.PlayerModels.Facts;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
@@ -28,14 +27,14 @@ namespace Web.ModelFactories.PlayerModelFactories
             _playerFactsModelFactory = playerFactsModelFactory;
         }
 
-        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed, Cashgame runningGame = null)
+        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
         {
             var hasUser = user != null;
 
             var model = new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
-                    PageProperties = _pagePropertiesFactory.Create(currentUser, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(currentUser, homegame),
                     DisplayName = player.DisplayName,
                     DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame, player),
                     DeleteEnabled = isManager && !hasPlayed,

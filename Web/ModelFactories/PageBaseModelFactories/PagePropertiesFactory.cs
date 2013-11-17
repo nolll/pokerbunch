@@ -1,7 +1,6 @@
 ﻿using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
-using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.PageBaseModelFactories
@@ -32,13 +31,13 @@ namespace Web.ModelFactories.PageBaseModelFactories
             return Create(user, null);
         }
 
-        public PageProperties Create(User user, Homegame homegame, Cashgame runningGame = null)
+        public PageProperties Create(User user, Homegame homegame)
         {
             return new PageProperties
                 {
                     UserNavModel = _userNavigationModelFactory.Create(user),
 			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
-                    HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame, runningGame) : null
+                    HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null
                 };
         }
     }

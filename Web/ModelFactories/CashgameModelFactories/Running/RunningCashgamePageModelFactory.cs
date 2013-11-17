@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
@@ -27,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             _globalization = globalization;
         }
 
-        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, IList<int> years, bool isManager, Cashgame runningGame = null)
+        public RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, bool isManager)
         {
             var canBeEnded = CanBeEnded(cashgame);
             var canReport = !canBeEnded;
@@ -36,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgamePageModel
                 {
                     BrowserTitle = "Running Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = GetStartTime(cashgame, homegame.Timezone),

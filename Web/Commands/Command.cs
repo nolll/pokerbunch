@@ -5,7 +5,7 @@ namespace Web.Commands
 {
     public abstract class Command
     {
-        public List<ValidationResult> Errors { get; set; }
+        public List<ValidationResult> Errors { get; private set; }
 
         protected bool IsValid(object model)
         {

@@ -110,8 +110,7 @@ namespace Web.Controllers{
         public ActionResult Edit(string gameName){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequireManager(homegame);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-			var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+			var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame);
 			return View("Edit/Edit", model);
 		}
 
@@ -125,8 +124,7 @@ namespace Web.Controllers{
 				_homegameRepository.SaveHomegame(postedHomegame);
                 return Redirect(_urlProvider.GetHomegameDetailsUrl(postedHomegame));
 			}
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+            var model = _homegameEditPageModelFactory.Create(_userContext.GetUser(), homegame, postModel);
 			return View("Edit/Edit", model);
 		}
 

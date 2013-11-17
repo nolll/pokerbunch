@@ -5,7 +5,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IHomegameEditPageModelFactory
     {
-        HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame);
-        HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame, HomegameEditPostModel postModel);
+        HomegameEditPageModel Create(User user, Homegame homegame);
+        HomegameEditPageModel Create(User user, Homegame homegame, HomegameEditPostModel postModel);
     }
 }

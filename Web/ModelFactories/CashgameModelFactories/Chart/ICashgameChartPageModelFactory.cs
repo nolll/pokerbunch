@@ -6,6 +6,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
     public interface ICashgameChartPageModelFactory
     {
-        CashgameChartPageModel Create(User user, Homegame homegame, int? year, IList<int> years, Cashgame runningGame);
+        CashgameChartPageModel Create(User user, Homegame homegame, int? year, IList<int> years);
     }
 }

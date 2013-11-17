@@ -5,7 +5,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IInvitePlayerPageModelFactory
     {
-        InvitePlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame);
-        InvitePlayerPageModel Create(User user, Homegame homegame, Cashgame runningGame, InvitePlayerPostModel postModel);
+        InvitePlayerPageModel Create(User user, Homegame homegame);
+        InvitePlayerPageModel Create(User user, Homegame homegame, InvitePlayerPostModel postModel);
     }
 }

@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.End
 {
     public interface IEndPageModelFactory
     {
-        EndPageModel Create(User user, Homegame homegame, Cashgame runningGame);
+        EndPageModel Create(User user, Homegame homegame);
     }
 }

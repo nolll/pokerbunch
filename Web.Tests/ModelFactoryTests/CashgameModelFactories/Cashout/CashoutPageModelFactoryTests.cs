@@ -18,22 +18,19 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
 		}
         
         [Test]
-		public void CashoutAmount_WithPostedAmount_IsSetToZero(){
-            var runningGame = new FakeCashgame(startTime: new DateTime());
-            
+		public void CashoutAmount_WithoutPostedAmount_IsNull(){
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, runningGame);
+            var result = sut.Create(new FakeUser(), _homegame);
 
-			Assert.AreEqual(result.StackAmount, 0);
+			Assert.IsNull(result.StackAmount);
 		}
 
 		[Test]
 		public void CashoutAmount_WithPostedAmount_IsSet(){
-            var runningGame = new FakeCashgame(startTime: new DateTime());
             var postModel = new CashoutPostModel{ StackAmount = 1 };
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, runningGame, postModel);
+            var result = sut.Create(new FakeUser(), _homegame, postModel);
 
             Assert.AreEqual(1, result.StackAmount);
 		}

@@ -20,7 +20,7 @@ namespace Web.ModelMappers
         {
             return new Checkpoint
             {
-                Stack = postModel.StackAmount,
+                Stack = postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
                 Timestamp = _timeProvider.GetTime(),
                 Type = CheckpointType.Cashout,
                 Id = existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
@@ -31,7 +31,7 @@ namespace Web.ModelMappers
         {
             return new Checkpoint
             {
-                Stack = postModel.StackAmount,
+                Stack = postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
                 Timestamp = _timeProvider.GetTime(),
                 Type = CheckpointType.Report
             };

@@ -36,18 +36,33 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 			Assert.IsTrue(result.GameIsRunning);
 		}
 
-		[Test]
-        public void GameUrl_WithRunningGame_IsSet(){
-			_runningGame = new FakeCashgame();
+        [Test]
+        public void Url_WithRunningGame_IsSetToRunningGameUrl()
+        {
+            _runningGame = new FakeCashgame();
 
-		    const string runningGameUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetRunningCashgameUrl(_homegame)).Returns(runningGameUrl);
+            const string runningGameUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetRunningCashgameUrl(_homegame)).Returns(runningGameUrl);
 
-			var sut = GetSut();
+            var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.AreEqual(runningGameUrl, result.GameUrl);
-		}
+            Assert.AreEqual(runningGameUrl, result.Url);
+        }
+
+        [Test]
+        public void Url_WithoutRunningGame_IsSetToAddGameUrl()
+        {
+            _runningGame = null;
+
+            const string addGameUrl = "a";
+            Mocks.UrlProviderMock.Setup(o => o.GetCashgameAddUrl(_homegame)).Returns(addGameUrl);
+
+            var sut = GetSut();
+            var result = sut.Create(_homegame, _runningGame);
+
+            Assert.AreEqual(addGameUrl, result.Url);
+        }
 
 		private BarModelFactory GetSut(){
 			return new BarModelFactory(

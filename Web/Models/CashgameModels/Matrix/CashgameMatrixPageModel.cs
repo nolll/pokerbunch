@@ -1,3 +1,4 @@
+using Web.Models.CashgameModels.Running;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 
@@ -6,6 +7,7 @@ namespace Web.Models.CashgameModels.Matrix{
 
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
+        public BarModel BarModel { get; set; }
 	    public CashgameNavigationModel CashgameNavModel { get; set; }
 	    public CashgameMatrixTableModel TableModel { get; set; }
 	}

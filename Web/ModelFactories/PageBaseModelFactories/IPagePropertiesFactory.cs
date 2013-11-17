@@ -7,6 +7,6 @@ namespace Web.ModelFactories.PageBaseModelFactories
     {
         PageProperties Create();
         PageProperties Create(User user);
-        PageProperties Create(User user, Homegame homegame, Cashgame runningGame = null);
+        PageProperties Create(User user, Homegame homegame);
     }
 }

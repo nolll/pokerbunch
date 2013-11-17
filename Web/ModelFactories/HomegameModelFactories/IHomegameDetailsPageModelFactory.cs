@@ -5,6 +5,6 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IHomegameDetailsPageModelFactory
     {
-        HomegameDetailsPageModel Create(User user, Homegame homegame, bool isInManagerMode, Cashgame runningGame = null);
+        HomegameDetailsPageModel Create(User user, Homegame homegame, bool isInManagerMode);
     }
 }

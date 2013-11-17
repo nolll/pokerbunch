@@ -366,7 +366,6 @@
     <Content Include="FrontEnd\Css\compiled\font-awesome.css" />
     <Content Include="FrontEnd\Css\compiled\style.css" />
     <Content Include="FrontEnd\Css\compiled\tests.css" />
-    <Content Include="FrontEnd\Css\style.css" />
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
     <Content Include="FrontEnd\Images\black_leather.png" />
     <Content Include="FrontEnd\Images\bright_squares.png" />

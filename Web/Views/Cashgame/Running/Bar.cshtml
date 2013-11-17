@@ -1,5 +1,13 @@
-{if $model->gameIsRunning}
-	<div class="running-game">
-		<a href="{$model->gameUrl->url}">Running game</a>
-	</div>
-{/if}
+@model Web.Models.CashgameModels.Running.BarModel
+@if (Model.GameIsRunning)
+{
+    <div class="bar running-game">
+        <a href="@Model.Url">Running game</a>
+    </div>
+}
+else
+{
+    <div class="bar">
+        <a href="@Model.Url">Start game</a>
+    </div>
+}

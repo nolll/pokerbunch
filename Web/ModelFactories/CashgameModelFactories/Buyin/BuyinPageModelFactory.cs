@@ -18,7 +18,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
             return new BuyinPageModel
                 {
                     BrowserTitle = "Buy In",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
                     StackFieldEnabled = runningGame.IsInGame(player),
                     BuyinAmount = homegame.DefaultBuyin
                 };

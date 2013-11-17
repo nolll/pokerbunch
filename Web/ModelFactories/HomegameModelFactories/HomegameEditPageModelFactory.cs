@@ -25,14 +25,14 @@ namespace Web.ModelFactories.HomegameModelFactories
             _globalization = globalization;
         }
 
-        public HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame)
+        public HomegameEditPageModel Create(User user, Homegame homegame)
         {
             var currency = homegame.Currency;
 
             return new HomegameEditPageModel
                 {
                     BrowserTitle = "Edit Homegame",
-		            PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+		            PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        CancelUrl = _urlProvider.GetHomegameDetailsUrl(homegame),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
 			        Description = homegame.Description,
@@ -49,9 +49,9 @@ namespace Web.ModelFactories.HomegameModelFactories
                 };
         }
 
-        public HomegameEditPageModel Create(User user, Homegame homegame, Cashgame runningGame, HomegameEditPostModel postModel)
+        public HomegameEditPageModel Create(User user, Homegame homegame, HomegameEditPostModel postModel)
         {
-            var model = Create(user, homegame, runningGame);
+            var model = Create(user, homegame);
             model.Description = postModel.Description;
             model.TimeZone = postModel.TimeZone;
             model.CurrencySymbol = postModel.CurrencySymbol;

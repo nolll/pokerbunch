@@ -18,7 +18,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
             return new ReportPageModel
                 {
                     BrowserTitle = "Report Stack",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
                 };
         }
 

@@ -50,8 +50,7 @@ namespace Web.ModelServices
         {
             var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
             var players = _playerRepository.GetAll(homegame);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _playerListingPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode, runningGame);
+            return _playerListingPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode);
         }
 
         public PlayerDetailsPageModel GetDetailsModel(Homegame homegame, string playerName)
@@ -62,32 +61,27 @@ namespace Web.ModelServices
             var cashgames = _cashgameRepository.GetPublished(homegame);
             var isManager = _userContext.IsInRole(homegame, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _playerDetailsPageModelFactory.Create(currentUser, homegame, player, user, cashgames, isManager, hasPlayed, runningGame);
+            return _playerDetailsPageModelFactory.Create(currentUser, homegame, player, user, cashgames, isManager, hasPlayed);
         }
 
         public AddPlayerPageModel GetAddModel(Homegame homegame, AddPlayerPostModel postModel)
         {
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame, postModel);
+            return _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, postModel);
         }
 
         public AddPlayerConfirmationPageModel GetAddConfirmationModel(Homegame homegame)
         {
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _addPlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+            return _addPlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame);
         }
 
         public InvitePlayerPageModel GetInviteModel(Homegame homegame)
         {
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _invitePlayerPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+            return _invitePlayerPageModelFactory.Create(_userContext.GetUser(), homegame);
         }
 
         public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(Homegame homegame)
         {
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return _invitePlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame, runningGame);
+            return _invitePlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame);
         }
 
     }

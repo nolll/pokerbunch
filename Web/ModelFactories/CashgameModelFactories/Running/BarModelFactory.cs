@@ -20,7 +20,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new BarModel
                 {
                     GameIsRunning = gameIsRunning,
-                    GameUrl = gameIsRunning ? _urlProvider.GetRunningCashgameUrl(homegame) : null
+                    Url = gameIsRunning ? _urlProvider.GetRunningCashgameUrl(homegame) : _urlProvider.GetCashgameAddUrl(homegame)
                 };
         }
     }

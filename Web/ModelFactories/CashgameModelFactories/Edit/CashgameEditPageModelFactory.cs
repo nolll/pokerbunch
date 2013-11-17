@@ -25,12 +25,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             _globalization = globalization;
         }
 
-        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame)
+        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IEnumerable<string> locations)
         {
             return new CashgameEditPageModel
                 {
                     BrowserTitle = "Edit Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame, runningGame),
+                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
                     IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
 			        CancelUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
 			        DeleteUrl = _urlProvider.GetCashgameDeleteUrl(homegame, cashgame),
@@ -41,10 +41,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
                 };
         }
 
-        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IList<string> locations, IList<int> years, Cashgame runningGame, CashgameEditPostModel postModel)
+        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IEnumerable<string> locations, CashgameEditPostModel postModel)
         {
-            var model = Create(user, homegame, cashgame, locations, years, runningGame);
-
+            var model = Create(user, homegame, cashgame, locations);
+            model.TypedLocation = postModel.TypedLocation;
+            model.SelectedLocation = postModel.SelectedLocation;
             return model;
         }
     }
