@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AuthCommands\LogoutCommand.cs" />
     <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />

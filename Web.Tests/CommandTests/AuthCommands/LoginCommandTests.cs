@@ -6,9 +6,9 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.AuthCommands;
 
-namespace Web.Tests.CommandTests{
+namespace Web.Tests.CommandTests.AuthCommands{
 
-	public class AuthCommandTests : WebMockContainer
+	public class LoginCommandTests : WebMockContainer
 	{
         private string _loginName;
 	    private string _password;

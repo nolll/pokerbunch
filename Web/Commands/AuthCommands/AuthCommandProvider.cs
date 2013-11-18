@@ -24,5 +24,10 @@ namespace Web.Commands.AuthCommands
         {
             return new LoginCommand(_userRepository, _encryptionService, _webContext, loginName, password, rememberMe);
         }
+
+        public Command GetLogoutCommand()
+        {
+            return new LogoutCommand(_webContext);
+        }
     }
 }
