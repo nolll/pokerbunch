@@ -6,6 +6,7 @@ namespace Web.Models.HomegameModels.Join{
 
         public PageProperties PageProperties { get; set; }
 	    public string BrowserTitle { get; set; }
+	    public string Name { get; set; }
 	}
 
 }

@@ -29,7 +29,7 @@ namespace Web.Commands.UserCommands
 
         public override bool Execute()
         {
-            if (IsValid(_postModel))
+            if (!IsValid(_postModel))
             {
                 return false;
             }

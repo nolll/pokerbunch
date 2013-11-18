@@ -21,12 +21,9 @@ namespace Web.Commands.PlayerCommands
 
         public override bool Execute()
         {
-            if (IsValid(_model))
-            {
-                _invitationSender.Send(_homegame, _player, _model.Email);
-                return true;
-            }
-            return false;
+            if (!IsValid(_model)) return false;
+            _invitationSender.Send(_homegame, _player, _model.Email);
+            return true;
         }
     }
 }

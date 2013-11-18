@@ -38,7 +38,7 @@ namespace Web.Commands.UserCommands
 
         public override bool Execute()
         {
-            if (IsValid(_postModel)) return false;
+            if (!IsValid(_postModel)) return false;
             if (!_userService.IsUserNameAvailable(_postModel.UserName))
             {
                 AddError("The User Name is already in use");
