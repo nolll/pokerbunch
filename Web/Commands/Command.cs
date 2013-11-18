@@ -33,6 +33,11 @@ namespace Web.Commands
             get { return _errors.Select(o => o.ErrorMessage); }
         } 
 
+        protected bool HasErrors
+        {
+            get { return _errors.Count > 0; }
+        }
+
         public abstract bool Execute();
     }
 }

@@ -12,6 +12,8 @@ using Infrastructure.System;
 using Web.Commands;
 using Web.Commands.AuthCommands;
 using Web.Commands.PlayerCommands;
+using Web.Commands.UserCommands;
+using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
@@ -177,9 +179,10 @@ namespace Web.Plumbing
             RegisterComponent<IUserModelMapper, UserModelMapper>();
             RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>();
 
-            // Commands
+            // Command Providers
             RegisterComponent<IPlayerCommandProvider, PlayerCommandProvider>();
             RegisterComponent<IAuthCommandProvider, AuthCommandProvider>();
+            RegisterComponent<IUserCommandProvider, UserCommandProvider>();
         }
 
     }
