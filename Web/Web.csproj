@@ -152,6 +152,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
+    <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
+    <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\DeletePlayerCommand.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />

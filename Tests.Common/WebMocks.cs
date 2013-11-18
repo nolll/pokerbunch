@@ -5,6 +5,7 @@ using Infrastructure.Data.Factories;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
+using Web.Commands.AuthCommands;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -96,6 +97,7 @@ namespace Tests.Common
         public readonly Mock<IActionChartModelFactory> ActionChartModelFactoryMock;
         public readonly Mock<ICashgameDetailsChartModelFactory> CashgameDetailsChartModelFactoryMock;
         public readonly Mock<IMessageSender> MessageSenderMock;
+        public readonly Mock<IAuthCommandProvider> AuthCommandProviderMock;
         
         public WebMocks()
         {
@@ -163,6 +165,7 @@ namespace Tests.Common
             ActionChartModelFactoryMock = new Mock<IActionChartModelFactory>();
             CashgameDetailsChartModelFactoryMock = new Mock<ICashgameDetailsChartModelFactory>();
             MessageSenderMock = new Mock<IMessageSender>();
+            AuthCommandProviderMock = new Mock<IAuthCommandProvider>();
         }
 
     }

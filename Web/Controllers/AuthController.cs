@@ -1,32 +1,28 @@
 using System.Web.Mvc;
-using Core.Classes;
-using Core.Repositories;
 using Core.Services;
 using Infrastructure.System;
+using Web.Commands.AuthCommands;
 using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers{
 
-	public class AuthController : Controller {
-	    private readonly IUserRepository _userRepository;
-	    private readonly IEncryptionService _encryptionService;
+	public class AuthController : ControllerBase {
 	    private readonly IWebContext _webContext;
 	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
 	    private readonly IUrlProvider _urlProvider;
+	    private readonly IAuthCommandProvider _authCommandProvider;
 
 	    public AuthController(
-            IUserRepository userRepository,
-            IEncryptionService encryptionService, 
             IWebContext webContext, 
             IAuthLoginPageModelFactory authLoginPageModelFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IAuthCommandProvider authCommandProvider)
 	    {
-	        _userRepository = userRepository;
-	        _encryptionService = encryptionService;
 	        _webContext = webContext;
 	        _authLoginPageModelFactory = authLoginPageModelFactory;
 	        _urlProvider = urlProvider;
+	        _authCommandProvider = authCommandProvider;
 	    }
 
 		public ActionResult Login(){
@@ -35,48 +31,25 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-		public ActionResult Login(AuthLoginPostModel postModel){
-            var user = GetLoggedInUser(postModel.LoginName, postModel.Password);
-            if (user != null)
+		public ActionResult Login(AuthLoginPostModel postModel)
+        {
+            var command = _authCommandProvider.GetLoginCommand(postModel.LoginName, postModel.Password, postModel.RememberMe);
+            if (command.Execute())
             {
-            	SetCookies(user, postModel.RememberMe);
                 return Redirect(GetReturnUrl(postModel.ReturnUrl));
-			}
-            ModelState.AddModelError("login_error", "There was something wrong with your username or password. Please try again.");
+            }
+            AddModelErrors(command.Errors);
             var model = _authLoginPageModelFactory.Create(postModel);
             return View("Login", model);
 		}
 
-		private User GetLoggedInUser(string loginName, string password){
-			var salt = _userRepository.GetSalt(loginName);
-			var encryptedPassword = _encryptionService.Encrypt(password, salt);
-			return _userRepository.GetUserByCredentials(loginName, encryptedPassword);
-		}
+        public ActionResult Logout()
+        {
+            ClearCookies();
+            return RedirectToAction("Index", "Home");
+        }
 
-		public ActionResult Logout(){
-			ClearCookies();
-		    return RedirectToAction("Index", "Home");
-		}
-
-		private void SetCookies(User user, bool remember){
-			if(remember){
-				SetPersistentCookies(user);
-			} else {
-				SetSessionCookies(user);
-			}
-		}
-
-		private void SetSessionCookies(User user){
-			var token = _userRepository.GetToken(user);
-			_webContext.SetSessionCookie("token", token);
-		}
-
-		private void SetPersistentCookies(User user){
-			var token = _userRepository.GetToken(user);
-			_webContext.SetPersistentCookie("token", token);
-		}
-
-		private string GetReturnUrl(string returnUrl){
+        private string GetReturnUrl(string returnUrl){
 			if(string.IsNullOrEmpty(returnUrl)){
 				return _urlProvider.GetHomeUrl();
 			}

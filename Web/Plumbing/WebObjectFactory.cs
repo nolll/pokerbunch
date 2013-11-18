@@ -10,6 +10,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.System;
 using Web.Commands;
+using Web.Commands.AuthCommands;
 using Web.Commands.PlayerCommands;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -178,6 +179,7 @@ namespace Web.Plumbing
 
             // Commands
             RegisterComponent<IPlayerCommandProvider, PlayerCommandProvider>();
+            RegisterComponent<IAuthCommandProvider, AuthCommandProvider>();
         }
 
     }
