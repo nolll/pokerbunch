@@ -6,6 +6,7 @@ using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
 using Web.Commands.AuthCommands;
+using Web.Commands.PlayerCommands;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -27,6 +28,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
+using Web.ModelServices;
 using Web.Services;
 
 namespace Tests.Common
@@ -98,6 +100,8 @@ namespace Tests.Common
         public readonly Mock<ICashgameDetailsChartModelFactory> CashgameDetailsChartModelFactoryMock;
         public readonly Mock<IMessageSender> MessageSenderMock;
         public readonly Mock<IAuthCommandProvider> AuthCommandProviderMock;
+        public readonly Mock<IPlayerModelService> PlayerModelServiceMock;
+        public readonly Mock<IPlayerCommandProvider> PlayerCommandProviderMock;
         
         public WebMocks()
         {
@@ -166,6 +170,8 @@ namespace Tests.Common
             CashgameDetailsChartModelFactoryMock = new Mock<ICashgameDetailsChartModelFactory>();
             MessageSenderMock = new Mock<IMessageSender>();
             AuthCommandProviderMock = new Mock<IAuthCommandProvider>();
+            PlayerModelServiceMock = new Mock<IPlayerModelService>();
+            PlayerCommandProviderMock = new Mock<IPlayerCommandProvider>();
         }
 
     }

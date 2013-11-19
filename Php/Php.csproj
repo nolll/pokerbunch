@@ -80,7 +80,6 @@
     <None Include="tests\AppTests\Player\Achievements\SingleAchievements\NumberOfGamesAchievementTests.php" />
     <None Include="tests\AppTests\Player\InvitationSenderTests.php" />
     <None Include="tests\AppTests\Player\PlayerAddControllerTests.php" />
-    <None Include="tests\AppTests\Player\PlayerDetailsControllerTests.php" />
     <None Include="tests\AppTests\Player\PlayerDetailsModelTests.php" />
     <None Include="tests\AppTests\Player\PlayerFactsModelTests.php" />
     <None Include="tests\AppTests\Player\PlayerInviteControllerTests.php" />

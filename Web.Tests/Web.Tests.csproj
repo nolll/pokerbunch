@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
+    <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
     <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
