@@ -8,7 +8,7 @@ using Web.Models.NavigationModels;
 
 namespace Web.Tests.ModelFactoryTests.BaseModelFactories
 {
-    public class PagePropertiesFactoryTests : WebMockContainer
+    public class PagePropertiesFactoryTests : MockContainer
     {
         [Test]
         public void Create_WithoutHomeGame_HomegameNavModelIsNull()

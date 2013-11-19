@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheContainerFake.cs" />
+    <Compile Include="MockContainer.cs" />
     <Compile Include="FakeClasses\FakeCashgame.cs" />
     <Compile Include="FakeClasses\FakeCashgameResult.cs" />
     <Compile Include="FakeClasses\FakeHomegame.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="FakeCommands\FakeFailedCommand.cs" />
     <Compile Include="FakeCommands\FakeSuccessfulCommand.cs" />
     <Compile Include="WebMocks.cs" />
-    <Compile Include="WebMockContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

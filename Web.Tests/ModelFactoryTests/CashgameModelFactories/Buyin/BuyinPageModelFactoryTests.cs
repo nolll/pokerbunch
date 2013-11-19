@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Buyin;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 
-	class BuyinPageModelFactoryTests : WebMockContainer {
+	class BuyinPageModelFactoryTests : MockContainer {
 
 		private BuyinPostModel _postModel;
 

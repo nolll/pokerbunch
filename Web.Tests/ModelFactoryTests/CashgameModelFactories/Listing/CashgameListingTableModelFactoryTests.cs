@@ -10,7 +10,7 @@ using Web.Models.CashgameModels.Listing;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
-	public class CashgameListingTableModelFactoryTests : WebMockContainer {
+	public class CashgameListingTableModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private List<Cashgame> _cashgames;

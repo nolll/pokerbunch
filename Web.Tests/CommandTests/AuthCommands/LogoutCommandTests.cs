@@ -4,7 +4,7 @@ using Web.Commands.AuthCommands;
 
 namespace Web.Tests.CommandTests.AuthCommands{
 
-	public class LogoutCommandTests : WebMockContainer
+	public class LogoutCommandTests : MockContainer
 	{
         [Test]
         public void Execute_ReturnsTrueAndClearsCookies()

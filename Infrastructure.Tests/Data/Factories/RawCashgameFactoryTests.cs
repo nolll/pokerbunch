@@ -1,12 +1,13 @@
 ﻿using Core.Classes;
 using Infrastructure.Data.Factories;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Data.Factories
 {
-    public class RawCashgameFactoryTests : InfrastructureMockContainer
+    public class RawCashgameFactoryTests : MockContainer
     {
         [Test]
         public void Create_WithoutStatus_StatusIsSetFromCashgame()
@@ -29,7 +30,7 @@ namespace Infrastructure.Tests.Data.Factories
         private RawCashgameFactory GetSut()
         {
             return new RawCashgameFactory(
-                Mocks.TimeProviderMock.Object);
+                GetMock<ITimeProvider>().Object);
         }
     }
 }

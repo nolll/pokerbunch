@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Listing;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
-	public class CashgameListingPageModelFactoryTests : WebMockContainer {
+	public class CashgameListingPageModelFactoryTests : MockContainer {
 
         [Test]
 		public void ListTableModel_IsSet()

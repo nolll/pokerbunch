@@ -8,7 +8,7 @@ using Web.ModelFactories.CashgameModelFactories.Listing;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
-	public class CashgameListingTableItemModelFactoryTests : WebMockContainer {
+	public class CashgameListingTableItemModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private bool _showYear;

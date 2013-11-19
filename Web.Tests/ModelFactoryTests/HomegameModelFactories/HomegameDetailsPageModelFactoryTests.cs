@@ -6,7 +6,7 @@ using Web.ModelFactories.HomegameModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
-	public class HomegameDetailsPageModelFactoryTests : WebMockContainer
+	public class HomegameDetailsPageModelFactoryTests : MockContainer
     {
 
 		private User _user;

@@ -6,7 +6,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
-	public class BarModelFactoryTests : WebMockContainer
+	public class BarModelFactoryTests : MockContainer
     {
 
 		private Homegame _homegame;

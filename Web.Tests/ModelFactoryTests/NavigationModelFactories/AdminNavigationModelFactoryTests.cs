@@ -6,7 +6,7 @@ using Web.ModelFactories.NavigationModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 
-	public class AdminNavigationModelFactoryTests : WebMockContainer
+	public class AdminNavigationModelFactoryTests : MockContainer
 	{
 	    private User _user;
 

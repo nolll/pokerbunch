@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.Factories;
+using Infrastructure.System;
 using NUnit.Framework;
+using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
-	public class CashgameResultFactoryTests : InfrastructureMockContainer
+	public class CashgameResultFactoryTests : MockContainer
     {
         private List<Checkpoint> _checkpoints;
 
@@ -142,7 +144,7 @@ namespace Infrastructure.Tests.Factories{
 
 		private CashgameResult GetResult(){
 			var player = new FakePlayer();
-			var factory = new CashgameResultFactory(Mocks.TimeProviderMock.Object);
+			var factory = new CashgameResultFactory(GetMock<ITimeProvider>().Object);
 			return factory.Create(player, _checkpoints);
 		}
 

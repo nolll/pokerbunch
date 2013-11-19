@@ -9,7 +9,7 @@ using Web.ModelFactories.CashgameModelFactories.Action;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 	
-	public class CheckpointModelFactoryTests : WebMockContainer
+	public class CheckpointModelFactoryTests : MockContainer
 	{
 	    private int _stack;
 	    private DateTime _timestamp;

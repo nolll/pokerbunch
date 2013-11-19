@@ -9,7 +9,7 @@ using Web.Models.CashgameModels.Add;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
 
-	public class AddCashgamePageModelFactoryTests : WebMockContainer {
+	public class AddCashgamePageModelFactoryTests : MockContainer {
 
 		private User _user;
 		private Homegame _homegame;

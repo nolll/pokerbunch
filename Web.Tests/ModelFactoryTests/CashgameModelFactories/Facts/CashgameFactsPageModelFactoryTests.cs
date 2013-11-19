@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Facts;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
-	public class CashgameFactsPageModelFactoryTests : WebMockContainer
+	public class CashgameFactsPageModelFactoryTests : MockContainer
     {
         private CashgameSuite _suite;
 

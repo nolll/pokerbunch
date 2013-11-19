@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Chart;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
 
-	class CashgameChartPageModelFactoryTests : WebMockContainer {
+	class CashgameChartPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private CashgameSuite _suite;

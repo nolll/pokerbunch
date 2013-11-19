@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Leaderboard;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
-	public class CashgameLeaderboardPageModelFactoryTests : WebMockContainer {
+	public class CashgameLeaderboardPageModelFactoryTests : MockContainer {
 
         [Test]
 		public void ActionLeaderboard_SetsTableModel(){

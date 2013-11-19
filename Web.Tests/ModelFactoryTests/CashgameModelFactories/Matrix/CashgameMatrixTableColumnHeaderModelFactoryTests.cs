@@ -7,7 +7,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
-	public class CashgameMatrixTableColumnHeaderModelFactoryTests : WebMockContainer
+	public class CashgameMatrixTableColumnHeaderModelFactoryTests : MockContainer
     {
         private Homegame _homegame;
 	    private bool _showYear;

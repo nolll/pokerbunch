@@ -1,14 +1,11 @@
 ﻿using Core.Repositories;
 using Core.Services;
 using Infrastructure.Caching;
-using Infrastructure.Data.Factories;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
 using Web.Commands.AuthCommands;
-using Web.Commands.PlayerCommands;
 using Web.ModelFactories.AuthModelFactories;
-using Web.ModelFactories.CashgameModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
@@ -35,7 +32,8 @@ namespace Tests.Common
 {
     public class WebMocks
     {
-        public readonly Mock<IHomegameRepository> HomegameRepositoryMock;
+        public readonly CacheContainerFake CacheContainerFake;
+
         public readonly Mock<ICashgameRepository> CashgameRepositoryMock;
         public readonly Mock<IPlayerRepository> PlayerRepositoryMock;
         public readonly Mock<IUserRepository> UserRepositoryMock;
@@ -48,9 +46,7 @@ namespace Tests.Common
         public readonly Mock<IUserContext> UserContextMock;
         public readonly Mock<IEncryptionService> EncryptionServiceMock;
         public readonly Mock<ITimeProvider> TimeProviderMock;
-        public readonly Mock<ICacheProvider> CacheProviderMock;
         public readonly Mock<ICacheContainer> CacheContainerMock;
-        public readonly CacheContainerFake CacheContainerFake;
         public readonly Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
         public readonly Mock<IAuthLoginPageModelFactory> AuthLoginPageModelFactoryMock;
         public readonly Mock<ISettings> SettingsMock;
@@ -91,21 +87,17 @@ namespace Tests.Common
         public readonly Mock<ICashgameListingTableItemModelFactory> CashgameListingTableItemModelFactoryMock;
         public readonly Mock<ICashgameLeaderboardTableModelFactory> CashgameLeaderboardTableModelFactoryMock;
         public readonly Mock<ICashgameLeaderboardTableItemModelFactory> CashgameLeaderboardTableItemModelFactoryMock;
-        public readonly Mock<IBarModelFactory> BarModelFactoryMock;
         public readonly Mock<ICashgameMatrixTableCellModelFactory> CashgameMatrixTableCellModelFactoryMock;
         public readonly Mock<IResultFormatter> ResultFormatterMock;
         public readonly Mock<IGlobalization> GlobalizationMock;
         public readonly Mock<ICashgameSuiteChartModelFactory> CashgameSuiteChartModelFactoryMock;
         public readonly Mock<IActionChartModelFactory> ActionChartModelFactoryMock;
         public readonly Mock<ICashgameDetailsChartModelFactory> CashgameDetailsChartModelFactoryMock;
-        public readonly Mock<IMessageSender> MessageSenderMock;
         public readonly Mock<IAuthCommandProvider> AuthCommandProviderMock;
         public readonly Mock<IPlayerModelService> PlayerModelServiceMock;
-        public readonly Mock<IPlayerCommandProvider> PlayerCommandProviderMock;
         
         public WebMocks()
         {
-            HomegameRepositoryMock = new Mock<IHomegameRepository>();
             CashgameRepositoryMock = new Mock<ICashgameRepository>();
             PlayerRepositoryMock = new Mock<IPlayerRepository>();
             UserRepositoryMock = new Mock<IUserRepository>();
@@ -118,7 +110,6 @@ namespace Tests.Common
             UserContextMock = new Mock<IUserContext>();
             EncryptionServiceMock = new Mock<IEncryptionService>();
             TimeProviderMock = new Mock<ITimeProvider>();
-            CacheProviderMock = new Mock<ICacheProvider>();
             CacheContainerMock = new Mock<ICacheContainer>();
             CacheContainerFake = new CacheContainerFake();
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
@@ -161,17 +152,14 @@ namespace Tests.Common
             CashgameListingTableItemModelFactoryMock = new Mock<ICashgameListingTableItemModelFactory>();
             CashgameLeaderboardTableModelFactoryMock = new Mock<ICashgameLeaderboardTableModelFactory>();
             CashgameLeaderboardTableItemModelFactoryMock = new Mock<ICashgameLeaderboardTableItemModelFactory>();
-            BarModelFactoryMock = new Mock<IBarModelFactory>();
             CashgameMatrixTableCellModelFactoryMock = new Mock<ICashgameMatrixTableCellModelFactory>();
             ResultFormatterMock = new Mock<IResultFormatter>();
             GlobalizationMock = new Mock<IGlobalization>();
             CashgameSuiteChartModelFactoryMock = new Mock<ICashgameSuiteChartModelFactory>();
             ActionChartModelFactoryMock = new Mock<IActionChartModelFactory>();
             CashgameDetailsChartModelFactoryMock = new Mock<ICashgameDetailsChartModelFactory>();
-            MessageSenderMock = new Mock<IMessageSender>();
             AuthCommandProviderMock = new Mock<IAuthCommandProvider>();
             PlayerModelServiceMock = new Mock<IPlayerModelService>();
-            PlayerCommandProviderMock = new Mock<IPlayerCommandProvider>();
         }
 
     }

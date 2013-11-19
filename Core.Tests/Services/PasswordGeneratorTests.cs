@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Core.Tests.Services{
 
-	public class PasswordGeneratorTests : WebMockContainer {
+	public class PasswordGeneratorTests : MockContainer {
 
 		[Test]
         public void CreatePassword_Returns8CharPassword(){

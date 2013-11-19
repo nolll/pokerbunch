@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Core.Tests.Services{
 
-	public class SaltGeneratorTests : WebMockContainer {
+	public class SaltGeneratorTests : MockContainer {
 
         [Test]
         public void CreateSalt_Returns10CharSalt()

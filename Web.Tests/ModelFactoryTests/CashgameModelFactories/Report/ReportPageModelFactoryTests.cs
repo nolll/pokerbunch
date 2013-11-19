@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Report;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
 
-	public class ReportPageModelFactoryTests : WebMockContainer {
+	public class ReportPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private Player _player;

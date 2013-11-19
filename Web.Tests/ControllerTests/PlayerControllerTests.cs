@@ -1,23 +1,26 @@
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
+using Core.Repositories;
+using Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Tests.Common.FakeCommands;
+using Web.Commands.PlayerCommands;
 using Web.Controllers;
 
 namespace Web.Tests.ControllerTests{
 
-	public class PlayerControllerTests : WebMockContainer
+	public class PlayerControllerTests : MockContainer
     {
         [Test]
 		public void Details_NotAuthorized_ThrowsException()
 		{
 		    const string homegameName = "a";
 		    const string playerName = "b";
-		    Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
+            GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
 		    var sut = GetSut();
@@ -30,7 +33,7 @@ namespace Web.Tests.ControllerTests{
         {
 			const string homegameName = "a";
 		    const string playerName = "b";
-            Mocks.HomegameRepositoryMock.Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
+            GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
             Mocks.UserContextMock.Setup(o => o.RequireManager(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
@@ -45,7 +48,7 @@ namespace Web.Tests.ControllerTests{
 		    const string playerName = "b";
             const string listingUrl = "c";
 
-            Mocks.PlayerCommandProviderMock.Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeSuccessfulCommand());
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeSuccessfulCommand());
             Mocks.UrlProviderMock.Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listingUrl);
 
             var sut = GetSut();
@@ -62,7 +65,7 @@ namespace Web.Tests.ControllerTests{
             const string playerName = "b";
             const string playerUrl = "c";
 
-            Mocks.PlayerCommandProviderMock.Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeFailedCommand());
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeFailedCommand());
             Mocks.UrlProviderMock.Setup(o => o.GetPlayerDetailsUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(playerUrl);
 
             var sut = GetSut();
@@ -75,11 +78,11 @@ namespace Web.Tests.ControllerTests{
         private PlayerController GetSut(){
 			return new PlayerController(
                 Mocks.UserContextMock.Object,
-                Mocks.HomegameRepositoryMock.Object,
+                GetMock<IHomegameRepository>().Object,
                 Mocks.PlayerRepositoryMock.Object, 
                 Mocks.PlayerModelServiceMock.Object,
                 Mocks.UrlProviderMock.Object,
-                Mocks.PlayerCommandProviderMock.Object);
+                GetMock<IPlayerCommandProvider>().Object);
 		}
 
 	}

@@ -9,7 +9,7 @@ using Web.Services;
 
 namespace Web.Tests.ServiceTests{
 
-	public class UrlProviderTests : WebMockContainer {
+	public class UrlProviderTests : MockContainer {
 
 		[Test]
         public void HomeUrl()

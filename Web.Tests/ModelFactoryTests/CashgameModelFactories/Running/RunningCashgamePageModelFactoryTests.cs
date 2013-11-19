@@ -9,7 +9,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
-	class RunningCashgamePageModelFactoryTests : WebMockContainer {
+	class RunningCashgamePageModelFactoryTests : MockContainer {
 
 		[Test]
         public void StartTime_WithStartTime_IsSet()

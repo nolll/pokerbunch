@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Cashout;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
 
-    class CashoutPageModelFactoryTests : WebMockContainer {
+    class CashoutPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		

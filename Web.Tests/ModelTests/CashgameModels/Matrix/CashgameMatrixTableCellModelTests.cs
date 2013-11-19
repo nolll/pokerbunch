@@ -7,7 +7,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
-	public class CashgameMatrixTableCellModelTests : WebMockContainer {
+	public class CashgameMatrixTableCellModelTests : MockContainer {
 
 		private Cashgame _cashgame;
 

@@ -1,10 +1,11 @@
+using Core.Services;
 using Infrastructure.Integration.Gravatar;
 using NUnit.Framework;
 using Tests.Common;
 
 namespace Infrastructure.Tests.Gravatar{
 
-	public class GravatarTests : InfrastructureMockContainer {
+	public class GravatarTests : MockContainer {
 
 	    private const string TestEmail = "henriks@gmail.com";
 	    private const string TestHash = "abcdef";
@@ -13,8 +14,8 @@ namespace Infrastructure.Tests.Gravatar{
 		public void SmallGravatarUrl(){
 	        const string expectedUrlFormat = "http://www.gravatar.com/avatar/{0}?s=40&d=site-url/FrontEnd/Images/pix.gif";
 	        var expected = string.Format(expectedUrlFormat, TestHash);
-            Mocks.EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
-            Mocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
+            GetMock<IEncryptionService>().Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
+            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns("site-url");
 			
             var sut = GetSut();
 
@@ -26,8 +27,8 @@ namespace Infrastructure.Tests.Gravatar{
 		public void LargeGravatarUrl(){
 			const string expectedUrlFormat = "http://www.gravatar.com/avatar/{0}?s=100&d=site-url/FrontEnd/Images/pix.gif";
             var expected = string.Format(expectedUrlFormat, TestHash);
-            Mocks.EncryptionServiceMock.Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
-            Mocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns("site-url");
+            GetMock<IEncryptionService>().Setup(o => o.GetMd5Hash(TestEmail)).Returns(TestHash);
+            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns("site-url");
             
             var sut = GetSut();
 
@@ -36,7 +37,7 @@ namespace Infrastructure.Tests.Gravatar{
 		}
 
 		private GravatarService GetSut(){
-            return new GravatarService(Mocks.SettingsMock.Object, Mocks.EncryptionServiceMock.Object);
+            return new GravatarService(GetMock<ISettings>().Object, GetMock<IEncryptionService>().Object);
 		}
 
 	}

@@ -8,7 +8,7 @@ using Web.Models.MiscModels;
 
 namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 
-	public class UserDetailsPageModelFactoryTests : WebMockContainer {
+	public class UserDetailsPageModelFactoryTests : MockContainer {
 
 		[Test]
         public void ActionDetails_SetsUserData(){

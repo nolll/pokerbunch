@@ -7,7 +7,7 @@ using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
-	public class CashgameLeaderboardTableModelFactoryTests : WebMockContainer {
+	public class CashgameLeaderboardTableModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 

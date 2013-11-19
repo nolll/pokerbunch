@@ -8,7 +8,7 @@ using Web.Commands.AuthCommands;
 
 namespace Web.Tests.CommandTests.AuthCommands{
 
-	public class LoginCommandTests : WebMockContainer
+	public class LoginCommandTests : MockContainer
 	{
         private string _loginName;
 	    private string _password;

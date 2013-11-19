@@ -8,7 +8,7 @@ using Web.Models.AuthModels;
 
 namespace Web.Tests.ControllerTests{
 
-	public class AuthControllerTests : WebMockContainer {
+	public class AuthControllerTests : MockContainer {
 
 		[Test]
         public void ActionLoginPost_LoginSucceededButNoReturnUrl_RedirectsToRoot()

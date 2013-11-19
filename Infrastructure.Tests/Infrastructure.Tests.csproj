@@ -48,9 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Factories\RawCashgameFactoryTests.cs" />
-    <Compile Include="InfrastructureMockContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="InfrastructureMocks.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\CashgameResultFactoryTests.cs" />

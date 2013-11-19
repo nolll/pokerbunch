@@ -10,7 +10,7 @@ using Web.Models.CashgameModels.Details;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
-	public class CashgameDetailsPageModelFactoryTests : WebMockContainer {
+	public class CashgameDetailsPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private bool _isManager;

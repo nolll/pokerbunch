@@ -8,7 +8,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
-	class RunningCashgameTableItemModelFactoryTests : WebMockContainer {
+	class RunningCashgameTableItemModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 		private Cashgame _cashgame;

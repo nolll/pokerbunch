@@ -9,7 +9,7 @@ using Web.Models.CashgameModels.Details;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
-	public class CashgameDetailsTableModelFactoryTests : WebMockContainer {
+	public class CashgameDetailsTableModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 

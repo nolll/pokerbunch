@@ -6,7 +6,7 @@ using Web.Commands.PlayerCommands;
 
 namespace Web.Tests.CommandTests.PlayerCommands
 {
-    public class DeletePlayerCommandTests : WebMockContainer
+    public class DeletePlayerCommandTests : MockContainer
     {
         [Test]
         public void Execute_PlayerHasResults_ReturnsFalse()

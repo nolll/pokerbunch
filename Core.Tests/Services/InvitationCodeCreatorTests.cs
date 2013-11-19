@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 
 namespace Core.Tests.Services{
 
-	public class InvitationCodeCreatorTests : WebMockContainer {
+	public class InvitationCodeCreatorTests : MockContainer {
 
         [Test]
 		public void GetCode_ReturnsEncryptedPlayerName()
