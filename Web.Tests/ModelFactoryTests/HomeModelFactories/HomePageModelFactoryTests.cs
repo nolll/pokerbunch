@@ -37,7 +37,7 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         {
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>()))
                                   .Returns(new List<Homegame>());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
 
             var sut = GetSut();
             var result = sut.Create();
@@ -48,9 +48,9 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
         private HomePageModelFactory GetSut()
         {
             return new HomePageModelFactory(
-                Mocks.UserContextMock.Object,
+                GetMock<IUserContext>().Object,
                 GetMock<IHomegameRepository>().Object,
-                Mocks.CashgameRepositoryMock.Object,
+                GetMock<ICashgameRepository>().Object,
                 Mocks.PagePropertiesFactoryMock.Object,
                 Mocks.AdminNavigationModelFactoryMock.Object,
                 Mocks.UrlProviderMock.Object);

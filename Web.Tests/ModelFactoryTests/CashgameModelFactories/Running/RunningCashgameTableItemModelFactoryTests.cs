@@ -1,5 +1,6 @@
 using System;
 using Core.Classes;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -98,7 +99,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		    const string formatted = "a";
 		    var expectedTimespan = new TimeSpan(0, 1, 0);
             var cashgameResult = new FakeCashgameResult(lastReportTime: DateTime.Parse("2010-01-01 01:00:00"));
-            Mocks.TimeProviderMock.Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
+            GetMock<ITimeProvider>().Setup(o => o.GetTime()).Returns(DateTime.Parse("2010-01-01 01:01:00"));
             Mocks.GlobalizationMock.Setup(o => o.FormatTimespan(expectedTimespan)).Returns(formatted);
 
 			var sut = GetSut();
@@ -212,7 +213,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		private RunningCashgameTableItemModelFactory GetSut(){
             return new RunningCashgameTableItemModelFactory(
                 Mocks.UrlProviderMock.Object,
-                Mocks.TimeProviderMock.Object,
+                GetMock<ITimeProvider>().Object,
                 Mocks.ResultFormatterMock.Object,
                 Mocks.GlobalizationMock.Object);
 		}

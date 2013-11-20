@@ -1,3 +1,4 @@
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
@@ -23,7 +24,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ReturnUrl_WithReturnUrl_IsSet()
 		{
-            Mocks.WebContextMock.Setup(o => o.GetQueryParam("return")).Returns("return-url");
+            GetMock<IWebContext>().Setup(o => o.GetQueryParam("return")).Returns("return-url");
 
 		    var sut = GetSut();
             var result = sut.Create();
@@ -69,7 +70,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
         {
             return new AuthLoginPageModelFactory(
                 Mocks.PagePropertiesFactoryMock.Object, 
-                Mocks.WebContextMock.Object,
+                GetMock<IWebContext>().Object,
                 Mocks.UrlProviderMock.Object);
         }
 

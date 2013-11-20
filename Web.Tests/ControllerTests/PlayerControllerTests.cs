@@ -21,7 +21,7 @@ namespace Web.Tests.ControllerTests{
 		    const string homegameName = "a";
 		    const string playerName = "b";
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
 		    var sut = GetSut();
 
@@ -34,7 +34,7 @@ namespace Web.Tests.ControllerTests{
 			const string homegameName = "a";
 		    const string playerName = "b";
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequireManager(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequireManager(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -77,9 +77,9 @@ namespace Web.Tests.ControllerTests{
 
         private PlayerController GetSut(){
 			return new PlayerController(
-                Mocks.UserContextMock.Object,
+                GetMock<IUserContext>().Object,
                 GetMock<IHomegameRepository>().Object,
-                Mocks.PlayerRepositoryMock.Object, 
+                GetMock<IPlayerRepository>().Object, 
                 Mocks.PlayerModelServiceMock.Object,
                 Mocks.UrlProviderMock.Object,
                 GetMock<IPlayerCommandProvider>().Object);

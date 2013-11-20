@@ -1,5 +1,8 @@
 using System.Linq;
 using Core.Classes;
+using Core.Repositories;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -25,7 +28,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
         [Test]
         public void Execute_UserFound_ReturnsTrue(){
 			var user = new FakeUser();
-            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
             var result = sut.Execute();
@@ -49,14 +52,14 @@ namespace Web.Tests.CommandTests.AuthCommands{
 		    const string cookieName = "token";
 		    const string tokenName = "a";
 			var user = new FakeUser();
-            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
             Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
 			sut.Execute();
 
-            Mocks.WebContextMock.Verify(o => o.SetSessionCookie(cookieName, tokenName));
+            GetMock<IWebContext>().Verify(o => o.SetSessionCookie(cookieName, tokenName));
 		}
 
         [Test]
@@ -65,22 +68,22 @@ namespace Web.Tests.CommandTests.AuthCommands{
             const string tokenName = "a";
             _rememberMe = true;
             var user = new FakeUser();
-            Mocks.UserRepositoryMock.Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            Mocks.UserRepositoryMock.Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
             Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
             sut.Execute();
 
-            Mocks.WebContextMock.Verify(o => o.SetPersistentCookie(cookieName, tokenName));
+            GetMock<IWebContext>().Verify(o => o.SetPersistentCookie(cookieName, tokenName));
 		}
 
         private LoginCommand GetSut()
         {
             return new LoginCommand(
-                Mocks.UserRepositoryMock.Object,
-                Mocks.EncryptionServiceMock.Object,
-                Mocks.WebContextMock.Object,
+                GetMock<IUserRepository>().Object,
+                GetMock<IEncryptionService>().Object,
+                GetMock<IWebContext>().Object,
                 _loginName,
                 _password,
                 _rememberMe);

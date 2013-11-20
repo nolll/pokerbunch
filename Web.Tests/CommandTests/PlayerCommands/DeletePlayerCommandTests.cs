@@ -1,4 +1,5 @@
 ﻿using Core.Classes;
+using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -14,7 +15,7 @@ namespace Web.Tests.CommandTests.PlayerCommands
             var homegame = new FakeHomegame();
             var player = new FakePlayer();
 
-            Mocks.CashgameRepositoryMock.Setup(o => o.HasPlayed(player)).Returns(true);
+            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(true);
 
             var sut = GetSut(homegame, player);
             var result = sut.Execute();
@@ -28,7 +29,7 @@ namespace Web.Tests.CommandTests.PlayerCommands
             var homegame = new FakeHomegame();
             var player = new FakePlayer();
 
-            Mocks.CashgameRepositoryMock.Setup(o => o.HasPlayed(player)).Returns(false);
+            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(false);
 
             var sut = GetSut(homegame, player);
             var result = sut.Execute();
@@ -39,8 +40,8 @@ namespace Web.Tests.CommandTests.PlayerCommands
         private DeletePlayerCommand GetSut(Homegame homegame, Player player)
         {
             return new DeletePlayerCommand(
-                Mocks.CashgameRepositoryMock.Object,
-                Mocks.PlayerRepositoryMock.Object,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
                 homegame,
                 player);
         }

@@ -3,7 +3,9 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
+using Infrastructure.Factories;
 using Infrastructure.Repositories;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -22,7 +24,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Matrix_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -32,7 +34,7 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void Matrix_Authorized_ShowsCorrectView(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Matrix(Slug);
@@ -43,7 +45,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Leaderboard_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -53,8 +55,8 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Leaderboard_Authorized_ShowsCorrectView(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<ICashgameRepository>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Leaderboard(Slug);
@@ -65,7 +67,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Details_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -75,9 +77,9 @@ namespace Web.Tests.ControllerTests{
 		[Test]
 		public void Details_ReturnsCorrectView(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(new FakeUser());
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
-            Mocks.PlayerRepositoryMock.Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakePlayer());
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakePlayer());
             
             var sut = GetSut();
             var viewResult = (ViewResult)sut.Details(Slug, DateStr);
@@ -88,7 +90,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void ActionAction_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -104,9 +106,9 @@ namespace Web.Tests.ControllerTests{
 		    var cashgameResult = new FakeCashgameResult(player);
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(user);
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
-            Mocks.PlayerRepositoryMock.Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(user);
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
 
 			var sut = GetSut();
             var viewResult = (ViewResult)sut.Action(Slug, DateStr, PlayerName);
@@ -117,7 +119,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void ActionBuyin_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            Mocks.UserContextMock.Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -135,9 +137,9 @@ namespace Web.Tests.ControllerTests{
 			var player = new FakePlayer(userId: secondUserId);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
-            Mocks.CashgameRepositoryMock.Setup(o => o.GetRunning(homegame)).Returns(cashgame);
-            Mocks.UserContextMock.Setup(o => o.GetUser()).Returns(user);
-            Mocks.PlayerRepositoryMock.Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
+            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(user);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
 
             var sut = GetSut();
 
@@ -253,11 +255,11 @@ namespace Web.Tests.ControllerTests{
         {
             return new CashgameController(
                 GetMock<IHomegameRepository>().Object,
-                Mocks.UserContextMock.Object,
-                Mocks.CashgameRepositoryMock.Object,
-                Mocks.PlayerRepositoryMock.Object,
+                GetMock<IUserContext>().Object,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
                 Mocks.MatrixPageModelFactoryMock.Object,
-                Mocks.CashgameFactoryMock.Object,
+                GetMock<ICashgameFactory>().Object,
                 Mocks.BuyinPageModelFactoryMock.Object,
                 Mocks.ReportPageModelFactoryMock.Object,
                 Mocks.CashoutPageModelFactoryMock.Object,
@@ -277,7 +279,7 @@ namespace Web.Tests.ControllerTests{
                 Mocks.CashgameSuiteChartModelFactoryMock.Object,
                 Mocks.ActionChartModelFactoryMock.Object,
                 Mocks.CashgameDetailsChartModelFactoryMock.Object,
-                Mocks.TimeProviderMock.Object,
+                GetMock<ITimeProvider>().Object,
                 Mocks.CheckpointRepositoryMock.Object);
         }
 

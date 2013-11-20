@@ -1,6 +1,5 @@
 ﻿using Core.Repositories;
 using Core.Services;
-using Infrastructure.Caching;
 using Infrastructure.Factories;
 using Infrastructure.System;
 using Moq;
@@ -23,7 +22,6 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
 using Web.Services;
@@ -34,19 +32,6 @@ namespace Tests.Common
     {
         public readonly CacheContainerFake CacheContainerFake;
 
-        public readonly Mock<ICashgameRepository> CashgameRepositoryMock;
-        public readonly Mock<IPlayerRepository> PlayerRepositoryMock;
-        public readonly Mock<IUserRepository> UserRepositoryMock;
-        public readonly Mock<ICashgameFactory> CashgameFactoryMock;
-        public readonly Mock<ICheckpointFactory> CheckpointFactoryMock;
-        public readonly Mock<ICashgameSuiteFactory> CashgameSuiteFactoryMock;
-        public readonly Mock<ICashgameResultFactory> CashgameResultFactoryMock;
-        public readonly Mock<IHomegameFactory> HomegameFactoryMock;
-        public readonly Mock<IWebContext> WebContextMock;
-        public readonly Mock<IUserContext> UserContextMock;
-        public readonly Mock<IEncryptionService> EncryptionServiceMock;
-        public readonly Mock<ITimeProvider> TimeProviderMock;
-        public readonly Mock<ICacheContainer> CacheContainerMock;
         public readonly Mock<IMatrixPageModelFactory> MatrixPageModelFactoryMock;
         public readonly Mock<IAuthLoginPageModelFactory> AuthLoginPageModelFactoryMock;
         public readonly Mock<ISettings> SettingsMock;
@@ -65,10 +50,8 @@ namespace Tests.Common
         public readonly Mock<IRunningCashgamePageModelFactory> RunningCashgamePageModelFactoryMock;
         public readonly Mock<ICashgameModelMapper> CashgameModelMapperMock;
         public readonly Mock<IPagePropertiesFactory> PagePropertiesFactoryMock;
-        public readonly Mock<IUserDetailsPageModelFactory> UserPageModelFactoryMock;
         public readonly Mock<IGoogleAnalyticsModelFactory> GoogleAnalyticsModelFactoryMock;
         public readonly Mock<IRandomStringGenerator> RandomStringGeneratorMock;
-        public readonly Mock<IAvatarModelFactory> AvatarModelFactoryMock;
         public readonly Mock<IHomegameNavigationModelFactory> HomegameNavigationModelFactoryMock;
         public readonly Mock<IUserNavigationModelFactory> UserNavigationModelFactoryMock;
         public readonly Mock<ICheckpointRepository> CheckpointRepositoryMock;
@@ -98,19 +81,6 @@ namespace Tests.Common
         
         public WebMocks()
         {
-            CashgameRepositoryMock = new Mock<ICashgameRepository>();
-            PlayerRepositoryMock = new Mock<IPlayerRepository>();
-            UserRepositoryMock = new Mock<IUserRepository>();
-            CashgameFactoryMock = new Mock<ICashgameFactory>();
-            CheckpointFactoryMock = new Mock<ICheckpointFactory>();
-            CashgameSuiteFactoryMock = new Mock<ICashgameSuiteFactory>();
-            CashgameResultFactoryMock = new Mock<ICashgameResultFactory>();
-            HomegameFactoryMock = new Mock<IHomegameFactory>();
-            WebContextMock = new Mock<IWebContext>();
-            UserContextMock = new Mock<IUserContext>();
-            EncryptionServiceMock = new Mock<IEncryptionService>();
-            TimeProviderMock = new Mock<ITimeProvider>();
-            CacheContainerMock = new Mock<ICacheContainer>();
             CacheContainerFake = new CacheContainerFake();
             MatrixPageModelFactoryMock = new Mock<IMatrixPageModelFactory>();
             AuthLoginPageModelFactoryMock = new Mock<IAuthLoginPageModelFactory>();
@@ -130,10 +100,8 @@ namespace Tests.Common
             RunningCashgamePageModelFactoryMock = new Mock<IRunningCashgamePageModelFactory>();
             CashgameModelMapperMock = new Mock<ICashgameModelMapper>();
             PagePropertiesFactoryMock = new Mock<IPagePropertiesFactory>();
-            UserPageModelFactoryMock = new Mock<IUserDetailsPageModelFactory>();
             GoogleAnalyticsModelFactoryMock = new Mock<IGoogleAnalyticsModelFactory>();
             RandomStringGeneratorMock = new Mock<IRandomStringGenerator>();
-            AvatarModelFactoryMock = new Mock<IAvatarModelFactory>();
             HomegameNavigationModelFactoryMock = new Mock<IHomegameNavigationModelFactory>();
             UserNavigationModelFactoryMock = new Mock<IUserNavigationModelFactory>();
             CheckpointRepositoryMock = new Mock<ICheckpointRepository>();

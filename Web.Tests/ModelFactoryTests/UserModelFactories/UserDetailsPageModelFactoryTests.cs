@@ -3,6 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
+using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.MiscModels;
 
@@ -28,7 +29,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
 		{
 		    const string email = "a";
 		    var user = new FakeUser(email: email);
-            Mocks.AvatarModelFactoryMock.Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
+            GetMock<IAvatarModelFactory>().Setup(o => o.Create(email, It.IsAny<AvatarSize>())).Returns(new AvatarModel());
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -104,7 +105,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         private UserDetailsPageModelFactory GetSut()
         {
             return new UserDetailsPageModelFactory(
-                Mocks.AvatarModelFactoryMock.Object, 
+                GetMock<IAvatarModelFactory>().Object, 
                 Mocks.PagePropertiesFactoryMock.Object,
                 Mocks.UrlProviderMock.Object);
         }
