@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Services;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
@@ -48,7 +51,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		    const string formatted = "a";
 			_result.Winnings = 1;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _result, _rank);
@@ -59,7 +62,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		[Test]
 		public void TableRow_WinningsClassIsSet(){
 			const string resultClass = "a";
-            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
+            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _result, _rank);
@@ -71,7 +74,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void TableRow_PlayerUrlIsSet()
 		{
 		    const string playerUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _result, _rank);
@@ -98,10 +101,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
         private CashgameMatrixTableRowModelFactory GetSut()
 		{
 		    return new CashgameMatrixTableRowModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.CashgameMatrixTableCellModelFactoryMock.Object,
-                Mocks.ResultFormatterMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<ICashgameMatrixTableCellModelFactory>().Object,
+                GetMock<IResultFormatter>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 	}
 

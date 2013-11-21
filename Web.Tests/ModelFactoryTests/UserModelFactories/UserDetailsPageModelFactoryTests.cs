@@ -1,9 +1,11 @@
 using Core.Classes;
+using Core.Services;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.MiscModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.MiscModels;
 
@@ -42,7 +44,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
             var user = new FakeUser();
 
             const string editUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(user)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(user)).Returns(editUrl);
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -57,7 +59,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
             var displayUser = new FakeUser(userName: "b");
 
             const string editUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetUserEditUrl(displayUser)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(displayUser)).Returns(editUrl);
 
 			var sut = GetSut();
 			var result = sut.Create(currentUser, displayUser);
@@ -71,7 +73,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
             var user = new FakeUser();
 
             const string changePasswordUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetChangePasswordUrl()).Returns(changePasswordUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetChangePasswordUrl()).Returns(changePasswordUrl);
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -106,8 +108,8 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
         {
             return new UserDetailsPageModelFactory(
                 GetMock<IAvatarModelFactory>().Object, 
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IUrlProvider>().Object);
         }
 
 	}

@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -10,6 +11,7 @@ using Tests.Common.FakeClasses;
 using Tests.Common.FakeCommands;
 using Web.Commands.PlayerCommands;
 using Web.Controllers;
+using Web.ModelServices;
 
 namespace Web.Tests.ControllerTests{
 
@@ -49,7 +51,7 @@ namespace Web.Tests.ControllerTests{
             const string listingUrl = "c";
 
             GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeSuccessfulCommand());
-            Mocks.UrlProviderMock.Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listingUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listingUrl);
 
             var sut = GetSut();
             var result = sut.Delete(homegameName, playerName) as RedirectResult;
@@ -66,7 +68,7 @@ namespace Web.Tests.ControllerTests{
             const string playerUrl = "c";
 
             GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeFailedCommand());
-            Mocks.UrlProviderMock.Setup(o => o.GetPlayerDetailsUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(playerUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(playerUrl);
 
             var sut = GetSut();
             var result = sut.Delete(homegameName, playerName) as RedirectResult;
@@ -80,8 +82,8 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IUserContext>().Object,
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IPlayerRepository>().Object, 
-                Mocks.PlayerModelServiceMock.Object,
-                Mocks.UrlProviderMock.Object,
+                GetMock<IPlayerModelService>().Object,
+                GetMock<IUrlProvider>().Object,
                 GetMock<IPlayerCommandProvider>().Object);
 		}
 

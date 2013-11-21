@@ -1,7 +1,8 @@
 using System;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Moq;
+using Core.Services;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -78,7 +79,7 @@ namespace Web.Tests.ServiceTests{
 		    var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameDeleteUrl(homegame, cashgame);
@@ -94,7 +95,7 @@ namespace Web.Tests.ServiceTests{
             var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameDetailsUrl(homegame, cashgame);
@@ -110,7 +111,7 @@ namespace Web.Tests.ServiceTests{
             var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameEditUrl(homegame, cashgame);
@@ -202,7 +203,7 @@ namespace Web.Tests.ServiceTests{
             var cashgame = new FakeCashgame(startTime: dateTime);
 		    var player = new FakePlayer(displayName: displayName);
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+		    GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameActionUrl(homegame, cashgame, player);
@@ -483,7 +484,7 @@ namespace Web.Tests.ServiceTests{
 	    public void TwitterCallBackUrl()
 	    {
 	        const string siteUrl = "http://siteurl";
-	        Mocks.SettingsMock.Setup(o => o.GetSiteUrl()).Returns(siteUrl);
+	        GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
 
 	        var sut = GetSut();
 	        var result = sut.GetTwitterCallbackUrl();
@@ -501,7 +502,7 @@ namespace Web.Tests.ServiceTests{
             var cashgame = new FakeCashgame(startTime: dateTime);
             var player = new FakePlayer(displayName: "b");
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.GetCashgameActionChartJsonUrl(homegame, cashgame, player);
@@ -532,7 +533,7 @@ namespace Web.Tests.ServiceTests{
             var player = new FakePlayer(displayName: "b");
             var checkpoint = new Checkpoint{ Id = 1 };
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 
 	        var sut = GetSut();
             var result = sut.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint);
@@ -549,7 +550,7 @@ namespace Web.Tests.ServiceTests{
             var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
             
 	        var sut = GetSut();
             var result = sut.GetCashgameDetailsChartJsonUrl(homegame, cashgame);
@@ -606,8 +607,8 @@ namespace Web.Tests.ServiceTests{
         private UrlProvider GetSut()
         {
             return new UrlProvider(
-                Mocks.SettingsMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<ISettings>().Object,
+                GetMock<IGlobalization>().Object);
         }
 
 		private Homegame GetHomegame(){

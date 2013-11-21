@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.NavigationModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
@@ -25,7 +28,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
 		public void test_ChartDataUrl_IsSet()
         {
             const string chartJsonUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetCashgameChartJsonUrl(_homegame, _year)).Returns(chartJsonUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameChartJsonUrl(_homegame, _year)).Returns(chartJsonUrl);
 
 			var result = GetResult();
 
@@ -41,9 +44,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
         private CashgameChartPageModelFactory GetSut()
 		{
             return new CashgameChartPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object,
-                Mocks.CashgameNavigationModelFactoryMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IUrlProvider>().Object,
+                GetMock<ICashgameNavigationModelFactory>().Object);
 		}
 
 	}

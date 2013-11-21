@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomeModelFactories;
+using Web.ModelFactories.NavigationModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomeModelFactories
 {
@@ -17,9 +20,9 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
             const string loginUrl = "a";
             const string addUserUrl = "b";
             const string addHomegameUrl = "c";
-            Mocks.UrlProviderMock.Setup(o => o.GetLoginUrl()).Returns(loginUrl);
-            Mocks.UrlProviderMock.Setup(o => o.GetAddUserUrl()).Returns(addUserUrl);
-            Mocks.UrlProviderMock.Setup(o => o.GetHomegameAddUrl()).Returns(addHomegameUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetLoginUrl()).Returns(loginUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetAddUserUrl()).Returns(addUserUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetHomegameAddUrl()).Returns(addHomegameUrl);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
 
@@ -51,9 +54,9 @@ namespace Web.Tests.ModelFactoryTests.HomeModelFactories
                 GetMock<IUserContext>().Object,
                 GetMock<IHomegameRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.AdminNavigationModelFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IAdminNavigationModelFactory>().Object,
+                GetMock<IUrlProvider>().Object);
         }
     }
 }

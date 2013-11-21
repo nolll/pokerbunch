@@ -1,10 +1,13 @@
 using System;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
+using Web.Services;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
@@ -37,7 +40,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(player);
 
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, player)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame, _cashgame, player)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -52,7 +55,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		    const int buyin = 1;
             var cashgameResult = new FakeCashgameResult(buyin: buyin);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), buyin)).Returns(formattedBuyin);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), buyin)).Returns(formattedBuyin);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -66,7 +69,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             const int stack = 1;
             var cashgameResult = new FakeCashgameResult(stack: stack);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), stack)).Returns(formattedStack);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), stack)).Returns(formattedStack);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -80,7 +83,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -93,7 +96,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		    const string resultClass = "a";
             var cashgameResult = new FakeCashgameResult();
 		    
-            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
+            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -108,7 +111,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		    const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings, playedTime: 60);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinrate);
+            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinrate);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, cashgameResult);
@@ -128,9 +131,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
 		private CashgameDetailsTableItemModelFactory GetSut(){
             return new CashgameDetailsTableItemModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.ResultFormatterMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<IResultFormatter>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

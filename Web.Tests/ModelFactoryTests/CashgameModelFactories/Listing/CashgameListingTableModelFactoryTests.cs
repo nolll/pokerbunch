@@ -23,7 +23,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
 		[Test]
 		public void Table_WithOneCashgame_OneItemIsCorrectType(){
-            Mocks.CashgameListingTableItemModelFactoryMock.Setup(o => o.Create(_homegame, It.IsAny<Cashgame>(), It.IsAny<bool>())).Returns(new CashgameListingTableItemModel());
+            GetMock<ICashgameListingTableItemModelFactory>().Setup(o => o.Create(_homegame, It.IsAny<Cashgame>(), It.IsAny<bool>())).Returns(new CashgameListingTableItemModel());
 
 			_cashgames = GetCashgames();
 
@@ -36,7 +36,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
 		private CashgameListingTableModelFactory GetSut(){
 			return new CashgameListingTableModelFactory(
-                Mocks.CashgameListingTableItemModelFactoryMock.Object);
+                GetMock<ICashgameListingTableItemModelFactory>().Object);
 		}
 
 		private List<Cashgame> GetCashgames(){

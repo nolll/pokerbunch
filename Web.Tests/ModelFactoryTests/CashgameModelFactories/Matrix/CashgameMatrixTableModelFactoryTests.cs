@@ -70,8 +70,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		private CashgameMatrixTableModelFactory GetSut(){
 			return new CashgameMatrixTableModelFactory(
-                Mocks.CashgameMatrixTableColumnHeaderModelFactoryMock.Object,
-                Mocks.CashgameMatrixTableRowModelFactoryMock.Object);
+                GetMock<ICashgameMatrixTableColumnHeaderModelFactory>().Object,
+                GetMock<ICashgameMatrixTableRowModelFactory>().Object);
 		}
 
 		private List<Cashgame> GetCashgames(int yearOne = 2010, int yearTwo = 2010)

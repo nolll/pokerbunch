@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -47,7 +48,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		    const int turnover = 1;
 			var cashgame = new FakeCashgame(turnover: 1);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);
@@ -62,7 +63,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		    const int totalStacks = 1;
             var cashgame = new FakeCashgame(totalStacks: totalStacks);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalStacks)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalStacks)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);
@@ -81,9 +82,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		    var result2 = new FakeCashgameResult(player2, winnings: 2);
             var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
 
-            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result1, It.IsAny<bool>()))
+            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result1, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName1 });
-            Mocks.RunningCashgameTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result2, It.IsAny<bool>()))
+            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result2, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName2 });
 
 			var sut = GetSut();
@@ -96,8 +97,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 		private RunningCashgameTableModelFactory GetSut(){
             return new RunningCashgameTableModelFactory(
-                Mocks.RunningCashgameTableItemModelFactoryMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IRunningCashgameTableItemModelFactory>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

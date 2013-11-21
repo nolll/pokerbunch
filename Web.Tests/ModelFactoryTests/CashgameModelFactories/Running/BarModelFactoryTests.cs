@@ -1,4 +1,5 @@
 using Core.Classes;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -42,7 +43,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             _runningGame = new FakeCashgame();
 
             const string runningGameUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetRunningCashgameUrl(_homegame)).Returns(runningGameUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetRunningCashgameUrl(_homegame)).Returns(runningGameUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
@@ -56,7 +57,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             _runningGame = null;
 
             const string addGameUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetCashgameAddUrl(_homegame)).Returns(addGameUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameAddUrl(_homegame)).Returns(addGameUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
@@ -66,7 +67,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 
 		private BarModelFactory GetSut(){
 			return new BarModelFactory(
-                Mocks.UrlProviderMock.Object);
+                GetMock<IUrlProvider>().Object);
 		}
 
 	}

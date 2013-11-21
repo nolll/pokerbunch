@@ -9,7 +9,6 @@ namespace Tests.Common
     {
         private IDictionary<Type, Mock> _mocks;
         protected readonly CacheContainerFake CacheContainerFake;
-        protected WebMocks Mocks;
 
         public MockContainer()
         {
@@ -20,7 +19,6 @@ namespace Tests.Common
         public void SetUpMocks()
         {
             _mocks = new Dictionary<Type, Mock>();
-            Mocks = new WebMocks();
         }
 
         protected Mock<T> GetMock<T>() where T : class

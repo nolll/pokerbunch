@@ -30,7 +30,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
         private CashgameLeaderboardTableModelFactory GetSut()
         {
 			return new CashgameLeaderboardTableModelFactory(
-                Mocks.CashgameLeaderboardTableItemModelFactoryMock.Object);
+                GetMock<ICashgameLeaderboardTableItemModelFactory>().Object);
 		}
 
 	}

@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
+using Web.ModelFactories.PageBaseModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 
@@ -29,7 +32,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
             var startTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(startTime: startTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
 
             var sut = GetSut();
             var result = sut.Create(_user, _homegame, cashgame, _locations);
@@ -42,7 +45,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 		{
 		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
 
             var sut = GetSut();
             var result = sut.Create(_user, _homegame, cashgame, _locations);
@@ -55,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
         {
             const string deleteUrl = "a";
             var cashgame = new FakeCashgame();
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDeleteUrl(_homegame, cashgame)).Returns(deleteUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDeleteUrl(_homegame, cashgame)).Returns(deleteUrl);
 
             var sut = GetSut();
             var result = sut.Create(_user, _homegame, cashgame, _locations);
@@ -97,9 +100,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
         private CashgameEditPageModelFactory GetSut()
         {
             return new CashgameEditPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IUrlProvider>().Object,
+                GetMock<IGlobalization>().Object);
         }
 
 	}

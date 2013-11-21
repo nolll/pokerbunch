@@ -54,7 +54,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
 			var user = new FakeUser();
             GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
-            Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");
+            GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
 			sut.Execute();
@@ -70,7 +70,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
             var user = new FakeUser();
             GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
-            Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns("any");
+            GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
             sut.Execute();

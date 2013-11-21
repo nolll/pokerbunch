@@ -49,8 +49,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		    var result2 = new FakeCashgameResult(player2, winnings: 2);
 		    var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult> {result1, result2});
 
-		    Mocks.CashgameDetailsTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result1)).Returns(new CashgameDetailsTableItemModel{ Name = displayName1 });
-            Mocks.CashgameDetailsTableItemModelFactoryMock.Setup(o => o.Create(_homegame, cashgame, result2)).Returns(new CashgameDetailsTableItemModel { Name = displayName2 });
+		    GetMock<ICashgameDetailsTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result1)).Returns(new CashgameDetailsTableItemModel{ Name = displayName1 });
+            GetMock<ICashgameDetailsTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result2)).Returns(new CashgameDetailsTableItemModel { Name = displayName2 });
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame);
@@ -61,7 +61,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 
 		private CashgameDetailsTableModelFactory GetSut()
 		{
-		    return new CashgameDetailsTableModelFactory(Mocks.CashgameDetailsTableItemModelFactoryMock.Object);
+		    return new CashgameDetailsTableModelFactory(GetMock<ICashgameDetailsTableItemModelFactory>().Object);
 		}
 
 	}

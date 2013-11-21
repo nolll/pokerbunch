@@ -1,9 +1,12 @@
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
+using Web.Services;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
@@ -46,7 +49,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		    const string formattedResult = "a";
 			_result.Winnings = 1;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formattedResult);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), _result.Winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
@@ -57,7 +60,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		[Test]
 		public void TableItem_WinningsClassIsSet(){
             const string resultClass = "a";
-            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
+            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(_result.Winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
@@ -71,7 +74,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		    const string formattedTime = "a";
             _result.TimePlayed = 60;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_result.TimePlayed)).Returns(formattedTime);
+            GetMock<IGlobalization>().Setup(o => o.FormatDuration(_result.TimePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
@@ -85,7 +88,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		    const string formattedWinRate = "a";
             _result.WinRate = 1;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), _result.WinRate)).Returns(formattedWinRate);
+            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), _result.WinRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
@@ -97,7 +100,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		public void TableItem_PlayerUrlIsSet()
 		{
 		    const string playerUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _result, _rank);
@@ -107,9 +110,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
 		private CashgameLeaderboardTableItemModelFactory GetSut(){
 			return new CashgameLeaderboardTableItemModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.ResultFormatterMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<IResultFormatter>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

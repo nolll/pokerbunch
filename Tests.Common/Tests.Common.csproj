@@ -56,7 +56,6 @@
     <Compile Include="FakeClasses\FakeUser.cs" />
     <Compile Include="FakeCommands\FakeFailedCommand.cs" />
     <Compile Include="FakeCommands\FakeSuccessfulCommand.cs" />
-    <Compile Include="WebMocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

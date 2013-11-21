@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Buyin;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
@@ -68,7 +69,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 		}
         
         private BuyinPageModelFactory GetSut(){
-            return new BuyinPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new BuyinPageModelFactory(GetMock<IPagePropertiesFactory>().Object);
 		}
 		
 	}

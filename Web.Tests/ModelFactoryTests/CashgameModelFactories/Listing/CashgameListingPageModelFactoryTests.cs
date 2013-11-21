@@ -4,6 +4,8 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Listing;
+using Web.ModelFactories.NavigationModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Listing;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
@@ -15,7 +17,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
         {
             var homegame = new FakeHomegame();
             var cashgames = new List<Cashgame>();
-            Mocks.CashgameListingTableModelFactoryMock.Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListingTableModel());
+            GetMock<ICashgameListingTableModelFactory>().Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListingTableModel());
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), homegame, cashgames, null, null);
@@ -26,9 +28,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
         private CashgameListingPageModelFactory GetSut()
         {
             return new CashgameListingPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.CashgameNavigationModelFactoryMock.Object,
-                Mocks.CashgameListingTableModelFactoryMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<ICashgameNavigationModelFactory>().Object,
+                GetMock<ICashgameListingTableModelFactory>().Object);
         }
 
 	}

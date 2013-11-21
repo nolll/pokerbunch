@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Cashout;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
@@ -37,7 +38,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
 
         private CashoutPageModelFactory GetSut()
         {
-            return new CashoutPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new CashoutPageModelFactory(GetMock<IPagePropertiesFactory>().Object);
         }
 
 	}

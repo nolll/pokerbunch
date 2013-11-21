@@ -1,7 +1,9 @@
+using Core.Services;
 using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.AuthModels;
 
 namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
@@ -12,7 +14,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
 		{
             const string homeUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetHomeUrl()).Returns(homeUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns(homeUrl);
 
 		    var sut = GetSut();
 
@@ -36,7 +38,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
         public void AddUserUrl_IsSet()
 		{
 		    const string loginUrl = "a";
-		    Mocks.UrlProviderMock.Setup(o => o.GetAddUserUrl()).Returns(loginUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetAddUserUrl()).Returns(loginUrl);
 
             var sut = GetSut();
 			var result = sut.Create();
@@ -47,7 +49,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		[Test]
         public void ForgotPasswordUrl_IsSet(){
             const string forgotPasswordUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetForgotPasswordUrl()).Returns(forgotPasswordUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetForgotPasswordUrl()).Returns(forgotPasswordUrl);
 
             var sut = GetSut();
 			var result = sut.Create();
@@ -69,9 +71,9 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
         private AuthLoginPageModelFactory GetSut()
         {
             return new AuthLoginPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object, 
+                GetMock<IPagePropertiesFactory>().Object, 
                 GetMock<IWebContext>().Object,
-                Mocks.UrlProviderMock.Object);
+                GetMock<IUrlProvider>().Object);
         }
 
 	}

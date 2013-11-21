@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Add;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Add;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
@@ -59,7 +60,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
 
         private AddCashgamePageModelFactory GetSut()
         {
-            return new AddCashgamePageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new AddCashgamePageModelFactory(GetMock<IPagePropertiesFactory>().Object);
         }
 
 	}

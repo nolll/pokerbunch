@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
@@ -30,7 +33,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(startTime: dateTime);
             var player = new FakePlayer();
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(dateTime, true)).Returns(formattedDate);
+            GetMock<IGlobalization>().Setup(o => o.FormatShortDate(dateTime, true)).Returns(formattedDate);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -46,7 +49,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(duration: duration);
             var player = new FakePlayer();
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatDuration(duration)).Returns(formattedDuration);
+		    GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formattedDuration);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -73,7 +76,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(startTime: startTime, status: GameStatus.Running);
             var player = new FakePlayer();
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
+		    GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -88,7 +91,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame(endTime: endTime, status: GameStatus.Finished);
             var player = new FakePlayer();
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
+            GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -115,7 +118,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-            Mocks.UrlProviderMock.Setup(o => o.GetCashgameEditUrl(_homegame, cashgame)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameEditUrl(_homegame, cashgame)).Returns(editUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -130,7 +133,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionUrl(_homegame, cashgame, player)).Returns(actionUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame, cashgame, player)).Returns(actionUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -245,7 +248,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    Mocks.CashgameDetailsTableModelFactoryMock.Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
+		    GetMock<ICashgameDetailsTableModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
 		         .Returns(new CashgameDetailsTableModel());
 
             var sut = GetSut();
@@ -261,7 +264,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame, cashgame)).Returns(chartDataUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame, cashgame)).Returns(chartDataUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -272,10 +275,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
         private CashgameDetailsPageModelFactory GetSut()
         {
             return new CashgameDetailsPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object, 
-                Mocks.CashgameDetailsTableModelFactoryMock.Object,
-                Mocks.UrlProviderMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IPagePropertiesFactory>().Object, 
+                GetMock<ICashgameDetailsTableModelFactory>().Object,
+                GetMock<IUrlProvider>().Object,
+                GetMock<IGlobalization>().Object);
         }
 
 	}

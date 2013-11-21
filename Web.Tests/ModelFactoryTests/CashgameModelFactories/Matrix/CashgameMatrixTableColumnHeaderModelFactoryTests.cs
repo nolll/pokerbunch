@@ -1,5 +1,7 @@
 using System;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -24,7 +26,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
             var startTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: startTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -39,7 +41,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
             var cashgame = new FakeCashgame(startTime: startTime);
 		    _showYear = true;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -51,7 +53,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void ColumnHeader_CashgameUrlIsSet(){
             const string detailsUrl = "a";
             var cashgame = new FakeCashgame(startTime: DateTime.Parse("2010-01-01"));
-            Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
 
 			var sut = GetSut();
 		    var result = sut.Create(_homegame, cashgame, _showYear);
@@ -62,8 +64,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
         private CashgameMatrixTableColumnHeaderModelFactory GetSut()
         {
             return new CashgameMatrixTableColumnHeaderModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<IGlobalization>().Object);
         }
 
 	}

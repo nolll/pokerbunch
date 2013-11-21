@@ -1,4 +1,5 @@
 using Core.Classes;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -49,8 +50,8 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 		    const string homegameListUrl = "a";
             const string userListUrl = "b";
 
-            Mocks.UrlProviderMock.Setup(o => o.GetHomegameListingUrl()).Returns(homegameListUrl);
-            Mocks.UrlProviderMock.Setup(o => o.GetUserListingUrl()).Returns(userListUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetHomegameListingUrl()).Returns(homegameListUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserListingUrl()).Returns(userListUrl);
 
             _user = new FakeUser(globalRole: Role.Admin);
 		    var sut = GetSut();
@@ -63,7 +64,7 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
         private AdminNavigationModelFactory GetSut()
         {
             return new AdminNavigationModelFactory(
-                Mocks.UrlProviderMock.Object);
+                GetMock<IUrlProvider>().Object);
         }
 
 	}

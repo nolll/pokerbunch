@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Core.Services;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
+using Web.ModelFactories.PageBaseModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 
@@ -27,7 +30,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		    var dateTime = DateTime.Parse("2010-01-01 01:00:00");
 		    _cashgame = new FakeCashgame(startTime: dateTime);
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
+		    GetMock<IGlobalization>().Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
 
 			var sut = GetSut();
 		    var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
@@ -56,7 +59,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		    const string chartDataUrl = "a";
             var player = new FakePlayer(displayName: "b");
             var cashgameResult = new FakeCashgameResult(player);
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameActionChartJsonUrl(_homegame, _cashgame, player)).Returns(chartDataUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionChartJsonUrl(_homegame, _cashgame, player)).Returns(chartDataUrl);
 
 			var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
@@ -66,10 +69,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 
         private ActionPageModelFactory GetSut(){
             return new ActionPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object,
-                Mocks.CheckpointModelFactoryMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IUrlProvider>().Object,
+                GetMock<ICheckpointModelFactory>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

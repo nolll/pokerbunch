@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Report;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Report;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
@@ -25,7 +26,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
 
         private ReportPageModelFactory GetSut()
         {
-            return new ReportPageModelFactory(Mocks.PagePropertiesFactoryMock.Object);
+            return new ReportPageModelFactory(GetMock<IPagePropertiesFactory>().Object);
         }
 
 	}

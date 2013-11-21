@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Classes;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
 
 namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
@@ -26,7 +28,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		{
 		    _postModel.DisplayName = "a";
 
-		    Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+		    GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
             var result = sut.Create(_user, _postModel);
@@ -39,7 +41,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
         {
             _postModel.Description = "a";
 
-            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
             var result = sut.Create(_user, _postModel);
@@ -52,7 +54,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
         {
 		    _postModel.CurrencySymbol = "a";
 
-            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
 		    var result = sut.Create(_user, _postModel);
@@ -62,7 +64,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		[Test]
         public void CurrencyLayoutSelectModel_IsCorrectType(){
-            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
 		    var result = sut.Create(_user);
@@ -72,7 +74,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		[Test]
         public void TimezoneSelectModel_IsCorrectType(){
-            Mocks.GlobalizationMock.Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
+            GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
 		    var result = sut.Create(_user);
@@ -82,8 +84,8 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		private AddHomegamePageModelFactory GetSut(){
             return new AddHomegamePageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

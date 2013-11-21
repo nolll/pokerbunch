@@ -1,5 +1,7 @@
 using System;
 using Core.Classes;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -48,7 +50,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		    const int duration = 1;
 		    var cashgame = new FakeCashgame(duration: duration);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(duration)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -63,7 +65,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		    const int turnover = 1;
             var cashgame = new FakeCashgame(turnover: turnover);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -78,7 +80,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		    const int averageBuyin = 1;
 		    var cashgame = new FakeCashgame(averageBuyin: averageBuyin);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), averageBuyin)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), averageBuyin)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -100,7 +102,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		{
 		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    Mocks.UrlProviderMock.Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -115,7 +117,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(startTime: startTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -130,7 +132,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(startTime: startTime);
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
@@ -160,8 +162,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Listing{
 
 		private CashgameListingTableItemModelFactory GetSut(){
 			return new CashgameListingTableItemModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

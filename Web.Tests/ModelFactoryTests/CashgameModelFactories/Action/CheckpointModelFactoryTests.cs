@@ -1,6 +1,8 @@
 using System;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -43,7 +45,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		public void Timestamp_IsSet()
         {
             const string formattedTimestamp = "a";
-            Mocks.GlobalizationMock.Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTimestamp);
+            GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTimestamp);
             
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
@@ -62,7 +64,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		[Test]
 		public void Stack_IsSet(){
             const string formattedStack = "a";
-            Mocks.GlobalizationMock.Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _stack)).Returns(formattedStack);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _stack)).Returns(formattedStack);
             
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
@@ -92,7 +94,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		public void DeleteUrl_IsSet()
 		{
 		    const string deleteUrl = "a";
-            Mocks.UrlProviderMock.Setup(o => o.GetCashgameCheckpointDeleteUrl(_homegame, _cashgame, _player, _checkpoint)).Returns(deleteUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointDeleteUrl(_homegame, _cashgame, _player, _checkpoint)).Returns(deleteUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
@@ -103,8 +105,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
         private CheckpointModelFactory GetSut()
         {
             return new CheckpointModelFactory(
-                Mocks.UrlProviderMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IUrlProvider>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

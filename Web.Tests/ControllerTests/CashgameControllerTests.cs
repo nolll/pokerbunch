@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Factories;
 using Infrastructure.Repositories;
 using Infrastructure.System;
@@ -11,6 +12,21 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Controllers;
+using Web.ModelFactories.CashgameModelFactories.Action;
+using Web.ModelFactories.CashgameModelFactories.Add;
+using Web.ModelFactories.CashgameModelFactories.Buyin;
+using Web.ModelFactories.CashgameModelFactories.Cashout;
+using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.CashgameModelFactories.Details;
+using Web.ModelFactories.CashgameModelFactories.Edit;
+using Web.ModelFactories.CashgameModelFactories.End;
+using Web.ModelFactories.CashgameModelFactories.Facts;
+using Web.ModelFactories.CashgameModelFactories.Leaderboard;
+using Web.ModelFactories.CashgameModelFactories.Listing;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Report;
+using Web.ModelFactories.CashgameModelFactories.Running;
+using Web.ModelMappers;
 
 namespace Web.Tests.ControllerTests{
 
@@ -258,29 +274,29 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IUserContext>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
-                Mocks.MatrixPageModelFactoryMock.Object,
+                GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameFactory>().Object,
-                Mocks.BuyinPageModelFactoryMock.Object,
-                Mocks.ReportPageModelFactoryMock.Object,
-                Mocks.CashoutPageModelFactoryMock.Object,
-                Mocks.EndPageModelFactoryMock.Object,
-                Mocks.ActionPageModelFactoryMock.Object,
-                Mocks.AddCashgamePageModelFactoryMock.Object,
-                Mocks.CashgameChartPageModelFactoryMock.Object,
-                Mocks.CashgameDetailsPageModelFactoryMock.Object,
-                Mocks.CashgameEditPageModelFactoryMock.Object,
-                Mocks.CashgameFactsPageModelFactoryMock.Object,
-                Mocks.CashgameLeaderboardPageModelFactoryMock.Object,
-                Mocks.CashgameListingPageModelFactoryMock.Object,
-                Mocks.RunningCashgamePageModelFactoryMock.Object,
-                Mocks.CashgameModelMapperMock.Object,
-                Mocks.CheckpointModelMapperMock.Object,
-                Mocks.UrlProviderMock.Object,
-                Mocks.CashgameSuiteChartModelFactoryMock.Object,
-                Mocks.ActionChartModelFactoryMock.Object,
-                Mocks.CashgameDetailsChartModelFactoryMock.Object,
+                GetMock<IBuyinPageModelFactory>().Object,
+                GetMock<IReportPageModelFactory>().Object,
+                GetMock<ICashoutPageModelFactory>().Object,
+                GetMock<IEndPageModelFactory>().Object,
+                GetMock<IActionPageModelFactory>().Object,
+                GetMock<IAddCashgamePageModelFactory>().Object,
+                GetMock<ICashgameChartPageModelFactory>().Object,
+                GetMock<ICashgameDetailsPageModelFactory>().Object,
+                GetMock<ICashgameEditPageModelFactory>().Object,
+                GetMock<ICashgameFactsPageModelFactory>().Object,
+                GetMock<ICashgameLeaderboardPageModelFactory>().Object,
+                GetMock<ICashgameListingPageModelFactory>().Object,
+                GetMock<IRunningCashgamePageModelFactory>().Object,
+                GetMock<ICashgameModelMapper>().Object,
+                GetMock<ICheckpointModelMapper>().Object,
+                GetMock<IUrlProvider>().Object,
+                GetMock<ICashgameSuiteChartModelFactory>().Object,
+                GetMock<IActionChartModelFactory>().Object,
+                GetMock<ICashgameDetailsChartModelFactory>().Object,
                 GetMock<ITimeProvider>().Object,
-                Mocks.CheckpointRepositoryMock.Object);
+                GetMock<ICheckpointRepository>().Object);
         }
 
 	}

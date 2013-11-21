@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Services;
 
 namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
@@ -55,7 +56,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
             const string expectedResult = "a";
             const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
-            Mocks.ResultFormatterMock.Setup(o => o.FormatWinnings(winnings)).Returns(expectedResult);
+            GetMock<IResultFormatter>().Setup(o => o.FormatWinnings(winnings)).Returns(expectedResult);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -97,7 +98,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
             const string resultClass = "a";
             const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
-            Mocks.ResultFormatterMock.Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
+            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -128,7 +129,7 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
 
 		private CashgameMatrixTableCellModelFactory GetSut(){
 			return new CashgameMatrixTableCellModelFactory(
-                Mocks.ResultFormatterMock.Object);
+                GetMock<IResultFormatter>().Object);
 		}
 
 	}

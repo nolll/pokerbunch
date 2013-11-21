@@ -1,8 +1,10 @@
 using Core.Classes;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 
 namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
@@ -60,7 +62,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		{
 		    const string editUrl = "a";
 		    var homegame = new FakeHomegame();
-		    Mocks.UrlProviderMock.Setup(o => o.GetHomegameEditUrl(homegame)).Returns(editUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetHomegameEditUrl(homegame)).Returns(editUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_user, homegame, _isInManagerMode);
@@ -105,8 +107,8 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 
 		private HomegameDetailsPageModelFactory GetSut(){
             return new HomegameDetailsPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.UrlProviderMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<IUrlProvider>().Object);
 		}
 
 	}

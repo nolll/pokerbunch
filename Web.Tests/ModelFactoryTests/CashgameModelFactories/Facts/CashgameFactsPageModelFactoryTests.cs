@@ -1,9 +1,12 @@
 using Core.Classes;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Facts;
+using Web.ModelFactories.NavigationModelFactories;
+using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
@@ -32,7 +35,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		    const string formattedDuration = "a";
             _suite.TotalGameTime = 1;
 
-		    Mocks.GlobalizationMock.Setup(o => o.FormatDuration(_suite.TotalGameTime)).Returns(formattedDuration);
+		    GetMock<IGlobalization>().Setup(o => o.FormatDuration(_suite.TotalGameTime)).Returns(formattedDuration);
 			
             var result = GetResult();
 
@@ -47,7 +50,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 			var cashgameResult = new FakeCashgameResult(winnings: winnings);
 		    _suite.BestResult = cashgameResult;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
 			var result = GetResult();
 
@@ -72,7 +75,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 			var cashgameResult = new FakeCashgameResult(winnings: winnings);
 		    _suite.WorstResult = cashgameResult;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
             var result = GetResult();
 
@@ -98,7 +101,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 			var cashgameResult = new CashgameTotalResult {TimePlayed = timePlayed};
 		    _suite.MostTimeResult = cashgameResult;
 
-            Mocks.GlobalizationMock.Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
+            GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
             var result = GetResult();
 
@@ -125,9 +128,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 		private CashgameFactsPageModelFactory GetSut(){
             return new CashgameFactsPageModelFactory(
-                Mocks.PagePropertiesFactoryMock.Object,
-                Mocks.CashgameNavigationModelFactoryMock.Object,
-                Mocks.GlobalizationMock.Object);
+                GetMock<IPagePropertiesFactory>().Object,
+                GetMock<ICashgameNavigationModelFactory>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}
