@@ -7,37 +7,34 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.CashgameModels.Facts;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 	public class CashgameFactsPageModelFactoryTests : MockContainer
     {
-        private CashgameSuite _suite;
-
-        [SetUp]
-		public void SetUp(){
-			_suite = new CashgameSuite();
-		}
-
 		[Test]
-        public void GameCount_SuiteHasGameCount_IsSet(){
-			_suite.GameCount = 1;
-			
-            var result = GetResult();
+        public void GameCount_SuiteHasGameCount_IsSet()
+		{
+		    const int gameCount = 1;
+            var suite = new FakeCashgameSuite(gameCount:gameCount);
 
-			Assert.AreEqual(1, result.GameCount);
+		    var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
+
+			Assert.AreEqual(gameCount, result.GameCount);
 		}
 
 		[Test]
         public void TotalGameTime_SuiteHasTotalGameTime_IsSet()
 		{
 		    const string formattedDuration = "a";
-            _suite.TotalGameTime = 1;
+            const int totalGameTime = 1;
+            var suite = new FakeCashgameSuite(totalGameTime: totalGameTime);
 
-		    GetMock<IGlobalization>().Setup(o => o.FormatDuration(_suite.TotalGameTime)).Returns(formattedDuration);
-			
-            var result = GetResult();
+            GetMock<IGlobalization>().Setup(o => o.FormatDuration(totalGameTime)).Returns(formattedDuration);
+
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual(formattedDuration, result.TotalGameTime);
 		}
@@ -48,11 +45,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		    const string formattedWinnings = "a";
 		    const int winnings = 1;
 			var cashgameResult = new FakeCashgameResult(winnings: winnings);
-		    _suite.BestResult = cashgameResult;
+            var suite = new FakeCashgameSuite(bestResult: cashgameResult);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual(formattedWinnings, result.BestResultAmount);
 		}
@@ -61,9 +59,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
         public void BestResultName_SuiteHasBestResult_IsSet(){
 			var player = new FakePlayer(displayName: "a");
 		    var cashgameResult = new FakeCashgameResult(player);
-		    _suite.BestResult = cashgameResult;
-			
-            var result = GetResult();
+            var suite = new FakeCashgameSuite(bestResult: cashgameResult);
+
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual("a", result.BestResultName);
 		}
@@ -73,11 +72,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
             const string formattedWinnings = "a";
             const int winnings = 1;
 			var cashgameResult = new FakeCashgameResult(winnings: winnings);
-		    _suite.WorstResult = cashgameResult;
+            var suite = new FakeCashgameSuite(worstResult: cashgameResult);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
             Assert.AreEqual(formattedWinnings, result.WorstResultAmount);
 		}
@@ -86,9 +86,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
         public void WorstResultName_SuiteHasWorstResult_IsSet(){
 			var player = new FakePlayer(displayName: "a");
 		    var cashgameResult = new FakeCashgameResult(player);
-		    _suite.WorstResult = cashgameResult;
+            var suite = new FakeCashgameSuite(worstResult: cashgameResult);
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual("a", result.WorstResultName);
 		}
@@ -98,12 +99,13 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		{
 		    const string formattedTime = "a";
 		    const int timePlayed = 1;
-			var cashgameResult = new CashgameTotalResult {TimePlayed = timePlayed};
-		    _suite.MostTimeResult = cashgameResult;
+			var cashgameResult = new FakeCashgameTotalResult(timePlayed: timePlayed);
+            var suite = new FakeCashgameSuite(mostTimeResult: cashgameResult);
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
-            var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual(formattedTime, result.MostTimeDuration);
 		}
@@ -113,18 +115,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		{
 		    const string displayName = "a";
 			var player = new FakePlayer(displayName: displayName);
-		    var cashgameResult = new CashgameTotalResult {Player = player};
-		    _suite.MostTimeResult = cashgameResult;
-			
-            var result = GetResult();
+		    var cashgameResult = new FakeCashgameTotalResult(player: player);
+            var suite = new FakeCashgameSuite(mostTimeResult: cashgameResult);
+
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
 			Assert.AreEqual(displayName, result.MostTimeName);
 		}
-
-        private CashgameFactsPageModel GetResult()
-        {
-            return GetSut().Create(new FakeUser(), new FakeHomegame(), _suite);
-        }
 
 		private CashgameFactsPageModelFactory GetSut(){
             return new CashgameFactsPageModelFactory(

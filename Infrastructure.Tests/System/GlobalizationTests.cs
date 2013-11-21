@@ -5,8 +5,8 @@ using NUnit.Framework;
 
 namespace Infrastructure.Tests.System{
 
-	public class GlobalizationTests {
-
+	public class GlobalizationTests
+    {
         [TestCase(0, "0")]
         [TestCase(1, "1")]
         [TestCase(12, "12")]

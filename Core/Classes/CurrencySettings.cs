@@ -2,13 +2,8 @@ namespace Core.Classes{
 
 	public class CurrencySettings{
 
-	    public string Symbol { get; set; }
-	    public string Layout { get; set; }
-
-	    public CurrencySettings()
-	    {
-	        
-	    }
+	    public string Symbol { get; private set; }
+	    public string Layout { get; private set; }
 
 	    public CurrencySettings(string symbol, string layout)
 	    {

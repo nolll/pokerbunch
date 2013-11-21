@@ -24,15 +24,15 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
         private CashgameSuite GetSuite(IList<Cashgame> cashgames)
         {
-            var totalResult = new CashgameTotalResult();
-            return new CashgameSuite
-            {
-                Cashgames = cashgames,
-                TotalResults = new List<CashgameTotalResult>
+            var totalResult = new FakeCashgameTotalResult();
+            return new FakeCashgameSuite
+            (
+                cashgames: cashgames,
+                totalResults: new List<CashgameTotalResult>
 			            {
 			                totalResult, totalResult
 			            }
-            };
+            );
         }
         
 		[Test]

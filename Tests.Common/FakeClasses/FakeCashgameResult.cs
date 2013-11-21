@@ -23,7 +23,7 @@ namespace Tests.Common.FakeClasses
                 player, 
                 buyin, 
                 winnings, 
-                checkpoints, 
+                checkpoints ?? new List<Checkpoint>(), 
                 buyinTime, 
                 cashoutTime, 
                 playedTime, 
@@ -32,10 +32,6 @@ namespace Tests.Common.FakeClasses
                 cashoutCheckpoint, 
                 hasReported)
         {
-            if (checkpoints == null)
-            {
-                Checkpoints = new List<Checkpoint>();
-            }
         }
     }
 }

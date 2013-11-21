@@ -8,7 +8,7 @@ namespace Core.Classes{
 	    public Player Player { get; private set; }
         public int Buyin { get; private set; }
         public int Winnings { get; private set; }
-        public IList<Checkpoint> Checkpoints { get; protected set; }
+        public IList<Checkpoint> Checkpoints { get; private set; }
         public DateTime? BuyinTime { get; private set; }
         public DateTime? CashoutTime { get; private set; }
         public int PlayedTime { get; private set; }

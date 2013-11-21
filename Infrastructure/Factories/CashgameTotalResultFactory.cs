@@ -21,13 +21,13 @@ namespace Infrastructure.Factories{
 			var winRate = GetWinRate(timePlayed, winnings);
 
             return new CashgameTotalResult
-                {
-                    Player = player,
-                    Winnings = winnings,
-                    GameCount = gameCount,
-                    TimePlayed = timePlayed,
-                    WinRate = winRate
-                };
+                (
+                    winnings,
+                    gameCount,
+                    timePlayed,
+                    winRate,
+                    player
+                );
 		}
 
 	    private int GetWinRate(int timePlayed, int winnings)

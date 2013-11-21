@@ -39,16 +39,16 @@ namespace Infrastructure.Factories{
 			var bestTotalResult = totalResults.FirstOrDefault();
 
             return new CashgameSuite
-                {
-                    TotalResults = totalResults,
-                    Cashgames = sortedCashgames,
-                    GameCount = sortedCashgames.Count(),
-                    TotalGameTime = totalGameTime,
-                    BestResult = bestResult,
-                    WorstResult = worstResult,
-                    MostTimeResult = mostTimeResult,
-                    BestTotalResult = bestTotalResult
-                };
+                (
+                    sortedCashgames,
+                    totalResults,
+                    sortedCashgames.Count(),
+                    bestTotalResult,
+                    bestResult,
+                    worstResult,
+                    mostTimeResult,
+                    totalGameTime
+                );
 		}
 
         private Dictionary<int, IList<CashgameResult>> GetPlayerIndex(IEnumerable<Player> players)

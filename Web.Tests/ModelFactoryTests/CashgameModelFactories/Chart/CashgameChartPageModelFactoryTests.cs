@@ -20,7 +20,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
         [SetUp]
 		public void SetUp(){
 			_homegame = new FakeHomegame();
-			_suite = new CashgameSuite();
+            _suite = new FakeCashgameSuite();
 			_year = null;
 		}
 

@@ -18,9 +18,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
         [Test]
 		public void Table_ItemModelsAreSet(){
-			var totalResult = new CashgameTotalResult();
+			var totalResult = new FakeCashgameTotalResult();
 			var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
-			var suite = new CashgameSuite {TotalResults = totalResults};
+            var suite = new FakeCashgameSuite(totalResults: totalResults);
             var sut = GetSut();
             var result = sut.Create(_homegame, suite);
 

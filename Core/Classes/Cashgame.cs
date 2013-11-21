@@ -11,7 +11,7 @@ namespace Core.Classes{
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
         public int Duration { get; private set; }
-        public IList<CashgameResult> Results { get; protected set; }
+        public IList<CashgameResult> Results { get; private set; }
         public int PlayerCount { get; private set; }
         public int Diff { get; private set; }
         public int Turnover { get; private set; }

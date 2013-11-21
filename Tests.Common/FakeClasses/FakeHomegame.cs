@@ -20,18 +20,10 @@ namespace Tests.Common.FakeClasses
                 displayName,
                 description,
                 houseRules,
-                timezone,
+                timezone ?? DefaultTimezone,
                 defaultBuyin,
-                currency)
+                currency ?? DefaultCurrency)
         {
-            if (currency == null)
-            {
-                Currency = DefaultCurrency;
-            }
-            if (timezone == null)
-            {
-                Timezone = DefaultTimezone;
-            }
         }
 
         private static TimeZoneInfo DefaultTimezone

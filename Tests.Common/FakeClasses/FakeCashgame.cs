@@ -29,7 +29,7 @@ namespace Tests.Common.FakeClasses
                 startTime,
                 endTime,
                 duration,
-                results,
+                results ?? new List<CashgameResult>(),
                 playerCount,
                 diff,
                 turnover,
@@ -38,10 +38,6 @@ namespace Tests.Common.FakeClasses
                 averageBuyin
                 )
         {
-            if (results == null)
-            {
-                Results = new List<CashgameResult>();
-            }
         }
 
     }

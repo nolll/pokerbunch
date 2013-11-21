@@ -71,7 +71,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Leaderboard_Authorized_ShowsCorrectView(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<ICashgameRepository>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameSuite());
+            GetMock<ICashgameRepository>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new FakeCashgameSuite());
             GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();

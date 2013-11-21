@@ -129,9 +129,9 @@ namespace Infrastructure.Tests.Factories{
         {
             if (player.Id == 1)
             {
-                return new CashgameTotalResult {Player = player, Winnings = -3, TimePlayed = 2};
+                return new FakeCashgameTotalResult(player: player, winnings: -3, timePlayed: 2);
             }
-            return new CashgameTotalResult { Player = player, Winnings = 3, TimePlayed = 4 };
+            return new FakeCashgameTotalResult(player: player, winnings: 3, timePlayed: 4);
         }
 
 		private CashgameSuite GetResult(){

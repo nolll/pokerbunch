@@ -14,7 +14,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
         [Test]
 		public void ActionLeaderboard_SetsTableModel(){
 			var homegame = new FakeHomegame();
-			var suite = new CashgameSuite();
+			var suite = new FakeCashgameSuite();
 
             GetMock<ICashgameLeaderboardTableModelFactory>().Setup(o => o.Create(homegame, suite)).Returns(new CashgameLeaderboardTableModel());
 

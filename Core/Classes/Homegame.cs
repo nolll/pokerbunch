@@ -8,9 +8,9 @@ namespace Core.Classes{
         public string DisplayName { get; private set; }
         public string Description { get; private set; }
         public string HouseRules { get; private set; }
-        public TimeZoneInfo Timezone { get; protected set; }
+        public TimeZoneInfo Timezone { get; private set; }
 	    public int DefaultBuyin { get; private set; }
-	    public CurrencySettings Currency { get; protected set; }
+	    public CurrencySettings Currency { get; private set; }
 	    public bool CashgamesEnabled { get; private set; }
         public bool TournamentsEnabled { get; private set; }
         public bool VideosEnabled { get; private set; }
