@@ -42,11 +42,11 @@ namespace Infrastructure.Integration.Twitter{
             var twitterUser = service.VerifyCredentials(new VerifyCredentialsOptions());
 
             var credentials = new TwitterCredentials
-                {
-                    Key = accessToken.Token,
-                    Secret = accessToken.TokenSecret,
-                    TwitterName = twitterUser.ScreenName
-                };
+                (
+                    accessToken.Token,
+                    accessToken.TokenSecret,
+                    twitterUser.ScreenName
+                );
             return credentials;
         }
 

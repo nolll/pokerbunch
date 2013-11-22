@@ -531,7 +531,7 @@ namespace Web.Tests.ServiceTests{
             var dateTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: dateTime);
             var player = new FakePlayer(displayName: "b");
-            var checkpoint = new Checkpoint{ Id = 1 };
+            var checkpoint = new FakeCheckpoint(id: 1);
 
             GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
 

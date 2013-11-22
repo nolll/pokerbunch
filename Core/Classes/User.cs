@@ -8,7 +8,13 @@ namespace Core.Classes {
         public string Email { get; private set; }
         public Role GlobalRole { get; private set; }
 
-	    public User(int id, string userName, string displayName, string realName, string email, Role globalRole)
+	    public User(
+            int id, 
+            string userName, 
+            string displayName, 
+            string realName, 
+            string email, 
+            Role globalRole)
 	    {
 	        Id = id;
 	        UserName = userName;

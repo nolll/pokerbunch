@@ -42,7 +42,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
         public void Checkpoints_WithOneCheckpoint_HasOneCheckpoint(){
 			var timestamp = DateTime.Parse("2010-01-01 01:00:00");
 			const int stack = 1;
-			var checkpoint = new Checkpoint{Timestamp = timestamp, Stack = stack};
+			var checkpoint = new FakeCheckpoint(timestamp: timestamp, stack: stack);
             var player = new FakePlayer(displayName: "b");
             var cashgameResult = new FakeCashgameResult(player, checkpoints: new List<Checkpoint> { checkpoint });
 

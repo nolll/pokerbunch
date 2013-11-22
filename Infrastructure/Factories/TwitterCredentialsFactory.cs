@@ -8,11 +8,11 @@ namespace Infrastructure.Factories
         public TwitterCredentials Create(RawTwitterCredentials rawCredentials)
         {
             return new TwitterCredentials
-                {
-                    TwitterName = rawCredentials.TwitterName,
-                    Key = rawCredentials.Key,
-                    Secret = rawCredentials.Secret
-                };
+                (
+                    rawCredentials.Key,
+                    rawCredentials.Secret,
+                    rawCredentials.TwitterName
+                );
         }
     }
 }

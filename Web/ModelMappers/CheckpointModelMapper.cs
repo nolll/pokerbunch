@@ -1,4 +1,3 @@
-using System;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Buyin;
@@ -19,33 +18,33 @@ namespace Web.ModelMappers
         public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
             return new Checkpoint
-            {
-                Stack = postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
-                Timestamp = _timeProvider.GetTime(),
-                Type = CheckpointType.Cashout,
-                Id = existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
-            };
+                (
+                _timeProvider.GetTime(),
+                CheckpointType.Cashout,
+                postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
+                id: existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
+            );
         }
 
         public Checkpoint GetCheckpoint(ReportPostModel postModel)
         {
             return new Checkpoint
-            {
-                Stack = postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
-                Timestamp = _timeProvider.GetTime(),
-                Type = CheckpointType.Report
-            };
+            (
+                _timeProvider.GetTime(),
+                CheckpointType.Report,
+                postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0
+            );
         }
 
         public Checkpoint GetCheckpoint(BuyinPostModel postModel)
         {
             return new Checkpoint
-            {
-                Amount = postModel.BuyinAmount,
-                Stack = postModel.StackAmount + postModel.BuyinAmount,
-                Timestamp = _timeProvider.GetTime(),
-                Type = CheckpointType.Buyin
-            };
+            (
+                _timeProvider.GetTime(),
+                CheckpointType.Buyin,
+                postModel.StackAmount + postModel.BuyinAmount,
+                postModel.BuyinAmount
+            );
         }
 
     }

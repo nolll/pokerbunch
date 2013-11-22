@@ -6,7 +6,11 @@ namespace Core.Classes{
         public string DisplayName { get; private set; }
         public Role Role { get; private set; }
 
-	    public Player(int id, int userId, string displayName, Role role)
+	    public Player(
+            int id, 
+            int userId, 
+            string displayName, 
+            Role role)
 	    {
 	        Id = id;
 	        UserId = userId;
