@@ -24,10 +24,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 			Assert.AreEqual(gameCount, result.GameCount);
 		}
 
-		[Test]
+        [Test]
         public void TotalGameTime_SuiteHasTotalGameTime_IsSet()
-		{
-		    const string formattedDuration = "a";
+        {
+            const string formattedDuration = "a";
             const int totalGameTime = 1;
             var suite = new FakeCashgameSuite(totalGameTime: totalGameTime);
 
@@ -36,8 +36,23 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
 
-			Assert.AreEqual(formattedDuration, result.TotalGameTime);
-		}
+            Assert.AreEqual(formattedDuration, result.TotalGameTime);
+        }
+
+        [Test]
+        public void TotalTurnover_SuiteHasTotalTurnover_IsSet()
+        {
+            const string formattedTurnover = "a";
+            const int totalTurnover = 1;
+            var suite = new FakeCashgameSuite(totalTurnover: totalTurnover);
+
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalTurnover)).Returns(formattedTurnover);
+
+            var sut = GetSut();
+            var result = sut.Create(new FakeUser(), new FakeHomegame(), suite);
+
+            Assert.AreEqual(formattedTurnover, result.TotalTurnover);
+        }
 
 		[Test]
         public void BestResultAmount_SuiteHasBestResult_IsSet()

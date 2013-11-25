@@ -12,8 +12,9 @@ namespace Tests.Common.FakeClasses
             CashgameTotalResult bestTotalResult = default(CashgameTotalResult), 
             CashgameResult bestResult = default(CashgameResult), 
             CashgameResult worstResult = default(CashgameResult), 
-            CashgameTotalResult mostTimeResult = default(CashgameTotalResult), 
-            int totalGameTime = default(int)) : 
+            CashgameTotalResult mostTimeResult = default(CashgameTotalResult),
+            int totalGameTime = default(int),
+            int totalTurnover = default(int)) : 
                 base(
                 cashgames ?? new List<Cashgame>(),
                 totalResults ?? new List<CashgameTotalResult>(), 
@@ -22,7 +23,8 @@ namespace Tests.Common.FakeClasses
                 bestResult, 
                 worstResult, 
                 mostTimeResult, 
-                totalGameTime)
+                totalGameTime,
+                totalTurnover)
         {
         }
     }

@@ -14,20 +14,17 @@ namespace Infrastructure.Data.Storage {
         private readonly IRawCashgameFactory _rawCashgameFactory;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
         private readonly IGlobalization _globalization;
-        private readonly ITimeProvider _timeProvider;
 
         public SqlServerCashgameStorage(
             IStorageProvider storageProvider,
             IRawCashgameFactory rawCashgameFactory,
             IRawCheckpointFactory rawCheckpointFactory,
-            IGlobalization globalization,
-            ITimeProvider timeProvider)
+            IGlobalization globalization)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
             _rawCheckpointFactory = rawCheckpointFactory;
             _globalization = globalization;
-            _timeProvider = timeProvider;
 	    }
 
         public int AddGame(Homegame homegame, RawCashgameWithResults cashgame)
@@ -75,6 +72,19 @@ namespace Infrastructure.Data.Storage {
                 return null;
             }
             return cashgames[0];
+        }
+
+        public int? GetRunningCashgameId(int homegameId)
+        {
+            const int status = (int)GameStatus.Running;
+            var sql = string.Concat(GetGameIdSql(homegameId), "AND g.Status = {0}");
+            sql = string.Format(sql, status, homegameId);
+            var reader = _storageProvider.Query(sql);
+            if (reader.Read())
+            {
+                return reader.GetInt("GameID");
+            }
+            return null;
         }
 
         public int? GetCashgameId(int homegameId, string dateStr)

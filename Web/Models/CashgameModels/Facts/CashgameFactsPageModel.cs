@@ -10,6 +10,7 @@ namespace Web.Models.CashgameModels.Facts{
 	    public CashgameNavigationModel CashgameNavModel { get; set; }
 	    public int GameCount { get; set; }
 		public string TotalGameTime { get; set; }
+        public string TotalTurnover { get; set; }
 		public string BestResultAmount { get; set; }
 		public string BestResultName { get; set; }
 		public string WorstResultAmount { get; set; }

@@ -11,6 +11,7 @@ namespace Core.Classes{
         public CashgameResult WorstResult { get; private set; }
         public CashgameTotalResult MostTimeResult { get; private set; }
         public int TotalGameTime { get; private set; }
+        public int TotalTurnover { get; set; }
 
         public CashgameSuite(
             IList<Cashgame> cashgames, 
@@ -20,7 +21,8 @@ namespace Core.Classes{
             CashgameResult bestResult, 
             CashgameResult worstResult, 
             CashgameTotalResult mostTimeResult, 
-            int totalGameTime)
+            int totalGameTime,
+            int totalTurnover)
         {
             Cashgames = cashgames;
             TotalResults = totalResults;
@@ -30,6 +32,7 @@ namespace Core.Classes{
             WorstResult = worstResult;
             MostTimeResult = mostTimeResult;
             TotalGameTime = totalGameTime;
+            TotalTurnover = totalTurnover;
         }
 
 	}

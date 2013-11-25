@@ -31,6 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        GameCount = suite.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(suite.TotalGameTime),
+                    TotalTurnover = _globalization.FormatCurrency(homegame.Currency, suite.TotalTurnover),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year)
                 };
 

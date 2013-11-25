@@ -9,6 +9,7 @@ namespace Infrastructure.Data.Storage.Interfaces {
         int AddGame(Homegame homegame, RawCashgameWithResults cashgame);
 		bool DeleteGame(int cashgameId);
         RawCashgame GetGame(int cashgameId);
+        int? GetRunningCashgameId(int homegameId);
         int? GetCashgameId(int homegameId, string dateStr);
         IList<RawCashgameWithResults> GetGames(int homegameId, int? status = null, int? year = null);
         IList<RawCashgameWithResults> GetGames(IList<int> ids);

@@ -72,12 +72,14 @@ namespace Infrastructure.Repositories {
             return GetGames(homegame, GameStatus.Published, year);
         }
 
-		public Cashgame GetRunning(Homegame homegame){
-			var games = GetGames(homegame, GameStatus.Running);
-			if(games.Count == 0){
-				return null;
-			}
-			return games[0];
+		public Cashgame GetRunning(Homegame homegame)
+		{
+		    var id = _cashgameStorage.GetRunningCashgameId(homegame.Id);
+            if (!id.HasValue)
+            {
+                return null;
+            }
+		    return GetCashgameUncached(homegame, id.Value);
 		}
 
         public IList<Cashgame> GetAll(Homegame homegame, int? year = null)
@@ -101,10 +103,7 @@ namespace Infrastructure.Repositories {
             {
                 return cached;
             }
-            var rawGame = _cashgameStorage.GetGame(id);
-            var rawCheckpoints = _checkpointStorage.GetCheckpoints(id);
-            var players = _playerRepository.GetAll(homegame);
-            var uncached = GetGameFromRawGame(rawGame, rawCheckpoints, players);
+            var uncached = GetCashgameUncached(homegame, id);
             if (uncached != null)
             {
                 _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
@@ -182,6 +181,14 @@ namespace Infrastructure.Repositories {
             }
 
             return cashgames.OrderBy(o => o.Id).ToList();
+        }
+
+        private Cashgame GetCashgameUncached(Homegame homegame, int cashgameId)
+        {
+            var rawGame = _cashgameStorage.GetGame(cashgameId);
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
+            var players = _playerRepository.GetAll(homegame);
+            return GetGameFromRawGame(rawGame, rawCheckpoints, players);
         }
 
         private IEnumerable<int> GetGameIds(Homegame homegame, GameStatus? status = null, int? year = null)

@@ -15,6 +15,7 @@ namespace Infrastructure.Factories{
         public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
         {
 			var totalGameTime = 0;
+            var totalTurnover = 0;
 			var resultIndex = GetPlayerIndex(players);
 			CashgameResult bestResult = null;
 			CashgameResult worstResult = null;
@@ -32,6 +33,7 @@ namespace Infrastructure.Factories{
 					}
 				}
 				totalGameTime += cashgame.Duration;
+			    totalTurnover += cashgame.Turnover;
 			}
 
 			var totalResults = GetTotalResults(players, resultIndex);
@@ -47,7 +49,8 @@ namespace Infrastructure.Factories{
                     bestResult,
                     worstResult,
                     mostTimeResult,
-                    totalGameTime
+                    totalGameTime,
+                    totalTurnover
                 );
 		}
 

@@ -25,7 +25,8 @@ namespace Infrastructure.Tests.Factories{
 		public void GetTotalResults_ReturnsCorrectTotalsSortedOnWinningsDescending(){
 			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(2, result.TotalResults.Count);
 			Assert.AreEqual(3, result.TotalResults[0].Winnings);
@@ -37,7 +38,8 @@ namespace Infrastructure.Tests.Factories{
 			var cashgame = new FakeCashgame(id: 1);
 		    _cashgames.Add(cashgame);
 
-		    var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(1, result.Cashgames.Count);
 			Assert.AreEqual(1, result.Cashgames[0].Id);
@@ -48,7 +50,8 @@ namespace Infrastructure.Tests.Factories{
 			var cashgame = new FakeCashgame();
 			_cashgames.Add(cashgame);
 
-		    var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(1, result.GameCount);
 		}
@@ -57,7 +60,8 @@ namespace Infrastructure.Tests.Factories{
 		public void GetBestTotalResult_ReturnsTheTotalResultWithTheHighestWinnings(){
 			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(3, result.BestTotalResult.Winnings);
 		}
@@ -66,7 +70,8 @@ namespace Infrastructure.Tests.Factories{
 		public void GetBestResult_ReturnsTheResultWithTheHighestWinnings(){
 			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(2, result.BestResult.Winnings);
 		}
@@ -75,7 +80,8 @@ namespace Infrastructure.Tests.Factories{
 		public void GetWorstResult_ReturnsTheResultWithTheLowestWinnings(){
 			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(-2, result.WorstResult.Winnings);
 		}
@@ -84,22 +90,39 @@ namespace Infrastructure.Tests.Factories{
 		public void GetMostTime_ReturnsTheResultWithTheMostTimePlayed(){
 			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
 			Assert.AreEqual(4, result.MostTimeResult.TimePlayed);
 		}
 
-		[Test]
-		public void GetTotalGameTime_ReturnsTheSumOfTheGameDurations(){
-			var cashgame1 = new FakeCashgame (duration: 1);
-		    var cashgame2 = new FakeCashgame (duration: 2);
+        [Test]
+        public void GetTotalGameTime_ReturnsTheSumOfTheGameDurations()
+        {
+            var cashgame1 = new FakeCashgame(duration: 1);
+            var cashgame2 = new FakeCashgame(duration: 2);
 
-		    _cashgames = new List<Cashgame>{cashgame1, cashgame2};
+            _cashgames = new List<Cashgame> { cashgame1, cashgame2 };
 
-			var result = GetResult();
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
 
-			Assert.AreEqual(3, result.TotalGameTime);
-		}
+            Assert.AreEqual(3, result.TotalGameTime);
+        }
+
+        [Test]
+        public void GetTotalTurnover_ReturnsTheSumOfAllTurnovers()
+        {
+            var cashgame1 = new FakeCashgame(turnover: 1);
+            var cashgame2 = new FakeCashgame(turnover: 2);
+
+            _cashgames = new List<Cashgame> { cashgame1, cashgame2 };
+
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
+
+            Assert.AreEqual(3, result.TotalTurnover);
+        }
 
 		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer(){
 			var player1 = new FakePlayer(1);
@@ -134,10 +157,10 @@ namespace Infrastructure.Tests.Factories{
             return new FakeCashgameTotalResult(player: player, winnings: 3, timePlayed: 4);
         }
 
-		private CashgameSuite GetResult(){
-			var cashgameSuiteFactory = new CashgameSuiteFactory(_cashgameTotalResultFactoryMock.Object);
-			return cashgameSuiteFactory.Create(_cashgames, _players);
-		}
+        private CashgameSuiteFactory GetSut()
+        {
+            return new CashgameSuiteFactory(_cashgameTotalResultFactoryMock.Object);
+        }
 
 	}
 

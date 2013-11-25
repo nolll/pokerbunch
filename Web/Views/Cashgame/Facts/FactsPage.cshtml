@@ -11,31 +11,38 @@
 </div>
 
 <div class="block gutter">
-	<dl>
-		<dt>Number of games</dt>
-		<dd>@Model.GameCount</dd>
+    <h2>Overall Facts</h2>
+    <dl>
+        <dt>Number of games</dt>
+        <dd>@Model.GameCount</dd>
 
-		<dt>Best Result</dt>
-		<dd>@Model.BestResultName: @Model.BestResultAmount</dd>
+        <dt>Total Time Played</dt>
+        <dd>@Model.TotalGameTime</dd>
+        
+        <dt>Total Turnover</dt>
+        <dd>@Model.TotalTurnover</dd>
+    </dl>
+    
+    <h2>Player Facts</h2>
+    <dl>
+        <dt>Best Result</dt>
+        <dd>@Model.BestResultName: @Model.BestResultAmount</dd>
 
-		<dt>Worst Result</dt>
-		<dd>@Model.WorstResultName: @Model.WorstResultAmount</dd>
+        <dt>Worst Result</dt>
+        <dd>@Model.WorstResultName: @Model.WorstResultAmount</dd>
 
-		<dt>Total Time Played</dt>
-		<dd>@Model.TotalGameTime</dd>
+        <dt>Most Time Played</dt>
+        <dd>@Model.MostTimeName: @Model.MostTimeDuration</dd>
 
-		<dt>Most Time Played</dt>
-		<dd>@Model.MostTimeName: @Model.MostTimeDuration</dd>
-
-		<!--
-		BiggestTotalBuyin
-		BiggestTotalCashout
-		BestTotalResult
-		BiggestBuyin
-		BiggestCashout
-		BiggestComeback
-		MostGamesPlayed
-		HighestWinrate
-		-->
-	</dl>
+        <!--
+            BiggestTotalBuyin
+            BiggestTotalCashout
+            BestTotalResult
+            BiggestBuyin
+            BiggestCashout
+            BiggestComeback
+            MostGamesPlayed
+            HighestWinrate
+            -->
+    </dl>
 </div>
