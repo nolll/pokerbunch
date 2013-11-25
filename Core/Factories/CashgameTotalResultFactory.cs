@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
+using Core.Factories.Interfaces;
 
-namespace Infrastructure.Factories{
+namespace Core.Factories{
 
 	public class CashgameTotalResultFactory : ICashgameTotalResultFactory{
 
@@ -29,6 +31,21 @@ namespace Infrastructure.Factories{
                     player
                 );
 		}
+
+        public IList<CashgameTotalResult> CreateList(IEnumerable<Player> players, IDictionary<int, IList<CashgameResult>> resultIndex)
+	    {
+            var totalResults = new List<CashgameTotalResult>();
+            foreach (var player in players)
+            {
+                var playerResults = resultIndex[player.Id];
+                if (playerResults.Count > 0)
+                {
+                    var totalResult = Create(player, playerResults);
+                    totalResults.Add(totalResult);
+                }
+            }
+            return totalResults.OrderByDescending(o => o.Winnings).ToList();
+	    }
 
 	    private int GetWinRate(int timePlayed, int winnings)
 	    {

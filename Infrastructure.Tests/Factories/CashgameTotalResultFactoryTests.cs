@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
-using Infrastructure.Factories;
+using Core.Factories;
 using NUnit.Framework;
 using Tests.Common.FakeClasses;
 

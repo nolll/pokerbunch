@@ -1,18 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Factories.Interfaces;
 
-namespace Infrastructure.Factories{
-    public class CashgameSuiteFactory : ICashgameSuiteFactory{
+namespace Core.Factories
+{
+    public class CashgameFactsFactory : ICashgameFactsFactory{
 
 	    private readonly ICashgameTotalResultFactory _cashgameTotalResultFactory;
 
-	    public CashgameSuiteFactory(ICashgameTotalResultFactory cashgameTotalResultFactory)
+	    public CashgameFactsFactory(ICashgameTotalResultFactory cashgameTotalResultFactory)
 		{
 		    _cashgameTotalResultFactory = cashgameTotalResultFactory;
 		}
 
-        public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
+        public CashgameFacts Create(IList<Cashgame> cashgames, IList<Player> players)
         {
 			var totalGameTime = 0;
             var totalTurnover = 0;
@@ -20,8 +22,7 @@ namespace Infrastructure.Factories{
 			CashgameResult bestResult = null;
 			CashgameResult worstResult = null;
 
-	        var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
-			foreach(var cashgame in sortedCashgames){
+			foreach(var cashgame in cashgames){
 				var results = cashgame.Results;
 				foreach(var result in results){
 					resultIndex[result.Player.Id].Add(result);
@@ -36,15 +37,13 @@ namespace Infrastructure.Factories{
 			    totalTurnover += cashgame.Turnover;
 			}
 
-			var totalResults = GetTotalResults(players, resultIndex);
+            var totalResults = _cashgameTotalResultFactory.CreateList(players, resultIndex);
 			var mostTimeResult = GetMostTimeResult(totalResults);
 			var bestTotalResult = totalResults.FirstOrDefault();
 
-            return new CashgameSuite
+            return new CashgameFacts
                 (
-                    sortedCashgames,
-                    totalResults,
-                    sortedCashgames.Count(),
+                    cashgames.Count(),
                     bestTotalResult,
                     bestResult,
                     worstResult,
@@ -63,20 +62,7 @@ namespace Infrastructure.Factories{
 			return dictionary;
 		}
 
-        private List<CashgameTotalResult> GetTotalResults(IEnumerable<Player> players, IDictionary<int, IList<CashgameResult>> resultIndex)
-        {
-			var totalResults = new List<CashgameTotalResult>();
-			foreach(var player in players){
-				var playerResults = resultIndex[player.Id];
-				if(playerResults.Count > 0){
-                    var totalResult = _cashgameTotalResultFactory.Create(player, playerResults);
-					totalResults.Add(totalResult);
-				}
-			}
-            return totalResults.OrderByDescending(o => o.Winnings).ToList();
-		}
-
-		public CashgameTotalResult GetMostTimeResult(List<CashgameTotalResult> results){
+        private CashgameTotalResult GetMostTimeResult(IEnumerable<CashgameTotalResult> results){
 			CashgameTotalResult mostTimeResult = null;
 			foreach(var result in results){
 				if(mostTimeResult == null || result.TimePlayed > mostTimeResult.TimePlayed){

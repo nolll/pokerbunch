@@ -30,7 +30,6 @@ namespace Infrastructure.Repositories {
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly IPlayerRepository _playerRepository;
-	    private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
 	    private readonly ICashgameResultFactory _cashgameResultFactory;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICheckpointFactory _checkpointFactory;
@@ -42,7 +41,6 @@ namespace Infrastructure.Repositories {
             ICashgameStorage cashgameStorage,
 			ICashgameFactory cashgameFactory,
             IPlayerRepository playerRepository,
-			ICashgameSuiteFactory cashgameSuiteFactory,
 			ICashgameResultFactory cashgameResultFactory,
             IRawCashgameFactory rawCashgameFactory,
             ICheckpointFactory checkpointFactory,
@@ -53,7 +51,6 @@ namespace Infrastructure.Repositories {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
 	        _playerRepository = playerRepository;
-	        _cashgameSuiteFactory = cashgameSuiteFactory;
 	        _cashgameResultFactory = cashgameResultFactory;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _checkpointFactory = checkpointFactory;
@@ -126,12 +123,6 @@ namespace Infrastructure.Repositories {
             }
             return uncached;
         }
-
-		public CashgameSuite GetSuite(Homegame homegame, int? year = null){
-			var players = _playerRepository.GetAll(homegame);
-			var cashgames = GetPublished(homegame, year);
-			return _cashgameSuiteFactory.Create(cashgames, players);
-		}
 
         public IList<int> GetYears(Homegame homegame)
         {
@@ -317,5 +308,4 @@ namespace Infrastructure.Repositories {
         }
 
 	}
-
 }

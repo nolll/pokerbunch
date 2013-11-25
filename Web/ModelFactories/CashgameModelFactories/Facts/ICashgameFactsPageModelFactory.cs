@@ -6,6 +6,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 {
     public interface ICashgameFactsPageModelFactory
     {
-        CashgameFactsPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year = null, Cashgame runningGame = null);
+        CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years, int? year = null, Cashgame runningGame = null);
     }
 }

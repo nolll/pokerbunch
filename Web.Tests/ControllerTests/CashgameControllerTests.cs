@@ -27,6 +27,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
+using ICashgameService = Core.Services.ICashgameService;
 
 namespace Web.Tests.ControllerTests{
 
@@ -71,7 +72,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Leaderboard_Authorized_ShowsCorrectView(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<ICashgameRepository>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new FakeCashgameSuite());
+            GetMock<ICashgameService>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new FakeCashgameSuite());
             GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
 
 		    var sut = GetSut();
@@ -296,7 +297,8 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IActionChartModelFactory>().Object,
                 GetMock<ICashgameDetailsChartModelFactory>().Object,
                 GetMock<ITimeProvider>().Object,
-                GetMock<ICheckpointRepository>().Object);
+                GetMock<ICheckpointRepository>().Object,
+                GetMock<ICashgameService>().Object);
         }
 
 	}

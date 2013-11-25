@@ -95,7 +95,6 @@
     <Compile Include="Data\Storage\StorageDataReader.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\ITwitterCredentialsFactory.cs" />
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
@@ -123,13 +122,6 @@
   <ItemGroup>
     <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
-    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Factories\CashgameSuiteFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\HomegameFactory.cs" />

@@ -39,7 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CashgameFacts.cs" />
     <Compile Include="Classes\TwitterCredentials.cs" />
+    <Compile Include="Factories\CashgameSuiteFactory.cs" />
+    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\CashgameFactsFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Services\CashgameService.cs" />
+    <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
   </ItemGroup>

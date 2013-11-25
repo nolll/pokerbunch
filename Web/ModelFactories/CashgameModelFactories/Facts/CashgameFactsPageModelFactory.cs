@@ -23,42 +23,42 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             _globalization = globalization;
         }
 
-        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years = null, int? year = null, Cashgame runningGame = null)
+        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null, Cashgame runningGame = null)
         {
             var model = new CashgameFactsPageModel
                 {
                     BrowserTitle = "Cashgame Facts",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
-			        GameCount = suite.GameCount,
-			        TotalGameTime = _globalization.FormatDuration(suite.TotalGameTime),
-                    TotalTurnover = _globalization.FormatCurrency(homegame.Currency, suite.TotalTurnover),
+			        GameCount = facts.GameCount,
+			        TotalGameTime = _globalization.FormatDuration(facts.TotalGameTime),
+                    TotalTurnover = _globalization.FormatCurrency(homegame.Currency, facts.TotalTurnover),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year)
                 };
 
-            if (suite.BestResult != null)
+            if (facts.BestResult != null)
             {
-                model.BestResultAmount = _globalization.FormatResult(homegame.Currency, suite.BestResult.Winnings);
-                if (suite.BestResult.Player != null)
+                model.BestResultAmount = _globalization.FormatResult(homegame.Currency, facts.BestResult.Winnings);
+                if (facts.BestResult.Player != null)
                 {
-                    model.BestResultName = suite.BestResult.Player.DisplayName;
+                    model.BestResultName = facts.BestResult.Player.DisplayName;
                 }
             }
 
-            if (suite.WorstResult != null)
+            if (facts.WorstResult != null)
             {
-                model.WorstResultAmount = _globalization.FormatResult(homegame.Currency, suite.WorstResult.Winnings);
-                if (suite.WorstResult.Player != null)
+                model.WorstResultAmount = _globalization.FormatResult(homegame.Currency, facts.WorstResult.Winnings);
+                if (facts.WorstResult.Player != null)
                 {
-                    model.WorstResultName = suite.WorstResult.Player.DisplayName;
+                    model.WorstResultName = facts.WorstResult.Player.DisplayName;
                 }
             }
 
-            if (suite.MostTimeResult != null)
+            if (facts.MostTimeResult != null)
             {
-                model.MostTimeDuration = _globalization.FormatDuration(suite.MostTimeResult.TimePlayed);
-                if (suite.MostTimeResult.Player != null)
+                model.MostTimeDuration = _globalization.FormatDuration(facts.MostTimeResult.TimePlayed);
+                if (facts.MostTimeResult.Player != null)
                 {
-                    model.MostTimeName = suite.MostTimeResult.Player.DisplayName;
+                    model.MostTimeName = facts.MostTimeResult.Player.DisplayName;
                 }
             }
 

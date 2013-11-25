@@ -1,5 +1,6 @@
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -10,6 +11,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	class MatrixPageModelFactory : IMatrixPageModelFactory
     {
 	    private readonly ICashgameRepository _cashgameRepository;
+	    private readonly ICashgameService _cashgameService;
 	    private readonly IPagePropertiesFactory _pagePropertiesFactory;
 	    private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
 	    private readonly ICashgameMatrixTableModelFactory _cashgameMatrixTableModelFactory;
@@ -17,12 +19,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 
 	    public MatrixPageModelFactory(
             ICashgameRepository cashgameRepository,
+            ICashgameService cashgameService,
             IPagePropertiesFactory pagePropertiesFactory,
             ICashgameNavigationModelFactory cashgameNavigationModelFactory,
             ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
             IBarModelFactory barModelFactory)
 	    {
 	        _cashgameRepository = cashgameRepository;
+	        _cashgameService = cashgameService;
 	        _pagePropertiesFactory = pagePropertiesFactory;
 	        _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
 	        _cashgameMatrixTableModelFactory = cashgameMatrixTableModelFactory;
@@ -30,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	    }
 
 	    public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
-			var suite = _cashgameRepository.GetSuite(homegame, year);
+            var suite = _cashgameService.GetSuite(homegame, year);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
 			return new CashgameMatrixPageModel

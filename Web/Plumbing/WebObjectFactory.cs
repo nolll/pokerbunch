@@ -1,5 +1,8 @@
 ﻿using Castle.Core;
 using Castle.Windsor;
+using Core.Classes;
+using Core.Factories;
+using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;
@@ -42,6 +45,7 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
 using Web.Services;
+using CashgameService = Core.Services.CashgameService;
 
 namespace Web.Plumbing
 {
@@ -71,6 +75,7 @@ namespace Web.Plumbing
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<IResultFormatter, ResultFormatter>();
+            RegisterComponent<ICashgameService, CashgameService>();
 
             // Repositories
             RegisterComponent<IHomegameRepository, HomegameRepository>();
@@ -95,6 +100,7 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
             RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
             RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
+            RegisterComponent<ICashgameFactsFactory, CashgameFactsFactory>();
             RegisterComponent<ICheckpointFactory, CheckpointFactory>();
             RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 

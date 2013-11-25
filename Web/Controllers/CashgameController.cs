@@ -4,6 +4,7 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;
+using Infrastructure.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
@@ -59,6 +60,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICheckpointRepository _checkpointRepository;
+	    private readonly ICashgameService _cashgameService;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -87,7 +89,8 @@ namespace Web.Controllers{
             IActionChartModelFactory actionChartModelFactory,
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
             ITimeProvider timeProvider,
-            ICheckpointRepository checkpointRepository)
+            ICheckpointRepository checkpointRepository,
+            ICashgameService cashgameService)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -116,6 +119,7 @@ namespace Web.Controllers{
 	        _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
 	        _timeProvider = timeProvider;
 	        _checkpointRepository = checkpointRepository;
+	        _cashgameService = cashgameService;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -139,7 +143,7 @@ namespace Web.Controllers{
         public ActionResult Leaderboard(string gameName, int? year = null){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var suite = _cashgameRepository.GetSuite(homegame, year);
+            var suite = _cashgameService.GetSuite(homegame, year);
 			var years = _cashgameRepository.GetYears(homegame);
 			var model = _cashgameLeaderboardPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, year);
 			return View("Leaderboard/LeaderboardPage", model);
@@ -171,10 +175,10 @@ namespace Web.Controllers{
         public ActionResult Facts(string gameName, int? year = null){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var suite = _cashgameRepository.GetSuite(homegame, year);
+            var facts = _cashgameService.GetFacts(homegame, year);
             var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
-			var model = _cashgameFactsPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, year, runningGame);
+			var model = _cashgameFactsPageModelFactory.Create(_userContext.GetUser(), homegame, facts, years, year, runningGame);
 			return View("Facts/FactsPage", model);
 		}
 
@@ -269,7 +273,7 @@ namespace Web.Controllers{
         public JsonResult ChartJson(string gameName, int? year = null){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var suite = _cashgameRepository.GetSuite(homegame, year);
+            var suite = _cashgameService.GetSuite(homegame, year);
 			var model = _cashgameSuiteChartModelFactory.Create(suite);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}

@@ -46,7 +46,6 @@ namespace Infrastructure.Tests.Repositories{
                 GetMock<ICashgameStorage>().Object,
                 GetMock<ICashgameFactory>().Object,
                 GetMock<IPlayerRepository>().Object,
-                GetMock<ICashgameSuiteFactory>().Object,
                 GetMock<ICashgameResultFactory>().Object,
                 GetMock<IRawCashgameFactory>().Object,
                 GetMock<ICheckpointFactory>().Object,
