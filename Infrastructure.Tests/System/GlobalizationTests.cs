@@ -64,6 +64,8 @@ namespace Infrastructure.Tests.System{
         [TestCase(1, "now")]
         [TestCase(60, "1 minute")]
         [TestCase(120, "2 minutes")]
+        [TestCase(3600, "60 minutes")]
+        [TestCase(4000, "67 minutes")]
 		public void FormatTimespan(int input, string expected)
         {
             var timespan = TimeSpan.FromSeconds(input);

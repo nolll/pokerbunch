@@ -52,15 +52,16 @@ namespace Infrastructure.System{
 
         public string FormatTimespan(TimeSpan timespan)
         {
-            if (timespan.Minutes == 0)
+            var minutes = (int)Math.Round(timespan.TotalMinutes);
+            if (minutes == 0)
             {
                 return "now";
             }
-            if (timespan.Minutes == 1)
+            if (minutes == 1)
             {
                 return "1 minute";
             }
-            return timespan.Minutes + " minutes";
+            return minutes + " minutes";
         }
         
         public string FormatShortDate(DateTime date, bool includeYear = false)

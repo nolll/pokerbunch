@@ -66,7 +66,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		}
 
 		[Test]
-		public void test_Stack_IsSet()
+		public void Stack_IsSet()
         {
             const string formatted = "a";
             const int stack = 1;
