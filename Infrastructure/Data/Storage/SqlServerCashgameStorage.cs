@@ -48,12 +48,6 @@ namespace Infrastructure.Data.Storage {
             return "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID ";
         }
 
-        private string GetGameSql(int homegameId)
-        {
-            var sql = string.Concat(GetGameSql(), "WHERE g.HomegameID = {0} ");
-            return string.Format(sql, homegameId);
-        }
-
         private string GetGameIdSql(int homegameId)
         {
             var sql = "SELECT g.GameID FROM game g WHERE g.HomegameID = {0} ";
@@ -99,23 +93,7 @@ namespace Infrastructure.Data.Storage {
             return null;
         }
 
-        public IList<RawCashgameWithResults> GetGames(int homegameId, int? status = null, int? year = null)
-        {
-            var sql = GetGameSql(homegameId);
-            if (status.HasValue)
-            {
-                sql += string.Format("AND g.Status = {0} ", (int)status.Value);
-            }
-            if (year.HasValue)
-            {
-                sql += string.Format("AND YEAR(g.Date) = {0} ", year.Value);
-            }
-            sql += "ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
-            var reader = _storageProvider.Query(sql);
-            return GetGamesFromDbResult(reader);
-        }
-
-        public IList<RawCashgameWithResults> GetGames(IList<int> ids)
+        public IList<RawCashgameWithResults> GetGames(IEnumerable<int> ids)
         {
             var sql = GetGameSql();
             var idList = GetIdListForSql(ids);
