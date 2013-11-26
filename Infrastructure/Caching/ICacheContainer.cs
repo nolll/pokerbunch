@@ -10,5 +10,6 @@ namespace Infrastructure.Caching
         T Get<T>(string key) where T : class;
         void Remove(string cacheKey);
         void FakeRemove(string cacheKey);
+        T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class;
     }
 }

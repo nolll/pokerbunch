@@ -45,6 +45,11 @@ namespace Tests.Common
         {
         }
 
+        public T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
+        {
+            return Get<T>(cacheKey);
+        }
+
         public void SetFakedCacheKey(string fakedCacheKey)
         {
             _fakedCacheKey = fakedCacheKey;

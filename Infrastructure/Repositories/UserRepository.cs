@@ -39,18 +39,13 @@ namespace Infrastructure.Repositories
         public User GetUserById(int id)
         {
             var cacheKey = _cacheKeyProvider.UserKey(id);
-            var cached = _cacheContainer.Get<User>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
+            return _cacheContainer.GetAndStore(() => GetUserByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        private User GetUserByIdUncached(int id)
+        {
             var rawUser = _userStorage.GetUserById(id);
-            var uncached = rawUser != null ? _userFactory.Create(rawUser) : null;
-            if (uncached != null)
-            {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            return rawUser != null ? _userFactory.Create(rawUser) : null;
         }
 
         public User GetUserByToken(string token)
