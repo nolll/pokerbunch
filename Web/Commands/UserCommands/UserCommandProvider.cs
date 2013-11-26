@@ -48,6 +48,7 @@ namespace Web.Commands.UserCommands
                 _saltGenerator,
                 _encryptionService,
                 _passwordSender,
+                _userModelMapper,
                 postModel);
         }
 
@@ -57,6 +58,7 @@ namespace Web.Commands.UserCommands
                 _saltGenerator,
                 _encryptionService,
                 _userRepository,
+                _userModelMapper,
                 user, 
                 postModel);
         }

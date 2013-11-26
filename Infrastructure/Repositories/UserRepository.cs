@@ -13,8 +13,6 @@ namespace Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private const string UserIdCacheKey = "UserId";
-
         private readonly IUserStorage _userStorage;
         private readonly IUserFactory _userFactory;
         private readonly IRawUserFactory _rawUserFactory;
@@ -55,75 +53,15 @@ namespace Infrastructure.Repositories
             return uncached;
         }
 
-        public User GetUserByEmail(string email)
-        {
-            var userId = GetUserIdByEmail(email);
-            return userId.HasValue ? GetUserById(userId.Value) : null;
-        }
-
-        private int? GetUserIdByEmail(string email)
-        {
-            var cacheKey = _cacheKeyProvider.UserIdByEmailKey(email);
-            var cached = _cacheContainer.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                return int.Parse(cached);
-            }
-            var uncached = _userStorage.GetUserIdByEmail(email);
-            if (uncached.HasValue)
-            {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
-        }
-
-        private int? GetUserIdByToken(string token)
-        {
-            var cacheKey = _cacheContainer.ConstructCacheKey(UserIdCacheKey, "token", token);
-            var cached = _cacheContainer.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                return int.Parse(cached);
-            }
-            var uncached = _userStorage.GetUserIdByToken(token);
-            if (uncached.HasValue)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
-        }
-
         public User GetUserByToken(string token)
         {
             var userId = GetUserIdByToken(token);
             return userId.HasValue ? GetUserById(userId.Value) : null;
         }
 
-        private int? GetUserIdByName(string userName)
+        public User GetUserByNameOrEmail(string userNameOrEmail)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(UserIdCacheKey, "username", userName);
-            var cached = _cacheContainer.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                return int.Parse(cached);
-            }
-            var uncached = _userStorage.GetUserIdByName(userName);
-            if (uncached.HasValue)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
-        }
-
-        public User GetUserByName(string userName)
-        {
-            var userId = GetUserIdByName(userName);
-            return userId.HasValue ? GetUserById(userId.Value) : null;
-        }
-
-        public User GetUserByCredentials(string userNameOrEmail, string password)
-        {
-            var userId = _userStorage.GetUserIdByCredentials(userNameOrEmail, password);
+            var userId = GetUserIdByNameOrEmail(userNameOrEmail);
             return userId.HasValue ? GetUserById(userId.Value) : null;
         }
 
@@ -161,22 +99,6 @@ namespace Infrastructure.Repositories
             return users.OrderBy(o => o.DisplayName).ToList();
         }
 
-        private IEnumerable<int> GetUserIds()
-        {
-            var cacheKey = _cacheKeyProvider.UserIdsKey();
-            var cached = _cacheContainer.Get<List<int>>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
-            var uncached = _userStorage.GetUserIds();
-            if (uncached != null)
-            {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
-        }
-
         public bool UpdateUser(User user)
         {
             var rawUser = _rawUserFactory.Create(user);
@@ -193,34 +115,53 @@ namespace Infrastructure.Repositories
             return id;
         }
 
-        public bool DeleteUser(User user)
+        private int? GetUserIdByToken(string token)
         {
-            throw new global::System.NotImplementedException();
+            var cacheKey = _cacheKeyProvider.UserIdByTokenKey(token);
+            var cached = _cacheContainer.Get<string>(cacheKey);
+            if (cached != null)
+            {
+                return int.Parse(cached);
+            }
+            var uncached = _userStorage.GetUserIdByToken(token);
+            if (uncached.HasValue)
+            {
+                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
         }
 
-        public string GetSalt(string userNameOrEmail)
+        private int? GetUserIdByNameOrEmail(string nameOrEmail)
         {
-            return _userStorage.GetSalt(userNameOrEmail);
+            var cacheKey = _cacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
+            var cached = _cacheContainer.Get<string>(cacheKey);
+            if (cached != null)
+            {
+                return int.Parse(cached);
+            }
+            var uncached = _userStorage.GetUserIdByNameOrEmail(nameOrEmail);
+            if (uncached.HasValue)
+            {
+                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
         }
 
-        public bool SetSalt(User user, string salt)
+        private IEnumerable<int> GetUserIds()
         {
-            return _userStorage.SetSalt(user.UserName, salt);
+            var cacheKey = _cacheKeyProvider.UserIdsKey();
+            var cached = _cacheContainer.Get<List<int>>(cacheKey);
+            if (cached != null)
+            {
+                return cached;
+            }
+            var uncached = _userStorage.GetUserIds();
+            if (uncached != null)
+            {
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+            }
+            return uncached;
         }
 
-        public bool SetEncryptedPassword(User user, string encryptedPassword)
-        {
-            return _userStorage.SetEncryptedPassword(user.UserName, encryptedPassword);
-        }
-
-        public string GetToken(User user)
-        {
-            return _userStorage.GetToken(user.UserName);
-        }
-
-        public bool SetToken(User user, string token)
-        {
-            return _userStorage.SetToken(user.UserName, token);
-        }
     }
 }

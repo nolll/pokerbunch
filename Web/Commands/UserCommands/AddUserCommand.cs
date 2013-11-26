@@ -51,15 +51,12 @@ namespace Web.Commands.UserCommands
             {
                 return false;
             }
-            var user = _userModelMapper.GetUser(_postModel);
-            _userRepository.AddUser(user);
             var password = _passwordGenerator.CreatePassword();
             var salt = _saltGenerator.CreateSalt();
             var encryptedPassword = _encryptionService.Encrypt(password, salt);
             var token = _encryptionService.Encrypt(_postModel.UserName, salt);
-            _userRepository.SetToken(user, token);
-            _userRepository.SetEncryptedPassword(user, encryptedPassword);
-            _userRepository.SetSalt(user, salt);
+            var user = _userModelMapper.GetUser(_postModel, token, encryptedPassword, salt);
+            _userRepository.AddUser(user);
             _registrationConfirmationSender.Send(user, password);
             return true;
         }

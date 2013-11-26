@@ -6,7 +6,7 @@ namespace Web.ModelMappers
 {
     public class UserModelMapper : IUserModelMapper
     {
-        public User GetUser(AddUserPostModel postModel)
+        public User GetUser(AddUserPostModel postModel, string token, string encryptedPassword, string salt)
         {
             return new User(
                 0,
@@ -14,7 +14,10 @@ namespace Web.ModelMappers
                 postModel.DisplayName,
                 string.Empty,
                 postModel.Email,
-                Role.Player);
+                Role.Player,
+                token,
+                encryptedPassword,
+                salt);
         }
 
         public User GetUser(User user, EditUserPostModel postModel)
@@ -25,7 +28,24 @@ namespace Web.ModelMappers
                 postModel.DisplayName,
                 postModel.RealName,
                 postModel.Email,
-                user.GlobalRole);
+                user.GlobalRole,
+                user.Token,
+                user.EncryptedPassword,
+                user.Salt);
+        }
+
+        public User GetUser(User user, string encryptedPassword, string salt)
+        {
+            return new User(
+                user.Id,
+                user.UserName,
+                user.DisplayName,
+                user.RealName,
+                user.Email,
+                user.GlobalRole,
+                user.Token,
+                encryptedPassword,
+                salt);
         }
     }
 }

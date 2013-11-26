@@ -44,9 +44,9 @@ namespace Web.Commands.AuthCommands
 
         private User GetLoggedInUser(string loginName, string password)
         {
-            var salt = _userRepository.GetSalt(loginName);
-            var encryptedPassword = _encryptionService.Encrypt(password, salt);
-            return _userRepository.GetUserByCredentials(loginName, encryptedPassword);
+            var user = _userRepository.GetUserByNameOrEmail(loginName);
+            var encryptedPassword = _encryptionService.Encrypt(password, user.Salt);
+            return encryptedPassword == user.EncryptedPassword ? user : null;
         }
 
         private void SetCookies(User user, bool remember)
@@ -63,14 +63,12 @@ namespace Web.Commands.AuthCommands
 
         private void SetSessionCookies(User user)
         {
-            var token = _userRepository.GetToken(user);
-            _webContext.SetSessionCookie("token", token);
+            _webContext.SetSessionCookie("token", user.Token);
         }
 
         private void SetPersistentCookies(User user)
         {
-            var token = _userRepository.GetToken(user);
-            _webContext.SetPersistentCookie("token", token);
+            _webContext.SetPersistentCookie("token", user.Token);
         }
     }
 }

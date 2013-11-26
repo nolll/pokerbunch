@@ -26,9 +26,13 @@ namespace Web.Tests.CommandTests.AuthCommands{
         }
 
         [Test]
-        public void Execute_UserFound_ReturnsTrue(){
-			var user = new FakeUser();
-            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+        public void Execute_PasswordsMatch_ReturnsTrue()
+        {
+            _password = "a";
+            const string userPassword = "a";
+			var user = new FakeUser(encryptedPassword: userPassword);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
 
             var sut = GetSut();
             var result = sut.Execute();
@@ -38,7 +42,14 @@ namespace Web.Tests.CommandTests.AuthCommands{
 		}
         
         [Test]
-        public void Execute_UserNotFound_ReturnsFalse(){
+        public void Execute_PasswordsMismatch_ReturnsFalse()
+        {
+            _password = "a";
+            const string userPassword = "b";
+            var user = new FakeUser(encryptedPassword: userPassword);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
+
             var sut = GetSut();
             var result = sut.Execute();
 
@@ -50,32 +61,30 @@ namespace Web.Tests.CommandTests.AuthCommands{
         public void Execute_UserFound_SetsSessionCookie()
 		{
 		    const string cookieName = "token";
-		    const string tokenName = "a";
-			var user = new FakeUser();
-            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+		    const string token = "a";
+			var user = new FakeUser(token: token);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
 			sut.Execute();
 
-            GetMock<IWebContext>().Verify(o => o.SetSessionCookie(cookieName, tokenName));
+            GetMock<IWebContext>().Verify(o => o.SetSessionCookie(cookieName, token));
 		}
 
         [Test]
         public void Execute_UserFoundAndRememberChecked_SetsPersistentCookie(){
             const string cookieName = "token";
-            const string tokenName = "a";
+            const string token = "a";
             _rememberMe = true;
-            var user = new FakeUser();
-            GetMock<IUserRepository>().Setup(o => o.GetUserByCredentials(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
-            GetMock<IUserRepository>().Setup(o => o.GetToken(It.IsAny<User>())).Returns(tokenName);
+            var user = new FakeUser(token: token);
+            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
             sut.Execute();
 
-            GetMock<IWebContext>().Verify(o => o.SetPersistentCookie(cookieName, tokenName));
+            GetMock<IWebContext>().Verify(o => o.SetPersistentCookie(cookieName, token));
 		}
 
         private LoginCommand GetSut()

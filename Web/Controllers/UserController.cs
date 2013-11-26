@@ -54,7 +54,7 @@ namespace Web.Controllers
 		public ActionResult Details(string name)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByName(name);
+			var user = _userRepository.GetUserByNameOrEmail(name);
 			if(name == null){
 				throw new UserNotFoundException();
 			}
@@ -99,7 +99,7 @@ namespace Web.Controllers
         public ActionResult Edit(string name)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByName(name);
+			var user = _userRepository.GetUserByNameOrEmail(name);
 			if(user == null){
 				throw new UserNotFoundException();
 			}
@@ -111,7 +111,7 @@ namespace Web.Controllers
 		public ActionResult Edit(string name, EditUserPostModel postModel)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByName(name);
+			var user = _userRepository.GetUserByNameOrEmail(name);
             var command = _userCommandProvider.GetEditCommand(user, postModel);
             if (command.Execute())
             {

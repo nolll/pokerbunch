@@ -14,7 +14,10 @@ namespace Infrastructure.Factories{
                 rawUser.DisplayName,
                 rawUser.RealName,
                 rawUser.Email,
-                (Role)rawUser.GlobalRole
+                (Role)rawUser.GlobalRole,
+                rawUser.Token,
+                rawUser.EncryptedPassword,
+                rawUser.Salt
             );
         }
     }

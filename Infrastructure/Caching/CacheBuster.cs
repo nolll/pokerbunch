@@ -24,7 +24,13 @@ namespace Infrastructure.Caching
             var singleUserKey = _cacheKeyProvider.UserKey(user.Id);
             _cacheContainer.Remove(singleUserKey);
             
-            var emailKey = _cacheKeyProvider.UserIdByEmailKey(user.Email);
+            var tokenKey = _cacheKeyProvider.UserIdByTokenKey(user.Token);
+            _cacheContainer.Remove(tokenKey);
+
+            var nameKey = _cacheKeyProvider.UserIdByNameOrEmailKey(user.UserName);
+            _cacheContainer.Remove(nameKey);
+
+            var emailKey = _cacheKeyProvider.UserIdByNameOrEmailKey(user.Email);
             _cacheContainer.Remove(emailKey);
         }
     }

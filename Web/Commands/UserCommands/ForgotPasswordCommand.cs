@@ -1,5 +1,6 @@
 using Core.Repositories;
 using Core.Services;
+using Web.ModelMappers;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Commands.UserCommands
@@ -11,14 +12,16 @@ namespace Web.Commands.UserCommands
         private readonly ISaltGenerator _saltGenerator;
         private readonly IEncryptionService _encryptionService;
         private readonly IPasswordSender _passwordSender;
+        private readonly IUserModelMapper _userModelMapper;
         private readonly ForgotPasswordPostModel _postModel;
-
+        
         public ForgotPasswordCommand(
             IUserRepository userRepository,
             IPasswordGenerator passwordGenerator,
             ISaltGenerator saltGenerator,
             IEncryptionService encryptionService,
             IPasswordSender passwordSender,
+            IUserModelMapper userModelMapper,
             ForgotPasswordPostModel postModel)
         {
             _userRepository = userRepository;
@@ -26,6 +29,7 @@ namespace Web.Commands.UserCommands
             _saltGenerator = saltGenerator;
             _encryptionService = encryptionService;
             _passwordSender = passwordSender;
+            _userModelMapper = userModelMapper;
             _postModel = postModel;
         }
 
@@ -35,7 +39,7 @@ namespace Web.Commands.UserCommands
             {
                 return false;
             }
-            var user = _userRepository.GetUserByEmail(_postModel.Email);
+            var user = _userRepository.GetUserByNameOrEmail(_postModel.Email);
             if (user == null)
             {
                 return false;
@@ -43,9 +47,9 @@ namespace Web.Commands.UserCommands
             var password = _passwordGenerator.CreatePassword();
             var salt = _saltGenerator.CreateSalt();
             var encryptedPassword = _encryptionService.Encrypt(password, salt);
-            _userRepository.SetEncryptedPassword(user, encryptedPassword);
-            _userRepository.SetSalt(user, salt);
-            _passwordSender.Send(user, password);
+            var changedUser = _userModelMapper.GetUser(user, encryptedPassword, salt);
+            _userRepository.UpdateUser(changedUser);
+            _passwordSender.Send(changedUser, password);
             return true;
         }
     }

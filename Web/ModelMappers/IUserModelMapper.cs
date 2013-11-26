@@ -6,7 +6,8 @@ namespace Web.ModelMappers
 {
     public interface IUserModelMapper
     {
-        User GetUser(AddUserPostModel postModel);
+        User GetUser(AddUserPostModel postModel, string token, string encryptedPassword, string salt);
         User GetUser(User user, EditUserPostModel postModel);
+        User GetUser(User user, string encryptedPassword, string salt);
     }
 }
