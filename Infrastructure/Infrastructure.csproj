@@ -95,7 +95,7 @@
     <Compile Include="Data\Storage\StorageDataReader.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
-    <Compile Include="Factories\ITwitterCredentialsFactory.cs" />
+    <Compile Include="Factories\Interfaces\ITwitterCredentialsFactory.cs" />
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />

@@ -1,8 +1,10 @@
-﻿namespace Infrastructure.Caching
+﻿using Core.Classes;
+
+namespace Infrastructure.Caching
 {
     public interface ICacheBuster
     {
         void UserAdded();
-        void UserUpdated(int userId);
+        void UserUpdated(User user);
     }
 }

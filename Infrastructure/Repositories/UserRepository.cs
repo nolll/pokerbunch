@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public User GetUserById(int id)
         {
-            var cacheKey = _cacheKeyProvider.SingleUserKey(id);
+            var cacheKey = _cacheKeyProvider.UserKey(id);
             var cached = _cacheContainer.Get<User>(cacheKey);
             if (cached != null)
             {
@@ -50,7 +50,7 @@ namespace Infrastructure.Repositories
             var uncached = rawUser != null ? _userFactory.Create(rawUser) : null;
             if (uncached != null)
             {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -63,7 +63,7 @@ namespace Infrastructure.Repositories
 
         private int? GetUserIdByEmail(string email)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(UserIdCacheKey, "email", email);
+            var cacheKey = _cacheKeyProvider.UserIdByEmailKey(email);
             var cached = _cacheContainer.Get<string>(cacheKey);
             if (cached != null)
             {
@@ -72,7 +72,7 @@ namespace Infrastructure.Repositories
             var uncached = _userStorage.GetUserIdByEmail(email);
             if (uncached.HasValue)
             {
-                _cacheContainer.FakeInsert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -134,7 +134,7 @@ namespace Infrastructure.Repositories
             var uncachedIds = new List<int>();
             foreach (var id in userIds)
             {
-                var cacheKey = _cacheKeyProvider.SingleUserKey(id);
+                var cacheKey = _cacheKeyProvider.UserKey(id);
                 var cached = _cacheContainer.Get<User>(cacheKey);
                 if (cached != null)
                 {
@@ -152,8 +152,8 @@ namespace Infrastructure.Repositories
                 var newUsers = rawUsers.Select(_userFactory.Create).ToList();
                 foreach (var user in newUsers)
                 {
-                    var cacheKey = _cacheKeyProvider.SingleUserKey(user.Id);
-                    _cacheContainer.FakeInsert(cacheKey, user, TimeSpan.FromMinutes(CacheTime.Long));
+                    var cacheKey = _cacheKeyProvider.UserKey(user.Id);
+                    _cacheContainer.Insert(cacheKey, user, TimeSpan.FromMinutes(CacheTime.Long));
                 }
                 users.AddRange(newUsers);
             }
@@ -172,7 +172,7 @@ namespace Infrastructure.Repositories
             var uncached = _userStorage.GetUserIds();
             if (uncached != null)
             {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
+                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
             }
             return uncached;
         }
@@ -181,7 +181,7 @@ namespace Infrastructure.Repositories
         {
             var rawUser = _rawUserFactory.Create(user);
             var updated = _userStorage.UpdateUser(rawUser);
-            _cacheBuster.UserUpdated(user.Id);
+            _cacheBuster.UserUpdated(user);
             return updated;
         }
 

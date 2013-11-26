@@ -2,7 +2,6 @@
 using Castle.Windsor;
 using Core.Classes;
 using Core.Factories;
-using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;

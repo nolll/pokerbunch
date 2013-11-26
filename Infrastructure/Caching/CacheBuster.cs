@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Caching
+﻿using Core.Classes;
+
+namespace Infrastructure.Caching
 {
     public class CacheBuster : ICacheBuster
     {
@@ -17,10 +19,13 @@
             _cacheContainer.Remove(key);
         }
 
-        public void UserUpdated(int userId)
+        public void UserUpdated(User user)
         {
-            var key = _cacheKeyProvider.SingleUserKey(userId);
-            _cacheContainer.Remove(key);
+            var singleUserKey = _cacheKeyProvider.UserKey(user.Id);
+            _cacheContainer.Remove(singleUserKey);
+            
+            var emailKey = _cacheKeyProvider.UserIdByEmailKey(user.Email);
+            _cacheContainer.Remove(emailKey);
         }
     }
 }

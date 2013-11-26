@@ -1,5 +1,5 @@
 using Core.Classes;
-using Core.Factories.Interfaces;
+using Core.Factories;
 using Core.Repositories;
 
 namespace Core.Services

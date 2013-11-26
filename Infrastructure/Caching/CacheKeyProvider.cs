@@ -4,9 +4,14 @@ namespace Infrastructure.Caching
 {
     public class CacheKeyProvider : ICacheKeyProvider
     {
-        public string SingleUserKey(int id)
+        public string UserKey(int id)
         {
             return ConstructCacheKey("User", id); ;
+        }
+
+        public string UserIdByEmailKey(string email)
+        {
+            return ConstructCacheKey("UserId", "email", email);
         }
 
         public string UserIdsKey()
