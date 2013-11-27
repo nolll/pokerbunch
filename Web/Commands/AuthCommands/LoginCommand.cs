@@ -44,7 +44,7 @@ namespace Web.Commands.AuthCommands
 
         private User GetLoggedInUser(string loginName, string password)
         {
-            var user = _userRepository.GetUserByNameOrEmail(loginName);
+            var user = _userRepository.GetByNameOrEmail(loginName);
             var encryptedPassword = _encryptionService.Encrypt(password, user.Salt);
             return encryptedPassword == user.EncryptedPassword ? user : null;
         }

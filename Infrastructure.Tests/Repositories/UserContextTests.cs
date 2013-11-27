@@ -57,7 +57,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.GetUser();
@@ -82,7 +82,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
 
             var sut = GetSut();
 			var result = sut.IsLoggedIn();
@@ -96,7 +96,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -110,7 +110,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName, globalRole: Role.Admin);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
 
             var sut = GetSut();
             var result = sut.IsAdmin();
@@ -124,7 +124,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
             GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
 
@@ -140,7 +140,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
             GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
 
@@ -156,7 +156,7 @@ namespace Infrastructure.Tests.Repositories{
 		    const string displayName = "b";
             GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
 			var user = new FakeUser(displayName: displayName, globalRole: Role.Admin);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByToken(token)).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
             var homegame = new FakeHomegame();
 
             var sut = GetSut();

@@ -54,7 +54,7 @@ namespace Web.Controllers
 		public ActionResult Details(string name)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByNameOrEmail(name);
+			var user = _userRepository.GetByNameOrEmail(name);
 			if(name == null){
 				throw new UserNotFoundException();
 			}
@@ -65,7 +65,7 @@ namespace Web.Controllers
         public ActionResult Listing()
         {
 			_userContext.RequireAdmin();
-			var users = _userRepository.GetAll();
+			var users = _userRepository.GetList();
 			var model = _userListingPageModelFactory.Create(_userContext.GetUser(), users);
 
 			return View("Listing/Listing", model);
@@ -99,7 +99,7 @@ namespace Web.Controllers
         public ActionResult Edit(string name)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByNameOrEmail(name);
+			var user = _userRepository.GetByNameOrEmail(name);
 			if(user == null){
 				throw new UserNotFoundException();
 			}
@@ -111,7 +111,7 @@ namespace Web.Controllers
 		public ActionResult Edit(string name, EditUserPostModel postModel)
         {
 			_userContext.RequireUser();
-			var user = _userRepository.GetUserByNameOrEmail(name);
+			var user = _userRepository.GetByNameOrEmail(name);
             var command = _userCommandProvider.GetEditCommand(user, postModel);
             if (command.Execute())
             {

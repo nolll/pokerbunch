@@ -6,11 +6,12 @@ namespace Core.Repositories {
 	public interface IHomegameRepository{
 
 		Homegame GetByName(string name);
-	    IList<Homegame> GetAll();
+	    IList<Homegame> GetList();
         IList<Homegame> GetByUser(User user);
 	    Role GetHomegameRole(Homegame homegame, User user);
-	    Homegame AddHomegame(Homegame homegame);
-	    bool SaveHomegame(Homegame homegame);
+	    Homegame Add(Homegame homegame);
+	    bool Save(Homegame homegame);
+	    Homegame GetById(int id);
 	}
 
 }

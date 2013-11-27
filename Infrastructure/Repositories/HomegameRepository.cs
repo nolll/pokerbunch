@@ -12,37 +12,39 @@ namespace Infrastructure.Repositories {
 
 	public class HomegameRepository : IHomegameRepository
 	{
-	    private const string HomegameCacheKey = "Homegame";
-        private const string HomegameListCacheKey = "HomegameList";
-
 	    private readonly IHomegameStorage _homegameStorage;
 	    private readonly IHomegameFactory _homegameFactory;
 	    private readonly ICacheContainer _cacheContainer;
+	    private readonly ICacheKeyProvider _cacheKeyProvider;
+	    private readonly ICacheBuster _cacheBuster;
 	    private readonly IRawHomegameFactory _rawHomegameFactory;
 
-	    public HomegameRepository(IHomegameStorage homegameStorage, IHomegameFactory homegameFactory, ICacheContainer cacheContainer, IRawHomegameFactory rawHomegameFactory)
+	    public HomegameRepository(
+            IHomegameStorage homegameStorage, 
+            IHomegameFactory homegameFactory, 
+            ICacheContainer cacheContainer, 
+            ICacheKeyProvider cacheKeyProvider,
+            ICacheBuster cacheBuster,
+            IRawHomegameFactory rawHomegameFactory)
 	    {
 	        _homegameStorage = homegameStorage;
 	        _homegameFactory = homegameFactory;
 	        _cacheContainer = cacheContainer;
+	        _cacheKeyProvider = cacheKeyProvider;
+	        _cacheBuster = cacheBuster;
 	        _rawHomegameFactory = rawHomegameFactory;
 	    }
 
         public Homegame GetByName(string name)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, name);
-            var cached = _cacheContainer.Get<Homegame>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
-            var rawHomegame = _homegameStorage.GetHomegameByName(name);
-            var uncached = rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
-            if (uncached != null)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            var userId = GetIdBySlug(name);
+            return userId.HasValue ? GetById(userId.Value) : null;
+        }
+
+        public Homegame GetById(int id)
+        {
+            var cacheKey = _cacheKeyProvider.HomegameKey(id);
+            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public IList<Homegame> GetByUser(User user)
@@ -55,53 +57,11 @@ namespace Infrastructure.Repositories {
             return rawHomegames.Select(_homegameFactory.Create).ToList();
         }
 
-        public IList<Homegame> GetAll()
+        public IList<Homegame> GetList()
         {
-            var homegames = new List<Homegame>();
-            var slugs = GetSlugs();
-            var uncachedSlugs = new List<string>();
-            foreach (var slug in slugs)
-            {
-                var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, slug);
-                var cached = _cacheContainer.Get<Homegame>(cacheKey);
-                if (cached != null)
-                {
-                    homegames.Add(cached);
-                }
-                else
-                {
-                    uncachedSlugs.Add(slug);
-                }
-            }
-
-            if (uncachedSlugs.Count > 0)
-            {
-                var rawHomegames = _homegameStorage.GetHomegames(uncachedSlugs);
-                var newHomegames = rawHomegames.Select(_homegameFactory.Create).ToList();
-                foreach (var homegame in newHomegames)
-                {
-                    _cacheContainer.FakeInsert(_cacheContainer.ConstructCacheKey(HomegameCacheKey, homegame.Slug), homegame, TimeSpan.FromMinutes(CacheTime.Long));
-                }
-                homegames.AddRange(newHomegames);
-            }
-
+            var ids = GetAllIds();
+            var homegames = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return homegames.OrderBy(o => o.DisplayName).ToList();
-        }
-
-        private IEnumerable<string> GetSlugs()
-        {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, "AllSlugs");
-            var cached = _cacheContainer.Get<List<string>>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
-            var uncached = _homegameStorage.GetAllSlugs();
-            if (uncached != null)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
         }
 
         public Role GetHomegameRole(Homegame homegame, User user)
@@ -109,32 +69,44 @@ namespace Infrastructure.Repositories {
             return (Role) _homegameStorage.GetHomegameRole(homegame.Id, user.Id);
         }
 
-        public Homegame AddHomegame(Homegame homegame)
+        public Homegame Add(Homegame homegame)
         {
             var rawHomegame = _rawHomegameFactory.Create(homegame);
             rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
-            ClearHomegameListFromCache();
+            _cacheBuster.HomegameAdded();
             return _homegameFactory.Create(rawHomegame);
         }
 
-        public bool SaveHomegame(Homegame homegame)
+        public bool Save(Homegame homegame)
         {
             var rawHomegame = _rawHomegameFactory.Create(homegame);
             var success = _homegameStorage.UpdateHomegame(rawHomegame);
-            ClearHomegameFromCache(homegame.Slug);
+            _cacheBuster.HomegameUpdated(homegame);
             return success;
         }
 
-        private void ClearHomegameFromCache(string slug)
+        private Homegame GetByIdUncached(int id)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameCacheKey, slug);
-            _cacheContainer.FakeRemove(cacheKey);
+            var rawHomegame = _homegameStorage.GetById(id);
+            return rawHomegame != null ? _homegameFactory.Create(rawHomegame) : null;
         }
 
-        private void ClearHomegameListFromCache()
+        private int? GetIdBySlug(string slug)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegameListCacheKey);
-            _cacheContainer.FakeRemove(cacheKey);
+            var cacheKey = _cacheKeyProvider.HomegameIdBySlugKey(slug);
+            return _cacheContainer.GetAndStore(() => _homegameStorage.GetIdBySlug(slug), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        private IList<Homegame> GetAllUncached(IList<int> ids)
+        {
+            var rawHomegames = _homegameStorage.GetHomegames(ids);
+            return rawHomegames.Select(_homegameFactory.Create).ToList();
+        }
+
+        private IList<int> GetAllIds()
+        {
+            var cacheKey = _cacheKeyProvider.HomegameIdsKey();
+            return _cacheContainer.GetAndStore(() => _homegameStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
 	}

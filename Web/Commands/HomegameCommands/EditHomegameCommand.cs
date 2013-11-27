@@ -28,7 +28,7 @@ namespace Web.Commands.HomegameCommands
         {
             if (!IsValid(_postModel)) return false;
             var postedHomegame = _homegameModelMapper.GetHomegame(_homegame, _postModel);
-            _homegameRepository.SaveHomegame(postedHomegame);
+            _homegameRepository.Save(postedHomegame);
             return false;
         }
     }

@@ -35,44 +35,32 @@ namespace Infrastructure.Repositories
             _cacheBuster = cacheBuster;
         }
 
-        public User GetUserById(int id)
+        public User GetById(int id)
         {
             var cacheKey = _cacheKeyProvider.UserKey(id);
-            return _cacheContainer.GetAndStore(() => GetUserByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private User GetUserByIdUncached(int id)
+        public User GetByToken(string token)
         {
-            var rawUser = _userStorage.GetUserById(id);
-            return rawUser != null ? _userFactory.Create(rawUser) : null;
+            var userId = GetIdByToken(token);
+            return userId.HasValue ? GetById(userId.Value) : null;
         }
 
-        public User GetUserByToken(string token)
+        public User GetByNameOrEmail(string nameOrEmail)
         {
-            var userId = GetUserIdByToken(token);
-            return userId.HasValue ? GetUserById(userId.Value) : null;
+            var userId = GetIdByNameOrEmail(nameOrEmail);
+            return userId.HasValue ? GetById(userId.Value) : null;
         }
 
-        public User GetUserByNameOrEmail(string userNameOrEmail)
+        public IList<User> GetList()
         {
-            var userId = GetUserIdByNameOrEmail(userNameOrEmail);
-            return userId.HasValue ? GetUserById(userId.Value) : null;
-        }
-
-        public IList<User> GetAll()
-        {
-            var userIds = GetUserIds();
-            var users = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), userIds);
+            var ids = GetIds();
+            var users = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return users.OrderBy(o => o.DisplayName).ToList();
         }
 
-        private IList<User> GetAllUncached(IEnumerable<int> ids)
-        {
-            var rawUsers = _userStorage.GetUsers(ids);
-            return rawUsers.Select(_userFactory.Create).ToList();
-        } 
-
-        public bool UpdateUser(User user)
+        public bool Save(User user)
         {
             var rawUser = _rawUserFactory.Create(user);
             var updated = _userStorage.UpdateUser(rawUser);
@@ -80,7 +68,7 @@ namespace Infrastructure.Repositories
             return updated;
         }
 
-        public int AddUser(User user)
+        public int Add(User user)
         {
             var rawUser = _rawUserFactory.Create(user);
             var id = _userStorage.AddUser(rawUser);
@@ -88,19 +76,31 @@ namespace Infrastructure.Repositories
             return id;
         }
 
-        private int? GetUserIdByToken(string token)
+        private User GetByIdUncached(int id)
+        {
+            var rawUser = _userStorage.GetUserById(id);
+            return rawUser != null ? _userFactory.Create(rawUser) : null;
+        }
+
+        private IList<User> GetAllUncached(IEnumerable<int> ids)
+        {
+            var rawUsers = _userStorage.GetUsers(ids);
+            return rawUsers.Select(_userFactory.Create).ToList();
+        }
+
+        private int? GetIdByToken(string token)
         {
             var cacheKey = _cacheKeyProvider.UserIdByTokenKey(token);
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByToken(token), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private int? GetUserIdByNameOrEmail(string nameOrEmail)
+        private int? GetIdByNameOrEmail(string nameOrEmail)
         {
             var cacheKey = _cacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByNameOrEmail(nameOrEmail), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private IList<int> GetUserIds()
+        private IList<int> GetIds()
         {
             var cacheKey = _cacheKeyProvider.UserIdsKey();
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);

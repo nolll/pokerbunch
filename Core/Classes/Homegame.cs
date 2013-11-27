@@ -1,7 +1,7 @@
 using System;
 
 namespace Core.Classes{
-    public class Homegame{
+    public class Homegame : ICacheable{
 
 	    public int Id { get; private set; }
 	    public string Slug { get; private set; }

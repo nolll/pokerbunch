@@ -27,7 +27,7 @@ namespace Infrastructure.Factories{
         {
             if (rawPlayer.IsUser && rawPlayer.DisplayName == null)
             {
-                var user = _userRepository.GetUserById(rawPlayer.UserId);
+                var user = _userRepository.GetById(rawPlayer.UserId);
                 return user.DisplayName;
             }
             return rawPlayer.DisplayName;

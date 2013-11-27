@@ -53,7 +53,7 @@ namespace Web.Controllers
 	    public ActionResult Listing()
         {
 			_userContext.RequireAdmin();
-			var homegames = _homegameRepository.GetAll();
+			var homegames = _homegameRepository.GetList();
 			var model = _homegameListingPageModelFactory.Create(_userContext.GetUser(), homegames);
 			return View("HomegameListing", model);
 		}

@@ -28,7 +28,7 @@ namespace Web.Commands.UserCommands
         {
             if (!IsValid(_postModel)) return false;
             var userToSave = _userModelMapper.GetUser(_user, _postModel);
-            _userRepository.UpdateUser(userToSave);
+            _userRepository.Save(userToSave);
             return true;
         }
     }

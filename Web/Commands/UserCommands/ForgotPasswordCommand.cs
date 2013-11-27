@@ -39,7 +39,7 @@ namespace Web.Commands.UserCommands
             {
                 return false;
             }
-            var user = _userRepository.GetUserByNameOrEmail(_postModel.Email);
+            var user = _userRepository.GetByNameOrEmail(_postModel.Email);
             if (user == null)
             {
                 return false;
@@ -48,7 +48,7 @@ namespace Web.Commands.UserCommands
             var salt = _saltGenerator.CreateSalt();
             var encryptedPassword = _encryptionService.Encrypt(password, salt);
             var changedUser = _userModelMapper.GetUser(user, encryptedPassword, salt);
-            _userRepository.UpdateUser(changedUser);
+            _userRepository.Save(changedUser);
             _passwordSender.Send(changedUser, password);
             return true;
         }

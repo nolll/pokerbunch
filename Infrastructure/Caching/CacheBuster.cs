@@ -33,5 +33,20 @@ namespace Infrastructure.Caching
             var emailKey = _cacheKeyProvider.UserIdByNameOrEmailKey(user.Email);
             _cacheContainer.Remove(emailKey);
         }
+
+        public void HomegameAdded()
+        {
+            var key = _cacheKeyProvider.HomegameIdsKey();
+            _cacheContainer.Remove(key);
+        }
+
+        public void HomegameUpdated(Homegame homegame)
+        {
+            var singleHomegameKey = _cacheKeyProvider.HomegameKey(homegame.Id);
+            _cacheContainer.Remove(singleHomegameKey);
+
+            var slugKey = _cacheKeyProvider.HomegameIdBySlugKey(homegame.Slug);
+            _cacheContainer.Remove(slugKey);
+        }
     }
 }

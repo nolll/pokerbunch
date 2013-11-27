@@ -31,7 +31,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
             _password = "a";
             const string userPassword = "a";
 			var user = new FakeUser(encryptedPassword: userPassword);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
 
             var sut = GetSut();
@@ -47,7 +47,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
             _password = "a";
             const string userPassword = "b";
             var user = new FakeUser(encryptedPassword: userPassword);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
 
             var sut = GetSut();
@@ -63,7 +63,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
 		    const string cookieName = "token";
 		    const string token = "a";
 			var user = new FakeUser(token: token);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
@@ -78,7 +78,7 @@ namespace Web.Tests.CommandTests.AuthCommands{
             const string token = "a";
             _rememberMe = true;
             var user = new FakeUser(token: token);
-            GetMock<IUserRepository>().Setup(o => o.GetUserByNameOrEmail(It.IsAny<string>())).Returns(user);
+            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();

@@ -15,27 +15,38 @@ namespace Infrastructure.Data.Storage {
 	        _storageProvider = storageProvider;
 	    }
 
-		public IList<RawHomegame> GetHomegames(){
-			var sql = GetHomegameBaseSql();
-			sql += "ORDER BY h.DisplayName";
-			return GetRawHomegameList(sql);
-		}
-
-        public IList<string> GetAllSlugs()
+        public IList<int> GetAllIds()
         {
-            const string sql = "SELECT h.Name FROM homegame h";
+            const string sql = "SELECT h.HomegameID FROM homegame h";
             var reader = _storageProvider.Query(sql);
-            var slugs = new List<string>();
+            var ids = new List<int>();
             while (reader.Read())
             {
-                slugs.Add(reader.GetString("Name"));
+                ids.Add(reader.GetInt("HomegameID"));
             }
-            return slugs;
+            return ids;
         }
 
-        public IList<RawHomegame> GetHomegames(IList<string> slugs)
+        public int? GetIdBySlug(string slug)
         {
-            var sql = GetHomegameBaseSql(slugs);
+            const string format = "SELECT h.HomegameID FROM homegame h WHERE h.Name = '{0}'";
+            var sql = string.Format(format, slug);
+            return GetHomegameId(sql);
+        }
+
+        private int? GetHomegameId(string sql)
+        {
+            var reader = _storageProvider.Query(sql);
+            while (reader.Read())
+            {
+                return reader.GetInt("HomegameID");
+            }
+            return null;
+        }
+
+        public IList<RawHomegame> GetHomegames(IList<int> ids)
+        {
+            var sql = GetHomegameBaseSql(ids);
             return GetRawHomegameList(sql);
         }
 
@@ -54,6 +65,14 @@ namespace Infrastructure.Data.Storage {
             return GetRawHomegame(sql);
 		}
 
+        public RawHomegame GetById(int id)
+        {
+            var sql = GetHomegameBaseSql();
+            sql += "WHERE HomegameID = {0}";
+            sql = string.Format(sql, id);
+            return GetRawHomegame(sql);
+        }
+        
         public int GetHomegameRole(int homegameId, int userId)
         {
             var sql = "SELECT p.RoleID FROM player p WHERE p.UserID = {0} AND p.HomegameID = {1}";
@@ -66,15 +85,15 @@ namespace Infrastructure.Data.Storage {
 		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h ";
 		}
 
-        private string GetHomegameBaseSql(IEnumerable<string> slugs)
+        private string GetHomegameBaseSql(IEnumerable<int> ids)
         {
-            var slugList = GetSlugListForSql(slugs);
-            return string.Concat(GetHomegameBaseSql(), string.Format("WHERE h.Name IN({0})", slugList));
+            var idList = GetIdListForSql(ids);
+            return string.Concat(GetHomegameBaseSql(), string.Format("WHERE h.HomegameID IN({0})", idList));
         }
 
-        private string GetSlugListForSql(IEnumerable<string> slugs)
+        private string GetIdListForSql(IEnumerable<int> ids)
         {
-            return string.Join(", ", slugs.Select(o => string.Format("'{0}'", o)).ToArray());
+            return string.Join(", ", ids.Select(o => string.Format("'{0}'", o)).ToArray());
         }
 
 		public RawHomegame AddHomegame(RawHomegame homegame){

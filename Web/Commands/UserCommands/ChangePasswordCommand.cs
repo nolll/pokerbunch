@@ -45,7 +45,7 @@ namespace Web.Commands.UserCommands
             var salt = _saltGenerator.CreateSalt();
             var encryptedPassword = _encryptionService.Encrypt(_postModel.Password, salt);
             var user = _userModelMapper.GetUser(_user, encryptedPassword, salt);
-            _userRepository.UpdateUser(user);
+            _userRepository.Save(user);
             return true;
         }
     }

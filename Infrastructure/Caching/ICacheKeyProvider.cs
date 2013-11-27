@@ -7,5 +7,8 @@ namespace Infrastructure.Caching
         string UserIdByTokenKey(string token);
         string UserIdByNameOrEmailKey(string nameOrEmail);
         string UserIdsKey();
+        string HomegameKey(int id);
+        string HomegameIdsKey();
+        string HomegameIdBySlugKey(string slug);
     }
 }

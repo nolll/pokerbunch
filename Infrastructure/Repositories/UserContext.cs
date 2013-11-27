@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories{
 		public User GetUser(){
 			var token = GetToken();
 			if(token != null){
-				return _userRepository.GetUserByToken(token);
+				return _userRepository.GetByToken(token);
 			}
 		    return null;
 		}

@@ -9,9 +9,9 @@ namespace Infrastructure.Caching
             return ConstructCacheKey("User", id); ;
         }
 
-        public string UserIdByTokenKey(string email)
+        public string UserIdByTokenKey(string token)
         {
-            return ConstructCacheKey("UserId", "email", email);
+            return ConstructCacheKey("UserId", "token", token);
         }
 
         public string UserIdByNameOrEmailKey(string nameOrEmail)
@@ -21,7 +21,22 @@ namespace Infrastructure.Caching
 
         public string UserIdsKey()
         {
-            return ConstructCacheKey("UserIds"); ;
+            return ConstructCacheKey("UserIds", "all");
+        }
+
+        public string HomegameKey(int id)
+        {
+            return ConstructCacheKey("Homegame", id); ;
+        }
+
+        public string HomegameIdBySlugKey(string slug)
+        {
+            return ConstructCacheKey("HomegameId", "slug", slug);
+        }
+
+        public string HomegameIdsKey()
+        {
+            return ConstructCacheKey("HomegameIds", "all");
         }
 
         public string ConstructCacheKey(string typeName, params object[] procedureParameters)

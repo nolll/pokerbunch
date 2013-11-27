@@ -57,7 +57,7 @@ namespace Web.ModelServices
         {
             var currentUser = _userContext.GetUser();
             var player = _playerRepository.GetByName(homegame, playerName);
-            var user = _userRepository.GetUserById(player.UserId);
+            var user = _userRepository.GetById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
             var isManager = _userContext.IsInRole(homegame, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);

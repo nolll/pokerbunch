@@ -6,5 +6,7 @@ namespace Infrastructure.Caching
     {
         void UserAdded();
         void UserUpdated(User user);
+        void HomegameAdded();
+        void HomegameUpdated(Homegame homegame);
     }
 }

@@ -56,7 +56,7 @@ namespace Web.Commands.UserCommands
             var encryptedPassword = _encryptionService.Encrypt(password, salt);
             var token = _encryptionService.Encrypt(_postModel.UserName, salt);
             var user = _userModelMapper.GetUser(_postModel, token, encryptedPassword, salt);
-            _userRepository.AddUser(user);
+            _userRepository.Add(user);
             _registrationConfirmationSender.Send(user, password);
             return true;
         }

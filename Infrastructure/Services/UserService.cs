@@ -14,13 +14,13 @@ namespace Infrastructure.Services
 
         public bool IsUserNameAvailable(string userName)
         {
-            var user = _userRepository.GetUserByNameOrEmail(userName);
+            var user = _userRepository.GetByNameOrEmail(userName);
             return user == null;
         }
 
         public bool IsEmailAvailable(string email)
         {
-            var user = _userRepository.GetUserByNameOrEmail(email);
+            var user = _userRepository.GetByNameOrEmail(email);
 			return user == null;
         }
     }

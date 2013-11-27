@@ -5,15 +5,16 @@ namespace Infrastructure.Data.Storage.Interfaces {
 
 	public interface IHomegameStorage{
 
-		IList<RawHomegame> GetHomegames();
         IList<RawHomegame> GetHomegamesByUserId(int userId);
         int GetHomegameRole(int homegameId, int userId);
         RawHomegame GetHomegameByName(string name);
         RawHomegame AddHomegame(RawHomegame homegame);
         bool UpdateHomegame(RawHomegame homegame);
 		bool DeleteHomegame(string slug);
-	    IList<string> GetAllSlugs();
-	    IList<RawHomegame> GetHomegames(IList<string> slugs);
+        IList<int> GetAllIds();
+	    IList<RawHomegame> GetHomegames(IList<int> ids);
+	    int? GetIdBySlug(string slug);
+	    RawHomegame GetById(int id);
 	}
 
 }

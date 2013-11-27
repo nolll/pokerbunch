@@ -29,11 +29,13 @@ namespace Infrastructure.Tests.Repositories{
 		public void GetByName_HomegameFound_ReturnsHomegame()
 		{
 		    const string slug = "a";
+		    const int id = 1;
 
 		    var rawHomegame = new RawHomegame {Slug = slug, TimezoneName = "UTC"};
 		    var expectedHomegame = new FakeHomegame(slug: slug);
 
-            GetMock<IHomegameStorage>().Setup(o => o.GetHomegameByName(slug)).Returns(rawHomegame);
+            GetMock<IHomegameStorage>().Setup(o => o.GetIdBySlug(slug)).Returns(id);
+            GetMock<IHomegameStorage>().Setup(o => o.GetById(id)).Returns(rawHomegame);
             GetMock<IHomegameFactory>().Setup(o => o.Create(rawHomegame)).Returns(expectedHomegame);
 
 		    var sut = GetSut();
@@ -62,19 +64,21 @@ namespace Infrastructure.Tests.Repositories{
 	    [Test]
 	    public void GetAll_NoHomegamesInCache_ReturnsTwoHomegamesFromDatabase()
 	    {
-	        var slugs = new List<string> {"a", "b"};
+	        var ids = new List<int> {1, 2};
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame(), new RawHomegame() };
-            GetMock<IHomegameStorage>().Setup(o => o.GetAllSlugs()).Returns(slugs);
-            GetMock<IHomegameStorage>().Setup(o => o.GetHomegames(slugs)).Returns(homegamesFromDatabase);
+            GetMock<IHomegameStorage>().Setup(o => o.GetAllIds()).Returns(ids);
+            GetMock<IHomegameStorage>().Setup(o => o.GetHomegames(ids)).Returns(homegamesFromDatabase);
             GetMock<IHomegameFactory>().Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
 	        var sut = GetSut();
 
-	        var result = sut.GetAll();
+	        var result = sut.GetList();
 
             Assert.AreEqual(2, result.Count);
 	    }
 
+        // Todo: Maybe move these tests to cache tests
+        /*
         [Test]
         public void GetAll_OneHomegameInCache_ReturnsTwoHomegamesWhereOneIsFromCache()
         {
@@ -124,10 +128,17 @@ namespace Infrastructure.Tests.Repositories{
 
             Assert.AreEqual(2, result.Count);
         }
+        */
 
         private HomegameRepository GetSut()
         {
-            return new HomegameRepository(GetMock<IHomegameStorage>().Object, GetMock<IHomegameFactory>().Object, GetMock<ICacheContainer>().Object, GetMock<IRawHomegameFactory>().Object);
+            return new HomegameRepository(
+                GetMock<IHomegameStorage>().Object, 
+                GetMock<IHomegameFactory>().Object, 
+                CacheContainerFake, 
+                GetMock<ICacheKeyProvider>().Object,
+                GetMock<ICacheBuster>().Object,
+                GetMock<IRawHomegameFactory>().Object);
         }
 
 	}
