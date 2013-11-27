@@ -1,6 +1,6 @@
 namespace Core.Classes {
-    public class User{
-
+    public class User : ICacheable
+    {
 	    public int Id { get; private set; }
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }

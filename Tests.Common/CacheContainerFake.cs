@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Core.Classes;
 using Infrastructure.Caching;
 
 namespace Tests.Common
@@ -48,6 +50,11 @@ namespace Tests.Common
         public T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
         {
             return Get<T>(cacheKey);
+        }
+
+        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
+        {
+            return null;
         }
 
         public void SetFakedCacheKey(string fakedCacheKey)

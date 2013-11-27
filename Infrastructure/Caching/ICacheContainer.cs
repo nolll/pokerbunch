@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Core.Classes;
 
 namespace Infrastructure.Caching
 {
@@ -11,5 +13,6 @@ namespace Infrastructure.Caching
         void Remove(string cacheKey);
         void FakeRemove(string cacheKey);
         T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class;
+        IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable;
     }
 }

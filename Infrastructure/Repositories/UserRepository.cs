@@ -62,37 +62,16 @@ namespace Infrastructure.Repositories
 
         public IList<User> GetAll()
         {
-            var users = new List<User>();
             var userIds = GetUserIds();
-            var uncachedIds = new List<int>();
-            foreach (var id in userIds)
-            {
-                var cacheKey = _cacheKeyProvider.UserKey(id);
-                var cached = _cacheContainer.Get<User>(cacheKey);
-                if (cached != null)
-                {
-                    users.Add(cached);
-                }
-                else
-                {
-                    uncachedIds.Add(id);
-                }
-            }
-
-            if (uncachedIds.Count > 0)
-            {
-                var rawUsers = _userStorage.GetUsers(uncachedIds);
-                var newUsers = rawUsers.Select(_userFactory.Create).ToList();
-                foreach (var user in newUsers)
-                {
-                    var cacheKey = _cacheKeyProvider.UserKey(user.Id);
-                    _cacheContainer.Insert(cacheKey, user, TimeSpan.FromMinutes(CacheTime.Long));
-                }
-                users.AddRange(newUsers);
-            }
-
+            var users = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), userIds);
             return users.OrderBy(o => o.DisplayName).ToList();
         }
+
+        private IList<User> GetAllUncached(IEnumerable<int> ids)
+        {
+            var rawUsers = _userStorage.GetUsers(ids);
+            return rawUsers.Select(_userFactory.Create).ToList();
+        } 
 
         public bool UpdateUser(User user)
         {
@@ -142,20 +121,10 @@ namespace Infrastructure.Repositories
             return uncached;
         }
 
-        private IEnumerable<int> GetUserIds()
+        private IList<int> GetUserIds()
         {
             var cacheKey = _cacheKeyProvider.UserIdsKey();
-            var cached = _cacheContainer.Get<List<int>>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
-            var uncached = _userStorage.GetUserIds();
-            if (uncached != null)
-            {
-                _cacheContainer.Insert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
     }

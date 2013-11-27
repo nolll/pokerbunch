@@ -5,12 +5,14 @@ using System.Reflection;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Core.Classes;
+using Infrastructure.Caching;
 using Infrastructure.Plumbing;
 using NUnit.Framework;
 using Web.Models.PageBaseModels;
 using Web.Plumbing;
 
-namespace sr.se.unittest
+namespace Web.Tests.PlumbingTests
 {
     [TestFixture]
     public class DependencyInjectionTests
@@ -22,7 +24,8 @@ namespace sr.se.unittest
             // Interface som inte är injicerade och som inte ska injiceras
             _ignoredInterfaces = new List<Type>
                 {
-                    typeof(IPageModel)
+                    typeof(IPageModel),
+                    typeof(ICacheable)
                 };
         }
 
