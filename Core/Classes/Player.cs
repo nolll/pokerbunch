@@ -1,6 +1,7 @@
-namespace Core.Classes{
-    public class Player{
-
+namespace Core.Classes
+{
+    public class Player
+    {
 	    public int Id { get; private set; }
         public int UserId { get; private set; }
         public string DisplayName { get; private set; }

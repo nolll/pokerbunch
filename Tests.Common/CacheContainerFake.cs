@@ -52,6 +52,11 @@ namespace Tests.Common
             return Get<T>(cacheKey);
         }
 
+        public int? GetAndStore(Func<int?> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey)
+        {
+            return null;
+        }
+
         public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
         {
             return null;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Classes;
+using Infrastructure.System;
 
 namespace Infrastructure.Caching
 {
@@ -36,14 +38,33 @@ namespace Infrastructure.Caching
             T cachedObject;
             var foundInCache = TryGet(cacheKey, out cachedObject);
 
-            if (!foundInCache)
+            if (foundInCache)
             {
-                cachedObject = fetchFromSourceExpression();
-
+                return cachedObject;
+            }
+            cachedObject = fetchFromSourceExpression();
+            if (cachedObject != null)
+            {
                 Insert(cacheKey, cachedObject, cacheTime);
             }
-
             return cachedObject;
+        }
+
+        public int? GetAndStore(Func<int?> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey)
+        {
+            string cachedString;
+            var foundInCache = TryGet(cacheKey, out cachedString);
+
+            if (foundInCache)
+            {
+                return int.Parse(cachedString);
+            }
+            var cachedInt = fetchFromSourceExpression();
+            if (cachedInt.HasValue)
+            {
+                Insert(cacheKey, cachedInt.Value.ToString(CultureInfo.InvariantCulture), cacheTime);
+            }
+            return cachedInt;
         }
 
         public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable

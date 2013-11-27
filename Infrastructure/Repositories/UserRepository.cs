@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Core.Classes;
 using Core.Repositories;
@@ -92,33 +91,13 @@ namespace Infrastructure.Repositories
         private int? GetUserIdByToken(string token)
         {
             var cacheKey = _cacheKeyProvider.UserIdByTokenKey(token);
-            var cached = _cacheContainer.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                return int.Parse(cached);
-            }
-            var uncached = _userStorage.GetUserIdByToken(token);
-            if (uncached.HasValue)
-            {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByToken(token), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private int? GetUserIdByNameOrEmail(string nameOrEmail)
         {
             var cacheKey = _cacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
-            var cached = _cacheContainer.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                return int.Parse(cached);
-            }
-            var uncached = _userStorage.GetUserIdByNameOrEmail(nameOrEmail);
-            if (uncached.HasValue)
-            {
-                _cacheContainer.Insert(cacheKey, uncached.Value.ToString(CultureInfo.InvariantCulture), TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByNameOrEmail(nameOrEmail), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private IList<int> GetUserIds()
