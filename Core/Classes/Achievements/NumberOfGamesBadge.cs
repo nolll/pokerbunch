@@ -17,7 +17,7 @@ namespace Core.Classes.Achievements{
 
 		private int GetNumberOfPlayedGames(Player player, IEnumerable<Cashgame> cashgames)
 		{
-		    return cashgames.Count(cashgame => cashgame.IsInGame(player));
+		    return cashgames.Count(cashgame => cashgame.IsInGame(player.Id));
 		}
 	}
 

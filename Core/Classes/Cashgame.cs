@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Classes{
     public class Cashgame{
@@ -52,17 +53,14 @@ namespace Core.Classes{
             AverageBuyin = averageBuyin;
         }
 
-	    public CashgameResult GetResult(Player player){
-			foreach(var result in Results){
-				if(result.Player.Id == player.Id){
-					return result;
-				}
-			}
-			return null;
-		}
+	    public CashgameResult GetResult(int playerId)
+	    {
+	        return Results.FirstOrDefault(result => result.Player.Id == playerId);
+	    }
 
-        public bool IsInGame(Player player){
-            return GetResult(player) != null;
+        public bool IsInGame(int playerId)
+        {
+            return GetResult(playerId) != null;
         }
 
         public bool IsBestResult(CashgameResult resultToCheck){

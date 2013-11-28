@@ -41,7 +41,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 for (var j = 0; j < results.Count; j++)
                 {
                     var totalResult = results[j];
-                    var singleResult = cashgame.GetResult(totalResult.Player);
+                    var singleResult = cashgame.GetResult(totalResult.Player.Id);
                     var playerId = totalResult.Player.Id;
                     if (singleResult != null || i == cashgames.Count - 1)
                     {

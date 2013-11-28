@@ -30,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         {
             var canBeEnded = CanBeEnded(cashgame);
             var canReport = !canBeEnded;
-            var isInGame = cashgame.IsInGame(player);
+            var isInGame = cashgame.IsInGame(player.Id);
             
             return new RunningCashgamePageModel
                 {

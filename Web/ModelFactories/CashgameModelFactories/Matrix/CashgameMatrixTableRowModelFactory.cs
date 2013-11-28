@@ -52,7 +52,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             {
                 foreach (var cashgame in cashgames)
                 {
-                    var result = cashgame.GetResult(player);
+                    var result = cashgame.GetResult(player.Id);
                     models.Add(_cashgameMatrixTableCellModelFactory.Create(cashgame, result));
                 }
             }

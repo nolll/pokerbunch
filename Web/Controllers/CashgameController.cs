@@ -4,8 +4,8 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;
-using Infrastructure.Repositories;
 using Infrastructure.System;
+using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
@@ -61,6 +61,7 @@ namespace Web.Controllers{
 	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly ICashgameService _cashgameService;
+	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -90,7 +91,8 @@ namespace Web.Controllers{
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
             ITimeProvider timeProvider,
             ICheckpointRepository checkpointRepository,
-            ICashgameService cashgameService)
+            ICashgameService cashgameService,
+            ICashgameCommandProvider cashgameCommandProvider)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -120,6 +122,7 @@ namespace Web.Controllers{
 	        _timeProvider = timeProvider;
 	        _checkpointRepository = checkpointRepository;
 	        _cashgameService = cashgameService;
+	        _cashgameCommandProvider = cashgameCommandProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -284,7 +287,7 @@ namespace Web.Controllers{
 			var player = _playerRepository.GetByName(homegame, name);
 			_userContext.RequirePlayer(homegame);
 			var role = _userContext.GetRole(homegame);
-			var result = cashgame.GetResult(player);
+			var result = cashgame.GetResult(player.Id);
 			var model = _actionPageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, player, result, role);
 			return View("Action/Action", model);
 		}
@@ -293,7 +296,7 @@ namespace Web.Controllers{
 			var homegame = _homegameRepository.GetByName(gameName);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, name);
-			var result = cashgame.GetResult(player);
+			var result = cashgame.GetResult(player.Id);
 			var model = _actionChartModelFactory.Create(homegame, cashgame, result);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
@@ -390,7 +393,7 @@ namespace Web.Controllers{
 				throw new AccessDeniedException();
 			}
             var runningGame = _cashgameRepository.GetRunning(homegame);
-            var result = runningGame.GetResult(player);
+            var result = runningGame.GetResult(player.Id);
             var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(postModel, result.CashoutCheckpoint);
 			if(ModelState.IsValid){
 				if(result.CashoutCheckpoint != null){
@@ -416,11 +419,9 @@ namespace Web.Controllers{
         [HttpPost]
 		public ActionResult End(string gameName, EndPageModel postModel){
 			var homegame = _homegameRepository.GetByName(gameName);
-			var cashgame = _cashgameRepository.GetRunning(homegame);
-			_userContext.RequirePlayer(homegame);
-			_cashgameRepository.EndGame(cashgame);
-            _cashgameRepository.ClearCashgameFromCache(cashgame);
-            _cashgameRepository.ClearCashgameListFromCache(homegame, cashgame);
+            _userContext.RequirePlayer(homegame);
+            var command = _cashgameCommandProvider.GetEndGameCommand(homegame);
+            command.Execute();
             return Redirect(_urlProvider.GetCashgameIndexUrl(homegame));
 		}
 

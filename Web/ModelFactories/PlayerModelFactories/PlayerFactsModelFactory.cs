@@ -33,7 +33,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             var filteredCashgames = new List<Cashgame>();
             foreach (var cashgame in cashgames)
             {
-                if (cashgame.IsInGame(player))
+                if (cashgame.IsInGame(player.Id))
                 {
                     filteredCashgames.Add(cashgame);
                 }
@@ -46,7 +46,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             var winnings = 0;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player);
+                var result = cashgame.GetResult(player.Id);
                 if (result != null)
                 {
                     winnings += result.Winnings;
@@ -60,7 +60,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             int? best = null;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player);
+                var result = cashgame.GetResult(player.Id);
                 if (!best.HasValue || result != null && result.Winnings > best)
                 {
                     best = result.Winnings;
@@ -74,7 +74,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             int? worst = null;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player);
+                var result = cashgame.GetResult(player.Id);
                 if (!worst.HasValue || result != null && result.Winnings < worst)
                 {
                     worst = result.Winnings;

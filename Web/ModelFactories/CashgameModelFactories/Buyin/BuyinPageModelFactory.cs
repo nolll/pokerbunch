@@ -19,7 +19,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
                 {
                     BrowserTitle = "Buy In",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
-                    StackFieldEnabled = runningGame.IsInGame(player),
+                    StackFieldEnabled = runningGame.IsInGame(player.Id),
                     BuyinAmount = homegame.DefaultBuyin
                 };
         }

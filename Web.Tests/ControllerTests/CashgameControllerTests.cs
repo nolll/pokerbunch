@@ -11,6 +11,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
+using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
@@ -298,7 +299,8 @@ namespace Web.Tests.ControllerTests{
                 GetMock<ICashgameDetailsChartModelFactory>().Object,
                 GetMock<ITimeProvider>().Object,
                 GetMock<ICheckpointRepository>().Object,
-                GetMock<ICashgameService>().Object);
+                GetMock<ICashgameService>().Object,
+                GetMock<ICashgameCommandProvider>().Object);
         }
 
 	}

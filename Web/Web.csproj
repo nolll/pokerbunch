@@ -156,6 +156,9 @@
     <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\EndGameCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\IUserCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\EditHomegameCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IHomegameCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinHomegameCommand.cs" />

@@ -13,6 +13,7 @@ using Infrastructure.Services;
 using Infrastructure.System;
 using Web.Commands;
 using Web.Commands.AuthCommands;
+using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
 using Web.Commands.PlayerCommands;
 using Web.Commands.UserCommands;
@@ -190,6 +191,7 @@ namespace Web.Plumbing
             RegisterComponent<IAuthCommandProvider, AuthCommandProvider>();
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
             RegisterComponent<IHomegameCommandProvider, HomegameCommandProvider>();
+            RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
         }
 
     }
