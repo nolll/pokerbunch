@@ -220,6 +220,8 @@
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="ModelServices\CashgameModelService.cs" />
+    <Compile Include="ModelServices\Interfaces\ICashgameModelService.cs" />
     <Compile Include="ModelServices\Interfaces\IPlayerModelService.cs" />
     <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />
     <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />

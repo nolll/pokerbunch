@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Services;
 
-namespace Web.Tests.ModelTests.CashgameModels.Matrix{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 	public class CashgameMatrixTableCellModelTests : MockContainer {
 
@@ -127,7 +127,8 @@ namespace Web.Tests.ModelTests.CashgameModels.Matrix{
             Assert.IsFalse(result.HasBestResult);
 		}
 
-		private CashgameMatrixTableCellModelFactory GetSut(){
+		private CashgameMatrixTableCellModelFactory GetSut()
+        {
 			return new CashgameMatrixTableCellModelFactory(
                 GetMock<IResultFormatter>().Object);
 		}

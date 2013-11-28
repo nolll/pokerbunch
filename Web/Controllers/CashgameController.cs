@@ -15,12 +15,11 @@ using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.Facts;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 using Web.ModelFactories.CashgameModelFactories.Listing;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
+using Web.ModelServices;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
@@ -37,7 +36,6 @@ namespace Web.Controllers{
 	    private readonly IUserContext _userContext;
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly IPlayerRepository _playerRepository;
-	    private readonly IMatrixPageModelFactory _matrixPageModelFactory;
 	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly IBuyinPageModelFactory _buyinPageModelFactory;
 	    private readonly IReportPageModelFactory _reportPageModelFactory;
@@ -49,7 +47,6 @@ namespace Web.Controllers{
 	    private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
 	    private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
 	    private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
-	    private readonly ICashgameLeaderboardPageModelFactory _cashgameLeaderboardPageModelFactory;
 	    private readonly ICashgameListingPageModelFactory _cashgameListingPageModelFactory;
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
@@ -62,13 +59,13 @@ namespace Web.Controllers{
 	    private readonly ICheckpointRepository _checkpointRepository;
 	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
+	    private readonly ICashgameModelService _cashgameModelService;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
             IUserContext userContext, 
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository, 
-            IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameFactory cashgameFactory,
             IBuyinPageModelFactory buyinPageModelFactory,
             IReportPageModelFactory reportPageModelFactory,
@@ -80,7 +77,6 @@ namespace Web.Controllers{
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             ICashgameEditPageModelFactory cashgameEditPageModelFactory,
             ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
-            ICashgameLeaderboardPageModelFactory cashgameLeaderboardPageModelFactory,
             ICashgameListingPageModelFactory cashgameListingPageModelFactory,
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
             ICashgameModelMapper cashgameModelMapper,
@@ -92,13 +88,13 @@ namespace Web.Controllers{
             ITimeProvider timeProvider,
             ICheckpointRepository checkpointRepository,
             ICashgameService cashgameService,
-            ICashgameCommandProvider cashgameCommandProvider)
+            ICashgameCommandProvider cashgameCommandProvider,
+            ICashgameModelService cashgameModelService)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
 	        _cashgameRepository = cashgameRepository;
 	        _playerRepository = playerRepository;
-	        _matrixPageModelFactory = matrixPageModelFactory;
 	        _cashgameFactory = cashgameFactory;
 	        _buyinPageModelFactory = buyinPageModelFactory;
 	        _reportPageModelFactory = reportPageModelFactory;
@@ -110,7 +106,6 @@ namespace Web.Controllers{
 	        _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
 	        _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
 	        _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
-	        _cashgameLeaderboardPageModelFactory = cashgameLeaderboardPageModelFactory;
 	        _cashgameListingPageModelFactory = cashgameListingPageModelFactory;
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
 	        _cashgameModelMapper = cashgameModelMapper;
@@ -123,6 +118,7 @@ namespace Web.Controllers{
 	        _checkpointRepository = checkpointRepository;
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
+	        _cashgameModelService = cashgameModelService;
 	    }
 
 	    public ActionResult Index(string gameName){
@@ -136,19 +132,15 @@ namespace Web.Controllers{
 			return Redirect(_urlProvider.GetCashgameAddUrl(homegame));
 		}
 
-        public ActionResult Matrix(string gameName, int? year = null){
-            var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequirePlayer(homegame);
-			var model = _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
+        public ActionResult Matrix(string gameName, int? year = null)
+        {
+            var model = _cashgameModelService.GetMatrixModel(gameName, year);
 			return View("Matrix/MatrixPage", model);
 		}
 
-        public ActionResult Leaderboard(string gameName, int? year = null){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequirePlayer(homegame);
-            var suite = _cashgameService.GetSuite(homegame, year);
-			var years = _cashgameRepository.GetYears(homegame);
-			var model = _cashgameLeaderboardPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, year);
+        public ActionResult Leaderboard(string gameName, int? year = null)
+        {
+            var model = _cashgameModelService.GetLeaderboardModel(gameName, year);
 			return View("Leaderboard/LeaderboardPage", model);
 		}
 

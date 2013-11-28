@@ -28,6 +28,7 @@ using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
+using Web.ModelServices;
 using ICashgameService = Core.Services.ICashgameService;
 
 namespace Web.Tests.ControllerTests{
@@ -39,21 +40,8 @@ namespace Web.Tests.ControllerTests{
         private const string PlayerName = "Player 1";
         private const string UserName = "user1";
 
-        [Test]
-		public void Matrix_NotAuthorized_ThrowsException(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Matrix(Slug));
-		}
-
 		[Test]
-		public void Matrix_Authorized_ShowsCorrectView(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
-
+		public void Matrix_CorrectView(){
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Matrix(Slug);
 
@@ -61,21 +49,7 @@ namespace Web.Tests.ControllerTests{
 		}
 
         [Test]
-		public void Leaderboard_NotAuthorized_ThrowsException(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Leaderboard(Slug));
-		}
-
-        [Test]
 		public void Leaderboard_Authorized_ShowsCorrectView(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<ICashgameService>().Setup(o => o.GetSuite(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new FakeCashgameSuite());
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
-
 		    var sut = GetSut();
             var viewResult = (ViewResult)sut.Leaderboard(Slug);
 
@@ -276,7 +250,6 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IUserContext>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
-                GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameFactory>().Object,
                 GetMock<IBuyinPageModelFactory>().Object,
                 GetMock<IReportPageModelFactory>().Object,
@@ -288,7 +261,6 @@ namespace Web.Tests.ControllerTests{
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<ICashgameEditPageModelFactory>().Object,
                 GetMock<ICashgameFactsPageModelFactory>().Object,
-                GetMock<ICashgameLeaderboardPageModelFactory>().Object,
                 GetMock<ICashgameListingPageModelFactory>().Object,
                 GetMock<IRunningCashgamePageModelFactory>().Object,
                 GetMock<ICashgameModelMapper>().Object,
@@ -300,7 +272,8 @@ namespace Web.Tests.ControllerTests{
                 GetMock<ITimeProvider>().Object,
                 GetMock<ICheckpointRepository>().Object,
                 GetMock<ICashgameService>().Object,
-                GetMock<ICashgameCommandProvider>().Object);
+                GetMock<ICashgameCommandProvider>().Object,
+                GetMock<ICashgameModelService>().Object);
         }
 
 	}
