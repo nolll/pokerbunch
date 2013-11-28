@@ -42,6 +42,8 @@
     <Compile Include="Classes\CashgameFacts.cs" />
     <Compile Include="Classes\Identifier.cs" />
     <Compile Include="Classes\TwitterCredentials.cs" />
+    <Compile Include="Exceptions\CashgameRunningException.cs" />
+    <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CashgameTotalResultFactory.cs" />
     <Compile Include="Factories\CashgameFactsFactory.cs" />

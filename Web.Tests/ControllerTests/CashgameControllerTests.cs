@@ -5,7 +5,6 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Factories;
-using Infrastructure.Repositories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
@@ -22,9 +21,7 @@ using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.Facts;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 using Web.ModelFactories.CashgameModelFactories.Listing;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
@@ -56,23 +53,8 @@ namespace Web.Tests.ControllerTests{
 			Assert.AreEqual("Leaderboard/LeaderboardPage", viewResult.ViewName);
 		}
 
-        [Test]
-		public void Details_NotAuthorized_ThrowsException(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Details(Slug, DateStr));
-		}
-
 		[Test]
 		public void Details_ReturnsCorrectView(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakePlayer());
-            
             var sut = GetSut();
             var viewResult = (ViewResult)sut.Details(Slug, DateStr);
 
@@ -268,7 +250,6 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameSuiteChartModelFactory>().Object,
                 GetMock<IActionChartModelFactory>().Object,
-                GetMock<ICashgameDetailsChartModelFactory>().Object,
                 GetMock<ITimeProvider>().Object,
                 GetMock<ICheckpointRepository>().Object,
                 GetMock<ICashgameService>().Object,
