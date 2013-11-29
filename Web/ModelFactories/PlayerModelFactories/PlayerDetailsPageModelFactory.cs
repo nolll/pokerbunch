@@ -41,7 +41,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,
                     PlayerFactsModel = _playerFactsModelFactory.Create(homegame.Currency, cashgames, player),
-                    PlayerBadgesModel = new PlayerBadgesModel(player, cashgames)
+                    PlayerBadgesModel = new PlayerBadgesModel(player.Id, cashgames)
                 };
 
             if (hasUser)
