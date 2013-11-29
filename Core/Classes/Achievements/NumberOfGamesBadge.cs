@@ -7,17 +7,17 @@ namespace Core.Classes.Achievements{
 
 	    public bool WasEarned { get; private set; }
 
-		public NumberOfGamesBadge(Player player, IEnumerable<Cashgame> cashgames, int numberToCheck){
+		public NumberOfGamesBadge(int playerId, IEnumerable<Cashgame> cashgames, int numberToCheck){
 			if(cashgames == null){
 				WasEarned = false;
 				return;
 			}
-			WasEarned = GetNumberOfPlayedGames(player, cashgames) >= numberToCheck;
+			WasEarned = GetNumberOfPlayedGames(playerId, cashgames) >= numberToCheck;
 		}
 
-		private int GetNumberOfPlayedGames(Player player, IEnumerable<Cashgame> cashgames)
+		private int GetNumberOfPlayedGames(int playerId, IEnumerable<Cashgame> cashgames)
 		{
-		    return cashgames.Count(cashgame => cashgame.IsInGame(player.Id));
+		    return cashgames.Count(cashgame => cashgame.IsInGame(playerId));
 		}
 	}
 

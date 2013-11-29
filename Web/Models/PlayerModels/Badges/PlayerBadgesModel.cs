@@ -13,32 +13,32 @@ namespace Web.Models.PlayerModels.Achievements{
         public bool Played200Games { get; set; }
         public bool Played500Games { get; set; }
 
-        public PlayerBadgesModel(Player player, IList<Cashgame> cashgames)
+        public PlayerBadgesModel(int playerId, IList<Cashgame> cashgames)
         {
-			if(player == null || cashgames == null){
+			if(playerId == 0 || cashgames == null){
 				return;
 			}
-			SetNumberOfGamesBadges(player, cashgames);
+			SetNumberOfGamesBadges(playerId, cashgames);
 		}
 
-        private void SetNumberOfGamesBadges(Player player, IList<Cashgame> cashgames)
+        private void SetNumberOfGamesBadges(int playerId, IList<Cashgame> cashgames)
         {
-			var n1 = new NumberOfGamesBadge(player, cashgames, 1);
+			var n1 = new NumberOfGamesBadge(playerId, cashgames, 1);
             PlayedOneGame = n1.WasEarned;
 
-            var n10 = new NumberOfGamesBadge(player, cashgames, 10);
+            var n10 = new NumberOfGamesBadge(playerId, cashgames, 10);
             PlayedTenGames = n10.WasEarned;
 
-            var n50 = new NumberOfGamesBadge(player, cashgames, 50);
+            var n50 = new NumberOfGamesBadge(playerId, cashgames, 50);
             Played50Games = n50.WasEarned;
 
-            var n100 = new NumberOfGamesBadge(player, cashgames, 100);
+            var n100 = new NumberOfGamesBadge(playerId, cashgames, 100);
             Played100Games = n100.WasEarned;
 
-            var n200 = new NumberOfGamesBadge(player, cashgames, 200);
+            var n200 = new NumberOfGamesBadge(playerId, cashgames, 200);
             Played200Games = n200.WasEarned;
 
-            var n500 = new NumberOfGamesBadge(player, cashgames, 500);
+            var n500 = new NumberOfGamesBadge(playerId, cashgames, 500);
 			Played500Games = n500.WasEarned;
 		}
 
