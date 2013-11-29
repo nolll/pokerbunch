@@ -6,6 +6,6 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IPlayerListingPageModelFactory
     {
-        PlayerListingPageModel Create(User user, Homegame homegame, List<Player> players, bool isInManagerMode);
+        PlayerListingPageModel Create(User user, Homegame homegame, IList<Player> players, bool isInManagerMode);
     }
 }

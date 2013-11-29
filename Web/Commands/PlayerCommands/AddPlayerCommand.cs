@@ -27,7 +27,7 @@ namespace Web.Commands.PlayerCommands
                 AddError("The Display Name is in use by someone else");
                 return false;
             }
-            _playerRepository.AddPlayer(_homegame, _model.Name);
+            _playerRepository.Add(_homegame, _model.Name);
             return true;
         }
     }

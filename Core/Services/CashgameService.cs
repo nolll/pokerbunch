@@ -25,14 +25,14 @@ namespace Core.Services
 
         public CashgameSuite GetSuite(Homegame homegame, int? year = null)
         {
-            var players = _playerRepository.GetAll(homegame);
+            var players = _playerRepository.GetList(homegame);
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             return _cashgameSuiteFactory.Create(cashgames, players);
         }
 
         public CashgameFacts GetFacts(Homegame homegame, int? year = null)
         {
-            var players = _playerRepository.GetAll(homegame);
+            var players = _playerRepository.GetList(homegame);
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             return _cashgameFactsFactory.Create(cashgames, players);
         }

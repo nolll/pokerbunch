@@ -56,7 +56,7 @@ namespace Infrastructure.Repositories
         public IList<User> GetList()
         {
             var ids = GetIds();
-            var users = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            var users = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return users.OrderBy(o => o.DisplayName).ToList();
         }
 
@@ -82,7 +82,7 @@ namespace Infrastructure.Repositories
             return rawUser != null ? _userFactory.Create(rawUser) : null;
         }
 
-        private IList<User> GetAllUncached(IEnumerable<int> ids)
+        private IList<User> GetListUncached(IEnumerable<int> ids)
         {
             var rawUsers = _userStorage.GetUsers(ids);
             return rawUsers.Select(_userFactory.Create).ToList();

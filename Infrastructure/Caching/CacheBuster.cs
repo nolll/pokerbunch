@@ -48,5 +48,27 @@ namespace Infrastructure.Caching
             var slugKey = _cacheKeyProvider.HomegameIdBySlugKey(homegame.Slug);
             _cacheContainer.Remove(slugKey);
         }
+
+        public void PlayerAdded(Homegame homegame)
+        {
+            var key = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
+            _cacheContainer.Remove(key);
+        }
+
+        public void PlayerUpdated(Player player)
+        {
+            var singleUserKey = _cacheKeyProvider.PlayerKey(player.Id);
+            _cacheContainer.Remove(singleUserKey);
+        }
+
+        public void PlayerDeleted(Homegame homegame, Player player)
+        {
+            var key = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
+            _cacheContainer.Remove(key);
+
+            var singleUserKey = _cacheKeyProvider.PlayerKey(player.Id);
+            _cacheContainer.Remove(singleUserKey);
+        }
+
     }
 }

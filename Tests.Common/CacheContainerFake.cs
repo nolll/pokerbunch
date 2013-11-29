@@ -21,18 +21,9 @@ namespace Tests.Common
             return _fakedCacheValue != null ? (T)_fakedCacheValue : default(T);
         }
 
-        public T GetEmpty<T>(string key) where T : class
-        {
-            return null;
-        }
-
         public string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
             return _fakedCacheKey;
-        }
-
-        public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
-        {
         }
 
         public void FakeInsert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)

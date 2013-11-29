@@ -162,7 +162,7 @@ namespace Infrastructure.Repositories {
             if (uncachedIds.Count > 0)
             {
                 var rawCashgames = _cashgameStorage.GetGames(uncachedIds);
-                var players = _playerRepository.GetAll(homegame);
+                var players = _playerRepository.GetList(homegame);
                 var newCashgames = GetGamesFromRawGames(rawCashgames, players);
                 foreach (var cashgame in newCashgames)
                 {
@@ -178,7 +178,7 @@ namespace Infrastructure.Repositories {
         {
             var rawGame = _cashgameStorage.GetGame(cashgameId);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
-            var players = _playerRepository.GetAll(homegame);
+            var players = _playerRepository.GetList(homegame);
             return GetGameFromRawGame(rawGame, rawCheckpoints, players);
         }
 
@@ -198,12 +198,12 @@ namespace Infrastructure.Repositories {
             return uncached;
         }
 
-        private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgameWithResults> rawGames, List<Player> players)
+        private IList<Cashgame> GetGamesFromRawGames(IEnumerable<RawCashgameWithResults> rawGames, IList<Player> players)
         {
             return rawGames.Select(rawGame => GetGameFromRawGame(rawGame, players)).ToList();
         }
 
-	    private Cashgame GetGameFromRawGame(RawCashgameWithResults rawGame, List<Player> players)
+	    private Cashgame GetGameFromRawGame(RawCashgameWithResults rawGame, IList<Player> players)
         {
             var results = new List<CashgameResult>();
             var rawResults = rawGame.Results;
@@ -214,7 +214,7 @@ namespace Infrastructure.Repositories {
             return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
         }
 
-        private Cashgame GetGameFromRawGame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints, List<Player> players)
+        private Cashgame GetGameFromRawGame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints, IList<Player> players)
         {
             var results = new List<CashgameResult>();
             var rawResults = GetRawResults(rawCheckpoints);

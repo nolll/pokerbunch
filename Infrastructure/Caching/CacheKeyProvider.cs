@@ -39,6 +39,26 @@ namespace Infrastructure.Caching
             return ConstructCacheKey("HomegameIds", "all");
         }
 
+        public string PlayerKey(int id)
+        {
+            return ConstructCacheKey("Player", id); ;
+        }
+
+        public string PlayerIdsKey(int homegameId)
+        {
+            return ConstructCacheKey("PlayerIds", homegameId);
+        }
+
+        public string PlayerIdByNameKey(int homegameId, string name)
+        {
+            return ConstructCacheKey("PlayerId", "name", homegameId, name);
+        }
+
+        public string PlayerIdByUserNameKey(int homegameId, string userName)
+        {
+            return ConstructCacheKey("PlayerId", "user", homegameId, userName);
+        }
+
         public string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
             // construct a cachekey in the format "typeName:parameter1value:parameter2value:"

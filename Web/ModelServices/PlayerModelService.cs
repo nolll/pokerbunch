@@ -49,7 +49,7 @@ namespace Web.ModelServices
         public PlayerListingPageModel GetListingModel(Homegame homegame)
         {
             var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
-            var players = _playerRepository.GetAll(homegame);
+            var players = _playerRepository.GetList(homegame);
             return _playerListingPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode);
         }
 

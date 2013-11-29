@@ -23,7 +23,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _playerItemModelFactory = playerItemModelFactory;
         }
 
-        public PlayerListingPageModel Create(User user, Homegame homegame, List<Player> players, bool isInManagerMode)
+        public PlayerListingPageModel Create(User user, Homegame homegame, IList<Player> players, bool isInManagerMode)
         {
             return new PlayerListingPageModel
                 {

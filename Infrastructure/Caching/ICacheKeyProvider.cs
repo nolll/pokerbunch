@@ -10,5 +10,9 @@ namespace Infrastructure.Caching
         string HomegameKey(int id);
         string HomegameIdsKey();
         string HomegameIdBySlugKey(string slug);
+        string PlayerKey(int id);
+        string PlayerIdsKey(int homegameId);
+        string PlayerIdByNameKey(int homegameId, string name);
+        string PlayerIdByUserNameKey(int homegameId, string userName);
     }
 }

@@ -11,136 +11,108 @@ namespace Infrastructure.Repositories {
 
 	public class PlayerRepository : IPlayerRepository
     {
-        private const string PlayerCacheKey = "Player";
-        private const string HomegamePlayersCacheKey = "HomegamePlayers";
-
 	    private readonly IPlayerStorage _playerStorage;
 	    private readonly IPlayerFactory _playerFactory;
 	    private readonly ICacheContainer _cacheContainer;
+	    private readonly ICacheKeyProvider _cacheKeyProvider;
+	    private readonly ICacheBuster _cacheBuster;
 
 	    public PlayerRepository(
             IPlayerStorage playerStorage,
             IPlayerFactory playerFactory,
-            ICacheContainer cacheContainer)
+            ICacheContainer cacheContainer,
+            ICacheKeyProvider cacheKeyProvider,
+            ICacheBuster cacheBuster)
 	    {
 	        _playerStorage = playerStorage;
 	        _playerFactory = playerFactory;
 	        _cacheContainer = cacheContainer;
+	        _cacheKeyProvider = cacheKeyProvider;
+	        _cacheBuster = cacheBuster;
 	    }
 
-	    public List<Player> GetAll(Homegame homegame)
-	    {
-            var players = new List<Player>();
-            var playerIds = GetPlayerIds(homegame);
-            var uncachedIds = new List<int>();
-            foreach (var id in playerIds)
-            {
-                var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, id);
-                var cached = _cacheContainer.Get<Player>(cacheKey);
-                if (cached != null)
-                {
-                    players.Add(cached);
-                }
-                else
-                {
-                    uncachedIds.Add(id);
-                }
-            }
-
-            if (uncachedIds.Count > 0)
-            {
-                var rawPlayers = _playerStorage.GetPlayers(uncachedIds);
-                var newPlayers = rawPlayers.Select(_playerFactory.Create).ToList();
-                foreach (var player in newPlayers)
-                {
-                    _cacheContainer.FakeInsert(_cacheContainer.ConstructCacheKey(PlayerCacheKey, player.Id), player, TimeSpan.FromMinutes(CacheTime.Long));
-                }
-                players.AddRange(newPlayers);
-            }
-
+        public IList<Player> GetList(Homegame homegame)
+        {
+            var ids = GetIds(homegame);
+            var players = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return players.OrderBy(o => o.DisplayName).ToList();
-		}
-
-        private IEnumerable<int> GetPlayerIds(Homegame homegame)
-        {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegamePlayersCacheKey, homegame.Id);
-            var cached = _cacheContainer.Get<List<int>>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
-            var uncached = _playerStorage.GetPlayerIds(homegame.Id);
-            if (uncached != null)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
         }
 
-        public Player GetPlayerById(int id)
+        private IList<Player> GetListUncached(IEnumerable<int> ids)
         {
-            var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, id);
-            var cached = _cacheContainer.Get<Player>(cacheKey);
-            if (cached != null)
-            {
-                return cached;
-            }
+            var rawPlayers = _playerStorage.GetPlayers(ids);
+            return rawPlayers.Select(_playerFactory.Create).ToList();
+        }
+
+        private IList<int> GetIds(Homegame homegame)
+        {
+            var cacheKey = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIds(homegame.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        public Player GetById(int id)
+        {
+            var cacheKey = _cacheKeyProvider.PlayerKey(id);
+            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        private Player GetByIdUncached(int id)
+        {
             var rawUser = _playerStorage.GetPlayerById(id);
-            var uncached = rawUser != null ? _playerFactory.Create(rawUser) : null;
-            if (uncached != null)
-            {
-                _cacheContainer.FakeInsert(cacheKey, uncached, TimeSpan.FromMinutes(CacheTime.Long));
-            }
-            return uncached;
+            return rawUser != null ? _playerFactory.Create(rawUser) : null;
         }
 
-		public Player GetByName(Homegame homegame, string name){
-			var playerId = _playerStorage.GetPlayerIdByName(homegame.Id, name);
-		    return playerId.HasValue ? GetPlayerById(playerId.Value) : null;
-		}
+        public Player GetByName(Homegame homegame, string name)
+        {
+            var playerId = GetIdByName(homegame, name);
+            return playerId.HasValue ? GetById(playerId.Value) : null;
+        }
 
-		public Player GetByUserName(Homegame homegame, string userName){
-            var playerId = _playerStorage.GetPlayerIdByUserName(homegame.Id, userName);
-            return playerId.HasValue ? GetPlayerById(playerId.Value) : null;
-		}
+        private int? GetIdByName(Homegame homegame, string name)
+        {
+            var cacheKey = _cacheKeyProvider.PlayerIdByNameKey(homegame.Id, name);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(homegame.Id, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
 
-		public int AddPlayer(Homegame homegame, string playerName){
+        public Player GetByUserName(Homegame homegame, string userName)
+        {
+            var playerId = GetIdByUserName(homegame, userName);
+            return playerId.HasValue ? GetById(playerId.Value) : null;
+        }
+
+        private int? GetIdByUserName(Homegame homegame, string userName)
+        {
+            var cacheKey = _cacheKeyProvider.PlayerIdByUserNameKey(homegame.Id, userName);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(homegame.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+		public int Add(Homegame homegame, string playerName)
+        {
             var playerId = _playerStorage.AddPlayer(homegame.Id, playerName);
-            ClearPlayerListFromCache(homegame.Id);
+            _cacheBuster.PlayerAdded(homegame);
 		    return playerId;
 		}
 
-		public int AddPlayerWithUser(Homegame homegame, User user, Role role){
+		public int Add(Homegame homegame, User user, Role role)
+        {
             var playerId = _playerStorage.AddPlayerWithUser(homegame.Id, user.Id, (int)role);
-            ClearPlayerListFromCache(homegame.Id);
+            _cacheBuster.PlayerAdded(homegame);
 		    return playerId;
 		}
 
-		public bool JoinHomegame(Player player, Homegame homegame, User user){
+		public bool JoinHomegame(Player player, Homegame homegame, User user)
+        {
             var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, homegame.Id, user.Id);
-            ClearPlayerFromCache(player.Id);
-            ClearPlayerListFromCache(homegame.Id);
+            _cacheBuster.PlayerUpdated(player);
 		    return success;
 		}
 
-		public bool DeletePlayer(Homegame homegame, Player player){
+		public bool Delete(Homegame homegame, Player player)
+        {
 			var success = _playerStorage.DeletePlayer(player.Id);
-            ClearPlayerFromCache(player.Id);
-            ClearPlayerListFromCache(homegame.Id);
+            _cacheBuster.PlayerDeleted(homegame, player);
             return success;
 		}
-
-        private void ClearPlayerFromCache(int playerId)
-        {
-            var cacheKey = _cacheContainer.ConstructCacheKey(PlayerCacheKey, playerId);
-            _cacheContainer.FakeRemove(cacheKey);
-        }
-
-        private void ClearPlayerListFromCache(int homegameId)
-        {
-            var cacheKey = _cacheContainer.ConstructCacheKey(HomegamePlayersCacheKey, homegameId);
-            _cacheContainer.FakeRemove(cacheKey);
-        }
 
 	}
 

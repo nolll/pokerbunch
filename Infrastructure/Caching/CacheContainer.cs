@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Classes;
-using Infrastructure.System;
 
 namespace Infrastructure.Caching
 {
@@ -130,7 +129,7 @@ namespace Infrastructure.Caching
             return true;
         }
 
-        public void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
+        private void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
         {
             _cacheProvider.Put(cacheKey, objectToBeCached ?? _nullValue, cacheTime);
         }

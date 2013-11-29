@@ -27,7 +27,7 @@ namespace Web.Commands.PlayerCommands
             var hasPlayed = _cashgameRepository.HasPlayed(_player);
             if (!hasPlayed)
             {
-                _playerRepository.DeletePlayer(_homegame, _player);
+                _playerRepository.Delete(_homegame, _player);
                 return true;
             }
             AddError("This player has played games, and can't be deleted");

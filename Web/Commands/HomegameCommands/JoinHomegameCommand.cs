@@ -43,7 +43,7 @@ namespace Web.Commands.HomegameCommands
 
         private Player GetMatchedPlayer(Homegame homegame, string postedCode)
         {
-            var players = _playerRepository.GetAll(homegame);
+            var players = _playerRepository.GetList(homegame);
             foreach (var player in players)
             {
                 var code = _invitationCodeCreator.GetCode(player);
