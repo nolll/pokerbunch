@@ -6,7 +6,7 @@ namespace Infrastructure.Factories{
 
 	public interface ICashgameResultFactory{
 
-		CashgameResult Create(Player player, List<Checkpoint> checkpoints);
+		CashgameResult Create(int playerId, List<Checkpoint> checkpoints);
 
 	}
 

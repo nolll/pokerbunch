@@ -26,15 +26,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             _globalization = globalization;
         }
 
-        public RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result, bool isManager)
+        public RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, bool isManager)
         {
             return new RunningCashgameTableItemModel
                 {
-                    Name = result.Player != null ? result.Player.DisplayName : null,
-                    PlayerUrl = result.Player != null ? _urlProvider.GetCashgameActionUrl(homegame, cashgame, result.Player) : null,
-                    BuyinUrl = result.Player != null && isManager ? _urlProvider.GetCashgameBuyinUrl(homegame, result.Player) : null,
-                    ReportUrl = result.Player != null && isManager ? _urlProvider.GetCashgameReportUrl(homegame, result.Player) : null,
-                    CashoutUrl = result.Player != null && isManager ? _urlProvider.GetCashgameCashoutUrl(homegame, result.Player) : null,
+                    Name = player.DisplayName,
+                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player),
+                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
+                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
+                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

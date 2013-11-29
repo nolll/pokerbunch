@@ -24,7 +24,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 		    const int playerId = 1;
             var player = new FakePlayer(playerId);
 		    var homegame = new FakeHomegame();
-			var cashgameResult = new FakeCashgameResult(player, playerId);
+			var cashgameResult = new FakeCashgameResult(playerId);
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult>{cashgameResult});
 
 			var sut = GetSut();

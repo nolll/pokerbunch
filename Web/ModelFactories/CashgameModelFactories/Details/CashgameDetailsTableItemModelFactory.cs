@@ -23,12 +23,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             _globalization = globalization;
         }
 
-        public CashgameDetailsTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result)
+        public CashgameDetailsTableItemModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result)
         {
             return new CashgameDetailsTableItemModel
                 {
-                    Name = result.Player != null ? result.Player.DisplayName : null,
-                    PlayerUrl = result.Player != null ? _urlProvider.GetCashgameActionUrl(homegame, cashgame, result.Player) : null,
+                    Name = player.DisplayName,
+                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Cashout = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

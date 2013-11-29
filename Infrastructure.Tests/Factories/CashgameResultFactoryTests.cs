@@ -143,9 +143,9 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private CashgameResult GetResult(){
-			var player = new FakePlayer();
+			const int playerId = 1;
 			var factory = new CashgameResultFactory(GetMock<ITimeProvider>().Object);
-			return factory.Create(player, _checkpoints);
+			return factory.Create(playerId, _checkpoints);
 		}
 
 	}

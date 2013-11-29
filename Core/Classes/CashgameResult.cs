@@ -5,7 +5,6 @@ using Core.Classes.Checkpoints;
 namespace Core.Classes{
     public class CashgameResult{
 
-	    public Player Player { get; private set; }
         public int PlayerId { get; private set; }
         public int Buyin { get; private set; }
         public int Winnings { get; private set; }
@@ -19,7 +18,6 @@ namespace Core.Classes{
         public bool HasReported { get; private set; }
 
 	    public CashgameResult(
-            Player player, 
             int playerId,
             int buyin, 
             int winnings, 
@@ -32,7 +30,6 @@ namespace Core.Classes{
             Checkpoint cashoutCheckpoint, 
             bool hasReported)
 	    {
-	        Player = player;
 	        PlayerId = playerId;
 	        Buyin = buyin;
 	        Winnings = winnings;

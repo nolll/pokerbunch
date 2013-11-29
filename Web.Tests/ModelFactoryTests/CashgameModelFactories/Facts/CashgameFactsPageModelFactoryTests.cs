@@ -1,4 +1,5 @@
 using Core.Classes;
+using Core.Repositories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
@@ -72,9 +73,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 
 		[Test]
         public void BestResultName_SuiteHasBestResult_IsSet(){
-			var player = new FakePlayer(displayName: "a");
-		    var cashgameResult = new FakeCashgameResult(player);
+            const int playerId = 1;
+            var player = new FakePlayer(displayName: "a");
+		    var cashgameResult = new FakeCashgameResult(playerId);
             var facts = new FakeCashgameFacts(bestResult: cashgameResult);
+
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
@@ -98,10 +102,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		}
 
 		[Test]
-        public void WorstResultName_SuiteHasWorstResult_IsSet(){
+        public void WorstResultName_SuiteHasWorstResult_IsSet()
+		{
+		    const int playerId = 1;
 			var player = new FakePlayer(displayName: "a");
-		    var cashgameResult = new FakeCashgameResult(player);
+		    var cashgameResult = new FakeCashgameResult(playerId);
             var facts = new FakeCashgameFacts(worstResult: cashgameResult);
+
+		    GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
@@ -143,7 +151,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
             return new CashgameFactsPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<ICashgameNavigationModelFactory>().Object,
-                GetMock<IGlobalization>().Object);
+                GetMock<IGlobalization>().Object,
+                GetMock<IPlayerRepository>().Object);
 		}
 
 	}

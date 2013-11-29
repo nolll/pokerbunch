@@ -179,7 +179,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
 		{
 		    const int playerId = 1;
             var player = new FakePlayer(playerId);
-            var cashgameResult = new FakeCashgameResult(player, playerId);
+            var cashgameResult = new FakeCashgameResult(playerId);
             var cashgame = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();

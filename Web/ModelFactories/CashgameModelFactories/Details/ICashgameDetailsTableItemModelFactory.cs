@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 {
     public interface ICashgameDetailsTableItemModelFactory
     {
-        CashgameDetailsTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result);
+        CashgameDetailsTableItemModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result);
     }
 }

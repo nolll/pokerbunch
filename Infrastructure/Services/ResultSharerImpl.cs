@@ -9,15 +9,18 @@ namespace Infrastructure.Services{
 	    private readonly ISharingRepository _sharingRepository;
 	    private readonly IUserRepository _userRepository;
 	    private readonly ISocialServiceProvider _socialServiceFactory;
+	    private readonly IPlayerRepository _playerRepository;
 
 	    public ResultSharerImpl(
             ISharingRepository sharingRepository,
 			IUserRepository userRepository,
-			ISocialServiceProvider socialServiceFactory)
+			ISocialServiceProvider socialServiceFactory,
+            IPlayerRepository playerRepository)
 	    {
 	        _sharingRepository = sharingRepository;
 	        _userRepository = userRepository;
 	        _socialServiceFactory = socialServiceFactory;
+	        _playerRepository = playerRepository;
 	    }
 
 	    public void ShareResult(Cashgame cashgame){
@@ -39,8 +42,10 @@ namespace Infrastructure.Services{
 			service.ShareResult(user, result.Winnings);
 		}
 
-		private User GetUser(CashgameResult result){
-			return _userRepository.GetById(result.Player.UserId);
+		private User GetUser(CashgameResult result)
+		{
+		    var player = _playerRepository.GetById(result.PlayerId);
+			return _userRepository.GetById(player.UserId);
 		}
 
 	}

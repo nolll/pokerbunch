@@ -25,8 +25,7 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private CashgameResult GetResult(){
-			var player = new FakePlayer();
-			return new FakeCashgameResult(player, winnings: 1);
+			return new FakeCashgameResult(winnings: 1);
 		}
 
 	}

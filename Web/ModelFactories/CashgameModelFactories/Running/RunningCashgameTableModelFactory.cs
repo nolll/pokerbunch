@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Repositories;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Running;
 
@@ -10,13 +11,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     {
         private readonly IRunningCashgameTableItemModelFactory _runningCashgameTableItemModelFactory;
         private readonly IGlobalization _globalization;
+        private readonly IPlayerRepository _playerRepository;
 
         public RunningCashgameTableModelFactory(
             IRunningCashgameTableItemModelFactory runningCashgameTableItemModelFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IPlayerRepository playerRepository)
         {
             _runningCashgameTableItemModelFactory = runningCashgameTableItemModelFactory;
             _globalization = globalization;
+            _playerRepository = playerRepository;
         }
 
         public RunningCashgameTableModel Create(Homegame homegame, Cashgame cashgame, bool isManager)
@@ -25,7 +29,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var resultModels = new List<RunningCashgameTableItemModel>();
             foreach (var result in results)
             {
-                resultModels.Add(_runningCashgameTableItemModelFactory.Create(homegame, cashgame, result, isManager));
+                var player = _playerRepository.GetById(result.PlayerId);
+                resultModels.Add(_runningCashgameTableItemModelFactory.Create(homegame, cashgame, player, result, isManager));
             }
             
             return new RunningCashgameTableModel

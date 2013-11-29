@@ -16,7 +16,7 @@ namespace Infrastructure.Factories
             _timeProvider = timeProvider;
         }
 
-        public CashgameResult Create(Player player, List<Checkpoint> checkpoints)
+        public CashgameResult Create(int playerId, List<Checkpoint> checkpoints)
         {
             var buyin = GetBuyinSum(checkpoints);
             var stack = GetStack(checkpoints);
@@ -31,8 +31,7 @@ namespace Infrastructure.Factories
             var hasReported = HasReported(checkpoints);
 
             return new CashgameResult(
-                player,
-                player.Id,
+                playerId,
                 buyin,
                 winnings,
                 checkpoints,

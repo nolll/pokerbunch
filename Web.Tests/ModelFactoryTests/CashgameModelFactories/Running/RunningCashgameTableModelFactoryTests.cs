@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Repositories;
 using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
@@ -74,18 +75,22 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
         public void StatusModels_CashgameWithTwoPlayers_IsSortedByWinningsDescending()
 		{
+            const int playerId1 = 1;
+            const int playerId2 = 2;
 		    const string playerName1 = "a";
 		    const string playerName2 = "b";
 			var player1 = new FakePlayer(displayName: playerName1);
-		    var result1 = new FakeCashgameResult(player1, winnings: 1);
+		    var result1 = new FakeCashgameResult(winnings: 1, playerId: playerId1);
 		    var player2 = new FakePlayer(displayName: playerName2);
-		    var result2 = new FakeCashgameResult(player2, winnings: 2);
+		    var result2 = new FakeCashgameResult(winnings: 2, playerId: playerId2);
             var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
 
-            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result1, It.IsAny<bool>()))
+            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, player1, result1, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName1 });
-            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, result2, It.IsAny<bool>()))
+            GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, player2, result2, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName2 });
+		    GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId1)).Returns(player1);
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId2)).Returns(player2);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);
@@ -98,7 +103,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		private RunningCashgameTableModelFactory GetSut(){
             return new RunningCashgameTableModelFactory(
                 GetMock<IRunningCashgameTableItemModelFactory>().Object,
-                GetMock<IGlobalization>().Object);
+                GetMock<IGlobalization>().Object,
+                GetMock<IPlayerRepository>().Object);
 		}
 
 	}

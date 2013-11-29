@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
+using Core.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -12,15 +13,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
         private readonly IGlobalization _globalization;
+        private readonly IPlayerRepository _playerRepository;
 
         public CashgameFactsPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             ICashgameNavigationModelFactory cashgameNavigationModelFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IPlayerRepository playerRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
             _globalization = globalization;
+            _playerRepository = playerRepository;
         }
 
         public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null, Cashgame runningGame = null)
@@ -38,18 +42,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             if (facts.BestResult != null)
             {
                 model.BestResultAmount = _globalization.FormatResult(homegame.Currency, facts.BestResult.Winnings);
-                if (facts.BestResult.Player != null)
+                var player = _playerRepository.GetById(facts.BestResult.PlayerId);
+                if (player != null)
                 {
-                    model.BestResultName = facts.BestResult.Player.DisplayName;
+                    model.BestResultName = player.DisplayName;
                 }
             }
 
             if (facts.WorstResult != null)
             {
                 model.WorstResultAmount = _globalization.FormatResult(homegame.Currency, facts.WorstResult.Winnings);
-                if (facts.WorstResult.Player != null)
+                var player = _playerRepository.GetById(facts.WorstResult.PlayerId);
+                if (player != null)
                 {
-                    model.WorstResultName = facts.WorstResult.Player.DisplayName;
+                    model.WorstResultName = player.DisplayName;
                 }
             }
 

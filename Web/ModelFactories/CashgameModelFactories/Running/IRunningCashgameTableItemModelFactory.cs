@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
 {
     public interface IRunningCashgameTableItemModelFactory
     {
-        RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result, bool isManager);
+        RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, bool isManager);
     }
 }

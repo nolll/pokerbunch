@@ -30,13 +30,11 @@ namespace Infrastructure.Tests.Factories{
                 {
                     new FakeCashgameResult
                         (
-                            new FakePlayer(),
                             buyinTime: _earliestBuyinTime,
                             cashoutTime: _earliestCashoutTime
                         ),
                     new FakeCashgameResult
                         (
-                            new FakePlayer(),
                             buyinTime: _latestBuyinTime,
                             cashoutTime: _latestCashoutTime
                         )
