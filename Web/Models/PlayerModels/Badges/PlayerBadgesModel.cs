@@ -6,16 +6,16 @@ namespace Web.Models.PlayerModels.Achievements{
 
 	public class PlayerBadgesModel{
 
-	    public bool PlayedOneGame { get; set; }
-        public bool PlayedTenGames { get; set; }
-        public bool Played50Games { get; set; }
-        public bool Played100Games { get; set; }
-        public bool Played200Games { get; set; }
-        public bool Played500Games { get; set; }
+	    public bool PlayedOneGame { get; private set; }
+        public bool PlayedTenGames { get; private set; }
+        public bool Played50Games { get; private set; }
+        public bool Played100Games { get; private set; }
+        public bool Played200Games { get; private set; }
+        public bool Played500Games { get; private set; }
 
         public PlayerBadgesModel(int playerId, IList<Cashgame> cashgames)
         {
-			if(playerId == 0 || cashgames == null){
+			if(cashgames == null){
 				return;
 			}
 			SetNumberOfGamesBadges(playerId, cashgames);
