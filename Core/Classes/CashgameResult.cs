@@ -6,6 +6,7 @@ namespace Core.Classes{
     public class CashgameResult{
 
 	    public Player Player { get; private set; }
+        public int PlayerId { get; private set; }
         public int Buyin { get; private set; }
         public int Winnings { get; private set; }
         public IList<Checkpoint> Checkpoints { get; private set; }
@@ -19,6 +20,7 @@ namespace Core.Classes{
 
 	    public CashgameResult(
             Player player, 
+            int playerId,
             int buyin, 
             int winnings, 
             IList<Checkpoint> checkpoints, 
@@ -31,6 +33,7 @@ namespace Core.Classes{
             bool hasReported)
 	    {
 	        Player = player;
+	        PlayerId = playerId;
 	        Buyin = buyin;
 	        Winnings = winnings;
 	        Checkpoints = checkpoints;

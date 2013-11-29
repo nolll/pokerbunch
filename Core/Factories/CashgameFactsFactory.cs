@@ -24,7 +24,7 @@ namespace Core.Factories
 			foreach(var cashgame in cashgames){
 				var results = cashgame.Results;
 				foreach(var result in results){
-					resultIndex[result.Player.Id].Add(result);
+					resultIndex[result.PlayerId].Add(result);
 					if(bestResult == null || result.Winnings > bestResult.Winnings){
 						bestResult = result;
 					}

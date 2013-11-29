@@ -32,6 +32,7 @@ namespace Infrastructure.Factories
 
             return new CashgameResult(
                 player,
+                player.Id,
                 buyin,
                 winnings,
                 checkpoints,

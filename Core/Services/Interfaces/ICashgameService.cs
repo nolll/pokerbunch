@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Classes;
 
 namespace Core.Services
@@ -6,5 +7,6 @@ namespace Core.Services
     {
         CashgameSuite GetSuite(Homegame homegame, int? year = null);
         CashgameFacts GetFacts(Homegame homegame, int? year = null);
+        IList<Player> GetPlayers(Cashgame cashgame);
     }
 }

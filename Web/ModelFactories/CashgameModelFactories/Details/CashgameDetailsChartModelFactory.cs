@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Core.Services;
 using Infrastructure.System;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
@@ -14,25 +15,30 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
     {
         private readonly ITimeProvider _timeProvider;
         private readonly IChartValueModelFactory _chartValueModelFactory;
+        private readonly ICashgameService _cashgameService;
 
         public CashgameDetailsChartModelFactory(
             ITimeProvider timeProvider,
-            IChartValueModelFactory chartValueModelFactory)
+            IChartValueModelFactory chartValueModelFactory,
+            ICashgameService cashgameService)
         {
             _timeProvider = timeProvider;
             _chartValueModelFactory = chartValueModelFactory;
+            _cashgameService = cashgameService;
         }
 
         public ChartModel Create(Homegame homegame, Cashgame cashgame)
         {
+            var players = _cashgameService.GetPlayers(cashgame);
+
             return new ChartModel
                 {
-                    cols = GetActionColumns(cashgame),
-                    rows = GetActionRows(homegame, cashgame)
+                    cols = GetActionColumns(cashgame, players),
+                    rows = GetActionRows(homegame, cashgame, players)
                 };
         }
 
-        private IList<ChartRowModel> GetActionRows(Homegame homegame, Cashgame cashgame)
+        private IList<ChartRowModel> GetActionRows(Homegame homegame, Cashgame cashgame, IList<Player> players)
         {
             var rowModels = new List<ChartRowModel>();
             var results = cashgame.Results;
@@ -40,7 +46,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             {
                 var totalBuyin = 0;
                 var checkpoints = result.Checkpoints;
-                var playerName = result.Player.DisplayName;
+                var playerId = result.PlayerId;
                 foreach (var checkpoint in checkpoints)
                 {
                     if (checkpoint.Type == CheckpointType.Buyin)
@@ -48,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                         totalBuyin += checkpoint.Amount;
                     }
                     var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone);
-                    rowModels.Add(GetActionRow(cashgame, localTime, checkpoint.Stack - totalBuyin, playerName));
+                    rowModels.Add(GetActionRow(cashgame, players, localTime, checkpoint.Stack - totalBuyin, playerId));
                 }
             }
             if (cashgame.Status == GameStatus.Running)
@@ -69,22 +75,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 };
         }
 
-        private IList<ChartColumnModel> GetActionColumns(Cashgame cashgame)
+        private IList<ChartColumnModel> GetActionColumns(Cashgame cashgame, IList<Player> players)
         {
             var columnModels = new List<ChartColumnModel> { new ChartDateTimeColumnModel("Time", "HH:mm") };
-            var playerNames = cashgame.GetPlayerNames();
-            columnModels.AddRange(playerNames.Select(playerName => new ChartNumberColumnModel(playerName)));
+            columnModels.AddRange(players.Select(player => new ChartNumberColumnModel(player.DisplayName)));
             return columnModels;
         }
 
-        private ChartRowModel GetActionRow(Cashgame cashgame, DateTime dateTime, int winnings, string currentPlayerName)
+        private ChartRowModel GetActionRow(Cashgame cashgame, IList<Player> players, DateTime dateTime, int winnings, int currentPlayerId)
         {
             var values = new List<ChartValueModel> {_chartValueModelFactory.Create(dateTime)};
-            var playerNames = cashgame.GetPlayerNames();
-            foreach (var playerName in playerNames)
+            foreach (var player in players)
             {
                 string val = null;
-                if (playerName == currentPlayerName)
+                if (player.Id == currentPlayerId)
                 {
                     val = winnings.ToString(CultureInfo.InvariantCulture);
                 }

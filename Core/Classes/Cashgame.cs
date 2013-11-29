@@ -55,7 +55,7 @@ namespace Core.Classes{
 
 	    public CashgameResult GetResult(int playerId)
 	    {
-	        return Results.FirstOrDefault(result => result.Player.Id == playerId);
+	        return Results.FirstOrDefault(result => result.PlayerId == playerId);
 	    }
 
         public bool IsInGame(int playerId)
@@ -76,14 +76,6 @@ namespace Core.Classes{
                 }
             }
             return bestResult;
-        }
-
-        public List<string> GetPlayerNames(){
-            var playerNames = new List<string>();
-            foreach(var result in Results){
-                playerNames.Add(result.Player.DisplayName);
-            }
-            return playerNames;
         }
 
 	}

@@ -34,6 +34,11 @@ namespace Infrastructure.Repositories {
         public IList<Player> GetList(Homegame homegame)
         {
             var ids = GetIds(homegame);
+            return GetList(ids);
+        }
+
+	    public IList<Player> GetList(IList<int> ids)
+        {
             var players = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return players.OrderBy(o => o.DisplayName).ToList();
         }

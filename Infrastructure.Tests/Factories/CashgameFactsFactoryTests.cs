@@ -101,21 +101,24 @@ namespace Infrastructure.Tests.Factories{
             Assert.AreEqual(3, result.TotalTurnover);
         }
 
-		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer(){
-			var player1 = new FakePlayer(1);
-            var player2 = new FakePlayer(2);
+		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer()
+		{
+		    const int playerId1 = 1;
+		    const int playerId2 = 2;
+			var player1 = new FakePlayer(playerId1);
+            var player2 = new FakePlayer(playerId2);
 
 		    var resultList1 = new List<CashgameResult>
 		        {
-		            new FakeCashgameResult(winnings: -1, playedTime: 1, player: player1),
-		            new FakeCashgameResult(winnings: 1, playedTime: 2, player: player2)
+		            new FakeCashgameResult(winnings: -1, playedTime: 1, player: player1, playerId: playerId1),
+		            new FakeCashgameResult(winnings: 1, playedTime: 2, player: player2, playerId: playerId2)
 		        };
 		    var cashgame1 = new FakeCashgame(results: resultList1);
 
 		    var resultList2 = new List<CashgameResult>
 		        {
-		            new FakeCashgameResult(winnings: -2, playedTime: 1, player: player1),
-		            new FakeCashgameResult(winnings: 2, playedTime: 2, player: player2)
+		            new FakeCashgameResult(winnings: -2, playedTime: 1, player: player1, playerId: playerId1),
+		            new FakeCashgameResult(winnings: 2, playedTime: 2, player: player2, playerId: playerId2)
 		        };
 		    var cashgame2 = new FakeCashgame(results: resultList2);
 

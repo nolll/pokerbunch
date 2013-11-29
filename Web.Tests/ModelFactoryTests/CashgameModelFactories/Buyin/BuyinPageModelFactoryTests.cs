@@ -19,10 +19,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Buyin{
 		}
 
 		[Test]
-		public void StackFieldEnabled_WithPlayerInGame_IsTrue(){
-            var player = new FakePlayer(1);
+		public void StackFieldEnabled_WithPlayerInGame_IsTrue()
+		{
+		    const int playerId = 1;
+            var player = new FakePlayer(playerId);
 		    var homegame = new FakeHomegame();
-			var cashgameResult = new FakeCashgameResult(player);
+			var cashgameResult = new FakeCashgameResult(player, playerId);
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult>{cashgameResult});
 
 			var sut = GetSut();

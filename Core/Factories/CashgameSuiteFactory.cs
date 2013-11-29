@@ -19,7 +19,7 @@ namespace Core.Factories{
 			foreach(var cashgame in sortedCashgames){
 				var results = cashgame.Results;
 				foreach(var result in results){
-					resultIndex[result.Player.Id].Add(result);
+					resultIndex[result.PlayerId].Add(result);
 				}
 			}
 

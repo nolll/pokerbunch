@@ -9,6 +9,7 @@ namespace Tests.Common.FakeClasses
     {
         public FakeCashgameResult(
             Player player = default(Player),
+            int playerId = default(int),
             int buyin = default(int),
             int winnings = default(int),
             IList<Checkpoint> checkpoints = default(IList<Checkpoint>),
@@ -20,7 +21,8 @@ namespace Tests.Common.FakeClasses
             Checkpoint cashoutCheckpoint = default(Checkpoint), 
             bool hasReported = default(bool))
             : base(
-                player, 
+                player,
+                playerId,
                 buyin, 
                 winnings, 
                 checkpoints ?? new List<Checkpoint>(), 

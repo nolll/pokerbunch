@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Core.Factories;
 using Core.Repositories;
@@ -36,5 +38,12 @@ namespace Core.Services
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             return _cashgameFactsFactory.Create(cashgames, players);
         }
+
+        public IList<Player> GetPlayers(Cashgame cashgame)
+        {
+            var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
+            return _playerRepository.GetList(playerIds);
+        }
+
     }
 }
