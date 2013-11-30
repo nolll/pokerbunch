@@ -17,11 +17,11 @@ namespace Infrastructure.Tests.Factories{
 
         private CashgameTotalResult GetResultWithTwoResults()
         {
-			var player = new FakePlayer();
+            const int playerId = 1;
 			var sut = new CashgameTotalResultFactory();
 			var cashgameResult = GetResult();
 			var totalResults = new List<CashgameResult> {cashgameResult, cashgameResult};
-			return sut.Create(player, totalResults);
+			return sut.Create(playerId, totalResults);
 		}
 
 		private CashgameResult GetResult(){

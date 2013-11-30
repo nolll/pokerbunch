@@ -27,10 +27,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             _globalization = globalization;
         }
 
-        public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank)
+        public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)
         {
             var cashgames = suite.Cashgames;
-            var player = result.Player;
             var winnings = result.Winnings;
             
             return new CashgameMatrixTableRowModel

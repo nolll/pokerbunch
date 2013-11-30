@@ -6,20 +6,20 @@ namespace Core.Classes{
         public int GameCount { get; private set; }
         public int TimePlayed { get; private set; }
         public int WinRate { get; private set; }
-        public Player Player { get; private set; }
+        public int PlayerId { get; private set; }
 
 	    public CashgameTotalResult(
             int winnings, 
             int gameCount, 
             int timePlayed, 
             int winRate, 
-            Player player)
+            int playerId)
 	    {
 	        Winnings = winnings;
 	        GameCount = gameCount;
 	        TimePlayed = timePlayed;
 	        WinRate = winRate;
-	        Player = player;
+	        PlayerId = playerId;
 	    }
 	}
 }

@@ -44,11 +44,8 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer(){
-			var player1 = new FakePlayer(1);
-            var player2 = new FakePlayer(2);
-
-            var totalResult1 = new FakeCashgameTotalResult(winnings: 3, gameCount: 2, timePlayed: 4, player: player2);
-            var totalResult2 = new FakeCashgameTotalResult(winnings: -3, gameCount: 2, timePlayed: 2, player: player1);
+            var totalResult1 = new FakeCashgameTotalResult(winnings: 3, gameCount: 2, timePlayed: 4);
+            var totalResult2 = new FakeCashgameTotalResult(winnings: -3, gameCount: 2, timePlayed: 2);
             var totalResultList = new List<CashgameTotalResult> {totalResult1, totalResult2};
             GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IEnumerable<Player>>(), It.IsAny<IDictionary<int, IList<CashgameResult>>>())).Returns(totalResultList);
 		}

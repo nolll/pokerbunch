@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Repositories;
 using Web.Models.CashgameModels.Leaderboard;
 
 namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
@@ -7,10 +8,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
     public class CashgameLeaderboardTableModelFactory : ICashgameLeaderboardTableModelFactory
     {
         private readonly ICashgameLeaderboardTableItemModelFactory _cashgameLeaderboardTableItemModelFactory;
+        private readonly IPlayerRepository _playerRepository;
 
-        public CashgameLeaderboardTableModelFactory(ICashgameLeaderboardTableItemModelFactory cashgameLeaderboardTableItemModelFactory)
+        public CashgameLeaderboardTableModelFactory(
+            ICashgameLeaderboardTableItemModelFactory cashgameLeaderboardTableItemModelFactory,
+            IPlayerRepository playerRepository)
         {
             _cashgameLeaderboardTableItemModelFactory = cashgameLeaderboardTableItemModelFactory;
+            _playerRepository = playerRepository;
         }
 
         public CashgameLeaderboardTableModel Create(Homegame homegame, CashgameSuite suite)
@@ -28,7 +33,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             var rank = 1;
             foreach (var result in results)
             {
-                models.Add(_cashgameLeaderboardTableItemModelFactory.Create(homegame, result, rank));
+                var player = _playerRepository.GetById(result.PlayerId);
+                models.Add(_cashgameLeaderboardTableItemModelFactory.Create(homegame, player, result, rank));
                 rank++;
             }
             return models;

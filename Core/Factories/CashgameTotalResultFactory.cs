@@ -7,7 +7,7 @@ namespace Core.Factories{
 
 	public class CashgameTotalResultFactory : ICashgameTotalResultFactory{
 
-        public CashgameTotalResult Create(Player player, IList<CashgameResult> results)
+        public CashgameTotalResult Create(int playerId, IList<CashgameResult> results)
         {
 			var winnings = 0;
 			var gameCount = 0;
@@ -27,7 +27,7 @@ namespace Core.Factories{
                     gameCount,
                     timePlayed,
                     winRate,
-                    player
+                    playerId
                 );
 		}
 
@@ -39,7 +39,7 @@ namespace Core.Factories{
                 var playerResults = resultIndex[player.Id];
                 if (playerResults.Count > 0)
                 {
-                    var totalResult = Create(player, playerResults);
+                    var totalResult = Create(player.Id, playerResults);
                     totalResults.Add(totalResult);
                 }
             }

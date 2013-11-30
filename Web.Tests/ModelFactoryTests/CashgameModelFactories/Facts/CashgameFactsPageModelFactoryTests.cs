@@ -137,9 +137,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
         public void MostTimeName_SuiteHasBestResult_IsSet()
 		{
 		    const string displayName = "a";
-			var player = new FakePlayer(displayName: displayName);
-		    var cashgameResult = new FakeCashgameTotalResult(player: player);
+            const int playerId = 1;
+            var player = new FakePlayer(displayName: displayName);
+		    var cashgameResult = new FakeCashgameTotalResult(playerId: playerId);
             var facts = new FakeCashgameFacts(mostTimeResult: cashgameResult);
+
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);

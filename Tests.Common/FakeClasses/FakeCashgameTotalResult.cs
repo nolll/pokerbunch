@@ -9,13 +9,13 @@ namespace Tests.Common.FakeClasses
             int gameCount = default(int),
             int timePlayed = default(int),
             int winRate = default(int),
-            Player player = default(Player))
+            int playerId = default(int))
             : base(
                 winnings, 
                 gameCount, 
                 timePlayed, 
                 winRate, 
-                player)
+                playerId)
         {
         }
     }

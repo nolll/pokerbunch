@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Repositories;
 using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
@@ -9,13 +10,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
     {
         private readonly ICashgameMatrixTableColumnHeaderModelFactory _cashgameMatrixTableColumnHeaderModelFactory;
         private readonly ICashgameMatrixTableRowModelFactory _cashgameMatrixTableRowModelFactory;
+        private readonly IPlayerRepository _playerRepository;
 
         public CashgameMatrixTableModelFactory(
             ICashgameMatrixTableColumnHeaderModelFactory cashgameMatrixTableColumnHeaderModelFactory,
-            ICashgameMatrixTableRowModelFactory cashgameMatrixTableRowModelFactory)
+            ICashgameMatrixTableRowModelFactory cashgameMatrixTableRowModelFactory,
+            IPlayerRepository playerRepository)
         {
             _cashgameMatrixTableColumnHeaderModelFactory = cashgameMatrixTableColumnHeaderModelFactory;
             _cashgameMatrixTableRowModelFactory = cashgameMatrixTableRowModelFactory;
+            _playerRepository = playerRepository;
         }
 
         public CashgameMatrixTableModel Create(Homegame homegame, CashgameSuite suite)
@@ -42,7 +46,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             foreach (var result in results)
             {
                 rank++;
-                models.Add(_cashgameMatrixTableRowModelFactory.Create(homegame, suite, result, rank));
+                var player = _playerRepository.GetById(result.PlayerId);
+                models.Add(_cashgameMatrixTableRowModelFactory.Create(homegame, suite, player, result, rank));
             }
             return models;
         }

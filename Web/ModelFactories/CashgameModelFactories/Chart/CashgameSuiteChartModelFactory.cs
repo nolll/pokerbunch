@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Repositories;
 using Infrastructure.System;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
@@ -11,13 +12,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
     {
         private readonly IGlobalization _globalization;
         private readonly IChartValueModelFactory _chartValueModelFactory;
+        private readonly IPlayerRepository _playerRepository;
 
         public CashgameSuiteChartModelFactory(
             IGlobalization globalization,
-            IChartValueModelFactory chartValueModelFactory)
+            IChartValueModelFactory chartValueModelFactory,
+            IPlayerRepository playerRepository)
         {
             _globalization = globalization;
             _chartValueModelFactory = chartValueModelFactory;
+            _playerRepository = playerRepository;
         }
 
         public ChartModel Create(CashgameSuite suite)
@@ -41,8 +45,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 for (var j = 0; j < results.Count; j++)
                 {
                     var totalResult = results[j];
-                    var singleResult = cashgame.GetResult(totalResult.Player.Id);
-                    var playerId = totalResult.Player.Id;
+                    var singleResult = cashgame.GetResult(totalResult.PlayerId);
+                    var playerId = totalResult.PlayerId;
                     if (singleResult != null || i == cashgames.Count - 1)
                     {
                         var res = singleResult != null ? singleResult.Stack - singleResult.Buyin : 0;
@@ -65,7 +69,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             var playerSum = new Dictionary<int, int?>();
             foreach (var result in results)
             {
-                playerSum[result.Player.Id] = 0;
+                playerSum[result.PlayerId] = 0;
             }
             return playerSum;
         }
@@ -73,7 +77,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         private IList<ChartColumnModel> GetColumnModels(IEnumerable<CashgameTotalResult> results)
         {
             var columnModels = new List<ChartColumnModel> {new ChartColumnModel("string", "Date")};
-            columnModels.AddRange(results.Select(playerResult => new ChartColumnModel("number", playerResult.Player.DisplayName)));
+            foreach (var result in results)
+            {
+                var player = _playerRepository.GetById(result.PlayerId);
+                columnModels.Add(new ChartColumnModel("number", player.DisplayName));
+            }
             return columnModels;
         }
 
@@ -94,7 +102,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             values.Add(_chartValueModelFactory.Create(dateStr));
             foreach (var result in results)
             {
-                var sum = currentSum[result.Player.Id];
+                var sum = currentSum[result.PlayerId];
                 values.Add(_chartValueModelFactory.Create(sum));
             }
             return new ChartRowModel

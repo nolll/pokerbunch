@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -71,7 +72,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		private CashgameMatrixTableModelFactory GetSut(){
 			return new CashgameMatrixTableModelFactory(
                 GetMock<ICashgameMatrixTableColumnHeaderModelFactory>().Object,
-                GetMock<ICashgameMatrixTableRowModelFactory>().Object);
+                GetMock<ICashgameMatrixTableRowModelFactory>().Object,
+                GetMock<IPlayerRepository>().Object);
 		}
 
 		private List<Cashgame> GetCashgames(int yearOne = 2010, int yearTwo = 2010)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Classes;
+using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -30,7 +31,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
         private CashgameLeaderboardTableModelFactory GetSut()
         {
 			return new CashgameLeaderboardTableModelFactory(
-                GetMock<ICashgameLeaderboardTableItemModelFactory>().Object);
+                GetMock<ICashgameLeaderboardTableItemModelFactory>().Object,
+                GetMock<IPlayerRepository>().Object);
 		}
 
 	}

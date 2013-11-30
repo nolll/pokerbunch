@@ -62,9 +62,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             if (facts.MostTimeResult != null)
             {
                 model.MostTimeDuration = _globalization.FormatDuration(facts.MostTimeResult.TimePlayed);
-                if (facts.MostTimeResult.Player != null)
+                var player = _playerRepository.GetById(facts.MostTimeResult.PlayerId);
+                if (player != null)
                 {
-                    model.MostTimeName = facts.MostTimeResult.Player.DisplayName;
+                    model.MostTimeName = player.DisplayName;
                 }
             }
 

@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public interface ICashgameMatrixTableRowModelFactory
     {
-        CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, CashgameTotalResult result, int rank);
+        CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank);
     }
 }

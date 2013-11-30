@@ -28,20 +28,20 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 
         [Test]
 		public void TableRow_RankIsSet(){
-            var totalResult = new FakeCashgameTotalResult(player: _player);
+            var totalResult = new FakeCashgameTotalResult();
 
             var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual(1, result.Rank);
 		}
 
 		[Test]
 		public void TableRow_PlayerNameIsSet(){
-            var totalResult = new FakeCashgameTotalResult(player: _player);
+            var totalResult = new FakeCashgameTotalResult();
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -52,12 +52,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		{
 		    const string formatted = "a";
 		    const int winnings = 1;
-            var totalResult = new FakeCashgameTotalResult(player: _player, winnings:winnings);
+            var totalResult = new FakeCashgameTotalResult(winnings:winnings);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual(formatted, result.TotalResult);
 		}
@@ -65,12 +65,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		[Test]
 		public void TableRow_WinningsClassIsSet(){
 			const string resultClass = "a";
-            var totalResult = new FakeCashgameTotalResult(player: _player);
+            var totalResult = new FakeCashgameTotalResult();
 
             GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -79,22 +79,22 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void TableRow_PlayerUrlIsSet()
 		{
 		    const string playerUrl = "a";
-            var totalResult = new FakeCashgameTotalResult(player: _player);
+            var totalResult = new FakeCashgameTotalResult();
 
 		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}
 
 		[Test]
 		public void TableRow_CellModelsAreSet(){
-            var totalResult = new FakeCashgameTotalResult(player: _player);
+            var totalResult = new FakeCashgameTotalResult();
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _suite, totalResult, _rank);
+            var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
 			Assert.AreEqual(1, result.CellModels.Count);
 		}

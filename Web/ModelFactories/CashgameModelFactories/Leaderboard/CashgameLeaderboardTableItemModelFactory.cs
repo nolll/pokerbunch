@@ -23,10 +23,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             _globalization = globalization;
         }
 
-        public CashgameLeaderboardTableItemModel Create(Homegame homegame, CashgameTotalResult result, int rank)
+        public CashgameLeaderboardTableItemModel Create(Homegame homegame, Player player, CashgameTotalResult result, int rank)
         {
             var winnings = result.Winnings;
-            var player = result.Player;
 			
             return new CashgameLeaderboardTableItemModel
                 {
