@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Storage.Interfaces {
         int? GetCashgameId(int homegameId, string dateStr);
         IList<RawCashgameWithResults> GetGames(IEnumerable<int> ids);
         IList<int> GetGameIds(int homegameId, int? status = null, int? year = null);
-		IList<int> GetYears(string slug);
+		IList<int> GetYears(int homegameId);
         bool UpdateGame(RawCashgameWithResults cashgame);
 		bool HasPlayed(int playerId);
         IList<string> GetLocations(string slug);

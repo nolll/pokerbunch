@@ -19,20 +19,7 @@ namespace Infrastructure.Caching
             _cacheKeyProvider = cacheKeyProvider;
         }
 
-        public T Get<T>(string cacheKey) where T : class
-        {
-            T cachedObject;
-            var foundInCache = TryGet(cacheKey, out cachedObject);
-
-            if (!foundInCache)
-            {
-                return default(T);
-            }
-
-            return cachedObject;
-        }
-
-        public T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
+        public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue) where T : class
         {
             T cachedObject;
             var foundInCache = TryGet(cacheKey, out cachedObject);
@@ -41,32 +28,44 @@ namespace Infrastructure.Caching
             {
                 return cachedObject;
             }
-            cachedObject = fetchFromSourceExpression();
+            cachedObject = sourceExpression();
             if (cachedObject != null)
             {
                 Insert(cacheKey, cachedObject, cacheTime);
             }
+            else if (allowCachedNullValue)
+            {
+                Insert(cacheKey, new CacheableNullValue(), cacheTime);
+            }
             return cachedObject;
         }
 
-        public int? GetAndStore(Func<int?> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey)
+        public int? GetAndStore(Func<int?> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue)
         {
             string cachedString;
             var foundInCache = TryGet(cacheKey, out cachedString);
 
             if (foundInCache)
             {
+                if (cachedString == null)
+                {
+                    return null;
+                }
                 return int.Parse(cachedString);
             }
-            var cachedInt = fetchFromSourceExpression();
+            var cachedInt = sourceExpression();
             if (cachedInt.HasValue)
             {
                 Insert(cacheKey, cachedInt.Value.ToString(CultureInfo.InvariantCulture), cacheTime);
             }
+            else if (allowCachedNullValue)
+            {
+                Insert(cacheKey, new CacheableNullValue(), cacheTime);
+            }
             return cachedInt;
         }
 
-        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
+        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
         {
             var list = new List<T>();
             var notInCache = new List<int>();
@@ -85,7 +84,7 @@ namespace Infrastructure.Caching
             }
             if (notInCache.Any())
             {
-                var sourceItems = fetchFromSourceExpression(notInCache);
+                var sourceItems = sourceExpression(notInCache);
                 foreach (var sourceItem in sourceItems)
                 {
                     if (sourceItem != null) //Om något id inte har hämtats så stoppar vi inte in det i vårt resultat eller i cachen.
@@ -134,10 +133,6 @@ namespace Infrastructure.Caching
             _cacheProvider.Put(cacheKey, objectToBeCached ?? _nullValue, cacheTime);
         }
 
-        public void FakeInsert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
-        {
-        }
-
         public void Remove(string cacheKey)
         {
             _cacheProvider.Remove(cacheKey);
@@ -148,7 +143,7 @@ namespace Infrastructure.Caching
             _cacheProvider.Remove(cacheKey);
         }
 
-        public string ConstructCacheKey(string typeName, params object[] procedureParameters)
+        private string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
             return _cacheKeyProvider.ConstructCacheKey(typeName, procedureParameters);
         }

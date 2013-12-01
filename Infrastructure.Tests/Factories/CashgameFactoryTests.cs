@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Factories;
 using NUnit.Framework;
+using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Factories{
 
-	public class CashgameFactoryTests {
-
-		private DateTime _earliestBuyinTime;
+	public class CashgameFactoryTests : MockContainer
+    {
+        private DateTime _earliestBuyinTime;
 		private DateTime _earliestCashoutTime;
 		private DateTime _latestBuyinTime;
 		private DateTime _latestCashoutTime;
@@ -59,7 +60,9 @@ namespace Infrastructure.Tests.Factories{
 		}
 
 		private CashgameFactory GetSut(){
-			return new CashgameFactory();
+			return new CashgameFactory(
+                GetMock<ICashgameResultFactory>().Object,
+                GetMock<ICheckpointFactory>().Object);
 		}
 
 	}

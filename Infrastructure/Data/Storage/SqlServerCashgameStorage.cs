@@ -163,9 +163,9 @@ namespace Infrastructure.Data.Storage {
 			return cashgames;
 		}
 
-		public IList<int> GetYears(string slug){
-			var sql = "SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' FROM cashgamecheckpoint ccp LEFT JOIN game g ON ccp.GameID = g.GameID LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE h.Name = '{0}' ORDER BY 'Year' DESC";
-		    sql = string.Format(sql, slug);
+		public IList<int> GetYears(int homegameId){
+			var sql = "SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' FROM cashgamecheckpoint ccp LEFT JOIN game g ON ccp.GameID = g.GameID WHERE g.HomegameID = '{0}' ORDER BY 'Year' DESC";
+		    sql = string.Format(sql, homegameId);
 			var reader = _storageProvider.Query(sql);
 			var years = new List<int>();
 			while(reader.Read()){

@@ -70,5 +70,39 @@ namespace Infrastructure.Caching
             _cacheContainer.Remove(singleUserKey);
         }
 
+        public void CashgameStarted(Homegame homegame)
+        {
+            ClearRunningCashgame(homegame.Id);
+        }
+
+        public void CashgameEnded(Homegame homegame, Cashgame cashgame)
+        {
+            ClearRunningCashgame(homegame.Id);
+            ClearCashgameList(homegame.Id, cashgame);
+        }
+
+        public void CashgameUpdated(Cashgame cashgame)
+        {
+            var singleCashgameKey = _cacheKeyProvider.CashgameKey(cashgame.Id);
+            _cacheContainer.Remove(singleCashgameKey);
+        }
+
+        private void ClearRunningCashgame(int homegameId)
+        {
+            var runningCashgameKey = _cacheKeyProvider.CashgameIdByRunningKey(homegameId);
+            _cacheContainer.Remove(runningCashgameKey);
+        }
+
+        private void ClearCashgameList(int homegameId, Cashgame cashgame)
+        {
+            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(homegameId, GameStatus.Published);
+            _cacheContainer.Remove(allTimeCacheKey);
+            if (cashgame.StartTime.HasValue)
+            {
+                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(homegameId, GameStatus.Published, cashgame.StartTime.Value.Year);
+                _cacheContainer.Remove(currentYearCacheKey);
+            }
+        }
+
     }
 }

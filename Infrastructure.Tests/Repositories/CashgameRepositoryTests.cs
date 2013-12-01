@@ -1,5 +1,5 @@
 using Core.Classes;
-using Core.Repositories;
+using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
@@ -19,7 +19,7 @@ namespace Infrastructure.Tests.Repositories{
 			var cashgame = new FakeCashgame();
             var rawCashgame = new RawCashgameWithResults();
 
-            GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Running)).Returns(rawCashgame);
+            GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, null)).Returns(rawCashgame);
 
             var sut = GetSut();
 			sut.StartGame(cashgame);
@@ -28,14 +28,16 @@ namespace Infrastructure.Tests.Repositories{
 		}
 
 		[Test]
-		public void EndGame_CallsUpdateGameAndSetsCurrentDateAndStatusPublished(){
+		public void EndGame_CallsUpdateGameAndSetsCurrentDateAndStatusPublished()
+		{
+		    var homegame = new FakeHomegame();
             var cashgame = new FakeCashgame();
             var rawCashgame = new RawCashgameWithResults();
 
             GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
 
             var sut = GetSut();
-			sut.EndGame(cashgame);
+			sut.EndGame(homegame, cashgame);
 
             GetMock<ICashgameStorage>().Verify(o => o.UpdateGame(rawCashgame));
 		}
@@ -45,13 +47,11 @@ namespace Infrastructure.Tests.Repositories{
             return new CashgameRepository(
                 GetMock<ICashgameStorage>().Object,
                 GetMock<ICashgameFactory>().Object,
-                GetMock<IPlayerRepository>().Object,
-                GetMock<ICashgameResultFactory>().Object,
                 GetMock<IRawCashgameFactory>().Object,
-                GetMock<ICheckpointFactory>().Object,
                 CacheContainerFake,
                 GetMock<ICheckpointStorage>().Object,
-                GetMock<ITimeProvider>().Object);
+                GetMock<ICacheKeyProvider>().Object,
+                GetMock<ICacheBuster>().Object);
         }
 
 	}

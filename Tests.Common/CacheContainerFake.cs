@@ -38,19 +38,19 @@ namespace Tests.Common
         {
         }
 
-        public T GetAndStore<T>(Func<T> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
+        public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue = false) where T : class
         {
-            return fetchFromSourceExpression();
+            return sourceExpression();
         }
 
-        public int? GetAndStore(Func<int?> fetchFromSourceExpression, TimeSpan cacheTime, string cacheKey)
+        public int? GetAndStore(Func<int?> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue = false)
         {
-            return fetchFromSourceExpression();
+            return sourceExpression();
         }
 
-        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> fetchFromSourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
+        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
         {
-            return fetchFromSourceExpression(ids);
+            return sourceExpression(ids);
         }
 
         public void SetFakedCacheKey(string fakedCacheKey)

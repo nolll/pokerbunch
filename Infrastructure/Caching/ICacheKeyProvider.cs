@@ -1,3 +1,5 @@
+using Core.Classes;
+
 namespace Infrastructure.Caching
 {
     public interface ICacheKeyProvider
@@ -14,5 +16,10 @@ namespace Infrastructure.Caching
         string PlayerIdsKey(int homegameId);
         string PlayerIdByNameKey(int homegameId, string name);
         string PlayerIdByUserNameKey(int homegameId, string userName);
+        string CashgameKey(int id);
+        string CashgameIdByDateStringKey(int homegameId, string dateString);
+        string CashgameIdByRunningKey(int homegameId);
+        string CashgameIdsKey(int homegameId, GameStatus? status = null, int? year = null);
+        string CashgameYearsKey(int homegameId);
     }
 }

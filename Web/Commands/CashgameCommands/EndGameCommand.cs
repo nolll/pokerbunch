@@ -19,9 +19,7 @@ namespace Web.Commands.CashgameCommands
         public override bool Execute()
         {
             var cashgame = _cashgameRepository.GetRunning(_homegame);
-            _cashgameRepository.EndGame(cashgame);
-            _cashgameRepository.ClearCashgameFromCache(cashgame);
-            _cashgameRepository.ClearCashgameListFromCache(_homegame, cashgame);
+            _cashgameRepository.EndGame(_homegame, cashgame);
             return true;
         }
     }

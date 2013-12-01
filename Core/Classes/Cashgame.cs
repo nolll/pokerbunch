@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Classes{
-    public class Cashgame{
-
+    public class Cashgame : ICacheable
+    {
 	    public int Id { get; private set; }
         public string Location { get; private set; }
         public GameStatus Status { get; private set; }

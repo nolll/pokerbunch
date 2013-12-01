@@ -42,11 +42,8 @@ namespace Web.Controllers{
 	    private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
 	    private readonly IEndPageModelFactory _endPageModelFactory;
 	    private readonly IActionPageModelFactory _actionPageModelFactory;
-	    private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
 	    private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
-	    private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
-	    private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
 	    private readonly ICashgameListingPageModelFactory _cashgameListingPageModelFactory;
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
@@ -71,11 +68,8 @@ namespace Web.Controllers{
             ICashoutPageModelFactory cashoutPageModelFactory,
             IEndPageModelFactory endPageModelFactory,
             IActionPageModelFactory actionPageModelFactory,
-            IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
-            ICashgameEditPageModelFactory cashgameEditPageModelFactory,
-            ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
             ICashgameListingPageModelFactory cashgameListingPageModelFactory,
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
             ICashgameModelMapper cashgameModelMapper,
@@ -99,11 +93,8 @@ namespace Web.Controllers{
 	        _cashoutPageModelFactory = cashoutPageModelFactory;
 	        _endPageModelFactory = endPageModelFactory;
 	        _actionPageModelFactory = actionPageModelFactory;
-	        _addCashgamePageModelFactory = addCashgamePageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
 	        _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
-	        _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
-	        _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
 	        _cashgameListingPageModelFactory = cashgameListingPageModelFactory;
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
 	        _cashgameModelMapper = cashgameModelMapper;
@@ -169,7 +160,6 @@ namespace Web.Controllers{
                 {
                     var cashgame = GetCashgame(postModel);
                     _cashgameRepository.AddGame(homegame, cashgame);
-                    _cashgameRepository.ClearCashgameListFromCache(homegame, cashgame);
                     return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
                 }
                 ModelState.AddModelError("no_location", "Please enter a location");
@@ -215,7 +205,7 @@ namespace Web.Controllers{
         public ActionResult Listing(string gameName, int? year = null){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-			var games = _cashgameRepository.GetAll(homegame, year);
+			var games = _cashgameRepository.GetPublished(homegame, year);
 			var years = _cashgameRepository.GetYears(homegame);
 			var model = _cashgameListingPageModelFactory.Create(_userContext.GetUser(), homegame, games, years, year);
             return View("Listing/Listing", model);
@@ -280,7 +270,6 @@ namespace Web.Controllers{
                 if(!runningGame.IsStarted){
 			    	_cashgameRepository.StartGame(runningGame);
 			    }
-                _cashgameRepository.ClearCashgameFromCache(runningGame);
 			} else {
                 var user = _userContext.GetUser();
 			    var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame, postModel);
@@ -310,7 +299,6 @@ namespace Web.Controllers{
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel);
                 _checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
-                _cashgameRepository.ClearCashgameFromCache(cashgame);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame, postModel);
@@ -322,7 +310,7 @@ namespace Web.Controllers{
 			_userContext.RequireManager(homegame);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, name);
-            _checkpointRepository.DeleteCheckpoint(id);
+            _checkpointRepository.DeleteCheckpoint(cashgame, id);
             var actionsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player);
             return Redirect(actionsUrl);
 		}
@@ -357,7 +345,6 @@ namespace Web.Controllers{
 				} else {
                     _checkpointRepository.AddCheckpoint(runningGame, player, postedCheckpoint);
 				}
-                _cashgameRepository.ClearCashgameFromCache(runningGame);
                 return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 			}
             var model = _cashoutPageModelFactory.Create(user, homegame, postModel);

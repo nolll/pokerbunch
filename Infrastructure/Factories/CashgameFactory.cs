@@ -1,11 +1,38 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
+using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Factories
 {
     public class CashgameFactory : ICashgameFactory
     {
+        private readonly ICashgameResultFactory _cashgameResultFactory;
+        private readonly ICheckpointFactory _checkpointFactory;
+
+        public CashgameFactory(
+            ICashgameResultFactory cashgameResultFactory,
+            ICheckpointFactory checkpointFactory)
+        {
+            _cashgameResultFactory = cashgameResultFactory;
+            _checkpointFactory = checkpointFactory;
+        }
+
+        public Cashgame Create(RawCashgameWithResults rawGame)
+        {
+            var rawResults = rawGame.Results;
+            var results = rawResults.Select(GetResultFromRawResult).ToList();
+            return Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+        }
+
+        public Cashgame Create(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints)
+        {
+            var rawResults = GetRawResults(rawCheckpoints);
+            var results = rawResults.Select(GetResultFromRawResult).ToList();
+            return Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+        }
+
         public Cashgame Create(string location, int? status = null, int? id = null, IList<CashgameResult> results = null)
         {
             if (results == null)
@@ -35,6 +62,35 @@ namespace Infrastructure.Factories
                 GetTotalStacks(results),
                 GetAverageBuyin(buyinSum, playerCount)
                 );
+        }
+
+        public IList<Cashgame> CreateList(IEnumerable<RawCashgameWithResults> rawGames)
+        {
+            return rawGames.Select(Create).ToList();
+        }
+
+        private IEnumerable<RawCashgameResult> GetRawResults(IEnumerable<RawCheckpoint> rawCheckpoints)
+        {
+            var results = new List<RawCashgameResult>();
+            RawCashgameResult currentResult = null;
+            var currentPlayerId = -1;
+            foreach (var rawCheckpoint in rawCheckpoints)
+            {
+                if (currentResult == null || rawCheckpoint.PlayerId != currentPlayerId)
+                {
+                    currentResult = new RawCashgameResult(rawCheckpoint.PlayerId);
+                    currentPlayerId = currentResult.PlayerId;
+                    results.Add(currentResult);
+                }
+                currentResult.AddCheckpoint(rawCheckpoint);
+            }
+            return results;
+        }
+
+        private CashgameResult GetResultFromRawResult(RawCashgameResult rawResult)
+        {
+            var checkpoints = rawResult.Checkpoints.Select(o => _checkpointFactory.Create(o)).ToList();
+            return _cashgameResultFactory.Create(rawResult.PlayerId, checkpoints);
         }
 
         private DateTime? GetStartTime(IEnumerable<CashgameResult> results)
