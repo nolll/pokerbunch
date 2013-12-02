@@ -12,11 +12,15 @@ namespace Core.Factories{
 			var winnings = 0;
 			var gameCount = 0;
 			var timePlayed = 0;
+            var buyin = 0;
+            var cashout = 0;
 
 			foreach(var result in results){
 				winnings += result.Winnings;
 				gameCount++;
 				timePlayed += result.PlayedTime;
+			    buyin += result.Buyin;
+			    cashout += result.Stack;
 			}
 
 			var winRate = GetWinRate(timePlayed, winnings);
@@ -27,7 +31,9 @@ namespace Core.Factories{
                     gameCount,
                     timePlayed,
                     winRate,
-                    playerId
+                    playerId,
+                    buyin,
+                    cashout
                 );
 		}
 

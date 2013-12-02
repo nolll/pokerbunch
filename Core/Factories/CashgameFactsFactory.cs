@@ -38,15 +38,21 @@ namespace Core.Factories
 
             var totalResults = _cashgameTotalResultFactory.CreateList(players, resultIndex);
 			var mostTimeResult = GetMostTimeResult(totalResults);
+            var biggestTotalBuyinResult = GetBiggestTotalBuyinResult(totalResults);
+            var biggestTotalCashoutResult = GetBiggestTotalCashoutResult(totalResults);
 			var bestTotalResult = totalResults.FirstOrDefault();
+            var worstTotalResult = totalResults.LastOrDefault();
 
             return new CashgameFacts
                 (
                     cashgames.Count(),
-                    bestTotalResult,
                     bestResult,
                     worstResult,
+                    bestTotalResult,
+                    worstTotalResult,
                     mostTimeResult,
+                    biggestTotalBuyinResult,
+                    biggestTotalCashoutResult,
                     totalGameTime,
                     totalTurnover
                 );
@@ -61,15 +67,44 @@ namespace Core.Factories
 			return dictionary;
 		}
 
-        private CashgameTotalResult GetMostTimeResult(IEnumerable<CashgameTotalResult> results){
-			CashgameTotalResult mostTimeResult = null;
-			foreach(var result in results){
-				if(mostTimeResult == null || result.TimePlayed > mostTimeResult.TimePlayed){
-					mostTimeResult = result;
-				}
-			}
-			return mostTimeResult;
-		}
+        private CashgameTotalResult GetMostTimeResult(IEnumerable<CashgameTotalResult> results)
+        {
+            CashgameTotalResult mostTimeResult = null;
+            foreach (var result in results)
+            {
+                if (mostTimeResult == null || result.TimePlayed > mostTimeResult.TimePlayed)
+                {
+                    mostTimeResult = result;
+                }
+            }
+            return mostTimeResult;
+        }
+
+        private CashgameTotalResult GetBiggestTotalBuyinResult(IEnumerable<CashgameTotalResult> results)
+        {
+            CashgameTotalResult biggestTotalBuyinResult = null;
+            foreach (var result in results)
+            {
+                if (biggestTotalBuyinResult == null || result.Buyin > biggestTotalBuyinResult.Buyin)
+                {
+                    biggestTotalBuyinResult = result;
+                }
+            }
+            return biggestTotalBuyinResult;
+        }
+
+        private CashgameTotalResult GetBiggestTotalCashoutResult(IEnumerable<CashgameTotalResult> results)
+        {
+            CashgameTotalResult biggestTotalCashoutResult = null;
+            foreach (var result in results)
+            {
+                if (biggestTotalCashoutResult == null || result.Cashout > biggestTotalCashoutResult.Cashout)
+                {
+                    biggestTotalCashoutResult = result;
+                }
+            }
+            return biggestTotalCashoutResult;
+        }
 
 	}
 
