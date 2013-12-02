@@ -6,11 +6,11 @@
 
     <dt>Player</dt>
     <dd class="name">
-        <a href="{$model->playerUrl->url}">@Model.Name</a>
+        <a href="@Model.PlayerUrl">@Model.Name</a>
     </dd>
 
     <dt>Winnings</dt>
-    <dd class="amount result {$model->resultClass}">@Model.TotalResult</dd>
+    <dd class="amount result @Model.ResultClass">@Model.TotalResult</dd>
 
     <dt>Time played</dt>
     <dd class="gametime">@Model.GameTime</dd>

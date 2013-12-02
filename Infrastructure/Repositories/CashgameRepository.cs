@@ -17,8 +17,8 @@ namespace Infrastructure.Repositories {
         public int? Year { get; set; }
     }
 
-	public class CashgameRepository : ICashgameRepository{
-
+	public class CashgameRepository : ICashgameRepository
+    {
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
