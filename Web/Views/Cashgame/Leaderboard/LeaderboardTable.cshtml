@@ -1,8 +1,22 @@
 @model Web.Models.CashgameModels.Leaderboard.CashgameLeaderboardTableModel
 
-<div class="leaderboard list">
-    @foreach(var itemModel in Model.ItemModels)
-    {
-        @Html.Partial("Leaderboard/LeaderboardTableItem", itemModel)
-	}
-</div>
+<table class="leaderboard">
+    <thead>
+        <tr>
+            <th class="base-column">Rank</th>
+            <th class="base-column">Player</th>
+            <th class="sort-column">Winnings</th>
+            <th>Buyin</th>
+            <th>Cashout</th>
+            <th>Time played</th>
+            <th>Games played</th>
+            <th>Winrate</th>
+        </tr>
+    </thead>
+    <tbody class="list">
+        @foreach(var itemModel in Model.ItemModels)
+        {
+            @Html.Partial("Leaderboard/LeaderboardTableItem", itemModel)
+        }
+    </tbody>
+</table>

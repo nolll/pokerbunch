@@ -25,14 +25,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
 
         public CashgameLeaderboardTableItemModel Create(Homegame homegame, Player player, CashgameTotalResult result, int rank)
         {
-            var winnings = result.Winnings;
-			
             return new CashgameLeaderboardTableItemModel
                 {
                     Rank = rank,
-                    TotalResult = _globalization.FormatResult(homegame.Currency, winnings),
-                    ResultClass = _resultFormatter.GetWinningsCssClass(winnings),
+                    TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
+                    Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
+                    Cashout = _globalization.FormatCurrency(homegame.Currency, result.Cashout),
+                    ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     GameTime = _globalization.FormatDuration(result.TimePlayed),
+                    GameCount = result.GameCount,
                     WinRate = _globalization.FormatWinrate(homegame.Currency, result.WinRate),
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
