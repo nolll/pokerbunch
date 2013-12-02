@@ -1,4 +1,3 @@
-using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -12,7 +11,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 	public class CashgameLeaderboardPageModelFactoryTests : MockContainer {
 
         [Test]
-		public void ActionLeaderboard_SetsTableModel(){
+		public void Create_SetsTableModel(){
 			var homegame = new FakeHomegame();
 			var suite = new FakeCashgameSuite();
 
