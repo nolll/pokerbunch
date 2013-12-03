@@ -23,8 +23,8 @@ namespace Web.Routing{
         public const string CashgameToplistWithYear = "/{0}/cashgame/toplist/{1}";
         public const string CashgameMatrix = "/{0}/cashgame/matrix";
         public const string CashgameMatrixWithYear = "/{0}/cashgame/matrix/{1}";
-        public const string CashgameList = "/{0}/cashgame/listing";
-        public const string CashgameListWithYear = "/{0}/cashgame/listing/{1}";
+        public const string CashgameList = "/{0}/cashgame/list";
+        public const string CashgameListWithYear = "/{0}/cashgame/list/{1}";
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
@@ -42,7 +42,7 @@ namespace Web.Routing{
         public const string HomegameEdit = "/{0}/homegame/edit";
         public const string HomegameJoin = "/{0}/homegame/join";
         public const string HomegameJoinConfirmation = "/{0}/homegame/joined";
-        public const string HomegameListing = "/-/homegame/listing";
+        public const string HomegameList = "/-/homegame/list";
 
         public const string PlayerAdd = "/{0}/player/add";
         public const string PlayerAddConfirmation = "/{0}/player/created";
@@ -63,7 +63,7 @@ namespace Web.Routing{
         public const string UserAddConfirmation = "/-/user/created";
         public const string UserDetails = "/-/user/details/{0}";
         public const string UserEdit = "/-/user/edit/{0}";
-        public const string UserListing = "/-/user/listing";
+        public const string UserList = "/-/user/list";
         public const string ChangePassword = "/-/user/changepassword";
         public const string ChangePasswordConfirmation = "/-/user/changedpassword";
         public const string ForgotPassword = "/-/user/forgotpassword";

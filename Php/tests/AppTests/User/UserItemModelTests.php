@@ -2,7 +2,7 @@ namespace tests\AppTests\User{
 
 	use Domain\Classes\User;
 	use tests\UnitTestCase;
-	use app\User\Listing\UserItemModel;
+	use app\User\List\UserItemModel;
 	use tests\TestHelper;
 
 	class UserItemModelTests extends UnitTestCase {

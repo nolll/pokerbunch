@@ -16,7 +16,7 @@ namespace Web.Controllers
 	    private readonly IHomegameRepository _homegameRepository;
 	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
 	    private readonly IAddHomegameConfirmationPageModelFactory _addHomegameConfirmationPageModelFactory;
-	    private readonly IHomegameListingPageModelFactory _homegameListingPageModelFactory;
+	    private readonly IHomegameListPageModelFactory _homegameListPageModelFactory;
 	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
 	    private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
 	    private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
@@ -29,7 +29,7 @@ namespace Web.Controllers
             IHomegameRepository homegameRepository,
             IAddHomegamePageModelFactory addHomegamePageModelFactory,
             IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
-            IHomegameListingPageModelFactory homegameListingPageModelFactory,
+            IHomegameListPageModelFactory homegameListPageModelFactory,
             IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
             IHomegameEditPageModelFactory homegameEditPageModelFactory,
             IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
@@ -41,7 +41,7 @@ namespace Web.Controllers
 	        _homegameRepository = homegameRepository;
 	        _addHomegamePageModelFactory = addHomegamePageModelFactory;
 	        _addHomegameConfirmationPageModelFactory = addHomegameConfirmationPageModelFactory;
-	        _homegameListingPageModelFactory = homegameListingPageModelFactory;
+	        _homegameListPageModelFactory = homegameListPageModelFactory;
 	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
 	        _homegameEditPageModelFactory = homegameEditPageModelFactory;
 	        _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
@@ -50,12 +50,12 @@ namespace Web.Controllers
 	        _homegameCommandProvider = homegameCommandProvider;
 	    }
 
-	    public ActionResult Listing()
+	    public ActionResult List()
         {
 			_userContext.RequireAdmin();
 			var homegames = _homegameRepository.GetList();
-			var model = _homegameListingPageModelFactory.Create(_userContext.GetUser(), homegames);
-			return View("HomegameListing", model);
+			var model = _homegameListPageModelFactory.Create(_userContext.GetUser(), homegames);
+			return View("HomegameList", model);
 		}
 
         public ActionResult Details(string gameName)

@@ -3,7 +3,7 @@ namespace tests\AppTests\Player{
 	use entities\Homegame;
 	use entities\Player;
 	use tests\UnitTestCase;
-	use app\Player\Listing\PlayerItemModel;
+	use app\Player\List\PlayerItemModel;
 	use tests\TestHelper;
 
 	class PlayerItemModelTests extends UnitTestCase {

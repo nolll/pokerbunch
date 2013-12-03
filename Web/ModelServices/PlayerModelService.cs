@@ -5,14 +5,14 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
-using Web.Models.PlayerModels.Listing;
+using Web.Models.PlayerModels.List;
 
 namespace Web.ModelServices
 {
     public class PlayerModelService : IPlayerModelService
     {
         private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
-        private readonly IPlayerListingPageModelFactory _playerListingPageModelFactory;
+        private readonly IPlayerListPageModelFactory _playerListPageModelFactory;
         private readonly IAddPlayerPageModelFactory _addPlayerPageModelFactory;
         private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
         private readonly IInvitePlayerPageModelFactory _invitePlayerPageModelFactory;
@@ -24,7 +24,7 @@ namespace Web.ModelServices
 
         public PlayerModelService(
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
-            IPlayerListingPageModelFactory playerListingPageModelFactory,
+            IPlayerListPageModelFactory playerListPageModelFactory,
             IAddPlayerPageModelFactory addPlayerPageModelFactory,
             IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory,
             IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
@@ -35,7 +35,7 @@ namespace Web.ModelServices
             IUserContext userContext)
         {
             _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
-            _playerListingPageModelFactory = playerListingPageModelFactory;
+            _playerListPageModelFactory = playerListPageModelFactory;
             _addPlayerPageModelFactory = addPlayerPageModelFactory;
             _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
             _invitePlayerPageModelFactory = invitePlayerPageModelFactory;
@@ -46,11 +46,11 @@ namespace Web.ModelServices
             _userContext = userContext;
         }
 
-        public PlayerListingPageModel GetListingModel(Homegame homegame)
+        public PlayerListPageModel GetListModel(Homegame homegame)
         {
             var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
             var players = _playerRepository.GetList(homegame);
-            return _playerListingPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode);
+            return _playerListPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode);
         }
 
         public PlayerDetailsPageModel GetDetailsModel(Homegame homegame, string playerName)

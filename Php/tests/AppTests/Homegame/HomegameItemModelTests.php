@@ -2,7 +2,7 @@ namespace tests\AppTests\Homegame{
 
 	use entities\Homegame;
 	use tests\UnitTestCase;
-	use app\Homegame\Listing\HomegameItemModel;
+	use app\Homegame\List\HomegameItemModel;
 	use tests\TestHelper;
 
 	class HomegameItemModelTests extends UnitTestCase {

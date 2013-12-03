@@ -1,5 +1,5 @@
 using Core.Classes;
-using Web.Models.PlayerModels.Listing;
+using Web.Models.PlayerModels.List;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {

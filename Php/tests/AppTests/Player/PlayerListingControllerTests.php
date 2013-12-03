@@ -1,14 +1,14 @@
 namespace tests\AppTests\Player{
 
-	use app\Player\Listing\PlayerListingController;
+	use app\Player\List\PlayerListController;
 	use entities\Homegame;
 	use core\ClassNames;
 	use tests\TestHelper;
 	use tests\UnitTestCase;
 
-	class PlayerListingControllerTests extends UnitTestCase {
+	class PlayerListControllerTests extends UnitTestCase {
 
-		/** @var PlayerListingController */
+		/** @var PlayerListController */
 		private $sut;
 		private $userContext;
 
@@ -17,7 +17,7 @@ namespace tests\AppTests\Player{
 			homegameRepositoryMock = getFakeHomegameRepository();
 			playerRepositoryMock = getFakePlayerRepository();
 			cashgameRepositoryMock = getFakeCashgameRepository();
-			sut = new PlayerListingController(userContext, homegameRepositoryMock, playerRepositoryMock, cashgameRepositoryMock);
+			sut = new PlayerListController(userContext, homegameRepositoryMock, playerRepositoryMock, cashgameRepositoryMock);
 		}
 
 		function test_ActionIndex_NotAuthorized_ThrowsException(){

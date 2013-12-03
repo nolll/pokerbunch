@@ -2,10 +2,10 @@ namespace tests\AppTests\User{
 
 	use Domain\Classes\User;
 	use tests\UnitTestCase;
-	use app\User\Listing\UserListingModel;
+	use app\User\List\UserListModel;
 	use tests\TestHelper;
 
-	class UserListingModelTests extends UnitTestCase {
+	class UserListModelTests extends UnitTestCase {
 
 		function setUp(){
 			parent::setUp();
@@ -15,7 +15,7 @@ namespace tests\AppTests\User{
 			$user = new User();
 			$users = array();
 
-			$sut = new UserListingModel($user, $users);
+			$sut = new UserListModel($user, $users);
 
 			assertIdentical(0, count($sut.userModels));
 		}
@@ -24,9 +24,9 @@ namespace tests\AppTests\User{
 			$user = new User();
 			$users = array($user, $user, $user);
 
-			$sut = new UserListingModel($user, $users);
+			$sut = new UserListModel($user, $users);
 
-			assertIsA($sut.userModels[0], 'app\User\Listing\UserItemModel');
+			assertIsA($sut.userModels[0], 'app\User\List\UserItemModel');
 			assertIdentical(3, count($sut.userModels));
 		}
 

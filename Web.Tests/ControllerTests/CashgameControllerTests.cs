@@ -18,7 +18,7 @@ using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Listing;
+using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
@@ -238,7 +238,7 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IActionPageModelFactory>().Object,
                 GetMock<ICashgameChartPageModelFactory>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
-                GetMock<ICashgameListingPageModelFactory>().Object,
+                GetMock<ICashgameListPageModelFactory>().Object,
                 GetMock<IRunningCashgamePageModelFactory>().Object,
                 GetMock<ICashgameModelMapper>().Object,
                 GetMock<ICheckpointModelMapper>().Object,

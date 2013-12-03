@@ -2,13 +2,13 @@
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
-using Web.Models.PlayerModels.Listing;
+using Web.Models.PlayerModels.List;
 
 namespace Web.ModelServices
 {
     public interface IPlayerModelService
     {
-        PlayerListingPageModel GetListingModel(Homegame homegame);
+        PlayerListPageModel GetListModel(Homegame homegame);
         PlayerDetailsPageModel GetDetailsModel(Homegame homegame, string playerName);
         AddPlayerPageModel GetAddModel(Homegame homegame, AddPlayerPostModel postModel = null);
         AddPlayerConfirmationPageModel GetAddConfirmationModel(Homegame homegame);

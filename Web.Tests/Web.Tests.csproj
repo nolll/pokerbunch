@@ -134,9 +134,9 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingTableItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Listing\CashgameListingTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>

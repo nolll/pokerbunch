@@ -21,7 +21,7 @@ namespace Web.Tests.Routing
         [TestCase("/", "Home", "Index")]
         [TestCase("/-/auth/login", "Auth", "Login")]
         [TestCase("/-/auth/logout", "Auth", "Logout")]
-        [TestCase("/-/homegame/listing", "Homegame", "Listing")]
+        [TestCase("/-/homegame/list", "Homegame", "List")]
         [TestCase("/-/homegame/add", "Homegame", "Add")]
         [TestCase("/-/homegame/created", "Homegame", "Created")]
         public void SiteRoutes_WithNoParams(string url, string controller, string action)
@@ -46,7 +46,7 @@ namespace Web.Tests.Routing
         [TestCase("/bunchname/cashgame/matrix", "Cashgame", "Matrix")]
         [TestCase("/bunchname/cashgame/facts", "Cashgame", "Facts")]
         [TestCase("/bunchname/cashgame/toplist", "Cashgame", "Toplist")]
-        [TestCase("/bunchname/cashgame/listing", "Cashgame", "Listing")]
+        [TestCase("/bunchname/cashgame/list", "Cashgame", "List")]
         [TestCase("/bunchname/cashgame/chart", "Cashgame", "Chart")]
         [TestCase("/bunchname/cashgame/chartjson", "Cashgame", "ChartJson")]
         public void BunchRoutes_WithNoParams(string url, string controller, string action)
@@ -66,7 +66,7 @@ namespace Web.Tests.Routing
         [TestCase("/bunchname/cashgame/matrix/2000", "Cashgame", "Matrix")]
         [TestCase("/bunchname/cashgame/facts/2000", "Cashgame", "Facts")]
         [TestCase("/bunchname/cashgame/toplist/2000", "Cashgame", "Toplist")]
-        [TestCase("/bunchname/cashgame/listing/2000", "Cashgame", "Listing")]
+        [TestCase("/bunchname/cashgame/list/2000", "Cashgame", "List")]
         [TestCase("/bunchname/cashgame/chart/2000", "Cashgame", "Chart")]
         [TestCase("/bunchname/cashgame/chartjson/2000", "Cashgame", "ChartJson")]
         public void BunchRouts_WithYearParam(string url, string controller, string action)

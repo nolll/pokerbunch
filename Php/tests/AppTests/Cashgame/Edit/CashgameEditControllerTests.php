@@ -112,7 +112,7 @@ namespace tests\AppTests\Cashgame\Edit{
 
 			$urlModel = sut.action_delete("homegame1", "2010-01-01");
 
-			assertIsA($urlModel, 'app\Urls\CashgameListingUrlModel');
+			assertIsA($urlModel, 'app\Urls\CashgameListUrlModel');
 		}
 
 		function setupValidCashgameValidator(){

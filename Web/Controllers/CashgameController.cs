@@ -13,7 +13,7 @@ using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Listing;
+using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
@@ -43,7 +43,7 @@ namespace Web.Controllers{
 	    private readonly IActionPageModelFactory _actionPageModelFactory;
 	    private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
 	    private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
-	    private readonly ICashgameListingPageModelFactory _cashgameListingPageModelFactory;
+	    private readonly ICashgameListPageModelFactory _cashgameListPageModelFactory;
 	    private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
 	    private readonly ICashgameModelMapper _cashgameModelMapper;
 	    private readonly ICheckpointModelMapper _checkpointModelMapper;
@@ -70,7 +70,7 @@ namespace Web.Controllers{
             IActionPageModelFactory actionPageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
-            ICashgameListingPageModelFactory cashgameListingPageModelFactory,
+            ICashgameListPageModelFactory cashgameListPageModelFactory,
             IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
             ICashgameModelMapper cashgameModelMapper,
             ICheckpointModelMapper checkpointModelMapper,
@@ -96,7 +96,7 @@ namespace Web.Controllers{
 	        _actionPageModelFactory = actionPageModelFactory;
 	        _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
 	        _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
-	        _cashgameListingPageModelFactory = cashgameListingPageModelFactory;
+	        _cashgameListPageModelFactory = cashgameListPageModelFactory;
 	        _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
 	        _cashgameModelMapper = cashgameModelMapper;
 	        _checkpointModelMapper = checkpointModelMapper;
@@ -205,13 +205,13 @@ namespace Web.Controllers{
 			return View("Running/RunningPage", model);
 		}
 
-        public ActionResult Listing(string gameName, int? year = null){
+        public ActionResult List(string gameName, int? year = null){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
 			var games = _cashgameRepository.GetPublished(homegame, year);
 			var years = _cashgameRepository.GetYears(homegame);
-			var model = _cashgameListingPageModelFactory.Create(_userContext.GetUser(), homegame, games, years, year);
-            return View("Listing/Listing", model);
+			var model = _cashgameListPageModelFactory.Create(_userContext.GetUser(), homegame, games, years, year);
+            return View("List/List", model);
 		}
 
         public ActionResult Chart(string gameName, int? year = null){

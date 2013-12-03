@@ -1,5 +1,5 @@
 using Core.Classes;
-using Web.Models.UserModels.Listing;
+using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
 {

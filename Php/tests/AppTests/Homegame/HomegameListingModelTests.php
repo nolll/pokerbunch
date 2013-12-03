@@ -3,10 +3,10 @@ namespace tests\AppTests\Homegame{
 	use entities\Homegame;
 	use Domain\Classes\User;
 	use tests\UnitTestCase;
-	use app\Homegame\Listing\HomegameListingModel;
+	use app\Homegame\List\HomegameListModel;
 	use tests\TestHelper;
 
-	class HomegameListingModelTests extends UnitTestCase {
+	class HomegameListModelTests extends UnitTestCase {
 
 		private $user;
 
@@ -17,7 +17,7 @@ namespace tests\AppTests\Homegame{
 		function test_HomegameModels_WithoutHomegames_IsEmptyList(){
 			$homegames = array();
 
-			$sut = new HomegameListingModel(user, $homegames);
+			$sut = new HomegameListModel(user, $homegames);
 
 			assertIdentical(0, count($sut.homegameModels));
 		}
@@ -26,9 +26,9 @@ namespace tests\AppTests\Homegame{
 			$dummyHomegame = new Homegame();
 			$homegames = array($dummyHomegame, $dummyHomegame, $dummyHomegame);
 
-			$sut = new HomegameListingModel(user, $homegames);
+			$sut = new HomegameListModel(user, $homegames);
 
-			assertIsA($sut.homegameModels[0], 'app\Homegame\Listing\HomegameItemModel');
+			assertIsA($sut.homegameModels[0], 'app\Homegame\List\HomegameItemModel');
 			assertIdentical(3, count($sut.homegameModels));
 		}
 

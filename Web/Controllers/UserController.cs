@@ -16,7 +16,7 @@ namespace Web.Controllers
 	    private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
-	    private readonly IUserListingPageModelFactory _userListingPageModelFactory;
+	    private readonly IUserListPageModelFactory _userListPageModelFactory;
 	    private readonly IAddUserPageModelFactory _addUserPageModelFactory;
 	    private readonly IAddUserConfirmationPageModelFactory _addUserConfirmationPageModelFactory;
 	    private readonly IEditUserPageModelFactory _editUserPageModelFactory;
@@ -29,7 +29,7 @@ namespace Web.Controllers
             IUserContext userContext,
             IUserRepository userRepository,
             IUserDetailsPageModelFactory userDetailsPageModelFactory,
-            IUserListingPageModelFactory userListingPageModelFactory,
+            IUserListPageModelFactory userListPageModelFactory,
             IAddUserPageModelFactory addUserPageModelFactory,
             IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
             IEditUserPageModelFactory editUserPageModelFactory,
@@ -41,7 +41,7 @@ namespace Web.Controllers
 	        _userContext = userContext;
             _userRepository = userRepository;
 	        _userDetailsPageModelFactory = userDetailsPageModelFactory;
-	        _userListingPageModelFactory = userListingPageModelFactory;
+	        _userListPageModelFactory = userListPageModelFactory;
 	        _addUserPageModelFactory = addUserPageModelFactory;
 	        _addUserConfirmationPageModelFactory = addUserConfirmationPageModelFactory;
 	        _editUserPageModelFactory = editUserPageModelFactory;
@@ -62,13 +62,13 @@ namespace Web.Controllers
 			return View("Details", model);
 		}
 
-        public ActionResult Listing()
+        public ActionResult List()
         {
 			_userContext.RequireAdmin();
 			var users = _userRepository.GetList();
-			var model = _userListingPageModelFactory.Create(_userContext.GetUser(), users);
+			var model = _userListPageModelFactory.Create(_userContext.GetUser(), users);
 
-			return View("Listing/Listing", model);
+			return View("List/List", model);
 		}
 
         public ActionResult Add()

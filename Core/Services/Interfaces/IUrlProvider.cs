@@ -15,14 +15,14 @@ namespace Core.Services
         string GetForgotPasswordUrl();
         string GetHomegameAddConfirmationUrl();
         string GetHomegameAddUrl();
-        string GetHomegameListingUrl();
+        string GetHomegameListUrl();
         string GetHomeUrl();
         string GetSharingSettingsUrl();
         string GetTwitterSettingsUrl();
         string GetTwitterStartShareUrl();
         string GetTwitterStopShareUrl();
         string GetUserAddConfirmationUrl();
-        string GetUserListingUrl();
+        string GetUserListUrl();
 
         string GetUserDetailsUrl(User user);
         string GetUserEditUrl(User user);

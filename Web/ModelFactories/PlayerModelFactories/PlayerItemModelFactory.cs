@@ -1,6 +1,6 @@
 using Core.Classes;
 using Core.Services;
-using Web.Models.PlayerModels.Listing;
+using Web.Models.PlayerModels.List;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {

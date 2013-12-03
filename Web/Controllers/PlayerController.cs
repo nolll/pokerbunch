@@ -35,8 +35,8 @@ namespace Web.Controllers{
 	    public ActionResult Index(string gameName){
 			var homegame = _homegameRepository.GetByName(gameName);
 			_userContext.RequirePlayer(homegame);
-	        var model = _playerModelService.GetListingModel(homegame);
-			return View("Listing", model);
+	        var model = _playerModelService.GetListModel(homegame);
+			return View("List", model);
 		}
 
         public ActionResult Details(string gameName, string name){

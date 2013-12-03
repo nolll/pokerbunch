@@ -1,15 +1,15 @@
-namespace tests\AppTests\Cashgame\Listing{
+namespace tests\AppTests\Cashgame\List{
 
-	use app\Cashgame\Listing\CashgameListingController;
+	use app\Cashgame\List\CashgameListController;
 	use entities\Homegame;
 	use entities\GameStatus;
 	use core\ClassNames;
 	use tests\TestHelper;
 	use tests\UnitTestCase;
 
-	class CashgameListingControllerTests extends UnitTestCase {
+	class CashgameListControllerTests extends UnitTestCase {
 
-		/** @var CashgameListingController */
+		/** @var CashgameListController */
 		private $sut;
 		private $userContext;
 
@@ -17,25 +17,25 @@ namespace tests\AppTests\Cashgame\Listing{
 			userContext = TestHelper::getFake(ClassNames::$UserContext);
 			homegameRepositoryMock = getFakeHomegameRepository();
 			cashgameRepositoryMock = getFakeCashgameRepository();
-			sut = new CashgameListingController(userContext, homegameRepositoryMock, cashgameRepositoryMock);
+			sut = new CashgameListController(userContext, homegameRepositoryMock, cashgameRepositoryMock);
 		}
 
-		function test_ActionListing_NotAuthorized_ThrowsException(){
+		function test_ActionList_NotAuthorized_ThrowsException(){
 			homegameRepositoryMock.returns('getByName', new Homegame());
 			userContext.throwOn('requirePlayer');
 			expectException();
 
-			sut.action_listing("homegame1");
+			sut.action_list("homegame1");
 		}
 
-		function test_ActionListing_ReturnsCorrectModel(){
+		function test_ActionList_ReturnsCorrectModel(){
 			homegameRepositoryMock.returns('getByName', new Homegame());
 			TestHelper::setupUserWithPlayerRights(userContext);
 			cashgameRepositoryMock.returns('getAll', array());
 
-			$viewResult = sut.action_listing("homegame1");
+			$viewResult = sut.action_list("homegame1");
 
-			assertIsA($viewResult.model, 'app\Cashgame\Listing\CashgameListingModel');
+			assertIsA($viewResult.model, 'app\Cashgame\List\CashgameListModel');
 		}
 
 	}

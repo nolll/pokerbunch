@@ -53,7 +53,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             {
                 return _urlProvider.GetCashgameChartUrl(homegame, year);
             }
-            if (view == "listing")
+            if (view == "list")
             {
                 return _urlProvider.GetCashgameListUrl(homegame, year);
             }

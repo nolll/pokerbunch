@@ -1,0 +1,20 @@
+@model Web.Models.UserModels.List.UserListPageModel
+
+@{
+    Layout = "~/Views/Layouts/OneColumn.cshtml";
+}
+
+<div class="block gutter">
+	<h1>Users</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="users simple list">
+        @foreach(var userModel in Model.UserModels)
+        {
+            <li>
+                @Html.Partial("List/Item", userModel)
+            </li>
+        }
+    </ul>
+</div>

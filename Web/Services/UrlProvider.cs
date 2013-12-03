@@ -187,9 +187,9 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.HomegameJoinConfirmation, homegame);
         }
 
-        public string GetHomegameListingUrl()
+        public string GetHomegameListUrl()
         {
-            return RouteFormats.HomegameListing;
+            return RouteFormats.HomegameList;
         }
 
         public string GetHomeUrl()
@@ -272,9 +272,9 @@ namespace Web.Services
             return FormatUser(RouteFormats.UserEdit, user);
         }
 
-        public string GetUserListingUrl()
+        public string GetUserListUrl()
         {
-            return RouteFormats.UserListing;
+            return RouteFormats.UserList;
         }
 
         private string GetCashgamePlayerUrl(string format, Homegame homegame, Cashgame cashgame, Player player)

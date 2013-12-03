@@ -1,6 +1,6 @@
 using Core.Classes;
 using Core.Services;
-using Web.Models.UserModels.Listing;
+using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
 {

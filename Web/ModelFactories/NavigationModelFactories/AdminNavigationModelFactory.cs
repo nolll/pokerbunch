@@ -32,8 +32,8 @@ namespace Web.ModelFactories.NavigationModelFactories
                 const bool selected = false;
                 return new List<NavigationNode>
                     {
-                        new NavigationNode("Bunches", _urlProvider.GetHomegameListingUrl(), selected),
-                        new NavigationNode("Users", _urlProvider.GetUserListingUrl(), selected)
+                        new NavigationNode("Bunches", _urlProvider.GetHomegameListUrl(), selected),
+                        new NavigationNode("Users", _urlProvider.GetUserListUrl(), selected)
                     };
             }
 

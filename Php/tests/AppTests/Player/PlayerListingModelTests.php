@@ -4,10 +4,10 @@ namespace tests\AppTests\Player{
 	use Domain\Classes\User;
 	use entities\Player;
 	use tests\UnitTestCase;
-	use app\Player\Listing\PlayerListingModel;
+	use app\Player\List\PlayerListModel;
 	use tests\TestHelper;
 
-	class PlayerListingModelTests extends UnitTestCase {
+	class PlayerListModelTests extends UnitTestCase {
 
 		/** @var Homegame */
 		private $homegame;
@@ -56,7 +56,7 @@ namespace tests\AppTests\Player{
 		}
 
 		function getModel(){
-			return new PlayerListingModel(new User(), homegame, players, isInManagerMode);
+			return new PlayerListModel(new User(), homegame, players, isInManagerMode);
 		}
 
 	}

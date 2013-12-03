@@ -50,8 +50,8 @@ namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
 		    const string homegameListUrl = "a";
             const string userListUrl = "b";
 
-            GetMock<IUrlProvider>().Setup(o => o.GetHomegameListingUrl()).Returns(homegameListUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetUserListingUrl()).Returns(userListUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetHomegameListUrl()).Returns(homegameListUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserListUrl()).Returns(userListUrl);
 
             _user = new FakeUser(globalRole: Role.Admin);
 		    var sut = GetSut();

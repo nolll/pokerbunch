@@ -28,7 +28,7 @@ using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.Facts;
-using Web.ModelFactories.CashgameModelFactories.Listing;
+using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
@@ -119,9 +119,9 @@ namespace Web.Plumbing
             RegisterComponent<ICashoutPageModelFactory, CashoutPageModelFactory>();
             RegisterComponent<IEndPageModelFactory, EndPageModelFactory>();
             RegisterComponent<IUserDetailsPageModelFactory, UserDetailsPageModelFactory>();
-            RegisterComponent<IPlayerListingPageModelFactory, PlayerListingPageModelFactory>();
+            RegisterComponent<IPlayerListPageModelFactory, PlayerListPageModelFactory>();
             RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>();
-            RegisterComponent<IHomegameListingPageModelFactory, HomegameListingPageModelFactory>();
+            RegisterComponent<IHomegameListPageModelFactory, HomegameListPageModelFactory>();
             RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>();
             RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>();
             RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>();
@@ -131,7 +131,7 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>();
             RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>();
             RegisterComponent<ICashgameToplistPageModelFactory, CashgameToplistPageModelFactory>();
-            RegisterComponent<ICashgameListingPageModelFactory, CashgameListingPageModelFactory>();
+            RegisterComponent<ICashgameListPageModelFactory, CashgameListPageModelFactory>();
             RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>();
             RegisterComponent<IAddPlayerPageModelFactory, AddPlayerPageModelFactory>();
             RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>();
@@ -139,7 +139,7 @@ namespace Web.Plumbing
             RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>();
             RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>();
             RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>();
-            RegisterComponent<IUserListingPageModelFactory, UserListingPageModelFactory>();
+            RegisterComponent<IUserListPageModelFactory, UserListPageModelFactory>();
             RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>();
             RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>();
             RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>();
@@ -147,8 +147,8 @@ namespace Web.Plumbing
             RegisterComponent<IForgotPasswordPageModelFactory, ForgotPasswordPageModelFactory>();
             RegisterComponent<ISharingIndexPageModelFactory, SharingIndexPageModelFactory>();
             RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>();
-            RegisterComponent<ICashgameListingTableModelFactory, CashgameListingTableModelFactory>();
-            RegisterComponent<ICashgameListingTableItemModelFactory, CashgameListingTableItemModelFactory>();
+            RegisterComponent<ICashgameListTableModelFactory, CashgameListTableModelFactory>();
+            RegisterComponent<ICashgameListTableItemModelFactory, CashgameListTableItemModelFactory>();
 
             // Model Factories
             RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();
@@ -167,7 +167,7 @@ namespace Web.Plumbing
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
             RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
             RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>();
-            RegisterComponent<IHomegameListingItemModelFactory, HomegameListingItemModelFactory>();
+            RegisterComponent<IHomegameListItemModelFactory, HomegameListItemModelFactory>();
             RegisterComponent<ICashgameToplistTableModelFactory, CashgameToplistTableModelFactory>();
             RegisterComponent<ICashgameToplistTableItemModelFactory, CashgameToplistTableItemModelFactory>();
             RegisterComponent<IUserItemModelFactory, UserItemModelFactory>();

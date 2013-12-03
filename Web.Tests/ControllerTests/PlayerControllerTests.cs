@@ -44,24 +44,24 @@ namespace Web.Tests.ControllerTests{
 		}
         
         [Test]
-		public void Delete_WithSuccessfulCommand_RedirectsToPlayerListing()
+		public void Delete_WithSuccessfulCommand_RedirectsToPlayerList()
         {
             const string homegameName = "a";
 		    const string playerName = "b";
-            const string listingUrl = "c";
+            const string listUrl = "c";
 
             GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeSuccessfulCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listingUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listUrl);
 
             var sut = GetSut();
             var result = sut.Delete(homegameName, playerName) as RedirectResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(listingUrl, result.Url);
+            Assert.AreEqual(listUrl, result.Url);
         }
 
         [Test]
-        public void Delete_WithFailedCommand_RedirectsToPlayerListing()
+        public void Delete_WithFailedCommand_RedirectsToPlayerList()
         {
             const string homegameName = "a";
             const string playerName = "b";
