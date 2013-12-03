@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Core.Classes;
 using Core.Exceptions;
@@ -7,14 +8,11 @@ using Infrastructure.Factories;
 using Infrastructure.System;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
-using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
@@ -26,6 +24,7 @@ using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
+using Web.Models.CashgameModels.Leaderboard;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 
@@ -56,6 +55,7 @@ namespace Web.Controllers{
 	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly ICashgameModelService _cashgameModelService;
+	    private readonly IWebContext _webContext;
 
 	    public CashgameController(
             IHomegameRepository homegameRepository,
@@ -81,7 +81,8 @@ namespace Web.Controllers{
             ICheckpointRepository checkpointRepository,
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
-            ICashgameModelService cashgameModelService)
+            ICashgameModelService cashgameModelService,
+            IWebContext webContext)
 	    {
 	        _homegameRepository = homegameRepository;
 	        _userContext = userContext;
@@ -107,6 +108,7 @@ namespace Web.Controllers{
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;
+	        _webContext = webContext;
 	    }
 
 	    public ActionResult Index(string gameName)
@@ -123,11 +125,12 @@ namespace Web.Controllers{
 
         public ActionResult Leaderboard(string gameName, int? year = null)
         {
-            var model = _cashgameModelService.GetLeaderboardModel(gameName, year);
+            var sortOrder = GetLeaderboardSortOrder();
+            var model = _cashgameModelService.GetLeaderboardModel(gameName, sortOrder, year);
 			return View("Leaderboard/LeaderboardPage", model);
 		}
 
-        public ActionResult Details(string gameName, string dateStr)
+	    public ActionResult Details(string gameName, string dateStr)
         {
             var model = _cashgameModelService.GetDetailsModel(gameName, dateStr);
 			return View("Details/DetailsPage", model);
@@ -415,6 +418,21 @@ namespace Web.Controllers{
 		{
 			return _cashgameFactory.Create(addCashgamePostModel.Location, (int)GameStatus.Running);
 		}
+
+        private LeaderboardSortOrder GetLeaderboardSortOrder()
+        {
+            var param = _webContext.GetQueryParam("orderby");
+            if (param == null)
+            {
+                return LeaderboardSortOrder.winnings;
+            }
+            LeaderboardSortOrder sortOrder;
+            if (Enum.TryParse(param, out sortOrder))
+            {
+                return sortOrder;
+            }
+            return LeaderboardSortOrder.winnings;
+        }
 
 	}
 }

@@ -15,10 +15,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 			var homegame = new FakeHomegame();
 			var suite = new FakeCashgameSuite();
 
-            GetMock<ICashgameLeaderboardTableModelFactory>().Setup(o => o.Create(homegame, suite)).Returns(new CashgameLeaderboardTableModel());
+            GetMock<ICashgameLeaderboardTableModelFactory>().Setup(o => o.Create(homegame, suite, LeaderboardSortOrder.winnings)).Returns(new CashgameLeaderboardTableModel());
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, suite, null, null);
+            var result = sut.Create(new FakeUser(), homegame, suite, null, LeaderboardSortOrder.winnings, null);
 
             Assert.IsInstanceOf<CashgameLeaderboardTableModel>(result.TableModel);
 		}

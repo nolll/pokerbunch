@@ -85,13 +85,13 @@ namespace Web.ModelServices
             return _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
         }
 
-        public CashgameLeaderboardPageModel GetLeaderboardModel(string gameName, int? year = null)
+        public CashgameLeaderboardPageModel GetLeaderboardModel(string gameName, LeaderboardSortOrder sortOrder, int? year = null)
         {
             var homegame = _homegameRepository.GetByName(gameName);
             _userContext.RequirePlayer(homegame);
             var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameLeaderboardPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, year);
+            return _cashgameLeaderboardPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, sortOrder, year);
         }
 
         public CashgameDetailsPageModel GetDetailsModel(string gameName, string dateStr)

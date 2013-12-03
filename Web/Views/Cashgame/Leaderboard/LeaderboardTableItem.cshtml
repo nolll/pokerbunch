@@ -1,14 +1,14 @@
 @model Web.Models.CashgameModels.Leaderboard.CashgameLeaderboardTableItemModel
 
 <tr>
-    <td class="rank first base-column">@Model.Rank.</td>
+    <td class="rank base-column">@Model.Rank.</td>
     <td class="name base-column">
         <a href="@Model.PlayerUrl">@Model.Name</a>
     </td>
-    <td class="amount result @Model.ResultClass sort-column">@Model.TotalResult</td>
-    <td class="amount">@Model.Buyin</td>
-    <td class="amount">@Model.Cashout</td>
-    <td class="gametime">@Model.GameTime</td>
-    <td class="gametime">@Model.GameCount</td>
-    <td class="winrate">@Model.WinRate</td>
+    <td class="amount result @Model.ResultClass @Model.ResultSortClass">@Model.TotalResult</td>
+    <td class="amount @Model.BuyinSortClass">@Model.Buyin</td>
+    <td class="amount @Model.CashoutSortClass">@Model.Cashout</td>
+    <td class="gametime @Model.GameTimeSortClass">@Model.GameTime</td>
+    <td class="gametime @Model.GameCountSortClass">@Model.GameCount</td>
+    <td class="winrate @Model.WinRateSortClass">@Model.WinRate</td>
 </tr>

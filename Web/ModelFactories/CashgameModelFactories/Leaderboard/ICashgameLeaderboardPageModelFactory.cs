@@ -6,6 +6,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
 {
     public interface ICashgameLeaderboardPageModelFactory
     {
-        CashgameLeaderboardPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year);
+        CashgameLeaderboardPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, LeaderboardSortOrder sortOrder, int? year);
     }
 }

@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
 {
     public interface ICashgameLeaderboardTableModelFactory
     {
-        CashgameLeaderboardTableModel Create(Homegame homegame, CashgameSuite suite);
+        CashgameLeaderboardTableModel Create(Homegame homegame, CashgameSuite suite, LeaderboardSortOrder sortOrder);
     }
 }

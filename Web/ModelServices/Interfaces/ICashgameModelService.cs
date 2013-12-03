@@ -11,7 +11,7 @@ namespace Web.ModelServices
     public interface ICashgameModelService
     {
         CashgameMatrixPageModel GetMatrixModel(string gameName, int? year = null);
-        CashgameLeaderboardPageModel GetLeaderboardModel(string gameName, int? year = null);
+        CashgameLeaderboardPageModel GetLeaderboardModel(string gameName, LeaderboardSortOrder sortOrder = LeaderboardSortOrder.winnings, int? year = null);
         string GetIndexUrl(string gameName);
         CashgameDetailsPageModel GetDetailsModel(string gameName, string dateStr);
         ChartModel GetDetailsChartJsonModel(string gameName, string dateStr);

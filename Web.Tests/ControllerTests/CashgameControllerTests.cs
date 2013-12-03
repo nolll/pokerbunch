@@ -26,6 +26,7 @@ using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
 using Web.ModelServices;
+using Web.Models.CashgameModels.Leaderboard;
 using ICashgameService = Core.Services.ICashgameService;
 
 namespace Web.Tests.ControllerTests{
@@ -251,7 +252,8 @@ namespace Web.Tests.ControllerTests{
                 GetMock<ICheckpointRepository>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<ICashgameModelService>().Object);
+                GetMock<ICashgameModelService>().Object,
+                GetMock<IWebContext>().Object);
         }
 
 	}

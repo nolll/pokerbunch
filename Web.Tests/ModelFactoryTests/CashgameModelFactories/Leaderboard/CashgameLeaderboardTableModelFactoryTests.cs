@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Leaderboard;
+using Web.Models.CashgameModels.Leaderboard;
 
 namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 
@@ -23,7 +25,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 			var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
             var suite = new FakeCashgameSuite(totalResults: totalResults);
             var sut = GetSut();
-            var result = sut.Create(_homegame, suite);
+            var result = sut.Create(_homegame, suite, LeaderboardSortOrder.winnings);
 
 			Assert.AreEqual(2, result.ItemModels.Count);
 		}
@@ -32,7 +34,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
         {
 			return new CashgameLeaderboardTableModelFactory(
                 GetMock<ICashgameLeaderboardTableItemModelFactory>().Object,
-                GetMock<IPlayerRepository>().Object);
+                GetMock<IPlayerRepository>().Object,
+                GetMock<IUrlProvider>().Object);
 		}
 
 	}

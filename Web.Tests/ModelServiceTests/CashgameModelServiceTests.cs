@@ -51,10 +51,10 @@ namespace Web.Tests.ModelServiceTests
         {
             const string slug = "a";
             GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
-            GetMock<ICashgameLeaderboardPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), It.IsAny<int?>())).Returns(new CashgameLeaderboardPageModel());
+            GetMock<ICashgameLeaderboardPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), LeaderboardSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameLeaderboardPageModel());
 
             var sut = GetSut();
-            var result = sut.GetLeaderboardModel(slug);
+            var result = sut.GetLeaderboardModel(slug, LeaderboardSortOrder.winnings);
 
             Assert.IsNotNull(result);
         }
@@ -67,7 +67,7 @@ namespace Web.Tests.ModelServiceTests
 
             var sut = GetSut();
 
-            Assert.Throws<AccessDeniedException>(() => sut.GetLeaderboardModel(slug));
+            Assert.Throws<AccessDeniedException>(() => sut.GetLeaderboardModel(slug, LeaderboardSortOrder.winnings));
         }
 
         [Test]

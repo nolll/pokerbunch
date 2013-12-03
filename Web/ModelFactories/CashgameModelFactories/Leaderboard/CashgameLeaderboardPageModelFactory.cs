@@ -22,13 +22,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             _cashgameLeaderboardTableModelFactory = cashgameLeaderboardTableModelFactory;
         }
 
-        public CashgameLeaderboardPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, int? year)
+        public CashgameLeaderboardPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, LeaderboardSortOrder sortOrder, int? year)
         {
             return new CashgameLeaderboardPageModel
                 {
                     BrowserTitle = "Cashgame Leaderboard",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
-			        TableModel = _cashgameLeaderboardTableModelFactory.Create(homegame, suite),
+			        TableModel = _cashgameLeaderboardTableModelFactory.Create(homegame, suite, sortOrder),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "leaderboard", years, year)
                 };
         }

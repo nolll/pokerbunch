@@ -249,6 +249,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
+    <Compile Include="Models\CashgameModels\Leaderboard\LeaderboardSortOrder.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
