@@ -24,8 +24,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 			var totalResult = new FakeCashgameTotalResult();
 			var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
             var suite = new FakeCashgameSuite(totalResults: totalResults);
+            const int year = 0;
+
             var sut = GetSut();
-            var result = sut.Create(_homegame, suite, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, suite, year, LeaderboardSortOrder.winnings);
 
 			Assert.AreEqual(2, result.ItemModels.Count);
 		}

@@ -23,25 +23,26 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             _urlProvider = urlProvider;
         }
 
-        public CashgameLeaderboardTableModel Create(Homegame homegame, CashgameSuite suite, LeaderboardSortOrder sortOrder)
+        public CashgameLeaderboardTableModel Create(Homegame homegame, CashgameSuite suite, int? year, LeaderboardSortOrder sortOrder)
         {
             var results = SortResults(suite.TotalResults, sortOrder);
+            var sortUrl = string.Concat(_urlProvider.GetCashgameLeaderboardUrl(homegame, year), "?orderby={0}");
 
             return new CashgameLeaderboardTableModel
                 {
                     ItemModels = GetItemModels(homegame, results, sortOrder),
                     ResultSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.winnings),
-                    ResultSortUrl = "",
+                    ResultSortUrl = string.Format(sortUrl, LeaderboardSortOrder.winnings),
                     BuyinSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.buyin),
-                    BuyinSortUrl = "",
+                    BuyinSortUrl = string.Format(sortUrl, LeaderboardSortOrder.buyin),
                     CashoutSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.cashout),
-                    CashoutSortUrl = "",
+                    CashoutSortUrl = string.Format(sortUrl, LeaderboardSortOrder.cashout),
                     GameTimeSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.timeplayed),
-                    GameTimeSortUrl = "",
+                    GameTimeSortUrl = string.Format(sortUrl, LeaderboardSortOrder.timeplayed),
                     GameCountSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.gamesplayed),
-                    GameCountSortUrl = "",
+                    GameCountSortUrl = string.Format(sortUrl, LeaderboardSortOrder.gamesplayed),
                     WinRateSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.winrate),
-                    WinRateSortUrl = ""
+                    WinRateSortUrl = string.Format(sortUrl, LeaderboardSortOrder.winrate)
                 };
         }
 

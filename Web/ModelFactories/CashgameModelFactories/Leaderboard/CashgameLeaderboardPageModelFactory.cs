@@ -28,9 +28,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
                 {
                     BrowserTitle = "Cashgame Leaderboard",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
-			        TableModel = _cashgameLeaderboardTableModelFactory.Create(homegame, suite, sortOrder),
+			        TableModel = _cashgameLeaderboardTableModelFactory.Create(homegame, suite, year, sortOrder),
 			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "leaderboard", years, year)
                 };
         }
+
     }
 }

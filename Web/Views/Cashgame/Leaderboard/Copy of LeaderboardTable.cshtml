@@ -1,8 +1,0 @@
-@model Web.Models.CashgameModels.Leaderboard.CashgameLeaderboardTableModel
-
-<div class="leaderboard list">
-    @foreach(var itemModel in Model.ItemModels)
-    {
-        @Html.Partial("Leaderboard/LeaderboardTableItem", itemModel)
-	}
-</div>

@@ -405,6 +405,7 @@
     <Content Include="FrontEnd\js\cashgame-action-chart.js" />
     <Content Include="FrontEnd\js\cashgame-chart.js" />
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
+    <Content Include="FrontEnd\js\cashgame-leaderboard.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
     <Content Include="FrontEnd\js\focus-text-selector.js" />
@@ -639,8 +640,6 @@
     <Content Include="Views\User\ForgotPassword\ForgotPassword.cshtml" />
     <Content Include="Views\User\Listing\Item.cshtml" />
     <Content Include="Views\User\Listing\Listing.cshtml" />
-    <Content Include="Views\Cashgame\Leaderboard\Copy of LeaderboardTable.cshtml" />
-    <Content Include="Views\Cashgame\Leaderboard\Copy of LeaderboardTableItem.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

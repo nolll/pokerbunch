@@ -3,8 +3,7 @@ define(["jquery"],
         "use strict";
 
         function init() {
-            var me = this,
-                $me = $(this);
+            var $me = $(this);
             updateLayouts($me);
             $me.blur(function(){
                 updateLayouts($me);

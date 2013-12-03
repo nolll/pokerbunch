@@ -17,5 +17,5 @@ namespace Web.Models.CashgameModels.Leaderboard
         public string GameCountSortUrl { get; set; }
         public string WinRateSortClass { get; set; }
         public string WinRateSortUrl { get; set; }
-	}
+    }
 }

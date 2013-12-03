@@ -15,7 +15,7 @@
 	td{
 		display: none;
 		padding: 5px;
-		@media #{$widthXSmall} {
+		@media #{$widthSmall} {
 			display: block;
 			display: table-cell;
 		}
@@ -62,8 +62,12 @@
 
 	.rank,
 	.winrate{
-		@media #{$widthXSmall} {
-			text-align: right;
-		}
+		text-align: right;
+	}
+}
+
+@media #{$widthSmall} {
+	.sort-order-selector{
+		display: none;
 	}
 }

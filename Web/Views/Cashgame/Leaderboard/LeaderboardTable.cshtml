@@ -1,16 +1,16 @@
 @model Web.Models.CashgameModels.Leaderboard.CashgameLeaderboardTableModel
 
-<table class="leaderboard">
+<table class="leaderboard" data-require="cashgame-leaderboard">
     <thead>
         <tr>
-            <th class="base-column">Rank</th>
+            <th class="base-column"></th>
             <th class="base-column">Player</th>
-            <th class="@Model.ResultSortClass">Winnings</th>
-            <th class="@Model.BuyinSortClass">Buyin</th>
-            <th class="@Model.CashoutSortClass">Cashout</th>
-            <th class="@Model.GameTimeSortClass">Time played</th>
-            <th class="@Model.GameCountSortClass">Games played</th>
-            <th class="@Model.WinRateSortClass">Winrate</th>
+            <th class="@Model.ResultSortClass"><a href="@Model.ResultSortUrl">Winnings</a></th>
+            <th class="@Model.BuyinSortClass"><a href="@Model.BuyinSortUrl">Buyin</a></th>
+            <th class="@Model.CashoutSortClass"><a href="@Model.CashoutSortUrl">Cashout</a></th>
+            <th class="@Model.GameTimeSortClass"><a href="@Model.GameTimeSortUrl">Time</a></th>
+            <th class="@Model.GameCountSortClass"><a href="@Model.GameCountSortUrl">Games</a></th>
+            <th class="@Model.WinRateSortClass"><a href="@Model.WinRateSortUrl">Winrate</a></th>
         </tr>
     </thead>
     <tbody class="list">

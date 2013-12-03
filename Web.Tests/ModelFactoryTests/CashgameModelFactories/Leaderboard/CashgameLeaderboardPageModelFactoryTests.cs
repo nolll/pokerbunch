@@ -14,11 +14,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		public void Create_SetsTableModel(){
 			var homegame = new FakeHomegame();
 			var suite = new FakeCashgameSuite();
+            const int year = 1;
 
-            GetMock<ICashgameLeaderboardTableModelFactory>().Setup(o => o.Create(homegame, suite, LeaderboardSortOrder.winnings)).Returns(new CashgameLeaderboardTableModel());
+            GetMock<ICashgameLeaderboardTableModelFactory>().Setup(o => o.Create(homegame, suite, year, LeaderboardSortOrder.winnings)).Returns(new CashgameLeaderboardTableModel());
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, suite, null, LeaderboardSortOrder.winnings, null);
+            var result = sut.Create(new FakeUser(), homegame, suite, null, LeaderboardSortOrder.winnings, year);
 
             Assert.IsInstanceOf<CashgameLeaderboardTableModel>(result.TableModel);
 		}
