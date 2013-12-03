@@ -4,10 +4,13 @@
     Layout = "~/Views/Layouts/OneColumn.cshtml";
 }
 
+@Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.CashgameNavModel.PageNavModel)
+
 <div class="block gutter">
-	<h1>
-		@Html.Partial("~/Views/Navigation/CashgameNavigation.cshtml", Model.CashgameNavModel)
-	</h1>
+    <h1>
+        List
+        @Html.Partial("~/Views/Navigation/CashgameNavigation.cshtml", Model.CashgameNavModel)
+    </h1>
 </div>
 <div class="block gutter">
     @Html.Partial("List/CashgameTable", Model.ListTableModel)

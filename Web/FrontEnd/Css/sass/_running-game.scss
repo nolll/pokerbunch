@@ -1,10 +1,11 @@
 .bar{
 	background: #ddd;
 	border-bottom: 1px solid #bbb;
+	padding: 0 10px;
 
-	> a{
+	a{
 		display:block;
-		padding: 10px 15px;
+		padding: 10px 5px;
 	}
 }
 

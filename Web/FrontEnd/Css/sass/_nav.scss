@@ -133,8 +133,9 @@ nav{
 }
 
 .cashgame-nav{
-	a{
-		text-transform: lowercase;
+	li{
+		float: left;
+		margin-right: 5px;
 	}
 }
 
