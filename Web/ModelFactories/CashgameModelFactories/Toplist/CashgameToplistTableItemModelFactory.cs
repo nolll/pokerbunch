@@ -2,18 +2,18 @@ using System.Web;
 using Core.Classes;
 using Core.Services;
 using Infrastructure.System;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Toplist;
 using Web.Services;
 
-namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
+namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
-    public class CashgameLeaderboardTableItemModelFactory : ICashgameLeaderboardTableItemModelFactory
+    public class CashgameToplistTableItemModelFactory : ICashgameToplistTableItemModelFactory
     {
         private readonly IUrlProvider _urlProvider;
         private readonly IResultFormatter _resultFormatter;
         private readonly IGlobalization _globalization;
 
-        public CashgameLeaderboardTableItemModelFactory(
+        public CashgameToplistTableItemModelFactory(
             IUrlProvider urlProvider,
             IResultFormatter resultFormatter,
             IGlobalization globalization)
@@ -23,31 +23,31 @@ namespace Web.ModelFactories.CashgameModelFactories.Leaderboard
             _globalization = globalization;
         }
 
-        public CashgameLeaderboardTableItemModel Create(Homegame homegame, Player player, CashgameTotalResult result, int rank, LeaderboardSortOrder sortOrder)
+        public CashgameToplistTableItemModel Create(Homegame homegame, Player player, CashgameTotalResult result, int rank, ToplistSortOrder sortOrder)
         {
-            return new CashgameLeaderboardTableItemModel
+            return new CashgameToplistTableItemModel
                 {
                     Rank = rank,
                     TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
-                    ResultSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.winnings),
+                    ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.winnings),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
-                    BuyinSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.buyin),
+                    BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.buyin),
                     Cashout = _globalization.FormatCurrency(homegame.Currency, result.Cashout),
-                    CashoutSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.cashout),
+                    CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.cashout),
                     ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
                     GameTime = _globalization.FormatDuration(result.TimePlayed),
-                    GameTimeSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.timeplayed),
+                    GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.timeplayed),
                     GameCount = result.GameCount,
-                    GameCountSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.gamesplayed),
+                    GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.gamesplayed),
                     WinRate = _globalization.FormatWinrate(homegame.Currency, result.WinRate),
-                    WinRateSortClass = GetSortCssClass(sortOrder, LeaderboardSortOrder.winrate),
+                    WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.winrate),
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player)
                 };
         }
 
-        private string GetSortCssClass(LeaderboardSortOrder selectedSortOrder, LeaderboardSortOrder columnSortOrder)
+        private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
         }

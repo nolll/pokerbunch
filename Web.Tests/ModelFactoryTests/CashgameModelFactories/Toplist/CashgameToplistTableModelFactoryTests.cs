@@ -5,12 +5,12 @@ using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
+using Web.Models.CashgameModels.Toplist;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
 
-	public class CashgameLeaderboardTableModelFactoryTests : MockContainer {
+	public class CashgameToplistTableModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 
@@ -27,15 +27,15 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             const int year = 0;
 
             var sut = GetSut();
-            var result = sut.Create(_homegame, suite, year, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, suite, year, ToplistSortOrder.winnings);
 
 			Assert.AreEqual(2, result.ItemModels.Count);
 		}
 
-        private CashgameLeaderboardTableModelFactory GetSut()
+        private CashgameToplistTableModelFactory GetSut()
         {
-			return new CashgameLeaderboardTableModelFactory(
-                GetMock<ICashgameLeaderboardTableItemModelFactory>().Object,
+			return new CashgameToplistTableModelFactory(
+                GetMock<ICashgameToplistTableItemModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<IUrlProvider>().Object);
 		}

@@ -19,9 +19,9 @@ namespace Web.ModelFactories.NavigationModelFactories
                 {
                     Selected = view,
                     MatrixLink = _urlProvider.GetCashgameMatrixUrl(homegame, year),
-                    LeaderboardLink = _urlProvider.GetCashgameLeaderboardUrl(homegame, year),
+                    ToplistLink = _urlProvider.GetCashgameToplistUrl(homegame, year),
 			        ChartLink = _urlProvider.GetCashgameChartUrl(homegame, year),
-                    ListingLink = _urlProvider.GetCashgameListingUrl(homegame, year),
+                    ListLink = _urlProvider.GetCashgameListUrl(homegame, year),
                     FactsLink = _urlProvider.GetCashgameFactsUrl(homegame, year)
                 };
         }

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-namespace Web.Models.CashgameModels.Leaderboard
+namespace Web.Models.CashgameModels.Toplist
 {
-	public class CashgameLeaderboardTableModel
+	public class CashgameToplistTableModel
     {
-	    public List<CashgameLeaderboardTableItemModel> ItemModels { get; set; }
+	    public List<CashgameToplistTableItemModel> ItemModels { get; set; }
         public string ResultSortClass { get; set; }
         public string ResultSortUrl { get; set; }
         public string BuyinSortClass { get; set; }

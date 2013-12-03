@@ -1,6 +1,6 @@
-namespace Web.Models.CashgameModels.Leaderboard{
+namespace Web.Models.CashgameModels.Toplist{
 
-	public class CashgameLeaderboardTableItemModel{
+	public class CashgameToplistTableItemModel{
 
 	    public int Rank { get; set; }
 	    public string Name { get; set; }

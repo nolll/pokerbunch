@@ -1,6 +1,6 @@
-@model Web.Models.CashgameModels.Leaderboard.CashgameLeaderboardTableModel
+@model Web.Models.CashgameModels.Toplist.CashgameToplistTableModel
 
-<table class="leaderboard" data-require="cashgame-leaderboard">
+<table class="toplist" data-require="cashgame-toplist">
     <thead>
         <tr>
             <th class="base-column"></th>
@@ -16,7 +16,7 @@
     <tbody class="list">
         @foreach(var itemModel in Model.ItemModels)
         {
-            @Html.Partial("Leaderboard/LeaderboardTableItem", itemModel)
+            @Html.Partial("Toplist/ToplistTableItem", itemModel)
         }
     </tbody>
 </table>

@@ -7,13 +7,13 @@ using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Facts;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.Facts;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
 
@@ -26,7 +26,7 @@ namespace Web.ModelServices
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameLeaderboardPageModelFactory _cashgameLeaderboardPageModelFactory;
+        private readonly ICashgameToplistPageModelFactory _cashgameToplistPageModelFactory;
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
@@ -41,7 +41,7 @@ namespace Web.ModelServices
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
-            ICashgameLeaderboardPageModelFactory cashgameLeaderboardPageModelFactory,
+            ICashgameToplistPageModelFactory cashgameToplistPageModelFactory,
             IUrlProvider urlProvider,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
@@ -55,7 +55,7 @@ namespace Web.ModelServices
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
-            _cashgameLeaderboardPageModelFactory = cashgameLeaderboardPageModelFactory;
+            _cashgameToplistPageModelFactory = cashgameToplistPageModelFactory;
             _urlProvider = urlProvider;
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;
@@ -85,13 +85,13 @@ namespace Web.ModelServices
             return _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
         }
 
-        public CashgameLeaderboardPageModel GetLeaderboardModel(string gameName, LeaderboardSortOrder sortOrder, int? year = null)
+        public CashgameToplistPageModel GetToplistModel(string gameName, ToplistSortOrder sortOrder, int? year = null)
         {
             var homegame = _homegameRepository.GetByName(gameName);
             _userContext.RequirePlayer(homegame);
             var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameLeaderboardPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, sortOrder, year);
+            return _cashgameToplistPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, sortOrder, year);
         }
 
         public CashgameDetailsPageModel GetDetailsModel(string gameName, string dateStr)

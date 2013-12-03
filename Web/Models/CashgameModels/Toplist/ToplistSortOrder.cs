@@ -1,6 +1,6 @@
-﻿namespace Web.Models.CashgameModels.Leaderboard
+namespace Web.Models.CashgameModels.Toplist
 {
-    public enum LeaderboardSortOrder
+    public enum ToplistSortOrder
     {
         // ReSharper disable InconsistentNaming
         winnings,

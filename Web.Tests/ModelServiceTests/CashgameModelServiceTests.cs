@@ -11,11 +11,11 @@ using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Facts;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 
 namespace Web.Tests.ModelServiceTests
@@ -47,27 +47,27 @@ namespace Web.Tests.ModelServiceTests
         }
 
         [Test]
-        public void GetLeaderboardModel_Authorized_ReturnsModel()
+        public void GetToplistModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
             GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
-            GetMock<ICashgameLeaderboardPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), LeaderboardSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameLeaderboardPageModel());
+            GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
-            var result = sut.GetLeaderboardModel(slug, LeaderboardSortOrder.winnings);
+            var result = sut.GetToplistModel(slug, ToplistSortOrder.winnings);
 
             Assert.IsNotNull(result);
         }
 
         [Test]
-        public void GetLeaderboardModel_NotAuthorized_ThrowsException()
+        public void GetToplistModel_NotAuthorized_ThrowsException()
         {
             const string slug = "a";
             GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
-            Assert.Throws<AccessDeniedException>(() => sut.GetLeaderboardModel(slug, LeaderboardSortOrder.winnings));
+            Assert.Throws<AccessDeniedException>(() => sut.GetToplistModel(slug, ToplistSortOrder.winnings));
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Web.Tests.ModelServiceTests
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<ICashgameLeaderboardPageModelFactory>().Object,
+                GetMock<ICashgameToplistPageModelFactory>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,

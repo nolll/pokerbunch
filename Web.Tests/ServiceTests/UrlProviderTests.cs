@@ -130,24 +130,26 @@ namespace Web.Tests.ServiceTests{
 		}
 
 		[Test]
-        public void CashgameLeaderboardUrl_WithYear(){
+        public void CashgameToplistUrl_WithYear()
+        {
 			var homegame = GetHomegame();
 			const int year = 2010;
 
             var sut = GetSut();
-            var result = sut.GetCashgameLeaderboardUrl(homegame, year);
+            var result = sut.GetCashgameToplistUrl(homegame, year);
 
-			Assert.AreEqual("/abc/cashgame/leaderboard/2010", result);
+			Assert.AreEqual("/abc/cashgame/toplist/2010", result);
 		}
 
 		[Test]
-        public void CashgameLeaderboardUrl_WithoutYear(){
+        public void CashgameToplistUrl_WithoutYear()
+        {
 			var homegame = GetHomegame();
 
             var sut = GetSut();
-            var result = sut.GetCashgameLeaderboardUrl(homegame, null);
+            var result = sut.GetCashgameToplistUrl(homegame, null);
 
-			Assert.AreEqual("/abc/cashgame/leaderboard", result);
+			Assert.AreEqual("/abc/cashgame/toplist", result);
 		}
 
 		[Test]
@@ -177,7 +179,7 @@ namespace Web.Tests.ServiceTests{
 			const int year = 2010;
 
             var sut = GetSut();
-            var result = sut.GetCashgameListingUrl(homegame, year);
+            var result = sut.GetCashgameListUrl(homegame, year);
 
 			Assert.AreEqual("/abc/cashgame/listing/2010", result);
 		}
@@ -187,7 +189,7 @@ namespace Web.Tests.ServiceTests{
 			var homegame = GetHomegame();
 
             var sut = GetSut();
-            var result = sut.GetCashgameListingUrl(homegame, null);
+            var result = sut.GetCashgameListUrl(homegame, null);
 
 			Assert.AreEqual("/abc/cashgame/listing", result);
 		}

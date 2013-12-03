@@ -45,9 +45,9 @@ namespace Web.ModelFactories.NavigationModelFactories
             {
                 return _urlProvider.GetCashgameMatrixUrl(homegame, year);
             }
-            if (view == "leaderboard")
+            if (view == "toplist")
             {
-                return _urlProvider.GetCashgameLeaderboardUrl(homegame, year);
+                return _urlProvider.GetCashgameToplistUrl(homegame, year);
             }
             if (view == "chart")
             {
@@ -55,7 +55,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             }
             if (view == "listing")
             {
-                return _urlProvider.GetCashgameListingUrl(homegame, year);
+                return _urlProvider.GetCashgameListUrl(homegame, year);
             }
             if (view == "facts")
             {

@@ -42,8 +42,8 @@ namespace Core.Services
         string GetCashgameChartJsonUrl(Homegame homegame, int? year);
         string GetCashgameChartUrl(Homegame homegame, int? year);
         string GetCashgameFactsUrl(Homegame homegame, int? year);
-        string GetCashgameLeaderboardUrl(Homegame homegame, int? year);
-        string GetCashgameListingUrl(Homegame homegame, int? year);
+        string GetCashgameToplistUrl(Homegame homegame, int? year);
+        string GetCashgameListUrl(Homegame homegame, int? year);
         string GetCashgameMatrixUrl(Homegame homegame, int? year);
 
         string GetCashgameBuyinUrl(Homegame homegame, Player player);

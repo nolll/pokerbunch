@@ -19,12 +19,12 @@ namespace Web.Routing{
         public const string CashgameEdit = "/{0}/cashgame/edit/{1}";
         public const string CashgameEnd = "/{0}/cashgame/end";
         public const string CashgameIndex = "/{0}/cashgame/index";
-        public const string CashgameLeaderboard = "/{0}/cashgame/leaderboard";
-        public const string CashgameLeaderboardWithYear = "/{0}/cashgame/leaderboard/{1}";
+        public const string CashgameToplist = "/{0}/cashgame/toplist";
+        public const string CashgameToplistWithYear = "/{0}/cashgame/toplist/{1}";
         public const string CashgameMatrix = "/{0}/cashgame/matrix";
         public const string CashgameMatrixWithYear = "/{0}/cashgame/matrix/{1}";
-        public const string CashgameListing = "/{0}/cashgame/listing";
-        public const string CashgameListingWithYear = "/{0}/cashgame/listing/{1}";
+        public const string CashgameList = "/{0}/cashgame/listing";
+        public const string CashgameListWithYear = "/{0}/cashgame/listing/{1}";
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";

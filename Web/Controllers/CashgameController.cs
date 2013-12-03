@@ -24,7 +24,7 @@ using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 
@@ -123,11 +123,11 @@ namespace Web.Controllers{
 			return View("Matrix/MatrixPage", model);
 		}
 
-        public ActionResult Leaderboard(string gameName, int? year = null)
+        public ActionResult Toplist(string gameName, int? year = null)
         {
-            var sortOrder = GetLeaderboardSortOrder();
-            var model = _cashgameModelService.GetLeaderboardModel(gameName, sortOrder, year);
-			return View("Leaderboard/LeaderboardPage", model);
+            var sortOrder = GetToplistSortOrder();
+            var model = _cashgameModelService.GetToplistModel(gameName, sortOrder, year);
+            return View("Toplist/ToplistPage", model);
 		}
 
 	    public ActionResult Details(string gameName, string dateStr)
@@ -377,7 +377,7 @@ namespace Web.Controllers{
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			_cashgameRepository.DeleteGame(cashgame);
             var date = _timeProvider.Parse(dateStr, homegame.Timezone);
-            var listUrl = _urlProvider.GetCashgameListingUrl(homegame, date.Year);
+            var listUrl = _urlProvider.GetCashgameListUrl(homegame, date.Year);
             return Redirect(listUrl);
 		}
 
@@ -419,19 +419,19 @@ namespace Web.Controllers{
 			return _cashgameFactory.Create(addCashgamePostModel.Location, (int)GameStatus.Running);
 		}
 
-        private LeaderboardSortOrder GetLeaderboardSortOrder()
+        private ToplistSortOrder GetToplistSortOrder()
         {
             var param = _webContext.GetQueryParam("orderby");
             if (param == null)
             {
-                return LeaderboardSortOrder.winnings;
+                return ToplistSortOrder.winnings;
             }
-            LeaderboardSortOrder sortOrder;
+            ToplistSortOrder sortOrder;
             if (Enum.TryParse(param, out sortOrder))
             {
                 return sortOrder;
             }
-            return LeaderboardSortOrder.winnings;
+            return ToplistSortOrder.winnings;
         }
 
 	}

@@ -122,14 +122,14 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.CashgameIndex, homegame);
         }
 
-        public string GetCashgameLeaderboardUrl(Homegame homegame, int? year)
+        public string GetCashgameToplistUrl(Homegame homegame, int? year)
         {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameLeaderboard, RouteFormats.CashgameLeaderboardWithYear, homegame, year);
+            return FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, homegame, year);
         }
 
-        public string GetCashgameListingUrl(Homegame homegame, int? year)
+        public string GetCashgameListUrl(Homegame homegame, int? year)
         {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameListing, RouteFormats.CashgameListingWithYear, homegame, year);
+            return FormatHomegameWithOptionalYear(RouteFormats.CashgameList, RouteFormats.CashgameListWithYear, homegame, year);
         }
 
         public string GetCashgameMatrixUrl(Homegame homegame, int? year)

@@ -5,13 +5,13 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
-using Web.ModelFactories.CashgameModelFactories.Leaderboard;
-using Web.Models.CashgameModels.Leaderboard;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
+using Web.Models.CashgameModels.Toplist;
 using Web.Services;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
+namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
 
-	public class CashgameLeaderboardTableItemModelFactoryTests : MockContainer {
+	public class CashgameToplistTableItemModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
 	    private Player _player;
@@ -29,7 +29,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             var totalResult = new FakeCashgameTotalResult();
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
 			Assert.AreEqual(1, result.Rank);
 		}
@@ -39,7 +39,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             var totalResult = new FakeCashgameTotalResult();
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -55,7 +55,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
 			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
@@ -68,7 +68,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -83,7 +83,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
             Assert.AreEqual(formattedTime, result.GameTime);
 		}
@@ -98,7 +98,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
             GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
 			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
@@ -112,13 +112,13 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Leaderboard{
 		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, LeaderboardSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
 
             Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}
 
-		private CashgameLeaderboardTableItemModelFactory GetSut(){
-			return new CashgameLeaderboardTableItemModelFactory(
+		private CashgameToplistTableItemModelFactory GetSut(){
+			return new CashgameToplistTableItemModelFactory(
                 GetMock<IUrlProvider>().Object,
                 GetMock<IResultFormatter>().Object,
                 GetMock<IGlobalization>().Object);

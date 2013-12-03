@@ -2,13 +2,13 @@ define(["jquery"],
     function ($) {
         "use strict";
 
-        function Leaderboard(el) {
+        function Toplist(el) {
             var me = this;
             me.$el = $(el);
             me.createForm();
         }
 
-        Leaderboard.prototype.createForm = function() {
+        Toplist.prototype.createForm = function () {
             var me = this;
             var $div = $("<div class='sort-order-selector'><label for='sortorder'>Select Data:</label></div>");
             var $dropdown = $("<select id='sortorder' name='sortorder'></select>");
@@ -31,12 +31,12 @@ define(["jquery"],
             });
         };
 
-        Leaderboard.prototype.navigate = function(url) {
+        Toplist.prototype.navigate = function (url) {
             location.href = url;
         };
 
         function init() {
-            return new Leaderboard(this);
+            return new Toplist(this);
         }
 
         return {

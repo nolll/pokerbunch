@@ -13,20 +13,16 @@ using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
-using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Listing;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelMappers;
 using Web.ModelServices;
-using Web.Models.CashgameModels.Leaderboard;
 using ICashgameService = Core.Services.ICashgameService;
 
 namespace Web.Tests.ControllerTests{
@@ -47,11 +43,12 @@ namespace Web.Tests.ControllerTests{
 		}
 
         [Test]
-		public void Leaderboard_Authorized_ShowsCorrectView(){
+        public void Toplist_Authorized_ShowsCorrectView()
+        {
 		    var sut = GetSut();
-            var viewResult = (ViewResult)sut.Leaderboard(Slug);
+            var viewResult = (ViewResult)sut.Toplist(Slug);
 
-			Assert.AreEqual("Leaderboard/LeaderboardPage", viewResult.ViewName);
+            Assert.AreEqual("Toplist/ToplistPage", viewResult.ViewName);
 		}
 
 		[Test]

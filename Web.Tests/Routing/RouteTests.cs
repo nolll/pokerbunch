@@ -45,7 +45,7 @@ namespace Web.Tests.Routing
         [TestCase("/bunchname/cashgame/running", "Cashgame", "Running")]
         [TestCase("/bunchname/cashgame/matrix", "Cashgame", "Matrix")]
         [TestCase("/bunchname/cashgame/facts", "Cashgame", "Facts")]
-        [TestCase("/bunchname/cashgame/leaderboard", "Cashgame", "Leaderboard")]
+        [TestCase("/bunchname/cashgame/toplist", "Cashgame", "Toplist")]
         [TestCase("/bunchname/cashgame/listing", "Cashgame", "Listing")]
         [TestCase("/bunchname/cashgame/chart", "Cashgame", "Chart")]
         [TestCase("/bunchname/cashgame/chartjson", "Cashgame", "ChartJson")]
@@ -65,7 +65,7 @@ namespace Web.Tests.Routing
 
         [TestCase("/bunchname/cashgame/matrix/2000", "Cashgame", "Matrix")]
         [TestCase("/bunchname/cashgame/facts/2000", "Cashgame", "Facts")]
-        [TestCase("/bunchname/cashgame/leaderboard/2000", "Cashgame", "Leaderboard")]
+        [TestCase("/bunchname/cashgame/toplist/2000", "Cashgame", "Toplist")]
         [TestCase("/bunchname/cashgame/listing/2000", "Cashgame", "Listing")]
         [TestCase("/bunchname/cashgame/chart/2000", "Cashgame", "Chart")]
         [TestCase("/bunchname/cashgame/chartjson/2000", "Cashgame", "ChartJson")]
