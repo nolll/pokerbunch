@@ -37,7 +37,8 @@ namespace Web.ModelFactories.PageBaseModelFactories
                 {
                     UserNavModel = _userNavigationModelFactory.Create(user),
 			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
-                    HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null
+                    HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null,
+                    Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
                 };
         }
     }

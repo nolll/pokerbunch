@@ -8,6 +8,7 @@ namespace Web.Models.PageBaseModels
         public NavigationModel UserNavModel { get; set; }
         public HomegameNavigationModel HomegameNavModel { get; set; }
 	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
+        public string Version { get; set; }
 	}
 
 }
