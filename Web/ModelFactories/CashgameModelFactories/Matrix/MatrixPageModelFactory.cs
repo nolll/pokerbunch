@@ -18,6 +18,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	    private readonly IBarModelFactory _barModelFactory;
 	    private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
 	    private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
+	    private readonly IUrlProvider _urlProvider;
 
 	    public MatrixPageModelFactory(
             ICashgameRepository cashgameRepository,
@@ -26,7 +27,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
             ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
             IBarModelFactory barModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
+            IUrlProvider urlProvider)
 	    {
 	        _cashgameRepository = cashgameRepository;
 	        _cashgameService = cashgameService;
@@ -35,12 +37,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	        _barModelFactory = barModelFactory;
 	        _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
 	        _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
+	        _urlProvider = urlProvider;
 	    }
 
 	    public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
             var suite = _cashgameService.GetSuite(homegame, year);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
+	        var gameIsRunning = runningGame != null;
+	        var startGameUrl = !gameIsRunning ? _urlProvider.GetCashgameAddUrl(homegame) : null;
+
 			return new CashgameMatrixPageModel
 			    {
 			        BrowserTitle = "Cashgame Matrix",
@@ -48,7 +54,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.Matrix, year),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Matrix, year),
-                    BarModel = _barModelFactory.Create(homegame, runningGame)
+                    BarModel = _barModelFactory.Create(homegame, runningGame),
+                    GameIsRunning = gameIsRunning,
+                    StartGameUrl = startGameUrl
 			    };
 		}
 

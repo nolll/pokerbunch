@@ -9,6 +9,10 @@
 
 <div class="block gutter">
     @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
+    @if (!Model.GameIsRunning)
+    {
+        <a href="@Model.StartGameUrl">Start game</a>
+    }
 </div>
 <div class="block gutter">
     @Html.Partial("Matrix/MatrixTable", Model.TableModel)

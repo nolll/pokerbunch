@@ -8,7 +8,9 @@ namespace Web.Models.CashgameModels.Matrix{
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public BarModel BarModel { get; set; }
-	    public CashgameMatrixTableModel TableModel { get; set; }
+        public bool GameIsRunning { get; set; }
+        public string StartGameUrl { get; set; }
+        public CashgameMatrixTableModel TableModel { get; set; }
         public CashgamePageNavigationModel PageNavModel { get; set; }
         public CashgameYearNavigationModel YearNavModel { get; set; }
 	}
