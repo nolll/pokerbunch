@@ -104,14 +104,20 @@ nav{
 	overflow: hidden;
 }
 
-.heading-nav{
-	display: inline;
+.heading-nav-container{
 	position: relative;
+	min-height: 19px;
+}
+
+.heading-nav{
+	position: absolute;
+	right: 0;
+	top: 0;
 	background-color: #000;
 	color: #fff;
 	padding: 5px 10px;
 	cursor: pointer;
-	float: right;
+	overflow: visible;
 
 	> ul{
 		display: none;

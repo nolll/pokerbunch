@@ -7,7 +7,7 @@
 @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
 @Html.Partial("~/Views/Cashgame/Running/Bar.cshtml", Model.BarModel)
 
-<div class="block gutter">
+<div class="block gutter heading-nav-container">
     @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
     @if (!Model.GameIsRunning)
     {

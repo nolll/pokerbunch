@@ -25,7 +25,9 @@ define(["jquery"],
                 }
             });
             $div.append($dropdown);
-            me.$el.parent().prepend($div);
+            var containerId = me.$el.attr("data-sort-control-container");
+            var $container = $(document.getElementById(containerId));
+            $container.prepend($div);
             $dropdown.on("change", function() {
                 me.navigate(this.value);
             });
