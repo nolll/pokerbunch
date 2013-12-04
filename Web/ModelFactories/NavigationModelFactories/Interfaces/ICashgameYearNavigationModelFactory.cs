@@ -6,6 +6,6 @@ namespace Web.ModelFactories.NavigationModelFactories
 {
     public interface ICashgameYearNavigationModelFactory
     {
-        CashgameYearNavigationModel Create(Homegame homegame, IList<int> years, int? year = null, string view = null);
+        CashgameYearNavigationModel Create(Homegame homegame, IList<int> years, CashgamePage cashgamePage, int? year = null);
     }
 }

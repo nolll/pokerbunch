@@ -3,6 +3,7 @@ using Core.Classes;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.List;
+using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
@@ -29,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     BrowserTitle = "Cashgame List",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "list", years, year)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.List, years, year)
                 };
         }
     }

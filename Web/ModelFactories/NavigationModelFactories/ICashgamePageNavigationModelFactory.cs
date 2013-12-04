@@ -5,6 +5,6 @@ namespace Web.ModelFactories.NavigationModelFactories
 {
     public interface ICashgamePageNavigationModelFactory
     {
-        CashgamePageNavigationModel Create(Homegame homegame, int? year = null, string view = null);
+        CashgamePageNavigationModel Create(Homegame homegame, CashgamePage cashgamePage, int? year = null);
     }
 }

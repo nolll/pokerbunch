@@ -15,16 +15,16 @@ namespace Web.ModelFactories.NavigationModelFactories
             _urlProvider = urlProvider;
         }
 
-        public CashgameYearNavigationModel Create(Homegame homegame, IList<int> years, int? year = null, string view = null)
+        public CashgameYearNavigationModel Create(Homegame homegame, IList<int> years, CashgamePage cashgamePage, int? year)
         {
             return new CashgameYearNavigationModel
                 {
                     Selected = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : "All Time",
-                    YearModels = GetYearModels(homegame, view, years),
+                    YearModels = GetYearModels(homegame, cashgamePage, years),
                 };
         }
 
-        private List<NavigationYearModel> GetYearModels(Homegame homegame, string view, IList<int> years)
+        private List<NavigationYearModel> GetYearModels(Homegame homegame, CashgamePage cashgamePage, IList<int> years)
         {
             var yearModels = new List<NavigationYearModel>();
             if (years != null)
@@ -32,32 +32,32 @@ namespace Web.ModelFactories.NavigationModelFactories
                 for (var i = 0; i < years.Count; i++)
                 {
                     var year = years[i];
-                    yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, view, year), year.ToString(CultureInfo.InvariantCulture)));
+                    yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage, year), year.ToString(CultureInfo.InvariantCulture)));
                 }
-                yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, view), "All Time"));
+                yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage), "All Time"));
             }
             return yearModels;
         }
 
-        private string GetNavigationUrl(Homegame homegame, string view, int? year = null)
+        private string GetNavigationUrl(Homegame homegame, CashgamePage cashgamePage, int? year = null)
         {
-            if (view == "matrix")
+            if (cashgamePage.Equals(CashgamePage.Matrix))
             {
                 return _urlProvider.GetCashgameMatrixUrl(homegame, year);
             }
-            if (view == "toplist")
+            if (cashgamePage.Equals(CashgamePage.Toplist))
             {
                 return _urlProvider.GetCashgameToplistUrl(homegame, year);
             }
-            if (view == "chart")
+            if (cashgamePage.Equals(CashgamePage.Chart))
             {
                 return _urlProvider.GetCashgameChartUrl(homegame, year);
             }
-            if (view == "list")
+            if (cashgamePage.Equals(CashgamePage.List))
             {
                 return _urlProvider.GetCashgameListUrl(homegame, year);
             }
-            if (view == "facts")
+            if (cashgamePage.Equals(CashgamePage.Facts))
             {
                 return _urlProvider.GetCashgameFactsUrl(homegame, year);
             }

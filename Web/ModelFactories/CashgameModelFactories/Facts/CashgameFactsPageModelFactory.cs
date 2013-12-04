@@ -5,6 +5,7 @@ using Infrastructure.System;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
+using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Facts
 {
@@ -36,7 +37,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 			        GameCount = facts.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(facts.TotalGameTime),
                     TotalTurnover = _globalization.FormatCurrency(homegame.Currency, facts.TotalTurnover),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "facts", years, year)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.Facts, years, year)
                 };
 
             if (facts.BestResult != null)

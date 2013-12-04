@@ -5,6 +5,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
+using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 
@@ -42,7 +43,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 			        BrowserTitle = "Cashgame Matrix",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "matrix", years, year),
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.Matrix, years, year),
                     BarModel = _barModelFactory.Create(homegame, runningGame)
 			    };
 		}

@@ -3,6 +3,7 @@ using Core.Classes;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
+using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
@@ -29,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     BrowserTitle = "Cashgame Toplist",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        TableModel = _cashgameToplistTableModelFactory.Create(homegame, suite, year, sortOrder),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, "toplist", years, year)
+			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.Toplist, years, year)
                 };
         }
 
