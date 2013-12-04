@@ -10,17 +10,20 @@ namespace Web.ModelFactories.CashgameModelFactories.List
     public class CashgameListPageModelFactory : ICashgameListPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
         private readonly ICashgameListTableModelFactory _cashgameListTableModelFactory;
+        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
+        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
 
         public CashgameListPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgameNavigationModelFactory cashgameNavigationModelFactory,
-            ICashgameListTableModelFactory cashgameListTableModelFactory)
+            ICashgameListTableModelFactory cashgameListTableModelFactory,
+            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
             _cashgameListTableModelFactory = cashgameListTableModelFactory;
+            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
+            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
         public CashgameListPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, int? year)
@@ -30,7 +33,8 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     BrowserTitle = "Cashgame List",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.List, years, year)
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.List, year),
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.List, year)
                 };
         }
     }

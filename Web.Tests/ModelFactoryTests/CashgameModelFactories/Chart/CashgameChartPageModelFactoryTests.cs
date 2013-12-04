@@ -46,7 +46,8 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
             return new CashgameChartPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IUrlProvider>().Object,
-                GetMock<ICashgameNavigationModelFactory>().Object);
+                GetMock<ICashgamePageNavigationModelFactory>().Object,
+                GetMock<ICashgameYearNavigationModelFactory>().Object);
 		}
 
 	}

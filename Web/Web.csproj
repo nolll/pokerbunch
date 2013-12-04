@@ -196,14 +196,12 @@
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\CashgameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\CashgameYearNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\IAdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameYearNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\IUserNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\IHomegameNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IHomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerFactsModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerItemModelFactory.cs" />
@@ -232,7 +230,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\CashgamePageNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\ICashgamePageNavigationModelFactory.cs" />
+    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgamePageNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />
@@ -352,7 +350,6 @@
     <Compile Include="Models\HomegameModels\List\HomegameListPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
     <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
-    <Compile Include="Models\NavigationModels\CashgameNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\HomegameNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
@@ -616,7 +613,6 @@
     <Content Include="Views\Cashgame\Running\StatusTable.cshtml" />
     <Content Include="Views\Forms\Errors.cshtml" />
     <Content Include="Views\Forms\ListField.cshtml" />
-    <Content Include="Views\Navigation\CashgameNavigation.cshtml" />
     <Content Include="Views\Navigation\CashgamePageNavigation.cshtml" />
     <Content Include="Views\Navigation\CashgameYearNavigation.cshtml" />
     <Content Include="Views\Misc\Avatar.cshtml" />

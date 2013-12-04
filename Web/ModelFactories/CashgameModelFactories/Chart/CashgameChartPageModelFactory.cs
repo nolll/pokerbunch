@@ -12,16 +12,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUrlProvider _urlProvider;
-        private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
+        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
+        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
 
         public CashgameChartPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IUrlProvider urlProvider,
-            ICashgameNavigationModelFactory cashgameNavigationModelFactory)
+            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
-            _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
+            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
+            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
         public CashgameChartPageModel Create(User user, Homegame homegame, int? year, IList<int> years)
@@ -31,7 +34,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                     BrowserTitle = "Cashgame Chart",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        ChartDataUrl = _urlProvider.GetCashgameChartJsonUrl(homegame, year),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.Chart, years, year)
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.Chart, year),
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Chart, year)
                 };
         }
     }

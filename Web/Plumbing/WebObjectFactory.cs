@@ -157,7 +157,6 @@ namespace Web.Plumbing
             RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
-            RegisterComponent<ICashgameNavigationModelFactory, CashgameNavigationModelFactory>();
             RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>();
             RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>();
             RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>();

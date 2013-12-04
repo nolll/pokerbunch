@@ -12,20 +12,23 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
     public class CashgameFactsPageModelFactory : ICashgameFactsPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly ICashgameNavigationModelFactory _cashgameNavigationModelFactory;
         private readonly IGlobalization _globalization;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
+        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
 
         public CashgameFactsPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgameNavigationModelFactory cashgameNavigationModelFactory,
             IGlobalization globalization,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _cashgameNavigationModelFactory = cashgameNavigationModelFactory;
             _globalization = globalization;
             _playerRepository = playerRepository;
+            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
+            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
         public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null, Cashgame runningGame = null)
@@ -37,7 +40,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 			        GameCount = facts.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(facts.TotalGameTime),
                     TotalTurnover = _globalization.FormatCurrency(homegame.Currency, facts.TotalTurnover),
-			        CashgameNavModel = _cashgameNavigationModelFactory.Create(homegame, CashgamePage.Facts, years, year)
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.Facts, year),
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Facts, year)
                 };
 
             if (facts.BestResult != null)

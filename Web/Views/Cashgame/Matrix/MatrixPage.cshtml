@@ -4,14 +4,11 @@
     Layout = "~/Views/Layouts/OneColumn.cshtml";
 }
 
-@Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.CashgameNavModel.PageNavModel)
+@Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
 @Html.Partial("~/Views/Cashgame/Running/Bar.cshtml", Model.BarModel)
 
 <div class="block gutter">
-    <h1>
-        Matrix
-        @Html.Partial("~/Views/Navigation/CashgameNavigation.cshtml", Model.CashgameNavModel)
-    </h1>
+    @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
 </div>
 <div class="block gutter">
     @Html.Partial("Matrix/MatrixTable", Model.TableModel)

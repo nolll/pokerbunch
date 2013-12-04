@@ -7,7 +7,8 @@ namespace Web.Models.CashgameModels.Facts{
 
 	    public string BrowserTitle { get; set; }
 	    public PageProperties PageProperties { get; set; }
-	    public CashgameNavigationModel CashgameNavModel { get; set; }
+	    public CashgamePageNavigationModel PageNavModel { get; set; }
+        public CashgameYearNavigationModel YearNavModel { get; set; }
 	    public int GameCount { get; set; }
 		public string TotalGameTime { get; set; }
         public string TotalTurnover { get; set; }

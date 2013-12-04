@@ -29,8 +29,9 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
         {
             return new CashgameListPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<ICashgameNavigationModelFactory>().Object,
-                GetMock<ICashgameListTableModelFactory>().Object);
+                GetMock<ICashgameListTableModelFactory>().Object,
+                GetMock<ICashgamePageNavigationModelFactory>().Object,
+                GetMock<ICashgameYearNavigationModelFactory>().Object);
         }
 
 	}

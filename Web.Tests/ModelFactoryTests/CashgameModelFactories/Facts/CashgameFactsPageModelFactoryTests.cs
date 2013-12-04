@@ -153,9 +153,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
 		private CashgameFactsPageModelFactory GetSut(){
             return new CashgameFactsPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<ICashgameNavigationModelFactory>().Object,
                 GetMock<IGlobalization>().Object,
-                GetMock<IPlayerRepository>().Object);
+                GetMock<IPlayerRepository>().Object,
+                GetMock<ICashgamePageNavigationModelFactory>().Object,
+                GetMock<ICashgameYearNavigationModelFactory>().Object);
 		}
 
 	}
