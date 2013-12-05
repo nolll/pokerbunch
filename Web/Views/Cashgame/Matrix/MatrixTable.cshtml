@@ -4,9 +4,9 @@
     <table class="cashgames matrix table-list">
         <thead>
 		    <tr>
-			    <th class="title">Rank</th>
-			    <th class="title">Player</th>
-		        <th class="title">Winnings</th>
+			    <th class="title"><span>Rank</span></th>
+			    <th class="title"><span>Player</span></th>
+		        <th class="title"><span>Winnings</span></th>
                 @foreach (var columnHeaderModel in Model.ColumnHeaderModels)
                 {
                     @Html.Partial("Matrix/MatrixTableColumnHeader", columnHeaderModel)

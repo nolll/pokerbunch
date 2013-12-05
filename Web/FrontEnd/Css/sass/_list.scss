@@ -23,12 +23,18 @@
 
 .table-list{
 	th{
-		padding: 5px;
+		padding: 0;
 		text-align: left;
 		vertical-align: bottom;
 		font-size: 12px;
 		text-transform: uppercase;
 		border-bottom: 1px solid #bbb;
 		font-weight: normal;
+
+		a,
+		span{
+			padding: 10px 5px;
+			display: block;
+		}
 	}
 }
