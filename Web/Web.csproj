@@ -484,7 +484,6 @@
     <Content Include="FrontEnd\Css\sass\tests.scss" />
     <Content Include="FrontEnd\Css\sass\_cashgame-toplist.scss" />
     <Content Include="FrontEnd\Css\sass\_cashgame-matrix.scss" />
-    <Content Include="FrontEnd\Css\sass\_cashgame-meta.scss" />
     <Content Include="FrontEnd\Css\sass\_cashgame-results-form.scss" />
     <Content Include="FrontEnd\Css\sass\_cashgame.scss" />
     <Content Include="FrontEnd\Css\sass\_checkpoint-list.scss" />
