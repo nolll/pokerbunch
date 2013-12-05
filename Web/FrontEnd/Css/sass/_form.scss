@@ -24,15 +24,17 @@ input[type=email]{
 
 button,
 .button{
-    background: #eee;
-    border: 1px solid #666;
+    background: #ddd;
+    border: 1px solid #bbb;
     display:inline-block;
     font-family: arial;
     font-weight: normal;
-    padding: 4px 9px;
+    padding: 6px 10px;
     border-radius: 3px;
 	text-decoration: none;
 	white-space: nowrap;
+	font-size: 12px;
+	text-transform: uppercase;
 }
 
 .icon-button{
