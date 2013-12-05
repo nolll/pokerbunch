@@ -6,7 +6,6 @@ requirejs.config({
         goog: "lib/goog",
         pubsub: "lib/jquery.pubsub",
         metadata: "lib/jquery.metadata",
-        tinynav: "lib/tinynav.min",
         debouncedresize: "lib/jquery.debouncedresize"
     },
     shim: {
@@ -14,9 +13,6 @@ requirejs.config({
             deps: ["jquery"]
         },
         "metadata": {
-            deps: ["jquery"]
-        },
-        "tinynav": {
             deps: ["jquery"]
         },
         "debouncedresize": {
