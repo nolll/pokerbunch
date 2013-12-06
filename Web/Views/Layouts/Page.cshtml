@@ -1,4 +1,5 @@
-﻿@model Web.Models.PageBaseModels.IPageModel
+﻿@using System.Web.Optimization
+@model Web.Models.PageBaseModels.IPageModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +13,7 @@
         <meta name="keywords" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/FrontEnd/Css/compiled/style.css?v=@Model.PageProperties.Version" rel="stylesheet" />
+        @* @Styles.Render("~/css") *@
         <link rel="shortcut icon" href="/favicon.ico" />
     </head>
 
