@@ -24,7 +24,6 @@ namespace Web
 
             AreaRegistration.RegisterAllAreas();
 
-            BundleTable.EnableOptimizations = true;
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

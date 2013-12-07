@@ -1,44 +1,31 @@
+@import "constants";
+@import "mixins";
+@import "mediaqueries";
+
 html{
     overflow-y: auto;
 }
 
 body{
-	background:#fff;
-    color:$textColor;
+	background: #fff;
+    color: @textColor;
     font-family:arial, verdana;
-	@media #{$widthSmall} {
-		margin-bottom: 15px;
-		background:#fff;
-	}
-	@media #{$widthXLarge} {
-		@include fontsize(18);
-	}
 }
 
 .page-header{
-	background: $greenBg;
+	background: @greenBg;
 	padding: 15px 15px 0 15px;
 }
 
 .logo{
 	display: none;
-	@media #{$widthSmall} {
-		display: block;
-		padding: 0 0 15px 0;
-	}
-	@media #{$widthLarge} {
-		margin-left: 0px;
-	}
-
+	
 	a{
 		color:#000;
 		display:inline-block;
 		text-decoration:none;
 		font-size: 1em;
 		text-transform: lowercase;
-		@media #{$widthXSmall} {
-			@include fontsize(24);
-		}
 	}
 }
 
@@ -66,20 +53,13 @@ a{
 h1{
 	margin:0;
 	font-weight:normal;
-	@include fontsize(18);
-	@include lineheight(24);
-	@media #{$widthXSmall} {
-		@include fontsize(22);
-		@include lineheight(28);
-	}
+	.fontsize(18);
+	.lineheight(24);
 }
 
 h2{
 	font-weight:normal;
-	@include fontsize(16);
-	@media #{$widthXSmall} {
-		@include fontsize(18);
-	}
+	.fontsize(16);
 }
 
 h3{
@@ -97,4 +77,43 @@ dl{
 
 p{
 	margin: 0 0 1em 0;
+}
+
+@media @widthXSmall {
+    .logo a{
+        .fontsize(24);
+    }
+
+    h1 {
+        .fontsize(22);
+	    .lineheight(28);
+    }
+
+    h2 {
+        .fontsize(18);
+    }
+}
+
+@media @widthSmall {
+	body{
+		margin-bottom: 15px;
+		background:#fff;
+	}
+
+    .logo {
+        display: block;
+	    padding: 0 0 15px 0;
+    }
+}
+
+@media @widthLarge {
+    .logo {
+        margin-left: 0px;
+    }
+}
+
+@media @widthXLarge {
+	body{
+		.fontsize(18);
+	}
 }

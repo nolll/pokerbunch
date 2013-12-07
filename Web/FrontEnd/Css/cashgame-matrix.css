@@ -1,0 +1,22 @@
+﻿.matrix-container {
+  overflow: auto;
+}
+.matrix tr {
+  border-bottom: 1px solid #ddd;
+}
+.matrix td span {
+  display: block;
+}
+.matrix td .transaction {
+  font-size: 0.75em;
+}
+.matrix .date-header {
+  text-align: center;
+}
+.matrix .date-header a {
+  color: #444;
+  font-weight: normal;
+}
+.matrix .winner {
+  background: #ddd;
+}

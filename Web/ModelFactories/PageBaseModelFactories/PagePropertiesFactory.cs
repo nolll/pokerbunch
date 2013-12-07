@@ -33,12 +33,16 @@ namespace Web.ModelFactories.PageBaseModelFactories
 
         public PageProperties Create(User user, Homegame homegame)
         {
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
             return new PageProperties
                 {
                     UserNavModel = _userNavigationModelFactory.Create(user),
 			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
                     HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null,
-                    Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                    Version = version,
+                    CssUrl = BundleConfig.CssUrl
+                    //CssUrl = string.Format("/-/css/{0}", version.Replace(".", "-"))
                 };
         }
     }

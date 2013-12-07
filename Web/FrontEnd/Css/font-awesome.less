@@ -21,18 +21,22 @@
  *  Work: Lead Product Designer @ http://kyruus.com
  */
 
-$fontAwesomePath:   "/FrontEnd/Font" !default;
-$borderColor:       #eee;
-$iconMuted:         #eee;
-@mixin border-radius($radius) { -webkit-border-radius: $radius; -moz-border-radius: $radius; border-radius: $radius; }
+@borderColor:       #eee;
+@iconMuted:         #eee;
+
+.border-radius(@radius) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
 
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?v=3.0.1');
-  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"),
-    url('#{$fontAwesomePath}/fontawesome-webfont.woff?v=3.0.1') format("woff"),
-    url('#{$fontAwesomePath}/fontawesome-webfont.ttf?v=3.0.1') format("truetype");
+  src: url('/FrontEnd/Font/fontawesome-webfont.eot?v=3.0.1');
+  src: url('/FrontEnd/Font/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"),
+    url('/FrontEnd/Font/fontawesome-webfont.woff?v=3.0.1') format("woff"),
+    url('/FrontEnd/Font/fontawesome-webfont.ttf?v=3.0.1') format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -141,16 +145,16 @@ ul.icons {
 }
 
 .icon-muted {
-  color: $iconMuted;
+  color: @iconMuted;
 }
 
 // Icon Borders
 // -------------------------
 
 .icon-border {
-  border: solid 1px $borderColor;
+  border: solid 1px @borderColor;
   padding: .2em .25em .15em;
-  @include border-radius(3px);
+  .border-radius(3px);
 }
 
 // Icon Sizes
@@ -160,21 +164,21 @@ ul.icons {
   font-size: 2em;
   &.icon-border {
     border-width: 2px;
-    @include border-radius(4px);
+    .border-radius(4px);
   }
 }
 .icon-3x {
   font-size: 3em;
   &.icon-border {
     border-width: 3px;
-    @include border-radius(5px);
+    .border-radius(5px);
   }
 }
 .icon-4x {
   font-size: 4em;
   &.icon-border {
     border-width: 4px;
-    @include border-radius(6px);
+    .border-radius(6px);
   }
 }
 

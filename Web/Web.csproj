@@ -399,11 +399,40 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="favicon.ico" />
+    <Content Include="FrontEnd\Css\cashgame-matrix.css">
+      <DependentUpon>cashgame-matrix.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\cashgame-toplist.css">
+      <DependentUpon>cashgame-toplist.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\cashgame.css">
+      <DependentUpon>cashgame.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\clearfix.css">
+      <DependentUpon>clearfix.less</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\compiled\font-awesome.css" />
     <Content Include="FrontEnd\Css\compiled\style.css" />
-    <Content Include="FrontEnd\Css\compiled\tests.css" />
-    <Content Include="FrontEnd\Css\less\test.css">
-      <DependentUpon>test.less</DependentUpon>
+    <Content Include="FrontEnd\Css\constants.css">
+      <DependentUpon>constants.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\font-awesome.css">
+      <DependentUpon>font-awesome.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\grid.css">
+      <DependentUpon>grid.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\mediaqueries.css">
+      <DependentUpon>mediaqueries.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\mixins.css">
+      <DependentUpon>mixins.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\normalize.css">
+      <DependentUpon>normalize.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\site.css">
+      <DependentUpon>site.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
     <Content Include="FrontEnd\Images\black_leather.png" />
@@ -500,26 +529,25 @@
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
     <Content Include="FrontEnd\Css\sass\style.scss" />
-    <Content Include="FrontEnd\Css\sass\tests.scss" />
-    <Content Include="FrontEnd\Css\sass\_cashgame-toplist.scss" />
-    <Content Include="FrontEnd\Css\sass\_cashgame-matrix.scss" />
+    <None Include="FrontEnd\Css\cashgame-toplist.less" />
+    <None Include="FrontEnd\Css\cashgame-matrix.less" />
     <Content Include="FrontEnd\Css\sass\_cashgame-results-form.scss" />
-    <Content Include="FrontEnd\Css\sass\_cashgame.scss" />
+    <None Include="FrontEnd\Css\cashgame.less" />
     <Content Include="FrontEnd\Css\sass\_checkpoint-list.scss" />
-    <Content Include="FrontEnd\Css\sass\_clearfix.scss" />
+    <None Include="FrontEnd\Css\clearfix.less" />
     <Content Include="FrontEnd\Css\sass\_facts.scss" />
-    <Content Include="FrontEnd\Css\sass\_font-awesome.scss" />
+    <None Include="FrontEnd\Css\font-awesome.less" />
     <Content Include="FrontEnd\Css\sass\_form.scss" />
-    <Content Include="FrontEnd\Css\sass\_grid.scss" />
+    <None Include="FrontEnd\Css\grid.less" />
     <Content Include="FrontEnd\Css\sass\_icon.scss" />
     <Content Include="FrontEnd\Css\sass\_list.scss" />
     <Content Include="FrontEnd\Css\sass\_mixins.scss" />
     <Content Include="FrontEnd\Css\sass\_nav.scss" />
-    <Content Include="FrontEnd\Css\sass\_normalize.scss" />
+    <None Include="FrontEnd\Css\normalize.less" />
     <Content Include="FrontEnd\Css\sass\_player.scss" />
     <Content Include="FrontEnd\Css\sass\_print.scss" />
     <Content Include="FrontEnd\Css\sass\_running-game.scss" />
-    <Content Include="FrontEnd\Css\sass\_site.scss" />
+    <None Include="FrontEnd\Css\site.less" />
     <Content Include="FrontEnd\Css\sass\_standings.scss" />
     <Content Include="FrontEnd\Css\sass\_variables.scss" />
     <Content Include="FrontEnd\Font\fontawesome-webfont.eot" />
@@ -581,7 +609,9 @@
     <Compile Include="Controllers\SharingController.cs" />
     <Compile Include="Models\SharingModels\SharingIndexPageModel.cs" />
     <Compile Include="Models\SharingModels\SharingTwitterPageModel.cs" />
-    <Content Include="FrontEnd\Css\less\test.less" />
+    <Content Include="FrontEnd\Css\mediaqueries.less" />
+    <None Include="FrontEnd\Css\constants.less" />
+    <None Include="FrontEnd\Css\mixins.less" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch - Web Deploy.pubxml" />

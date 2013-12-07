@@ -1,0 +1,45 @@
+@import "mediaqueries";
+
+.block{
+	margin-top: 15px;
+}
+.gutter{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.region,
+.region.width1,
+.region.width2,
+.region.width3{
+	width:100%;
+}
+
+.region,
+.region.width3{
+	float:left;
+}
+
+@media @widthSmall {
+	.region .gutter{
+		margin-right: 0;
+	}
+	.region.aside1 .gutter,
+	.region.aside2 .gutter,
+	.region.width3 .gutter{
+		margin-right: 15px;
+	}
+    .region.width1{
+        width:33%;
+    }
+    .region.width2{
+    	float:left;
+	    width:67%;
+    }
+    .region.width1.aside1{
+	    float: right;
+    }
+    .region.width1.aside2{
+		float: left;
+    }
+}

@@ -1,0 +1,92 @@
+﻿html {
+  overflow-y: auto;
+}
+body {
+  background: #fff;
+  color: #444444;
+  font-family: arial, verdana;
+}
+.page-header {
+  background: url(/FrontEnd/Images/whiteygreen.png) repeat scroll 0 0 transparent;
+  padding: 15px 15px 0 15px;
+}
+.logo {
+  display: none;
+}
+.logo a {
+  color: #000;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1em;
+  text-transform: lowercase;
+}
+.main {
+  position: relative;
+  background: #fff;
+  margin-bottom: 15px;
+}
+.main .has-nav {
+  padding-top: 40px;
+}
+footer .content {
+  padding: 0 15px;
+  position: relative;
+}
+a {
+  color: #444;
+}
+h1 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 1.125em;
+  line-height: 1.5em;
+}
+h2 {
+  font-weight: normal;
+  font-size: 1em;
+}
+h3 {
+  font-size: 1em;
+}
+td,
+th {
+  white-space: nowrap;
+}
+dl {
+  margin: 0;
+}
+p {
+  margin: 0 0 1em 0;
+}
+@media only screen and (min-width : 480px) {
+  .logo a {
+    font-size: 1.5em;
+  }
+  h1 {
+    font-size: 1.375em;
+    line-height: 1.75em;
+  }
+  h2 {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width : 600px) {
+  body {
+    margin-bottom: 15px;
+    background: #fff;
+  }
+  .logo {
+    display: block;
+    padding: 0 0 15px 0;
+  }
+}
+@media only screen and (min-width : 960px) {
+  .logo {
+    margin-left: 0px;
+  }
+}
+@media only screen and (min-width : 1382px) {
+  body {
+    font-size: 1.125em;
+  }
+}

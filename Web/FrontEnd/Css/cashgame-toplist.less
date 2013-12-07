@@ -1,3 +1,5 @@
+@import "mediaqueries";
+
 .toplist{
 	margin: 15px 0;
 
@@ -15,10 +17,6 @@
 	td{
 		display: none;
 		padding: 5px;
-		@media #{$widthSmall} {
-			display: block;
-			display: table-cell;
-		}
 	}
 
 	.base-column,
@@ -66,8 +64,16 @@
 	}
 }
 
-@media #{$widthSmall} {
-	.sort-order-selector{
+@media @widthSmall {
+    .toplist{
+        th,
+        td{
+            display: block;
+			display: table-cell;
+        }
+    }
+
+    .sort-order-selector{
 		display: none;
 	}
 }
