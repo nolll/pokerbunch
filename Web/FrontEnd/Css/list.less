@@ -1,3 +1,5 @@
+@import "mixins";
+
 .list > :nth-child(odd) {
 	background: #eee;
 }
@@ -13,7 +15,7 @@
 
 .value-list{
 	dt{
-		font-size: 12px;
+		.fontsize(12);
 		text-transform: uppercase;
 	}
 	dd{
@@ -26,7 +28,7 @@
 		padding: 0;
 		text-align: left;
 		vertical-align: bottom;
-		font-size: 12px;
+		.fontsize(12);
 		text-transform: uppercase;
 		border-bottom: 1px solid #bbb;
 		font-weight: normal;

@@ -1,3 +1,5 @@
+@import "mixins";
+
 fieldset{
     border: 0;
     margin: 0;
@@ -33,20 +35,20 @@ button,
     border-radius: 3px;
 	text-decoration: none;
 	white-space: nowrap;
-	font-size: 12px;
+	.fontsize(12);
 	text-transform: uppercase;
 }
 
 .icon-button{
 	display:inline-block;
 	font-family: arial;
-	font-size: 10px;
+	.fontsize(10);
 	padding: 4px 9px;
 	text-align: center;
 
 	i{
 		display: block;
-		font-size: 28px;
+		.fontsize(28, 10);
 	}
 }
 

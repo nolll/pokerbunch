@@ -92,7 +92,7 @@ nav .selected {
   position: absolute;
   right: 0;
   z-index: 10;
-  font-size: 16px;
+  font-size: 1em;
   background: #000;
 }
 .heading-nav > ul > li {

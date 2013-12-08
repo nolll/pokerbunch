@@ -30,19 +30,19 @@ button,
   border-radius: 3px;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 0.75em;
   text-transform: uppercase;
 }
 .icon-button {
   display: inline-block;
   font-family: arial;
-  font-size: 10px;
+  font-size: 0.625em;
   padding: 4px 9px;
   text-align: center;
 }
 .icon-button i {
   display: block;
-  font-size: 28px;
+  font-size: 2.8em;
 }
 .buttons {
   margin-top: 15px;
