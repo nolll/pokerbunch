@@ -1,0 +1,136 @@
+﻿nav {
+  font-family: arial;
+  overflow: hidden;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+nav h2 {
+  margin: 0;
+}
+nav a {
+  text-decoration: none;
+}
+nav .selected {
+  font-weight: bold;
+}
+.user-nav {
+  background-color: #414141;
+  padding: 15px 0;
+  border-top: 10px solid #818181;
+}
+.user-nav ul {
+  padding: 0;
+}
+.user-nav li {
+  float: left;
+  margin: 0 0 0 1em;
+}
+.user-nav h2 {
+  display: none;
+}
+.user-nav a {
+  color: #fff;
+}
+.game-nav {
+  padding: 0 0 15px 0;
+}
+.game-nav h2 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.game-nav li {
+  margin: 0 15px 0 0;
+  float: left;
+}
+.game-nav a {
+  color: #000;
+}
+.game-nav .running-game-link {
+  color: #000;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: bottom;
+}
+.game-nav .running-game-link > span {
+  display: none;
+}
+.game-nav .start-game-link {
+  color: #000;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  vertical-align: bottom;
+}
+.game-nav .start-game-link > span {
+  display: none;
+}
+.content-nav {
+  background: #ddd;
+  border-bottom: 1px solid #bbb;
+  overflow: hidden;
+}
+.heading-nav-container {
+  position: relative;
+  min-height: 19px;
+}
+.heading-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  overflow: visible;
+}
+.heading-nav > ul {
+  display: none;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  font-size: 16px;
+  background: #000;
+}
+.heading-nav > ul > li {
+  padding: 7px 12px;
+}
+.heading-nav > ul > li > a {
+  display: block;
+  white-space: nowrap;
+  color: #fff;
+}
+.cashgame-nav li {
+  float: left;
+  margin-right: 5px;
+}
+.admin-nav {
+  margin-bottom: 15px;
+}
+.admin-nav h2 {
+  display: none;
+}
+.admin-nav li {
+  margin: 0 15px 0 0;
+  float: left;
+}
+.admin-nav a {
+  color: red;
+}
+@media only screen and (min-width : 600px) {
+  .user-nav {
+    background-color: transparent;
+    border-top: none;
+    padding: 0 15px;
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 1em;
+  }
+  .user-nav a {
+    color: #000;
+  }
+}

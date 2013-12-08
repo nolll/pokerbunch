@@ -1,0 +1,126 @@
+@import "mediaqueries";
+
+.cashgame-result-form-row{
+	overflow:hidden;
+	padding-bottom:15px;
+
+	.name,
+	.empty-cell,
+	.buyin,
+	.cashout,
+	.winnings,
+	.save,
+	.remove,
+	.buyin-sum,
+	.cashout-sum{
+		padding: 2px;
+	}
+
+	.empty-cell{
+		display:none;
+	}
+
+	.buyin{
+		float:left;
+	}
+
+	.cashout{
+		float:left;
+	}
+
+	.winnings{
+		float:left;
+		padding-top: 6px;
+	}
+
+	.save{
+		clear:left;
+		float:left;
+	}
+
+	.remove{
+		float:left;
+	}
+
+	.buyin-sum,
+	.cashout-sum{
+		float: left;
+	}
+
+	.buyin-sum:before{
+		content:"in: ";
+	}
+
+	.cashout-sum:before{
+		content:"out: ";
+	}
+
+}
+
+@media @widthSmall {
+	.cashgame-result-form{
+		display: table;
+	}
+
+    .cashgame-result-form-row {
+        display: table-row;
+        padding: 0;
+
+		.name,
+        .empty-cell,
+        .buyin,
+        .cashout,
+        .winnings,
+        .save,
+        .remove,
+        .buyin-sum,
+        .cashout-sum {
+            display: table-cell;
+            white-space: nowrap;
+        }
+
+		.empty-cell{
+			display:table-cell;
+		}
+
+		.buyin{
+			float:none;
+		}
+
+		.cashout{
+			float:none;
+		}
+
+		.winnings{
+			float:none;
+			padding-right: 10px;
+			padding-top: 0;
+			text-align: right;
+		}
+
+		.save{
+			float:none;
+		}
+
+		.remove{
+			float:none;
+		}
+
+		.buyin-sum,
+		.cashout-sum{
+			float: none;
+			text-align: right;
+			padding-right: 12px;
+			padding-bottom: 8px;
+		}
+
+		.buyin-sum:before{
+			content:"";
+		}
+
+		.cashout-sum:before{
+			content:"";
+		}
+    }
+}
+

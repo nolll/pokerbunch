@@ -1,0 +1,13 @@
+﻿.bar {
+  background: #ddd;
+  border-bottom: 1px solid #bbb;
+  padding: 0 10px;
+}
+.bar a {
+  display: block;
+  padding: 10px 5px;
+}
+.bar.running-game {
+  background: gold;
+  border-color: goldenrod;
+}

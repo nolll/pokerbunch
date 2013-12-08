@@ -41,7 +41,7 @@ namespace Web.ModelFactories.PageBaseModelFactories
 			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
                     HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null,
                     Version = version,
-                    CssUrl = BundleConfig.CssUrl
+                    CssUrl = BundleConfig.BundleUrl
                     //CssUrl = string.Format("/-/css/{0}", version.Replace(".", "-"))
                 };
         }

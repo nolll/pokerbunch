@@ -6,20 +6,31 @@ namespace Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            var lessBundle = new StyleBundle(CssUrl).Include(
-                "~/FrontEnd/Css/normalize.css",
-                "~/FrontEnd/Css/clearfix.css",
-                "~/FrontEnd/Css/grid.css",
-                "~/FrontEnd/Css/site.css",
-                "~/FrontEnd/Css/font-awesome.css",
-                "~/FrontEnd/Css/cashgame.css",
-                "~/FrontEnd/Css/cashgame-toplist.css",
-                "~/FrontEnd/Css/cashgame-matrix.css");
+            var lessBundle = new StyleBundle(BundleUrl).Include(
+                GetCssUrl("normalize"),
+                GetCssUrl("clearfix"),
+                GetCssUrl("grid"),
+                GetCssUrl("site"),
+                GetCssUrl("font-awesome"),
+                GetCssUrl("cashgame"),
+                GetCssUrl("cashgame-toplist"),
+                GetCssUrl("cashgame-matrix"),
+                GetCssUrl("cashgame-results-form"),
+                GetCssUrl("running-game"),
+                GetCssUrl("standings"),
+                GetCssUrl("facts"),
+                GetCssUrl("player"),
+                GetCssUrl("nav"),
+                GetCssUrl("form"),
+                GetCssUrl("list"),
+                GetCssUrl("icon"),
+                GetCssUrl("checkpoint-list"),
+                GetCssUrl("print"));
             lessBundle.Transforms.Add(new CssMinify());
             bundles.Add(lessBundle);
         }
 
-        public static string CssUrl
+        public static string BundleUrl
         {
             get
             {
@@ -27,5 +38,11 @@ namespace Web
                 return string.Format("~/-/css/{0}", version.Replace(".", "-"));
             }
         }
+
+        private static string GetCssUrl(string cssName)
+        {
+            return string.Format("~/FrontEnd/Css/{0}.css", cssName);
+        }
+
     }
 }

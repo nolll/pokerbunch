@@ -1,3 +1,5 @@
+@import "mediaqueries";
+
 .standings{
 	.totals{
 		margin-top:20px;
@@ -14,10 +16,6 @@
 		width:55%;
 		div{
 			text-align: right;
-			@media #{$widthXSmall} {
-				float:left;
-				margin-right:10px;
-			}
 		}
 	}
 }
@@ -44,4 +42,15 @@
 		margin-right: 10px;
 	}
 
+}
+
+@media @widthXSmall {
+	.standings{
+		.amounts{
+			div{
+				float:left;
+				margin-right:10px;
+			}
+		}
+	}
 }
