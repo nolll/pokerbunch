@@ -379,19 +379,19 @@ namespace Web.Tests.ServiceTests{
             var player = new FakePlayer(displayName: "a");
 
             var sut = GetSut();
-            var result = sut.GetPlayerDetailsUrl(homegame, player);
+            var result = sut.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName);
 
 			Assert.AreEqual("/abc/player/details/a", result);
 		}
 
 		[Test]
         public void PlayerIndexUrl(){
-			var homegame = GetHomegame();
+			const string slug = "a";
 
             var sut = GetSut();
-            var result = sut.GetPlayerIndexUrl(homegame);
+            var result = sut.GetPlayerIndexUrl(slug);
 
-			Assert.AreEqual("/abc/player/index", result);
+			Assert.AreEqual("/a/player/index", result);
 		}
 
 		[Test]
@@ -585,14 +585,14 @@ namespace Web.Tests.ServiceTests{
 
         [Test]
 	    public void GetPlayerInviteConfirmationUrl()
-	    {
-            var homegame = GetHomegame();
-            var player = new FakePlayer(displayName: "a");
+        {
+            const string slug = "a";
+            const string playerName = "b";
 
             var sut = GetSut();
-            var result = sut.GetPlayerInviteConfirmationUrl(homegame, player);
+            var result = sut.GetPlayerInviteConfirmationUrl(slug, playerName);
 
-            Assert.AreEqual("/abc/player/invited/a", result);
+            Assert.AreEqual("/a/player/invited/b", result);
 	    }
 
         [Test]

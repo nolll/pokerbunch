@@ -20,7 +20,7 @@ namespace Web.ModelFactories.NavigationModelFactories
                     Heading = homegame.DisplayName,
 			        HeadingLink = _urlProvider.GetHomegameDetailsUrl(homegame),
 			        CashgameLink = _urlProvider.GetCashgameIndexUrl(homegame),
-                    PlayerLink = _urlProvider.GetPlayerIndexUrl(homegame)
+                    PlayerLink = _urlProvider.GetPlayerIndexUrl(homegame.Slug)
                 };
         }
     }

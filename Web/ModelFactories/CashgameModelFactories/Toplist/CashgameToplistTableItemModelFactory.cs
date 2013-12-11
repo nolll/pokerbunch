@@ -43,7 +43,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.winrate),
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
-                    PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame, player)
+                    PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName)
                 };
         }
 

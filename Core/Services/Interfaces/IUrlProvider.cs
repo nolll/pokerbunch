@@ -35,9 +35,9 @@ namespace Core.Services
         string GetHomegameEditUrl(Homegame homegame);
         string GetHomegameJoinConfirmationUrl(Homegame homegame);
         string GetPlayerAddUrl(Homegame homegame);
-        string GetPlayerIndexUrl(Homegame homegame);
+        string GetPlayerIndexUrl(string slug);
         string GetRunningCashgameUrl(Homegame homegame);
-        string GetPlayerAddConfirmationUrl(Homegame homegame);
+        string GetPlayerAddConfirmationUrl(string slug);
         
         string GetCashgameChartJsonUrl(Homegame homegame, int? year);
         string GetCashgameChartUrl(Homegame homegame, int? year);
@@ -49,9 +49,9 @@ namespace Core.Services
         string GetCashgameBuyinUrl(Homegame homegame, Player player);
         string GetCashgameCashoutUrl(Homegame homegame, Player player);
         string GetCashgameReportUrl(Homegame homegame, Player player);
-        string GetPlayerInviteConfirmationUrl(Homegame homegame, Player player);
+        string GetPlayerInviteConfirmationUrl(string slug, string playerName);
         string GetPlayerDeleteUrl(Homegame homegame, Player player);
-        string GetPlayerDetailsUrl(Homegame homegame, Player player);
+        string GetPlayerDetailsUrl(string slug, string playerName);
         string GetPlayerInviteUrl(Homegame homegame, Player player);
 
         string GetCashgameDeleteUrl(Homegame homegame, Cashgame cashgame);

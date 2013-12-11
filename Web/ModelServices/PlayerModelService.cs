@@ -1,5 +1,6 @@
 ﻿using Core.Classes;
 using Core.Repositories;
+using Core.Services;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
@@ -20,7 +21,9 @@ namespace Web.ModelServices
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserContext _userContext;
+        private readonly IAuthentication _authentication;
+        private readonly IAuthorization _authorization;
+        private readonly IHomegameRepository _homegameRepository;
 
         public PlayerModelService(
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
@@ -32,7 +35,9 @@ namespace Web.ModelServices
             IPlayerRepository playerRepository,
             IUserRepository userRepository,
             ICashgameRepository cashgameRepository,
-            IUserContext userContext)
+            IAuthentication authentication,
+            IAuthorization authorization,
+            IHomegameRepository homegameRepository)
         {
             _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
             _playerListPageModelFactory = playerListPageModelFactory;
@@ -43,45 +48,53 @@ namespace Web.ModelServices
             _playerRepository = playerRepository;
             _userRepository = userRepository;
             _cashgameRepository = cashgameRepository;
-            _userContext = userContext;
+            _authentication = authentication;
+            _authorization = authorization;
+            _homegameRepository = homegameRepository;
         }
 
-        public PlayerListPageModel GetListModel(Homegame homegame)
+        public PlayerListPageModel GetListModel(string slug)
         {
-            var isInManagerMode = _userContext.IsInRole(homegame, Role.Manager);
+            var homegame = _homegameRepository.GetByName(slug);
+            var isInManagerMode = _authorization.IsInRole(homegame, Role.Manager);
             var players = _playerRepository.GetList(homegame);
-            return _playerListPageModelFactory.Create(_userContext.GetUser(), homegame, players, isInManagerMode);
+            return _playerListPageModelFactory.Create(_authentication.GetUser(), homegame, players, isInManagerMode);
         }
 
-        public PlayerDetailsPageModel GetDetailsModel(Homegame homegame, string playerName)
+        public PlayerDetailsPageModel GetDetailsModel(string slug, string playerName)
         {
-            var currentUser = _userContext.GetUser();
+            var currentUser = _authentication.GetUser();
+            var homegame = _homegameRepository.GetByName(slug);
             var player = _playerRepository.GetByName(homegame, playerName);
             var user = _userRepository.GetById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
-            var isManager = _userContext.IsInRole(homegame, Role.Manager);
+            var isManager = _authorization.IsInRole(homegame, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);
             return _playerDetailsPageModelFactory.Create(currentUser, homegame, player, user, cashgames, isManager, hasPlayed);
         }
 
-        public AddPlayerPageModel GetAddModel(Homegame homegame, AddPlayerPostModel postModel)
+        public AddPlayerPageModel GetAddModel(string slug, AddPlayerPostModel postModel)
         {
-            return _addPlayerPageModelFactory.Create(_userContext.GetUser(), homegame, postModel);
+            var homegame = _homegameRepository.GetByName(slug);
+            return _addPlayerPageModelFactory.Create(_authentication.GetUser(), homegame, postModel);
         }
 
-        public AddPlayerConfirmationPageModel GetAddConfirmationModel(Homegame homegame)
+        public AddPlayerConfirmationPageModel GetAddConfirmationModel(string slug)
         {
-            return _addPlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame);
+            var homegame = _homegameRepository.GetByName(slug);
+            return _addPlayerConfirmationPageModelFactory.Create(_authentication.GetUser(), homegame);
         }
 
-        public InvitePlayerPageModel GetInviteModel(Homegame homegame)
+        public InvitePlayerPageModel GetInviteModel(string slug)
         {
-            return _invitePlayerPageModelFactory.Create(_userContext.GetUser(), homegame);
+            var homegame = _homegameRepository.GetByName(slug);
+            return _invitePlayerPageModelFactory.Create(_authentication.GetUser(), homegame);
         }
 
-        public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(Homegame homegame)
+        public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(string slug)
         {
-            return _invitePlayerConfirmationPageModelFactory.Create(_userContext.GetUser(), homegame);
+            var homegame = _homegameRepository.GetByName(slug);
+            return _invitePlayerConfirmationPageModelFactory.Create(_authentication.GetUser(), homegame);
         }
 
     }

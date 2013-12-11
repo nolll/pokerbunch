@@ -85,7 +85,8 @@ namespace Web.Plumbing
             RegisterComponent<ITwitterRepository, TwitterRepository>();
             RegisterComponent<ISharingRepository, SharingRepository>();
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
-            RegisterComponent<IUserContext, UserContext>();
+            RegisterComponent<IAuthentication, Authentication>();
+            RegisterComponent<IAuthorization, Authorization>();
 
             // System
             RegisterComponent<IWebContext, WebContext>();

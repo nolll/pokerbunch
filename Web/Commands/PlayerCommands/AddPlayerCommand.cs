@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Core.Classes;
+﻿using Core.Classes;
 using Core.Repositories;
 using Web.Models.PlayerModels.Add;
 

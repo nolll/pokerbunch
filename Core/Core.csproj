@@ -98,7 +98,7 @@
   <ItemGroup>
     <Compile Include="Repositories\ISharingRepository.cs" />
     <Compile Include="Repositories\ITwitterRepository.cs" />
-    <Compile Include="Repositories\IUserContext.cs" />
+    <Compile Include="Services\Interfaces\IAuthentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\NotLoggedInException.cs" />
@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Services\CashgameService.cs" />
+    <Compile Include="Services\Authorization.cs" />
+    <Compile Include="Services\IAuthorization.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\EncryptionService.cs" />

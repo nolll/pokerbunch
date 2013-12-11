@@ -16,7 +16,6 @@ using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
-using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Report;
@@ -62,7 +61,7 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void ActionAction_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(Slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -78,7 +77,7 @@ namespace Web.Tests.ControllerTests{
 		    var cashgameResult = new FakeCashgameResult();
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(user);
+            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
             GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
 
@@ -89,9 +88,9 @@ namespace Web.Tests.ControllerTests{
 		}
 
         [Test]
-		public void ActionBuyin_NotAuthorized_ThrowsException(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+		public void ActionBuyin_NotAuthorized_ThrowsException()
+        {
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(Slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -110,7 +109,7 @@ namespace Web.Tests.ControllerTests{
 
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(user);
+            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
             GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
 
             var sut = GetSut();
@@ -227,7 +226,8 @@ namespace Web.Tests.ControllerTests{
         {
             return new CashgameController(
                 GetMock<IHomegameRepository>().Object,
-                GetMock<IUserContext>().Object,
+                GetMock<IAuthentication>().Object,
+                GetMock<IAuthorization>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameFactory>().Object,
@@ -237,7 +237,6 @@ namespace Web.Tests.ControllerTests{
                 GetMock<IEndPageModelFactory>().Object,
                 GetMock<IActionPageModelFactory>().Object,
                 GetMock<ICashgameChartPageModelFactory>().Object,
-                GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<ICashgameListPageModelFactory>().Object,
                 GetMock<IRunningCashgamePageModelFactory>().Object,
                 GetMock<ICashgameModelMapper>().Object,

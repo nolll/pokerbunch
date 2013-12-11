@@ -13,7 +13,7 @@ namespace Web.Controllers
 {
 	public class UserController : ControllerBase
     {
-	    private readonly IUserContext _userContext;
+	    private readonly IAuthentication _authentication;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
 	    private readonly IUserListPageModelFactory _userListPageModelFactory;
@@ -26,7 +26,7 @@ namespace Web.Controllers
 	    private readonly IUserCommandProvider _userCommandProvider;
 
 	    public UserController(
-            IUserContext userContext,
+            IAuthentication authentication,
             IUserRepository userRepository,
             IUserDetailsPageModelFactory userDetailsPageModelFactory,
             IUserListPageModelFactory userListPageModelFactory,
@@ -38,7 +38,7 @@ namespace Web.Controllers
             IUrlProvider urlProvider,
             IUserCommandProvider userCommandProvider)
 	    {
-	        _userContext = userContext;
+	        _authentication = authentication;
             _userRepository = userRepository;
 	        _userDetailsPageModelFactory = userDetailsPageModelFactory;
 	        _userListPageModelFactory = userListPageModelFactory;
@@ -53,27 +53,28 @@ namespace Web.Controllers
 
 		public ActionResult Details(string name)
         {
-			_userContext.RequireUser();
+			_authentication.RequireUser();
 			var user = _userRepository.GetByNameOrEmail(name);
 			if(name == null){
 				throw new UserNotFoundException();
 			}
-			var model = _userDetailsPageModelFactory.Create(_userContext.GetUser(), user);
+			var model = _userDetailsPageModelFactory.Create(_authentication.GetUser(), user);
 			return View("Details", model);
 		}
 
         public ActionResult List()
         {
-			_userContext.RequireAdmin();
+            _authentication.RequireUser();
+            _authentication.RequireAdmin();
 			var users = _userRepository.GetList();
-			var model = _userListPageModelFactory.Create(_userContext.GetUser(), users);
+			var model = _userListPageModelFactory.Create(_authentication.GetUser(), users);
 
 			return View("List/List", model);
 		}
 
         public ActionResult Add()
         {
-			var model = _addUserPageModelFactory.Create(_userContext.GetUser());
+			var model = _addUserPageModelFactory.Create(_authentication.GetUser());
 			return View("Add/Add", model);
 		}
 
@@ -86,19 +87,19 @@ namespace Web.Controllers
                 return Redirect(_urlProvider.GetUserAddConfirmationUrl());
             }
             AddModelErrors(command.Errors);
-            var model = _addUserPageModelFactory.Create(_userContext.GetUser(), postModel);
+            var model = _addUserPageModelFactory.Create(_authentication.GetUser(), postModel);
             return View("Add/Add", model);
 		}
 
 		public ActionResult Created()
 		{
-		    var model = _addUserConfirmationPageModelFactory.Create(_userContext.GetUser());
+		    var model = _addUserConfirmationPageModelFactory.Create(_authentication.GetUser());
 			return View("Add/Confirmation", model);
 		}
 
         public ActionResult Edit(string name)
         {
-			_userContext.RequireUser();
+			_authentication.RequireUser();
 			var user = _userRepository.GetByNameOrEmail(name);
 			if(user == null){
 				throw new UserNotFoundException();
@@ -110,7 +111,7 @@ namespace Web.Controllers
         [HttpPost]
 		public ActionResult Edit(string name, EditUserPostModel postModel)
         {
-			_userContext.RequireUser();
+			_authentication.RequireUser();
 			var user = _userRepository.GetByNameOrEmail(name);
             var command = _userCommandProvider.GetEditCommand(user, postModel);
             if (command.Execute())
@@ -124,35 +125,35 @@ namespace Web.Controllers
 
         public ActionResult ChangePassword()
         {
-			_userContext.RequireUser();
-            var model = _changePasswordPageModelFactory.Create(_userContext.GetUser()); 
+			_authentication.RequireUser();
+            var model = _changePasswordPageModelFactory.Create(_authentication.GetUser()); 
 			return View("ChangePassword/ChangePassword", model);
 		}
 
         [HttpPost]
 		public ActionResult ChangePassword(ChangePasswordPostModel postModel)
         {
-			_userContext.RequireUser();
-			var user = _userContext.GetUser();
+			_authentication.RequireUser();
+			var user = _authentication.GetUser();
             var command = _userCommandProvider.GetChangePasswordCommand(user, postModel);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetChangePasswordConfirmationUrl());
             }
             AddModelErrors(command.Errors);
-            var model = _changePasswordPageModelFactory.Create(_userContext.GetUser());
+            var model = _changePasswordPageModelFactory.Create(_authentication.GetUser());
             return View("ChangePassword/ChangePassword", model);
 		}
 
 		public ActionResult ChangedPassword()
         {
-            var model = _changePasswordPageModelFactory.CreateConfirmation(_userContext.GetUser());
+            var model = _changePasswordPageModelFactory.CreateConfirmation(_authentication.GetUser());
 			return View("ChangePassword/Confirmation", model);
 		}
 
         public ActionResult ForgotPassword()
         {
-            var model = _forgotPasswordPageModelFactory.Create(_userContext.GetUser());
+            var model = _forgotPasswordPageModelFactory.Create(_authentication.GetUser());
 			return View("ForgotPassword/ForgotPassword", model);
 		}
 
@@ -165,13 +166,13 @@ namespace Web.Controllers
                 return Redirect(_urlProvider.GetForgotPasswordConfirmationUrl());
             }
             AddModelErrors(command.Errors);
-            var model = _forgotPasswordPageModelFactory.Create(_userContext.GetUser(), postModel);
+            var model = _forgotPasswordPageModelFactory.Create(_authentication.GetUser(), postModel);
             return View("ForgotPassword/ForgotPassword", model);
 		}
 
 		public ActionResult PasswordSent()
         {
-			var model = _forgotPasswordPageModelFactory.CreateConfirmation(_userContext.GetUser());
+			var model = _forgotPasswordPageModelFactory.CreateConfirmation(_authentication.GetUser());
 			return View("ForgotPassword/Confirmation", model);
 		}
 

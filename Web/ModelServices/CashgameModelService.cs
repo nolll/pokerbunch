@@ -22,7 +22,8 @@ namespace Web.ModelServices
     public class CashgameModelService : ICashgameModelService
     {
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IUserContext _userContext;
+        private readonly IAuthentication _authentication;
+        private readonly IAuthorization _authorization;
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
@@ -37,7 +38,8 @@ namespace Web.ModelServices
 
         public CashgameModelService(
             IHomegameRepository homegameRepository,
-            IUserContext userContext,
+            IAuthentication authentication,
+            IAuthorization authorization,
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
@@ -51,7 +53,8 @@ namespace Web.ModelServices
             ICashgameEditPageModelFactory cashgameEditPageModelFactory)
         {
             _homegameRepository = homegameRepository;
-            _userContext = userContext;
+            _authentication = authentication;
+            _authorization = authorization;
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
@@ -67,8 +70,9 @@ namespace Web.ModelServices
 
         public string GetIndexUrl(string gameName)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var years = _cashgameRepository.GetYears(homegame);
             if (years.Count > 0)
             {
@@ -80,39 +84,43 @@ namespace Web.ModelServices
 
         public CashgameMatrixPageModel GetMatrixModel(string gameName, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
-            return _matrixPageModelFactory.Create(homegame, _userContext.GetUser(), year);
+            return _matrixPageModelFactory.Create(homegame, _authentication.GetUser(), year);
         }
 
         public CashgameToplistPageModel GetToplistModel(string gameName, ToplistSortOrder sortOrder, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameToplistPageModelFactory.Create(_userContext.GetUser(), homegame, suite, years, sortOrder, year);
+            return _cashgameToplistPageModelFactory.Create(_authentication.GetUser(), homegame, suite, years, sortOrder, year);
         }
 
         public CashgameDetailsPageModel GetDetailsModel(string gameName, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
             {
                 throw new HttpException(404, "Cashgame not found");
             }
-            var user = _userContext.GetUser();
+            var user = _authentication.GetUser();
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
-            var isManager = _userContext.IsInRole(homegame, Role.Manager);
+            var isManager = _authorization.IsInRole(homegame, Role.Manager);
             return _cashgameDetailsPageModelFactory.Create(user, homegame, cashgame, player, isManager);
         }
 
         public ChartModel GetDetailsChartJsonModel(string gameName, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
             {
@@ -123,34 +131,37 @@ namespace Web.ModelServices
 
         public CashgameFactsPageModel GetFactsModel(string gameName, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var facts = _cashgameService.GetFacts(homegame, year);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameFactsPageModelFactory.Create(_userContext.GetUser(), homegame, facts, years, year, runningGame);
+            return _cashgameFactsPageModelFactory.Create(_authentication.GetUser(), homegame, facts, years, year, runningGame);
         }
 
         public AddCashgamePageModel GetAddModel(string gameName)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequirePlayer(homegame);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
             var locations = _cashgameRepository.GetLocations(homegame);
-            return _addCashgamePageModelFactory.Create(_userContext.GetUser(), homegame, locations);
+            return _addCashgamePageModelFactory.Create(_authentication.GetUser(), homegame, locations);
         }
 
         public CashgameEditPageModel GetEditModel(string gameName, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequireManager(gameName);
             var homegame = _homegameRepository.GetByName(gameName);
-            _userContext.RequireManager(homegame);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
-            return _cashgameEditPageModelFactory.Create(_userContext.GetUser(), homegame, cashgame, locations);
+            return _cashgameEditPageModelFactory.Create(_authentication.GetUser(), homegame, cashgame, locations);
         }
 
     }

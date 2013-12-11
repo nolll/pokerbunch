@@ -37,7 +37,7 @@ namespace Web.Services
 
         public string GetJoinHomegameUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.HomegameJoin, homegame);
+            return FormatHomegame(RouteFormats.HomegameJoin, homegame.Slug);
         }
 
         public string GetTwitterCallbackUrl()
@@ -57,17 +57,17 @@ namespace Web.Services
 
         public string GetCashgameAddUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.CashgameAdd, homegame);
+            return FormatHomegame(RouteFormats.CashgameAdd, homegame.Slug);
         }
 
         public string GetCashgameBuyinUrl(Homegame homegame, Player player)
         {
-            return FormatPlayer(RouteFormats.CashgameBuyin, homegame, player);
+            return FormatPlayer(RouteFormats.CashgameBuyin, homegame.Slug, player.DisplayName);
         }
 
         public string GetCashgameCashoutUrl(Homegame homegame, Player player)
         {
-            return FormatPlayer(RouteFormats.CashgameCashout, homegame, player);
+            return FormatPlayer(RouteFormats.CashgameCashout, homegame.Slug, player.DisplayName);
         }
 
         public string GetCashgameChartJsonUrl(Homegame homegame, int? year)
@@ -109,7 +109,7 @@ namespace Web.Services
 
         public string GetCashgameEndUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.CashgameEnd, homegame);
+            return FormatHomegame(RouteFormats.CashgameEnd, homegame.Slug);
         }
 
         public string GetCashgameFactsUrl(Homegame homegame, int? year)
@@ -119,7 +119,7 @@ namespace Web.Services
 
         public string GetCashgameIndexUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.CashgameIndex, homegame);
+            return FormatHomegame(RouteFormats.CashgameIndex, homegame.Slug);
         }
 
         public string GetCashgameToplistUrl(Homegame homegame, int? year)
@@ -139,7 +139,7 @@ namespace Web.Services
 
         public string GetCashgameReportUrl(Homegame homegame, Player player)
         {
-            return FormatPlayer(RouteFormats.CashgameReport, homegame, player);
+            return FormatPlayer(RouteFormats.CashgameReport, homegame.Slug, player.DisplayName);
         }
 
         public string GetChangePasswordConfirmationUrl()
@@ -174,17 +174,17 @@ namespace Web.Services
 
         public string GetHomegameDetailsUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.HomegameDetails, homegame);
+            return FormatHomegame(RouteFormats.HomegameDetails, homegame.Slug);
         }
 
         public string GetHomegameEditUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.HomegameEdit, homegame);
+            return FormatHomegame(RouteFormats.HomegameEdit, homegame.Slug);
         }
 
         public string GetHomegameJoinConfirmationUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.HomegameJoinConfirmation, homegame);
+            return FormatHomegame(RouteFormats.HomegameJoinConfirmation, homegame.Slug);
         }
 
         public string GetHomegameListUrl()
@@ -197,44 +197,49 @@ namespace Web.Services
             return RouteFormats.Home;
         }
 
+        public string GetPlayerAddConfirmationUrl(string slug)
+        {
+            return FormatHomegame(RouteFormats.PlayerAddConfirmation, slug);
+        }
+
         public string GetPlayerAddConfirmationUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.PlayerAddConfirmation, homegame);
+            return FormatHomegame(RouteFormats.PlayerAddConfirmation, homegame.Slug);
         }
 
         public string GetPlayerAddUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.PlayerAdd, homegame);
+            return FormatHomegame(RouteFormats.PlayerAdd, homegame.Slug);
         }
 
         public string GetPlayerDeleteUrl(Homegame homegame, Player player)
         {
-            return FormatPlayer(RouteFormats.PlayerDelete, homegame, player);
+            return FormatPlayer(RouteFormats.PlayerDelete, homegame.Slug, player.DisplayName);
         }
 
-        public string GetPlayerDetailsUrl(Homegame homegame, Player player)
+        public string GetPlayerDetailsUrl(string slug, string playerName)
         {
-            return FormatPlayer(RouteFormats.PlayerDetails, homegame, player);
+            return FormatPlayer(RouteFormats.PlayerDetails, slug, playerName);
         }
 
-        public string GetPlayerIndexUrl(Homegame homegame)
+        public string GetPlayerIndexUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.PlayerIndex, homegame);
+            return FormatHomegame(RouteFormats.PlayerIndex, slug);
         }
 
-        public string GetPlayerInviteConfirmationUrl(Homegame homegame, Player player)
+        public string GetPlayerInviteConfirmationUrl(string slug, string playerName)
         {
-            return FormatPlayer(RouteFormats.PlayerInviteConfirmation, homegame, player);
+            return FormatPlayer(RouteFormats.PlayerInviteConfirmation, slug, playerName);
         }
 
         public string GetPlayerInviteUrl(Homegame homegame, Player player)
         {
-            return FormatPlayer(RouteFormats.PlayerInvite, homegame, player);
+            return FormatPlayer(RouteFormats.PlayerInvite, homegame.Slug, player.DisplayName);
         }
 
         public string GetRunningCashgameUrl(Homegame homegame)
         {
-            return FormatHomegame(RouteFormats.RunningCashgame, homegame);
+            return FormatHomegame(RouteFormats.RunningCashgame, homegame.Slug);
         }
 
         public string GetSharingSettingsUrl()
@@ -286,12 +291,12 @@ namespace Web.Services
 
         private string FormatHomegameWithOptionalYear(string format, string formatWithYear, Homegame homegame, int? year)
         {
-            return year.HasValue ? FormatHomegameWithYear(formatWithYear, homegame, year.Value) : FormatHomegame(format, homegame);
+            return year.HasValue ? FormatHomegameWithYear(formatWithYear, homegame, year.Value) : FormatHomegame(format, homegame.Slug);
         }
 
-        private string FormatHomegame(string format, Homegame homegame)
+        private string FormatHomegame(string format, string slug)
         {
-            return string.Format(format, homegame.Slug);
+            return string.Format(format, slug);
         }
 
         private string FormatHomegameWithYear(string format, Homegame homegame, int year)
@@ -309,10 +314,10 @@ namespace Web.Services
             return null;
         }
 
-        private string FormatPlayer(string format, Homegame homegame, Player player)
+        private string FormatPlayer(string format, string slug, string playerName)
         {
-            var encodedPlayerName = HttpUtility.UrlPathEncode(player.DisplayName);
-            return string.Format(format, homegame.Slug, encodedPlayerName);
+            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
+            return string.Format(format, slug, encodedPlayerName);
         }
 
         private string FormatUser(string format, User user)

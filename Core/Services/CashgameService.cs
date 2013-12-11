@@ -12,17 +12,20 @@ namespace Core.Services
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
         private readonly ICashgameFactsFactory _cashgameFactsFactory;
+        private readonly IHomegameRepository _homegameRepository;
 
         public CashgameService(
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             ICashgameSuiteFactory cashgameSuiteFactory,
-            ICashgameFactsFactory cashgameFactsFactory)
+            ICashgameFactsFactory cashgameFactsFactory,
+            IHomegameRepository homegameRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
             _cashgameSuiteFactory = cashgameSuiteFactory;
             _cashgameFactsFactory = cashgameFactsFactory;
+            _homegameRepository = homegameRepository;
         }
 
         public CashgameSuite GetSuite(Homegame homegame, int? year = null)
@@ -43,6 +46,13 @@ namespace Core.Services
         {
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             return _playerRepository.GetList(playerIds);
+        }
+
+        public bool CashgameIsRunning(string bunchName)
+        {
+            var homegame = _homegameRepository.GetByName(bunchName);
+            var cashgame = _cashgameRepository.GetRunning(homegame);
+            return cashgame != null;
         }
 
     }

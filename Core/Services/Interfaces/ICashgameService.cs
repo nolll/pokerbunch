@@ -8,5 +8,6 @@ namespace Core.Services
         CashgameSuite GetSuite(Homegame homegame, int? year = null);
         CashgameFacts GetFacts(Homegame homegame, int? year = null);
         IList<Player> GetPlayers(Cashgame cashgame);
+        bool CashgameIsRunning(string bunchName);
     }
 }

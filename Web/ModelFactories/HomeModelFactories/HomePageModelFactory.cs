@@ -9,7 +9,7 @@ namespace Web.ModelFactories.HomeModelFactories
 {
     public class HomePageModelFactory : IHomePageModelFactory
     {
-        private readonly IUserContext _userContext;
+        private readonly IAuthentication _authentication;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
@@ -17,14 +17,14 @@ namespace Web.ModelFactories.HomeModelFactories
         private readonly IUrlProvider _urlProvider;
 
         public HomePageModelFactory(
-            IUserContext userContext, 
+            IAuthentication authentication, 
             IHomegameRepository homegameRepository, 
             ICashgameRepository cashgameRepository,
             IPagePropertiesFactory pagePropertiesFactory,
             IAdminNavigationModelFactory adminNavigationFactory,
             IUrlProvider urlProvider)
         {
-            _userContext = userContext;
+            _authentication = authentication;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _pagePropertiesFactory = pagePropertiesFactory;
@@ -35,7 +35,7 @@ namespace Web.ModelFactories.HomeModelFactories
         public HomePageModel Create()
         {
             var homegame = GetHomegame();
-            var user = _userContext.GetUser();
+            var user = _authentication.GetUser();
             return new HomePageModel
                 {
                     BrowserTitle = "Poker Bunch",
@@ -50,7 +50,7 @@ namespace Web.ModelFactories.HomeModelFactories
 
         private Homegame GetHomegame()
         {
-            var games = _homegameRepository.GetByUser(_userContext.GetUser());
+            var games = _homegameRepository.GetByUser(_authentication.GetUser());
             return games.Count == 1 ? games[0] : null;
         }
     }

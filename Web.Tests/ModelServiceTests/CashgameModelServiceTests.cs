@@ -26,7 +26,7 @@ namespace Web.Tests.ModelServiceTests
         public void GetMatrixModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<IMatrixPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<User>(), It.IsAny<int?>())).Returns(new CashgameMatrixPageModel());
 
             var sut = GetSut();
@@ -39,7 +39,7 @@ namespace Web.Tests.ModelServiceTests
         public void GetMatrixModel_NotAuthorized_ThrowsException()
         {
             const string slug = "a";
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -50,7 +50,7 @@ namespace Web.Tests.ModelServiceTests
         public void GetToplistModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
@@ -63,7 +63,7 @@ namespace Web.Tests.ModelServiceTests
         public void GetToplistModel_NotAuthorized_ThrowsException()
         {
             const string slug = "a";
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -75,7 +75,7 @@ namespace Web.Tests.ModelServiceTests
         {
             const string slug = "a";
             const string dateStr = "2000-01-01";
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
@@ -87,7 +87,7 @@ namespace Web.Tests.ModelServiceTests
         {
             const string slug = "a";
             const string dateStr = "2000-01-01"; 
-            GetMock<IUserContext>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
 
@@ -101,7 +101,8 @@ namespace Web.Tests.ModelServiceTests
         {
             return new CashgameModelService(
                 GetMock<IHomegameRepository>().Object,
-                GetMock<IUserContext>().Object,
+                GetMock<IAuthentication>().Object,
+                GetMock<IAuthorization>().Object,
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,

@@ -10,7 +10,7 @@ namespace Web.Commands.HomegameCommands
     {
         private readonly IHomegameModelMapper _homegameModelMapper;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IUserContext _userContext;
+        private readonly IAuthentication _authentication;
         private readonly IPlayerRepository _playerRepository;
         private readonly ISlugGenerator _slugGenerator;
         private readonly AddHomegamePostModel _postModel;
@@ -18,14 +18,14 @@ namespace Web.Commands.HomegameCommands
         public AddHomegameCommand(
             IHomegameModelMapper homegameModelMapper,
             IHomegameRepository homegameRepository,
-            IUserContext userContext,
+            IAuthentication authentication,
             IPlayerRepository playerRepository,
             ISlugGenerator slugGenerator,
             AddHomegamePostModel postModel)
         {
             _homegameModelMapper = homegameModelMapper;
             _homegameRepository = homegameRepository;
-            _userContext = userContext;
+            _authentication = authentication;
             _playerRepository = playerRepository;
             _slugGenerator = slugGenerator;
             _postModel = postModel;
@@ -41,7 +41,7 @@ namespace Web.Commands.HomegameCommands
             }
             var homegame = _homegameModelMapper.GetHomegame(_postModel);
             homegame = _homegameRepository.Add(homegame);
-            var user = _userContext.GetUser();
+            var user = _authentication.GetUser();
             _playerRepository.Add(homegame, user, Role.Manager);
             return true;
         }

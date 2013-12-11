@@ -18,7 +18,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new PlayerItemModel
                 {
                     Name = player.DisplayName,
-                    UrlModel = _urlProvider.GetPlayerDetailsUrl(homegame, player)
+                    UrlModel = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName)
                 };
         }
     }

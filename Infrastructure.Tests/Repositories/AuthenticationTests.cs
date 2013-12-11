@@ -1,6 +1,7 @@
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
@@ -8,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Infrastructure.Tests.Repositories{
 
-	public class UserContextTests : MockContainer {
+	public class AuthenticationTests : MockContainer {
 
 		[Test]
         public void GetToken_NoTokenExists_ReturnsNull()
@@ -118,61 +119,13 @@ namespace Infrastructure.Tests.Repositories{
             Assert.IsTrue(result);
 		}
 
-        [Test]
-        public void IsInRole_WithManagerRoleAndPlayerUser_ReturnsFalse(){
-			const string token = "a";
-		    const string displayName = "b";
-            GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
-            var homegame = new FakeHomegame();
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
-
-            var sut = GetSut();
-			var result = sut.IsInRole(homegame, Role.Manager);
-
-			Assert.IsFalse(result);
-		}
-
 		[Test]
-        public void IsInRole_WithPlayerRoleAndManagerUser_ReturnsTrue(){
-			const string token = "a";
-		    const string displayName = "b";
-            GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new FakeUser(displayName: displayName);
-            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
-            var homegame = new FakeHomegame();
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
-
-            var sut = GetSut();
-            var result = sut.IsInRole(homegame, Role.Player);
-
-            Assert.IsTrue(result);
-		}
-
-		[Test]
-        public void IsInRole_WithAdminRoleAndAdminUser_ReturnsTrue(){
-            const string token = "a";
-		    const string displayName = "b";
-            GetMock<IWebContext>().Setup(o => o.GetCookie("token")).Returns(token);
-			var user = new FakeUser(displayName: displayName, globalRole: Role.Admin);
-            GetMock<IUserRepository>().Setup(o => o.GetByToken(token)).Returns(user);
-            var homegame = new FakeHomegame();
-
-            var sut = GetSut();
-            var result = sut.IsInRole(homegame, Role.Admin);
-
-            Assert.IsTrue(result);
-		}
-
-        public UserContext GetSut()
+        public Authentication GetSut()
         {
-            return new UserContext(
+            return new Authentication(
                 GetMock<IWebContext>().Object,
-                GetMock<IUserRepository>().Object,
-                GetMock<IHomegameRepository>().Object);
+                GetMock<IUserRepository>().Object);
         }
 
 	}
-
 }

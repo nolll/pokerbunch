@@ -8,7 +8,7 @@ using Web.ModelFactories.SharingModelFactories;
 namespace Web.Controllers{
 
 	public class SharingController : Controller {
-	    private readonly IUserContext _userContext;
+	    private readonly IAuthentication _authentication;
 	    private readonly ISharingRepository _sharingRepository;
 	    private readonly ISharingIndexPageModelFactory _sharingIndexPageModelFactory;
 	    private readonly IWebContext _webContext;
@@ -18,7 +18,7 @@ namespace Web.Controllers{
 	    private readonly IUrlProvider _urlProvider;
 
 	    public SharingController(
-            IUserContext userContext,
+            IAuthentication authentication,
             ISharingRepository sharingRepository,
             ISharingIndexPageModelFactory sharingIndexPageModelFactory,
             IWebContext webContext,
@@ -27,7 +27,7 @@ namespace Web.Controllers{
             ISharingTwitterPageModelFactory sharingTwitterPageModelFactory,
             IUrlProvider urlProvider)
 	    {
-	        _userContext = userContext;
+	        _authentication = authentication;
 	        _sharingRepository = sharingRepository;
 	        _sharingIndexPageModelFactory = sharingIndexPageModelFactory;
 	        _webContext = webContext;
@@ -38,16 +38,16 @@ namespace Web.Controllers{
 	    }
 
 	    public ActionResult Index(){
-			_userContext.RequireUser();
-			var user = _userContext.GetUser();
+			_authentication.RequireUser();
+			var user = _authentication.GetUser();
 			var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
 			var model = _sharingIndexPageModelFactory.Create(user, isSharing);
 			return View("Index", model);
 		}
 
         public ActionResult Twitter(){
-			_userContext.RequireUser();
-			var user = _userContext.GetUser();
+			_authentication.RequireUser();
+			var user = _authentication.GetUser();
 			var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
 			var credentials = _twitterRepository.GetCredentials(user);
 			var model = _sharingTwitterPageModelFactory.Create(user, isSharing, credentials);
@@ -55,22 +55,22 @@ namespace Web.Controllers{
 		}
 
 		public ActionResult TwitterStart(){
-			_userContext.RequireUser();
+			_authentication.RequireUser();
 			var url = _twitterIntegration.GetAuthUrl();
 			return Redirect(url);
 		}
 
 		public ActionResult TwitterStop(){
-			_userContext.RequireUser();
-			var user = _userContext.GetUser();
+			_authentication.RequireUser();
+			var user = _authentication.GetUser();
 			_sharingRepository.RemoveSharing(user, SocialServiceIdentifier.Twitter);
 			return Redirect(_urlProvider.GetTwitterSettingsUrl());
 		}
 
         public ActionResult TwitterCallback()
         {
-			_userContext.RequireUser();
-			var user = _userContext.GetUser();
+			_authentication.RequireUser();
+			var user = _authentication.GetUser();
             var token = _webContext.GetQueryParam("oauth_token");
             var verifier = _webContext.GetQueryParam("oauth_verifier");
             var twitterCredentials = _twitterIntegration.GetCredentials(token, verifier);

@@ -159,7 +159,7 @@
     <Compile Include="System\WebContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\UserContext.cs" />
+    <Compile Include="Services\Authentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Storage\Interfaces\IStorageProvider.cs" />

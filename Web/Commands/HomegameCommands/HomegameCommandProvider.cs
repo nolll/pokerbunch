@@ -12,7 +12,7 @@ namespace Web.Commands.HomegameCommands
     {
         private readonly IHomegameModelMapper _homegameModelMapper;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IUserContext _userContext;
+        private readonly IAuthentication _authentication;
         private readonly IPlayerRepository _playerRepository;
         private readonly ISlugGenerator _slugGenerator;
         private readonly IInvitationCodeCreator _invitationCodeCreator;
@@ -20,14 +20,14 @@ namespace Web.Commands.HomegameCommands
         public HomegameCommandProvider(
             IHomegameModelMapper homegameModelMapper,
             IHomegameRepository homegameRepository,
-            IUserContext userContext,
+            IAuthentication authentication,
             IPlayerRepository playerRepository,
             ISlugGenerator slugGenerator,
             IInvitationCodeCreator invitationCodeCreator)
         {
             _homegameModelMapper = homegameModelMapper;
             _homegameRepository = homegameRepository;
-            _userContext = userContext;
+            _authentication = authentication;
             _playerRepository = playerRepository;
             _slugGenerator = slugGenerator;
             _invitationCodeCreator = invitationCodeCreator;
@@ -38,7 +38,7 @@ namespace Web.Commands.HomegameCommands
             return new AddHomegameCommand(
                 _homegameModelMapper,
                 _homegameRepository,
-                _userContext,
+                _authentication,
                 _playerRepository,
                 _slugGenerator,
                 postModel);
@@ -56,7 +56,7 @@ namespace Web.Commands.HomegameCommands
         public Command GetJoinCommand(Homegame homegame, JoinHomegamePostModel postModel)
         {
             return new JoinHomegameCommand(
-                _userContext,
+                _authentication,
                 _playerRepository,
                 _invitationCodeCreator,
                 homegame,

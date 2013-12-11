@@ -109,7 +109,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
 		    const string playerUrl = "a";
             var totalResult = new FakeCashgameTotalResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame, _player)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame.Slug, _player.DisplayName)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);

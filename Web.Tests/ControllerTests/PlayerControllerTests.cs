@@ -3,7 +3,6 @@ using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -20,41 +19,39 @@ namespace Web.Tests.ControllerTests{
         [Test]
 		public void Details_NotAuthorized_ThrowsException()
 		{
-		    const string homegameName = "a";
+		    const string slug = "a";
 		    const string playerName = "b";
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequirePlayer(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
 
 		    var sut = GetSut();
 
-            Assert.Throws<AccessDeniedException>(() => sut.Details(homegameName, playerName));
+            Assert.Throws<AccessDeniedException>(() => sut.Details(slug, playerName));
 		}
 
         [Test]
 		public void Delete_NotAuthorized_ThrowsException()
         {
-			const string homegameName = "a";
+			const string slug = "a";
 		    const string playerName = "b";
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(homegameName)).Returns(new FakeHomegame());
-            GetMock<IUserContext>().Setup(o => o.RequireManager(It.IsAny<Homegame>())).Throws<AccessDeniedException>();
+            GetMock<IAuthorization>().Setup(o => o.RequireManager(slug)).Throws<AccessDeniedException>();
 
             var sut = GetSut();
 
-            Assert.Throws<AccessDeniedException>(() => sut.Delete(homegameName, playerName));
+            Assert.Throws<AccessDeniedException>(() => sut.Delete(slug, playerName));
 		}
         
         [Test]
 		public void Delete_WithSuccessfulCommand_RedirectsToPlayerList()
         {
-            const string homegameName = "a";
+            const string slug = "a";
 		    const string playerName = "b";
             const string listUrl = "c";
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeSuccessfulCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(It.IsAny<Homegame>())).Returns(listUrl);
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerName)).Returns(new FakeSuccessfulCommand());
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(slug)).Returns(listUrl);
 
             var sut = GetSut();
-            var result = sut.Delete(homegameName, playerName) as RedirectResult;
+            var result = sut.Delete(slug, playerName) as RedirectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(listUrl, result.Url);
@@ -63,15 +60,15 @@ namespace Web.Tests.ControllerTests{
         [Test]
         public void Delete_WithFailedCommand_RedirectsToPlayerList()
         {
-            const string homegameName = "a";
+            const string slug = "a";
             const string playerName = "b";
             const string playerUrl = "c";
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(new FakeFailedCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(playerUrl);
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerName)).Returns(new FakeFailedCommand());
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, playerName)).Returns(playerUrl);
 
             var sut = GetSut();
-            var result = sut.Delete(homegameName, playerName) as RedirectResult;
+            var result = sut.Delete(slug, playerName) as RedirectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(playerUrl, result.Url);
@@ -79,9 +76,8 @@ namespace Web.Tests.ControllerTests{
 
         private PlayerController GetSut(){
 			return new PlayerController(
-                GetMock<IUserContext>().Object,
-                GetMock<IHomegameRepository>().Object,
-                GetMock<IPlayerRepository>().Object, 
+                GetMock<IAuthentication>().Object,
+                GetMock<IAuthorization>().Object,
                 GetMock<IPlayerModelService>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<IPlayerCommandProvider>().Object);

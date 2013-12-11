@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Core.Repositories;
 using Core.Services;
 using Web.Commands.PlayerCommands;
 using Web.ModelServices;
@@ -9,107 +8,100 @@ using Web.Models.PlayerModels.Invite;
 namespace Web.Controllers{
     public class PlayerController : ControllerBase
     {
-	    private readonly IUserContext _userContext;
-	    private readonly IHomegameRepository _homegameRepository;
-	    private readonly IPlayerRepository _playerRepository;
+	    private readonly IAuthentication _authentication;
+        private readonly IAuthorization _authorization;
 	    private readonly IPlayerModelService _playerModelService;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IPlayerCommandProvider _playerCommandProvider;
 
 	    public PlayerController(
-            IUserContext userContext,
-			IHomegameRepository homegameRepository,
-			IPlayerRepository playerRepository,
+            IAuthentication authentication,
+            IAuthorization authorization,
             IPlayerModelService playerModelService,
             IUrlProvider urlProvider,
             IPlayerCommandProvider playerCommandProvider)
 	    {
-	        _userContext = userContext;
-	        _homegameRepository = homegameRepository;
-	        _playerRepository = playerRepository;
+	        _authentication = authentication;
+	        _authorization = authorization;
 	        _playerModelService = playerModelService;
 	        _urlProvider = urlProvider;
 	        _playerCommandProvider = playerCommandProvider;
 	    }
 
 	    public ActionResult Index(string gameName){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequirePlayer(homegame);
-	        var model = _playerModelService.GetListModel(homegame);
+			_authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
+            var model = _playerModelService.GetListModel(gameName);
 			return View("List", model);
 		}
 
         public ActionResult Details(string gameName, string name){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequirePlayer(homegame);
-			var model = _playerModelService.GetDetailsModel(homegame, name);
+			_authentication.RequireUser();
+            _authorization.RequirePlayer(gameName);
+            var model = _playerModelService.GetDetailsModel(gameName, name);
 			return View("Details", model);
 		}
 
         public ActionResult Add(string gameName){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequireManager(homegame);
-            var model = _playerModelService.GetAddModel(homegame);
+			_authentication.RequireUser();
+            _authorization.RequireManager(gameName);
+            var model = _playerModelService.GetAddModel(gameName);
             return View("Add", model);
 		}
 
         [HttpPost]
         public ActionResult Add(string gameName, AddPlayerPostModel postModel){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequireManager(homegame);
-            var command = _playerCommandProvider.GetAddCommand(homegame, postModel);
+			_authentication.RequireUser();
+            _authorization.RequireManager(gameName);
+            var command = _playerCommandProvider.GetAddCommand(gameName, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(homegame));
+                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(gameName));
             }
             AddModelErrors(command.Errors);
-			var model = _playerModelService.GetAddModel(homegame, postModel);
+			var model = _playerModelService.GetAddModel(gameName, postModel);
 			return View("Add", model);
 		}
 
         public ActionResult Created(string gameName){
-			var homegame = _homegameRepository.GetByName(gameName);
-            var model = _playerModelService.GetAddConfirmationModel(homegame);
+            var model = _playerModelService.GetAddConfirmationModel(gameName);
 			return View("AddConfirmation", model);
 		}
 
 		public ActionResult Delete(string gameName, string name){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequireManager(homegame);
-			var player = _playerRepository.GetByName(homegame, name);
-		    var command = _playerCommandProvider.GetDeleteCommand(homegame, player);
+			_authentication.RequireUser();
+            _authorization.RequireManager(gameName);
+            var command = _playerCommandProvider.GetDeleteCommand(gameName, name);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerIndexUrl(homegame));
+                return Redirect(_urlProvider.GetPlayerIndexUrl(gameName));
             }
-    		return Redirect(_urlProvider.GetPlayerDetailsUrl(homegame, player));
+		    return Redirect(_urlProvider.GetPlayerDetailsUrl(gameName, name));
 		}
 
         public ActionResult Invite(string gameName, string name){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequireManager(homegame);
-            var model = _playerModelService.GetInviteModel(homegame);
+			_authentication.RequireUser();
+            _authorization.RequireManager(gameName);
+            var model = _playerModelService.GetInviteModel(gameName);
             return View("Invite", model);
 		}
 
         [HttpPost]
 		public ActionResult Invite(string gameName, string name, InvitePlayerPostModel postModel){
-			var homegame = _homegameRepository.GetByName(gameName);
-			_userContext.RequireManager(homegame);
-			var player = _playerRepository.GetByName(homegame, name);
-            var command = _playerCommandProvider.GetInviteCommand(homegame, player, postModel);
+			_authentication.RequireUser();
+            _authorization.RequireManager(gameName);
+            var command = _playerCommandProvider.GetInviteCommand(gameName, name, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(homegame, player));
+                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(gameName, name));
             }
             AddModelErrors(command.Errors);
-            var model = _playerModelService.GetInviteModel(homegame);
+            var model = _playerModelService.GetInviteModel(gameName);
             return View("Invite", model);
 		}
 
 	    public ActionResult Invited(string gameName, string name){
-			var homegame = _homegameRepository.GetByName(gameName);
-		    var model = _playerModelService.GetInviteConfirmationModel(homegame);
+		    var model = _playerModelService.GetInviteConfirmationModel(gameName);
 			return View("InviteConfirmation", model);
 		}
     }
