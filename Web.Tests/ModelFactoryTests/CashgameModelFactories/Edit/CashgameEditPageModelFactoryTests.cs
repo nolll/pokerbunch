@@ -45,7 +45,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
 		{
 		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
             var sut = GetSut();
             var result = sut.Create(_user, _homegame, cashgame, _locations);
@@ -58,7 +58,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
         {
             const string deleteUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDeleteUrl(_homegame, cashgame)).Returns(deleteUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDeleteUrl(_homegame.Slug, cashgame.DateString)).Returns(deleteUrl);
 
             var sut = GetSut();
             var result = sut.Create(_user, _homegame, cashgame, _locations);

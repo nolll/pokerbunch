@@ -108,6 +108,7 @@ namespace Web.Plumbing
             // Model Services
             RegisterComponent<IPlayerModelService, PlayerModelService>();
             RegisterComponent<ICashgameModelService, CashgameModelService>();
+            RegisterComponent<IUserModelService, UserModelService>();
 
             // Page Model Factories
             RegisterComponent<IHomePageModelFactory, HomePageModelFactory>();

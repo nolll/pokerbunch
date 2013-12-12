@@ -19,6 +19,7 @@ namespace Core.Classes{
         public bool HasActivePlayers { get; private set; }
         public int TotalStacks { get; private set; }
         public int AverageBuyin { get; private set; }
+        public string DateString { get; private set; }
 
         public Cashgame(
                 int id,
@@ -34,7 +35,8 @@ namespace Core.Classes{
 	            int turnover,
 	            bool hasActivePlayers,
                 int totalStacks,
-	            int averageBuyin
+	            int averageBuyin,
+                string dateString
             )
         {
             Id = id;
@@ -51,6 +53,7 @@ namespace Core.Classes{
             HasActivePlayers = hasActivePlayers;
             TotalStacks = totalStacks;
             AverageBuyin = averageBuyin;
+            DateString = dateString;
         }
 
 	    public CashgameResult GetResult(int playerId)

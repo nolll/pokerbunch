@@ -24,19 +24,19 @@ namespace Core.Services
         string GetUserAddConfirmationUrl();
         string GetUserListUrl();
 
-        string GetUserDetailsUrl(User user);
+        string GetUserDetailsUrl(string userName);
         string GetUserEditUrl(User user);
         
         string GetJoinHomegameUrl(Homegame homegame);
         string GetCashgameAddUrl(Homegame homegame);
         string GetCashgameEndUrl(Homegame homegame);
-        string GetCashgameIndexUrl(Homegame homegame);
+        string GetCashgameIndexUrl(string slug);
         string GetHomegameDetailsUrl(Homegame homegame);
         string GetHomegameEditUrl(Homegame homegame);
         string GetHomegameJoinConfirmationUrl(Homegame homegame);
         string GetPlayerAddUrl(Homegame homegame);
         string GetPlayerIndexUrl(string slug);
-        string GetRunningCashgameUrl(Homegame homegame);
+        string GetRunningCashgameUrl(string slug);
         string GetPlayerAddConfirmationUrl(string slug);
         
         string GetCashgameChartJsonUrl(Homegame homegame, int? year);
@@ -54,10 +54,10 @@ namespace Core.Services
         string GetPlayerDetailsUrl(string slug, string playerName);
         string GetPlayerInviteUrl(Homegame homegame, Player player);
 
-        string GetCashgameDeleteUrl(Homegame homegame, Cashgame cashgame);
-        string GetCashgameDetailsChartJsonUrl(Homegame homegame, Cashgame cashgame);
-        string GetCashgameDetailsUrl(Homegame homegame, Cashgame cashgame);
-        string GetCashgameEditUrl(Homegame homegame, Cashgame cashgame);
+        string GetCashgameDeleteUrl(string slug, string dateStr);
+        string GetCashgameDetailsChartJsonUrl(string slug, string dateStr);
+        string GetCashgameDetailsUrl(string slug, string dateStr);
+        string GetCashgameEditUrl(string slug, string dateStr);
 
         string GetCashgameActionChartJsonUrl(Homegame homegame, Cashgame cashgame, Player player);
         string GetCashgameActionUrl(Homegame homegame, Cashgame cashgame, Player player);

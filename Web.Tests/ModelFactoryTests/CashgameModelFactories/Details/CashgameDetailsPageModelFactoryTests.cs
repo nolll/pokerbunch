@@ -118,7 +118,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameEditUrl(_homegame, cashgame)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameEditUrl(_homegame.Slug, cashgame.DateString)).Returns(editUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);
@@ -266,7 +266,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame, cashgame)).Returns(chartDataUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame.Slug, cashgame.DateString)).Returns(chartDataUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);

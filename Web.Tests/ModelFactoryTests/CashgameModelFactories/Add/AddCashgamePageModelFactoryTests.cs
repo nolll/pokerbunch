@@ -42,12 +42,12 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
 		}
 
 		[Test]
-        public void LocationSelectModel_IsCorrectType(){
+        public void LocationSelectModel_IsCorrectLength(){
             _locations = new List<string>{ "a" };
 
 			var result = GetResult();
 
-			Assert.AreEqual(1, result.Locations.Count());
+			Assert.AreEqual(2, result.Locations.Count());
 		}
 
 		private AddCashgamePageModel GetResult(AddCashgamePostModel postModel = null)

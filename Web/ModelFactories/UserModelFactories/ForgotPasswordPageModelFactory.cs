@@ -13,7 +13,7 @@ namespace Web.ModelFactories.UserModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public ForgotPasswordPageModel Create(User user)
+        private ForgotPasswordPageModel Create(User user)
         {
             return new ForgotPasswordPageModel
             {
@@ -25,7 +25,10 @@ namespace Web.ModelFactories.UserModelFactories
         public ForgotPasswordPageModel Create(User user, ForgotPasswordPostModel postModel)
         {
             var model = Create(user);
-            model.Email = postModel.Email;
+            if (postModel != null)
+            {
+                model.Email = postModel.Email;
+            }
             return model;
         }
 

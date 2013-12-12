@@ -29,7 +29,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     Duration = GetDuration(cashgame),
                     Turnover = GetTurnover(homegame, cashgame),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
-                    DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame),
+                    DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString),
                     DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     PublishedClass = GetPublishedClass(cashgame)
                 };

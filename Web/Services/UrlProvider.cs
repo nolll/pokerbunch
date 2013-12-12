@@ -87,24 +87,24 @@ namespace Web.Services
             return string.Format(RouteFormats.CashgameCheckpointDelete, homegame.Slug, isoDate, encodedPlayerName, checkpoint.Id);
         }
 
-        public string GetCashgameDeleteUrl(Homegame homegame, Cashgame cashgame)
+        public string GetCashgameDeleteUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDelete, homegame, cashgame);
+            return FormatCashgame(RouteFormats.CashgameDelete, slug, dateStr);
         }
 
-        public string GetCashgameDetailsChartJsonUrl(Homegame homegame, Cashgame cashgame)
+        public string GetCashgameDetailsChartJsonUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDetailsChartJson, homegame, cashgame);
+            return FormatCashgame(RouteFormats.CashgameDetailsChartJson, slug, dateStr);
         }
 
-        public string GetCashgameDetailsUrl(Homegame homegame, Cashgame cashgame)
+        public string GetCashgameDetailsUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDetails, homegame, cashgame);
+            return FormatCashgame(RouteFormats.CashgameDetails, slug, dateStr);
         }
 
-        public string GetCashgameEditUrl(Homegame homegame, Cashgame cashgame)
+        public string GetCashgameEditUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameEdit, homegame, cashgame);
+            return FormatCashgame(RouteFormats.CashgameEdit, slug, dateStr);
         }
 
         public string GetCashgameEndUrl(Homegame homegame)
@@ -117,9 +117,9 @@ namespace Web.Services
             return FormatHomegameWithOptionalYear(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, homegame, year);
         }
 
-        public string GetCashgameIndexUrl(Homegame homegame)
+        public string GetCashgameIndexUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.CashgameIndex, homegame.Slug);
+            return FormatHomegame(RouteFormats.CashgameIndex, slug);
         }
 
         public string GetCashgameToplistUrl(Homegame homegame, int? year)
@@ -237,9 +237,9 @@ namespace Web.Services
             return FormatPlayer(RouteFormats.PlayerInvite, homegame.Slug, player.DisplayName);
         }
 
-        public string GetRunningCashgameUrl(Homegame homegame)
+        public string GetRunningCashgameUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.RunningCashgame, homegame.Slug);
+            return FormatHomegame(RouteFormats.RunningCashgame, slug);
         }
 
         public string GetSharingSettingsUrl()
@@ -267,14 +267,14 @@ namespace Web.Services
             return RouteFormats.UserAddConfirmation;
         }
 
-        public string GetUserDetailsUrl(User user)
+        public string GetUserDetailsUrl(string userName)
         {
-            return FormatUser(RouteFormats.UserDetails, user);
+            return FormatUser(RouteFormats.UserDetails, userName);
         }
 
         public string GetUserEditUrl(User user)
         {
-            return FormatUser(RouteFormats.UserEdit, user);
+            return FormatUser(RouteFormats.UserEdit, user.UserName);
         }
 
         public string GetUserListUrl()
@@ -304,14 +304,9 @@ namespace Web.Services
             return string.Format(format, homegame.Slug, year);
         }
 
-        private string FormatCashgame(string format, Homegame homegame, Cashgame cashgame)
+        private string FormatCashgame(string format, string slug, string dateStr)
         {
-            if (cashgame.StartTime.HasValue)
-            {
-                var isoDate = _globalization.FormatIsoDate(cashgame.StartTime.Value);
-                return string.Format(format, homegame.Slug, isoDate);
-            }
-            return null;
+            return string.Format(format, slug, dateStr);
         }
 
         private string FormatPlayer(string format, string slug, string playerName)
@@ -320,9 +315,9 @@ namespace Web.Services
             return string.Format(format, slug, encodedPlayerName);
         }
 
-        private string FormatUser(string format, User user)
+        private string FormatUser(string format, string userName)
         {
-            return string.Format(format, user.UserName);
+            return string.Format(format, userName);
         }
 
     }

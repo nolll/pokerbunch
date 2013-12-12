@@ -13,7 +13,7 @@ namespace Web.ModelFactories.UserModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public EditUserPageModel Create(User user)
+        private EditUserPageModel Create(User user)
         {
             return new EditUserPageModel
                 {
@@ -29,9 +29,12 @@ namespace Web.ModelFactories.UserModelFactories
         public EditUserPageModel Create(User user, EditUserPostModel postModel)
         {
             var model = Create(user);
-            model.RealName = postModel.RealName;
-            model.DisplayName = postModel.DisplayName;
-            model.Email = postModel.Email;
+            if (postModel != null)
+            {
+                model.RealName = postModel.RealName;
+                model.DisplayName = postModel.DisplayName;
+                model.Email = postModel.Email;
+            }
             return model;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
+using Infrastructure.System;
 
 namespace Infrastructure.Factories
 {
@@ -10,13 +11,16 @@ namespace Infrastructure.Factories
     {
         private readonly ICashgameResultFactory _cashgameResultFactory;
         private readonly ICheckpointFactory _checkpointFactory;
+        private readonly IGlobalization _globalization;
 
         public CashgameFactory(
             ICashgameResultFactory cashgameResultFactory,
-            ICheckpointFactory checkpointFactory)
+            ICheckpointFactory checkpointFactory,
+            IGlobalization globalization)
         {
             _cashgameResultFactory = cashgameResultFactory;
             _checkpointFactory = checkpointFactory;
+            _globalization = globalization;
         }
 
         public Cashgame Create(RawCashgameWithResults rawGame)
@@ -45,6 +49,7 @@ namespace Infrastructure.Factories
             var endTime = GetEndTime(results);
             var buyinSum = GetBuyinSum(results);
             var cashoutSum = GetCashoutSum(results);
+            var dateString = startTime.HasValue ? _globalization.FormatIsoDate(startTime.Value) : string.Empty;
 
             return new Cashgame(
                 id.HasValue ? id.Value : 0,
@@ -60,7 +65,8 @@ namespace Infrastructure.Factories
                 buyinSum,
                 HasActivePlayers(results),
                 GetTotalStacks(results),
-                GetAverageBuyin(buyinSum, playerCount)
+                GetAverageBuyin(buyinSum, playerCount),
+                dateString
                 );
         }
 

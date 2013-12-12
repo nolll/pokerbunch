@@ -102,7 +102,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
 		{
 		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);

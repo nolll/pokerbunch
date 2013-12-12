@@ -1,4 +1,3 @@
-using Core.Classes;
 using Core.Repositories;
 using Core.Services;
 using Web.ModelMappers;
@@ -19,6 +18,7 @@ namespace Web.Commands.UserCommands
         private readonly IUserModelMapper _userModelMapper;
         private readonly IUserService _userService;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
+        private readonly IAuthentication _authentication;
 
         public UserCommandProvider(
             IUserRepository userRepository,
@@ -28,7 +28,8 @@ namespace Web.Commands.UserCommands
             IPasswordSender passwordSender,
             IUserModelMapper userModelMapper,
             IUserService userService,
-            IRegistrationConfirmationSender registrationConfirmationSender)
+            IRegistrationConfirmationSender registrationConfirmationSender,
+            IAuthentication authentication)
         {
             _userRepository = userRepository;
             _passwordGenerator = passwordGenerator;
@@ -38,6 +39,7 @@ namespace Web.Commands.UserCommands
             _userModelMapper = userModelMapper;
             _userService = userService;
             _registrationConfirmationSender = registrationConfirmationSender;
+            _authentication = authentication;
         }
 
         public Command GetForgotPasswordCommand(ForgotPasswordPostModel postModel)
@@ -52,8 +54,10 @@ namespace Web.Commands.UserCommands
                 postModel);
         }
 
-        public Command GetChangePasswordCommand(User user, ChangePasswordPostModel postModel)
+        public Command GetChangePasswordCommand(ChangePasswordPostModel postModel)
         {
+            var user = _authentication.GetUser();
+
             return new ChangePasswordCommand(
                 _saltGenerator,
                 _encryptionService,
@@ -63,8 +67,10 @@ namespace Web.Commands.UserCommands
                 postModel);
         }
 
-        public Command GetEditCommand(User user, EditUserPostModel postModel)
+        public Command GetEditCommand(string userName, EditUserPostModel postModel)
         {
+            var user = _userRepository.GetByNameOrEmail(userName);
+
             return new EditUserCommand(
                 _userModelMapper,
                 _userRepository,

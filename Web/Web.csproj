@@ -172,9 +172,11 @@
     <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\AddCashgameCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\EditCashgameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EndGameCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\IUserCommandProvider.cs" />
-    <Compile Include="Commands\CashgameCommands\UserCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\EditHomegameCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IHomegameCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinHomegameCommand.cs" />
@@ -240,7 +242,9 @@
     <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />
     <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\PlayerCommandProvider.cs" />
+    <Compile Include="ModelServices\IUserModelService.cs" />
     <Compile Include="ModelServices\PlayerModelService.cs" />
+    <Compile Include="ModelServices\UserModelService.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />

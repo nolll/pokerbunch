@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Factories;
+using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -62,7 +63,8 @@ namespace Infrastructure.Tests.Factories{
 		private CashgameFactory GetSut(){
 			return new CashgameFactory(
                 GetMock<ICashgameResultFactory>().Object,
-                GetMock<ICheckpointFactory>().Object);
+                GetMock<ICheckpointFactory>().Object,
+                GetMock<IGlobalization>().Object);
 		}
 
 	}

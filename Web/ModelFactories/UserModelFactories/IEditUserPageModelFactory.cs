@@ -5,7 +5,6 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public interface IEditUserPageModelFactory
     {
-        EditUserPageModel Create(User user);
         EditUserPageModel Create(User user, EditUserPostModel postModel);
     }
 }

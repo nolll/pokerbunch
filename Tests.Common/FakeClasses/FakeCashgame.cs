@@ -20,7 +20,8 @@ namespace Tests.Common.FakeClasses
             int turnover = default(int),
             bool hasActivePlayers = default(bool),
             int totalStacks = default(int),
-            int averageBuyin = default(int)
+            int averageBuyin = default(int),
+            string dateString = default(string)
             ) : base(
                 id,
                 location,
@@ -35,7 +36,8 @@ namespace Tests.Common.FakeClasses
                 turnover,
                 hasActivePlayers,
                 totalStacks,
-                averageBuyin
+                averageBuyin,
+                dateString
                 )
         {
         }

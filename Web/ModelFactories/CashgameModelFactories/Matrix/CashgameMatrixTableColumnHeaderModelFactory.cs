@@ -23,7 +23,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             return new CashgameMatrixTableColumnHeaderModel
                 {
                     Date = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : string.Empty,
-                    CashgameUrl = _urlProvider.GetCashgameDetailsUrl(homegame, cashgame)
+                    CashgameUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString)
                 };
         }
     }

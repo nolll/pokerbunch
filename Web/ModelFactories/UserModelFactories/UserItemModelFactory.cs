@@ -18,7 +18,7 @@ namespace Web.ModelFactories.UserModelFactories
             return new UserItemModel
                 {
                     Name = user.DisplayName,
-                    UrlModel = _urlProvider.GetUserDetailsUrl(user)
+                    UrlModel = _urlProvider.GetUserDetailsUrl(user.UserName)
                 };
         }
     }

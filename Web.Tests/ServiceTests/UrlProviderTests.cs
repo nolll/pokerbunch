@@ -73,60 +73,48 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void CashgameDeleteUrl()
 		{
-		    const string formattedDate = "a";
-
-			var homegame = GetHomegame();
-		    var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-
-            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+		    const string slug = "a";
+		    const string dateStr = "b";
 
             var sut = GetSut();
-            var result = sut.GetCashgameDeleteUrl(homegame, cashgame);
+            var result = sut.GetCashgameDeleteUrl(slug, dateStr);
 
-			Assert.AreEqual("/abc/cashgame/delete/a", result);
+			Assert.AreEqual("/a/cashgame/delete/b", result);
 		}
 
 		[Test]
         public void CashgameDetailsUrl(){
-            const string formattedDate = "a";
-            
-            var homegame = GetHomegame();
-            var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-
-            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            const string slug = "a";
+            const string dateStr = "b";
 
             var sut = GetSut();
-            var result = sut.GetCashgameDetailsUrl(homegame, cashgame);
+            var result = sut.GetCashgameDetailsUrl(slug, dateStr);
 
-			Assert.AreEqual("/abc/cashgame/details/a", result);
+			Assert.AreEqual("/a/cashgame/details/b", result);
 		}
 
 		[Test]
         public void CashgameEditUrlModel_ReturnsCorrectUrl(){
             const string formattedDate = "a";
-            
-            var homegame = GetHomegame();
-            var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+		    const string slug = "a";
+            const string dateStr = "b";
 
             var sut = GetSut();
-            var result = sut.GetCashgameEditUrl(homegame, cashgame);
+            var result = sut.GetCashgameEditUrl(slug, dateStr);
 
-			Assert.AreEqual("/abc/cashgame/edit/a", result);
+			Assert.AreEqual("/a/cashgame/edit/b", result);
 		}
 
 		[Test]
-        public void CashgameIndexUrl(){
-			var homegame = GetHomegame();
+        public void CashgameIndexUrl()
+		{
+		    const string slug = "a";
 
             var sut = GetSut();
-			var result = sut.GetCashgameIndexUrl(homegame);
+			var result = sut.GetCashgameIndexUrl(slug);
 
-			Assert.AreEqual("/abc/cashgame/index", result);
+			Assert.AreEqual("/a/cashgame/index", result);
 		}
 
 		[Test]
@@ -456,10 +444,10 @@ namespace Web.Tests.ServiceTests{
 
 		[Test]
         public void UserDetailsUrl(){
-            var user = new FakeUser(userName: "a");
+            const string userName = "a";
 
             var sut = GetSut();
-            var result = sut.GetUserDetailsUrl(user);
+            var result = sut.GetUserDetailsUrl(userName);
 
 			Assert.AreEqual("/-/user/details/a", result);
 		}
@@ -546,18 +534,13 @@ namespace Web.Tests.ServiceTests{
         [Test]
 	    public void GetCashgameDetailsChartJsonUrl()
 	    {
-            const string formattedDate = "a";
-
-            var homegame = GetHomegame();
-            var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-
-            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+            const string slug = "a";
+            const string dateStr = "b";
             
 	        var sut = GetSut();
-            var result = sut.GetCashgameDetailsChartJsonUrl(homegame, cashgame);
+            var result = sut.GetCashgameDetailsChartJsonUrl(slug, dateStr);
 
-            Assert.AreEqual("/abc/cashgame/detailschartjson/a", result);
+            Assert.AreEqual("/a/cashgame/detailschartjson/b", result);
 	    }
 
         [Test]
@@ -597,13 +580,13 @@ namespace Web.Tests.ServiceTests{
 
         [Test]
         public void GetRunningCashgameUrl()
-	    {
-            var homegame = GetHomegame();
+        {
+            const string slug = "a";
 
 	        var sut = GetSut();
-            var result = sut.GetRunningCashgameUrl(homegame);
+            var result = sut.GetRunningCashgameUrl(slug);
 
-            Assert.AreEqual("/abc/cashgame/running", result);
+            Assert.AreEqual("/a/cashgame/running", result);
 	    }
 
         private UrlProvider GetSut()

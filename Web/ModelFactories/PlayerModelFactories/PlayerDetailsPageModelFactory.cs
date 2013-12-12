@@ -46,7 +46,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 
             if (hasUser)
             {
-                model.UserUrl = _urlProvider.GetUserDetailsUrl(user);
+                model.UserUrl = _urlProvider.GetUserDetailsUrl(user.UserName);
                 model.UserEmail = user.Email;
                 model.AvatarModel = _avatarModelFactory.Create(user.Email);
             }

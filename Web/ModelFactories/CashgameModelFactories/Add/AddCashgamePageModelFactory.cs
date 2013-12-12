@@ -22,7 +22,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
                 {
                     BrowserTitle = "New Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
-                    Locations = locations.Select(l => new SelectListItem{Text = l, Value = l})
+                    Locations = GetLocationListItems(locations)
                 };
         }
 
@@ -33,5 +33,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
             model.SelectedLocation = postModel.SelectedLocation;
             return model;
         }
+
+        private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<string> locations)
+        {
+            var listItems = locations.Select(l => new SelectListItem {Text = l, Value = l});
+            var firstItem = new SelectListItem{Text = "Select Location", Value = ""};
+            return new List<SelectListItem> {firstItem}.Concat(listItems);
+        } 
     }
 }

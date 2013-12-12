@@ -22,7 +22,8 @@ namespace Web.ModelMappers
                     cashgame.Turnover,
                     cashgame.HasActivePlayers,
                     cashgame.TotalStacks,
-                    cashgame.AverageBuyin
+                    cashgame.AverageBuyin,
+                    cashgame.DateString
                 );
         }
     }

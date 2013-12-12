@@ -53,7 +53,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void ColumnHeader_CashgameUrlIsSet(){
             const string detailsUrl = "a";
             var cashgame = new FakeCashgame(startTime: DateTime.Parse("2010-01-01"));
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame, cashgame)).Returns(detailsUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
 			var sut = GetSut();
 		    var result = sut.Create(_homegame, cashgame, _showYear);

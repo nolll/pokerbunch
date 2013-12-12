@@ -3,15 +3,20 @@ using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
+using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
+using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
+using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Facts;
+using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
@@ -54,7 +59,7 @@ namespace Web.Tests.ModelServiceTests
             GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
-            var result = sut.GetToplistModel(slug, ToplistSortOrder.winnings);
+            var result = sut.GetToplistModel(slug);
 
             Assert.IsNotNull(result);
         }
@@ -67,7 +72,7 @@ namespace Web.Tests.ModelServiceTests
 
             var sut = GetSut();
 
-            Assert.Throws<AccessDeniedException>(() => sut.GetToplistModel(slug, ToplistSortOrder.winnings));
+            Assert.Throws<AccessDeniedException>(() => sut.GetToplistModel(slug));
         }
 
         [Test]
@@ -113,7 +118,13 @@ namespace Web.Tests.ModelServiceTests
                 GetMock<ICashgameDetailsChartModelFactory>().Object,
                 GetMock<ICashgameFactsPageModelFactory>().Object,
                 GetMock<IAddCashgamePageModelFactory>().Object,
-                GetMock<ICashgameEditPageModelFactory>().Object);
+                GetMock<ICashgameEditPageModelFactory>().Object,
+                GetMock<IWebContext>().Object,
+                GetMock<IRunningCashgamePageModelFactory>().Object,
+                GetMock<ICashgameListPageModelFactory>().Object,
+                GetMock<ICashgameChartPageModelFactory>().Object,
+                GetMock<ICashgameSuiteChartModelFactory>().Object,
+                GetMock<IActionPageModelFactory>().Object);
         }
 
     }

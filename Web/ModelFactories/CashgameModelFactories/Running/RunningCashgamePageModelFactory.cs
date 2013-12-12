@@ -50,7 +50,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     ShowTable = cashgame.IsStarted,
                     RunningCashgameTableModel = cashgame.IsStarted ? _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager) : null,
                     ShowChart = cashgame.IsStarted,
-                    ChartDataUrl = cashgame.IsStarted ? _urlProvider.GetCashgameDetailsChartJsonUrl(homegame, cashgame) : null
+                    ChartDataUrl = cashgame.IsStarted ? _urlProvider.GetCashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString) : null
                 };
         }
 
