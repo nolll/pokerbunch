@@ -51,11 +51,11 @@ namespace Web.Controllers
 	        _userCommandProvider = userCommandProvider;
 	    }
 
-		public ActionResult Details(string name)
+		public ActionResult Details(string userName)
         {
 			_authentication.RequireUser();
-			var user = _userRepository.GetByNameOrEmail(name);
-			if(name == null){
+			var user = _userRepository.GetByNameOrEmail(userName);
+			if(userName == null){
 				throw new UserNotFoundException();
 			}
 			var model = _userDetailsPageModelFactory.Create(_authentication.GetUser(), user);
@@ -97,10 +97,10 @@ namespace Web.Controllers
 			return View("Add/Confirmation", model);
 		}
 
-        public ActionResult Edit(string name)
+        public ActionResult Edit(string userName)
         {
 			_authentication.RequireUser();
-			var user = _userRepository.GetByNameOrEmail(name);
+			var user = _userRepository.GetByNameOrEmail(userName);
 			if(user == null){
 				throw new UserNotFoundException();
 			}
@@ -109,10 +109,10 @@ namespace Web.Controllers
 		}
 
         [HttpPost]
-		public ActionResult Edit(string name, EditUserPostModel postModel)
+		public ActionResult Edit(string userName, EditUserPostModel postModel)
         {
 			_authentication.RequireUser();
-			var user = _userRepository.GetByNameOrEmail(name);
+			var user = _userRepository.GetByNameOrEmail(userName);
             var command = _userCommandProvider.GetEditCommand(user, postModel);
             if (command.Execute())
             {

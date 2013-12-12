@@ -17,8 +17,8 @@ namespace Web
             );
 
             routes.MapRoute(
-                "Site Routes with name",
-                "-/{controller}/{action}/{name}",
+                "Site Routes with user name",
+                "-/{controller}/{action}/{userName}",
                 new {  }
             );
 
@@ -43,20 +43,20 @@ namespace Web
             );
 
             routes.MapRoute(
-                "Bunch Routes with name",
-                "{slug}/{controller}/{action}/{name}"
+                "Bunch Routes with player name",
+                "{slug}/{controller}/{action}/{playerName}"
             );
 
             routes.MapRoute(
-                "Bunch Routes with date and name",
-                "{slug}/{controller}/{action}/{dateStr}/{name}",
+                "Bunch Routes with date and player name",
+                "{slug}/{controller}/{action}/{dateStr}/{playerName}",
                 new { },
                 new { dateStr = @"\d{4}-\d{2}-\d{2}" }
             );
 
             routes.MapRoute(
-                "Bunch Routes with date, name and id",
-                "{slug}/{controller}/{action}/{dateStr}/{name}/{id}",
+                "Bunch Routes with date, player name and id",
+                "{slug}/{controller}/{action}/{dateStr}/{playerName}/{id}",
                 new { },
                 new { dateStr = @"\d{4}-\d{2}-\d{2}", id = @"^[0-9]+$" }
             );

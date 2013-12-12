@@ -235,44 +235,44 @@ namespace Web.Controllers{
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Action(string slug, string dateStr, string name){
+        public ActionResult Action(string slug, string dateStr, string playerName){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             var role = _authorization.GetRole(homegame);
 			var result = cashgame.GetResult(player.Id);
 			var model = _actionPageModelFactory.Create(_authentication.GetUser(), homegame, cashgame, player, result, role);
 			return View("Action/Action", model);
 		}
 
-		public JsonResult ActionChartJson(string slug, string dateStr, string name){
+		public JsonResult ActionChartJson(string slug, string dateStr, string playerName){
 			var homegame = _homegameRepository.GetByName(slug);
 			var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-			var player = _playerRepository.GetByName(homegame, name);
+			var player = _playerRepository.GetByName(homegame, playerName);
 			var result = cashgame.GetResult(player.Id);
 			var model = _actionChartModelFactory.Create(homegame, cashgame, result);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Buyin(string slug, string name){
+        public ActionResult Buyin(string slug, string playerName){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var model = _buyinPageModelFactory.Create(user, homegame, player, runningGame);
 			return ShowBuyinForm(user, player, model);
 		}
 
         [HttpPost]
-        public ActionResult Buyin(string slug, string name, BuyinPostModel postModel){
+        public ActionResult Buyin(string slug, string playerName, BuyinPostModel postModel){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             var runningGame = _cashgameRepository.GetRunning(homegame);
 			if(ModelState.IsValid)
 			{
@@ -289,25 +289,25 @@ namespace Web.Controllers{
             return Redirect(_urlProvider.GetRunningCashgameUrl(homegame));
 		}
 
-        public ActionResult Report(string slug, string name){
+        public ActionResult Report(string slug, string playerName){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
 			var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             var model = _reportPageModelFactory.Create(user, homegame, player, cashgame);
 			return ShowReportForm(player, user, model);
 		}
 
         [HttpPost]
-        public ActionResult Report(string slug, string name, ReportPostModel postModel){
+        public ActionResult Report(string slug, string playerName, ReportPostModel postModel){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
 			var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             if(ModelState.IsValid)
 			{
 			    var checkpoint = _checkpointModelMapper.GetCheckpoint(postModel);
@@ -318,23 +318,23 @@ namespace Web.Controllers{
             return ShowReportForm(player, user, model);
 		}
 
-        public ActionResult DeleteCheckpoint(string slug, string dateStr, string name, int id){
+        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int id){
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-			var player = _playerRepository.GetByName(homegame, name);
+			var player = _playerRepository.GetByName(homegame, playerName);
             _checkpointRepository.DeleteCheckpoint(cashgame, id);
             var actionsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player);
             return Redirect(actionsUrl);
 		}
 
-        public ActionResult Cashout(string slug, string name){
+        public ActionResult Cashout(string slug, string playerName){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
 			var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             if (!_authentication.IsAdmin() && player.UserId != user.Id)
             {
 				throw new AccessDeniedException();
@@ -344,12 +344,12 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Cashout(string slug, string name, CashoutPostModel postModel){
+        public ActionResult Cashout(string slug, string playerName, CashoutPostModel postModel){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
 			var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            var player = _playerRepository.GetByName(homegame, name);
+            var player = _playerRepository.GetByName(homegame, playerName);
             if (!_authentication.IsAdmin() && player.UserId != user.Id)
             {
 				throw new AccessDeniedException();
