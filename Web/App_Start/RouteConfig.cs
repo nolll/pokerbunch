@@ -30,40 +30,40 @@ namespace Web
 
             routes.MapRoute(
                 "Bunch Routes with year",
-                "{gameName}/{controller}/{action}/{year}",
+                "{slug}/{controller}/{action}/{year}",
                 new {  },
                 new { year = @"^[0-9]+$" }
             );
 
             routes.MapRoute(
                 "Bunch Routes with date",
-                "{gameName}/{controller}/{action}/{dateStr}",
+                "{slug}/{controller}/{action}/{dateStr}",
                 new { },
                 new { dateStr = @"\d{4}-\d{2}-\d{2}" }
             );
 
             routes.MapRoute(
                 "Bunch Routes with name",
-                "{gameName}/{controller}/{action}/{name}"
+                "{slug}/{controller}/{action}/{name}"
             );
 
             routes.MapRoute(
                 "Bunch Routes with date and name",
-                "{gameName}/{controller}/{action}/{dateStr}/{name}",
+                "{slug}/{controller}/{action}/{dateStr}/{name}",
                 new { },
                 new { dateStr = @"\d{4}-\d{2}-\d{2}" }
             );
 
             routes.MapRoute(
                 "Bunch Routes with date, name and id",
-                "{gameName}/{controller}/{action}/{dateStr}/{name}/{id}",
+                "{slug}/{controller}/{action}/{dateStr}/{name}/{id}",
                 new { },
                 new { dateStr = @"\d{4}-\d{2}-\d{2}", id = @"^[0-9]+$" }
             );
 
             routes.MapRoute(
                 "Bunch Routes",
-                "{gameName}/{controller}/{action}"
+                "{slug}/{controller}/{action}"
             );
 
         }

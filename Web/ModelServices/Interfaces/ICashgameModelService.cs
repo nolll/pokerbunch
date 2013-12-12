@@ -10,13 +10,13 @@ namespace Web.ModelServices
 {
     public interface ICashgameModelService
     {
-        CashgameMatrixPageModel GetMatrixModel(string gameName, int? year = null);
-        CashgameToplistPageModel GetToplistModel(string gameName, ToplistSortOrder sortOrder = ToplistSortOrder.winnings, int? year = null);
-        string GetIndexUrl(string gameName);
-        CashgameDetailsPageModel GetDetailsModel(string gameName, string dateStr);
-        ChartModel GetDetailsChartJsonModel(string gameName, string dateStr);
-        CashgameFactsPageModel GetFactsModel(string gameName, int? year = null);
-        AddCashgamePageModel GetAddModel(string gameName);
-        CashgameEditPageModel GetEditModel(string gameName, string dateStr);
+        CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null);
+        CashgameToplistPageModel GetToplistModel(string slug, ToplistSortOrder sortOrder = ToplistSortOrder.winnings, int? year = null);
+        string GetIndexUrl(string slug);
+        CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr);
+        ChartModel GetDetailsChartJsonModel(string slug, string dateStr);
+        CashgameFactsPageModel GetFactsModel(string slug, int? year = null);
+        AddCashgamePageModel GetAddModel(string slug);
+        CashgameEditPageModel GetEditModel(string slug, string dateStr);
     }
 }

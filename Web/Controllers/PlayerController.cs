@@ -28,80 +28,80 @@ namespace Web.Controllers{
 	        _playerCommandProvider = playerCommandProvider;
 	    }
 
-	    public ActionResult Index(string gameName){
+	    public ActionResult Index(string slug){
 			_authentication.RequireUser();
-            _authorization.RequirePlayer(gameName);
-            var model = _playerModelService.GetListModel(gameName);
+            _authorization.RequirePlayer(slug);
+            var model = _playerModelService.GetListModel(slug);
 			return View("List", model);
 		}
 
-        public ActionResult Details(string gameName, string name){
+        public ActionResult Details(string slug, string name){
 			_authentication.RequireUser();
-            _authorization.RequirePlayer(gameName);
-            var model = _playerModelService.GetDetailsModel(gameName, name);
+            _authorization.RequirePlayer(slug);
+            var model = _playerModelService.GetDetailsModel(slug, name);
 			return View("Details", model);
 		}
 
-        public ActionResult Add(string gameName){
+        public ActionResult Add(string slug){
 			_authentication.RequireUser();
-            _authorization.RequireManager(gameName);
-            var model = _playerModelService.GetAddModel(gameName);
+            _authorization.RequireManager(slug);
+            var model = _playerModelService.GetAddModel(slug);
             return View("Add", model);
 		}
 
         [HttpPost]
-        public ActionResult Add(string gameName, AddPlayerPostModel postModel){
+        public ActionResult Add(string slug, AddPlayerPostModel postModel){
 			_authentication.RequireUser();
-            _authorization.RequireManager(gameName);
-            var command = _playerCommandProvider.GetAddCommand(gameName, postModel);
+            _authorization.RequireManager(slug);
+            var command = _playerCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(gameName));
+                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(slug));
             }
             AddModelErrors(command.Errors);
-			var model = _playerModelService.GetAddModel(gameName, postModel);
+			var model = _playerModelService.GetAddModel(slug, postModel);
 			return View("Add", model);
 		}
 
-        public ActionResult Created(string gameName){
-            var model = _playerModelService.GetAddConfirmationModel(gameName);
+        public ActionResult Created(string slug){
+            var model = _playerModelService.GetAddConfirmationModel(slug);
 			return View("AddConfirmation", model);
 		}
 
-		public ActionResult Delete(string gameName, string name){
+		public ActionResult Delete(string slug, string name){
 			_authentication.RequireUser();
-            _authorization.RequireManager(gameName);
-            var command = _playerCommandProvider.GetDeleteCommand(gameName, name);
+            _authorization.RequireManager(slug);
+            var command = _playerCommandProvider.GetDeleteCommand(slug, name);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerIndexUrl(gameName));
+                return Redirect(_urlProvider.GetPlayerIndexUrl(slug));
             }
-		    return Redirect(_urlProvider.GetPlayerDetailsUrl(gameName, name));
+		    return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, name));
 		}
 
-        public ActionResult Invite(string gameName, string name){
+        public ActionResult Invite(string slug, string name){
 			_authentication.RequireUser();
-            _authorization.RequireManager(gameName);
-            var model = _playerModelService.GetInviteModel(gameName);
+            _authorization.RequireManager(slug);
+            var model = _playerModelService.GetInviteModel(slug);
             return View("Invite", model);
 		}
 
         [HttpPost]
-		public ActionResult Invite(string gameName, string name, InvitePlayerPostModel postModel){
+		public ActionResult Invite(string slug, string name, InvitePlayerPostModel postModel){
 			_authentication.RequireUser();
-            _authorization.RequireManager(gameName);
-            var command = _playerCommandProvider.GetInviteCommand(gameName, name, postModel);
+            _authorization.RequireManager(slug);
+            var command = _playerCommandProvider.GetInviteCommand(slug, name, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(gameName, name));
+                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(slug, name));
             }
             AddModelErrors(command.Errors);
-            var model = _playerModelService.GetInviteModel(gameName);
+            var model = _playerModelService.GetInviteModel(slug);
             return View("Invite", model);
 		}
 
-	    public ActionResult Invited(string gameName, string name){
-		    var model = _playerModelService.GetInviteConfirmationModel(gameName);
+	    public ActionResult Invited(string slug, string name){
+		    var model = _playerModelService.GetInviteConfirmationModel(slug);
 			return View("InviteConfirmation", model);
 		}
     }
