@@ -13,7 +13,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public CashoutPageModel Create(User user, Homegame homegame)
+        private CashoutPageModel Create(User user, Homegame homegame)
         {
             return new CashoutPageModel
                 {
@@ -25,7 +25,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
         public CashoutPageModel Create(User user, Homegame homegame, CashoutPostModel postModel)
         {
             var model = Create(user, homegame);
-            model.StackAmount = postModel.StackAmount;
+            if (postModel != null)
+            {
+                model.StackAmount = postModel.StackAmount;                
+            }
             return model;
         }
     }

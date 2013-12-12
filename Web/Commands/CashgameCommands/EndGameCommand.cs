@@ -7,19 +7,21 @@ namespace Web.Commands.CashgameCommands
     {
         private readonly ICashgameRepository _cashgameRepository;
         private readonly Homegame _homegame;
+        private readonly Cashgame _cashgame;
 
         public EndGameCommand(
             ICashgameRepository cashgameRepository,
-            Homegame homegame)
+            Homegame homegame,
+            Cashgame cashgame)
         {
             _cashgameRepository = cashgameRepository;
             _homegame = homegame;
+            _cashgame = cashgame;
         }
 
         public override bool Execute()
         {
-            var cashgame = _cashgameRepository.GetRunning(_homegame);
-            _cashgameRepository.EndGame(_homegame, cashgame);
+            _cashgameRepository.EndGame(_homegame, _cashgame);
             return true;
         }
     }

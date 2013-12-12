@@ -21,7 +21,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
         [Test]
 		public void CashoutAmount_WithoutPostedAmount_IsNull(){
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame);
+            var result = sut.Create(new FakeUser(), _homegame, null);
 
 			Assert.IsNull(result.StackAmount);
 		}

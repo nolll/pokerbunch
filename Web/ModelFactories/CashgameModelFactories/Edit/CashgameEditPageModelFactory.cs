@@ -25,7 +25,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             _globalization = globalization;
         }
 
-        public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IEnumerable<string> locations)
+        private CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IEnumerable<string> locations)
         {
             return new CashgameEditPageModel
                 {
@@ -44,8 +44,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
         public CashgameEditPageModel Create(User user, Homegame homegame, Cashgame cashgame, IEnumerable<string> locations, CashgameEditPostModel postModel)
         {
             var model = Create(user, homegame, cashgame, locations);
-            model.TypedLocation = postModel.TypedLocation;
-            model.SelectedLocation = postModel.SelectedLocation;
+            if (postModel != null)
+            {
+                model.TypedLocation = postModel.TypedLocation;
+                model.SelectedLocation = postModel.SelectedLocation;
+            }
             return model;
         }
     }

@@ -8,13 +8,16 @@ namespace Core.Services
     {
         private readonly IAuthentication _authentication;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly IPlayerRepository _playerRepository;
 
         public Authorization(
             IAuthentication authentication,
-            IHomegameRepository homegameRepository)
+            IHomegameRepository homegameRepository,
+            IPlayerRepository playerRepository)
         {
             _authentication = authentication;
             _homegameRepository = homegameRepository;
+            _playerRepository = playerRepository;
         }
 
         public Role GetRole(Homegame homegame)
@@ -51,5 +54,14 @@ namespace Core.Services
             var homegame = _homegameRepository.GetByName(bunchName);
             RequireRole(homegame, Role.Manager);
         }
+
+        public bool CanActAsPlayer(string slug, string playerName)
+        {
+            var homegame = _homegameRepository.GetByName(slug);
+            var player = _playerRepository.GetByName(homegame, playerName);
+            var currentUser = _authentication.GetUser();
+            return _authentication.IsAdmin() || player.UserId == currentUser.Id;
+        }
+
     }
 }

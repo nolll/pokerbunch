@@ -13,7 +13,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame)
+        private BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame)
         {
             return new BuyinPageModel
                 {
@@ -27,8 +27,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
         public BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame, BuyinPostModel postModel)
         {
             var model = Create(user, homegame, player, runningGame);
-            model.BuyinAmount = postModel.BuyinAmount;
-            model.StackAmount = postModel.StackAmount;
+            if (postModel != null)
+            {
+                model.BuyinAmount = postModel.BuyinAmount;
+                model.StackAmount = postModel.StackAmount;
+            }
             return model;
         }
     }

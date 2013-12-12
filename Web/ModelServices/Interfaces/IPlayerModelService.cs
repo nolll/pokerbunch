@@ -11,7 +11,7 @@ namespace Web.ModelServices
         PlayerDetailsPageModel GetDetailsModel(string slug, string playerName);
         AddPlayerPageModel GetAddModel(string slug, AddPlayerPostModel postModel = null);
         AddPlayerConfirmationPageModel GetAddConfirmationModel(string slug);
-        InvitePlayerPageModel GetInviteModel(string slug);
+        InvitePlayerPageModel GetInviteModel(string slug, InvitePlayerPostModel postModel = null);
         InvitePlayerConfirmationPageModel GetInviteConfirmationModel(string slug);
     }
 }

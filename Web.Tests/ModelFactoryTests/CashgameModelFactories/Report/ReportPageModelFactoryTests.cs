@@ -11,17 +11,14 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
 	public class ReportPageModelFactoryTests : MockContainer {
 
 		private Homegame _homegame;
-		private Player _player;
 
         [SetUp]
 		public void SetUp(){
 			_homegame = new FakeHomegame();
-			_player = new FakePlayer();
 		}
 
         private ReportPageModel GetResult(){
-			var runningGame = new FakeCashgame();
-            return GetSut().Create(new FakeUser(), _homegame, _player, runningGame);
+            return GetSut().Create(new FakeUser(), _homegame, null);
 		}
 
         private ReportPageModelFactory GetSut()

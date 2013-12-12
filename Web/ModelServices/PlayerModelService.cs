@@ -85,10 +85,10 @@ namespace Web.ModelServices
             return _addPlayerConfirmationPageModelFactory.Create(_authentication.GetUser(), homegame);
         }
 
-        public InvitePlayerPageModel GetInviteModel(string slug)
+        public InvitePlayerPageModel GetInviteModel(string slug, InvitePlayerPostModel postModel)
         {
             var homegame = _homegameRepository.GetByName(slug);
-            return _invitePlayerPageModelFactory.Create(_authentication.GetUser(), homegame);
+            return _invitePlayerPageModelFactory.Create(_authentication.GetUser(), homegame, postModel);
         }
 
         public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(string slug)

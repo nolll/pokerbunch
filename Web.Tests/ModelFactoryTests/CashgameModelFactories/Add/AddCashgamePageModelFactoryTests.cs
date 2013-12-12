@@ -53,9 +53,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Add{
 		private AddCashgamePageModel GetResult(AddCashgamePostModel postModel = null)
 		{
 		    var sut = GetSut();
-            if(postModel != null)
-                return sut.Create(_user, _homegame, _locations, postModel);
-			return sut.Create(_user, _homegame, _locations);
+            return sut.Create(_user, _homegame, _locations, postModel);
 		}
 
         private AddCashgamePageModelFactory GetSut()

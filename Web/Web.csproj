@@ -173,10 +173,14 @@
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\AddCashgameCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\BuyinCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EditCashgameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EndGameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
+    <Compile Include="Commands\CashgameCommands\ReportCommand.cs" />
     <Compile Include="Commands\HomegameCommands\EditHomegameCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IHomegameCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinHomegameCommand.cs" />

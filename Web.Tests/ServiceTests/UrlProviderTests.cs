@@ -185,20 +185,14 @@ namespace Web.Tests.ServiceTests{
 		[Test]
         public void CashgameActionUrlModel_ReturnsCorrectUrl()
 		{
-		    const string formattedDate = "a";
-		    const string displayName = "b";
+		    const string slug = "a";
+		    const string dateStr = "b";
+		    const string playerName = "c";
 
-			var homegame = GetHomegame();
-		    var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-		    var player = new FakePlayer(displayName: displayName);
+		    var sut = GetSut();
+            var result = sut.GetCashgameActionUrl(slug, dateStr, playerName);
 
-		    GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
-
-            var sut = GetSut();
-            var result = sut.GetCashgameActionUrl(homegame, cashgame, player);
-
-			Assert.AreEqual("/abc/cashgame/action/a/b", result);
+			Assert.AreEqual("/a/cashgame/action/b/c", result);
 		}
 
 		[Test]
@@ -485,19 +479,14 @@ namespace Web.Tests.ServiceTests{
 	    [Test]
 	    public void GetCashgameActionChartJsonUrl()
 	    {
-	        const string formattedDate = "a";
-
-            var homegame = GetHomegame();
-	        var dateTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-            var player = new FakePlayer(displayName: "b");
-
-            GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(dateTime)).Returns(formattedDate);
+	        const string slug = "a";
+	        const string dateStr = "b";
+	        const string playerName = "c";
 
             var sut = GetSut();
-            var result = sut.GetCashgameActionChartJsonUrl(homegame, cashgame, player);
+            var result = sut.GetCashgameActionChartJsonUrl(slug, dateStr, playerName);
 
-            Assert.AreEqual("/abc/cashgame/actionchartjson/a/b", result);
+            Assert.AreEqual("/a/cashgame/actionchartjson/b/c", result);
 	    }
 
         [Test]

@@ -10,12 +10,16 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
+using Web.ModelFactories.CashgameModelFactories.Buyin;
+using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
+using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
@@ -124,7 +128,12 @@ namespace Web.Tests.ModelServiceTests
                 GetMock<ICashgameListPageModelFactory>().Object,
                 GetMock<ICashgameChartPageModelFactory>().Object,
                 GetMock<ICashgameSuiteChartModelFactory>().Object,
-                GetMock<IActionPageModelFactory>().Object);
+                GetMock<IActionPageModelFactory>().Object,
+                GetMock<IActionChartModelFactory>().Object,
+                GetMock<IBuyinPageModelFactory>().Object,
+                GetMock<IReportPageModelFactory>().Object,
+                GetMock<ICashoutPageModelFactory>().Object,
+                GetMock<IEndPageModelFactory>().Object);
         }
 
     }

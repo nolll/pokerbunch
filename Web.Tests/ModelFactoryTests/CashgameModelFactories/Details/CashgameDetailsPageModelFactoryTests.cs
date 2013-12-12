@@ -133,7 +133,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame, cashgame, player)).Returns(actionUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, cashgame.DateString, player.DisplayName)).Returns(actionUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), _homegame, cashgame, player, _isManager);

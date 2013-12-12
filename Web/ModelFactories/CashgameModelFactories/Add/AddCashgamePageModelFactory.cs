@@ -16,7 +16,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddCashgamePageModel Create(User user, Homegame homegame, IEnumerable<string> locations)
+        private AddCashgamePageModel Create(User user, Homegame homegame, IEnumerable<string> locations)
         {
             return new AddCashgamePageModel
                 {
@@ -29,8 +29,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
         public AddCashgamePageModel Create(User user, Homegame homegame, IEnumerable<string> locations, AddCashgamePostModel postModel)
         {
             var model = Create(user, homegame, locations);
-            model.TypedLocation = postModel.TypedLocation;
-            model.SelectedLocation = postModel.SelectedLocation;
+            if (postModel != null)
+            {
+                model.TypedLocation = postModel.TypedLocation;
+                model.SelectedLocation = postModel.SelectedLocation;
+            }
             return model;
         }
 

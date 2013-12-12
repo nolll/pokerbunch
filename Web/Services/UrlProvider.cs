@@ -45,14 +45,14 @@ namespace Web.Services
             return string.Format(RouteFormats.TwitterCallback, _settings.GetSiteUrl());
         }
 
-        public string GetCashgameActionChartJsonUrl(Homegame homegame, Cashgame cashgame, Player player)
+        public string GetCashgameActionChartJsonUrl(string slug, string dateStr, string playerName)
         {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, homegame, cashgame, player);
+            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, slug, dateStr, playerName);
         }
 
-        public string GetCashgameActionUrl(Homegame homegame, Cashgame cashgame, Player player)
+        public string GetCashgameActionUrl(string slug, string dateStr, string playerName)
         {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, homegame, cashgame, player);
+            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, slug, dateStr, playerName);
         }
 
         public string GetCashgameAddUrl(Homegame homegame)
@@ -282,11 +282,10 @@ namespace Web.Services
             return RouteFormats.UserList;
         }
 
-        private string GetCashgamePlayerUrl(string format, Homegame homegame, Cashgame cashgame, Player player)
+        private string GetCashgamePlayerUrl(string format, string slug, string dateStr, string playerName)
         {
-            var isoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : string.Empty;
-            var encodedPlayerName = HttpUtility.UrlPathEncode(player.DisplayName);
-            return string.Format(format, homegame.Slug, isoDate, encodedPlayerName);
+            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
+            return string.Format(format, slug, dateStr, encodedPlayerName);
         }
 
         private string FormatHomegameWithOptionalYear(string format, string formatWithYear, Homegame homegame, int? year)

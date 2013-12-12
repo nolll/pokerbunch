@@ -96,7 +96,7 @@ namespace Web.Controllers{
                 return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(slug, playerName));
             }
             AddModelErrors(command.Errors);
-            var model = _playerModelService.GetInviteModel(slug);
+            var model = _playerModelService.GetInviteModel(slug, postModel);
             return View("Invite", model);
 		}
 

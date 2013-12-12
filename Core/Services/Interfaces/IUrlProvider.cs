@@ -59,8 +59,8 @@ namespace Core.Services
         string GetCashgameDetailsUrl(string slug, string dateStr);
         string GetCashgameEditUrl(string slug, string dateStr);
 
-        string GetCashgameActionChartJsonUrl(Homegame homegame, Cashgame cashgame, Player player);
-        string GetCashgameActionUrl(Homegame homegame, Cashgame cashgame, Player player);
+        string GetCashgameActionChartJsonUrl(string slug, string dateStr, string playerName);
+        string GetCashgameActionUrl(string slug, string dateStr, string playerName);
         
         string GetCashgameCheckpointDeleteUrl(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint);
         

@@ -4,23 +4,11 @@ using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Factories;
-using Infrastructure.System;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
-using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
-using Web.ModelFactories.CashgameModelFactories.Cashout;
-using Web.ModelFactories.CashgameModelFactories.Chart;
-using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.List;
-using Web.ModelFactories.CashgameModelFactories.Report;
-using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelMappers;
 using Web.ModelServices;
 using ICashgameService = Core.Services.ICashgameService;
 
@@ -225,31 +213,12 @@ namespace Web.Tests.ControllerTests{
         private CashgameController GetSut()
         {
             return new CashgameController(
-                GetMock<IHomegameRepository>().Object,
                 GetMock<IAuthentication>().Object,
                 GetMock<IAuthorization>().Object,
-                GetMock<ICashgameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
-                GetMock<ICashgameFactory>().Object,
-                GetMock<IBuyinPageModelFactory>().Object,
-                GetMock<IReportPageModelFactory>().Object,
-                GetMock<ICashoutPageModelFactory>().Object,
-                GetMock<IEndPageModelFactory>().Object,
-                GetMock<IActionPageModelFactory>().Object,
-                GetMock<ICashgameChartPageModelFactory>().Object,
-                GetMock<ICashgameListPageModelFactory>().Object,
-                GetMock<IRunningCashgamePageModelFactory>().Object,
-                GetMock<ICashgameModelMapper>().Object,
-                GetMock<ICheckpointModelMapper>().Object,
                 GetMock<IUrlProvider>().Object,
-                GetMock<ICashgameSuiteChartModelFactory>().Object,
-                GetMock<IActionChartModelFactory>().Object,
-                GetMock<ITimeProvider>().Object,
-                GetMock<ICheckpointRepository>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<ICashgameModelService>().Object,
-                GetMock<IWebContext>().Object);
+                GetMock<ICashgameModelService>().Object);
         }
 
 	}

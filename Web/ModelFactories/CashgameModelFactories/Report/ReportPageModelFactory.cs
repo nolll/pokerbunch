@@ -13,7 +13,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public ReportPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame)
+        private ReportPageModel Create(User user, Homegame homegame)
         {
             return new ReportPageModel
                 {
@@ -22,10 +22,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
                 };
         }
 
-        public ReportPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame, ReportPostModel postModel)
+        public ReportPageModel Create(User user, Homegame homegame, ReportPostModel postModel)
         {
-            var model = Create(user, homegame, player, runningGame);
-            model.StackAmount = postModel.StackAmount;
+            var model = Create(user, homegame);
+            if (postModel != null)
+            {
+                model.StackAmount = postModel.StackAmount;
+            }
             return model;
         }
     }

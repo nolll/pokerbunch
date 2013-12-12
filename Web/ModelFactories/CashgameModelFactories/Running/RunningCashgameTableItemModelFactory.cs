@@ -31,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgameTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player),
+                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.DisplayName),
                     BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
                     ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
                     CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),

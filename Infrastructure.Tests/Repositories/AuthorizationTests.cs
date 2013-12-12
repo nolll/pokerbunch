@@ -54,11 +54,12 @@ namespace Infrastructure.Tests.Repositories
             Assert.IsTrue(result);
         }
 
-        public Authorization GetSut()
+        private Authorization GetSut()
         {
             return new Authorization(
                 GetMock<IAuthentication>().Object,
-                GetMock<IHomegameRepository>().Object);
+                GetMock<IHomegameRepository>().Object,
+                GetMock<IPlayerRepository>().Object);
         }
 
     }

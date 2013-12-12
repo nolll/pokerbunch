@@ -13,7 +13,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public InvitePlayerPageModel Create(User user, Homegame homegame)
+        private InvitePlayerPageModel Create(User user, Homegame homegame)
         {
             return new InvitePlayerPageModel
                 {
@@ -25,7 +25,10 @@ namespace Web.ModelFactories.PlayerModelFactories
         public InvitePlayerPageModel Create(User user, Homegame homegame, InvitePlayerPostModel postModel)
         {
             var model = Create(user, homegame);
-            model.Email = postModel.Email;
+            if (postModel != null)
+            {
+                model.Email = postModel.Email;
+            }
             return model;
         }
     }
