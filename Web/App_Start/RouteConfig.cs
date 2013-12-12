@@ -55,10 +55,10 @@ namespace Web
             );
 
             routes.MapRoute(
-                "Bunch Routes with date, player name and id",
-                "{slug}/{controller}/{action}/{dateStr}/{playerName}/{id}",
+                "Bunch Routes with date, player name and checkpoint id",
+                "{slug}/{controller}/{action}/{dateStr}/{playerName}/{checkpointId}",
                 new { },
-                new { dateStr = @"\d{4}-\d{2}-\d{2}", id = @"^[0-9]+$" }
+                new { dateStr = @"\d{4}-\d{2}-\d{2}", checkpointId = @"^[0-9]+$" }
             );
 
             routes.MapRoute(

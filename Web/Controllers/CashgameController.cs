@@ -318,13 +318,13 @@ namespace Web.Controllers{
             return ShowReportForm(player, user, model);
 		}
 
-        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int id){
+        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId){
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
 			var player = _playerRepository.GetByName(homegame, playerName);
-            _checkpointRepository.DeleteCheckpoint(cashgame, id);
+            _checkpointRepository.DeleteCheckpoint(cashgame, checkpointId);
             var actionsUrl = _urlProvider.GetCashgameActionUrl(homegame, cashgame, player);
             return Redirect(actionsUrl);
 		}
