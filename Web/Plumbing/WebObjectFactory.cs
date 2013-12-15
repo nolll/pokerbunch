@@ -106,6 +106,7 @@ namespace Web.Plumbing
             RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 
             // Model Services
+            RegisterComponent<IHomegameModelService, HomegameModelService>();
             RegisterComponent<IPlayerModelService, PlayerModelService>();
             RegisterComponent<ICashgameModelService, CashgameModelService>();
             RegisterComponent<IUserModelService, UserModelService>();

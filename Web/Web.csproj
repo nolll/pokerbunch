@@ -194,6 +194,8 @@
     <Compile Include="Commands\UserCommands\ForgotPasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\HomegameCommandProvider.cs" />
+    <Compile Include="ModelServices\HomegameModelService.cs" />
+    <Compile Include="ModelServices\Interfaces\IHomegameModelService.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableModelFactory.cs" />
@@ -246,7 +248,7 @@
     <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />
     <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\PlayerCommandProvider.cs" />
-    <Compile Include="ModelServices\IUserModelService.cs" />
+    <Compile Include="ModelServices\Interfaces\IUserModelService.cs" />
     <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="ModelServices\UserModelService.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />

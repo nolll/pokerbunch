@@ -24,7 +24,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Welcome",
                     PageProperties = _pagePropertiesFactory.Create(user),
-                    BunchUrl = _urlProvider.GetHomegameDetailsUrl(homegame),
+                    BunchUrl = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
                     BunchName = homegame.DisplayName
                 };
         }

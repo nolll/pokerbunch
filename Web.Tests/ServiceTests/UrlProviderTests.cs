@@ -277,13 +277,14 @@ namespace Web.Tests.ServiceTests{
 		}
 
 		[Test]
-        public void HomegameDetailsUrl(){
-			var homegame = GetHomegame();
+        public void HomegameDetailsUrl()
+		{
+		    const string slug = "a";
 
             var sut = GetSut();
-            var result = sut.GetHomegameDetailsUrl(homegame);
+            var result = sut.GetHomegameDetailsUrl(slug);
 
-            Assert.AreEqual("/abc/homegame/details", result);
+            Assert.AreEqual("/a/homegame/details", result);
 		}
 
 		[Test]
@@ -307,13 +308,14 @@ namespace Web.Tests.ServiceTests{
 		}
 
 		[Test]
-        public void HomegameJoinConfirmationUrl(){
-			var homegame = GetHomegame();
+        public void HomegameJoinConfirmationUrl()
+		{
+		    const string slug = "a";
 
             var sut = GetSut();
-            var result = sut.GetHomegameJoinConfirmationUrl(homegame);
+            var result = sut.GetHomegameJoinConfirmationUrl(slug);
 
-			Assert.AreEqual("/abc/homegame/joined", result);
+			Assert.AreEqual("/a/homegame/joined", result);
 		}
 
 		[Test]

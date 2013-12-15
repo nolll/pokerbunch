@@ -10,7 +10,6 @@ using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelServices;
-using ICashgameService = Core.Services.ICashgameService;
 
 namespace Web.Tests.ControllerTests{
 

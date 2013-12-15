@@ -1,9 +1,7 @@
 using System.Web.Mvc;
-using Core.Classes;
-using Core.Repositories;
 using Core.Services;
 using Web.Commands.HomegameCommands;
-using Web.ModelFactories.HomegameModelFactories;
+using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
@@ -14,51 +12,29 @@ namespace Web.Controllers
     {
 	    private readonly IAuthentication _authentication;
 	    private readonly IAuthorization _authorization;
-	    private readonly IHomegameRepository _homegameRepository;
-	    private readonly IAddHomegamePageModelFactory _addHomegamePageModelFactory;
-	    private readonly IAddHomegameConfirmationPageModelFactory _addHomegameConfirmationPageModelFactory;
-	    private readonly IHomegameListPageModelFactory _homegameListPageModelFactory;
-	    private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
-	    private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
-	    private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
-	    private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
+	    private readonly IHomegameModelService _homegameModelService;
 
 	    public HomegameController(
             IAuthentication authentication,
             IAuthorization authorization,
-            IHomegameRepository homegameRepository,
-            IAddHomegamePageModelFactory addHomegamePageModelFactory,
-            IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
-            IHomegameListPageModelFactory homegameListPageModelFactory,
-            IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
-            IHomegameEditPageModelFactory homegameEditPageModelFactory,
-            IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
-            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory,
             IUrlProvider urlProvider,
-            IHomegameCommandProvider homegameCommandProvider)
+            IHomegameCommandProvider homegameCommandProvider,
+            IHomegameModelService homegameModelService)
 	    {
 	        _authentication = authentication;
 	        _authorization = authorization;
-	        _homegameRepository = homegameRepository;
-	        _addHomegamePageModelFactory = addHomegamePageModelFactory;
-	        _addHomegameConfirmationPageModelFactory = addHomegameConfirmationPageModelFactory;
-	        _homegameListPageModelFactory = homegameListPageModelFactory;
-	        _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
-	        _homegameEditPageModelFactory = homegameEditPageModelFactory;
-	        _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
-	        _joinHomegameConfirmationPageModelFactory = joinHomegameConfirmationPageModelFactory;
 	        _urlProvider = urlProvider;
 	        _homegameCommandProvider = homegameCommandProvider;
+	        _homegameModelService = homegameModelService;
 	    }
 
 	    public ActionResult List()
         {
             _authentication.RequireUser();
             _authentication.RequireAdmin();
-			var homegames = _homegameRepository.GetList();
-			var model = _homegameListPageModelFactory.Create(_authentication.GetUser(), homegames);
+	        var model = _homegameModelService.GetListModel();
 			return View("HomegameList", model);
 		}
 
@@ -66,16 +42,14 @@ namespace Web.Controllers
         {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
-            var homegame = _homegameRepository.GetByName(slug);
-            var isInManagerMode = _authorization.IsInRole(homegame, Role.Manager);
-			var model = _homegameDetailsPageModelFactory.Create(_authentication.GetUser(), homegame, isInManagerMode);
+            var model = _homegameModelService.GetDetailsModel(slug);
 			return View("HomegameDetails", model);
 		}
 
         public ActionResult Add()
         {
             _authentication.RequireUser();
-            var model = _addHomegamePageModelFactory.Create(_authentication.GetUser());
+            var model = _homegameModelService.GetAddModel();
             return View("AddHomegame", model);
         }
 
@@ -89,13 +63,13 @@ namespace Web.Controllers
                 return Redirect(_urlProvider.GetHomegameAddConfirmationUrl());
             }
             AddModelErrors(command.Errors);
-            var model = _addHomegamePageModelFactory.Create(_authentication.GetUser(), postModel);
+            var model = _homegameModelService.GetAddModel(postModel);
             return View("AddHomegame", model);
 		}
 
         public ActionResult Created()
         {
-			var model = _addHomegameConfirmationPageModelFactory.Create(_authentication.GetUser());
+            var model = _homegameModelService.GetAddConfirmationModel();
 			return View("AddHomegameConfirmation", model);
 		}
 
@@ -103,8 +77,7 @@ namespace Web.Controllers
         {
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
-            var homegame = _homegameRepository.GetByName(slug);
-            var model = _homegameEditPageModelFactory.Create(_authentication.GetUser(), homegame);
+            var model = _homegameModelService.GetEditModel(slug);
 			return View("Edit/Edit", model);
 		}
 
@@ -113,22 +86,20 @@ namespace Web.Controllers
         {
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
-            var homegame = _homegameRepository.GetByName(slug);
-            var command = _homegameCommandProvider.GetEditCommand(homegame, postModel);
+            var command = _homegameCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetHomegameDetailsUrl(homegame));
+                return Redirect(_urlProvider.GetHomegameDetailsUrl(slug));
             }
             AddModelErrors(command.Errors);
-            var model = _homegameEditPageModelFactory.Create(_authentication.GetUser(), homegame, postModel);
+            var model = _homegameModelService.GetEditModel(slug, postModel);
             return View("Edit/Edit", model);
 		}
 
         public ActionResult Join(string slug)
         {
 			_authentication.RequireUser();
-            var homegame = _homegameRepository.GetByName(slug);
-            var model = _joinHomegamePageModelFactory.Create(_authentication.GetUser(), homegame);
+            var model = _homegameModelService.GetJoinModel(slug);
 			return View("Join/Join", model);
 		}
 
@@ -136,14 +107,13 @@ namespace Web.Controllers
 		public ActionResult Join(string slug, JoinHomegamePostModel postModel)
         {
 			_authentication.RequireUser();
-			var homegame = _homegameRepository.GetByName(slug);
-            var command = _homegameCommandProvider.GetJoinCommand(homegame, postModel);
+            var command = _homegameCommandProvider.GetJoinCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetHomegameJoinConfirmationUrl(homegame));
+                return Redirect(_urlProvider.GetHomegameJoinConfirmationUrl(slug));
             }
             AddModelErrors(command.Errors);
-            var model = _joinHomegamePageModelFactory.Create(_authentication.GetUser(), homegame, postModel);
+            var model = _homegameModelService.GetJoinModel(slug, postModel);
             return View("Join/Join", model);
 		}
 
@@ -151,8 +121,7 @@ namespace Web.Controllers
 		{
             _authentication.RequireUser();
             _authorization.RequirePlayer(slug);
-            var homegame = _homegameRepository.GetByName(slug);
-            var model = _joinHomegameConfirmationPageModelFactory.Create(_authentication.GetUser(), homegame);
+		    var model = _homegameModelService.GetJoinConfirmationModel(slug);
 			return View("Join/Confirmation", model);
 		}
 

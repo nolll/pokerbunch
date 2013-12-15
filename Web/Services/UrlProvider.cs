@@ -172,9 +172,9 @@ namespace Web.Services
             return RouteFormats.HomegameAdd;
         }
 
-        public string GetHomegameDetailsUrl(Homegame homegame)
+        public string GetHomegameDetailsUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.HomegameDetails, homegame.Slug);
+            return FormatHomegame(RouteFormats.HomegameDetails, slug);
         }
 
         public string GetHomegameEditUrl(Homegame homegame)
@@ -182,9 +182,9 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.HomegameEdit, homegame.Slug);
         }
 
-        public string GetHomegameJoinConfirmationUrl(Homegame homegame)
+        public string GetHomegameJoinConfirmationUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.HomegameJoinConfirmation, homegame.Slug);
+            return FormatHomegame(RouteFormats.HomegameJoinConfirmation, slug);
         }
 
         public string GetHomegameListUrl()

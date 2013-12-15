@@ -13,7 +13,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public JoinHomegamePageModel Create(User user, Homegame homegame)
+        private JoinHomegamePageModel Create(User user, Homegame homegame)
         {
             return new JoinHomegamePageModel
                 {
@@ -26,7 +26,10 @@ namespace Web.ModelFactories.HomegameModelFactories
         public JoinHomegamePageModel Create(User user, Homegame homegame, JoinHomegamePostModel postModel)
         {
             var model = Create(user, homegame);
-            model.Code = postModel.Code;
+            if (postModel != null)
+            {
+                model.Code = postModel.Code;
+            }
             return model;
         }
 

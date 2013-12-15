@@ -100,19 +100,6 @@ namespace Infrastructure.System{
             return TimeZoneInfo.GetSystemTimeZones();
 		}
 
-		public string GetDefaultTimezoneName()
-		{
-            return "America/New_York";
-		}
-
-		public string GetDefaultCurrency(){
-            return "$";
-		}
-
-		public string GetDefaultCurrencyLayout(){
-            return "{SYMBOL}{AMOUNT}";
-		}
-
 		public List<string> GetCurrencyLayouts()
 		{
             return new List<string>
@@ -134,24 +121,5 @@ namespace Infrastructure.System{
             return includeYear ? "MMM d yyyy HH:mm" : "MMM d HH:mm";
         }
 
-        private List<string> GetInvalidTimezoneNames()
-        {
-            return new List<string>{
-						"Brazil/Acre","Brazil/DeNoronha","Brazil/East","Brazil/West","Canada/Atlantic","Canada/Central",
-						"Canada/East-Saskatchewan","Canada/Eastern","Canada/Mountain","Canada/Newfoundland","Canada/Pacific",
-						"Canada/Saskatchewan","Canada/Yukon","CET","Chile/Continental","Chile/EasterIsland","CST6CDT","Cuba",
-						"EET","Egypt","Eire","EST","EST5EDT","Etc/GMT","Etc/GMT+0","Etc/GMT+1","Etc/GMT+10","Etc/GMT+11",
-						"Etc/GMT+12","Etc/GMT+2","Etc/GMT+3","Etc/GMT+4","Etc/GMT+5","Etc/GMT+6","Etc/GMT+7","Etc/GMT+8",
-						"Etc/GMT+9","Etc/GMT-0","Etc/GMT-1","Etc/GMT-10","Etc/GMT-11","Etc/GMT-12","Etc/GMT-13","Etc/GMT-14",
-						"Etc/GMT-2","Etc/GMT-3","Etc/GMT-4","Etc/GMT-5","Etc/GMT-6","Etc/GMT-7","Etc/GMT-8","Etc/GMT-9",
-						"Etc/GMT0","Etc/Greenwich","Etc/UCT","Etc/Universal","Etc/UTC","Etc/Zulu","Factory","GB","GB-Eire",
-						"GMT","GMT+0","GMT-0","GMT0","Greenwich","Hongkong","HST","Iceland","Iran","Israel","Jamaica","Japan",
-						"Kwajalein","Libya","MET","Mexico/BajaNorte","Mexico/BajaSur","Mexico/General","MST","MST7MDT","Navajo",
-						"NZ","NZ-CHAT","Poland","Portugal","PRC","PST8PDT","ROC","ROK","Singapore","Turkey","UCT","Universal",
-						"US/Alaska","US/Aleutian","US/Arizona","US/Central","US/East-Indiana","US/Eastern","US/Hawaii",
-						"US/Indiana-Starke","US/Michigan","US/Mountain","US/Pacific","US/Pacific-New","US/Samoa","W-SU","WET","Zulu"
-			};
-        }
-
-	}
+    }
 }

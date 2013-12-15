@@ -67,7 +67,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
-		    var result = sut.Create(_user);
+		    var result = sut.Create(_user, null);
 
 			Assert.IsInstanceOf<List<SelectListItem>>(result.CurrencyLayoutSelectItems);
 		}
@@ -77,7 +77,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
-		    var result = sut.Create(_user);
+		    var result = sut.Create(_user, null);
 
             Assert.IsInstanceOf<List<SelectListItem>>(result.TimezoneSelectItems);
 		}

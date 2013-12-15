@@ -18,7 +18,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             return new HomegameListItemModel
                 {
                     Name = homegame.DisplayName,
-                    UrlModel = _urlProvider.GetHomegameDetailsUrl(homegame)
+                    UrlModel = _urlProvider.GetHomegameDetailsUrl(homegame.Slug)
                 };
         }
     }

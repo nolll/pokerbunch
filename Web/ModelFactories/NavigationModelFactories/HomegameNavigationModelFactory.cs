@@ -18,7 +18,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             return new HomegameNavigationModel
                 {
                     Heading = homegame.DisplayName,
-			        HeadingLink = _urlProvider.GetHomegameDetailsUrl(homegame),
+			        HeadingLink = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
 			        CashgameLink = _urlProvider.GetCashgameIndexUrl(homegame.Slug),
                     PlayerLink = _urlProvider.GetPlayerIndexUrl(homegame.Slug)
                 };

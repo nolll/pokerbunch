@@ -21,7 +21,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             _globalization = globalization;
         }
 
-        public AddHomegamePageModel Create(User user)
+        private AddHomegamePageModel Create(User user)
         {
             return new AddHomegamePageModel
                 {
@@ -35,11 +35,14 @@ namespace Web.ModelFactories.HomegameModelFactories
         public AddHomegamePageModel Create(User user, AddHomegamePostModel postModel)
         {
             var model = Create(user);
-            model.DisplayName = postModel.DisplayName;
-            model.Description = postModel.Description;
-            model.TimeZone = postModel.TimeZone;
-            model.CurrencySymbol = postModel.CurrencySymbol;
-            model.CurrencyLayout = postModel.CurrencyLayout;
+            if (postModel != null)
+            {
+                model.DisplayName = postModel.DisplayName;
+                model.Description = postModel.Description;
+                model.TimeZone = postModel.TimeZone;
+                model.CurrencySymbol = postModel.CurrencySymbol;
+                model.CurrencyLayout = postModel.CurrencyLayout;
+            }
             return model;
         }
 
