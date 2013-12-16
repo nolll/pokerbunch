@@ -21,7 +21,7 @@ namespace Web.ModelFactories.AuthModelFactories
             _urlProvider = urlProvider;
         }
 
-        public AuthLoginPageModel Create()
+        private AuthLoginPageModel Create()
         {
             var returnUrl = _webContext.GetQueryParam("return") ?? _urlProvider.GetHomeUrl();
 
@@ -38,9 +38,12 @@ namespace Web.ModelFactories.AuthModelFactories
         public AuthLoginPageModel Create(AuthLoginPostModel postModel)
         {
             var model = Create();
-            model.LoginName = postModel.LoginName;
-            model.RememberMe = postModel.RememberMe;
-            model.ReturnUrl = postModel.ReturnUrl;
+            if (postModel != null)
+            {
+                model.LoginName = postModel.LoginName;
+                model.RememberMe = postModel.RememberMe;
+                model.ReturnUrl = postModel.ReturnUrl;
+            }
             return model;
         }
     }

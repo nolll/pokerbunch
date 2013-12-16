@@ -1,22 +1,21 @@
 using System.Web.Mvc;
-using Web.ModelFactories.HomeModelFactories;
+using Web.ModelServices;
 
 namespace Web.Controllers{
 
 	public class HomeController : Controller {
-	    private readonly IHomePageModelFactory _homePageModelFactory;
+	    private readonly IHomeModelService _homeModelService;
 
-	    public HomeController(IHomePageModelFactory homePageModelFactory)
+	    public HomeController(IHomeModelService homeModelService)
         {
-            _homePageModelFactory = homePageModelFactory;
+            _homeModelService = homeModelService;
         }
 
 	    public ActionResult Index()
 		{
-		    var model = _homePageModelFactory.Create();
+		    var model = _homeModelService.GetIndexModel();
 		    return View(model);
 		}
 
 	}
-
 }

@@ -51,7 +51,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             return new List<NavigationNode>
                 {
                     new NavigationNode(user.DisplayName, _urlProvider.GetUserDetailsUrl(user.UserName)),
-			        new NavigationNode("Sharing", _urlProvider.GetSharingSettingsUrl()),
+			        //new NavigationNode("Sharing", _urlProvider.GetSharingSettingsUrl()),
 			        new NavigationNode("Sign Out", _urlProvider.GetLogoutUrl())
                 };
 		}

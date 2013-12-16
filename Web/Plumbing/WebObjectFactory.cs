@@ -16,6 +16,7 @@ using Web.Commands.AuthCommands;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
 using Web.Commands.PlayerCommands;
+using Web.Commands.SharingCommands;
 using Web.Commands.UserCommands;
 using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
@@ -106,10 +107,13 @@ namespace Web.Plumbing
             RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 
             // Model Services
+            RegisterComponent<IHomeModelService, HomeModelService>();
+            RegisterComponent<IAuthModelService, AuthModelService>();
             RegisterComponent<IHomegameModelService, HomegameModelService>();
             RegisterComponent<IPlayerModelService, PlayerModelService>();
             RegisterComponent<ICashgameModelService, CashgameModelService>();
             RegisterComponent<IUserModelService, UserModelService>();
+            RegisterComponent<ISharingModelService, SharingModelService>();
 
             // Page Model Factories
             RegisterComponent<IHomePageModelFactory, HomePageModelFactory>();
@@ -195,6 +199,7 @@ namespace Web.Plumbing
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
             RegisterComponent<IHomegameCommandProvider, HomegameCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
+            RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
         }
 
     }

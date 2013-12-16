@@ -2,27 +2,28 @@ using System.Web.Mvc;
 using Core.Services;
 using Web.Commands.AuthCommands;
 using Web.ModelFactories.AuthModelFactories;
+using Web.ModelServices;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers{
 
 	public class AuthController : ControllerBase {
-	    private readonly IAuthLoginPageModelFactory _authLoginPageModelFactory;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IAuthCommandProvider _authCommandProvider;
+	    private readonly IAuthModelService _authModelService;
 
 	    public AuthController(
-            IAuthLoginPageModelFactory authLoginPageModelFactory,
             IUrlProvider urlProvider,
-            IAuthCommandProvider authCommandProvider)
+            IAuthCommandProvider authCommandProvider,
+            IAuthModelService authModelService)
 	    {
-	        _authLoginPageModelFactory = authLoginPageModelFactory;
 	        _urlProvider = urlProvider;
 	        _authCommandProvider = authCommandProvider;
+	        _authModelService = authModelService;
 	    }
 
 		public ActionResult Login(){
-            var model = _authLoginPageModelFactory.Create();
+		    var model = _authModelService.GetLoginModel();
             return View("Login", model);
 		}
 
@@ -36,7 +37,7 @@ namespace Web.Controllers{
                 return Redirect(returnUrl);
             }
             AddModelErrors(command.Errors);
-            var model = _authLoginPageModelFactory.Create(postModel);
+            var model = _authModelService.GetLoginModel(postModel);
             return View("Login", model);
 		}
 

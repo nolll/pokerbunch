@@ -6,7 +6,7 @@ using Tests.Common;
 using Tests.Common.FakeCommands;
 using Web.Commands.AuthCommands;
 using Web.Controllers;
-using Web.ModelFactories.AuthModelFactories;
+using Web.ModelServices;
 using Web.Models.AuthModels;
 
 namespace Web.Tests.ControllerTests{
@@ -51,14 +51,14 @@ namespace Web.Tests.ControllerTests{
         public void ActionLoginPost_UserNotFound_ShowsForm(){
             var command = new FakeFailedCommand();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(command);
-            
-            GetMock<IAuthLoginPageModelFactory>().Setup(o => o.Create()).Returns(new AuthLoginPageModel());
+
+            var loginPageModel = new AuthLoginPostModel();
+			GetMock<IAuthModelService>().Setup(o => o.GetLoginModel(loginPageModel)).Returns(new AuthLoginPageModel());
 
             var sut = GetSut();
             sut.ModelState.AddModelError("fake_error", "");
 
-            var loginPageModel = new AuthLoginPostModel();
-			var result = sut.Login(loginPageModel) as ViewResult;
+            var result = sut.Login(loginPageModel) as ViewResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Login", result.ViewName);
@@ -81,9 +81,9 @@ namespace Web.Tests.ControllerTests{
         private AuthController GetSut()
         {
             return new AuthController(
-                GetMock<IAuthLoginPageModelFactory>().Object,
                 GetMock<IUrlProvider>().Object,
-                GetMock<IAuthCommandProvider>().Object);
+                GetMock<IAuthCommandProvider>().Object,
+                GetMock<IAuthModelService>().Object);
         }
 
 	}

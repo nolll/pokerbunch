@@ -18,7 +18,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 
 		    var sut = GetSut();
 
-		    var result = sut.Create();
+		    var result = sut.Create(null);
 
 			Assert.AreEqual(homeUrl, result.ReturnUrl);
 		}
@@ -29,7 +29,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
             GetMock<IWebContext>().Setup(o => o.GetQueryParam("return")).Returns("return-url");
 
 		    var sut = GetSut();
-            var result = sut.Create();
+            var result = sut.Create(null);
 
 			Assert.AreEqual("return-url", result.ReturnUrl);
 		}
@@ -41,7 +41,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
 		    GetMock<IUrlProvider>().Setup(o => o.GetAddUserUrl()).Returns(loginUrl);
 
             var sut = GetSut();
-			var result = sut.Create();
+			var result = sut.Create(null);
 
 			Assert.AreEqual(loginUrl, result.AddUserUrl);
 		}
@@ -52,7 +52,7 @@ namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
             GetMock<IUrlProvider>().Setup(o => o.GetForgotPasswordUrl()).Returns(forgotPasswordUrl);
 
             var sut = GetSut();
-			var result = sut.Create();
+			var result = sut.Create(null);
 
 			Assert.AreEqual(forgotPasswordUrl, result.ForgotPasswordUrl);
 		}
