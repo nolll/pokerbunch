@@ -1,6 +1,7 @@
 ﻿using Core.Repositories;
 using Core.Services;
 using Infrastructure.System;
+using Web.Models.AuthModels;
 
 namespace Web.Commands.AuthCommands
 {
@@ -20,9 +21,9 @@ namespace Web.Commands.AuthCommands
             _webContext = webContext;
         }
 
-        public Command GetLoginCommand(string loginName, string password, bool rememberMe)
+        public Command GetLoginCommand(AuthLoginPostModel postModel)
         {
-            return new LoginCommand(_userRepository, _encryptionService, _webContext, loginName, password, rememberMe);
+            return new LoginCommand(_userRepository, _encryptionService, _webContext, postModel);
         }
 
         public Command GetLogoutCommand()

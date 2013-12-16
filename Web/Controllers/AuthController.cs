@@ -30,7 +30,7 @@ namespace Web.Controllers{
         [HttpPost]
 		public ActionResult Login(AuthLoginPostModel postModel)
         {
-            var command = _authCommandProvider.GetLoginCommand(postModel.LoginName, postModel.Password, postModel.RememberMe);
+            var command = _authCommandProvider.GetLoginCommand(postModel);
             if (command.Execute())
             {
                 var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? _urlProvider.GetHomeUrl() : postModel.ReturnUrl;

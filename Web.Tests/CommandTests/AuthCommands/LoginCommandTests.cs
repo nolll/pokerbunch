@@ -1,5 +1,4 @@
 using System.Linq;
-using Core.Classes;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.System;
@@ -8,6 +7,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.AuthCommands;
+using Web.Models.AuthModels;
 
 namespace Web.Tests.CommandTests.AuthCommands{
 
@@ -89,13 +89,18 @@ namespace Web.Tests.CommandTests.AuthCommands{
 
         private LoginCommand GetSut()
         {
+            var postModel = new AuthLoginPostModel
+                {
+                    LoginName = _loginName,
+                    Password = _password,
+                    RememberMe = _rememberMe
+                };
+
             return new LoginCommand(
                 GetMock<IUserRepository>().Object,
                 GetMock<IEncryptionService>().Object,
                 GetMock<IWebContext>().Object,
-                _loginName,
-                _password,
-                _rememberMe);
+                postModel);
         }
 
 	}

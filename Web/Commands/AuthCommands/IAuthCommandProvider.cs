@@ -1,8 +1,10 @@
-﻿namespace Web.Commands.AuthCommands
+﻿using Web.Models.AuthModels;
+
+namespace Web.Commands.AuthCommands
 {
     public interface IAuthCommandProvider
     {
-        Command GetLoginCommand(string loginName, string password, bool rememberMe);
+        Command GetLoginCommand(AuthLoginPostModel postModel);
         Command GetLogoutCommand();
     }
 }

@@ -2,6 +2,7 @@
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.System;
+using Web.Models.AuthModels;
 
 namespace Web.Commands.AuthCommands
 {
@@ -10,32 +11,26 @@ namespace Web.Commands.AuthCommands
         private readonly IUserRepository _userRepository;
         private readonly IEncryptionService _encryptionService;
         private readonly IWebContext _webContext;
-        private readonly string _loginName;
-        private readonly string _password;
-        private readonly bool _rememberMe;
+        private readonly AuthLoginPostModel _postModel;
 
         public LoginCommand(
             IUserRepository userRepository,
             IEncryptionService encryptionService,
             IWebContext webContext,
-            string loginName, 
-            string password, 
-            bool rememberMe)
+            AuthLoginPostModel postModel)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
             _webContext = webContext;
-            _loginName = loginName;
-            _password = password;
-            _rememberMe = rememberMe;
+            _postModel = postModel;
         }
 
         public override bool Execute()
         {
-            var user = GetLoggedInUser(_loginName, _password);
+            var user = GetLoggedInUser(_postModel.LoginName, _postModel.Password);
             if (user != null)
             {
-                SetCookies(user, _rememberMe);
+                SetCookies(user, _postModel.RememberMe);
                 return true;
             }
             AddError("There was something wrong with your username or password. Please try again.");
