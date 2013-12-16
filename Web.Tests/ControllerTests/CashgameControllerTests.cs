@@ -46,7 +46,7 @@ namespace Web.Tests.ControllerTests{
 		}
 
         [Test]
-		public void ActionAction_NotAuthorized_ThrowsException(){
+		public void Action_NotAuthorized_ThrowsException(){
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
             GetMock<IAuthorization>().Setup(o => o.RequirePlayer(Slug)).Throws<AccessDeniedException>();
 
@@ -55,8 +55,18 @@ namespace Web.Tests.ControllerTests{
             Assert.Throws<AccessDeniedException>(() => sut.Action(Slug, DateStr, PlayerName));
 		}
 
+        [Test]
+        public void Action_RequiresUserAndPlayer()
+        {
+            var sut = GetSut();
+            sut.Action(Slug, DateStr, PlayerName);
+
+            GetMock<IAuthentication>().Verify(o => o.RequireUser());
+            GetMock<IAuthorization>().Verify(o => o.RequirePlayer(Slug));
+        }
+
 		[Test]
-		public void ActionAction_ReturnsCorrectModel()
+		public void Action_ReturnsCorrectModel()
 		{
 		    var homegame = new FakeHomegame();
 		    var user = new FakeUser();
