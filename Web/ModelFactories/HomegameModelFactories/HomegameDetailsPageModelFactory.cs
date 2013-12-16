@@ -30,7 +30,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 			        Description = homegame.Description,
 			        HouseRules = houseRules,
 	                ShowHouseRules = !string.IsNullOrEmpty(houseRules),
-			        EditUrl = _urlProvider.GetHomegameEditUrl(homegame),
+			        EditUrl = _urlProvider.GetHomegameEditUrl(homegame.Slug),
 			        ShowEditLink = isInManagerMode
                 };
         }

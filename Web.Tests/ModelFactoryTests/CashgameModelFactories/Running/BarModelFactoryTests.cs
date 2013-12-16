@@ -57,7 +57,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             _runningGame = null;
 
             const string addGameUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameAddUrl(_homegame)).Returns(addGameUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameAddUrl(_homegame.Slug)).Returns(addGameUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);

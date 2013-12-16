@@ -128,9 +128,9 @@ namespace Web.ModelServices
             if (years.Count > 0)
             {
                 var year = years[0];
-                return _urlProvider.GetCashgameMatrixUrl(homegame, year);
+                return _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year);
             }
-            return _urlProvider.GetCashgameAddUrl(homegame);
+            return _urlProvider.GetCashgameAddUrl(homegame.Slug);
         }
 
         public CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null)

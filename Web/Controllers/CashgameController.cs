@@ -231,7 +231,7 @@ namespace Web.Controllers{
         public ActionResult Cashout(string slug, string playerName){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
-            if (_authorization.CanActAsPlayer(slug, playerName))
+            if (!_authorization.CanActAsPlayer(slug, playerName))
             {
                 throw new AccessDeniedException();
             }
@@ -243,7 +243,7 @@ namespace Web.Controllers{
         public ActionResult Cashout(string slug, string playerName, CashoutPostModel postModel){
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
-            if (_authorization.CanActAsPlayer(slug, playerName))
+            if (!_authorization.CanActAsPlayer(slug, playerName))
             {
                 throw new AccessDeniedException();
             }

@@ -33,7 +33,7 @@ namespace Web.Services{
 
 	    private string GetBody(Homegame homegame, Player player){
 			var siteUrl = _settings.GetSiteUrl();
-	        var joinUrl = _urlProvider.GetJoinHomegameUrl(homegame);
+	        var joinUrl = _urlProvider.GetJoinHomegameUrl(homegame.Slug);
 			var joinUrlStr = siteUrl + joinUrl;
 	        var userAddUrl = _urlProvider.GetAddUserUrl();
 			var userAddUrlStr = siteUrl + userAddUrl;

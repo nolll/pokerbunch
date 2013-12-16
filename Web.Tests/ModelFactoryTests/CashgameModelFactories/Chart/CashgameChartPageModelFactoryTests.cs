@@ -28,7 +28,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
 		public void test_ChartDataUrl_IsSet()
         {
             const string chartJsonUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameChartJsonUrl(_homegame, _year)).Returns(chartJsonUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameChartJsonUrl(_homegame.Slug, _year)).Returns(chartJsonUrl);
 
 			var result = GetResult();
 

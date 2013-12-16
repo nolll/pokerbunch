@@ -30,7 +30,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     BrowserTitle = "Player List",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        PlayerModels = GetPlayerModels(homegame, players),
-			        AddUrl = _urlProvider.GetPlayerAddUrl(homegame),
+			        AddUrl = _urlProvider.GetPlayerAddUrl(homegame.Slug),
 			        ShowAddLink = isInManagerMode
                 };
         }

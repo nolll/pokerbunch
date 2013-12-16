@@ -1,7 +1,4 @@
-﻿using Core.Classes;
-using Core.Classes.Checkpoints;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
     public interface IUrlProvider
     {
@@ -25,34 +22,34 @@ namespace Core.Services
         string GetUserListUrl();
 
         string GetUserDetailsUrl(string userName);
-        string GetUserEditUrl(User user);
-        
-        string GetJoinHomegameUrl(Homegame homegame);
-        string GetCashgameAddUrl(Homegame homegame);
-        string GetCashgameEndUrl(Homegame homegame);
+        string GetUserEditUrl(string userName);
+
+        string GetJoinHomegameUrl(string slug);
+        string GetCashgameAddUrl(string slug);
+        string GetCashgameEndUrl(string slug);
         string GetCashgameIndexUrl(string slug);
         string GetHomegameDetailsUrl(string slug);
-        string GetHomegameEditUrl(Homegame homegame);
+        string GetHomegameEditUrl(string slug);
         string GetHomegameJoinConfirmationUrl(string slug);
-        string GetPlayerAddUrl(Homegame homegame);
+        string GetPlayerAddUrl(string slug);
         string GetPlayerIndexUrl(string slug);
         string GetRunningCashgameUrl(string slug);
         string GetPlayerAddConfirmationUrl(string slug);
-        
-        string GetCashgameChartJsonUrl(Homegame homegame, int? year);
-        string GetCashgameChartUrl(Homegame homegame, int? year);
-        string GetCashgameFactsUrl(Homegame homegame, int? year);
-        string GetCashgameToplistUrl(Homegame homegame, int? year);
-        string GetCashgameListUrl(Homegame homegame, int? year);
-        string GetCashgameMatrixUrl(Homegame homegame, int? year);
 
-        string GetCashgameBuyinUrl(Homegame homegame, Player player);
-        string GetCashgameCashoutUrl(Homegame homegame, Player player);
-        string GetCashgameReportUrl(Homegame homegame, Player player);
+        string GetCashgameChartJsonUrl(string slug, int? year);
+        string GetCashgameChartUrl(string slug, int? year);
+        string GetCashgameFactsUrl(string slug, int? year);
+        string GetCashgameToplistUrl(string slug, int? year);
+        string GetCashgameListUrl(string slug, int? year);
+        string GetCashgameMatrixUrl(string slug, int? year);
+
+        string GetCashgameBuyinUrl(string slug, string playerName);
+        string GetCashgameCashoutUrl(string slug, string playerName);
+        string GetCashgameReportUrl(string slug, string playerName);
         string GetPlayerInviteConfirmationUrl(string slug, string playerName);
-        string GetPlayerDeleteUrl(Homegame homegame, Player player);
+        string GetPlayerDeleteUrl(string slug, string playerName);
         string GetPlayerDetailsUrl(string slug, string playerName);
-        string GetPlayerInviteUrl(Homegame homegame, Player player);
+        string GetPlayerInviteUrl(string slug, string playerName);
 
         string GetCashgameDeleteUrl(string slug, string dateStr);
         string GetCashgameDetailsChartJsonUrl(string slug, string dateStr);
@@ -61,8 +58,8 @@ namespace Core.Services
 
         string GetCashgameActionChartJsonUrl(string slug, string dateStr, string playerName);
         string GetCashgameActionUrl(string slug, string dateStr, string playerName);
-        
-        string GetCashgameCheckpointDeleteUrl(Homegame homegame, Cashgame cashgame, Player player, Checkpoint checkpoint);
+
+        string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, string playerName, int checkpointId);
         
     }
 }

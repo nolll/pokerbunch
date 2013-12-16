@@ -43,23 +43,23 @@ namespace Web.ModelFactories.NavigationModelFactories
         {
             if (cashgamePage.Equals(CashgamePage.Matrix))
             {
-                return _urlProvider.GetCashgameMatrixUrl(homegame, year);
+                return _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Toplist))
             {
-                return _urlProvider.GetCashgameToplistUrl(homegame, year);
+                return _urlProvider.GetCashgameToplistUrl(homegame.Slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Chart))
             {
-                return _urlProvider.GetCashgameChartUrl(homegame, year);
+                return _urlProvider.GetCashgameChartUrl(homegame.Slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.List))
             {
-                return _urlProvider.GetCashgameListUrl(homegame, year);
+                return _urlProvider.GetCashgameListUrl(homegame.Slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Facts))
             {
-                return _urlProvider.GetCashgameFactsUrl(homegame, year);
+                return _urlProvider.GetCashgameFactsUrl(homegame.Slug, year);
             }
             return null;
         }

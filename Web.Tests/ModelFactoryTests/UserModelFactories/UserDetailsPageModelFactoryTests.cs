@@ -44,7 +44,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
             var user = new FakeUser();
 
             const string editUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(user)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(user.UserName)).Returns(editUrl);
 
 			var sut = GetSut();
 			var result = sut.Create(user, user);
@@ -59,7 +59,7 @@ namespace Web.Tests.ModelFactoryTests.UserModelFactories{
             var displayUser = new FakeUser(userName: "b");
 
             const string editUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(displayUser)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetUserEditUrl(displayUser.UserName)).Returns(editUrl);
 
 			var sut = GetSut();
 			var result = sut.Create(currentUser, displayUser);

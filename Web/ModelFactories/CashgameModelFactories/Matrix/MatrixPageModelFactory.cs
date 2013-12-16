@@ -45,7 +45,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
 	        var gameIsRunning = runningGame != null;
-	        var startGameUrl = !gameIsRunning ? _urlProvider.GetCashgameAddUrl(homegame) : null;
+	        var startGameUrl = !gameIsRunning ? _urlProvider.GetCashgameAddUrl(homegame.Slug) : null;
 
 			return new CashgameMatrixPageModel
 			    {

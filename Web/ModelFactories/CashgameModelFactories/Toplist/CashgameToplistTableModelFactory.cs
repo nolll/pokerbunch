@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         public CashgameToplistTableModel Create(Homegame homegame, CashgameSuite suite, int? year, ToplistSortOrder sortOrder)
         {
             var results = SortResults(suite.TotalResults, sortOrder);
-            var sortUrl = string.Concat(_urlProvider.GetCashgameToplistUrl(homegame, year), "?orderby={0}");
+            var sortUrl = string.Concat(_urlProvider.GetCashgameToplistUrl(homegame.Slug, year), "?orderby={0}");
 
             return new CashgameToplistTableModel
                 {

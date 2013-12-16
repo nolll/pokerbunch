@@ -42,7 +42,7 @@ namespace Web.ModelFactories.UserModelFactories
             if (currentUser.IsAdmin || isViewingCurrentUser)
             {
                 model.ShowEditLink = true;
-                model.EditLink = _urlProvider.GetUserEditUrl(displayUser);
+                model.EditLink = _urlProvider.GetUserEditUrl(displayUser.UserName);
             }
 
             if (isViewingCurrentUser)

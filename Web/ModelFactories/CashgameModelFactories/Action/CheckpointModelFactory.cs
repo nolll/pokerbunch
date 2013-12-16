@@ -28,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     Stack = _globalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
                     Timestamp = _globalization.FormatTime(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone)),
                     ShowLink = role >= Role.Manager,
-                    EditUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame, cashgame, player, checkpoint)
+                    EditUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame.Slug, cashgame.DateString, player.DisplayName, checkpoint.Id)
                 };
         }
     }

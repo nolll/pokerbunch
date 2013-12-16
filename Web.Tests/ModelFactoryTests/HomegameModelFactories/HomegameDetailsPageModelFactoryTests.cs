@@ -62,7 +62,7 @@ namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
 		{
 		    const string editUrl = "a";
 		    var homegame = new FakeHomegame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetHomegameEditUrl(homegame)).Returns(editUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetHomegameEditUrl(homegame.Slug)).Returns(editUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_user, homegame, _isInManagerMode);

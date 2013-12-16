@@ -36,7 +36,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     BrowserTitle = "Player Details",
                     PageProperties = _pagePropertiesFactory.Create(currentUser, homegame),
                     DisplayName = player.DisplayName,
-                    DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame, player),
+                    DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame.Slug, player.DisplayName),
                     DeleteEnabled = isManager && !hasPlayed,
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,
@@ -52,7 +52,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             }
             else
             {
-                model.InvitationUrl = _urlProvider.GetPlayerInviteUrl(homegame, player);
+                model.InvitationUrl = _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.DisplayName);
             }
             return model;
         }

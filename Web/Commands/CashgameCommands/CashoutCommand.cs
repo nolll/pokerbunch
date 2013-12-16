@@ -32,7 +32,7 @@ namespace Web.Commands.CashgameCommands
 
         public override bool Execute()
         {
-            if (IsValid(_model)) return false;
+            if (!IsValid(_model)) return false;
             var postedCheckpoint = _checkpointModelMapper.GetCheckpoint(_model, _result.CashoutCheckpoint);
             if (_result.CashoutCheckpoint != null)
             {

@@ -100,7 +100,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(homegame, player)).Returns(buyinUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(homegame.Slug, player.DisplayName)).Returns(buyinUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
@@ -116,7 +116,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgameResult = new FakeCashgameResult();
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 		    const string reportUrl = "a";
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(homegame, player)).Returns(reportUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(homegame.Slug, player.DisplayName)).Returns(reportUrl);
 
             var sut = GetSut();
             var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
@@ -129,7 +129,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
 		{
             const bool isManager = false;
 		    const string cashoutUrl = "a";
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameCashoutUrl(It.IsAny<Homegame>(), It.IsAny<Player>())).Returns(cashoutUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameCashoutUrl(It.IsAny<string>(), It.IsAny<string>())).Returns(cashoutUrl);
             var homegame = new FakeHomegame();
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();

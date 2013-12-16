@@ -18,15 +18,15 @@ namespace Web.ModelFactories.NavigationModelFactories
             return new CashgamePageNavigationModel
                 {
                     Selected = cashgamePage,
-                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(homegame, year),
+                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year),
                     MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage),
-                    ToplistLink = _urlProvider.GetCashgameToplistUrl(homegame, year),
+                    ToplistLink = _urlProvider.GetCashgameToplistUrl(homegame.Slug, year),
                     ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage),
-                    ChartLink = _urlProvider.GetCashgameChartUrl(homegame, year),
+                    ChartLink = _urlProvider.GetCashgameChartUrl(homegame.Slug, year),
                     ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage),
-                    ListLink = _urlProvider.GetCashgameListUrl(homegame, year),
+                    ListLink = _urlProvider.GetCashgameListUrl(homegame.Slug, year),
                     ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage),
-                    FactsLink = _urlProvider.GetCashgameFactsUrl(homegame, year),
+                    FactsLink = _urlProvider.GetCashgameFactsUrl(homegame.Slug, year),
                     FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage)
                 };
         }

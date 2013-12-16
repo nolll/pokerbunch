@@ -90,7 +90,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
 		public void DeleteUrl_IsSet()
 		{
 		    const string deleteUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointDeleteUrl(_homegame, _cashgame, _player, _checkpoint)).Returns(deleteUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointDeleteUrl(_homegame.Slug, _cashgame.DateString, _player.DisplayName, _checkpoint.Id)).Returns(deleteUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);

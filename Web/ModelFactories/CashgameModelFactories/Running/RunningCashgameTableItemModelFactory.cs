@@ -32,9 +32,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                 {
                     Name = player.DisplayName,
                     PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.DisplayName),
-                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame, player),
-                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame, player),
-                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame, player),
+                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame.Slug, player.DisplayName),
+                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame.Slug, player.DisplayName),
+                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame.Slug, player.DisplayName),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),
