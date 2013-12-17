@@ -45,7 +45,7 @@ namespace Web.Controllers{
         {
             var command = _authCommandProvider.GetLogoutCommand();
             command.Execute();
-            return RedirectToAction("Index", "Home");
+            return Redirect(_urlProvider.GetHomeUrl());
         }
 
     }

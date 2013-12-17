@@ -97,8 +97,6 @@ namespace Web.Tests.ServiceTests{
 
 		[Test]
         public void CashgameEditUrlModel_ReturnsCorrectUrl(){
-            const string formattedDate = "a";
-
 		    const string slug = "a";
             const string dateStr = "b";
 

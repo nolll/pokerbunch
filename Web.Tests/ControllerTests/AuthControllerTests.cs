@@ -11,10 +11,24 @@ using Web.Models.AuthModels;
 
 namespace Web.Tests.ControllerTests{
 
-	public class AuthControllerTests : MockContainer {
+	public class AuthControllerTests : MockContainer
+    {
+	    [Test]
+	    public void Login_ReturnsCorrectViewAndModel()
+	    {
+	        var model = new AuthLoginPageModel();
+	        GetMock<IAuthModelService>().Setup(o => o.GetLoginModel(null)).Returns(model);
+
+	        var sut = GetSut();
+	        var result = sut.Login() as ViewResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(model, result.Model);
+            Assert.AreEqual("Login", result.ViewName);
+	    }
 
 		[Test]
-        public void ActionLoginPost_LoginSucceededButNoReturnUrl_RedirectsToRoot()
+        public void LoginPost_LoginSucceededButNoReturnUrl_RedirectsToRoot()
         {
             var command = new FakeSuccessfulCommand();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
@@ -32,15 +46,14 @@ namespace Web.Tests.ControllerTests{
 		}
 
         [Test]
-        public void ActionLoginPost_LoginSucceededWithReturnUrl_RedirectsToReturnUrl()
+        public void LoginPost_LoginSucceededWithReturnUrl_RedirectsToReturnUrl()
         {
             var command = new FakeSuccessfulCommand();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
             var sut = GetSut();
 
-            var loginPageModel = new AuthLoginPageModel();
-            loginPageModel.ReturnUrl = "return-url";
+            var loginPageModel = new AuthLoginPageModel {ReturnUrl = "return-url"};
             var result = sut.Login(loginPageModel) as RedirectResult;
 
             Assert.IsNotNull(result);
@@ -48,7 +61,7 @@ namespace Web.Tests.ControllerTests{
         }
 
         [Test]
-        public void ActionLoginPost_UserNotFound_ShowsForm(){
+        public void LoginPost_UserNotFound_ShowsForm(){
             var command = new FakeFailedCommand();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
@@ -56,8 +69,6 @@ namespace Web.Tests.ControllerTests{
 			GetMock<IAuthModelService>().Setup(o => o.GetLoginModel(loginPageModel)).Returns(new AuthLoginPageModel());
 
             var sut = GetSut();
-            sut.ModelState.AddModelError("fake_error", "");
-
             var result = sut.Login(loginPageModel) as ViewResult;
 
             Assert.IsNotNull(result);
@@ -65,17 +76,20 @@ namespace Web.Tests.ControllerTests{
 		}
 
 		[Test]
-        public void ActionLogout_RedirectsToHome(){
+        public void Logout_RedirectsToHome()
+		{
+		    const string homeUrl = "a";
+
             var command = new FakeSuccessfulCommand();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLogoutCommand()).Returns(command);
+		    GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns(homeUrl);
             
             var sut = GetSut();
 
-            var result = sut.Logout() as RedirectToRouteResult;
+            var result = sut.Logout() as RedirectResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual("Index", result.RouteValues["action"]);
-            Assert.AreEqual("Home", result.RouteValues["controller"]);
+            Assert.AreEqual(homeUrl, result.Url);
 		}
         
         private AuthController GetSut()
