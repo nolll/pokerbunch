@@ -33,7 +33,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     BrowserTitle = "Cashgame Toplist",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        TableModel = _cashgameToplistTableModelFactory.Create(homegame, suite, year, sortOrder),
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.Toplist, year),
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Toplist),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Toplist, year)
                 };
         }

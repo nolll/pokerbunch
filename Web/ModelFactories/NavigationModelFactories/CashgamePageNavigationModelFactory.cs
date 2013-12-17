@@ -7,26 +7,32 @@ namespace Web.ModelFactories.NavigationModelFactories
     public class CashgamePageNavigationModelFactory : ICashgamePageNavigationModelFactory
     {
         private readonly IUrlProvider _urlProvider;
+        private readonly ICashgameService _cashgameService;
 
-        public CashgamePageNavigationModelFactory(IUrlProvider urlProvider)
+        public CashgamePageNavigationModelFactory(
+            IUrlProvider urlProvider,
+            ICashgameService cashgameService)
         {
             _urlProvider = urlProvider;
+            _cashgameService = cashgameService;
         }
 
-        public CashgamePageNavigationModel Create(Homegame homegame, CashgamePage cashgamePage, int? year)
+        public CashgamePageNavigationModel Create(string slug, CashgamePage cashgamePage)
         {
+            var year = _cashgameService.GetLatestYear(slug);
+
             return new CashgamePageNavigationModel
                 {
                     Selected = cashgamePage,
-                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year),
+                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(slug, year),
                     MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage),
-                    ToplistLink = _urlProvider.GetCashgameToplistUrl(homegame.Slug, year),
+                    ToplistLink = _urlProvider.GetCashgameToplistUrl(slug, year),
                     ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage),
-                    ChartLink = _urlProvider.GetCashgameChartUrl(homegame.Slug, year),
+                    ChartLink = _urlProvider.GetCashgameChartUrl(slug, year),
                     ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage),
-                    ListLink = _urlProvider.GetCashgameListUrl(homegame.Slug, year),
+                    ListLink = _urlProvider.GetCashgameListUrl(slug, year),
                     ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage),
-                    FactsLink = _urlProvider.GetCashgameFactsUrl(homegame.Slug, year),
+                    FactsLink = _urlProvider.GetCashgameFactsUrl(slug, year),
                     FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage)
                 };
         }

@@ -43,18 +43,7 @@ namespace Web.Tests.ModelServiceTests
 
             Assert.IsNotNull(result);
         }
-
-        [Test]
-        public void GetMatrixModel_NotAuthorized_ThrowsException()
-        {
-            const string slug = "a";
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.GetMatrixModel(slug));
-        }
-
+        
         [Test]
         public void GetToplistModel_Authorized_ReturnsModel()
         {
@@ -66,29 +55,6 @@ namespace Web.Tests.ModelServiceTests
             var result = sut.GetToplistModel(slug);
 
             Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void GetToplistModel_NotAuthorized_ThrowsException()
-        {
-            const string slug = "a";
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.GetToplistModel(slug));
-        }
-
-        [Test]
-        public void GetDetailsModel_NotAuthorized_ThrowsException()
-        {
-            const string slug = "a";
-            const string dateStr = "2000-01-01";
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.GetDetailsModel(slug, dateStr));
         }
 
         [Test]

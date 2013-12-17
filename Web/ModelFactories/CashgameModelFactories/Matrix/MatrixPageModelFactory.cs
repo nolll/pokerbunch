@@ -52,7 +52,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 			        BrowserTitle = "Cashgame Matrix",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.Matrix, year),
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Matrix),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Matrix, year),
                     BarModel = _barModelFactory.Create(homegame, runningGame),
                     GameIsRunning = gameIsRunning,

@@ -121,22 +121,16 @@ namespace Web.ModelServices
 
         public string GetIndexUrl(string slug)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
-            var homegame = _homegameRepository.GetByName(slug);
-            var years = _cashgameRepository.GetYears(homegame);
-            if (years.Count > 0)
+            var year = _cashgameService.GetLatestYear(slug);
+            if (year.HasValue)
             {
-                var year = years[0];
-                return _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameMatrixUrl(slug, year);
             }
-            return _urlProvider.GetCashgameAddUrl(homegame.Slug);
+            return _urlProvider.GetCashgameAddUrl(slug);
         }
 
         public CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var user = _authentication.GetUser();
             return _matrixPageModelFactory.Create(homegame, user, year);
@@ -144,8 +138,6 @@ namespace Web.ModelServices
 
         public CashgameToplistPageModel GetToplistModel(string slug, int? year = null)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
@@ -156,8 +148,6 @@ namespace Web.ModelServices
 
         public CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
@@ -172,8 +162,6 @@ namespace Web.ModelServices
 
         public ChartModel GetDetailsChartJsonModel(string slug, string dateStr)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
@@ -185,8 +173,6 @@ namespace Web.ModelServices
 
         public CashgameFactsPageModel GetFactsModel(string slug, int? year = null)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var facts = _cashgameService.GetFacts(homegame, year);
@@ -197,8 +183,6 @@ namespace Web.ModelServices
 
         public AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel)
         {
-            _authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var homegame = _homegameRepository.GetByName(slug);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             if (runningGame != null)
@@ -212,8 +196,6 @@ namespace Web.ModelServices
 
         public CashgameEditPageModel GetEditModel(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            _authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);

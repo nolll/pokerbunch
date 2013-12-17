@@ -55,5 +55,15 @@ namespace Core.Services
             return cashgame != null;
         }
 
+        public int? GetLatestYear(string slug)
+        {
+            var homegame = _homegameRepository.GetByName(slug);
+            var years = _cashgameRepository.GetYears(homegame);
+            if (years.Count == 0)
+            {
+                return null;
+            }
+            return years[0];
+        }
     }
 }

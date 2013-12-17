@@ -33,7 +33,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     BrowserTitle = "Cashgame List",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames),
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame, CashgamePage.List, year),
+                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.List),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.List, year)
                 };
         }

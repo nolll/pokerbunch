@@ -9,5 +9,6 @@ namespace Core.Services
         CashgameFacts GetFacts(Homegame homegame, int? year = null);
         IList<Player> GetPlayers(Cashgame cashgame);
         bool CashgameIsRunning(string bunchName);
+        int? GetLatestYear(string slug);
     }
 }

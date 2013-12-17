@@ -38,42 +38,56 @@ namespace Web.Controllers{
 
 	    public ActionResult Index(string slug)
 	    {
-	        var url = _cashgameModelService.GetIndexUrl(slug);
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
+            var url = _cashgameModelService.GetIndexUrl(slug);
             return Redirect(url);
 		}
 
         public ActionResult Matrix(string slug, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetMatrixModel(slug, year);
 			return View("Matrix/MatrixPage", model);
 		}
 
         public ActionResult Toplist(string slug, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetToplistModel(slug, year);
             return View("Toplist/ToplistPage", model);
 		}
 
 	    public ActionResult Details(string slug, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetDetailsModel(slug, dateStr);
 			return View("Details/DetailsPage", model);
 		}
 
         public ActionResult DetailsChartJson(string slug, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetDetailsChartJsonModel(slug, dateStr);
 		    return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
         public ActionResult Facts(string slug, int? year = null)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetFactsModel(slug, year);
 			return View("Facts/FactsPage", model);
 		}
 
         public ActionResult Add(string slug)
         {
+            _authentication.RequireUser();
+            _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetAddModel(slug);
             return View("Add/Add", model);
 		}
@@ -94,6 +108,8 @@ namespace Web.Controllers{
 
         public ActionResult Edit(string slug, string dateStr)
         {
+            _authentication.RequireUser();
+            _authorization.RequireManager(slug);
             var model = _cashgameModelService.GetEditModel(slug, dateStr);
 			return View("Edit/Edit", model);
 		}
