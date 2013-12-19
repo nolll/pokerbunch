@@ -2,13 +2,13 @@ define(["jquery"],
     function ($) {
         "use strict";
 
-        function Toplist(el) {
+        function SortableTable(el) {
             var me = this;
             me.$el = $(el);
             me.createForm();
         }
 
-        Toplist.prototype.createForm = function () {
+        SortableTable.prototype.createForm = function () {
             var me = this;
             var $div = $("<div class='sort-order-selector'><label for='sortorder'>Select Data:</label></div>");
             var $dropdown = $("<select id='sortorder' name='sortorder'></select>");
@@ -33,12 +33,12 @@ define(["jquery"],
             });
         };
 
-        Toplist.prototype.navigate = function (url) {
+        SortableTable.prototype.navigate = function (url) {
             location.href = url;
         };
 
         function init() {
-            return new Toplist(this);
+            return new SortableTable(this);
         }
 
         return {

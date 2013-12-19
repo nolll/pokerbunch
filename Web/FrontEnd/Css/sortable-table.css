@@ -1,0 +1,57 @@
+﻿.sortable-table {
+  margin: 15px 0;
+}
+.sortable-table th {
+  font-weight: normal;
+  text-align: left;
+}
+.sortable-table th,
+.sortable-table td {
+  display: none;
+  padding: 5px;
+}
+.sortable-table .base-column,
+.sortable-table .sort-column {
+  display: block;
+  display: table-cell;
+}
+.sortable-table th.sort-column {
+  font-weight: bold;
+}
+.sortable-table .gametime {
+  clear: left;
+}
+.sortable-table .rank {
+  left: 5px;
+  top: 5px;
+}
+.sortable-table .name {
+  left: 35px;
+  top: 5px;
+}
+.sortable-table .result {
+  right: 5px;
+  top: 5px;
+}
+.sortable-table .gametime {
+  left: 35px;
+  top: 1.75em;
+}
+.sortable-table .winrate {
+  right: 5px;
+  top: 1.75em;
+}
+.sortable-table .rank,
+.sortable-table .winrate {
+  text-align: right;
+}
+@media only screen and (min-width : 600px) {
+  .sortable-table th,
+  .sortable-table td {
+    display: block;
+    display: table-cell;
+  }
+  .sort-order-selector {
+    display: none;
+  }
+}

@@ -10,6 +10,12 @@ namespace Web.Models.CashgameModels.List{
 		public string DetailsUrl { get; set; }
 		public string DisplayDate { get; set; }
 		public string PublishedClass { get; set; }
+	    public string PlayerCountSortClass { get; set; }
+	    public string LocationSortClass { get; set; }
+	    public string DurationSortClass { get; set; }
+	    public string TurnoverSortClass { get; set; }
+	    public string AvgBuyinSortClass { get; set; }
+	    public string DateSortClass { get; set; }
 
 	}
 }

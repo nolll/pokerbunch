@@ -426,7 +426,7 @@
       <DependentUpon>cashgame-results-form.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\cashgame-toplist.css">
-      <DependentUpon>cashgame-toplist.less</DependentUpon>
+      <DependentUpon>sortable-table.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\cashgame.css">
       <DependentUpon>cashgame.less</DependentUpon>
@@ -482,6 +482,9 @@
     <Content Include="FrontEnd\Css\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
+    <Content Include="FrontEnd\Css\sortable-table.css">
+      <DependentUpon>sortable-table.less</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\standings.css">
       <DependentUpon>standings.less</DependentUpon>
     </Content>
@@ -502,7 +505,7 @@
     <Content Include="FrontEnd\js\cashgame-action-chart.js" />
     <Content Include="FrontEnd\js\cashgame-chart.js" />
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
-    <Content Include="FrontEnd\js\cashgame-toplist.js" />
+    <Content Include="FrontEnd\js\sortable-table.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
     <Content Include="FrontEnd\js\focus-text-selector.js" />
@@ -579,7 +582,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
-    <None Include="FrontEnd\Css\cashgame-toplist.less" />
+    <None Include="FrontEnd\Css\sortable-table.less" />
     <None Include="FrontEnd\Css\cashgame-matrix.less" />
     <None Include="FrontEnd\Css\cashgame-results-form.less" />
     <None Include="FrontEnd\Css\cashgame.less" />

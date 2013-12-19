@@ -18,19 +18,25 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             _globalization = globalization;
         }
 
-        public CashgameListTableItemModel Create(Homegame homegame, Cashgame cashgame, bool showYear)
+        public CashgameListTableItemModel Create(Homegame homegame, Cashgame cashgame, bool showYear, ListSortOrder sortOrder)
         {
             var playerCount = cashgame.PlayerCount;
 
             return new CashgameListTableItemModel
                 {
                     PlayerCount = playerCount,
+                    PlayerCountSortClass = GetSortCssClass(sortOrder, ListSortOrder.playercount),
                     Location = cashgame.Location,
+                    LocationSortClass = GetSortCssClass(sortOrder, ListSortOrder.location),
                     Duration = GetDuration(cashgame),
+                    DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.duration),
                     Turnover = GetTurnover(homegame, cashgame),
+                    TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.turnover),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
+                    AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.averagebuyin),
                     DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString),
                     DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
+                    DateSortClass = GetSortCssClass(sortOrder, ListSortOrder.date),
                     PublishedClass = GetPublishedClass(cashgame)
                 };
         }
@@ -60,5 +66,9 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             return cashgame.Status == GameStatus.Published ? string.Empty : "unpublished";
         }
 
+        private string GetSortCssClass(ListSortOrder selectedSortOrder, ListSortOrder columnSortOrder)
+        {
+            return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
+        }
     }
 }

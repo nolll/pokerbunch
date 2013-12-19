@@ -13,7 +13,7 @@ namespace Web
                 GetCssUrl("site"),
                 GetCssUrl("font-awesome"),
                 GetCssUrl("cashgame"),
-                GetCssUrl("cashgame-toplist"),
+                GetCssUrl("sortable-table"),
                 GetCssUrl("cashgame-matrix"),
                 GetCssUrl("cashgame-results-form"),
                 GetCssUrl("running-game"),

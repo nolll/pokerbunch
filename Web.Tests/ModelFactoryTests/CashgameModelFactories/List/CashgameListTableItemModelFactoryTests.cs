@@ -26,7 +26,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
 			var cashgame = new FakeCashgame(playerCount: 2);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
 			Assert.AreEqual(2, result.PlayerCount);
 		}
@@ -38,7 +38,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             var cashgame = new FakeCashgame(location: location);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(location, result.Location);
 		}
@@ -53,7 +53,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(formatted, result.Duration);
 		}
@@ -68,7 +68,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(formatted, result.Turnover);
 		}
@@ -83,7 +83,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), averageBuyin)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(formatted, result.AvgBuyin);
 		}
@@ -94,7 +94,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
 		    var cashgame = new FakeCashgame(startTime: new DateTime());
 
 			var sut = GetSut();
-            sut.Create(_homegame, cashgame, _showYear);
+            sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 		}
 
 		[Test]
@@ -105,7 +105,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(detailsUrl, result.DetailsUrl);
 		}
@@ -120,7 +120,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(formatted, result.DisplayDate);
 		}
@@ -135,7 +135,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual(formatted, result.DisplayDate);
 		}
@@ -145,7 +145,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             var cashgame = new FakeCashgame(status: GameStatus.Published);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
             Assert.AreEqual("", result.PublishedClass);
 		}
@@ -155,7 +155,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             var cashgame = new FakeCashgame(status: GameStatus.Finished);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear);
+            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
 			Assert.AreEqual("unpublished", result.PublishedClass);
 		}

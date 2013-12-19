@@ -218,7 +218,8 @@ namespace Web.ModelServices
             var homegame = _homegameRepository.GetByName(slug);
             var games = _cashgameRepository.GetPublished(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameListPageModelFactory.Create(_authentication.GetUser(), homegame, games, years, year);
+            var sortOrder = GetListSortOrder();
+            return _cashgameListPageModelFactory.Create(_authentication.GetUser(), homegame, games, years, sortOrder, year);
         }
 
         public CashgameChartPageModel GetChartModel(string slug, int? year)
@@ -299,6 +300,20 @@ namespace Web.ModelServices
             return ToplistSortOrder.winnings;
         }
 
+        private ListSortOrder GetListSortOrder()
+        {
+            var param = _webContext.GetQueryParam("orderby");
+            if (param == null)
+            {
+                return ListSortOrder.date;
+            }
+            ListSortOrder sortOrder;
+            if (Enum.TryParse(param, out sortOrder))
+            {
+                return sortOrder;
+            }
+            return ListSortOrder.date;
+        }
 
     }
 }

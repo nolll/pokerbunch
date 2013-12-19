@@ -17,10 +17,10 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
         {
             var homegame = new FakeHomegame();
             var cashgames = new List<Cashgame>();
-            GetMock<ICashgameListTableModelFactory>().Setup(o => o.Create(homegame, cashgames)).Returns(new CashgameListTableModel());
+            GetMock<ICashgameListTableModelFactory>().Setup(o => o.Create(homegame, cashgames, ListSortOrder.date, null)).Returns(new CashgameListTableModel());
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgames, null, null);
+            var result = sut.Create(new FakeUser(), homegame, cashgames, null, ListSortOrder.date, null);
 
 			Assert.IsInstanceOf<CashgameListTableModel>(result.ListTableModel);
 		}

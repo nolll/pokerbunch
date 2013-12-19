@@ -6,6 +6,6 @@ namespace Web.ModelFactories.CashgameModelFactories.List
 {
     public interface ICashgameListPageModelFactory
     {
-        CashgameListPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, int? year);
+        CashgameListPageModel Create(User user, Homegame homegame, IList<Cashgame> cashgames, IList<int> years, ListSortOrder sortOrder, int? year);
     }
 }
