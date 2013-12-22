@@ -2,25 +2,15 @@
 
 <h2>Player Facts</h2>
 
-<div class="facts">
-    <div>
-        <h3>Total result</h3>
-        <p>@Model.Winnings</p>
-    </div>
-    <div>
-        <h3>Best result</h3>
-        <p>@Model.BestResult</p>
-    </div>
-    <div>
-        <h3>Worst result</h3>
-        <p>@Model.WorstResult</p>
-    </div>
-    <div>
-        <h3>Games played</h3>
-        <p>@Model.GamesPlayed</p>
-    </div>
-    <div>
-        <h3>Time played</h3>
-        <p>@Model.TimePlayed</p>
-    </div>
-</div>
+<dl class="value-list">
+    <dt>Total result</dt>
+    <dd>@Model.Winnings</dd>
+    <dt>Best result</dt>
+    <dd>@Model.BestResult</dd>
+    <dt>Worst result</dt>
+    <dd>@Model.WorstResult</dd>
+    <dt>Games played</dt>
+    <dd>@Model.GamesPlayed</dd>
+    <dt>Time played</dt>
+    <dd>@Model.TimePlayed</dd>
+</dl>

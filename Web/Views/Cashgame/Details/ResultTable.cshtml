@@ -1,21 +1,19 @@
 @model Web.Models.CashgameModels.Details.CashgameDetailsTableModel
 
-<h2>Results</h2>
-
-<table class="cashgames">
+<table class="table-list">
     <thead>
-    <tr>
-        <th><span>Player</span></th>
-        <th><span>Buyin</span></th>
-        <th><span>Cashout</span></th>
-        <th><span>Result</span></th>
-        <th><span>Winrate</span></th>
-    </tr>
+        <tr>
+            <th><span>Player</span></th>
+            <th><span>Buyin</span></th>
+            <th><span>Cashout</span></th>
+            <th><span>Result</span></th>
+            <th><span>Winrate</span></th>
+        </tr>
     </thead>
-    <tbody>
-        @foreach (var resultModel in Model.ResultModels)
-        {
-            @Html.Partial("Details/ResultTableItem", resultModel)
-        }
-    </tbody>
+        <tbody class="list">
+            @foreach (var resultModel in Model.ResultModels)
+            {
+                @Html.Partial("Details/ResultTableItem", resultModel)
+            }
+        </tbody>
 </table>

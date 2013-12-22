@@ -1,25 +1,11 @@
 @import "mediaqueries";
 @import "mixins";
 
-dl,
-table{
-    .default-font();
-}
-
-table{
-	margin-bottom:10px;
-}
-
 .amount{
 	text-align: right;
 }
 
 .cashgames{
-	td{
-		vertical-align: top;
-		padding: 5px;
-	}
-
 	th span,
 	td.game-info span{
 		display:block;
@@ -42,16 +28,6 @@ table{
 .neg-result{
 	color:red;
 }
-
-.add-cashgame-result div{
-    float:left;
-    margin-right:5px;
-}
-
-.unpublished{
-    background-color:#cecece;
-}
-
 
 @media @widthXSmall {
 	.add-cashgame-button{

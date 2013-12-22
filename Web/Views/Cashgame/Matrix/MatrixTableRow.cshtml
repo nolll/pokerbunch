@@ -1,11 +1,11 @@
 @model Web.Models.CashgameModels.Matrix.CashgameMatrixTableRowModel
 
 <tr>
-    <td class="rank first">@Model.Rank.</td>
+    <td class="rank numeric">@Model.Rank.</td>
     <td class="name">
         <a href="@Model.PlayerUrl">@Model.Name</a>
     </td>
-    <td class="amount result @Model.ResultClass">@Model.TotalResult</td>
+    <td class="result numeric @Model.ResultClass">@Model.TotalResult</td>
     @foreach (var cellModel in Model.CellModels)
     {
         @Html.Partial("Matrix/MatrixTableCell", cellModel)

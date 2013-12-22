@@ -1,11 +1,11 @@
 @model Web.Models.CashgameModels.Matrix.CashgameMatrixTableCellModel
 
-<td class="@Model.WinnerClass">
+<td class="@Model.WinnerClass numeric">
     @if (@Model.ShowResult){
-        <span class="amount @Model.ResultClass">@Model.Winnings</span>
+        <span class="@Model.ResultClass">@Model.Winnings</span>
         if (Model.ShowTransactions){
-            <span class="transaction amount">in @Model.Buyin</span>
-            <span class="transaction amount">out @Model.Cashout</span>
+            <span class="transaction">in @Model.Buyin</span>
+            <span class="transaction">out @Model.Cashout</span>
         }
     }
 </td>

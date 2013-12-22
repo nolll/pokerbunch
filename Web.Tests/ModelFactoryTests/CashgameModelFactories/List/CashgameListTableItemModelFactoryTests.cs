@@ -140,26 +140,6 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
             Assert.AreEqual(formatted, result.DisplayDate);
 		}
 
-		[Test]
-		public void TableItem_WithPublishedGame_SetsEmptyPublishedClass(){
-            var cashgame = new FakeCashgame(status: GameStatus.Published);
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
-
-            Assert.AreEqual("", result.PublishedClass);
-		}
-
-		[Test]
-		public void TableItem_WithUnpublishedGame_SetsPublishedClassToUnpublished(){
-            var cashgame = new FakeCashgame(status: GameStatus.Finished);
-
-			var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
-
-			Assert.AreEqual("unpublished", result.PublishedClass);
-		}
-
 		private CashgameListTableItemModelFactory GetSut(){
 			return new CashgameListTableItemModelFactory(
                 GetMock<IUrlProvider>().Object,

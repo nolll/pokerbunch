@@ -1,16 +1,5 @@
-﻿dl,
-table {
-  font-family: arial, verdana;
-}
-table {
-  margin-bottom: 10px;
-}
-.amount {
+﻿.amount {
   text-align: right;
-}
-.cashgames td {
-  vertical-align: top;
-  padding: 5px;
 }
 .cashgames th span,
 .cashgames td.game-info span {
@@ -27,13 +16,6 @@ table {
 }
 .neg-result {
   color: red;
-}
-.add-cashgame-result div {
-  float: left;
-  margin-right: 5px;
-}
-.unpublished {
-  background-color: #cecece;
 }
 @media only screen and (min-width : 480px) {
   .add-cashgame-button {

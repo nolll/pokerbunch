@@ -1,11 +1,11 @@
 @model Web.Models.CashgameModels.List.CashgameListTableItemModel
-<tr class="@Model.PublishedClass">
+<tr>
     <td class="base-column ">
         <a href="@Model.DetailsUrl" class="date">@Model.DisplayDate</a>
     </td>
-    <td class="@Model.PlayerCountSortClass">@Model.PlayerCount</td>
+    <td class="numeric @Model.PlayerCountSortClass">@Model.PlayerCount</td>
     <td class="@Model.LocationSortClass">@Model.Location</td>
     <td class="@Model.DurationSortClass">@Model.Duration</td>
-    <td class="@Model.TurnoverSortClass">@Model.Turnover</td>
-    <td class="@Model.AvgBuyinSortClass">@Model.AvgBuyin</td>
+    <td class="numeric @Model.TurnoverSortClass">@Model.Turnover</td>
+    <td class="numeric @Model.AvgBuyinSortClass">@Model.AvgBuyin</td>
 </tr>

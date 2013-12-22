@@ -15,6 +15,9 @@
 .value-list dd {
   margin: 0 0 10px 0;
 }
+.table-list {
+  margin-bottom: 10px;
+}
 .table-list th {
   padding: 0;
   text-align: left;
@@ -28,4 +31,11 @@
 .table-list th span {
   padding: 10px 5px;
   display: block;
+}
+.table-list td {
+  vertical-align: top;
+  padding: 5px;
+}
+.table-list .numeric {
+  text-align: right;
 }

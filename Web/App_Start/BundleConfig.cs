@@ -18,7 +18,6 @@ namespace Web
                 GetCssUrl("cashgame-results-form"),
                 GetCssUrl("running-game"),
                 GetCssUrl("standings"),
-                GetCssUrl("facts"),
                 GetCssUrl("player"),
                 GetCssUrl("nav"),
                 GetCssUrl("form"),
