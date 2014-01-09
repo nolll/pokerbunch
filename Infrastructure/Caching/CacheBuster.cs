@@ -79,6 +79,7 @@ namespace Infrastructure.Caching
         {
             ClearRunningCashgame(homegame.Id);
             ClearCashgameList(homegame.Id, cashgame);
+            ClearCashgameYears(homegame.Id);
         }
 
         public void CashgameUpdated(Cashgame cashgame)
