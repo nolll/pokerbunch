@@ -14,5 +14,6 @@ namespace Infrastructure.Caching
         void CashgameStarted(Homegame cashgame);
         void CashgameEnded(Homegame homegame, Cashgame cashgame);
         void CashgameUpdated(Cashgame cashgame);
+        void ClearCashgameYears(int homegameId);
     }
 }
