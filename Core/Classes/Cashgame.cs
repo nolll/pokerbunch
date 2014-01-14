@@ -71,7 +71,7 @@ namespace Core.Classes{
             return bestResult != null && resultToCheck.Winnings == bestResult.Winnings;
         }
 
-        private CashgameResult GetBestResult(){
+        public CashgameResult GetBestResult(){
             CashgameResult bestResult = null;
             foreach(var result in Results){
                 if(bestResult == null || result.Winnings > bestResult.Winnings){
