@@ -18,11 +18,11 @@
 				@Model.IsoDate
 			</p>
             <p>
-                @Html.LabelFor(model => model.TypedLocation, "Enter Location")
+                @Html.LabelFor(model => model.TypedLocation, "Enter Location", new { @class = "label" })
                 @Html.TextBoxFor(model => model.TypedLocation, new { @class="textfield", list = "location-list"})
 
                 <datalist id="location-list">
-                    @Html.LabelFor(model => model.SelectedLocation, "or")
+                    @Html.LabelFor(model => model.SelectedLocation, "or", new { @class = "label" })
                     @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations)
                 </datalist>
             </p>
