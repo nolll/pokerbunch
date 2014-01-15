@@ -22,6 +22,7 @@ namespace Web
                 GetCssUrl("nav"),
                 GetCssUrl("form"),
                 GetCssUrl("list"),
+                GetCssUrl("label"),
                 GetCssUrl("icon"),
                 GetCssUrl("checkpoint-list"),
                 GetCssUrl("print"));

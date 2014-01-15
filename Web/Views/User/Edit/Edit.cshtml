@@ -19,15 +19,15 @@
     <form method="post">
 		<fieldset>
             <p>
-                @Html.LabelFor(model => model.DisplayName, "Display Name")
+                @Html.LabelFor(model => model.DisplayName, "Display Name", new { @class = "label" })
                 @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
             </p>
 			<p>
-                @Html.LabelFor(model => model.RealName, "Real Name")
+                @Html.LabelFor(model => model.RealName, "Real Name", new { @class = "label" })
                 @Html.TextBoxFor(model => model.RealName, new { @class = "textfield" })
             </p>
 			<p>
-                @Html.LabelFor(model => model.Email, "Email")
+                @Html.LabelFor(model => model.Email, "Email", new { @class = "label" })
                 @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "textfield" })
             </p>
 		</fieldset>

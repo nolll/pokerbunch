@@ -14,23 +14,23 @@
     <form method="post">
 		<fieldset>
             <p>
-                @Html.LabelFor(model => model.DisplayName, "Display Name")
+                @Html.LabelFor(model => model.DisplayName, "Display Name", new { @class = "label" })
                 @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
             </p>
 			<p>
-                @Html.LabelFor(model => model.Description, "Description")
+                @Html.LabelFor(model => model.Description, "Description", new { @class = "label" })
                 @Html.TextBoxFor(model => model.Description, new { @class = "textfield" })
 			</p>
 			<p>
-                @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol")
+                @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol", new { @class = "label" })
                 @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
 			</p>
 			<p>
-			    <label>@Html.LabelFor(model => model.CurrencyLayout, "Currency Layout")</label>
+			    <label>@Html.LabelFor(model => model.CurrencyLayout, "Currency Layout", new { @class = "label" })</label>
                 @Html.DropDownListFor(x => x.CurrencyLayout, Model.CurrencyLayoutSelectItems, new {@id = "currencylayout"})
 			</p>
 		    <p>
-		        <label>@Html.LabelFor(model => model.TimeZone, "Timezone")</label>
+		        <label>@Html.LabelFor(model => model.TimeZone, "Timezone", new { @class = "label" })</label>
                 @Html.DropDownListFor(x => x.TimeZone, Model.TimezoneSelectItems, new {@id = "timezone"})
 		    </p>
 		</fieldset>

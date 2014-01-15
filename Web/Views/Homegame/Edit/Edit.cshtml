@@ -14,27 +14,27 @@
     <form method="post">
 		<fieldset>
 			<p>
-                @Html.LabelFor(model => model.Description, "Description")
+                @Html.LabelFor(model => model.Description, "Description", new { @class = "label" })
                 @Html.TextBoxFor(model => model.Description, new { @class = "textfield" })
 			</p>
 			<p>
-                @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol")
+                @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol", new { @class = "label" })
                 @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
 			</p>
 			<p>
-			    @Html.LabelFor(model => model.CurrencyLayout, "Currency Layout")
+			    @Html.LabelFor(model => model.CurrencyLayout, "Currency Layout", new { @class = "label" })
                 @Html.DropDownListFor(model => model.CurrencyLayout, Model.CurrencyLayoutSelectItems, new {@id = "currencylayout"})
 			</p>
 		    <p>
-		        @Html.LabelFor(model => model.TimeZone, "Timezone")
+		        @Html.LabelFor(model => model.TimeZone, "Timezone", new { @class = "label" })
 		        @Html.DropDownListFor(model => model.TimeZone, Model.TimezoneSelectItems, new {@id = "timezone"})
 		    </p>
 		    <p>
-		        @Html.LabelFor(model => model.DefaultBuyin, "Default buyin")
+		        @Html.LabelFor(model => model.DefaultBuyin, "Default buyin", new { @class = "label" })
 		        @Html.TextBoxFor(model => model.DefaultBuyin, new { @class = "textfield" })
 		    </p>
 		    <p>
-		        @Html.LabelFor(model => model.HouseRules, "House Rules")
+		        @Html.LabelFor(model => model.HouseRules, "House Rules", new { @class = "label" })
 		        @Html.TextAreaFor(model => model.HouseRules, new { @class = "textfield" })
 		    </p>
             @*

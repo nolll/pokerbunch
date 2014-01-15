@@ -1,4 +1,4 @@
-﻿.list > :nth-child(odd) {
+.list > :nth-child(odd) {
   background: #eee;
 }
 .simple.list {
@@ -7,10 +7,6 @@
 }
 .simple.list li {
   padding: 5px;
-}
-.value-list dt {
-  font-size: 0.75em;
-  text-transform: uppercase;
 }
 .value-list dd {
   margin: 0 0 10px 0;

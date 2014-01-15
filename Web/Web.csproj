@@ -452,6 +452,9 @@
     <Content Include="FrontEnd\Css\icon.css">
       <DependentUpon>icon.less</DependentUpon>
     </Content>
+    <Content Include="FrontEnd\Css\label.css">
+      <DependentUpon>label.less</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\list.css">
       <DependentUpon>list.less</DependentUpon>
     </Content>
@@ -579,6 +582,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
+    <Content Include="FrontEnd\Css\label.less" />
     <None Include="FrontEnd\Css\sortable-table.less" />
     <None Include="FrontEnd\Css\cashgame-matrix.less" />
     <None Include="FrontEnd\Css\cashgame-results-form.less" />

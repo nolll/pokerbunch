@@ -22,11 +22,11 @@
         @Html.HiddenFor(model => model.ReturnUrl)
         <fieldset>
             <p>
-                @Html.LabelFor(model => model.LoginName, "Email or User Name")
+                @Html.LabelFor(model => model.LoginName, "Email or User Name", new { @class = "label" })
                 @Html.TextBoxFor(model => model.LoginName, new { @class = "textfield", autocapitalize = "off" })
             </p>
             <p>
-                @Html.LabelFor(model => model.Password, "Password")
+                @Html.LabelFor(model => model.Password, "Password", new { @class = "label" })
                 @Html.PasswordFor(model => model.Password, new { @class = "textfield" })
             </p>
             <p class="checkbox-layout">
