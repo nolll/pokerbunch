@@ -1,4 +1,4 @@
-﻿html {
+html {
   overflow-y: auto;
 }
 body {
@@ -38,14 +38,23 @@ a {
 h1 {
   margin: 0;
   font-weight: normal;
+  font-size: 1em;
+}
+.h1 {
+  margin-bottom: 10px;
   font-size: 1.125em;
   line-height: 1.5em;
 }
 h2 {
   font-weight: normal;
   font-size: 1em;
+  margin: 0;
+}
+.h2 {
+  margin-bottom: 10px;
 }
 h3 {
+  font-weight: normal;
   font-size: 1em;
 }
 td,
