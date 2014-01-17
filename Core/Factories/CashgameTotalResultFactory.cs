@@ -5,25 +5,32 @@ using Core.Classes;
 
 namespace Core.Factories{
 
-	public class CashgameTotalResultFactory : ICashgameTotalResultFactory{
-
-        public CashgameTotalResult Create(int playerId, IList<CashgameResult> results)
+	public class CashgameTotalResultFactory : ICashgameTotalResultFactory
+    {
+	    public CashgameTotalResult Create(Player player, IList<Cashgame> cashgames)
         {
-			var winnings = 0;
-			var gameCount = 0;
-			var timePlayed = 0;
+            var playerCashgames = cashgames.Where(o => o.IsInGame(player.Id)).ToList();
+
+            var winnings = 0;
+            var gameCount = 0;
+            var timePlayed = 0;
             var buyin = 0;
             var cashout = 0;
+	        var winRate = 0;
 
-			foreach(var result in results){
-				winnings += result.Winnings;
-				gameCount++;
-				timePlayed += result.PlayedTime;
-			    buyin += result.Buyin;
-			    cashout += result.Stack;
-			}
-
-			var winRate = GetWinRate(timePlayed, winnings);
+            if(playerCashgames.Count > 0)
+            {
+                foreach (var cashgame in playerCashgames)
+                {
+                    var result = cashgame.GetResult(player.Id);
+                    winnings += result.Winnings;
+                    gameCount++;
+                    timePlayed += result.PlayedTime;
+                    buyin += result.Buyin;
+                    cashout += result.Stack;
+                }
+                winRate = GetWinRate(timePlayed, winnings);
+            }
 
             return new CashgameTotalResult
                 (
@@ -31,26 +38,17 @@ namespace Core.Factories{
                     gameCount,
                     timePlayed,
                     winRate,
-                    playerId,
+                    player.Id,
                     buyin,
                     cashout
                 );
-		}
+        }
 
-        public IList<CashgameTotalResult> CreateList(IEnumerable<Player> players, IDictionary<int, IList<CashgameResult>> resultIndex)
-	    {
-            var totalResults = new List<CashgameTotalResult>();
-            foreach (var player in players)
-            {
-                var playerResults = resultIndex[player.Id];
-                if (playerResults.Count > 0)
-                {
-                    var totalResult = Create(player.Id, playerResults);
-                    totalResults.Add(totalResult);
-                }
-            }
-            return totalResults.OrderByDescending(o => o.Winnings).ToList();
-	    }
+        public IList<CashgameTotalResult> CreateList(IList<Player> players, IList<Cashgame> cashgames)
+        {
+            var list = players.Select(player => Create(player, cashgames)).ToList();
+            return list.Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
+        }
 
 	    private int GetWinRate(int timePlayed, int winnings)
 	    {

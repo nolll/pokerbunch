@@ -1,8 +1,8 @@
 namespace Core.Classes{
 
-	public class CashgameTotalResult{
-
-	    public int Winnings { get; private set; }
+	public class CashgameTotalResult
+    {
+        public int Winnings { get; private set; }
         public int GameCount { get; private set; }
         public int TimePlayed { get; private set; }
         public int WinRate { get; private set; }

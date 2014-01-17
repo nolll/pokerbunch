@@ -78,7 +78,7 @@ namespace Infrastructure.Tests.Factories{
             var cashgame2 = new FakeCashgame(duration: 2);
             _cashgames = new List<Cashgame> { cashgame1, cashgame2 };
 
-            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IEnumerable<Player>>(), It.IsAny<IDictionary<int, IList<CashgameResult>>>())).Returns(new List<CashgameTotalResult>());
+            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IList<Player>>(), It.IsAny<IList<Cashgame>>())).Returns(new List<CashgameTotalResult>());
 
             var sut = GetSut();
             var result = sut.Create(_cashgames, _players);
@@ -93,7 +93,7 @@ namespace Infrastructure.Tests.Factories{
             var cashgame2 = new FakeCashgame(turnover: 2);
             _cashgames = new List<Cashgame> { cashgame1, cashgame2 };
 
-            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IEnumerable<Player>>(), It.IsAny<IDictionary<int, IList<CashgameResult>>>())).Returns(new List<CashgameTotalResult>());
+            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IList<Player>>(), It.IsAny<IList<Cashgame>>())).Returns(new List<CashgameTotalResult>());
 
             var sut = GetSut();
             var result = sut.Create(_cashgames, _players);
@@ -128,7 +128,7 @@ namespace Infrastructure.Tests.Factories{
             var totalResult1 = new FakeCashgameTotalResult(winnings: 3, gameCount: 2, timePlayed: 4);
             var totalResult2 = new FakeCashgameTotalResult(winnings: -3, gameCount: 2, timePlayed: 2);
             var totalResultList = new List<CashgameTotalResult> {totalResult1, totalResult2};
-            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IEnumerable<Player>>(), It.IsAny<IDictionary<int, IList<CashgameResult>>>())).Returns(totalResultList);
+            GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IList<Player>>(), It.IsAny<IList<Cashgame>>())).Returns(totalResultList);
 		}
 
         private CashgameFactsFactory GetSut()

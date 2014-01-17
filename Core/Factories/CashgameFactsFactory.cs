@@ -36,7 +36,7 @@ namespace Core.Factories
 			    totalTurnover += cashgame.Turnover;
 			}
 
-            var totalResults = _cashgameTotalResultFactory.CreateList(players, resultIndex);
+            var totalResults = _cashgameTotalResultFactory.CreateList(players, cashgames);
 			var mostTimeResult = GetMostTimeResult(totalResults);
             var biggestTotalBuyinResult = GetBiggestTotalBuyinResult(totalResults);
             var biggestTotalCashoutResult = GetBiggestTotalCashoutResult(totalResults);

@@ -14,31 +14,15 @@ namespace Core.Factories{
 
         public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
         {
-			var resultIndex = GetPlayerIndex(players);
 			var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
-			foreach(var cashgame in sortedCashgames){
-				var results = cashgame.Results;
-				foreach(var result in results){
-					resultIndex[result.PlayerId].Add(result);
-				}
-			}
 
-			var totalResults = _cashgameTotalResultFactory.CreateList(players, resultIndex);
+			var totalResults = _cashgameTotalResultFactory.CreateList(players, cashgames);
 
             return new CashgameSuite
                 (
                     sortedCashgames,
                     totalResults
                 );
-		}
-
-        private Dictionary<int, IList<CashgameResult>> GetPlayerIndex(IEnumerable<Player> players)
-        {
-            var dictionary = new Dictionary<int, IList<CashgameResult>>();
-			foreach(var player in players){
-				dictionary[player.Id] = new List<CashgameResult>();
-			}
-			return dictionary;
 		}
 
 	}

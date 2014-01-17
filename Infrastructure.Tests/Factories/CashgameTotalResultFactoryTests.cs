@@ -9,24 +9,27 @@ namespace Infrastructure.Tests.Factories{
 	public class CashgameTotalResultFactoryTests {
 
         [Test]
-		public void GetWinnings_WithTwoResults_ReturnsSumOfWinnings(){
-			var result = GetResultWithTwoResults();
-
-			Assert.AreEqual(2, result.Winnings);
-		}
-
-        private CashgameTotalResult GetResultWithTwoResults()
+        public void GetWinnings_WithTwoResults_ReturnsSumOfWinnings()
         {
             const int playerId = 1;
-			var sut = new CashgameTotalResultFactory();
-			var cashgameResult = GetResult();
-			var totalResults = new List<CashgameResult> {cashgameResult, cashgameResult};
-			return sut.Create(playerId, totalResults);
-		}
+            const int singleGameWinnings = 1;
+            const int expectedWinnings = 2;
+            var player = new FakePlayer(playerId);
+            var cashgameResult = new FakeCashgameResult(playerId, winnings: singleGameWinnings);
+            var cashgame1 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
+            var cashgame2 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
+            var cashgames = new List<Cashgame> {cashgame1, cashgame2};
+            
+            var sut = GetSut();
+            var result = sut.Create(player, cashgames);
 
-		private CashgameResult GetResult(){
-			return new FakeCashgameResult(winnings: 1);
-		}
+            Assert.AreEqual(expectedWinnings, result.Winnings);
+        }
+        
+        private CashgameTotalResultFactory GetSut()
+        {
+            return new CashgameTotalResultFactory();
+        }
 
 	}
 
