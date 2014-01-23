@@ -1,11 +1,6 @@
-using System;
-using Core.Classes;
-using Core.Classes.Checkpoints;
 using Core.Services;
-using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Web.Services;
 
 namespace Web.Tests.ServiceTests{

@@ -1,7 +1,6 @@
 ﻿using Core.Classes;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 
 namespace Web.ModelFactories.PlayerModelFactories

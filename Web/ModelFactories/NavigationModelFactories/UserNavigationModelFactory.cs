@@ -26,14 +26,7 @@ namespace Web.ModelFactories.NavigationModelFactories
 
         private IList<NavigationNode> GetNodes(User user)
         {
-            if (user == null)
-            {
-                return GetAnonymousNodes();
-            }
-            else
-            {
-                return GetLoggedInNodes(user);
-            }
+            return user != null ? GetLoggedInNodes(user) : GetAnonymousNodes();
         }
 
         private IList<NavigationNode> GetAnonymousNodes()

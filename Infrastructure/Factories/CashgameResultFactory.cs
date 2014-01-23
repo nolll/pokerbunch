@@ -48,25 +48,12 @@ namespace Infrastructure.Factories
         private int GetBuyinSum(IEnumerable<Checkpoint> checkpoints)
         {
             var buyinCheckpoints = GetCheckpointsOfType(checkpoints, CheckpointType.Buyin);
-            var buyin = 0;
-            foreach (var checkpoint in buyinCheckpoints)
-            {
-                buyin += checkpoint.Amount;
-            }
-            return buyin;
+            return buyinCheckpoints.Sum(checkpoint => checkpoint.Amount);
         }
 
         private List<Checkpoint> GetCheckpointsOfType(IEnumerable<Checkpoint> checkpoints, CheckpointType type)
         {
-            var typedCheckpoints = new List<Checkpoint>();
-            foreach (var checkpoint in checkpoints)
-            {
-                if (checkpoint.Type == type)
-                {
-                    typedCheckpoints.Add(checkpoint);
-                }
-            }
-            return typedCheckpoints;
+            return checkpoints.Where(checkpoint => checkpoint.Type == type).ToList();
         }
 
         private int GetStack(IReadOnlyList<Checkpoint> checkpoints)

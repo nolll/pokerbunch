@@ -42,9 +42,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             {
                 var cashgame = cashgames[cashgames.Count - i - 1];
                 var currentSum = new Dictionary<int, int?>();
-                for (var j = 0; j < results.Count; j++)
+                foreach (var totalResult in results)
                 {
-                    var totalResult = results[j];
                     var singleResult = cashgame.GetResult(totalResult.PlayerId);
                     var playerId = totalResult.PlayerId;
                     if (singleResult != null || i == cashgames.Count - 1)

@@ -1,12 +1,8 @@
 using System.Web.Mvc;
-using Core.Classes;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Tests.Common.FakeCommands;
 using Web.Commands.PlayerCommands;
 using Web.Controllers;

@@ -57,14 +57,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 
         private IEnumerable<Checkpoint> GetCheckpoints(CashgameResult result)
         {
-            if (PlayerIsInGame(result))
-            {
-                return result.Checkpoints;
-            }
-            else
-            {
-                return new List<Checkpoint>();
-            }
+            return PlayerIsInGame(result) ? result.Checkpoints : new List<Checkpoint>();
         }
 
         private bool PlayerIsInGame(CashgameResult result)

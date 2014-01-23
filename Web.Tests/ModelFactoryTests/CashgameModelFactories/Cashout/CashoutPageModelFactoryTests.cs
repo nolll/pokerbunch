@@ -1,4 +1,3 @@
-using System;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;

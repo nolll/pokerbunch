@@ -6,7 +6,6 @@ using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Core.Classes;
-using Infrastructure.Caching;
 using Infrastructure.Plumbing;
 using NUnit.Framework;
 using Web.Models.PageBaseModels;

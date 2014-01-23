@@ -125,8 +125,8 @@ namespace Infrastructure.Tests.Factories{
 		    _cashgames = new List<Cashgame>{cashgame1, cashgame2};
 			_players = new List<Player>{player1, player2};
 
-            var totalResult1 = new FakeCashgameTotalResult(winnings: 3, gameCount: 2, timePlayed: 4);
-            var totalResult2 = new FakeCashgameTotalResult(winnings: -3, gameCount: 2, timePlayed: 2);
+            var totalResult1 = new FakeCashgameTotalResult(3, gameCount: 2, timePlayed: 4);
+            var totalResult2 = new FakeCashgameTotalResult(-3, gameCount: 2, timePlayed: 2);
             var totalResultList = new List<CashgameTotalResult> {totalResult1, totalResult2};
             GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IList<Player>>(), It.IsAny<IList<Cashgame>>())).Returns(totalResultList);
 		}

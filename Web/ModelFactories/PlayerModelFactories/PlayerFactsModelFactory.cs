@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Classes;
 using Infrastructure.System;
 using Web.Models.PlayerModels.Facts;
@@ -88,12 +89,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         private int GetMinutesPlayed(IEnumerable<Cashgame> cashgames)
         {
-            var timePlayed = 0;
-            foreach (var cashgame in cashgames)
-            {
-                timePlayed += cashgame.Duration;
-            }
-            return timePlayed;
+            return cashgames.Sum(cashgame => cashgame.Duration);
         }
 
         private int GetBestResultCount(IEnumerable<Cashgame> cashgames, Player player)

@@ -50,7 +50,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
 		{
 		    const string formattedResult = "a";
 		    const int winnings = 1;
-            var totalResult = new FakeCashgameTotalResult(winnings:winnings);
+            var totalResult = new FakeCashgameTotalResult(winnings);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedResult);
 

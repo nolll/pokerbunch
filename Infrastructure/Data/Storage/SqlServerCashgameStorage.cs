@@ -32,7 +32,7 @@ namespace Infrastructure.Data.Storage {
             var sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES ({0}, '{1}', {2}, '{3}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, homegame.Timezone);
             var date = _globalization.FormatIsoDate(timezoneAdjustedDate);
-		    sql = string.Format(sql, homegame.Id, cashgame.Location, (int)cashgame.Status, date);
+		    sql = string.Format(sql, homegame.Id, cashgame.Location, cashgame.Status, date);
 		    return _storageProvider.ExecuteInsert(sql);
 		}
 
@@ -113,7 +113,7 @@ namespace Infrastructure.Data.Storage {
             var sql = GetGameIdSql(homegameId);
             if (status.HasValue)
             {
-                sql += string.Format("AND g.Status = {0} ", (int)status.Value);
+                sql += string.Format("AND g.Status = {0} ", status.Value);
             }
             if (year.HasValue)
             {

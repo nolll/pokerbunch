@@ -87,7 +87,6 @@ namespace Infrastructure.System{
 		public string FormatIsoDateTime(DateTime date)
 		{
             return date.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-            return "";//$date.format("Y-m-d H:i:s");
 		}
 
 		public string FormatYear(DateTime date)

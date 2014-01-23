@@ -101,7 +101,7 @@ namespace Web.Tests.ControllerTests{
 		    const int secondUserId = 2;
 			var homegame = new FakeHomegame();
 			var cashgame = new FakeCashgame();
-		    var user = new FakeUser(id: firstUserId);
+		    var user = new FakeUser(firstUserId);
 			var player = new FakePlayer(userId: secondUserId);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);

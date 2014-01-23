@@ -1,6 +1,6 @@
 namespace Core.Classes.Achievements{
 
-	public interface Badge{
+	public interface IBadge{
 
         bool WasEarned { get; }
 

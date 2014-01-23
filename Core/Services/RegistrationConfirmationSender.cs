@@ -5,41 +5,21 @@ namespace Core.Services{
 	public class RegistrationConfirmationSender : IRegistrationConfirmationSender
     {
 	    private readonly IMessageSender _messageSender;
-	    private readonly ISettings _settings;
-	    private readonly IUrlProvider _urlProvider;
+	    private readonly IRegistrationConfirmationMessageBuilder _registrationConfirmationMessageBuilder;
 
 	    public RegistrationConfirmationSender(
             IMessageSender messageSender,
-            ISettings settings,
-            IUrlProvider urlProvider)
+            IRegistrationConfirmationMessageBuilder registrationConfirmationMessageBuilder)
 	    {
 	        _messageSender = messageSender;
-	        _settings = settings;
-	        _urlProvider = urlProvider;
+	        _registrationConfirmationMessageBuilder = registrationConfirmationMessageBuilder;
 	    }
 
-		public void Send(User user, string password){
-			var subject = GetSubject();
-			var body = GetBody(password);
+	    public void Send(User user, string password){
+            var subject = _registrationConfirmationMessageBuilder.GetSubject();
+            var body = _registrationConfirmationMessageBuilder.GetBody(password);
 			_messageSender.Send(user.Email, subject, body);
 		}
 
-	    private string GetSubject(){
-			return "Poker Bunch Registration";
-		}
-
-	    private string GetBody(string password){
-			var siteUrl = _settings.GetSiteUrl();
-			var loginUrl = _urlProvider.GetLoginUrl();
-			var loginUrlStr = siteUrl + loginUrl;
-			var body = "Thanks for registering with Poker Bunch.\r\n\r\n" +
-				"Here is your password:\r\n" +
-				password + "\r\n\r\n" +
-				"Please sign in here: " + loginUrlStr;
-
-			return body;
-		}
-
 	}
-
 }

@@ -73,7 +73,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     return results.OrderByDescending(o => o.TimePlayed).ToList();
                 case ToplistSortOrder.gamesplayed:
                     return results.OrderByDescending(o => o.GameCount).ToList();
-                case ToplistSortOrder.winnings:
                 default:
                     return results.OrderByDescending(o => o.Winnings).ToList();
             }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Classes;
 using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;

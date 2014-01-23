@@ -17,7 +17,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Facts{
         public void GameCount_SuiteHasGameCount_IsSet()
 		{
 		    const int gameCount = 1;
-            var facts = new FakeCashgameFacts(gameCount:gameCount);
+            var facts = new FakeCashgameFacts(gameCount);
 
 		    var sut = GetSut();
             var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);

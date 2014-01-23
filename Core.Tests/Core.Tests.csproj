@@ -55,6 +55,7 @@
     <None Include="packages.config" />
     <Compile Include="Services\PasswordGeneratorTests.cs" />
     <Compile Include="Services\RandomStringGeneratorTests.cs" />
+    <Compile Include="Services\RegistrationConfirmationMessageBuilderTests.cs" />
     <Compile Include="Services\SaltGeneratorTests.cs" />
     <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="Services\InvitationCodeCreatorTests.cs" />

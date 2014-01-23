@@ -137,44 +137,22 @@ namespace Infrastructure.Factories
 
         private int GetBuyinSum(IEnumerable<CashgameResult> results)
         {
-            var buyinSum = 0;
-            foreach (var result in results)
-            {
-                buyinSum += result.Buyin;
-            }
-            return buyinSum;
+            return results.Sum(result => result.Buyin);
         }
 
         private int GetCashoutSum(IEnumerable<CashgameResult> results)
         {
-            var cashoutSum = 0;
-            foreach (var result in results)
-            {
-                cashoutSum += result.Stack;
-            }
-            return cashoutSum;
+            return results.Sum(result => result.Stack);
         }
 
         private bool HasActivePlayers(IEnumerable<CashgameResult> results)
         {
-            foreach (var result in results)
-            {
-                if (!result.CashoutTime.HasValue)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return results.Any(result => !result.CashoutTime.HasValue);
         }
 
         private int GetTotalStacks(IEnumerable<CashgameResult> results)
         {
-            var sum = 0;
-            foreach (var result in results)
-            {
-                sum += result.Stack;
-            }
-            return sum;
+            return results.Sum(result => result.Stack);
         }
 
         private int GetAverageBuyin(int turnover, int playerCount)
@@ -183,7 +161,7 @@ namespace Infrastructure.Factories
             {
                 return 0;
             }
-            return (int) Math.Round((double) turnover/(double) playerCount);
+            return (int) Math.Round(turnover/(double) playerCount);
         }
 
     }

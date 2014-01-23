@@ -52,7 +52,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
 		{
 		    const string formatted = "a";
 		    const int winnings = 1;
-            var totalResult = new FakeCashgameTotalResult(winnings:winnings);
+            var totalResult = new FakeCashgameTotalResult(winnings);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formatted);
 
@@ -103,7 +103,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
         {
             return new FakeCashgameSuite
             (
-                cashgames: new List<Cashgame>{new FakeCashgame()}
+                new List<Cashgame>{new FakeCashgame()}
             );
         }
     

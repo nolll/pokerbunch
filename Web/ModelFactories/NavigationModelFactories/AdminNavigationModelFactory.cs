@@ -29,11 +29,10 @@ namespace Web.ModelFactories.NavigationModelFactories
             var isAdmin = user != null && user.IsAdmin;
             if (isAdmin)
             {
-                const bool selected = false;
                 return new List<NavigationNode>
                     {
-                        new NavigationNode("Bunches", _urlProvider.GetHomegameListUrl(), selected),
-                        new NavigationNode("Users", _urlProvider.GetUserListUrl(), selected)
+                        new NavigationNode("Bunches", _urlProvider.GetHomegameListUrl()),
+                        new NavigationNode("Users", _urlProvider.GetUserListUrl())
                     };
             }
 

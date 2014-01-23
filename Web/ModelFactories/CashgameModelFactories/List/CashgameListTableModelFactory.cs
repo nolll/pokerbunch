@@ -46,12 +46,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
 
         private List<CashgameListTableItemModel> GetListItemModels(Homegame homegame, IEnumerable<Cashgame> cashgames, bool showYear, ListSortOrder sortOrder)
         {
-            var models = new List<CashgameListTableItemModel>();
-            foreach (var cashgame in cashgames)
-            {
-                models.Add(_cashgameListTableItemModelFactory.Create(homegame, cashgame, showYear, sortOrder));
-            }
-            return models;
+            return cashgames.Select(cashgame => _cashgameListTableItemModelFactory.Create(homegame, cashgame, showYear, sortOrder)).ToList();
         }
 
         private bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
@@ -85,7 +80,6 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     return cashgames.OrderByDescending(o => o.Turnover).ThenByDescending(o => o.StartTime).ToList();
                 case ListSortOrder.averagebuyin:
                     return cashgames.OrderByDescending(o => o.AverageBuyin).ThenByDescending(o => o.StartTime).ToList();
-                case ListSortOrder.date:
                 default:
                     return cashgames.OrderByDescending(o => o.StartTime).ToList();
             }

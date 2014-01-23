@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Classes;
+﻿using Core.Classes;
 using Web.Models.CashgameModels.Details;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details

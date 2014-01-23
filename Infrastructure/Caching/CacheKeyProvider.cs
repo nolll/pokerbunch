@@ -7,7 +7,7 @@ namespace Infrastructure.Caching
     {
         public string UserKey(int id)
         {
-            return ConstructCacheKey("User", id); ;
+            return ConstructCacheKey("User", id);
         }
 
         public string UserIdByTokenKey(string token)
@@ -27,7 +27,7 @@ namespace Infrastructure.Caching
 
         public string HomegameKey(int id)
         {
-            return ConstructCacheKey("Homegame", id); ;
+            return ConstructCacheKey("Homegame", id);
         }
 
         public string HomegameIdBySlugKey(string slug)
@@ -42,7 +42,7 @@ namespace Infrastructure.Caching
 
         public string PlayerKey(int id)
         {
-            return ConstructCacheKey("Player", id); ;
+            return ConstructCacheKey("Player", id);
         }
 
         public string PlayerIdsKey(int homegameId)
@@ -62,7 +62,7 @@ namespace Infrastructure.Caching
 
         public string CashgameKey(int id)
         {
-            return ConstructCacheKey("Cashgame", id); ;
+            return ConstructCacheKey("Cashgame", id);
         }
 
         public string CashgameIdByDateStringKey(int homegameId, string dateString)

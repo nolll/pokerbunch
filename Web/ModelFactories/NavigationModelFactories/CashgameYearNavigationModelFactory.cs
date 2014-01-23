@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Core.Classes;
 using Core.Services;
 using Web.Models.NavigationModels;
@@ -29,11 +30,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             var yearModels = new List<NavigationYearModel>();
             if (years != null)
             {
-                for (var i = 0; i < years.Count; i++)
-                {
-                    var year = years[i];
-                    yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage, year), year.ToString(CultureInfo.InvariantCulture)));
-                }
+                yearModels.AddRange(years.Select(year => new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage, year), year.ToString(CultureInfo.InvariantCulture))));
                 yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage), "All Time"));
             }
             return yearModels;

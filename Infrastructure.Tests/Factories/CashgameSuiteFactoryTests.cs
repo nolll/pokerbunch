@@ -43,9 +43,15 @@ namespace Infrastructure.Tests.Factories{
 			Assert.AreEqual(1, result.Cashgames[0].Id);
 		}
 
-		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer(){
-            var totalResult1 = new FakeCashgameTotalResult(winnings: 3, gameCount: 2, timePlayed: 4);
-            var totalResult2 = new FakeCashgameTotalResult(winnings: -3, gameCount: 2, timePlayed: 2);
+		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer()
+		{
+		    const int winningAmount = 3;
+		    const int winningTimePlayed = 4;
+		    const int losingAmount = -3;
+		    const int losingTimePlayed = 2;
+		    const int gameCount = 2;
+            var totalResult1 = new FakeCashgameTotalResult(winningAmount, gameCount, winningTimePlayed);
+            var totalResult2 = new FakeCashgameTotalResult(losingAmount, gameCount, losingTimePlayed);
             var totalResultList = new List<CashgameTotalResult> {totalResult1, totalResult2};
             GetMock<ICashgameTotalResultFactory>().Setup(o => o.CreateList(It.IsAny<IList<Player>>(), It.IsAny<IList<Cashgame>>())).Returns(totalResultList);
 		}

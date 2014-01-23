@@ -1,6 +1,5 @@
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.System;
 using NUnit.Framework;

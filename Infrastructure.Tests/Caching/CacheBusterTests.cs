@@ -31,7 +31,7 @@ namespace Infrastructure.Tests.Caching
             const string tokenKey = "b2";
             const string nameKey = "b3";
             const string emailKey = "b4";
-            var user = new FakeUser(id: userId, userName: userName, email: email, token: token);
+            var user = new FakeUser(userId, userName, email: email, token: token);
 
             GetMock<ICacheKeyProvider>().Setup(o => o.UserKey(userId)).Returns(userKey);
             GetMock<ICacheKeyProvider>().Setup(o => o.UserIdByTokenKey(token)).Returns(tokenKey);

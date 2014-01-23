@@ -1,6 +1,6 @@
 namespace Web.Routing{
 
-	public class RouteFormats{
+	public static class RouteFormats{
 
         public const string Home = "/";
 

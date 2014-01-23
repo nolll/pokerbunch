@@ -33,7 +33,7 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
         {
             _stack = 200;
             _timestamp = DateTime.Parse("2010-01-01 01:00:00");
-            _checkpoint = new FakeCheckpoint(timestamp: _timestamp, stack: _stack);
+            _checkpoint = new FakeCheckpoint(_timestamp, stack: _stack);
 			_role = Role.Player;
 		}
 

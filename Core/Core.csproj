@@ -141,6 +141,8 @@
     <Compile Include="Services\Interfaces\IPasswordGenerator.cs" />
     <Compile Include="Services\Interfaces\IRandomStringGenerator.cs" />
     <Compile Include="Services\Interfaces\ISaltGenerator.cs" />
+    <Compile Include="Services\IRegistrationConfirmationMessageBuilder.cs" />
+    <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

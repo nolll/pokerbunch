@@ -1,6 +1,5 @@
 using Core.Classes;
 using Core.Services;
-using Infrastructure.Config;
 
 namespace Infrastructure.Integration.Gravatar{
 

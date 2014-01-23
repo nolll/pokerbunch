@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.Classes.Achievements{
 
-	public class NumberOfGamesBadge : Badge{
+	public class NumberOfGamesBadge : IBadge{
 
 	    public bool WasEarned { get; private set; }
 

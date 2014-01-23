@@ -1,7 +1,6 @@
 using System.Web.Mvc;
 using Core.Services;
 using Web.Commands.AuthCommands;
-using Web.ModelFactories.AuthModelFactories;
 using Web.ModelServices;
 using Web.Models.AuthModels;
 

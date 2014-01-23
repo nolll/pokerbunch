@@ -28,11 +28,11 @@ namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
             var totalResult = new FakeCashgameTotalResult();
             return new FakeCashgameSuite
             (
-                cashgames: cashgames,
-                totalResults: new List<CashgameTotalResult>
-			            {
-			                totalResult, totalResult
-			            }
+                cashgames,
+                new List<CashgameTotalResult>
+			    {
+			        totalResult, totalResult
+			    }
             );
         }
         

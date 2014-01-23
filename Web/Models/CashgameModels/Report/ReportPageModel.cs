@@ -1,4 +1,3 @@
-using Web.Models.CashgameModels.Buyin;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Report{
