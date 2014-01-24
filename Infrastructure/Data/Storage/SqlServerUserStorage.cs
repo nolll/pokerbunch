@@ -112,7 +112,7 @@ namespace Infrastructure.Data.Storage {
 
 		public int AddUser(RawUser user){
             var sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Token, Password, Salt) VALUES ('{0}', '{1}', '{2}', 1, '{3}', '{4}', '{5}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            sql = string.Format(sql, user.UserName, user.DisplayName, user.Email);
+            sql = string.Format(sql, user.UserName, user.DisplayName, user.Email, user.Token, user.EncryptedPassword, user.Salt);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
