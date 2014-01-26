@@ -1,15 +1,15 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PokerBunch.Infrastructure.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Poker Bunch Web")]
+[assembly: AssemblyDescription("Manage your poker home game")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("PokerBunch.Infrastructure.Tests")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2013")]
+[assembly: AssemblyCompany("nolll")]
+[assembly: AssemblyProduct("Poker Bunch")]
+[assembly: AssemblyCopyright("Copyright � nolll 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3f1ec323-862b-48ab-96b2-9a83e978e4df")]
+[assembly: Guid("b1b1ed5f-ce6c-48e0-895f-b640677f3f2c")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -28,8 +28,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("5.10.*")]

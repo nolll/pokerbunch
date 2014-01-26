@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="GameStatusNameTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,10 +53,12 @@
     <Compile Include="Services\PasswordGeneratorTests.cs" />
     <Compile Include="Services\RandomStringGeneratorTests.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilderTests.cs" />
+    <Compile Include="Services\RegistrationConfirmationSenderTests.cs" />
     <Compile Include="Services\SaltGeneratorTests.cs" />
     <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="Services\InvitationCodeCreatorTests.cs" />
     <Compile Include="Services\EncryptionServiceTests.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -70,6 +69,9 @@
       <Project>{d30140a0-6006-4d0e-ad74-067ee44f4fc9}</Project>
       <Name>Tests.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

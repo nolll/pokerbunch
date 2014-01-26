@@ -99,7 +99,6 @@
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
     <Compile Include="Plumbing\ObjectFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheBuster.cs" />
@@ -182,12 +181,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Twitter\TwitterIntegration.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Sql\Changes.sql" />
     <None Include="packages.config" />
     <Compile Include="Services\ResultSharerImpl.cs" />
     <Compile Include="Services\SocialServiceProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
