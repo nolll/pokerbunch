@@ -1,5 +1,5 @@
-﻿using Core.Classes;
-using Core.Services;
+﻿using App.Services.Interfaces;
+using Core.Classes;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

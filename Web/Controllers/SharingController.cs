@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.Services;
+using App.Services.Interfaces;
 using Infrastructure.System;
 using Web.Commands.SharingCommands;
 using Web.ModelServices;

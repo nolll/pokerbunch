@@ -33,9 +33,9 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.1.1309.1617\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,21 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameStatusNameTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
-    <Compile Include="Services\PasswordGeneratorTests.cs" />
-    <Compile Include="Services\RandomStringGeneratorTests.cs" />
-    <Compile Include="Services\RegistrationConfirmationMessageBuilderTests.cs" />
-    <Compile Include="Services\RegistrationConfirmationSenderTests.cs" />
-    <Compile Include="Services\SaltGeneratorTests.cs" />
-    <Compile Include="Services\SlugGeneratorTests.cs" />
-    <Compile Include="Services\InvitationCodeCreatorTests.cs" />
-    <Compile Include="Services\EncryptionServiceTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Services\App.Services.csproj">
+      <Project>{A69D64C9-80FA-430A-A5D2-3C11F38291E0}</Project>
+      <Name>App.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>

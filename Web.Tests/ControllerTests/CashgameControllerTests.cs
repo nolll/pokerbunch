@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
+using App.Services.Interfaces;
 using Core.Classes;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -18,7 +18,6 @@ namespace Web.Tests.ControllerTests{
         private const string Slug = "homegame1";
         private const string DateStr = "2010-01-01";
         private const string PlayerName = "Player 1";
-        private const string UserName = "user1";
 
 		[Test]
 		public void Matrix_CorrectView(){

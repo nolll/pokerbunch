@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A69D64C9-80FA-430A-A5D2-3C11F38291E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.Services</RootNamespace>
+    <AssemblyName>App.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Authorization.cs" />
+    <Compile Include="CashgameService.cs" />
+    <Compile Include="EncryptionService.cs" />
+    <Compile Include="Interfaces\IAuthentication.cs" />
+    <Compile Include="Interfaces\IAuthorization.cs" />
+    <Compile Include="Interfaces\IAvatarService.cs" />
+    <Compile Include="Interfaces\ICashgameService.cs" />
+    <Compile Include="Interfaces\IEncryptionService.cs" />
+    <Compile Include="Interfaces\IInvitationCodeCreator.cs" />
+    <Compile Include="Interfaces\IInvitationSender.cs" />
+    <Compile Include="Interfaces\IMessageSender.cs" />
+    <Compile Include="Interfaces\IPasswordGenerator.cs" />
+    <Compile Include="Interfaces\IPasswordSender.cs" />
+    <Compile Include="Interfaces\IRandomStringGenerator.cs" />
+    <Compile Include="Interfaces\IRegistrationConfirmationMessageBuilder.cs" />
+    <Compile Include="Interfaces\IRegistrationConfirmationSender.cs" />
+    <Compile Include="Interfaces\IResultSharer.cs" />
+    <Compile Include="Interfaces\ISaltGenerator.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="Interfaces\ISlugGenerator.cs" />
+    <Compile Include="Interfaces\ISocialService.cs" />
+    <Compile Include="Interfaces\ISocialServiceProvider.cs" />
+    <Compile Include="Interfaces\ITwitterIntegration.cs" />
+    <Compile Include="Interfaces\IUrlProvider.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="InvitationCodeCreator.cs" />
+    <Compile Include="InvitationSender.cs" />
+    <Compile Include="PasswordGenerator.cs" />
+    <Compile Include="PasswordSender.cs" />
+    <Compile Include="RandomStringGenerator.cs" />
+    <Compile Include="RegistrationConfirmationMessageBuilder.cs" />
+    <Compile Include="RegistrationConfirmationSender.cs" />
+    <Compile Include="SaltGenerator.cs" />
+    <Compile Include="SlugGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

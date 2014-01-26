@@ -98,7 +98,6 @@
   <ItemGroup>
     <Compile Include="Repositories\ISharingRepository.cs" />
     <Compile Include="Repositories\ITwitterRepository.cs" />
-    <Compile Include="Services\Interfaces\IAuthentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\NotLoggedInException.cs" />
@@ -108,15 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Services\CashgameService.cs" />
-    <Compile Include="Services\Authorization.cs" />
-    <Compile Include="Services\IAuthorization.cs" />
-    <Compile Include="Services\Interfaces\ICashgameService.cs" />
-    <Compile Include="Services\Interfaces\IEncryptionService.cs" />
-    <Compile Include="Services\EncryptionService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Interfaces\IAvatarService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AvatarSize.cs" />
@@ -129,45 +119,7 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
-    <Compile Include="Services\Interfaces\IInvitationSender.cs" />
-    <Compile Include="Services\Interfaces\IMessageSender.cs" />
-    <Compile Include="Services\Interfaces\ISettings.cs" />
-    <Compile Include="Services\Interfaces\ISlugGenerator.cs" />
-    <Compile Include="Services\Interfaces\IUrlProvider.cs" />
-    <Compile Include="Services\InvitationCodeCreator.cs" />
-    <Compile Include="Services\InvitationSender.cs" />
-    <Compile Include="Services\Interfaces\IUserService.cs" />
-    <Compile Include="Services\Interfaces\IPasswordGenerator.cs" />
-    <Compile Include="Services\Interfaces\IRandomStringGenerator.cs" />
-    <Compile Include="Services\Interfaces\ISaltGenerator.cs" />
-    <Compile Include="Services\IRegistrationConfirmationMessageBuilder.cs" />
-    <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
-    <Compile Include="Services\SlugGenerator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\PasswordGenerator.cs" />
-    <Compile Include="Services\RandomStringGenerator.cs" />
-    <Compile Include="Services\SaltGenerator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
-    <Compile Include="Services\RegistrationConfirmationSender.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Interfaces\IPasswordSender.cs" />
-    <Compile Include="Services\PasswordSender.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Classes\SocialServiceIdentifier.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Interfaces\ITwitterIntegration.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Interfaces\IResultSharer.cs" />
-    <Compile Include="Services\Interfaces\ISocialService.cs" />
-    <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

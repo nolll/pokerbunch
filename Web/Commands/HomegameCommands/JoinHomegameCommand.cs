@@ -1,6 +1,6 @@
+using App.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
-using Core.Services;
 using Web.Models.HomegameModels.Join;
 
 namespace Web.Commands.HomegameCommands

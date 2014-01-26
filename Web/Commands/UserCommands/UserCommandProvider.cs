@@ -1,5 +1,5 @@
+using App.Services.Interfaces;
 using Core.Repositories;
-using Core.Services;
 using Web.ModelMappers;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;

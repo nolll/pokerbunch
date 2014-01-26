@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using App.Services.Interfaces;
 using Core.Classes;
-using Core.Services;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;

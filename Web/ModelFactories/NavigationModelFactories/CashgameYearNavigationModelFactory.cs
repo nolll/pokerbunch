@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using App.Services.Interfaces;
 using Core.Classes;
-using Core.Services;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

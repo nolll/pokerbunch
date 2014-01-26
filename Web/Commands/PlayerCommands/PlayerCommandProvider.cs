@@ -1,5 +1,5 @@
-﻿using Core.Repositories;
-using Core.Services;
+﻿using App.Services.Interfaces;
+using Core.Repositories;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 

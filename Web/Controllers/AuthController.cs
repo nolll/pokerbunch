@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.Services;
+using App.Services.Interfaces;
 using Web.Commands.AuthCommands;
 using Web.ModelServices;
 using Web.Models.AuthModels;

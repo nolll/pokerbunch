@@ -34,9 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,15 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Caching\CacheBusterTests.cs" />
-    <Compile Include="Data\Factories\RawCashgameFactoryTests.cs" />
-    <Compile Include="Factories\CashgameFactsFactoryTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\CashgameResultFactoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\App.Services\App.Services.csproj">
+      <Project>{A69D64C9-80FA-430A-A5D2-3C11F38291E0}</Project>
+      <Name>App.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
@@ -70,30 +68,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\CashgameFactoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Factories\CashgameSuiteFactoryTests.cs" />
-    <Compile Include="Factories\CashgameTotalResultFactoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\AuthorizationTests.cs" />
-    <Compile Include="System\GlobalizationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\HomegameRepositoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\AuthenticationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\CashgameRepositoryTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Gravatar\GravatarTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

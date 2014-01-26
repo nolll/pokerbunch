@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using App.Services.Interfaces;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Core.Services;
 using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;

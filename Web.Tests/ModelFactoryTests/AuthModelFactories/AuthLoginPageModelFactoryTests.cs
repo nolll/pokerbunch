@@ -1,4 +1,4 @@
-using Core.Services;
+using App.Services.Interfaces;
 using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;

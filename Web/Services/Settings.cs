@@ -1,6 +1,6 @@
 using System.Configuration;
 using System.Web.Configuration;
-using Core.Services;
+using App.Services.Interfaces;
 using Infrastructure.Config;
 
 namespace Web.Services{
