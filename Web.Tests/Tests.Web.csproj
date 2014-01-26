@@ -59,6 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
+    <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
+    <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
+    <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
+    <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
+    <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
+    <Compile Include="Routing\RouteTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +92,66 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactoryTests.cs" />
+    <Compile Include="ControllerTests\CashgameControllerTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\NavigationModelFactories\AdminNavigationModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControllerTests\AuthControllerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Facts\CashgameFactsPageModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\ActionPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Buyin\BuyinPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Cashout\CashoutPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\CheckpointModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Edit\CashgameEditPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Report\ReportPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Add\AddCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ServiceTests\ResultFormatterTests.cs" />
+    <Compile Include="ServiceTests\UrlProviderTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

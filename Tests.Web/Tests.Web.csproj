@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFBE20DA-67D5-428A-93E3-8CC12803D875}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tests.Web</RootNamespace>
+    <AssemblyName>Tests.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.2\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.1.1309.1617\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcRouteUnitTester">
+      <HintPath>..\packages\MvcRouteUnitTester.0.9.2.0\lib\MvcRouteUnitTester.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
+    <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
+    <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
+    <Compile Include="ControllerTests\AuthControllerTests.cs" />
+    <Compile Include="ControllerTests\CashgameControllerTests.cs" />
+    <Compile Include="ControllerTests\PlayerControllerTests.cs" />
+    <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\ActionPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\CheckpointModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Add\AddCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Buyin\BuyinPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Cashout\CashoutPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Edit\CashgameEditPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Facts\CashgameFactsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Report\ReportPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\NavigationModelFactories\AdminNavigationModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
+    <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
+    <Compile Include="Routing\RouteTests.cs" />
+    <Compile Include="ServiceTests\ResultFormatterTests.cs" />
+    <Compile Include="ServiceTests\UrlProviderTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Services\App.Services.csproj">
+      <Project>{A69D64C9-80FA-430A-A5D2-3C11F38291E0}</Project>
+      <Name>App.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tests.Common\Tests.Common.csproj">
+      <Project>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</Project>
+      <Name>Tests.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Web.csproj">
+      <Project>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</Project>
+      <Name>Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
