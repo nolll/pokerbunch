@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\CashgameServiceTests.cs" />
     <Compile Include="Services\PasswordSenderTests.cs" />
     <Compile Include="Services\InvitationSenderTests.cs" />
     <Compile Include="Services\InvitationMessageBuilderTests.cs" />
