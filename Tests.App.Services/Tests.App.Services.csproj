@@ -46,15 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EncryptionServiceTests.cs" />
-    <Compile Include="InvitationCodeCreatorTests.cs" />
-    <Compile Include="PasswordGeneratorTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="RandomStringGeneratorTests.cs" />
-    <Compile Include="RegistrationConfirmationMessageBuilderTests.cs" />
-    <Compile Include="RegistrationConfirmationSenderTests.cs" />
-    <Compile Include="SaltGeneratorTests.cs" />
-    <Compile Include="SlugGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

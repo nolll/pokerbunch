@@ -49,9 +49,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Services\App.Services.csproj">
-      <Project>{a69d64c9-80fa-430a-a5d2-3c11f38291e0}</Project>
-      <Name>App.Services</Name>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{f40e71ce-e7d3-4af9-b944-6d97dbd42fd9}</Project>
+      <Name>Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
