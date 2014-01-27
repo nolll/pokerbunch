@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\PasswordSenderTests.cs" />
+    <Compile Include="Services\InvitationSenderTests.cs" />
+    <Compile Include="Services\InvitationMessageBuilderTests.cs" />
+    <Compile Include="Services\PasswordMessageBuilderTests.cs" />
     <Compile Include="Services\EncryptionServiceTests.cs" />
     <Compile Include="Services\InvitationCodeCreatorTests.cs" />
     <Compile Include="Services\PasswordGeneratorTests.cs" />

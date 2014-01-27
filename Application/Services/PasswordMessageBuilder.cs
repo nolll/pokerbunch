@@ -2,12 +2,12 @@ using Application.Services.Interfaces;
 
 namespace Application.Services
 {
-    public class RegistrationConfirmationMessageBuilder : IRegistrationConfirmationMessageBuilder
+    public class PasswordMessageBuilder : IPasswordMessageBuilder
     {
         private readonly ISettings _settings;
         private readonly IUrlProvider _urlProvider;
 
-        public RegistrationConfirmationMessageBuilder(
+        public PasswordMessageBuilder(
             ISettings settings,
             IUrlProvider urlProvider)
         {
@@ -17,21 +17,19 @@ namespace Application.Services
 
         public string GetSubject()
         {
-            return "Poker Bunch Registration";
+            return "Poker Bunch password recovery";
         }
 
         public string GetBody(string password)
         {
             var siteUrl = _settings.GetSiteUrl();
             var loginUrl = _urlProvider.GetLoginUrl();
-            var absoluteLoginUrl = siteUrl + loginUrl;
-            return string.Format(BodyFormat, password, absoluteLoginUrl);
+            var loginUrlStr = siteUrl + loginUrl;
+            return string.Format(BodyFormat, password, loginUrlStr);
         }
 
-        private const string BodyFormat = 
-@"Thanks for registering with Poker Bunch.
-
-Here is your password:
+        private const string BodyFormat =
+@"Here is your new password for Poker Bunch:
 {0}
 
 Please sign in here: {1}";

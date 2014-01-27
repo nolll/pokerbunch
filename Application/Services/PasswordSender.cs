@@ -6,36 +6,22 @@ namespace Application.Services{
 	public class PasswordSender : IPasswordSender
     {
 	    private readonly IMessageSender _messageSender;
-	    private readonly ISettings _settings;
-	    private readonly IUrlProvider _urlProvider;
+	    private readonly IPasswordMessageBuilder _passwordMessageBuilder;
 
 	    public PasswordSender(
             IMessageSender messageSender,
-            ISettings settings,
-            IUrlProvider urlProvider)
+            IPasswordMessageBuilder passwordMessageBuilder)
 	    {
 	        _messageSender = messageSender;
-	        _settings = settings;
-	        _urlProvider = urlProvider;
+	        _passwordMessageBuilder = passwordMessageBuilder;
 	    }
 
-	    public void Send(User user, string password){
-			const string subject = "Poker Bunch password recovery";
-			var body = getBody(password);
+	    public void Send(User user, string password)
+	    {
+	        var subject = _passwordMessageBuilder.GetSubject();
+            var body = _passwordMessageBuilder.GetBody(password);
 			_messageSender.Send(user.Email, subject, body);
 		}
 
-	    private string getBody(string password){
-			var siteUrl = _settings.GetSiteUrl();
-			var loginUrl = _urlProvider.GetLoginUrl();
-			var loginUrlStr = siteUrl + loginUrl;
-			var body = "Here is your new password for Poker Bunch:\r\n" +
-				password + "\r\n\r\n" +
-				"Please sign in here: " + loginUrlStr;
-
-			return body;
-		}
-
 	}
-
 }

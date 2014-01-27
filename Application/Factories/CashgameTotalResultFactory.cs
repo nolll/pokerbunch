@@ -8,7 +8,7 @@ namespace Application.Factories{
 
 	public class CashgameTotalResultFactory : ICashgameTotalResultFactory
     {
-	    public CashgameTotalResult Create(Player player, IList<Cashgame> cashgames)
+	    public CashgameTotalResult Create(Player player, IEnumerable<Cashgame> cashgames)
         {
             var playerCashgames = cashgames.Where(o => o.IsInGame(player.Id)).ToList();
 

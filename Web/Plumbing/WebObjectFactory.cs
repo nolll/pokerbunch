@@ -64,6 +64,7 @@ namespace Web.Plumbing
             RegisterComponent<IAvatarService, GravatarService>();
             RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>();
             RegisterComponent<IInvitationSender, InvitationSender>();
+            RegisterComponent<IInvitationMessageBuilder, InvitationMessageBuilder>();
             RegisterComponent<IMessageSender, MessageSender>();
             RegisterComponent<IUrlProvider, UrlProvider>();
             RegisterComponent<IUserService, UserService>();
@@ -73,6 +74,7 @@ namespace Web.Plumbing
             RegisterComponent<IRegistrationConfirmationMessageBuilder, RegistrationConfirmationMessageBuilder>();
             RegisterComponent<ISlugGenerator, SlugGenerator>();
             RegisterComponent<IPasswordSender, PasswordSender>();
+            RegisterComponent<IPasswordMessageBuilder, PasswordMessageBuilder>();
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<IResultFormatter, ResultFormatter>();

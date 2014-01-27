@@ -54,6 +54,7 @@
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
+    <Compile Include="Services\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAuthentication.cs" />
     <Compile Include="Services\Interfaces\IAuthorization.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
@@ -77,8 +78,11 @@
     <Compile Include="Services\Interfaces\IUrlProvider.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
+    <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\InvitationSender.cs" />
+    <Compile Include="Services\IPasswordMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
+    <Compile Include="Services\PasswordMessageBuilder.cs" />
     <Compile Include="Services\PasswordSender.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
