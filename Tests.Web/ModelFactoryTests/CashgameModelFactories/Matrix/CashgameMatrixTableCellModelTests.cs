@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Services;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 	public class CashgameMatrixTableCellModelTests : MockContainer {
 

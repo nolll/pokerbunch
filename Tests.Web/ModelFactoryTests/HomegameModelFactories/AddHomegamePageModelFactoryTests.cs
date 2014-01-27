@@ -10,7 +10,7 @@ using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
 
-namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
+namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 
 	public class AddHomegamePageModelFactoryTests : MockContainer
 	{

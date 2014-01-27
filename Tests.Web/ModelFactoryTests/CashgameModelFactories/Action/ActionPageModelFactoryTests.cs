@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 
 	public class ActionPageModelFactoryTests : MockContainer {
 

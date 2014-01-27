@@ -1,5 +1,5 @@
-using App.Services;
-using App.Services.Interfaces;
+using Application.Services;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.System;

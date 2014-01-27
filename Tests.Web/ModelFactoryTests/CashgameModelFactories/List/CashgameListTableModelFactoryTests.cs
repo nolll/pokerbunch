@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Moq;
 using NUnit.Framework;
@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.Models.CashgameModels.List;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 
 	public class CashgameListTableModelFactoryTests : MockContainer {
 

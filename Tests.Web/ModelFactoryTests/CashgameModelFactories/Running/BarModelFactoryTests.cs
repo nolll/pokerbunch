@@ -1,11 +1,11 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
 	public class BarModelFactoryTests : MockContainer
     {

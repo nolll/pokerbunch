@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 using Moq;
@@ -10,7 +10,7 @@ using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactoryTests.HomeModelFactories
+namespace Tests.Web.ModelFactoryTests.HomeModelFactories
 {
     public class HomePageModelFactoryTests : MockContainer
     {

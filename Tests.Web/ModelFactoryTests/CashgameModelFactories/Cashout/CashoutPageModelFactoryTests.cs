@@ -6,7 +6,7 @@ using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Cashout;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Cashout{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Cashout{
 
     class CashoutPageModelFactoryTests : MockContainer {
 

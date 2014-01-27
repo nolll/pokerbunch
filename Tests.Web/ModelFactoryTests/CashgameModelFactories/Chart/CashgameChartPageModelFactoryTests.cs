@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
@@ -9,7 +9,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Chart{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Chart{
 
 	class CashgameChartPageModelFactoryTests : MockContainer {
 

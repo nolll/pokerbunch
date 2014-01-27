@@ -23,7 +23,7 @@ namespace Infrastructure.Factories
             _globalization = globalization;
         }
 
-        public Cashgame Create(RawCashgameWithResults rawGame)
+        private Cashgame Create(RawCashgameWithResults rawGame)
         {
             var rawResults = rawGame.Results;
             var results = rawResults.Select(GetResultFromRawResult).ToList();

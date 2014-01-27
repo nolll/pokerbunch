@@ -11,7 +11,7 @@ using NUnit.Framework;
 using Web.Models.PageBaseModels;
 using Web.Plumbing;
 
-namespace Web.Tests.PlumbingTests
+namespace Tests.Web.PlumbingTests
 {
     [TestFixture]
     public class DependencyInjectionTests

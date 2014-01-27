@@ -1,5 +1,5 @@
 using System;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.System;
@@ -9,7 +9,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Action{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 	
 	public class CheckpointModelFactoryTests : MockContainer
 	{

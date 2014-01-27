@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using App.Services.Interfaces;
-using Core.Exceptions;
+using Application.Exceptions;
+using Application.Services.Interfaces;
 using Web.Commands.CashgameCommands;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Add;

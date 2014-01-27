@@ -1,11 +1,11 @@
-using App.Services;
-using App.Services.Interfaces;
+using Application.Services;
+using Application.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.App.Services{
+namespace Tests.Application.Services{
 
 	public class InvitationCodeCreatorTests : MockContainer {
 

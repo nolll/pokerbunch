@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Moq;
 using NUnit.Framework;
@@ -9,7 +9,7 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.MiscModels;
 
-namespace Web.Tests.ModelFactoryTests.UserModelFactories{
+namespace Tests.Web.ModelFactoryTests.UserModelFactories{
 
 	public class UserDetailsPageModelFactoryTests : MockContainer {
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Application.Factories;
+using Application.Factories.Interfaces;
 using Core.Classes;
-using Core.Factories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

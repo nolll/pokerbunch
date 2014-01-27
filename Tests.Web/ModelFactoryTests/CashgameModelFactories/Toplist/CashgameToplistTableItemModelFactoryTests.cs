@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using Moq;
@@ -9,7 +9,7 @@ using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Toplist;
 using Web.Services;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 
 	public class CashgameToplistTableItemModelFactoryTests : MockContainer {
 

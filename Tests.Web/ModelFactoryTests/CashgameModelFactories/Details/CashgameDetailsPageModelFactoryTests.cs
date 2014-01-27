@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using Moq;
@@ -11,7 +11,7 @@ using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
 	public class CashgameDetailsPageModelFactoryTests : MockContainer {
 

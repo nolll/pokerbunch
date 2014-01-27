@@ -42,14 +42,6 @@
     <Compile Include="Classes\CashgameFacts.cs" />
     <Compile Include="Classes\Identifier.cs" />
     <Compile Include="Classes\TwitterCredentials.cs" />
-    <Compile Include="Exceptions\CashgameRunningException.cs" />
-    <Compile Include="Exceptions\CashgameNotRunningException.cs" />
-    <Compile Include="Factories\CashgameSuiteFactory.cs" />
-    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
-    <Compile Include="Factories\CashgameFactsFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
@@ -100,12 +92,6 @@
     <Compile Include="Repositories\ITwitterRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\NotLoggedInException.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Exceptions\AccessDeniedException.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +100,6 @@
   <ItemGroup>
     <Compile Include="Classes\Achievements\Badge.cs" />
     <Compile Include="Classes\Achievements\NumberOfGamesBadge.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Exceptions\UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\SocialServiceIdentifier.cs" />

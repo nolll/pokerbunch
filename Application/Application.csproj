@@ -40,6 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Exceptions\AccessDeniedException.cs" />
+    <Compile Include="Exceptions\CashgameNotRunningException.cs" />
+    <Compile Include="Exceptions\CashgameRunningException.cs" />
+    <Compile Include="Exceptions\NotLoggedInException.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Factories\CashgameFactsFactory.cs" />
+    <Compile Include="Factories\CashgameSuiteFactory.cs" />
+    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />

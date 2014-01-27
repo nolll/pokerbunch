@@ -1,5 +1,5 @@
 using System.Net.Mail;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 
 namespace Infrastructure.Services{
 

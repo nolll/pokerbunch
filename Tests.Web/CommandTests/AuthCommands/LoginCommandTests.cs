@@ -1,5 +1,5 @@
 using System.Linq;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Repositories;
 using Infrastructure.System;
 using Moq;
@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.Commands.AuthCommands;
 using Web.Models.AuthModels;
 
-namespace Web.Tests.CommandTests.AuthCommands{
+namespace Tests.Web.CommandTests.AuthCommands{
 
 	public class LoginCommandTests : MockContainer
 	{

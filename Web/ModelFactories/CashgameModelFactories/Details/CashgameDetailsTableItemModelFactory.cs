@@ -1,5 +1,5 @@
 using System;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using Web.Models.CashgameModels.Details;

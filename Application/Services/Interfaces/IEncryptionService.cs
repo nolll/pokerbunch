@@ -1,4 +1,4 @@
-namespace App.Services.Interfaces{
+namespace Application.Services.Interfaces{
 
 	public interface IEncryptionService {
 	    string Encrypt(string str, string salt);

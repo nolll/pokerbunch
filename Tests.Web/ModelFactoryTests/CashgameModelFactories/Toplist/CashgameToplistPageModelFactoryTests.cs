@@ -6,7 +6,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 
 	public class CashgameToplistPageModelFactoryTests : MockContainer {
 

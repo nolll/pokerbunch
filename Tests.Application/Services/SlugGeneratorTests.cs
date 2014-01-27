@@ -1,7 +1,7 @@
-using App.Services;
+using Application.Services;
 using NUnit.Framework;
 
-namespace Tests.App.Services{
+namespace Tests.Application.Services{
 
 	public class SlugGeneratorTests {
 

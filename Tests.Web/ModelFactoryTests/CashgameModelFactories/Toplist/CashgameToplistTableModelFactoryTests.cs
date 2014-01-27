@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 using NUnit.Framework;
@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Toplist;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Toplist{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 
 	public class CashgameToplistTableModelFactoryTests : MockContainer {
 

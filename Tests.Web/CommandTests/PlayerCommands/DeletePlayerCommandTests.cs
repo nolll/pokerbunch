@@ -5,7 +5,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.PlayerCommands;
 
-namespace Web.Tests.CommandTests.PlayerCommands
+namespace Tests.Web.CommandTests.PlayerCommands
 {
     public class DeletePlayerCommandTests : MockContainer
     {

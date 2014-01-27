@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
@@ -6,7 +6,7 @@ using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.AuthModels;
 
-namespace Web.Tests.ModelFactoryTests.AuthModelFactories{
+namespace Tests.Web.ModelFactoryTests.AuthModelFactories{
 
 	public class AuthLoginPageModelFactoryTests : MockContainer
 	{

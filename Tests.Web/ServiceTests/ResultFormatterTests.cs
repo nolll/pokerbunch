@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Web.Services;
 
-namespace Web.Tests.ServiceTests
+namespace Tests.Web.ServiceTests
 {
     public class ResultFormatterTests
     {

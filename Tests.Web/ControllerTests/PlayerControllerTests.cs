@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using App.Services.Interfaces;
-using Core.Exceptions;
+using Application.Exceptions;
+using Application.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
@@ -8,7 +8,7 @@ using Web.Commands.PlayerCommands;
 using Web.Controllers;
 using Web.ModelServices;
 
-namespace Web.Tests.ControllerTests{
+namespace Tests.Web.ControllerTests{
 
 	public class PlayerControllerTests : MockContainer
     {

@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Running;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Running{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
 	public class RunningCashgameTableModelFactoryTests : MockContainer{
 

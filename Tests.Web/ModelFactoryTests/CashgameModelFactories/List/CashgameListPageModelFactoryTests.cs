@@ -8,7 +8,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.List;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.List{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 
 	public class CashgameListPageModelFactoryTests : MockContainer {
 

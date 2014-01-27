@@ -1,5 +1,5 @@
 using System;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using Moq;
@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.Services;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Details{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
 	public class CashgameDetailsTableItemModelFactoryTests : MockContainer {
 

@@ -1,7 +1,8 @@
 ﻿using MvcRouteUnitTester;
 using NUnit.Framework;
+using Web;
 
-namespace Web.Tests.Routing
+namespace Tests.Web.Routing
 {
     public class RouteTests
     {

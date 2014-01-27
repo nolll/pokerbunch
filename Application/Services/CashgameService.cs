@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using App.Services.Interfaces;
+using Application.Factories.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
-using Core.Factories;
 using Core.Repositories;
 
-namespace App.Services
+namespace Application.Services
 {
     public class CashgameService : ICashgameService
     {

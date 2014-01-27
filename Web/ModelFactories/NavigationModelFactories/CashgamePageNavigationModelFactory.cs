@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

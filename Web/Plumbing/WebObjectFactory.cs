@@ -1,8 +1,9 @@
-﻿using App.Services;
-using App.Services.Interfaces;
+﻿using Application.Factories;
+using Application.Factories.Interfaces;
+using Application.Services;
+using Application.Services.Interfaces;
 using Castle.Core;
 using Castle.Windsor;
-using Core.Factories;
 using Core.Repositories;
 using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
@@ -44,7 +45,7 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
 using Web.Services;
-using CashgameService = App.Services.CashgameService;
+using CashgameService = Application.Services.CashgameService;
 
 namespace Web.Plumbing
 {

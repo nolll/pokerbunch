@@ -6,7 +6,7 @@ using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Report;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Report{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Report{
 
 	public class ReportPageModelFactoryTests : MockContainer {
 

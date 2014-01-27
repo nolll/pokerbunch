@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 
 namespace Infrastructure.Integration.Gravatar{

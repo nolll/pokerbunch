@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.System;
@@ -26,7 +26,7 @@ using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 
-namespace Web.Tests.ModelServiceTests
+namespace Tests.Web.ModelServiceTests
 {
     public class CashgameModelServiceTests : MockContainer
     {

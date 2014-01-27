@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using App.Services.Interfaces;
+using Application.Exceptions;
+using Application.Services.Interfaces;
 using Core.Classes;
-using Core.Exceptions;
 using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
@@ -11,7 +11,7 @@ using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelServices;
 
-namespace Web.Tests.ControllerTests{
+namespace Tests.Web.ControllerTests{
 
 	public class CashgameControllerTests : MockContainer
 	{

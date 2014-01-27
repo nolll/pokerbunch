@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using Moq;
@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Services;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Matrix{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
     public class CashgameMatrixTableRowModelFactoryTests : MockContainer {
 

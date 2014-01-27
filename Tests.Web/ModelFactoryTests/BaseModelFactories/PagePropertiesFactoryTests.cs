@@ -8,7 +8,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.NavigationModels;
 
-namespace Web.Tests.ModelFactoryTests.BaseModelFactories
+namespace Tests.Web.ModelFactoryTests.BaseModelFactories
 {
     public class PagePropertiesFactoryTests : MockContainer
     {

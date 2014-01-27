@@ -1,9 +1,9 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Services;
 
-namespace Web.Tests.ServiceTests{
+namespace Tests.Web.ServiceTests{
 
 	public class UrlProviderTests : MockContainer {
 

@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 
-namespace App.Services{
+namespace Application.Services{
     public class EncryptionService : IEncryptionService{
 
 		public string Encrypt(string str, string salt)

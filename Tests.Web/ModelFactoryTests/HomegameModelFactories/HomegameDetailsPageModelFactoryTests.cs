@@ -1,4 +1,4 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactoryTests.HomegameModelFactories{
+namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 
 	public class HomegameDetailsPageModelFactoryTests : MockContainer
     {

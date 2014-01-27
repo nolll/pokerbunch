@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using Infrastructure.System;
 using NUnit.Framework;
@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Web.Tests.ModelFactoryTests.CashgameModelFactories.Edit{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
 
 	public class CashgameEditPageModelFactoryTests : MockContainer {
 

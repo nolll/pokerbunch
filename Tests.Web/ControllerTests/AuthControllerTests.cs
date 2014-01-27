@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -9,7 +9,7 @@ using Web.Controllers;
 using Web.ModelServices;
 using Web.Models.AuthModels;
 
-namespace Web.Tests.ControllerTests{
+namespace Tests.Web.ControllerTests{
 
 	public class AuthControllerTests : MockContainer
     {

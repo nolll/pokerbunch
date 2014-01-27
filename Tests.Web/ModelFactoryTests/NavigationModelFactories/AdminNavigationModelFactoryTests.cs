@@ -1,11 +1,11 @@
-using App.Services.Interfaces;
+using Application.Services.Interfaces;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.NavigationModelFactories;
 
-namespace Web.Tests.ModelFactoryTests.NavigationModelFactories{
+namespace Tests.Web.ModelFactoryTests.NavigationModelFactories{
 
 	public class AdminNavigationModelFactoryTests : MockContainer
 	{

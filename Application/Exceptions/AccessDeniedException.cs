@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Exceptions
+namespace Application.Exceptions
 {
     public class AccessDeniedException : Exception
     {

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.AuthCommands;
 
-namespace Web.Tests.CommandTests.AuthCommands{
+namespace Tests.Web.CommandTests.AuthCommands{
 
 	public class LogoutCommandTests : MockContainer
 	{
