@@ -49,9 +49,9 @@ using CashgameService = Application.Services.CashgameService;
 
 namespace Web.Plumbing
 {
-    public class WebObjectFactory : InfrastructureObjectFactory
+    public class WebDependencyResolver : InfrastructureDependencyResolver
     {
-        public WebObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        public WebDependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
             : base(container, lifestyleType)
         {
             RegisterTypes();

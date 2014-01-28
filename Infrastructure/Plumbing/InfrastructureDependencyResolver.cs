@@ -8,9 +8,9 @@ using Infrastructure.System;
 
 namespace Infrastructure.Plumbing
 {
-    public class InfrastructureObjectFactory : ObjectFactory
+    public class InfrastructureDependencyResolver : DependencyResolver
     {
-        public InfrastructureObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        public InfrastructureDependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
             : base(container, lifestyleType)
         {
             RegisterTypes();

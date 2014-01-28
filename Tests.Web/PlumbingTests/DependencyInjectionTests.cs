@@ -31,26 +31,25 @@ namespace Tests.Web.PlumbingTests
         [Test]
         public void Resolve_ApplicableInterfacesCanBeResolved()
         {
-            var webAssembly = Assembly.GetAssembly(typeof(WebObjectFactory));
-            var infrastructureAssembly = Assembly.GetAssembly(typeof(InfrastructureObjectFactory));
+            var webAssembly = Assembly.GetAssembly(typeof(WebDependencyResolver));
+            var infrastructureAssembly = Assembly.GetAssembly(typeof(InfrastructureDependencyResolver));
 
             var windsorContainer = new WindsorContainer()
                 .Install(FromAssembly.Instance(infrastructureAssembly))
                 .Install(FromAssembly.Instance(webAssembly));
-            var objectFactory = new WebObjectFactory(windsorContainer, LifestyleType.Transient);
-            VerifyInterfaceResolve(objectFactory, webAssembly, _ignoredInterfaces);
-            VerifyInterfaceResolve(objectFactory, infrastructureAssembly, _ignoredInterfaces);
+            var dependencyResolver = new WebDependencyResolver(windsorContainer, LifestyleType.Transient);
+            VerifyInterfaceResolve(dependencyResolver, webAssembly, _ignoredInterfaces);
+            VerifyInterfaceResolve(dependencyResolver, infrastructureAssembly, _ignoredInterfaces);
         }
 
-        private static void VerifyInterfaceResolve(ObjectFactory objectFactory, Assembly assembly, IList<Type> ignoredInterfaces)
+        private static void VerifyInterfaceResolve(DependencyResolver dependencyResolver, Assembly assembly, IList<Type> ignoredInterfaces)
         {
             var interfaces = assembly.GetTypes().Where(x => x.IsInterface);
             foreach (var i in interfaces)
             {
                 if (!ignoredInterfaces.Contains(i))
                 {
-                    objectFactory.ResolveOrThrow(i);
-                    //Assert.IsTrue(ObjectFactory.CanResolve(container, i), string.Format("Interface: {0} kan inte resolvas", i));
+                    dependencyResolver.ResolveOrThrow(i);
                 }
             }
         }

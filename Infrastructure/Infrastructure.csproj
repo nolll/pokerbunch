@@ -97,8 +97,8 @@
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ITwitterCredentialsFactory.cs" />
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
-    <Compile Include="Plumbing\InfrastructureObjectFactory.cs" />
-    <Compile Include="Plumbing\ObjectFactory.cs" />
+    <Compile Include="Plumbing\InfrastructureDependencyResolver.cs" />
+    <Compile Include="Plumbing\DependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheBuster.cs" />

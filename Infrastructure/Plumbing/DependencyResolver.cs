@@ -5,12 +5,12 @@ using Castle.Windsor;
 
 namespace Infrastructure.Plumbing
 {
-    public abstract class ObjectFactory : IDisposable
+    public abstract class DependencyResolver : IDisposable
     {
         private readonly IWindsorContainer _container;
         private readonly LifestyleType _lifestyleType;
 
-        protected ObjectFactory(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        protected DependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
         {
             _container = container;
             _lifestyleType = lifestyleType;

@@ -407,7 +407,7 @@
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserItemModelFactory.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
-    <Compile Include="Plumbing\WebObjectFactory.cs" />
+    <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />

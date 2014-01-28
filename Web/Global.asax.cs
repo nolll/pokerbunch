@@ -9,6 +9,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Infrastructure.Plumbing;
 using Web.Plumbing;
+using DependencyResolver = Infrastructure.Plumbing.DependencyResolver;
 
 namespace Web
 {
@@ -16,7 +17,7 @@ namespace Web
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static ObjectFactory _objectFactory;
+        private static DependencyResolver _dependencyResolver;
 
         protected void Application_Start()
         {
@@ -63,14 +64,14 @@ namespace Web
         private static void BootstrapContainer()
         {
             var windsorContainer = new WindsorContainer().Install(FromAssembly.This());
-            _objectFactory = new WebObjectFactory(windsorContainer);
+            _dependencyResolver = new WebDependencyResolver(windsorContainer);
             var controllerFactory = new WindsorControllerFactory(windsorContainer.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
         }
 
         protected void Application_End()
         {
-            _objectFactory.Dispose();
+            _dependencyResolver.Dispose();
         }
     }
 }
