@@ -1,4 +1,3 @@
-using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Factories;
 using Web.ModelMappers;
@@ -93,31 +92,6 @@ namespace Web.Commands.CashgameCommands
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             return new DeleteCommand(_cashgameRepository, cashgame);
-        }
-    }
-
-    public class DeleteCommand : Command
-    {
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly Cashgame _cashgame;
-
-        public DeleteCommand(
-            ICashgameRepository cashgameRepository,
-            Cashgame cashgame)
-        {
-            _cashgameRepository = cashgameRepository;
-            _cashgame = cashgame;
-        }
-
-        public override bool Execute()
-        {
-            if (_cashgame.PlayerCount > 0)
-            {
-                AddError("Cashgames with results can't be deleted.");
-                return false;
-            }
-            _cashgameRepository.DeleteGame(_cashgame);
-            return true;
         }
     }
 }
