@@ -3,7 +3,7 @@ using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
-namespace Infrastructure.Plumbing
+namespace Plumbing
 {
     public abstract class DependencyResolver : IDisposable
     {

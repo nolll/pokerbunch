@@ -1,12 +1,17 @@
-﻿using Castle.Core;
+﻿using Application.Services;
+using Application.Services.Interfaces;
+using Castle.Core;
 using Castle.Windsor;
+using Core.Repositories;
 using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage;
 using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Infrastructure.System;
 
-namespace Infrastructure.Plumbing
+namespace Plumbing
 {
     public class InfrastructureDependencyResolver : DependencyResolver
     {
@@ -44,6 +49,17 @@ namespace Infrastructure.Plumbing
 
             // System
             RegisterComponent<IGlobalization, Globalization>();
+
+            // Repositories
+            RegisterComponent<IHomegameRepository, HomegameRepository>();
+            RegisterComponent<ICashgameRepository, CashgameRepository>();
+            RegisterComponent<IPlayerRepository, PlayerRepository>();
+            RegisterComponent<IUserRepository, UserRepository>();
+            RegisterComponent<ITwitterRepository, TwitterRepository>();
+            RegisterComponent<ISharingRepository, SharingRepository>();
+            RegisterComponent<ICheckpointRepository, CheckpointRepository>();
+            RegisterComponent<IAuthentication, Authentication>();
+            RegisterComponent<IAuthorization, Authorization>();
         }
     }
 }

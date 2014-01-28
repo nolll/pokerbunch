@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Web.Mvc;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Core.Classes;
-using Infrastructure.Plumbing;
 using NUnit.Framework;
+using Plumbing;
 using Web.Models.PageBaseModels;
 using Web.Plumbing;
+using DependencyResolver = Plumbing.DependencyResolver;
 
 namespace Tests.Web.PlumbingTests
 {

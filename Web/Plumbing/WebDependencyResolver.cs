@@ -8,10 +8,10 @@ using Core.Repositories;
 using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
 using Infrastructure.Integration.Twitter;
-using Infrastructure.Plumbing;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.System;
+using Plumbing;
 using Web.Commands.AuthCommands;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
@@ -79,17 +79,6 @@ namespace Web.Plumbing
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<IResultFormatter, ResultFormatter>();
             RegisterComponent<ICashgameService, CashgameService>();
-
-            // Repositories
-            RegisterComponent<IHomegameRepository, HomegameRepository>();
-            RegisterComponent<ICashgameRepository, CashgameRepository>();
-            RegisterComponent<IPlayerRepository, PlayerRepository>();
-            RegisterComponent<IUserRepository, UserRepository>();
-            RegisterComponent<ITwitterRepository, TwitterRepository>();
-            RegisterComponent<ISharingRepository, SharingRepository>();
-            RegisterComponent<ICheckpointRepository, CheckpointRepository>();
-            RegisterComponent<IAuthentication, Authentication>();
-            RegisterComponent<IAuthorization, Authorization>();
 
             // System
             RegisterComponent<IWebContext, WebContext>();

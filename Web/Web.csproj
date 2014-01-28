@@ -560,6 +560,10 @@
       <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plumbing\Plumbing.csproj">
+      <Project>{EA0817FD-9B9E-4C97-96B4-E62239619923}</Project>
+      <Name>Plumbing</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />

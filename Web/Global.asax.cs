@@ -7,9 +7,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Infrastructure.Plumbing;
 using Web.Plumbing;
-using DependencyResolver = Infrastructure.Plumbing.DependencyResolver;
+using DependencyResolver = Plumbing.DependencyResolver;
 
 namespace Web
 {
