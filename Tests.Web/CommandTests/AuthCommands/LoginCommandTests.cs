@@ -1,7 +1,6 @@
 using System.Linq;
 using Application.Services.Interfaces;
 using Core.Repositories;
-using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

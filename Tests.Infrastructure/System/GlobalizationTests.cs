@@ -1,6 +1,6 @@
 using System;
 using Core.Classes;
-using Infrastructure.System;
+using Infrastructure.Services;
 using NUnit.Framework;
 
 namespace Tests.Infrastructure.System{

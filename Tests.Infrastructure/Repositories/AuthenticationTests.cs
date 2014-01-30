@@ -1,7 +1,7 @@
+using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Services;
-using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

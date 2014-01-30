@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 
-namespace Infrastructure.System
+namespace Application.Services.Interfaces
 {
     public interface IGlobalization
     {

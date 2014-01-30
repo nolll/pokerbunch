@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Application.Services;
+using NUnit.Framework;
 using Web.Services;
 
 namespace Tests.Web.ServiceTests

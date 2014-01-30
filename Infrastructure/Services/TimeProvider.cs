@@ -1,6 +1,7 @@
 using System;
+using Application.Services.Interfaces;
 
-namespace Infrastructure.System{
+namespace Infrastructure.Services{
     public class TimeProvider : ITimeProvider {
 
         public DateTime GetTime()

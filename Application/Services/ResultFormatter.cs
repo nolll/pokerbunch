@@ -1,6 +1,7 @@
 using System.Globalization;
+using Application.Services.Interfaces;
 
-namespace Web.Services{
+namespace Application.Services{
 
 	public class ResultFormatter : IResultFormatter
 	{

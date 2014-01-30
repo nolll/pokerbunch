@@ -1,5 +1,4 @@
 using Application.Services.Interfaces;
-using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.AuthModelFactories;

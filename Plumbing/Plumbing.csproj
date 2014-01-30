@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolver.cs" />
-    <Compile Include="InfrastructureDependencyResolver.cs" />
+    <Compile Include="ApplicationDependencyResolver.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

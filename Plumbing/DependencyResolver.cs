@@ -23,7 +23,7 @@ namespace Plumbing
             RegisterComponent<T, TK>(_lifestyleType);
         }
 
-        public void RegisterComponent<T, TK>(LifestyleType lifestyleType)
+        private void RegisterComponent<T, TK>(LifestyleType lifestyleType)
             where TK : class
             where T : class
         {

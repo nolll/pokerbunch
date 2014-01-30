@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Application.Services.Interfaces;
 using Core.Classes;
 
-namespace Infrastructure.System{
+namespace Infrastructure.Services{
 
 	public class Globalization : IGlobalization
 	{

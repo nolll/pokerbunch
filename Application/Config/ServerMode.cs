@@ -1,4 +1,4 @@
-namespace Infrastructure.Config{
+namespace Application.Config{
 
 	public static class ServerMode{
 

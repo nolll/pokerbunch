@@ -10,7 +10,6 @@ using Infrastructure.Integration.Gravatar;
 using Infrastructure.Integration.Twitter;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
-using Infrastructure.System;
 using Plumbing;
 using Web.Commands.AuthCommands;
 using Web.Commands.CashgameCommands;
@@ -45,11 +44,10 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
 using Web.Services;
-using CashgameService = Application.Services.CashgameService;
 
 namespace Web.Plumbing
 {
-    public class WebDependencyResolver : InfrastructureDependencyResolver
+    public class WebDependencyResolver : ApplicationDependencyResolver
     {
         public WebDependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
             : base(container, lifestyleType)
@@ -60,42 +58,8 @@ namespace Web.Plumbing
         private void RegisterTypes()
         {
             // Services
-            RegisterComponent<IEncryptionService, EncryptionService>();
-            RegisterComponent<IAvatarService, GravatarService>();
-            RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>();
-            RegisterComponent<IInvitationSender, InvitationSender>();
-            RegisterComponent<IInvitationMessageBuilder, InvitationMessageBuilder>();
-            RegisterComponent<IMessageSender, MessageSender>();
+            RegisterComponent<IConfigService, ConfigService>();
             RegisterComponent<IUrlProvider, UrlProvider>();
-            RegisterComponent<IUserService, UserService>();
-            RegisterComponent<IPasswordGenerator, PasswordGenerator>();
-            RegisterComponent<ISaltGenerator, SaltGenerator>();
-            RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
-            RegisterComponent<IRegistrationConfirmationMessageBuilder, RegistrationConfirmationMessageBuilder>();
-            RegisterComponent<ISlugGenerator, SlugGenerator>();
-            RegisterComponent<IPasswordSender, PasswordSender>();
-            RegisterComponent<IPasswordMessageBuilder, PasswordMessageBuilder>();
-            RegisterComponent<ITwitterIntegration, TwitterIntegration>();
-            RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
-            RegisterComponent<IResultFormatter, ResultFormatter>();
-            RegisterComponent<ICashgameService, CashgameService>();
-
-            // System
-            RegisterComponent<IWebContext, WebContext>();
-            RegisterComponent<ITimeProvider, TimeProvider>();
-            RegisterComponent<ISettings, Settings>();
-
-            // Core Factories
-            RegisterComponent<IHomegameFactory, HomegameFactory>();
-            RegisterComponent<IUserFactory, UserFactory>();
-            RegisterComponent<ICashgameFactory, CashgameFactory>();
-            RegisterComponent<IPlayerFactory, PlayerFactory>();
-            RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
-            RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
-            RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
-            RegisterComponent<ICashgameFactsFactory, CashgameFactsFactory>();
-            RegisterComponent<ICheckpointFactory, CheckpointFactory>();
-            RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 
             // Model Services
             RegisterComponent<IHomeModelService, HomeModelService>();

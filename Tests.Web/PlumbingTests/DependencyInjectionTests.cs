@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web.Mvc;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
@@ -34,7 +33,7 @@ namespace Tests.Web.PlumbingTests
         public void Resolve_ApplicableInterfacesCanBeResolved()
         {
             var webAssembly = Assembly.GetAssembly(typeof(WebDependencyResolver));
-            var infrastructureAssembly = Assembly.GetAssembly(typeof(InfrastructureDependencyResolver));
+            var infrastructureAssembly = Assembly.GetAssembly(typeof(ApplicationDependencyResolver));
 
             var windsorContainer = new WindsorContainer()
                 .Install(FromAssembly.Instance(infrastructureAssembly))

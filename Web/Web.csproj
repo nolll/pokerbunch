@@ -578,10 +578,8 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\IResultFormatter.cs" />
-    <Compile Include="Services\Settings.cs" />
+    <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\UrlProvider.cs" />
-    <Compile Include="Services\ResultFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />

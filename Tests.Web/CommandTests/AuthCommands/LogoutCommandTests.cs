@@ -1,4 +1,4 @@
-using Infrastructure.System;
+using Application.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.AuthCommands;

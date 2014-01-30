@@ -2,7 +2,6 @@
 using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.System;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

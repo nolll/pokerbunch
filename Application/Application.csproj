@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Config\ServerMode.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
@@ -54,12 +55,14 @@
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
-    <Compile Include="Services\IInvitationMessageBuilder.cs" />
+    <Compile Include="Services\Interfaces\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAuthentication.cs" />
     <Compile Include="Services\Interfaces\IAuthorization.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
+    <Compile Include="Services\Interfaces\IConfigService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
+    <Compile Include="Services\Interfaces\IGlobalization.cs" />
     <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
     <Compile Include="Services\Interfaces\IInvitationSender.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
@@ -74,20 +77,25 @@
     <Compile Include="Services\Interfaces\ISlugGenerator.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
     <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
+    <Compile Include="Services\Interfaces\ITimeProvider.cs" />
     <Compile Include="Services\Interfaces\ITwitterIntegration.cs" />
     <Compile Include="Services\Interfaces\IUrlProvider.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
+    <Compile Include="Services\Interfaces\IWebContext.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\InvitationSender.cs" />
-    <Compile Include="Services\IPasswordMessageBuilder.cs" />
+    <Compile Include="Services\Interfaces\IPasswordMessageBuilder.cs" />
+    <Compile Include="Services\Interfaces\IResultFormatter.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\PasswordMessageBuilder.cs" />
     <Compile Include="Services\PasswordSender.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\RegistrationConfirmationSender.cs" />
+    <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
+    <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

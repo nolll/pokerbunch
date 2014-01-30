@@ -133,10 +133,8 @@
     <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="System\Globalization.cs" />
-    <Compile Include="System\Interfaces\IGlobalization.cs" />
-    <Compile Include="System\Interfaces\ITimeProvider.cs" />
-    <Compile Include="System\TimeProvider.cs" />
+    <Compile Include="Services\Globalization.cs" />
+    <Compile Include="Services\TimeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Classes\RawCashgame.cs" />
@@ -156,8 +154,7 @@
     <Compile Include="Repositories\HomegameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="System\Interfaces\IWebContext.cs" />
-    <Compile Include="System\WebContext.cs" />
+    <Compile Include="Services\WebContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Authentication.cs" />
@@ -174,9 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Gravatar\GravatarService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Config\ServerMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\EmailMessageSender.cs" />

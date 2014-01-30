@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.Services.Interfaces;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;

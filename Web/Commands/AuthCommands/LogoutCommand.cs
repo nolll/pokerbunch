@@ -1,4 +1,4 @@
-﻿using Infrastructure.System;
+﻿using Application.Services.Interfaces;
 
 namespace Web.Commands.AuthCommands
 {

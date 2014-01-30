@@ -1,4 +1,4 @@
-﻿using Infrastructure.System;
+﻿using Application.Services.Interfaces;
 using Web.Models.MiscModels;
 
 namespace Web.ModelFactories.MiscModelFactories

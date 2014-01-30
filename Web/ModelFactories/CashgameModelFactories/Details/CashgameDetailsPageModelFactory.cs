@@ -1,7 +1,6 @@
 ﻿using System;
 using Application.Services.Interfaces;
 using Core.Classes;
-using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
 

@@ -1,7 +1,6 @@
 using System.Web;
 using Application.Services.Interfaces;
 using Core.Classes;
-using Infrastructure.System;
 using Web.Models.CashgameModels.Toplist;
 using Web.Services;
 

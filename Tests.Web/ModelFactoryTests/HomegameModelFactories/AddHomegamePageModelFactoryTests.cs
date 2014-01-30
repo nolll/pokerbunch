@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Application.Services.Interfaces;
 using Core.Classes;
-using Infrastructure.System;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

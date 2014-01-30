@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Application.Services.Interfaces;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Storage.Interfaces;
-using Infrastructure.System;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerCheckpointStorage : ICheckpointStorage

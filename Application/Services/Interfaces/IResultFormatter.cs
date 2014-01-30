@@ -1,4 +1,4 @@
-namespace Web.Services
+namespace Application.Services.Interfaces
 {
     public interface IResultFormatter
     {

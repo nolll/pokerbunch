@@ -1,7 +1,10 @@
 using System.Web;
+using Application.Services.Interfaces;
 
-namespace Infrastructure.System{
-    public class WebContext : IWebContext{
+namespace Infrastructure.Services
+{
+    public class WebContext : IWebContext
+    {
         private readonly ITimeProvider _timeProvider;
 
         public WebContext(ITimeProvider timeProvider)
@@ -32,11 +35,9 @@ namespace Infrastructure.System{
 
         public void ClearCookie(string token)
         {
-            if (Request.Cookies[token] != null)
-            {
-                var myCookie = new HttpCookie(token) {Expires = _timeProvider.GetTime().AddDays(-1)};
-                Response.Cookies.Add(myCookie);
-            }
+            if (Request.Cookies[token] == null) return;
+            var myCookie = new HttpCookie(token) {Expires = _timeProvider.GetTime().AddDays(-1)};
+            Response.Cookies.Add(myCookie);
         }
 
         public void SetSessionCookie(string name, string value)

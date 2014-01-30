@@ -3,7 +3,6 @@ using System.Linq;
 using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Infrastructure.System;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Action;
 

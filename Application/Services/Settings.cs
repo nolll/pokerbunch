@@ -1,21 +1,27 @@
-using System.Configuration;
-using System.Web.Configuration;
+using Application.Config;
 using Application.Services.Interfaces;
-using Infrastructure.Config;
 
-namespace Web.Services{
+namespace Application.Services
+{
     public class Settings : ISettings
 	{
+        private readonly IConfigService _configService;
+
+        public Settings(IConfigService configService)
+        {
+            _configService = configService;
+        }
+
         public string GetTwitterKey(){
-            return WebConfigurationManager.AppSettings.Get("TwitterKey");
+            return _configService.GetAppSetting("TwitterKey");
 		}
 
 		public string GetTwitterSecret(){
-            return WebConfigurationManager.AppSettings.Get("TwitterSecret");
+            return _configService.GetAppSetting("TwitterSecret");
 		}
 
 		private string GetServerMode(){
-            return WebConfigurationManager.AppSettings.Get("Mode");
+            return _configService.GetAppSetting("Mode");
 		}
 
 		public bool IsInProduction(){
@@ -32,14 +38,13 @@ namespace Web.Services{
 
 		public string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString;
+            return _configService.GetConnectionString("pokerbunch");
         }
 
         public string GetSiteUrl()
         {
-            return WebConfigurationManager.AppSettings.Get("SiteUrl");
+            return _configService.GetAppSetting("SiteUrl");
         }
 
 	}
-
 }

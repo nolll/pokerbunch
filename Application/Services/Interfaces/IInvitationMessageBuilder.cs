@@ -1,6 +1,6 @@
 using Core.Classes;
 
-namespace Application.Services
+namespace Application.Services.Interfaces
 {
     public interface IInvitationMessageBuilder
     {
