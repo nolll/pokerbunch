@@ -741,6 +741,8 @@
     <Content Include="Views\User\ForgotPassword\ForgotPassword.cshtml" />
     <Content Include="Views\User\List\Item.cshtml" />
     <Content Include="Views\User\List\List.cshtml" />
+    <None Include="Properties\PublishProfiles\pokerbunch-com - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
