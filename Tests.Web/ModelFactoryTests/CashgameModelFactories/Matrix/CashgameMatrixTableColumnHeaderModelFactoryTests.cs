@@ -1,5 +1,5 @@
 using System;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;

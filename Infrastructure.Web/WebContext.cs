@@ -1,7 +1,7 @@
 using System.Web;
-using Application.Services.Interfaces;
+using Application.Services;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Web
 {
     public class WebContext : IWebContext
     {

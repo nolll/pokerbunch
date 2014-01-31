@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Application.Exceptions;
-using Application.Services.Interfaces;
+using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;

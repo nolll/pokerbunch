@@ -1,9 +1,9 @@
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Integration.Twitter;
 
-namespace Infrastructure.Services{
+namespace Infrastructure.Integration.Social{
 
 	public class SocialServiceProvider : ISocialServiceProvider
     {

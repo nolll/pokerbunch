@@ -1,4 +1,4 @@
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Repositories;
 
 namespace Web.Commands.SharingCommands

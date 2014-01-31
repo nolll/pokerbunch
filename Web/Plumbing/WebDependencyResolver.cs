@@ -1,15 +1,6 @@
-﻿using Application.Factories;
-using Application.Factories.Interfaces;
-using Application.Services;
-using Application.Services.Interfaces;
+﻿using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
-using Core.Repositories;
-using Infrastructure.Factories;
-using Infrastructure.Integration.Gravatar;
-using Infrastructure.Integration.Twitter;
-using Infrastructure.Repositories;
-using Infrastructure.Services;
 using Plumbing;
 using Web.Commands.AuthCommands;
 using Web.Commands.CashgameCommands;

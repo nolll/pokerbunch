@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Application.Services.Interfaces;
+using Application.Services;
 using Web.Commands.PlayerCommands;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;

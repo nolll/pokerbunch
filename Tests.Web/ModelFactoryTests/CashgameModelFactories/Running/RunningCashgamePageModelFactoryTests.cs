@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using Moq;
 using NUnit.Framework;

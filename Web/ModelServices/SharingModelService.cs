@@ -1,4 +1,4 @@
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories.SharingModelFactories;

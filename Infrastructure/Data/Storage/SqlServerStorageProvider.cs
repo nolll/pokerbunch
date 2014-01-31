@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using Application.Services.Interfaces;
+using Application.Services;
 using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {

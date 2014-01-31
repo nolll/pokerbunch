@@ -1,5 +1,4 @@
-﻿using Application.Services.Interfaces;
-using Core.Repositories;
+﻿using Core.Repositories;
 
 namespace Application.Services
 {

@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Application.Services.Interfaces;
+using Application.Services;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

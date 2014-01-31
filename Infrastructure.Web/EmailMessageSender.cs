@@ -1,7 +1,7 @@
 using System.Net.Mail;
-using Application.Services.Interfaces;
+using Application.Services;
 
-namespace Infrastructure.Services{
+namespace Infrastructure.Web{
 
 	public class MessageSender : IMessageSender{
 

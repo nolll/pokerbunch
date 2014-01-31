@@ -1,7 +1,6 @@
 ﻿using Application.Factories;
 using Application.Factories.Interfaces;
 using Application.Services;
-using Application.Services.Interfaces;
 using Castle.Core;
 using Castle.Windsor;
 using Core.Repositories;
@@ -13,8 +12,8 @@ using Infrastructure.Factories;
 using Infrastructure.Integration.Gravatar;
 using Infrastructure.Integration.Twitter;
 using Infrastructure.Repositories;
-using Infrastructure.Services;
 using Infrastructure.System;
+using Infrastructure.Web;
 
 namespace Plumbing
 {

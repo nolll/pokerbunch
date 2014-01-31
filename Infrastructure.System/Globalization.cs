@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 
 namespace Infrastructure.System{

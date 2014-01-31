@@ -1,5 +1,5 @@
 using System;
-using Application.Services.Interfaces;
+using Application.Services;
 
 namespace Infrastructure.System{
     public class TimeProvider : ITimeProvider {

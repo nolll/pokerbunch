@@ -1,5 +1,5 @@
 using System.Linq;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Repositories;
 using Moq;
 using NUnit.Framework;

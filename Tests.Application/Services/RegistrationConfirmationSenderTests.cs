@@ -1,5 +1,4 @@
 ﻿using Application.Services;
-using Application.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

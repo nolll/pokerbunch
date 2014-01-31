@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.Services.Interfaces{
+namespace Application.Services{
 
 	public interface ITimeProvider {
 	    DateTime GetTime();

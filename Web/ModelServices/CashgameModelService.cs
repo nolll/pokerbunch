@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using Application.Exceptions;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories.CashgameModelFactories.Action;

@@ -1,4 +1,4 @@
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes.Checkpoints;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;

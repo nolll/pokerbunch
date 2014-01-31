@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Services.Interfaces;
+using Application.Services;
 using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;
