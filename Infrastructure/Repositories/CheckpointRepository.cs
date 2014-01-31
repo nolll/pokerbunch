@@ -3,7 +3,7 @@ using Core.Classes.Checkpoints;
 using Core.Repositories;
 using Infrastructure.Caching;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Data.Storage;
 
 namespace Infrastructure.Repositories
 {

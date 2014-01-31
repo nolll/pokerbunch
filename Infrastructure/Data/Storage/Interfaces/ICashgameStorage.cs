@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 
-namespace Infrastructure.Data.Storage.Interfaces {
-
-	public interface ICashgameStorage{
-
+namespace Infrastructure.Data.Storage
+{
+	public interface ICashgameStorage
+    {
         int AddGame(Homegame homegame, RawCashgameWithResults cashgame);
 		bool DeleteGame(int cashgameId);
         RawCashgame GetGame(int cashgameId);
@@ -17,7 +17,5 @@ namespace Infrastructure.Data.Storage.Interfaces {
         bool UpdateGame(RawCashgameWithResults cashgame);
 		bool HasPlayed(int playerId);
         IList<string> GetLocations(string slug);
-
 	}
-
 }

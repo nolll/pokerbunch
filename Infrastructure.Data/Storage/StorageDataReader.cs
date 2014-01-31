@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Infrastructure.Data.Storage
 {
-    public class StorageDataReader
+    public class StorageDataReader : IStorageDataReader
     {
         private readonly IDataReader _reader;
 

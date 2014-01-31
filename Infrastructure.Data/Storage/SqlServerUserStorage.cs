@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerUserStorage : IUserStorage 

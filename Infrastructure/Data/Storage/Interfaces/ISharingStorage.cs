@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Infrastructure.Data.Storage.Interfaces {
+namespace Infrastructure.Data.Storage {
 
 	public interface ISharingStorage{
 

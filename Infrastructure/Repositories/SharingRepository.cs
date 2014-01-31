@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Data.Storage;
 
 namespace Infrastructure.Repositories
 {

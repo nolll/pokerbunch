@@ -5,6 +5,6 @@ namespace Infrastructure.Data.Factories
 {
     public interface IRawPlayerFactory
     {
-        RawPlayer Create(StorageDataReader reader);
+        RawPlayer Create(IStorageDataReader reader);
     }
 }

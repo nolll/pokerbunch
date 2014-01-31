@@ -7,7 +7,7 @@ namespace Infrastructure.Data.Factories
 {
     public interface IRawCheckpointFactory
     {
-        RawCheckpoint Create(StorageDataReader reader);
+        RawCheckpoint Create(IStorageDataReader reader);
         RawCheckpoint Create(Cashgame cashgame, Checkpoint checkpoint);
     }
 }

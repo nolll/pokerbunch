@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
 
@@ -121,7 +120,7 @@ namespace Infrastructure.Data.Storage {
 			return rowCount > 0;
 		}
 
-		private RawHomegame CreateRawHomegame(StorageDataReader reader){
+		private RawHomegame CreateRawHomegame(IStorageDataReader reader){
 			return new RawHomegame
 			    {
 			        Id = reader.GetInt("HomegameID"),
@@ -170,7 +169,7 @@ namespace Infrastructure.Data.Storage {
             return (int)Role.Guest;
         }
 
-        private int CreateRole(StorageDataReader reader)
+        private int CreateRole(IStorageDataReader reader)
         {
             return reader.GetInt("RoleID");
         }

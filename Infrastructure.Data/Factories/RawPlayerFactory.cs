@@ -5,7 +5,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawPlayerFactory : IRawPlayerFactory
     {
-        public RawPlayer Create(StorageDataReader reader)
+        public RawPlayer Create(IStorageDataReader reader)
         {
             return new RawPlayer
             {

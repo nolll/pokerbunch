@@ -2,7 +2,7 @@ using Core.Classes;
 using Infrastructure.Caching;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage.Interfaces;
+using Infrastructure.Data.Storage;
 using Infrastructure.Factories;
 using Infrastructure.Repositories;
 using NUnit.Framework;

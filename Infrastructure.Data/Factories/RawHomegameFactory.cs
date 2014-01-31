@@ -6,7 +6,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawHomegameFactory : IRawHomegameFactory
     {
-        public RawHomegame Create(StorageDataReader reader)
+        public RawHomegame Create(IStorageDataReader reader)
         {
             return new RawHomegame
             {

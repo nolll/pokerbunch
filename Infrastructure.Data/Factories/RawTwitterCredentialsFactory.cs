@@ -6,7 +6,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawTwitterCredentialsFactory : IRawTwitterCredentialsFactory
     {
-        public RawTwitterCredentials Create(StorageDataReader reader)
+        public RawTwitterCredentials Create(IStorageDataReader reader)
         {
             return new RawTwitterCredentials
                 {

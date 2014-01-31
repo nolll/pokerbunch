@@ -61,6 +61,10 @@
       <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
       <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
       <Name>Infrastructure.System</Name>

@@ -5,7 +5,6 @@ using Application.Services;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerCashgameStorage : ICashgameStorage
@@ -129,7 +128,7 @@ namespace Infrastructure.Data.Storage {
             return ids;
         }
 
-		private List<RawCashgameWithResults> GetGamesFromDbResult(StorageDataReader reader){
+		private List<RawCashgameWithResults> GetGamesFromDbResult(IStorageDataReader reader){
             var cashgames = new List<RawCashgameWithResults>();
             RawCashgameWithResults currentGame = null;
 			var currentGameId = -1;
@@ -200,7 +199,7 @@ namespace Infrastructure.Data.Storage {
 			return locations;
 		}
 
-		private RawCashgameResult RawCashgameResultFromDbRow(StorageDataReader reader){
+		private RawCashgameResult RawCashgameResultFromDbRow(IStorageDataReader reader){
 			var playerId = reader.GetInt("PlayerID");
 			return new RawCashgameResult(playerId);
 		}

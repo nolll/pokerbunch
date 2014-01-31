@@ -1,6 +1,6 @@
 using Infrastructure.Data.Classes;
 
-namespace Infrastructure.Data.Storage.Interfaces {
+namespace Infrastructure.Data.Storage {
 
 	public interface ITwitterStorage{
 

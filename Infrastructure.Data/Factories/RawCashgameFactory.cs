@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Factories
             _timeProvider = timeProvider;
         }
 
-        public RawCashgameWithResults Create(StorageDataReader reader)
+        public RawCashgameWithResults Create(IStorageDataReader reader)
         {
             var location = reader.GetString("Location");
             if (location == "")

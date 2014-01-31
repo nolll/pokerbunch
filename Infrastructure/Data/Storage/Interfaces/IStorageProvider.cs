@@ -1,8 +1,8 @@
-namespace Infrastructure.Data.Storage.Interfaces {
+namespace Infrastructure.Data.Storage {
 
 	public interface IStorageProvider {
 
-		StorageDataReader Query(string sql);
+		IStorageDataReader Query(string sql);
         int Execute(string sql);
         int ExecuteInsert(string sql);
         int BoolToInt(bool boolean);

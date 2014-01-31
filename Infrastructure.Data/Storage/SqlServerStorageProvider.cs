@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using Application.Services;
-using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
 
@@ -33,7 +32,7 @@ namespace Infrastructure.Data.Storage {
 	        }
 	    }
 
-		public StorageDataReader Query(string sql)
+		public IStorageDataReader Query(string sql)
 		{
             using (var connection = GetConnection())
             {

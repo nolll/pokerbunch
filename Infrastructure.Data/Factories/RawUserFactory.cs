@@ -6,7 +6,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawUserFactory : IRawUserFactory
     {
-        public RawUser Create(StorageDataReader reader)
+        public RawUser Create(IStorageDataReader reader)
         {
             return new RawUser
             {

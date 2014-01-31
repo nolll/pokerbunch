@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Application.Services;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage.Interfaces;
 
 namespace Infrastructure.Data.Storage {
     public class SqlServerCheckpointStorage : ICheckpointStorage
@@ -53,7 +52,7 @@ namespace Infrastructure.Data.Storage {
             return GetCheckpointsFromDbResult(reader);
         }
 
-        private List<RawCheckpoint> GetCheckpointsFromDbResult(StorageDataReader reader)
+        private List<RawCheckpoint> GetCheckpointsFromDbResult(IStorageDataReader reader)
         {
             var checkpoints = new List<RawCheckpoint>();
             while (reader.Read())

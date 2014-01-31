@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Factories
 {
     public class RawCheckpointFactory : IRawCheckpointFactory
     {
-        public RawCheckpoint Create(StorageDataReader reader)
+        public RawCheckpoint Create(IStorageDataReader reader)
         {
             return new RawCheckpoint
                 {

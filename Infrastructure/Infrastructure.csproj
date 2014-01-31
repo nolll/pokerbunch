@@ -74,25 +74,11 @@
     <Compile Include="Data\Factories\Interfaces\IRawCheckpointFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawTwitterCredentialsFactory.cs" />
-    <Compile Include="Data\Factories\RawCheckpointFactory.cs" />
-    <Compile Include="Data\Factories\RawCashgameFactory.cs" />
-    <Compile Include="Data\Factories\RawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawPlayerFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawUserFactory.cs" />
-    <Compile Include="Data\Factories\RawTwitterCredentialsFactory.cs" />
-    <Compile Include="Data\Factories\RawUserFactory.cs" />
     <Compile Include="Data\Factories\Interfaces\IRawHomegameFactory.cs" />
-    <Compile Include="Data\Factories\RawHomegameFactory.cs" />
-    <Compile Include="Data\Storage\SqlServerCashgameStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerCheckpointStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerHomegameStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerPlayerStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerSharingStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerTwitterStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerUserStorage.cs" />
-    <Compile Include="Data\Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Data\Storage\Interfaces\ICheckpointStorage.cs" />
-    <Compile Include="Data\Storage\StorageDataReader.cs" />
+    <Compile Include="Data\Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ITwitterCredentialsFactory.cs" />
@@ -168,7 +154,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Sql\Changes.sql" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
