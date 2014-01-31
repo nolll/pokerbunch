@@ -132,8 +132,6 @@
     <Compile Include="Repositories\SharingRepository.cs" />
     <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Services\UserService.cs" />
-    <Compile Include="Services\Globalization.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Classes\RawCashgame.cs" />
@@ -154,9 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\WebContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\Authentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Storage\Interfaces\IStorageProvider.cs" />
@@ -181,7 +176,6 @@
   <ItemGroup>
     <Content Include="Data\Sql\Changes.sql" />
     <None Include="packages.config" />
-    <Compile Include="Services\ResultSharerImpl.cs" />
     <Compile Include="Services\SocialServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>

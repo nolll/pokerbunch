@@ -52,6 +52,7 @@
     <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
+    <Compile Include="Services\Authentication.cs" />
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
@@ -94,9 +95,11 @@
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\RegistrationConfirmationSender.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
+    <Compile Include="Services\ResultSharerImpl.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

@@ -4,7 +4,7 @@ using System.Globalization;
 using Application.Services.Interfaces;
 using Core.Classes;
 
-namespace Infrastructure.Services{
+namespace Infrastructure.System{
 
 	public class Globalization : IGlobalization
 	{

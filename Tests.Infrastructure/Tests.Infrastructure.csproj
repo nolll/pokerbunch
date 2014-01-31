@@ -72,6 +72,10 @@
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
+      <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
+      <Name>Infrastructure.System</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
       <Name>Infrastructure</Name>

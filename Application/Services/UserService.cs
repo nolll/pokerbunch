@@ -1,7 +1,7 @@
 ﻿using Application.Services.Interfaces;
 using Core.Repositories;
 
-namespace Infrastructure.Services
+namespace Application.Services
 {
     public class UserService : IUserService
     {

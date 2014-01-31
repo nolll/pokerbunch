@@ -2,7 +2,7 @@ using Application.Services.Interfaces;
 using Core.Classes;
 using Core.Repositories;
 
-namespace Infrastructure.Services{
+namespace Application.Services{
 
 	public class ResultSharerImpl : IResultSharer
     {
