@@ -134,7 +134,6 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\Globalization.cs" />
-    <Compile Include="Services\TimeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Classes\RawCashgame.cs" />
