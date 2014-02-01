@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Classes{
+namespace Core.Classes
+{
     public class Cashgame : ICacheable
     {
 	    public int Id { get; private set; }
@@ -66,12 +67,14 @@ namespace Core.Classes{
             return GetResult(playerId) != null;
         }
 
-        public bool IsBestResult(CashgameResult resultToCheck){
+        public bool IsBestResult(CashgameResult resultToCheck)
+        {
             var bestResult = GetBestResult();
             return bestResult != null && resultToCheck.Winnings == bestResult.Winnings;
         }
 
-        public CashgameResult GetBestResult(){
+        public CashgameResult GetBestResult()
+        {
             CashgameResult bestResult = null;
             foreach(var result in Results){
                 if(bestResult == null || result.Winnings > bestResult.Winnings){
@@ -80,7 +83,5 @@ namespace Core.Classes{
             }
             return bestResult;
         }
-
 	}
-
 }

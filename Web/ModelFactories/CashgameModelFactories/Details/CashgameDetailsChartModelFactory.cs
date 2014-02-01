@@ -32,7 +32,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
             return new ChartModel
                 {
-                    cols = GetActionColumns(cashgame, players),
+                    cols = GetActionColumns(players),
                     rows = GetActionRows(homegame, cashgame, players)
                 };
         }
@@ -53,7 +53,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                         totalBuyin += checkpoint.Amount;
                     }
                     var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone);
-                    rowModels.Add(GetActionRow(cashgame, players, localTime, checkpoint.Stack - totalBuyin, playerId));
+                    rowModels.Add(GetActionRow(players, localTime, checkpoint.Stack - totalBuyin, playerId));
                 }
             }
             if (cashgame.Status == GameStatus.Running)
@@ -74,14 +74,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 };
         }
 
-        private IList<ChartColumnModel> GetActionColumns(Cashgame cashgame, IList<Player> players)
+        private IList<ChartColumnModel> GetActionColumns(IList<Player> players)
         {
             var columnModels = new List<ChartColumnModel> { new ChartDateTimeColumnModel("Time", "HH:mm") };
             columnModels.AddRange(players.Select(player => new ChartNumberColumnModel(player.DisplayName)));
             return columnModels;
         }
 
-        private ChartRowModel GetActionRow(Cashgame cashgame, IList<Player> players, DateTime dateTime, int winnings, int currentPlayerId)
+        private ChartRowModel GetActionRow(IList<Player> players, DateTime dateTime, int winnings, int currentPlayerId)
         {
             var values = new List<ChartValueModel> {_chartValueModelFactory.Create(dateTime)};
             foreach (var player in players)

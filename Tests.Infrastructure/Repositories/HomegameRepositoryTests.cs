@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Repositories;

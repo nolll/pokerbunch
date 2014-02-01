@@ -2,7 +2,6 @@ using System;
 using Application.Services;
 using Core.Classes;
 using Web.Models.CashgameModels.Details;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {

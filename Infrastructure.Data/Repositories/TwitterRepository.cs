@@ -1,6 +1,5 @@
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 

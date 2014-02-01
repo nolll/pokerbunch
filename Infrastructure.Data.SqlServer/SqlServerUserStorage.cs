@@ -103,21 +103,24 @@ namespace Infrastructure.Data.SqlServer {
             return ids;
         }
 
-		public bool UpdateUser(RawUser user){
+		public bool UpdateUser(RawUser user)
+        {
             var sql = "UPDATE [user] SET DisplayName = '{0}', RealName = '{1}', Email = '{2}', Token = '{3}', Password = '{4}', Salt = '{5}' WHERE UserID = {6}";
 		    sql = string.Format(sql, user.DisplayName, user.RealName, user.Email, user.Token, user.EncryptedPassword, user.Salt, user.Id);
 		    var rowCount = _storageProvider.Execute(sql);
 			return rowCount > 0;
 		}
 
-		public int AddUser(RawUser user){
+		public int AddUser(RawUser user)
+        {
             var sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Token, Password, Salt) VALUES ('{0}', '{1}', '{2}', 1, '{3}', '{4}', '{5}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             sql = string.Format(sql, user.UserName, user.DisplayName, user.Email, user.Token, user.EncryptedPassword, user.Salt);
             var id = _storageProvider.ExecuteInsert(sql);
 			return id;
 		}
 
-		public bool DeleteUser(int userId){
+		public bool DeleteUser(int userId)
+        {
             var sql = "DELETE FROM [user] WHERE UserID = {0}";
             sql = string.Format(sql, userId);
 			var rowCount = _storageProvider.Execute(sql);

@@ -2,7 +2,6 @@ using System.Web;
 using Application.Services;
 using Core.Classes;
 using Web.Models.CashgameModels.Toplist;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {

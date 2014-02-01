@@ -31,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.duration),
                     Turnover = GetTurnover(homegame, cashgame),
                     TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.turnover),
-                    AvgBuyin = GetAvgBuyin(homegame, cashgame, playerCount),
+                    AvgBuyin = GetAvgBuyin(homegame, cashgame),
                     AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.averagebuyin),
                     DetailsUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString),
                     DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
@@ -54,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             return _globalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
         }
 
-        private string GetAvgBuyin(Homegame homegame, Cashgame cashgame, int playerCount)
+        private string GetAvgBuyin(Homegame homegame, Cashgame cashgame)
         {
             return _globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
         }

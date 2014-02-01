@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-namespace Web.Models.FormModels{
+namespace Web.Models.FormModels
+{
+	public class SelectFieldModel : FormFieldModel
+    {
+	    public List<string> Names { get; private set; }
+        public List<string> Values { get; private set; }
 
-	public class SelectFieldModel : FormFieldModel{
-
-	    public List<string> Names { get; set; }
-        public List<string> Values { get; set; }
-
-		public SelectFieldModel(string fieldName, string fieldId, string selectedValue, IEnumerable<SelectFieldItem> items = null, string firstItemText = null)
+	    protected SelectFieldModel(string fieldName, string fieldId, string selectedValue, IEnumerable<SelectFieldItem> items = null, string firstItemText = null)
             : base(fieldName, fieldId, selectedValue)
         {
 			InitArrays();
@@ -15,12 +15,14 @@ namespace Web.Models.FormModels{
 			SetItems(items);
 		}
 
-		private void InitArrays(){
+		private void InitArrays()
+        {
 			Names = new List<string>();
 			Values = new List<string>();
 		}
 
-		private void SetFirstItem(string firstItemText){
+		private void SetFirstItem(string firstItemText)
+        {
 		    if (string.IsNullOrEmpty(firstItemText))
                 return;
 		    Names.Add(firstItemText);
@@ -31,11 +33,11 @@ namespace Web.Models.FormModels{
 		{
 		    if (items == null)
                 return;
-		    foreach (var item in items) {
+		    foreach (var item in items)
+            {
 		        Names.Add(item.Name);
 		        Values.Add(item.Value);
 		    }
 		}
 	}
-
 }

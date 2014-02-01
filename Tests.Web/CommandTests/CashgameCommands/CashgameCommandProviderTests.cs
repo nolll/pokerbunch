@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Infrastructure.Data.Factories.Interfaces;
 using Moq;
 using NUnit.Framework;

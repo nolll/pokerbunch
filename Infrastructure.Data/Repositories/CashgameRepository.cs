@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories;
 using System.Linq;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;

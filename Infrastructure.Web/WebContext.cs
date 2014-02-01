@@ -36,7 +36,10 @@ namespace Infrastructure.Web
         public void ClearCookie(string token)
         {
             if (Request.Cookies[token] == null) return;
-            var myCookie = new HttpCookie(token) {Expires = _timeProvider.GetTime().AddDays(-1)};
+            var myCookie = new HttpCookie(token)
+                {
+                    Expires = _timeProvider.GetTime().AddDays(-1)
+                };
             Response.Cookies.Add(myCookie);
         }
 
@@ -82,7 +85,5 @@ namespace Infrastructure.Web
         {
             get { return HttpContext.Current.Response; }
         }
-
 	}
-
 }

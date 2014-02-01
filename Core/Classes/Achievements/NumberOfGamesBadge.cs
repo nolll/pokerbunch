@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Classes.Achievements{
-
-	public class NumberOfGamesBadge : IBadge{
-
+namespace Core.Classes.Achievements
+{
+	public class NumberOfGamesBadge : IBadge
+    {
 	    public bool WasEarned { get; private set; }
 
-		public NumberOfGamesBadge(int playerId, IEnumerable<Cashgame> cashgames, int numberToCheck){
-			if(cashgames == null){
+		public NumberOfGamesBadge(int playerId, IEnumerable<Cashgame> cashgames, int numberToCheck)
+        {
+			if(cashgames == null)
+            {
 				WasEarned = false;
 				return;
 			}
@@ -20,5 +22,4 @@ namespace Core.Classes.Achievements{
 		    return cashgames.Count(cashgame => cashgame.IsInGame(playerId));
 		}
 	}
-
 }

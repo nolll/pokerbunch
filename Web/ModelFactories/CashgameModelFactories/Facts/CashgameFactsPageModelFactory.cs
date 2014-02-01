@@ -31,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
-        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null, Cashgame runningGame = null)
+        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null)
         {
             var model = new CashgameFactsPageModel
                 {

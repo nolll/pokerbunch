@@ -175,9 +175,8 @@ namespace Web.ModelServices
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var facts = _cashgameService.GetFacts(homegame, year);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
             var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameFactsPageModelFactory.Create(user, homegame, facts, years, year, runningGame);
+            return _cashgameFactsPageModelFactory.Create(user, homegame, facts, years, year);
         }
 
         public AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel)
