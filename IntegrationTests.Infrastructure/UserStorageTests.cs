@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage;
+using Infrastructure.Data.SqlServer;
 using NUnit.Framework;
 
 namespace IntegrationTests.Infrastructure

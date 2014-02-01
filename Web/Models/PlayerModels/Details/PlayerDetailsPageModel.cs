@@ -1,6 +1,6 @@
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
-using Web.Models.PlayerModels.Achievements;
+using Web.Models.PlayerModels.Badges;
 using Web.Models.PlayerModels.Facts;
 
 namespace Web.Models.PlayerModels.Details{

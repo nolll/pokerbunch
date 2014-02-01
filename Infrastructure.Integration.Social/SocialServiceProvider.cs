@@ -1,7 +1,6 @@
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Integration.Twitter;
 
 namespace Infrastructure.Integration.Social{
 

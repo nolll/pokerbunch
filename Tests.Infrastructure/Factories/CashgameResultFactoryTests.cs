@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Infrastructure.Factories;
+using Infrastructure.Data.Factories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

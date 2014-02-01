@@ -1,10 +1,10 @@
 using Core.Classes;
-using Infrastructure.Caching;
+using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Storage;
-using Infrastructure.Factories;
-using Infrastructure.Repositories;
+using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

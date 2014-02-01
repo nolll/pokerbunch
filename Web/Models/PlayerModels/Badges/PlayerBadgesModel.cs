@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.Classes;
 using Core.Classes.Achievements;
 
-namespace Web.Models.PlayerModels.Achievements{
+namespace Web.Models.PlayerModels.Badges{
 
 	public class PlayerBadgesModel{
 

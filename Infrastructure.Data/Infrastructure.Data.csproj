@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,24 +41,62 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Cache\CacheTime.cs" />
+    <Compile Include="Cache\ICacheBuster.cs" />
+    <Compile Include="Cache\ICacheContainer.cs" />
+    <Compile Include="Cache\ICacheKeyProvider.cs" />
+    <Compile Include="Cache\ICacheProvider.cs" />
+    <Compile Include="Classes\RawCashgame.cs" />
+    <Compile Include="Classes\RawCashgameResult.cs" />
+    <Compile Include="Classes\RawCashgameWithResults.cs" />
+    <Compile Include="Classes\RawCheckpoint.cs" />
+    <Compile Include="Classes\RawHomegame.cs" />
+    <Compile Include="Classes\RawPlayer.cs" />
+    <Compile Include="Classes\RawTwitterCredentials.cs" />
+    <Compile Include="Classes\RawUser.cs" />
+    <Compile Include="Factories\CashgameFactory.cs" />
+    <Compile Include="Factories\CashgameResultFactory.cs" />
+    <Compile Include="Factories\CheckpointFactory.cs" />
+    <Compile Include="Factories\HomegameFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
+    <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
+    <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawCheckpointFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawHomegameFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawPlayerFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawTwitterCredentialsFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRawUserFactory.cs" />
+    <Compile Include="Factories\Interfaces\ITwitterCredentialsFactory.cs" />
+    <Compile Include="Factories\Interfaces\IUserFactory.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\RawCashgameFactory.cs" />
     <Compile Include="Factories\RawCheckpointFactory.cs" />
     <Compile Include="Factories\RawHomegameFactory.cs" />
     <Compile Include="Factories\RawPlayerFactory.cs" />
     <Compile Include="Factories\RawTwitterCredentialsFactory.cs" />
     <Compile Include="Factories\RawUserFactory.cs" />
-    <Compile Include="Storage\SqlServerCashgameStorage.cs" />
-    <Compile Include="Storage\SqlServerCheckpointStorage.cs" />
-    <Compile Include="Storage\SqlServerHomegameStorage.cs" />
-    <Compile Include="Storage\SqlServerPlayerStorage.cs" />
-    <Compile Include="Storage\SqlServerSharingStorage.cs" />
-    <Compile Include="Storage\SqlServerStorageProvider.cs" />
-    <Compile Include="Storage\SqlServerTwitterStorage.cs" />
-    <Compile Include="Storage\SqlServerUserStorage.cs" />
-    <Compile Include="Storage\StorageDataReader.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sql\Changes.sql" />
+    <Compile Include="Factories\TwitterCredentialsFactory.cs" />
+    <Compile Include="Factories\UserFactory.cs" />
+    <Compile Include="Interfaces\ICashgameStorage.cs" />
+    <Compile Include="Interfaces\ICheckpointStorage.cs" />
+    <Compile Include="Interfaces\IHomegameStorage.cs" />
+    <Compile Include="Interfaces\IPlayerStorage.cs" />
+    <Compile Include="Interfaces\ISharingStorage.cs" />
+    <Compile Include="Interfaces\IStorageDataReader.cs" />
+    <Compile Include="Interfaces\IStorageProvider.cs" />
+    <Compile Include="Interfaces\ITwitterStorage.cs" />
+    <Compile Include="Interfaces\IUserStorage.cs" />
+    <Compile Include="Repositories\CashgameRepository.cs" />
+    <Compile Include="Repositories\CheckpointRepository.cs" />
+    <Compile Include="Repositories\HomegameRepository.cs" />
+    <Compile Include="Repositories\PlayerRepository.cs" />
+    <Compile Include="Repositories\SharingRepository.cs" />
+    <Compile Include="Repositories\TwitterRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="StorageDataReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj">
@@ -67,10 +106,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
-      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

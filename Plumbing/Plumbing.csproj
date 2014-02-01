@@ -61,9 +61,25 @@
       <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.Cache\Infrastructure.Data.Cache.csproj">
+      <Project>{1FCE7B9A-4CE2-43FB-BB48-BCB478A77DDF}</Project>
+      <Name>Infrastructure.Data.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.SqlServer\Infrastructure.Data.SqlServer.csproj">
+      <Project>{CA832C49-BF07-4253-AD3E-ADC41383B2B9}</Project>
+      <Name>Infrastructure.Data.SqlServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
       <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
       <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Integration.Gravatar\Infrastructure.Integration.Gravatar.csproj">
+      <Project>{8E10B75F-B051-4158-87B7-D1F1D50B17C0}</Project>
+      <Name>Infrastructure.Integration.Gravatar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Integration.Social\Infrastructure.Integration.Social.csproj">
+      <Project>{F64D77E4-EFB0-48DB-A4F2-B52BEA68865E}</Project>
+      <Name>Infrastructure.Integration.Social</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
       <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
@@ -72,10 +88,6 @@
     <ProjectReference Include="..\Infrastructure.Web\Infrastructure.Web.csproj">
       <Project>{26420C7D-8487-4F7A-92CF-A8C2280CFEB5}</Project>
       <Name>Infrastructure.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
-      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

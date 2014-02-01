@@ -3,7 +3,7 @@ using Application.Services;
 using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.PlayerModels.Achievements;
+using Web.Models.PlayerModels.Badges;
 using Web.Models.PlayerModels.Details;
 
 namespace Web.ModelFactories.PlayerModelFactories

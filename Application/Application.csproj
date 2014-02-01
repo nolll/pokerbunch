@@ -95,7 +95,7 @@
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\RegistrationConfirmationSender.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
-    <Compile Include="Services\ResultSharerImpl.cs" />
+    <Compile Include="Services\ResultSharer.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />

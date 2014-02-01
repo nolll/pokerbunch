@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
-using Infrastructure.Caching;
+using Infrastructure.Data.Cache;
 
 namespace Tests.Common
 {

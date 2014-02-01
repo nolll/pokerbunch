@@ -72,17 +72,21 @@
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.Cache\Infrastructure.Data.Cache.csproj">
+      <Project>{1FCE7B9A-4CE2-43FB-BB48-BCB478A77DDF}</Project>
+      <Name>Infrastructure.Data.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
       <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Integration.Gravatar\Infrastructure.Integration.Gravatar.csproj">
+      <Project>{8E10B75F-B051-4158-87B7-D1F1D50B17C0}</Project>
+      <Name>Infrastructure.Integration.Gravatar</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
       <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
       <Name>Infrastructure.System</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{1F37FC49-5C67-4A88-8201-0615C3ED1323}</Project>
-      <Name>Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tests.Common\Tests.Common.csproj">
       <Project>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</Project>

@@ -1,5 +1,5 @@
 using Core.Repositories;
-using Infrastructure.Factories;
+using Infrastructure.Data.Factories.Interfaces;
 using Web.ModelMappers;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;

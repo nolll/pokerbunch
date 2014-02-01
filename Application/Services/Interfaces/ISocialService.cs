@@ -1,11 +1,9 @@
 using Core.Classes;
 
-namespace Application.Services{
-
-	public interface ISocialService{
-
+namespace Application.Services
+{
+	public interface ISocialService
+    {
     	void ShareResult(User user, int amount);
-
 	}
-
 }
