@@ -55,7 +55,7 @@ namespace Infrastructure.Data.SqlServer
 
         public int? GetPlayerIdByUserName(int homegameId, string userName)
         {
-            const string statement = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = {0} AND u.UserName = '{1}'";
+            const string statement = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND u.UserName = @userName";
             var sql = string.Format(statement, homegameId, userName);
             return GetPlayerId(sql);
         }
