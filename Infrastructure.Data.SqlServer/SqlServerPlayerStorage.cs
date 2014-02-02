@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
@@ -20,26 +21,36 @@ namespace Infrastructure.Data.SqlServer
 	        _rawPlayerFactory = rawPlayerFactory;
 	    }
 
-		public RawPlayer GetPlayerById(int id)
+        public RawPlayer GetPlayerById(int id)
         {
-            const string statement = "{0} WHERE p.PlayerID = {1}";
-            var sql = string.Format(statement, GetPlayerStatement, id);
-			return GetPlayerFromSql(sql);
-		}
+            const string statement = "{0} WHERE p.PlayerID = @id";
+            var sql = string.Format(statement, GetPlayerStatement);
+            var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@id", id)
+                };
 
-        public IList<RawPlayer> GetPlayers(IEnumerable<int> ids)
+            return GetPlayerFromSql(sql, parameters);
+        }
+
+        public IList<RawPlayer> GetPlayers(IList<int> ids)
         {
-            const string statement = "{0} WHERE p.PlayerID IN({1})";
-            var idList = GetIdListForSql(ids);
-            var sql = string.Format(statement, GetPlayerStatement, idList);
-            return GetPlayersFromSql(sql);
+            const string statement = "{0} WHERE p.PlayerID IN ({1})";
+            var parameterNames = GetIdParameterNames(ids);
+            var parameters = GetIdParameters(ids);
+            var sql = string.Format(statement, GetPlayerStatement, parameterNames);
+            return GetPlayersFromSql(sql, parameters);
         }
 
         public int? GetPlayerIdByName(int homegameId, string name)
         {
-            const string statement = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = {0} AND (p.PlayerName = '{1}' OR u.DisplayName = '{1}')";
-            var sql = string.Format(statement, homegameId, name);
-            return GetPlayerId(sql);
+            const string statement = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)";
+            var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@homegameId", homegameId),
+                    new SqlParameter("@playerName", name)
+                };
+            return GetPlayerId(statement, parameters);
         }
 
         public int? GetPlayerIdByUserName(int homegameId, string userName)
@@ -96,24 +107,54 @@ namespace Infrastructure.Data.SqlServer
             return null;
         }
 
-        private string GetIdListForSql(IEnumerable<int> ids)
+        private int? GetPlayerId(string sql, IList<SqlParameter> parameters)
         {
-            return string.Join(", ", ids.Select(o => string.Format("{0}", o)).ToArray());
+            return GetInt(sql, parameters, "PlayerID");
         }
 
-        private RawPlayer GetPlayerFromSql(string sql)
+        private int? GetInt(string sql, IList<SqlParameter> parameters, string columnName)
         {
-            var reader = _storageProvider.Query(sql);
-			while(reader.Read())
+            var reader = _storageProvider.Query(sql, parameters);
+            while (reader.Read())
             {
-				return _rawPlayerFactory.Create(reader);
-			}
-			return null;
-		}
+                return reader.GetInt(columnName);
+            }
+            return null;
+        }
 
-        private List<RawPlayer> GetPlayersFromSql(string sql)
+        private string GetIdParameterNames(IList<int> ids)
         {
-            var reader = _storageProvider.Query(sql);
+            var list = new List<string>();
+            for (var i = 0; i < ids.Count; i++)
+            {
+                list.Add(GetIdParameterName(i));
+            }
+            return string.Join(",", list);
+        }
+
+        private IList<SqlParameter> GetIdParameters(IList<int> ids)
+        {
+            return ids.Select((t, i) => new SqlParameter(GetIdParameterName(i), t)).ToList();
+        }
+
+        private string GetIdParameterName(int index)
+        {
+            return string.Format("@id{0}", index);
+        }
+
+        private RawPlayer GetPlayerFromSql(string sql, IList<SqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
+            while (reader.Read())
+            {
+                return _rawPlayerFactory.Create(reader);
+            }
+            return null;
+        }
+
+        private List<RawPlayer> GetPlayersFromSql(string sql, IList<SqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
             var players = new List<RawPlayer>();
             while (reader.Read())
             {
@@ -132,7 +173,5 @@ namespace Infrastructure.Data.SqlServer
             }
             return ids;
         }
-
 	}
-
 }

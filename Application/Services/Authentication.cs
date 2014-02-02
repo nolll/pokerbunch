@@ -4,8 +4,8 @@ using Core.Repositories;
 
 namespace Application.Services
 {
-	public class Authentication : IAuthentication{
-
+	public class Authentication : IAuthentication
+    {
 	    private readonly IWebContext _webContext;
 	    private readonly IUserRepository _userRepository;
 
@@ -17,20 +17,20 @@ namespace Application.Services
 	        _userRepository = userRepository;
 	    }
 
-		public User GetUser(){
+		public User GetUser()
+        {
 			var token = GetToken();
-			if(token != null){
-				return _userRepository.GetByToken(token);
-			}
-		    return null;
+			return token != null ? _userRepository.GetByToken(token) : null;
 		}
 
-		public bool IsLoggedIn(){
+		public bool IsLoggedIn()
+        {
 			var user = GetUser();
 			return user != null;
 		}
 
-		public string GetToken(){
+		public string GetToken()
+        {
 			return _webContext.GetCookie("token");
 		}
 
@@ -54,7 +54,5 @@ namespace Application.Services
                 throw new AccessDeniedException();
             }
         }
-
 	}
-
 }

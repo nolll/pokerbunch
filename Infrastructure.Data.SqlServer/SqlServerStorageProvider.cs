@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Application.Services;
 using Infrastructure.Data.Interfaces;
 
@@ -48,7 +50,23 @@ namespace Infrastructure.Data.SqlServer {
             }
 		}
 
-        public int Execute(string sql)
+	    public IStorageDataReader Query(string statement, IList<SqlParameter> parameters)
+	    {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand(statement, connection))
+                {
+                    command.Parameters.AddRange(parameters.ToArray());
+                    var mySqlReader = command.ExecuteReader();
+                    var dt = new DataTable();
+                    dt.Load(mySqlReader);
+                    return new StorageDataReader(dt.CreateDataReader());
+                }
+            }
+	    }
+
+	    public int Execute(string sql)
         {
             using (var connection = GetConnection())
             {

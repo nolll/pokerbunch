@@ -8,6 +8,7 @@ using Castle.Windsor.Installer;
 using Core.Classes;
 using NUnit.Framework;
 using Plumbing;
+using Tests.Common;
 using Web.Models.PageBaseModels;
 using Web.Plumbing;
 using DependencyResolver = Plumbing.DependencyResolver;
@@ -15,7 +16,7 @@ using DependencyResolver = Plumbing.DependencyResolver;
 namespace Tests.Web.PlumbingTests
 {
     [TestFixture]
-    public class DependencyInjectionTests
+    public class DependencyInjectionTests : MockContainer
     {
         private readonly IList<Type> _ignoredInterfaces;
 

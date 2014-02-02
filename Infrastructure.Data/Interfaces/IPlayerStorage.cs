@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Interfaces {
         RawPlayer GetPlayerById(int id);
         int? GetPlayerIdByName(int homegameId, string name);
         int? GetPlayerIdByUserName(int homegameId, string userName);
-        IList<RawPlayer> GetPlayers(IEnumerable<int> playerIds);
+        IList<RawPlayer> GetPlayers(IList<int> playerIds);
         IList<int> GetPlayerIds(int homegameId);
         int AddPlayer(int homegameId, string playerName);
         int AddPlayerWithUser(int homegameId, int userId, int role);

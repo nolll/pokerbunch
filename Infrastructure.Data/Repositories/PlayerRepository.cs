@@ -43,7 +43,7 @@ namespace Infrastructure.Data.Repositories {
             return players.OrderBy(o => o.DisplayName).ToList();
         }
 
-        private IList<Player> GetListUncached(IEnumerable<int> ids)
+        private IList<Player> GetListUncached(IList<int> ids)
         {
             var rawPlayers = _playerStorage.GetPlayers(ids);
             return rawPlayers.Select(_playerFactory.Create).ToList();

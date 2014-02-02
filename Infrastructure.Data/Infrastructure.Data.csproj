@@ -83,7 +83,6 @@
     <Compile Include="Interfaces\IPlayerStorage.cs" />
     <Compile Include="Interfaces\ISharingStorage.cs" />
     <Compile Include="Interfaces\IStorageDataReader.cs" />
-    <Compile Include="Interfaces\IStorageProvider.cs" />
     <Compile Include="Interfaces\ITwitterStorage.cs" />
     <Compile Include="Interfaces\IUserStorage.cs" />
     <Compile Include="Repositories\CashgameRepository.cs" />
