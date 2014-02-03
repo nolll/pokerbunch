@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="IStorageProvider.cs" />
+    <Compile Include="SqlListParameter.cs" />
     <Compile Include="SqlServerCashgameStorage.cs" />
     <Compile Include="SqlServerCheckpointStorage.cs" />
     <Compile Include="SqlServerHomegameStorage.cs" />
