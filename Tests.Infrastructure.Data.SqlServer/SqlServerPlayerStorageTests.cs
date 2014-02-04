@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Infrastructure.Data.Factories.Interfaces;
-using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.SqlServer;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {
-    public class SqlServerPlayerStorageTests : MockContainer
+    public class SqlServerPlayerStorageTests : StorageTests
     {
-        private FakeStorageProvider _storageProvider;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _storageProvider = new FakeStorageProvider();
-        }
-
         [Test]
         public void GetPlayerById_CallsStorageWithCorrectSql()
         {
@@ -27,7 +16,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.GetPlayerById(playerId);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -39,7 +28,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.GetPlayerList(idList);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -47,12 +36,12 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             const int homegameId = 1;
             const string name = "a";
-            const string expectedSql = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = 1 AND (p.PlayerName = a OR u.DisplayName = a)";
+            const string expectedSql = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = 1 AND (p.PlayerName = 'a' OR u.DisplayName = 'a')";
 
             var sut = GetSut();
             sut.GetPlayerIdByName(homegameId, name);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -60,12 +49,12 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             const int homegameId = 1;
             const string userName = "a";
-            const string expectedSql = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = 1 AND u.UserName = a";
+            const string expectedSql = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = 1 AND u.UserName = 'a'";
 
             var sut = GetSut();
             sut.GetPlayerIdByUserName(homegameId, userName);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -77,7 +66,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.GetPlayerIdList(homegameId);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -85,12 +74,12 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             const int homegameId = 1;
             const string playerName = "a";
-            const string expectedSql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (1, 1, 1, a) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string expectedSql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (1, 1, 1, 'a') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 
             var sut = GetSut();
             sut.AddPlayer(homegameId, playerName);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -104,7 +93,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.AddPlayerWithUser(homegameId, userId, role);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         [Test]
@@ -119,7 +108,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.JoinHomegame(playerId, role, homegameId, userId);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
             
         }
 
@@ -132,99 +121,14 @@ namespace Tests.Infrastructure.Data.SqlServer
             var sut = GetSut();
             sut.DeletePlayer(playerId);
 
-            Assert.AreEqual(expectedSql, _storageProvider.Sql);
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
         private SqlServerPlayerStorage GetSut()
         {
             return new SqlServerPlayerStorage(
-                _storageProvider,
+                StorageProvider,
                 GetMock<IRawPlayerFactory>().Object);
-        }
-    }
-
-    public class FakeStorageProvider : IStorageProvider
-    {
-        public string Sql { get; private set; }
-
-        public IStorageDataReader Query(string sql, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return new FakeStorageDataReader();
-        }
-
-        public IStorageDataReader Query(string sql, ListSqlParameter parameter)
-        {
-            Sql = GetFakeSql(sql, parameter);
-            return new FakeStorageDataReader();
-        }
-
-        public int Execute(string sql, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return 0;
-        }
-
-        public int ExecuteInsert(string sql, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return 0;
-        }
-
-        public int? GetInt(string sql, string columnName, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return null;
-        }
-
-        public IList<int> GetIntList(string sql, string columnName, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return null;
-        }
-
-        private string GetFakeSql(string sql, ListSqlParameter parameter)
-        {
-            var result = sql.Replace(parameter.ParameterName, parameter.ParameterNameList);
-            return GetFakeSql(result, parameter.ParameterList);
-        }
-
-        private string GetFakeSql(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var result = sql;
-            foreach (var parameter in parameters)
-            {
-                result = result.Replace(parameter.ParameterName, parameter.Value.ToString());
-            }
-            return result;
-        }
-    }
-
-    public class FakeStorageDataReader : IStorageDataReader
-    {
-        public string GetString(string key)
-        {
-            return null;
-        }
-
-        public int GetInt(string key)
-        {
-            return 0;
-        }
-
-        public bool GetBoolean(string key)
-        {
-            return false;
-        }
-
-        public DateTime GetDateTime(string key)
-        {
-            return DateTime.MinValue;
-        }
-
-        public bool Read()
-        {
-            return false;
         }
     }
 }

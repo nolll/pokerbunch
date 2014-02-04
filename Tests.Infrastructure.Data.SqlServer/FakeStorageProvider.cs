@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.SqlServer;
 
@@ -55,9 +56,18 @@ namespace Tests.Infrastructure.Data.SqlServer
             var result = sql;
             foreach (var parameter in parameters)
             {
-                result = result.Replace(parameter.ParameterName, parameter.Value.ToString());
+                result = result.Replace(parameter.ParameterName, FormatValue(parameter.Value));
             }
             return result;
+        }
+
+        private string FormatValue(object value)
+        {
+            if (value as int? != null)
+            {
+                return value.ToString();
+            }
+            return string.Format("'{0}'", value);
         }
     }
 }
