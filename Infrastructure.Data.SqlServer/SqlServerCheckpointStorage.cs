@@ -1,69 +1,86 @@
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Application.Services;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 
-namespace Infrastructure.Data.SqlServer {
+namespace Infrastructure.Data.SqlServer
+{
     public class SqlServerCheckpointStorage : ICheckpointStorage
     {
 	    private readonly IStorageProvider _storageProvider;
-        private readonly IGlobalization _globalization;
         private readonly ITimeProvider _timeProvider;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
 
         public SqlServerCheckpointStorage(
             IStorageProvider storageProvider,
-            IGlobalization globalization,
             ITimeProvider timeProvider,
             IRawCheckpointFactory rawCheckpointFactory)
         {
             _storageProvider = storageProvider;
-            _globalization = globalization;
             _timeProvider = timeProvider;
             _rawCheckpointFactory = rawCheckpointFactory;
         }
 
-        public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint){
-			var timestampStr = _globalization.FormatIsoDateTime(_timeProvider.ConvertToUtc(checkpoint.Timestamp));
-            var sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES ({0}, {1}, {2}, '{3}', '{4}', '{5}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            sql = string.Format(sql, cashgameId, playerId, checkpoint.Type, checkpoint.Amount, checkpoint.Stack, timestampStr);
-			return _storageProvider.ExecuteInsert(sql);
+        public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint)
+        {
+            const string sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES (@gameId, @playerId, @type, @amount, @stack, timestamp) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@gameId", cashgameId),
+                    new SimpleSqlParameter("@playerId", playerId),
+                    new SimpleSqlParameter("@type", checkpoint.Type),
+                    new SimpleSqlParameter("@amount", checkpoint.Amount),
+                    new SimpleSqlParameter("@stack", checkpoint.Stack),
+                    new SimpleSqlParameter("@timestamp", _timeProvider.ConvertToUtc(checkpoint.Timestamp))
+                };
+			return _storageProvider.ExecuteInsert(sql, parameters);
 		}
 
-		public bool UpdateCheckpoint(RawCheckpoint checkpoint){
-			var sql = "UPDATE cashgamecheckpoint SET Amount = {0}, Stack = {1} WHERE CheckpointID = {2}";
-		    sql = string.Format(sql, checkpoint.Amount, checkpoint.Stack, checkpoint.Id);
-			var rowCount = _storageProvider.Execute(sql);
+		public bool UpdateCheckpoint(RawCheckpoint checkpoint)
+        {
+			const string sql = "UPDATE cashgamecheckpoint SET Amount = @amount, Stack = @stack WHERE CheckpointID = @checkpointId";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+		            new SimpleSqlParameter("@amount", checkpoint.Amount),
+		            new SimpleSqlParameter("@stack", checkpoint.Stack),
+		            new SimpleSqlParameter("@checkpointId", checkpoint.Id)
+		        };
+			var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
 		}
 
-		public bool DeleteCheckpoint(int id){
-			var sql = "DELETE FROM cashgamecheckpoint WHERE CheckpointID = {0}";
-		    sql = string.Format(sql, id);
-			var rowCount = _storageProvider.Execute(sql);
+		public bool DeleteCheckpoint(int id)
+        {
+            const string sql = "DELETE FROM cashgamecheckpoint WHERE CheckpointID = @checkpointId";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+		            new SimpleSqlParameter("@checkpointId", id)
+		        };
+			var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
 		}
 
         public IList<RawCheckpoint> GetCheckpoints(int cashgameId)
         {
-            const string format = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = {0} ORDER BY cp.PlayerID, cp.Timestamp";
-            var sql = string.Format(format, cashgameId);
-            var reader = _storageProvider.Query(sql);
-            return GetCheckpointsFromDbResult(reader);
+            const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = @cashgameId ORDER BY cp.PlayerID, cp.Timestamp";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+		            new SimpleSqlParameter("@cashgameId", cashgameId)
+		        };
+            var reader = _storageProvider.Query(sql, parameters);
+            return GetRawCheckpoints(reader);
         }
 
-        private List<RawCheckpoint> GetCheckpointsFromDbResult(IStorageDataReader reader)
+        private List<RawCheckpoint> GetRawCheckpoints(IStorageDataReader reader)
         {
             var checkpoints = new List<RawCheckpoint>();
             while (reader.Read())
             {
-                var checkpoint = _rawCheckpointFactory.Create(reader);
-                checkpoints.Add(checkpoint);
+                checkpoints.Add(_rawCheckpointFactory.Create(reader));
             }
             return checkpoints;
         }
-
     }
-
 }

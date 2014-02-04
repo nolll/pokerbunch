@@ -45,14 +45,14 @@ namespace Infrastructure.Data.Repositories {
 
         private IList<Player> GetListUncached(IList<int> ids)
         {
-            var rawPlayers = _playerStorage.GetPlayers(ids);
+            var rawPlayers = _playerStorage.GetPlayerList(ids);
             return rawPlayers.Select(_playerFactory.Create).ToList();
         }
 
         private IList<int> GetIds(Homegame homegame)
         {
             var cacheKey = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIds(homegame.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(homegame.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public Player GetById(int id)

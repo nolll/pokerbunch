@@ -7,8 +7,8 @@ namespace Infrastructure.Data.Interfaces {
     {
         RawUser GetUserById(int id);
         int? GetUserIdByToken(string token);
-		IList<RawUser> GetUsers(IEnumerable<int> ids);
-        IList<int> GetUserIds();
+		IList<RawUser> GetUserList(IList<int> ids);
+        IList<int> GetUserIdList();
 		bool UpdateUser(RawUser user);
 		int AddUser(RawUser user);
         int? GetUserIdByNameOrEmail(string userNameOrEmail);

@@ -81,9 +81,9 @@ namespace Infrastructure.Data.Repositories
             return rawUser != null ? _userFactory.Create(rawUser) : null;
         }
 
-        private IList<User> GetListUncached(IEnumerable<int> ids)
+        private IList<User> GetListUncached(IList<int> ids)
         {
-            var rawUsers = _userStorage.GetUsers(ids);
+            var rawUsers = _userStorage.GetUserList(ids);
             return rawUsers.Select(_userFactory.Create).ToList();
         }
 
@@ -102,7 +102,7 @@ namespace Infrastructure.Data.Repositories
         private IList<int> GetIds()
         {
             var cacheKey = _cacheKeyProvider.UserIdsKey();
-            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
     }

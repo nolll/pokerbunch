@@ -28,11 +28,11 @@ namespace Infrastructure.Data.SqlServer
             }
         }
 
-        public IList<SqlParameter> ParameterList
+        public IList<SimpleSqlParameter> ParameterList
         {
             get
             {
-                return _idList.Select((t, i) => new SqlParameter(GetIdParameterName(i), t)).ToList();
+                return _idList.Select((t, i) => new SimpleSqlParameter(GetIdParameterName(i), t)).ToList();
             }
         }
 
