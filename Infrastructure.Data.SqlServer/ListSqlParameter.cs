@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace Infrastructure.Data.SqlServer
 {
-    public class SqlListParameter
+    public class ListSqlParameter
     {
         public string ParameterName { get; private set; }
         private readonly IList<int> _idList;
 
-        public SqlListParameter(string parameterName, IList<int> idList)
+        public ListSqlParameter(string parameterName, IList<int> idList)
         {
             ParameterName = parameterName;
             _idList = idList;

@@ -33,7 +33,7 @@ namespace Infrastructure.Data.SqlServer
         public IList<RawPlayer> GetPlayerList(IList<int> ids)
         {
             const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID IN (@ids)";
-            var parameter = new SqlListParameter("@ids", ids);
+            var parameter = new ListSqlParameter("@ids", ids);
             return GetPlayerList(sql, parameter);
         }
 
@@ -138,7 +138,7 @@ namespace Infrastructure.Data.SqlServer
             return null;
         }
 
-        private IList<RawPlayer> GetPlayerList(string sql, SqlListParameter parameter)
+        private IList<RawPlayer> GetPlayerList(string sql, ListSqlParameter parameter)
         {
             var reader = _storageProvider.Query(sql, parameter);
             var players = new List<RawPlayer>();

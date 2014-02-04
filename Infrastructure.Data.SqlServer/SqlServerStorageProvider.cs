@@ -42,7 +42,7 @@ namespace Infrastructure.Data.SqlServer
             }
 	    }
 
-	    public IStorageDataReader Query(string sql, SqlListParameter parameter)
+	    public IStorageDataReader Query(string sql, ListSqlParameter parameter)
 	    {
 	        var sqlWithIdList = sql.Replace(parameter.ParameterName, parameter.ParameterNameList);
 	        return Query(sqlWithIdList, parameter.ParameterList);

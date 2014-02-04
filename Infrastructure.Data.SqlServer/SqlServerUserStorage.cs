@@ -68,11 +68,11 @@ namespace Infrastructure.Data.SqlServer
         public IList<RawUser> GetUserList(IList<int> ids)
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
-            var parameter = new SqlListParameter("@ids", ids);
+            var parameter = new ListSqlParameter("@ids", ids);
             return GetUserList(sql, parameter);
         }
 
-        private IList<RawUser> GetUserList(string sql, SqlListParameter parameter)
+        private IList<RawUser> GetUserList(string sql, ListSqlParameter parameter)
         {
             var reader = _storageProvider.Query(sql, parameter);
             var users = new List<RawUser>();
