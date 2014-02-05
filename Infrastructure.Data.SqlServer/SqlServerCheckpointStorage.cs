@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using Application.Services;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
@@ -25,7 +24,7 @@ namespace Infrastructure.Data.SqlServer
 
         public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint)
         {
-            const string sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES (@gameId, @playerId, @type, @amount, @stack, timestamp) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES (@gameId, @playerId, @type, @amount, @stack, @timestamp) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@gameId", cashgameId),

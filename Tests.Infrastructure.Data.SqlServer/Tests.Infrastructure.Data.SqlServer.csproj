@@ -49,14 +49,23 @@
     <Compile Include="FakeStorageProvider.cs" />
     <Compile Include="SqlListParameterTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="SqlServerCashgameStorageTests.cs" />
+    <Compile Include="SqlServerCheckpointStorageTests.cs" />
+    <Compile Include="SqlServerHomegameStorageTests.cs" />
     <Compile Include="SqlServerPlayerStorageTests.cs" />
     <Compile Include="SqlServerSharingStorageTests.cs" />
+    <Compile Include="SqlServerTwitterStorageTests.cs" />
+    <Compile Include="SqlServerUserStorageTests.cs" />
     <Compile Include="StorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{F40E71CE-E7D3-4AF9-B944-6D97DBD42FD9}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data.SqlServer\Infrastructure.Data.SqlServer.csproj">
       <Project>{CA832C49-BF07-4253-AD3E-ADC41383B2B9}</Project>
       <Name>Infrastructure.Data.SqlServer</Name>

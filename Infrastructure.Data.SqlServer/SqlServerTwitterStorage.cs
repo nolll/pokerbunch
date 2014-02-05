@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;

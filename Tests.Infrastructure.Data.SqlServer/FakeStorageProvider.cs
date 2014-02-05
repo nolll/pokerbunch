@@ -53,6 +53,10 @@ namespace Tests.Infrastructure.Data.SqlServer
 
         private string GetFakeSql(string sql, IList<SimpleSqlParameter> parameters)
         {
+            if (parameters == null)
+            {
+                return sql;
+            }
             var result = sql;
             foreach (var parameter in parameters)
             {

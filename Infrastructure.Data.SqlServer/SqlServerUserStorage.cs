@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
@@ -50,21 +48,6 @@ namespace Infrastructure.Data.SqlServer
             return GetUserId(sql, parameters);
         }
 
-        private RawUser GetUser(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return _rawUserFactory.Create(reader);
-            }
-            return null;
-        }
-
-        private int? GetUserId(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            return _storageProvider.GetInt(sql, "UserID", parameters);
-        }
-
         public IList<RawUser> GetUserList(IList<int> ids)
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
@@ -72,26 +55,10 @@ namespace Infrastructure.Data.SqlServer
             return GetUserList(sql, parameter);
         }
 
-        private IList<RawUser> GetUserList(string sql, ListSqlParameter parameter)
-        {
-            var reader = _storageProvider.Query(sql, parameter);
-            var users = new List<RawUser>();
-            while (reader.Read())
-            {
-                users.Add(_rawUserFactory.Create(reader));
-            }
-            return users;
-        }
-
         public IList<int> GetUserIdList()
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ORDER BY u.DisplayName";
             return GetUserIdList(sql);
-        }
-
-        private IList<int> GetUserIdList(string sql)
-        {
-            return _storageProvider.GetIntList(sql, "UserID");
         }
 
         public bool UpdateUser(RawUser user)
@@ -128,7 +95,7 @@ namespace Infrastructure.Data.SqlServer
 
 		public bool DeleteUser(int userId)
         {
-            var sql = "DELETE FROM [user] WHERE UserID = @userId";
+            const string sql = "DELETE FROM [user] WHERE UserID = @userId";
             var parameters = new List<SimpleSqlParameter>
 		        {
 		            new SimpleSqlParameter("@userId", userId)
@@ -137,6 +104,35 @@ namespace Infrastructure.Data.SqlServer
 			return rowCount > 0;
 		}
 
-	}
+        private RawUser GetUser(string sql, IList<SimpleSqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
+            while (reader.Read())
+            {
+                return _rawUserFactory.Create(reader);
+            }
+            return null;
+        }
 
+        private int? GetUserId(string sql, IList<SimpleSqlParameter> parameters)
+        {
+            return _storageProvider.GetInt(sql, "UserID", parameters);
+        }
+
+        private IList<RawUser> GetUserList(string sql, ListSqlParameter parameter)
+        {
+            var reader = _storageProvider.Query(sql, parameter);
+            var users = new List<RawUser>();
+            while (reader.Read())
+            {
+                users.Add(_rawUserFactory.Create(reader));
+            }
+            return users;
+        }
+
+        private IList<int> GetUserIdList(string sql)
+        {
+            return _storageProvider.GetIntList(sql, "UserID");
+        }
+	}
 }
