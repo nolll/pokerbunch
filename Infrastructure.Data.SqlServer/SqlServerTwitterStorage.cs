@@ -55,11 +55,8 @@ namespace Infrastructure.Data.SqlServer
         private RawTwitterCredentials GetCredentialsFromSql(string sql, IList<SimpleSqlParameter> parameters)
         {
 			var reader = _storageProvider.Query(sql, parameters);
-			if(reader.Read()){
-				return _rawTwitterCredentialsFactory.Create(reader);
-			}
-			return null;
-		}
+			return reader.Read() ? _rawTwitterCredentialsFactory.Create(reader) : null;
+        }
 
 	}
 

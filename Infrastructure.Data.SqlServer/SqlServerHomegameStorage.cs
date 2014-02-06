@@ -39,16 +39,6 @@ namespace Infrastructure.Data.SqlServer {
             return GetHomegameId(sql, parameters);
         }
 
-        private int? GetHomegameId(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return reader.GetInt("HomegameID");
-            }
-            return null;
-        }
-
         public IList<RawHomegame> GetHomegames(IList<int> ids)
         {
             var sql = GetHomegameBaseSql(ids);
@@ -85,7 +75,45 @@ namespace Infrastructure.Data.SqlServer {
             return GetRole(sql);
         }
 
-		private string GetHomegameBaseSql()
+        public RawHomegame AddHomegame(RawHomegame homegame)
+        {
+            var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.CurrencySymbol,
+                                homegame.CurrencyLayout, homegame.TimezoneName, Convert.ToInt32(homegame.CashgamesEnabled),
+                                Convert.ToInt32(homegame.TournamentsEnabled),
+                                Convert.ToInt32(homegame.VideosEnabled), homegame.HouseRules);
+            var id = _storageProvider.ExecuteInsert(sql);
+            homegame.Id = id;
+            return homegame;
+        }
+
+        public bool UpdateHomegame(RawHomegame homegame)
+        {
+            var sql = "UPDATE homegame SET Name = '{0}', DisplayName = '{1}', Description = '{2}', HouseRules = '{3}', Currency = '{4}', CurrencyLayout = '{5}', Timezone = '{6}', DefaultBuyin = {7}, CashgamesEnabled = {8}, TournamentsEnabled = {9}, VideosEnabled = {10} WHERE HomegameID = {11}";
+            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.HouseRules, homegame.CurrencySymbol, homegame.CurrencyLayout, homegame.TimezoneName, homegame.DefaultBuyin, Convert.ToInt32(homegame.CashgamesEnabled), Convert.ToInt32(homegame.TournamentsEnabled), Convert.ToInt32(homegame.VideosEnabled), homegame.Id);
+            var rowCount = _storageProvider.Execute(sql);
+            return rowCount > 0;
+        }
+
+        public bool DeleteHomegame(string slug)
+        {
+            var sql = "DELETE FROM homegame WHERE Name = '{0}'";
+            sql = string.Format(sql, slug);
+            var rowCount = _storageProvider.Execute(sql);
+            return rowCount > 0;
+        }
+
+        private int? GetHomegameId(string sql, IList<SimpleSqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
+            while (reader.Read())
+            {
+                return reader.GetInt("HomegameID");
+            }
+            return null;
+        }
+
+        private string GetHomegameBaseSql()
 		{
 		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h ";
 		}
@@ -100,31 +128,6 @@ namespace Infrastructure.Data.SqlServer {
         {
             return string.Join(", ", ids.Select(o => string.Format("'{0}'", o)).ToArray());
         }
-
-		public RawHomegame AddHomegame(RawHomegame homegame){
-            var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-		    sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.CurrencySymbol,
-                                homegame.CurrencyLayout, homegame.TimezoneName, Convert.ToInt32(homegame.CashgamesEnabled),
-                                Convert.ToInt32(homegame.TournamentsEnabled),
-                                Convert.ToInt32(homegame.VideosEnabled), homegame.HouseRules);
-			var id = _storageProvider.ExecuteInsert(sql);
-			homegame.Id = id;
-			return homegame;
-		}
-
-		public bool UpdateHomegame(RawHomegame homegame){
-			var sql =	"UPDATE homegame SET Name = '{0}', DisplayName = '{1}', Description = '{2}', HouseRules = '{3}', Currency = '{4}', CurrencyLayout = '{5}', Timezone = '{6}', DefaultBuyin = {7}, CashgamesEnabled = {8}, TournamentsEnabled = {9}, VideosEnabled = {10} WHERE HomegameID = {11}";
-            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.HouseRules, homegame.CurrencySymbol, homegame.CurrencyLayout, homegame.TimezoneName, homegame.DefaultBuyin, Convert.ToInt32(homegame.CashgamesEnabled), Convert.ToInt32(homegame.TournamentsEnabled), Convert.ToInt32(homegame.VideosEnabled), homegame.Id);
-			var rowCount = _storageProvider.Execute(sql);
-			return rowCount > 0;
-		}
-
-		public bool DeleteHomegame(string slug){
-			var sql = "DELETE FROM homegame WHERE Name = '{0}'";
-            sql = string.Format(sql, slug);
-			var rowCount = _storageProvider.Execute(sql);
-			return rowCount > 0;
-		}
 
 		private RawHomegame CreateRawHomegame(IStorageDataReader reader){
 			return new RawHomegame
