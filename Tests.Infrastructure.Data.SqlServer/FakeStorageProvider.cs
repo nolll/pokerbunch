@@ -67,9 +67,15 @@ namespace Tests.Infrastructure.Data.SqlServer
 
         private string FormatValue(object value)
         {
-            if (value as int? != null)
+            var intValue = value as int?;
+            if (intValue.HasValue)
             {
-                return value.ToString();
+                return intValue.Value.ToString(CultureInfo.InvariantCulture);
+            }
+            var boolValue = value as bool?;
+            if (boolValue.HasValue)
+            {
+                return boolValue.Value ? "1" : "0";
             }
             return string.Format("'{0}'", value);
         }

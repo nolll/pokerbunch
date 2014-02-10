@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Classes;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Interfaces;
@@ -41,65 +40,105 @@ namespace Infrastructure.Data.SqlServer {
 
         public IList<RawHomegame> GetHomegames(IList<int> ids)
         {
-            var sql = GetHomegameBaseSql(ids);
-            return GetRawHomegameList(sql);
+            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
+            var parameter = new ListSqlParameter("@ids", ids);
+            return GetRawHomegameList(sql, parameter);
         }
 
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
         {
-            var sql = GetHomegameBaseSql();
-            sql += "INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = {0} ORDER BY h.Name";
-            sql = string.Format(sql, userId);
-            return GetRawHomegameList(sql);
+            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@userId", userId)
+                };
+            return GetRawHomegameList(sql, parameters);
         }
 
-		public RawHomegame GetHomegameByName(string homegameName){
-			var sql = GetHomegameBaseSql();
-			sql += "WHERE Name = '{0}'";
-            sql = string.Format(sql, homegameName);
-            return GetRawHomegame(sql);
+		public RawHomegame GetHomegameByName(string slug){
+			const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE Name = @slug";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@slug", slug)
+                };
+            
+            return GetRawHomegame(sql, parameters);
 		}
 
         public RawHomegame GetById(int id)
         {
-            var sql = GetHomegameBaseSql();
-            sql += "WHERE HomegameID = {0}";
-            sql = string.Format(sql, id);
-            return GetRawHomegame(sql);
+            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE HomegameID = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", id)
+                };
+            return GetRawHomegame(sql, parameters);
         }
         
         public int GetHomegameRole(int homegameId, int userId)
         {
-            var sql = "SELECT p.RoleID FROM player p WHERE p.UserID = {0} AND p.HomegameID = {1}";
-            sql = string.Format(sql, userId, homegameId);
-            return GetRole(sql);
+            const string sql = "SELECT p.RoleID FROM player p WHERE p.UserID = @userId AND p.HomegameID = @homegameId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@userId", userId),
+                    new SimpleSqlParameter("@homegameId", homegameId)
+                };
+            return GetRole(sql, parameters);
         }
 
-        public RawHomegame AddHomegame(RawHomegame homegame)
+	    public RawHomegame AddHomegame(RawHomegame homegame)
         {
-            var sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', 0, {6}, {7}, {8}, '{9}') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.CurrencySymbol,
-                                homegame.CurrencyLayout, homegame.TimezoneName, Convert.ToInt32(homegame.CashgamesEnabled),
-                                Convert.ToInt32(homegame.TournamentsEnabled),
-                                Convert.ToInt32(homegame.VideosEnabled), homegame.HouseRules);
-            var id = _storageProvider.ExecuteInsert(sql);
+            const string sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES (@slug, @displayName, @description, @currencySymbol, @currencyLayout, @timeZone, 0, @cashgamesEnabled, @tournamentsEnabled, @videosEnabled, @houseRules) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+	        var parameters = new List<SimpleSqlParameter>
+	            {
+                    new SimpleSqlParameter("@slug", homegame.Slug),
+                    new SimpleSqlParameter("@displayName", homegame.DisplayName),
+                    new SimpleSqlParameter("@description", homegame.Description),
+                    new SimpleSqlParameter("@currencySymbol", homegame.CurrencySymbol),
+                    new SimpleSqlParameter("@currencyLayout", homegame.CurrencyLayout),
+                    new SimpleSqlParameter("@timeZone", homegame.TimezoneName),
+                    new SimpleSqlParameter("@cashgamesEnabled", homegame.CashgamesEnabled),
+                    new SimpleSqlParameter("@tournamentsEnabled", homegame.TournamentsEnabled),
+                    new SimpleSqlParameter("@videosEnabled", homegame.VideosEnabled),
+                    new SimpleSqlParameter("@houseRules", homegame.HouseRules)
+                };
+            var id = _storageProvider.ExecuteInsert(sql, parameters);
             homegame.Id = id;
             return homegame;
         }
 
         public bool UpdateHomegame(RawHomegame homegame)
         {
-            var sql = "UPDATE homegame SET Name = '{0}', DisplayName = '{1}', Description = '{2}', HouseRules = '{3}', Currency = '{4}', CurrencyLayout = '{5}', Timezone = '{6}', DefaultBuyin = {7}, CashgamesEnabled = {8}, TournamentsEnabled = {9}, VideosEnabled = {10} WHERE HomegameID = {11}";
-            sql = string.Format(sql, homegame.Slug, homegame.DisplayName, homegame.Description, homegame.HouseRules, homegame.CurrencySymbol, homegame.CurrencyLayout, homegame.TimezoneName, homegame.DefaultBuyin, Convert.ToInt32(homegame.CashgamesEnabled), Convert.ToInt32(homegame.TournamentsEnabled), Convert.ToInt32(homegame.VideosEnabled), homegame.Id);
-            var rowCount = _storageProvider.Execute(sql);
+            const string sql = "UPDATE homegame SET Name = @slug, DisplayName = @displayName, Description = @description, HouseRules = @houseRules, Currency = @currencySymbol, CurrencyLayout = @currencyLayout, Timezone = @timeZone, DefaultBuyin = @defaultBuyin, CashgamesEnabled = @cashgamesEnabled, TournamentsEnabled = @tournamentsEnabled, VideosEnabled = @videosEnabled WHERE HomegameID = @id";
+
+            var parameters = new List<SimpleSqlParameter>
+	            {
+                    new SimpleSqlParameter("@slug", homegame.Slug),
+                    new SimpleSqlParameter("@displayName", homegame.DisplayName),
+                    new SimpleSqlParameter("@description", homegame.Description),
+                    new SimpleSqlParameter("@houseRules", homegame.HouseRules),
+                    new SimpleSqlParameter("@currencySymbol", homegame.CurrencySymbol),
+                    new SimpleSqlParameter("@currencyLayout", homegame.CurrencyLayout),
+                    new SimpleSqlParameter("@timeZone", homegame.TimezoneName),
+                    new SimpleSqlParameter("@defaultBuyin", homegame.DefaultBuyin),
+                    new SimpleSqlParameter("@cashgamesEnabled", homegame.CashgamesEnabled),
+                    new SimpleSqlParameter("@tournamentsEnabled", homegame.TournamentsEnabled),
+                    new SimpleSqlParameter("@videosEnabled", homegame.VideosEnabled),
+                    new SimpleSqlParameter("@id", homegame.Id)
+                };
+            
+            var rowCount = _storageProvider.Execute(sql, parameters);
             return rowCount > 0;
         }
 
         public bool DeleteHomegame(string slug)
         {
-            var sql = "DELETE FROM homegame WHERE Name = '{0}'";
-            sql = string.Format(sql, slug);
-            var rowCount = _storageProvider.Execute(sql);
+            const string sql = "DELETE FROM homegame WHERE Name = @slug";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@slug", slug)
+                };
+            var rowCount = _storageProvider.Execute(sql, parameters);
             return rowCount > 0;
         }
 
@@ -111,22 +150,6 @@ namespace Infrastructure.Data.SqlServer {
                 return reader.GetInt("HomegameID");
             }
             return null;
-        }
-
-        private string GetHomegameBaseSql()
-		{
-		    return "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h ";
-		}
-
-        private string GetHomegameBaseSql(IEnumerable<int> ids)
-        {
-            var idList = GetIdListForSql(ids);
-            return string.Concat(GetHomegameBaseSql(), string.Format("WHERE h.HomegameID IN({0})", idList));
-        }
-
-        private string GetIdListForSql(IEnumerable<int> ids)
-        {
-            return string.Join(", ", ids.Select(o => string.Format("'{0}'", o)).ToArray());
         }
 
 		private RawHomegame CreateRawHomegame(IStorageDataReader reader){
@@ -147,30 +170,42 @@ namespace Infrastructure.Data.SqlServer {
 			    };
 		}
 
-        private IList<RawHomegame> GetRawHomegameList(string sql)
+        private IList<RawHomegame> GetRawHomegameList(string sql, ListSqlParameter parameter)
         {
-            var reader = _storageProvider.Query(sql);
-            var homegames = new List<RawHomegame>();
-            while (reader.Read())
-            {
-                homegames.Add(CreateRawHomegame(reader));
-            }
-            return homegames;
+            var reader = _storageProvider.Query(sql, parameter);
+            return GetMany(CreateRawHomegame, reader);
         }
 
-        private RawHomegame GetRawHomegame(string sql)
+        private IList<RawHomegame> GetRawHomegameList(string sql, IList<SimpleSqlParameter> parameters)
         {
-            var reader = _storageProvider.Query(sql);
-            while (reader.Read())
-            {
-                return CreateRawHomegame(reader);
-            }
-            return null;
+            var reader = _storageProvider.Query(sql, parameters);
+            return GetMany(CreateRawHomegame, reader);
         }
 
-        private int GetRole(string sql)
+        private IList<T> GetMany<T>(Func<IStorageDataReader, T> func, IStorageDataReader reader)
         {
-            var reader = _storageProvider.Query(sql);
+            var list = new List<T>();
+            while (reader.Read())
+            {
+                list.Add(func(reader));
+            }
+            return list;
+        }
+
+        private RawHomegame GetRawHomegame(string sql, IList<SimpleSqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
+            return GetOne(CreateRawHomegame, reader);
+        }
+
+        private T GetOne<T>(Func<IStorageDataReader, T> func, IStorageDataReader reader)
+        {
+            return reader.Read() ? func(reader) : default(T);
+        }
+
+	    private int GetRole(string sql, IList<SimpleSqlParameter> parameters)
+        {
+            var reader = _storageProvider.Query(sql, parameters);
             while (reader.Read())
             {
                 return CreateRole(reader);
