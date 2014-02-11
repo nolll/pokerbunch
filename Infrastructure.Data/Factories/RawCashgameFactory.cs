@@ -19,7 +19,7 @@ namespace Infrastructure.Data.Factories
 
         public RawCashgameWithResults Create(IStorageDataReader reader)
         {
-            var location = reader.GetString("Location");
+            var location = reader.GetStringValue("Location");
             if (location == "")
             {
                 location = null;
@@ -27,10 +27,10 @@ namespace Infrastructure.Data.Factories
 
             return new RawCashgameWithResults
                 {
-                    Id = reader.GetInt("GameID"),
+                    Id = reader.GetIntValue("GameID"),
                     Location = location,
-                    Status = reader.GetInt("Status"),
-                    Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTime("Date")),
+                    Status = reader.GetIntValue("Status"),
+                    Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date")),
                     Results = new List<RawCashgameResult>()
                 };
         }

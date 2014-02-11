@@ -10,10 +10,10 @@ namespace Infrastructure.Data.Factories
         {
             return new RawPlayer
             {
-                DisplayName = reader.GetString("PlayerName"),
-                Role = reader.GetInt("RoleID"),
-                UserId = reader.GetInt("UserID"),
-                Id = reader.GetInt("PlayerID")
+                DisplayName = reader.GetStringValue("PlayerName"),
+                Role = reader.GetIntValue("RoleID"),
+                UserId = reader.GetIntValue("UserID"),
+                Id = reader.GetIntValue("PlayerID")
             };
         }
 

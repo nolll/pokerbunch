@@ -90,7 +90,7 @@ namespace Infrastructure.Data.SqlServer
             var reader = Query(sql, parameters);
             while (reader.Read())
             {
-                return reader.GetInt(columnName);
+                return reader.GetIntValue(columnName);
             }
             return null;
         }
@@ -101,7 +101,7 @@ namespace Infrastructure.Data.SqlServer
             var ids = new List<int>();
             while (reader.Read())
             {
-                ids.Add(reader.GetInt(columnName));
+                ids.Add(reader.GetIntValue(columnName));
             }
             return ids;
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.SqlServer;
 using NUnit.Framework;
 
@@ -156,7 +157,8 @@ namespace Tests.Infrastructure.Data.SqlServer
         private SqlServerHomegameStorage GetSut()
         {
             return new SqlServerHomegameStorage(
-                StorageProvider);
+                StorageProvider,
+                GetMock<IRawHomegameFactory>().Object);
         }
     }
 }

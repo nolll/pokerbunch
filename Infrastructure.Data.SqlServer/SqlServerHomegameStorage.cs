@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Data.Classes;
+using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer {
@@ -9,23 +9,21 @@ namespace Infrastructure.Data.SqlServer {
 	public class SqlServerHomegameStorage : IHomegameStorage
     {
 	    private readonly IStorageProvider _storageProvider;
+	    private readonly IRawHomegameFactory _rawHomegameFactory;
 
-        public SqlServerHomegameStorage(
-            IStorageProvider storageProvider)
-	    {
-	        _storageProvider = storageProvider;
-	    }
+	    public SqlServerHomegameStorage(
+            IStorageProvider storageProvider,
+            IRawHomegameFactory rawHomegameFactory)
+        {
+            _storageProvider = storageProvider;
+            _rawHomegameFactory = rawHomegameFactory;
+        }
 
-        public IList<int> GetAllIds()
+	    public IList<int> GetAllIds()
         {
             const string sql = "SELECT h.HomegameID FROM homegame h";
             var reader = _storageProvider.Query(sql);
-            var ids = new List<int>();
-            while (reader.Read())
-            {
-                ids.Add(reader.GetInt("HomegameID"));
-            }
-            return ids;
+	        return reader.GetIntList("HomegameID");
         }
 
         public int? GetIdBySlug(string slug)
@@ -42,7 +40,8 @@ namespace Infrastructure.Data.SqlServer {
         {
             const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
-            return GetRawHomegameList(sql, parameter);
+            var reader = _storageProvider.Query(sql, parameter);
+            return reader.GetList(_rawHomegameFactory.Create);
         }
 
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
@@ -52,7 +51,8 @@ namespace Infrastructure.Data.SqlServer {
                 {
                     new SimpleSqlParameter("@userId", userId)
                 };
-            return GetRawHomegameList(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.GetList(_rawHomegameFactory.Create);
         }
 
 		public RawHomegame GetHomegameByName(string slug){
@@ -61,8 +61,8 @@ namespace Infrastructure.Data.SqlServer {
                 {
                     new SimpleSqlParameter("@slug", slug)
                 };
-            
-            return GetRawHomegame(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.GetOne(_rawHomegameFactory.Create);
 		}
 
         public RawHomegame GetById(int id)
@@ -72,7 +72,8 @@ namespace Infrastructure.Data.SqlServer {
                 {
                     new SimpleSqlParameter("@id", id)
                 };
-            return GetRawHomegame(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.GetOne(_rawHomegameFactory.Create);
         }
         
         public int GetHomegameRole(int homegameId, int userId)
@@ -147,63 +148,12 @@ namespace Infrastructure.Data.SqlServer {
             var reader = _storageProvider.Query(sql, parameters);
             while (reader.Read())
             {
-                return reader.GetInt("HomegameID");
+                return reader.GetIntValue("HomegameID");
             }
             return null;
         }
 
-		private RawHomegame CreateRawHomegame(IStorageDataReader reader){
-			return new RawHomegame
-			    {
-			        Id = reader.GetInt("HomegameID"),
-			        Slug = reader.GetString("Name"),
-			        DisplayName = reader.GetString("DisplayName"),
-			        Description = reader.GetString("Description"),
-			        HouseRules = reader.GetString("HouseRules"),
-			        CurrencyLayout = reader.GetString("CurrencyLayout"),
-			        CurrencySymbol = reader.GetString("Currency"),
-			        TimezoneName = reader.GetString("Timezone"),
-			        DefaultBuyin = reader.GetInt("DefaultBuyin"),
-			        CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
-			        TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
-                    VideosEnabled = reader.GetBoolean("VideosEnabled")
-			    };
-		}
-
-        private IList<RawHomegame> GetRawHomegameList(string sql, ListSqlParameter parameter)
-        {
-            var reader = _storageProvider.Query(sql, parameter);
-            return GetMany(CreateRawHomegame, reader);
-        }
-
-        private IList<RawHomegame> GetRawHomegameList(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            return GetMany(CreateRawHomegame, reader);
-        }
-
-        private IList<T> GetMany<T>(Func<IStorageDataReader, T> func, IStorageDataReader reader)
-        {
-            var list = new List<T>();
-            while (reader.Read())
-            {
-                list.Add(func(reader));
-            }
-            return list;
-        }
-
-        private RawHomegame GetRawHomegame(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            return GetOne(CreateRawHomegame, reader);
-        }
-
-        private T GetOne<T>(Func<IStorageDataReader, T> func, IStorageDataReader reader)
-        {
-            return reader.Read() ? func(reader) : default(T);
-        }
-
-	    private int GetRole(string sql, IList<SimpleSqlParameter> parameters)
+        private int GetRole(string sql, IList<SimpleSqlParameter> parameters)
         {
             var reader = _storageProvider.Query(sql, parameters);
             while (reader.Read())
@@ -215,7 +165,7 @@ namespace Infrastructure.Data.SqlServer {
 
         private int CreateRole(IStorageDataReader reader)
         {
-            return reader.GetInt("RoleID");
+            return reader.GetIntValue("RoleID");
         }
 
 	}

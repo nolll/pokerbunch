@@ -11,18 +11,18 @@ namespace Infrastructure.Data.Factories
         {
             return new RawHomegame
             {
-                Id = reader.GetInt("HomegameID"),
-                Slug = reader.GetString("Name"),
-                DisplayName = reader.GetString("DisplayName"),
-                Description = reader.GetString("Description"),
-                HouseRules = reader.GetString("HouseRules"),
-                CurrencyLayout = reader.GetString("CurrencyLayout"),
-                CurrencySymbol = reader.GetString("Currency"),
-                TimezoneName = reader.GetString("Timezone"),
-                DefaultBuyin = reader.GetInt("DefaultBuyin"),
-                CashgamesEnabled = reader.GetBoolean("CashgamesEnabled"),
-                TournamentsEnabled = reader.GetBoolean("TournamentsEnabled"),
-                VideosEnabled = reader.GetBoolean("VideosEnabled")
+                Id = reader.GetIntValue("HomegameID"),
+                Slug = reader.GetStringValue("Name"),
+                DisplayName = reader.GetStringValue("DisplayName"),
+                Description = reader.GetStringValue("Description"),
+                HouseRules = reader.GetStringValue("HouseRules"),
+                CurrencyLayout = reader.GetStringValue("CurrencyLayout"),
+                CurrencySymbol = reader.GetStringValue("Currency"),
+                TimezoneName = reader.GetStringValue("Timezone"),
+                DefaultBuyin = reader.GetIntValue("DefaultBuyin"),
+                CashgamesEnabled = reader.GetBooleanValue("CashgamesEnabled"),
+                TournamentsEnabled = reader.GetBooleanValue("TournamentsEnabled"),
+                VideosEnabled = reader.GetBooleanValue("VideosEnabled")
             };
         }
 

@@ -11,15 +11,15 @@ namespace Infrastructure.Data.Factories
         {
             return new RawUser
             {
-                Id = reader.GetInt("UserID"),
-                UserName = reader.GetString("UserName"),
-                DisplayName = reader.GetString("DisplayName"),
-                RealName = reader.GetString("RealName"),
-                Email = reader.GetString("Email"),
-                GlobalRole = reader.GetInt("RoleID"),
-                Token = reader.GetString("Token"),
-                EncryptedPassword = reader.GetString("Password"),
-                Salt = reader.GetString("Salt")
+                Id = reader.GetIntValue("UserID"),
+                UserName = reader.GetStringValue("UserName"),
+                DisplayName = reader.GetStringValue("DisplayName"),
+                RealName = reader.GetStringValue("RealName"),
+                Email = reader.GetStringValue("Email"),
+                GlobalRole = reader.GetIntValue("RoleID"),
+                Token = reader.GetStringValue("Token"),
+                EncryptedPassword = reader.GetStringValue("Password"),
+                Salt = reader.GetStringValue("Salt")
             };
         }
 

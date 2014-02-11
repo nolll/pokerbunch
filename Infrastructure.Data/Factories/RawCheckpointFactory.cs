@@ -13,13 +13,13 @@ namespace Infrastructure.Data.Factories
         {
             return new RawCheckpoint
                 {
-                    GameId = reader.GetInt("GameID"),
-                    PlayerId = reader.GetInt("PlayerID"),
-                    Id = reader.GetInt("CheckpointID"),
-                    Type = reader.GetInt("Type"),
-                    Amount = reader.GetInt("Amount"),
-                    Stack = reader.GetInt("Stack"),
-                    Timestamp = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTime("TimeStamp"))
+                    GameId = reader.GetIntValue("GameID"),
+                    PlayerId = reader.GetIntValue("PlayerID"),
+                    Id = reader.GetIntValue("CheckpointID"),
+                    Type = reader.GetIntValue("Type"),
+                    Amount = reader.GetIntValue("Amount"),
+                    Stack = reader.GetIntValue("Stack"),
+                    Timestamp = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("TimeStamp"))
                 };
         }
 

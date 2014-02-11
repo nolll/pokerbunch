@@ -16,10 +16,10 @@ namespace Tests.Infrastructure.Data.Factories
             const int playerId = 3;
 
             var readerMock = GetMock<IStorageDataReader>();
-            readerMock.Setup(o => o.GetString("PlayerName")).Returns(playerName);
-            readerMock.Setup(o => o.GetInt("RoleID")).Returns(role);
-            readerMock.Setup(o => o.GetInt("UserID")).Returns(userId);
-            readerMock.Setup(o => o.GetInt("PlayerID")).Returns(playerId);
+            readerMock.Setup(o => o.GetStringValue("PlayerName")).Returns(playerName);
+            readerMock.Setup(o => o.GetIntValue("RoleID")).Returns(role);
+            readerMock.Setup(o => o.GetIntValue("UserID")).Returns(userId);
+            readerMock.Setup(o => o.GetIntValue("PlayerID")).Returns(playerId);
 
             var sut = GetSut();
             var result = sut.Create(readerMock.Object);

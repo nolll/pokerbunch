@@ -26,8 +26,8 @@ namespace Infrastructure.Data.SqlServer
                 {
                     new SimpleSqlParameter("@id", id)
                 };
-
-            return GetPlayer(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.GetOne(_rawPlayerFactory.Create);
         }
 
         public IList<RawPlayer> GetPlayerList(IList<int> ids)
@@ -126,16 +126,6 @@ namespace Infrastructure.Data.SqlServer
         private IList<int> GetPlayerIdList(string sql, IList<SimpleSqlParameter> parameters)
         {
             return _storageProvider.GetIntList(sql, "PlayerID", parameters);
-        }
-
-        private RawPlayer GetPlayer(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return _rawPlayerFactory.Create(reader);
-            }
-            return null;
         }
 
         private IList<RawPlayer> GetPlayerList(string sql, ListSqlParameter parameter)

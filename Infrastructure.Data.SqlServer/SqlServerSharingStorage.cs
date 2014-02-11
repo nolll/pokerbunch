@@ -61,7 +61,7 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql, parameters);
 		    var services = new List<string>();
 			while(reader.Read()){
-				services.Add(reader.GetString("ServiceName"));
+				services.Add(reader.GetStringValue("ServiceName"));
 			}
 			return services;
 		}

@@ -78,7 +78,7 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql);
             if (reader.Read())
             {
-                return reader.GetInt("GameID");
+                return reader.GetIntValue("GameID");
             }
             return null;
         }
@@ -90,7 +90,7 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql);
             if (reader.Read())
             {
-                return reader.GetInt("GameID");
+                return reader.GetIntValue("GameID");
             }
             return null;
         }
@@ -126,7 +126,7 @@ namespace Infrastructure.Data.SqlServer
             var ids = new List<int>();
             while (reader.Read())
             {
-                ids.Add(reader.GetInt("GameID"));
+                ids.Add(reader.GetIntValue("GameID"));
             }
             return ids;
         }
@@ -140,7 +140,7 @@ namespace Infrastructure.Data.SqlServer
 			var currentPlayerId = -1;
 			while(reader.Read())
 			{
-			    var gameId = reader.GetInt("GameID");
+			    var gameId = reader.GetIntValue("GameID");
 				if(gameId != currentGameId)
 				{
 				    currentGame = _rawCashgameFactory.Create(reader);
@@ -149,7 +149,7 @@ namespace Infrastructure.Data.SqlServer
 					currentResult = null;
 					currentPlayerId = -1;
 				}
-			    var playerId = reader.GetInt("PlayerID");
+			    var playerId = reader.GetIntValue("PlayerID");
 				if(playerId != currentPlayerId){
                     if (playerId != 0) // this was a null-check in the php site
                     {
@@ -158,7 +158,7 @@ namespace Infrastructure.Data.SqlServer
 						currentGame.AddResult(currentResult);
 					}
 				}
-			    var checkpointId = reader.GetInt("CheckpointID");
+			    var checkpointId = reader.GetIntValue("CheckpointID");
                 if (checkpointId != 0) // this was a null-check in the php site
                 {
 					var checkpoint = _rawCheckpointFactory.Create(reader);
@@ -176,7 +176,7 @@ namespace Infrastructure.Data.SqlServer
 			var years = new List<int>();
 			while(reader.Read())
             {
-				years.Add(reader.GetInt("Year"));
+				years.Add(reader.GetIntValue("Year"));
 			}
 			return years;
 		}
@@ -205,14 +205,14 @@ namespace Infrastructure.Data.SqlServer
 			var locations = new List<string>();
 			while(reader.Read())
             {
-				locations.Add(reader.GetString("Location"));
+				locations.Add(reader.GetStringValue("Location"));
 			}
 			return locations;
 		}
 
 		private RawCashgameResult RawCashgameResultFromDbRow(IStorageDataReader reader)
         {
-			var playerId = reader.GetInt("PlayerID");
+			var playerId = reader.GetIntValue("PlayerID");
 			return new RawCashgameResult(playerId);
 		}
 

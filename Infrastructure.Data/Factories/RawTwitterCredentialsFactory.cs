@@ -11,9 +11,9 @@ namespace Infrastructure.Data.Factories
         {
             return new RawTwitterCredentials
                 {
-                    TwitterName = reader.GetString("TwitterName"),
-                    Key = reader.GetString("Key"),
-                    Secret = reader.GetString("Secret")
+                    TwitterName = reader.GetStringValue("TwitterName"),
+                    Key = reader.GetStringValue("Key"),
+                    Secret = reader.GetStringValue("Secret")
                 };
         }
 
