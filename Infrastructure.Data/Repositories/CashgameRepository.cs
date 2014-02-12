@@ -97,7 +97,7 @@ namespace Infrastructure.Data.Repositories {
             return cashgames.OrderBy(o => o.Id).ToList();
         }
 
-        private IList<Cashgame> GetListUncached(IEnumerable<int> ids)
+        private IList<Cashgame> GetListUncached(IList<int> ids)
         {
             var rawCashgames = _cashgameStorage.GetGames(ids);
             return _cashgameFactory.CreateList(rawCashgames);

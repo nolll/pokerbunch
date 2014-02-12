@@ -33,18 +33,6 @@ namespace Tests.Infrastructure.Data.SqlServer
             return 0;
         }
 
-        public int? GetInt(string sql, string columnName, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return null;
-        }
-
-        public IList<int> GetIntList(string sql, string columnName, IList<SimpleSqlParameter> parameters = null)
-        {
-            Sql = GetFakeSql(sql, parameters);
-            return null;
-        }
-
         private string GetFakeSql(string sql, ListSqlParameter parameter)
         {
             var result = sql.Replace(parameter.ParameterName, parameter.ParameterNameList);
@@ -55,14 +43,14 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             if (parameters == null)
             {
-                return sql;
+                return sql.Trim();
             }
             var result = sql;
             foreach (var parameter in parameters)
             {
                 result = result.Replace(parameter.ParameterName, FormatValue(parameter.Value));
             }
-            return result;
+            return result.Trim();
         }
 
         private string FormatValue(object value)

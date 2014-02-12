@@ -23,7 +23,7 @@ namespace Infrastructure.Data.SqlServer {
         {
             const string sql = "SELECT h.HomegameID FROM homegame h";
             var reader = _storageProvider.Query(sql);
-	        return reader.GetIntList("HomegameID");
+	        return reader.ReadIntList("HomegameID");
         }
 
         public int? GetIdBySlug(string slug)
@@ -33,7 +33,8 @@ namespace Infrastructure.Data.SqlServer {
                 {
                     new SimpleSqlParameter("@slug", slug)
                 };
-            return GetHomegameId(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadInt("HomegameID");
         }
 
         public IList<RawHomegame> GetHomegames(IList<int> ids)
@@ -41,7 +42,7 @@ namespace Infrastructure.Data.SqlServer {
             const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.GetList(_rawHomegameFactory.Create);
+            return reader.ReadList(_rawHomegameFactory.Create);
         }
 
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
@@ -52,7 +53,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.GetList(_rawHomegameFactory.Create);
+            return reader.ReadList(_rawHomegameFactory.Create);
         }
 
 		public RawHomegame GetHomegameByName(string slug){
@@ -62,7 +63,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.GetOne(_rawHomegameFactory.Create);
+            return reader.ReadOne(_rawHomegameFactory.Create);
 		}
 
         public RawHomegame GetById(int id)
@@ -73,7 +74,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.GetOne(_rawHomegameFactory.Create);
+            return reader.ReadOne(_rawHomegameFactory.Create);
         }
         
         public int GetHomegameRole(int homegameId, int userId)
@@ -84,7 +85,9 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@userId", userId),
                     new SimpleSqlParameter("@homegameId", homegameId)
                 };
-            return GetRole(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            var role = reader.ReadInt("RoleID");
+            return role.HasValue ? role.Value : (int)Role.Guest;
         }
 
 	    public RawHomegame AddHomegame(RawHomegame homegame)
@@ -142,32 +145,5 @@ namespace Infrastructure.Data.SqlServer {
             var rowCount = _storageProvider.Execute(sql, parameters);
             return rowCount > 0;
         }
-
-        private int? GetHomegameId(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return reader.GetIntValue("HomegameID");
-            }
-            return null;
-        }
-
-        private int GetRole(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return CreateRole(reader);
-            }
-            return (int)Role.Guest;
-        }
-
-        private int CreateRole(IStorageDataReader reader)
-        {
-            return reader.GetIntValue("RoleID");
-        }
-
 	}
-
 }

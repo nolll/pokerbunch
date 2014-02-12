@@ -25,7 +25,8 @@ namespace Infrastructure.Data.SqlServer
                 {
                     new SimpleSqlParameter("@userId", id)
                 };
-            return GetUser(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadOne(_rawUserFactory.Create);
         }
 
         public int? GetUserIdByNameOrEmail(string userNameOrEmail)
@@ -35,7 +36,8 @@ namespace Infrastructure.Data.SqlServer
                 {
                     new SimpleSqlParameter("@query", userNameOrEmail)
                 };
-            return GetUserId(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadInt("UserID");
         }
 
         public int? GetUserIdByToken(string token)
@@ -45,20 +47,23 @@ namespace Infrastructure.Data.SqlServer
                 {
                     new SimpleSqlParameter("@token", token)
                 };
-            return GetUserId(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadInt("UserID");
         }
 
         public IList<RawUser> GetUserList(IList<int> ids)
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
-            return GetUserList(sql, parameter);
+            var reader = _storageProvider.Query(sql, parameter);
+            return reader.ReadList(_rawUserFactory.Create);
         }
 
         public IList<int> GetUserIdList()
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ORDER BY u.DisplayName";
-            return GetUserIdList(sql);
+            var reader = _storageProvider.Query(sql);
+            return reader.ReadIntList("UserID");
         }
 
         public bool UpdateUser(RawUser user)
@@ -103,36 +108,5 @@ namespace Infrastructure.Data.SqlServer
 			var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
 		}
-
-        private RawUser GetUser(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-            while (reader.Read())
-            {
-                return _rawUserFactory.Create(reader);
-            }
-            return null;
-        }
-
-        private int? GetUserId(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            return _storageProvider.GetInt(sql, "UserID", parameters);
-        }
-
-        private IList<RawUser> GetUserList(string sql, ListSqlParameter parameter)
-        {
-            var reader = _storageProvider.Query(sql, parameter);
-            var users = new List<RawUser>();
-            while (reader.Read())
-            {
-                users.Add(_rawUserFactory.Create(reader));
-            }
-            return users;
-        }
-
-        private IList<int> GetUserIdList(string sql)
-        {
-            return _storageProvider.GetIntList(sql, "UserID");
-        }
 	}
 }

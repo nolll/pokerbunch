@@ -84,26 +84,5 @@ namespace Infrastructure.Data.SqlServer
         {
             return parameters.Select(o => o.SqlParameter).ToArray();
         }
-
-        public int? GetInt(string sql, string columnName, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = Query(sql, parameters);
-            while (reader.Read())
-            {
-                return reader.GetIntValue(columnName);
-            }
-            return null;
-        }
-
-        public IList<int> GetIntList(string sql, string columnName, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = Query(sql, parameters);
-            var ids = new List<int>();
-            while (reader.Read())
-            {
-                ids.Add(reader.GetIntValue(columnName));
-            }
-            return ids;
-        }
 	}
 }

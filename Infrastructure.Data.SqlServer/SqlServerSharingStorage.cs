@@ -20,7 +20,8 @@ namespace Infrastructure.Data.SqlServer
 	            {
 	                new SimpleSqlParameter("@userId", userId)
 	            };
-			return GetServiceList(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadStringList("ServiceName");
 		}
 
 		public bool IsSharing(int userId, string sharingProvider)
@@ -31,7 +32,8 @@ namespace Infrastructure.Data.SqlServer
 	                new SimpleSqlParameter("@userId", userId),
                     new SimpleSqlParameter("@serviceName", sharingProvider)
 	            };
-            return GetSharingStatus(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.HasRows();
 		}
 
 		public void AddSharing(int userId, string sharingProvider)
@@ -54,22 +56,6 @@ namespace Infrastructure.Data.SqlServer
                     new SimpleSqlParameter("@serviceName", sharingProvider)
 	            };
             _storageProvider.Execute(sql, parameters);
-		}
-
-        private IList<string> GetServiceList(string sql, IList<SimpleSqlParameter> parameters)
-        {
-            var reader = _storageProvider.Query(sql, parameters);
-		    var services = new List<string>();
-			while(reader.Read()){
-				services.Add(reader.GetStringValue("ServiceName"));
-			}
-			return services;
-		}
-
-        private bool GetSharingStatus(string sql, IList<SimpleSqlParameter> parameters)
-        {
-			var reader = _storageProvider.Query(sql, parameters);
-            return reader.Read();
 		}
     }
 }

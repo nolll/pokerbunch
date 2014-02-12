@@ -25,7 +25,8 @@ namespace Infrastructure.Data.SqlServer
 	            {
 	                new SimpleSqlParameter("@userId", userId)
 	            };
-			return GetCredentialsFromSql(sql, parameters);
+            var reader = _storageProvider.Query(sql, parameters);
+            return reader.ReadOne(_rawTwitterCredentialsFactory.Create);
 		}
 
 		public int AddCredentials(int userId, RawTwitterCredentials credentials)
@@ -51,13 +52,5 @@ namespace Infrastructure.Data.SqlServer
             var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
 		}
-
-        private RawTwitterCredentials GetCredentialsFromSql(string sql, IList<SimpleSqlParameter> parameters)
-        {
-			var reader = _storageProvider.Query(sql, parameters);
-			return reader.Read() ? _rawTwitterCredentialsFactory.Create(reader) : null;
-        }
-
 	}
-
 }

@@ -11,7 +11,7 @@ namespace Infrastructure.Data.Interfaces
         RawCashgame GetGame(int cashgameId);
         int? GetRunningCashgameId(int homegameId);
         int? GetCashgameId(int homegameId, string dateStr);
-        IList<RawCashgameWithResults> GetGames(IEnumerable<int> ids);
+        IList<RawCashgameWithResults> GetGames(IList<int> idList);
         IList<int> GetGameIds(int homegameId, int? status = null, int? year = null);
 		IList<int> GetYears(int homegameId);
         bool UpdateGame(RawCashgameWithResults cashgame);

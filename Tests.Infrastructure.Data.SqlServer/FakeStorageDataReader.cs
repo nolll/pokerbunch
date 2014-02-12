@@ -11,17 +11,32 @@ namespace Tests.Infrastructure.Data.SqlServer
             return null;
         }
 
-        public IList<string> GetStringList(string key)
-        {
-            return new List<string>();
-        }
-
         public int GetIntValue(string key)
         {
             return 0;
         }
 
-        public IList<int> GetIntList(string key)
+        public string ReadString(string key)
+        {
+            return null;
+        }
+
+        public IList<string> ReadStringList(string key)
+        {
+            return new List<string>();
+        }
+
+        public bool HasRows()
+        {
+            return Read();
+        }
+
+        public int? ReadInt(string key)
+        {
+            return null;
+        }
+
+        public IList<int> ReadIntList(string key)
         {
             return new List<int>();
         }
@@ -51,12 +66,12 @@ namespace Tests.Infrastructure.Data.SqlServer
             return false;
         }
 
-        public IList<T> GetList<T>(Func<IStorageDataReader, T> func)
+        public IList<T> ReadList<T>(Func<IStorageDataReader, T> func)
         {
             return new List<T>();
         }
 
-        public T GetOne<T>(Func<IStorageDataReader, T> func)
+        public T ReadOne<T>(Func<IStorageDataReader, T> func)
         {
             return default(T);
         }

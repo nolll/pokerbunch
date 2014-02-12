@@ -69,17 +69,7 @@ namespace Infrastructure.Data.SqlServer
 		            new SimpleSqlParameter("@cashgameId", cashgameId)
 		        };
             var reader = _storageProvider.Query(sql, parameters);
-            return GetRawCheckpoints(reader);
-        }
-
-        private List<RawCheckpoint> GetRawCheckpoints(IStorageDataReader reader)
-        {
-            var checkpoints = new List<RawCheckpoint>();
-            while (reader.Read())
-            {
-                checkpoints.Add(_rawCheckpointFactory.Create(reader));
-            }
-            return checkpoints;
+            return reader.ReadList(_rawCheckpointFactory.Create);
         }
     }
 }

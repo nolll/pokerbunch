@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="FakeStorageDataReader.cs" />
     <Compile Include="FakeStorageProvider.cs" />
-    <Compile Include="SqlListParameterTests.cs" />
+    <Compile Include="ListSqlParameterTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="SqlServerCashgameStorageTests.cs" />
     <Compile Include="SqlServerCheckpointStorageTests.cs" />
@@ -65,6 +65,10 @@
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{F40E71CE-E7D3-4AF9-B944-6D97DBD42FD9}</Project>
       <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data.SqlServer\Infrastructure.Data.SqlServer.csproj">
       <Project>{CA832C49-BF07-4253-AD3E-ADC41383B2B9}</Project>

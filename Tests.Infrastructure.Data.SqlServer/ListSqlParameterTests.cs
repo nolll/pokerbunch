@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {
-    public class SqlListParameterTests
+    public class ListSqlParameterTests
     {
         [Test]
         public void ParameterName_IsSetOnConstruction()

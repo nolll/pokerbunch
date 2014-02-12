@@ -10,11 +10,12 @@ namespace Infrastructure.Data.Interfaces
         bool GetBooleanValue(string key);
         DateTime GetDateTimeValue(string key);
         bool Read();
-        IList<T> GetList<T>(Func<IStorageDataReader, T> func);
-        T GetOne<T>(Func<IStorageDataReader, T> func);
-        IList<int> GetIntList(string key);
-        IList<string> GetStringList(string key);
-        IList<bool> GetBooleanList(string key);
-        IList<DateTime> GetDateTimeList(string key);
+        IList<T> ReadList<T>(Func<IStorageDataReader, T> func);
+        T ReadOne<T>(Func<IStorageDataReader, T> func);
+        int? ReadInt(string key);
+        string ReadString(string key);
+        IList<int> ReadIntList(string key);
+        IList<string> ReadStringList(string key);
+        bool HasRows();
     }
 }

@@ -9,7 +9,5 @@ namespace Infrastructure.Data.SqlServer
         IStorageDataReader Query(string sql, ListSqlParameter parameter);
         int Execute(string sql, IList<SimpleSqlParameter> parameters = null);
         int ExecuteInsert(string sql, IList<SimpleSqlParameter> parameters = null);
-        int? GetInt(string sql, string columnName, IList<SimpleSqlParameter> parameters = null);
-        IList<int> GetIntList(string sql, string columnName, IList<SimpleSqlParameter> parameters = null);
     }
 }

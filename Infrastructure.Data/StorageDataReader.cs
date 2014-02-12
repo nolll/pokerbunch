@@ -20,7 +20,22 @@ namespace Infrastructure.Data
             return _reader.IsDBNull(ordinal) ? default(string) : _reader.GetString(ordinal);
         }
 
-        public IList<string> GetStringList(string key)
+        public int GetIntValue(string key)
+        {
+            var ordinal = _reader.GetOrdinal(key);
+            return _reader.IsDBNull(ordinal) ? default(int) : _reader.GetInt32(ordinal);
+        }
+
+        public string ReadString(string key)
+        {
+            if (Read())
+            {
+                return GetStringValue(key);
+            }
+            return null;
+        }
+
+        public IList<string> ReadStringList(string key)
         {
             var list = new List<string>();
             while (Read())
@@ -30,13 +45,21 @@ namespace Infrastructure.Data
             return list;
         }
 
-        public int GetIntValue(string key)
+        public bool HasRows()
         {
-            var ordinal = _reader.GetOrdinal(key);
-            return _reader.IsDBNull(ordinal) ? default(int) : _reader.GetInt32(ordinal);
+            return Read();
         }
 
-        public IList<int> GetIntList(string key)
+        public int? ReadInt(string key)
+        {
+            if (Read())
+            {
+                return GetIntValue(key);
+            }
+            return null;
+        }
+
+        public IList<int> ReadIntList(string key)
         {
             var list = new List<int>();
             while (Read())
@@ -52,16 +75,6 @@ namespace Infrastructure.Data
             return !_reader.IsDBNull(ordinal) && _reader.GetBoolean(ordinal);
         }
 
-        public IList<bool> GetBooleanList(string key)
-        {
-            var list = new List<bool>();
-            while (Read())
-            {
-                list.Add(GetBooleanValue(key));
-            }
-            return list;
-        }
-
         public DateTime GetDateTimeValue(string key)
         {
             var ordinal = _reader.GetOrdinal(key);
@@ -69,22 +82,12 @@ namespace Infrastructure.Data
             return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
         }
 
-        public IList<DateTime> GetDateTimeList(string key)
-        {
-            var list = new List<DateTime>();
-            while (Read())
-            {
-                list.Add(GetDateTimeValue(key));
-            }
-            return list;
-        }
-
         public bool Read()
         {
             return _reader.Read();
         }
 
-        public IList<T> GetList<T>(Func<IStorageDataReader, T> func)
+        public IList<T> ReadList<T>(Func<IStorageDataReader, T> func)
         {
             var list = new List<T>();
             while (Read())
@@ -94,11 +97,9 @@ namespace Infrastructure.Data
             return list;
         }
 
-        public T GetOne<T>(Func<IStorageDataReader, T> func)
+        public T ReadOne<T>(Func<IStorageDataReader, T> func)
         {
             return Read() ? func(this) : default(T);
         }
-
-        
     }
 }
