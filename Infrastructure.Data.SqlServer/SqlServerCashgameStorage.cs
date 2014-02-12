@@ -50,7 +50,7 @@ namespace Infrastructure.Data.SqlServer
 
         public RawCashgame GetGame(int cashgameId)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID = @cashgameId";
+            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID = @cashgameId ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@cashgameId", cashgameId)
@@ -91,7 +91,7 @@ namespace Infrastructure.Data.SqlServer
 
         public IList<RawCashgameWithResults> GetGames(IList<int> idList)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID IN (@idList) ORDER BY g.GameID, cp.PlayerID, cp.Timestamp";
+            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID IN (@idList) ORDER BY g.GameID, cp.PlayerID, cp.Timestamp ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
             var parameter = new ListSqlParameter("@idList", idList);
             var reader = _storageProvider.Query(sql, parameter);
             return GetGamesFromDbResult(reader);
