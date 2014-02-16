@@ -92,7 +92,7 @@
     <Compile Include="Classes\AvatarSize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Achievements\Badge.cs" />
+    <Compile Include="Classes\Achievements\IBadge.cs" />
     <Compile Include="Classes\Achievements\NumberOfGamesBadge.cs" />
   </ItemGroup>
   <ItemGroup>

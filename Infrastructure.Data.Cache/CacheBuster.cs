@@ -78,13 +78,19 @@ namespace Infrastructure.Data.Cache
         public void CashgameEnded(Homegame homegame, Cashgame cashgame)
         {
             ClearRunningCashgame(homegame.Id);
+            ClearCashgame(cashgame.Id);
             ClearCashgameList(homegame.Id, cashgame);
             ClearCashgameYears(homegame.Id);
         }
 
         public void CashgameUpdated(Cashgame cashgame)
         {
-            var singleCashgameKey = _cacheKeyProvider.CashgameKey(cashgame.Id);
+            ClearCashgame(cashgame.Id);
+        }
+
+        private void ClearCashgame(int cashgameId)
+        {
+            var singleCashgameKey = _cacheKeyProvider.CashgameKey(cashgameId);
             _cacheContainer.Remove(singleCashgameKey);
         }
 

@@ -1,9 +1,9 @@
 using System;
 
-namespace Core.Classes.Checkpoints{
-
-	public class Checkpoint{
-
+namespace Core.Classes.Checkpoints
+{
+	public class Checkpoint
+    {
 	    public int Amount { get; private set; }
         public int Stack { get; private set; }
         public DateTime Timestamp { get; private set; }

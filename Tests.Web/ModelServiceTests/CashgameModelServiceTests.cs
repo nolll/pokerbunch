@@ -30,6 +30,36 @@ namespace Tests.Web.ModelServiceTests
     public class CashgameModelServiceTests : MockContainer
     {
         [Test]
+        public void GetIndexUrl_CashgameServiceReturnsYear_ReturnsMatrixUrl()
+        {
+            const string slug = "a";
+            const string url = "b";
+            const int year = 1;
+
+            GetMock<ICashgameService>().Setup(o => o.GetLatestYear(slug)).Returns(year);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameMatrixUrl(slug, year)).Returns(url);
+
+            var sut = GetSut();
+            var result = sut.GetIndexUrl(slug);
+
+            Assert.AreEqual(url, result);
+        }
+
+        [Test]
+        public void GetIndexUrl_CashgameServiceReturnsNoYear_ReturnsAddCashgameUrl()
+        {
+            const string slug = "a";
+            const string url = "b";
+
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameAddUrl(slug)).Returns(url);
+
+            var sut = GetSut();
+            var result = sut.GetIndexUrl(slug);
+
+            Assert.AreEqual(url, result);
+        }
+
+        [Test]
         public void GetMatrixModel_Authorized_ReturnsModel()
         {
             const string slug = "a";

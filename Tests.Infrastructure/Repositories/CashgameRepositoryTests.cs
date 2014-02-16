@@ -8,12 +8,13 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Repositories{
-
-	public class CashgameRepositoryTests : MockContainer {
-
+namespace Tests.Infrastructure.Repositories
+{
+	public class CashgameRepositoryTests : MockContainer
+    {
 		[Test]
-		public void StartGame_CallsUpdateWithRawCashgame(){
+		public void StartGame_CallsUpdateWithRawCashgame()
+        {
 			var cashgame = new FakeCashgame();
             var rawCashgame = new RawCashgame();
 

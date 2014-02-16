@@ -10,9 +10,10 @@ using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
 
-namespace Web.Controllers{
-
-	public class CashgameController : ControllerBase {
+namespace Web.Controllers
+{
+	public class CashgameController : ControllerBase
+    {
 	    private readonly IAuthentication _authentication;
 	    private readonly IAuthorization _authorization;
 	    private readonly IUrlProvider _urlProvider;
@@ -93,7 +94,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Add(string slug, AddCashgamePostModel postModel){
+        public ActionResult Add(string slug, AddCashgamePostModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var command = _cashgameCommandProvider.GetAddCommand(slug, postModel);
@@ -115,7 +117,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-		public ActionResult Edit(string slug, string dateStr, CashgameEditPostModel postModel){
+		public ActionResult Edit(string slug, string dateStr, CashgameEditPostModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetEditCommand(slug, dateStr, postModel);
@@ -128,7 +131,8 @@ namespace Web.Controllers{
             return View("Edit/Edit", model);
 		}
 
-        public ActionResult Running(string slug){
+        public ActionResult Running(string slug)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if(!_cashgameService.CashgameIsRunning(slug))
@@ -139,42 +143,48 @@ namespace Web.Controllers{
 			return View("Running/RunningPage", model);
 		}
 
-        public ActionResult List(string slug, int? year = null){
+        public ActionResult List(string slug, int? year = null)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetListModel(slug, year);
             return View("List/List", model);
 		}
 
-        public ActionResult Chart(string slug, int? year = null){
+        public ActionResult Chart(string slug, int? year = null)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetChartModel(slug, year);
             return View("Chart/Chart", model);
 		}
 
-        public JsonResult ChartJson(string slug, int? year = null){
+        public JsonResult ChartJson(string slug, int? year = null)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetChartJsonModel(slug, year);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Action(string slug, string dateStr, string playerName){
+        public ActionResult Action(string slug, string dateStr, string playerName)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetActionModel(slug, dateStr, playerName);
 			return View("Action/Action", model);
 		}
 
-		public JsonResult ActionChartJson(string slug, string dateStr, string playerName){
+		public JsonResult ActionChartJson(string slug, string dateStr, string playerName)
+        {
             _authentication.RequireUser();
             _authorization.RequirePlayer(slug);
 		    var model = _cashgameModelService.GetActionChartJsonModel(slug, dateStr, playerName);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        public ActionResult Buyin(string slug, string playerName){
+        public ActionResult Buyin(string slug, string playerName)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -186,7 +196,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Buyin(string slug, string playerName, BuyinPostModel postModel){
+        public ActionResult Buyin(string slug, string playerName, BuyinPostModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -203,7 +214,8 @@ namespace Web.Controllers{
             return View("Buyin/Buyin", model);
 		}
 
-        public ActionResult Report(string slug, string playerName){
+        public ActionResult Report(string slug, string playerName)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -215,7 +227,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Report(string slug, string playerName, ReportPostModel postModel){
+        public ActionResult Report(string slug, string playerName, ReportPostModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -232,7 +245,8 @@ namespace Web.Controllers{
             return View("Report/Report", model);
 		}
 
-        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId){
+        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
+        {
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
@@ -244,7 +258,8 @@ namespace Web.Controllers{
             return Redirect(actionsUrl);
 		}
 
-        public ActionResult Cashout(string slug, string playerName){
+        public ActionResult Cashout(string slug, string playerName)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -256,7 +271,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-        public ActionResult Cashout(string slug, string playerName, CashoutPostModel postModel){
+        public ActionResult Cashout(string slug, string playerName, CashoutPostModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             if (!_authorization.CanActAsPlayer(slug, playerName))
@@ -273,7 +289,8 @@ namespace Web.Controllers{
             return View("Cashout/Cashout", model);
 		}
 
-        public ActionResult End(string slug){
+        public ActionResult End(string slug)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _cashgameModelService.GetEndGameModel(slug);
@@ -281,7 +298,8 @@ namespace Web.Controllers{
 		}
 
         [HttpPost]
-		public ActionResult End(string slug, EndPageModel postModel){
+		public ActionResult End(string slug, EndPageModel postModel)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var command = _cashgameCommandProvider.GetEndGameCommand(slug);
@@ -289,13 +307,13 @@ namespace Web.Controllers{
             return Redirect(_urlProvider.GetCashgameIndexUrl(slug));
 		}
 
-        public ActionResult Delete(string slug, string dateStr){
+        public ActionResult Delete(string slug, string dateStr)
+        {
 			_authentication.RequireUser();
             _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetDeleteCommand(slug, dateStr);
             command.Execute();
             return Redirect(_urlProvider.GetCashgameIndexUrl(slug));
 		}
-
 	}
 }

@@ -15,7 +15,8 @@ namespace Web.Models.PlayerModels.Badges{
 
         public PlayerBadgesModel(int playerId, IList<Cashgame> cashgames)
         {
-			if(cashgames == null){
+			if(cashgames == null)
+            {
 				return;
 			}
 			SetNumberOfGamesBadges(playerId, cashgames);

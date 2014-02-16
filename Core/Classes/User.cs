@@ -1,4 +1,5 @@
-namespace Core.Classes {
+namespace Core.Classes
+{
     public class User : ICacheable
     {
 	    public int Id { get; private set; }

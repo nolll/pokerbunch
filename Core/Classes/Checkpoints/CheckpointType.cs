@@ -1,6 +1,7 @@
-namespace Core.Classes.Checkpoints{
-
-	public enum CheckpointType{
+namespace Core.Classes.Checkpoints
+{
+	public enum CheckpointType
+    {
         Report = 0,
 		Buyin = 1,
 		Cashout = 2
@@ -21,5 +22,4 @@ namespace Core.Classes.Checkpoints{
             }
         }
     }
-
 }
