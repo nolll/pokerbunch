@@ -1,9 +1,9 @@
 using System;
 
-namespace Infrastructure.Data.Classes{
-
-	public class RawCheckpoint{
-
+namespace Infrastructure.Data.Classes
+{
+	public class RawCheckpoint
+    {
         public int GameId { get; set; }
         public int PlayerId { get; set; }
 	    public int Amount { get; set; }
@@ -11,7 +11,5 @@ namespace Infrastructure.Data.Classes{
 	    public DateTime Timestamp { get; set; }
 	    public int Id { get; set; }
         public int Type { get; set; }
-
 	}
-
 }

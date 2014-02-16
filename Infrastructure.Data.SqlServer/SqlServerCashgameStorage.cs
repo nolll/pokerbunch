@@ -20,7 +20,7 @@ namespace Infrastructure.Data.SqlServer
 	        _rawCashgameFactory = rawCashgameFactory;
 	    }
 
-        public int AddGame(Homegame homegame, RawCashgameWithResults cashgame)
+        public int AddGame(Homegame homegame, RawCashgame cashgame)
         {
             const string sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (@homegameId, @location, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, homegame.Timezone);
@@ -81,7 +81,7 @@ namespace Infrastructure.Data.SqlServer
             return reader.ReadInt("GameID");
         }
 
-        public IList<RawCashgameWithResults> GetGames(IList<int> idList)
+        public IList<RawCashgame> GetGames(IList<int> idList)
         {
             const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
             var parameter = new ListSqlParameter("@idList", idList);
@@ -121,7 +121,7 @@ namespace Infrastructure.Data.SqlServer
 		    return reader.ReadIntList("Year");
 		}
 
-        public bool UpdateGame(RawCashgameWithResults cashgame)
+        public bool UpdateGame(RawCashgame cashgame)
         {
             const string sql = "UPDATE game SET Location = @location, Date = @date, Status = @status WHERE GameID = @cashgameId";
             var parameters = new List<SimpleSqlParameter>

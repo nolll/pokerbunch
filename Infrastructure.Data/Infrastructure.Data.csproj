@@ -45,7 +45,6 @@
     <Compile Include="Cache\ICacheProvider.cs" />
     <Compile Include="Classes\RawCashgame.cs" />
     <Compile Include="Classes\RawCashgameResult.cs" />
-    <Compile Include="Classes\RawCashgameWithResults.cs" />
     <Compile Include="Classes\RawCheckpoint.cs" />
     <Compile Include="Classes\RawHomegame.cs" />
     <Compile Include="Classes\RawPlayer.cs" />

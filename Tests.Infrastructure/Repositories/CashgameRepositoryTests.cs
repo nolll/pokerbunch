@@ -15,7 +15,7 @@ namespace Tests.Infrastructure.Repositories{
 		[Test]
 		public void StartGame_CallsUpdateWithRawCashgame(){
 			var cashgame = new FakeCashgame();
-            var rawCashgame = new RawCashgameWithResults();
+            var rawCashgame = new RawCashgame();
 
             GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, null)).Returns(rawCashgame);
 
@@ -30,7 +30,7 @@ namespace Tests.Infrastructure.Repositories{
 		{
 		    var homegame = new FakeHomegame();
             var cashgame = new FakeCashgame();
-            var rawCashgame = new RawCashgameWithResults();
+            var rawCashgame = new RawCashgame();
 
             GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
 

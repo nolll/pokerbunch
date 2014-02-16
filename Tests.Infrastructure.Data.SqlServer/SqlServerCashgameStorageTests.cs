@@ -18,7 +18,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             const string location = "a";
             const int status = 2;
             var homegame = new FakeHomegame(homegameId);
-            var cashgame = new RawCashgameWithResults{Date = date, Location = location, Status = status};
+            var cashgame = new RawCashgame{Date = date, Location = location, Status = status};
 
             const string expectedSql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (1, 'a', 2, '0001-01-01 00:00:00') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             
@@ -159,7 +159,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             var date = DateTime.MinValue;
             const int status = 1;
             const int cashgameId = 2;
-            var cashgame = new RawCashgameWithResults{Location = location, Date = date, Status = status, Id = cashgameId};
+            var cashgame = new RawCashgame{Location = location, Date = date, Status = status, Id = cashgameId};
             const string expectedSql = "UPDATE game SET Location = 'a', Date = '0001-01-01 00:00:00', Status = 1 WHERE GameID = 2";
 
             var sut = GetSut();
