@@ -108,6 +108,9 @@ namespace Infrastructure.Data.Cache
 
         private bool TryGet<T>(string key, out T value) where T : class
         {
+            // Uncomment this row to temporarily disable cache in development
+            //value = null; return false;
+
             var o = _cacheProvider.Get(key);
 
             if (o is CacheableNullValue)

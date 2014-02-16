@@ -71,5 +71,13 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql, parameters);
             return reader.ReadList(_rawCheckpointFactory.Create);
         }
+
+        public IList<RawCheckpoint> GetCheckpoints(IList<int> cashgameIdList)
+        {
+            const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID IN (@cashgameIdList) ORDER BY cp.PlayerID, cp.Timestamp";
+            var parameter = new ListSqlParameter("@cashgameIdList", cashgameIdList);
+            var reader = _storageProvider.Query(sql, parameter);
+            return reader.ReadList(_rawCheckpointFactory.Create);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Application.Services;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
@@ -59,13 +60,25 @@ namespace Tests.Infrastructure.Data.SqlServer
         }
 
         [Test]
-        public void GetCheckpoints_CallsStorageWithCorrectSql()
+        public void GetCheckpoints_ForSingleCashgame_CallsStorageWithCorrectSql()
         {
             const int cashgameId = 1;
             const string expectedSql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = 1 ORDER BY cp.PlayerID, cp.Timestamp";
 
             var sut = GetSut();
             sut.GetCheckpoints(cashgameId);
+
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
+        }
+
+        [Test]
+        public void GetCheckpoints_ForCashgameList_CallsStorageWithCorrectSql()
+        {
+            var cashgameIds = new List<int>{1, 2, 3};
+            const string expectedSql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID IN (1,2,3) ORDER BY cp.PlayerID, cp.Timestamp";
+
+            var sut = GetSut();
+            sut.GetCheckpoints(cashgameIds);
 
             Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }

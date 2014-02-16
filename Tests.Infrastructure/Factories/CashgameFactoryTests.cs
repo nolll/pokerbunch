@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
+using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using NUnit.Framework;
@@ -23,7 +24,8 @@ namespace Tests.Infrastructure.Factories{
 		private int _id;
 
         [SetUp]
-		public void SetUp(){
+		public void SetUp()
+        {
 			_earliestBuyinTime = DateTime.Parse("2010-01-01 01:00:00");
 			_earliestCashoutTime = DateTime.Parse("2010-01-01 03:00:00");
 			_latestBuyinTime = DateTime.Parse("2010-01-01 02:00:00");
@@ -49,7 +51,8 @@ namespace Tests.Infrastructure.Factories{
 		}
 
         [Test]
-		public void Get_CashgamePropertiesAreSet(){
+		public void Get_CashgamePropertiesAreSet()
+        {
 			var sut = GetSut();
 			var result = sut.Create(_location, (int)_status, _id, _results);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
 using Core.Classes;
+using Core.Classes.Checkpoints;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
 
@@ -22,20 +23,6 @@ namespace Infrastructure.Data.Factories
             _cashgameResultFactory = cashgameResultFactory;
             _checkpointFactory = checkpointFactory;
             _globalization = globalization;
-        }
-
-        private Cashgame Create(RawCashgameWithResults rawGame)
-        {
-            var rawResults = rawGame.Results;
-            var results = rawResults.Select(GetResultFromRawResult).ToList();
-            return Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
-        }
-
-        public Cashgame Create(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints)
-        {
-            var rawResults = GetRawResults(rawCheckpoints);
-            var results = rawResults.Select(GetResultFromRawResult).ToList();
-            return Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
         }
 
         public Cashgame Create(string location, int? status = null, int? id = null, IList<CashgameResult> results = null)
@@ -71,9 +58,68 @@ namespace Infrastructure.Data.Factories
                 );
         }
 
-        public IList<Cashgame> CreateList(IEnumerable<RawCashgameWithResults> rawGames)
+        public Cashgame Create(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
         {
-            return rawGames.Select(Create).ToList();
+            var playerCheckpointMap = new Dictionary<int, IList<RawCheckpoint>>();
+            foreach (var checkpoint in checkpoints)
+            {
+                IList<RawCheckpoint> checkpointList;
+                if (!playerCheckpointMap.TryGetValue(checkpoint.PlayerId, out checkpointList))
+                {
+                    checkpointList = new List<RawCheckpoint>();
+                    playerCheckpointMap.Add(checkpoint.PlayerId, checkpointList);
+                }
+                checkpointList.Add(checkpoint);
+            }
+
+            var results = new List<CashgameResult>();
+            foreach (var playerKey in playerCheckpointMap.Keys)
+            {
+                var playerCheckpoints = playerCheckpointMap[playerKey].OrderBy(o => o.Timestamp);
+                var realCheckpoints = new List<Checkpoint>();
+                foreach (var playerCheckpoint in playerCheckpoints)
+                {
+                    realCheckpoints.Add(_checkpointFactory.Create(playerCheckpoint));
+                }
+                var playerResults = _cashgameResultFactory.Create(playerKey, realCheckpoints);
+                results.Add(playerResults);
+            }
+
+            return Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+        }
+
+        public IList<Cashgame> CreateList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
+        {
+            var checkpointMap = GetGameCheckpointMap(checkpoints);
+
+            var cashgames = new List<Cashgame>();
+            foreach (var rawGame in rawGames)
+            {
+                IList<RawCheckpoint> gameCheckpoints;
+                if (!checkpointMap.TryGetValue(rawGame.Id, out gameCheckpoints))
+                {
+                    continue;
+                }
+                var cashgame = Create(rawGame, gameCheckpoints);
+                cashgames.Add(cashgame);
+            }
+            return cashgames;
+        }
+
+        private IDictionary<int, IList<RawCheckpoint>> GetGameCheckpointMap(IEnumerable<RawCheckpoint> checkpoints)
+        {
+            var checkpointMap = new Dictionary<int, IList<RawCheckpoint>>();
+            foreach (var checkpoint in checkpoints)
+            {
+                IList<RawCheckpoint> checkpointList;
+                if (!checkpointMap.TryGetValue(checkpoint.GameId, out checkpointList))
+                {
+                    checkpointList = new List<RawCheckpoint>();
+                    checkpointMap.Add(checkpoint.GameId, checkpointList);
+                }
+                checkpointList.Add(checkpoint);
+            }
+            return checkpointMap;
         }
 
         private IEnumerable<RawCashgameResult> GetRawResults(IEnumerable<RawCheckpoint> rawCheckpoints)

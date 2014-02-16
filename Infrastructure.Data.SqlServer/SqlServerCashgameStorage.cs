@@ -11,16 +11,13 @@ namespace Infrastructure.Data.SqlServer
     {
 	    private readonly IStorageProvider _storageProvider;
         private readonly IRawCashgameFactory _rawCashgameFactory;
-        private readonly IRawCheckpointFactory _rawCheckpointFactory;
 
         public SqlServerCashgameStorage(
             IStorageProvider storageProvider,
-            IRawCashgameFactory rawCashgameFactory,
-            IRawCheckpointFactory rawCheckpointFactory)
+            IRawCashgameFactory rawCashgameFactory)
 	    {
 	        _storageProvider = storageProvider;
 	        _rawCashgameFactory = rawCashgameFactory;
-            _rawCheckpointFactory = rawCheckpointFactory;
 	    }
 
         public int AddGame(Homegame homegame, RawCashgameWithResults cashgame)
@@ -50,18 +47,13 @@ namespace Infrastructure.Data.SqlServer
 
         public RawCashgame GetGame(int cashgameId)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID = @cashgameId ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
+            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = @cashgameId ORDER BY g.GameId";
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@cashgameId", cashgameId)
 		        };
             var reader = _storageProvider.Query(sql, parameters);
-            var cashgames = GetGamesFromDbResult(reader);
-            if (cashgames.Count == 0)
-            {
-                return null;
-            }
-            return cashgames[0];
+            return reader.ReadOne(_rawCashgameFactory.Create);
         }
 
         public int? GetRunningCashgameId(int homegameId)
@@ -91,10 +83,10 @@ namespace Infrastructure.Data.SqlServer
 
         public IList<RawCashgameWithResults> GetGames(IList<int> idList)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID IN (@idList) ORDER BY g.GameID, cp.PlayerID, cp.Timestamp ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
+            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
             var parameter = new ListSqlParameter("@idList", idList);
             var reader = _storageProvider.Query(sql, parameter);
-            return GetGamesFromDbResult(reader);
+            return reader.ReadList(_rawCashgameFactory.Create);
         }
 
         public IList<int> GetGameIds(int homegameId, int? status = null, int? year = null)
@@ -117,43 +109,6 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql, parameters);
             return reader.ReadIntList("GameID");
         }
-
-		private List<RawCashgameWithResults> GetGamesFromDbResult(IStorageDataReader reader)
-        {
-            var cashgames = new List<RawCashgameWithResults>();
-            RawCashgameWithResults currentGame = null;
-			var currentGameId = -1;
-			RawCashgameResult currentResult = null;
-			var currentPlayerId = -1;
-			while(reader.Read())
-			{
-			    var gameId = reader.GetIntValue("GameID");
-				if(gameId != currentGameId)
-				{
-				    currentGame = _rawCashgameFactory.Create(reader);
-					currentGameId = currentGame.Id;
-					cashgames.Add(currentGame);
-					currentResult = null;
-					currentPlayerId = -1;
-				}
-			    var playerId = reader.GetIntValue("PlayerID");
-				if(playerId != currentPlayerId){
-                    if (playerId != 0) // this was a null-check in the php site
-                    {
-						currentResult = RawCashgameResultFromDbRow(reader);
-						currentPlayerId = currentResult.PlayerId;
-						currentGame.AddResult(currentResult);
-					}
-				}
-			    var checkpointId = reader.GetIntValue("CheckpointID");
-                if (checkpointId != 0) // this was a null-check in the php site
-                {
-					var checkpoint = _rawCheckpointFactory.Create(reader);
-					currentResult.AddCheckpoint(checkpoint);
-				}
-			}
-			return cashgames;
-		}
 
 		public IList<int> GetYears(int homegameId)
         {
@@ -201,13 +156,5 @@ namespace Infrastructure.Data.SqlServer
             var reader = _storageProvider.Query(sql, parameters);
 		    return reader.ReadStringList("Location");
 		}
-
-		private RawCashgameResult RawCashgameResultFromDbRow(IStorageDataReader reader)
-        {
-			var playerId = reader.GetIntValue("PlayerID");
-			return new RawCashgameResult(playerId);
-		}
-
 	}
-
 }

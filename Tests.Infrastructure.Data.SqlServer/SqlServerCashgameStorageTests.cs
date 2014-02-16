@@ -43,7 +43,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         public void GetGame_CallsStorageWithCorrectSql()
         {
             const int cashgameId = 1;
-            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID = 1 ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
+            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = 1 ORDER BY g.GameId";
 
             var sut = GetSut();
             sut.GetGame(cashgameId);
@@ -80,7 +80,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         public void GetGames_CallsStorageWithCorrectSql()
         {
             var idList = new List<int>{1, 2, 3};
-            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM game g LEFT JOIN cashgamecheckpoint cp ON g.GameID = cp.GameID WHERE g.GameID IN (1,2,3) ORDER BY g.GameID, cp.PlayerID, cp.Timestamp ORDER BY g.GameId, cp.PlayerId, cp.Timestamp";
+            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (1,2,3) ORDER BY g.GameID";
 
             var sut = GetSut();
             sut.GetGames(idList);
@@ -196,8 +196,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             return new SqlServerCashgameStorage(
                 StorageProvider,
-                GetMock<IRawCashgameFactory>().Object,
-                GetMock<IRawCheckpointFactory>().Object);
+                GetMock<IRawCashgameFactory>().Object);
         }
     }
 }

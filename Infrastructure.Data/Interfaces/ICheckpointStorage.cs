@@ -9,6 +9,7 @@ namespace Infrastructure.Data.Interfaces {
         bool UpdateCheckpoint(RawCheckpoint checkpoint);
         bool DeleteCheckpoint(int id);
         IList<RawCheckpoint> GetCheckpoints(int cashgameId);
+        IList<RawCheckpoint> GetCheckpoints(IList<int> cashgameIdList);
 	}
 
 }

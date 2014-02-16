@@ -7,8 +7,8 @@ using System.Linq;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 
-namespace Infrastructure.Data.Repositories {
-
+namespace Infrastructure.Data.Repositories
+{
     public class CashgameSearchCriteria
     {
         public Homegame Homegame { get; set; }
@@ -100,7 +100,8 @@ namespace Infrastructure.Data.Repositories {
         private IList<Cashgame> GetListUncached(IList<int> ids)
         {
             var rawCashgames = _cashgameStorage.GetGames(ids);
-            return _cashgameFactory.CreateList(rawCashgames);
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
+            return _cashgameFactory.CreateList(rawCashgames, rawCheckpoints);
         }
 
         private Cashgame GetByIdUncached(int cashgameId)
@@ -161,6 +162,5 @@ namespace Infrastructure.Data.Repositories {
         {
 			return _cashgameStorage.HasPlayed(player.Id);
 		}
-
 	}
 }
