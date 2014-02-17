@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
 using Web.Models.CashgameModels.Matrix;
@@ -36,6 +37,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     HasBestResult = hasBestResult,
                     WinnerClass = hasBestResult ? "winner" : null
                 };
+        }
+
+        public IList<CashgameMatrixTableCellModel> CreateList(IEnumerable<Cashgame> cashgames, Player player)
+        {
+            var models = new List<CashgameMatrixTableCellModel>();
+            if (cashgames != null)
+            {
+                foreach (var cashgame in cashgames)
+                {
+                    var result = cashgame.GetResult(player.Id);
+                    models.Add(Create(cashgame, result));
+                }
+            }
+            return models;
         }
     }
 }

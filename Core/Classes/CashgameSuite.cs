@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 
-namespace Core.Classes{
-    public class CashgameSuite {
-
+namespace Core.Classes
+{
+    public class CashgameSuite
+    {
 	    public IList<Cashgame> Cashgames { get; private set; }
         public IList<CashgameTotalResult> TotalResults { get; private set; }
 
@@ -13,6 +14,5 @@ namespace Core.Classes{
             Cashgames = cashgames;
             TotalResults = totalResults;
         }
-
 	}
 }

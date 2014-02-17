@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Web;
 using Application.Services;
 using Core.Classes;
@@ -27,8 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 
         public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)
         {
-            var cashgames = suite.Cashgames;
-            var winnings = result.Winnings;
+            var cellModels = _cashgameMatrixTableCellModelFactory.CreateList(suite.Cashgames, player);
             
             return new CashgameMatrixTableRowModel
                 {
@@ -36,24 +34,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName),
-                    CellModels = GetCellModels(cashgames, player),
-                    TotalResult = _globalization.FormatResult(homegame.Currency, winnings),
-                    ResultClass = _resultFormatter.GetWinningsCssClass(winnings)
+                    CellModels = cellModels,
+                    TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
+                    ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings)
                 };
-        }
-
-        private List<CashgameMatrixTableCellModel> GetCellModels(IEnumerable<Cashgame> cashgames, Player player)
-        {
-            var models = new List<CashgameMatrixTableCellModel>();
-            if (cashgames != null)
-            {
-                foreach (var cashgame in cashgames)
-                {
-                    var result = cashgame.GetResult(player.Id);
-                    models.Add(_cashgameMatrixTableCellModelFactory.Create(cashgame, result));
-                }
-            }
-            return models;
         }
     }
 }

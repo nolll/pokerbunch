@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Models.CashgameModels.Matrix;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
@@ -90,6 +91,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		[Test]
 		public void TableRow_CellModelsAreSet(){
             var totalResult = new FakeCashgameTotalResult();
+
+		    var cellModelList = new List<CashgameMatrixTableCellModel> {new CashgameMatrixTableCellModel()};
+            GetMock<ICashgameMatrixTableCellModelFactory>().Setup(o => o.CreateList(_suite.Cashgames, _player)).Returns(cellModelList);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);

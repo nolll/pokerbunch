@@ -25,18 +25,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
         public CashgameMatrixTableModel Create(Homegame homegame, CashgameSuite suite)
         {
             var showYear = SpansMultipleYears(suite.Cashgames);
+            var headerModels = suite.Cashgames.Select(cashgame => _cashgameMatrixTableColumnHeaderModelFactory.Create(homegame, cashgame, showYear)).ToList();
 
             return new CashgameMatrixTableModel
                 {
                     ShowYear = showYear,
-                    ColumnHeaderModels = GetHeaderModels(homegame, suite.Cashgames, showYear),
+                    ColumnHeaderModels = headerModels,
                     RowModels = GetRowModels(homegame, suite, suite.TotalResults)
                 };
-        }
-
-        private List<CashgameMatrixTableColumnHeaderModel> GetHeaderModels(Homegame homegame, IEnumerable<Cashgame> cashgames, bool showYear)
-        {
-            return cashgames.Select(cashgame => _cashgameMatrixTableColumnHeaderModelFactory.Create(homegame, cashgame, showYear)).ToList();
         }
 
         private List<CashgameMatrixTableRowModel> GetRowModels(Homegame homegame, CashgameSuite suite, IEnumerable<CashgameTotalResult> results)
