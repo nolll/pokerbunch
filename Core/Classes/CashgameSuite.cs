@@ -14,5 +14,22 @@ namespace Core.Classes
             Cashgames = cashgames;
             TotalResults = totalResults;
         }
+
+        public bool SpansMultipleYears()
+        {
+            var years = new List<int>();
+            foreach (var cashgame in Cashgames)
+            {
+                if (cashgame.StartTime.HasValue)
+                {
+                    var year = cashgame.StartTime.Value.Year;
+                    if (!years.Contains(year))
+                    {
+                        years.Add(year);
+                    }
+                }
+            }
+            return years.Count > 1;
+        }
 	}
 }

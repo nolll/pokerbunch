@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
+using Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -101,6 +102,23 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 			Assert.AreEqual(1, result.CellModels.Count);
 		}
 
+        [Test]
+        public void Results_IsCorrectLength()
+        {
+            var homegame = new FakeHomegame();
+            var suite = new FakeCashgameSuite();
+            var totalResult = new FakeCashgameTotalResult();
+            var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
+            var player = new FakePlayer();
+
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(It.IsAny<int>())).Returns(player);
+
+            var sut = GetSut();
+            var result = sut.CreateList(homegame, suite, totalResults);
+
+            Assert.AreEqual(2, result.Count);
+        }
+
 		private CashgameSuite GetSuite()
         {
             return new FakeCashgameSuite
@@ -115,7 +133,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameMatrixTableCellModelFactory>().Object,
                 GetMock<IResultFormatter>().Object,
-                GetMock<IGlobalization>().Object);
+                GetMock<IGlobalization>().Object,
+                GetMock<IPlayerRepository>().Object);
 		}
 	}
 

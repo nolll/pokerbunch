@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
-using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using NUnit.Framework;

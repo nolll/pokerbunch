@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Classes;
-using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -37,17 +36,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
         }
         
 		[Test]
-		public void Results_IsCorrectLength(){
-            _cashgames = GetCashgames();
-		    var suite = GetSuite(_cashgames);
-
-            var sut = GetSut();
-		    var result = sut.Create(_homegame, suite);
-
-			Assert.AreEqual(2, result.RowModels.Count);
-		}
-
-		[Test]
 		public void ShowYear_IsFalse(){
             _cashgames = GetCashgames();
             var suite = GetSuite(_cashgames);
@@ -72,8 +60,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		private CashgameMatrixTableModelFactory GetSut(){
 			return new CashgameMatrixTableModelFactory(
                 GetMock<ICashgameMatrixTableColumnHeaderModelFactory>().Object,
-                GetMock<ICashgameMatrixTableRowModelFactory>().Object,
-                GetMock<IPlayerRepository>().Object);
+                GetMock<ICashgameMatrixTableRowModelFactory>().Object);
 		}
 
 		private List<Cashgame> GetCashgames(int yearOne = 2010, int yearTwo = 2010)
