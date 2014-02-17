@@ -14,7 +14,7 @@ namespace Tests.Web.ModelFactoryTests.ChartModelFactories
             var sut = GetSut();
             var result = sut.Create();
 
-            Assert.AreEqual(expected, result.v);
+            Assert.AreEqual(expected, result.V);
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace Tests.Web.ModelFactoryTests.ChartModelFactories
             var sut = GetSut();
             var result = sut.Create((int?)null);
 
-            Assert.IsNull(result.v);
+            Assert.IsNull(result.V);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Tests.Web.ModelFactoryTests.ChartModelFactories
             var sut = GetSut();
             var result = sut.Create(val);
 
-            Assert.AreEqual(val, result.v);
+            Assert.AreEqual(val, result.V);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace Tests.Web.ModelFactoryTests.ChartModelFactories
             var sut = GetSut();
             var result = sut.Create(val);
 
-            Assert.AreEqual(expected, result.v);
+            Assert.AreEqual(expected, result.V);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tests.Web.ModelFactoryTests.ChartModelFactories
             var sut = GetSut();
             var result = sut.Create(val);
 
-            Assert.AreEqual(expected, result.v);
+            Assert.AreEqual(expected, result.V);
         }
 
         private ChartValueModelFactory GetSut()

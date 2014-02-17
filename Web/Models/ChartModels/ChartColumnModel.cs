@@ -1,17 +1,23 @@
-namespace Web.Models.ChartModels{
+using Newtonsoft.Json;
 
-	public class ChartColumnModel {
+namespace Web.Models.ChartModels
+{
+	public class ChartColumnModel
+    {
+        [JsonProperty("type")]
+		public string Type { get; set; }
 
-		public string type { get; set; }
-		public string label { get; set; }
-	    public string pattern { get; set; }
+        [JsonProperty("label")]
+        public string Label { get; set; }
 
-	    public ChartColumnModel(string type, string label, string pattern = null){
-			this.type = type;
-			this.label = label;
-			this.pattern = pattern;
+        [JsonProperty("pattern")]
+	    public string Pattern { get; set; }
+
+	    public ChartColumnModel(string type, string label, string pattern = null)
+        {
+			Type = type;
+			Label = label;
+			Pattern = pattern;
 		}
-
 	}
-
 }

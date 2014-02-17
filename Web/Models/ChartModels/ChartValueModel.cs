@@ -1,12 +1,18 @@
-namespace Web.Models.ChartModels{
-    public class ChartValueModel {
+using Newtonsoft.Json;
 
-	    public string v { get; set; }
-	    public string f { get; private set; }
+namespace Web.Models.ChartModels
+{
+    public class ChartValueModel
+    {
+	    [JsonProperty("v")]
+        public string V { get; set; }
+        
+        [JsonProperty("f")]
+        public string F { get; private set; }
 
         public ChartValueModel()
         {
-            f = null;
+            F = null;
         }
 
 	}

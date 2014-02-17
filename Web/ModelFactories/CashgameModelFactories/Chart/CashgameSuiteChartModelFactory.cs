@@ -28,8 +28,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         {
             return new ChartModel
                 {
-                    cols = GetColumnModels(suite.TotalResults),
-                    rows = GetRowModels(suite.Cashgames, suite.TotalResults)
+                    Columns = GetColumnModels(suite.TotalResults),
+                    Rows = GetRowModels(suite.Cashgames, suite.TotalResults)
                 };
         }
 
@@ -90,7 +90,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             values.AddRange(results.Select(result => _chartValueModelFactory.Create(0)));
             return new ChartRowModel
                 {
-                    c = values
+                    C = values
                 };
         }
 
@@ -106,7 +106,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             }
             return new ChartRowModel
                 {
-                    c = values
+                    C = values
                 };
         }
     }

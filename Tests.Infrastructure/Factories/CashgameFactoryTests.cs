@@ -8,8 +8,8 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Factories{
-
+namespace Tests.Infrastructure.Factories
+{
 	public class CashgameFactoryTests : MockContainer
     {
         private DateTime _earliestBuyinTime;
@@ -69,7 +69,5 @@ namespace Tests.Infrastructure.Factories{
                 GetMock<ICheckpointFactory>().Object,
                 GetMock<IGlobalization>().Object);
 		}
-
 	}
-
 }

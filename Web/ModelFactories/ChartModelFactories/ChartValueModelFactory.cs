@@ -10,7 +10,7 @@ namespace Web.ModelFactories.ChartModelFactories
         {
             return new ChartValueModel
             {
-                v = string.Empty
+                V = string.Empty
             };
         }
         
@@ -18,7 +18,7 @@ namespace Web.ModelFactories.ChartModelFactories
         {
             return new ChartValueModel
                 {
-                    v = val
+                    V = val
                 };
         }
 
@@ -26,14 +26,14 @@ namespace Web.ModelFactories.ChartModelFactories
         {
             return new ChartValueModel
                 {
-                    v = val.HasValue ? val.Value.ToString(CultureInfo.InvariantCulture) : null
+                    V = val.HasValue ? val.Value.ToString(CultureInfo.InvariantCulture) : null
                 };
         }
         
         public ChartValueModel Create(DateTime dateTime)
         {
             return new ChartValueModel{
-                v = FormatDate(dateTime)
+                V = FormatDate(dateTime)
             };
         }
 

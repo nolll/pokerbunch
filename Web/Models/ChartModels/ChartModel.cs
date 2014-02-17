@@ -1,19 +1,23 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Web.Models.ChartModels{
+namespace Web.Models.ChartModels
+{
+	public class ChartModel
+    {
+        [JsonProperty("cols")]
+	    public IList<ChartColumnModel> Columns { get; set; }
 
-	public class ChartModel {
-        
-	    public IList<ChartColumnModel> cols { get; set; }
-        public IList<ChartRowModel> rows { get; set; }
-        public string p { get; set; }
+        [JsonProperty("rows")]
+        public IList<ChartRowModel> Rows { get; set; }
+
+        [JsonProperty("p")]
+        public string P { get; set; }
 
         public ChartModel(){
-            cols = new List<ChartColumnModel>();
-            rows = new List<ChartRowModel>();
-			p = null;
+            Columns = new List<ChartColumnModel>();
+            Rows = new List<ChartRowModel>();
+			P = null;
 		}
-
 	}
-
 }

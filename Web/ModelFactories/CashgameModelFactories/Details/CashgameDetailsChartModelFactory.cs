@@ -32,8 +32,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
             return new ChartModel
                 {
-                    cols = GetActionColumns(players),
-                    rows = GetActionRows(homegame, cashgame, players)
+                    Columns = GetActionColumns(players),
+                    Rows = GetActionRows(homegame, cashgame, players)
                 };
         }
 
@@ -70,7 +70,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             values.AddRange(results.Select(result => _chartValueModelFactory.Create(result.Winnings)));
             return new ChartRowModel
                 {
-                    c = values
+                    C = values
                 };
         }
 
@@ -95,7 +95,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             }
             return new ChartRowModel
                 {
-                    c = values
+                    C = values
                 };
         }
     }

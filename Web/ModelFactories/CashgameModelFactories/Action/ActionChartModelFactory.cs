@@ -25,8 +25,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         {
             return new ChartModel
                 {
-                    cols = GetActionColumns(),
-			        rows = GetActionRows(homegame, cashgame, result)
+                    Columns = GetActionColumns(),
+			        Rows = GetActionRows(homegame, cashgame, result)
                 };
         }
 
@@ -85,7 +85,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                 };
             return new ChartRowModel
                 {
-                    c = values
+                    C = values
                 };
         }
     }
