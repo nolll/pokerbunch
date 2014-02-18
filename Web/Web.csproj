@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
+    <Compile Include="Commands\AdminCommands\AdminCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\LogoutCommand.cs" />
     <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
@@ -101,9 +102,11 @@
     <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\ReportCommand.cs" />
+    <Compile Include="Commands\AdminCommands\EmailTestCommand.cs" />
     <Compile Include="Commands\HomegameCommands\EditHomegameCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IHomegameCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinHomegameCommand.cs" />
+    <Compile Include="Commands\AdminCommands\IAdminCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\DeletePlayerCommand.cs" />
     <Compile Include="Commands\UserCommands\AddUserCommand.cs" />
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Commands\SharingCommands\SharingCommandProvider.cs" />
     <Compile Include="Commands\SharingCommands\TwitterStartCommand.cs" />
     <Compile Include="Commands\SharingCommands\TwitterStopCommand.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
     <Compile Include="ModelServices\HomeModelService.cs" />
@@ -181,6 +185,7 @@
     <Compile Include="ModelServices\Interfaces\IUserModelService.cs" />
     <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="ModelServices\UserModelService.cs" />
+    <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
@@ -665,6 +670,7 @@
     <Content Include="Views\User\List\List.cshtml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
+    <Content Include="Views\Admin\Email.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

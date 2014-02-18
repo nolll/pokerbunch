@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="CommandTests\AdminTests\AdminCommandProviderTests.cs" />
+    <Compile Include="CommandTests\AdminTests\EmailTestCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashgameCommandProviderTests.cs" />

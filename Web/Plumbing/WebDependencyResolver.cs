@@ -2,6 +2,7 @@
 using Castle.Core;
 using Castle.Windsor;
 using Plumbing;
+using Web.Commands.AdminCommands;
 using Web.Commands.AuthCommands;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
@@ -146,6 +147,7 @@ namespace Web.Plumbing
             RegisterComponent<IHomegameCommandProvider, HomegameCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
             RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
+            RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();
         }
 
     }
