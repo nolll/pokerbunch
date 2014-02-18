@@ -1,12 +1,10 @@
-namespace Web.Models.ChartModels{
-
-	class ChartNumberColumnModel : ChartColumnModel {
-
+namespace Web.Models.ChartModels
+{
+	class ChartNumberColumnModel : ChartColumnModel
+    {
 		public ChartNumberColumnModel(string label)
             : base("number", label)
         {
 		}
-
 	}
-
 }

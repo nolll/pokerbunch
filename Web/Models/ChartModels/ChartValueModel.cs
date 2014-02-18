@@ -14,7 +14,5 @@ namespace Web.Models.ChartModels
         {
             F = null;
         }
-
 	}
-
 }
