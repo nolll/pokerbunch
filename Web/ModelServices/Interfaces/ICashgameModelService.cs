@@ -3,6 +3,7 @@ using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Chart;
+using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
@@ -36,5 +37,6 @@ namespace Web.ModelServices
         ReportPageModel GetReportModel(string slug, ReportPostModel postModel = null);
         CashoutPageModel GetCashoutModel(string slug, CashoutPostModel postModel = null);
         EndPageModel GetEndGameModel(string slug);
+        EditCheckpointModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId);
     }
 }

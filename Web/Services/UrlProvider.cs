@@ -79,6 +79,12 @@ namespace Web.Services
             return string.Format(RouteFormats.CashgameCheckpointDelete, slug, dateStr, encodedPlayerName, checkpointId);
         }
 
+        public string GetCashgameCheckpointEditUrl(string slug, string dateStr, string playerName, int checkpointId)
+        {
+            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
+            return string.Format(RouteFormats.CashgameCheckpointEdit, slug, dateStr, encodedPlayerName, checkpointId);
+        }
+
         public string GetCashgameDeleteUrl(string slug, string dateStr)
         {
             return FormatCashgame(RouteFormats.CashgameDelete, slug, dateStr);

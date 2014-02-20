@@ -15,6 +15,7 @@ using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
@@ -103,6 +104,7 @@ namespace Web.Plumbing
             RegisterComponent<ISharingTwitterPageModelFactory, SharingTwitterPageModelFactory>();
             RegisterComponent<ICashgameListTableModelFactory, CashgameListTableModelFactory>();
             RegisterComponent<ICashgameListTableItemModelFactory, CashgameListTableItemModelFactory>();
+            RegisterComponent<IEditCheckpointPageModelFactory, EditCheckpointPageModelFactory>();
 
             // Model Factories
             RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();

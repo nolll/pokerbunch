@@ -28,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         public ChartModel Create(Homegame homegame, Cashgame cashgame)
         {
-            var players = _cashgameService.GetPlayers(cashgame);
+            var players = _cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
 
             return new ChartModel
                 {
@@ -40,7 +40,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private IList<ChartRowModel> GetActionRows(Homegame homegame, Cashgame cashgame, IList<Player> players)
         {
             var rowModels = new List<ChartRowModel>();
-            var results = cashgame.Results;
+            var results = cashgame.Results.OrderBy(o => o.PlayerId);
             foreach (var result in results)
             {
                 var totalBuyin = 0;
@@ -58,14 +58,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             }
             if (cashgame.Status == GameStatus.Running)
             {
-                rowModels.Add(GetCurrentStacks(homegame, results));
+                rowModels.Add(GetCurrentStacks(homegame.Timezone, results));
             }
             return rowModels;
         }
 
-        private ChartRowModel GetCurrentStacks(Homegame homegame, IEnumerable<CashgameResult> results)
+        private ChartRowModel GetCurrentStacks(TimeZoneInfo timeZone, IEnumerable<CashgameResult> results)
         {
-            var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), homegame.Timezone);
+            var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), timeZone);
             var values = new List<ChartValueModel> {_chartValueModelFactory.Create(timestamp)};
             values.AddRange(results.Select(result => _chartValueModelFactory.Create(result.Winnings)));
             return new ChartRowModel

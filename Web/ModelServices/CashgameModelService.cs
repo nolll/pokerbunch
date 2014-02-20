@@ -9,6 +9,7 @@ using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
@@ -23,6 +24,7 @@ using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Chart;
+using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
@@ -38,86 +40,6 @@ namespace Web.ModelServices
 {
     public class CashgameModelService : ICashgameModelService
     {
-        private readonly IHomegameRepository _homegameRepository;
-        private readonly IAuthentication _authentication;
-        private readonly IAuthorization _authorization;
-        private readonly IMatrixPageModelFactory _matrixPageModelFactory;
-        private readonly ICashgameService _cashgameService;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameToplistPageModelFactory _cashgameToplistPageModelFactory;
-        private readonly IUrlProvider _urlProvider;
-        private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
-        private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
-        private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
-        private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
-        private readonly IWebContext _webContext;
-        private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
-        private readonly ICashgameListPageModelFactory _cashgameListPageModelFactory;
-        private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
-        private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
-        private readonly IActionPageModelFactory _actionPageModelFactory;
-        private readonly IActionChartModelFactory _actionChartModelFactory;
-        private readonly IBuyinPageModelFactory _buyinPageModelFactory;
-        private readonly IReportPageModelFactory _reportPageModelFactory;
-        private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
-        private readonly IEndPageModelFactory _endPageModelFactory;
-
-        public CashgameModelService(
-            IHomegameRepository homegameRepository,
-            IAuthentication authentication,
-            IAuthorization authorization,
-            IMatrixPageModelFactory matrixPageModelFactory,
-            ICashgameService cashgameService,
-            ICashgameRepository cashgameRepository,
-            ICashgameToplistPageModelFactory cashgameToplistPageModelFactory,
-            IUrlProvider urlProvider,
-            ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
-            IPlayerRepository playerRepository,
-            ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
-            ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
-            IAddCashgamePageModelFactory addCashgamePageModelFactory,
-            ICashgameEditPageModelFactory cashgameEditPageModelFactory,
-            IWebContext webContext,
-            IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
-            ICashgameListPageModelFactory cashgameListPageModelFactory,
-            ICashgameChartPageModelFactory cashgameChartPageModelFactory,
-            ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
-            IActionPageModelFactory actionPageModelFactory,
-            IActionChartModelFactory actionChartModelFactory,
-            IBuyinPageModelFactory buyinPageModelFactory,
-            IReportPageModelFactory reportPageModelFactory,
-            ICashoutPageModelFactory cashoutPageModelFactory,
-            IEndPageModelFactory endPageModelFactory)
-        {
-            _homegameRepository = homegameRepository;
-            _authentication = authentication;
-            _authorization = authorization;
-            _matrixPageModelFactory = matrixPageModelFactory;
-            _cashgameService = cashgameService;
-            _cashgameRepository = cashgameRepository;
-            _cashgameToplistPageModelFactory = cashgameToplistPageModelFactory;
-            _urlProvider = urlProvider;
-            _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
-            _playerRepository = playerRepository;
-            _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
-            _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
-            _addCashgamePageModelFactory = addCashgamePageModelFactory;
-            _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
-            _webContext = webContext;
-            _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
-            _cashgameListPageModelFactory = cashgameListPageModelFactory;
-            _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
-            _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
-            _actionPageModelFactory = actionPageModelFactory;
-            _actionChartModelFactory = actionChartModelFactory;
-            _buyinPageModelFactory = buyinPageModelFactory;
-            _reportPageModelFactory = reportPageModelFactory;
-            _cashoutPageModelFactory = cashoutPageModelFactory;
-            _endPageModelFactory = endPageModelFactory;
-        }
-
         public string GetIndexUrl(string slug)
         {
             var year = _cashgameService.GetLatestYear(slug);
@@ -283,6 +205,14 @@ namespace Web.ModelServices
             return _endPageModelFactory.Create(user, homegame);
         }
 
+        public EditCheckpointModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId)
+        {
+            var user = _authentication.GetUser();
+            var homegame = _homegameRepository.GetByName(slug);
+            var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
+            return _editCheckpointPageModelFactory.Create(user, homegame, checkpoint, dateStr, playerName);
+        }
+
         private ToplistSortOrder GetToplistSortOrder()
         {
             var param = _webContext.GetQueryParam("orderby");
@@ -313,5 +243,90 @@ namespace Web.ModelServices
             return ListSortOrder.date;
         }
 
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly IAuthentication _authentication;
+        private readonly IAuthorization _authorization;
+        private readonly IMatrixPageModelFactory _matrixPageModelFactory;
+        private readonly ICashgameService _cashgameService;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameToplistPageModelFactory _cashgameToplistPageModelFactory;
+        private readonly IUrlProvider _urlProvider;
+        private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
+        private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
+        private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
+        private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
+        private readonly IWebContext _webContext;
+        private readonly IRunningCashgamePageModelFactory _runningCashgamePageModelFactory;
+        private readonly ICashgameListPageModelFactory _cashgameListPageModelFactory;
+        private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
+        private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
+        private readonly IActionPageModelFactory _actionPageModelFactory;
+        private readonly IActionChartModelFactory _actionChartModelFactory;
+        private readonly IBuyinPageModelFactory _buyinPageModelFactory;
+        private readonly IReportPageModelFactory _reportPageModelFactory;
+        private readonly ICashoutPageModelFactory _cashoutPageModelFactory;
+        private readonly IEndPageModelFactory _endPageModelFactory;
+        private readonly IEditCheckpointPageModelFactory _editCheckpointPageModelFactory;
+        private readonly ICheckpointRepository _checkpointRepository;
+
+        public CashgameModelService(
+            IHomegameRepository homegameRepository,
+            IAuthentication authentication,
+            IAuthorization authorization,
+            IMatrixPageModelFactory matrixPageModelFactory,
+            ICashgameService cashgameService,
+            ICashgameRepository cashgameRepository,
+            ICashgameToplistPageModelFactory cashgameToplistPageModelFactory,
+            IUrlProvider urlProvider,
+            ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
+            IPlayerRepository playerRepository,
+            ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
+            ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
+            IAddCashgamePageModelFactory addCashgamePageModelFactory,
+            ICashgameEditPageModelFactory cashgameEditPageModelFactory,
+            IWebContext webContext,
+            IRunningCashgamePageModelFactory runningCashgamePageModelFactory,
+            ICashgameListPageModelFactory cashgameListPageModelFactory,
+            ICashgameChartPageModelFactory cashgameChartPageModelFactory,
+            ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
+            IActionPageModelFactory actionPageModelFactory,
+            IActionChartModelFactory actionChartModelFactory,
+            IBuyinPageModelFactory buyinPageModelFactory,
+            IReportPageModelFactory reportPageModelFactory,
+            ICashoutPageModelFactory cashoutPageModelFactory,
+            IEndPageModelFactory endPageModelFactory,
+            IEditCheckpointPageModelFactory editCheckpointPageModelFactory,
+            ICheckpointRepository checkpointRepository)
+        {
+            _homegameRepository = homegameRepository;
+            _authentication = authentication;
+            _authorization = authorization;
+            _matrixPageModelFactory = matrixPageModelFactory;
+            _cashgameService = cashgameService;
+            _cashgameRepository = cashgameRepository;
+            _cashgameToplistPageModelFactory = cashgameToplistPageModelFactory;
+            _urlProvider = urlProvider;
+            _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
+            _playerRepository = playerRepository;
+            _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
+            _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
+            _addCashgamePageModelFactory = addCashgamePageModelFactory;
+            _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
+            _webContext = webContext;
+            _runningCashgamePageModelFactory = runningCashgamePageModelFactory;
+            _cashgameListPageModelFactory = cashgameListPageModelFactory;
+            _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
+            _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
+            _actionPageModelFactory = actionPageModelFactory;
+            _actionChartModelFactory = actionChartModelFactory;
+            _buyinPageModelFactory = buyinPageModelFactory;
+            _reportPageModelFactory = reportPageModelFactory;
+            _cashoutPageModelFactory = cashoutPageModelFactory;
+            _endPageModelFactory = endPageModelFactory;
+            _editCheckpointPageModelFactory = editCheckpointPageModelFactory;
+            _checkpointRepository = checkpointRepository;
+        }
     }
 }

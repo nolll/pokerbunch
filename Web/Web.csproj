@@ -117,6 +117,9 @@
     <Compile Include="Commands\SharingCommands\TwitterStartCommand.cs" />
     <Compile Include="Commands\SharingCommands\TwitterStopCommand.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
+    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
     <Compile Include="ModelServices\HomeModelService.cs" />
@@ -208,6 +211,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
+    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistSortOrder.cs" />
     <Compile Include="Models\NavigationModels\CashgamePage.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
@@ -671,6 +675,7 @@
     <None Include="Properties\PublishProfiles\pokerbunch-com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
     <Content Include="Views\Admin\Email.cshtml" />
+    <Content Include="Views\Cashgame\Checkpoints\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

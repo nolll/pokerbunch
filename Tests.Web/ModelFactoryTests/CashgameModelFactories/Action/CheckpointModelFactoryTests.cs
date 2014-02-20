@@ -86,15 +86,15 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		}
 
 		[Test]
-		public void DeleteUrl_IsSet()
+		public void EditUrl_IsSet()
 		{
-		    const string deleteUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointDeleteUrl(_homegame.Slug, _cashgame.DateString, _player.DisplayName, _checkpoint.Id)).Returns(deleteUrl);
+		    const string editUrl = "a";
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointEditUrl(_homegame.Slug, _cashgame.DateString, _player.DisplayName, _checkpoint.Id)).Returns(editUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
 
-            Assert.AreEqual(deleteUrl, result.EditUrl);
+            Assert.AreEqual(editUrl, result.EditUrl);
 		}
 
         private CheckpointModelFactory GetSut()

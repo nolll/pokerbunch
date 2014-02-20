@@ -60,6 +60,6 @@
         string GetCashgameActionUrl(string slug, string dateStr, string playerName);
 
         string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, string playerName, int checkpointId);
-        
+        string GetCashgameCheckpointEditUrl(string slug, string dateStr, string playerName, int checkpointId);
     }
 }

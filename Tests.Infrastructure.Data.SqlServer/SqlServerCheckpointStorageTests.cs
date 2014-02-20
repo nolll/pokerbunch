@@ -83,6 +83,18 @@ namespace Tests.Infrastructure.Data.SqlServer
             Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
 
+        [Test]
+        public void GetCheckpoint_CallsStorageWithCorrectSql()
+        {
+            const int checkpointId = 1;
+            const string expectedSql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.CheckpointID = 1";
+
+            var sut = GetSut();
+            sut.GetCheckpoint(checkpointId);
+
+            Assert.AreEqual(expectedSql, StorageProvider.Sql);
+        }
+
         private SqlServerCheckpointStorage GetSut()
         {
             return new SqlServerCheckpointStorage(

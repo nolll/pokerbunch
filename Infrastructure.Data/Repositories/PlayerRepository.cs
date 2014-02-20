@@ -40,7 +40,7 @@ namespace Infrastructure.Data.Repositories {
 	    public IList<Player> GetList(IList<int> ids)
         {
             var players = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
-            return players.OrderBy(o => o.DisplayName).ToList();
+            return players.ToList();
         }
 
         private IList<Player> GetListUncached(IList<int> ids)

@@ -35,6 +35,7 @@ namespace Web.Routing{
         //const cashgameRemoveResult = '/%1$s/cashgame/removeresult/%2$s';
         public const string RunningCashgame = "/{0}/cashgame/running";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
+        public const string CashgameCheckpointEdit = "/{0}/cashgame/editcheckpoint/{1}/{2}/{3}";
 
         public const string HomegameAdd = "/-/homegame/add";
         public const string HomegameAddConfirmation = "/-/homegame/created";

@@ -245,6 +245,14 @@ namespace Web.Controllers
             return View("Report/Report", model);
 		}
 
+        public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
+        {
+            _authentication.RequireUser();
+            _authorization.RequireManager(slug);
+            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId);
+            return View("Checkpoints/Edit", model);
+        }
+
         public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
         {
 			_authentication.RequireUser();

@@ -30,14 +30,14 @@ namespace Application.Services
 
         public CashgameSuite GetSuite(Homegame homegame, int? year = null)
         {
-            var players = _playerRepository.GetList(homegame);
+            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             return _cashgameSuiteFactory.Create(cashgames, players);
         }
 
         public CashgameFacts GetFacts(Homegame homegame, int? year = null)
         {
-            var players = _playerRepository.GetList(homegame);
+            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             return _cashgameFactsFactory.Create(cashgames, players);
         }

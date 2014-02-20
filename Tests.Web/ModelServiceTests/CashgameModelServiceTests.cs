@@ -11,6 +11,7 @@ using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
@@ -127,7 +128,9 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<IBuyinPageModelFactory>().Object,
                 GetMock<IReportPageModelFactory>().Object,
                 GetMock<ICashoutPageModelFactory>().Object,
-                GetMock<IEndPageModelFactory>().Object);
+                GetMock<IEndPageModelFactory>().Object,
+                GetMock<IEditCheckpointPageModelFactory>().Object,
+                GetMock<ICheckpointRepository>().Object);
         }
 
     }

@@ -69,7 +69,6 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Buyin\BuyinPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Cashout\CashoutPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsChartModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />

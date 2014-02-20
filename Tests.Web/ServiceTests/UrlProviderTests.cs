@@ -503,18 +503,32 @@ namespace Tests.Web.ServiceTests{
 	    }
 
         [Test]
-	    public void GetCashgameCheckpointDeleteUrl()
+        public void GetCashgameCheckpointDeleteUrl()
         {
             const string slug = "a";
             const string dateStr = "b";
             const string playerName = "c";
             const int checkpointId = 1;
 
-	        var sut = GetSut();
+            var sut = GetSut();
             var result = sut.GetCashgameCheckpointDeleteUrl(slug, dateStr, playerName, checkpointId);
 
             Assert.AreEqual("/a/cashgame/deletecheckpoint/b/c/1", result);
-	    }
+        }
+
+        [Test]
+        public void GetCashgameCheckpointEditUrl()
+        {
+            const string slug = "a";
+            const string dateStr = "b";
+            const string playerName = "c";
+            const int checkpointId = 1;
+
+            var sut = GetSut();
+            var result = sut.GetCashgameCheckpointEditUrl(slug, dateStr, playerName, checkpointId);
+
+            Assert.AreEqual("/a/cashgame/editcheckpoint/b/c/1", result);
+        }
 
         [Test]
 	    public void GetCashgameDetailsChartJsonUrl()

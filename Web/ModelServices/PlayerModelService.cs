@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using System.Linq;
+using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories.PlayerModelFactories;
@@ -56,7 +57,7 @@ namespace Web.ModelServices
         {
             var homegame = _homegameRepository.GetByName(slug);
             var isInManagerMode = _authorization.IsInRole(homegame, Role.Manager);
-            var players = _playerRepository.GetList(homegame);
+            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             return _playerListPageModelFactory.Create(_authentication.GetUser(), homegame, players, isInManagerMode);
         }
 
