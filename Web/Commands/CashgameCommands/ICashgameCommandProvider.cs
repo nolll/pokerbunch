@@ -1,6 +1,7 @@
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
+using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.Report;
 
@@ -16,5 +17,6 @@ namespace Web.Commands.CashgameCommands
         Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId);
         Command GetCashoutCommand(string slug, string playerName, CashoutPostModel postModel);
         Command GetDeleteCommand(string slug, string dateStr);
+        Command GetEditCheckpointCommand(string slug, string dateStr, int checkpointId, EditCheckpointPostModel postModel);
     }
 }

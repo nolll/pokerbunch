@@ -37,6 +37,6 @@ namespace Web.ModelServices
         ReportPageModel GetReportModel(string slug, ReportPostModel postModel = null);
         CashoutPageModel GetCashoutModel(string slug, CashoutPostModel postModel = null);
         EndPageModel GetEndGameModel(string slug);
-        EditCheckpointModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId);
+        EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel = null);
     }
 }

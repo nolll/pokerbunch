@@ -39,9 +39,10 @@ namespace Infrastructure.Data.SqlServer
 
 		public bool UpdateCheckpoint(RawCheckpoint checkpoint)
         {
-			const string sql = "UPDATE cashgamecheckpoint SET Amount = @amount, Stack = @stack WHERE CheckpointID = @checkpointId";
+			const string sql = "UPDATE cashgamecheckpoint SET Timestamp = @timestamp, Amount = @amount, Stack = @stack WHERE CheckpointID = @checkpointId";
             var parameters = new List<SimpleSqlParameter>
 		        {
+                    new SimpleSqlParameter("@timestamp", checkpoint.Timestamp),
 		            new SimpleSqlParameter("@amount", checkpoint.Amount),
 		            new SimpleSqlParameter("@stack", checkpoint.Stack),
 		            new SimpleSqlParameter("@checkpointId", checkpoint.Id)

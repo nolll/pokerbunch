@@ -1,7 +1,9 @@
+using System;
 using Application.Services;
 using Core.Classes.Checkpoints;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
+using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Report;
 
 namespace Web.ModelMappers
@@ -15,36 +17,40 @@ namespace Web.ModelMappers
             _timeProvider = timeProvider;
         }
 
+        public Checkpoint GetCheckpoint(EditCheckpointPostModel postModel, Checkpoint existingCheckpoint, TimeZoneInfo timeZone)
+        {
+            return new Checkpoint(
+                TimeZoneInfo.ConvertTimeToUtc(postModel.Timestamp, timeZone),
+                existingCheckpoint.Type,
+                postModel.Stack,
+                postModel.Amount,
+                existingCheckpoint.Id);
+        }
+
         public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
-            return new Checkpoint
-                (
+            return new Checkpoint(
                 _timeProvider.GetTime(),
                 CheckpointType.Cashout,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
-                id: existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0
-            );
+                existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
         }
 
         public Checkpoint GetCheckpoint(ReportPostModel postModel)
         {
-            return new Checkpoint
-            (
+            return new Checkpoint(
                 _timeProvider.GetTime(),
                 CheckpointType.Report,
-                postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0
-            );
+                postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0);
         }
 
         public Checkpoint GetCheckpoint(BuyinPostModel postModel)
         {
-            return new Checkpoint
-            (
+            return new Checkpoint(
                 _timeProvider.GetTime(),
                 CheckpointType.Buyin,
                 postModel.StackAmount + postModel.BuyinAmount,
-                postModel.BuyinAmount
-            );
+                postModel.BuyinAmount);
         }
 
     }

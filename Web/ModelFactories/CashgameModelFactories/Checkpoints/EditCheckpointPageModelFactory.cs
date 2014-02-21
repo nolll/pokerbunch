@@ -20,9 +20,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             _urlProvider = urlProvider;
         }
 
-        public EditCheckpointModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName)
+        public EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName)
         {
-            return new EditCheckpointModel
+            return new EditCheckpointPageModel
                 {
                     BrowserTitle = "Edit Checkpoint",
                     PageProperties = _pagePropertiesFactory.Create(user, homegame),
@@ -34,6 +34,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                     EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
                     StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"
                 };
+        }
+
+        public EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel)
+        {
+            var model = Create(user, homegame, checkpoint, dateStr, playerName);
+            if (postModel != null)
+            {
+                model.Timestamp = postModel.Timestamp;
+                model.Stack = postModel.Stack;
+                model.Amount = postModel.Amount;
+            }
+            return model;
         }
     }
 }

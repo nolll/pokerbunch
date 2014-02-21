@@ -6,6 +6,7 @@ using Web.ModelServices;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
+using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
@@ -250,6 +251,21 @@ namespace Web.Controllers
             _authentication.RequireUser();
             _authorization.RequireManager(slug);
             var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId);
+            return View("Checkpoints/Edit", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
+        {
+            _authentication.RequireUser();
+            _authorization.RequireManager(slug);
+            var command = _cashgameCommandProvider.GetEditCheckpointCommand(slug, dateStr, checkpointId, postModel);
+            if (command.Execute())
+            {
+                return Redirect(_urlProvider.GetCashgameActionUrl(slug, dateStr, playerName));
+            }
+            AddModelErrors(command.Errors);
+            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId, postModel);
             return View("Checkpoints/Edit", model);
         }
 

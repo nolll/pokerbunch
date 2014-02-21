@@ -205,12 +205,12 @@ namespace Web.ModelServices
             return _endPageModelFactory.Create(user, homegame);
         }
 
-        public EditCheckpointModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId)
+        public EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
         {
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
-            return _editCheckpointPageModelFactory.Create(user, homegame, checkpoint, dateStr, playerName);
+            return _editCheckpointPageModelFactory.Create(user, homegame, checkpoint, dateStr, playerName, postModel);
         }
 
         private ToplistSortOrder GetToplistSortOrder()

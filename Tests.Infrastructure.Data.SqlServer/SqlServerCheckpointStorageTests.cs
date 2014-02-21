@@ -35,11 +35,12 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             var checkpoint = new RawCheckpoint
                 {
+                    Timestamp = new DateTime(2000, 1, 1, 1, 1, 1),
                     Amount = 1,
                     Stack = 2,
                     Id = 3
                 };
-            const string expectedSql = "UPDATE cashgamecheckpoint SET Amount = 1, Stack = 2 WHERE CheckpointID = 3";
+            const string expectedSql = "UPDATE cashgamecheckpoint SET Timestamp = '2000-01-01 01:01:01', Amount = 1, Stack = 2 WHERE CheckpointID = 3";
 
             var sut = GetSut();
             sut.UpdateCheckpoint(checkpoint);

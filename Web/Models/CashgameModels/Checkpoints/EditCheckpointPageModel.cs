@@ -2,7 +2,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {
-    public class EditCheckpointModel : EditCheckpointPostModel, IPageModel
+    public class EditCheckpointPageModel : EditCheckpointPostModel, IPageModel
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }

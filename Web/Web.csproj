@@ -119,7 +119,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
-    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointModel.cs" />
+    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
     <Compile Include="ModelServices\HomeModelService.cs" />
