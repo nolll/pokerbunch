@@ -3,7 +3,7 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Factories.Interfaces{
 
-	public interface IPlayerFactory{
+	public interface IPlayerDataMapper{
 
 	    Player Create(RawPlayer rawPlayer);
 

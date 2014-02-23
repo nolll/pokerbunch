@@ -50,6 +50,8 @@
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
     <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
+    <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Services\Authentication.cs" />
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />

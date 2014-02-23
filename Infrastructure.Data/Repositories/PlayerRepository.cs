@@ -12,20 +12,20 @@ namespace Infrastructure.Data.Repositories {
 	public class PlayerRepository : IPlayerRepository
     {
 	    private readonly IPlayerStorage _playerStorage;
-	    private readonly IPlayerFactory _playerFactory;
+	    private readonly IPlayerDataMapper _playerDataMapper;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
 
 	    public PlayerRepository(
             IPlayerStorage playerStorage,
-            IPlayerFactory playerFactory,
+            IPlayerDataMapper playerDataMapper,
             ICacheContainer cacheContainer,
             ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster)
 	    {
 	        _playerStorage = playerStorage;
-	        _playerFactory = playerFactory;
+	        _playerDataMapper = playerDataMapper;
 	        _cacheContainer = cacheContainer;
 	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
@@ -46,7 +46,7 @@ namespace Infrastructure.Data.Repositories {
         private IList<Player> GetListUncached(IList<int> ids)
         {
             var rawPlayers = _playerStorage.GetPlayerList(ids);
-            return rawPlayers.Select(_playerFactory.Create).ToList();
+            return rawPlayers.Select(_playerDataMapper.Create).ToList();
         }
 
         private IList<int> GetIds(Homegame homegame)
@@ -64,7 +64,7 @@ namespace Infrastructure.Data.Repositories {
         private Player GetByIdUncached(int id)
         {
             var rawUser = _playerStorage.GetPlayerById(id);
-            return rawUser != null ? _playerFactory.Create(rawUser) : null;
+            return rawUser != null ? _playerDataMapper.Create(rawUser) : null;
         }
 
         public Player GetByName(Homegame homegame, string name)

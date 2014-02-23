@@ -58,7 +58,7 @@
     <Compile Include="Mappers\Interfaces\ICashgameDataMapper.cs" />
     <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
-    <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
+    <Compile Include="Factories\Interfaces\IPlayerDataMapper.cs" />
     <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Factories\Interfaces\IRawCheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\IRawHomegameFactory.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="Factories\Interfaces\IRawUserFactory.cs" />
     <Compile Include="Factories\Interfaces\ITwitterCredentialsFactory.cs" />
     <Compile Include="Factories\Interfaces\IUserFactory.cs" />
-    <Compile Include="Factories\PlayerFactory.cs" />
+    <Compile Include="Factories\PlayerDataMapper.cs" />
     <Compile Include="Factories\RawCashgameFactory.cs" />
     <Compile Include="Factories\RawCheckpointFactory.cs" />
     <Compile Include="Factories\RawHomegameFactory.cs" />
