@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Factories.Interfaces;
+using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 

@@ -42,11 +42,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="Caching\CacheBusterTests.cs" />
     <Compile Include="Data\Factories\RawCashgameFactoryTests.cs" />
-    <Compile Include="Factories\CashgameFactoryTests.cs" />
-    <Compile Include="Factories\CashgameFactsFactoryTests.cs" />
     <Compile Include="Factories\CashgameResultFactoryTests.cs" />
-    <Compile Include="Factories\CashgameSuiteFactoryTests.cs" />
-    <Compile Include="Factories\CashgameTotalResultFactoryTests.cs" />
     <Compile Include="Gravatar\GravatarTests.cs" />
     <Compile Include="Repositories\AuthenticationTests.cs" />
     <Compile Include="Repositories\AuthorizationTests.cs" />

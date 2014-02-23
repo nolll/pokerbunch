@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Application.Factories;
 using Application.Services;
 using Core.Classes;
-using Infrastructure.Data.Factories;
-using Infrastructure.Data.Factories.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Factories
+namespace Tests.Application.Factories
 {
 	public class CashgameFactoryTests : MockContainer
     {
@@ -65,8 +64,6 @@ namespace Tests.Infrastructure.Factories
 
 		private CashgameFactory GetSut(){
 			return new CashgameFactory(
-                GetMock<ICashgameResultFactory>().Object,
-                GetMock<ICheckpointFactory>().Object,
                 GetMock<IGlobalization>().Object);
 		}
 	}

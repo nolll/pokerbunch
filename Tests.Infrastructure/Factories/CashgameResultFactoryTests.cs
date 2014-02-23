@@ -14,10 +14,6 @@ namespace Tests.Infrastructure.Factories{
     {
         private List<Checkpoint> _checkpoints;
 
-        [SetUp]
-		public void SetUp(){
-		}
-
         [Test]
 		public void GetWinnings_ReturnsDifferenceBetweenLastCheckpointStackAndBuyin(){
 			var buyinCheckPoint = new FakeCheckpoint(new DateTime(), stack: 100, amount: 100, type: CheckpointType.Buyin);

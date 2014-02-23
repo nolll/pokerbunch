@@ -1,8 +1,8 @@
 using System;
+using Application.Factories;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Repositories;
-using Infrastructure.Data.Factories.Interfaces;
 using Web.ModelMappers;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;

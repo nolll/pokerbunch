@@ -1,6 +1,6 @@
-﻿using Core.Classes;
+﻿using Application.Factories;
+using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Factories.Interfaces;
 using Web.Models.CashgameModels.Add;
 
 namespace Web.Commands.CashgameCommands

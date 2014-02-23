@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
 using System.Linq;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -25,6 +28,7 @@ namespace Infrastructure.Data.Repositories
 	    private readonly ICheckpointStorage _checkpointStorage;
 	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
+	    private readonly ICashgameDataMapper _cashgameDataMapper;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
@@ -33,7 +37,8 @@ namespace Infrastructure.Data.Repositories
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
             ICacheKeyProvider cacheKeyProvider,
-            ICacheBuster cacheBuster)
+            ICacheBuster cacheBuster,
+            ICashgameDataMapper cashgameDataMapper)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cashgameFactory = cashgameFactory;
@@ -42,6 +47,7 @@ namespace Infrastructure.Data.Repositories
 	        _checkpointStorage = checkpointStorage;
 	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
+	        _cashgameDataMapper = cashgameDataMapper;
 	    }
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
@@ -101,14 +107,14 @@ namespace Infrastructure.Data.Repositories
         {
             var rawCashgames = _cashgameStorage.GetGames(ids);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
-            return _cashgameFactory.CreateList(rawCashgames, rawCheckpoints);
+            return _cashgameDataMapper.CreateList(rawCashgames, rawCheckpoints);
         }
 
         private Cashgame GetByIdUncached(int cashgameId)
         {
             var rawGame = _cashgameStorage.GetGame(cashgameId);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
-            return _cashgameFactory.Create(rawGame, rawCheckpoints);
+            return _cashgameDataMapper.Create(rawGame, rawCheckpoints);
         }
 
         private IList<int> GetIds(int homegameId, GameStatus? status = null, int? year = null)

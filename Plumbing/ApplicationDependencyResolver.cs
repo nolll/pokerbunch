@@ -1,5 +1,4 @@
 ﻿using Application.Factories;
-using Application.Factories.Interfaces;
 using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
@@ -8,6 +7,7 @@ using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.SqlServer;
 using Infrastructure.Integration.Gravatar;
@@ -79,6 +79,9 @@ namespace Plumbing
             RegisterComponent<ICashgameFactsFactory, CashgameFactsFactory>();
             RegisterComponent<ICheckpointFactory, CheckpointFactory>();
             RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
+
+            // Data Mappers
+            RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();
 
             // Services
             RegisterComponent<IEncryptionService, EncryptionService>();

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Application.Factories;
-using Application.Factories.Interfaces;
 using Core.Classes;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Factories{
+namespace Tests.Application.Factories{
 
 	class CashgameFactsFactoryTests : MockContainer
     {

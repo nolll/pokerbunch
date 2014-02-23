@@ -5,7 +5,7 @@ using Core.Classes;
 using NUnit.Framework;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Factories{
+namespace Tests.Application.Factories{
 
 	public class CashgameTotalResultFactoryTests {
 

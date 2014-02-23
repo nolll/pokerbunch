@@ -39,6 +39,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\CashgameFactoryTests.cs" />
+    <Compile Include="Factories\CashgameFactsFactoryTests.cs" />
+    <Compile Include="Factories\CashgameSuiteFactoryTests.cs" />
+    <Compile Include="Factories\CashgameTotalResultFactoryTests.cs" />
     <Compile Include="Services\CashgameServiceTests.cs" />
     <Compile Include="Services\PasswordSenderTests.cs" />
     <Compile Include="Services\InvitationSenderTests.cs" />

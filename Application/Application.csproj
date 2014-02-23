@@ -40,9 +40,11 @@
     <Compile Include="Exceptions\CashgameRunningException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Factories\CashgameFactory.cs" />
     <Compile Include="Factories\CashgameFactsFactory.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICashgameFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
