@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Mappers
             _cashgameFactory = cashgameFactory;
         }
 
-        public Cashgame Create(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
+        public Cashgame Map(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
         {
             var playerCheckpointMap = new Dictionary<int, IList<RawCheckpoint>>();
             foreach (var checkpoint in checkpoints)
@@ -54,7 +54,7 @@ namespace Infrastructure.Data.Mappers
             return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
         }
 
-        public IList<Cashgame> CreateList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
+        public IList<Cashgame> MapList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
         {
             var checkpointMap = GetGameCheckpointMap(checkpoints);
 
@@ -66,7 +66,7 @@ namespace Infrastructure.Data.Mappers
                 {
                     continue;
                 }
-                var cashgame = Create(rawGame, gameCheckpoints);
+                var cashgame = Map(rawGame, gameCheckpoints);
                 cashgames.Add(cashgame);
             }
             return cashgames;

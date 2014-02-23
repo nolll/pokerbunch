@@ -1,3 +1,4 @@
+using Application.Factories;
 using Core.Classes;
 using Web.Models.CashgameModels.Edit;
 
@@ -5,10 +6,16 @@ namespace Web.ModelMappers
 {
     public class CashgameModelMapper : ICashgameModelMapper
     {
-        public Cashgame GetCashgame(Cashgame cashgame, CashgameEditPostModel postModel)
+        private readonly ICashgameFactory _cashgameFactory;
+
+        public CashgameModelMapper(ICashgameFactory cashgameFactory)
         {
-            return new Cashgame
-                (
+            _cashgameFactory = cashgameFactory;
+        }
+
+        public Cashgame Map(Cashgame cashgame, CashgameEditPostModel postModel)
+        {
+            return _cashgameFactory.Create(
                     cashgame.Id,
                     postModel.Location,
                     cashgame.Status,
@@ -23,8 +30,7 @@ namespace Web.ModelMappers
                     cashgame.HasActivePlayers,
                     cashgame.TotalStacks,
                     cashgame.AverageBuyin,
-                    cashgame.DateString
-                );
+                    cashgame.DateString);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Application.Factories;
 using Application.Services;
 using Core.Classes;
 using Web.Models.HomegameModels.Add;
@@ -9,16 +10,19 @@ namespace Web.ModelMappers
     public class HomegameModelMapper : IHomegameModelMapper
     {
         private readonly ISlugGenerator _slugGenerator;
+        private readonly IHomegameFactory _homegameFactory;
 
-        public HomegameModelMapper(ISlugGenerator slugGenerator)
+        public HomegameModelMapper(
+            ISlugGenerator slugGenerator,
+            IHomegameFactory homegameFactory)
         {
             _slugGenerator = slugGenerator;
+            _homegameFactory = homegameFactory;
         }
 
         public Homegame GetHomegame(AddHomegamePostModel postModel)
         {
-            return new Homegame
-                (
+            return _homegameFactory.Create(
                     0,
                     _slugGenerator.GetSlug(postModel.DisplayName),
                     postModel.DisplayName,
@@ -26,14 +30,12 @@ namespace Web.ModelMappers
                     string.Empty,
                     TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
                     200,
-                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout)
-                );
+                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
 
         public Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
         {
-            return new Homegame
-                (
+            return _homegameFactory.Create(
                     homegame.Id,
                     homegame.Slug,
                     homegame.DisplayName,
@@ -41,8 +43,7 @@ namespace Web.ModelMappers
                     postModel.HouseRules,
                     TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
                     postModel.DefaultBuyin,
-                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout)
-                );
+                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
     }
 }

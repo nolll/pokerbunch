@@ -107,14 +107,14 @@ namespace Infrastructure.Data.Repositories
         {
             var rawCashgames = _cashgameStorage.GetGames(ids);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
-            return _cashgameDataMapper.CreateList(rawCashgames, rawCheckpoints);
+            return _cashgameDataMapper.MapList(rawCashgames, rawCheckpoints);
         }
 
         private Cashgame GetByIdUncached(int cashgameId)
         {
             var rawGame = _cashgameStorage.GetGame(cashgameId);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
-            return _cashgameDataMapper.Create(rawGame, rawCheckpoints);
+            return _cashgameDataMapper.Map(rawGame, rawCheckpoints);
         }
 
         private IList<int> GetIds(int homegameId, GameStatus? status = null, int? year = null)

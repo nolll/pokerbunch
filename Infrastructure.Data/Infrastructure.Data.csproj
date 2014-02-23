@@ -50,14 +50,14 @@
     <Compile Include="Classes\RawPlayer.cs" />
     <Compile Include="Classes\RawTwitterCredentials.cs" />
     <Compile Include="Classes\RawUser.cs" />
+    <Compile Include="Mappers\HomegameDataMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IHomegameDataMapper.cs" />
     <Compile Include="Mappers\CashgameDataMapper.cs" />
     <Compile Include="Factories\CashgameResultFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
-    <Compile Include="Factories\HomegameFactory.cs" />
     <Compile Include="Mappers\Interfaces\ICashgameDataMapper.cs" />
     <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
     <Compile Include="Factories\Interfaces\ICheckpointFactory.cs" />
-    <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
     <Compile Include="Factories\Interfaces\IPlayerFactory.cs" />
     <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Factories\Interfaces\IRawCheckpointFactory.cs" />

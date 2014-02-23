@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Application.Factories;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -34,7 +36,7 @@ namespace Tests.Infrastructure.Repositories{
 
             GetMock<IHomegameStorage>().Setup(o => o.GetIdBySlug(slug)).Returns(id);
             GetMock<IHomegameStorage>().Setup(o => o.GetById(id)).Returns(rawHomegame);
-            GetMock<IHomegameFactory>().Setup(o => o.Create(rawHomegame)).Returns(expectedHomegame);
+            GetMock<IHomegameDataMapper>().Setup(o => o.Map(rawHomegame)).Returns(expectedHomegame);
 
 		    var sut = GetSut();
             var result = sut.GetByName(slug);
@@ -50,7 +52,7 @@ namespace Tests.Infrastructure.Repositories{
 	        var rawHomegames = new List<RawHomegame>{new RawHomegame()};
 
             GetMock<IHomegameStorage>().Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);
-            GetMock<IHomegameFactory>().Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
+            GetMock<IHomegameDataMapper>().Setup(o => o.Map(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
 	        var sut = GetSut();
 
@@ -66,7 +68,7 @@ namespace Tests.Infrastructure.Repositories{
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame(), new RawHomegame() };
             GetMock<IHomegameStorage>().Setup(o => o.GetAllIds()).Returns(ids);
             GetMock<IHomegameStorage>().Setup(o => o.GetHomegames(ids)).Returns(homegamesFromDatabase);
-            GetMock<IHomegameFactory>().Setup(o => o.Create(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
+            GetMock<IHomegameDataMapper>().Setup(o => o.Map(It.IsAny<RawHomegame>())).Returns(new FakeHomegame());
 
 	        var sut = GetSut();
 
@@ -136,7 +138,8 @@ namespace Tests.Infrastructure.Repositories{
                 CacheContainerFake, 
                 GetMock<ICacheKeyProvider>().Object,
                 GetMock<ICacheBuster>().Object,
-                GetMock<IRawHomegameFactory>().Object);
+                GetMock<IRawHomegameFactory>().Object,
+                GetMock<IHomegameDataMapper>().Object);
         }
 
 	}

@@ -16,6 +16,41 @@ namespace Application.Factories
             _globalization = globalization;
         }
 
+        public Cashgame Create(
+            int id,
+            string location,
+            GameStatus status,
+            bool isStarted,
+            DateTime? startTime,
+            DateTime? endTime,
+            int duration,
+            IList<CashgameResult> results,
+            int playerCount,
+            int diff,
+            int turnover,
+            bool hasActivePlayers,
+            int totalStacks,
+            int averageBuyin,
+            string dateString)
+        {
+            return new Cashgame(
+                id,
+                location,
+                status,
+                isStarted,
+                startTime,
+                endTime,
+                duration,
+                results,
+                playerCount,
+                diff,
+                turnover,
+                hasActivePlayers,
+                totalStacks,
+                averageBuyin,
+                dateString);
+        }
+
         public Cashgame Create(string location, int? status = null, int? id = null, IList<CashgameResult> results = null)
         {
             if (results == null)
@@ -30,7 +65,7 @@ namespace Application.Factories
             var cashoutSum = GetCashoutSum(results);
             var dateString = startTime.HasValue ? _globalization.FormatIsoDate(startTime.Value) : string.Empty;
 
-            return new Cashgame(
+            return Create(
                 id.HasValue ? id.Value : 0,
                 location,
                 status.HasValue ? (GameStatus)status.Value : GameStatus.Created,

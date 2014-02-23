@@ -44,10 +44,12 @@
     <Compile Include="Factories\CashgameFactsFactory.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\HomegameFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
+    <Compile Include="Factories\Interfaces\IHomegameFactory.cs" />
     <Compile Include="Services\Authentication.cs" />
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />

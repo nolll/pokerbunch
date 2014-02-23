@@ -1,8 +1,9 @@
 using System;
 
-namespace Core.Classes{
-    public class Homegame : ICacheable{
-
+namespace Core.Classes
+{
+    public class Homegame : ICacheable
+    {
 	    public int Id { get; private set; }
 	    public string Slug { get; private set; }
         public string DisplayName { get; private set; }
@@ -38,7 +39,5 @@ namespace Core.Classes{
 	        TournamentsEnabled = false;
 	        VideosEnabled = false;
 	    }
-
 	}
-
 }

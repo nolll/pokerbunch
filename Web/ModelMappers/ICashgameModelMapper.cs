@@ -5,6 +5,6 @@ namespace Web.ModelMappers
 {
     public interface ICashgameModelMapper
     {
-        Cashgame GetCashgame(Cashgame cashgame, CashgameEditPostModel postModel);
+        Cashgame Map(Cashgame cashgame, CashgameEditPostModel postModel);
     }
 }

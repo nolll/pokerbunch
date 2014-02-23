@@ -82,6 +82,7 @@ namespace Plumbing
 
             // Data Mappers
             RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();
+            RegisterComponent<IHomegameDataMapper, HomegameDataMapper>();
 
             // Services
             RegisterComponent<IEncryptionService, EncryptionService>();

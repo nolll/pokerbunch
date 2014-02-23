@@ -39,7 +39,7 @@ namespace Web.Commands.CashgameCommands
             }
             var homegame = _homegameRepository.GetByName(_slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, _dateStr);
-            cashgame = _cashgameModelMapper.GetCashgame(cashgame, _model);
+            cashgame = _cashgameModelMapper.Map(cashgame, _model);
             _cashgameRepository.UpdateGame(cashgame);
             return true;
         }
