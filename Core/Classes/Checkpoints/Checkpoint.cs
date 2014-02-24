@@ -14,8 +14,8 @@ namespace Core.Classes.Checkpoints
             DateTime timestamp, 
             CheckpointType type,
             int stack,
-            int amount = default(int),
-            int id = default(int))
+            int amount,
+            int id)
 	    {
 	        Timestamp = timestamp;
 	        Type = type;

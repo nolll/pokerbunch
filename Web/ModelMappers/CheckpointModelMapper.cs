@@ -1,4 +1,5 @@
 using System;
+using Application.Factories;
 using Application.Services;
 using Core.Classes.Checkpoints;
 using Web.Models.CashgameModels.Buyin;
@@ -11,15 +12,19 @@ namespace Web.ModelMappers
     public class CheckpointModelMapper : ICheckpointModelMapper
     {
         private readonly ITimeProvider _timeProvider;
+        private readonly ICheckpointFactory _checkpointFactory;
 
-        public CheckpointModelMapper(ITimeProvider timeProvider)
+        public CheckpointModelMapper(
+            ITimeProvider timeProvider,
+            ICheckpointFactory checkpointFactory)
         {
             _timeProvider = timeProvider;
+            _checkpointFactory = checkpointFactory;
         }
 
         public Checkpoint GetCheckpoint(EditCheckpointPostModel postModel, Checkpoint existingCheckpoint, TimeZoneInfo timeZone)
         {
-            return new Checkpoint(
+            return _checkpointFactory.Create(
                 TimeZoneInfo.ConvertTimeToUtc(postModel.Timestamp, timeZone),
                 existingCheckpoint.Type,
                 postModel.Stack,
@@ -29,7 +34,7 @@ namespace Web.ModelMappers
 
         public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
-            return new Checkpoint(
+            return _checkpointFactory.Create(
                 _timeProvider.GetTime(),
                 CheckpointType.Cashout,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
@@ -38,7 +43,7 @@ namespace Web.ModelMappers
 
         public Checkpoint GetCheckpoint(ReportPostModel postModel)
         {
-            return new Checkpoint(
+            return _checkpointFactory.Create(
                 _timeProvider.GetTime(),
                 CheckpointType.Report,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0);
@@ -46,7 +51,7 @@ namespace Web.ModelMappers
 
         public Checkpoint GetCheckpoint(BuyinPostModel postModel)
         {
-            return new Checkpoint(
+            return _checkpointFactory.Create(
                 _timeProvider.GetTime(),
                 CheckpointType.Buyin,
                 postModel.StackAmount + postModel.BuyinAmount,

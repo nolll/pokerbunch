@@ -2,7 +2,6 @@ using System;
 using Application.Services;
 using Core.Classes;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories

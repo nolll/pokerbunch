@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Application.Factories;
 using Application.Services;
 using Core.Classes;
 using Core.Classes.Checkpoints;
 using Infrastructure.Data.Factories;
+using Infrastructure.Data.Mappers;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

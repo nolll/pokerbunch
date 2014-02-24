@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Classes;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer

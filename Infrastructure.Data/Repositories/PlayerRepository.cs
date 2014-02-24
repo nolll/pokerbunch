@@ -4,8 +4,8 @@ using Core.Classes;
 using Core.Repositories;
 using System.Linq;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories.Interfaces;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories {
 

@@ -5,7 +5,7 @@ using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Mappers;
 

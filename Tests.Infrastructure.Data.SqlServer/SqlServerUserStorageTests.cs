@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.SqlServer;
 using NUnit.Framework;
 

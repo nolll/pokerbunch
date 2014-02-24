@@ -1,7 +1,8 @@
 using Core.Classes;
 using Core.Repositories;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -9,22 +10,22 @@ namespace Infrastructure.Data.Repositories
     {
         private readonly ITwitterStorage _twitterStorage;
         private readonly IRawTwitterCredentialsFactory _rawTwitterCredentialsFactory;
-        private readonly ITwitterCredentialsFactory _twitterCredentialsFactory;
+        private readonly ITwitterCredentialsDataMapper _twitterCredentialsDataMapper;
 
         public TwitterRepository(
             ITwitterStorage twitterStorage,
             IRawTwitterCredentialsFactory rawTwitterCredentialsFactory,
-            ITwitterCredentialsFactory twitterCredentialsFactory)
+            ITwitterCredentialsDataMapper twitterCredentialsDataMapper)
         {
             _twitterStorage = twitterStorage;
             _rawTwitterCredentialsFactory = rawTwitterCredentialsFactory;
-            _twitterCredentialsFactory = twitterCredentialsFactory;
+            _twitterCredentialsDataMapper = twitterCredentialsDataMapper;
         }
 
         public TwitterCredentials GetCredentials(User user)
         {
             var rawCredentials = _twitterStorage.GetCredentials(user.Id);
-            return _twitterCredentialsFactory.Create(rawCredentials);
+            return _twitterCredentialsDataMapper.Map(rawCredentials);
         }
 
         public int AddCredentials(User user, TwitterCredentials credentials)
@@ -32,6 +33,5 @@ namespace Infrastructure.Data.Repositories
             var rawTwitterCredentials = _rawTwitterCredentialsFactory.Create(credentials);
             return _twitterStorage.AddCredentials(user.Id, rawTwitterCredentials);
         }
-
     }
 }

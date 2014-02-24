@@ -4,9 +4,8 @@ using System.Linq;
 using Application.Services;
 using Core.Classes;
 using Core.Classes.Checkpoints;
-using Infrastructure.Data.Factories.Interfaces;
 
-namespace Infrastructure.Data.Factories
+namespace Application.Factories
 {
     public class CashgameResultFactory : ICashgameResultFactory
     {

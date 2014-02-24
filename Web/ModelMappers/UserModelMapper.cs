@@ -1,3 +1,4 @@
+using Application.Factories;
 using Core.Classes;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.Edit;
@@ -6,9 +7,16 @@ namespace Web.ModelMappers
 {
     public class UserModelMapper : IUserModelMapper
     {
+        private readonly IUserFactory _userFactory;
+
+        public UserModelMapper(IUserFactory userFactory)
+        {
+            _userFactory = userFactory;
+        }
+
         public User GetUser(AddUserPostModel postModel, string token, string encryptedPassword, string salt)
         {
-            return new User(
+            return _userFactory.Create(
                 0,
                 postModel.UserName,
                 postModel.DisplayName,
@@ -22,7 +30,7 @@ namespace Web.ModelMappers
 
         public User GetUser(User user, EditUserPostModel postModel)
         {
-            return new User(
+            return _userFactory.Create(
                 user.Id,
                 user.UserName,
                 postModel.DisplayName,
@@ -36,7 +44,7 @@ namespace Web.ModelMappers
 
         public User GetUser(User user, string encryptedPassword, string salt)
         {
-            return new User(
+            return _userFactory.Create(
                 user.Id,
                 user.UserName,
                 user.DisplayName,

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -17,6 +19,7 @@ namespace Infrastructure.Data.Repositories
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheKeyProvider _cacheKeyProvider;
         private readonly ICacheBuster _cacheBuster;
+        private readonly IUserDataMapper _userDataMapper;
 
         public UserRepository(
             IUserStorage userStorage,
@@ -24,7 +27,8 @@ namespace Infrastructure.Data.Repositories
             IRawUserFactory rawUserFactory,
             ICacheContainer cacheContainer,
             ICacheKeyProvider cacheKeyProvider,
-            ICacheBuster cacheBuster)
+            ICacheBuster cacheBuster,
+            IUserDataMapper userDataMapper)
         {
             _userStorage = userStorage;
             _userFactory = userFactory;
@@ -32,6 +36,7 @@ namespace Infrastructure.Data.Repositories
             _cacheContainer = cacheContainer;
             _cacheKeyProvider = cacheKeyProvider;
             _cacheBuster = cacheBuster;
+            _userDataMapper = userDataMapper;
         }
 
         public User GetById(int id)
@@ -78,13 +83,13 @@ namespace Infrastructure.Data.Repositories
         private User GetByIdUncached(int id)
         {
             var rawUser = _userStorage.GetUserById(id);
-            return rawUser != null ? _userFactory.Create(rawUser) : null;
+            return rawUser != null ? _userDataMapper.Map(rawUser) : null;
         }
 
         private IList<User> GetListUncached(IList<int> ids)
         {
             var rawUsers = _userStorage.GetUserList(ids);
-            return rawUsers.Select(_userFactory.Create).ToList();
+            return rawUsers.Select(_userDataMapper.Map).ToList();
         }
 
         private int? GetIdByToken(string token)

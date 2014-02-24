@@ -2,9 +2,8 @@ using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories.Interfaces;
 
-namespace Infrastructure.Data.Factories
+namespace Infrastructure.Data.Mappers
 {
     public class PlayerDataMapper : IPlayerDataMapper
     {

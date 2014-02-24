@@ -1,6 +1,5 @@
 ﻿using Application.Factories;
 using Core.Repositories;
-using Infrastructure.Data.Factories.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

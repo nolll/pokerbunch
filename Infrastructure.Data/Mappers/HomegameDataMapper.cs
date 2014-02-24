@@ -2,7 +2,6 @@ using System;
 using Application.Factories;
 using Core.Classes;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories.Interfaces;
 
 namespace Infrastructure.Data.Mappers
 {

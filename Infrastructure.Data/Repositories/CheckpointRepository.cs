@@ -2,8 +2,9 @@ using Core.Classes;
 using Core.Classes.Checkpoints;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories.Interfaces;
+using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -12,18 +13,18 @@ namespace Infrastructure.Data.Repositories
         private readonly ICheckpointStorage _checkpointStorage;
         private readonly IRawCheckpointFactory _rawCheckpointFactory;
         private readonly ICacheBuster _cacheBuster;
-        private readonly ICheckpointFactory _checkpointFactory;
+        private readonly ICheckpointDataMapper _checkpointDataMapper;
 
         public CheckpointRepository(
             ICheckpointStorage checkpointStorage,
             IRawCheckpointFactory rawCheckpointFactory,
             ICacheBuster cacheBuster,
-            ICheckpointFactory checkpointFactory)
+            ICheckpointDataMapper checkpointDataMapper)
         {
             _checkpointStorage = checkpointStorage;
             _rawCheckpointFactory = rawCheckpointFactory;
             _cacheBuster = cacheBuster;
-            _checkpointFactory = checkpointFactory;
+            _checkpointDataMapper = checkpointDataMapper;
         }
 
         public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint)
@@ -52,7 +53,7 @@ namespace Infrastructure.Data.Repositories
         public Checkpoint GetCheckpoint(int checkpointId)
         {
             var rawCheckpoint = _checkpointStorage.GetCheckpoint(checkpointId);
-            return rawCheckpoint != null ? _checkpointFactory.Create(rawCheckpoint) : null;
+            return rawCheckpoint != null ? _checkpointDataMapper.Map(rawCheckpoint) : null;
         }
     }
 }
