@@ -25,6 +25,7 @@ namespace Web
                 GetCssUrl("label"),
                 GetCssUrl("icon"),
                 GetCssUrl("checkpoint-list"),
+                GetCssUrl("achievements"),
                 GetCssUrl("print"));
             lessBundle.Transforms.Add(new CssMinify());
             bundles.Add(lessBundle);

@@ -214,6 +214,8 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistSortOrder.cs" />
     <Compile Include="Models\NavigationModels\CashgamePage.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -260,7 +262,7 @@
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerConfirmationPageModelFactory.cs" />
-    <Compile Include="ModelFactories\PlayerModelFactories\IinvitePlayerPageModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\InvitePlayerConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\InvitePlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IAddPlayerConfirmationPageModelFactory.cs" />
@@ -348,6 +350,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="favicon.ico" />
+    <Content Include="FrontEnd\Css\achievements.css">
+      <DependentUpon>achievements.less</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\cashgame-matrix.css">
       <DependentUpon>cashgame-matrix.less</DependentUpon>
     </Content>
@@ -514,6 +519,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
     <Content Include="FrontEnd\Css\label.less" />
+    <Content Include="FrontEnd\Css\achievements.less" />
     <None Include="FrontEnd\Css\sortable-table.less" />
     <None Include="FrontEnd\Css\cashgame-matrix.less" />
     <None Include="FrontEnd\Css\cashgame-results-form.less" />
@@ -672,6 +678,7 @@
     <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
     <Content Include="Views\Admin\Email.cshtml" />
     <Content Include="Views\Cashgame\Checkpoints\Edit.cshtml" />
+    <Content Include="Views\Player\PlayerBadge.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

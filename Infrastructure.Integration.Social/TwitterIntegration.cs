@@ -47,12 +47,10 @@ namespace Infrastructure.Integration.Social
             service.AuthenticateWith(accessToken.Token, accessToken.TokenSecret);
             var twitterUser = service.VerifyCredentials(new VerifyCredentialsOptions());
 
-            return new TwitterCredentials
-                (
+            return _twitterCredentialsFactory.Create(
                     accessToken.Token,
                     accessToken.TokenSecret,
-                    twitterUser.ScreenName
-                );
+                    twitterUser.ScreenName);
         }
 
         private TwitterService GetService()

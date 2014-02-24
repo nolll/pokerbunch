@@ -3,7 +3,6 @@ using Application.Services;
 using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.PlayerModels.Badges;
 using Web.Models.PlayerModels.Details;
 
 namespace Web.ModelFactories.PlayerModelFactories
@@ -14,24 +13,31 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IUrlProvider _urlProvider;
         private readonly IPlayerFactsModelFactory _playerFactsModelFactory;
+        private readonly IPlayerBadgesModelFactory _playerBadgesModelFactory;
 
         public PlayerDetailsPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IAvatarModelFactory avatarModelFactory,
             IUrlProvider urlProvider,
-            IPlayerFactsModelFactory playerFactsModelFactory)
+            IPlayerFactsModelFactory playerFactsModelFactory,
+            IPlayerBadgesModelFactory playerBadgesModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _avatarModelFactory = avatarModelFactory;
             _urlProvider = urlProvider;
             _playerFactsModelFactory = playerFactsModelFactory;
+            _playerBadgesModelFactory = playerBadgesModelFactory;
         }
 
         public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
         {
             var hasUser = user != null;
+            var userUrl = hasUser ? _urlProvider.GetUserDetailsUrl(user.UserName) : null;
+            var userEmail = hasUser ? user.Email : null;
+            var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
+            var invitationUrl = hasUser ? null : _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.DisplayName);
 
-            var model = new PlayerDetailsPageModel
+            return new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
                     PageProperties = _pagePropertiesFactory.Create(currentUser, homegame),
@@ -41,20 +47,12 @@ namespace Web.ModelFactories.PlayerModelFactories
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,
                     PlayerFactsModel = _playerFactsModelFactory.Create(homegame.Currency, cashgames, player),
-                    PlayerBadgesModel = new PlayerBadgesModel(player.Id, cashgames)
+                    PlayerBadgesModel = _playerBadgesModelFactory.Create(player.Id, cashgames),
+                    UserUrl = userUrl,
+                    UserEmail = userEmail,
+                    AvatarModel = avatarModel,
+                    InvitationUrl = invitationUrl
                 };
-
-            if (hasUser)
-            {
-                model.UserUrl = _urlProvider.GetUserDetailsUrl(user.UserName);
-                model.UserEmail = user.Email;
-                model.AvatarModel = _avatarModelFactory.Create(user.Email);
-            }
-            else
-            {
-                model.InvitationUrl = _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.DisplayName);
-            }
-            return model;
         }
     }
 }

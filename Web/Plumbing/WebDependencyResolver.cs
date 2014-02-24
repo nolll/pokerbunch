@@ -36,6 +36,7 @@ using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
+using Web.Models.PlayerModels.Badges;
 using Web.Services;
 
 namespace Web.Plumbing
@@ -135,6 +136,8 @@ namespace Web.Plumbing
             RegisterComponent<IActionChartModelFactory, ActionChartModelFactory>();
             RegisterComponent<ICashgameDetailsChartModelFactory, CashgameDetailsChartModelFactory>();
             RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
+            RegisterComponent<IPlayerBadgesModelFactory, PlayerBadgesModelFactory>();
+            RegisterComponent<IBadgeModelFactory, BadgeModelFactory>();
 
             // Mappers
             RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();

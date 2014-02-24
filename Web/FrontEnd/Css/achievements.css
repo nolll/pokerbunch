@@ -1,0 +1,7 @@
+.achievements {
+  list-style-type: none;
+  padding: 0;
+}
+.achievements .acheivement {
+  padding-left: 10px;
+}
