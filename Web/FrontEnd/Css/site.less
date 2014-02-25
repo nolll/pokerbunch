@@ -7,13 +7,13 @@ html{
 }
 
 body{
-	background: #fff;
+	background: #bcb;
     color: @textColor;
     .default-font();
 }
 
 .page-header{
-	background: @greenBg;
+	//background: @greenBg;
 	padding: 15px 15px 0 15px;
 }
 
@@ -106,7 +106,6 @@ p{
 @media @widthSmall {
 	body{
 		margin-bottom: 15px;
-		background:#fff;
 	}
 
     .logo {
@@ -116,13 +115,13 @@ p{
 }
 
 @media @widthLarge {
+    .wrap{
+        max-width: 981px;
+        margin: 0 auto;
+        position: relative;
+    }
+
     .logo {
         margin-left: 0px;
     }
-}
-
-@media @widthXLarge {
-	body{
-		.fontsize(18);
-	}
 }

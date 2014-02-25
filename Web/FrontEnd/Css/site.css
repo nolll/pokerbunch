@@ -2,12 +2,11 @@ html {
   overflow-y: auto;
 }
 body {
-  background: #fff;
+  background: #bcb;
   color: #444444;
   font-family: arial, verdana;
 }
 .page-header {
-  background: url(/FrontEnd/Images/whiteygreen.png) repeat scroll 0 0 transparent;
   padding: 15px 15px 0 15px;
 }
 .logo {
@@ -82,7 +81,6 @@ p {
 @media only screen and (min-width : 600px) {
   body {
     margin-bottom: 15px;
-    background: #fff;
   }
   .logo {
     display: block;
@@ -90,12 +88,12 @@ p {
   }
 }
 @media only screen and (min-width : 960px) {
-  .logo {
-    margin-left: 0;
+  .wrap {
+    max-width: 981px;
+    margin: 0 auto;
+    position: relative;
   }
-}
-@media only screen and (min-width : 1382px) {
-  body {
-    font-size: 1.125em;
+  .logo {
+    margin-left: 0px;
   }
 }
