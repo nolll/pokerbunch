@@ -1,4 +1,4 @@
-﻿.block {
+.block {
   margin-top: 15px;
 }
 .gutter {
@@ -10,6 +10,7 @@
 .region.width2,
 .region.width3 {
   width: 100%;
+  margin-bottom: 15px;
 }
 .region,
 .region.width3 {

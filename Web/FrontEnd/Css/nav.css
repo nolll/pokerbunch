@@ -1,4 +1,4 @@
-﻿nav {
+nav {
   font-family: arial, verdana;
   overflow: hidden;
 }
@@ -103,12 +103,18 @@ nav .selected {
   white-space: nowrap;
   color: #fff;
 }
+.cashgame-nav {
+  background: #e7ede7;
+}
 .cashgame-nav li {
   float: left;
   margin-right: 5px;
 }
+.cashgame-nav li a {
+  color: #000;
+}
 .admin-nav {
-  margin-bottom: 15px;
+  margin-top: 15px;
 }
 .admin-nav h2 {
   display: none;

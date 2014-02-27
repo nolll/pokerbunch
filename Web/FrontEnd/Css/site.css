@@ -42,7 +42,6 @@ h1 {
 .h1 {
   margin-bottom: 10px;
   font-size: 1.125em;
-  line-height: 1.5em;
 }
 h2 {
   font-weight: normal;
@@ -64,7 +63,7 @@ dl {
   margin: 0;
 }
 p {
-  margin: 0 0 1em 0;
+  margin: 15px 0 0 0;
 }
 @media only screen and (min-width : 480px) {
   .logo a {
@@ -72,7 +71,6 @@ p {
   }
   h1 {
     font-size: 1.375em;
-    line-height: 1.75em;
   }
   h2 {
     font-size: 1.125em;
