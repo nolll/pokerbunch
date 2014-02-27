@@ -13,30 +13,24 @@
 	<h1>User Profile</h1>
 </div>
 <div class="block gutter">
-	<h2 class="label">Login Name</h2>
-	<p>
-		@Model.UserName
-	</p>
-	<h2 class="label">Display Name</h2>
-	<p>
-		@Model.DisplayName
-	</p>
-	<h2 class="label">Real Name</h2>
-	<p>
-		@Model.RealName
-	</p>
-	<h2 class="label">Email</h2>
-	<p>
-		@Model.Email
-	</p>
-	@if (Model.ShowEditLink)
-	{
-	    <p>
-			<a href="@Model.EditLink" class="button">Edit Profile</a>
-			@if (Model.ShowPasswordLink)
-			{
-			    <a href="@Model.ChangePasswordLink" class="button">Change Password</a>
-			}
-		</p>
-	}
+    <dl class="value-list">
+        <dt class="label">Login Name</dt>
+        <dd>@Model.UserName</dd>
+        <dt class="label">Display Name</dt>
+        <dd>@Model.DisplayName</dd>
+        <dt class="label">Real Name</dt>
+        <dd>@Model.RealName</dd>
+        <dt class="label">Email</dt>
+        <dd>@Model.Email</dd>
+    </dl>
+    @if (Model.ShowEditLink)
+    {
+        <div>
+            <a href="@Model.EditLink" class="button action">Edit Profile</a>
+            @if (Model.ShowPasswordLink)
+            {
+                <a href="@Model.ChangePasswordLink" class="button action">Change Password</a>
+            }
+        </div>
+    }
 </div>

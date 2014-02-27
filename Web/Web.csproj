@@ -439,6 +439,7 @@
     <Content Include="FrontEnd\js\cashgame-action-chart.js" />
     <Content Include="FrontEnd\js\cashgame-chart.js" />
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
+    <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\sortable-table.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />

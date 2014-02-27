@@ -20,8 +20,9 @@ input[type=email] {
 }
 button,
 .button {
-  border: 1px solid #8fab8f;
+  border: 1px solid #ccc;
   color: #000;
+  background: #fff;
   display: inline-block;
   font-family: arial, verdana;
   font-weight: normal;
@@ -32,6 +33,8 @@ button,
   text-transform: uppercase;
 }
 .icon-button {
+  border: none;
+  background: transparent;
   display: inline-block;
   font-family: arial, verdana;
   font-size: 0.625em;
@@ -54,6 +57,7 @@ button,
   background: none;
 }
 .action {
+  border: 1px solid #8fab8f;
   background: #e7ede7;
 }
 .validation-error {

@@ -12,9 +12,9 @@
     @Html.Partial("~/Views/Forms/Errors.cshtml")
     
     <h2 class="label">Login Name</h2>
-	<p>
+	<div>
 		@Model.UserName
-	</p>
+	</div>
 
     <form method="post">
 		<fieldset>
@@ -32,7 +32,8 @@
             </p>
 		</fieldset>
 		<div class="buttons">
-			<button class="action" type="submit">Save</button>
+		    <button class="action" type="submit">Save</button>
+            <button data-require="cancel-button">Cancel</button>
 		</div>
 	</form>
 </div>

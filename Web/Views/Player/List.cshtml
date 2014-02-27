@@ -1,7 +1,7 @@
 @model Web.Models.PlayerModels.List.PlayerListPageModel
 
 @{
-    Layout = "~/Views/Layouts/OneColumn.cshtml";
+    Layout = "~/Views/Layouts/TwoColumns.cshtml";
 }
 
 <div class="block gutter">
@@ -18,10 +18,16 @@
         }
     </ul>
     
+</div>
+
+@section Aside1
+{
     @if (Model.ShowAddLink)
     {
-        <div class="add-player-button">
-			<a href="@Model.AddUrl" class="button">Add Player</a>
-		</div>
+        <div class="block gutter">
+            <div class="add-player-button">
+                <a href="@Model.AddUrl" class="button action">Add Player</a>
+            </div>
+        </div>
     }
-</div>
+}
