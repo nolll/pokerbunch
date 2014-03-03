@@ -1,10 +1,10 @@
 using System.Net.Mail;
 using Application.Services;
 
-namespace Infrastructure.Web{
-
-	public class MessageSender : IMessageSender{
-
+namespace Infrastructure.Web
+{
+	public class MessageSender : IMessageSender
+    {
 		public void Send(string to, string subject, string body)
         {
             var message = new MailMessage
@@ -18,7 +18,5 @@ namespace Infrastructure.Web{
             var client = new SmtpClient();
             client.Send(message);
 		}
-
 	}
-
 }
