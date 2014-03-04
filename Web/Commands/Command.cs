@@ -15,8 +15,8 @@ namespace Web.Commands
 
         protected bool IsValid(object model)
         {
-            var context = new ValidationContext(model, null, null);
-            if (!Validator.TryValidateObject(model, context, _errors))
+            var context = new ValidationContext(model);
+            if (!Validator.TryValidateObject(model, context, _errors, true))
             {
                 return false;
             }

@@ -1,8 +1,8 @@
-namespace Web.Models.CashgameModels.Edit{
-
-	public class CashgameEditPostModel {
-
-	    public string TypedLocation { get; set; }
+namespace Web.Models.CashgameModels.Edit
+{
+	public class CashgameEditPostModel
+    {
+        public string TypedLocation { get; set; }
 	    public string SelectedLocation { get; set; }
 
 	    public bool HasLocation
@@ -14,7 +14,5 @@ namespace Web.Models.CashgameModels.Edit{
 	    {
 	        get { return TypedLocation ?? SelectedLocation; }
 	    }
-
-	}
-
+    }
 }

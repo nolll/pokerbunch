@@ -57,7 +57,10 @@
     <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\AddCashgameCommandTests.cs" />
+    <Compile Include="CommandTests\CashgameCommands\BuyinCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashgameCommandProviderTests.cs" />
+    <Compile Include="CommandTests\CashgameCommands\CashoutCommandTests.cs" />
+    <Compile Include="CommandTests\CashgameCommands\ReportCommandTests.cs" />
     <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />

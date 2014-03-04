@@ -41,6 +41,5 @@ namespace Web.Commands.CashgameCommands
             }
             return true;
         }
-
     }
 }

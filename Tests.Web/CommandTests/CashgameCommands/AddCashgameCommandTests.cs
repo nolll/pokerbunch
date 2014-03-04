@@ -12,7 +12,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
     public class AddCashgameCommandTests : MockContainer
     {
         [Test]
-        public void Execute_WithInvalidModel_ReturnsFalse()
+        public void Execute_WithoutLocation_ReturnsFalse()
         {
             var homegame = new FakeHomegame();
             var model = new AddCashgamePostModel();
@@ -24,10 +24,22 @@ namespace Tests.Web.CommandTests.CashgameCommands
         }
 
         [Test]
-        public void Execute_WithvalidModel_ReturnsTrue()
+        public void Execute_WithTypedLocation_ReturnsTrue()
         {
             var homegame = new FakeHomegame();
             var model = new AddCashgamePostModel { TypedLocation = "a" };
+
+            var sut = GetSut(homegame, model);
+            var result = sut.Execute();
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Execute_WithSelectedLocation_ReturnsTrue()
+        {
+            var homegame = new FakeHomegame();
+            var model = new AddCashgamePostModel { SelectedLocation = "a" };
 
             var sut = GetSut(homegame, model);
             var result = sut.Execute();

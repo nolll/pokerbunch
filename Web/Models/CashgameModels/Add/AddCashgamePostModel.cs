@@ -1,7 +1,7 @@
-namespace Web.Models.CashgameModels.Add{
-
-	public class AddCashgamePostModel {
-
+namespace Web.Models.CashgameModels.Add
+{
+	public class AddCashgamePostModel
+    {
 	    public string TypedLocation { get; set; }
 	    public string SelectedLocation { get; set; }
 
@@ -14,7 +14,5 @@ namespace Web.Models.CashgameModels.Add{
 	    {
 	        get { return TypedLocation ?? SelectedLocation; }
 	    }
-
 	}
-
 }
