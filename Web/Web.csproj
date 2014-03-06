@@ -98,6 +98,7 @@
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EditCashgameCommand.cs" />
+    <Compile Include="Commands\CashgameCommands\EditCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EndGameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />

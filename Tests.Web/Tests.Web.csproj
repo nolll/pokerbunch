@@ -60,6 +60,8 @@
     <Compile Include="CommandTests\CashgameCommands\BuyinCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashgameCommandProviderTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashoutCommandTests.cs" />
+    <Compile Include="CommandTests\CashgameCommands\DeleteCheckpointCommandTests.cs" />
+    <Compile Include="CommandTests\CashgameCommands\DeleteCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\ReportCommandTests.cs" />
     <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
