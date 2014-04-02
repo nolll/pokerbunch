@@ -6,7 +6,6 @@ namespace Infrastructure.Data.Cache
     {
         string ConstructCacheKey(string typeName, params object[] procedureParameters);
         string UserKey(int id);
-        string UserIdByTokenKey(string token);
         string UserIdByNameOrEmailKey(string nameOrEmail);
         string UserIdsKey();
         string HomegameKey(int id);

@@ -14,7 +14,7 @@ namespace Web.ModelMappers
             _userFactory = userFactory;
         }
 
-        public User GetUser(AddUserPostModel postModel, string token, string encryptedPassword, string salt)
+        public User GetUser(AddUserPostModel postModel, string encryptedPassword, string salt)
         {
             return _userFactory.Create(
                 0,
@@ -23,7 +23,6 @@ namespace Web.ModelMappers
                 string.Empty,
                 postModel.Email,
                 Role.Player,
-                token,
                 encryptedPassword,
                 salt);
         }
@@ -37,7 +36,6 @@ namespace Web.ModelMappers
                 postModel.RealName,
                 postModel.Email,
                 user.GlobalRole,
-                user.Token,
                 user.EncryptedPassword,
                 user.Salt);
         }
@@ -51,7 +49,6 @@ namespace Web.ModelMappers
                 user.RealName,
                 user.Email,
                 user.GlobalRole,
-                user.Token,
                 encryptedPassword,
                 salt);
         }

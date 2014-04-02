@@ -11,7 +11,6 @@ namespace Application.Factories
             string realName,
             string email,
             Role globalRole,
-            string token,
             string encryptedPassword,
             string salt)
         {
@@ -23,7 +22,6 @@ namespace Application.Factories
                 realName,
                 email,
                 globalRole,
-                token,
                 encryptedPassword,
                 salt
             );

@@ -16,7 +16,6 @@ namespace Infrastructure.Data.Factories
                 RealName = reader.GetStringValue("RealName"),
                 Email = reader.GetStringValue("Email"),
                 GlobalRole = reader.GetIntValue("RoleID"),
-                Token = reader.GetStringValue("Token"),
                 EncryptedPassword = reader.GetStringValue("Password"),
                 Salt = reader.GetStringValue("Salt")
             };
@@ -32,7 +31,6 @@ namespace Infrastructure.Data.Factories
                 RealName = user.RealName,
                 Email = user.Email,
                 GlobalRole = (int)user.GlobalRole,
-                Token = user.Token,
                 EncryptedPassword = user.EncryptedPassword,
                 Salt = user.Salt
             };

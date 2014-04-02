@@ -11,7 +11,6 @@ namespace Tests.Common.FakeClasses
             string realName = default(string),
             string email = default(string), 
             Role globalRole = default(Role),
-            string token = default(string),
             string encryptedPassword = default(string),
             string salt = default(string)
             ) : base(
@@ -21,7 +20,6 @@ namespace Tests.Common.FakeClasses
             realName, 
             email, 
             globalRole,
-            token,
             encryptedPassword,
             salt)
         {

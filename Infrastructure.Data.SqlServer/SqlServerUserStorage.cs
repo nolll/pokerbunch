@@ -20,7 +20,7 @@ namespace Infrastructure.Data.SqlServer
 
         public RawUser GetUserById(int id)
         {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserId = @userId";
+            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserId = @userId";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@userId", id)
@@ -42,7 +42,7 @@ namespace Infrastructure.Data.SqlServer
 
         public IList<RawUser> GetUserList(IList<int> ids)
         {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
+            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
             return reader.ReadList(_rawUserFactory.Create);
@@ -50,20 +50,19 @@ namespace Infrastructure.Data.SqlServer
 
         public IList<int> GetUserIdList()
         {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u ORDER BY u.DisplayName";
+            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ORDER BY u.DisplayName";
             var reader = _storageProvider.Query(sql);
             return reader.ReadIntList("UserID");
         }
 
         public bool UpdateUser(RawUser user)
         {
-            const string sql = "UPDATE [user] SET DisplayName = @displayName, RealName = @realName, Email = @email, Token = @token, Password = @password, Salt = @salt WHERE UserID = @userId";
+            const string sql = "UPDATE [user] SET DisplayName = @displayName, RealName = @realName, Email = @email, Password = @password, Salt = @salt WHERE UserID = @userId";
             var parameters = new List<SimpleSqlParameter>
 		        {
 		            new SimpleSqlParameter("@displayName", user.DisplayName),
 		            new SimpleSqlParameter("@realName", user.RealName),
 		            new SimpleSqlParameter("@email", user.Email),
-		            new SimpleSqlParameter("@token", user.Token),
 		            new SimpleSqlParameter("@password", user.EncryptedPassword),
 		            new SimpleSqlParameter("@salt", user.Salt),
                     new SimpleSqlParameter("@userId", user.Id)
@@ -74,13 +73,12 @@ namespace Infrastructure.Data.SqlServer
 
 		public int AddUser(RawUser user)
         {
-            const string sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Token, Password, Salt) VALUES (@userName, @displayName, @email, 1, @token, @password, @salt) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Password, Salt) VALUES (@userName, @displayName, @email, 1, @password, @salt) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
 		        {
 		            new SimpleSqlParameter("@userName", user.UserName),
 		            new SimpleSqlParameter("@displayName", user.DisplayName),
 		            new SimpleSqlParameter("@email", user.Email),
-		            new SimpleSqlParameter("@token", user.Token),
 		            new SimpleSqlParameter("@password", user.EncryptedPassword),
 		            new SimpleSqlParameter("@salt", user.Salt)
 		        };

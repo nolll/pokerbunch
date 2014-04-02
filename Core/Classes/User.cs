@@ -8,7 +8,6 @@ namespace Core.Classes
         public string RealName { get; private set; }
         public string Email { get; private set; }
         public Role GlobalRole { get; private set; }
-        public string Token { get; private set; }
         public string EncryptedPassword { get; private set; }
         public string Salt { get; private set; }
 
@@ -19,7 +18,6 @@ namespace Core.Classes
             string realName, 
             string email, 
             Role globalRole,
-            string token,
             string encryptedPassword,
             string salt)
 	    {
@@ -29,7 +27,6 @@ namespace Core.Classes
 	        RealName = realName;
 	        Email = email;
 	        GlobalRole = globalRole;
-	        Token = token;
 	        EncryptedPassword = encryptedPassword;
 	        Salt = salt;
 	    }

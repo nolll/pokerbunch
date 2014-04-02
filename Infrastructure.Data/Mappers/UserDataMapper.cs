@@ -22,7 +22,6 @@ namespace Infrastructure.Data.Mappers
                 rawUser.RealName,
                 rawUser.Email,
                 (Role)rawUser.GlobalRole,
-                rawUser.Token,
                 rawUser.EncryptedPassword,
                 rawUser.Salt);
         }

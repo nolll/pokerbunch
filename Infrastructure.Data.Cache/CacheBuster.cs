@@ -24,9 +24,6 @@ namespace Infrastructure.Data.Cache
             var singleUserKey = _cacheKeyProvider.UserKey(user.Id);
             _cacheContainer.Remove(singleUserKey);
             
-            var tokenKey = _cacheKeyProvider.UserIdByTokenKey(user.Token);
-            _cacheContainer.Remove(tokenKey);
-
             var nameKey = _cacheKeyProvider.UserIdByNameOrEmailKey(user.UserName);
             _cacheContainer.Remove(nameKey);
 

@@ -8,7 +8,6 @@ namespace Infrastructure.Data.Classes {
 	    public string RealName { get; set; }
 	    public string Email { get; set; }
 	    public int GlobalRole { get; set; }
-	    public string Token { get; set; }
 	    public string EncryptedPassword { get; set; }
 	    public string Salt { get; set; }
 

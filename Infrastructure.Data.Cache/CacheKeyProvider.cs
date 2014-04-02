@@ -10,11 +10,6 @@ namespace Infrastructure.Data.Cache
             return ConstructCacheKey("User", id);
         }
 
-        public string UserIdByTokenKey(string token)
-        {
-            return ConstructCacheKey("UserId", "token", token);
-        }
-
         public string UserIdByNameOrEmailKey(string nameOrEmail)
         {
             return ConstructCacheKey("UserId", "nameoremail", nameOrEmail);
