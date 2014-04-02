@@ -2,6 +2,8 @@
 using System.Web;
 using System.Web.Security;
 using Application.Services;
+using Core.Classes;
+using Core.Repositories;
 using Newtonsoft.Json;
 
 namespace Web.Security
@@ -9,12 +11,15 @@ namespace Web.Security
     public class FormsAuthenticationService : IAuthenticationService
     {
         private readonly ITimeProvider _timeProvider;
+        private readonly IUserRepository _userRepository;
         private const int Version = 1;
 
         public FormsAuthenticationService(
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            IUserRepository userRepository)
         {
             _timeProvider = timeProvider;
+            _userRepository = userRepository;
         }
 
         public void SignIn(UserIdentity user, bool createPersistentCookie)
@@ -49,6 +54,29 @@ namespace Web.Security
         public void SignOut()
         {
             FormsAuthentication.SignOut();
+        }
+
+        public CustomIdentity GetIdentity()
+        {
+            return HttpContext.Current.User.Identity as CustomIdentity;
+        }
+
+        public User GetUser()
+        {
+            var identity = GetIdentity();
+            return identity.IsAuthenticated ? _userRepository.GetById(identity.UserId) : null;
+        }
+
+        public bool IsInRole(string slug, Role role)
+        {
+            var identity = GetIdentity();
+            return identity.IsInRole(slug, role);
+        }
+
+        public Role GetRole(string slug)
+        {
+            var identity = GetIdentity();
+            return identity.GetRole(slug);
         }
     }
 }

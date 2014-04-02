@@ -1,12 +1,10 @@
 using Core.Classes;
 
-namespace Application.Services{
-
+namespace Application.Services
+{
 	public interface IAuthentication
     {
 		User GetUser();
 		bool IsAdmin();
-		void RequireUser();
 	}
-
 }

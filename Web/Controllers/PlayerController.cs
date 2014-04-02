@@ -11,43 +11,35 @@ namespace Web.Controllers
 {
     public class PlayerController : ControllerBase
     {
-	    private readonly IAuthentication _authentication;
-        private readonly IAuthorization _authorization;
 	    private readonly IPlayerModelService _playerModelService;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IPlayerCommandProvider _playerCommandProvider;
 
 	    public PlayerController(
-            IAuthentication authentication,
-            IAuthorization authorization,
             IPlayerModelService playerModelService,
             IUrlProvider urlProvider,
             IPlayerCommandProvider playerCommandProvider)
 	    {
-	        _authentication = authentication;
-	        _authorization = authorization;
 	        _playerModelService = playerModelService;
 	        _urlProvider = urlProvider;
 	        _playerCommandProvider = playerCommandProvider;
 	    }
 
+        [AuthorizePlayer]
 	    public ActionResult Index(string slug)
         {
-			_authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var model = _playerModelService.GetListModel(slug);
 			return View("List", model);
 		}
 
+        [AuthorizePlayer]
         public ActionResult Details(string slug, string playerName)
         {
-			_authentication.RequireUser();
-            _authorization.RequirePlayer(slug);
             var model = _playerModelService.GetDetailsModel(slug, playerName);
 			return View("Details", model);
 		}
 
-        [AuthorizeRole(Role = Role.Manager)]
+        [AuthorizeManager]
         public ActionResult Add(string slug)
         {
             var model = _playerModelService.GetAddModel(slug);
@@ -55,7 +47,7 @@ namespace Web.Controllers
 		}
 
         [HttpPost]
-        [AuthorizeRole(Role = Role.Manager)]
+        [AuthorizeManager]
         public ActionResult Add(string slug, AddPlayerPostModel postModel)
         {
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
@@ -74,7 +66,7 @@ namespace Web.Controllers
 			return View("AddConfirmation", model);
 		}
 
-        [AuthorizeRole(Role = Role.Manager)]
+        [AuthorizeManager]
 		public ActionResult Delete(string slug, string playerName)
         {
             var command = _playerCommandProvider.GetDeleteCommand(slug, playerName);
@@ -85,7 +77,7 @@ namespace Web.Controllers
 		    return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, playerName));
 		}
 
-        [AuthorizeRole(Role = Role.Manager)]
+        [AuthorizeManager]
         public ActionResult Invite(string slug, string playerName)
         {
             var model = _playerModelService.GetInviteModel(slug);
@@ -93,7 +85,7 @@ namespace Web.Controllers
 		}
 
         [HttpPost]
-        [AuthorizeRole(Role = Role.Manager)]
+        [AuthorizeManager]
         public ActionResult Invite(string slug, string playerName, InvitePlayerPostModel postModel)
         {
             var command = _playerCommandProvider.GetInviteCommand(slug, playerName, postModel);

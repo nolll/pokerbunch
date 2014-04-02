@@ -61,12 +61,10 @@
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Factories\UserFactory.cs" />
     <Compile Include="Services\Authentication.cs" />
-    <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Interfaces\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAuthentication.cs" />
-    <Compile Include="Services\Interfaces\IAuthorization.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IConfigService.cs" />

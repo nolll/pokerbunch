@@ -35,6 +35,7 @@ using Web.Models.CashgameModels.Running;
 using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
+using Web.Security;
 
 namespace Web.ModelServices
 {
@@ -75,9 +76,9 @@ namespace Web.ModelServices
             {
                 throw new HttpException(404, "Cashgame not found");
             }
-            var user = _authentication.GetUser();
+            var user = _authenticationService.GetUser();
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
-            var isManager = _authorization.IsInRole(homegame, Role.Manager);
+            var isManager = _authenticationService.IsInRole(slug, Role.Manager);
             return _cashgameDetailsPageModelFactory.Create(user, homegame, cashgame, player, isManager);
         }
 
@@ -125,11 +126,11 @@ namespace Web.ModelServices
 
         public RunningCashgamePageModel GetRunningModel(string slug)
         {
-            var user = _authentication.GetUser();
+            var user = _authenticationService.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var isManager = _authorization.IsInRole(homegame, Role.Manager);
+            var isManager = _authenticationService.IsInRole(slug, Role.Manager);
             return _runningCashgamePageModelFactory.Create(user, homegame, cashgame, player, isManager);
         }
 
@@ -161,9 +162,9 @@ namespace Web.ModelServices
             var homegame = _homegameRepository.GetByName(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var player = _playerRepository.GetByName(homegame, playerName);
-            var role = _authorization.GetRole(homegame);
             var result = cashgame.GetResult(player.Id);
-            return _actionPageModelFactory.Create(_authentication.GetUser(), homegame, cashgame, player, result, role);
+            var role = _authenticationService.GetRole(slug);
+            return _actionPageModelFactory.Create(_authenticationService.GetUser(), homegame, cashgame, player, result, role);
         }
 
         public ChartModel GetActionChartJsonModel(string slug, string dateStr, string playerName)
@@ -245,7 +246,6 @@ namespace Web.ModelServices
 
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuthentication _authentication;
-        private readonly IAuthorization _authorization;
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
@@ -270,11 +270,11 @@ namespace Web.ModelServices
         private readonly IEndPageModelFactory _endPageModelFactory;
         private readonly IEditCheckpointPageModelFactory _editCheckpointPageModelFactory;
         private readonly ICheckpointRepository _checkpointRepository;
+        private readonly IAuthenticationService _authenticationService;
 
         public CashgameModelService(
             IHomegameRepository homegameRepository,
             IAuthentication authentication,
-            IAuthorization authorization,
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
@@ -298,11 +298,11 @@ namespace Web.ModelServices
             ICashoutPageModelFactory cashoutPageModelFactory,
             IEndPageModelFactory endPageModelFactory,
             IEditCheckpointPageModelFactory editCheckpointPageModelFactory,
-            ICheckpointRepository checkpointRepository)
+            ICheckpointRepository checkpointRepository,
+            IAuthenticationService authenticationService)
         {
             _homegameRepository = homegameRepository;
             _authentication = authentication;
-            _authorization = authorization;
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
@@ -327,6 +327,7 @@ namespace Web.ModelServices
             _endPageModelFactory = endPageModelFactory;
             _editCheckpointPageModelFactory = editCheckpointPageModelFactory;
             _checkpointRepository = checkpointRepository;
+            _authenticationService = authenticationService;
         }
     }
 }

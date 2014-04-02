@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Security;
+using Core.Classes;
 using Newtonsoft.Json;
 
 namespace Web.Security
@@ -61,6 +62,28 @@ namespace Web.Security
         public List<UserBunch> Bunches
         {
             get { return _user.Bunches; }
+        }
+
+        public Role GetRole(string slug)
+        {
+            foreach (var userBunch in _user.Bunches)
+            {
+                if (userBunch.Slug == slug)
+                {
+                    return userBunch.Role;
+                }
+            }
+            return Role.None;
+        }
+
+        public bool IsInRole(string slug, Role roleToCheck)
+        {
+            if (IsAdmin)
+            {
+                return true;
+            }
+            var role = GetRole(slug);
+            return (int)role >= (int)roleToCheck;
         }
     }
 }

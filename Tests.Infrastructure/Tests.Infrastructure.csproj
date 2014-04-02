@@ -45,7 +45,6 @@
     <Compile Include="Factories\CashgameResultFactoryTests.cs" />
     <Compile Include="Gravatar\GravatarTests.cs" />
     <Compile Include="Repositories\AuthenticationTests.cs" />
-    <Compile Include="Repositories\AuthorizationTests.cs" />
     <Compile Include="Repositories\CashgameRepositoryTests.cs" />
     <Compile Include="Repositories\HomegameRepositoryTests.cs" />
     <Compile Include="System\GlobalizationTests.cs" />

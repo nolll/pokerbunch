@@ -103,6 +103,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
                 GetMock<IWebContext>().Object,
                 GetMock<IAuthenticationService>().Object,
                 GetMock<IHomegameRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
                 postModel)
             ;
         }

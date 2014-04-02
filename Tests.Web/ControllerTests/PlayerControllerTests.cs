@@ -1,12 +1,7 @@
 using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Web.Mvc;
-using Application.Exceptions;
 using Application.Services;
 using Core.Classes;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
@@ -19,23 +14,21 @@ namespace Tests.Web.ControllerTests
 	public class PlayerControllerTests : MockContainer
     {
         [Test]
-		public void Details_NotAuthorized_ThrowsException()
-		{
-		    const string slug = "a";
-		    const string playerName = "b";
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(slug)).Throws<AccessDeniedException>();
+        public void Details_RequiresPlayer()
+        {
+            var sut = GetSut();
+            Func<string, string, ActionResult> methodToTest = sut.Details;
+            var result = SecurityTestHelper.RequiresPlayer(methodToTest);
 
-		    var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Details(slug, playerName));
-		}
+            Assert.IsTrue(result);
+        }
 
         [Test]
-		public void Delete_HasAuthorizeRoleAttribute()
+		public void Delete_RequiresManager()
         {
 			var sut = GetSut();
             Func<string, string, ActionResult> methodToTest = sut.Delete;
-            var result = SecurityTestHelper.RequiresRole(methodToTest, Role.Manager);
+            var result = SecurityTestHelper.RequiresManager(methodToTest);
             
             Assert.IsTrue(result);
         }
@@ -77,8 +70,6 @@ namespace Tests.Web.ControllerTests
         private PlayerController GetSut()
         {
 			return new PlayerController(
-                GetMock<IAuthentication>().Object,
-                GetMock<IAuthorization>().Object,
                 GetMock<IPlayerModelService>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<IPlayerCommandProvider>().Object);

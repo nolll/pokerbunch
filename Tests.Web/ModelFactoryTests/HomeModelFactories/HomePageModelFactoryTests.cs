@@ -53,7 +53,6 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
             return new HomePageModelFactory(
                 GetMock<IAuthentication>().Object,
                 GetMock<IHomegameRepository>().Object,
-                GetMock<ICashgameRepository>().Object,
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IAdminNavigationModelFactory>().Object,
                 GetMock<IUrlProvider>().Object);

@@ -8,7 +8,6 @@ using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
 using Web.Security;
-using Web.Services;
 
 namespace Web.Controllers
 {
@@ -31,14 +30,14 @@ namespace Web.Controllers
 	        _userModelService = userModelService;
 	    }
 
+        [Authorize]
 		public ActionResult Details(string userName)
         {
-			_authentication.RequireUser();
 			var model = _userModelService.GetDetailsModel(userName); 
 			return View("Details", model);
 		}
 
-        [AuthorizeRole(Role = Role.Admin)]
+        [AuthorizeAdmin]
         public ActionResult List()
         {
             var model = _userModelService.GetListModel();
@@ -70,17 +69,17 @@ namespace Web.Controllers
 			return View("Add/Confirmation", model);
 		}
 
+        [Authorize]
         public ActionResult Edit(string userName)
         {
-			_authentication.RequireUser();
             var model = _userModelService.GetEditModel(userName);
             return View("Edit/Edit", model);
 		}
 
         [HttpPost]
-		public ActionResult Edit(string userName, EditUserPostModel postModel)
+        [Authorize]
+        public ActionResult Edit(string userName, EditUserPostModel postModel)
         {
-			_authentication.RequireUser();
 			var command = _userCommandProvider.GetEditCommand(userName, postModel);
             if (command.Execute())
             {
@@ -91,17 +90,17 @@ namespace Web.Controllers
             return View("Edit/Edit", model);
 		}
 
+        [Authorize]
         public ActionResult ChangePassword()
         {
-			_authentication.RequireUser();
             var model = _userModelService.GetChangePasswordModel();
 			return View("ChangePassword/ChangePassword", model);
 		}
 
         [HttpPost]
-		public ActionResult ChangePassword(ChangePasswordPostModel postModel)
+        [Authorize]
+        public ActionResult ChangePassword(ChangePasswordPostModel postModel)
         {
-			_authentication.RequireUser();
             var command = _userCommandProvider.GetChangePasswordCommand(postModel);
             if (command.Execute())
             {

@@ -1,9 +1,7 @@
 ﻿using System.Web.Mvc;
-using Core.Classes;
 using Web.Commands.AdminCommands;
 using Web.Models.AdminModels;
 using Web.Security;
-using Web.Services;
 
 namespace Web.Controllers
 {
@@ -17,7 +15,7 @@ namespace Web.Controllers
             _adminCommandProvider = adminCommandProvider;
         }
 
-        [AuthorizeRole(Role = Role.Admin)]
+        [AuthorizeAdmin]
         public ActionResult SendEmail()
         {
             const string to = "henriks@gmail.com";

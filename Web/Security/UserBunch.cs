@@ -4,7 +4,15 @@ namespace Web.Security
 {
     public class UserBunch
     {
-        public string Slug { get; set; }
-        public Role Role { get; set; }
+        public string Slug { get; private set; }
+        public Role Role { get; private set; }
+        public string Name { get; private set; }
+
+        public UserBunch(string slug, Role role, string name)
+        {
+            Slug = slug;
+            Role = role;
+            Name = name;
+        }
     }
 }

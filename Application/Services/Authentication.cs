@@ -34,14 +34,6 @@ namespace Application.Services
 			return _webContext.GetCookie("token");
 		}
 
-        public void RequireUser()
-        {
-            if (!IsLoggedIn())
-            {
-                throw new NotLoggedInException();
-            }
-        }
-
         public bool IsAdmin()
         {
             return GetUser().IsAdmin;

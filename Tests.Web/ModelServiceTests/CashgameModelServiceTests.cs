@@ -25,6 +25,7 @@ using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
+using Web.Security;
 
 namespace Tests.Web.ModelServiceTests
 {
@@ -91,7 +92,7 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             const string dateStr = "2000-01-01"; 
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuthenticationService>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
 
@@ -106,7 +107,6 @@ namespace Tests.Web.ModelServiceTests
             return new CashgameModelService(
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IAuthentication>().Object,
-                GetMock<IAuthorization>().Object,
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
@@ -130,7 +130,8 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<ICashoutPageModelFactory>().Object,
                 GetMock<IEndPageModelFactory>().Object,
                 GetMock<IEditCheckpointPageModelFactory>().Object,
-                GetMock<ICheckpointRepository>().Object);
+                GetMock<ICheckpointRepository>().Object,
+                GetMock<IAuthenticationService>().Object);
         }
 
     }

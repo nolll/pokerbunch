@@ -13,19 +13,22 @@ namespace Web.Commands.AuthCommands
         private readonly IWebContext _webContext;
         private readonly IAuthenticationService _authenticationService;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly IPlayerRepository _playerRepository;
 
         public AuthCommandProvider(
             IUserRepository userRepository,
             IEncryptionService encryptionService,
             IWebContext webContext,
             IAuthenticationService authenticationService,
-            IHomegameRepository homegameRepository)
+            IHomegameRepository homegameRepository,
+            IPlayerRepository playerRepository)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
             _webContext = webContext;
             _authenticationService = authenticationService;
             _homegameRepository = homegameRepository;
+            _playerRepository = playerRepository;
         }
 
         public Command GetLoginCommand(AuthLoginPostModel postModel)
@@ -36,6 +39,7 @@ namespace Web.Commands.AuthCommands
                 _webContext,
                 _authenticationService,
                 _homegameRepository,
+                _playerRepository,
                 postModel);
         }
 

@@ -7,13 +7,13 @@ using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Models.HomegameModels.List;
+using Web.Security;
 
 namespace Web.ModelServices
 {
     public class HomegameModelService : IHomegameModelService
     {
         private readonly IAuthentication _authentication;
-        private readonly IAuthorization _authorization;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IHomegameListPageModelFactory _homegameListPageModelFactory;
         private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
@@ -22,10 +22,10 @@ namespace Web.ModelServices
         private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
         private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
         private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
+        private readonly IAuthenticationService _authenticationService;
 
         public HomegameModelService(
             IAuthentication authentication,
-            IAuthorization authorization,
             IHomegameRepository homegameRepository,
             IHomegameListPageModelFactory homegameListPageModelFactory,
             IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
@@ -33,10 +33,10 @@ namespace Web.ModelServices
             IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
             IHomegameEditPageModelFactory homegameEditPageModelFactory,
             IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
-            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory)
+            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory,
+            IAuthenticationService authenticationService)
         {
             _authentication = authentication;
-            _authorization = authorization;
             _homegameRepository = homegameRepository;
             _homegameListPageModelFactory = homegameListPageModelFactory;
             _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
@@ -45,6 +45,7 @@ namespace Web.ModelServices
             _homegameEditPageModelFactory = homegameEditPageModelFactory;
             _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
             _joinHomegameConfirmationPageModelFactory = joinHomegameConfirmationPageModelFactory;
+            _authenticationService = authenticationService;
         }
 
         public HomegameListPageModel GetListModel()
@@ -58,7 +59,7 @@ namespace Web.ModelServices
         {
             var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            var isInManagerMode = _authorization.IsInRole(homegame, Role.Manager);
+            var isInManagerMode = _authenticationService.IsInRole(slug, Role.Manager);
             return _homegameDetailsPageModelFactory.Create(user, homegame, isInManagerMode);
         }
 

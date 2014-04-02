@@ -30,37 +30,37 @@ namespace Web.Controllers
 	        _sharingCommandProvider = sharingCommandProvider;
 	    }
 
-	    public ActionResult Index()
+        [Authorize]
+        public ActionResult Index()
         {
-			_authentication.RequireUser();
 	        var model = _sharingModelService.GetIndexModel();
 			return View("Index", model);
 		}
 
+        [Authorize]
         public ActionResult Twitter()
         {
-			_authentication.RequireUser();
 			var model = _sharingModelService.GetTwitterModel();
 			return View("Twitter", model);
 		}
 
-		public ActionResult TwitterStart()
+        [Authorize]
+        public ActionResult TwitterStart()
         {
-			_authentication.RequireUser();
 			return Redirect(_twitterIntegration.GetAuthUrl());
 		}
 
-		public ActionResult TwitterStop()
+        [Authorize]
+        public ActionResult TwitterStop()
         {
-			_authentication.RequireUser();
 		    var command = _sharingCommandProvider.GetTwitterStopCommand();
 		    command.Execute();
 			return Redirect(_urlProvider.GetTwitterSettingsUrl());
 		}
 
+        [Authorize]
         public ActionResult TwitterCallback()
         {
-			_authentication.RequireUser();
 			var token = _webContext.GetQueryParam("oauth_token");
             var verifier = _webContext.GetQueryParam("oauth_verifier");
             var command = _sharingCommandProvider.GetStartCommand(token, verifier);

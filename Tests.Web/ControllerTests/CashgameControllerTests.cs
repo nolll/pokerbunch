@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Application.Exceptions;
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
@@ -45,23 +45,13 @@ namespace Tests.Web.ControllerTests{
 		}
 
         [Test]
-		public void Action_NotAuthorized_ThrowsException(){
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(new FakeHomegame());
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(Slug)).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Action(Slug, DateStr, PlayerName));
-		}
-
-        [Test]
-        public void Action_RequiresUserAndPlayer()
+        public void Action_RequiresPlayer()
         {
             var sut = GetSut();
-            sut.Action(Slug, DateStr, PlayerName);
+            Func<string, string, string, ActionResult> methodToTest = sut.Action;
+            var result = SecurityTestHelper.RequiresPlayer(methodToTest);
 
-            GetMock<IAuthentication>().Verify(o => o.RequireUser());
-            GetMock<IAuthorization>().Verify(o => o.RequirePlayer(Slug));
+            Assert.IsTrue(result);
         }
 
 		[Test]
@@ -84,34 +74,14 @@ namespace Tests.Web.ControllerTests{
 		}
 
         [Test]
-		public void ActionBuyin_NotAuthorized_ThrowsException()
+        public void Buyin_RequiresOwnPlayer()
         {
-            GetMock<IAuthorization>().Setup(o => o.RequirePlayer(Slug)).Throws<AccessDeniedException>();
-
             var sut = GetSut();
+            Func<string, string, ActionResult> methodToTest = sut.Buyin;
+            var result = SecurityTestHelper.RequiresOwnPlayer(methodToTest);
 
-            Assert.Throws<AccessDeniedException>(() => sut.Buyin(Slug, PlayerName));
-		}
-
-		[Test]
-		public void ActionBuyin_WithPlayerRightsAndIsAnotherPlayer_ThrowsException()
-		{
-		    const int firstUserId = 1;
-		    const int secondUserId = 2;
-			var homegame = new FakeHomegame();
-			var cashgame = new FakeCashgame();
-		    var user = new FakeUser(firstUserId);
-			var player = new FakePlayer(userId: secondUserId);
-
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Buyin(Slug, PlayerName));
-		}
+            Assert.IsTrue(result);
+        }
 
         //todo: finish these tests before continuing with more controller tests
 		/*
@@ -221,8 +191,6 @@ namespace Tests.Web.ControllerTests{
         private CashgameController GetSut()
         {
             return new CashgameController(
-                GetMock<IAuthentication>().Object,
-                GetMock<IAuthorization>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,

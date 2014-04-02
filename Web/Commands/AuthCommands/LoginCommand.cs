@@ -15,6 +15,7 @@ namespace Web.Commands.AuthCommands
         private readonly IWebContext _webContext;
         private readonly IAuthenticationService _authenticationService;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly AuthLoginPostModel _postModel;
         
         public LoginCommand(
@@ -23,6 +24,7 @@ namespace Web.Commands.AuthCommands
             IWebContext webContext,
             IAuthenticationService authenticationService,
             IHomegameRepository homegameRepository,
+            IPlayerRepository playerRepository,
             AuthLoginPostModel postModel)
         {
             _userRepository = userRepository;
@@ -30,6 +32,7 @@ namespace Web.Commands.AuthCommands
             _webContext = webContext;
             _authenticationService = authenticationService;
             _homegameRepository = homegameRepository;
+            _playerRepository = playerRepository;
             _postModel = postModel;
         }
 
@@ -72,11 +75,8 @@ namespace Web.Commands.AuthCommands
                 foreach (var homegame in homegames)
                 {
                     var role = _homegameRepository.GetHomegameRole(homegame, user);
-                    var userBunch = new UserBunch
-                        {
-                            Slug = homegame.Slug,
-                            Role = role
-                        };
+                    var player = _playerRepository.GetByUserName(homegame, user.UserName);
+                    var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName);
                     userBunches.Add(userBunch);
                 }
             }

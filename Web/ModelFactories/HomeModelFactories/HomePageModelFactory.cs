@@ -11,7 +11,6 @@ namespace Web.ModelFactories.HomeModelFactories
     {
         private readonly IAuthentication _authentication;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly ICashgameRepository _cashgameRepository;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAdminNavigationModelFactory _adminNavigationFactory;
         private readonly IUrlProvider _urlProvider;
@@ -19,14 +18,12 @@ namespace Web.ModelFactories.HomeModelFactories
         public HomePageModelFactory(
             IAuthentication authentication, 
             IHomegameRepository homegameRepository, 
-            ICashgameRepository cashgameRepository,
             IPagePropertiesFactory pagePropertiesFactory,
             IAdminNavigationModelFactory adminNavigationFactory,
             IUrlProvider urlProvider)
         {
             _authentication = authentication;
             _homegameRepository = homegameRepository;
-            _cashgameRepository = cashgameRepository;
             _pagePropertiesFactory = pagePropertiesFactory;
             _adminNavigationFactory = adminNavigationFactory;
             _urlProvider = urlProvider;
