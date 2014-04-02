@@ -11,6 +11,7 @@ using System.Web.Security;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Web.Plumbing;
+using Web.Security;
 using Web.Services;
 using DependencyResolver = Plumbing.DependencyResolver;
 

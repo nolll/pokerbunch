@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Web.Security;
 using Web.Services;
 
 namespace Web.Commands.AuthCommands
@@ -6,19 +7,19 @@ namespace Web.Commands.AuthCommands
     public class LogoutCommand : Command
     {
         private readonly IWebContext _webContext;
-        private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly IAuthenticationService _authenticationService;
 
         public LogoutCommand(
             IWebContext webContext,
-            IFormsAuthenticationService formsAuthenticationService)
+            IAuthenticationService authenticationService)
         {
             _webContext = webContext;
-            _formsAuthenticationService = formsAuthenticationService;
+            _authenticationService = authenticationService;
         }
 
         public override bool Execute()
         {
-            _formsAuthenticationService.SignOut();
+            _authenticationService.SignOut();
             _webContext.ClearCookie("token");
             return true;
         }

@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using Core.Repositories;
 using Web.Models.AuthModels;
+using Web.Security;
 using Web.Services;
 
 namespace Web.Commands.AuthCommands
@@ -10,20 +11,20 @@ namespace Web.Commands.AuthCommands
         private readonly IUserRepository _userRepository;
         private readonly IEncryptionService _encryptionService;
         private readonly IWebContext _webContext;
-        private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IHomegameRepository _homegameRepository;
 
         public AuthCommandProvider(
             IUserRepository userRepository,
             IEncryptionService encryptionService,
             IWebContext webContext,
-            IFormsAuthenticationService formsAuthenticationService,
+            IAuthenticationService authenticationService,
             IHomegameRepository homegameRepository)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
             _webContext = webContext;
-            _formsAuthenticationService = formsAuthenticationService;
+            _authenticationService = authenticationService;
             _homegameRepository = homegameRepository;
         }
 
@@ -33,7 +34,7 @@ namespace Web.Commands.AuthCommands
                 _userRepository,
                 _encryptionService,
                 _webContext,
-                _formsAuthenticationService,
+                _authenticationService,
                 _homegameRepository,
                 postModel);
         }
@@ -42,7 +43,7 @@ namespace Web.Commands.AuthCommands
         {
             return new LogoutCommand(
                 _webContext,
-                _formsAuthenticationService);
+                _authenticationService);
         }
     }
 }

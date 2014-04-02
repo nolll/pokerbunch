@@ -3,6 +3,7 @@ using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.Models.AuthModels;
+using Web.Security;
 using Web.Services;
 
 namespace Web.Commands.AuthCommands
@@ -12,7 +13,7 @@ namespace Web.Commands.AuthCommands
         private readonly IUserRepository _userRepository;
         private readonly IEncryptionService _encryptionService;
         private readonly IWebContext _webContext;
-        private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IHomegameRepository _homegameRepository;
         private readonly AuthLoginPostModel _postModel;
         
@@ -20,14 +21,14 @@ namespace Web.Commands.AuthCommands
             IUserRepository userRepository,
             IEncryptionService encryptionService,
             IWebContext webContext,
-            IFormsAuthenticationService formsAuthenticationService,
+            IAuthenticationService authenticationService,
             IHomegameRepository homegameRepository,
             AuthLoginPostModel postModel)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
             _webContext = webContext;
-            _formsAuthenticationService = formsAuthenticationService;
+            _authenticationService = authenticationService;
             _homegameRepository = homegameRepository;
             _postModel = postModel;
         }
@@ -40,7 +41,7 @@ namespace Web.Commands.AuthCommands
             {
                 var identity = GetUserIdentity(user);
 
-                _formsAuthenticationService.SignIn(identity, _postModel.RememberMe);
+                _authenticationService.SignIn(identity, _postModel.RememberMe);
                 
                 SetCookies(user, _postModel.RememberMe);
                 return true;

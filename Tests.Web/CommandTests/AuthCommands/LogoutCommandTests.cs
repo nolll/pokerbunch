@@ -2,6 +2,7 @@ using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.AuthCommands;
+using Web.Security;
 using Web.Services;
 
 namespace Tests.Web.CommandTests.AuthCommands{
@@ -27,14 +28,14 @@ namespace Tests.Web.CommandTests.AuthCommands{
             var result = sut.Execute();
 
             Assert.IsTrue(result);
-            GetMock<IFormsAuthenticationService>().Verify(o => o.SignOut());
+            GetMock<IAuthenticationService>().Verify(o => o.SignOut());
         }
 
         private LogoutCommand GetSut()
         {
             return new LogoutCommand(
                 GetMock<IWebContext>().Object,
-                GetMock<IFormsAuthenticationService>().Object);
+                GetMock<IAuthenticationService>().Object);
         }
 
 	}

@@ -512,8 +512,14 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Security\AuthorizeRoleAttribute.cs" />
+    <Compile Include="Security\CustomIdentity.cs" />
+    <Compile Include="Security\CustomPrincipal.cs" />
+    <Compile Include="Security\IAuthenticationService.cs" />
+    <Compile Include="Security\UserBunch.cs" />
+    <Compile Include="Security\UserIdentity.cs" />
     <Compile Include="Services\ConfigService.cs" />
-    <Compile Include="Services\FormsAuthenticationService.cs" />
+    <Compile Include="Security\FormsAuthenticationService.cs" />
     <Compile Include="Services\UrlProvider.cs" />
   </ItemGroup>
   <ItemGroup>

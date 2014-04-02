@@ -37,6 +37,7 @@ using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Badges;
+using Web.Security;
 using Web.Services;
 
 namespace Web.Plumbing
@@ -154,8 +155,8 @@ namespace Web.Plumbing
             RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
             RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();
 
-            // Authentication
-            RegisterComponent<IFormsAuthenticationService, FormsAuthenticationService>();
+            // Security
+            RegisterComponent<IAuthenticationService, FormsAuthenticationService>();
         }
 
     }
