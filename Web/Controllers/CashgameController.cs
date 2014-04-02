@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Application.Exceptions;
 using Application.Services;
+using Core.Classes;
 using Web.Commands.CashgameCommands;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Add;
@@ -10,6 +11,7 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
+using Web.Security;
 
 namespace Web.Controllers
 {
@@ -109,19 +111,17 @@ namespace Web.Controllers
             return View("Add/Add", model);
 		}
 
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult Edit(string slug, string dateStr)
         {
-            _authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var model = _cashgameModelService.GetEditModel(slug, dateStr);
 			return View("Edit/Edit", model);
 		}
 
         [HttpPost]
-		public ActionResult Edit(string slug, string dateStr, CashgameEditPostModel postModel)
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Edit(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetEditCommand(slug, dateStr, postModel);
             if (command.Execute())
             {
@@ -246,19 +246,17 @@ namespace Web.Controllers
             return View("Report/Report", model);
 		}
 
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
         {
-            _authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId);
             return View("Checkpoints/Edit", model);
         }
 
         [HttpPost]
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
         {
-            _authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetEditCheckpointCommand(slug, dateStr, checkpointId, postModel);
             if (command.Execute())
             {
@@ -269,10 +267,9 @@ namespace Web.Controllers
             return View("Checkpoints/Edit", model);
         }
 
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
         {
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
             if (command.Execute())
             {
@@ -331,10 +328,9 @@ namespace Web.Controllers
             return Redirect(_urlProvider.GetCashgameIndexUrl(slug));
 		}
 
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult Delete(string slug, string dateStr)
         {
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var command = _cashgameCommandProvider.GetDeleteCommand(slug, dateStr);
             command.Execute();
             return Redirect(_urlProvider.GetCashgameIndexUrl(slug));

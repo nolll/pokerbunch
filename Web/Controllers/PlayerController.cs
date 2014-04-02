@@ -1,11 +1,14 @@
 using System.Web.Mvc;
 using Application.Services;
+using Core.Classes;
 using Web.Commands.PlayerCommands;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
+using Web.Security;
 
-namespace Web.Controllers{
+namespace Web.Controllers
+{
     public class PlayerController : ControllerBase
     {
 	    private readonly IAuthentication _authentication;
@@ -28,31 +31,33 @@ namespace Web.Controllers{
 	        _playerCommandProvider = playerCommandProvider;
 	    }
 
-	    public ActionResult Index(string slug){
+	    public ActionResult Index(string slug)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _playerModelService.GetListModel(slug);
 			return View("List", model);
 		}
 
-        public ActionResult Details(string slug, string playerName){
+        public ActionResult Details(string slug, string playerName)
+        {
 			_authentication.RequireUser();
             _authorization.RequirePlayer(slug);
             var model = _playerModelService.GetDetailsModel(slug, playerName);
 			return View("Details", model);
 		}
 
-        public ActionResult Add(string slug){
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Add(string slug)
+        {
             var model = _playerModelService.GetAddModel(slug);
             return View("Add", model);
 		}
 
         [HttpPost]
-        public ActionResult Add(string slug, AddPlayerPostModel postModel){
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Add(string slug, AddPlayerPostModel postModel)
+        {
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
@@ -63,14 +68,15 @@ namespace Web.Controllers{
 			return View("Add", model);
 		}
 
-        public ActionResult Created(string slug){
+        public ActionResult Created(string slug)
+        {
             var model = _playerModelService.GetAddConfirmationModel(slug);
 			return View("AddConfirmation", model);
 		}
 
-		public ActionResult Delete(string slug, string playerName){
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
+        [AuthorizeRole(Role = Role.Manager)]
+		public ActionResult Delete(string slug, string playerName)
+        {
             var command = _playerCommandProvider.GetDeleteCommand(slug, playerName);
             if (command.Execute())
             {
@@ -79,17 +85,17 @@ namespace Web.Controllers{
 		    return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, playerName));
 		}
 
-        public ActionResult Invite(string slug, string playerName){
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Invite(string slug, string playerName)
+        {
             var model = _playerModelService.GetInviteModel(slug);
             return View("Invite", model);
 		}
 
         [HttpPost]
-		public ActionResult Invite(string slug, string playerName, InvitePlayerPostModel postModel){
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Invite(string slug, string playerName, InvitePlayerPostModel postModel)
+        {
             var command = _playerCommandProvider.GetInviteCommand(slug, playerName, postModel);
             if (command.Execute())
             {
@@ -100,7 +106,8 @@ namespace Web.Controllers{
             return View("Invite", model);
 		}
 
-	    public ActionResult Invited(string slug, string playerName){
+	    public ActionResult Invited(string slug, string playerName)
+        {
 		    var model = _playerModelService.GetInviteConfirmationModel(slug);
 			return View("InviteConfirmation", model);
 		}

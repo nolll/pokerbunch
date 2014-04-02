@@ -78,17 +78,14 @@ namespace Web.Controllers
         [AuthorizeRole(Role = Role.Manager)]
         public ActionResult Edit(string slug)
         {
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var model = _homegameModelService.GetEditModel(slug);
 			return View("Edit/Edit", model);
 		}
 
         [HttpPost]
-		public ActionResult Edit(string slug, HomegameEditPostModel postModel)
+        [AuthorizeRole(Role = Role.Manager)]
+        public ActionResult Edit(string slug, HomegameEditPostModel postModel)
         {
-			_authentication.RequireUser();
-            _authorization.RequireManager(slug);
             var command = _homegameCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
             {

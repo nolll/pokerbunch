@@ -55,37 +55,6 @@ namespace Tests.Infrastructure.Repositories
         }
 
         [Test]
-        public void RequireManager_WithManagerUser_DoesNotThrowException()
-        {
-            const string slug = "a";
-            var homegame = new FakeHomegame();
-            var user = new FakeUser();
-
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Manager);
-
-            var sut = GetSut();
-            sut.RequireManager(slug);
-        }
-
-        [Test]
-        public void RequireManager_WithPlayerUser_ThrowsException()
-        {
-            const string slug = "a";
-            var homegame = new FakeHomegame();
-            var user = new FakeUser();
-
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(homegame, user)).Returns(Role.Player);
-
-            var sut = GetSut();
-            
-            Assert.Throws<AccessDeniedException>(() => sut.RequireManager(slug));
-        }
-
-        [Test]
         public void RequirePlayer_WithPlayerUser_DoesNotThrowException()
         {
             const string slug = "a";

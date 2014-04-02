@@ -49,12 +49,6 @@ namespace Application.Services
             RequireRole(homegame, Role.Player);
         }
 
-        public void RequireManager(string bunchName)
-        {
-            var homegame = _homegameRepository.GetByName(bunchName);
-            RequireRole(homegame, Role.Manager);
-        }
-
         public bool CanActAsPlayer(string slug, string playerName)
         {
             var homegame = _homegameRepository.GetByName(slug);

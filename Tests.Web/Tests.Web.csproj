@@ -104,6 +104,7 @@
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
     <Compile Include="Routing\RouteTests.cs" />
+    <Compile Include="SecurityTestHelper.cs" />
     <Compile Include="ServiceTests\ResultFormatterTests.cs" />
     <Compile Include="ServiceTests\UrlProviderTests.cs" />
   </ItemGroup>

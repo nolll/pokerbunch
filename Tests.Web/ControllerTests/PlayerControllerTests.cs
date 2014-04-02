@@ -1,6 +1,12 @@
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.Mvc;
 using Application.Exceptions;
 using Application.Services;
+using Core.Classes;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
@@ -8,8 +14,8 @@ using Web.Commands.PlayerCommands;
 using Web.Controllers;
 using Web.ModelServices;
 
-namespace Tests.Web.ControllerTests{
-
+namespace Tests.Web.ControllerTests
+{
 	public class PlayerControllerTests : MockContainer
     {
         [Test]
@@ -25,16 +31,14 @@ namespace Tests.Web.ControllerTests{
 		}
 
         [Test]
-		public void Delete_NotAuthorized_ThrowsException()
+		public void Delete_HasAuthorizeRoleAttribute()
         {
-			const string slug = "a";
-		    const string playerName = "b";
-            GetMock<IAuthorization>().Setup(o => o.RequireManager(slug)).Throws<AccessDeniedException>();
-
-            var sut = GetSut();
-
-            Assert.Throws<AccessDeniedException>(() => sut.Delete(slug, playerName));
-		}
+			var sut = GetSut();
+            Func<string, string, ActionResult> methodToTest = sut.Delete;
+            var result = SecurityTestHelper.RequiresRole(methodToTest, Role.Manager);
+            
+            Assert.IsTrue(result);
+        }
         
         [Test]
 		public void Delete_WithSuccessfulCommand_RedirectsToPlayerList()
@@ -70,7 +74,8 @@ namespace Tests.Web.ControllerTests{
             Assert.AreEqual(playerUrl, result.Url);
         }
 
-        private PlayerController GetSut(){
+        private PlayerController GetSut()
+        {
 			return new PlayerController(
                 GetMock<IAuthentication>().Object,
                 GetMock<IAuthorization>().Object,
@@ -78,7 +83,5 @@ namespace Tests.Web.ControllerTests{
                 GetMock<IUrlProvider>().Object,
                 GetMock<IPlayerCommandProvider>().Object);
 		}
-
 	}
-
 }
