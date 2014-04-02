@@ -1,26 +1,24 @@
 ﻿using System.Web.Mvc;
-using Application.Services;
+using Core.Classes;
 using Web.Commands.AdminCommands;
 using Web.Models.AdminModels;
+using Web.Services;
 
 namespace Web.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IAuthentication _authentication;
         private readonly IAdminCommandProvider _adminCommandProvider;
 
         public AdminController(
-            IAuthentication authentication,
             IAdminCommandProvider adminCommandProvider)
         {
-            _authentication = authentication;
             _adminCommandProvider = adminCommandProvider;
         }
 
+        [AuthorizeRole(Role = Role.Admin)]
         public ActionResult SendEmail()
         {
-            _authentication.RequireAdmin();
             const string to = "henriks@gmail.com";
             var command = _adminCommandProvider.GetEmailTestCommand(to);
             command.Execute();

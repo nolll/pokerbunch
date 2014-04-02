@@ -153,6 +153,9 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
             RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
             RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();
+
+            // Authentication
+            RegisterComponent<IFormsAuthenticationService, FormsAuthenticationService>();
         }
 
     }

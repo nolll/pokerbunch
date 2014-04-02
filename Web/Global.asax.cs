@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Net;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Web.Plumbing;
+using Web.Services;
 using DependencyResolver = Plumbing.DependencyResolver;
 
 namespace Web
@@ -37,6 +41,30 @@ namespace Web
             EnsureLowercaseUrl();
         }
 
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            if (!Request.IsAuthenticated)
+            {
+                return;
+            }
+
+            var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null)
+            {
+                return;
+            }
+            
+            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            if (authTicket == null)
+            {
+                return;
+            }
+
+            var identity = new CustomIdentity(true, authTicket.UserData);
+            var principal = new CustomPrincipal(identity);
+            HttpContext.Current.User = principal;
+        }
+        
         private void EnsureLowercaseUrl()
         {
             // Don't rewrite requests for content (.png, .css) or scripts (.js)

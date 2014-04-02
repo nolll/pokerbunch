@@ -1,10 +1,12 @@
 using System.Web.Mvc;
 using Application.Services;
+using Core.Classes;
 using Web.Commands.HomegameCommands;
 using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -30,10 +32,9 @@ namespace Web.Controllers
 	        _homegameModelService = homegameModelService;
 	    }
 
+        [AuthorizeRole(Role = Role.Admin)]
 	    public ActionResult List()
         {
-            _authentication.RequireUser();
-            _authentication.RequireAdmin();
 	        var model = _homegameModelService.GetListModel();
 			return View("HomegameList", model);
 		}
@@ -73,6 +74,7 @@ namespace Web.Controllers
 			return View("AddHomegameConfirmation", model);
 		}
 
+        [AuthorizeRole(Role = Role.Manager)]
         public ActionResult Edit(string slug)
         {
 			_authentication.RequireUser();

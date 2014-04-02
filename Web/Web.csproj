@@ -513,6 +513,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\FormsAuthenticationService.cs" />
     <Compile Include="Services\UrlProvider.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@ using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.AuthCommands;
+using Web.Services;
 
 namespace Tests.Web.CommandTests.AuthCommands{
 
@@ -19,10 +20,21 @@ namespace Tests.Web.CommandTests.AuthCommands{
             GetMock<IWebContext>().Verify(o => o.ClearCookie(cookieName));
         }
 
+        [Test]
+        public void Execute_ReturnsTrueAndSignsOut()
+        {
+            var sut = GetSut();
+            var result = sut.Execute();
+
+            Assert.IsTrue(result);
+            GetMock<IFormsAuthenticationService>().Verify(o => o.SignOut());
+        }
+
         private LogoutCommand GetSut()
         {
             return new LogoutCommand(
-                GetMock<IWebContext>().Object);
+                GetMock<IWebContext>().Object,
+                GetMock<IFormsAuthenticationService>().Object);
         }
 
 	}

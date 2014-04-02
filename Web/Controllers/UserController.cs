@@ -1,11 +1,13 @@
 using System.Web.Mvc;
 using Application.Services;
+using Core.Classes;
 using Web.Commands.UserCommands;
 using Web.ModelServices;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -35,10 +37,9 @@ namespace Web.Controllers
 			return View("Details", model);
 		}
 
+        [AuthorizeRole(Role = Role.Admin)]
         public ActionResult List()
         {
-            _authentication.RequireUser();
-            _authentication.RequireAdmin();
             var model = _userModelService.GetListModel();
 			return View("List/List", model);
 		}

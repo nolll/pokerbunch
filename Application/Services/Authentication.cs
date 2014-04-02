@@ -46,13 +46,5 @@ namespace Application.Services
         {
             return GetUser().IsAdmin;
         }
-
-        public void RequireAdmin()
-        {
-            if (!IsAdmin())
-            {
-                throw new AccessDeniedException();
-            }
-        }
 	}
 }

@@ -7,6 +7,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.AuthCommands;
 using Web.Models.AuthModels;
+using Web.Services;
 
 namespace Tests.Web.CommandTests.AuthCommands{
 
@@ -99,7 +100,10 @@ namespace Tests.Web.CommandTests.AuthCommands{
                 GetMock<IUserRepository>().Object,
                 GetMock<IEncryptionService>().Object,
                 GetMock<IWebContext>().Object,
-                postModel);
+                GetMock<IFormsAuthenticationService>().Object,
+                GetMock<IHomegameRepository>().Object,
+                postModel)
+            ;
         }
 
 	}
