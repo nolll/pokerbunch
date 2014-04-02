@@ -10,6 +10,7 @@ using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
 using Web.Security;
+using Web.Security.Attributes;
 
 namespace Web.Controllers
 {

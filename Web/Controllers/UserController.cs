@@ -8,6 +8,7 @@ using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
 using Web.Security;
+using Web.Security.Attributes;
 
 namespace Web.Controllers
 {

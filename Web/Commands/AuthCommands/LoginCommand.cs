@@ -4,7 +4,6 @@ using Core.Classes;
 using Core.Repositories;
 using Web.Models.AuthModels;
 using Web.Security;
-using Web.Services;
 
 namespace Web.Commands.AuthCommands
 {
@@ -12,8 +11,7 @@ namespace Web.Commands.AuthCommands
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncryptionService _encryptionService;
-        private readonly IWebContext _webContext;
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthentication _authentication;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly AuthLoginPostModel _postModel;
@@ -21,16 +19,14 @@ namespace Web.Commands.AuthCommands
         public LoginCommand(
             IUserRepository userRepository,
             IEncryptionService encryptionService,
-            IWebContext webContext,
-            IAuthenticationService authenticationService,
+            IAuthentication authentication,
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
             AuthLoginPostModel postModel)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
-            _webContext = webContext;
-            _authenticationService = authenticationService;
+            _authentication = authentication;
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
             _postModel = postModel;
@@ -43,10 +39,7 @@ namespace Web.Commands.AuthCommands
             if (user != null)
             {
                 var identity = GetUserIdentity(user);
-
-                _authenticationService.SignIn(identity, _postModel.RememberMe);
-                
-                SetCookies(user, _postModel.RememberMe);
+                _authentication.SignIn(identity, _postModel.RememberMe);
                 return true;
             }
             AddError("There was something wrong with your username or password. Please try again.");
@@ -88,28 +81,6 @@ namespace Web.Commands.AuthCommands
             var user = _userRepository.GetByNameOrEmail(loginName);
             var encryptedPassword = _encryptionService.Encrypt(password, user.Salt);
             return encryptedPassword == user.EncryptedPassword ? user : null;
-        }
-
-        private void SetCookies(User user, bool remember)
-        {
-            if (remember)
-            {
-                SetPersistentCookies(user);
-            }
-            else
-            {
-                SetSessionCookies(user);
-            }
-        }
-
-        private void SetSessionCookies(User user)
-        {
-            _webContext.SetSessionCookie("token", user.Token);
-        }
-
-        private void SetPersistentCookies(User user)
-        {
-            _webContext.SetPersistentCookie("token", user.Token);
         }
     }
 }

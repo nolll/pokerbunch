@@ -6,7 +6,6 @@ namespace Core.Repositories
     public interface IUserRepository
     {
         User GetById(int id);
-        User GetByToken(string token);
         User GetByNameOrEmail(string nameOrEmail);
         IList<User> GetList();
         bool Save(User user);

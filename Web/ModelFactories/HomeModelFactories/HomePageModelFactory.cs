@@ -4,6 +4,7 @@ using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
+using Web.Security;
 
 namespace Web.ModelFactories.HomeModelFactories
 {

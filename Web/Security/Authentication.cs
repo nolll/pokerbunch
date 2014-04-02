@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 
 namespace Web.Security
 {
-    public class FormsAuthenticationService : IAuthenticationService
+    public class Authentication : IAuthentication
     {
         private readonly ITimeProvider _timeProvider;
         private readonly IUserRepository _userRepository;
         private const int Version = 1;
 
-        public FormsAuthenticationService(
+        public Authentication(
             ITimeProvider timeProvider,
             IUserRepository userRepository)
         {
@@ -48,7 +48,6 @@ namespace Web.Security
             {
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
-
         }
 
         public void SignOut()
@@ -56,7 +55,7 @@ namespace Web.Security
             FormsAuthentication.SignOut();
         }
 
-        public CustomIdentity GetIdentity()
+        private CustomIdentity GetIdentity()
         {
             return HttpContext.Current.User.Identity as CustomIdentity;
         }

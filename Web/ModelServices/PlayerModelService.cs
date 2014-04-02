@@ -24,7 +24,6 @@ namespace Web.ModelServices
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IAuthentication _authentication;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IAuthenticationService _authenticationService;
 
         public PlayerModelService(
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
@@ -37,8 +36,7 @@ namespace Web.ModelServices
             IUserRepository userRepository,
             ICashgameRepository cashgameRepository,
             IAuthentication authentication,
-            IHomegameRepository homegameRepository,
-            IAuthenticationService authenticationService)
+            IHomegameRepository homegameRepository)
         {
             _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
             _playerListPageModelFactory = playerListPageModelFactory;
@@ -51,13 +49,12 @@ namespace Web.ModelServices
             _cashgameRepository = cashgameRepository;
             _authentication = authentication;
             _homegameRepository = homegameRepository;
-            _authenticationService = authenticationService;
         }
 
         public PlayerListPageModel GetListModel(string slug)
         {
             var homegame = _homegameRepository.GetByName(slug);
-            var isInManagerMode = _authenticationService.IsInRole(slug, Role.Manager);
+            var isInManagerMode = _authentication.IsInRole(slug, Role.Manager);
             var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             return _playerListPageModelFactory.Create(_authentication.GetUser(), homegame, players, isInManagerMode);
         }
@@ -69,7 +66,7 @@ namespace Web.ModelServices
             var player = _playerRepository.GetByName(homegame, playerName);
             var user = _userRepository.GetById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
-            var isManager = _authenticationService.IsInRole(slug, Role.Manager);
+            var isManager = _authentication.IsInRole(slug, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);
             return _playerDetailsPageModelFactory.Create(currentUser, homegame, player, user, cashgames, isManager, hasPlayed);
         }

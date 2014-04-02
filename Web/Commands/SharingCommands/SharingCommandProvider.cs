@@ -1,5 +1,6 @@
 using Application.Services;
 using Core.Repositories;
+using Web.Security;
 
 namespace Web.Commands.SharingCommands
 {

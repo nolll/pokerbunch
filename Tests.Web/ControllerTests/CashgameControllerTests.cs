@@ -10,6 +10,7 @@ using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelServices;
+using Web.Security;
 
 namespace Tests.Web.ControllerTests{
 

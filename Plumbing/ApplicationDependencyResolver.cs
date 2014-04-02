@@ -64,7 +64,6 @@ namespace Plumbing
             RegisterComponent<ITwitterRepository, TwitterRepository>();
             RegisterComponent<ISharingRepository, SharingRepository>();
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
-            RegisterComponent<IAuthentication, Authentication>();
 
             // Core Factories
             RegisterComponent<IHomegameFactory, HomegameFactory>();

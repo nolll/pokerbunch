@@ -1,8 +1,8 @@
-using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.Models.SharingModels;
+using Web.Security;
 
 namespace Web.ModelServices
 {

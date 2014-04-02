@@ -40,17 +40,6 @@ namespace Infrastructure.Data.SqlServer
             return reader.ReadInt("UserID");
         }
 
-        public int? GetUserIdByToken(string token)
-        {
-            const string sql = "SELECT u.UserID FROM [User] u WHERE u.Token = @token";
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@token", token)
-                };
-            var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadInt("UserID");
-        }
-
         public IList<RawUser> GetUserList(IList<int> ids)
         {
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Token, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";

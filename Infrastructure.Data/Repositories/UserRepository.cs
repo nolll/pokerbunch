@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Factories;
 using Core.Classes;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
@@ -14,7 +13,6 @@ namespace Infrastructure.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IUserStorage _userStorage;
-        private readonly IUserFactory _userFactory;
         private readonly IRawUserFactory _rawUserFactory;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheKeyProvider _cacheKeyProvider;
@@ -23,7 +21,6 @@ namespace Infrastructure.Data.Repositories
 
         public UserRepository(
             IUserStorage userStorage,
-            IUserFactory userFactory,
             IRawUserFactory rawUserFactory,
             ICacheContainer cacheContainer,
             ICacheKeyProvider cacheKeyProvider,
@@ -31,7 +28,6 @@ namespace Infrastructure.Data.Repositories
             IUserDataMapper userDataMapper)
         {
             _userStorage = userStorage;
-            _userFactory = userFactory;
             _rawUserFactory = rawUserFactory;
             _cacheContainer = cacheContainer;
             _cacheKeyProvider = cacheKeyProvider;
@@ -43,12 +39,6 @@ namespace Infrastructure.Data.Repositories
         {
             var cacheKey = _cacheKeyProvider.UserKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
-        }
-
-        public User GetByToken(string token)
-        {
-            var userId = GetIdByToken(token);
-            return userId.HasValue ? GetById(userId.Value) : null;
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
@@ -92,12 +82,6 @@ namespace Infrastructure.Data.Repositories
             return rawUsers.Select(_userDataMapper.Map).ToList();
         }
 
-        private int? GetIdByToken(string token)
-        {
-            var cacheKey = _cacheKeyProvider.UserIdByTokenKey(token);
-            return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByToken(token), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
-        }
-
         private int? GetIdByNameOrEmail(string nameOrEmail)
         {
             var cacheKey = _cacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
@@ -109,6 +93,5 @@ namespace Infrastructure.Data.Repositories
             var cacheKey = _cacheKeyProvider.UserIdsKey();
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
-
     }
 }

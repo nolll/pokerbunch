@@ -33,18 +33,6 @@ namespace Tests.Infrastructure.Data.SqlServer
         }
 
         [Test]
-        public void GetUserIdByToken_CallsStorageWithCorrectSql()
-        {
-            const string token = "a";
-            const string expectedSql = "SELECT u.UserID FROM [User] u WHERE u.Token = 'a'";
-
-            var sut = GetSut();
-            sut.GetUserIdByToken(token);
-
-            Assert.AreEqual(expectedSql, StorageProvider.Sql);
-        }
-
-        [Test]
         public void GetUserList_CallsStorageWithCorrectSql()
         {
             var idList = new List<int> { 1, 2, 3 };

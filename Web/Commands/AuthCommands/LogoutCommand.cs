@@ -1,26 +1,20 @@
-﻿using Application.Services;
-using Web.Security;
-using Web.Services;
+﻿using Web.Security;
 
 namespace Web.Commands.AuthCommands
 {
     public class LogoutCommand : Command
     {
-        private readonly IWebContext _webContext;
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthentication _authentication;
 
         public LogoutCommand(
-            IWebContext webContext,
-            IAuthenticationService authenticationService)
+            IAuthentication authentication)
         {
-            _webContext = webContext;
-            _authenticationService = authenticationService;
+            _authentication = authentication;
         }
 
         public override bool Execute()
         {
-            _authenticationService.SignOut();
-            _webContext.ClearCookie("token");
+            _authentication.SignOut();
             return true;
         }
     }

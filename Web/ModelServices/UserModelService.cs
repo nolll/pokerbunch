@@ -1,5 +1,4 @@
-﻿using Application.Services;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
@@ -7,6 +6,7 @@ using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
 using Web.Models.UserModels.List;
+using Web.Security;
 
 namespace Web.ModelServices
 {

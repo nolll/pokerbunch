@@ -76,9 +76,9 @@ namespace Web.ModelServices
             {
                 throw new HttpException(404, "Cashgame not found");
             }
-            var user = _authenticationService.GetUser();
+            var user = _authentication.GetUser();
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
-            var isManager = _authenticationService.IsInRole(slug, Role.Manager);
+            var isManager = _authentication.IsInRole(slug, Role.Manager);
             return _cashgameDetailsPageModelFactory.Create(user, homegame, cashgame, player, isManager);
         }
 
@@ -126,11 +126,11 @@ namespace Web.ModelServices
 
         public RunningCashgamePageModel GetRunningModel(string slug)
         {
-            var user = _authenticationService.GetUser();
+            var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var isManager = _authenticationService.IsInRole(slug, Role.Manager);
+            var isManager = _authentication.IsInRole(slug, Role.Manager);
             return _runningCashgamePageModelFactory.Create(user, homegame, cashgame, player, isManager);
         }
 
@@ -163,8 +163,8 @@ namespace Web.ModelServices
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var player = _playerRepository.GetByName(homegame, playerName);
             var result = cashgame.GetResult(player.Id);
-            var role = _authenticationService.GetRole(slug);
-            return _actionPageModelFactory.Create(_authenticationService.GetUser(), homegame, cashgame, player, result, role);
+            var role = _authentication.GetRole(slug);
+            return _actionPageModelFactory.Create(_authentication.GetUser(), homegame, cashgame, player, result, role);
         }
 
         public ChartModel GetActionChartJsonModel(string slug, string dateStr, string playerName)
@@ -270,7 +270,6 @@ namespace Web.ModelServices
         private readonly IEndPageModelFactory _endPageModelFactory;
         private readonly IEditCheckpointPageModelFactory _editCheckpointPageModelFactory;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IAuthenticationService _authenticationService;
 
         public CashgameModelService(
             IHomegameRepository homegameRepository,
@@ -298,8 +297,7 @@ namespace Web.ModelServices
             ICashoutPageModelFactory cashoutPageModelFactory,
             IEndPageModelFactory endPageModelFactory,
             IEditCheckpointPageModelFactory editCheckpointPageModelFactory,
-            ICheckpointRepository checkpointRepository,
-            IAuthenticationService authenticationService)
+            ICheckpointRepository checkpointRepository)
         {
             _homegameRepository = homegameRepository;
             _authentication = authentication;
@@ -327,7 +325,6 @@ namespace Web.ModelServices
             _endPageModelFactory = endPageModelFactory;
             _editCheckpointPageModelFactory = editCheckpointPageModelFactory;
             _checkpointRepository = checkpointRepository;
-            _authenticationService = authenticationService;
         }
     }
 }

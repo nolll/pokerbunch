@@ -2,6 +2,7 @@ using Application.Services;
 using Core.Classes;
 using Core.Repositories;
 using Web.Models.HomegameModels.Join;
+using Web.Security;
 
 namespace Web.Commands.HomegameCommands
 {

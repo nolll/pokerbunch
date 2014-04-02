@@ -6,6 +6,7 @@ using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
 using Web.Security;
+using Web.Security.Attributes;
 
 namespace Web.Controllers
 {

@@ -6,7 +6,6 @@ namespace Infrastructure.Data.Interfaces {
 	public interface IUserStorage
     {
         RawUser GetUserById(int id);
-        int? GetUserIdByToken(string token);
 		IList<RawUser> GetUserList(IList<int> ids);
         IList<int> GetUserIdList();
 		bool UpdateUser(RawUser user);

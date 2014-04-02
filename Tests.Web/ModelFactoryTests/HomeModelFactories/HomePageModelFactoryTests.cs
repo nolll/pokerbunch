@@ -9,6 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Security;
 
 namespace Tests.Web.ModelFactoryTests.HomeModelFactories
 {

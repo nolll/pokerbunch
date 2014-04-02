@@ -8,7 +8,6 @@ using Tests.Common.FakeClasses;
 using Web.Commands.AuthCommands;
 using Web.Models.AuthModels;
 using Web.Security;
-using Web.Services;
 
 namespace Tests.Web.CommandTests.AuthCommands{
 
@@ -59,33 +58,29 @@ namespace Tests.Web.CommandTests.AuthCommands{
 		}
         
         [Test]
-        public void Execute_UserFound_SetsSessionCookie()
+        public void Execute_UserFound_SignsIn()
 		{
-		    const string cookieName = "token";
-		    const string token = "a";
-			var user = new FakeUser(token: token);
+			var user = new FakeUser();
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
-            GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
 			sut.Execute();
 
-            GetMock<IWebContext>().Verify(o => o.SetSessionCookie(cookieName, token));
+            GetMock<IAuthentication>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), false));
 		}
 
         [Test]
-        public void Execute_UserFoundAndRememberChecked_SetsPersistentCookie(){
-            const string cookieName = "token";
-            const string token = "a";
+        public void Execute_UserFoundAndRememberChecked_SetsPersistentCookie()
+        {
             _rememberMe = true;
-            var user = new FakeUser(token: token);
+            var user = new FakeUser();
+
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
-            GetMock<IUrlProvider>().Setup(o => o.GetHomeUrl()).Returns("any");
 
             var sut = GetSut();
             sut.Execute();
 
-            GetMock<IWebContext>().Verify(o => o.SetPersistentCookie(cookieName, token));
+            GetMock<IAuthentication>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), true));
 		}
 
         private LoginCommand GetSut()
@@ -100,8 +95,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
             return new LoginCommand(
                 GetMock<IUserRepository>().Object,
                 GetMock<IEncryptionService>().Object,
-                GetMock<IWebContext>().Object,
-                GetMock<IAuthenticationService>().Object,
+                GetMock<IAuthentication>().Object,
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 postModel)
