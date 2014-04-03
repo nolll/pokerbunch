@@ -16,7 +16,7 @@ using Infrastructure.Web;
 
 namespace Plumbing
 {
-    public class ApplicationDependencyResolver : DependencyResolver
+    public class ApplicationDependencyResolver : CoreDependencyResolver
     {
         protected ApplicationDependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
             : base(container, lifestyleType)
@@ -104,6 +104,8 @@ namespace Plumbing
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<ICashgameService, CashgameService>();
             RegisterComponent<IResultFormatter, ResultFormatter>();
+            RegisterComponent<IResultSharer, ResultSharer>();
+            RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();
         }
     }
 }

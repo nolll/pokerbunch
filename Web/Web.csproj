@@ -121,6 +121,8 @@
     <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IUserListPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\UserListPageModelFactory.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
@@ -280,9 +282,7 @@
     <Compile Include="ModelFactories\UserModelFactories\IAddUserConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IAddUserPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserDetailsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IUserListPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserDetailsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\UserListPageModelFactory.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
     <Compile Include="ModelMappers\UserModelMapper.cs" />
     <Compile Include="ModelMappers\IUserModelMapper.cs" />

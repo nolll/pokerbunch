@@ -1,31 +1,26 @@
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
 using Web.Commands.UserCommands;
 using Web.ModelServices;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
-using Web.Security;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
 	public class UserController : ControllerBase
     {
-	    private readonly IAuthentication _authentication;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IUserCommandProvider _userCommandProvider;
 	    private readonly IUserModelService _userModelService;
 
 	    public UserController(
-            IAuthentication authentication,
             IUrlProvider urlProvider,
             IUserCommandProvider userCommandProvider,
             IUserModelService userModelService)
 	    {
-	        _authentication = authentication;
 	        _urlProvider = urlProvider;
 	        _userCommandProvider = userCommandProvider;
 	        _userModelService = userModelService;

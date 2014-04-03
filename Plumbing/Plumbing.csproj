@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreDependencyResolver.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="ApplicationDependencyResolver.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />

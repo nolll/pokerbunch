@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Core.Classes;
 using NUnit.Framework;
-using Plumbing;
 using Tests.Common;
 using Web.Models.PageBaseModels;
 using Web.Plumbing;
@@ -26,22 +26,30 @@ namespace Tests.Web.PlumbingTests
             _ignoredInterfaces = new List<Type>
                 {
                     typeof(IPageModel),
-                    typeof(ICacheable)
+                    typeof(ICacheable),
+                    typeof(ISocialService)
                 };
         }
 
         [Test]
         public void Resolve_ApplicableInterfacesCanBeResolved()
         {
-            var webAssembly = Assembly.GetAssembly(typeof(WebDependencyResolver));
-            var infrastructureAssembly = Assembly.GetAssembly(typeof(ApplicationDependencyResolver));
+            var assemblyNames = new List<string>
+                {
+                    "PokerBunch.Core",
+                    "Application",
+                    "Web"
+                };
 
-            var windsorContainer = new WindsorContainer()
-                .Install(FromAssembly.Instance(infrastructureAssembly))
-                .Install(FromAssembly.Instance(webAssembly));
+            var assemblies = assemblyNames.Select(Assembly.Load).ToList();
+            var windsorContainer = new WindsorContainer();
             var dependencyResolver = new WebDependencyResolver(windsorContainer, LifestyleType.Transient);
-            VerifyInterfaceResolve(dependencyResolver, webAssembly, _ignoredInterfaces);
-            VerifyInterfaceResolve(dependencyResolver, infrastructureAssembly, _ignoredInterfaces);
+
+            foreach (var assembly in assemblies)
+            {
+                windsorContainer.Install(FromAssembly.Instance(assembly));
+                VerifyInterfaceResolve(dependencyResolver, assembly, _ignoredInterfaces);
+            }
         }
 
         private static void VerifyInterfaceResolve(DependencyResolver dependencyResolver, Assembly assembly, IList<Type> ignoredInterfaces)

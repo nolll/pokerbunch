@@ -21,12 +21,11 @@ namespace Web.ModelFactories.UserModelFactories
 
         public UserListPageModel Create(User user, IList<User> users)
         {
-            return new UserListPageModel
-                {
-                    BrowserTitle = "Users",
-                    PageProperties = _pagePropertiesFactory.Create(user),
-                    UserModels = GetUserModels(users)
-                };
+            return new UserListPageModel(
+                    "Users",
+                    _pagePropertiesFactory.Create(user),
+                    GetUserModels(users)
+                );
         }
         
         private List<UserItemModel> GetUserModels(IEnumerable<User> users)

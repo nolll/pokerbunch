@@ -38,6 +38,10 @@
     <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="UseCases\IShowUserList.cs" />
+    <Compile Include="UseCases\ShowUserList.cs" />
+    <Compile Include="UseCases\ShowUserListResult.cs" />
+    <Compile Include="UseCases\UserItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Player.cs" />
