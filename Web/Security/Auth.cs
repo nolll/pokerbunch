@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 
 namespace Web.Security
 {
-    public class Authentication : IAuthentication
+    public class Auth : IAuth
     {
         private readonly ITimeProvider _timeProvider;
         private readonly IUserRepository _userRepository;
         private const int Version = 1;
 
-        public Authentication(
+        public Auth(
             ITimeProvider timeProvider,
             IUserRepository userRepository)
         {
@@ -76,6 +76,16 @@ namespace Web.Security
         {
             var identity = GetIdentity();
             return identity.GetRole(slug);
+        }
+
+        public bool IsAdmin()
+        {
+            return GetIdentity().IsAdmin;
+        }
+
+        public bool IsAuthenticated()
+        {
+            return GetIdentity().IsAuthenticated;
         }
     }
 }

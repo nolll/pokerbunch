@@ -33,16 +33,15 @@ namespace Web.ModelFactories.HomeModelFactories
         public HomePageModel Create()
         {
             var homegame = GetHomegame();
-            var user = _auth.GetUser(); // todo: use isAdmin and isAuthenticated instead
             return new HomePageModel
                 {
                     BrowserTitle = "Poker Bunch",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
-			        IsLoggedIn = user != null,
+			        IsLoggedIn = _auth.IsAuthenticated(),
                     AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
                     LoginUrl = _urlProvider.GetLoginUrl(),
                     RegisterUrl = _urlProvider.GetAddUserUrl(),
-			        AdminNav = _adminNavigationFactory.Create(user)
+			        AdminNav = _adminNavigationFactory.Create()
                 };
         }
 

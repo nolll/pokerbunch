@@ -39,9 +39,8 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
         [Test]
         public void IsLoggedIn_WithUser_IsTrue()
         {
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>()))
-                                  .Returns(new List<Homegame>());
-            GetMock<IAuth>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
+            GetMock<IAuth>().Setup(o => o.IsAuthenticated()).Returns(true);
 
             var sut = GetSut();
             var result = sut.Create();
