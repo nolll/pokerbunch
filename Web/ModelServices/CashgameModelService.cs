@@ -74,7 +74,7 @@ namespace Web.ModelServices
             {
                 throw new HttpException(404, "Cashgame not found");
             }
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var isManager = _auth.IsInRole(slug, Role.Manager);
             return _cashgameDetailsPageModelFactory.Create(homegame, cashgame, player, isManager);
@@ -121,7 +121,7 @@ namespace Web.ModelServices
 
         public RunningCashgamePageModel GetRunningModel(string slug)
         {
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
             var homegame = _homegameRepository.GetByName(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);

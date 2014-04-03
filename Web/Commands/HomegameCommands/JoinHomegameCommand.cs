@@ -34,7 +34,7 @@ namespace Web.Commands.HomegameCommands
             var player = GetMatchedPlayer(_homegame, _postModel.Code);
             if (player != null && player.IsUser)
             {
-                var user = _auth.GetUser();
+                var user = _auth.CurrentUser;
                 _playerRepository.JoinHomegame(player, _homegame, user);
                 return true;
             }

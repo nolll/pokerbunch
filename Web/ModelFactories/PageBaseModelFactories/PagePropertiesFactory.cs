@@ -33,7 +33,7 @@ namespace Web.ModelFactories.PageBaseModelFactories
         public PageProperties Create(Homegame homegame)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
 
             return new PageProperties
                 {

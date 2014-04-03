@@ -60,10 +60,13 @@ namespace Web.Security
             return HttpContext.Current.User.Identity as CustomIdentity;
         }
 
-        public User GetUser()
+        public User CurrentUser
         {
-            var identity = GetIdentity();
-            return identity.IsAuthenticated ? _userRepository.GetById(identity.UserId) : null;
+            get
+            {
+                var identity = GetIdentity();
+                return identity.IsAuthenticated ? _userRepository.GetById(identity.UserId) : null;
+            }
         }
 
         public bool IsInRole(string slug, Role role)
@@ -78,14 +81,14 @@ namespace Web.Security
             return identity.GetRole(slug);
         }
 
-        public bool IsAdmin()
+        public bool IsAdmin
         {
-            return GetIdentity().IsAdmin;
+            get { return GetIdentity().IsAdmin; }
         }
 
-        public bool IsAuthenticated()
+        public bool IsAuthenticated
         {
-            return GetIdentity().IsAuthenticated;
+            get { return GetIdentity().IsAuthenticated; }
         }
     }
 }

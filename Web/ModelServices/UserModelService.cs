@@ -50,7 +50,7 @@ namespace Web.ModelServices
 
         public UserDetailsPageModel GetDetailsModel(string userName)
         {
-            var currentUser = _auth.GetUser();
+            var currentUser = _auth.CurrentUser;
             var displayUser = _userRepository.GetByNameOrEmail(userName);
             return _userDetailsPageModelFactory.Create(currentUser, displayUser);
         }

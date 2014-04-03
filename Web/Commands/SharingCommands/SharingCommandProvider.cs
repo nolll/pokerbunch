@@ -25,13 +25,13 @@ namespace Web.Commands.SharingCommands
 
         public Command GetTwitterStopCommand()
         {
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
             return new TwitterStopCommand(_sharingRepository, user);
         }
 
         public Command GetStartCommand(string token, string verifier)
         {
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
             var twitterCredentials = _twitterIntegration.GetCredentials(token, verifier);
 
             return new TwitterStartCommand(_twitterRepository, _sharingRepository, user, twitterCredentials);

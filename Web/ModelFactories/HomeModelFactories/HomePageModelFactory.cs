@@ -37,7 +37,7 @@ namespace Web.ModelFactories.HomeModelFactories
                 {
                     BrowserTitle = "Poker Bunch",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
-			        IsLoggedIn = _auth.IsAuthenticated(),
+			        IsLoggedIn = _auth.IsAuthenticated,
                     AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
                     LoginUrl = _urlProvider.GetLoginUrl(),
                     RegisterUrl = _urlProvider.GetAddUserUrl(),
@@ -47,7 +47,7 @@ namespace Web.ModelFactories.HomeModelFactories
 
         private Homegame GetHomegame()
         {
-            var games = _homegameRepository.GetByUser(_auth.GetUser());
+            var games = _homegameRepository.GetByUser(_auth.CurrentUser);
             return games.Count == 1 ? games[0] : null;
         }
     }

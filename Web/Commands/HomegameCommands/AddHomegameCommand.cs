@@ -42,7 +42,7 @@ namespace Web.Commands.HomegameCommands
             }
             var homegame = _homegameModelMapper.GetHomegame(_postModel);
             homegame = _homegameRepository.Add(homegame);
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
             _playerRepository.Add(homegame, user, Role.Manager);
             return true;
         }

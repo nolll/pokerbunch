@@ -57,7 +57,7 @@ namespace Web.Commands.UserCommands
 
         public Command GetChangePasswordCommand(ChangePasswordPostModel postModel)
         {
-            var user = _auth.GetUser();
+            var user = _auth.CurrentUser;
 
             return new ChangePasswordCommand(
                 _saltGenerator,

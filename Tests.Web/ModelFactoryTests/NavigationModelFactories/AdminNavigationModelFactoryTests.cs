@@ -13,7 +13,7 @@ namespace Tests.Web.ModelFactoryTests.NavigationModelFactories
         [Test]
 		public void Show_AdminUser_DefaultContentSet()
         {
-            GetMock<IAuth>().Setup(o => o.IsAdmin()).Returns(true);
+            GetMock<IAuth>().Setup(o => o.IsAdmin).Returns(true);
             
             var sut = GetSut();
             var result = sut.Create();
@@ -39,7 +39,7 @@ namespace Tests.Web.ModelFactoryTests.NavigationModelFactories
 
             GetMock<IUrlProvider>().Setup(o => o.GetHomegameListUrl()).Returns(homegameListUrl);
             GetMock<IUrlProvider>().Setup(o => o.GetUserListUrl()).Returns(userListUrl);
-		    GetMock<IAuth>().Setup(o => o.IsAdmin()).Returns(true);
+		    GetMock<IAuth>().Setup(o => o.IsAdmin).Returns(true);
 
 		    var sut = GetSut();
             var result = sut.Create();

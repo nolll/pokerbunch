@@ -6,10 +6,10 @@ namespace Web.Security
     {
         void SignIn(UserIdentity user, bool createPersistentCookie);
         void SignOut();
-        User GetUser();
+        User CurrentUser { get; }
         bool IsInRole(string slug, Role manager);
         Role GetRole(string slug);
-        bool IsAdmin();
-        bool IsAuthenticated();
+        bool IsAdmin { get; }
+        bool IsAuthenticated { get; }
     }
 }

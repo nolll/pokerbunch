@@ -30,7 +30,7 @@ namespace Web.ModelFactories.NavigationModelFactories
 
         private IList<NavigationNode> GetNodes()
         {
-            return _auth.IsAdmin() ? GetAdminNodeList() : GetEmptyNodeList();
+            return _auth.IsAdmin ? GetAdminNodeList() : GetEmptyNodeList();
         }
 
         private List<NavigationNode> GetAdminNodeList()
