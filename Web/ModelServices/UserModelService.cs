@@ -1,4 +1,5 @@
 ﻿using Core.Repositories;
+using Core.UseCases;
 using Web.ModelFactories.UserModelFactories;
 using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
@@ -21,6 +22,7 @@ namespace Web.ModelServices
         private readonly IEditUserPageModelFactory _editUserPageModelFactory;
         private readonly IChangePasswordPageModelFactory _changePasswordPageModelFactory;
         private readonly IForgotPasswordPageModelFactory _forgotPasswordPageModelFactory;
+        private readonly IShowUserList _showUserList;
 
         public UserModelService(
             IAuthentication authentication,
@@ -31,7 +33,8 @@ namespace Web.ModelServices
             IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
             IEditUserPageModelFactory editUserPageModelFactory,
             IChangePasswordPageModelFactory changePasswordPageModelFactory,
-            IForgotPasswordPageModelFactory forgotPasswordPageModelFactory)
+            IForgotPasswordPageModelFactory forgotPasswordPageModelFactory,
+            IShowUserList showUserList)
         {
             _authentication = authentication;
             _userRepository = userRepository;
@@ -42,6 +45,7 @@ namespace Web.ModelServices
             _editUserPageModelFactory = editUserPageModelFactory;
             _changePasswordPageModelFactory = changePasswordPageModelFactory;
             _forgotPasswordPageModelFactory = forgotPasswordPageModelFactory;
+            _showUserList = showUserList;
         }
 
         public UserDetailsPageModel GetDetailsModel(string userName)
@@ -55,7 +59,8 @@ namespace Web.ModelServices
         {
             var currentUser = _authentication.GetUser();
             var users = _userRepository.GetList();
-            return _userListPageModelFactory.Create(currentUser, users);
+            var showUserListResult = _showUserList.Execute();
+            return _userListPageModelFactory.Create(currentUser, showUserListResult);
         }
 
         public AddUserPageModel GetAddModel(AddUserPostModel postModel)

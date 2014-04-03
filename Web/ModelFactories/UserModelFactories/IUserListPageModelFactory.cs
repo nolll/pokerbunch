@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Core.Classes;
+﻿using Core.Classes;
+using Core.UseCases;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public interface IUserListPageModelFactory
     {
-        UserListPageModel Create(User user, IList<User> users);
+        UserListPageModel Create(User user, ShowUserListResult showUserListResult);
     }
 }

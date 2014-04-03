@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.UseCases;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -13,12 +13,12 @@ namespace Web.ModelFactories.UserModelFactories
             _urlProvider = urlProvider;
         }
 
-        public UserItemModel Create(User user)
+        public UserItemModel Create(UserItem userItem)
         {
             return new UserItemModel
                 {
-                    Name = user.DisplayName,
-                    UrlModel = _urlProvider.GetUserDetailsUrl(user.UserName)
+                    Name = userItem.Name,
+                    UrlModel = _urlProvider.GetUserDetailsUrl(userItem.Identifier)
                 };
         }
     }
