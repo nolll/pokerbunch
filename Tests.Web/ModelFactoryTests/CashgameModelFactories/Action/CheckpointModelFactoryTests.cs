@@ -30,9 +30,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
         [SetUp]
 		public void SetUp()
         {
+            const string description = "description";
             _stack = 200;
             _timestamp = DateTime.Parse("2010-01-01 01:00:00");
-            _checkpoint = new FakeCheckpoint(_timestamp, stack: _stack);
+            _checkpoint = new FakeCheckpoint(_timestamp, stack: _stack, description: description);
 			_role = Role.Player;
 		}
 
@@ -53,7 +54,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
 
-            Assert.AreEqual("Report", result.Description);
+            Assert.AreEqual("description", result.Description);
 		}
 
 		[Test]

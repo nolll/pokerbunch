@@ -23,7 +23,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         {
             return new CheckpointModel
                 {
-                    Description = CheckpointTypeName.GetName(checkpoint.Type),
+                    Description = checkpoint.Description,
                     Stack = _globalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
                     Timestamp = _globalization.FormatTime(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone)),
                     ShowLink = role >= Role.Manager,

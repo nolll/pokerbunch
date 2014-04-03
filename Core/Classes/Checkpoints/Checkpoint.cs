@@ -2,15 +2,15 @@ using System;
 
 namespace Core.Classes.Checkpoints
 {
-	public class Checkpoint
+	public abstract class Checkpoint
     {
 	    public int Amount { get; private set; }
         public int Stack { get; private set; }
         public DateTime Timestamp { get; private set; }
         public CheckpointType Type { get; private set; }
         public int Id { get; private set; }
-        
-	    public Checkpoint(
+
+	    protected Checkpoint(
             DateTime timestamp, 
             CheckpointType type,
             int stack,
@@ -23,5 +23,7 @@ namespace Core.Classes.Checkpoints
             Amount = amount;
             Id = id;
 	    }
+
+        public abstract string Description { get; }
 	}
 }
