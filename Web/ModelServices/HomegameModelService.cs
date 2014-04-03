@@ -47,50 +47,43 @@ namespace Web.ModelServices
 
         public HomegameListPageModel GetListModel()
         {
-            var user = _authentication.GetUser();
             var homegames = _homegameRepository.GetList();
-            return _homegameListPageModelFactory.Create(user, homegames);
+            return _homegameListPageModelFactory.Create(homegames);
         }
 
         public HomegameDetailsPageModel GetDetailsModel(string slug)
         {
-            var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var isInManagerMode = _authentication.IsInRole(slug, Role.Manager);
-            return _homegameDetailsPageModelFactory.Create(user, homegame, isInManagerMode);
+            return _homegameDetailsPageModelFactory.Create(homegame, isInManagerMode);
         }
 
         public AddHomegamePageModel GetAddModel(AddHomegamePostModel postModel)
         {
-            var user = _authentication.GetUser();
-            return _addHomegamePageModelFactory.Create(user, postModel);
+            return _addHomegamePageModelFactory.Create(postModel);
         }
 
         public AddHomegameConfirmationPageModel GetAddConfirmationModel()
         {
-            var user = _authentication.GetUser();
-            return _addHomegameConfirmationPageModelFactory.Create(user);
+            return _addHomegameConfirmationPageModelFactory.Create();
         }
 
         public HomegameEditPageModel GetEditModel(string slug, HomegameEditPostModel postModel)
         {
-            var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            return _homegameEditPageModelFactory.Create(user, homegame, postModel);
+            return _homegameEditPageModelFactory.Create(homegame, postModel);
         }
 
         public JoinHomegamePageModel GetJoinModel(string slug, JoinHomegamePostModel postModel)
         {
-            var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            return _joinHomegamePageModelFactory.Create(user, homegame, postModel);
+            return _joinHomegamePageModelFactory.Create(homegame, postModel);
         }
 
         public JoinHomegameConfirmationPageModel GetJoinConfirmationModel(string slug)
         {
-            var user = _authentication.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
-            return _joinHomegameConfirmationPageModelFactory.Create(user, homegame);
+            return _joinHomegameConfirmationPageModelFactory.Create(homegame);
         }
     }
 }

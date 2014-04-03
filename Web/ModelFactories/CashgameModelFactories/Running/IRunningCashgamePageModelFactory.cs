@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
 {
     public interface IRunningCashgamePageModelFactory
     {
-        RunningCashgamePageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, bool isManager);
+        RunningCashgamePageModel Create(Homegame homegame, Cashgame cashgame, Player player, bool isManager);
     }
 }

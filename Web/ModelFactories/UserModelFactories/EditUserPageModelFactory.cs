@@ -18,7 +18,7 @@ namespace Web.ModelFactories.UserModelFactories
             return new EditUserPageModel
                 {
                     BrowserTitle = "Edit Profile",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     UserName = user.UserName,
                     RealName = user.RealName,
                     DisplayName = user.DisplayName,

@@ -13,19 +13,19 @@ namespace Web.ModelFactories.HomegameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private JoinHomegamePageModel Create(User user, Homegame homegame)
+        private JoinHomegamePageModel Create(Homegame homegame)
         {
             return new JoinHomegamePageModel
                 {
                     BrowserTitle = "Join Bunch",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     Name = homegame.DisplayName
                 };
         }
 
-        public JoinHomegamePageModel Create(User user, Homegame homegame, JoinHomegamePostModel postModel)
+        public JoinHomegamePageModel Create(Homegame homegame, JoinHomegamePostModel postModel)
         {
-            var model = Create(user, homegame);
+            var model = Create(homegame);
             if (postModel != null)
             {
                 model.Code = postModel.Code;

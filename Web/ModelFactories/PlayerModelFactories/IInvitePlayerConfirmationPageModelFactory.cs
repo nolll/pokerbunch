@@ -5,6 +5,6 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IInvitePlayerConfirmationPageModelFactory
     {
-        InvitePlayerConfirmationPageModel Create(User user, Homegame homegame);
+        InvitePlayerConfirmationPageModel Create(Homegame homegame);
     }
 }

@@ -18,12 +18,12 @@ namespace Web.ModelFactories.HomegameModelFactories
             _urlProvider = urlProvider;
         }
 
-        public JoinHomegameConfirmationPageModel Create(User user, Homegame homegame)
+        public JoinHomegameConfirmationPageModel Create(Homegame homegame)
         {
             return new JoinHomegameConfirmationPageModel
                 {
                     BrowserTitle = "Welcome",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     BunchUrl = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
                     BunchName = homegame.DisplayName
                 };

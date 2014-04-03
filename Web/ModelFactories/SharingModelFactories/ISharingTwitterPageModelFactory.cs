@@ -5,6 +5,6 @@ namespace Web.ModelFactories.SharingModelFactories
 {
     public interface ISharingTwitterPageModelFactory
     {
-        SharingTwitterPageModel Create(User user, bool isSharing, TwitterCredentials credentials);
+        SharingTwitterPageModel Create(bool isSharing, TwitterCredentials credentials);
     }
 }

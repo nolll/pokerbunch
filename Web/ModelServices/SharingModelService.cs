@@ -32,7 +32,7 @@ namespace Web.ModelServices
         {
             var user = _authentication.GetUser();
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
-            return _sharingIndexPageModelFactory.Create(user, isSharing);
+            return _sharingIndexPageModelFactory.Create(isSharing);
         }
 
         public SharingTwitterPageModel GetTwitterModel()
@@ -40,7 +40,7 @@ namespace Web.ModelServices
             var user = _authentication.GetUser();
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
             var credentials = _twitterRepository.GetCredentials(user);
-            return _sharingTwitterPageModelFactory.Create(user, isSharing, credentials);
+            return _sharingTwitterPageModelFactory.Create(isSharing, credentials);
         }
     }
 }

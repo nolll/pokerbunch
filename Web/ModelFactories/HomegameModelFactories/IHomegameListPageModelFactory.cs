@@ -6,6 +6,6 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IHomegameListPageModelFactory
     {
-        HomegameListPageModel Create(User user, IEnumerable<Homegame> homegames);
+        HomegameListPageModel Create(IEnumerable<Homegame> homegames);
     }
 }

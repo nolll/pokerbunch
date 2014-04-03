@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
 {
     public interface ICashoutPageModelFactory
     {
-        CashoutPageModel Create(User user, Homegame homegame, CashoutPostModel postModel);
+        CashoutPageModel Create(Homegame homegame, CashoutPostModel postModel);
     }
 }

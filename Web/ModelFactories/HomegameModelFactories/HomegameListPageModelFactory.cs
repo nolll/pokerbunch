@@ -19,12 +19,12 @@ namespace Web.ModelFactories.HomegameModelFactories
             _homegameListItemModelFactory = homegameListItemModelFactory;
         }
 
-        public HomegameListPageModel Create(User user, IEnumerable<Homegame> homegames)
+        public HomegameListPageModel Create(IEnumerable<Homegame> homegames)
         {
             return new HomegameListPageModel
                 {
                     BrowserTitle = "Homegame List",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
         	        HomegameModels = GetHomegameModels(homegames)
                 };
         }

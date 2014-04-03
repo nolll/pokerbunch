@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
@@ -14,12 +12,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 
 	public class AddHomegamePageModelFactoryTests : MockContainer
 	{
-	    private User _user;
 		private AddHomegamePostModel _postModel;
 
         [SetUp]
 		public void SetUp(){
-            _user = new FakeUser();
 			_postModel = new AddHomegamePostModel();
 		}
 
@@ -31,7 +27,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 		    GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _postModel);
+            var result = sut.Create(_postModel);
 
 			Assert.AreEqual("a", result.DisplayName);
 		}
@@ -44,7 +40,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
-            var result = sut.Create(_user, _postModel);
+            var result = sut.Create(_postModel);
 
 			Assert.AreEqual("a", result.Description);
 		}
@@ -57,7 +53,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
 
 			var sut = GetSut();
-		    var result = sut.Create(_user, _postModel);
+		    var result = sut.Create(_postModel);
 
 			Assert.AreEqual("a", result.CurrencySymbol);
 		}
@@ -67,7 +63,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
-		    var result = sut.Create(_user, null);
+		    var result = sut.Create(null);
 
 			Assert.IsInstanceOf<List<SelectListItem>>(result.CurrencyLayoutSelectItems);
 		}
@@ -77,7 +73,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             GetMock<IGlobalization>().Setup(o => o.GetTimezones()).Returns(new List<TimeZoneInfo>());
             
             var sut = GetSut();
-		    var result = sut.Create(_user, null);
+		    var result = sut.Create(null);
 
             Assert.IsInstanceOf<List<SelectListItem>>(result.TimezoneSelectItems);
 		}

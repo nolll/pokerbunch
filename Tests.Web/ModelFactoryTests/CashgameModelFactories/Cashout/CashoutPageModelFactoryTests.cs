@@ -20,7 +20,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Cashout{
         [Test]
 		public void CashoutAmount_WithoutPostedAmount_IsNull(){
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, null);
+            var result = sut.Create(_homegame, null);
 
 			Assert.IsNull(result.StackAmount);
 		}
@@ -30,7 +30,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Cashout{
             var postModel = new CashoutPostModel{ StackAmount = 1 };
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, postModel);
+            var result = sut.Create(_homegame, postModel);
 
             Assert.AreEqual(1, result.StackAmount);
 		}

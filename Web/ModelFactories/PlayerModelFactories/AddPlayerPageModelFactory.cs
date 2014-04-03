@@ -13,12 +13,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddPlayerPageModel Create(User user, Homegame homegame, AddPlayerPostModel postModel = null)
+        public AddPlayerPageModel Create(Homegame homegame, AddPlayerPostModel postModel = null)
         {
             var model = new AddPlayerPageModel
                 {
                     BrowserTitle = "Add Player",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame)
+                    PageProperties = _pagePropertiesFactory.Create(homegame)
                 };
             if (postModel != null)
             {

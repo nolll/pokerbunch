@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.ChangePassword;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -13,21 +12,21 @@ namespace Web.ModelFactories.UserModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public ChangePasswordPageModel Create(User user)
+        public ChangePasswordPageModel Create()
         {
             return new ChangePasswordPageModel
                 {
                     BrowserTitle = "Change Password",
-                    PageProperties = _pagePropertiesFactory.Create(user)
+                    PageProperties = _pagePropertiesFactory.Create()
                 };
         }
 
-        public ChangePasswordConfirmationPageModel CreateConfirmation(User user)
+        public ChangePasswordConfirmationPageModel CreateConfirmation()
         {
             return new ChangePasswordConfirmationPageModel
             {
                 BrowserTitle = "Password Changed",
-                PageProperties = _pagePropertiesFactory.Create(user)
+                PageProperties = _pagePropertiesFactory.Create()
             };
         }
     }

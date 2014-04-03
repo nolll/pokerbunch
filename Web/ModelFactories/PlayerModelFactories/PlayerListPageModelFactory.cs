@@ -23,12 +23,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             _playerItemModelFactory = playerItemModelFactory;
         }
 
-        public PlayerListPageModel Create(User user, Homegame homegame, IList<Player> players, bool isInManagerMode)
+        public PlayerListPageModel Create(Homegame homegame, IList<Player> players, bool isInManagerMode)
         {
             return new PlayerListPageModel
                 {
                     BrowserTitle = "Player List",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 			        PlayerModels = GetPlayerModels(homegame, players),
 			        AddUrl = _urlProvider.GetPlayerAddUrl(homegame.Slug),
 			        ShowAddLink = isInManagerMode

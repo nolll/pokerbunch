@@ -9,17 +9,15 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
-
-	public class CashgameEditPageModelFactoryTests : MockContainer {
-
-		private User _user;
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
+{
+	public class CashgameEditPageModelFactoryTests : MockContainer
+    {
 		private Homegame _homegame;
 		private List<string> _locations;
 
         [SetUp]
 		public void SetUp(){
-            _user = new FakeUser();
 			_homegame = new FakeHomegame();
 			_locations = new List<string>();
 		}
@@ -34,7 +32,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
             GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.AreEqual(formattedStartDate, result.IsoDate);
 		}
@@ -47,7 +45,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.AreEqual(detailsUrl, result.CancelUrl);
 		}
@@ -60,7 +58,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDeleteUrl(_homegame.Slug, cashgame.DateString)).Returns(deleteUrl);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.AreEqual(deleteUrl, result.DeleteUrl);
 		}
@@ -70,7 +68,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame(status: GameStatus.Published);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.IsFalse(result.EnableDelete);
 		}
@@ -80,7 +78,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame(status: GameStatus.Finished);
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.IsTrue(result.EnableDelete);
 		}
@@ -91,7 +89,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
             var cashgame = new FakeCashgame();
 
             var sut = GetSut();
-            var result = sut.Create(_user, _homegame, cashgame, _locations, null);
+            var result = sut.Create(_homegame, cashgame, _locations, null);
 
 			Assert.IsInstanceOf<IEnumerable<SelectListItem>>(result.Locations);
         }
@@ -103,7 +101,5 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit{
                 GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
-
 	}
-
 }

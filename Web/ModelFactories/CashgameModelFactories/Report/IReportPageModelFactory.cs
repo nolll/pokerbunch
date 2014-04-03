@@ -5,6 +5,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
 {
     public interface IReportPageModelFactory
     {
-        ReportPageModel Create(User user, Homegame homegame, ReportPostModel postModel);
+        ReportPageModel Create(Homegame homegame, ReportPostModel postModel);
     }
 }

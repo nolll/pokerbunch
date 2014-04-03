@@ -25,7 +25,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             _globalization = globalization;
         }
 
-        public CashgameDetailsPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, bool isManager)
+        public CashgameDetailsPageModel Create(Homegame homegame, Cashgame cashgame, Player player, bool isManager)
         {
             var dateStr = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
@@ -34,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             var model = new CashgameDetailsPageModel
                 {
                     BrowserTitle = "Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     Heading = string.Format("Cashgame {0}", dateStr),
 			        Location = cashgame.Location,
                     Duration = _globalization.FormatDuration(cashgame.Duration),

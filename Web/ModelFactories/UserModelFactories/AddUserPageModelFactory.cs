@@ -1,4 +1,3 @@
-using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.Add;
 
@@ -13,18 +12,18 @@ namespace Web.ModelFactories.UserModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private AddUserPageModel Create(User user)
+        private AddUserPageModel Create()
         {
             return new AddUserPageModel
                 {
                     BrowserTitle = "Register",
-                    PageProperties = _pagePropertiesFactory.Create(user)
+                    PageProperties = _pagePropertiesFactory.Create()
                 };
         }
 
-        public AddUserPageModel Create(User user, AddUserPostModel postModel)
+        public AddUserPageModel Create(AddUserPostModel postModel)
         {
-            var model = Create(user);
+            var model = Create();
             if (postModel != null)
             {
                 model.UserName = postModel.UserName;

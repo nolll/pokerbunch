@@ -26,12 +26,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
-        public CashgameToplistPageModel Create(User user, Homegame homegame, CashgameSuite suite, IList<int> years, ToplistSortOrder sortOrder, int? year)
+        public CashgameToplistPageModel Create(Homegame homegame, CashgameSuite suite, IList<int> years, ToplistSortOrder sortOrder, int? year)
         {
             return new CashgameToplistPageModel
                 {
                     BrowserTitle = "Cashgame Toplist",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 			        TableModel = _cashgameToplistTableModelFactory.Create(homegame, suite, year, sortOrder),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Toplist),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Toplist, year)

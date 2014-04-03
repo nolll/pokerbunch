@@ -31,12 +31,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
-        public CashgameFactsPageModel Create(User user, Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null)
+        public CashgameFactsPageModel Create(Homegame homegame, CashgameFacts facts, IList<int> years = null, int? year = null)
         {
             var model = new CashgameFactsPageModel
                 {
                     BrowserTitle = "Cashgame Facts",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 			        GameCount = facts.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(facts.TotalGameTime),
                     TotalTurnover = _globalization.FormatCurrency(homegame.Currency, facts.TotalTurnover),

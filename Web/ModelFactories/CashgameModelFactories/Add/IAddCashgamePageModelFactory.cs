@@ -6,6 +6,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
 {
     public interface IAddCashgamePageModelFactory
     {
-        AddCashgamePageModel Create(User user, Homegame homegame, IEnumerable<string> locations, AddCashgamePostModel postModel);
+        AddCashgamePageModel Create(Homegame homegame, IEnumerable<string> locations, AddCashgamePostModel postModel);
     }
 }

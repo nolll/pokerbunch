@@ -27,14 +27,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
             _globalization = globalization;
         }
 
-        public ActionPageModel Create(User user, Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role)
+        public ActionPageModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, Role role)
         {
             var dateString = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
 
             return new ActionPageModel
                 {
                     BrowserTitle = "Player Actions",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     Heading = string.Format("Cashgame {0}, {1}", dateString, player.DisplayName),
                     Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role),
                     ChartDataUrl = _urlProvider.GetCashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.DisplayName)

@@ -20,12 +20,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             _urlProvider = urlProvider;
         }
 
-        public EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName)
+        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName)
         {
             return new EditCheckpointPageModel
                 {
                     BrowserTitle = "Edit Checkpoint",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
                     Stack = checkpoint.Stack,
                     Amount = checkpoint.Amount,
@@ -36,9 +36,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                 };
         }
 
-        public EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel)
         {
-            var model = Create(user, homegame, checkpoint, dateStr, playerName);
+            var model = Create(homegame, checkpoint, dateStr, playerName);
             if (postModel != null)
             {
                 model.Timestamp = postModel.Timestamp;

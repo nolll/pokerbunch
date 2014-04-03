@@ -66,7 +66,7 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
-            GetMock<IMatrixPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<User>(), It.IsAny<int?>())).Returns(new CashgameMatrixPageModel());
+            GetMock<IMatrixPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameMatrixPageModel());
 
             var sut = GetSut();
             var result = sut.GetMatrixModel(slug);
@@ -79,7 +79,7 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
-            GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
+            GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
             var result = sut.GetToplistModel(slug);
@@ -94,7 +94,7 @@ namespace Tests.Web.ModelServiceTests
             const string dateStr = "2000-01-01"; 
             GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
-            GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<User>(), It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
+            GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
 
             var sut = GetSut();
             var result = sut.GetDetailsModel(slug, dateStr);

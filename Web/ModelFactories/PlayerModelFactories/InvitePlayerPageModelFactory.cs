@@ -13,18 +13,18 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private InvitePlayerPageModel Create(User user, Homegame homegame)
+        private InvitePlayerPageModel Create(Homegame homegame)
         {
             return new InvitePlayerPageModel
                 {
                     BrowserTitle = "Invite Player",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame)
+                    PageProperties = _pagePropertiesFactory.Create(homegame)
                 };
         }
 
-        public InvitePlayerPageModel Create(User user, Homegame homegame, InvitePlayerPostModel postModel)
+        public InvitePlayerPageModel Create(Homegame homegame, InvitePlayerPostModel postModel)
         {
-            var model = Create(user, homegame);
+            var model = Create(homegame);
             if (postModel != null)
             {
                 model.Email = postModel.Email;

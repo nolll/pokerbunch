@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
 
@@ -21,20 +20,20 @@ namespace Web.ModelFactories.HomegameModelFactories
             _globalization = globalization;
         }
 
-        private AddHomegamePageModel Create(User user)
+        private AddHomegamePageModel Create()
         {
             return new AddHomegamePageModel
                 {
                     BrowserTitle = "Create Homegame",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     TimezoneSelectItems = GetTimezoneSelectModel(),
                     CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
                 };
         }
 
-        public AddHomegamePageModel Create(User user, AddHomegamePostModel postModel)
+        public AddHomegamePageModel Create(AddHomegamePostModel postModel)
         {
-            var model = Create(user);
+            var model = Create();
             if (postModel != null)
             {
                 model.DisplayName = postModel.DisplayName;

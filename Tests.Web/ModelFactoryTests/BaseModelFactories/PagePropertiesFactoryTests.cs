@@ -7,6 +7,7 @@ using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.NavigationModels;
+using Web.Security;
 
 namespace Tests.Web.ModelFactoryTests.BaseModelFactories
 {
@@ -15,11 +16,10 @@ namespace Tests.Web.ModelFactoryTests.BaseModelFactories
         [Test]
         public void Create_WithoutHomeGame_HomegameNavModelIsNull()
         {
-            var user = new FakeUser();
             GetMock<IHomegameNavigationModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
-            var result = sut.Create(user);
+            var result = sut.Create();
 
             Assert.IsNull(result.HomegameNavModel);
         }
@@ -27,12 +27,11 @@ namespace Tests.Web.ModelFactoryTests.BaseModelFactories
         [Test]
         public void HomegameNavModel_WithOneHomeGame_IsNotNull()
         {
-            var user = new FakeUser();
             var homegame = new FakeHomegame();
             GetMock<IHomegameNavigationModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
-            var result = sut.Create(user, homegame);
+            var result = sut.Create(homegame);
 
             Assert.IsNotNull(result.HomegameNavModel);
         }
@@ -42,7 +41,8 @@ namespace Tests.Web.ModelFactoryTests.BaseModelFactories
             return new PagePropertiesFactory(
                 GetMock<IGoogleAnalyticsModelFactory>().Object,
                 GetMock<IHomegameNavigationModelFactory>().Object,
-                GetMock<IUserNavigationModelFactory>().Object);
+                GetMock<IUserNavigationModelFactory>().Object,
+                GetMock<IAuthentication>().Object);
         }
 
     }

@@ -13,12 +13,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddPlayerConfirmationPageModel Create(User user, Homegame homegame)
+        public AddPlayerConfirmationPageModel Create(Homegame homegame)
         {
             return new AddPlayerConfirmationPageModel
                 {
                     BrowserTitle = "Player Added",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     HomegameName = homegame.DisplayName
                 };
         }

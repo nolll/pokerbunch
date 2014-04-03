@@ -5,6 +5,6 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public interface IAddUserPageModelFactory
     {
-        AddUserPageModel Create(User user, AddUserPostModel postModel);
+        AddUserPageModel Create(AddUserPostModel postModel);
     }
 }

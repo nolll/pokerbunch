@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Add;
 
 namespace Web.ModelFactories.HomegameModelFactories
@@ -13,12 +12,12 @@ namespace Web.ModelFactories.HomegameModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddHomegameConfirmationPageModel Create(User user)
+        public AddHomegameConfirmationPageModel Create()
         {
             return new AddHomegameConfirmationPageModel
                 {
                     BrowserTitle = "Homegame Created",
-                    PageProperties = _pagePropertiesFactory.Create(user)
+                    PageProperties = _pagePropertiesFactory.Create()
                 };
         }
     }

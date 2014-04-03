@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Classes;
 using Core.UseCases;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.List;
@@ -20,11 +19,11 @@ namespace Web.ModelFactories.UserModelFactories
             _userItemModelFactory = userItemModelFactory;
         }
 
-        public UserListPageModel Create(User user, ShowUserListResult showUserListResult)
+        public UserListPageModel Create(ShowUserListResult showUserListResult)
         {
             return new UserListPageModel(
                     "Users",
-                    _pagePropertiesFactory.Create(user),
+                    _pagePropertiesFactory.Create(),
                     GetUserModels(showUserListResult.Users)
                 );
         }

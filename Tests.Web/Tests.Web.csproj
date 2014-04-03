@@ -87,7 +87,6 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Report\ReportPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgamePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableItemModelFactoryTests.cs" />

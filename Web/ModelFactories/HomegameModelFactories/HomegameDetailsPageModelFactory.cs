@@ -18,14 +18,14 @@ namespace Web.ModelFactories.HomegameModelFactories
             _urlProvider = urlProvider;
         }
 
-        public HomegameDetailsPageModel Create(User user, Homegame homegame, bool isInManagerMode)
+        public HomegameDetailsPageModel Create(Homegame homegame, bool isInManagerMode)
         {
             var houseRules = FormatHouseRules(homegame.HouseRules);
 
             return new HomegameDetailsPageModel
                 {
                     BrowserTitle = "Homegame Details",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 	                DisplayName = homegame.DisplayName,
 			        Description = homegame.Description,
 			        HouseRules = houseRules,

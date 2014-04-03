@@ -27,7 +27,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formatted);
 
 		    var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
 			Assert.AreEqual(formatted, result.StartTime);
 		}
@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsNull(result.StartTime);
 		}
@@ -57,7 +57,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, isStarted: true, startTime: DateTime.Parse("2010-01-01 01:00:00"));
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsTrue(result.ShowStartTime);
 		}
@@ -71,7 +71,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsFalse(result.ShowStartTime);
 		}
@@ -85,7 +85,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, location: "a");
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.AreEqual("a", result.Location);
 		}
@@ -102,7 +102,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(homegame.Slug, player.DisplayName)).Returns(buyinUrl);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.AreEqual(buyinUrl, result.BuyinUrl);
 		}
@@ -118,7 +118,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(homegame.Slug, player.DisplayName)).Returns(reportUrl);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.AreEqual(reportUrl, result.ReportUrl);
 		}
@@ -135,7 +135,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
             
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.AreEqual(cashoutUrl, result.CashoutUrl);
 		}
@@ -149,7 +149,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsTrue(result.BuyinButtonEnabled);
 		}
@@ -162,7 +162,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsFalse(result.ReportButtonEnabled);
 		}
@@ -176,7 +176,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsTrue(result.ReportButtonEnabled);
 		}
@@ -189,7 +189,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsFalse(result.CashoutButtonEnabled);
 		}
@@ -204,7 +204,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: cashgameResults);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsTrue(result.CashoutButtonEnabled);
 		}
@@ -239,7 +239,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResults }, startTime: new DateTime(), isStarted: true);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
             Assert.IsTrue(result.ShowTable);
 		}
@@ -253,7 +253,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult }, startTime: new DateTime());
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), homegame, cashgame, player, isManager);
+            var result = sut.Create(homegame, cashgame, player, isManager);
 
 			Assert.IsFalse(result.ShowTable);
 		}

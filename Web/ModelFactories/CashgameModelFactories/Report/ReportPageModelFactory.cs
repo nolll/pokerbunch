@@ -13,18 +13,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private ReportPageModel Create(User user, Homegame homegame)
+        private ReportPageModel Create(Homegame homegame)
         {
             return new ReportPageModel
                 {
                     BrowserTitle = "Report Stack",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                 };
         }
 
-        public ReportPageModel Create(User user, Homegame homegame, ReportPostModel postModel)
+        public ReportPageModel Create(Homegame homegame, ReportPostModel postModel)
         {
-            var model = Create(user, homegame);
+            var model = Create(homegame);
             if (postModel != null)
             {
                 model.StackAmount = postModel.StackAmount;

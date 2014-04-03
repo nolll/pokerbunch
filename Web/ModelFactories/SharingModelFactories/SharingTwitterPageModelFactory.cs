@@ -18,14 +18,14 @@ namespace Web.ModelFactories.SharingModelFactories
             _urlProvider = urlProvider;
         }
 
-        public SharingTwitterPageModel Create(User user, bool isSharing, TwitterCredentials credentials)
+        public SharingTwitterPageModel Create(bool isSharing, TwitterCredentials credentials)
         {
             var twitterName = isSharing && credentials != null ? credentials.TwitterName : null;
 
             return new SharingTwitterPageModel
                 {
                     BrowserTitle = "Twitter Sharing",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     IsSharing = isSharing,
                     TwitterName = twitterName,
                     PostUrl = GetPostUrlModel(isSharing)

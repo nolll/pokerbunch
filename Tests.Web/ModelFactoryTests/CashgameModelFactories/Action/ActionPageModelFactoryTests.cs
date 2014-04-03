@@ -32,7 +32,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		    GetMock<IGlobalization>().Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
 
 			var sut = GetSut();
-		    var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
+		    var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
 
 			Assert.AreEqual(result.Heading, "Cashgame a, b");
 		}
@@ -46,7 +46,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
             var cashgameResult = new FakeCashgameResult(checkpoints: new List<Checkpoint> { checkpoint });
 
 			var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
+            var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
 
 			var checkpoints = result.Checkpoints;
 			Assert.AreEqual(checkpoints.Count, 1);
@@ -61,7 +61,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionChartJsonUrl(_homegame.Slug, _cashgame.DateString, player.DisplayName)).Returns(chartDataUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(new FakeUser(), _homegame, _cashgame, player, cashgameResult, Role.Player);
+            var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
 
             Assert.AreEqual(chartDataUrl, result.ChartDataUrl);
 		}

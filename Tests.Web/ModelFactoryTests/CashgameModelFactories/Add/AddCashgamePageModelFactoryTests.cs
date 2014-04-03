@@ -12,13 +12,11 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Add{
 
 	public class AddCashgamePageModelFactoryTests : MockContainer {
 
-		private User _user;
 		private Homegame _homegame;
 		private List<string> _locations;
 	    
         [SetUp]
 		public void SetUp(){
-			_user = new FakeUser();
 			_homegame = new FakeHomegame();
 			_locations = new List<string>();
 		}
@@ -53,7 +51,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Add{
 		private AddCashgamePageModel GetResult(AddCashgamePostModel postModel = null)
 		{
 		    var sut = GetSut();
-            return sut.Create(_user, _homegame, _locations, postModel);
+            return sut.Create(_homegame, _locations, postModel);
 		}
 
         private AddCashgamePageModelFactory GetSut()

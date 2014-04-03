@@ -1,5 +1,4 @@
 ﻿using Application.Services;
-using Core.Classes;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
 
@@ -18,12 +17,12 @@ namespace Web.ModelFactories.SharingModelFactories
             _urlProvider = urlProvider;
         }
 
-        public SharingIndexPageModel Create(User user, bool isSharing)
+        public SharingIndexPageModel Create(bool isSharing)
         {
             return new SharingIndexPageModel
                 {
                     BrowserTitle = "Sharing",
-                    PageProperties = _pagePropertiesFactory.Create(user),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     IsSharingToTwitter = isSharing,
 			        ShareToTwitterSettingsUrl = _urlProvider.GetTwitterSettingsUrl()
                 };

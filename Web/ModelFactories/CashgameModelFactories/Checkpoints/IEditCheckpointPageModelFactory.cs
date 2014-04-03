@@ -6,7 +6,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
     public interface IEditCheckpointPageModelFactory
     {
-        EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName);
-        EditCheckpointPageModel Create(User user, Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel);
+        EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName);
+        EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel);
     }
 }

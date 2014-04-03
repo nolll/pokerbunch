@@ -13,12 +13,12 @@ namespace Web.ModelFactories.CashgameModelFactories.End
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public EndPageModel Create(User user, Homegame homegame)
+        public EndPageModel Create(Homegame homegame)
         {
             return new EndPageModel
                 {
                     BrowserTitle = "End Game",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     ShowDiff = true
                 };
         }

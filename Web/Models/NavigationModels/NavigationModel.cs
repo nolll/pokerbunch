@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 
-namespace Web.Models.NavigationModels{
-
-	public class NavigationModel {
-
+namespace Web.Models.NavigationModels
+{
+	public class NavigationModel
+    {
 	    public string Heading { get; set; }
 	    public IList<NavigationNode> Nodes { get; set; }
 	    public string CssClass { get; set; }
@@ -13,7 +13,5 @@ namespace Web.Models.NavigationModels{
 	    {
 	        Nodes = new List<NavigationNode>();
 	    }
-
 	}
-
 }

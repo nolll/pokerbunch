@@ -13,18 +13,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private CashoutPageModel Create(User user, Homegame homegame)
+        private CashoutPageModel Create(Homegame homegame)
         {
             return new CashoutPageModel
                 {
                     BrowserTitle = "Cash Out",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame)
+                    PageProperties = _pagePropertiesFactory.Create(homegame)
                 };
         }
 
-        public CashoutPageModel Create(User user, Homegame homegame, CashoutPostModel postModel)
+        public CashoutPageModel Create(Homegame homegame, CashoutPostModel postModel)
         {
-            var model = Create(user, homegame);
+            var model = Create(homegame);
             if (postModel != null)
             {
                 model.StackAmount = postModel.StackAmount;                

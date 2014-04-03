@@ -27,7 +27,7 @@ namespace Web.ModelFactories.UserModelFactories
             var model = new UserDetailsPageModel
                 {
                     BrowserTitle = "User Details",
-                    PageProperties = _pagePropertiesFactory.Create(currentUser),
+                    PageProperties = _pagePropertiesFactory.Create(),
                     UserName = displayUser.UserName,
                     DisplayName = displayUser.DisplayName,
                     RealName = displayUser.RealName,

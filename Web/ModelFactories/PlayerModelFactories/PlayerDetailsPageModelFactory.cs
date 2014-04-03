@@ -29,7 +29,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _playerBadgesModelFactory = playerBadgesModelFactory;
         }
 
-        public PlayerDetailsPageModel Create(User currentUser, Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
+        public PlayerDetailsPageModel Create(Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
         {
             var hasUser = user != null;
             var userUrl = hasUser ? _urlProvider.GetUserDetailsUrl(user.UserName) : null;
@@ -40,7 +40,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
-                    PageProperties = _pagePropertiesFactory.Create(currentUser, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     DisplayName = player.DisplayName,
                     DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame.Slug, player.DisplayName),
                     DeleteEnabled = isManager && !hasPlayed,

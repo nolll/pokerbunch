@@ -20,7 +20,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             var facts = new FakeCashgameFacts(gameCount);
 
 		    var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual(gameCount, result.GameCount);
 		}
@@ -35,7 +35,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(totalGameTime)).Returns(formattedDuration);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
             Assert.AreEqual(formattedDuration, result.TotalGameTime);
         }
@@ -50,7 +50,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalTurnover)).Returns(formattedTurnover);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
             Assert.AreEqual(formattedTurnover, result.TotalTurnover);
         }
@@ -66,7 +66,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual(formattedWinnings, result.BestResultAmount);
 		}
@@ -81,7 +81,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual("a", result.BestResultName);
 		}
@@ -96,7 +96,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
             Assert.AreEqual(formattedWinnings, result.WorstResultAmount);
 		}
@@ -112,7 +112,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
 		    GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual("a", result.WorstResultName);
 		}
@@ -128,7 +128,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual(formattedTime, result.MostTimeDuration);
 		}
@@ -145,7 +145,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Facts{
             GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
 
             var sut = GetSut();
-            var result = sut.Create(new FakeUser(), new FakeHomegame(), facts);
+            var result = sut.Create(new FakeHomegame(), facts);
 
 			Assert.AreEqual(displayName, result.MostTimeName);
 		}

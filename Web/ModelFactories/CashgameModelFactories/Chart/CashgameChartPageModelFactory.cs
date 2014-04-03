@@ -27,12 +27,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
         }
 
-        public CashgameChartPageModel Create(User user, Homegame homegame, int? year, IList<int> years)
+        public CashgameChartPageModel Create(Homegame homegame, int? year, IList<int> years)
         {
             return new CashgameChartPageModel
                 {
                     BrowserTitle = "Cashgame Chart",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 			        ChartDataUrl = _urlProvider.GetCashgameChartJsonUrl(homegame.Slug, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Chart),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Chart, year)

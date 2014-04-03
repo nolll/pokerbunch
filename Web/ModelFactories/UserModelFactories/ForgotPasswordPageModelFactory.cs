@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -13,18 +12,18 @@ namespace Web.ModelFactories.UserModelFactories
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private ForgotPasswordPageModel Create(User user)
+        private ForgotPasswordPageModel Create()
         {
             return new ForgotPasswordPageModel
             {
                 BrowserTitle = "Forgot Password",
-                PageProperties = _pagePropertiesFactory.Create(user)
+                PageProperties = _pagePropertiesFactory.Create()
             };
         }
 
-        public ForgotPasswordPageModel Create(User user, ForgotPasswordPostModel postModel)
+        public ForgotPasswordPageModel Create(ForgotPasswordPostModel postModel)
         {
-            var model = Create(user);
+            var model = Create();
             if (postModel != null)
             {
                 model.Email = postModel.Email;
@@ -32,12 +31,12 @@ namespace Web.ModelFactories.UserModelFactories
             return model;
         }
 
-        public ForgotPasswordConfirmationPageModel CreateConfirmation(User user)
+        public ForgotPasswordConfirmationPageModel CreateConfirmation()
         {
             return new ForgotPasswordConfirmationPageModel
             {
                 BrowserTitle = "Password Sent",
-                PageProperties = _pagePropertiesFactory.Create(user)
+                PageProperties = _pagePropertiesFactory.Create()
             };
         }
     }

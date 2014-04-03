@@ -13,20 +13,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        private BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame)
+        private BuyinPageModel Create(Homegame homegame, Player player, Cashgame runningGame)
         {
             return new BuyinPageModel
                 {
                     BrowserTitle = "Buy In",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
                     StackFieldEnabled = runningGame.IsInGame(player.Id),
                     BuyinAmount = homegame.DefaultBuyin
                 };
         }
 
-        public BuyinPageModel Create(User user, Homegame homegame, Player player, Cashgame runningGame, BuyinPostModel postModel)
+        public BuyinPageModel Create(Homegame homegame, Player player, Cashgame runningGame, BuyinPostModel postModel)
         {
-            var model = Create(user, homegame, player, runningGame);
+            var model = Create(homegame, player, runningGame);
             if (postModel != null)
             {
                 model.BuyinAmount = postModel.BuyinAmount;

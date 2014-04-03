@@ -40,7 +40,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 	        _urlProvider = urlProvider;
 	    }
 
-	    public CashgameMatrixPageModel Create(Homegame homegame, User user, int? year){
+	    public CashgameMatrixPageModel Create(Homegame homegame, int? year){
             var suite = _cashgameService.GetSuite(homegame, year);
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
@@ -50,7 +50,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
 			return new CashgameMatrixPageModel
 			    {
 			        BrowserTitle = "Cashgame Matrix",
-                    PageProperties = _pagePropertiesFactory.Create(user, homegame),
+                    PageProperties = _pagePropertiesFactory.Create(homegame),
 	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Matrix),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Matrix, year),

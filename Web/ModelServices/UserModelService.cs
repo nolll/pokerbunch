@@ -57,22 +57,18 @@ namespace Web.ModelServices
 
         public UserListPageModel GetListModel()
         {
-            var currentUser = _authentication.GetUser();
-            var users = _userRepository.GetList();
             var showUserListResult = _showUserList.Execute();
-            return _userListPageModelFactory.Create(currentUser, showUserListResult);
+            return _userListPageModelFactory.Create(showUserListResult);
         }
 
         public AddUserPageModel GetAddModel(AddUserPostModel postModel)
         {
-            var currentUser = _authentication.GetUser();
-            return _addUserPageModelFactory.Create(currentUser, postModel);
+            return _addUserPageModelFactory.Create(postModel);
         }
 
         public AddUserConfirmationPageModel GetAddConfirmationModel()
         {
-            var currentUser = _authentication.GetUser();
-            return _addUserConfirmationPageModelFactory.Create(currentUser);
+            return _addUserConfirmationPageModelFactory.Create();
         }
 
         public EditUserPageModel GetEditModel(string userName, EditUserPostModel postModel)
@@ -83,26 +79,22 @@ namespace Web.ModelServices
 
         public ChangePasswordPageModel GetChangePasswordModel()
         {
-            var currentUser = _authentication.GetUser();
-            return _changePasswordPageModelFactory.Create(currentUser); 
+            return _changePasswordPageModelFactory.Create(); 
         }
 
         public ChangePasswordConfirmationPageModel GetChangePasswordConfirmationModel()
         {
-            var currentUser = _authentication.GetUser();
-            return _changePasswordPageModelFactory.CreateConfirmation(currentUser);
+            return _changePasswordPageModelFactory.CreateConfirmation();
         }
 
         public ForgotPasswordPageModel GetForgotPasswordModel(ForgotPasswordPostModel postModel)
         {
-            var currentUser = _authentication.GetUser();
-            return _forgotPasswordPageModelFactory.Create(currentUser, postModel);
+            return _forgotPasswordPageModelFactory.Create(postModel);
         }
 
         public ForgotPasswordConfirmationPageModel GetForgotPasswordConfirmationModel()
         {
-            var currentUser = _authentication.GetUser();
-            return _forgotPasswordPageModelFactory.CreateConfirmation(currentUser);
+            return _forgotPasswordPageModelFactory.CreateConfirmation();
         }
     }
 }

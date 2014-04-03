@@ -1,22 +1,18 @@
 using Application.Services;
-using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 
-namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
-
+namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
+{
 	public class HomegameDetailsPageModelFactoryTests : MockContainer
     {
-
-		private User _user;
 		private bool _isInManagerMode;
 
         [SetUp]
 		public void SetUp(){
-            _user = new FakeUser();
 			_isInManagerMode = false;
 		}
 
@@ -27,7 +23,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             var homegame = new FakeHomegame(displayName: displayName);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.AreEqual(displayName, result.DisplayName);
 		}
@@ -39,7 +35,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             var homegame = new FakeHomegame(houseRules: houseRules);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.AreEqual(houseRules, result.HouseRules);
 		}
@@ -52,7 +48,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             var homegame = new FakeHomegame(houseRules: houseRules);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.AreEqual(formattedHouseRules, result.HouseRules);
 		}
@@ -65,7 +61,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 		    GetMock<IUrlProvider>().Setup(o => o.GetHomegameEditUrl(homegame.Slug)).Returns(editUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.AreEqual(editUrl, result.EditUrl);
 		}
@@ -77,7 +73,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             var homegame = new FakeHomegame(description: description);
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.AreEqual(description, result.Description);
 		}
@@ -88,7 +84,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
 		    var homegame = new FakeHomegame();
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.IsFalse(result.ShowEditLink);
 		}
@@ -100,7 +96,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
             _isInManagerMode = true;
 
 			var sut = GetSut();
-            var result = sut.Create(_user, homegame, _isInManagerMode);
+            var result = sut.Create(homegame, _isInManagerMode);
 
 			Assert.IsTrue(result.ShowEditLink);
 		}
@@ -110,7 +106,5 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories{
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IUrlProvider>().Object);
 		}
-
 	}
-
 }
