@@ -7,9 +7,9 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
 
-namespace Web.ModelFactories.CashgameModelFactories.Matrix{
-
-	class MatrixPageModelFactory : IMatrixPageModelFactory
+namespace Web.ModelFactories.CashgameModelFactories.Matrix
+{
+	public class MatrixPageModelFactory : IMatrixPageModelFactory
     {
 	    private readonly ICashgameRepository _cashgameRepository;
 	    private readonly ICashgameService _cashgameService;
@@ -59,7 +59,5 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix{
                     StartGameUrl = startGameUrl
 			    };
 		}
-
 	}
-
 }

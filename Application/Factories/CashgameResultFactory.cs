@@ -28,7 +28,6 @@ namespace Application.Factories
             if (cashoutCheckpoint != null)
                 cashoutTime = cashoutCheckpoint.Timestamp;
             var playedTime = GetPlayedTime(buyinTime, cashoutTime);
-            var hasReported = HasReported(checkpoints);
 
             return new CashgameResult(
                 playerId,
@@ -40,9 +39,7 @@ namespace Application.Factories
                 playedTime,
                 stack,
                 lastReportTime,
-                cashoutCheckpoint,
-                hasReported
-                );
+                cashoutCheckpoint);
         }
 
         private int GetBuyinSum(IEnumerable<Checkpoint> checkpoints)

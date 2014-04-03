@@ -17,8 +17,7 @@ namespace Tests.Common.FakeClasses
             int playedTime = default(int),
             int stack = default(int),
             DateTime? lastReportTime = default(DateTime?), 
-            Checkpoint cashoutCheckpoint = default(Checkpoint), 
-            bool hasReported = default(bool))
+            Checkpoint cashoutCheckpoint = default(Checkpoint))
             : base(
                 playerId,
                 buyin, 
@@ -29,8 +28,7 @@ namespace Tests.Common.FakeClasses
                 playedTime, 
                 stack, 
                 lastReportTime, 
-                cashoutCheckpoint, 
-                hasReported)
+                cashoutCheckpoint)
         {
         }
     }

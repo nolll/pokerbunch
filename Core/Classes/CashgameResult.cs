@@ -15,7 +15,6 @@ namespace Core.Classes{
         public int Stack { get; private set; }
         public DateTime? LastReportTime { get; private set; }
         public Checkpoint CashoutCheckpoint { get; private set; }
-        public bool HasReported { get; private set; }
 
 	    public CashgameResult(
             int playerId,
@@ -27,8 +26,7 @@ namespace Core.Classes{
             int playedTime, 
             int stack, 
             DateTime? lastReportTime, 
-            Checkpoint cashoutCheckpoint, 
-            bool hasReported)
+            Checkpoint cashoutCheckpoint)
 	    {
 	        PlayerId = playerId;
 	        Buyin = buyin;
@@ -40,7 +38,6 @@ namespace Core.Classes{
 	        Stack = stack;
 	        LastReportTime = lastReportTime;
 	        CashoutCheckpoint = cashoutCheckpoint;
-	        HasReported = hasReported;
 	    }
 	}
 
