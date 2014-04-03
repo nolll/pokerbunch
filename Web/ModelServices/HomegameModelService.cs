@@ -13,7 +13,7 @@ namespace Web.ModelServices
 {
     public class HomegameModelService : IHomegameModelService
     {
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IHomegameListPageModelFactory _homegameListPageModelFactory;
         private readonly IHomegameDetailsPageModelFactory _homegameDetailsPageModelFactory;
@@ -24,7 +24,7 @@ namespace Web.ModelServices
         private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
 
         public HomegameModelService(
-            IAuthentication authentication,
+            IAuth auth,
             IHomegameRepository homegameRepository,
             IHomegameListPageModelFactory homegameListPageModelFactory,
             IHomegameDetailsPageModelFactory homegameDetailsPageModelFactory,
@@ -34,7 +34,7 @@ namespace Web.ModelServices
             IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
             IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory)
         {
-            _authentication = authentication;
+            _auth = auth;
             _homegameRepository = homegameRepository;
             _homegameListPageModelFactory = homegameListPageModelFactory;
             _homegameDetailsPageModelFactory = homegameDetailsPageModelFactory;
@@ -54,7 +54,7 @@ namespace Web.ModelServices
         public HomegameDetailsPageModel GetDetailsModel(string slug)
         {
             var homegame = _homegameRepository.GetByName(slug);
-            var isInManagerMode = _authentication.IsInRole(slug, Role.Manager);
+            var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             return _homegameDetailsPageModelFactory.Create(homegame, isInManagerMode);
         }
 

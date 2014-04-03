@@ -13,18 +13,18 @@ namespace Web.Controllers
 {
 	public class HomegameController : ControllerBase
     {
-	    private readonly IAuthentication _authentication;
+	    private readonly IAuth _auth;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameModelService _homegameModelService;
 
 	    public HomegameController(
-            IAuthentication authentication,
+            IAuth auth,
             IUrlProvider urlProvider,
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameModelService homegameModelService)
 	    {
-	        _authentication = authentication;
+	        _auth = auth;
 	        _urlProvider = urlProvider;
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameModelService = homegameModelService;

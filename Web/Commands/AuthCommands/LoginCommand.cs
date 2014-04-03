@@ -11,7 +11,7 @@ namespace Web.Commands.AuthCommands
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncryptionService _encryptionService;
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly AuthLoginPostModel _postModel;
@@ -19,14 +19,14 @@ namespace Web.Commands.AuthCommands
         public LoginCommand(
             IUserRepository userRepository,
             IEncryptionService encryptionService,
-            IAuthentication authentication,
+            IAuth auth,
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
             AuthLoginPostModel postModel)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
-            _authentication = authentication;
+            _auth = auth;
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
             _postModel = postModel;
@@ -39,7 +39,7 @@ namespace Web.Commands.AuthCommands
             if (user != null)
             {
                 var identity = GetUserIdentity(user);
-                _authentication.SignIn(identity, _postModel.RememberMe);
+                _auth.SignIn(identity, _postModel.RememberMe);
                 return true;
             }
             AddError("There was something wrong with your username or password. Please try again.");

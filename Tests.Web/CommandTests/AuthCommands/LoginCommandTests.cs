@@ -66,7 +66,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
             var sut = GetSut();
 			sut.Execute();
 
-            GetMock<IAuthentication>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), false));
+            GetMock<IAuth>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), false));
 		}
 
         [Test]
@@ -80,7 +80,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
             var sut = GetSut();
             sut.Execute();
 
-            GetMock<IAuthentication>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), true));
+            GetMock<IAuth>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), true));
 		}
 
         private LoginCommand GetSut()
@@ -95,7 +95,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
             return new LoginCommand(
                 GetMock<IUserRepository>().Object,
                 GetMock<IEncryptionService>().Object,
-                GetMock<IAuthentication>().Object,
+                GetMock<IAuth>().Object,
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 postModel)

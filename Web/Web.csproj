@@ -522,11 +522,11 @@
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
     <Compile Include="Security\CustomIdentity.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
-    <Compile Include="Security\IAuthentication.cs" />
+    <Compile Include="Security\IAuth.cs" />
     <Compile Include="Security\UserBunch.cs" />
     <Compile Include="Security\UserIdentity.cs" />
     <Compile Include="Services\ConfigService.cs" />
-    <Compile Include="Security\Authentication.cs" />
+    <Compile Include="Security\Auth.cs" />
     <Compile Include="Services\UrlProvider.cs" />
   </ItemGroup>
   <ItemGroup>

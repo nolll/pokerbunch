@@ -13,7 +13,7 @@ namespace Web.ModelServices
 {
     public class UserModelService : IUserModelService
     {
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
         private readonly IUserListPageModelFactory _userListPageModelFactory;
@@ -25,7 +25,7 @@ namespace Web.ModelServices
         private readonly IShowUserList _showUserList;
 
         public UserModelService(
-            IAuthentication authentication,
+            IAuth auth,
             IUserRepository userRepository,
             IUserDetailsPageModelFactory userDetailsPageModelFactory,
             IUserListPageModelFactory userListPageModelFactory,
@@ -36,7 +36,7 @@ namespace Web.ModelServices
             IForgotPasswordPageModelFactory forgotPasswordPageModelFactory,
             IShowUserList showUserList)
         {
-            _authentication = authentication;
+            _auth = auth;
             _userRepository = userRepository;
             _userDetailsPageModelFactory = userDetailsPageModelFactory;
             _userListPageModelFactory = userListPageModelFactory;
@@ -50,7 +50,7 @@ namespace Web.ModelServices
 
         public UserDetailsPageModel GetDetailsModel(string userName)
         {
-            var currentUser = _authentication.GetUser();
+            var currentUser = _auth.GetUser();
             var displayUser = _userRepository.GetByNameOrEmail(userName);
             return _userDetailsPageModelFactory.Create(currentUser, displayUser);
         }

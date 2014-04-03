@@ -4,17 +4,17 @@ namespace Web.Commands.AuthCommands
 {
     public class LogoutCommand : Command
     {
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
 
         public LogoutCommand(
-            IAuthentication authentication)
+            IAuth auth)
         {
-            _authentication = authentication;
+            _auth = auth;
         }
 
         public override bool Execute()
         {
-            _authentication.SignOut();
+            _auth.SignOut();
             return true;
         }
     }

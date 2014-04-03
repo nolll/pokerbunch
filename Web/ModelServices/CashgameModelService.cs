@@ -74,9 +74,9 @@ namespace Web.ModelServices
             {
                 throw new HttpException(404, "Cashgame not found");
             }
-            var user = _authentication.GetUser();
+            var user = _auth.GetUser();
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
-            var isManager = _authentication.IsInRole(slug, Role.Manager);
+            var isManager = _auth.IsInRole(slug, Role.Manager);
             return _cashgameDetailsPageModelFactory.Create(homegame, cashgame, player, isManager);
         }
 
@@ -121,11 +121,11 @@ namespace Web.ModelServices
 
         public RunningCashgamePageModel GetRunningModel(string slug)
         {
-            var user = _authentication.GetUser();
+            var user = _auth.GetUser();
             var homegame = _homegameRepository.GetByName(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var isManager = _authentication.IsInRole(slug, Role.Manager);
+            var isManager = _auth.IsInRole(slug, Role.Manager);
             return _runningCashgamePageModelFactory.Create(homegame, cashgame, player, isManager);
         }
 
@@ -158,7 +158,7 @@ namespace Web.ModelServices
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var player = _playerRepository.GetByName(homegame, playerName);
             var result = cashgame.GetResult(player.Id);
-            var role = _authentication.GetRole(slug);
+            var role = _auth.GetRole(slug);
             return _actionPageModelFactory.Create(homegame, cashgame, player, result, role);
         }
 
@@ -235,7 +235,7 @@ namespace Web.ModelServices
         }
 
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
@@ -263,7 +263,7 @@ namespace Web.ModelServices
 
         public CashgameModelService(
             IHomegameRepository homegameRepository,
-            IAuthentication authentication,
+            IAuth auth,
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
@@ -290,7 +290,7 @@ namespace Web.ModelServices
             ICheckpointRepository checkpointRepository)
         {
             _homegameRepository = homegameRepository;
-            _authentication = authentication;
+            _auth = auth;
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;

@@ -156,7 +156,7 @@ namespace Web.Plumbing
             RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();
 
             // Security
-            RegisterComponent<IAuthentication, Authentication>();
+            RegisterComponent<IAuth, Auth>();
         }
 
     }

@@ -11,18 +11,18 @@ namespace Web.ModelFactories.PageBaseModelFactories
         private readonly IGoogleAnalyticsModelFactory _googleAnalyticsModelFactory;
         private readonly IHomegameNavigationModelFactory _homegameNavigationModelFactory;
         private readonly IUserNavigationModelFactory _userNavigationModelFactory;
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
 
         public PagePropertiesFactory(
             IGoogleAnalyticsModelFactory googleAnalyticsModelFactory,
             IHomegameNavigationModelFactory homegameNavigationModelFactory,
             IUserNavigationModelFactory userNavigationModelFactory,
-            IAuthentication authentication)
+            IAuth auth)
         {
             _googleAnalyticsModelFactory = googleAnalyticsModelFactory;
             _homegameNavigationModelFactory = homegameNavigationModelFactory;
             _userNavigationModelFactory = userNavigationModelFactory;
-            _authentication = authentication;
+            _auth = auth;
         }
 
         public PageProperties Create()
@@ -33,7 +33,7 @@ namespace Web.ModelFactories.PageBaseModelFactories
         public PageProperties Create(Homegame homegame)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            var user = _authentication.GetUser();
+            var user = _auth.GetUser();
 
             return new PageProperties
                 {

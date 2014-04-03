@@ -64,7 +64,7 @@ namespace Tests.Web.ControllerTests{
 		    var cashgameResult = new FakeCashgameResult();
 		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
             GetMock<IHomegameRepository>().Setup(o => o.GetByName(Slug)).Returns(homegame);
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(user);
+            GetMock<IAuth>().Setup(o => o.GetUser()).Returns(user);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
             GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
 

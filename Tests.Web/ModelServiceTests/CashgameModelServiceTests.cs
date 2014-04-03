@@ -65,7 +65,7 @@ namespace Tests.Web.ModelServiceTests
         public void GetMatrixModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuth>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<IMatrixPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameMatrixPageModel());
 
             var sut = GetSut();
@@ -78,7 +78,7 @@ namespace Tests.Web.ModelServiceTests
         public void GetToplistModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuth>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
@@ -92,7 +92,7 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             const string dateStr = "2000-01-01"; 
-            GetMock<IAuthentication>().Setup(o => o.GetUser()).Returns(new FakeUser());
+            GetMock<IAuth>().Setup(o => o.GetUser()).Returns(new FakeUser());
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
             GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
 
@@ -106,7 +106,7 @@ namespace Tests.Web.ModelServiceTests
         {
             return new CashgameModelService(
                 GetMock<IHomegameRepository>().Object,
-                GetMock<IAuthentication>().Object,
+                GetMock<IAuth>().Object,
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,

@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.BaseModelFactories
                 GetMock<IGoogleAnalyticsModelFactory>().Object,
                 GetMock<IHomegameNavigationModelFactory>().Object,
                 GetMock<IUserNavigationModelFactory>().Object,
-                GetMock<IAuthentication>().Object);
+                GetMock<IAuth>().Object);
         }
 
     }

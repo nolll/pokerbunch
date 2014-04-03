@@ -8,20 +8,20 @@ namespace Web.Commands.HomegameCommands
 {
     public class JoinHomegameCommand : Command
     {
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
         private readonly IInvitationCodeCreator _invitationCodeCreator;
         private readonly Homegame _homegame;
         private readonly JoinHomegamePostModel _postModel;
 
         public JoinHomegameCommand(
-            IAuthentication authentication,
+            IAuth auth,
             IPlayerRepository playerRepository,
             IInvitationCodeCreator invitationCodeCreator,
             Homegame homegame,
             JoinHomegamePostModel postModel)
         {
-            _authentication = authentication;
+            _auth = auth;
             _playerRepository = playerRepository;
             _invitationCodeCreator = invitationCodeCreator;
             _homegame = homegame;
@@ -34,7 +34,7 @@ namespace Web.Commands.HomegameCommands
             var player = GetMatchedPlayer(_homegame, _postModel.Code);
             if (player != null && player.IsUser)
             {
-                var user = _authentication.GetUser();
+                var user = _auth.GetUser();
                 _playerRepository.JoinHomegame(player, _homegame, user);
                 return true;
             }

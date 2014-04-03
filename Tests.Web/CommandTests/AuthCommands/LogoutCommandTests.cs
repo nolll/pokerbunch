@@ -15,13 +15,13 @@ namespace Tests.Web.CommandTests.AuthCommands
             var result = sut.Execute();
 
             Assert.IsTrue(result);
-            GetMock<IAuthentication>().Verify(o => o.SignOut());
+            GetMock<IAuth>().Verify(o => o.SignOut());
         }
 
         private LogoutCommand GetSut()
         {
             return new LogoutCommand(
-                GetMock<IAuthentication>().Object);
+                GetMock<IAuth>().Object);
         }
 	}
 }

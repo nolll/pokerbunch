@@ -19,7 +19,7 @@ namespace Web.Commands.UserCommands
         private readonly IUserModelMapper _userModelMapper;
         private readonly IUserService _userService;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
-        private readonly IAuthentication _authentication;
+        private readonly IAuth _auth;
 
         public UserCommandProvider(
             IUserRepository userRepository,
@@ -30,7 +30,7 @@ namespace Web.Commands.UserCommands
             IUserModelMapper userModelMapper,
             IUserService userService,
             IRegistrationConfirmationSender registrationConfirmationSender,
-            IAuthentication authentication)
+            IAuth auth)
         {
             _userRepository = userRepository;
             _passwordGenerator = passwordGenerator;
@@ -40,7 +40,7 @@ namespace Web.Commands.UserCommands
             _userModelMapper = userModelMapper;
             _userService = userService;
             _registrationConfirmationSender = registrationConfirmationSender;
-            _authentication = authentication;
+            _auth = auth;
         }
 
         public Command GetForgotPasswordCommand(ForgotPasswordPostModel postModel)
@@ -57,7 +57,7 @@ namespace Web.Commands.UserCommands
 
         public Command GetChangePasswordCommand(ChangePasswordPostModel postModel)
         {
-            var user = _authentication.GetUser();
+            var user = _auth.GetUser();
 
             return new ChangePasswordCommand(
                 _saltGenerator,
