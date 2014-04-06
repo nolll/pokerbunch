@@ -66,6 +66,7 @@
     <Compile Include="CommandTests\PlayerCommands\DeletePlayerCommandTests.cs" />
     <Compile Include="ControllerTests\AuthControllerTests.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />
+    <Compile Include="ControllerTests\HomegameControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="ModelFactoryTests\NavigationModelFactories\AdminNavigationModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
+    <Compile Include="PageBuilderTests\BunchListPageBuilderTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
     <Compile Include="Routing\RouteTests.cs" />
     <Compile Include="SecurityTestHelper.cs" />
