@@ -261,11 +261,11 @@
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\HomegameListPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\BunchListPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameEditPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameListPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IBunchListPageBuilder.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerConfirmationPageModelFactory.cs" />
@@ -318,8 +318,8 @@
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPostModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegameConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegamePostModel.cs" />
-    <Compile Include="Models\HomegameModels\List\HomegameListItemModel.cs" />
-    <Compile Include="Models\HomegameModels\List\HomegameListPageModel.cs" />
+    <Compile Include="Models\HomegameModels\List\BunchListItemModel.cs" />
+    <Compile Include="Models\HomegameModels\List\BunchListPageModel.cs" />
     <Compile Include="Models\HomeModels\HomePageModel.cs" />
     <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
     <Compile Include="Models\NavigationModels\HomegameNavigationModel.cs" />

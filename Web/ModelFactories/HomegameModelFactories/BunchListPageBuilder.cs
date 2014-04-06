@@ -6,30 +6,35 @@ using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class HomegameListPageModelFactory : IHomegameListPageModelFactory
+    public class BunchListPageBuilder : IBunchListPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IHomegameListItemModelFactory _homegameListItemModelFactory;
+        private readonly IShowBunchList _showBunchList;
 
-        public HomegameListPageModelFactory(
+        public BunchListPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
-            IHomegameListItemModelFactory homegameListItemModelFactory)
+            IHomegameListItemModelFactory homegameListItemModelFactory,
+            IShowBunchList showBunchList)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _homegameListItemModelFactory = homegameListItemModelFactory;
+            _showBunchList = showBunchList;
         }
 
-        public HomegameListPageModel Create(ShowBunchListResult showBunchListResult)
+        public BunchListPageModel Create()
         {
-            return new HomegameListPageModel
+            var result = _showBunchList.Execute();
+
+            return new BunchListPageModel
             {
-                BrowserTitle = "Homegame List",
+                BrowserTitle = "Bunches",
                 PageProperties = _pagePropertiesFactory.Create(),
-                HomegameModels = GetHomegameModels(showBunchListResult.Bunches)
+                BunchModels = GetHomegameModels(result.Bunches)
             };
         }
 
-        private IList<HomegameListItemModel> GetHomegameModels(IEnumerable<BunchItem> bunchItems)
+        private IList<BunchListItemModel> GetHomegameModels(IEnumerable<BunchItem> bunchItems)
         {
             return bunchItems.Select(o => _homegameListItemModelFactory.Create(o)).ToList();
         }

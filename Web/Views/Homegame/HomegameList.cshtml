@@ -1,16 +1,16 @@
-@model Web.Models.HomegameModels.List.HomegameListPageModel
+@model Web.Models.HomegameModels.List.BunchListPageModel
 
 @{
     Layout = "~/Views/Layouts/OneColumn.cshtml";
 }
 
 <div class="block gutter">
-	<h1>Homegames</h1>
+	<h1>Bunches</h1>
 </div>
 <div class="block gutter">
 
     <ul class="homegames simple list">
-        @foreach(var homegameModel in Model.HomegameModels)
+        @foreach(var homegameModel in Model.BunchModels)
         {
             <li>
                 @Html.Partial("HomegameListItem", homegameModel)

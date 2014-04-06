@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Application.Services;
 using Web.Commands.HomegameCommands;
+using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
@@ -14,21 +15,24 @@ namespace Web.Controllers
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameModelService _homegameModelService;
+	    private readonly IBunchListPageBuilder _bunchListPageBuilder;
 
 	    public HomegameController(
             IUrlProvider urlProvider,
             IHomegameCommandProvider homegameCommandProvider,
-            IHomegameModelService homegameModelService)
+            IHomegameModelService homegameModelService,
+            IBunchListPageBuilder bunchListPageBuilder)
 	    {
 	        _urlProvider = urlProvider;
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameModelService = homegameModelService;
+	        _bunchListPageBuilder = bunchListPageBuilder;
 	    }
 
         [AuthorizeAdmin]
 	    public ActionResult List()
         {
-	        var model = _homegameModelService.GetListModel();
+            var model = _bunchListPageBuilder.Create();
 			return View("HomegameList", model);
 		}
 

@@ -13,9 +13,9 @@ namespace Web.ModelFactories.HomegameModelFactories
             _urlProvider = urlProvider;
         }
 
-        public HomegameListItemModel Create(BunchItem bunchItem)
+        public BunchListItemModel Create(BunchItem bunchItem)
         {
-            return new HomegameListItemModel
+            return new BunchListItemModel
             {
                 Name = bunchItem.DisplayName,
                 UrlModel = _urlProvider.GetHomegameDetailsUrl(bunchItem.Slug)
