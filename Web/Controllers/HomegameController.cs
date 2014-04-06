@@ -1,30 +1,25 @@
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
 using Web.Commands.HomegameCommands;
 using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
-using Web.Security;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
 	public class HomegameController : ControllerBase
     {
-	    private readonly IAuth _auth;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameModelService _homegameModelService;
 
 	    public HomegameController(
-            IAuth auth,
             IUrlProvider urlProvider,
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameModelService homegameModelService)
 	    {
-	        _auth = auth;
 	        _urlProvider = urlProvider;
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameModelService = homegameModelService;

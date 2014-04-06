@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Classes;
+using Core.UseCases;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.List;
 
@@ -19,19 +19,19 @@ namespace Web.ModelFactories.HomegameModelFactories
             _homegameListItemModelFactory = homegameListItemModelFactory;
         }
 
-        public HomegameListPageModel Create(IEnumerable<Homegame> homegames)
+        public HomegameListPageModel Create(ShowBunchListResult showBunchListResult)
         {
             return new HomegameListPageModel
-                {
-                    BrowserTitle = "Homegame List",
-                    PageProperties = _pagePropertiesFactory.Create(),
-        	        HomegameModels = GetHomegameModels(homegames)
-                };
+            {
+                BrowserTitle = "Homegame List",
+                PageProperties = _pagePropertiesFactory.Create(),
+                HomegameModels = GetHomegameModels(showBunchListResult.Bunches)
+            };
         }
 
-        private IList<HomegameListItemModel> GetHomegameModels(IEnumerable<Homegame> homegames)
+        private IList<HomegameListItemModel> GetHomegameModels(IEnumerable<BunchItem> bunchItems)
         {
-            return homegames.Select(homegame => _homegameListItemModelFactory.Create(homegame)).ToList();
+            return bunchItems.Select(o => _homegameListItemModelFactory.Create(o)).ToList();
         }
     }
 }

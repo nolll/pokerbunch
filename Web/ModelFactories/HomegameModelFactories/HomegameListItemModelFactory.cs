@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.UseCases;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories
@@ -13,13 +13,13 @@ namespace Web.ModelFactories.HomegameModelFactories
             _urlProvider = urlProvider;
         }
 
-        public HomegameListItemModel Create(Homegame homegame)
+        public HomegameListItemModel Create(BunchItem bunchItem)
         {
             return new HomegameListItemModel
-                {
-                    Name = homegame.DisplayName,
-                    UrlModel = _urlProvider.GetHomegameDetailsUrl(homegame.Slug)
-                };
+            {
+                Name = bunchItem.DisplayName,
+                UrlModel = _urlProvider.GetHomegameDetailsUrl(bunchItem.Slug)
+            };
         }
     }
 }

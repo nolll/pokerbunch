@@ -1,6 +1,7 @@
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
+using Core.UseCases;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;
@@ -22,6 +23,7 @@ namespace Web.ModelServices
         private readonly IHomegameEditPageModelFactory _homegameEditPageModelFactory;
         private readonly IJoinHomegamePageModelFactory _joinHomegamePageModelFactory;
         private readonly IJoinHomegameConfirmationPageModelFactory _joinHomegameConfirmationPageModelFactory;
+        private readonly IShowBunchList _showBunchList;
 
         public HomegameModelService(
             IAuth auth,
@@ -32,7 +34,9 @@ namespace Web.ModelServices
             IAddHomegameConfirmationPageModelFactory addHomegameConfirmationPageModelFactory,
             IHomegameEditPageModelFactory homegameEditPageModelFactory,
             IJoinHomegamePageModelFactory joinHomegamePageModelFactory,
-            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory)
+            IJoinHomegameConfirmationPageModelFactory joinHomegameConfirmationPageModelFactory,
+            IShowBunchList showBunchList
+            )
         {
             _auth = auth;
             _homegameRepository = homegameRepository;
@@ -43,12 +47,13 @@ namespace Web.ModelServices
             _homegameEditPageModelFactory = homegameEditPageModelFactory;
             _joinHomegamePageModelFactory = joinHomegamePageModelFactory;
             _joinHomegameConfirmationPageModelFactory = joinHomegameConfirmationPageModelFactory;
+            _showBunchList = showBunchList;
         }
 
         public HomegameListPageModel GetListModel()
         {
-            var homegames = _homegameRepository.GetList();
-            return _homegameListPageModelFactory.Create(homegames);
+            var showBunchResult = _showBunchList.Execute();
+            return _homegameListPageModelFactory.Create(showBunchResult);
         }
 
         public HomegameDetailsPageModel GetDetailsModel(string slug)

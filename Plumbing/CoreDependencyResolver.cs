@@ -16,6 +16,7 @@ namespace Plumbing
         {
             // Use Cases
             RegisterComponent<IShowUserList, ShowUserList>();
+            RegisterComponent<IShowBunchList, ShowBunchList>();
         }
     }
 }

@@ -41,7 +41,11 @@
     <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="UseCases\BunchItem.cs" />
+    <Compile Include="UseCases\IShowBunchList.cs" />
     <Compile Include="UseCases\IShowUserList.cs" />
+    <Compile Include="UseCases\ShowBunchList.cs" />
+    <Compile Include="UseCases\ShowBunchListResult.cs" />
     <Compile Include="UseCases\ShowUserList.cs" />
     <Compile Include="UseCases\ShowUserListResult.cs" />
     <Compile Include="UseCases\UserItem.cs" />

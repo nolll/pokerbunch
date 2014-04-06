@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="GameStatusNameTests.cs" />
+    <Compile Include="UseCases\ShowBunchListTests.cs" />
     <Compile Include="UseCases\ShowUserListTests.cs" />
   </ItemGroup>
   <ItemGroup>

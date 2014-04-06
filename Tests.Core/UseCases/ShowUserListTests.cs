@@ -24,8 +24,8 @@ namespace Tests.Core.UseCases
             var result = sut.Execute();
 
             Assert.AreEqual(expected, result.Users.Count);
-            Assert.AreEqual(userName, result.Users.First().Name);
-            Assert.AreEqual(userName, result.Users.First().Identifier);
+            Assert.AreEqual(userName, result.Users.First().DisplayName);
+            Assert.AreEqual(userName, result.Users.First().UserName);
         }
 
         private ShowUserList GetSut()

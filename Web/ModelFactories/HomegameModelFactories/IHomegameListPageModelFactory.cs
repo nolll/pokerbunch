@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using Core.Classes;
+﻿using Core.UseCases;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IHomegameListPageModelFactory
     {
-        HomegameListPageModel Create(IEnumerable<Homegame> homegames);
+        HomegameListPageModel Create(ShowBunchListResult showBunchListResult);
     }
 }
