@@ -42,7 +42,7 @@ namespace Web.ModelServices
 
         public HomegameDetailsPageModel GetDetailsModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             return _homegameDetailsPageModelFactory.Create(homegame, isInManagerMode);
         }
@@ -59,19 +59,19 @@ namespace Web.ModelServices
 
         public HomegameEditPageModel GetEditModel(string slug, HomegameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _homegameEditPageModelFactory.Create(homegame, postModel);
         }
 
         public JoinHomegamePageModel GetJoinModel(string slug, JoinHomegamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _joinHomegamePageModelFactory.Create(homegame, postModel);
         }
 
         public JoinHomegameConfirmationPageModel GetJoinConfirmationModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _joinHomegameConfirmationPageModelFactory.Create(homegame);
         }
     }

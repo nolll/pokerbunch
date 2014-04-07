@@ -46,7 +46,7 @@ namespace Web.Commands.HomegameCommands
 
         public Command GetEditCommand(string slug, HomegameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
 
             return new EditHomegameCommand(
                 _homegameModelMapper,
@@ -57,7 +57,7 @@ namespace Web.Commands.HomegameCommands
 
         public Command GetJoinCommand(string slug, JoinHomegamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
 
             return new JoinHomegameCommand(
                 _auth,

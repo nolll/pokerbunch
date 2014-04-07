@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases;
 using Core.UseCases.ShowBunchList;
 using NUnit.Framework;
 using Tests.Common;
@@ -9,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
-    public class ShowBunchListTests : MockContainer
+    public class ShowBunchListInteractorTests : MockContainer
     {
         private ShowBunchListInteractor _sut;
 

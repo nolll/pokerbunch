@@ -53,13 +53,13 @@ namespace Web.ModelServices
 
         public CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _matrixPageModelFactory.Create(homegame, year);
         }
 
         public CashgameToplistPageModel GetToplistModel(string slug, int? year = null)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetToplistSortOrder();
@@ -68,7 +68,7 @@ namespace Web.ModelServices
 
         public CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
             {
@@ -82,7 +82,7 @@ namespace Web.ModelServices
 
         public ChartModel GetDetailsChartJsonModel(string slug, string dateStr)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
             {
@@ -93,7 +93,7 @@ namespace Web.ModelServices
 
         public CashgameFactsPageModel GetFactsModel(string slug, int? year = null)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var facts = _cashgameService.GetFacts(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
             return _cashgameFactsPageModelFactory.Create(homegame, facts, years, year);
@@ -101,7 +101,7 @@ namespace Web.ModelServices
 
         public AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             if (runningGame != null)
             {
@@ -113,7 +113,7 @@ namespace Web.ModelServices
 
         public CashgameEditPageModel GetEditModel(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
             return _cashgameEditPageModelFactory.Create(homegame, cashgame, locations, postModel);
@@ -122,7 +122,7 @@ namespace Web.ModelServices
         public RunningCashgamePageModel GetRunningModel(string slug)
         {
             var user = _auth.CurrentUser;
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var isManager = _auth.IsInRole(slug, Role.Manager);
@@ -131,7 +131,7 @@ namespace Web.ModelServices
 
         public CashgameListPageModel GetListModel(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var games = _cashgameRepository.GetPublished(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetListSortOrder();
@@ -140,21 +140,21 @@ namespace Web.ModelServices
 
         public CashgameChartPageModel GetChartModel(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var years = _cashgameRepository.GetYears(homegame);
             return _cashgameChartPageModelFactory.Create(homegame, year, years);
         }
 
         public ChartModel GetChartJsonModel(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
             return _cashgameSuiteChartModelFactory.Create(suite);
         }
 
         public ActionPageModel GetActionModel(string slug, string dateStr, string playerName)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var player = _playerRepository.GetByName(homegame, playerName);
             var result = cashgame.GetResult(player.Id);
@@ -164,7 +164,7 @@ namespace Web.ModelServices
 
         public ChartModel GetActionChartJsonModel(string slug, string dateStr, string playerName)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var player = _playerRepository.GetByName(homegame, playerName);
             var result = cashgame.GetResult(player.Id);
@@ -173,7 +173,7 @@ namespace Web.ModelServices
 
         public BuyinPageModel GetBuyinModel(string slug, string playerName, BuyinPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetByName(homegame, playerName);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             return _buyinPageModelFactory.Create(homegame, player, runningGame, postModel);
@@ -181,25 +181,25 @@ namespace Web.ModelServices
 
         public ReportPageModel GetReportModel(string slug, ReportPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _reportPageModelFactory.Create(homegame, postModel);
         }
 
         public CashoutPageModel GetCashoutModel(string slug, CashoutPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _cashoutPageModelFactory.Create(homegame, postModel);
         }
 
         public EndPageModel GetEndGameModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _endPageModelFactory.Create(homegame);
         }
 
         public EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
             return _editCheckpointPageModelFactory.Create(homegame, checkpoint, dateStr, playerName, postModel);
         }

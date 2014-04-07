@@ -87,7 +87,7 @@ namespace Tests.Application.Services
             var homegame = new FakeHomegame();
             var cashgame = new FakeCashgame();
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
 
             var sut = GetSut();
@@ -103,7 +103,7 @@ namespace Tests.Application.Services
             var homegame = new FakeHomegame();
             var years = new List<int>();
             
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var sut = GetSut();
@@ -121,7 +121,7 @@ namespace Tests.Application.Services
             const int previousYear = 1;
             var years = new List<int>{latestYear, previousYear};
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var sut = GetSut();

@@ -5,7 +5,7 @@ namespace Core.Repositories {
 
 	public interface IHomegameRepository{
 
-		Homegame GetByName(string name);
+		Homegame GetBySlug(string name);
 	    IList<Homegame> GetList();
         IList<Homegame> GetByUser(User user);
 	    Role GetHomegameRole(Homegame homegame, User user);

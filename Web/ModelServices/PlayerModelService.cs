@@ -52,7 +52,7 @@ namespace Web.ModelServices
 
         public PlayerListPageModel GetListModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             return _playerListPageModelFactory.Create(homegame, players, isInManagerMode);
@@ -60,7 +60,7 @@ namespace Web.ModelServices
 
         public PlayerDetailsPageModel GetDetailsModel(string slug, string playerName)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetByName(homegame, playerName);
             var user = _userRepository.GetById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
@@ -71,25 +71,25 @@ namespace Web.ModelServices
 
         public AddPlayerPageModel GetAddModel(string slug, AddPlayerPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _addPlayerPageModelFactory.Create(homegame, postModel);
         }
 
         public AddPlayerConfirmationPageModel GetAddConfirmationModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _addPlayerConfirmationPageModelFactory.Create(homegame);
         }
 
         public InvitePlayerPageModel GetInviteModel(string slug, InvitePlayerPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _invitePlayerPageModelFactory.Create(homegame, postModel);
         }
 
         public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return _invitePlayerConfirmationPageModelFactory.Create(homegame);
         }
 

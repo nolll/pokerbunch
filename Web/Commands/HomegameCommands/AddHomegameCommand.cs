@@ -50,7 +50,7 @@ namespace Web.Commands.HomegameCommands
         private bool HomegameExists()
         {
             var slug = _slugGenerator.GetSlug(_postModel.DisplayName);
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return homegame != null;
         }
 		

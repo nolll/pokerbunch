@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases;
 using Core.UseCases.ShowUserList;
 using NUnit.Framework;
 using Tests.Common;
@@ -10,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
-    public class ShowUserListTests : MockContainer
+    public class ShowUserListInteractorTests : MockContainer
     {
         [Test]
         public void Execute_WithUsers_ReturnsListOfUserItems()

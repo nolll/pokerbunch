@@ -39,7 +39,7 @@ namespace Infrastructure.Data.Repositories {
 	        _homegameDataMapper = homegameDataMapper;
 	    }
 
-        public Homegame GetByName(string name)
+        public Homegame GetBySlug(string name)
         {
             var userId = GetIdBySlug(name);
             return userId.HasValue ? GetById(userId.Value) : null;

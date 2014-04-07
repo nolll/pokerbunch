@@ -40,14 +40,14 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetEndGameCommand(string slug)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             return new EndGameCommand(_cashgameRepository, homegame, cashgame);
         }
 
         public Command GetAddCommand(string slug, AddCashgamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             return new AddCashgameCommand(_cashgameRepository, _cashgameFactory, homegame, postModel);
         }
 
@@ -58,7 +58,7 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetBuyinCommand(string slug, string playerName, BuyinPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetByName(homegame, playerName);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             return new BuyinCommand(_checkpointModelMapper, _checkpointRepository, _cashgameRepository, player, runningGame, postModel);
@@ -66,7 +66,7 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetReportCommand(string slug, string playerName, ReportPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var player = _playerRepository.GetByName(homegame, playerName);
             return new ReportCommand(_checkpointModelMapper, _checkpointRepository, cashgame, player, postModel);
@@ -74,14 +74,14 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             return new DeleteCheckpointCommand(_checkpointRepository, cashgame, checkpointId);
         }
 
         public Command GetCashoutCommand(string slug, string playerName, CashoutPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetByName(homegame, playerName);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var result = runningGame.GetResult(player.Id);
@@ -90,14 +90,14 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetDeleteCommand(string slug, string dateStr)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             return new DeleteCommand(_cashgameRepository, cashgame);
         }
 
         public Command GetEditCheckpointCommand(string slug, string dateStr, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var homegame = _homegameRepository.GetByName(slug);
+            var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(checkpointId);
             return new EditCheckpointCommand(_checkpointRepository, _checkpointModelMapper, cashgame, postModel, existingCheckpoint, homegame.Timezone);

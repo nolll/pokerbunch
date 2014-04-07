@@ -42,8 +42,9 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="GameStatusNameTests.cs" />
-    <Compile Include="UseCases\ShowBunchListTests.cs" />
-    <Compile Include="UseCases\ShowUserListTests.cs" />
+    <Compile Include="UseCases\ShowBunchListInteractorTests.cs" />
+    <Compile Include="UseCases\ShowPlayerListInteractorTests.cs" />
+    <Compile Include="UseCases\ShowUserListInteractorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -20,7 +20,7 @@ namespace Tests.Infrastructure.Repositories{
         {
             var sut = GetSut();
 
-			var result = sut.GetByName("anyname");
+			var result = sut.GetBySlug("anyname");
 
 			Assert.IsNull(result);
 		}
@@ -39,7 +39,7 @@ namespace Tests.Infrastructure.Repositories{
             GetMock<IHomegameDataMapper>().Setup(o => o.Map(rawHomegame)).Returns(expectedHomegame);
 
 		    var sut = GetSut();
-            var result = sut.GetByName(slug);
+            var result = sut.GetBySlug(slug);
 
 			Assert.AreEqual(result.Slug, slug);
 		}

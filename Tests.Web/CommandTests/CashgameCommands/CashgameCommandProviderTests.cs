@@ -80,7 +80,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
             var player = new FakePlayer(playerId, displayName: playerName);
             var cashgame = new FakeCashgame();
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetByName(slug)).Returns(homegame);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, playerName)).Returns(player);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
 
