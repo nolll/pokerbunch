@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.UseCases
+namespace Core.UseCases.ShowBunchList
 {
     public class ShowBunchListResult
     {

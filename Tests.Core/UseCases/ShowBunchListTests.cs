@@ -2,6 +2,7 @@
 using Core.Classes;
 using Core.Repositories;
 using Core.UseCases;
+using Core.UseCases.ShowBunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -10,12 +11,12 @@ namespace Tests.Core.UseCases
 {
     public class ShowBunchListTests : MockContainer
     {
-        private ShowBunchList _sut;
+        private ShowBunchListInteractor _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new ShowBunchList(
+            _sut = new ShowBunchListInteractor(
                 GetMock<IHomegameRepository>().Object);
         }
 

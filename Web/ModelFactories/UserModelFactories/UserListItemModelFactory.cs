@@ -2,15 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
 using Core.UseCases;
+using Core.UseCases.ShowUserList;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
 {
-    public class UserListListItemModelFactory : IUserListItemModelFactory
+    public class UserListItemModelFactory : IUserListItemModelFactory
     {
         private readonly IUrlProvider _urlProvider;
 
-        public UserListListItemModelFactory(IUrlProvider urlProvider)
+        public UserListItemModelFactory(IUrlProvider urlProvider)
         {
             _urlProvider = urlProvider;
         }

@@ -2,13 +2,13 @@
 using Core.Classes;
 using Core.Repositories;
 
-namespace Core.UseCases
+namespace Core.UseCases.ShowBunchList
 {
-    public class ShowBunchList : IShowBunchList
+    public class ShowBunchListInteractor : IShowBunchListInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
 
-        public ShowBunchList(
+        public ShowBunchListInteractor(
             IHomegameRepository homegameRepository)
         {
             _homegameRepository = homegameRepository;

@@ -1,11 +1,9 @@
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
 using Web.Commands.PlayerCommands;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
-using Web.Security;
 using Web.Security.Attributes;
 
 namespace Web.Controllers

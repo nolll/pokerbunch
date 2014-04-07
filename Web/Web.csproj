@@ -343,7 +343,7 @@
     <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPostModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\UserListListItemModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\UserListItemModelFactory.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />

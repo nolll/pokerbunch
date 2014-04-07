@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.UseCases;
+using Core.UseCases.ShowBunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
@@ -19,7 +20,7 @@ namespace Tests.Web.PageBuilderTests
             _sut = new BunchListPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IBunchListItemModelFactory>().Object,
-                GetMock<IShowBunchList>().Object);
+                GetMock<IShowBunchListInteractor>().Object);
         }
 
         [Test]
@@ -27,7 +28,7 @@ namespace Tests.Web.PageBuilderTests
         {
             var showBunchListResult = new ShowBunchListResult();
 
-            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
 
             var result = _sut.Build();
 
@@ -40,7 +41,7 @@ namespace Tests.Web.PageBuilderTests
             var pageProperties = new PageProperties();
             var showBunchListResult = new ShowBunchListResult();
 
-            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
 
             var result = _sut.Build();
@@ -55,7 +56,7 @@ namespace Tests.Web.PageBuilderTests
             var showBunchListResult = new ShowBunchListResult { Bunches = bunchItems };
             var models = new List<BunchListItemModel>();
             
-            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IBunchListItemModelFactory>().Setup(o => o.CreateList(bunchItems)).Returns(models);
 
             var result = _sut.Build();

@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Classes;
 using Core.Repositories;
 using Core.UseCases;
+using Core.UseCases.ShowUserList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -28,9 +29,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(userName, result.Users.First().UserName);
         }
 
-        private ShowUserList GetSut()
+        private ShowUserListInteractor GetSut()
         {
-            return new ShowUserList(
+            return new ShowUserListInteractor(
                 GetMock<IUserRepository>().Object);
         }
     }

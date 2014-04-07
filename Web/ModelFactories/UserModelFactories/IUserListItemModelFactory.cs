@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.UseCases;
+using Core.UseCases.ShowUserList;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories

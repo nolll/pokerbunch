@@ -2,13 +2,13 @@
 using System.Linq;
 using Core.Repositories;
 
-namespace Core.UseCases
+namespace Core.UseCases.ShowUserList
 {
-    public class ShowUserList : IShowUserList
+    public class ShowUserListInteractor : IShowUserListInteractor
     {
         private readonly IUserRepository _userRepository;
 
-        public ShowUserList(IUserRepository userRepository)
+        public ShowUserListInteractor(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

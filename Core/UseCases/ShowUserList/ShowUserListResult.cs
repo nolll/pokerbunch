@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.UseCases
+namespace Core.UseCases.ShowUserList
 {
     public class ShowUserListResult
     {

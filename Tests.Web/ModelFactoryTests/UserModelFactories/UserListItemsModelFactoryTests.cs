@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
 using Core.UseCases;
+using Core.UseCases.ShowUserList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.UserModelFactories;
@@ -9,12 +10,12 @@ namespace Tests.Web.ModelFactoryTests.UserModelFactories
 {
     class UserListItemsModelFactoryTests : MockContainer
     {
-        private UserListListItemModelFactory _sut;
+        private UserListItemModelFactory _sut;
 
         [SetUp]
         public virtual void SetUp()
         {
-            _sut = new UserListListItemModelFactory(
+            _sut = new UserListItemModelFactory(
                 GetMock<IUrlProvider>().Object);
         }
 

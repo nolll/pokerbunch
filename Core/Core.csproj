@@ -41,14 +41,14 @@
     <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="UseCases\BunchListItem.cs" />
-    <Compile Include="UseCases\IShowBunchList.cs" />
-    <Compile Include="UseCases\IShowUserList.cs" />
-    <Compile Include="UseCases\ShowBunchList.cs" />
-    <Compile Include="UseCases\ShowBunchListResult.cs" />
-    <Compile Include="UseCases\ShowUserList.cs" />
-    <Compile Include="UseCases\ShowUserListResult.cs" />
-    <Compile Include="UseCases\UserListItem.cs" />
+    <Compile Include="UseCases\ShowBunchList\BunchListItem.cs" />
+    <Compile Include="UseCases\ShowBunchList\IShowBunchListInteractor.cs" />
+    <Compile Include="UseCases\ShowUserList\IShowUserListInteractor.cs" />
+    <Compile Include="UseCases\ShowBunchList\ShowBunchListInteractor.cs" />
+    <Compile Include="UseCases\ShowBunchList\ShowBunchListResult.cs" />
+    <Compile Include="UseCases\ShowUserList\ShowUserListInteractor.cs" />
+    <Compile Include="UseCases\ShowUserList\ShowUserListResult.cs" />
+    <Compile Include="UseCases\ShowUserList\UserListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Player.cs" />
