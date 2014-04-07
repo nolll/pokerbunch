@@ -124,8 +124,8 @@
     <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IUserListPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\UserListPageModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IUserListPageBuilder.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\UserListPageBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
@@ -181,7 +181,7 @@
     <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IUserItemModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\IUserListItemModelFactory.cs" />
     <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
@@ -343,7 +343,7 @@
     <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPostModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\UserItemModelFactory.cs" />
+    <Compile Include="ModelFactories\UserModelFactories\UserListListItemModelFactory.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
@@ -611,7 +611,7 @@
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegamePageModel.cs" />
-    <Compile Include="Models\UserModels\List\UserItemModel.cs" />
+    <Compile Include="Models\UserModels\List\UserListItemModel.cs" />
     <Compile Include="Models\UserModels\List\UserListPageModel.cs" />
     <Compile Include="Controllers\SharingController.cs" />
     <Compile Include="Models\SharingModels\SharingIndexPageModel.cs" />

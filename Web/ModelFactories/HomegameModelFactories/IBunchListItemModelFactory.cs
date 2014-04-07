@@ -6,7 +6,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IBunchListItemModelFactory
     {
-        BunchListItemModel Create(BunchItem bunchItem);
-        IList<BunchListItemModel> CreateList(IList<BunchItem> bunchItems);
+        BunchListItemModel Create(BunchListItem bunchListItem);
+        IList<BunchListItemModel> CreateList(IList<BunchListItem> bunchItems);
     }
 }

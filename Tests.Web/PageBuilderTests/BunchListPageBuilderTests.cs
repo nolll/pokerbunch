@@ -29,7 +29,7 @@ namespace Tests.Web.PageBuilderTests
 
             GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
 
-            var result = _sut.Create();
+            var result = _sut.Build();
 
             Assert.AreEqual("Bunches", result.BrowserTitle);
         }
@@ -43,7 +43,7 @@ namespace Tests.Web.PageBuilderTests
             GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
 
-            var result = _sut.Create();
+            var result = _sut.Build();
 
             Assert.IsNotNull(result.PageProperties);
         }
@@ -51,14 +51,14 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_BunchModelsAreSet()
         {
-            var bunchItems = new List<BunchItem>();
+            var bunchItems = new List<BunchListItem>();
             var showBunchListResult = new ShowBunchListResult { Bunches = bunchItems };
             var models = new List<BunchListItemModel>();
             
             GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IBunchListItemModelFactory>().Setup(o => o.CreateList(bunchItems)).Returns(models);
 
-            var result = _sut.Create();
+            var result = _sut.Build();
 
             Assert.AreEqual(bunchItems, result.BunchModels);
         }

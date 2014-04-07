@@ -4,6 +4,6 @@ namespace Core.UseCases
 {
     public class ShowUserListResult
     {
-        public IList<UserItem> Users { get; set; }
+        public IList<UserListItem> Users { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             _showBunchList = showBunchList;
         }
 
-        public BunchListPageModel Create()
+        public BunchListPageModel Build()
         {
             var result = _showBunchList.Execute();
 

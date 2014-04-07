@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Application.Services;
 using Web.Commands.UserCommands;
+using Web.ModelFactories.UserModelFactories;
 using Web.ModelServices;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
@@ -15,15 +16,18 @@ namespace Web.Controllers
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IUserCommandProvider _userCommandProvider;
 	    private readonly IUserModelService _userModelService;
+	    private readonly IUserListPageBuilder _userListPageBuilder;
 
 	    public UserController(
             IUrlProvider urlProvider,
             IUserCommandProvider userCommandProvider,
-            IUserModelService userModelService)
+            IUserModelService userModelService,
+            IUserListPageBuilder userListPageBuilder)
 	    {
 	        _urlProvider = urlProvider;
 	        _userCommandProvider = userCommandProvider;
 	        _userModelService = userModelService;
+	        _userListPageBuilder = userListPageBuilder;
 	    }
 
         [Authorize]
@@ -36,7 +40,7 @@ namespace Web.Controllers
         [AuthorizeAdmin]
         public ActionResult List()
         {
-            var model = _userModelService.GetListModel();
+            var model = _userListPageBuilder.Build();
 			return View("List/List", model);
 		}
 

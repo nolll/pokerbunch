@@ -96,7 +96,7 @@ namespace Web.Plumbing
             RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>();
             RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>();
             RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>();
-            RegisterComponent<IUserListPageModelFactory, UserListPageModelFactory>();
+            RegisterComponent<IUserListPageBuilder, UserListPageBuilder>();
             RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>();
             RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>();
             RegisterComponent<IEditUserPageModelFactory, EditUserPageModelFactory>();
@@ -127,7 +127,7 @@ namespace Web.Plumbing
             RegisterComponent<IBunchListItemModelFactory, BunchListItemModelFactory>();
             RegisterComponent<ICashgameToplistTableModelFactory, CashgameToplistTableModelFactory>();
             RegisterComponent<ICashgameToplistTableItemModelFactory, CashgameToplistTableItemModelFactory>();
-            RegisterComponent<IUserItemModelFactory, UserItemModelFactory>();
+            RegisterComponent<IUserListItemModelFactory, UserListListItemModelFactory>();
             RegisterComponent<IBarModelFactory, BarModelFactory>();
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();

@@ -21,10 +21,10 @@ namespace Core.UseCases
                 };
         }
 
-        private IList<UserItem> GetUserItems()
+        private IList<UserListItem> GetUserItems()
         {
             var users = _userRepository.GetList();
-            return users.Select(o => new UserItem(o.UserName, o.UserName)).ToList();
-        } 
+            return users.Select(o => new UserListItem(o.UserName, o.UserName)).ToList();
+        }
     }
 }

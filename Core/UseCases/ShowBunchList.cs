@@ -24,9 +24,9 @@ namespace Core.UseCases
                 };
         }
 
-        private BunchItem CreateItem(Homegame homegame)
+        private BunchListItem CreateItem(Homegame homegame)
         {
-            return new BunchItem
+            return new BunchListItem
                 {
                     DisplayName = homegame.DisplayName,
                     Slug = homegame.Slug

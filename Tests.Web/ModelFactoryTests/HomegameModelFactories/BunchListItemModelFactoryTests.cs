@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using System.Collections.Generic;
+using Application.Services;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -23,7 +24,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
             const string displayName = "a";
             const string slug = "b";
             const string url = "c";
-            var bunchItem = new BunchItem
+            var bunchItem = new BunchListItem
                 {
                     DisplayName = displayName,
                     Slug = slug
@@ -34,6 +35,16 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
             var result = _sut.Create(bunchItem);
 
             Assert.AreEqual(displayName, result.Name);
+        }
+
+        [Test]
+        public void CreateList_WithBunchItems_ReturnsListOfCorrectLength()
+        {
+            var bunchItems = new List<BunchListItem> {new BunchListItem()};
+
+            var result = _sut.CreateList(bunchItems);
+
+            Assert.AreEqual(1, result.Count);
         }
     }
 }

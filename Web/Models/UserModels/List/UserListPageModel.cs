@@ -7,12 +7,16 @@ namespace Web.Models.UserModels.List
     {
         public PageProperties PageProperties { get; private set; }
         public string BrowserTitle { get; private set; }
-        public List<UserItemModel> UserModels { get; private set; }
+        public IList<UserListItemModel> UserModels { get; private set; }
+
+	    public UserListPageModel()
+	    {
+	    }
 
 	    public UserListPageModel(
             string browserTitle, 
             PageProperties pageProperties,
-            List<UserItemModel> userModels)
+            IList<UserListItemModel> userModels)
 	    {
             BrowserTitle = browserTitle;
             PageProperties = pageProperties;

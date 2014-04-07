@@ -4,6 +4,6 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public interface IBunchListPageBuilder
     {
-        BunchListPageModel Create();
+        BunchListPageModel Build();
     }
 }

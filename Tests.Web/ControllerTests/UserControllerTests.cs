@@ -3,26 +3,26 @@ using System.Web.Mvc;
 using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Commands.HomegameCommands;
+using Web.Commands.UserCommands;
 using Web.Controllers;
-using Web.ModelFactories.HomegameModelFactories;
+using Web.ModelFactories.UserModelFactories;
 using Web.ModelServices;
-using Web.Models.HomegameModels.List;
+using Web.Models.UserModels.List;
 
 namespace Tests.Web.ControllerTests
 {
-    class HomegameControllerTests : MockContainer
+    class UserControllerTests : MockContainer
     {
-        private HomegameController _sut;
+        private UserController _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new HomegameController(
+            _sut = new UserController(
                 GetMock<IUrlProvider>().Object,
-                GetMock<IHomegameCommandProvider>().Object,
-                GetMock<IHomegameModelService>().Object,
-                GetMock<IBunchListPageBuilder>().Object);
+                GetMock<IUserCommandProvider>().Object,
+                GetMock<IUserModelService>().Object,
+                GetMock<IUserListPageBuilder>().Object);
         }
 
         [Test]
@@ -37,9 +37,9 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void List_GetsPageModelFromModelBuilder()
         {
-            var model = new BunchListPageModel();
+            var model = new UserListPageModel();
 
-            GetMock<IBunchListPageBuilder>().Setup(o => o.Build()).Returns(model);
+            GetMock<IUserListPageBuilder>().Setup(o => o.Build()).Returns(model);
 
             var result = _sut.List() as ViewResult;
 

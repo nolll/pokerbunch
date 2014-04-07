@@ -15,16 +15,16 @@ namespace Web.ModelFactories.HomegameModelFactories
             _urlProvider = urlProvider;
         }
 
-        public BunchListItemModel Create(BunchItem bunchItem)
+        public BunchListItemModel Create(BunchListItem bunchListItem)
         {
             return new BunchListItemModel
             {
-                Name = bunchItem.DisplayName,
-                Url = _urlProvider.GetHomegameDetailsUrl(bunchItem.Slug)
+                Name = bunchListItem.DisplayName,
+                Url = _urlProvider.GetHomegameDetailsUrl(bunchListItem.Slug)
             };
         }
 
-        public IList<BunchListItemModel> CreateList(IList<BunchItem> bunchItems)
+        public IList<BunchListItemModel> CreateList(IList<BunchListItem> bunchItems)
         {
             return bunchItems.Select(Create).ToList();
         }

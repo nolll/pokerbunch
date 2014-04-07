@@ -32,7 +32,7 @@ namespace Web.Controllers
         [AuthorizeAdmin]
 	    public ActionResult List()
         {
-            var model = _bunchListPageBuilder.Create();
+            var model = _bunchListPageBuilder.Build();
 			return View("HomegameList", model);
 		}
 
