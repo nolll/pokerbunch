@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.HomegameModels.List;
 using Web.Models.PageBaseModels;
 
 namespace Tests.Web.PageBuilderTests
@@ -17,14 +18,16 @@ namespace Tests.Web.PageBuilderTests
         {
             _sut = new BunchListPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IHomegameListItemModelFactory>().Object,
+                GetMock<IBunchListItemModelFactory>().Object,
                 GetMock<IShowBunchList>().Object);
         }
 
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            MockShowBunchListResult();
+            var showBunchListResult = new ShowBunchListResult();
+
+            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
 
             var result = _sut.Create();
 
@@ -34,8 +37,11 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_PagePropertiesIsSet()
         {
-            MockShowBunchListResult();
-            MockPageProperties();
+            var pageProperties = new PageProperties();
+            var showBunchListResult = new ShowBunchListResult();
+
+            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
 
             var result = _sut.Create();
 
@@ -45,28 +51,16 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_BunchModelsAreSet()
         {
-            var bunchItem = new BunchItem();
-            var bunchItems = new List<BunchItem> {bunchItem};
-            MockShowBunchListResult(bunchItems);
-            MockPageProperties();
+            var bunchItems = new List<BunchItem>();
+            var showBunchListResult = new ShowBunchListResult { Bunches = bunchItems };
+            var models = new List<BunchListItemModel>();
+            
+            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IBunchListItemModelFactory>().Setup(o => o.CreateList(bunchItems)).Returns(models);
 
             var result = _sut.Create();
 
-            Assert.AreEqual(1, result.BunchModels.Count);
-        }
-
-        private void MockPageProperties()
-        {
-            var pageProperties = new PageProperties();
-            GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
-        }
-
-        private void MockShowBunchListResult(List<BunchItem> bunchItems = null)
-        {
-            if (bunchItems == null)
-                bunchItems = new List<BunchItem>();
-            var showBunchListResult = new ShowBunchListResult {Bunches = bunchItems};
-            GetMock<IShowBunchList>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            Assert.AreEqual(bunchItems, result.BunchModels);
         }
     }
 }

@@ -1,14 +1,16 @@
+using System.Collections.Generic;
+using System.Linq;
 using Application.Services;
 using Core.UseCases;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class HomegameListItemModelFactory : IHomegameListItemModelFactory
+    public class BunchListItemModelFactory : IBunchListItemModelFactory
     {
         private readonly IUrlProvider _urlProvider;
 
-        public HomegameListItemModelFactory(IUrlProvider urlProvider)
+        public BunchListItemModelFactory(IUrlProvider urlProvider)
         {
             _urlProvider = urlProvider;
         }
@@ -18,8 +20,13 @@ namespace Web.ModelFactories.HomegameModelFactories
             return new BunchListItemModel
             {
                 Name = bunchItem.DisplayName,
-                UrlModel = _urlProvider.GetHomegameDetailsUrl(bunchItem.Slug)
+                Url = _urlProvider.GetHomegameDetailsUrl(bunchItem.Slug)
             };
+        }
+
+        public IList<BunchListItemModel> CreateList(IList<BunchItem> bunchItems)
+        {
+            return bunchItems.Select(Create).ToList();
         }
     }
 }
