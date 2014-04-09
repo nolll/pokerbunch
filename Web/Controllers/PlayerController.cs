@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Application.Services;
 using Web.Commands.PlayerCommands;
+using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
@@ -13,21 +14,24 @@ namespace Web.Controllers
 	    private readonly IPlayerModelService _playerModelService;
 	    private readonly IUrlProvider _urlProvider;
 	    private readonly IPlayerCommandProvider _playerCommandProvider;
+        private readonly IPlayerListPageBuilder _playerListPageBuilder;
 
-	    public PlayerController(
+        public PlayerController(
             IPlayerModelService playerModelService,
             IUrlProvider urlProvider,
-            IPlayerCommandProvider playerCommandProvider)
+            IPlayerCommandProvider playerCommandProvider,
+            IPlayerListPageBuilder playerListPageBuilder)
 	    {
 	        _playerModelService = playerModelService;
 	        _urlProvider = urlProvider;
 	        _playerCommandProvider = playerCommandProvider;
+	        _playerListPageBuilder = playerListPageBuilder;
 	    }
 
         [AuthorizePlayer]
 	    public ActionResult Index(string slug)
         {
-            var model = _playerModelService.GetListModel(slug);
+            var model = _playerListPageBuilder.Build(slug);
 			return View("List", model);
 		}
 

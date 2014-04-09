@@ -276,8 +276,8 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IAddPlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerDetailsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\PlayerModelFactories\IPlayerListPageModelFactory.cs" />
-    <Compile Include="ModelFactories\PlayerModelFactories\PlayerListPageModelFactory.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\IPlayerListPageBuilder.cs" />
+    <Compile Include="ModelFactories\PlayerModelFactories\PlayerListPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\AddUserConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\AddUserPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IEditUserPageModelFactory.cs" />

@@ -6,6 +6,7 @@ using Tests.Common;
 using Tests.Common.FakeCommands;
 using Web.Commands.PlayerCommands;
 using Web.Controllers;
+using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelServices;
 
 namespace Tests.Web.ControllerTests
@@ -71,7 +72,8 @@ namespace Tests.Web.ControllerTests
 			return new PlayerController(
                 GetMock<IPlayerModelService>().Object,
                 GetMock<IUrlProvider>().Object,
-                GetMock<IPlayerCommandProvider>().Object);
+                GetMock<IPlayerCommandProvider>().Object,
+                GetMock<IPlayerListPageBuilder>().Object);
 		}
 	}
 }

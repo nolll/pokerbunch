@@ -13,7 +13,7 @@ namespace Web.ModelServices
     public class PlayerModelService : IPlayerModelService
     {
         private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
-        private readonly IPlayerListPageModelFactory _playerListPageModelFactory;
+        private readonly IPlayerListPageBuilder _playerListPageBuilder;
         private readonly IAddPlayerPageModelFactory _addPlayerPageModelFactory;
         private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
         private readonly IInvitePlayerPageModelFactory _invitePlayerPageModelFactory;
@@ -26,7 +26,7 @@ namespace Web.ModelServices
 
         public PlayerModelService(
             IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
-            IPlayerListPageModelFactory playerListPageModelFactory,
+            IPlayerListPageBuilder playerListPageBuilder,
             IAddPlayerPageModelFactory addPlayerPageModelFactory,
             IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory,
             IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
@@ -38,7 +38,7 @@ namespace Web.ModelServices
             IHomegameRepository homegameRepository)
         {
             _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
-            _playerListPageModelFactory = playerListPageModelFactory;
+            _playerListPageBuilder = playerListPageBuilder;
             _addPlayerPageModelFactory = addPlayerPageModelFactory;
             _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
             _invitePlayerPageModelFactory = invitePlayerPageModelFactory;
@@ -52,10 +52,7 @@ namespace Web.ModelServices
 
         public PlayerListPageModel GetListModel(string slug)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
-            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
-            return _playerListPageModelFactory.Create(homegame, players, isInManagerMode);
+            return _playerListPageBuilder.Build(slug);
         }
 
         public PlayerDetailsPageModel GetDetailsModel(string slug, string playerName)

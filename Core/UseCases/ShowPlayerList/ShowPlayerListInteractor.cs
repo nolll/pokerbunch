@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Core.Classes;
 using Core.Repositories;
+using Tests.Core.UseCases;
 
-namespace Tests.Core.UseCases
+namespace Core.UseCases.ShowPlayerList
 {
     public class ShowPlayerListInteractor
     {
@@ -24,6 +25,7 @@ namespace Tests.Core.UseCases
 
             return new ShowPlayerListResult
                 {
+                    Slug = slug,
                     Players = players.Select(CreatePlayerListItem).ToList()
                 };
         }

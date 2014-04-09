@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
+using Core.UseCases.ShowPlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -20,7 +21,7 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void Execute_WithSlug_PlayersAreSet()
+        public void Execute_WithSlug_SlugAndPlayersAreSet()
         {
             const string slug = "a";
             const string playerName = "b";
@@ -33,6 +34,7 @@ namespace Tests.Core.UseCases
 
             var result = _sut.Execute(slug);
 
+            Assert.AreEqual(slug, result.Slug);
             Assert.AreEqual(1, result.Players.Count);
             Assert.AreEqual(playerName, result.Players[0].Name);
         }
