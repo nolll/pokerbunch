@@ -5,7 +5,7 @@ using Tests.Core.UseCases;
 
 namespace Core.UseCases.ShowPlayerList
 {
-    public class ShowPlayerListInteractor
+    public class ShowPlayerListInteractor : IShowPlayerListInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;

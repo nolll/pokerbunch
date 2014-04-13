@@ -43,6 +43,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="UseCases\ShowBunchList\BunchListItem.cs" />
     <Compile Include="UseCases\ShowBunchList\IShowBunchListInteractor.cs" />
+    <Compile Include="UseCases\ShowPlayerList\IShowPlayerListInteractor.cs" />
     <Compile Include="UseCases\ShowPlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\ShowPlayerList\ShowPlayerListInteractor.cs" />
     <Compile Include="UseCases\ShowPlayerList\ShowPlayerListResult.cs" />

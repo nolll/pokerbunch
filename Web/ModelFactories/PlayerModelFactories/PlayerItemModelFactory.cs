@@ -1,5 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
 using Application.Services;
-using Core.Classes;
 using Tests.Core.UseCases;
 using Web.Models.PlayerModels.List;
 
@@ -14,15 +15,6 @@ namespace Web.ModelFactories.PlayerModelFactories
             _urlProvider = urlProvider;
         }
 
-        public PlayerItemModel Create(Homegame homegame, Player player)
-        {
-            return new PlayerItemModel
-            {
-                Name = player.DisplayName,
-                Url = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName)
-            };
-        }
-
         public PlayerItemModel Create(string slug, PlayerListItem p)
         {
             return new PlayerItemModel
@@ -30,6 +22,11 @@ namespace Web.ModelFactories.PlayerModelFactories
                 Name = p.Name,
                 Url = _urlProvider.GetPlayerDetailsUrl(slug, p.Name)
             };
+        }
+
+        public IList<PlayerItemModel> CreateList(string slug, IList<PlayerListItem> items)
+        {
+            return items.Select(item => Create(slug, item)).ToList();
         }
     }
 }

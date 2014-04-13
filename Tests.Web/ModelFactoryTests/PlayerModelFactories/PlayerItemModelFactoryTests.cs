@@ -1,7 +1,7 @@
-﻿using Application.Services;
+﻿using System.Collections.Generic;
+using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Tests.Core.UseCases;
 using Web.ModelFactories.PlayerModelFactories;
 
@@ -19,23 +19,6 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
         }
 
         [Test]
-        public void Create_WithHomegameAndPlayer_NameAndUrlIsSet()
-        {
-            const string slug = "a";
-            const string displayName = "b";
-            const string url = "c";
-            var homegame = new FakeHomegame(slug: slug);
-            var player = new FakePlayer(displayName: displayName);
-
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, displayName)).Returns(url);
-
-            var result = _sut.Create(homegame, player);
-
-            Assert.AreEqual(displayName, result.Name);
-            Assert.AreEqual(url, result.Url);
-        }
-
-        [Test]
         public void Create_WithPlayerListItem_NameAndUrlIsSet()
         {
             const string slug = "a";
@@ -49,6 +32,18 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
 
             Assert.AreEqual(displayName, result.Name);
             Assert.AreEqual(url, result.Url);
+        }
+
+        [Test]
+        public void CreateList_ReturnsListOfCorrectLength()
+        {
+            const string slug = "a";
+            var playerListItem = new PlayerListItem();
+            var playerListItems = new List<PlayerListItem> {playerListItem};
+
+            var result = _sut.CreateList(slug, playerListItems);
+
+            Assert.AreEqual(1, result.Count);
         }
     }
 }
