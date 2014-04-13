@@ -24,9 +24,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             Assert.IsInstanceOf<CashgameToplistTableModel>(result.TableModel);
 		}
 
-        private CashgameToplistPageModelFactory GetSut()
+        private CashgameToplistPageBuilder GetSut()
         {
-            return new CashgameToplistPageModelFactory(
+            return new CashgameToplistPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<ICashgameToplistTableModelFactory>().Object,
                 GetMock<ICashgamePageNavigationModelFactory>().Object,

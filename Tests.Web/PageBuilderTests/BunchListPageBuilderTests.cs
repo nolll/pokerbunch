@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.UseCases;
-using Core.UseCases.ShowBunchList;
+using Core.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
@@ -20,15 +20,15 @@ namespace Tests.Web.PageBuilderTests
             _sut = new BunchListPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IBunchListItemModelFactory>().Object,
-                GetMock<IShowBunchListInteractor>().Object);
+                GetMock<IBunchListInteractor>().Object);
         }
 
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            var showBunchListResult = new ShowBunchListResult();
+            var showBunchListResult = new BunchListResult();
 
-            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
 
             var result = _sut.Build();
 
@@ -39,9 +39,9 @@ namespace Tests.Web.PageBuilderTests
         public void Build_PagePropertiesIsSet()
         {
             var pageProperties = new PageProperties();
-            var showBunchListResult = new ShowBunchListResult();
+            var showBunchListResult = new BunchListResult();
 
-            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
 
             var result = _sut.Build();
@@ -53,10 +53,10 @@ namespace Tests.Web.PageBuilderTests
         public void Build_BunchModelsAreSet()
         {
             var bunchItems = new List<BunchListItem>();
-            var showBunchListResult = new ShowBunchListResult { Bunches = bunchItems };
+            var showBunchListResult = new BunchListResult { Bunches = bunchItems };
             var models = new List<BunchListItemModel>();
             
-            GetMock<IShowBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
+            GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IBunchListItemModelFactory>().Setup(o => o.CreateList(bunchItems)).Returns(models);
 
             var result = _sut.Build();

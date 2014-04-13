@@ -246,14 +246,14 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Facts\CashgameFactsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\CashgameToplistPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\CashgameToplistPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Add\IAddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Facts\ICashgameFactsPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ICashgameToplistPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ICashgameToplistPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageModelFactory.cs" />

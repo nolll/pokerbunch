@@ -1,8 +1,8 @@
 ﻿using Castle.Core;
 using Castle.Windsor;
-using Core.UseCases.ShowBunchList;
-using Core.UseCases.ShowPlayerList;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.BunchList;
+using Core.UseCases.PlayerList;
+using Core.UseCases.UserList;
 
 namespace Plumbing
 {
@@ -17,9 +17,9 @@ namespace Plumbing
         private void RegisterTypes()
         {
             // Use Cases
-            RegisterComponent<IShowUserListInteractor, ShowUserListInteractor>();
-            RegisterComponent<IShowBunchListInteractor, ShowBunchListInteractor>();
-            RegisterComponent<IShowPlayerListInteractor, ShowPlayerListInteractor>();
+            RegisterComponent<IUserListInteractor, UserListInteractor>();
+            RegisterComponent<IBunchListInteractor, BunchListInteractor>();
+            RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
         }
     }
 }

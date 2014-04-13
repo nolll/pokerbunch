@@ -1,5 +1,5 @@
 ﻿using Core.UseCases;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.UserList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.List;
 
@@ -9,21 +9,21 @@ namespace Web.ModelFactories.UserModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUserListItemModelFactory _userListItemModelFactory;
-        private readonly IShowUserListInteractor _showUserListInteractor;
+        private readonly IUserListInteractor _userListInteractor;
 
         public UserListPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             IUserListItemModelFactory userListItemModelFactory,
-            IShowUserListInteractor showUserListInteractor)
+            IUserListInteractor userListInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _userListItemModelFactory = userListItemModelFactory;
-            _showUserListInteractor = showUserListInteractor;
+            _userListInteractor = userListInteractor;
         }
 
         public UserListPageModel Build()
         {
-            var showUserListResult = _showUserListInteractor.Execute();
+            var showUserListResult = _userListInteractor.Execute();
 
             return new UserListPageModel(
                 "Users",

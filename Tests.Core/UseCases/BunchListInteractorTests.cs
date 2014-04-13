@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.ShowBunchList;
+using Core.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
-    public class ShowBunchListInteractorTests : MockContainer
+    public class BunchListInteractorTests : MockContainer
     {
-        private ShowBunchListInteractor _sut;
+        private BunchListInteractor _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new ShowBunchListInteractor(
+            _sut = new BunchListInteractor(
                 GetMock<IHomegameRepository>().Object);
         }
 

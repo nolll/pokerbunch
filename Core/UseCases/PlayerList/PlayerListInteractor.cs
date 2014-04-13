@@ -1,16 +1,15 @@
 ﻿using System.Linq;
 using Core.Classes;
 using Core.Repositories;
-using Tests.Core.UseCases;
 
-namespace Core.UseCases.ShowPlayerList
+namespace Core.UseCases.PlayerList
 {
-    public class ShowPlayerListInteractor : IShowPlayerListInteractor
+    public class PlayerListInteractor : IPlayerListInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public ShowPlayerListInteractor(
+        public PlayerListInteractor(
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository)
         {
@@ -18,14 +17,14 @@ namespace Core.UseCases.ShowPlayerList
             _playerRepository = playerRepository;
         }
 
-        public ShowPlayerListResult Execute(string slug)
+        public PlayerListResult Execute(PlayerListRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _homegameRepository.GetBySlug(request.Slug);
             var players = _playerRepository.GetList(homegame);
 
-            return new ShowPlayerListResult
+            return new PlayerListResult
                 {
-                    Slug = slug,
+                    Slug = request.Slug,
                     Players = players.Select(CreatePlayerListItem).ToList()
                 };
         }

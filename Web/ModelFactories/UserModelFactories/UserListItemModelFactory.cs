@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
 using Core.UseCases;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.UserList;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories

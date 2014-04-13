@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.UseCases.ShowBunchList
+namespace Core.UseCases.BunchList
 {
-    public class ShowBunchListResult
+    public class BunchListResult
     {
         public IList<BunchListItem> Bunches { get; set; }
     }

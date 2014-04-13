@@ -2,23 +2,23 @@
 using Core.Classes;
 using Core.Repositories;
 
-namespace Core.UseCases.ShowBunchList
+namespace Core.UseCases.BunchList
 {
-    public class ShowBunchListInteractor : IShowBunchListInteractor
+    public class BunchListInteractor : IBunchListInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
 
-        public ShowBunchListInteractor(
+        public BunchListInteractor(
             IHomegameRepository homegameRepository)
         {
             _homegameRepository = homegameRepository;
         }
 
-        public ShowBunchListResult Execute()
+        public BunchListResult Execute()
         {
             var homegames = _homegameRepository.GetList();
             var itemList = homegames.Select(CreateItem).ToList();
-            return new ShowBunchListResult
+            return new BunchListResult
                 {
                     Bunches = itemList
                 };

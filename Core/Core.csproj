@@ -41,18 +41,18 @@
     <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="UseCases\ShowBunchList\BunchListItem.cs" />
-    <Compile Include="UseCases\ShowBunchList\IShowBunchListInteractor.cs" />
-    <Compile Include="UseCases\ShowPlayerList\IShowPlayerListInteractor.cs" />
-    <Compile Include="UseCases\ShowPlayerList\PlayerListItem.cs" />
-    <Compile Include="UseCases\ShowPlayerList\ShowPlayerListInteractor.cs" />
-    <Compile Include="UseCases\ShowPlayerList\ShowPlayerListResult.cs" />
-    <Compile Include="UseCases\ShowUserList\IShowUserListInteractor.cs" />
-    <Compile Include="UseCases\ShowBunchList\ShowBunchListInteractor.cs" />
-    <Compile Include="UseCases\ShowBunchList\ShowBunchListResult.cs" />
-    <Compile Include="UseCases\ShowUserList\ShowUserListInteractor.cs" />
-    <Compile Include="UseCases\ShowUserList\ShowUserListResult.cs" />
-    <Compile Include="UseCases\ShowUserList\UserListItem.cs" />
+    <Compile Include="UseCases\BunchList\BunchListItem.cs" />
+    <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
+    <Compile Include="UseCases\PlayerList\IPlayerListInteractor.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListInteractor.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
+    <Compile Include="UseCases\UserList\IUserListInteractor.cs" />
+    <Compile Include="UseCases\BunchList\BunchListInteractor.cs" />
+    <Compile Include="UseCases\BunchList\BunchListResult.cs" />
+    <Compile Include="UseCases\UserList\UserListInteractor.cs" />
+    <Compile Include="UseCases\UserList\UserListResult.cs" />
+    <Compile Include="UseCases\UserList\UserListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Player.cs" />

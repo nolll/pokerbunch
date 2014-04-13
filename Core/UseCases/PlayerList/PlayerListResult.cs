@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Tests.Core.UseCases;
 
-namespace Core.UseCases.ShowPlayerList
+namespace Core.UseCases.PlayerList
 {
-    public class ShowPlayerListResult
+    public class PlayerListResult
     {
         public IList<PlayerListItem> Players;
         public string Slug;

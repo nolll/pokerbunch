@@ -7,14 +7,14 @@ using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
-    public class CashgameToplistPageModelFactory : ICashgameToplistPageModelFactory
+    public class CashgameToplistPageBuilder : ICashgameToplistPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameToplistTableModelFactory _cashgameToplistTableModelFactory;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
 
-        public CashgameToplistPageModelFactory(
+        public CashgameToplistPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             ICashgameToplistTableModelFactory cashgameToplistTableModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,

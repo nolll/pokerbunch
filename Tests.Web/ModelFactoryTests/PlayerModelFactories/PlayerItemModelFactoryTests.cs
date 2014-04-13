@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
+using Core.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Core.UseCases;
 using Web.ModelFactories.PlayerModelFactories;
 
 namespace Tests.Web.ModelFactoryTests.PlayerModelFactories

@@ -2,14 +2,14 @@
 using System.Linq;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
-    public class ShowUserListInteractorTests : MockContainer
+    public class UserListInteractorTests : MockContainer
     {
         [Test]
         public void Execute_WithUsers_ReturnsListOfUserItems()
@@ -28,9 +28,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(userName, result.Users.First().UserName);
         }
 
-        private ShowUserListInteractor GetSut()
+        private UserListInteractor GetSut()
         {
-            return new ShowUserListInteractor(
+            return new UserListInteractor(
                 GetMock<IUserRepository>().Object);
         }
     }

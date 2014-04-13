@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.ShowPlayerList;
+using Core.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
-    class ShowPlayerListInteractorTests : MockContainer
+    class PlayerListInteractorTests : MockContainer
     {
-        private ShowPlayerListInteractor _sut;
+        private PlayerListInteractor _sut;
 
         [SetUp]
         public virtual void SetUp()
         {
-            _sut = new ShowPlayerListInteractor(
+            _sut = new PlayerListInteractor(
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IPlayerRepository>().Object);
         }
@@ -28,11 +28,12 @@ namespace Tests.Core.UseCases
             var homegame = new FakeHomegame(slug: slug);
             var player = new FakePlayer(displayName: playerName);
             var players = new List<Player> {player};
+            var request = new PlayerListRequest {Slug = slug};
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
 
-            var result = _sut.Execute(slug);
+            var result = _sut.Execute(request);
 
             Assert.AreEqual(slug, result.Slug);
             Assert.AreEqual(1, result.Players.Count);

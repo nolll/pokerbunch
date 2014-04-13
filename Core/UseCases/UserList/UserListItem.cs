@@ -1,4 +1,4 @@
-﻿namespace Core.UseCases.ShowUserList
+﻿namespace Core.UseCases.UserList
 {
     public class UserListItem
     {

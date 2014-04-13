@@ -1,4 +1,4 @@
-﻿namespace Tests.Core.UseCases
+﻿namespace Core.UseCases.PlayerList
 {
     public class PlayerListItem
     {

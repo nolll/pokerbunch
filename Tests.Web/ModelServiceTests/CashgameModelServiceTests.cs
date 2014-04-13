@@ -79,7 +79,7 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new FakeUser());
-            GetMock<ICashgameToplistPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
+            GetMock<ICashgameToplistPageBuilder>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
 
             var sut = GetSut();
             var result = sut.GetToplistModel(slug);
@@ -110,7 +110,7 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<ICashgameToplistPageModelFactory>().Object,
+                GetMock<ICashgameToplistPageBuilder>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,

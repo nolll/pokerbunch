@@ -1,5 +1,5 @@
 ﻿using Core.UseCases;
-using Core.UseCases.ShowBunchList;
+using Core.UseCases.BunchList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.List;
 
@@ -9,21 +9,21 @@ namespace Web.ModelFactories.HomegameModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IBunchListItemModelFactory _bunchListItemModelFactory;
-        private readonly IShowBunchListInteractor _showBunchListInteractor;
+        private readonly IBunchListInteractor _bunchListInteractor;
 
         public BunchListPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             IBunchListItemModelFactory bunchListItemModelFactory,
-            IShowBunchListInteractor showBunchListInteractor)
+            IBunchListInteractor bunchListInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _bunchListItemModelFactory = bunchListItemModelFactory;
-            _showBunchListInteractor = showBunchListInteractor;
+            _bunchListInteractor = bunchListInteractor;
         }
 
         public BunchListPageModel Build()
         {
-            var result = _showBunchListInteractor.Execute();
+            var result = _bunchListInteractor.Execute();
 
             return new BunchListPageModel
             {

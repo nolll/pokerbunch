@@ -2,20 +2,20 @@
 using System.Linq;
 using Core.Repositories;
 
-namespace Core.UseCases.ShowUserList
+namespace Core.UseCases.UserList
 {
-    public class ShowUserListInteractor : IShowUserListInteractor
+    public class UserListInteractor : IUserListInteractor
     {
         private readonly IUserRepository _userRepository;
 
-        public ShowUserListInteractor(IUserRepository userRepository)
+        public UserListInteractor(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public ShowUserListResult Execute()
+        public UserListResult Execute()
         {
-            return new ShowUserListResult
+            return new UserListResult
                 {
                     Users = GetUserItems()
                 };

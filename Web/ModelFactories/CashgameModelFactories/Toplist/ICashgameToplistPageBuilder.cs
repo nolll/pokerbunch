@@ -4,7 +4,7 @@ using Web.Models.CashgameModels.Toplist;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
-    public interface ICashgameToplistPageModelFactory
+    public interface ICashgameToplistPageBuilder
     {
         CashgameToplistPageModel Create(Homegame homegame, CashgameSuite suite, IList<int> years, ToplistSortOrder sortOrder, int? year);
     }

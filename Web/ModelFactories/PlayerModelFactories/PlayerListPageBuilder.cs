@@ -1,7 +1,7 @@
 ﻿using Application.Services;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.ShowPlayerList;
+using Core.UseCases.PlayerList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;
 using Web.Security;
@@ -15,7 +15,7 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IPlayerItemModelFactory _playerItemModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
-        private readonly IShowPlayerListInteractor _showPlayerListInteractor;
+        private readonly IPlayerListInteractor _playerListInteractor;
 
         public PlayerListPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
@@ -23,21 +23,22 @@ namespace Web.ModelFactories.PlayerModelFactories
             IPlayerItemModelFactory playerItemModelFactory,
             IHomegameRepository homegameRepository,
             IAuth auth,
-            IShowPlayerListInteractor showPlayerListInteractor)
+            IPlayerListInteractor playerListInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _urlProvider = urlProvider;
             _playerItemModelFactory = playerItemModelFactory;
             _homegameRepository = homegameRepository;
             _auth = auth;
-            _showPlayerListInteractor = showPlayerListInteractor;
+            _playerListInteractor = playerListInteractor;
         }
 
         public PlayerListPageModel Build(string slug)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
-            var result = _showPlayerListInteractor.Execute(slug);
+            var request = new PlayerListRequest {Slug = slug};
+            var result = _playerListInteractor.Execute(request);
 
             return new PlayerListPageModel
                 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.UseCases;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -20,15 +20,15 @@ namespace Tests.Web.PageBuilderTests
             _sut = new UserListPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IUserListItemModelFactory>().Object,
-                GetMock<IShowUserListInteractor>().Object);
+                GetMock<IUserListInteractor>().Object);
         }
 
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            var showUserListResult = new ShowUserListResult();
+            var showUserListResult = new UserListResult();
 
-            GetMock<IShowUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
+            GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
 
             var result = _sut.Build();
 
@@ -39,9 +39,9 @@ namespace Tests.Web.PageBuilderTests
         public void Build_PagePropertiesIsSet()
         {
             var pageProperties = new PageProperties();
-            var showUserListResult = new ShowUserListResult();
+            var showUserListResult = new UserListResult();
 
-            GetMock<IShowUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
+            GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
             GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
 
             var result = _sut.Build();
@@ -53,10 +53,10 @@ namespace Tests.Web.PageBuilderTests
         public void Build_BunchModelsAreSet()
         {
             var userItems = new List<UserListItem>();
-            var showUserListResult = new ShowUserListResult { Users = userItems };
+            var showUserListResult = new UserListResult { Users = userItems };
             var models = new List<UserListItemModel>();
 
-            GetMock<IShowUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
+            GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
             GetMock<IUserListItemModelFactory>().Setup(o => o.CreateList(userItems)).Returns(models);
 
             var result = _sut.Build();

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
 using Core.UseCases;
-using Core.UseCases.ShowBunchList;
+using Core.UseCases.BunchList;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories

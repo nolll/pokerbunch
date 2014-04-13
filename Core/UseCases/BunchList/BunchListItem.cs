@@ -1,4 +1,4 @@
-﻿namespace Core.UseCases.ShowBunchList
+﻿namespace Core.UseCases.BunchList
 {
     public class BunchListItem
     {

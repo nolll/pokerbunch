@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
 using Core.UseCases;
-using Core.UseCases.ShowUserList;
+using Core.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.UserModelFactories;

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.UseCases;
-using Core.UseCases.ShowBunchList;
+using Core.UseCases.BunchList;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories

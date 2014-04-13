@@ -63,7 +63,7 @@ namespace Web.ModelServices
             var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetToplistSortOrder();
-            return _cashgameToplistPageModelFactory.Create(homegame, suite, years, sortOrder, year);
+            return _cashgameToplistPageBuilder.Create(homegame, suite, years, sortOrder, year);
         }
 
         public CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr)
@@ -239,7 +239,7 @@ namespace Web.ModelServices
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameToplistPageModelFactory _cashgameToplistPageModelFactory;
+        private readonly ICashgameToplistPageBuilder _cashgameToplistPageBuilder;
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
@@ -267,7 +267,7 @@ namespace Web.ModelServices
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
-            ICashgameToplistPageModelFactory cashgameToplistPageModelFactory,
+            ICashgameToplistPageBuilder cashgameToplistPageBuilder,
             IUrlProvider urlProvider,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
@@ -294,7 +294,7 @@ namespace Web.ModelServices
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
-            _cashgameToplistPageModelFactory = cashgameToplistPageModelFactory;
+            _cashgameToplistPageBuilder = cashgameToplistPageBuilder;
             _urlProvider = urlProvider;
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.UseCases.ShowUserList
+namespace Core.UseCases.UserList
 {
-    public class ShowUserListResult
+    public class UserListResult
     {
         public IList<UserListItem> Users { get; set; }
     }
