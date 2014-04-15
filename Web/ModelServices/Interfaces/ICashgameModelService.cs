@@ -11,7 +11,6 @@ using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
-using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
 
@@ -20,7 +19,6 @@ namespace Web.ModelServices
     public interface ICashgameModelService
     {
         CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null);
-        CashgameToplistPageModel GetToplistModel(string slug, int? year = null);
         string GetIndexUrl(string slug);
         CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr);
         ChartModel GetDetailsChartJsonModel(string slug, string dateStr);

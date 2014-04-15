@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Classes;
 
-namespace Application.Factories
+namespace Core.Factories.Interfaces
 {
     public interface ICashgameTotalResultFactory
     {

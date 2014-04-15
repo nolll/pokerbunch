@@ -2,7 +2,9 @@
 using Application.Factories;
 using Application.Services;
 using Core.Classes;
+using Core.Factories.Interfaces;
 using Core.Repositories;
+using Core.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

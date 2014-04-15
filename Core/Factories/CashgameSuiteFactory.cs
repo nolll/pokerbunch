@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Factories.Interfaces;
 
-namespace Application.Factories{
-    public class CashgameSuiteFactory : ICashgameSuiteFactory{
-
+namespace Core.Factories
+{
+    public class CashgameSuiteFactory : ICashgameSuiteFactory
+    {
 	    private readonly ICashgameTotalResultFactory _cashgameTotalResultFactory;
 
 	    public CashgameSuiteFactory(ICashgameTotalResultFactory cashgameTotalResultFactory)
@@ -24,7 +26,5 @@ namespace Application.Factories{
                     totalResults
                 );
 		}
-
 	}
-
 }

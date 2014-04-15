@@ -2,7 +2,11 @@
 using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
+using Core.Factories;
+using Core.Factories.Interfaces;
 using Core.Repositories;
+using Core.Services;
+using Core.Services.Interfaces;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;

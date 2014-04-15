@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Application.Services;
+using Core.Services.Interfaces;
 using Web.Commands.CashgameCommands;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
@@ -9,7 +11,6 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
-using Web.Security;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
@@ -20,17 +21,20 @@ namespace Web.Controllers
 	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly ICashgameModelService _cashgameModelService;
+	    private readonly ICashgameToplistPageBuilder _cashgameToplistPageBuilder;
 
 	    public CashgameController(
             IUrlProvider urlProvider,
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
-            ICashgameModelService cashgameModelService)
+            ICashgameModelService cashgameModelService,
+            ICashgameToplistPageBuilder cashgameToplistPageBuilder)
 	    {
 	        _urlProvider = urlProvider;
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;
+	        _cashgameToplistPageBuilder = cashgameToplistPageBuilder;
 	    }
 
         [AuthorizePlayer]
@@ -48,9 +52,9 @@ namespace Web.Controllers
 		}
 
         [AuthorizePlayer]
-        public ActionResult Toplist(string slug, int? year = null)
+        public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            var model = _cashgameModelService.GetToplistModel(slug, year);
+            var model = _cashgameToplistPageBuilder.Build(slug, orderBy, year);
             return View("Toplist/ToplistPage", model);
 		}
 

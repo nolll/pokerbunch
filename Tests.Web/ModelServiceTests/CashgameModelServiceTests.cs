@@ -2,6 +2,7 @@
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -74,19 +75,6 @@ namespace Tests.Web.ModelServiceTests
             Assert.IsNotNull(result);
         }
         
-        [Test]
-        public void GetToplistModel_Authorized_ReturnsModel()
-        {
-            const string slug = "a";
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new FakeUser());
-            GetMock<ICashgameToplistPageBuilder>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<CashgameSuite>(), It.IsAny<IList<int>>(), ToplistSortOrder.winnings, It.IsAny<int?>())).Returns(new CashgameToplistPageModel());
-
-            var sut = GetSut();
-            var result = sut.GetToplistModel(slug);
-
-            Assert.IsNotNull(result);
-        }
-
         [Test]
         public void GetDetailsModel_ReturnsModel()
         {

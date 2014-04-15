@@ -5,6 +5,7 @@ using System.Linq;
 using Application.Services;
 using Core.Classes;
 using Core.Classes.Checkpoints;
+using Core.Services.Interfaces;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 

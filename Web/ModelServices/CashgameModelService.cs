@@ -4,6 +4,7 @@ using Application.Exceptions;
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
@@ -55,15 +56,6 @@ namespace Web.ModelServices
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             return _matrixPageModelFactory.Create(homegame, year);
-        }
-
-        public CashgameToplistPageModel GetToplistModel(string slug, int? year = null)
-        {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var suite = _cashgameService.GetSuite(homegame, year);
-            var years = _cashgameRepository.GetYears(homegame);
-            var sortOrder = GetToplistSortOrder();
-            return _cashgameToplistPageBuilder.Create(homegame, suite, years, sortOrder, year);
         }
 
         public CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr)
@@ -202,21 +194,6 @@ namespace Web.ModelServices
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
             return _editCheckpointPageModelFactory.Create(homegame, checkpoint, dateStr, playerName, postModel);
-        }
-
-        private ToplistSortOrder GetToplistSortOrder()
-        {
-            var param = _webContext.GetQueryParam("orderby");
-            if (param == null)
-            {
-                return ToplistSortOrder.winnings;
-            }
-            ToplistSortOrder sortOrder;
-            if (Enum.TryParse(param, out sortOrder))
-            {
-                return sortOrder;
-            }
-            return ToplistSortOrder.winnings;
         }
 
         private ListSortOrder GetListSortOrder()

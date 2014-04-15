@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Classes;
+using Core.Factories.Interfaces;
 
-namespace Application.Factories{
+namespace Core.Factories{
 
 	public class CashgameTotalResultFactory : ICashgameTotalResultFactory
     {

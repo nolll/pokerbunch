@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Application.Factories;
 using Core.Classes;
+using Core.Factories;
+using Core.Factories.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -58,7 +60,8 @@ namespace Tests.Application.Factories{
 
         private CashgameSuiteFactory GetSut()
         {
-            return new CashgameSuiteFactory(GetMock<ICashgameTotalResultFactory>().Object);
+            return new CashgameSuiteFactory(
+                GetMock<ICashgameTotalResultFactory>().Object);
         }
 
 	}

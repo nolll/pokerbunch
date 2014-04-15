@@ -4,16 +4,18 @@ using System.Web.Mvc;
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
+using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Security;
 
-namespace Tests.Web.ControllerTests{
-
+namespace Tests.Web.ControllerTests
+{
 	public class CashgameControllerTests : MockContainer
 	{
         private const string Slug = "homegame1";
@@ -195,9 +197,8 @@ namespace Tests.Web.ControllerTests{
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<ICashgameModelService>().Object);
+                GetMock<ICashgameModelService>().Object,
+                GetMock<ICashgameToplistPageBuilder>().Object);
         }
-
 	}
-
 }

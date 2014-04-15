@@ -93,7 +93,7 @@
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgamePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageBuilderTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\ChartModelFactories\ChartValueModelFactoryTests.cs" />

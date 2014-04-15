@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Factories;
 using Core.Classes;
+using Core.Factories;
 using NUnit.Framework;
 using Tests.Common.FakeClasses;
 
