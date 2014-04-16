@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Core.Classes;
 using Core.Repositories;
 using Core.Services.Interfaces;
 using Core.UseCases.CashgameTopList;
@@ -32,8 +34,21 @@ namespace Tests.Core.UseCases
         public void Execute_WithSlug_ReturnsTopListItems()
         {
             const string slug = "a";
+            const string playerName = "b";
+            const int rank = 1;
+            const int playerId = 1;
+            const int buyin = 2;
+            const int cashout = 3;
+            const int gamesPlayed = 4;
+            const int minutesPlayed = 5;
+            const int winnings = 6;
+            const int winRate = 7;
             var homegame = new FakeHomegame();
-            var suite = new FakeCashgameSuite();
+            var totalResult = new FakeCashgameTotalResult(playerId: playerId, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
+            var totalResultList = new List<CashgameTotalResult> {totalResult};
+            var player = new FakePlayer(id: playerId, displayName: playerName);
+            var playerList = new List<Player> {player};
+            var suite = new FakeCashgameSuite(totalResults: totalResultList, players: playerList);
             var request = new CashgameTopListRequest{Slug = slug};
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
@@ -41,14 +56,16 @@ namespace Tests.Core.UseCases
 
             var result = _sut.Execute(request);
 
+            Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
             Assert.AreEqual(1, result.Items.Count);
-            Assert.AreEqual("", result.Items[0].Name);
-            Assert.AreEqual(0, result.Items[0].Winnings);
-            Assert.AreEqual(0, result.Items[0].Buyin);
-            Assert.AreEqual(0, result.Items[0].Cashout);
-            Assert.AreEqual(0, result.Items[0].MinutesPlayed);
-            Assert.AreEqual(0, result.Items[0].GamesPlayed);
-            Assert.AreEqual(0, result.Items[0].WinRate);
+            Assert.AreEqual(rank, result.Items[0].Rank);
+            Assert.AreEqual(buyin, result.Items[0].Buyin);
+            Assert.AreEqual(cashout, result.Items[0].Cashout);
+            Assert.AreEqual(gamesPlayed, result.Items[0].GamesPlayed);
+            Assert.AreEqual(minutesPlayed, result.Items[0].MinutesPlayed);
+            Assert.AreEqual(playerName, result.Items[0].Name);
+            Assert.AreEqual(winnings, result.Items[0].Winnings);
+            Assert.AreEqual(winRate, result.Items[0].WinRate);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Castle.Core;
 using Castle.Windsor;
 using Core.UseCases.BunchList;
+using Core.UseCases.CashgameTopList;
 using Core.UseCases.PlayerList;
 using Core.UseCases.UserList;
 
@@ -20,6 +21,7 @@ namespace Plumbing
             RegisterComponent<IUserListInteractor, UserListInteractor>();
             RegisterComponent<IBunchListInteractor, BunchListInteractor>();
             RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
+            RegisterComponent<ICashgameTopListInteractor, CashgameTopListInteractor>();
         }
     }
 }

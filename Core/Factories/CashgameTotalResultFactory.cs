@@ -53,7 +53,7 @@ namespace Core.Factories{
 
 	    private int GetWinRate(int timePlayed, int winnings)
 	    {
-	        return timePlayed > 0 ? (int) Math.Round((double) winnings/timePlayed*60) : 0;
+	        return timePlayed > 0 ? (int) Math.Round((double) winnings/timePlayed * 60) : 0;
 	    }
 	}
 

@@ -219,7 +219,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\ToplistSortOrder.cs" />
     <Compile Include="Models\NavigationModels\CashgamePage.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />

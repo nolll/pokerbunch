@@ -1,5 +1,6 @@
 using Application.Services;
 using Core.Classes;
+using Core.UseCases.CashgameTopList;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -27,7 +28,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             var totalResult = new FakeCashgameTotalResult();
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(1, result.Rank);
 		}
@@ -37,7 +38,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             var totalResult = new FakeCashgameTotalResult();
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -53,7 +54,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
@@ -66,7 +67,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -81,7 +82,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(formattedTime, result.GameTime);
 		}
@@ -96,7 +97,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
@@ -110,7 +111,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame.Slug, _player.DisplayName)).Returns(playerUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}

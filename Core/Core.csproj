@@ -54,7 +54,9 @@
     <Compile Include="UseCases\CashgameTopList\CashgameTopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\CashgameTopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\CashgameTopListResult.cs" />
+    <Compile Include="UseCases\CashgameTopList\ICashgameTopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
+    <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
     <Compile Include="UseCases\PlayerList\IPlayerListInteractor.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListInteractor.cs" />

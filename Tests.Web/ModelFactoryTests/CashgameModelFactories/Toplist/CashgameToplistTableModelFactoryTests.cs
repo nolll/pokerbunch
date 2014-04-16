@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Application.Services;
 using Core.Classes;
 using Core.Repositories;
+using Core.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -27,7 +28,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
             const int year = 0;
 
             var sut = GetSut();
-            var result = sut.Create(_homegame, suite, year, ToplistSortOrder.winnings);
+            var result = sut.Create(_homegame, suite, year, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(2, result.ItemModels.Count);
 		}

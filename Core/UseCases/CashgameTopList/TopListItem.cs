@@ -2,6 +2,7 @@
 {
     public class TopListItem
     {
+        public int Rank { get; set; }
         public string Name { get; set; }
         public int Winnings { get; set; }
         public int Buyin { get; set; }

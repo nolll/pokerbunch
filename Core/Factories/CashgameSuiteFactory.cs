@@ -17,13 +17,13 @@ namespace Core.Factories
         public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
         {
 			var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
-
 			var totalResults = _cashgameTotalResultFactory.CreateList(players, cashgames);
 
             return new CashgameSuite
                 (
                     sortedCashgames,
-                    totalResults
+                    totalResults,
+                    players
                 );
 		}
 	}

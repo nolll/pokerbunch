@@ -8,42 +8,58 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Application.Factories{
-
+namespace Tests.Application.Factories
+{
 	class CashgameSuiteFactoryTests : MockContainer
     {
 		private List<Cashgame> _cashgames;
 		private List<Player> _players;
 
         [SetUp]
-		public void SetUp(){
+		public void SetUp()
+        {
 			_cashgames = new List<Cashgame>();
 			_players = new List<Player>();
 		}
 
         [Test]
-		public void GetTotalResults_ReturnsCorrectTotalsSortedOnWinningsDescending(){
-			SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
+        public void TotalResults_ReturnsCorrectTotalsSortedOnWinningsDescending()
+        {
+            SetUpTwoGamesWithOneWinningAndOneLosingPlayer();
 
             var sut = GetSut();
             var result = sut.Create(_cashgames, _players);
 
-			Assert.AreEqual(2, result.TotalResults.Count);
-			Assert.AreEqual(3, result.TotalResults[0].Winnings);
-			Assert.AreEqual(-3, result.TotalResults[1].Winnings);
-		}
+            Assert.AreEqual(2, result.TotalResults.Count);
+            Assert.AreEqual(3, result.TotalResults[0].Winnings);
+            Assert.AreEqual(-3, result.TotalResults[1].Winnings);
+        }
 
-		[Test]
-		public void GetCashgames_ReturnsTheCashgames(){
-			var cashgame = new FakeCashgame(id: 1);
-		    _cashgames.Add(cashgame);
+        [Test]
+        public void Cashgames_ReturnsTheCashgames()
+        {
+            var cashgame = new FakeCashgame(id: 1);
+            _cashgames.Add(cashgame);
 
             var sut = GetSut();
             var result = sut.Create(_cashgames, _players);
 
-			Assert.AreEqual(1, result.Cashgames.Count);
-			Assert.AreEqual(1, result.Cashgames[0].Id);
-		}
+            Assert.AreEqual(1, result.Cashgames.Count);
+            Assert.AreEqual(1, result.Cashgames[0].Id);
+        }
+
+        [Test]
+        public void Players_ReturnsThePlayers()
+        {
+            var player = new FakePlayer(id: 1);
+            _players.Add(player);
+
+            var sut = GetSut();
+            var result = sut.Create(_cashgames, _players);
+
+            Assert.AreEqual(1, result.Players.Count);
+            Assert.AreEqual(1, result.Players[0].Id);
+        }
 
 		private void SetUpTwoGamesWithOneWinningAndOneLosingPlayer()
 		{
