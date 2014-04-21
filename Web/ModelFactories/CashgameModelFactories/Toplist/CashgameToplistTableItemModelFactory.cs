@@ -21,31 +21,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             _resultFormatter = resultFormatter;
             _globalization = globalization;
         }
-
-        public CashgameToplistTableItemModel Create(Homegame homegame, Player player, CashgameTotalResult result, int rank, ToplistSortOrder sortOrder)
-        {
-            return new CashgameToplistTableItemModel
-            {
-                Rank = rank,
-                TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
-                ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings),
-                Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
-                BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin),
-                Cashout = _globalization.FormatCurrency(homegame.Currency, result.Cashout),
-                CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout),
-                ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
-                GameTime = _globalization.FormatDuration(result.TimePlayed),
-                GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed),
-                GameCount = result.GameCount,
-                GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed),
-                WinRate = _globalization.FormatWinrate(homegame.Currency, result.WinRate),
-                WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate),
-                Name = player.DisplayName,
-                UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
-                PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName)
-            };
-        }
-
+        
         public CashgameToplistTableItemModel Create(TopListItem toplistItem, string slug, CurrencySettings currency, ToplistSortOrder sortOrder)
         {
             return new CashgameToplistTableItemModel

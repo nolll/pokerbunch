@@ -1,43 +1,31 @@
 using System.Collections.Generic;
 using Application.Services;
-using Core.Classes;
-using Core.Repositories;
 using Core.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.Models.CashgameModels.Toplist;
 
-namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
-
-	public class CashgameToplistTableModelFactoryTests : MockContainer {
-
-		private Homegame _homegame;
-
-        [SetUp]
-		public void SetUp(){
-			_homegame = new FakeHomegame();
-		}
-
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
+{
+	public class CashgameToplistTableModelFactoryTests : MockContainer
+    {
         [Test]
-		public void Table_ItemModelsAreSet(){
-			var totalResult = new FakeCashgameTotalResult();
-			var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
-            var suite = new FakeCashgameSuite(totalResults: totalResults);
-            const int year = 0;
+	    public void Table_ItemModelsAreSet()
+	    {
+	        var topListItem = new TopListItem();
+	        var topListItems = new List<TopListItem> {topListItem, topListItem};
+            var topListResult = new CashgameTopListResult{Items = topListItems};
 
-            var sut = GetSut();
-            var result = sut.Create(_homegame, suite, year, ToplistSortOrder.Winnings);
+	        var sut = GetSut();
+	        var result = sut.Create(topListResult);
 
-			Assert.AreEqual(2, result.ItemModels.Count);
-		}
+            Assert.AreEqual(2, result.ItemModels.Count);
+	    }
 
-        private CashgameToplistTableModelFactory GetSut()
+	    private CashgameToplistTableModelFactory GetSut()
         {
 			return new CashgameToplistTableModelFactory(
                 GetMock<ICashgameToplistTableItemModelFactory>().Object,
-                GetMock<IPlayerRepository>().Object,
                 GetMock<IUrlProvider>().Object);
 		}
 

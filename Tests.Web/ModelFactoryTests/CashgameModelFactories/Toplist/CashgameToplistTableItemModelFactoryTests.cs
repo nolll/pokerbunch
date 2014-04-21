@@ -6,39 +6,46 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.Models.CashgameModels.Toplist;
 
-namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
-
-	public class CashgameToplistTableItemModelFactoryTests : MockContainer {
-
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
+{
+	public class CashgameToplistTableItemModelFactoryTests : MockContainer
+    {
 		private Homegame _homegame;
 	    private Player _player;
 		private int _rank;
+	    private string _slug;
+	    private TopListItem _topListItem;
+	    private CurrencySettings _currency;
 
-        [SetUp]
+	    [SetUp]
 		public void SetUp(){
 			_homegame = new FakeHomegame();
 			_player = new FakePlayer(displayName: "player name");
 			_rank = 1;
+	        _slug = "a";
+            _topListItem = new TopListItem();
+            _currency = new CurrencySettings("", "");
 		}
 
         [Test]
-		public void TableItem_RankIsSet(){
-            var totalResult = new FakeCashgameTotalResult();
+		public void TableItem_RankIsSet()
+        {
+            _topListItem.Rank = 1;
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(1, result.Rank);
 		}
 
 		[Test]
-		public void TableItem_PlayerNameIsSet(){
-            var totalResult = new FakeCashgameTotalResult();
+		public void TableItem_PlayerNameIsSet()
+		{
+		    _topListItem.Name = "player name";
             
             var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -49,25 +56,27 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 		{
 		    const string formattedResult = "a";
 		    const int winnings = 1;
-            var totalResult = new FakeCashgameTotalResult(winnings);
+            _topListItem.Winnings = winnings;
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
 
 		[Test]
-		public void TableItem_WinningsClassIsSet(){
+		public void TableItem_WinningsClassIsSet()
+        {
             const string resultClass = "a";
-            var totalResult = new FakeCashgameTotalResult();
+            const int winnings = 1;
+            _topListItem.Winnings = winnings;
 
-            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
+            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -77,12 +86,12 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 		{
 		    const string formattedTime = "a";
 		    const int timePlayed = 60;
-            var totalResult = new FakeCashgameTotalResult(timePlayed:timePlayed);
+		    _topListItem.MinutesPlayed = timePlayed;
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(formattedTime, result.GameTime);
 		}
@@ -92,12 +101,12 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 		{
 		    const string formattedWinRate = "a";
             const int winRate = 1;
-            var totalResult = new FakeCashgameTotalResult(winRate: winRate);
+		    _topListItem.WinRate = 1;
 
-            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winRate)).Returns(formattedWinRate);
+            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(_currency, winRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
@@ -106,23 +115,23 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist{
 		public void TableItem_PlayerUrlIsSet()
 		{
 		    const string playerUrl = "a";
-            var totalResult = new FakeCashgameTotalResult();
+		    const string playerName = "b";
+            _topListItem.Name = playerName;
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_homegame.Slug, _player.DisplayName)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_slug, playerName)).Returns(playerUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_homegame, _player, totalResult, _rank, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}
 
-		private CashgameToplistTableItemModelFactory GetSut(){
+		private CashgameToplistTableItemModelFactory GetSut()
+        {
 			return new CashgameToplistTableItemModelFactory(
                 GetMock<IUrlProvider>().Object,
                 GetMock<IResultFormatter>().Object,
                 GetMock<IGlobalization>().Object);
 		}
-
 	}
-
 }

@@ -26,7 +26,7 @@ namespace Core.UseCases.CashgameTopList
                 throw new ArgumentException("No slug provided");
 
             var homegame = _homegameRepository.GetBySlug(request.Slug);
-            var suite = _cashgameService.GetSuite(homegame);
+            var suite = _cashgameService.GetSuite(homegame, request.Year);
             var items = suite.TotalResults.Select((o, index) => CreateItem(o, index, suite.Players)).ToList();
 
             return new CashgameTopListResult

@@ -1,7 +1,5 @@
 ﻿using System;
-using Application.Services;
 using Core.Repositories;
-using Core.Services.Interfaces;
 using Core.UseCases.CashgameTopList;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -18,7 +16,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameService _cashgameService;
         private readonly ICashgameTopListInteractor _cashgameTopListInteractor;
 
         public CashgameToplistPageBuilder(
@@ -28,7 +25,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            ICashgameService cashgameService,
             ICashgameTopListInteractor cashgameTopListInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
@@ -37,7 +33,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _cashgameService = cashgameService;
             _cashgameTopListInteractor = cashgameTopListInteractor;
         }
 
@@ -49,13 +44,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     OrderBy = GetToplistSortOrder(sortOrderParam),
                     Year = year
                 };
-            _cashgameTopListInteractor.Execute(request);
+            var result = _cashgameTopListInteractor.Execute(request);
             var homegame = _homegameRepository.GetBySlug(slug);
-            var suite = _cashgameService.GetSuite(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
-            var sortOrder = GetToplistSortOrder(sortOrderParam);
             var pageProperties = _pagePropertiesFactory.Create(homegame);
-            var tableModel = _cashgameToplistTableModelFactory.Create(homegame, suite, year, sortOrder);
+            var tableModel = _cashgameToplistTableModelFactory.Create(result);
             var pageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Toplist);
             var yearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Toplist, year);
 
