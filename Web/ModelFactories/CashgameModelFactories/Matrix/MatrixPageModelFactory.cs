@@ -54,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 	                TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Matrix),
-                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Matrix, year),
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Matrix, year),
                     BarModel = _barModelFactory.Create(homegame, runningGame),
                     GameIsRunning = gameIsRunning,
                     StartGameUrl = startGameUrl

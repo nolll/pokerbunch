@@ -34,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames, sortOrder, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.List),
-                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.List, year)
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.List, year)
                 };
         }
     }

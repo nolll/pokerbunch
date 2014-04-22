@@ -38,19 +38,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var request = new CashgameTopListRequest
+            var topListRequest = new CashgameTopListRequest
                 {
                     Slug = slug,
                     OrderBy = GetToplistSortOrder(sortOrderParam),
                     Year = year
                 };
-            var result = _cashgameTopListInteractor.Execute(request);
+            var topListResult = _cashgameTopListInteractor.Execute(topListRequest);
+            var tableModel = _cashgameToplistTableModelFactory.Create(topListResult);
+            
             var homegame = _homegameRepository.GetBySlug(slug);
             var years = _cashgameRepository.GetYears(homegame);
             var pageProperties = _pagePropertiesFactory.Create(homegame);
-            var tableModel = _cashgameToplistTableModelFactory.Create(result);
             var pageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Toplist);
-            var yearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Toplist, year);
+            var yearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Toplist, year);
 
             return new CashgameToplistPageModel
                 {

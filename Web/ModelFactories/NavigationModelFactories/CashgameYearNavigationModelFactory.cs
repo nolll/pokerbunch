@@ -16,47 +16,47 @@ namespace Web.ModelFactories.NavigationModelFactories
             _urlProvider = urlProvider;
         }
 
-        public CashgameYearNavigationModel Create(Homegame homegame, IList<int> years, CashgamePage cashgamePage, int? year)
+        public CashgameYearNavigationModel Create(string slug, IList<int> years, CashgamePage cashgamePage, int? year)
         {
             return new CashgameYearNavigationModel
                 {
                     Selected = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : "All Time",
-                    YearModels = GetYearModels(homegame, cashgamePage, years),
+                    YearModels = GetYearModels(slug, cashgamePage, years),
                 };
         }
 
-        private List<NavigationYearModel> GetYearModels(Homegame homegame, CashgamePage cashgamePage, IList<int> years)
+        private List<NavigationYearModel> GetYearModels(string slug, CashgamePage cashgamePage, IList<int> years)
         {
             var yearModels = new List<NavigationYearModel>();
             if (years != null)
             {
-                yearModels.AddRange(years.Select(year => new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage, year), year.ToString(CultureInfo.InvariantCulture))));
-                yearModels.Add(new NavigationYearModel(GetNavigationUrl(homegame, cashgamePage), "All Time"));
+                yearModels.AddRange(years.Select(year => new NavigationYearModel(GetNavigationUrl(slug, cashgamePage, year), year.ToString(CultureInfo.InvariantCulture))));
+                yearModels.Add(new NavigationYearModel(GetNavigationUrl(slug, cashgamePage), "All Time"));
             }
             return yearModels;
         }
 
-        private string GetNavigationUrl(Homegame homegame, CashgamePage cashgamePage, int? year = null)
+        private string GetNavigationUrl(string slug, CashgamePage cashgamePage, int? year = null)
         {
             if (cashgamePage.Equals(CashgamePage.Matrix))
             {
-                return _urlProvider.GetCashgameMatrixUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameMatrixUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Toplist))
             {
-                return _urlProvider.GetCashgameToplistUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameToplistUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Chart))
             {
-                return _urlProvider.GetCashgameChartUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameChartUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.List))
             {
-                return _urlProvider.GetCashgameListUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameListUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Facts))
             {
-                return _urlProvider.GetCashgameFactsUrl(homegame.Slug, year);
+                return _urlProvider.GetCashgameFactsUrl(slug, year);
             }
             return null;
         }

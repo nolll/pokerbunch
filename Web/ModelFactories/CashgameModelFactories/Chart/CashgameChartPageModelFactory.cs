@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        ChartDataUrl = _urlProvider.GetCashgameChartJsonUrl(homegame.Slug, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Chart),
-                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame, years, CashgamePage.Chart, year)
+                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Chart, year)
                 };
         }
     }
