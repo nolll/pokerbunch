@@ -37,20 +37,24 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         {
             var contextResult = GetCashgameContextResult(slug, year);
             var topListResult = GetTopListResult(slug, sortOrderParam, year);
-            
+            return Build(contextResult, topListResult);
+        }
+
+        private CashgameToplistPageModel Build(CashgameContextResult contextResult, CashgameTopListResult topListResult)
+        {
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
             var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
             var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
             var tableModel = _cashgameToplistTableModelFactory.Create(topListResult);
 
             return new CashgameToplistPageModel
-                {
-                    BrowserTitle = "Cashgame Toplist",
-                    PageProperties = pageProperties,
-			        TableModel = tableModel,
-                    PageNavModel = pageNavModel,
-                    YearNavModel = yearNavModel
-                };
+            {
+                BrowserTitle = "Cashgame Toplist",
+                PageProperties = pageProperties,
+                TableModel = tableModel,
+                PageNavModel = pageNavModel,
+                YearNavModel = yearNavModel
+            };
         }
 
         private CashgameContextResult GetCashgameContextResult(string slug, int? year)
