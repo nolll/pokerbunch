@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
-using Core.UseCases.PlayerList;
+using Application.UseCases.PlayerList;
 using Web.Models.PlayerModels.List;
 
 namespace Web.ModelFactories.PlayerModelFactories

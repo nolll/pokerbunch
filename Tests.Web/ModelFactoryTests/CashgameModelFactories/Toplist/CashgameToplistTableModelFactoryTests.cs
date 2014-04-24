@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Application.Services;
-using Core.UseCases.CashgameTopList;
+using Application.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Toplist;

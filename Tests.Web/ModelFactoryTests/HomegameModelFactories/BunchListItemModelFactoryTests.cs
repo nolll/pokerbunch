@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
-using Core.UseCases;
-using Core.UseCases.BunchList;
+using Application.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Application.UseCases.CashgameTopList;
 using Core.Classes;
 using Core.Repositories;
 using Core.Services.Interfaces;
-using Core.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Core.UseCases
+namespace Tests.Application.UseCases
 {
     class CashgameTopListInteractorTests : MockContainer
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Application.UseCases.PlayerList;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Core.UseCases
+namespace Tests.Application.UseCases
 {
     class PlayerListInteractorTests : MockContainer
     {

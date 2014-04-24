@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
-using Core.UseCases.PlayerList;
+using Application.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.PlayerModelFactories;

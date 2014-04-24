@@ -1,4 +1,4 @@
-﻿namespace Core.UseCases.PlayerList
+﻿namespace Application.UseCases.PlayerList
 {
     public class PlayerListItem
     {

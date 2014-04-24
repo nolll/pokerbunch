@@ -5,7 +5,7 @@ using Core.Classes;
 using Core.Repositories;
 using Core.Services.Interfaces;
 
-namespace Core.UseCases.CashgameTopList
+namespace Application.UseCases.CashgameTopList
 {
     public class CashgameTopListInteractor : ICashgameTopListInteractor
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.UseCases;
-using Core.UseCases.BunchList;
+using Application.UseCases.BunchList;
+using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.HomegameModelFactories;
@@ -42,7 +42,7 @@ namespace Tests.Web.PageBuilderTests
             var showBunchListResult = new BunchListResult();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
+            GetMock<IPagePropertiesFactory>().Setup(o => o.Create((Homegame) null)).Returns(pageProperties);
 
             var result = _sut.Build();
 

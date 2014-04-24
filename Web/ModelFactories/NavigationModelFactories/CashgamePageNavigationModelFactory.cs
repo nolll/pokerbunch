@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.UseCases.CashgameContext;
 using Core.Services.Interfaces;
 using Web.Models.NavigationModels;
 
@@ -35,6 +36,11 @@ namespace Web.ModelFactories.NavigationModelFactories
                     FactsLink = _urlProvider.GetCashgameFactsUrl(slug, year),
                     FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage)
                 };
+        }
+
+        public CashgamePageNavigationModel Create(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
+        {
+            return Create(cashgameContextResult.Slug, cashgamePage);
         }
 
         private string GetSelectedClass(CashgamePage current, CashgamePage selected)

@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.UseCases.CashgameContext;
 using Core.Classes;
 using Web.Models.NavigationModels;
 
@@ -15,13 +16,23 @@ namespace Web.ModelFactories.NavigationModelFactories
 
         public HomegameNavigationModel Create(Homegame homegame)
         {
+            return Create(homegame.Slug, homegame.DisplayName);
+        }
+
+        public HomegameNavigationModel Create(BunchContextResult bunchContextResult)
+        {
+            return Create(bunchContextResult.Slug, bunchContextResult.BunchName);
+        }
+
+        private HomegameNavigationModel Create(string slug, string bunchName)
+        {
             return new HomegameNavigationModel
-                {
-                    Heading = homegame.DisplayName,
-			        HeadingLink = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
-			        CashgameLink = _urlProvider.GetCashgameIndexUrl(homegame.Slug),
-                    PlayerLink = _urlProvider.GetPlayerIndexUrl(homegame.Slug)
-                };
+            {
+                Heading = bunchName,
+                HeadingLink = _urlProvider.GetHomegameDetailsUrl(slug),
+                CashgameLink = _urlProvider.GetCashgameIndexUrl(slug),
+                PlayerLink = _urlProvider.GetPlayerIndexUrl(slug)
+            };
         }
     }
 }

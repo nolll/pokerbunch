@@ -1,6 +1,6 @@
 ﻿using System;
-using Core.Repositories;
-using Core.UseCases.CashgameTopList;
+using Application.UseCases.CashgameContext;
+using Application.UseCases.CashgameTopList;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
@@ -14,44 +14,34 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         private readonly ICashgameToplistTableModelFactory _cashgameToplistTableModelFactory;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
-        private readonly IHomegameRepository _homegameRepository;
-        private readonly ICashgameRepository _cashgameRepository;
         private readonly ICashgameTopListInteractor _cashgameTopListInteractor;
+        private readonly ICashgameContextInteractor _cashgameContextInteractor;
 
         public CashgameToplistPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             ICashgameToplistTableModelFactory cashgameToplistTableModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
-            IHomegameRepository homegameRepository,
-            ICashgameRepository cashgameRepository,
-            ICashgameTopListInteractor cashgameTopListInteractor)
+            ICashgameTopListInteractor cashgameTopListInteractor,
+            ICashgameContextInteractor cashgameContextInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameToplistTableModelFactory = cashgameToplistTableModelFactory;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
-            _homegameRepository = homegameRepository;
-            _cashgameRepository = cashgameRepository;
             _cashgameTopListInteractor = cashgameTopListInteractor;
+            _cashgameContextInteractor = cashgameContextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var topListRequest = new CashgameTopListRequest
-                {
-                    Slug = slug,
-                    OrderBy = GetToplistSortOrder(sortOrderParam),
-                    Year = year
-                };
-            var topListResult = _cashgameTopListInteractor.Execute(topListRequest);
-            var tableModel = _cashgameToplistTableModelFactory.Create(topListResult);
+            var contextResult = GetCashgameContextResult(slug, year);
+            var topListResult = GetTopListResult(slug, sortOrderParam, year);
             
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var years = _cashgameRepository.GetYears(homegame);
-            var pageProperties = _pagePropertiesFactory.Create(homegame);
-            var pageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Toplist);
-            var yearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Toplist, year);
+            var pageProperties = _pagePropertiesFactory.Create(contextResult);
+            var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
+            var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
+            var tableModel = _cashgameToplistTableModelFactory.Create(topListResult);
 
             return new CashgameToplistPageModel
                 {
@@ -61,6 +51,29 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     PageNavModel = pageNavModel,
                     YearNavModel = yearNavModel
                 };
+        }
+
+        private CashgameContextResult GetCashgameContextResult(string slug, int? year)
+        {
+            var contextRequest = new CashgameContextRequest
+                {
+                    Slug = slug,
+                    Year = year
+                };
+            var contextResult = _cashgameContextInteractor.Execute(contextRequest);
+            return contextResult;
+        }
+
+        private CashgameTopListResult GetTopListResult(string slug, string sortOrderParam, int? year)
+        {
+            var topListRequest = new CashgameTopListRequest
+                {
+                    Slug = slug,
+                    OrderBy = GetToplistSortOrder(sortOrderParam),
+                    Year = year
+                };
+            var topListResult = _cashgameTopListInteractor.Execute(topListRequest);
+            return topListResult;
         }
 
         private ToplistSortOrder GetToplistSortOrder(string s)

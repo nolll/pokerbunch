@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.UseCases;
-using Core.UseCases.UserList;
+using Application.UseCases.UserList;
+using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -42,7 +42,7 @@ namespace Tests.Web.PageBuilderTests
             var showUserListResult = new UserListResult();
 
             GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
-            GetMock<IPagePropertiesFactory>().Setup(o => o.Create()).Returns(pageProperties);
+            GetMock<IPagePropertiesFactory>().Setup(o => o.Create((Homegame) null)).Returns(pageProperties);
 
             var result = _sut.Build();
 

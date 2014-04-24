@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Classes;
 
-namespace Core.UseCases.CashgameTopList
+namespace Application.UseCases.CashgameTopList
 {
     public class CashgameTopListResult
     {

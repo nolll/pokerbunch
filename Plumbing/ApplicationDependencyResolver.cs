@@ -1,5 +1,10 @@
 ﻿using Application.Factories;
 using Application.Services;
+using Application.UseCases.BunchList;
+using Application.UseCases.CashgameContext;
+using Application.UseCases.CashgameTopList;
+using Application.UseCases.PlayerList;
+using Application.UseCases.UserList;
 using Castle.Core;
 using Castle.Windsor;
 using Core.Factories;
@@ -110,6 +115,14 @@ namespace Plumbing
             RegisterComponent<IResultFormatter, ResultFormatter>();
             RegisterComponent<IResultSharer, ResultSharer>();
             RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();
+
+            // Use Cases
+            RegisterComponent<IUserListInteractor, UserListInteractor>();
+            RegisterComponent<IBunchListInteractor, BunchListInteractor>();
+            RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
+            RegisterComponent<ICashgameTopListInteractor, CashgameTopListInteractor>();
+            RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Tests.Web.ModelFactoryTests.BaseModelFactories
             GetMock<IHomegameNavigationModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>())).Returns(new HomegameNavigationModel());
 
             var sut = GetSut();
-            var result = sut.Create();
+            var result = sut.Create((Homegame)null);
 
             Assert.IsNull(result.HomegameNavModel);
         }

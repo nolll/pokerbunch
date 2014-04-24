@@ -1,4 +1,4 @@
-﻿namespace Core.UseCases.CashgameTopList
+﻿namespace Application.UseCases.CashgameTopList
 {
     public class CashgameTopListRequest
     {

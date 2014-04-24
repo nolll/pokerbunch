@@ -1,5 +1,4 @@
-﻿using Core.UseCases;
-using Core.UseCases.BunchList;
+﻿using Application.UseCases.BunchList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.List;
 

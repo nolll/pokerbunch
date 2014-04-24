@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Application.Services;
+using Application.UseCases.CashgameContext;
 using Core.Classes;
 using Web.Models.NavigationModels;
 
@@ -23,6 +24,11 @@ namespace Web.ModelFactories.NavigationModelFactories
                     Selected = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : "All Time",
                     YearModels = GetYearModels(slug, cashgamePage, years),
                 };
+        }
+
+        public CashgameYearNavigationModel Create(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
+        {
+            return Create(cashgameContextResult.Slug, cashgameContextResult.Years, cashgamePage, cashgameContextResult.SelectedYear);
         }
 
         private List<NavigationYearModel> GetYearModels(string slug, CashgamePage cashgamePage, IList<int> years)

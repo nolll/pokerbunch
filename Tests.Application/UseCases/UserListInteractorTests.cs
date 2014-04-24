@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Application.UseCases.UserList;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Core.UseCases
+namespace Tests.Application.UseCases
 {
     public class UserListInteractorTests : MockContainer
     {

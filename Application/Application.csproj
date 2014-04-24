@@ -96,6 +96,28 @@
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="UseCases\BunchList\BunchListInteractor.cs" />
+    <Compile Include="UseCases\BunchList\BunchListItem.cs" />
+    <Compile Include="UseCases\BunchList\BunchListResult.cs" />
+    <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
+    <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
+    <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
+    <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
+    <Compile Include="UseCases\CashgameContext\ICashgameContextInteractor.cs" />
+    <Compile Include="UseCases\CashgameTopList\CashgameTopListInteractor.cs" />
+    <Compile Include="UseCases\CashgameTopList\CashgameTopListRequest.cs" />
+    <Compile Include="UseCases\CashgameTopList\CashgameTopListResult.cs" />
+    <Compile Include="UseCases\CashgameTopList\ICashgameTopListInteractor.cs" />
+    <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
+    <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\PlayerList\IPlayerListInteractor.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListInteractor.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
+    <Compile Include="UseCases\UserList\IUserListInteractor.cs" />
+    <Compile Include="UseCases\UserList\UserListInteractor.cs" />
+    <Compile Include="UseCases\UserList\UserListItem.cs" />
+    <Compile Include="UseCases\UserList\UserListResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

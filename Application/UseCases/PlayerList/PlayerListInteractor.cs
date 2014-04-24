@@ -2,7 +2,7 @@
 using Core.Classes;
 using Core.Repositories;
 
-namespace Core.UseCases.PlayerList
+namespace Application.UseCases.PlayerList
 {
     public class PlayerListInteractor : IPlayerListInteractor
     {

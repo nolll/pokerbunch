@@ -1,4 +1,4 @@
-﻿namespace Core.UseCases.UserList
+﻿namespace Application.UseCases.UserList
 {
     public interface IUserListInteractor
     {

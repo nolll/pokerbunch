@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.UseCases.PlayerList;
+using Application.UseCases.PlayerList;
 using Web.Models.PlayerModels.List;
 
 namespace Web.ModelFactories.PlayerModelFactories

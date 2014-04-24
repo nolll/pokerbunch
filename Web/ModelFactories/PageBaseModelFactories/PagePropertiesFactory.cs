@@ -1,6 +1,8 @@
-﻿using Core.Classes;
+﻿using Application.UseCases.CashgameContext;
+using Core.Classes;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
+using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 using Web.Security;
 
@@ -25,25 +27,31 @@ namespace Web.ModelFactories.PageBaseModelFactories
             _auth = auth;
         }
 
-        public PageProperties Create()
+        public PageProperties Create(Homegame homegame)
         {
-            return Create(null);
+            var homegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null;
+            return Create(homegameNavModel);
         }
 
-        public PageProperties Create(Homegame homegame)
+        public PageProperties Create(BunchContextResult bunchContextResult)
+        {
+            var homegameNavModel = bunchContextResult != null ? _homegameNavigationModelFactory.Create(bunchContextResult) : null;
+            return Create(homegameNavModel);
+        }
+
+        private PageProperties Create(HomegameNavigationModel homegameNavigationModel)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             var user = _auth.CurrentUser;
 
             return new PageProperties
-                {
-                    UserNavModel = _userNavigationModelFactory.Create(user),
-			        GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
-                    HomegameNavModel = homegame != null ? _homegameNavigationModelFactory.Create(homegame) : null,
-                    Version = version,
-                    CssUrl = BundleConfig.BundleUrl
-                    //CssUrl = string.Format("/-/css/{0}", version.Replace(".", "-"))
-                };
+            {
+                UserNavModel = _userNavigationModelFactory.Create(user),
+                GoogleAnalyticsModel = _googleAnalyticsModelFactory.Create(),
+                HomegameNavModel = homegameNavigationModel,
+                Version = version,
+                CssUrl = BundleConfig.BundleUrl
+            };
         }
     }
 }

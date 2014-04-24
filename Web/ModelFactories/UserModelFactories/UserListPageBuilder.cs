@@ -1,5 +1,4 @@
-﻿using Core.UseCases;
-using Core.UseCases.UserList;
+﻿using Application.UseCases.UserList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.List;
 

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Application.UseCases.BunchList;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Core.UseCases
+namespace Tests.Application.UseCases
 {
     public class BunchListInteractorTests : MockContainer
     {

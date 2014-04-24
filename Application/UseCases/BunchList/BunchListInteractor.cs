@@ -2,7 +2,7 @@
 using Core.Classes;
 using Core.Repositories;
 
-namespace Core.UseCases.BunchList
+namespace Application.UseCases.BunchList
 {
     public class BunchListInteractor : IBunchListInteractor
     {

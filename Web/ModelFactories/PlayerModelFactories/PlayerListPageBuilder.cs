@@ -1,7 +1,7 @@
 ﻿using Application.Services;
+using Application.UseCases.PlayerList;
 using Core.Classes;
 using Core.Repositories;
-using Core.UseCases.PlayerList;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;
 using Web.Security;

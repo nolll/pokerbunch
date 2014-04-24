@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.UseCases.UserList
+namespace Application.UseCases.UserList
 {
     public class UserListResult
     {

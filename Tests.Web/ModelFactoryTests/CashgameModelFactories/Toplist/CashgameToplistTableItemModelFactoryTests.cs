@@ -1,6 +1,6 @@
 using Application.Services;
+using Application.UseCases.CashgameTopList;
 using Core.Classes;
-using Core.UseCases.CashgameTopList;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
