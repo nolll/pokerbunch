@@ -66,7 +66,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 
             if (facts.BestTotalResult != null)
             {
-                model.BestTotalWinningsAmount = _globalization.FormatCurrency(homegame.Currency, facts.BestTotalResult.Winnings);
+                model.BestTotalWinningsAmount = _globalization.FormatResult(homegame.Currency, facts.BestTotalResult.Winnings);
                 var player = _playerRepository.GetById(facts.BestTotalResult.PlayerId);
                 if (player != null)
                 {

@@ -27,11 +27,13 @@ namespace Application.UseCases.CashgameTopList
 
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
-            var items = suite.TotalResults.Select((o, index) => CreateItem(o, index, suite.Players)).ToList();
+            var results = suite.TotalResults.OrderByDescending(o => o.Winnings);
+            var items = results.Select((o, index) => CreateItem(o, index, suite.Players));
+            items = SortItems(items, request.OrderBy);
 
             return new CashgameTopListResult
                 {
-                    Items = items,
+                    Items = items.ToList(),
                     OrderBy = request.OrderBy,
                     Slug = request.Slug,
                     Year = request.Year,
@@ -52,6 +54,25 @@ namespace Application.UseCases.CashgameTopList
                     Winnings = totalResult.Winnings,
                     WinRate = totalResult.WinRate
                 };
+        }
+
+        private IEnumerable<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
+        {
+            switch (orderBy)
+            {
+                case ToplistSortOrder.WinRate:
+                    return items.OrderByDescending(o => o.WinRate).ToList();
+                case ToplistSortOrder.Buyin:
+                    return items.OrderByDescending(o => o.Buyin).ToList();
+                case ToplistSortOrder.Cashout:
+                    return items.OrderByDescending(o => o.Cashout).ToList();
+                case ToplistSortOrder.TimePlayed:
+                    return items.OrderByDescending(o => o.MinutesPlayed).ToList();
+                case ToplistSortOrder.GamesPlayed:
+                    return items.OrderByDescending(o => o.GamesPlayed).ToList();
+                default:
+                    return items.OrderByDescending(o => o.Winnings).ToList();
+            }
         }
 
         private string GetPlayerName(IList<Player> players, int id)

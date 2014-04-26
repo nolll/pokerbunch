@@ -64,8 +64,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     Slug = slug,
                     Year = year
                 };
-            var contextResult = _cashgameContextInteractor.Execute(contextRequest);
-            return contextResult;
+            return _cashgameContextInteractor.Execute(contextRequest);
         }
 
         private CashgameTopListResult GetTopListResult(string slug, string sortOrderParam, int? year)
@@ -76,23 +75,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                     OrderBy = GetToplistSortOrder(sortOrderParam),
                     Year = year
                 };
-            var topListResult = _cashgameTopListInteractor.Execute(topListRequest);
-            return topListResult;
+            return _cashgameTopListInteractor.Execute(topListRequest);
         }
 
         private ToplistSortOrder GetToplistSortOrder(string s)
         {
             if (s == null)
-            {
                 return ToplistSortOrder.Winnings;
-            }
             ToplistSortOrder sortOrder;
-            if (Enum.TryParse(s, out sortOrder))
-            {
-                return sortOrder;
-            }
-            return ToplistSortOrder.Winnings;
+            return Enum.TryParse(s, true, out sortOrder) ? sortOrder : ToplistSortOrder.Winnings;
         }
-
     }
 }
