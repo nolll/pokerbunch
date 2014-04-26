@@ -1,6 +1,7 @@
-namespace Core.Classes{
-    public class CashgameFacts {
-
+namespace Core.Classes
+{
+    public class CashgameFacts
+    {
         public int GameCount { get; private set; }
         public CashgameResult BestResult { get; private set; }
         public CashgameResult WorstResult { get; private set; }
@@ -35,6 +36,5 @@ namespace Core.Classes{
             TotalGameTime = totalGameTime;
             TotalTurnover = totalTurnover;
         }
-
 	}
 }

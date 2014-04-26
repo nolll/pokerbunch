@@ -86,7 +86,7 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>();
             RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>();
             RegisterComponent<ICashgameDetailsPageModelFactory, CashgameDetailsPageModelFactory>();
-            RegisterComponent<ICashgameFactsPageModelFactory, CashgameFactsPageModelFactory>();
+            RegisterComponent<ICashgameFactsPageBuilder, CashgameFactsPageBuilder>();
             RegisterComponent<ICashgameToplistPageBuilder, CashgameToplistPageBuilder>();
             RegisterComponent<ICashgameListPageModelFactory, CashgameListPageModelFactory>();
             RegisterComponent<IRunningCashgamePageModelFactory, RunningCashgamePageModelFactory>();

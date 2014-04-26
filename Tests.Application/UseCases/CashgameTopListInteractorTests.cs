@@ -27,7 +27,7 @@ namespace Tests.Application.UseCases
         {
             var request = new CashgameTopListRequest();
 
-            var ex = Assert.Throws<ArgumentException>(() => _sut.Execute(request));
+            Assert.Throws<ArgumentException>(() => _sut.Execute(request));
         }
 
         [Test]

@@ -10,6 +10,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
+using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Security;
@@ -198,7 +199,8 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<ICashgameModelService>().Object,
-                GetMock<ICashgameToplistPageBuilder>().Object);
+                GetMock<ICashgameToplistPageBuilder>().Object,
+                GetMock<ICashgameFactsPageBuilder>().Object);
         }
 	}
 }

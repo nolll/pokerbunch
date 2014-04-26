@@ -5,8 +5,8 @@ using Core.Factories.Interfaces;
 
 namespace Core.Factories
 {
-    public class CashgameFactsFactory : ICashgameFactsFactory{
-
+    public class CashgameFactsFactory : ICashgameFactsFactory
+    {
 	    private readonly ICashgameTotalResultFactory _cashgameTotalResultFactory;
 
 	    public CashgameFactsFactory(ICashgameTotalResultFactory cashgameTotalResultFactory)
@@ -106,7 +106,5 @@ namespace Core.Factories
             }
             return biggestTotalCashoutResult;
         }
-
 	}
-
 }

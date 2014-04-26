@@ -29,11 +29,9 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
-using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
-using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
 using Web.Security;
@@ -81,14 +79,6 @@ namespace Web.ModelServices
                 throw new HttpException(404, "Cashgame not found");
             }
             return _cashgameDetailsChartModelFactory.Create(homegame, cashgame);
-        }
-
-        public CashgameFactsPageModel GetFactsModel(string slug, int? year = null)
-        {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var facts = _cashgameService.GetFacts(homegame, year);
-            var years = _cashgameRepository.GetYears(homegame);
-            return _cashgameFactsPageModelFactory.Create(homegame, facts, years, year);
         }
 
         public AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel)
@@ -221,7 +211,7 @@ namespace Web.ModelServices
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
-        private readonly ICashgameFactsPageModelFactory _cashgameFactsPageModelFactory;
+        private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
         private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
         private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
         private readonly IWebContext _webContext;
@@ -249,7 +239,7 @@ namespace Web.ModelServices
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
-            ICashgameFactsPageModelFactory cashgameFactsPageModelFactory,
+            ICashgameFactsPageBuilder cashgameFactsPageBuilder,
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameEditPageModelFactory cashgameEditPageModelFactory,
             IWebContext webContext,
@@ -276,7 +266,7 @@ namespace Web.ModelServices
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;
             _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
-            _cashgameFactsPageModelFactory = cashgameFactsPageModelFactory;
+            _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
             _addCashgamePageModelFactory = addCashgamePageModelFactory;
             _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
             _webContext = webContext;

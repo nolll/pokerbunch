@@ -103,7 +103,7 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameDetailsChartModelFactory>().Object,
-                GetMock<ICashgameFactsPageModelFactory>().Object,
+                GetMock<ICashgameFactsPageBuilder>().Object,
                 GetMock<IAddCashgamePageModelFactory>().Object,
                 GetMock<ICashgameEditPageModelFactory>().Object,
                 GetMock<IWebContext>().Object,

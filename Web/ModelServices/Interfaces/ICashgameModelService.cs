@@ -7,7 +7,6 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
-using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
@@ -22,7 +21,6 @@ namespace Web.ModelServices
         string GetIndexUrl(string slug);
         CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr);
         ChartModel GetDetailsChartJsonModel(string slug, string dateStr);
-        CashgameFactsPageModel GetFactsModel(string slug, int? year = null);
         AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel = null);
         CashgameEditPageModel GetEditModel(string slug, string dateStr, CashgameEditPostModel postModel = null);
         RunningCashgamePageModel GetRunningModel(string slug);

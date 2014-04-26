@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Application.Services;
 using Core.Services.Interfaces;
 using Web.Commands.CashgameCommands;
+using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Add;
@@ -22,19 +23,22 @@ namespace Web.Controllers
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly ICashgameModelService _cashgameModelService;
 	    private readonly ICashgameToplistPageBuilder _cashgameToplistPageBuilder;
+	    private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
 
 	    public CashgameController(
             IUrlProvider urlProvider,
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
             ICashgameModelService cashgameModelService,
-            ICashgameToplistPageBuilder cashgameToplistPageBuilder)
+            ICashgameToplistPageBuilder cashgameToplistPageBuilder,
+            ICashgameFactsPageBuilder cashgameFactsPageBuilder)
 	    {
 	        _urlProvider = urlProvider;
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;
 	        _cashgameToplistPageBuilder = cashgameToplistPageBuilder;
+	        _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
 	    }
 
         [AuthorizePlayer]
@@ -75,7 +79,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Facts(string slug, int? year = null)
         {
-            var model = _cashgameModelService.GetFactsModel(slug, year);
+            var model = _cashgameFactsPageBuilder.Build(slug, year);
 			return View("Facts/FactsPage", model);
 		}
 
