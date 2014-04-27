@@ -1,7 +1,6 @@
 ﻿using Application.Services;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
-using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
@@ -15,7 +14,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
         private readonly IGlobalization _globalization;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
-        private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
         private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
 
@@ -24,7 +22,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             IGlobalization globalization,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
-            IHomegameRepository homegameRepository,
             ICashgameContextInteractor cashgameContextInteractor,
             ICashgameFactsInteractor cashgameFactsInteractor)
         {
@@ -32,7 +29,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             _globalization = globalization;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
-            _homegameRepository = homegameRepository;
             _cashgameContextInteractor = cashgameContextInteractor;
             _cashgameFactsInteractor = cashgameFactsInteractor;
         }
@@ -41,7 +37,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
         {
             var contextResult = GetCashgameContextResult(slug, year);
             var factsResult = GetFactsResult(slug, year);
-            var homegame = _homegameRepository.GetBySlug(slug);
             
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
             var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
@@ -54,22 +49,22 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
                     PageNavModel = pageNavModel,
                     YearNavModel = yearNavModel,
 			        GameCount = factsResult.GameCount,
-			        TotalGameTime = _globalization.FormatDuration(factsResult.MinutesPlayed),
-                    TotalTurnover = _globalization.FormatCurrency(homegame.Currency, factsResult.Turnover),
+			        TotalGameTime = _globalization.FormatDuration(factsResult.TimePlayed),
+                    TotalTurnover = _globalization.FormatCurrency(factsResult.Turnover),
                     BestResultName = factsResult.BestResult.PlayerName,
-                    BestResultAmount = _globalization.FormatResult(homegame.Currency, factsResult.BestResult.Amount),
+                    BestResultAmount = _globalization.FormatResult(factsResult.BestResult.Amount),
                     WorstResultName = factsResult.WorstResult.PlayerName,
-                    WorstResultAmount = _globalization.FormatResult(homegame.Currency, factsResult.WorstResult.Amount),
+                    WorstResultAmount = _globalization.FormatResult(factsResult.WorstResult.Amount),
                     BestTotalWinningsName = factsResult.BestTotalResult.PlayerName,
-                    BestTotalWinningsAmount = _globalization.FormatResult(homegame.Currency, factsResult.BestTotalResult.Amount),
+                    BestTotalWinningsAmount = _globalization.FormatResult(factsResult.BestTotalResult.Amount),
                     WorstTotalWinningsName = factsResult.WorstTotalResult.PlayerName,
-                    WorstTotalWinningsAmount = _globalization.FormatCurrency(homegame.Currency, factsResult.WorstTotalResult.Amount),
+                    WorstTotalWinningsAmount = _globalization.FormatCurrency(factsResult.WorstTotalResult.Amount),
                     MostTimeName = factsResult.MostTimeResult.PlayerName,
                     MostTimeDuration = _globalization.FormatDuration(factsResult.MostTimeResult.Minutes),
                     BiggestTotalBuyinName = factsResult.BiggestBuyinTotalResult.PlayerName,
-                    BiggestTotalBuyinAmount = _globalization.FormatCurrency(homegame.Currency, factsResult.BiggestBuyinTotalResult.Amount),
+                    BiggestTotalBuyinAmount = _globalization.FormatCurrency(factsResult.BiggestBuyinTotalResult.Amount),
                     BiggestTotalCashoutName = factsResult.BiggestCashoutTotalResult.PlayerName,
-                    BiggestTotalCashoutAmount = _globalization.FormatCurrency(homegame.Currency, factsResult.BiggestCashoutTotalResult.Amount)
+                    BiggestTotalCashoutAmount = _globalization.FormatCurrency(factsResult.BiggestCashoutTotalResult.Amount)
                 };
         }
 

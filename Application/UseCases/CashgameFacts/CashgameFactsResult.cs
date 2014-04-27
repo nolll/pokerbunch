@@ -1,10 +1,12 @@
-﻿namespace Application.UseCases.CashgameFacts
+﻿using System;
+
+namespace Application.UseCases.CashgameFacts
 {
     public class CashgameFactsResult
     {
         public int GameCount { get; set; }
-        public int MinutesPlayed { get; set; }
-        public int Turnover { get; set; }
+        public TimeSpan TimePlayed { get; set; }
+        public Money Turnover { get; set; }
         public AmountFact BestResult { get; set; }
         public AmountFact WorstResult { get; set; }
         public AmountFact BestTotalResult { get; set; }

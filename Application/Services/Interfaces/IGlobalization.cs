@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Application.UseCases.CashgameFacts;
 using Core.Classes;
 
 namespace Application.Services
@@ -7,10 +8,13 @@ namespace Application.Services
     public interface IGlobalization
     {
         string FormatCurrency(CurrencySettings currency, int amount);
+        string FormatCurrency(Money money);
         string FormatWinrate(CurrencySettings currency, int winrate);
         string FormatResult(CurrencySettings currency, int result);
+        string FormatResult(Money money);
         string FormatDuration(int minutes);
-        string FormatTimespan(TimeSpan timespan);
+        string FormatDuration(TimeSpan timeSpan);
+        string FormatTimespan(TimeSpan timeSpan);
         string FormatShortDate(DateTime date, bool includeYear = false);
         string FormatTime(DateTime date);
         string FormatIsoDate(DateTime date);

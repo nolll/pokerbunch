@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Application.Services;
+using Application.UseCases.CashgameFacts;
 using Core.Classes;
 
 namespace Infrastructure.System{
@@ -14,27 +15,37 @@ namespace Infrastructure.System{
             return number.ToString("N0", culture);
 		}
 
-		public string FormatCurrency(CurrencySettings currency, int amount)
-		{
+        public string FormatCurrency(CurrencySettings currency, int amount)
+        {
             var numberFormatted = FormatNumber(amount);
             var amountFormatted = currency.Layout.Replace("{AMOUNT}", numberFormatted);
             return amountFormatted.Replace("{SYMBOL}", currency.Symbol);
-		}
+        }
 
-		public string FormatWinrate(CurrencySettings currency, int winrate)
+        public string FormatCurrency(Money money)
+        {
+            return FormatCurrency(money.Currency, money.Amount);
+        }
+
+        public string FormatWinrate(CurrencySettings currency, int winrate)
 		{
             return FormatCurrency(currency, winrate) + "/h";
 		}
 
-		public string FormatResult(CurrencySettings currency, int result)
-		{
+        public string FormatResult(CurrencySettings currency, int result)
+        {
             var currencyValue = FormatCurrency(currency, result);
             if (result > 0)
             {
                 return "+" + currencyValue;
             }
             return currencyValue;
-		}
+        }
+
+        public string FormatResult(Money money)
+        {
+            return FormatResult(money.Currency, money.Amount);
+        }
 
         public string FormatDuration(int minutes)
         {
@@ -51,9 +62,14 @@ namespace Infrastructure.System{
             return m + "m";
         }
 
-        public string FormatTimespan(TimeSpan timespan)
+        public string FormatDuration(TimeSpan timeSpan)
         {
-            var minutes = (int)Math.Round(timespan.TotalMinutes);
+            return FormatDuration(Convert.ToInt32(Math.Round(timeSpan.TotalMinutes)));
+        }
+
+        public string FormatTimespan(TimeSpan timeSpan)
+        {
+            var minutes = (int)Math.Round(timeSpan.TotalMinutes);
             if (minutes == 0)
             {
                 return "now";
