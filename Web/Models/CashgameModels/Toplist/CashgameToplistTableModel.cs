@@ -4,7 +4,7 @@ namespace Web.Models.CashgameModels.Toplist
 {
 	public class CashgameToplistTableModel
     {
-	    public List<CashgameToplistTableItemModel> ItemModels { get; set; }
+	    public IList<CashgameToplistTableItemModel> ItemModels { get; set; }
         public string ResultSortClass { get; set; }
         public string ResultSortUrl { get; set; }
         public string BuyinSortClass { get; set; }

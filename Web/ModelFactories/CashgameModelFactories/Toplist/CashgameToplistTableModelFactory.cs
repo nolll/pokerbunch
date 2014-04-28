@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
 using Web.Models.CashgameModels.Toplist;
-using System.Linq;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
@@ -25,25 +23,26 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
 
             return new CashgameToplistTableModel
             {
-                ItemModels = GetItemModels(topListResult),
+                ItemModels = _cashgameToplistTableItemModelFactory.CreateList(topListResult),
+                
                 ResultSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Winnings),
                 ResultSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Winnings),
+                
                 BuyinSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Buyin),
                 BuyinSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Buyin),
+                
                 CashoutSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Cashout),
                 CashoutSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Cashout),
+                
                 GameTimeSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.TimePlayed),
                 GameTimeSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.TimePlayed),
+                
                 GameCountSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.GamesPlayed),
                 GameCountSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.GamesPlayed),
+                
                 WinRateSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.WinRate),
                 WinRateSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.WinRate)
             };
-        }
-
-        private List<CashgameToplistTableItemModel> GetItemModels(CashgameTopListResult topListResult)
-        {
-            return topListResult.Items.Select(o => _cashgameToplistTableItemModelFactory.Create(o, topListResult.Slug, topListResult.OrderBy)).ToList();
         }
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)

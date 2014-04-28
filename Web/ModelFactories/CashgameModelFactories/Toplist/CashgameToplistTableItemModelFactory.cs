@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
@@ -43,6 +45,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                 UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name),
                 PlayerUrl = _urlProvider.GetPlayerDetailsUrl(slug, toplistItem.Name)
             };
+        }
+
+        public IList<CashgameToplistTableItemModel> CreateList(CashgameTopListResult topListResult)
+        {
+            return topListResult.Items.Select(o => Create(o, topListResult.Slug, topListResult.OrderBy)).ToList();
         }
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)

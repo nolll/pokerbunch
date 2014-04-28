@@ -5,12 +5,6 @@ namespace Core.Classes
 	    public string Symbol { get; private set; }
 	    public string Layout { get; private set; }
 
-	    private Currency()
-	    {
-	        Symbol = "";
-	        Layout = "";
-	    }
-
 	    public Currency(string symbol, string layout)
 	    {
 	        Symbol = symbol;
@@ -21,7 +15,7 @@ namespace Core.Classes
         {
             get
             {
-                return new Currency();
+                return new Currency("", "");
             }
         }
 	}
