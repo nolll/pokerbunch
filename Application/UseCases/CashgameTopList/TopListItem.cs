@@ -1,14 +1,17 @@
-﻿namespace Application.UseCases.CashgameTopList
+﻿using System;
+using Application.UseCases.CashgameFacts;
+
+namespace Application.UseCases.CashgameTopList
 {
     public class TopListItem
     {
         public int Rank { get; set; }
         public string Name { get; set; }
-        public int Winnings { get; set; }
-        public int Buyin { get; set; }
-        public int Cashout { get; set; }
-        public int MinutesPlayed { get; set; }
+        public Money Winnings { get; set; }
+        public Money Buyin { get; set; }
+        public Money Cashout { get; set; }
+        public TimeSpan MinutesPlayed { get; set; }
         public int GamesPlayed { get; set; }
-        public int WinRate { get; set; }
+        public Money WinRate { get; set; }
     }
 }

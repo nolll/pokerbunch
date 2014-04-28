@@ -1,7 +1,6 @@
 using System.Web;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
-using Core.Classes;
 using Web.Models.CashgameModels.Toplist;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
@@ -22,23 +21,23 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             _globalization = globalization;
         }
         
-        public CashgameToplistTableItemModel Create(TopListItem toplistItem, string slug, CurrencySettings currency, ToplistSortOrder sortOrder)
+        public CashgameToplistTableItemModel Create(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
         {
             return new CashgameToplistTableItemModel
             {
                 Rank = toplistItem.Rank,
-                TotalResult = _globalization.FormatResult(currency, toplistItem.Winnings),
+                TotalResult = _globalization.FormatResult(toplistItem.Winnings),
                 ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings),
-                Buyin = _globalization.FormatCurrency(currency, toplistItem.Buyin),
+                Buyin = _globalization.FormatCurrency(toplistItem.Buyin),
                 BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin),
-                Cashout = _globalization.FormatCurrency(currency, toplistItem.Cashout),
+                Cashout = _globalization.FormatCurrency(toplistItem.Cashout),
                 CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout),
                 ResultClass = _resultFormatter.GetWinningsCssClass(toplistItem.Winnings),
                 GameTime = _globalization.FormatDuration(toplistItem.MinutesPlayed),
                 GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed),
                 GameCount = toplistItem.GamesPlayed,
                 GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed),
-                WinRate = _globalization.FormatWinrate(currency, toplistItem.WinRate),
+                WinRate = _globalization.FormatWinrate(toplistItem.WinRate),
                 WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate),
                 Name = toplistItem.Name,
                 UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name),

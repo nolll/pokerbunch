@@ -27,7 +27,12 @@ namespace Infrastructure.System{
             return FormatCurrency(money.Currency, money.Amount);
         }
 
-        public string FormatWinrate(CurrencySettings currency, int winrate)
+	    public string FormatWinrate(Money winrate)
+	    {
+	        return FormatWinrate(winrate.Currency, winrate.Amount);
+	    }
+
+	    public string FormatWinrate(CurrencySettings currency, int winrate)
 		{
             return FormatCurrency(currency, winrate) + "/h";
 		}

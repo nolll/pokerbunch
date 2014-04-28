@@ -59,13 +59,13 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
             Assert.AreEqual(1, result.Items.Count);
             Assert.AreEqual(rank, result.Items[0].Rank);
-            Assert.AreEqual(buyin, result.Items[0].Buyin);
-            Assert.AreEqual(cashout, result.Items[0].Cashout);
+            Assert.AreEqual(buyin, result.Items[0].Buyin.Amount);
+            Assert.AreEqual(cashout, result.Items[0].Cashout.Amount);
             Assert.AreEqual(gamesPlayed, result.Items[0].GamesPlayed);
-            Assert.AreEqual(minutesPlayed, result.Items[0].MinutesPlayed);
+            Assert.AreEqual(minutesPlayed, result.Items[0].MinutesPlayed.TotalMinutes);
             Assert.AreEqual(playerName, result.Items[0].Name);
-            Assert.AreEqual(winnings, result.Items[0].Winnings);
-            Assert.AreEqual(winRate, result.Items[0].WinRate);
+            Assert.AreEqual(winnings, result.Items[0].Winnings.Amount);
+            Assert.AreEqual(winRate, result.Items[0].WinRate.Amount);
         }
     }
 }

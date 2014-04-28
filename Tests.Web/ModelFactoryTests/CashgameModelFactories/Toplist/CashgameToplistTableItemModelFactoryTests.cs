@@ -1,31 +1,22 @@
+using System;
 using Application.Services;
+using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
-using Core.Classes;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 {
 	public class CashgameToplistTableItemModelFactoryTests : MockContainer
     {
-		private Homegame _homegame;
-	    private Player _player;
-		private int _rank;
 	    private string _slug;
 	    private TopListItem _topListItem;
-	    private CurrencySettings _currency;
 
 	    [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
-			_player = new FakePlayer(displayName: "player name");
-			_rank = 1;
 	        _slug = "a";
             _topListItem = new TopListItem();
-            _currency = new CurrencySettings("", "");
 		}
 
         [Test]
@@ -34,7 +25,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             _topListItem.Rank = 1;
             
             var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(1, result.Rank);
 		}
@@ -45,7 +36,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		    _topListItem.Name = "player name";
             
             var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -55,13 +46,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_TotalResultIsSet()
 		{
 		    const string formattedResult = "a";
-		    const int winnings = 1;
+            var winnings = new Money(1);
             _topListItem.Winnings = winnings;
 
-            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedResult);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
@@ -70,13 +61,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_WinningsClassIsSet()
         {
             const string resultClass = "a";
-            const int winnings = 1;
+            var winnings = new Money(1); 
             _topListItem.Winnings = winnings;
 
             GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
 
 			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -85,13 +76,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_WithDuration_DurationIsSet()
 		{
 		    const string formattedTime = "a";
-		    const int timePlayed = 60;
+            var timePlayed = TimeSpan.FromMinutes(60);
 		    _topListItem.MinutesPlayed = timePlayed;
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(formattedTime, result.GameTime);
 		}
@@ -100,13 +91,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_WithDuration_WinrateIsSet()
 		{
 		    const string formattedWinRate = "a";
-            const int winRate = 1;
-		    _topListItem.WinRate = 1;
+            var winRate = new Money(1);
+		    _topListItem.WinRate = winRate;
 
-            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(_currency, winRate)).Returns(formattedWinRate);
+            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(winRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
@@ -121,7 +112,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_slug, playerName)).Returns(playerUrl);
 
 			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, _currency, ToplistSortOrder.Winnings);
+            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(playerUrl, result.PlayerUrl);
 		}

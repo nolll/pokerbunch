@@ -43,7 +43,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
 
         private List<CashgameToplistTableItemModel> GetItemModels(CashgameTopListResult topListResult)
         {
-            return topListResult.Items.Select(o => _cashgameToplistTableItemModelFactory.Create(o, topListResult.Slug, topListResult.Currency, topListResult.OrderBy)).ToList();
+            return topListResult.Items.Select(o => _cashgameToplistTableItemModelFactory.Create(o, topListResult.Slug, topListResult.OrderBy)).ToList();
         }
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)

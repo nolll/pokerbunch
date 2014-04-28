@@ -9,6 +9,7 @@ namespace Application.Services
     {
         string FormatCurrency(CurrencySettings currency, int amount);
         string FormatCurrency(Money money);
+        string FormatWinrate(Money winrate);
         string FormatWinrate(CurrencySettings currency, int winrate);
         string FormatResult(CurrencySettings currency, int result);
         string FormatResult(Money money);

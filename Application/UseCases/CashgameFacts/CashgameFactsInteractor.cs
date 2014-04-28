@@ -143,6 +143,10 @@ namespace Application.UseCases.CashgameFacts
         public int Amount { get; private set; }
         public CurrencySettings Currency { get; private set; }
 
+        public Money(int amount) : this(amount, CurrencySettings.Default)
+        {
+        }
+
         public Money(int amount, CurrencySettings currency)
         {
             Amount = amount;

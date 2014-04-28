@@ -1,10 +1,10 @@
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 
-namespace Web.Models.CashgameModels.Facts{
-
-	public class CashgameFactsPageModel : IPageModel {
-
+namespace Web.Models.CashgameModels.Facts
+{
+	public class CashgameFactsPageModel : IPageModel
+    {
 	    public string BrowserTitle { get; set; }
 	    public PageProperties PageProperties { get; set; }
 	    public CashgamePageNavigationModel PageNavModel { get; set; }
@@ -27,5 +27,4 @@ namespace Web.Models.CashgameModels.Facts{
         public string BiggestTotalCashoutName { get; set; }
         public object BiggestTotalCashoutAmount { get; set; }
 	}
-
 }

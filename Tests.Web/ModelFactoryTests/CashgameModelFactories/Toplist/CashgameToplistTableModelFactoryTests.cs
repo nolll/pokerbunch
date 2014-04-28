@@ -28,7 +28,5 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
                 GetMock<ICashgameToplistTableItemModelFactory>().Object,
                 GetMock<IUrlProvider>().Object);
 		}
-
 	}
-
 }

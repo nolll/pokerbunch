@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Application.UseCases.CashgameFacts;
 using Core.Classes;
 using Core.Repositories;
 using Core.Services.Interfaces;
@@ -28,7 +29,7 @@ namespace Application.UseCases.CashgameTopList
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
             var results = suite.TotalResults.OrderByDescending(o => o.Winnings);
-            var items = results.Select((o, index) => CreateItem(o, index, suite.Players));
+            var items = results.Select((o, index) => CreateItem(o, index, homegame.Currency, suite.Players));
             items = SortItems(items, request.OrderBy);
 
             return new CashgameTopListResult
@@ -36,23 +37,22 @@ namespace Application.UseCases.CashgameTopList
                     Items = items.ToList(),
                     OrderBy = request.OrderBy,
                     Slug = request.Slug,
-                    Year = request.Year,
-                    Currency = homegame.Currency
+                    Year = request.Year
                 };
         }
 
-        private TopListItem CreateItem(CashgameTotalResult totalResult, int index, IList<Player> players)
+        private TopListItem CreateItem(CashgameTotalResult totalResult, int index, CurrencySettings currency, IList<Player> players)
         {
             return new TopListItem
                 {
-                    Buyin = totalResult.Buyin,
-                    Cashout = totalResult.Cashout,
+                    Buyin = new Money(totalResult.Buyin, currency),
+                    Cashout = new Money(totalResult.Cashout, currency),
                     GamesPlayed = totalResult.GameCount,
-                    MinutesPlayed = totalResult.TimePlayed,
+                    MinutesPlayed = TimeSpan.FromMinutes(totalResult.TimePlayed),
                     Name = GetPlayerName(players, totalResult.PlayerId),
                     Rank = index + 1,
-                    Winnings = totalResult.Winnings,
-                    WinRate = totalResult.WinRate
+                    Winnings = new Money(totalResult.Winnings),
+                    WinRate = new Money(totalResult.WinRate)
                 };
         }
 

@@ -1,4 +1,5 @@
 using System.Globalization;
+using Application.UseCases.CashgameFacts;
 
 namespace Application.Services
 {
@@ -11,6 +12,11 @@ namespace Application.Services
 			}
 			return winnings.ToString(CultureInfo.InvariantCulture);
 		}
+
+        public string GetWinningsCssClass(Money winnings)
+        {
+            return GetWinningsCssClass(winnings.Amount);
+        }
 
 		public string GetWinningsCssClass(int winnings)
         {

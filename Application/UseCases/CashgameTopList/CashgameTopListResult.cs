@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Classes;
 
 namespace Application.UseCases.CashgameTopList
 {
@@ -9,6 +8,5 @@ namespace Application.UseCases.CashgameTopList
         public ToplistSortOrder OrderBy { get; set; }
         public string Slug { get; set; }
         public int? Year { get; set; }
-        public CurrencySettings Currency { get; set; }
     }
 }
