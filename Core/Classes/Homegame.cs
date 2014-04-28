@@ -11,7 +11,7 @@ namespace Core.Classes
         public string HouseRules { get; private set; }
         public TimeZoneInfo Timezone { get; private set; }
 	    public int DefaultBuyin { get; private set; }
-	    public CurrencySettings Currency { get; private set; }
+	    public Currency Currency { get; private set; }
 	    public bool CashgamesEnabled { get; private set; }
         public bool TournamentsEnabled { get; private set; }
         public bool VideosEnabled { get; private set; }
@@ -24,7 +24,7 @@ namespace Core.Classes
             string houseRules, 
             TimeZoneInfo timezone, 
             int defaultBuyin, 
-            CurrencySettings currency
+            Currency currency
             )
 	    {
 	        Id = id;

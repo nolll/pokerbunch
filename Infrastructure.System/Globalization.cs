@@ -15,7 +15,7 @@ namespace Infrastructure.System{
             return number.ToString("N0", culture);
 		}
 
-        public string FormatCurrency(CurrencySettings currency, int amount)
+        public string FormatCurrency(Currency currency, int amount)
         {
             var numberFormatted = FormatNumber(amount);
             var amountFormatted = currency.Layout.Replace("{AMOUNT}", numberFormatted);
@@ -32,12 +32,12 @@ namespace Infrastructure.System{
 	        return FormatWinrate(winrate.Currency, winrate.Amount);
 	    }
 
-	    public string FormatWinrate(CurrencySettings currency, int winrate)
+	    public string FormatWinrate(Currency currency, int winrate)
 		{
             return FormatCurrency(currency, winrate) + "/h";
 		}
 
-        public string FormatResult(CurrencySettings currency, int result)
+        public string FormatResult(Currency currency, int result)
         {
             var currencyValue = FormatCurrency(currency, result);
             if (result > 0)

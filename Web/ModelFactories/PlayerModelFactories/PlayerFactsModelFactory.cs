@@ -15,7 +15,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _globalization = globalization;
         }
 
-        public PlayerFactsModel Create(CurrencySettings currency, IList<Cashgame> cashgames, Player player)
+        public PlayerFactsModel Create(Currency currency, IList<Cashgame> cashgames, Player player)
         {
             var filteredGames = FilterCashgames(cashgames, player);
 

@@ -30,7 +30,7 @@ namespace Web.ModelMappers
                     string.Empty,
                     TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
                     200,
-                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout));
+                    new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
 
         public Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
@@ -43,7 +43,7 @@ namespace Web.ModelMappers
                     postModel.HouseRules,
                     TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
                     postModel.DefaultBuyin,
-                    new CurrencySettings(postModel.CurrencySymbol, postModel.CurrencyLayout));
+                    new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
     }
 }

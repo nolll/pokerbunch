@@ -1,27 +1,27 @@
 namespace Core.Classes
 {
-	public class CurrencySettings
+	public class Currency
     {
 	    public string Symbol { get; private set; }
 	    public string Layout { get; private set; }
 
-	    private CurrencySettings()
+	    private Currency()
 	    {
 	        Symbol = "";
 	        Layout = "";
 	    }
 
-	    public CurrencySettings(string symbol, string layout)
+	    public Currency(string symbol, string layout)
 	    {
 	        Symbol = symbol;
 	        Layout = layout;
 	    }
 
-        public static CurrencySettings Default
+        public static Currency Default
         {
             get
             {
-                return new CurrencySettings();
+                return new Currency();
             }
         }
 	}

@@ -13,7 +13,7 @@ namespace Tests.Common.FakeClasses
             string houseRules = default(string),
             TimeZoneInfo timezone = default(TimeZoneInfo),
             int defaultBuyin = default(int),
-            CurrencySettings currency = default(CurrencySettings)
+            Currency currency = default(Currency)
             ) : base(
                 id,
                 slug,
@@ -34,11 +34,11 @@ namespace Tests.Common.FakeClasses
             }
         }
 
-        private static CurrencySettings DefaultCurrency
+        private static Currency DefaultCurrency
         {
             get
             {
-                return new CurrencySettings("$", "{SYMBOL}{AMOUNT}");
+                return new Currency("$", "{SYMBOL}{AMOUNT}");
             }
         }
     }

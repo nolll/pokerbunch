@@ -24,7 +24,7 @@ namespace Tests.Infrastructure.System{
         [TestCase(1234, "1 234 kr")]
 		public void FormatCurrency(int input, string expected)
         {
-			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
+			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
             var sut = GetSut();
 			var result = sut.FormatCurrency(currency, input);
 			Assert.AreEqual(expected, result);
@@ -34,7 +34,7 @@ namespace Tests.Infrastructure.System{
         [TestCase(1234, "1 234 kr/h")]
 		public void FormatWinrate(int input, string expected)
         {
-			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
+			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
             var sut = GetSut();
 			var result = sut.FormatWinrate(currency, input);
 			Assert.AreEqual(expected, result);
@@ -45,7 +45,7 @@ namespace Tests.Infrastructure.System{
         [TestCase(-1234, "-1 234 kr")]
 		public void FormatResult(int input, string expected)
         {
-			var currency = new CurrencySettings("kr", "{AMOUNT} {SYMBOL}");
+			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
             var sut = GetSut();
             var result = sut.FormatResult(currency, input);
 			Assert.AreEqual(expected, result);

@@ -6,6 +6,6 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public interface IPlayerFactsModelFactory
     {
-        PlayerFactsModel Create(CurrencySettings currency, IList<Cashgame> cashgames, Player player);
+        PlayerFactsModel Create(Currency currency, IList<Cashgame> cashgames, Player player);
     }
 }

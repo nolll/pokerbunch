@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 };
         }
 
-        private string GetWinRate(CashgameResult result, CurrencySettings currency)
+        private string GetWinRate(CashgameResult result, Currency currency)
         {
             if (result.PlayedTime > 0)
             {

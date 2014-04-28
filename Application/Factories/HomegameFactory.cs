@@ -13,7 +13,7 @@ namespace Application.Factories
             string houseRules,
             TimeZoneInfo timeZone,
             int defaultBuyin,
-            CurrencySettings currency)
+            Currency currency)
         {
             return new Homegame
                 (

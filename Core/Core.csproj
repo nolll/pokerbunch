@@ -82,7 +82,7 @@
     <Compile Include="Classes\CashgameSuite.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CurrencySettings.cs" />
+    <Compile Include="Classes\Currency.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Homegame.cs" />

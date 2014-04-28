@@ -41,7 +41,7 @@ namespace Application.UseCases.CashgameTopList
                 };
         }
 
-        private TopListItem CreateItem(CashgameTotalResult totalResult, int index, CurrencySettings currency, IList<Player> players)
+        private TopListItem CreateItem(CashgameTotalResult totalResult, int index, Currency currency, IList<Player> players)
         {
             return new TopListItem
                 {

@@ -60,7 +60,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		[Test]
 		public void Stack_IsSet(){
             const string formattedStack = "a";
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), _stack)).Returns(formattedStack);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), _stack)).Returns(formattedStack);
             
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);

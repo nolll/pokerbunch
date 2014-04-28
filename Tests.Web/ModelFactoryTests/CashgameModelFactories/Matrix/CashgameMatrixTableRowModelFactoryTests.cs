@@ -54,7 +54,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		    const int winnings = 1;
             var totalResult = new FakeCashgameTotalResult(winnings);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<Currency>(), winnings)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);

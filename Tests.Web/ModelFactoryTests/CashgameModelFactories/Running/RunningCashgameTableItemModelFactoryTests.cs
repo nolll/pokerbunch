@@ -56,7 +56,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(buyin: buyin);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), buyin)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), buyin)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
@@ -72,7 +72,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(stack: stack);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), stack)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), stack)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
@@ -88,7 +88,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<Currency>(), winnings)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);

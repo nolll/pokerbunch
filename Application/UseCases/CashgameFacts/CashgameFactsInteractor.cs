@@ -52,28 +52,28 @@ namespace Application.UseCases.CashgameFacts
                 };
         }
 
-        private AmountFact GetBestResult(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetBestResult(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BestResult.PlayerId);
             var amount = new Money(facts.BestResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetWorstResult(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetWorstResult(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.WorstResult.PlayerId);
             var amount = new Money(facts.WorstResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetBestTotalResult(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetBestTotalResult(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BestTotalResult.PlayerId);
             var amount = new Money(facts.BestTotalResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetWorstTotalResult(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetWorstTotalResult(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.WorstTotalResult.PlayerId);
             var amount = new Money(facts.WorstTotalResult.Winnings, currency);
@@ -87,14 +87,14 @@ namespace Application.UseCases.CashgameFacts
             return new DurationFact(playerName, amount);
         }
 
-        private AmountFact GetBiggestTotalBuyin(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetBiggestTotalBuyin(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BiggestBuyinTotalResult.PlayerId);
             var amount = new Money(facts.BiggestBuyinTotalResult.Buyin, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetBiggestTotalCashout(Core.Classes.CashgameFacts facts, CurrencySettings currency)
+        private AmountFact GetBiggestTotalCashout(Core.Classes.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BiggestCashoutTotalResult.PlayerId);
             var amount = new Money(facts.BiggestCashoutTotalResult.Cashout, currency);
@@ -141,13 +141,13 @@ namespace Application.UseCases.CashgameFacts
     public class Money
     {
         public int Amount { get; private set; }
-        public CurrencySettings Currency { get; private set; }
+        public Currency Currency { get; private set; }
 
-        public Money(int amount) : this(amount, CurrencySettings.Default)
+        public Money(int amount) : this(amount, Currency.Default)
         {
         }
 
-        public Money(int amount, CurrencySettings currency)
+        public Money(int amount, Currency currency)
         {
             Amount = amount;
             Currency = currency;

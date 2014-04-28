@@ -7,11 +7,11 @@ namespace Application.Services
 {
     public interface IGlobalization
     {
-        string FormatCurrency(CurrencySettings currency, int amount);
+        string FormatCurrency(Currency currency, int amount);
         string FormatCurrency(Money money);
         string FormatWinrate(Money winrate);
-        string FormatWinrate(CurrencySettings currency, int winrate);
-        string FormatResult(CurrencySettings currency, int result);
+        string FormatWinrate(Currency currency, int winrate);
+        string FormatResult(Currency currency, int result);
         string FormatResult(Money money);
         string FormatDuration(int minutes);
         string FormatDuration(TimeSpan timeSpan);

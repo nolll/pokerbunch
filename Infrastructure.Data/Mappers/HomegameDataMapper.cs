@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Mappers
                 rawHomegame.HouseRules,
                 TimeZoneInfo.FindSystemTimeZoneById(rawHomegame.TimezoneName),
                 rawHomegame.DefaultBuyin,
-                new CurrencySettings(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout));
+                new Currency(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout));
         }
     }
 }

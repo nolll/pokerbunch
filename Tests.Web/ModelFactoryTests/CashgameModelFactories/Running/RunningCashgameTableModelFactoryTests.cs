@@ -49,7 +49,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		    const int turnover = 1;
 			var cashgame = new FakeCashgame(turnover: 1);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), turnover)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), turnover)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);
@@ -64,7 +64,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		    const int totalStacks = 1;
             var cashgame = new FakeCashgame(totalStacks: totalStacks);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), totalStacks)).Returns(formatted);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), totalStacks)).Returns(formatted);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);

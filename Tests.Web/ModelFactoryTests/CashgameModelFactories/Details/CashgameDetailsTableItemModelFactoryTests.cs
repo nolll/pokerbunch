@@ -54,7 +54,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(buyin: buyin);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), buyin)).Returns(formattedBuyin);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), buyin)).Returns(formattedBuyin);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -69,7 +69,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(stack: stack);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<CurrencySettings>(), stack)).Returns(formattedStack);
+            GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), stack)).Returns(formattedStack);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -84,7 +84,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinnings);
+            GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<Currency>(), winnings)).Returns(formattedWinnings);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -114,7 +114,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult(winnings: winnings, playedTime: 60);
 
-            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<CurrencySettings>(), winnings)).Returns(formattedWinrate);
+            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<Currency>(), winnings)).Returns(formattedWinrate);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
