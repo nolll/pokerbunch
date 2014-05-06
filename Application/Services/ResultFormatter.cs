@@ -1,5 +1,6 @@
 using System.Globalization;
 using Application.UseCases.CashgameFacts;
+using Core.Classes;
 
 namespace Application.Services
 {

@@ -2,6 +2,7 @@ using System;
 using Application.Services;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
