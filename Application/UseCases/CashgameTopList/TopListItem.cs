@@ -1,5 +1,4 @@
 ﻿using System;
-using Application.UseCases.CashgameFacts;
 using Core.Classes;
 
 namespace Application.UseCases.CashgameTopList
