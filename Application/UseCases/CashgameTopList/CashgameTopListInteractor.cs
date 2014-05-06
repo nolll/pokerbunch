@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.CashgameFacts;
 using Core.Classes;
 using Core.Repositories;
 using Core.Services.Interfaces;
@@ -23,9 +22,6 @@ namespace Application.UseCases.CashgameTopList
 
         public CashgameTopListResult Execute(CashgameTopListRequest request)
         {
-            if(request.Slug == null)
-                throw new ArgumentException("No slug provided");
-
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
             var results = suite.TotalResults.OrderByDescending(o => o.Winnings);
@@ -41,7 +37,7 @@ namespace Application.UseCases.CashgameTopList
                 };
         }
 
-        private TopListItem CreateItem(CashgameTotalResult totalResult, int index, Currency currency, IList<Player> players)
+        public TopListItem CreateItem(CashgameTotalResult totalResult, int index, Currency currency, IEnumerable<Player> players)
         {
             return new TopListItem
                 {
@@ -75,7 +71,7 @@ namespace Application.UseCases.CashgameTopList
             }
         }
 
-        private string GetPlayerName(IList<Player> players, int id)
+        private string GetPlayerName(IEnumerable<Player> players, int id)
         {
             var player = players.FirstOrDefault(o => o.Id == id);
             return player != null ? player.DisplayName : "";

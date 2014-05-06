@@ -23,31 +23,13 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_NoSlug_ThrowsException()
-        {
-            var request = new CashgameTopListRequest();
-
-            Assert.Throws<ArgumentException>(() => _sut.Execute(request));
-        }
-
-        [Test]
         public void Execute_WithSlug_ReturnsTopListItems()
         {
             const string slug = "a";
-            const string playerName = "b";
-            const int rank = 1;
-            const int playerId = 1;
-            const int buyin = 2;
-            const int cashout = 3;
-            const int gamesPlayed = 4;
-            const int minutesPlayed = 5;
-            const int winnings = 6;
-            const int winRate = 7;
             var homegame = new FakeHomegame();
-            var totalResult = new FakeCashgameTotalResult(playerId: playerId, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
+            var totalResult = new FakeCashgameTotalResult();
             var totalResultList = new List<CashgameTotalResult> {totalResult};
-            var player = new FakePlayer(id: playerId, displayName: playerName);
-            var playerList = new List<Player> {player};
+            var playerList = new List<Player>();
             var suite = new FakeCashgameSuite(totalResults: totalResultList, players: playerList);
             var request = new CashgameTopListRequest{Slug = slug};
 
@@ -58,14 +40,36 @@ namespace Tests.Application.UseCases
 
             Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
             Assert.AreEqual(1, result.Items.Count);
-            Assert.AreEqual(rank, result.Items[0].Rank);
-            Assert.AreEqual(buyin, result.Items[0].Buyin.Amount);
-            Assert.AreEqual(cashout, result.Items[0].Cashout.Amount);
-            Assert.AreEqual(gamesPlayed, result.Items[0].GamesPlayed);
-            Assert.AreEqual(minutesPlayed, result.Items[0].MinutesPlayed.TotalMinutes);
-            Assert.AreEqual(playerName, result.Items[0].Name);
-            Assert.AreEqual(winnings, result.Items[0].Winnings.Amount);
-            Assert.AreEqual(winRate, result.Items[0].WinRate.Amount);
+        }
+
+        [Test]
+        public void CreateItem_AllPropertiesAreSet()
+        {
+            const string playerName = "a";
+            const int playerId = 1;
+            const int buyin = 2;
+            const int cashout = 3;
+            const int gamesPlayed = 4;
+            const int minutesPlayed = 5;
+            const int winnings = 6;
+            const int winRate = 7;
+            const int expectedRank = 1;
+            var totalResult = new FakeCashgameTotalResult(playerId: playerId, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
+            const int index = 0;
+            var currency = Currency.Default;
+            var player = new FakePlayer(playerId, displayName: playerName);
+            var players = new List<Player>{player};
+
+            var result = _sut.CreateItem(totalResult, index, currency, players);
+
+            Assert.AreEqual(expectedRank, result.Rank);
+            Assert.AreEqual(buyin, result.Buyin.Amount);
+            Assert.AreEqual(cashout, result.Cashout.Amount);
+            Assert.AreEqual(gamesPlayed, result.GamesPlayed);
+            Assert.AreEqual(minutesPlayed, result.MinutesPlayed.TotalMinutes);
+            Assert.AreEqual(playerName, result.Name);
+            Assert.AreEqual(winnings, result.Winnings.Amount);
+            Assert.AreEqual(winRate, result.WinRate.Amount);
         }
     }
 }
