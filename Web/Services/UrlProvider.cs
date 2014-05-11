@@ -311,6 +311,5 @@ namespace Web.Services
         {
             return string.Format(format, userName);
         }
-
     }
 }

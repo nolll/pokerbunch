@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
                 Cashout = _globalization.FormatCurrency(toplistItem.Cashout),
                 CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout),
                 ResultClass = _resultFormatter.GetWinningsCssClass(toplistItem.Winnings),
-                GameTime = _globalization.FormatDuration(toplistItem.MinutesPlayed),
+                GameTime = _globalization.FormatDuration(toplistItem.TimePlayed),
                 GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed),
                 GameCount = toplistItem.GamesPlayed,
                 GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed),

@@ -44,7 +44,7 @@ namespace Application.UseCases.CashgameTopList
                     Buyin = new Money(totalResult.Buyin, currency),
                     Cashout = new Money(totalResult.Cashout, currency),
                     GamesPlayed = totalResult.GameCount,
-                    MinutesPlayed = TimeSpan.FromMinutes(totalResult.TimePlayed),
+                    TimePlayed = TimeSpan.FromMinutes(totalResult.TimePlayed),
                     Name = GetPlayerName(players, totalResult.PlayerId),
                     Rank = index + 1,
                     Winnings = new Money(totalResult.Winnings, currency),
@@ -52,7 +52,7 @@ namespace Application.UseCases.CashgameTopList
                 };
         }
 
-        private IEnumerable<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
+        public IList<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
         {
             switch (orderBy)
             {
@@ -63,7 +63,7 @@ namespace Application.UseCases.CashgameTopList
                 case ToplistSortOrder.Cashout:
                     return items.OrderByDescending(o => o.Cashout).ToList();
                 case ToplistSortOrder.TimePlayed:
-                    return items.OrderByDescending(o => o.MinutesPlayed).ToList();
+                    return items.OrderByDescending(o => o.TimePlayed).ToList();
                 case ToplistSortOrder.GamesPlayed:
                     return items.OrderByDescending(o => o.GamesPlayed).ToList();
                 default:

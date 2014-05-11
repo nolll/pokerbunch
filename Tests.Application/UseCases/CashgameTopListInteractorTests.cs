@@ -66,10 +66,94 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(buyin, result.Buyin.Amount);
             Assert.AreEqual(cashout, result.Cashout.Amount);
             Assert.AreEqual(gamesPlayed, result.GamesPlayed);
-            Assert.AreEqual(minutesPlayed, result.MinutesPlayed.TotalMinutes);
+            Assert.AreEqual(minutesPlayed, result.TimePlayed.TotalMinutes);
             Assert.AreEqual(playerName, result.Name);
             Assert.AreEqual(winnings, result.Winnings.Amount);
             Assert.AreEqual(winRate, result.WinRate.Amount);
+        }
+
+        [Test]
+        public void SortItems_SortByWinnings_HighestWinningsIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { Winnings = new Money(low) };
+            var item2 = new TopListItem { Winnings = new Money(high) };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.Winnings);
+
+            Assert.AreEqual(high, result[0].Winnings.Amount);
+        }
+
+        [Test]
+        public void SortItems_SortByBuyin_HighestBuyinIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { Buyin = new Money(low) };
+            var item2 = new TopListItem { Buyin = new Money(high) };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.Buyin);
+
+            Assert.AreEqual(high, result[0].Buyin.Amount);
+        }
+
+        [Test]
+        public void SortItems_SortByCashout_HighestCashoutIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { Cashout = new Money(low) };
+            var item2 = new TopListItem { Cashout = new Money(high) };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.Cashout);
+
+            Assert.AreEqual(high, result[0].Cashout.Amount);
+        }
+
+        [Test]
+        public void SortItems_SortByTimePlayed_HighestTotalMinutesIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { TimePlayed = TimeSpan.FromMinutes(low) };
+            var item2 = new TopListItem { TimePlayed = TimeSpan.FromMinutes(high) };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.TimePlayed);
+
+            Assert.AreEqual(high, result[0].TimePlayed.TotalMinutes);
+        }
+
+        [Test]
+        public void SortItems_SortByGamesPlayed_HighestGameCountIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { GamesPlayed = low };
+            var item2 = new TopListItem { GamesPlayed = high };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.GamesPlayed);
+
+            Assert.AreEqual(high, result[0].GamesPlayed);
+        }
+
+        [Test]
+        public void SortItems_SortByWinRate_HighestWinRateIsFirst()
+        {
+            const int low = 1;
+            const int high = 2;
+            var item1 = new TopListItem { WinRate = new Money(low) };
+            var item2 = new TopListItem { WinRate = new Money(high) };
+            var items = new List<TopListItem> { item1, item2 };
+
+            var result = _sut.SortItems(items, ToplistSortOrder.WinRate);
+
+            Assert.AreEqual(high, result[0].WinRate.Amount);
         }
     }
 }

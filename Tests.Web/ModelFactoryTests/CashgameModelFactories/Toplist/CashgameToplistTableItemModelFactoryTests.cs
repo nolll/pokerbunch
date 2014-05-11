@@ -78,7 +78,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		{
 		    const string formattedTime = "a";
             var timePlayed = TimeSpan.FromMinutes(60);
-		    _topListItem.MinutesPlayed = timePlayed;
+		    _topListItem.TimePlayed = timePlayed;
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
