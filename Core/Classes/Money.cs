@@ -21,5 +21,12 @@ namespace Core.Classes
         {
             return Amount.CompareTo(other.Amount);
         }
+
+        public override string ToString()
+        {
+            var numberFormatted = Amount.ToString("N0", Currency.Culture);
+            var amountFormatted = Currency.Layout.Replace("{AMOUNT}", numberFormatted);
+            return amountFormatted.Replace("{SYMBOL}", Currency.Symbol);
+        }
     }
 }
