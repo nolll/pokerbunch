@@ -22,7 +22,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
                     Buyin = new MoneyInTest(),
                     Cashout = new MoneyInTest(),
                     Winnings = new MoneyInTest(),
-                    WinRate = new MoneyInTest()
+                    WinRate = new MoneyInTest(),
+                    TimePlayed = new TimeInTest()
                 };
 		}
 
@@ -80,11 +81,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		[Test]
 		public void TableItem_WithDuration_DurationIsSet()
 		{
-		    const string formattedTime = "a";
-            var timePlayed = TimeSpan.FromMinutes(60);
+		    const string formattedTime = "0";
+            var timePlayed = new TimeInTest();
 		    _topListItem.TimePlayed = timePlayed;
-
-            GetMock<IGlobalization>().Setup(o => o.FormatDuration(timePlayed)).Returns(formattedTime);
 
 			var sut = GetSut();
             var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
@@ -124,8 +123,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         {
 			return new CashgameToplistTableItemModelFactory(
                 GetMock<IUrlProvider>().Object,
-                GetMock<IResultFormatter>().Object,
-                GetMock<IGlobalization>().Object);
+                GetMock<IResultFormatter>().Object);
 		}
 	}
 }

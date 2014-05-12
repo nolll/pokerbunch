@@ -44,7 +44,7 @@ namespace Application.UseCases.CashgameTopList
                     Buyin = new Money(totalResult.Buyin, currency),
                     Cashout = new Money(totalResult.Cashout, currency),
                     GamesPlayed = totalResult.GameCount,
-                    TimePlayed = TimeSpan.FromMinutes(totalResult.TimePlayed),
+                    TimePlayed = Time.FromMinutes(totalResult.TimePlayed),
                     Name = GetPlayerName(players, totalResult.PlayerId),
                     Rank = index + 1,
                     Winnings = new MoneyResult(totalResult.Winnings, currency),

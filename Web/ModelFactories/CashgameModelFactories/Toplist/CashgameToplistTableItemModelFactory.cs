@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
@@ -11,16 +9,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
     {
         private readonly IUrlProvider _urlProvider;
         private readonly IResultFormatter _resultFormatter;
-        private readonly IGlobalization _globalization;
 
         public CashgameToplistTableItemModelFactory(
             IUrlProvider urlProvider,
-            IResultFormatter resultFormatter,
-            IGlobalization globalization)
+            IResultFormatter resultFormatter)
         {
             _urlProvider = urlProvider;
             _resultFormatter = resultFormatter;
-            _globalization = globalization;
         }
         
         public CashgameToplistTableItemModel Create(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
@@ -30,7 +25,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             var buyin = toplistItem.Buyin.ToString();
             var cashout = toplistItem.Cashout.ToString();
             var resultClass = _resultFormatter.GetWinningsCssClass(toplistItem.Winnings);
-            var gameTime = _globalization.FormatDuration(toplistItem.TimePlayed);
+            var gameTime = toplistItem.TimePlayed.ToString();
             var gameCount = toplistItem.GamesPlayed;
             var winRate = toplistItem.WinRate.ToString();
             var name = toplistItem.Name;

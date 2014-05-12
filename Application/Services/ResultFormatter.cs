@@ -1,5 +1,4 @@
 using System.Globalization;
-using Application.UseCases.CashgameFacts;
 using Core.Classes;
 
 namespace Application.Services
@@ -22,13 +21,9 @@ namespace Application.Services
 		public string GetWinningsCssClass(int winnings)
         {
 			if(winnings > 0)
-            {
 				return "pos-result";
-			}
             if (winnings < 0)
-            {
 				return "neg-result";
-			}
 			return string.Empty;
 		}
 	}

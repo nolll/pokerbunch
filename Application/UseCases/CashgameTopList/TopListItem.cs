@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Classes;
+﻿using Core.Classes;
 
 namespace Application.UseCases.CashgameTopList
 {
@@ -10,7 +9,7 @@ namespace Application.UseCases.CashgameTopList
         public Money Winnings { get; set; }
         public Money Buyin { get; set; }
         public Money Cashout { get; set; }
-        public TimeSpan TimePlayed { get; set; }
+        public Time TimePlayed { get; set; }
         public int GamesPlayed { get; set; }
         public Money WinRate { get; set; }
     }

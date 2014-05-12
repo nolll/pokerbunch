@@ -48,6 +48,7 @@
     <Compile Include="FakeClasses\FakeCheckpoint.cs" />
     <Compile Include="FakeClasses\FakeTwitterCredentials.cs" />
     <Compile Include="FakeClasses\MoneyInTest.cs" />
+    <Compile Include="FakeClasses\TimeInTest.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="FakeClasses\FakeCashgame.cs" />
     <Compile Include="FakeClasses\FakeCashgameResult.cs" />

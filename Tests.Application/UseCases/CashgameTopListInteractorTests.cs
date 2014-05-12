@@ -66,7 +66,7 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(buyin, result.Buyin.Amount);
             Assert.AreEqual(cashout, result.Cashout.Amount);
             Assert.AreEqual(gamesPlayed, result.GamesPlayed);
-            Assert.AreEqual(minutesPlayed, result.TimePlayed.TotalMinutes);
+            Assert.AreEqual(minutesPlayed, result.TimePlayed.Minutes);
             Assert.AreEqual(playerName, result.Name);
             Assert.AreEqual(winnings, result.Winnings.Amount);
             Assert.AreEqual(winRate, result.WinRate.Amount);
@@ -119,13 +119,13 @@ namespace Tests.Application.UseCases
         {
             const int low = 1;
             const int high = 2;
-            var item1 = new TopListItem { TimePlayed = TimeSpan.FromMinutes(low) };
-            var item2 = new TopListItem { TimePlayed = TimeSpan.FromMinutes(high) };
+            var item1 = new TopListItem { TimePlayed = Time.FromMinutes(low) };
+            var item2 = new TopListItem { TimePlayed = Time.FromMinutes(high) };
             var items = new List<TopListItem> { item1, item2 };
 
             var result = _sut.SortItems(items, ToplistSortOrder.TimePlayed);
 
-            Assert.AreEqual(high, result[0].TimePlayed.TotalMinutes);
+            Assert.AreEqual(high, result[0].TimePlayed.Minutes);
         }
 
         [Test]
