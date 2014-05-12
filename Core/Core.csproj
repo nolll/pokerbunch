@@ -39,6 +39,8 @@
     <Compile Include="Classes\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Classes\Identifier.cs" />
     <Compile Include="Classes\Money.cs" />
+    <Compile Include="Classes\MoneyResult.cs" />
+    <Compile Include="Classes\MoneyWinRate.cs" />
     <Compile Include="Classes\TwitterCredentials.cs" />
     <Compile Include="Classes\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />

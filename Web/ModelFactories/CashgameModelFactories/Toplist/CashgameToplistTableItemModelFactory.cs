@@ -25,31 +25,44 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         
         public CashgameToplistTableItemModel Create(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
         {
+            var rank = toplistItem.Rank;
+            var totalResult = toplistItem.Winnings.ToString();
+            var buyin = toplistItem.Buyin.ToString();
+            var cashout = toplistItem.Cashout.ToString();
+            var resultClass = _resultFormatter.GetWinningsCssClass(toplistItem.Winnings);
+            var gameTime = _globalization.FormatDuration(toplistItem.TimePlayed);
+            var gameCount = toplistItem.GamesPlayed;
+            var winRate = toplistItem.WinRate.ToString();
+            var name = toplistItem.Name;
+            var urlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name);
+            var playerUrl = _urlProvider.GetPlayerDetailsUrl(slug, toplistItem.Name);
+            var resultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
+            var buyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
+            var cashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);
+            var gameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed);
+            var gameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed);
+            var winRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate);
+
             return new CashgameToplistTableItemModel
             {
-                Rank = toplistItem.Rank,
-                TotalResult = _globalization.FormatResult(toplistItem.Winnings),
-                ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings),
-                Buyin = _globalization.FormatCurrency(toplistItem.Buyin),
-                BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin),
-                Cashout = _globalization.FormatCurrency(toplistItem.Cashout),
-                CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout),
-                ResultClass = _resultFormatter.GetWinningsCssClass(toplistItem.Winnings),
-                GameTime = _globalization.FormatDuration(toplistItem.TimePlayed),
-                GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed),
-                GameCount = toplistItem.GamesPlayed,
-                GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed),
-                WinRate = _globalization.FormatWinrate(toplistItem.WinRate),
-                WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate),
-                Name = toplistItem.Name,
-                UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name),
-                PlayerUrl = _urlProvider.GetPlayerDetailsUrl(slug, toplistItem.Name)
+                Rank = rank,
+                TotalResult = totalResult,
+                Buyin = buyin,
+                Cashout = cashout,
+                ResultClass = resultClass,
+                GameTime = gameTime,
+                GameCount = gameCount,
+                WinRate = winRate,
+                Name = name,
+                UrlEncodedName = urlEncodedName,
+                PlayerUrl = playerUrl,
+                ResultSortClass = resultSortClass,
+                BuyinSortClass = buyinSortClass,
+                CashoutSortClass = cashoutSortClass,
+                GameTimeSortClass = gameTimeSortClass,
+                GameCountSortClass = gameCountSortClass,
+                WinRateSortClass = winRateSortClass
             };
-        }
-
-        public IList<CashgameToplistTableItemModel> CreateList(CashgameTopListResult topListResult)
-        {
-            return topListResult.Items.Select(o => Create(o, topListResult.Slug, topListResult.OrderBy)).ToList();
         }
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)

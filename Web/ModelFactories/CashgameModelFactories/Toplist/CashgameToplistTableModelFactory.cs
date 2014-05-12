@@ -1,3 +1,4 @@
+using System.Linq;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
 using Web.Models.CashgameModels.Toplist;
@@ -21,27 +22,47 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         {
             var sortUrlFormat = string.Concat(_urlProvider.GetCashgameToplistUrl(topListResult.Slug, topListResult.Year), "?orderby={0}");
 
+            var itemModels = topListResult.Items.Select(o => _cashgameToplistTableItemModelFactory.Create(o, topListResult.Slug, topListResult.OrderBy)).ToList();
+                
+            var resultSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Winnings);
+            var resultSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Winnings);
+                
+            var buyinSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Buyin);
+            var buyinSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Buyin);
+                
+            var cashoutSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Cashout);
+            var cashoutSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Cashout);
+                
+            var gameTimeSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.TimePlayed);
+            var gameTimeSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.TimePlayed);
+                
+            var gameCountSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.GamesPlayed);
+            var gameCountSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.GamesPlayed);
+                
+            var winRateSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.WinRate);
+            var winRateSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.WinRate);
+
             return new CashgameToplistTableModel
             {
-                ItemModels = _cashgameToplistTableItemModelFactory.CreateList(topListResult),
+                ItemModels = itemModels,
                 
-                ResultSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Winnings),
-                ResultSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Winnings),
+                ResultSortClass = resultSortClass,
+                ResultSortUrl = resultSortUrl,
                 
-                BuyinSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Buyin),
-                BuyinSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Buyin),
+                BuyinSortClass = buyinSortClass,
+                BuyinSortUrl = buyinSortUrl,
                 
-                CashoutSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.Cashout),
-                CashoutSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.Cashout),
+                CashoutSortClass = cashoutSortClass,
+                CashoutSortUrl = cashoutSortUrl,
                 
-                GameTimeSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.TimePlayed),
-                GameTimeSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.TimePlayed),
+                GameTimeSortClass = gameTimeSortClass,
+                GameTimeSortUrl = gameTimeSortUrl,
                 
-                GameCountSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.GamesPlayed),
-                GameCountSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.GamesPlayed),
+                GameCountSortClass = gameCountSortClass,
+                GameCountSortUrl = gameCountSortUrl,
                 
-                WinRateSortClass = GetSortCssClass(topListResult.OrderBy, ToplistSortOrder.WinRate),
-                WinRateSortUrl = GetSortUrl(sortUrlFormat, ToplistSortOrder.WinRate)
+                WinRateSortClass = winRateSortClass,
+                WinRateSortUrl = winRateSortUrl
             };
         }
 

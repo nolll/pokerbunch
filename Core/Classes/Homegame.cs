@@ -24,8 +24,7 @@ namespace Core.Classes
             string houseRules, 
             TimeZoneInfo timezone, 
             int defaultBuyin, 
-            Currency currency
-            )
+            Currency currency)
 	    {
 	        Id = id;
 	        Slug = slug;

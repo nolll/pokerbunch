@@ -6,15 +6,11 @@ namespace Core.Classes
     {
         public int Amount { get; private set; }
         public Currency Currency { get; private set; }
-
-        public Money(int amount) : this(amount, Currency.Default)
-        {
-        }
-
-        public Money(int amount, Currency currency)
+        
+        public Money(int amount, Currency currency = null)
         {
             Amount = amount;
-            Currency = currency;
+            Currency = currency ?? Currency.Default;
         }
 
         public int CompareTo(Money other)

@@ -47,8 +47,8 @@ namespace Application.UseCases.CashgameTopList
                     TimePlayed = TimeSpan.FromMinutes(totalResult.TimePlayed),
                     Name = GetPlayerName(players, totalResult.PlayerId),
                     Rank = index + 1,
-                    Winnings = new Money(totalResult.Winnings, currency),
-                    WinRate = new Money(totalResult.WinRate, currency)
+                    Winnings = new MoneyResult(totalResult.Winnings, currency),
+                    WinRate = new MoneyWinRate(totalResult.WinRate, currency)
                 };
         }
 

@@ -4,7 +4,6 @@ using Application.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.Models.CashgameModels.Toplist;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 {
@@ -13,11 +12,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         [Test]
 	    public void Table_ItemModelsAreSet()
 	    {
-	        var topListResult = new CashgameTopListResult();
-            var items = new List<CashgameToplistTableItemModel>();
-
-            GetMock<ICashgameToplistTableItemModelFactory>().Setup(o => o.CreateList(topListResult)).Returns(items);
-
+            var items = new List<TopListItem>();
+            var topListResult = new CashgameTopListResult{Items = items};
+            
 	        var sut = GetSut();
 	        var result = sut.Create(topListResult);
 
@@ -27,8 +24,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 	    [Test]
 	    public void SortUrls_AllUrlsAreCorrect()
 	    {
-            var topListResult = new CashgameTopListResult();
-
+            var items = new List<TopListItem>();
+            var topListResult = new CashgameTopListResult { Items = items };
+            
 	        var sut = GetSut();
 	        var result = sut.Create(topListResult);
 

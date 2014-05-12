@@ -1,10 +1,10 @@
 using System;
 using Application.Services;
-using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
@@ -17,7 +17,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 	    [SetUp]
 		public void SetUp(){
 	        _slug = "a";
-            _topListItem = new TopListItem();
+            _topListItem = new TopListItem
+                {
+                    Buyin = new MoneyInTest(),
+                    Cashout = new MoneyInTest(),
+                    Winnings = new MoneyInTest(),
+                    WinRate = new MoneyInTest()
+                };
 		}
 
         [Test]
@@ -46,11 +52,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		[Test]
 		public void TableItem_TotalResultIsSet()
 		{
-		    const string formattedResult = "a";
-            var winnings = new Money(1);
+		    const string formattedResult = "1";
+            var winnings = new MoneyInTest(1);
             _topListItem.Winnings = winnings;
-
-            GetMock<IGlobalization>().Setup(o => o.FormatResult(winnings)).Returns(formattedResult);
 
 			var sut = GetSut();
             var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
@@ -62,7 +66,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_WinningsClassIsSet()
         {
             const string resultClass = "a";
-            var winnings = new Money(1); 
+            var winnings = new MoneyInTest(1); 
             _topListItem.Winnings = winnings;
 
             GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
@@ -91,11 +95,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		[Test]
 		public void TableItem_WithDuration_WinrateIsSet()
 		{
-		    const string formattedWinRate = "a";
-            var winRate = new Money(1);
+		    const string formattedWinRate = "1";
+            var winRate = new MoneyInTest(1);
 		    _topListItem.WinRate = winRate;
-
-            GetMock<IGlobalization>().Setup(o => o.FormatWinrate(winRate)).Returns(formattedWinRate);
 
 			var sut = GetSut();
             var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);

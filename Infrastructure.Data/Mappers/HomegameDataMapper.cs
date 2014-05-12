@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Application.Factories;
 using Core.Classes;
 using Infrastructure.Data.Classes;
@@ -16,6 +17,9 @@ namespace Infrastructure.Data.Mappers
 
         public Homegame Map(RawHomegame rawHomegame)
         {
+            var culture = CultureInfo.CreateSpecificCulture("sv-SE");
+            var currency = new Currency(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout, culture);
+
             return _homegameFactory.Create(
                 rawHomegame.Id,
                 rawHomegame.Slug,
@@ -24,7 +28,7 @@ namespace Infrastructure.Data.Mappers
                 rawHomegame.HouseRules,
                 TimeZoneInfo.FindSystemTimeZoneById(rawHomegame.TimezoneName),
                 rawHomegame.DefaultBuyin,
-                new Currency(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout));
+                currency);
         }
     }
 }

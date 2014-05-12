@@ -6,7 +6,7 @@ namespace Core.Classes
 	{
 	    public string Symbol { get; private set; }
 	    public string Layout { get; private set; }
-	    public CultureInfo Culture { get; set; }
+	    public CultureInfo Culture { get; private set; }
 
 	    public Currency(string symbol, string layout, CultureInfo culture = null)
 	    {
@@ -19,7 +19,7 @@ namespace Core.Classes
         {
             get
             {
-                return new Currency("", "");
+                return new Currency("$", "{SYMBOL}{AMOUNT}");
             }
         }
 	}
