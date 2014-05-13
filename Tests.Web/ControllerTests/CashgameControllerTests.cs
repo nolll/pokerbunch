@@ -199,7 +199,7 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<ICashgameModelService>().Object,
-                GetMock<ICashgameToplistPageBuilder>().Object,
+                GetMock<IToplistPageBuilder>().Object,
                 GetMock<ICashgameFactsPageBuilder>().Object);
         }
 	}

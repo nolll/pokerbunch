@@ -8,44 +8,41 @@ using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
-    public class CashgameToplistPageBuilder : ICashgameToplistPageBuilder
+    public class ToplistPageBuilder : IToplistPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly ICashgameToplistTableModelFactory _cashgameToplistTableModelFactory;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
-        private readonly ICashgameTopListInteractor _cashgameTopListInteractor;
+        private readonly ITopListInteractor _topListInteractor;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
 
-        public CashgameToplistPageBuilder(
+        public ToplistPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgameToplistTableModelFactory cashgameToplistTableModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
-            ICashgameTopListInteractor cashgameTopListInteractor,
+            ITopListInteractor topListInteractor,
             ICashgameContextInteractor cashgameContextInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _cashgameToplistTableModelFactory = cashgameToplistTableModelFactory;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
-            _cashgameTopListInteractor = cashgameTopListInteractor;
+            _topListInteractor = topListInteractor;
             _cashgameContextInteractor = cashgameContextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var contextResult = GetCashgameContextResult(slug, year);
-            var topListResult = GetTopListResult(slug, sortOrderParam, year);
+            var contextResult = GetCashgameContext(slug, year);
+            var topListResult = GetTopList(slug, sortOrderParam, year);
             return Build(contextResult, topListResult);
         }
 
-        private CashgameToplistPageModel Build(CashgameContextResult contextResult, CashgameTopListResult topListResult)
+        private CashgameToplistPageModel Build(CashgameContextResult contextResult, TopListResult topListResult)
         {
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
             var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
             var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
-            var tableModel = _cashgameToplistTableModelFactory.Create(topListResult);
+            var tableModel = new ToplistTableModel(topListResult);
 
             return new CashgameToplistPageModel
             {
@@ -57,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             };
         }
 
-        private CashgameContextResult GetCashgameContextResult(string slug, int? year)
+        private CashgameContextResult GetCashgameContext(string slug, int? year)
         {
             var contextRequest = new CashgameContextRequest
                 {
@@ -67,15 +64,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             return _cashgameContextInteractor.Execute(contextRequest);
         }
 
-        private CashgameTopListResult GetTopListResult(string slug, string sortOrderParam, int? year)
+        private TopListResult GetTopList(string slug, string sortOrderParam, int? year)
         {
-            var topListRequest = new CashgameTopListRequest
+            var topListRequest = new TopListRequest
                 {
                     Slug = slug,
                     OrderBy = GetToplistSortOrder(sortOrderParam),
                     Year = year
                 };
-            return _cashgameTopListInteractor.Execute(topListRequest);
+            return _topListInteractor.Execute(topListRequest);
         }
 
         private ToplistSortOrder GetToplistSortOrder(string s)

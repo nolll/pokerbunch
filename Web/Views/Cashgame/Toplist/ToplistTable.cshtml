@@ -1,16 +1,16 @@
-@model Web.Models.CashgameModels.Toplist.CashgameToplistTableModel
+@model Web.Models.CashgameModels.Toplist.ToplistTableModel
 
 <table class="sortable-table table-list" data-require="sortable-table" data-sort-control-container="sort-control-container">
     <thead>
         <tr>
             <th class="base-column"></th>
             <th class="base-column"><span>Player</span></th>
-            <th class="@Model.ResultSortClass"><a href="@Model.ResultSortUrl">Winnings</a></th>
-            <th class="@Model.BuyinSortClass"><a href="@Model.BuyinSortUrl">Buyin</a></th>
-            <th class="@Model.CashoutSortClass"><a href="@Model.CashoutSortUrl">Cashout</a></th>
-            <th class="@Model.GameTimeSortClass"><a href="@Model.GameTimeSortUrl">Time</a></th>
-            <th class="@Model.GameCountSortClass"><a href="@Model.GameCountSortUrl">Games</a></th>
-            <th class="@Model.WinRateSortClass"><a href="@Model.WinRateSortUrl">Winrate</a></th>
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.ResultColumn)
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.BuyinColumn)
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.CashoutColumn)
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.TimePlayedColumn)
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.GamesPlayedColumn)
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.WinRateColumn)
         </tr>
     </thead>
     <tbody class="list">

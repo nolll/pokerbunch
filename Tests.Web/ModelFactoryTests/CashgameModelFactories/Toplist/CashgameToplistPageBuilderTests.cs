@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
 using Moq;
@@ -16,25 +17,23 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         public void Create_SetsTableModel()
         {
             const string slug = "a";
-            var topListResult = new CashgameTopListResult();
+            var topListResult = new TopListResult{Items = new List<TopListItem>()};
 
-            GetMock<ICashgameTopListInteractor>().Setup(o => o.Execute(It.IsAny<CashgameTopListRequest>())).Returns(topListResult);
-            GetMock<ICashgameToplistTableModelFactory>().Setup(o => o.Create(topListResult)).Returns(new CashgameToplistTableModel());
+            GetMock<ITopListInteractor>().Setup(o => o.Execute(It.IsAny<TopListRequest>())).Returns(topListResult);
 
             var sut = GetSut();
             var result = sut.Build(slug, null, null);
 
-            Assert.IsInstanceOf<CashgameToplistTableModel>(result.TableModel);
+            Assert.IsInstanceOf<ToplistTableModel>(result.TableModel);
         }
 
-        private CashgameToplistPageBuilder GetSut()
+        private ToplistPageBuilder GetSut()
         {
-            return new CashgameToplistPageBuilder(
+            return new ToplistPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<ICashgameToplistTableModelFactory>().Object,
                 GetMock<ICashgamePageNavigationModelFactory>().Object,
                 GetMock<ICashgameYearNavigationModelFactory>().Object,
-                GetMock<ICashgameTopListInteractor>().Object,
+                GetMock<ITopListInteractor>().Object,
                 GetMock<ICashgameContextInteractor>().Object);
         }
 	}

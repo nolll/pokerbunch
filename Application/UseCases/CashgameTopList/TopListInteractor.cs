@@ -7,12 +7,12 @@ using Core.Services.Interfaces;
 
 namespace Application.UseCases.CashgameTopList
 {
-    public class CashgameTopListInteractor : ICashgameTopListInteractor
+    public class TopListInteractor : ITopListInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameService _cashgameService;
 
-        public CashgameTopListInteractor(
+        public TopListInteractor(
             IHomegameRepository homegameRepository,
             ICashgameService cashgameService)
         {
@@ -20,7 +20,7 @@ namespace Application.UseCases.CashgameTopList
             _cashgameService = cashgameService;
         }
 
-        public CashgameTopListResult Execute(CashgameTopListRequest request)
+        public TopListResult Execute(TopListRequest request)
         {
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
@@ -28,7 +28,7 @@ namespace Application.UseCases.CashgameTopList
             var items = results.Select((o, index) => CreateItem(o, index, homegame.Currency, suite.Players));
             items = SortItems(items, request.OrderBy);
 
-            return new CashgameTopListResult
+            return new TopListResult
                 {
                     Items = items.ToList(),
                     OrderBy = request.OrderBy,

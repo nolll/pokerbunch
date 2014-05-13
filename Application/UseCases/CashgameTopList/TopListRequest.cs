@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.CashgameTopList
 {
-    public class CashgameTopListRequest
+    public class TopListRequest
     {
         public string Slug;
         public ToplistSortOrder OrderBy;

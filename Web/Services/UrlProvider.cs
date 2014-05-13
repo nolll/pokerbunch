@@ -122,7 +122,12 @@ namespace Web.Services
 
         public string GetCashgameToplistUrl(string slug, int? year)
         {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year);
+            return GetCashgameToplistUrlStatic(slug, year).ToString();
+        }
+
+        public static UrlModel GetCashgameToplistUrlStatic(string slug, int? year)
+        {
+            return new TopListUrlModel(slug, year);
         }
 
         public string GetCashgameListUrl(string slug, int? year)
@@ -212,7 +217,12 @@ namespace Web.Services
 
         public string GetPlayerDetailsUrl(string slug, string playerName)
         {
-            return FormatPlayer(RouteFormats.PlayerDetails, slug, playerName);
+            return GetPlayerDetailsUrlStatic(slug, playerName).ToString();
+        }
+
+        public static UrlModel GetPlayerDetailsUrlStatic(string slug, string playerName)
+        {
+            return new PlayerDetailsUrlModel(slug, playerName);
         }
 
         public string GetPlayerIndexUrl(string slug)
@@ -281,17 +291,17 @@ namespace Web.Services
             return string.Format(format, slug, dateStr, encodedPlayerName);
         }
 
-        private string FormatHomegameWithOptionalYear(string format, string formatWithYear, string slug, int? year)
+        public static string FormatHomegameWithOptionalYear(string format, string formatWithYear, string slug, int? year)
         {
             return year.HasValue ? FormatHomegameWithYear(formatWithYear, slug, year.Value) : FormatHomegame(format, slug);
         }
 
-        private string FormatHomegame(string format, string slug)
+        private static string FormatHomegame(string format, string slug)
         {
             return string.Format(format, slug);
         }
 
-        private string FormatHomegameWithYear(string format, string slug, int year)
+        private static string FormatHomegameWithYear(string format, string slug, int year)
         {
             return string.Format(format, slug, year);
         }
@@ -301,7 +311,7 @@ namespace Web.Services
             return string.Format(format, slug, dateStr);
         }
 
-        private string FormatPlayer(string format, string slug, string playerName)
+        public static string FormatPlayer(string format, string slug, string playerName)
         {
             var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
             return string.Format(format, slug, encodedPlayerName);
@@ -310,6 +320,34 @@ namespace Web.Services
         private string FormatUser(string format, string userName)
         {
             return string.Format(format, userName);
+        }
+    }
+
+    public abstract class UrlModel
+    {
+        protected string _url;
+
+        public override string ToString()
+        {
+            if (_url == null)
+                return string.Empty;
+            return _url;
+        }
+    }
+
+    public class PlayerDetailsUrlModel : UrlModel
+    {
+        public PlayerDetailsUrlModel(string slug, string playerName)
+        {
+            _url = UrlProvider.FormatPlayer(RouteFormats.PlayerDetails, slug, playerName);
+        }
+    }
+
+    public class TopListUrlModel : UrlModel
+    {
+        public TopListUrlModel(string slug, int? year)
+        {
+            _url = UrlProvider.FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year);
         }
     }
 }

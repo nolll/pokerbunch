@@ -3,9 +3,9 @@ using Core.Classes;
 
 namespace Application.Services
 {
-	public class ResultFormatter : IResultFormatter
+	public static class ResultFormatter
 	{
-		public string FormatWinnings(int winnings)
+		public static string FormatWinnings(int winnings)
         {
 			if(winnings > 0){
 				return "+"  + winnings;
@@ -13,12 +13,12 @@ namespace Application.Services
 			return winnings.ToString(CultureInfo.InvariantCulture);
 		}
 
-        public string GetWinningsCssClass(Money winnings)
+        public static string GetWinningsCssClass(Money winnings)
         {
             return GetWinningsCssClass(winnings.Amount);
         }
 
-		public string GetWinningsCssClass(int winnings)
+		public static string GetWinningsCssClass(int winnings)
         {
 			if(winnings > 0)
 				return "pos-result";

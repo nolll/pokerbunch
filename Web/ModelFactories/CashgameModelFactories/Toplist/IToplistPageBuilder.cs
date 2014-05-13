@@ -2,7 +2,7 @@
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
-    public interface ICashgameToplistPageBuilder
+    public interface IToplistPageBuilder
     {
         CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year);
     }

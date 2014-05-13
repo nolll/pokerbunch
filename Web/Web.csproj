@@ -124,6 +124,8 @@
     <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\IToplistTableModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ToplistTableModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserListPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserListPageBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
@@ -148,8 +150,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ICashgameToplistTableItemModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ICashgameToplistTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableCellModelFactory.cs" />
@@ -207,8 +207,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\BunchListItemModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\CashgameToplistTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerItemModelFactory.cs" />
@@ -219,6 +217,8 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
+    <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
+    <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\NavigationModels\CashgamePage.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
@@ -245,14 +245,14 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Facts\CashgameFactsPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\CashgameToplistPageBuilder.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ToplistPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Add\IAddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Facts\ICashgameFactsPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ICashgameToplistPageBuilder.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\IToplistPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageModelFactory.cs" />
@@ -572,7 +572,7 @@
     <Content Include="Views\Layouts\OneColumn.cshtml" />
     <Content Include="Views\Layouts\TwoColumns.cshtml" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistPageModel.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableModel.cs" />
+    <Compile Include="Models\CashgameModels\Toplist\ToplistTableModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemModel.cs" />
     <Compile Include="Models\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
@@ -697,6 +697,7 @@
     <Content Include="Views\Admin\Email.cshtml" />
     <Content Include="Views\Cashgame\Checkpoints\Edit.cshtml" />
     <Content Include="Views\Player\PlayerBadge.cshtml" />
+    <Content Include="Views\Cashgame\Toplist\ToplistTableColumn.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

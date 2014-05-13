@@ -7,13 +7,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public class CashgameMatrixTableCellModelFactory : ICashgameMatrixTableCellModelFactory
     {
-        private readonly IResultFormatter _resultFormatter;
-
-        public CashgameMatrixTableCellModelFactory(IResultFormatter resultFormatter)
-        {
-            _resultFormatter = resultFormatter;
-        }
-
         public CashgameMatrixTableCellModel Create(Cashgame cashgame, CashgameResult result)
         {
             if (result == null)
@@ -32,8 +25,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     ShowTransactions = result.Buyin > 0,
                     Buyin = result.Buyin,
                     Cashout = result.Stack,
-                    Winnings = _resultFormatter.FormatWinnings(result.Winnings),
-                    ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
+                    Winnings = ResultFormatter.FormatWinnings(result.Winnings),
+                    ResultClass = ResultFormatter.GetWinningsCssClass(result.Winnings),
                     HasBestResult = hasBestResult,
                     WinnerClass = hasBestResult ? "winner" : null
                 };

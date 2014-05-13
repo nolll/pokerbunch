@@ -53,10 +53,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		[Test]
 		public void Winnings_WithResult_IsSet(){
-            const string expectedResult = "a";
+            const string expectedResult = "+1";
             const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
-            GetMock<IResultFormatter>().Setup(o => o.FormatWinnings(winnings)).Returns(expectedResult);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -95,10 +94,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		[Test]
 		public void WinningsClass_IsSet(){
-            const string resultClass = "a";
+            const string resultClass = "pos-result";
             const int winnings = 1;
             var cashgameResult = new FakeCashgameResult(winnings: winnings);
-            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -129,8 +127,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		private CashgameMatrixTableCellModelFactory GetSut()
         {
-			return new CashgameMatrixTableCellModelFactory(
-                GetMock<IResultFormatter>().Object);
+			return new CashgameMatrixTableCellModelFactory();
 		}
 
 	}

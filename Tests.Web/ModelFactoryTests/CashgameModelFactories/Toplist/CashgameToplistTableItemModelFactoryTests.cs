@@ -6,6 +6,8 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
+using Web.Models.CashgameModels.Toplist;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 {
@@ -31,9 +33,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		public void TableItem_RankIsSet()
         {
             _topListItem.Rank = 1;
-            
-            var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(1, result.Rank);
 		}
@@ -43,8 +44,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		{
 		    _topListItem.Name = "player name";
             
-            var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual("player name", result.Name);
 			Assert.AreEqual("player%20name", result.UrlEncodedName);
@@ -57,8 +57,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             var winnings = new MoneyInTest(1);
             _topListItem.Winnings = winnings;
 
-			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedResult, result.TotalResult);
 		}
@@ -66,14 +65,11 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		[Test]
 		public void TableItem_WinningsClassIsSet()
         {
-            const string resultClass = "a";
+            const string resultClass = "pos-result";
             var winnings = new MoneyInTest(1); 
             _topListItem.Winnings = winnings;
 
-            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(winnings)).Returns(resultClass);
-
-			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(resultClass, result.ResultClass);
 		}
@@ -85,8 +81,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             var timePlayed = new TimeInTest();
 		    _topListItem.TimePlayed = timePlayed;
 
-			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
             Assert.AreEqual(formattedTime, result.GameTime);
 		}
@@ -98,8 +93,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             var winRate = new MoneyInTest(1);
 		    _topListItem.WinRate = winRate;
 
-			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
 			Assert.AreEqual(formattedWinRate, result.WinRate);
 		}
@@ -107,23 +101,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 		[Test]
 		public void TableItem_PlayerUrlIsSet()
 		{
-		    const string playerUrl = "a";
 		    const string playerName = "b";
             _topListItem.Name = playerName;
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(_slug, playerName)).Returns(playerUrl);
+            var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
-			var sut = GetSut();
-            var result = sut.Create(_topListItem, _slug, ToplistSortOrder.Winnings);
-
-            Assert.AreEqual(playerUrl, result.PlayerUrl);
+            Assert.IsInstanceOf<PlayerDetailsUrlModel>(result.PlayerUrlModel);
 		}
 
-		private CashgameToplistTableItemModelFactory GetSut()
-        {
-			return new CashgameToplistTableItemModelFactory(
-                GetMock<IUrlProvider>().Object,
-                GetMock<IResultFormatter>().Object);
-		}
 	}
 }

@@ -9,18 +9,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     {
         private readonly IUrlProvider _urlProvider;
         private readonly ITimeProvider _timeProvider;
-        private readonly IResultFormatter _resultFormatter;
         private readonly IGlobalization _globalization;
 
         public RunningCashgameTableItemModelFactory(
             IUrlProvider urlProvider,
             ITimeProvider timeProvider,
-            IResultFormatter resultFormatter,
             IGlobalization globalization)
         {
             _urlProvider = urlProvider;
             _timeProvider = timeProvider;
-            _resultFormatter = resultFormatter;
             _globalization = globalization;
         }
 
@@ -37,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),
                     Time = GetTime(result.LastReportTime),
-                    WinningsClass = _resultFormatter.GetWinningsCssClass(result.Winnings),
+                    WinningsClass = ResultFormatter.GetWinningsCssClass(result.Winnings),
                     HasCashedOut = result.CashoutTime != null,
                     ManagerButtonsEnabled = isManager
                 };

@@ -98,7 +98,7 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<ICashgameToplistPageBuilder>().Object,
+                GetMock<IToplistPageBuilder>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,

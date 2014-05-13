@@ -113,7 +113,6 @@ namespace Plumbing
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<ICashgameService, CashgameService>();
-            RegisterComponent<IResultFormatter, ResultFormatter>();
             RegisterComponent<IResultSharer, ResultSharer>();
             RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();
 
@@ -121,7 +120,7 @@ namespace Plumbing
             RegisterComponent<IUserListInteractor, UserListInteractor>();
             RegisterComponent<IBunchListInteractor, BunchListInteractor>();
             RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
-            RegisterComponent<ICashgameTopListInteractor, CashgameTopListInteractor>();
+            RegisterComponent<ITopListInteractor, TopListInteractor>();
             RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
             RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
         }

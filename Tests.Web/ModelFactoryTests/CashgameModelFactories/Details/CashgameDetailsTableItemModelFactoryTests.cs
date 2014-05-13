@@ -94,12 +94,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
 		[Test]
         public void WinningsClass_IsSet(){
-		    const string resultClass = "a";
+		    const string resultClass = "pos-result";
             var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult();
+            var cashgameResult = new FakeCashgameResult(winnings: 1);
 		    
-            GetMock<IResultFormatter>().Setup(o => o.GetWinningsCssClass(It.IsAny<int>())).Returns(resultClass);
-
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
 
@@ -136,7 +134,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		private CashgameDetailsTableItemModelFactory GetSut(){
             return new CashgameDetailsTableItemModelFactory(
                 GetMock<IUrlProvider>().Object,
-                GetMock<IResultFormatter>().Object,
                 GetMock<IGlobalization>().Object);
 		}
 

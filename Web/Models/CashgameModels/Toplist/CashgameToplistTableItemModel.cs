@@ -1,24 +1,54 @@
-namespace Web.Models.CashgameModels.Toplist{
+using System.Web;
+using Application.Services;
+using Application.UseCases.CashgameTopList;
+using Web.Services;
 
-	public class CashgameToplistTableItemModel{
+namespace Web.Models.CashgameModels.Toplist
+{
+    public class CashgameToplistTableItemModel
+    {
+        public int Rank { get; private set; }
+        public string Name { get; private set; }
+        public string UrlEncodedName { get; private set; }
+        public string TotalResult { get; private set; }
+        public string ResultSortClass { get; private set; }
+        public string Buyin { get; private set; }
+        public string BuyinSortClass { get; private set; }
+        public string Cashout { get; private set; }
+        public string CashoutSortClass { get; private set; }
+        public string ResultClass { get; private set; }
+        public string GameTime { get; private set; }
+        public string GameTimeSortClass { get; private set; }
+        public int GameCount { get; private set; }
+        public string GameCountSortClass { get; private set; }
+        public string WinRate { get; private set; }
+        public string WinRateSortClass { get; private set; }
+        public UrlModel PlayerUrlModel { get; private set; }
 
-	    public int Rank { get; set; }
-	    public string Name { get; set; }
-	    public string UrlEncodedName { get; set; }
-	    public string TotalResult { get; set; }
-	    public string ResultSortClass { get; set; }
-        public string Buyin { get; set; }
-        public string BuyinSortClass { get; set; }
-        public string Cashout { get; set; }
-        public string CashoutSortClass { get; set; }
-        public string ResultClass { get; set; }
-        public string GameTime { get; set; }
-        public string GameTimeSortClass { get; set; }
-        public int GameCount { get; set; }
-        public string GameCountSortClass { get; set; }
-	    public string WinRate { get; set; }
-        public string WinRateSortClass { get; set; }
-        public string PlayerUrl { get; set; }
+        public CashgameToplistTableItemModel(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
+        {
+            Rank = toplistItem.Rank;
+            TotalResult = toplistItem.Winnings.ToString();
+            Buyin = toplistItem.Buyin.ToString();
+            Cashout = toplistItem.Cashout.ToString();
+            ResultClass = ResultFormatter.GetWinningsCssClass(toplistItem.Winnings);
+            GameTime = toplistItem.TimePlayed.ToString();
+            GameCount = toplistItem.GamesPlayed;
+            WinRate = toplistItem.WinRate.ToString();
+            Name = toplistItem.Name;
+            UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name);
+            PlayerUrlModel = UrlProvider.GetPlayerDetailsUrlStatic(slug, toplistItem.Name);
+            ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
+            BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
+            CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);
+            GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed);
+            GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed);
+            WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate);
+        }
 
-	}
+        private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)
+        {
+            return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
+        }
+    }
 }

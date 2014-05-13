@@ -12,12 +12,12 @@ namespace Tests.Application.UseCases
 {
     class CashgameTopListInteractorTests : MockContainer
     {
-        private CashgameTopListInteractor _sut;
+        private TopListInteractor _sut;
 
         [SetUp]
         public virtual void SetUp()
         {
-            _sut = new CashgameTopListInteractor(
+            _sut = new TopListInteractor(
                 GetMock<IHomegameRepository>().Object,
                 GetMock<ICashgameService>().Object);
         }
@@ -31,7 +31,7 @@ namespace Tests.Application.UseCases
             var totalResultList = new List<CashgameTotalResult> {totalResult};
             var playerList = new List<Player>();
             var suite = new FakeCashgameSuite(totalResults: totalResultList, players: playerList);
-            var request = new CashgameTopListRequest{Slug = slug};
+            var request = new TopListRequest{Slug = slug};
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, null)).Returns(suite);

@@ -11,20 +11,17 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
     {
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameMatrixTableCellModelFactory _cashgameMatrixTableCellModelFactory;
-        private readonly IResultFormatter _resultFormatter;
         private readonly IGlobalization _globalization;
         private readonly IPlayerRepository _playerRepository;
 
         public CashgameMatrixTableRowModelFactory(
             IUrlProvider urlProvider,
             ICashgameMatrixTableCellModelFactory cashgameMatrixTableCellModelFactory,
-            IResultFormatter resultFormatter,
             IGlobalization globalization,
             IPlayerRepository playerRepository)
         {
             _urlProvider = urlProvider;
             _cashgameMatrixTableCellModelFactory = cashgameMatrixTableCellModelFactory;
-            _resultFormatter = resultFormatter;
             _globalization = globalization;
             _playerRepository = playerRepository;
         }
@@ -41,7 +38,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.DisplayName),
                     CellModels = cellModels,
                     TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
-                    ResultClass = _resultFormatter.GetWinningsCssClass(result.Winnings)
+                    ResultClass = ResultFormatter.GetWinningsCssClass(result.Winnings)
                 };
         }
 

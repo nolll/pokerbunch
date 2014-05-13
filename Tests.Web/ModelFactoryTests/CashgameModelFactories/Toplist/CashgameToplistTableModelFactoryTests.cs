@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Application.Services;
 using Application.UseCases.CashgameTopList;
 using NUnit.Framework;
 using Tests.Common;
-using Web.ModelFactories.CashgameModelFactories.Toplist;
+using Web.Models.CashgameModels.Toplist;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 {
@@ -13,10 +12,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 	    public void Table_ItemModelsAreSet()
 	    {
             var items = new List<TopListItem>();
-            var topListResult = new CashgameTopListResult{Items = items};
-            
-	        var sut = GetSut();
-	        var result = sut.Create(topListResult);
+            var topListResult = new TopListResult{Items = items};
+
+            var result = new ToplistTableModel(topListResult);
 
             Assert.AreEqual(items, result.ItemModels);
 	    }
@@ -25,24 +23,16 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 	    public void SortUrls_AllUrlsAreCorrect()
 	    {
             var items = new List<TopListItem>();
-            var topListResult = new CashgameTopListResult { Items = items };
+            var topListResult = new TopListResult { Items = items };
             
-	        var sut = GetSut();
-	        var result = sut.Create(topListResult);
+	        var result = new ToplistTableModel(topListResult);
 
-            Assert.AreEqual("?orderby=winnings", result.ResultSortUrl);
-            Assert.AreEqual("?orderby=buyin", result.BuyinSortUrl);
-            Assert.AreEqual("?orderby=cashout", result.CashoutSortUrl);
-            Assert.AreEqual("?orderby=timeplayed", result.GameTimeSortUrl);
-            Assert.AreEqual("?orderby=gamesplayed", result.GameCountSortUrl);
-            Assert.AreEqual("?orderby=winrate", result.WinRateSortUrl);
+            StringAssert.EndsWith("?orderby=winnings", result.ColumnsModel.ResultColumn.Url);
+            StringAssert.EndsWith("?orderby=buyin", result.ColumnsModel.BuyinColumn.Url);
+            StringAssert.EndsWith("?orderby=cashout", result.ColumnsModel.CashoutColumn.Url);
+            StringAssert.EndsWith("?orderby=timeplayed", result.ColumnsModel.TimePlayedColumn.Url);
+            StringAssert.EndsWith("?orderby=gamesplayed", result.ColumnsModel.GamesPlayedColumn.Url);
+            StringAssert.EndsWith("?orderby=winrate", result.ColumnsModel.WinRateColumn.Url);
 	    }
-
-	    private CashgameToplistTableModelFactory GetSut()
-        {
-			return new CashgameToplistTableModelFactory(
-                GetMock<ICashgameToplistTableItemModelFactory>().Object,
-                GetMock<IUrlProvider>().Object);
-		}
 	}
 }

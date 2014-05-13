@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.CashgameTopList
 {
-    public class CashgameTopListResult
+    public class TopListResult
     {
         public IList<TopListItem> Items { get; set; }
         public ToplistSortOrder OrderBy { get; set; }

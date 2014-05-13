@@ -11,8 +11,7 @@ namespace Tests.Web.ServiceTests
             const int winnings = -1;
             const string expectedResult = "-1";
 
-            var sut = GetSut();
-            var result = sut.FormatWinnings(winnings);
+            var result = ResultFormatter.FormatWinnings(winnings);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -23,8 +22,7 @@ namespace Tests.Web.ServiceTests
             const int winnings = 0;
             const string expectedResult = "0";
 
-            var sut = GetSut();
-            var result = sut.FormatWinnings(winnings);
+            var result = ResultFormatter.FormatWinnings(winnings);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -35,8 +33,7 @@ namespace Tests.Web.ServiceTests
             const int winnings = 1;
             const string expectedResult = "+1";
 
-            var sut = GetSut();
-            var result = sut.FormatWinnings(winnings);
+            var result = ResultFormatter.FormatWinnings(winnings);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -47,8 +44,7 @@ namespace Tests.Web.ServiceTests
             const int winnings = -1;
             const string expectedCssClass = "neg-result";
 
-            var sut = GetSut();
-            var result = sut.GetWinningsCssClass(winnings);
+            var result = ResultFormatter.GetWinningsCssClass(winnings);
 
             Assert.AreEqual(expectedCssClass, result);
         }
@@ -59,8 +55,7 @@ namespace Tests.Web.ServiceTests
             const int winnings = 0;
             const string expectedCssClass = "";
 
-            var sut = GetSut();
-            var result = sut.GetWinningsCssClass(winnings);
+            var result = ResultFormatter.GetWinningsCssClass(winnings);
 
             Assert.AreEqual(expectedCssClass, result);
         }
@@ -71,15 +66,9 @@ namespace Tests.Web.ServiceTests
             const int winnings = 1;
             const string expectedCssClass = "pos-result";
 
-            var sut = GetSut();
-            var result = sut.GetWinningsCssClass(winnings);
+            var result = ResultFormatter.GetWinningsCssClass(winnings);
 
             Assert.AreEqual(expectedCssClass, result);
-        }
-
-        private ResultFormatter GetSut()
-        {
-            return new ResultFormatter();
         }
     }
 }

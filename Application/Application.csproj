@@ -83,7 +83,6 @@
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\InvitationSender.cs" />
     <Compile Include="Services\Interfaces\IPasswordMessageBuilder.cs" />
-    <Compile Include="Services\Interfaces\IResultFormatter.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\PasswordMessageBuilder.cs" />
     <Compile Include="Services\PasswordSender.cs" />
@@ -111,10 +110,10 @@
     <Compile Include="UseCases\CashgameFacts\DurationFact.cs" />
     <Compile Include="UseCases\CashgameFacts\ICashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\PlayerFact.cs" />
-    <Compile Include="UseCases\CashgameTopList\CashgameTopListInteractor.cs" />
-    <Compile Include="UseCases\CashgameTopList\CashgameTopListRequest.cs" />
-    <Compile Include="UseCases\CashgameTopList\CashgameTopListResult.cs" />
-    <Compile Include="UseCases\CashgameTopList\ICashgameTopListInteractor.cs" />
+    <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />
+    <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
+    <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />
+    <Compile Include="UseCases\CashgameTopList\ITopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
     <Compile Include="UseCases\PlayerList\IPlayerListInteractor.cs" />

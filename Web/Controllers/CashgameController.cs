@@ -22,7 +22,7 @@ namespace Web.Controllers
 	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly ICashgameModelService _cashgameModelService;
-	    private readonly ICashgameToplistPageBuilder _cashgameToplistPageBuilder;
+	    private readonly IToplistPageBuilder _toplistPageBuilder;
 	    private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
 
 	    public CashgameController(
@@ -30,14 +30,14 @@ namespace Web.Controllers
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
             ICashgameModelService cashgameModelService,
-            ICashgameToplistPageBuilder cashgameToplistPageBuilder,
+            IToplistPageBuilder toplistPageBuilder,
             ICashgameFactsPageBuilder cashgameFactsPageBuilder)
 	    {
 	        _urlProvider = urlProvider;
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;
-	        _cashgameToplistPageBuilder = cashgameToplistPageBuilder;
+	        _toplistPageBuilder = toplistPageBuilder;
 	        _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
 	    }
 
@@ -58,7 +58,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            var model = _cashgameToplistPageBuilder.Build(slug, orderBy, year);
+            var model = _toplistPageBuilder.Build(slug, orderBy, year);
             return View("Toplist/ToplistPage", model);
 		}
 

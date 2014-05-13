@@ -206,7 +206,7 @@ namespace Web.ModelServices
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameToplistPageBuilder _cashgameToplistPageBuilder;
+        private readonly IToplistPageBuilder _toplistPageBuilder;
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
@@ -234,7 +234,7 @@ namespace Web.ModelServices
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
-            ICashgameToplistPageBuilder cashgameToplistPageBuilder,
+            IToplistPageBuilder toplistPageBuilder,
             IUrlProvider urlProvider,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
@@ -261,7 +261,7 @@ namespace Web.ModelServices
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
-            _cashgameToplistPageBuilder = cashgameToplistPageBuilder;
+            _toplistPageBuilder = toplistPageBuilder;
             _urlProvider = urlProvider;
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;
