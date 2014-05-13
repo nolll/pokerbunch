@@ -124,8 +124,6 @@
     <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\IToplistTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ToplistTableModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserListPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserListPageBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
