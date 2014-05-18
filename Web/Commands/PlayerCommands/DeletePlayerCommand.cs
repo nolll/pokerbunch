@@ -1,4 +1,4 @@
-﻿using Core.Classes;
+﻿using Core.Entities;
 using Core.Repositories;
 
 namespace Web.Commands.PlayerCommands

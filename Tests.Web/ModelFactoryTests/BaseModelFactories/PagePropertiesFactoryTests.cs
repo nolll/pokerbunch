@@ -1,4 +1,4 @@
-﻿using Core.Classes;
+﻿using Core.Entities;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

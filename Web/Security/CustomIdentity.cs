@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Security;
-using Core.Classes;
+using Core.Entities;
 using Newtonsoft.Json;
 
 namespace Web.Security

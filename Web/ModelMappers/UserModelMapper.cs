@@ -1,5 +1,5 @@
 using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.Edit;
 

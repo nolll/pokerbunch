@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Classes;
+using Core.Entities;
 using Core.Factories.Interfaces;
 
 namespace Core.Factories

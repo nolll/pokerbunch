@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Application.UseCases.CashgameTopList;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;
 using NUnit.Framework;

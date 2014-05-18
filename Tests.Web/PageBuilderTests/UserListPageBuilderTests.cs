@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.UseCases.UserList;
-using Core.Classes;
+using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.PageBaseModelFactories;

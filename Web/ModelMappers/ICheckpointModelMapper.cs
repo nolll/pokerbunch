@@ -1,5 +1,5 @@
 using System;
-using Core.Classes.Checkpoints;
+using Core.Entities.Checkpoints;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;

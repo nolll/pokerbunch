@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Core.Factories;
 using Core.Factories.Interfaces;
 using Moq;

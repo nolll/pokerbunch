@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.List;

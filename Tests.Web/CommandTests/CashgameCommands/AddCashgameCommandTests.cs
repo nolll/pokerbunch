@@ -1,5 +1,5 @@
 ﻿using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;

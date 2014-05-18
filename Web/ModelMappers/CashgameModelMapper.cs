@@ -1,5 +1,5 @@
 using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.CashgameModels.Edit;
 
 namespace Web.ModelMappers

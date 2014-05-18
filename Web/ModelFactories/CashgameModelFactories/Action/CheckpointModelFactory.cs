@@ -1,7 +1,7 @@
 using System;
 using Application.Services;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 using Web.Models.CashgameModels.Action;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action

@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;

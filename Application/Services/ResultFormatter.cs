@@ -1,5 +1,5 @@
 using System.Globalization;
-using Core.Classes;
+using Core.Entities;
 
 namespace Application.Services
 {

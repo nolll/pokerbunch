@@ -33,17 +33,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CashgameFacts.cs" />
-    <Compile Include="Classes\Checkpoints\BuyinCheckpoint.cs" />
-    <Compile Include="Classes\Checkpoints\CashoutCheckpoint.cs" />
-    <Compile Include="Classes\Checkpoints\ReportCheckpoint.cs" />
-    <Compile Include="Classes\Identifier.cs" />
-    <Compile Include="Classes\Money.cs" />
-    <Compile Include="Classes\MoneyResult.cs" />
-    <Compile Include="Classes\MoneyWinRate.cs" />
-    <Compile Include="Classes\Time.cs" />
-    <Compile Include="Classes\TwitterCredentials.cs" />
-    <Compile Include="Classes\ICacheable.cs" />
+    <Compile Include="Entities\CashgameFacts.cs" />
+    <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
+    <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
+    <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
+    <Compile Include="Entities\Identifier.cs" />
+    <Compile Include="Entities\Money.cs" />
+    <Compile Include="Entities\MoneyResult.cs" />
+    <Compile Include="Entities\MoneyWinRate.cs" />
+    <Compile Include="Entities\Time.cs" />
+    <Compile Include="Entities\TwitterCredentials.cs" />
+    <Compile Include="Entities\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="Factories\CashgameFactsFactory.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
@@ -55,41 +55,41 @@
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Player.cs" />
+    <Compile Include="Entities\Player.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Role.cs" />
+    <Compile Include="Entities\Role.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\ICashgameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Cashgame.cs" />
+    <Compile Include="Entities\Cashgame.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\GameStatus.cs" />
+    <Compile Include="Entities\GameStatus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Checkpoints\Checkpoint.cs" />
-    <Compile Include="Classes\Checkpoints\CheckpointType.cs" />
+    <Compile Include="Entities\Checkpoints\Checkpoint.cs" />
+    <Compile Include="Entities\Checkpoints\CheckpointType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CashgameResult.cs" />
+    <Compile Include="Entities\CashgameResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\User.cs" />
+    <Compile Include="Entities\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CashgameTotalResult.cs" />
+    <Compile Include="Entities\CashgameTotalResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CashgameSuite.cs" />
+    <Compile Include="Entities\CashgameSuite.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Currency.cs" />
+    <Compile Include="Entities\Currency.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Homegame.cs" />
+    <Compile Include="Entities\Homegame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\ICheckpointRepository.cs" />
@@ -104,10 +104,10 @@
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AvatarSize.cs" />
+    <Compile Include="Entities\AvatarSize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SocialServiceIdentifier.cs" />
+    <Compile Include="Entities\SocialServiceIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

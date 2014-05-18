@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.PlayerModels.Badges;
 
 namespace Web.ModelFactories.PlayerModelFactories

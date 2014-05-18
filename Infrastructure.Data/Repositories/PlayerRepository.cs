@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using System.Linq;
 using Infrastructure.Data.Cache;

@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;
 
@@ -52,49 +52,49 @@ namespace Application.UseCases.CashgameFacts
                 };
         }
 
-        private AmountFact GetBestResult(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetBestResult(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BestResult.PlayerId);
             var amount = new Money(facts.BestResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetWorstResult(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetWorstResult(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.WorstResult.PlayerId);
             var amount = new Money(facts.WorstResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetBestTotalResult(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetBestTotalResult(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BestTotalResult.PlayerId);
             var amount = new Money(facts.BestTotalResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetWorstTotalResult(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetWorstTotalResult(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.WorstTotalResult.PlayerId);
             var amount = new Money(facts.WorstTotalResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private DurationFact GetMostTimeResult(Core.Classes.CashgameFacts facts)
+        private DurationFact GetMostTimeResult(Core.Entities.CashgameFacts facts)
         {
             var playerName = GetPlayerName(facts.MostTimeResult.PlayerId);
             var amount = facts.MostTimeResult.TimePlayed;
             return new DurationFact(playerName, amount);
         }
 
-        private AmountFact GetBiggestTotalBuyin(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetBiggestTotalBuyin(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BiggestBuyinTotalResult.PlayerId);
             var amount = new Money(facts.BiggestBuyinTotalResult.Buyin, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetBiggestTotalCashout(Core.Classes.CashgameFacts facts, Currency currency)
+        private AmountFact GetBiggestTotalCashout(Core.Entities.CashgameFacts facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BiggestCashoutTotalResult.PlayerId);
             var amount = new Money(facts.BiggestCashoutTotalResult.Cashout, currency);

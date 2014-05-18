@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.CashgameModels.Chart;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Application.Factories;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;

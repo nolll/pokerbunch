@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Application.UseCases.CashgameFacts;
-using Core.Classes;
+using Core.Entities;
 
 namespace Application.Services
 {

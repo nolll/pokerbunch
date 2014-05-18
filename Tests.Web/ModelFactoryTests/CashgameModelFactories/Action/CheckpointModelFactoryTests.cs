@@ -1,7 +1,7 @@
 using System;
 using Application.Services;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

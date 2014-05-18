@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 
 namespace Infrastructure.Data.Cache
 {

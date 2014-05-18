@@ -1,5 +1,5 @@
 ﻿using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers

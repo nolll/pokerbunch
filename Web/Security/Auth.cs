@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Security;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Newtonsoft.Json;
 

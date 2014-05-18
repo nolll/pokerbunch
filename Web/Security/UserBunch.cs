@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 
 namespace Web.Security
 {

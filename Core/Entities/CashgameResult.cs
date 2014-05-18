@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes.Checkpoints;
+using Core.Entities.Checkpoints;
 
-namespace Core.Classes{
+namespace Core.Entities{
     public class CashgameResult{
 
         public int PlayerId { get; private set; }

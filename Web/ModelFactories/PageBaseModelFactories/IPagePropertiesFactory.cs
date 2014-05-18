@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.CashgameContext;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.PageBaseModelFactories

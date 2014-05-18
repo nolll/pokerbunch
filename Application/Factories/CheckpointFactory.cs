@@ -1,5 +1,5 @@
 using System;
-using Core.Classes.Checkpoints;
+using Core.Entities.Checkpoints;
 
 namespace Application.Factories
 {

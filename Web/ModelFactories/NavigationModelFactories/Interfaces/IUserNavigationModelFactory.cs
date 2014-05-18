@@ -1,4 +1,4 @@
-﻿using Core.Classes;
+﻿using Core.Entities;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

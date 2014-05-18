@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Application.UseCases.CashgameContext;
-using Core.Classes;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Matrix;
 

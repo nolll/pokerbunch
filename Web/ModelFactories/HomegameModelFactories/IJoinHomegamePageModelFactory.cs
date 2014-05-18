@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 using Web.Models.HomegameModels.Join;
 
 namespace Web.ModelFactories.HomegameModelFactories

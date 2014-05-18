@@ -1,6 +1,6 @@
 using Application.Factories;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 
 namespace Infrastructure.Integration.Social{

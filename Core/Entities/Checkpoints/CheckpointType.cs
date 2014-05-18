@@ -1,4 +1,4 @@
-namespace Core.Classes.Checkpoints
+namespace Core.Entities.Checkpoints
 {
 	public enum CheckpointType
     {

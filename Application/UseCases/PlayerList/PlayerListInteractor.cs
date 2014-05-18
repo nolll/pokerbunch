@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 
 namespace Application.UseCases.PlayerList

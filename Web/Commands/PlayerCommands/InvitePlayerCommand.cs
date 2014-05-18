@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.PlayerModels.Invite;
 
 namespace Web.Commands.PlayerCommands

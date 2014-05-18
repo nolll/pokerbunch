@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Classes.Checkpoints
+namespace Core.Entities.Checkpoints
 {
     public class ReportCheckpoint : Checkpoint
     {

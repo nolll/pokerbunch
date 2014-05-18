@@ -1,5 +1,5 @@
-﻿using Core.Classes;
-using Core.Classes.Checkpoints;
+﻿using Core.Entities;
+using Core.Entities.Checkpoints;
 using Web.Models.CashgameModels.Checkpoints;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints

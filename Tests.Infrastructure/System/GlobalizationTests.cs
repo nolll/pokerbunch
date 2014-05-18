@@ -1,5 +1,5 @@
 using System;
-using Core.Classes;
+using Core.Entities;
 using Infrastructure.System;
 using NUnit.Framework;
 

@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;

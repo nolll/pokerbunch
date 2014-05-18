@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;

@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 using NUnit.Framework;
 
 namespace Tests.Core

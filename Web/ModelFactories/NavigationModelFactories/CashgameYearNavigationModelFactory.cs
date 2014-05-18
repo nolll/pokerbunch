@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using Application.Services;
 using Application.UseCases.CashgameContext;
-using Core.Classes;
 using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.NavigationModelFactories

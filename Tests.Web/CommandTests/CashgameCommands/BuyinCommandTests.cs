@@ -1,5 +1,5 @@
-﻿using Core.Classes;
-using Core.Classes.Checkpoints;
+﻿using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Moq;
 using NUnit.Framework;

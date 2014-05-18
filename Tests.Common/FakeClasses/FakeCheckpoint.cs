@@ -1,5 +1,5 @@
 using System;
-using Core.Classes.Checkpoints;
+using Core.Entities.Checkpoints;
 
 namespace Tests.Common.FakeClasses
 {

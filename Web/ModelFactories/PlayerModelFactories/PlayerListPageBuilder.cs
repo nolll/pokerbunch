@@ -1,6 +1,6 @@
 ﻿using Application.Services;
 using Application.UseCases.PlayerList;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;

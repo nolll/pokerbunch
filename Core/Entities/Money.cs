@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Classes
+namespace Core.Entities
 {
     public class Money : IComparable<Money>
     {

@@ -1,5 +1,5 @@
 using System.Web;
-using Core.Classes;
+using Core.Entities;
 
 namespace Web.Security.Attributes
 {

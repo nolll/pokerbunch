@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

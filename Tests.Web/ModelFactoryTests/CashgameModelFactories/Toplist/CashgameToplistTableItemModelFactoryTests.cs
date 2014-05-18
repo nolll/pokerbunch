@@ -1,7 +1,6 @@
 using System;
 using Application.Services;
 using Application.UseCases.CashgameTopList;
-using Core.Classes;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

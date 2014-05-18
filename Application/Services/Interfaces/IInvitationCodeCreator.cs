@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 
 namespace Application.Services{
     public interface IInvitationCodeCreator{

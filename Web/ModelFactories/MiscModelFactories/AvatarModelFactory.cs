@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.MiscModels;
 
 namespace Web.ModelFactories.MiscModelFactories{

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Application.Services;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 

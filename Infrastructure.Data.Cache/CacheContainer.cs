@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Core.Classes;
+using Core.Entities;
 
 namespace Infrastructure.Data.Cache
 {

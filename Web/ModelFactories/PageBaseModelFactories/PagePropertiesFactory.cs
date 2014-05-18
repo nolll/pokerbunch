@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.CashgameContext;
-using Core.Classes;
+using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.Models.NavigationModels;

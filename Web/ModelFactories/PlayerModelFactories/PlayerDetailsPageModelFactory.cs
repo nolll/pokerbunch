@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Details;

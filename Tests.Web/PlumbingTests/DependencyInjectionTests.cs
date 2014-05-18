@@ -6,7 +6,7 @@ using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Core.Classes;
+using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Models.PageBaseModels;

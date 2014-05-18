@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Moq;
 using NUnit.Framework;

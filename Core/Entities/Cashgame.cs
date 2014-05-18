@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Classes
+namespace Core.Entities
 {
     public class Cashgame : ICacheable
     {

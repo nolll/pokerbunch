@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Core.Classes
+namespace Core.Entities
 {
     public class CashgameSuite
     {

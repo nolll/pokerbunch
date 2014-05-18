@@ -1,5 +1,5 @@
 using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;

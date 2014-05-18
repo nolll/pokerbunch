@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.PlayerModels.Facts;
 
 namespace Web.ModelFactories.PlayerModelFactories

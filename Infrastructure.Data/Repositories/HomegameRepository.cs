@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Factories;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;

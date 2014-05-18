@@ -1,6 +1,6 @@
 using System;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Web.ModelMappers;
 using Web.Models.CashgameModels.Checkpoints;

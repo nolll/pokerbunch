@@ -1,5 +1,5 @@
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes;
+using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

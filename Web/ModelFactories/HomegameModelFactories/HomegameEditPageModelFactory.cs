@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Edit;
 

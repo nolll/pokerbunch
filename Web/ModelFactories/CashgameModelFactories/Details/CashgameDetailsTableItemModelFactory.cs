@@ -1,6 +1,6 @@
 using System;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Web.Models.CashgameModels.Details;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details

@@ -1,4 +1,4 @@
-using Core.Classes.Checkpoints;
+using Core.Entities.Checkpoints;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers

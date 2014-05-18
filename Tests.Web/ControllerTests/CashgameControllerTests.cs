@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;
 using NUnit.Framework;

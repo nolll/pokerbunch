@@ -1,6 +1,6 @@
 using System;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Interfaces;
 

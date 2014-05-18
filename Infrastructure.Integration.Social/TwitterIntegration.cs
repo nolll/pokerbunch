@@ -1,7 +1,7 @@
 using System;
 using Application.Factories;
 using Application.Services;
-using Core.Classes;
+using Core.Entities;
 using Core.Repositories;
 using TweetSharp;
 

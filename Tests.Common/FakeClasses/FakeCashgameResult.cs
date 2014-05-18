@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Core.Classes;
-using Core.Classes.Checkpoints;
+using Core.Entities;
+using Core.Entities.Checkpoints;
 
 namespace Tests.Common.FakeClasses
 {

@@ -1,4 +1,4 @@
-﻿using Core.Classes;
+﻿using Core.Entities;
 using Web.Models.SharingModels;
 
 namespace Web.ModelFactories.SharingModelFactories

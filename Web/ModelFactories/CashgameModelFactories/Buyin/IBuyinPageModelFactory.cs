@@ -1,4 +1,4 @@
-using Core.Classes;
+using Core.Entities;
 using Web.Models.CashgameModels.Buyin;
 
 namespace Web.ModelFactories.CashgameModelFactories.Buyin

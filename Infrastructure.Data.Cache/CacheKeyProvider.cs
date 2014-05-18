@@ -1,5 +1,5 @@
 using System.Text;
-using Core.Classes;
+using Core.Entities;
 
 namespace Infrastructure.Data.Cache
 {

@@ -1,5 +1,4 @@
-﻿using Core.Classes;
-using Web.Models.HomegameModels.Add;
+﻿using Web.Models.HomegameModels.Add;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Core.Classes
+namespace Core.Entities
 {
     public class Identifier
     {
