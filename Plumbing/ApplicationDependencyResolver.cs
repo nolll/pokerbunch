@@ -83,7 +83,6 @@ namespace Plumbing
             RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
             RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
             RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
-            RegisterComponent<ICashgameFactsFactory, CashgameFactsFactory>();
             RegisterComponent<ICheckpointFactory, CheckpointFactory>();
             RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 

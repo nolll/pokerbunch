@@ -1,41 +1,43 @@
 ﻿using System;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services.Interfaces;
 
 namespace Application.UseCases.CashgameFacts
 {
     public class CashgameFactsInteractor : ICashgameFactsInteractor
     {
-        private readonly ICashgameService _cashgameService;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
         public CashgameFactsInteractor(
-            ICashgameService cashgameService,
             IHomegameRepository homegameRepository,
+            ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository)
         {
-            _cashgameService = cashgameService;
             _homegameRepository = homegameRepository;
+            _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
         public CashgameFactsResult Execute(CashgameFactsRequest request)
         {
             var homegame = _homegameRepository.GetBySlug(request.Slug);
-            var facts = _cashgameService.GetFacts(homegame, request.Year);
+            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.GetPublished(homegame, request.Year);
+            var factBuilder = new FactBuilder(cashgames, players);
 
-            var gameCount = facts.GameCount;
-            var timePlayed = TimeSpan.FromMinutes(facts.TotalGameTime);
-            var turnover = new Money(facts.TotalTurnover, homegame.Currency);
-            var bestResult = GetBestResult(facts, homegame.Currency);
-            var worstResult = GetWorstResult(facts, homegame.Currency);
-            var bestTotalResult = GetBestTotalResult(facts, homegame.Currency);
-            var worstTotalResult = GetWorstTotalResult(facts, homegame.Currency);
-            var mostTimeResult = GetMostTimeResult(facts);
-            var biggestTotalBuyin = GetBiggestTotalBuyin(facts, homegame.Currency);
-            var biggestTotalCashout = GetBiggestTotalCashout(facts, homegame.Currency);
+            var gameCount = factBuilder.GameCount;
+            var timePlayed = TimeSpan.FromMinutes(factBuilder.TotalGameTime);
+            var turnover = new Money(factBuilder.TotalTurnover, homegame.Currency);
+            var bestResult = GetBestResult(factBuilder, homegame.Currency);
+            var worstResult = GetWorstResult(factBuilder, homegame.Currency);
+            var bestTotalResult = GetBestTotalResult(factBuilder, homegame.Currency);
+            var worstTotalResult = GetWorstTotalResult(factBuilder, homegame.Currency);
+            var mostTimeResult = GetMostTimeResult(factBuilder);
+            var biggestTotalBuyin = GetBiggestTotalBuyin(factBuilder, homegame.Currency);
+            var biggestTotalCashout = GetBiggestTotalCashout(factBuilder, homegame.Currency);
 
             return new CashgameFactsResult
                 {
@@ -52,53 +54,48 @@ namespace Application.UseCases.CashgameFacts
                 };
         }
 
-        private AmountFact GetBestResult(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetBestResult(FactBuilder facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.BestResult.PlayerId);
             var amount = new Money(facts.BestResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetWorstResult(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetWorstResult(FactBuilder facts, Currency currency)
         {
             var playerName = GetPlayerName(facts.WorstResult.PlayerId);
             var amount = new Money(facts.WorstResult.Winnings, currency);
             return new AmountFact(playerName, amount);
         }
 
-        private AmountFact GetBestTotalResult(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetBestTotalResult(FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.BestTotalResult.PlayerId);
             var amount = new Money(facts.BestTotalResult.Winnings, currency);
-            return new AmountFact(playerName, amount);
+            return new AmountFact(facts.BestTotalResult.Player.DisplayName, amount);
         }
 
-        private AmountFact GetWorstTotalResult(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetWorstTotalResult(FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.WorstTotalResult.PlayerId);
             var amount = new Money(facts.WorstTotalResult.Winnings, currency);
-            return new AmountFact(playerName, amount);
+            return new AmountFact(facts.WorstTotalResult.Player.DisplayName, amount);
         }
 
-        private DurationFact GetMostTimeResult(Core.Entities.CashgameFacts facts)
+        private DurationFact GetMostTimeResult(FactBuilder facts)
         {
-            var playerName = GetPlayerName(facts.MostTimeResult.PlayerId);
             var amount = facts.MostTimeResult.TimePlayed;
-            return new DurationFact(playerName, amount);
+            return new DurationFact(facts.MostTimeResult.Player.DisplayName, amount);
         }
 
-        private AmountFact GetBiggestTotalBuyin(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetBiggestTotalBuyin(FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.BiggestBuyinTotalResult.PlayerId);
             var amount = new Money(facts.BiggestBuyinTotalResult.Buyin, currency);
-            return new AmountFact(playerName, amount);
+            return new AmountFact(facts.BiggestBuyinTotalResult.Player.DisplayName, amount);
         }
 
-        private AmountFact GetBiggestTotalCashout(Core.Entities.CashgameFacts facts, Currency currency)
+        private AmountFact GetBiggestTotalCashout(FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.BiggestCashoutTotalResult.PlayerId);
             var amount = new Money(facts.BiggestCashoutTotalResult.Cashout, currency);
-            return new AmountFact(playerName, amount);
+            return new AmountFact(facts.BiggestCashoutTotalResult.Player.DisplayName, amount);
         }
 
         private string GetPlayerName(int playerId)

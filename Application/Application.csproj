@@ -108,6 +108,7 @@
     <Compile Include="UseCases\CashgameFacts\CashgameFactsRequest.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsResult.cs" />
     <Compile Include="UseCases\CashgameFacts\DurationFact.cs" />
+    <Compile Include="UseCases\CashgameFacts\FactBuilder.cs" />
     <Compile Include="UseCases\CashgameFacts\ICashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\PlayerFact.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />

@@ -1,10 +1,11 @@
+using Application.UseCases.CashgameFacts;
 using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCashgameFacts : CashgameFacts
+    public class FakeFactBuilder : FactBuilder
     {
-        public FakeCashgameFacts(
+        public FakeFactBuilder(
             int gameCount = default(int),
             CashgameResult bestResult = default(CashgameResult),
             CashgameResult worstResult = default(CashgameResult),

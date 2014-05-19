@@ -39,8 +39,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             var factsResult = GetFactsResult(slug, year);
             
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
-            var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
-            var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
+            var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Facts);
+            var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Facts);
 
             return new CashgameFactsPageModel
                 {

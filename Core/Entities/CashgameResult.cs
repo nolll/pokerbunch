@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using Core.Entities.Checkpoints;
 
-namespace Core.Entities{
-    public class CashgameResult{
-
+namespace Core.Entities
+{
+    public class CashgameResult
+    {
         public int PlayerId { get; private set; }
         public int Buyin { get; private set; }
         public int Winnings { get; private set; }
@@ -40,5 +41,4 @@ namespace Core.Entities{
 	        CashoutCheckpoint = cashoutCheckpoint;
 	    }
 	}
-
 }

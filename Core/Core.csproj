@@ -33,7 +33,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CashgameFacts.cs" />
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
@@ -45,10 +44,8 @@
     <Compile Include="Entities\TwitterCredentials.cs" />
     <Compile Include="Entities\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="Factories\CashgameFactsFactory.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CashgameTotalResultFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameFactsFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
     <Compile Include="Services\CashgameService.cs" />

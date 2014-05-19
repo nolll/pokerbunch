@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheContainerFake.cs" />
-    <Compile Include="FakeClasses\FakeCashgameFacts.cs" />
+    <Compile Include="FakeClasses\FakeFactBuilder.cs" />
     <Compile Include="FakeClasses\FakeCashgameSuite.cs" />
     <Compile Include="FakeClasses\FakeCashgameTotalResult.cs" />
     <Compile Include="FakeClasses\FakeCheckpoint.cs" />
@@ -60,6 +60,10 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{F40E71CE-E7D3-4AF9-B944-6D97DBD42FD9}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>

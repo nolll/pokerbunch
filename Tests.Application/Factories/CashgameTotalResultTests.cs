@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Factories;
 using Core.Entities;
 using Core.Factories;
 using NUnit.Framework;
@@ -8,7 +7,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Factories{
 
-	public class CashgameTotalResultFactoryTests {
+	public class CashgameTotalResultTests {
 
         [Test]
         public void Create_WithTwoResults_ReturnsModelWithCorrectValues()
@@ -38,7 +37,7 @@ namespace Tests.Application.Factories{
             var cashgames = new List<Cashgame> {cashgame1, cashgame2};
             
             var sut = GetSut();
-            var result = sut.Create(player, cashgames);
+            var result = new CashgameTotalResult(player, cashgames);
 
             Assert.AreEqual(expectedGameCount, result.GameCount);
             Assert.AreEqual(expectedWinnings, result.Winnings);
@@ -69,14 +68,12 @@ namespace Tests.Application.Factories{
 	        var result = sut.CreateList(players, cashgames);
 
             Assert.AreEqual(expectedCount, result.Count);
-            Assert.AreEqual(expectedFirstPlayerId, result.First().PlayerId);
+            Assert.AreEqual(expectedFirstPlayerId, result.First().Player.Id);
 	    }
 
         private CashgameTotalResultFactory GetSut()
         {
             return new CashgameTotalResultFactory();
         }
-
 	}
-
 }

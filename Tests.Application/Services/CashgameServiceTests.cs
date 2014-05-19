@@ -32,25 +32,6 @@ namespace Tests.Application.Services
             Assert.AreEqual(suite, result);
         }
 
-        [TestCase(null)]
-        [TestCase(1)]
-        public void GetFacts_WithOrWithoutYear_ReturnsSuite(int? year)
-        {
-            var homegame = new FakeHomegame();
-            var players = new List<Player>();
-            var cashgames = new List<Cashgame>();
-            var facts = new FakeCashgameFacts();
-
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
-            GetMock<ICashgameFactsFactory>().Setup(o => o.Create(cashgames, players)).Returns(facts);
-
-            var sut = GetSut();
-            var result = sut.GetFacts(homegame, year);
-
-            Assert.AreEqual(facts, result);
-        }
-
         [Test]
         public void GetPlayers_WithCashgameWithTwoResults_CallsGetListWithTwoIds()
         {
@@ -138,7 +119,6 @@ namespace Tests.Application.Services
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<ICashgameSuiteFactory>().Object,
-                GetMock<ICashgameFactsFactory>().Object,
                 GetMock<IHomegameRepository>().Object);
         }
     }

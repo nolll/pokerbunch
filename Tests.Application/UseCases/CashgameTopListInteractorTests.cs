@@ -27,7 +27,7 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             var homegame = new FakeHomegame();
-            var totalResult = new FakeCashgameTotalResult();
+            var totalResult = new FakeCashgameTotalResult(player: new FakePlayer());
             var totalResultList = new List<CashgameTotalResult> {totalResult};
             var playerList = new List<Player>();
             var suite = new FakeCashgameSuite(totalResults: totalResultList, players: playerList);
@@ -54,13 +54,12 @@ namespace Tests.Application.UseCases
             const int winnings = 6;
             const int winRate = 7;
             const int expectedRank = 1;
-            var totalResult = new FakeCashgameTotalResult(playerId: playerId, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
+            var player = new FakePlayer(playerId, displayName: playerName);
+            var totalResult = new FakeCashgameTotalResult(player: player, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
             const int index = 0;
             var currency = Currency.Default;
-            var player = new FakePlayer(playerId, displayName: playerName);
-            var players = new List<Player>{player};
-
-            var result = _sut.CreateItem(totalResult, index, currency, players);
+            
+            var result = _sut.CreateItem(totalResult, index, currency);
 
             Assert.AreEqual(expectedRank, result.Rank);
             Assert.AreEqual(buyin, result.Buyin.Amount);
