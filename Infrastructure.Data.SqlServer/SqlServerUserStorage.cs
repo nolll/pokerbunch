@@ -69,7 +69,7 @@ namespace Infrastructure.Data.SqlServer
 		        };
 		    var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
-		}
+        }
 
 		public int AddUser(RawUser user)
         {

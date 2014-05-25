@@ -13,6 +13,12 @@ namespace Web.Security
         private readonly bool _isAuthenticated;
         private readonly UserIdentity _user;
 
+        public CustomIdentity()
+        {
+            _isAuthenticated = false;
+            _user = new UserIdentity();
+        }
+
         public CustomIdentity(bool isAuthenticated, string userData)
         {
             _isAuthenticated = isAuthenticated;

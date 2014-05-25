@@ -18,7 +18,8 @@ namespace Infrastructure.Data.SqlServer
         {
             get
             {
-                return new SqlParameter(ParameterName, Value);
+                var value = Value ?? DBNull.Value;
+                return new SqlParameter(ParameterName, value);
             }
         }
 

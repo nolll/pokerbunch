@@ -57,7 +57,8 @@ namespace Web.Security
 
         private CustomIdentity GetIdentity()
         {
-            return HttpContext.Current.User.Identity as CustomIdentity;
+            var identity = HttpContext.Current.User.Identity as CustomIdentity;
+            return identity ?? new CustomIdentity();
         }
 
         public User CurrentUser
