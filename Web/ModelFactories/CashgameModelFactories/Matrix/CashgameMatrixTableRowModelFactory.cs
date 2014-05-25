@@ -49,8 +49,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             foreach (var result in results)
             {
                 rank++;
-                var player = _playerRepository.GetById(result.PlayerId);
-                models.Add(Create(homegame, suite, player, result, rank));
+                models.Add(Create(homegame, suite, result.Player, result, rank));
             }
             return models;
         }

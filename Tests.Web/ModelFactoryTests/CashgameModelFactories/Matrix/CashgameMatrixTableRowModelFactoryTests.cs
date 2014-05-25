@@ -105,11 +105,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
         {
             var homegame = new FakeHomegame();
             var suite = new FakeCashgameSuite();
-            var totalResult = new FakeCashgameTotalResult();
-            var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
             var player = new FakePlayer();
-
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(It.IsAny<int>())).Returns(player);
+            var totalResult = new FakeCashgameTotalResult(player: player);
+            var totalResults = new List<CashgameTotalResult>{totalResult, totalResult};
 
             var sut = GetSut();
             var result = sut.CreateList(homegame, suite, totalResults);

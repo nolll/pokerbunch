@@ -44,8 +44,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 var currentSum = new Dictionary<int, int?>();
                 foreach (var totalResult in results)
                 {
-                    var singleResult = cashgame.GetResult(totalResult.PlayerId);
-                    var playerId = totalResult.PlayerId;
+                    var singleResult = cashgame.GetResult(totalResult.Player.Id);
+                    var playerId = totalResult.Player.Id;
                     if (singleResult != null || i == cashgames.Count - 1)
                     {
                         var res = singleResult != null ? singleResult.Stack - singleResult.Buyin : 0;
@@ -68,7 +68,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             var playerSum = new Dictionary<int, int?>();
             foreach (var result in results)
             {
-                playerSum[result.PlayerId] = 0;
+                playerSum[result.Player.Id] = 0;
             }
             return playerSum;
         }
@@ -78,7 +78,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             var columnModels = new List<ChartColumnModel> {new ChartColumnModel("string", "Date")};
             foreach (var result in results)
             {
-                var player = _playerRepository.GetById(result.PlayerId);
+                var player = _playerRepository.GetById(result.Player.Id);
                 columnModels.Add(new ChartColumnModel("number", player.DisplayName));
             }
             return columnModels;
@@ -101,7 +101,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             values.Add(_chartValueModelFactory.Create(dateStr));
             foreach (var result in results)
             {
-                var sum = currentSum[result.PlayerId];
+                var sum = currentSum[result.Player.Id];
                 values.Add(_chartValueModelFactory.Create(sum));
             }
             return new ChartRowModel

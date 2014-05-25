@@ -10,7 +10,6 @@ namespace Core.Entities
         public int GameCount { get; private set; }
         public int TimePlayed { get; private set; }
         public int WinRate { get; private set; }
-        public int PlayerId { get; private set; }
         public Player Player { get; private set; }
 	    public int Buyin { get; private set; }
 	    public int Cashout { get; private set; }
