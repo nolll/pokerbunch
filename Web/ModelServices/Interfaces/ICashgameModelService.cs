@@ -27,12 +27,12 @@ namespace Web.ModelServices
         CashgameListPageModel GetListModel(string slug, int? year = null);
         CashgameChartPageModel GetChartModel(string slug, int? year = null);
         ChartModel GetChartJsonModel(string slug, int? year);
-        ActionPageModel GetActionModel(string slug, string dateStr, string playerName);
-        ChartModel GetActionChartJsonModel(string slug, string dateStr, string playerName);
-        BuyinPageModel GetBuyinModel(string slug, string playerName, BuyinPostModel postModel = null);
+        ActionPageModel GetActionModel(string slug, string dateStr, int playerId);
+        ChartModel GetActionChartJsonModel(string slug, string dateStr, int playerId);
+        BuyinPageModel GetBuyinModel(string slug, int playerId, BuyinPostModel postModel = null);
         ReportPageModel GetReportModel(string slug, ReportPostModel postModel = null);
         CashoutPageModel GetCashoutModel(string slug, CashoutPostModel postModel = null);
         EndPageModel GetEndGameModel(string slug);
-        EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel = null);
+        EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null);
     }
 }

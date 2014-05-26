@@ -29,6 +29,34 @@ namespace Web
             );
 
             routes.MapRoute(
+                "Player Details",
+                "{slug}/player/{action}/{playerId}",
+                new { controller = "Player", action = "Details" },
+                new { playerId = @"^[0-9]+$" }
+            );
+
+            routes.MapRoute(
+                "Buyin",
+                "{slug}/cashgame/buyin/{playerId}",
+                new { controller = "Cashgame", action = "Buyin" },
+                new { playerId = @"^[0-9]+$" }
+            );
+
+            routes.MapRoute(
+                "Report",
+                "{slug}/cashgame/report/{playerId}",
+                new { controller = "Cashgame", action = "Report" },
+                new { playerId = @"^[0-9]+$" }
+            );
+
+            routes.MapRoute(
+                "Cashout",
+                "{slug}/cashgame/cashout/{playerId}",
+                new { controller = "Cashgame", action = "Cashout" },
+                new { playerId = @"^[0-9]+$" }
+            );
+
+            routes.MapRoute(
                 "Bunch Routes with year",
                 "{slug}/{controller}/{action}/{year}",
                 new {  },
@@ -43,22 +71,17 @@ namespace Web
             );
 
             routes.MapRoute(
-                "Bunch Routes with player name",
-                "{slug}/{controller}/{action}/{playerName}"
+                "Bunch Routes with date and player id",
+                "{slug}/{controller}/{action}/{dateStr}/{playerId}",
+                new { },
+                new { dateStr = @"\d{4}-\d{2}-\d{2}", playerId = @"^[0-9]+$" }
             );
 
             routes.MapRoute(
-                "Bunch Routes with date and player name",
-                "{slug}/{controller}/{action}/{dateStr}/{playerName}",
+                "Bunch Routes with date, player id and checkpoint id",
+                "{slug}/{controller}/{action}/{dateStr}/{playerId}/{checkpointId}",
                 new { },
-                new { dateStr = @"\d{4}-\d{2}-\d{2}" }
-            );
-
-            routes.MapRoute(
-                "Bunch Routes with date, player name and checkpoint id",
-                "{slug}/{controller}/{action}/{dateStr}/{playerName}/{checkpointId}",
-                new { },
-                new { dateStr = @"\d{4}-\d{2}-\d{2}", checkpointId = @"^[0-9]+$" }
+                new { dateStr = @"\d{4}-\d{2}-\d{2}", playerId = @"^[0-9]+$", checkpointId = @"^[0-9]+$" }
             );
 
             routes.MapRoute(

@@ -158,42 +158,42 @@ namespace Web.Controllers
 		}
 
         [AuthorizePlayer]
-        public ActionResult Action(string slug, string dateStr, string playerName)
+        public ActionResult Action(string slug, string dateStr, int playerId)
         {
-            var model = _cashgameModelService.GetActionModel(slug, dateStr, playerName);
+            var model = _cashgameModelService.GetActionModel(slug, dateStr, playerId);
 			return View("Action/Action", model);
 		}
 
         [AuthorizePlayer]
-		public JsonResult ActionChartJson(string slug, string dateStr, string playerName)
+		public JsonResult ActionChartJson(string slug, string dateStr, int playerId)
         {
-		    var model = _cashgameModelService.GetActionChartJsonModel(slug, dateStr, playerName);
+		    var model = _cashgameModelService.GetActionChartJsonModel(slug, dateStr, playerId);
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
         [AuthorizeOwnPlayer]
-        public ActionResult Buyin(string slug, string playerName)
+        public ActionResult Buyin(string slug, int playerId)
         {
-            var model = _cashgameModelService.GetBuyinModel(slug, playerName);
+            var model = _cashgameModelService.GetBuyinModel(slug, playerId);
             return View("Buyin/Buyin", model);
 		}
 
         [HttpPost]
         [AuthorizeOwnPlayer]
-        public ActionResult Buyin(string slug, string playerName, BuyinPostModel postModel)
+        public ActionResult Buyin(string slug, int playerId, BuyinPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetBuyinCommand(slug, playerName, postModel);
+            var command = _cashgameCommandProvider.GetBuyinCommand(slug, playerId, postModel);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
             }
             AddModelErrors(command.Errors);
-            var model = _cashgameModelService.GetBuyinModel(slug, playerName, postModel);
+            var model = _cashgameModelService.GetBuyinModel(slug, playerId, postModel);
             return View("Buyin/Buyin", model);
 		}
 
         [AuthorizeOwnPlayer]
-        public ActionResult Report(string slug, string playerName)
+        public ActionResult Report(string slug, int playerId)
         {
             var model = _cashgameModelService.GetReportModel(slug);
             return View("Report/Report", model);
@@ -201,9 +201,9 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeOwnPlayer]
-        public ActionResult Report(string slug, string playerName, ReportPostModel postModel)
+        public ActionResult Report(string slug, int playerId, ReportPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetReportCommand(slug, playerName, postModel);
+            var command = _cashgameCommandProvider.GetReportCommand(slug, playerId, postModel);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
@@ -214,40 +214,40 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
-        public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
+        public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId);
+            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerId, checkpointId);
             return View("Checkpoints/Edit", model);
         }
 
         [HttpPost]
         [AuthorizeManager]
-        public ActionResult EditCheckpoint(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
+        public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
             var command = _cashgameCommandProvider.GetEditCheckpointCommand(slug, dateStr, checkpointId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetCashgameActionUrl(slug, dateStr, playerName));
+                return Redirect(_urlProvider.GetCashgameActionUrl(slug, dateStr, playerId));
             }
             AddModelErrors(command.Errors);
-            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerName, checkpointId, postModel);
+            var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerId, checkpointId, postModel);
             return View("Checkpoints/Edit", model);
         }
 
         [AuthorizeManager]
-        public ActionResult DeleteCheckpoint(string slug, string dateStr, string playerName, int checkpointId)
+        public ActionResult DeleteCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
             }
-            var actionsUrl = _urlProvider.GetCashgameActionUrl(slug, dateStr, playerName);
+            var actionsUrl = _urlProvider.GetCashgameActionUrl(slug, dateStr, playerId);
             return Redirect(actionsUrl);
 		}
         
         [AuthorizeOwnPlayer]
-        public ActionResult Cashout(string slug, string playerName)
+        public ActionResult Cashout(string slug, int playerId)
         {
             var model = _cashgameModelService.GetCashoutModel(slug);
             return View("Cashout/Cashout", model);
@@ -255,9 +255,9 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeOwnPlayer]
-        public ActionResult Cashout(string slug, string playerName, CashoutPostModel postModel)
+        public ActionResult Cashout(string slug, int playerId, CashoutPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetCashoutCommand(slug, playerName, postModel);
+            var command = _cashgameCommandProvider.GetCashoutCommand(slug, playerId, postModel);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetRunningCashgameUrl(slug));

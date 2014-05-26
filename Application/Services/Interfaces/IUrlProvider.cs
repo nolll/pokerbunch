@@ -43,23 +43,23 @@
         string GetCashgameListUrl(string slug, int? year);
         string GetCashgameMatrixUrl(string slug, int? year);
 
-        string GetCashgameBuyinUrl(string slug, string playerName);
-        string GetCashgameCashoutUrl(string slug, string playerName);
-        string GetCashgameReportUrl(string slug, string playerName);
-        string GetPlayerInviteConfirmationUrl(string slug, string playerName);
-        string GetPlayerDeleteUrl(string slug, string playerName);
-        string GetPlayerDetailsUrl(string slug, string playerName);
-        string GetPlayerInviteUrl(string slug, string playerName);
+        string GetCashgameBuyinUrl(string slug, int playerId);
+        string GetCashgameCashoutUrl(string slug, int playerId);
+        string GetCashgameReportUrl(string slug, int playerId);
+        string GetPlayerInviteConfirmationUrl(string slug, int playerId);
+        string GetPlayerDeleteUrl(string slug, int playerId);
+        string GetPlayerDetailsUrl(string slug, int playerId);
+        string GetPlayerInviteUrl(string slug, int playerId);
 
         string GetCashgameDeleteUrl(string slug, string dateStr);
         string GetCashgameDetailsChartJsonUrl(string slug, string dateStr);
         string GetCashgameDetailsUrl(string slug, string dateStr);
         string GetCashgameEditUrl(string slug, string dateStr);
 
-        string GetCashgameActionChartJsonUrl(string slug, string dateStr, string playerName);
-        string GetCashgameActionUrl(string slug, string dateStr, string playerName);
+        string GetCashgameActionChartJsonUrl(string slug, string dateStr, int playerId);
+        string GetCashgameActionUrl(string slug, string dateStr, int playerId);
 
-        string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, string playerName, int checkpointId);
-        string GetCashgameCheckpointEditUrl(string slug, string dateStr, string playerName, int checkpointId);
+        string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, int playerId, int checkpointId);
+        string GetCashgameCheckpointEditUrl(string slug, string dateStr, int playerId, int checkpointId);
     }
 }

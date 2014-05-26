@@ -5,6 +5,7 @@ namespace Application.UseCases.CashgameTopList
     public class TopListItem
     {
         public int Rank { get; set; }
+        public int PlayerId { get; set; }
         public string Name { get; set; }
         public Money Winnings { get; set; }
         public Money Buyin { get; set; }

@@ -36,9 +36,9 @@ namespace Web.Controllers
 		}
 
         [AuthorizePlayer]
-        public ActionResult Details(string slug, string playerName)
+        public ActionResult Details(string slug, int playerId)
         {
-            var model = _playerModelService.GetDetailsModel(slug, playerName);
+            var model = _playerModelService.GetDetailsModel(slug, playerId);
 			return View("Details", model);
 		}
 
@@ -70,18 +70,18 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
-		public ActionResult Delete(string slug, string playerName)
+        public ActionResult Delete(string slug, int playerId)
         {
-            var command = _playerCommandProvider.GetDeleteCommand(slug, playerName);
+            var command = _playerCommandProvider.GetDeleteCommand(slug, playerId);
             if (command.Execute())
             {
                 return Redirect(_urlProvider.GetPlayerIndexUrl(slug));
             }
-		    return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, playerName));
+            return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, playerId));
 		}
 
         [AuthorizeManager]
-        public ActionResult Invite(string slug, string playerName)
+        public ActionResult Invite(string slug, int playerId)
         {
             var model = _playerModelService.GetInviteModel(slug);
             return View("Invite", model);
@@ -89,19 +89,19 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeManager]
-        public ActionResult Invite(string slug, string playerName, InvitePlayerPostModel postModel)
+        public ActionResult Invite(string slug, int playerId, InvitePlayerPostModel postModel)
         {
-            var command = _playerCommandProvider.GetInviteCommand(slug, playerName, postModel);
+            var command = _playerCommandProvider.GetInviteCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(slug, playerName));
+                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(slug, playerId));
             }
             AddModelErrors(command.Errors);
             var model = _playerModelService.GetInviteModel(slug, postModel);
             return View("Invite", model);
 		}
 
-	    public ActionResult Invited(string slug, string playerName)
+        public ActionResult Invited(string slug, int playerId)
         {
 		    var model = _playerModelService.GetInviteConfirmationModel(slug);
 			return View("InviteConfirmation", model);

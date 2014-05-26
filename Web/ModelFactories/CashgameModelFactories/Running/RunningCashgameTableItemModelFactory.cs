@@ -26,10 +26,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgameTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.DisplayName),
-                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame.Slug, player.DisplayName),
-                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame.Slug, player.DisplayName),
-                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame.Slug, player.DisplayName),
+                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
+                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame.Slug, player.Id),
+                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame.Slug, player.Id),
+                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame.Slug, player.Id),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

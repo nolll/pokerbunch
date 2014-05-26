@@ -55,10 +55,10 @@ namespace Web.ModelServices
             return _playerListPageBuilder.Build(slug);
         }
 
-        public PlayerDetailsPageModel GetDetailsModel(string slug, string playerName)
+        public PlayerDetailsPageModel GetDetailsModel(string slug, int playerId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             var user = _userRepository.GetById(player.UserId);
             var cashgames = _cashgameRepository.GetPublished(homegame);
             var isManager = _auth.IsInRole(slug, Role.Manager);

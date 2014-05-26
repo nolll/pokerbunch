@@ -40,7 +40,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.DisplayName)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
@@ -156,7 +156,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(_homegame.Slug, player.DisplayName)).Returns(buyinUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(_homegame.Slug, player.Id)).Returns(buyinUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
@@ -172,7 +172,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(_homegame.Slug, player.DisplayName)).Returns(reportUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(_homegame.Slug, player.Id)).Returns(reportUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
@@ -188,7 +188,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameCashoutUrl(_homegame.Slug, player.DisplayName)).Returns(cashoutUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameCashoutUrl(_homegame.Slug, player.Id)).Returns(cashoutUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);

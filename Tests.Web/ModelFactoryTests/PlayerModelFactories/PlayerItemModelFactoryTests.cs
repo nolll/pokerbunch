@@ -23,10 +23,11 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
         {
             const string slug = "a";
             const string displayName = "b";
+            const int id = 1;
             const string url = "c";
-            var playerListItem = new PlayerListItem{Name = displayName};
+            var playerListItem = new PlayerListItem{Id = id, Name = displayName};
 
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, displayName)).Returns(url);
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, id)).Returns(url);
 
             var result = _sut.Create(slug, playerListItem);
 

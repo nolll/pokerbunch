@@ -25,8 +25,9 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             const string playerName = "b";
+            const int playerId = 1;
             var homegame = new FakeHomegame(slug: slug);
-            var player = new FakePlayer(displayName: playerName);
+            var player = new FakePlayer(id: playerId, displayName: playerName);
             var players = new List<Player> {player};
             var request = new PlayerListRequest {Slug = slug};
 
@@ -37,6 +38,7 @@ namespace Tests.Application.UseCases
 
             Assert.AreEqual(slug, result.Slug);
             Assert.AreEqual(1, result.Players.Count);
+            Assert.AreEqual(playerId, result.Players[0].Id);
             Assert.AreEqual(playerName, result.Players[0].Name);
         }
     }

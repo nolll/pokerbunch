@@ -2,6 +2,7 @@
 {
     public class PlayerListItem
     {
+        public int Id;
         public string Name;
     }
 }

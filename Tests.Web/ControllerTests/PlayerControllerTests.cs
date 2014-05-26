@@ -17,7 +17,7 @@ namespace Tests.Web.ControllerTests
         public void Details_RequiresPlayer()
         {
             var sut = GetSut();
-            Func<string, string, ActionResult> methodToTest = sut.Details;
+            Func<string, int, ActionResult> methodToTest = sut.Details;
             var result = SecurityTestHelper.RequiresPlayer(methodToTest);
 
             Assert.IsTrue(result);
@@ -27,7 +27,7 @@ namespace Tests.Web.ControllerTests
 		public void Delete_RequiresManager()
         {
 			var sut = GetSut();
-            Func<string, string, ActionResult> methodToTest = sut.Delete;
+            Func<string, int, ActionResult> methodToTest = sut.Delete;
             var result = SecurityTestHelper.RequiresManager(methodToTest);
             
             Assert.IsTrue(result);
@@ -37,14 +37,14 @@ namespace Tests.Web.ControllerTests
 		public void Delete_WithSuccessfulCommand_RedirectsToPlayerList()
         {
             const string slug = "a";
-		    const string playerName = "b";
+		    const int playerId = 1;
             const string listUrl = "c";
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerName)).Returns(new FakeSuccessfulCommand());
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeSuccessfulCommand());
             GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(slug)).Returns(listUrl);
 
             var sut = GetSut();
-            var result = sut.Delete(slug, playerName) as RedirectResult;
+            var result = sut.Delete(slug, playerId) as RedirectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(listUrl, result.Url);
@@ -54,14 +54,14 @@ namespace Tests.Web.ControllerTests
         public void Delete_WithFailedCommand_RedirectsToPlayerList()
         {
             const string slug = "a";
-            const string playerName = "b";
+            const int playerId = 1;
             const string playerUrl = "c";
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerName)).Returns(new FakeFailedCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, playerName)).Returns(playerUrl);
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeFailedCommand());
+            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, playerId)).Returns(playerUrl);
 
             var sut = GetSut();
-            var result = sut.Delete(slug, playerName) as RedirectResult;
+            var result = sut.Delete(slug, playerId) as RedirectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(playerUrl, result.Url);

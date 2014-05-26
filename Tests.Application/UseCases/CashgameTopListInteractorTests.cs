@@ -67,6 +67,7 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(gamesPlayed, result.GamesPlayed);
             Assert.AreEqual(minutesPlayed, result.TimePlayed.Minutes);
             Assert.AreEqual(playerName, result.Name);
+            Assert.AreEqual(playerId, result.PlayerId);
             Assert.AreEqual(winnings, result.Winnings.Amount);
             Assert.AreEqual(winRate, result.WinRate.Amount);
         }

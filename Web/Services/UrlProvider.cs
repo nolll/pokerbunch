@@ -38,14 +38,14 @@ namespace Web.Services
             return string.Format(RouteFormats.TwitterCallback, _settings.GetSiteUrl());
         }
 
-        public string GetCashgameActionChartJsonUrl(string slug, string dateStr, string playerName)
+        public string GetCashgameActionChartJsonUrl(string slug, string dateStr, int playerId)
         {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, slug, dateStr, playerName);
+            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, slug, dateStr, playerId);
         }
 
-        public string GetCashgameActionUrl(string slug, string dateStr, string playerName)
+        public string GetCashgameActionUrl(string slug, string dateStr, int playerId)
         {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, slug, dateStr, playerName);
+            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, slug, dateStr, playerId);
         }
 
         public string GetCashgameAddUrl(string slug)
@@ -53,14 +53,14 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.CashgameAdd, slug);
         }
 
-        public string GetCashgameBuyinUrl(string slug, string playerName)
+        public string GetCashgameBuyinUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.CashgameBuyin, slug, playerName);
+            return FormatPlayer(RouteFormats.CashgameBuyin, slug, playerId);
         }
 
-        public string GetCashgameCashoutUrl(string slug, string playerName)
+        public string GetCashgameCashoutUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.CashgameCashout, slug, playerName);
+            return FormatPlayer(RouteFormats.CashgameCashout, slug, playerId);
         }
 
         public string GetCashgameChartJsonUrl(string slug, int? year)
@@ -73,16 +73,14 @@ namespace Web.Services
             return FormatHomegameWithOptionalYear(RouteFormats.CashgameChart, RouteFormats.CashgameChartWithYear, slug, year);
         }
 
-        public string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, string playerName, int checkpointId)
+        public string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
-            return string.Format(RouteFormats.CashgameCheckpointDelete, slug, dateStr, encodedPlayerName, checkpointId);
+            return string.Format(RouteFormats.CashgameCheckpointDelete, slug, dateStr, playerId, checkpointId);
         }
 
-        public string GetCashgameCheckpointEditUrl(string slug, string dateStr, string playerName, int checkpointId)
+        public string GetCashgameCheckpointEditUrl(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
-            return string.Format(RouteFormats.CashgameCheckpointEdit, slug, dateStr, encodedPlayerName, checkpointId);
+            return string.Format(RouteFormats.CashgameCheckpointEdit, slug, dateStr, playerId, checkpointId);
         }
 
         public string GetCashgameDeleteUrl(string slug, string dateStr)
@@ -140,9 +138,9 @@ namespace Web.Services
             return FormatHomegameWithOptionalYear(RouteFormats.CashgameMatrix, RouteFormats.CashgameMatrixWithYear, slug, year);
         }
 
-        public string GetCashgameReportUrl(string slug, string playerName)
+        public string GetCashgameReportUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.CashgameReport, slug, playerName);
+            return FormatPlayer(RouteFormats.CashgameReport, slug, playerId);
         }
 
         public string GetChangePasswordConfirmationUrl()
@@ -210,19 +208,19 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.PlayerAdd, slug);
         }
 
-        public string GetPlayerDeleteUrl(string slug, string playerName)
+        public string GetPlayerDeleteUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.PlayerDelete, slug, playerName);
+            return FormatPlayer(RouteFormats.PlayerDelete, slug, playerId);
         }
 
-        public string GetPlayerDetailsUrl(string slug, string playerName)
+        public string GetPlayerDetailsUrl(string slug, int playerId)
         {
-            return GetPlayerDetailsUrlStatic(slug, playerName).ToString();
+            return GetPlayerDetailsUrlStatic(slug, playerId).ToString();
         }
 
-        public static UrlModel GetPlayerDetailsUrlStatic(string slug, string playerName)
+        public static UrlModel GetPlayerDetailsUrlStatic(string slug, int playerId)
         {
-            return new PlayerDetailsUrlModel(slug, playerName);
+            return new PlayerDetailsUrlModel(slug, playerId);
         }
 
         public string GetPlayerIndexUrl(string slug)
@@ -230,14 +228,14 @@ namespace Web.Services
             return FormatHomegame(RouteFormats.PlayerIndex, slug);
         }
 
-        public string GetPlayerInviteConfirmationUrl(string slug, string playerName)
+        public string GetPlayerInviteConfirmationUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.PlayerInviteConfirmation, slug, playerName);
+            return FormatPlayer(RouteFormats.PlayerInviteConfirmation, slug, playerId);
         }
 
-        public string GetPlayerInviteUrl(string slug, string playerName)
+        public string GetPlayerInviteUrl(string slug, int playerId)
         {
-            return FormatPlayer(RouteFormats.PlayerInvite, slug, playerName);
+            return FormatPlayer(RouteFormats.PlayerInvite, slug, playerId);
         }
 
         public string GetRunningCashgameUrl(string slug)
@@ -285,10 +283,9 @@ namespace Web.Services
             return RouteFormats.UserList;
         }
 
-        private string GetCashgamePlayerUrl(string format, string slug, string dateStr, string playerName)
+        private string GetCashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
         {
-            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
-            return string.Format(format, slug, dateStr, encodedPlayerName);
+            return string.Format(format, slug, dateStr, playerId);
         }
 
         public static string FormatHomegameWithOptionalYear(string format, string formatWithYear, string slug, int? year)
@@ -311,10 +308,9 @@ namespace Web.Services
             return string.Format(format, slug, dateStr);
         }
 
-        public static string FormatPlayer(string format, string slug, string playerName)
+        public static string FormatPlayer(string format, string slug, int playerId)
         {
-            var encodedPlayerName = HttpUtility.UrlPathEncode(playerName);
-            return string.Format(format, slug, encodedPlayerName);
+            return string.Format(format, slug, playerId);
         }
 
         private string FormatUser(string format, string userName)
@@ -325,21 +321,21 @@ namespace Web.Services
 
     public abstract class UrlModel
     {
-        protected string _url;
+        protected string Url;
 
         public override string ToString()
         {
-            if (_url == null)
+            if (Url == null)
                 return string.Empty;
-            return _url;
+            return Url;
         }
     }
 
     public class PlayerDetailsUrlModel : UrlModel
     {
-        public PlayerDetailsUrlModel(string slug, string playerName)
+        public PlayerDetailsUrlModel(string slug, int playerId)
         {
-            _url = UrlProvider.FormatPlayer(RouteFormats.PlayerDetails, slug, playerName);
+            Url = UrlProvider.FormatPlayer(RouteFormats.PlayerDetails, slug, playerId);
         }
     }
 
@@ -347,7 +343,7 @@ namespace Web.Services
     {
         public TopListUrlModel(string slug, int? year)
         {
-            _url = UrlProvider.FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year);
+            Url = UrlProvider.FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year);
         }
     }
 }

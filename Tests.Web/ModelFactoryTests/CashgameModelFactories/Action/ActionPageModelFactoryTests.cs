@@ -58,7 +58,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		    const string chartDataUrl = "a";
             var player = new FakePlayer(displayName: "b");
             var cashgameResult = new FakeCashgameResult();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionChartJsonUrl(_homegame.Slug, _cashgame.DateString, player.DisplayName)).Returns(chartDataUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionChartJsonUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(chartDataUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);

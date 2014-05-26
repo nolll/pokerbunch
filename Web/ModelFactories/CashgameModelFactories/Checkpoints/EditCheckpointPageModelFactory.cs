@@ -20,7 +20,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             _urlProvider = urlProvider;
         }
 
-        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName)
+        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, int playerId)
         {
             return new EditCheckpointPageModel
                 {
@@ -29,16 +29,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                     Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
                     Stack = checkpoint.Stack,
                     Amount = checkpoint.Amount,
-                    DeleteUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame.Slug, dateStr, playerName, checkpoint.Id),
-                    CancelUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, dateStr, playerName),
+                    DeleteUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame.Slug, dateStr, playerId, checkpoint.Id),
+                    CancelUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, dateStr, playerId),
                     EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
                     StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"
                 };
         }
 
-        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, string playerName, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, int playerId, EditCheckpointPostModel postModel)
         {
-            var model = Create(homegame, checkpoint, dateStr, playerName);
+            var model = Create(homegame, checkpoint, dateStr, playerId);
             if (postModel != null)
             {
                 model.Timestamp = postModel.Timestamp;

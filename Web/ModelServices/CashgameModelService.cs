@@ -14,12 +14,10 @@ using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
@@ -134,29 +132,28 @@ namespace Web.ModelServices
             return _cashgameSuiteChartModelFactory.Create(suite);
         }
 
-        public ActionPageModel GetActionModel(string slug, string dateStr, string playerName)
+        public ActionPageModel GetActionModel(string slug, string dateStr, int playerId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             var result = cashgame.GetResult(player.Id);
             var role = _auth.GetRole(slug);
             return _actionPageModelFactory.Create(homegame, cashgame, player, result, role);
         }
 
-        public ChartModel GetActionChartJsonModel(string slug, string dateStr, string playerName)
+        public ChartModel GetActionChartJsonModel(string slug, string dateStr, int playerId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-            var player = _playerRepository.GetByName(homegame, playerName);
-            var result = cashgame.GetResult(player.Id);
+            var result = cashgame.GetResult(playerId);
             return _actionChartModelFactory.Create(homegame, cashgame, result);
         }
 
-        public BuyinPageModel GetBuyinModel(string slug, string playerName, BuyinPostModel postModel)
+        public BuyinPageModel GetBuyinModel(string slug, int playerId, BuyinPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             return _buyinPageModelFactory.Create(homegame, player, runningGame, postModel);
         }
@@ -179,11 +176,11 @@ namespace Web.ModelServices
             return _endPageModelFactory.Create(homegame);
         }
 
-        public EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, string playerName, int checkpointId, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel GetEditCheckpointModel(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
-            return _editCheckpointPageModelFactory.Create(homegame, checkpoint, dateStr, playerName, postModel);
+            return _editCheckpointPageModelFactory.Create(homegame, checkpoint, dateStr, playerId, postModel);
         }
 
         private ListSortOrder GetListSortOrder()
@@ -206,12 +203,10 @@ namespace Web.ModelServices
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IToplistPageBuilder _toplistPageBuilder;
         private readonly IUrlProvider _urlProvider;
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
-        private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
         private readonly IAddCashgamePageModelFactory _addCashgamePageModelFactory;
         private readonly ICashgameEditPageModelFactory _cashgameEditPageModelFactory;
         private readonly IWebContext _webContext;
@@ -234,12 +229,10 @@ namespace Web.ModelServices
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
-            IToplistPageBuilder toplistPageBuilder,
             IUrlProvider urlProvider,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
-            ICashgameFactsPageBuilder cashgameFactsPageBuilder,
             IAddCashgamePageModelFactory addCashgamePageModelFactory,
             ICashgameEditPageModelFactory cashgameEditPageModelFactory,
             IWebContext webContext,
@@ -261,12 +254,10 @@ namespace Web.ModelServices
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
-            _toplistPageBuilder = toplistPageBuilder;
             _urlProvider = urlProvider;
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;
             _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;
-            _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
             _addCashgamePageModelFactory = addCashgamePageModelFactory;
             _cashgameEditPageModelFactory = cashgameEditPageModelFactory;
             _webContext = webContext;

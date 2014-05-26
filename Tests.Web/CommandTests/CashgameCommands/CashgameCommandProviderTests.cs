@@ -47,7 +47,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
         public void GetBuyinCommand_ReturnsBuyinCommand()
         {
             var sut = GetSut();
-            var result = sut.GetBuyinCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BuyinPostModel>());
+            var result = sut.GetBuyinCommand(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<BuyinPostModel>());
 
             Assert.IsInstanceOf<BuyinCommand>(result);
         }
@@ -56,7 +56,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
         public void GetReportCommand_ReturnsReportCommand()
         {
             var sut = GetSut();
-            var result = sut.GetReportCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ReportPostModel>());
+            var result = sut.GetReportCommand(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<ReportPostModel>());
 
             Assert.IsInstanceOf<ReportCommand>(result);
         }
@@ -75,17 +75,16 @@ namespace Tests.Web.CommandTests.CashgameCommands
         {
             const string slug = "a";
             const int playerId = 1;
-            const string playerName = "b";
             var homegame = new FakeHomegame();
-            var player = new FakePlayer(playerId, displayName: playerName);
+            var player = new FakePlayer(playerId);
             var cashgame = new FakeCashgame();
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, playerName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
 
             var sut = GetSut();
-            var result = sut.GetCashoutCommand(slug, playerName, It.IsAny<CashoutPostModel>());
+            var result = sut.GetCashoutCommand(slug, playerId, It.IsAny<CashoutPostModel>());
 
             Assert.IsInstanceOf<CashoutCommand>(result);
         }

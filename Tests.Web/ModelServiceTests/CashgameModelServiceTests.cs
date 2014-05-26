@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Application.Services;
+﻿using Application.Services;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;
@@ -16,15 +15,12 @@ using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
-using Web.Models.CashgameModels.Toplist;
 using Web.Models.CashgameModels.Matrix;
 using Web.Security;
 
@@ -98,12 +94,10 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IToplistPageBuilder>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameDetailsChartModelFactory>().Object,
-                GetMock<ICashgameFactsPageBuilder>().Object,
                 GetMock<IAddCashgamePageModelFactory>().Object,
                 GetMock<ICashgameEditPageModelFactory>().Object,
                 GetMock<IWebContext>().Object,

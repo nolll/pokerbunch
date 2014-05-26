@@ -35,14 +35,14 @@ namespace Web.ModelFactories.PlayerModelFactories
             var userUrl = hasUser ? _urlProvider.GetUserDetailsUrl(user.UserName) : null;
             var userEmail = hasUser ? user.Email : null;
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
-            var invitationUrl = hasUser ? null : _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.DisplayName);
+            var invitationUrl = hasUser ? null : _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.Id);
 
             return new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
                     DisplayName = player.DisplayName,
-                    DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame.Slug, player.DisplayName),
+                    DeleteUrl = _urlProvider.GetPlayerDeleteUrl(homegame.Slug, player.Id),
                     DeleteEnabled = isManager && !hasPlayed,
                     ShowUserInfo = hasUser,
                     ShowInvitation = !hasUser,

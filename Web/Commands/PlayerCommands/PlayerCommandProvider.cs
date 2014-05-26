@@ -24,10 +24,10 @@ namespace Web.Commands.PlayerCommands
             _cashgameRepository = cashgameRepository;
         }
 
-        public Command GetInviteCommand(string slug, string playerName, InvitePlayerPostModel model)
+        public Command GetInviteCommand(string slug, int playerId, InvitePlayerPostModel model)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             return new InvitePlayerCommand(_invitationSender, homegame, player, model);
         }
 
@@ -37,10 +37,10 @@ namespace Web.Commands.PlayerCommands
             return new AddPlayerCommand(_playerRepository, homegame, model);
         }
 
-        public Command GetDeleteCommand(string slug, string playerName)
+        public Command GetDeleteCommand(string slug, int playerId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             return new DeletePlayerCommand(_cashgameRepository, _playerRepository, homegame, player);
         }
     }

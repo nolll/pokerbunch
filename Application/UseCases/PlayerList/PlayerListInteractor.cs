@@ -33,6 +33,7 @@ namespace Application.UseCases.PlayerList
         {
             return new PlayerListItem
                 {
+                    Id = player.Id,
                     Name = player.DisplayName
                 };
         } 

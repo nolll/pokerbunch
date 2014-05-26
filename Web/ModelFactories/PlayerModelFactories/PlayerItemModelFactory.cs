@@ -20,7 +20,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new PlayerItemModel
             {
                 Name = p.Name,
-                Url = _urlProvider.GetPlayerDetailsUrl(slug, p.Name)
+                Url = _urlProvider.GetPlayerDetailsUrl(slug, p.Id)
             };
         }
 

@@ -56,19 +56,19 @@ namespace Web.Commands.CashgameCommands
             return new EditCashgameCommand(_homegameRepository, _cashgameRepository, _cashgameModelMapper, slug, dateStr, postModel);
         }
 
-        public Command GetBuyinCommand(string slug, string playerName, BuyinPostModel postModel)
+        public Command GetBuyinCommand(string slug, int playerId, BuyinPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             return new BuyinCommand(_checkpointModelMapper, _checkpointRepository, _cashgameRepository, player, runningGame, postModel);
         }
 
-        public Command GetReportCommand(string slug, string playerName, ReportPostModel postModel)
+        public Command GetReportCommand(string slug, int playerId, ReportPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             return new ReportCommand(_checkpointModelMapper, _checkpointRepository, cashgame, player, postModel);
         }
 
@@ -79,10 +79,10 @@ namespace Web.Commands.CashgameCommands
             return new DeleteCheckpointCommand(_checkpointRepository, cashgame, checkpointId);
         }
 
-        public Command GetCashoutCommand(string slug, string playerName, CashoutPostModel postModel)
+        public Command GetCashoutCommand(string slug, int playerId, CashoutPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByName(homegame, playerName);
+            var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var result = runningGame.GetResult(player.Id);
             return new CashoutCommand(_checkpointRepository, _checkpointModelMapper, runningGame, player, result, postModel);

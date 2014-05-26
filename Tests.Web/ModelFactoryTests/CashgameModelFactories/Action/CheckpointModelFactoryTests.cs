@@ -90,7 +90,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		public void EditUrl_IsSet()
 		{
 		    const string editUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointEditUrl(_homegame.Slug, _cashgame.DateString, _player.DisplayName, _checkpoint.Id)).Returns(editUrl);
+            GetMock<IUrlProvider>().Setup(o => o.GetCashgameCheckpointEditUrl(_homegame.Slug, _cashgame.DateString, _player.Id, _checkpoint.Id)).Returns(editUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);

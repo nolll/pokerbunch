@@ -9,7 +9,7 @@ namespace Tests.Web.Routing
         private const string ExpectedUser = "username";
         private const string ExpectedBunch = "bunchname";
         private const string ExpectedDate = "2001-01-01";
-        private const string ExpectedPlayer = "playername";
+        private const int ExpectedPlayer = 1;
         private const int ExpectedYear = 2000;
 
         private readonly RouteTester<MvcApplication> _tester;
@@ -55,13 +55,14 @@ namespace Tests.Web.Routing
             _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch });
         }
 
-        [TestCase("/bunchname/player/details/playername", "Player", "Details")]
-        [TestCase("/bunchname/player/delete/playername", "Player", "Delete")]
-        [TestCase("/bunchname/cashgame/buyin/playername", "Cashgame", "Buyin")]
-        [TestCase("/bunchname/cashgame/report/playername", "Cashgame", "Report")]
-        public void BunchRoutes_WithPlayerNameParam(string url, string controller, string action)
+        [TestCase("/bunchname/player/details/1", "Player", "Details")]
+        [TestCase("/bunchname/player/delete/1", "Player", "Delete")]
+        [TestCase("/bunchname/cashgame/buyin/1", "Cashgame", "Buyin")]
+        [TestCase("/bunchname/cashgame/report/1", "Cashgame", "Report")]
+        [TestCase("/bunchname/cashgame/cashout/1", "Cashgame", "Cashout")]
+        public void BunchRoutes_WithPlayerIdParam(string url, string controller, string action)
         {
-            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, playerName = ExpectedPlayer });
+            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, playerId = ExpectedPlayer });
         }
 
         [TestCase("/bunchname/cashgame/matrix/2000", "Cashgame", "Matrix")]
@@ -82,21 +83,21 @@ namespace Tests.Web.Routing
             _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate });
         }
 
-        [TestCase("/bunchname/cashgame/action/2001-01-01/playername", "Cashgame", "Action")]
-        [TestCase("/bunchname/cashgame/actionchartjson/2001-01-01/playername", "Cashgame", "ActionChartJson")]
-        public void BunchRoutes_WithDateAndPlayerNameParams(string url, string controller, string action)
+        [TestCase("/bunchname/cashgame/action/2001-01-01/1", "Cashgame", "Action")]
+        [TestCase("/bunchname/cashgame/actionchartjson/2001-01-01/1", "Cashgame", "ActionChartJson")]
+        public void BunchRoutes_WithDateAndPlayerIdParams(string url, string controller, string action)
         {
-            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerName = ExpectedPlayer });
+            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerId = ExpectedPlayer });
         }
 
         [Test]
-        public void DeleteCheckpointRoute_WithDateAndPlayerNameAndCheckpointIdParams()
+        public void DeleteCheckpointRoute_WithDateAndPlayerIdAndCheckpointIdParams()
         {
-            const int expectedId = 1;
-            const string url = "/bunchname/cashgame/deletecheckpoint/2001-01-01/playername/1";
+            const int expectedId = 2;
+            const string url = "/bunchname/cashgame/deletecheckpoint/2001-01-01/1/2";
             const string controller = "Cashgame";
             const string action = "DeleteCheckpoint";
-            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerName = ExpectedPlayer, checkpointId = expectedId });
+            _tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerId = ExpectedPlayer, checkpointId = expectedId });
         }
     }
 }

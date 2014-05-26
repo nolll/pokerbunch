@@ -8,7 +8,7 @@ namespace Web.ModelServices
     public interface IPlayerModelService
     {
         PlayerListPageModel GetListModel(string slug);
-        PlayerDetailsPageModel GetDetailsModel(string slug, string playerName);
+        PlayerDetailsPageModel GetDetailsModel(string slug, int playerId);
         AddPlayerPageModel GetAddModel(string slug, AddPlayerPostModel postModel = null);
         AddPlayerConfirmationPageModel GetAddConfirmationModel(string slug);
         InvitePlayerPageModel GetInviteModel(string slug, InvitePlayerPostModel postModel = null);

@@ -5,8 +5,8 @@ namespace Web.Commands.PlayerCommands
 {
     public interface IPlayerCommandProvider
     {
-        Command GetInviteCommand(string slug, string playerName, InvitePlayerPostModel model);
+        Command GetInviteCommand(string slug, int playerId, InvitePlayerPostModel model);
         Command GetAddCommand(string slug, AddPlayerPostModel model);
-        Command GetDeleteCommand(string slug, string playerName);
+        Command GetDeleteCommand(string slug, int playerId);
     }
 }

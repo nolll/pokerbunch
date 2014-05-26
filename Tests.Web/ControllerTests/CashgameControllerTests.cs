@@ -22,6 +22,7 @@ namespace Tests.Web.ControllerTests
         private const string Slug = "homegame1";
         private const string DateStr = "2010-01-01";
         private const string PlayerName = "Player 1";
+	    private const int PlayerId = 1;
 
 		[Test]
 		public void Matrix_CorrectView(){
@@ -52,7 +53,7 @@ namespace Tests.Web.ControllerTests
         public void Action_RequiresPlayer()
         {
             var sut = GetSut();
-            Func<string, string, string, ActionResult> methodToTest = sut.Action;
+            Func<string, string, int, ActionResult> methodToTest = sut.Action;
             var result = SecurityTestHelper.RequiresPlayer(methodToTest);
 
             Assert.IsTrue(result);
@@ -69,10 +70,10 @@ namespace Tests.Web.ControllerTests
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(homegame, PlayerName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
 
 			var sut = GetSut();
-            var viewResult = (ViewResult)sut.Action(Slug, DateStr, PlayerName);
+            var viewResult = (ViewResult)sut.Action(Slug, DateStr, PlayerId);
 
             Assert.AreEqual("Action/Action", viewResult.ViewName);
 		}
@@ -81,7 +82,7 @@ namespace Tests.Web.ControllerTests
         public void Buyin_RequiresOwnPlayer()
         {
             var sut = GetSut();
-            Func<string, string, ActionResult> methodToTest = sut.Buyin;
+            Func<string, int, ActionResult> methodToTest = sut.Buyin;
             var result = SecurityTestHelper.RequiresOwnPlayer(methodToTest);
 
             Assert.IsTrue(result);

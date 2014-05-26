@@ -37,7 +37,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     PageProperties = _pagePropertiesFactory.Create(homegame),
                     Heading = string.Format("Cashgame {0}, {1}", dateString, player.DisplayName),
                     Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role),
-                    ChartDataUrl = _urlProvider.GetCashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.DisplayName)
+                    ChartDataUrl = _urlProvider.GetCashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.Id)
                 };
         }
 

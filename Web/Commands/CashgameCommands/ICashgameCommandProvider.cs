@@ -12,10 +12,10 @@ namespace Web.Commands.CashgameCommands
         Command GetEndGameCommand(string slug);
         Command GetAddCommand(string slug, AddCashgamePostModel postModel);
         Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel);
-        Command GetBuyinCommand(string slug, string playerName, BuyinPostModel postModel);
-        Command GetReportCommand(string slug, string playerName, ReportPostModel postModel);
+        Command GetBuyinCommand(string slug, int playerId, BuyinPostModel postModel);
+        Command GetReportCommand(string slug, int playerId, ReportPostModel postModel);
         Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId);
-        Command GetCashoutCommand(string slug, string playerName, CashoutPostModel postModel);
+        Command GetCashoutCommand(string slug, int playerId, CashoutPostModel postModel);
         Command GetDeleteCommand(string slug, string dateStr);
         Command GetEditCheckpointCommand(string slug, string dateStr, int checkpointId, EditCheckpointPostModel postModel);
     }

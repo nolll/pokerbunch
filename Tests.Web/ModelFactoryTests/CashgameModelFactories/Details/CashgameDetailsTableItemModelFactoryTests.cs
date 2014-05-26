@@ -38,7 +38,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.DisplayName)).Returns(playerUrl);
+		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
