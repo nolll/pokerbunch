@@ -8,6 +8,7 @@ namespace Tests.Common.FakeClasses
     {
         public FakeCashgame(
             int id = default(int),
+            int homegameId = default(int),
             string location = default(string),
             GameStatus status = default(GameStatus),
             bool isStarted = default(bool),
@@ -22,25 +23,26 @@ namespace Tests.Common.FakeClasses
             int totalStacks = default(int),
             int averageBuyin = default(int),
             string dateString = default(string)
-            ) : base(
-                id,
-                location,
-                status,
-                isStarted,
-                startTime,
-                endTime,
-                duration,
-                results ?? new List<CashgameResult>(),
-                playerCount,
-                diff,
-                turnover,
-                hasActivePlayers,
-                totalStacks,
-                averageBuyin,
-                dateString
-                )
+            )
+            : base(
+              id,
+              homegameId,
+              location,
+              status,
+              isStarted,
+              startTime,
+              endTime,
+              duration,
+              results ?? new List<CashgameResult>(),
+              playerCount,
+              diff,
+              turnover,
+              hasActivePlayers,
+              totalStacks,
+              averageBuyin,
+              dateString
+              )
         {
         }
-
     }
 }

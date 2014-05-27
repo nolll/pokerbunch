@@ -47,7 +47,7 @@ namespace Infrastructure.Data.SqlServer
 
         public RawCashgame GetGame(int cashgameId)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = @cashgameId ORDER BY g.GameId";
+            const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = @cashgameId ORDER BY g.GameId";
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@cashgameId", cashgameId)
@@ -83,7 +83,7 @@ namespace Infrastructure.Data.SqlServer
 
         public IList<RawCashgame> GetGames(IList<int> idList)
         {
-            const string sql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
+            const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
             var parameter = new ListSqlParameter("@idList", idList);
             var reader = _storageProvider.Query(sql, parameter);
             return reader.ReadList(_rawCashgameFactory.Create);

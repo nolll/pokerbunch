@@ -26,6 +26,7 @@ namespace Infrastructure.Data.Factories
             return new RawCashgame
                 {
                     Id = reader.GetIntValue("GameID"),
+                    HomegameId = reader.GetIntValue("HomegameID"),
                     Location = location,
                     Status = reader.GetIntValue("Status"),
                     Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date")),
@@ -37,6 +38,7 @@ namespace Infrastructure.Data.Factories
             return new RawCashgame
             {
                 Id = cashgame.Id,
+                HomegameId = cashgame.HomegameId,
                 Location = cashgame.Location,
                 Status = status.HasValue ? (int)status.Value : (int)cashgame.Status,
                 Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.GetTime(),

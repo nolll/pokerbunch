@@ -2,6 +2,7 @@
 using Application.UseCases.PlayerList;
 using Core.Entities;
 using Core.Repositories;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -28,8 +29,8 @@ namespace Tests.Application.UseCases
             const int playerId = 1;
             var homegame = new FakeHomegame(slug: slug);
             var player = new FakePlayer(id: playerId, displayName: playerName);
-            var players = new List<Player> {player};
-            var request = new PlayerListRequest {Slug = slug};
+            var players = new List<Player> { player };
+            var request = new PlayerListRequest { Slug = slug };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
@@ -40,6 +41,24 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(1, result.Players.Count);
             Assert.AreEqual(playerId, result.Players[0].Id);
             Assert.AreEqual(playerName, result.Players[0].Name);
+        }
+
+        [Test]
+        public void Execute_PlayersAreSortedAlphabetically()
+        {
+            const string playerName1 = "b";
+            const string playerName2 = "a";
+            var player1 = new FakePlayer(displayName: playerName1);
+            var player2 = new FakePlayer(displayName: playerName2);
+            var players = new List<Player> { player1, player2 };
+            var request = new PlayerListRequest();
+
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Homegame>())).Returns(players);
+
+            var result = _sut.Execute(request);
+
+            Assert.AreEqual(playerName2, result.Players[0].Name);
+            Assert.AreEqual(playerName1, result.Players[1].Name);
         }
     }
 }

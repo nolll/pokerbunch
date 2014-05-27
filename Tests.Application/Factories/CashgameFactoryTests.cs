@@ -20,6 +20,7 @@ namespace Tests.Application.Factories
 		private string _location;
 		private GameStatus _status;
 		private int _id;
+	    private int _homegameId;
 
         [SetUp]
 		public void SetUp()
@@ -46,17 +47,19 @@ namespace Tests.Application.Factories
 			_location = "a";
 			_status = GameStatus.Running;
 			_id = 1;
-		}
+            _homegameId = 2;
+        }
 
         [Test]
 		public void Get_CashgamePropertiesAreSet()
         {
 			var sut = GetSut();
-			var result = sut.Create(_location, (int)_status, _id, _results);
+			var result = sut.Create(_location, _homegameId, (int)_status, _id, _results);
 
 			Assert.AreEqual(_location, result.Location);
             Assert.AreEqual(_status, result.Status);
             Assert.AreEqual(_id, result.Id);
+            Assert.AreEqual(_homegameId, result.HomegameId);
             Assert.AreEqual(_earliestBuyinTime, result.StartTime);
             Assert.AreEqual(_latestCashoutTime, result.EndTime);
             Assert.AreEqual(180, result.Duration);

@@ -72,17 +72,12 @@ namespace Infrastructure.Data.Cache
             ClearRunningCashgame(homegame.Id);
         }
 
-        public void CashgameEnded(Homegame homegame, Cashgame cashgame)
-        {
-            ClearRunningCashgame(homegame.Id);
-            ClearCashgame(cashgame.Id);
-            ClearCashgameList(homegame.Id, cashgame);
-            ClearCashgameYears(homegame.Id);
-        }
-
         public void CashgameUpdated(Cashgame cashgame)
         {
+            ClearRunningCashgame(cashgame.HomegameId);
             ClearCashgame(cashgame.Id);
+            ClearCashgameList(cashgame);
+            ClearCashgameYears(cashgame.HomegameId);
         }
 
         private void ClearCashgame(int cashgameId)
@@ -97,13 +92,13 @@ namespace Infrastructure.Data.Cache
             _cacheContainer.Remove(runningCashgameKey);
         }
 
-        private void ClearCashgameList(int homegameId, Cashgame cashgame)
+        private void ClearCashgameList(Cashgame cashgame)
         {
-            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(homegameId, GameStatus.Published);
+            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Published);
             _cacheContainer.Remove(allTimeCacheKey);
             if (cashgame.StartTime.HasValue)
             {
-                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(homegameId, GameStatus.Published, cashgame.StartTime.Value.Year);
+                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Published, cashgame.StartTime.Value.Year);
                 _cacheContainer.Remove(currentYearCacheKey);
             }
         }
@@ -113,6 +108,5 @@ namespace Infrastructure.Data.Cache
             var cacheKey = _cacheKeyProvider.CashgameYearsKey(homegameId);
             _cacheContainer.Remove(cacheKey);
         }
-
     }
 }

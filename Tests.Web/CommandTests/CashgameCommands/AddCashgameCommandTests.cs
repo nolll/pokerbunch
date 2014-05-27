@@ -48,14 +48,15 @@ namespace Tests.Web.CommandTests.CashgameCommands
         }
 
         [Test]
-        public void Execute_WithvalidModel_Calls ()
+        public void Execute_WithvalidModel_CallsAddGame()
         {
+            const int homegameId = 2;
             var cashgame = new FakeCashgame(id: 1);
-            var homegame = new FakeHomegame();
+            var homegame = new FakeHomegame(id: homegameId);
             const string location = "a";
             var model = new AddCashgamePostModel { TypedLocation = location };
 
-            GetMock<ICashgameFactory>().Setup(o => o.Create(location, (int)GameStatus.Running, null, null)).Returns(cashgame);
+            GetMock<ICashgameFactory>().Setup(o => o.Create(location, homegameId, (int)GameStatus.Running, null, null)).Returns(cashgame);
 
             var sut = GetSut(homegame, model);
             sut.Execute();

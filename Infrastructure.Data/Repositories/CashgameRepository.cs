@@ -159,7 +159,7 @@ namespace Infrastructure.Data.Repositories
         {
             var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Published);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameEnded(homegame, cashgame);
+            _cacheBuster.CashgameUpdated(cashgame);
 			return success;
 		}
 

@@ -43,7 +43,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         public void GetGame_CallsStorageWithCorrectSql()
         {
             const int cashgameId = 1;
-            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = 1 ORDER BY g.GameId";
+            const string expectedSql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = 1 ORDER BY g.GameId";
 
             var sut = GetSut();
             sut.GetGame(cashgameId);
@@ -80,7 +80,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         public void GetGames_CallsStorageWithCorrectSql()
         {
             var idList = new List<int>{1, 2, 3};
-            const string expectedSql = "SELECT g.GameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (1,2,3) ORDER BY g.GameID";
+            const string expectedSql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (1,2,3) ORDER BY g.GameID";
 
             var sut = GetSut();
             sut.GetGames(idList);

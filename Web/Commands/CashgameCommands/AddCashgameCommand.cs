@@ -28,7 +28,7 @@ namespace Web.Commands.CashgameCommands
                 AddError("Please enter a location");
                 return false;
             }
-            var cashgame = _cashgameFactory.Create(_model.Location, (int)GameStatus.Running);
+            var cashgame = _cashgameFactory.Create(_model.Location, _homegame.Id, (int)GameStatus.Running);
             _cashgameRepository.AddGame(_homegame, cashgame);
             return true;
         }

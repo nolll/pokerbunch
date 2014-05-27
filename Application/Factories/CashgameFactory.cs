@@ -18,6 +18,7 @@ namespace Application.Factories
 
         public Cashgame Create(
             int id,
+            int homegameId,
             string location,
             GameStatus status,
             bool isStarted,
@@ -35,6 +36,7 @@ namespace Application.Factories
         {
             return new Cashgame(
                 id,
+                homegameId,
                 location,
                 status,
                 isStarted,
@@ -51,7 +53,7 @@ namespace Application.Factories
                 dateString);
         }
 
-        public Cashgame Create(string location, int? status = null, int? id = null, IList<CashgameResult> results = null)
+        public Cashgame Create(string location, int homegameId, int? status = null, int? id = null, IList<CashgameResult> results = null)
         {
             if (results == null)
             {
@@ -67,6 +69,7 @@ namespace Application.Factories
 
             return Create(
                 id.HasValue ? id.Value : 0,
+                homegameId,
                 location,
                 status.HasValue ? (GameStatus)status.Value : GameStatus.Created,
                 startTime.HasValue,

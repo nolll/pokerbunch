@@ -50,7 +50,7 @@ namespace Infrastructure.Data.Mappers
                 results.Add(playerResults);
             }
 
-            return _cashgameFactory.Create(rawGame.Location, rawGame.Status, rawGame.Id, results);
+            return _cashgameFactory.Create(rawGame.Location, rawGame.HomegameId, rawGame.Status, rawGame.Id, results);
         }
 
         public IList<Cashgame> MapList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)

@@ -12,8 +12,6 @@ namespace Infrastructure.Data.Cache
         void PlayerUpdated(Player player);
         void PlayerDeleted(Homegame homegame, Player player);
         void CashgameStarted(Homegame cashgame);
-        void CashgameEnded(Homegame homegame, Cashgame cashgame);
         void CashgameUpdated(Cashgame cashgame);
-        void ClearCashgameYears(int homegameId);
     }
 }

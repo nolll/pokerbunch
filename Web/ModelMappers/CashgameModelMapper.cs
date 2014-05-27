@@ -17,6 +17,7 @@ namespace Web.ModelMappers
         {
             return _cashgameFactory.Create(
                     cashgame.Id,
+                    cashgame.HomegameId,
                     postModel.Location,
                     cashgame.Status,
                     cashgame.IsStarted,

@@ -25,7 +25,7 @@ namespace Application.UseCases.PlayerList
             return new PlayerListResult
                 {
                     Slug = request.Slug,
-                    Players = players.Select(CreatePlayerListItem).ToList()
+                    Players = players.Select(CreatePlayerListItem).OrderBy(o => o.Name).ToList()
                 };
         }
 
