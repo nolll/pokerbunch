@@ -126,6 +126,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IUserListPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\UserListPageBuilder.cs" />
+    <Compile Include="Models\CashgameModels\CashgameContextPageModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
@@ -322,7 +323,7 @@
     <Compile Include="Models\NavigationModels\HomegameNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
-    <Compile Include="Models\PageBaseModels\IPageModel.cs" />
+    <Compile Include="Models\PageBaseModels\PageModel.cs" />
     <Compile Include="Models\PageBaseModels\PageProperties.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IAvatarModelFactory.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerConfirmationPageModel.cs" />

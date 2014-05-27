@@ -1,4 +1,6 @@
-﻿using Core.Repositories;
+﻿using System.Collections.Generic;
+using Core.Repositories;
+using System.Linq;
 
 namespace Application.UseCases.CashgameContext
 {
@@ -22,6 +24,7 @@ namespace Application.UseCases.CashgameContext
 
             var gameIsRunning = runningGame != null;
             var years = _cashgameRepository.GetYears(homegame);
+            var latestYear = GetLatestYear(years);
             var bunchName = homegame.DisplayName;
 
             return new CashgameContextResult
@@ -30,8 +33,16 @@ namespace Application.UseCases.CashgameContext
                     Years = years,
                     Slug = request.Slug,
                     BunchName = bunchName,
-                    SelectedYear = request.Year
+                    SelectedYear = request.Year,
+                    LatestYear = latestYear
                 };
+        }
+
+        private int? GetLatestYear(IList<int> years)
+        {
+            if (years.Count == 0)
+                return null;
+            return years.Max();
         }
     }
 }

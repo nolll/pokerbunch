@@ -7,5 +7,4 @@ namespace Web.Models.CashgameModels.Cashout
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
 	}
-
 }

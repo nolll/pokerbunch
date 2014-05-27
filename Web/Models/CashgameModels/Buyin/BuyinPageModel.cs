@@ -8,5 +8,4 @@ namespace Web.Models.CashgameModels.Buyin
         public PageProperties PageProperties { get; set; }
         public bool StackFieldEnabled { get; set; }
 	}
-
 }

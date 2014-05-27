@@ -21,21 +21,25 @@ namespace Web.ModelFactories.NavigationModelFactories
         public CashgamePageNavigationModel Create(string slug, CashgamePage cashgamePage)
         {
             var year = _cashgameService.GetLatestYear(slug);
+            return Create(slug, year, cashgamePage);
+        }
 
+        public CashgamePageNavigationModel Create(string slug, int? latestYear, CashgamePage cashgamePage)
+        {
             return new CashgamePageNavigationModel
-                {
-                    Selected = cashgamePage,
-                    MatrixLink = _urlProvider.GetCashgameMatrixUrl(slug, year),
-                    MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage),
-                    ToplistLink = _urlProvider.GetCashgameToplistUrl(slug, year),
-                    ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage),
-                    ChartLink = _urlProvider.GetCashgameChartUrl(slug, year),
-                    ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage),
-                    ListLink = _urlProvider.GetCashgameListUrl(slug, year),
-                    ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage),
-                    FactsLink = _urlProvider.GetCashgameFactsUrl(slug, year),
-                    FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage)
-                };
+            {
+                Selected = cashgamePage,
+                MatrixLink = _urlProvider.GetCashgameMatrixUrl(slug, latestYear),
+                MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage),
+                ToplistLink = _urlProvider.GetCashgameToplistUrl(slug, latestYear),
+                ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage),
+                ChartLink = _urlProvider.GetCashgameChartUrl(slug, latestYear),
+                ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage),
+                ListLink = _urlProvider.GetCashgameListUrl(slug, latestYear),
+                ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage),
+                FactsLink = _urlProvider.GetCashgameFactsUrl(slug, latestYear),
+                FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage)
+            };
         }
 
         public CashgamePageNavigationModel Create(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)

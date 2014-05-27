@@ -11,5 +11,4 @@ namespace Web.Models.CashgameModels.Chart
         public CashgamePageNavigationModel PageNavModel { get; set; }
         public CashgameYearNavigationModel YearNavModel { get; set; }
 	}
-
 }

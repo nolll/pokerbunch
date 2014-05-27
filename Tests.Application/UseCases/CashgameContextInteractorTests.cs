@@ -24,10 +24,12 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var homegame = new FakeHomegame(); 
+            var homegame = new FakeHomegame();
+            var years = new List<int>();
             var request = new CashgameContextRequest { Slug = slug, Year = year };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var result = _sut.Execute(request);
 
@@ -40,10 +42,12 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var homegame = new FakeHomegame(displayName: name);
+            var years = new List<int>();
             var request = new CashgameContextRequest { Slug = slug };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
+
             var result = _sut.Execute(request);
 
             Assert.AreEqual(name, result.BunchName);
@@ -55,9 +59,11 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const int year = 1;
             var homegame = new FakeHomegame();
+            var years = new List<int>();
             var request = new CashgameContextRequest { Slug = slug, Year = year };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var result = _sut.Execute(request);
 
@@ -69,10 +75,12 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             var homegame = new FakeHomegame();
+            var years = new List<int>();
             var request = new CashgameContextRequest { Slug = slug };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
+
             var result = _sut.Execute(request);
 
             Assert.IsNull(result.SelectedYear);
@@ -84,9 +92,11 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const int year = 1;
             var homegame = new FakeHomegame();
+            var years = new List<int>();
             var request = new CashgameContextRequest { Slug = slug, Year = year };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var result = _sut.Execute(request);
 
@@ -98,11 +108,13 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             var homegame = new FakeHomegame();
+            var years = new List<int>(); 
             var cashgame = new FakeCashgame();
             var request = new CashgameContextRequest { Slug = slug };
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var result = _sut.Execute(request);
 
@@ -110,7 +122,7 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_WithoutYears_YearsAreEmpty()
+        public void Execute_WithoutYears_YearsAreEmptyAndLatestYearIsNull()
         {
             const string slug = "a";
             var homegame = new FakeHomegame();
@@ -123,10 +135,11 @@ namespace Tests.Application.UseCases
             var result = _sut.Execute(request);
 
             Assert.IsEmpty(result.Years);
+            Assert.IsNull(result.LatestYear);
         }
 
         [Test]
-        public void Execute_WithYears_YearsContainsThem()
+        public void Execute_WithYears_YearsContainsThemAndLatestYearIsCorrect()
         {
             const string slug = "a";
             var homegame = new FakeHomegame();
@@ -139,6 +152,7 @@ namespace Tests.Application.UseCases
             var result = _sut.Execute(request);
 
             Assert.AreEqual(3, result.Years.Count);
+            Assert.AreEqual(3, result.LatestYear);
         }
     }
 }

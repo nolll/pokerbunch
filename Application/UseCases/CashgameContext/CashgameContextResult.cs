@@ -13,5 +13,6 @@ namespace Application.UseCases.CashgameContext
         public bool GameIsRunning { get; set; }
         public IList<int> Years { get; set; }
         public int? SelectedYear { get; set; }
+        public int? LatestYear { get; set; }
     }
 }

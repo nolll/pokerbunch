@@ -1,13 +1,13 @@
 using Web.Models.PageBaseModels;
 
-namespace Web.Models.CashgameModels.Details{
-
-	public class CashgameDetailsPageModel : IPageModel {
-
-	    public string BrowserTitle { get; set; }
-	    public PageProperties PageProperties { get; set; }
-	    public string Heading { get; set; }
-	    public string Duration { get; set; }
+namespace Web.Models.CashgameModels.Details
+{
+    public class CashgameDetailsPageModel : IPageModel
+    {
+        public string BrowserTitle { get; set; }
+        public PageProperties PageProperties { get; set; }
+        public string Heading { get; set; }
+        public string Duration { get; set; }
 
         public string StartTime { get; set; }
         public string EndTime { get; set; }
@@ -28,6 +28,5 @@ namespace Web.Models.CashgameModels.Details{
         public string Status { get; set; }
 
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; set; }
-	}
-
+    }
 }

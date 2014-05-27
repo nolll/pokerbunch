@@ -8,5 +8,4 @@ namespace Web.Models.CashgameModels.End
         public PageProperties PageProperties { get; set; }
         public bool ShowDiff { get; set; }
     }
-
 }

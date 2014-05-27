@@ -321,29 +321,48 @@ namespace Web.Services
 
     public abstract class UrlModel
     {
-        protected string Url;
+        private readonly string _url;
+
+        protected UrlModel(string url)
+        {
+            _url = url ?? string.Empty;
+        }
 
         public override string ToString()
         {
-            if (Url == null)
-                return string.Empty;
-            return Url;
+            return _url;
         }
     }
 
-    public class PlayerDetailsUrlModel : UrlModel
+    public abstract class PlayerUrlModel : UrlModel
+    {
+        protected PlayerUrlModel(string format, string slug, int playerId)
+            : base(UrlProvider.FormatPlayer(format, slug, playerId))
+        {
+        }
+    }
+
+    public abstract class HomegameWithOptionalYearUrlModel : UrlModel
+    {
+        protected HomegameWithOptionalYearUrlModel(string format, string formatWithYear, string slug, int? year)
+            : base(UrlProvider.FormatHomegameWithOptionalYear(format, formatWithYear, slug, year))
+        {
+        }
+    }
+
+    public class PlayerDetailsUrlModel : PlayerUrlModel
     {
         public PlayerDetailsUrlModel(string slug, int playerId)
+            : base(RouteFormats.PlayerDetails, slug, playerId)
         {
-            Url = UrlProvider.FormatPlayer(RouteFormats.PlayerDetails, slug, playerId);
         }
     }
 
-    public class TopListUrlModel : UrlModel
+    public class TopListUrlModel : HomegameWithOptionalYearUrlModel
     {
         public TopListUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year)
         {
-            Url = UrlProvider.FormatHomegameWithOptionalYear(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year);
         }
     }
 }

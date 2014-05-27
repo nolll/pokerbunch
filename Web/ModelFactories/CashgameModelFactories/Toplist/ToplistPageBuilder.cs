@@ -44,14 +44,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
             var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
             var tableModel = new ToplistTableModel(topListResult);
 
-            return new CashgameToplistPageModel
-            {
-                BrowserTitle = "Cashgame Toplist",
-                PageProperties = pageProperties,
-                TableModel = tableModel,
-                PageNavModel = pageNavModel,
-                YearNavModel = yearNavModel
-            };
+            return new CashgameToplistPageModel(
+                pageProperties,
+                pageNavModel,
+                yearNavModel,
+                tableModel);
         }
 
         private CashgameContextResult GetCashgameContext(string slug, int? year)
