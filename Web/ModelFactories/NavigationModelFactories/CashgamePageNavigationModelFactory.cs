@@ -24,7 +24,7 @@ namespace Web.ModelFactories.NavigationModelFactories
             return Create(slug, year, cashgamePage);
         }
 
-        public CashgamePageNavigationModel Create(string slug, int? latestYear, CashgamePage cashgamePage)
+        private CashgamePageNavigationModel Create(string slug, int? latestYear, CashgamePage cashgamePage)
         {
             return new CashgamePageNavigationModel
             {
@@ -44,7 +44,7 @@ namespace Web.ModelFactories.NavigationModelFactories
 
         public CashgamePageNavigationModel Create(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
         {
-            return Create(cashgameContextResult.Slug, cashgamePage);
+            return Create(cashgameContextResult.Slug, cashgameContextResult.LatestYear, cashgamePage);
         }
 
         private string GetSelectedClass(CashgamePage current, CashgamePage selected)
