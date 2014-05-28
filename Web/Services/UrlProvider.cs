@@ -365,4 +365,36 @@ namespace Web.Services
         {
         }
     }
+
+    public class MatrixUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public MatrixUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameMatrix, RouteFormats.CashgameMatrixWithYear, slug, year)
+        {
+        }
+    }
+
+    public class ChartUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public ChartUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameChart, RouteFormats.CashgameChartWithYear, slug, year)
+        {
+        }
+    }
+
+    public class ListUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public ListUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameList, RouteFormats.CashgameListWithYear, slug, year)
+        {
+        }
+    }
+
+    public class FactsUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public FactsUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, slug, year)
+        {
+        }
+    }
 }

@@ -18,8 +18,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         {
             const string slug = "a";
             var topListResult = new TopListResult{Items = new List<TopListItem>()};
+            var cashgameContextResult = new CashgameContextResult();
 
             GetMock<ITopListInteractor>().Setup(o => o.Execute(It.IsAny<TopListRequest>())).Returns(topListResult);
+            GetMock<ICashgameContextInteractor>().Setup(o => o.Execute(It.IsAny<CashgameContextRequest>())).Returns(cashgameContextResult);
 
             var sut = GetSut();
             var result = sut.Build(slug, null, null);

@@ -40,7 +40,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         private CashgameToplistPageModel Build(CashgameContextResult contextResult, TopListResult topListResult)
         {
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
-            var pageNavModel = _cashgamePageNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
+            var pageNavModel = new CashgamePageNavigationModel(contextResult, CashgamePage.Toplist);
             var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
             var tableModel = new ToplistTableModel(topListResult);
 

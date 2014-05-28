@@ -11,5 +11,4 @@ namespace Web.Models.PageBaseModels
         public string Version { get; set; }
         public string CssUrl { get; set; }
     }
-
 }
