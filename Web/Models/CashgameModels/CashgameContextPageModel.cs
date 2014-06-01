@@ -1,3 +1,4 @@
+using Application.UseCases.CashgameContext;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 
@@ -11,12 +12,12 @@ namespace Web.Models.CashgameModels
         protected CashgameContextPageModel(
             string browserTitle,
             PageProperties pageProperties,
-            CashgamePageNavigationModel pageNavModel,
-            CashgameYearNavigationModel yearNavModel)
+            CashgameContextResult contextResult,
+            CashgamePage selectedPage)
             : base(browserTitle, pageProperties)
         {
-            PageNavModel = pageNavModel;
-            YearNavModel = yearNavModel;
+            PageNavModel = new CashgamePageNavigationModel(contextResult, selectedPage);
+            YearNavModel = new CashgameYearNavigationModel(contextResult, selectedPage);;
         }
     }
 }

@@ -1,20 +1,17 @@
 using System.Collections.Generic;
-using Application.Services;
 using Web.Models.NavigationModels;
 using Web.Security;
+using Web.Services;
 
 namespace Web.ModelFactories.NavigationModelFactories
 {
     public class AdminNavigationModelFactory : IAdminNavigationModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly IAuth _auth;
 
         public AdminNavigationModelFactory(
-            IUrlProvider urlProvider,
             IAuth auth)
         {
-            _urlProvider = urlProvider;
             _auth = auth;
         }
 
@@ -37,8 +34,8 @@ namespace Web.ModelFactories.NavigationModelFactories
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", _urlProvider.GetHomegameListUrl()),
-                    new NavigationNode("Users", _urlProvider.GetUserListUrl())
+                    new NavigationNode("Bunches", new HomegameListUrlModel()),
+                    new NavigationNode("Users", new UserListUrlModel())
                 };
         }
 

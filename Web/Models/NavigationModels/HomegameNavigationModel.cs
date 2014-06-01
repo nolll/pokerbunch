@@ -1,12 +1,32 @@
-namespace Web.Models.NavigationModels{
+using Application.UseCases.CashgameContext;
+using Core.Entities;
+using Web.Services;
 
-	public class HomegameNavigationModel{
+namespace Web.Models.NavigationModels
+{
+    public class HomegameNavigationModel
+    {
+        public string Heading { get; set; }
+        public UrlModel HeadingLink { get; set; }
+        public UrlModel CashgameLink { get; set; }
+        public UrlModel PlayerLink { get; set; }
 
-	    public string Heading { get; set; }
-	    public string HeadingLink { get; set; }
-        public string CashgameLink { get; set; }
-        public string PlayerLink { get; set; }
+        public HomegameNavigationModel(Homegame homegame)
+            : this(homegame.Slug, homegame.DisplayName)
+        {
+        }
 
-	}
+        public HomegameNavigationModel(BunchContextResult bunchContextResult)
+            : this(bunchContextResult.Slug, bunchContextResult.BunchName)
+        {
+        }
 
+        private HomegameNavigationModel(string slug, string bunchName)
+        {
+            Heading = bunchName;
+            HeadingLink = new HomegameDetailsUrlModel(slug);
+            CashgameLink = new CashgameIndexUrlModel(slug);
+            PlayerLink = new PlayerIndexUrlModel(slug);
+        }
+    }
 }

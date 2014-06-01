@@ -40,7 +40,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             
             var pageProperties = _pagePropertiesFactory.Create(contextResult);
             var pageNavModel = new CashgamePageNavigationModel(contextResult, CashgamePage.Facts);
-            var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Facts);
+            var yearNavModel = new CashgameYearNavigationModel(contextResult, CashgamePage.Facts);
 
             return new CashgameFactsPageModel
                 {

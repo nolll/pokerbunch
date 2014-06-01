@@ -1,8 +1,8 @@
 using Application.UseCases.CashgameContext;
 using Web.Services;
 
-namespace Web.Models.NavigationModels{
-
+namespace Web.Models.NavigationModels
+{
 	public class CashgamePageNavigationModel
     {
 	    public UrlModel MatrixLink { get; private set; }

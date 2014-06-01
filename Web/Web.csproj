@@ -167,8 +167,6 @@
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameYearNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\HomegameNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IHomegameNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerFactsModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerItemModelFactory.cs" />

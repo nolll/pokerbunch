@@ -293,7 +293,7 @@ namespace Web.Services
             return year.HasValue ? FormatHomegameWithYear(formatWithYear, slug, year.Value) : FormatHomegame(format, slug);
         }
 
-        private static string FormatHomegame(string format, string slug)
+        public static string FormatHomegame(string format, string slug)
         {
             return string.Format(format, slug);
         }
@@ -313,7 +313,7 @@ namespace Web.Services
             return string.Format(format, slug, playerId);
         }
 
-        private string FormatUser(string format, string userName)
+        public static string FormatUser(string format, string userName)
         {
             return string.Format(format, userName);
         }
@@ -334,6 +334,22 @@ namespace Web.Services
         }
     }
 
+    public abstract class HomegameUrlModel : UrlModel
+    {
+        protected HomegameUrlModel(string format, string slug)
+            : base(UrlProvider.FormatHomegame(format, slug))
+        {
+        }
+    }
+
+    public abstract class UserUrlModel : UrlModel
+    {
+        protected UserUrlModel(string format, string userName)
+            : base(UrlProvider.FormatUser(format, userName))
+        {
+        }
+    }
+
     public abstract class PlayerUrlModel : UrlModel
     {
         protected PlayerUrlModel(string format, string slug, int playerId)
@@ -346,6 +362,38 @@ namespace Web.Services
     {
         protected HomegameWithOptionalYearUrlModel(string format, string formatWithYear, string slug, int? year)
             : base(UrlProvider.FormatHomegameWithOptionalYear(format, formatWithYear, slug, year))
+        {
+        }
+    }
+
+    public class HomegameDetailsUrlModel : HomegameUrlModel
+    {
+        public HomegameDetailsUrlModel(string slug)
+            : base(RouteFormats.HomegameDetails, slug)
+        {
+        }
+    }
+
+    public class UserDetailsUrlModel : UserUrlModel
+    {
+        public UserDetailsUrlModel(string userName)
+            : base(RouteFormats.UserDetails, userName)
+        {
+        }
+    }
+
+    public class CashgameIndexUrlModel : HomegameUrlModel
+    {
+        public CashgameIndexUrlModel(string slug)
+            : base(RouteFormats.CashgameIndex, slug)
+        {
+        }
+    }
+
+    public class PlayerIndexUrlModel : HomegameUrlModel
+    {
+        public PlayerIndexUrlModel(string slug)
+            : base(RouteFormats.PlayerIndex, slug)
         {
         }
     }
@@ -394,6 +442,62 @@ namespace Web.Services
     {
         public FactsUrlModel(string slug, int? year)
             : base(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, slug, year)
+        {
+        }
+    }
+
+    public class LoginUrlModel : UrlModel
+    {
+        public LoginUrlModel()
+            : base(RouteFormats.AuthLogin)
+        {
+        }
+    }
+
+    public class LogoutUrlModel : UrlModel
+    {
+        public LogoutUrlModel()
+            : base(RouteFormats.AuthLogout)
+        {
+        }
+    }
+
+    public class AddUserUrlModel : UrlModel
+    {
+        public AddUserUrlModel()
+            : base(RouteFormats.UserAdd)
+        {
+        }
+    }
+
+    public class ForgotPasswordUrlModel : UrlModel
+    {
+        public ForgotPasswordUrlModel()
+            : base(RouteFormats.ForgotPassword)
+        {
+        }
+    }
+
+    public class SharingSettingsUrlModel : UrlModel
+    {
+        public SharingSettingsUrlModel()
+            : base(RouteFormats.SharingSettings)
+        {
+        }
+    }
+
+    public class HomegameListUrlModel : UrlModel
+    {
+        public HomegameListUrlModel()
+            : base(RouteFormats.HomegameList)
+        {
+        }
+    }
+
+    public class UserListUrlModel : UrlModel
+    {
+        public UserListUrlModel()
+            : base(RouteFormats.UserList)
         {
         }
     }

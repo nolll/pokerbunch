@@ -112,7 +112,6 @@ namespace Web.Plumbing
             RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();
             RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>();
             RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
-            RegisterComponent<IHomegameNavigationModelFactory, HomegameNavigationModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
             RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>();

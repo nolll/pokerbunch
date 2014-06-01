@@ -1,59 +1,50 @@
-using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.Security;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.NavigationModelFactories
 {
-	public class AdminNavigationModelFactoryTests : MockContainer
-	{
+    public class AdminNavigationModelFactoryTests : MockContainer
+    {
         [Test]
-		public void Show_AdminUser_DefaultContentSet()
+        public void Show_AdminUser_DefaultContentSet()
         {
             GetMock<IAuth>().Setup(o => o.IsAdmin).Returns(true);
-            
+
             var sut = GetSut();
             var result = sut.Create();
 
             Assert.AreEqual("Admin", result.Heading);
             Assert.AreEqual("admin-nav", result.CssClass);
-		}
+        }
 
-		[Test]
-		public void Show_WithNonAdminUser_NoNodes()
+        [Test]
+        public void Show_WithNonAdminUser_NoNodes()
         {
-        	var sut = GetSut();
+            var sut = GetSut();
             var result = sut.Create();
 
-			Assert.AreEqual(0, result.Nodes.Count);
-		}
+            Assert.AreEqual(0, result.Nodes.Count);
+        }
 
-		[Test]
-		public void Show_WithAdminUser_SetsNodes()
-		{
-		    const string homegameListUrl = "a";
-            const string userListUrl = "b";
+        [Test]
+        public void Show_WithAdminUser_SetsNodes()
+        {
+            GetMock<IAuth>().Setup(o => o.IsAdmin).Returns(true);
 
-            GetMock<IUrlProvider>().Setup(o => o.GetHomegameListUrl()).Returns(homegameListUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetUserListUrl()).Returns(userListUrl);
-		    GetMock<IAuth>().Setup(o => o.IsAdmin).Returns(true);
-
-		    var sut = GetSut();
+            var sut = GetSut();
             var result = sut.Create();
 
-            Assert.AreEqual(homegameListUrl, result.Nodes[0].UrlModel);
-			Assert.AreEqual(userListUrl, result.Nodes[1].UrlModel);
-		}
+            Assert.IsInstanceOf<HomegameListUrlModel>(result.Nodes[0].UrlModel);
+            Assert.IsInstanceOf<UserListUrlModel>(result.Nodes[1].UrlModel);
+        }
 
         private AdminNavigationModelFactory GetSut()
         {
             return new AdminNavigationModelFactory(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IAuth>().Object);
         }
-
-	}
-
+    }
 }

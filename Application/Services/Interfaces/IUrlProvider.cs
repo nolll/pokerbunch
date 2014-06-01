@@ -2,7 +2,6 @@
 {
     public interface IUrlProvider
     {
-        string GetLogoutUrl();
         string GetAddUserUrl();
         string GetLoginUrl();
         string GetTwitterCallbackUrl();
@@ -12,14 +11,11 @@
         string GetForgotPasswordUrl();
         string GetHomegameAddConfirmationUrl();
         string GetHomegameAddUrl();
-        string GetHomegameListUrl();
         string GetHomeUrl();
-        string GetSharingSettingsUrl();
         string GetTwitterSettingsUrl();
         string GetTwitterStartShareUrl();
         string GetTwitterStopShareUrl();
         string GetUserAddConfirmationUrl();
-        string GetUserListUrl();
 
         string GetUserDetailsUrl(string userName);
         string GetUserEditUrl(string userName);
@@ -37,9 +33,6 @@
         string GetPlayerAddConfirmationUrl(string slug);
 
         string GetCashgameChartJsonUrl(string slug, int? year);
-        string GetCashgameChartUrl(string slug, int? year);
-        string GetCashgameFactsUrl(string slug, int? year);
-        string GetCashgameToplistUrl(string slug, int? year);
         string GetCashgameListUrl(string slug, int? year);
         string GetCashgameMatrixUrl(string slug, int? year);
 

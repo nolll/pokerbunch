@@ -70,7 +70,6 @@
     <Compile Include="ControllerTests\HomegameControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\BaseModelFactories\PagePropertiesFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\ActionPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\CheckpointModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\CashgameModelFactories\Add\AddCashgamePageModelFactoryTests.cs" />

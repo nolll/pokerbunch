@@ -5,7 +5,6 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
 
@@ -33,8 +32,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         {
             return new ToplistPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<ICashgamePageNavigationModelFactory>().Object,
-                GetMock<ICashgameYearNavigationModelFactory>().Object,
                 GetMock<ITopListInteractor>().Object,
                 GetMock<ICashgameContextInteractor>().Object);
         }

@@ -1,14 +1,16 @@
-namespace Web.Models.NavigationModels{
-    public class NavigationYearModel{
+using Web.Services;
 
-	    public string Link { get; set; }
-	    public string Text { get; set; }
+namespace Web.Models.NavigationModels
+{
+    public class NavigationYearModel
+    {
+        public UrlModel Link { get; private set; }
+        public string Text { get; private set; }
 
-        public NavigationYearModel(string link, string text){
-			Link = link;
-			Text = text;
-		}
-
-	}
-
+        public NavigationYearModel(UrlModel link, string text)
+        {
+            Link = link;
+            Text = text;
+        }
+    }
 }

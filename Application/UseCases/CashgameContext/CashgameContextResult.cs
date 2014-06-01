@@ -2,7 +2,13 @@
 
 namespace Application.UseCases.CashgameContext
 {
-    public class BunchContextResult
+    public class ApplicationContextResult
+    {
+        public string UserName { get; set; }
+        public bool IsInProduction { get; set; }
+    }
+
+    public class BunchContextResult : ApplicationContextResult
     {
         public string Slug { get; set; }
         public string BunchName { get; set; }

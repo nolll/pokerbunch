@@ -11,44 +11,36 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
     public class ToplistPageBuilder : IToplistPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
-        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly ITopListInteractor _topListInteractor;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
 
         public ToplistPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
-            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             ITopListInteractor topListInteractor,
             ICashgameContextInteractor cashgameContextInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
-            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _topListInteractor = topListInteractor;
             _cashgameContextInteractor = cashgameContextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var contextResult = GetCashgameContext(slug, year);
+            var applicationContextResult = GetApplicationContext();
+            var cashgameContextResult = GetCashgameContext(slug, year);
             var topListResult = GetTopList(slug, sortOrderParam, year);
-            return Build(contextResult, topListResult);
-        }
 
-        private CashgameToplistPageModel Build(CashgameContextResult contextResult, TopListResult topListResult)
-        {
-            var pageProperties = _pagePropertiesFactory.Create(contextResult);
-            var pageNavModel = new CashgamePageNavigationModel(contextResult, CashgamePage.Toplist);
-            var yearNavModel = _cashgameYearNavigationModelFactory.Create(contextResult, CashgamePage.Toplist);
-            var tableModel = new ToplistTableModel(topListResult);
+            var pageProperties = _pagePropertiesFactory.Create(cashgameContextResult);
 
             return new CashgameToplistPageModel(
                 pageProperties,
-                pageNavModel,
-                yearNavModel,
-                tableModel);
+                cashgameContextResult,
+                topListResult);
+        }
+
+        private object GetApplicationContext()
+        {
+            return new object();
         }
 
         private CashgameContextResult GetCashgameContext(string slug, int? year)
