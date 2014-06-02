@@ -45,6 +45,8 @@
     <Compile Include="Entities\TwitterCredentials.cs" />
     <Compile Include="Entities\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Entities\UserBunch.cs" />
+    <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CashgameTotalResultFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />

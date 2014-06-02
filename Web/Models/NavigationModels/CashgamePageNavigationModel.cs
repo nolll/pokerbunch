@@ -1,4 +1,5 @@
 using Application.UseCases.CashgameContext;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.Models.NavigationModels

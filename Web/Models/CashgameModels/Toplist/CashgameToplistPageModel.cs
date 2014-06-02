@@ -1,7 +1,6 @@
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Toplist
 {
@@ -10,13 +9,13 @@ namespace Web.Models.CashgameModels.Toplist
 	    public ToplistTableModel TableModel { get; private set; }
 
         public CashgameToplistPageModel(
-            PageProperties pageProperties, 
-            CashgameContextResult contextResult,
+            ApplicationContextResult applicationContextResult,
+            CashgameContextResult cashgameContextResult,
             TopListResult topListResult)
             : base(
             "Cashgame Toplist",
-            pageProperties,
-            contextResult,
+            applicationContextResult,
+            cashgameContextResult,
             CashgamePage.Toplist)
         {
             TableModel = new ToplistTableModel(topListResult);

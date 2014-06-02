@@ -1,5 +1,4 @@
-﻿using Application.UseCases.CashgameContext;
-using Core.Entities;
+﻿using Core.Entities;
 using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.PageBaseModelFactories
@@ -7,6 +6,5 @@ namespace Web.ModelFactories.PageBaseModelFactories
     public interface IPagePropertiesFactory
     {
         PageProperties Create(Homegame homegame = null);
-        PageProperties Create(BunchContextResult bunchContextResult);
     }
 }

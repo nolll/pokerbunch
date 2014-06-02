@@ -1,4 +1,5 @@
-﻿using Web.Security;
+﻿using Application.Services;
+using Web.Security;
 
 namespace Web.Commands.AuthCommands
 {

@@ -1,10 +1,12 @@
 ﻿using Application.Services;
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.NavigationModels;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Facts
 {
@@ -15,6 +17,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
+        private readonly IApplicationContextInteractor _applicationContextInteractor;
         private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
 
         public CashgameFactsPageBuilder(
@@ -23,6 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             ICashgameContextInteractor cashgameContextInteractor,
+            IApplicationContextInteractor applicationContextInteractor,
             ICashgameFactsInteractor cashgameFactsInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
@@ -30,17 +34,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _cashgameContextInteractor = cashgameContextInteractor;
+            _applicationContextInteractor = applicationContextInteractor;
             _cashgameFactsInteractor = cashgameFactsInteractor;
         }
 
         public CashgameFactsPageModel Build(string slug, int? year = null)
         {
-            var contextResult = GetCashgameContextResult(slug, year);
+            var applicationContextResult = _applicationContextInteractor.Execute();
+            var cashgameContextResult = GetCashgameContextResult(slug, year);
             var factsResult = GetFactsResult(slug, year);
-            
-            var pageProperties = _pagePropertiesFactory.Create(contextResult);
-            var pageNavModel = new CashgamePageNavigationModel(contextResult, CashgamePage.Facts);
-            var yearNavModel = new CashgameYearNavigationModel(contextResult, CashgamePage.Facts);
+
+            var pageProperties = new PageProperties(applicationContextResult, cashgameContextResult);
+            var pageNavModel = new CashgamePageNavigationModel(cashgameContextResult, CashgamePage.Facts);
+            var yearNavModel = new CashgameYearNavigationModel(cashgameContextResult, CashgamePage.Facts);
 
             return new CashgameFactsPageModel
                 {

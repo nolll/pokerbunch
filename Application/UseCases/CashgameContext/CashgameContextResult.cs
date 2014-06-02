@@ -4,8 +4,12 @@ namespace Application.UseCases.CashgameContext
 {
     public class ApplicationContextResult
     {
+        public bool IsLoggedIn { get; set; }
+        public bool IsAdmin { get; set; }
         public string UserName { get; set; }
+        public string UserDisplayName { get; set; }
         public bool IsInProduction { get; set; }
+        public string Version { get; set; }
     }
 
     public class BunchContextResult : ApplicationContextResult

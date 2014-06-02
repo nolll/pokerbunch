@@ -216,9 +216,11 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
+    <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\CashgamePage.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
+    <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -345,6 +347,28 @@
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Models\UrlModels\AddUserUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ChartUrlModel.cs" />
+    <Compile Include="Models\UrlModels\FactsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameListUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomegameWithOptionalYearUrlModel.cs" />
+    <Compile Include="Models\UrlModels\ListUrlModel.cs" />
+    <Compile Include="Models\UrlModels\LoginUrlModel.cs" />
+    <Compile Include="Models\UrlModels\LogoutUrlModel.cs" />
+    <Compile Include="Models\UrlModels\MatrixUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs" />
+    <Compile Include="Models\UrlModels\PlayerUrlModel.cs" />
+    <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\TopListUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserListUrlModel.cs" />
+    <Compile Include="Models\UrlModels\UserUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -521,9 +545,6 @@
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
     <Compile Include="Security\CustomIdentity.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
-    <Compile Include="Security\IAuth.cs" />
-    <Compile Include="Security\UserBunch.cs" />
-    <Compile Include="Security\UserIdentity.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Security\Auth.cs" />
     <Compile Include="Services\UrlProvider.cs" />

@@ -1,3 +1,5 @@
+using Application.UseCases.CashgameContext;
+
 namespace Web.Models.PageBaseModels
 {
     public interface IPageModel
@@ -11,10 +13,10 @@ namespace Web.Models.PageBaseModels
         public string BrowserTitle { get; private set; }
         public PageProperties PageProperties { get; private set; }
 
-        protected PageModel(string browserTitle, PageProperties pageProperties)
+        protected PageModel(string browserTitle, ApplicationContextResult applicationContextResult, BunchContextResult bunchContextResult)
         {
             BrowserTitle = browserTitle;
-            PageProperties = pageProperties;
+            PageProperties = new PageProperties(applicationContextResult, bunchContextResult);
         }
     }
 }

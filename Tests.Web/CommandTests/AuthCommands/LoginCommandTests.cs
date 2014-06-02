@@ -1,5 +1,6 @@
 using System.Linq;
 using Application.Services;
+using Core.Entities;
 using Core.Repositories;
 using Moq;
 using NUnit.Framework;

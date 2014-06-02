@@ -1,6 +1,4 @@
-using Core.Entities;
-
-namespace Web.Security
+namespace Core.Entities
 {
     public class UserBunch
     {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Application.UseCases.CashgameContext;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.Models.NavigationModels

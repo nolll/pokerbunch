@@ -1,10 +1,11 @@
 using Application.Services;
+using Application.UseCases.ApplicationContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
-using Web.Security;
+using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.HomeModelFactories
 {
@@ -13,26 +14,28 @@ namespace Web.ModelFactories.HomeModelFactories
         private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IAdminNavigationModelFactory _adminNavigationFactory;
         private readonly IUrlProvider _urlProvider;
+        private readonly IApplicationContextInteractor _applicationContextInteractor;
 
         public HomePageModelFactory(
             IAuth auth, 
             IHomegameRepository homegameRepository, 
             IPagePropertiesFactory pagePropertiesFactory,
-            IAdminNavigationModelFactory adminNavigationFactory,
-            IUrlProvider urlProvider)
+            IUrlProvider urlProvider,
+            IApplicationContextInteractor applicationContextInteractor)
         {
             _auth = auth;
             _homegameRepository = homegameRepository;
             _pagePropertiesFactory = pagePropertiesFactory;
-            _adminNavigationFactory = adminNavigationFactory;
             _urlProvider = urlProvider;
+            _applicationContextInteractor = applicationContextInteractor;
         }
 
         public HomePageModel Create()
         {
             var homegame = GetHomegame();
+            var applicationContextResult = _applicationContextInteractor.Execute();
+
             return new HomePageModel
                 {
                     BrowserTitle = "Poker Bunch",
@@ -41,7 +44,7 @@ namespace Web.ModelFactories.HomeModelFactories
                     AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
                     LoginUrl = _urlProvider.GetLoginUrl(),
                     RegisterUrl = _urlProvider.GetAddUserUrl(),
-			        AdminNav = _adminNavigationFactory.Create()
+			        AdminNav = new AdminNavigationModel(applicationContextResult)
                 };
         }
 

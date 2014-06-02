@@ -100,11 +100,11 @@
     <Compile Include="ModelFactoryTests\HomegameModelFactories\BunchListItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\NavigationModelFactories\AdminNavigationModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\PlayerModelFactories\PlayerItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\UserModelFactories\UserListItemsModelFactoryTests.cs" />
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
+    <Compile Include="ModelTests\NavigationModels\AdminNavigationModelTests.cs" />
     <Compile Include="PageBuilderTests\BunchListPageBuilderTests.cs" />
     <Compile Include="PageBuilderTests\UserListPageBuilderTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
@@ -142,6 +142,9 @@
       <Project>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</Project>
       <Name>Web</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModelFactoryTests\NavigationModelFactories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

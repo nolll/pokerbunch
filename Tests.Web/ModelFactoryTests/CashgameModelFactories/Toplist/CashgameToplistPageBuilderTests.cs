@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
 using Moq;
@@ -18,9 +19,11 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             const string slug = "a";
             var topListResult = new TopListResult{Items = new List<TopListItem>()};
             var cashgameContextResult = new CashgameContextResult();
+            var applicationContextResult = new ApplicationContextResult();
 
             GetMock<ITopListInteractor>().Setup(o => o.Execute(It.IsAny<TopListRequest>())).Returns(topListResult);
             GetMock<ICashgameContextInteractor>().Setup(o => o.Execute(It.IsAny<CashgameContextRequest>())).Returns(cashgameContextResult);
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(applicationContextResult);
 
             var sut = GetSut();
             var result = sut.Build(slug, null, null);
@@ -33,7 +36,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
             return new ToplistPageBuilder(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<ITopListInteractor>().Object,
-                GetMock<ICashgameContextInteractor>().Object);
+                GetMock<ICashgameContextInteractor>().Object,
+                GetMock<IApplicationContextInteractor>().Object);
         }
 	}
 }

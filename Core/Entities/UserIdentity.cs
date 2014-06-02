@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Web.Security
+namespace Core.Entities
 {
     public class UserIdentity
     {

@@ -1,10 +1,9 @@
 ﻿using System;
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
-using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Toplist
 {
@@ -13,34 +12,30 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ITopListInteractor _topListInteractor;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
+        private readonly IApplicationContextInteractor _applicationContextInteractor;
 
         public ToplistPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             ITopListInteractor topListInteractor,
-            ICashgameContextInteractor cashgameContextInteractor)
+            ICashgameContextInteractor cashgameContextInteractor,
+            IApplicationContextInteractor applicationContextInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _topListInteractor = topListInteractor;
             _cashgameContextInteractor = cashgameContextInteractor;
+            _applicationContextInteractor = applicationContextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var applicationContextResult = GetApplicationContext();
+            var applicationContextResult = _applicationContextInteractor.Execute();
             var cashgameContextResult = GetCashgameContext(slug, year);
             var topListResult = GetTopList(slug, sortOrderParam, year);
 
-            var pageProperties = _pagePropertiesFactory.Create(cashgameContextResult);
-
             return new CashgameToplistPageModel(
-                pageProperties,
+                applicationContextResult,
                 cashgameContextResult,
                 topListResult);
-        }
-
-        private object GetApplicationContext()
-        {
-            return new object();
         }
 
         private CashgameContextResult GetCashgameContext(string slug, int? year)

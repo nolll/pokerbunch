@@ -1,3 +1,4 @@
+using Application.UseCases.CashgameContext;
 using Web.Models.MiscModels;
 using Web.Models.NavigationModels;
 
@@ -5,10 +6,39 @@ namespace Web.Models.PageBaseModels
 {
     public sealed class PageProperties
     {
-        public NavigationModel UserNavModel { get; set; }
-        public HomegameNavigationModel HomegameNavModel { get; set; }
-	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; set; }
-        public string Version { get; set; }
-        public string CssUrl { get; set; }
+        public NavigationModel UserNavModel { get; private set; }
+        public HomegameNavigationModel HomegameNavModel { get; private set; }
+	    public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
+        public string Version { get; private set; }
+        public string CssUrl { get; private set; }
+
+        public PageProperties()
+        {
+        }
+
+        public PageProperties(
+            ApplicationContextResult applicationContextResult,
+            BunchContextResult bunchContextResult)
+        {
+            UserNavModel = new UserNavigationModel(applicationContextResult);
+            HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(applicationContextResult);
+            Version = applicationContextResult.Version;
+            CssUrl = BundleConfig.BundleUrl;
+        }
+
+        public PageProperties(
+            NavigationModel userNavModel,
+            GoogleAnalyticsModel googleAnalyticsModel,
+            HomegameNavigationModel homegameNavModel,
+            string version,
+            string cssUrl)
+        {
+            UserNavModel = userNavModel;
+            HomegameNavModel = homegameNavModel;
+            GoogleAnalyticsModel = googleAnalyticsModel;
+            Version = version;
+            CssUrl = cssUrl;
+        }
     }
 }

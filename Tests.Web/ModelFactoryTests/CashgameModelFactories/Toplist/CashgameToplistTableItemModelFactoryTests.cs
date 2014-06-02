@@ -6,6 +6,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Toplist;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist

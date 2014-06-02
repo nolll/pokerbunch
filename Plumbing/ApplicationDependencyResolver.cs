@@ -1,5 +1,6 @@
 ﻿using Application.Factories;
 using Application.Services;
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.BunchList;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
@@ -120,6 +121,7 @@ namespace Plumbing
             RegisterComponent<IBunchListInteractor, BunchListInteractor>();
             RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
             RegisterComponent<ITopListInteractor, TopListInteractor>();
+            RegisterComponent<IApplicationContextInteractor, ApplicationContextInteractor>();
             RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
             RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
         }

@@ -11,13 +11,13 @@ namespace Web.Models.CashgameModels
 
         protected CashgameContextPageModel(
             string browserTitle,
-            PageProperties pageProperties,
-            CashgameContextResult contextResult,
+            ApplicationContextResult applicationContextResult,
+            CashgameContextResult cashgameContextResult,
             CashgamePage selectedPage)
-            : base(browserTitle, pageProperties)
+            : base(browserTitle, applicationContextResult, cashgameContextResult)
         {
-            PageNavModel = new CashgamePageNavigationModel(contextResult, selectedPage);
-            YearNavModel = new CashgameYearNavigationModel(contextResult, selectedPage);;
+            PageNavModel = new CashgamePageNavigationModel(cashgameContextResult, selectedPage);
+            YearNavModel = new CashgameYearNavigationModel(cashgameContextResult, selectedPage);;
         }
     }
 }

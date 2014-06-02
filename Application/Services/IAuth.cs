@@ -1,6 +1,6 @@
 using Core.Entities;
 
-namespace Web.Security
+namespace Application.Services
 {
     public interface IAuth
     {
