@@ -2,8 +2,6 @@
 using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
-using Web.ModelFactories.NavigationModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
@@ -12,27 +10,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 {
     public class CashgameFactsPageBuilder : ICashgameFactsPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
-        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
-        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
         private readonly IApplicationContextInteractor _applicationContextInteractor;
         private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
 
         public CashgameFactsPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IGlobalization globalization,
-            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             ICashgameContextInteractor cashgameContextInteractor,
             IApplicationContextInteractor applicationContextInteractor,
             ICashgameFactsInteractor cashgameFactsInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _globalization = globalization;
-            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
-            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _cashgameContextInteractor = cashgameContextInteractor;
             _applicationContextInteractor = applicationContextInteractor;
             _cashgameFactsInteractor = cashgameFactsInteractor;
@@ -41,19 +30,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
         public CashgameFactsPageModel Build(string slug, int? year = null)
         {
             var applicationContextResult = _applicationContextInteractor.Execute();
-            var cashgameContextResult = GetCashgameContextResult(slug, year);
-            var factsResult = GetFactsResult(slug, year);
+            var cashgameContextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
+            var factsResult = _cashgameFactsInteractor.Execute(GetFactsRequest(slug, year));
 
-            var pageProperties = new PageProperties(applicationContextResult, cashgameContextResult);
-            var pageNavModel = new CashgamePageNavigationModel(cashgameContextResult, CashgamePage.Facts);
-            var yearNavModel = new CashgameYearNavigationModel(cashgameContextResult, CashgamePage.Facts);
-
-            return new CashgameFactsPageModel
+            return new CashgameFactsPageModel(
+                applicationContextResult,
+                cashgameContextResult)
                 {
-                    BrowserTitle = "Cashgame Facts",
-                    PageProperties = pageProperties,
-                    PageNavModel = pageNavModel,
-                    YearNavModel = yearNavModel,
 			        GameCount = factsResult.GameCount,
 			        TotalGameTime = _globalization.FormatDuration(factsResult.TimePlayed),
                     TotalTurnover = _globalization.FormatCurrency(factsResult.Turnover),
@@ -74,24 +57,24 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
                 };
         }
 
-        private CashgameFactsResult GetFactsResult(string slug, int? year)
+        private static CashgameFactsRequest GetFactsRequest(string slug, int? year)
         {
             var topListRequest = new CashgameFactsRequest
-            {
-                Slug = slug,
-                Year = year
-            };
-            return _cashgameFactsInteractor.Execute(topListRequest);
+                {
+                    Slug = slug,
+                    Year = year
+                };
+            return topListRequest;
         }
 
-        private CashgameContextResult GetCashgameContextResult(string slug, int? year)
+        private static CashgameContextRequest GetCashgameContextRequest(string slug, int? year)
         {
             var contextRequest = new CashgameContextRequest
-            {
-                Slug = slug,
-                Year = year
-            };
-            return _cashgameContextInteractor.Execute(contextRequest);
+                {
+                    Slug = slug,
+                    Year = year
+                };
+            return contextRequest;
         }
     }
 }

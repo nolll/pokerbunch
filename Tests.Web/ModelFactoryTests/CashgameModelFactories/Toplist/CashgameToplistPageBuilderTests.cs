@@ -34,7 +34,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         private ToplistPageBuilder GetSut()
         {
             return new ToplistPageBuilder(
-                GetMock<IPagePropertiesFactory>().Object,
                 GetMock<ITopListInteractor>().Object,
                 GetMock<ICashgameContextInteractor>().Object,
                 GetMock<IApplicationContextInteractor>().Object);

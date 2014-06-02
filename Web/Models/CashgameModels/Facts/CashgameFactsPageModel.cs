@@ -1,14 +1,21 @@
+using Application.UseCases.CashgameContext;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts
 {
-	public class CashgameFactsPageModel : IPageModel
+	public class CashgameFactsPageModel : CashgameContextPageModel
     {
-	    public string BrowserTitle { get; set; }
-	    public PageProperties PageProperties { get; set; }
-	    public CashgamePageNavigationModel PageNavModel { get; set; }
-        public CashgameYearNavigationModel YearNavModel { get; set; }
+	    public CashgameFactsPageModel(
+            ApplicationContextResult applicationContextResult, 
+            CashgameContextResult cashgameContextResult) :
+            base(
+            "Cashgame Facts",
+            applicationContextResult,
+            cashgameContextResult,
+            CashgamePage.Facts)
+	    {
+	    }
+
 	    public int GameCount { get; set; }
 		public string TotalGameTime { get; set; }
         public string TotalTurnover { get; set; }
