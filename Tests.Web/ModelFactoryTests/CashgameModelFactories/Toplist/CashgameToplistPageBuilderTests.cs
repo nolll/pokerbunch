@@ -6,7 +6,6 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Toplist;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
@@ -18,8 +17,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         {
             const string slug = "a";
             var topListResult = new TopListResult{Items = new List<TopListItem>()};
-            var cashgameContextResult = new CashgameContextResult();
-            var applicationContextResult = new ApplicationContextResult();
+            var cashgameContextResult = new CashgameContextResultInTest();
+            var applicationContextResult = new ApplicationContextResultInTest();
 
             GetMock<ITopListInteractor>().Setup(o => o.Execute(It.IsAny<TopListRequest>())).Returns(topListResult);
             GetMock<ICashgameContextInteractor>().Setup(o => o.Execute(It.IsAny<CashgameContextRequest>())).Returns(cashgameContextResult);
@@ -35,8 +34,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
         {
             return new ToplistPageBuilder(
                 GetMock<ITopListInteractor>().Object,
-                GetMock<ICashgameContextInteractor>().Object,
-                GetMock<IApplicationContextInteractor>().Object);
+                GetMock<ICashgameContextInteractor>().Object);
         }
 	}
 }

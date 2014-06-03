@@ -17,13 +17,12 @@ namespace Web.Models.PageBaseModels
         }
 
         public PageProperties(
-            ApplicationContextResult applicationContextResult,
             BunchContextResult bunchContextResult)
         {
-            UserNavModel = new UserNavigationModel(applicationContextResult);
+            UserNavModel = new UserNavigationModel(bunchContextResult);
             HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(applicationContextResult);
-            Version = applicationContextResult.Version;
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(bunchContextResult);
+            Version = bunchContextResult.Version;
             CssUrl = BundleConfig.BundleUrl;
         }
 

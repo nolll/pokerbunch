@@ -25,12 +25,10 @@ namespace Web.Models.CashgameModels.Facts
         public string BiggestTotalCashoutAmount { get; private set; }
 
 	    public CashgameFactsPageModel(
-            ApplicationContextResult applicationContextResult, 
             CashgameContextResult cashgameContextResult,
             CashgameFactsResult factsResult) :
             base(
             "Cashgame Facts",
-            applicationContextResult,
             cashgameContextResult,
             CashgamePage.Facts)
 	    {

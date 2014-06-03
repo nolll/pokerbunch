@@ -2,7 +2,6 @@ using Application.UseCases.CashgameContext;
 using NUnit.Framework;
 using Web.Models.NavigationModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelTests.NavigationModels
 {
@@ -11,7 +10,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_AdminUser_DefaultContentSet()
         {
-            var applicationContextResult = new ApplicationContextResult {IsAdmin = true};
+            var applicationContextResult = new ApplicationContextResultInTest(isAdmin: true);
 
             var result = new AdminNavigationModel(applicationContextResult);
 
@@ -22,7 +21,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithNonAdminUser_NoNodes()
         {
-            var applicationContextResult = new ApplicationContextResult();
+            var applicationContextResult = new ApplicationContextResultInTest();
 
             var result = new AdminNavigationModel(applicationContextResult);
 
@@ -32,7 +31,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithAdminUser_SetsNodes()
         {
-            var applicationContextResult = new ApplicationContextResult { IsAdmin = true };
+            var applicationContextResult = new ApplicationContextResultInTest(isAdmin: true);
 
             var result = new AdminNavigationModel(applicationContextResult);
 

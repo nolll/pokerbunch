@@ -19,16 +19,16 @@ namespace Application.UseCases.ApplicationContext
             var userName = isLoggedIn ? user.UserName : string.Empty;
             var userDisplayName = isLoggedIn ? user.DisplayName : string.Empty;
             var isAdmin = isLoggedIn && user.IsAdmin;
+            const bool isInProduction = false;
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            return new ApplicationContextResult
-                {
-                    UserName = userName,
-                    UserDisplayName = userDisplayName,
-                    IsLoggedIn = isLoggedIn,
-                    IsAdmin = isAdmin,
-                    IsInProduction = false,
-                    Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
-                };
+            return new ApplicationContextResult(
+                isLoggedIn,
+                isAdmin,
+                userName,
+                userDisplayName,
+                isInProduction,
+                version);
         }
     }
 }

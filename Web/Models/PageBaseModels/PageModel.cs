@@ -13,10 +13,10 @@ namespace Web.Models.PageBaseModels
         public string BrowserTitle { get; private set; }
         public PageProperties PageProperties { get; private set; }
 
-        protected PageModel(string browserTitle, ApplicationContextResult applicationContextResult, BunchContextResult bunchContextResult)
+        protected PageModel(string browserTitle, BunchContextResult bunchContextResult)
         {
             BrowserTitle = browserTitle;
-            PageProperties = new PageProperties(applicationContextResult, bunchContextResult);
+            PageProperties = new PageProperties(bunchContextResult);
         }
     }
 }

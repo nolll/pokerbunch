@@ -1,5 +1,4 @@
 ﻿using System;
-using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
 using Web.Models.CashgameModels.Toplist;
@@ -10,26 +9,21 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
     {
         private readonly ITopListInteractor _topListInteractor;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
-        private readonly IApplicationContextInteractor _applicationContextInteractor;
 
         public ToplistPageBuilder(
             ITopListInteractor topListInteractor,
-            ICashgameContextInteractor cashgameContextInteractor,
-            IApplicationContextInteractor applicationContextInteractor)
+            ICashgameContextInteractor cashgameContextInteractor)
         {
             _topListInteractor = topListInteractor;
             _cashgameContextInteractor = cashgameContextInteractor;
-            _applicationContextInteractor = applicationContextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var applicationContextResult = _applicationContextInteractor.Execute();
             var cashgameContextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
             var topListResult = _topListInteractor.Execute(GetTopListRequest(slug, sortOrderParam, year));
 
             return new CashgameToplistPageModel(
-                applicationContextResult,
                 cashgameContextResult,
                 topListResult);
         }

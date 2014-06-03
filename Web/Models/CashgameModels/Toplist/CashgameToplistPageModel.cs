@@ -9,12 +9,10 @@ namespace Web.Models.CashgameModels.Toplist
 	    public ToplistTableModel TableModel { get; private set; }
 
         public CashgameToplistPageModel(
-            ApplicationContextResult applicationContextResult,
             CashgameContextResult cashgameContextResult,
             TopListResult topListResult)
             : base(
             "Cashgame Toplist",
-            applicationContextResult,
             cashgameContextResult,
             CashgamePage.Toplist)
         {

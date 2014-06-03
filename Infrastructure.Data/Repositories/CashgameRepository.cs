@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Application.Factories;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
@@ -21,7 +20,6 @@ namespace Infrastructure.Data.Repositories
 	public class CashgameRepository : ICashgameRepository
     {
 	    private readonly ICashgameStorage _cashgameStorage;
-	    private readonly ICashgameFactory _cashgameFactory;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
@@ -31,7 +29,6 @@ namespace Infrastructure.Data.Repositories
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
-			ICashgameFactory cashgameFactory,
             IRawCashgameFactory rawCashgameFactory,
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
@@ -40,7 +37,6 @@ namespace Infrastructure.Data.Repositories
             ICashgameDataMapper cashgameDataMapper)
 	    {
 	        _cashgameStorage = cashgameStorage;
-	        _cashgameFactory = cashgameFactory;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
@@ -59,11 +55,16 @@ namespace Infrastructure.Data.Repositories
             return GetList(homegame, GameStatus.Published, year);
         }
 
-		public Cashgame GetRunning(Homegame homegame)
-		{
-            var id = GetIdByRunning(homegame.Id);
+        public Cashgame GetRunning(Homegame homegame)
+        {
+            return GetRunning(homegame.Id);
+        }
+
+        public Cashgame GetRunning(int bunchId)
+        {
+            var id = GetIdByRunning(bunchId);
             return id.HasValue ? GetById(id.Value) : null;
-		}
+        }
 
         public Cashgame GetByDateString(Homegame homegame, string dateString)
         {
@@ -91,8 +92,13 @@ namespace Infrastructure.Data.Repositories
 
         public IList<int> GetYears(Homegame homegame)
         {
-            var cacheKey = _cacheKeyProvider.CashgameYearsKey(homegame.Id);
-            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetYears(homegame.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
+            return GetYears(homegame.Id);
+        }
+
+        public IList<int> GetYears(int bunchId)
+        {
+            var cacheKey = _cacheKeyProvider.CashgameYearsKey(bunchId);
+            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetYears(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
 	    private IList<Cashgame> GetList(Homegame homegame, GameStatus? status = null, int? year = null)

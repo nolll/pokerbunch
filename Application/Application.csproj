@@ -102,6 +102,7 @@
     <Compile Include="UseCases\BunchList\BunchListItem.cs" />
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
     <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
+    <Compile Include="UseCases\CashgameContext\ApplicationContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

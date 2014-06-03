@@ -26,7 +26,7 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
             GetMock<IUrlProvider>().Setup(o => o.GetHomegameAddUrl()).Returns(addHomegameUrl);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResult());
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
             var result = sut.Create();
@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
         {
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
             GetMock<IAuth>().Setup(o => o.IsAuthenticated).Returns(true);
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResult());
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
             var result = sut.Create();

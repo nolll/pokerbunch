@@ -11,10 +11,9 @@ namespace Web.Models.CashgameModels
 
         protected CashgameContextPageModel(
             string browserTitle,
-            ApplicationContextResult applicationContextResult,
             CashgameContextResult cashgameContextResult,
             CashgamePage selectedPage)
-            : base(browserTitle, applicationContextResult, cashgameContextResult)
+            : base(browserTitle, cashgameContextResult)
         {
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult, selectedPage);
             YearNavModel = new CashgameYearNavigationModel(cashgameContextResult, selectedPage);;

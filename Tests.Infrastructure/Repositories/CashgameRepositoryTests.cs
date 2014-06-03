@@ -1,4 +1,3 @@
-using Application.Factories;
 using Core.Entities;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
@@ -47,7 +46,6 @@ namespace Tests.Infrastructure.Repositories
         {
             return new CashgameRepository(
                 GetMock<ICashgameStorage>().Object,
-                GetMock<ICashgameFactory>().Object,
                 GetMock<IRawCashgameFactory>().Object,
                 CacheContainerFake,
                 GetMock<ICheckpointStorage>().Object,

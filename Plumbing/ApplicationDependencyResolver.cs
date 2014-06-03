@@ -117,12 +117,13 @@ namespace Plumbing
             RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();
 
             // Use Cases
+            RegisterComponent<IApplicationContextInteractor, ApplicationContextInteractor>();
+            RegisterComponent<IBunchContextInteractor, BunchContextInteractor>();
+            RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
             RegisterComponent<IUserListInteractor, UserListInteractor>();
             RegisterComponent<IBunchListInteractor, BunchListInteractor>();
             RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
             RegisterComponent<ITopListInteractor, TopListInteractor>();
-            RegisterComponent<IApplicationContextInteractor, ApplicationContextInteractor>();
-            RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
             RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
         }
     }
