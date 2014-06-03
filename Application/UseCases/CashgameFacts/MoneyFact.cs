@@ -2,11 +2,11 @@
 
 namespace Application.UseCases.CashgameFacts
 {
-    public class AmountFact : PlayerFact
+    public class MoneyFact : PlayerFact
     {
         public Money Amount { get; private set; }
 
-        public AmountFact(string playerName, Money amount) : base(playerName)
+        public MoneyFact(string playerName, Money amount) : base(playerName)
         {
             Amount = amount;
         }

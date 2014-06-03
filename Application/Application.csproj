@@ -106,7 +106,7 @@
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\ICashgameContextInteractor.cs" />
-    <Compile Include="UseCases\CashgameFacts\AmountFact.cs" />
+    <Compile Include="UseCases\CashgameFacts\MoneyFact.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsRequest.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsResult.cs" />

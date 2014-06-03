@@ -1,12 +1,14 @@
-﻿namespace Application.UseCases.CashgameFacts
+﻿using Core.Entities;
+
+namespace Application.UseCases.CashgameFacts
 {
     public class DurationFact : PlayerFact
     {
-        public int Minutes { get; private set; }
+        public Time Time { get; private set; }
 
-        public DurationFact(string playerName, int minutes) : base(playerName)
+        public DurationFact(string playerName, Time time) : base(playerName)
         {
-            Minutes = minutes;
+            Time = time;
         }
     }
 }

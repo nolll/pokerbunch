@@ -10,6 +10,8 @@ namespace Application.UseCases.CashgameContext
         public string UserDisplayName { get; set; }
         public bool IsInProduction { get; set; }
         public string Version { get; set; }
+
+
     }
 
     public class BunchContextResult : ApplicationContextResult

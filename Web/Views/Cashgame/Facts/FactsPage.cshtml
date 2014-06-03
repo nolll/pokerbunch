@@ -17,10 +17,10 @@
     <h2 class="h2">Single Game</h2>
     <dl class="value-list">
         <dt class="label">Best Result</dt>
-        <dd>@Model.BestResultName: @Model.BestResultAmount</dd>
+        <dd>@Model.BestResultName: <span class="pos-result">@Model.BestResultAmount</span></dd>
 
         <dt class="label">Worst Result</dt>
-        <dd>@Model.WorstResultName: @Model.WorstResultAmount</dd>
+        <dd>@Model.WorstResultName: <span class="neg-result">@Model.WorstResultAmount</span></dd>
         
         @*
         BiggestBuyin
@@ -36,10 +36,10 @@
         <dd>@Model.MostTimeName: @Model.MostTimeDuration</dd>
         
         <dt class="label">Best Total Result</dt>
-        <dd>@Model.BestTotalWinningsName: @Model.BestTotalWinningsAmount</dd>
+        <dd>@Model.BestTotalWinningsName: <span class="pos-result">@Model.BestTotalWinningsAmount</span></dd>
         
         <dt class="label">Worst Total Result</dt>
-        <dd>@Model.WorstTotalWinningsName: @Model.WorstTotalWinningsAmount</dd>
+        <dd>@Model.WorstTotalWinningsName: <span class="neg-result">@Model.WorstTotalWinningsAmount</span></dd>
 
         <dt class="label">Biggest Total Buyin</dt>
         <dd>@Model.BiggestTotalBuyinName: @Model.BiggestTotalBuyinAmount</dd>
