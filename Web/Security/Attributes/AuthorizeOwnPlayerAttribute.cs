@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -15,13 +16,13 @@ namespace Web.Security.Attributes
 
             var identity = GetIdentity(httpContext);
             var slug = GetSlug(httpContext);
-            var playerName = GetPlayerName(httpContext);
-            return identity.IsAdmin || identity.Bunches.Any(userBunch => userBunch.Slug == slug && userBunch.Name.ToLower() == playerName);
+            var playerName = GetPlayerId(httpContext);
+            return identity.IsAdmin || identity.Bunches.Any(userBunch => userBunch.Slug == slug && userBunch.Id.ToString(CultureInfo.InvariantCulture) == playerName);
         }
 
-        private string GetPlayerName(HttpContextBase httpContext)
+        private string GetPlayerId(HttpContextBase httpContext)
         {
-            return httpContext.Request.RequestContext.RouteData.Values["playerName"] as string;
+            return httpContext.Request.RequestContext.RouteData.Values["playerId"] as string;
         }
     }
 }

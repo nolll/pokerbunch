@@ -69,7 +69,7 @@ namespace Web.Commands.AuthCommands
                 {
                     var role = _homegameRepository.GetHomegameRole(homegame, user);
                     var player = _playerRepository.GetByUserName(homegame, user.UserName);
-                    var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName);
+                    var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName, player.Id);
                     userBunches.Add(userBunch);
                 }
             }
