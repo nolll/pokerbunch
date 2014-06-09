@@ -101,7 +101,6 @@
     <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\PlayerModelFactories\PlayerItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
     <Compile Include="ModelTests\NavigationModels\AdminNavigationModelTests.cs" />
     <Compile Include="ModelTests\UserModels\UserListItemsModelTests.cs" />

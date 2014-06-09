@@ -8,5 +8,10 @@
         {
             Relative = url ?? string.Empty;
         }
+
+        public override string ToString()
+        {
+            return Relative;
+        }
     }
 }
