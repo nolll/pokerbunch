@@ -4,6 +4,7 @@ using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Details;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
@@ -32,7 +33,7 @@ namespace Web.ModelFactories.PlayerModelFactories
         public PlayerDetailsPageModel Create(Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
         {
             var hasUser = user != null;
-            var userUrl = hasUser ? _urlProvider.GetUserDetailsUrl(user.UserName) : null;
+            var userUrl = hasUser ? new UserDetailsUrlModel(user.UserName) : null;
             var userEmail = hasUser ? user.Email : null;
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
             var invitationUrl = hasUser ? null : _urlProvider.GetPlayerInviteUrl(homegame.Slug, player.Id);

@@ -6,6 +6,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
 using Web.Models.NavigationModels;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomeModelFactories
 {
@@ -42,8 +43,8 @@ namespace Web.ModelFactories.HomeModelFactories
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        IsLoggedIn = _auth.IsAuthenticated,
                     AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
-                    LoginUrl = _urlProvider.GetLoginUrl(),
-                    RegisterUrl = _urlProvider.GetAddUserUrl(),
+                    LoginUrl = new LoginUrlModel(),
+                    RegisterUrl = new AddUserUrlModel(),
 			        AdminNav = new AdminNavigationModel(applicationContextResult)
                 };
         }

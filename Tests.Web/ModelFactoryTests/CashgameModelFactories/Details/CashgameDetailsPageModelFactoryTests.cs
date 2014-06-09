@@ -9,6 +9,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
@@ -128,16 +129,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		[Test]
 		public void CheckpointsUrl_IsCorrectType()
 		{
-		    const string actionUrl = "a";
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
-
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, cashgame.DateString, player.Id)).Returns(actionUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.AreEqual(actionUrl, result.CheckpointsUrl);
+			Assert.IsInstanceOf<CashgameActionUrlModel>(result.CheckpointsUrl);
 		}
 
 		[Test]

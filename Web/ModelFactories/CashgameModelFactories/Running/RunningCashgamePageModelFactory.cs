@@ -3,6 +3,7 @@ using Application.Services;
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
@@ -38,10 +39,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = GetStartTime(cashgame, homegame.Timezone),
-                    BuyinUrl = _urlProvider.GetCashgameBuyinUrl(homegame.Slug, player.Id),
+                    BuyinUrl = new CashgameBuyinUrlModel(homegame.Slug, player.Id),
                     ReportUrl = _urlProvider.GetCashgameReportUrl(homegame.Slug, player.Id),
-                    CashoutUrl = _urlProvider.GetCashgameCashoutUrl(homegame.Slug, player.Id),
-                    EndGameUrl = _urlProvider.GetCashgameEndUrl(homegame.Slug),
+                    CashoutUrl = new CashgameCashoutUrlModel(homegame.Slug, player.Id),
+                    EndGameUrl = new EndCashgameUrlModel(homegame.Slug),
                     BuyinButtonEnabled = canReport,
                     ReportButtonEnabled = canReport && isInGame,
                     CashoutButtonEnabled = isInGame,

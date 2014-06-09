@@ -1,5 +1,6 @@
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.HomeModels
 {
@@ -9,8 +10,8 @@ namespace Web.Models.HomeModels
         public PageProperties PageProperties { get; set; }
         public bool IsLoggedIn { get; set; }
         public string AddHomegameUrl { get; set; }
-        public string LoginUrl { get; set; }
-        public string RegisterUrl { get; set; }
+        public UrlModel LoginUrl { get; set; }
+        public UrlModel RegisterUrl { get; set; }
         public NavigationModel AdminNav { get; set; }
     }
 }

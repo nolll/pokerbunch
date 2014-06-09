@@ -4,6 +4,7 @@ using Application.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.ModelFactories.PlayerModelFactories;
+using Web.Models.UrlModels;
 
 namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
 {
@@ -14,8 +15,7 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
         [SetUp]
         public virtual void SetUp()
         {
-            _sut = new PlayerItemModelFactory(
-                GetMock<IUrlProvider>().Object);
+            _sut = new PlayerItemModelFactory();
         }
 
         [Test]
@@ -24,15 +24,12 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
             const string slug = "a";
             const string displayName = "b";
             const int id = 1;
-            const string url = "c";
             var playerListItem = new PlayerListItem{Id = id, Name = displayName};
-
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, id)).Returns(url);
 
             var result = _sut.Create(slug, playerListItem);
 
             Assert.AreEqual(displayName, result.Name);
-            Assert.AreEqual(url, result.Url);
+            Assert.IsInstanceOf<PlayerDetailsUrlModel>(result.Url);
         }
 
         [Test]

@@ -15,22 +15,17 @@ namespace Web.Services
 
         public string GetLoginUrl()
         {
-            return RouteFormats.AuthLogin;
-        }
-
-        public string GetLogoutUrl()
-        {
-            return RouteFormats.AuthLogout;
+            return new LoginUrlModel().Relative;
         }
 
         public string GetAddUserUrl()
         {
-            return RouteFormats.UserAdd;
+            return new AddUserUrlModel().Relative;
         }
 
         public string GetJoinHomegameUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.HomegameJoin, slug);
+            return new JoinHomeGameUrlModel(slug).Relative;
         }
 
         public string GetTwitterCallbackUrl()
@@ -40,37 +35,22 @@ namespace Web.Services
 
         public string GetCashgameActionChartJsonUrl(string slug, string dateStr, int playerId)
         {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameActionChartJson, slug, dateStr, playerId);
-        }
-
-        public string GetCashgameActionUrl(string slug, string dateStr, int playerId)
-        {
-            return GetCashgamePlayerUrl(RouteFormats.CashgameAction, slug, dateStr, playerId);
+            return new CashgameActionChartJsonUrlModel(slug, dateStr, playerId).Relative;
         }
 
         public string GetCashgameAddUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.CashgameAdd, slug);
-        }
-
-        public string GetCashgameBuyinUrl(string slug, int playerId)
-        {
-            return FormatPlayer(RouteFormats.CashgameBuyin, slug, playerId);
-        }
-
-        public string GetCashgameCashoutUrl(string slug, int playerId)
-        {
-            return FormatPlayer(RouteFormats.CashgameCashout, slug, playerId);
+            return new AddCashgameUrlModel(slug).Relative;
         }
 
         public string GetCashgameChartJsonUrl(string slug, int? year)
         {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameChartJson, RouteFormats.CashgameChartJsonWithYear, slug, year);
+            return new CashgameChartJsonUrlModel(slug, year).Relative;
         }
 
         public string GetCashgameChartUrl(string slug, int? year)
         {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameChart, RouteFormats.CashgameChartWithYear, slug, year);
+            return new CashgameChartUrlModel(slug, year).Relative;
         }
 
         public string GetCashgameCheckpointDeleteUrl(string slug, string dateStr, int playerId, int checkpointId)
@@ -85,42 +65,32 @@ namespace Web.Services
 
         public string GetCashgameDeleteUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDelete, slug, dateStr);
+            return new DeleteCashgameUrlModel(slug, dateStr).Relative;
         }
 
         public string GetCashgameDetailsChartJsonUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDetailsChartJson, slug, dateStr);
+            return new CashgameDetailsChartJsonUrl(slug, dateStr).Relative;
         }
 
         public string GetCashgameDetailsUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameDetails, slug, dateStr);
+            return new CashgameDetailsUrl(slug, dateStr).Relative;
         }
 
         public string GetCashgameEditUrl(string slug, string dateStr)
         {
-            return FormatCashgame(RouteFormats.CashgameEdit, slug, dateStr);
+            return new EditCashgameUrl(slug, dateStr).Relative;
         }
 
         public string GetCashgameEndUrl(string slug)
         {
-            return FormatHomegame(RouteFormats.CashgameEnd, slug);
-        }
-
-        public string GetCashgameFactsUrl(string slug, int? year)
-        {
-            return FormatHomegameWithOptionalYear(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, slug, year);
-        }
-
-        public string GetCashgameIndexUrl(string slug)
-        {
-            return FormatHomegame(RouteFormats.CashgameIndex, slug);
+            return new EndCashgameUrlModel(slug).Relative;
         }
 
         public string GetCashgameToplistUrl(string slug, int? year)
         {
-            return GetCashgameToplistUrlStatic(slug, year).ToString();
+            return GetCashgameToplistUrlStatic(slug, year).Relative;
         }
 
         public static UrlModel GetCashgameToplistUrlStatic(string slug, int? year)
@@ -193,11 +163,6 @@ namespace Web.Services
             return RouteFormats.HomegameList;
         }
 
-        public string GetHomeUrl()
-        {
-            return RouteFormats.Home;
-        }
-
         public string GetPlayerAddConfirmationUrl(string slug)
         {
             return FormatHomegame(RouteFormats.PlayerAddConfirmation, slug);
@@ -211,21 +176,6 @@ namespace Web.Services
         public string GetPlayerDeleteUrl(string slug, int playerId)
         {
             return FormatPlayer(RouteFormats.PlayerDelete, slug, playerId);
-        }
-
-        public string GetPlayerDetailsUrl(string slug, int playerId)
-        {
-            return GetPlayerDetailsUrlStatic(slug, playerId).ToString();
-        }
-
-        public static UrlModel GetPlayerDetailsUrlStatic(string slug, int playerId)
-        {
-            return new PlayerDetailsUrlModel(slug, playerId);
-        }
-
-        public string GetPlayerIndexUrl(string slug)
-        {
-            return FormatHomegame(RouteFormats.PlayerIndex, slug);
         }
 
         public string GetPlayerInviteConfirmationUrl(string slug, int playerId)
@@ -245,45 +195,25 @@ namespace Web.Services
 
         public string GetSharingSettingsUrl()
         {
-            return RouteFormats.SharingSettings;
+            return new SharingSettingsUrlModel().Relative;
         }
 
         public string GetTwitterSettingsUrl()
         {
-            return RouteFormats.TwitterSettings;
+            return new TwitterSettingsUrlModel().Relative;
         }
 
         public string GetTwitterStartShareUrl()
         {
-            return RouteFormats.TwitterStartShare;
+            return new TwitterStartShareUrlModel().Relative;
         }
 
         public string GetTwitterStopShareUrl()
         {
-            return RouteFormats.TwitterStopShare;
+            return new TwitterStopShareUrlModel().Relative;
         }
         
-        public string GetUserAddConfirmationUrl()
-        {
-            return RouteFormats.UserAddConfirmation;
-        }
-
-        public string GetUserDetailsUrl(string userName)
-        {
-            return FormatUser(RouteFormats.UserDetails, userName);
-        }
-
-        public string GetUserEditUrl(string userName)
-        {
-            return FormatUser(RouteFormats.UserEdit, userName);
-        }
-
-        public string GetUserListUrl()
-        {
-            return RouteFormats.UserList;
-        }
-
-        private string GetCashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
+        public static string FormatCashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
         {
             return string.Format(format, slug, dateStr, playerId);
         }
@@ -303,7 +233,7 @@ namespace Web.Services
             return string.Format(format, slug, year);
         }
 
-        private string FormatCashgame(string format, string slug, string dateStr)
+        public static string FormatCashgame(string format, string slug, string dateStr)
         {
             return string.Format(format, slug, dateStr);
         }
@@ -316,6 +246,158 @@ namespace Web.Services
         public static string FormatUser(string format, string userName)
         {
             return string.Format(format, userName);
+        }
+    }
+
+    public class CashgameFactsUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public CashgameFactsUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameFacts, RouteFormats.CashgameFactsWithYear, slug, year)
+        {
+        }
+    }
+
+    public class EndCashgameUrlModel : HomegameUrlModel
+    {
+        public EndCashgameUrlModel(string slug)
+            : base(RouteFormats.CashgameEnd, slug)
+        {
+        }
+    }
+
+    public class CashgameChartUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public CashgameChartUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameChart, RouteFormats.CashgameChartWithYear, slug, year)
+        {
+        }
+    }
+
+    public class CashgameChartJsonUrlModel : HomegameWithOptionalYearUrlModel
+    {
+        public CashgameChartJsonUrlModel(string slug, int? year)
+            : base(RouteFormats.CashgameChartJson, RouteFormats.CashgameChartJsonWithYear, slug, year)
+        {
+        }
+    }
+
+    public class AddCashgameUrlModel : HomegameUrlModel
+    {
+        public AddCashgameUrlModel(string slug)
+            : base(RouteFormats.CashgameAdd, slug)
+        {
+        }
+    }
+
+    public class CashgameDetailsUrl : CashgameUrlModel
+    {
+        public CashgameDetailsUrl(string slug, string dateStr)
+            : base(RouteFormats.CashgameDetails, slug, dateStr)
+        {
+        }
+    }
+
+    public class EditCashgameUrl : CashgameUrlModel
+    {
+        public EditCashgameUrl(string slug, string dateStr)
+            : base(RouteFormats.CashgameEdit, slug, dateStr)
+        {
+        }
+    }
+
+    public class CashgameDetailsChartJsonUrl : CashgameUrlModel
+    {
+        public CashgameDetailsChartJsonUrl(string slug, string dateStr)
+            : base(RouteFormats.CashgameDetailsChartJson, slug, dateStr)
+        {
+        }
+    }
+
+    public class DeleteCashgameUrlModel : CashgameUrlModel
+    {
+        public DeleteCashgameUrlModel(string slug, string dateStr)
+            : base(RouteFormats.CashgameDelete, slug, dateStr)
+        {
+        }
+    }
+
+    public class CashgameActionUrlModel : CashgamePlayerUrlModel
+    {
+        public CashgameActionUrlModel(string slug, string dateStr, int playerId)
+            : base(RouteFormats.CashgameAction, slug, dateStr, playerId)
+        {
+        }
+    }
+
+    public class CashgameActionChartJsonUrlModel : CashgamePlayerUrlModel
+    {
+        public CashgameActionChartJsonUrlModel(string slug, string dateStr, int playerId)
+            : base(RouteFormats.CashgameActionChartJson, slug, dateStr, playerId)
+        {
+        }
+    }
+
+    public class CashgameCashoutUrlModel : PlayerUrlModel
+    {
+        public CashgameCashoutUrlModel(string slug, int playerId)
+            : base(RouteFormats.CashgameCashout, slug, playerId)
+        {
+        }
+    }
+
+    public class CashgameBuyinUrlModel : PlayerUrlModel
+    {
+        public CashgameBuyinUrlModel(string slug, int playerId)
+            : base(RouteFormats.CashgameBuyin, slug, playerId)
+        {
+        }
+    }
+
+    public class EditUserUrlModel : UserUrlModel
+    {
+        public EditUserUrlModel(string userName)
+            : base(RouteFormats.UserEdit, userName)
+        {
+        }
+    }
+
+    public class TwitterStartShareUrlModel : UrlModel
+    {
+        public TwitterStartShareUrlModel()
+            : base(RouteFormats.TwitterStartShare)
+        {
+        }
+    }
+
+    public class TwitterSettingsUrlModel : UrlModel
+    {
+        public TwitterSettingsUrlModel()
+            : base(RouteFormats.TwitterSettings)
+        {
+        }
+    }
+
+    public class TwitterStopShareUrlModel : UrlModel
+    {
+        public TwitterStopShareUrlModel()
+            : base(RouteFormats.TwitterStopShare)
+        {
+        }
+    }
+
+    public class JoinHomeGameUrlModel : HomegameUrlModel
+    {
+        public JoinHomeGameUrlModel(string slug)
+            : base(RouteFormats.HomegameJoin, slug)
+        {
+        }
+    }
+
+    public class AddUserConfirmationUrlModel : UrlModel
+    {
+        public AddUserConfirmationUrlModel()
+            : base(RouteFormats.UserAddConfirmation)
+        {
         }
     }
 }

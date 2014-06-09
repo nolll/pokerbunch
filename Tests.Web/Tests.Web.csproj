@@ -102,9 +102,9 @@
     <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\PlayerModelFactories\PlayerItemModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\UserModelFactories\UserDetailsPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\UserModelFactories\UserListItemsModelFactoryTests.cs" />
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
     <Compile Include="ModelTests\NavigationModels\AdminNavigationModelTests.cs" />
+    <Compile Include="ModelTests\UserModels\UserListItemsModelTests.cs" />
     <Compile Include="PageBuilderTests\BunchListPageBuilderTests.cs" />
     <Compile Include="PageBuilderTests\UserListPageBuilderTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />

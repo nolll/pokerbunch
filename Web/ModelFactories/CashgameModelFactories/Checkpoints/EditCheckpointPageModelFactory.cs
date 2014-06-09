@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Checkpoints;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
@@ -30,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                     Stack = checkpoint.Stack,
                     Amount = checkpoint.Amount,
                     DeleteUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame.Slug, dateStr, playerId, checkpoint.Id),
-                    CancelUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, dateStr, playerId),
+                    CancelUrl = new CashgameActionUrlModel(homegame.Slug, dateStr, playerId),
                     EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
                     StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"
                 };

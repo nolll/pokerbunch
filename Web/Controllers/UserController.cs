@@ -3,11 +3,13 @@ using Application.Services;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelServices;
+using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
 using Web.Security.Attributes;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -56,7 +58,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetUserAddConfirmationUrl());
+                return Redirect(new AddUserConfirmationUrlModel().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetAddModel(postModel);
@@ -83,7 +85,7 @@ namespace Web.Controllers
 			var command = _userCommandProvider.GetEditCommand(userName, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetUserDetailsUrl(userName));
+                return Redirect(new UserDetailsUrlModel(userName).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetEditModel(userName, postModel);

@@ -1,17 +1,12 @@
 ﻿namespace Web.Models.UrlModels
 {
-    public abstract class UrlModel
+    public class UrlModel
     {
-        private readonly string _url;
+        public string Relative { get; private set; }
 
-        protected UrlModel(string url)
+        public UrlModel(string url)
         {
-            _url = url ?? string.Empty;
-        }
-
-        public override string ToString()
-        {
-            return _url;
+            Relative = url ?? string.Empty;
         }
     }
 }

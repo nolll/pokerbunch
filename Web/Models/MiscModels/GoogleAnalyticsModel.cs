@@ -1,3 +1,4 @@
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.CashgameContext;
 
 namespace Web.Models.MiscModels

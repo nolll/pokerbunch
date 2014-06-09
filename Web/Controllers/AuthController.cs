@@ -3,6 +3,7 @@ using Application.Services;
 using Web.Commands.AuthCommands;
 using Web.ModelServices;
 using Web.Models.AuthModels;
+using Web.Models.UrlModels;
 
 namespace Web.Controllers{
 
@@ -32,7 +33,7 @@ namespace Web.Controllers{
             var command = _authCommandProvider.GetLoginCommand(postModel);
             if (command.Execute())
             {
-                var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? _urlProvider.GetHomeUrl() : postModel.ReturnUrl;
+                var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? new HomeUrlModel().Relative : postModel.ReturnUrl;
                 return Redirect(returnUrl);
             }
             AddModelErrors(command.Errors);
@@ -44,7 +45,7 @@ namespace Web.Controllers{
         {
             var command = _authCommandProvider.GetLogoutCommand();
             command.Execute();
-            return Redirect(_urlProvider.GetHomeUrl());
+            return Redirect(new HomeUrlModel().Relative);
         }
 
     }

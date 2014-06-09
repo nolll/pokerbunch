@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using Application.UseCases.ApplicationContext;
+using Application.UseCases.CashgameContext;
+using Application.UseCases.UserList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.List
@@ -14,13 +18,12 @@ namespace Web.Models.UserModels.List
 	    }
 
 	    public UserListPageModel(
-            string browserTitle, 
-            PageProperties pageProperties,
-            IList<UserListItemModel> userModels)
+            ApplicationContextResult applicationContextResult,
+            UserListResult userListResult)
 	    {
-            BrowserTitle = browserTitle;
-            PageProperties = pageProperties;
-	        UserModels = userModels;
+            BrowserTitle = "Users";
+            PageProperties = new PageProperties(applicationContextResult);
+            UserModels = userListResult.Users.Select(o => new UserListItemModel(o)).ToList();
 	    }
     }
 }

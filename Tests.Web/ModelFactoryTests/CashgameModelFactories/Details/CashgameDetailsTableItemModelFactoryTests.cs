@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Details;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
@@ -34,16 +35,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		[Test]
         public void PlayerUrl_IsSet()
 		{
-		    const string playerUrl = "a";
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
-
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
 
-			Assert.AreEqual(playerUrl, result.PlayerUrl);
+			Assert.IsInstanceOf<CashgameActionUrlModel>(result.PlayerUrl);
 		}
 
 		[Test]
@@ -132,9 +130,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		}
 
 		private CashgameDetailsTableItemModelFactory GetSut(){
-            return new CashgameDetailsTableItemModelFactory(
-                GetMock<IUrlProvider>().Object,
-                GetMock<IGlobalization>().Object);
+            return new CashgameDetailsTableItemModelFactory(GetMock<IGlobalization>().Object);
 		}
 
 	}

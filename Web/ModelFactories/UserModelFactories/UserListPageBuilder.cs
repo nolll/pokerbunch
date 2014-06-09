@@ -1,33 +1,30 @@
-﻿using Application.UseCases.UserList;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Application.UseCases.ApplicationContext;
+using Application.UseCases.UserList;
 using Web.Models.UserModels.List;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public class UserListPageBuilder : IUserListPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUserListItemModelFactory _userListItemModelFactory;
+        private readonly IApplicationContextInteractor _applicationContextInteractor;
         private readonly IUserListInteractor _userListInteractor;
 
         public UserListPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUserListItemModelFactory userListItemModelFactory,
+            IApplicationContextInteractor applicationContextInteractor,
             IUserListInteractor userListInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _userListItemModelFactory = userListItemModelFactory;
+            _applicationContextInteractor = applicationContextInteractor;
             _userListInteractor = userListInteractor;
         }
 
         public UserListPageModel Build()
         {
+            var applicationContextResult = _applicationContextInteractor.Execute();
             var showUserListResult = _userListInteractor.Execute();
 
             return new UserListPageModel(
-                "Users",
-                _pagePropertiesFactory.Create(),
-                _userListItemModelFactory.CreateList(showUserListResult.Users));
+                applicationContextResult,
+                showUserListResult);
         }
     }
 }

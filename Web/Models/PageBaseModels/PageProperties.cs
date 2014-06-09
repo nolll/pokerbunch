@@ -1,4 +1,5 @@
-using Application.UseCases.CashgameContext;
+using Application.UseCases.ApplicationContext;
+using Application.UseCases.BunchContext;
 using Web.Models.MiscModels;
 using Web.Models.NavigationModels;
 
@@ -16,14 +17,17 @@ namespace Web.Models.PageBaseModels
         {
         }
 
-        public PageProperties(
-            BunchContextResult bunchContextResult)
+        public PageProperties(ApplicationContextResult applicationContextResult)
         {
-            UserNavModel = new UserNavigationModel(bunchContextResult);
-            HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(bunchContextResult);
-            Version = bunchContextResult.Version;
+            UserNavModel = new UserNavigationModel(applicationContextResult);
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(applicationContextResult);
+            Version = applicationContextResult.Version;
             CssUrl = BundleConfig.BundleUrl;
+        }
+
+        public PageProperties(BunchContextResult bunchContextResult) : this((ApplicationContextResult)bunchContextResult)
+        {
+            HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
         }
 
         public PageProperties(

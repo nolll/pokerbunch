@@ -1,4 +1,5 @@
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Details
 {
@@ -22,7 +23,7 @@ namespace Web.Models.CashgameModels.Details
         public bool DurationEnabled { get; set; }
 
         public string EditUrl { get; set; }
-        public string CheckpointsUrl { get; set; }
+        public UrlModel CheckpointsUrl { get; set; }
         public string ChartDataUrl { get; set; }
 
         public string Status { get; set; }

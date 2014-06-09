@@ -98,11 +98,15 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="UseCases\ApplicationContext\ApplicationContextInteractor.cs" />
     <Compile Include="UseCases\ApplicationContext\IApplicationContextInteractor.cs" />
+    <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
+    <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
+    <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />
+    <Compile Include="UseCases\BunchContext\IBunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchList\BunchListInteractor.cs" />
     <Compile Include="UseCases\BunchList\BunchListItem.cs" />
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
     <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
-    <Compile Include="UseCases\CashgameContext\ApplicationContextResult.cs" />
+    <Compile Include="UseCases\ApplicationContext\ApplicationContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

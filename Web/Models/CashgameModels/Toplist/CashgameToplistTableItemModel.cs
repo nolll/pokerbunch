@@ -38,7 +38,7 @@ namespace Web.Models.CashgameModels.Toplist
             WinRate = toplistItem.WinRate.ToString();
             Name = toplistItem.Name;
             UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name);
-            PlayerUrlModel = UrlProvider.GetPlayerDetailsUrlStatic(slug, toplistItem.PlayerId);
+            PlayerUrlModel = new PlayerDetailsUrlModel(slug, toplistItem.PlayerId);
             ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
             BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
             CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);

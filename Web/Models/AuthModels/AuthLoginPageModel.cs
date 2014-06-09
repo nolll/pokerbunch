@@ -1,4 +1,5 @@
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.AuthModels
 {
@@ -6,7 +7,7 @@ namespace Web.Models.AuthModels
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
-        public string AddUserUrl { get; set; }
+        public UrlModel AddUserUrl { get; set; }
         public string ForgotPasswordUrl { get; set; }
     }
 }

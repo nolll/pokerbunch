@@ -4,6 +4,7 @@ using Application.Services;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Matrix;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
@@ -35,7 +36,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     Rank = rank,
                     Name = player.DisplayName,
                     UrlEncodedName = HttpUtility.UrlPathEncode(player.DisplayName),
-                    PlayerUrl = _urlProvider.GetPlayerDetailsUrl(homegame.Slug, player.Id),
+                    PlayerUrl = new PlayerDetailsUrlModel(homegame.Slug, player.Id),
                     CellModels = cellModels,
                     TotalResult = _globalization.FormatResult(homegame.Currency, result.Winnings),
                     ResultClass = ResultFormatter.GetWinningsCssClass(result.Winnings)

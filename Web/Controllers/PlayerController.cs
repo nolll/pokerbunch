@@ -5,6 +5,7 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelServices;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Invite;
+using Web.Models.UrlModels;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
@@ -75,9 +76,9 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetDeleteCommand(slug, playerId);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerIndexUrl(slug));
+                return Redirect(new PlayerIndexUrlModel(slug).Relative);
             }
-            return Redirect(_urlProvider.GetPlayerDetailsUrl(slug, playerId));
+            return Redirect(new PlayerDetailsUrlModel(slug, playerId).Relative);
 		}
 
         [AuthorizeManager]

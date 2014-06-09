@@ -2,19 +2,16 @@ using System;
 using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.Details;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
     public class CashgameDetailsTableItemModelFactory : ICashgameDetailsTableItemModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
-        public CashgameDetailsTableItemModelFactory(
-            IUrlProvider urlProvider,
-            IGlobalization globalization)
+        public CashgameDetailsTableItemModelFactory(IGlobalization globalization)
         {
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 
@@ -23,7 +20,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             return new CashgameDetailsTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
+                    PlayerUrl = new CashgameActionUrlModel(homegame.Slug, cashgame.DateString, player.Id),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Cashout = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

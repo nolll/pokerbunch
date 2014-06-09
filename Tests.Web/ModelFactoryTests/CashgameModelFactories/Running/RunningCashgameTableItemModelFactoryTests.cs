@@ -6,6 +6,8 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
+using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
@@ -36,16 +38,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
 		public void PlayerUrl_IsSet()
 		{
-		    const string playerUrl = "a";
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(playerUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
 
-			Assert.AreEqual(playerUrl, result.PlayerUrl);
+			Assert.IsInstanceOf<CashgameActionUrlModel>(result.PlayerUrl);
 		}
 
 		[Test]
@@ -151,17 +151,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
 		public void BuyinUrl_WithManager_IsCorrectType()
 		{
-		    const string buyinUrl = "a";
 			_isManager = true;
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameBuyinUrl(_homegame.Slug, player.Id)).Returns(buyinUrl);
-
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
 
-			Assert.AreEqual(buyinUrl, result.BuyinUrl);
+			Assert.IsInstanceOf<CashgameBuyinUrlModel>(result.BuyinUrl);
 		}
 
 		[Test]
@@ -183,17 +180,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
 		public void CashoutUrl_WithManager_IsCorrectType()
 		{
-		    const string cashoutUrl = "a";
             _isManager = true;
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameCashoutUrl(_homegame.Slug, player.Id)).Returns(cashoutUrl);
-
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
 
-			Assert.AreEqual(cashoutUrl, result.CashoutUrl);
+			Assert.IsInstanceOf<CashgameCashoutUrlModel>(result.CashoutUrl);
 		}
 
 		[Test]

@@ -8,6 +8,7 @@ using Web.Commands.PlayerCommands;
 using Web.Controllers;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelServices;
+using Web.Models.UrlModels;
 
 namespace Tests.Web.ControllerTests
 {
@@ -38,16 +39,15 @@ namespace Tests.Web.ControllerTests
         {
             const string slug = "a";
 		    const int playerId = 1;
-            const string listUrl = "c";
+            var listUrl = new PlayerIndexUrlModel(slug);
 
             GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeSuccessfulCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerIndexUrl(slug)).Returns(listUrl);
 
             var sut = GetSut();
             var result = sut.Delete(slug, playerId) as RedirectResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(listUrl, result.Url);
+            Assert.AreEqual(listUrl.Relative, result.Url);
         }
 
         [Test]
@@ -55,16 +55,15 @@ namespace Tests.Web.ControllerTests
         {
             const string slug = "a";
             const int playerId = 1;
-            const string playerUrl = "c";
+            var playerDetailsUrl = new PlayerDetailsUrlModel(slug, playerId);
 
             GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeFailedCommand());
-            GetMock<IUrlProvider>().Setup(o => o.GetPlayerDetailsUrl(slug, playerId)).Returns(playerUrl);
 
             var sut = GetSut();
             var result = sut.Delete(slug, playerId) as RedirectResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(playerUrl, result.Url);
+            Assert.AreEqual(playerDetailsUrl.Relative, result.Url);
         }
 
         private PlayerController GetSut()

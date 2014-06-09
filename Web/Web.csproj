@@ -178,7 +178,6 @@
     <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageModelFactory.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IChangePasswordPageModelFactory.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IUserListItemModelFactory.cs" />
     <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
@@ -221,6 +220,9 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
+    <Compile Include="Models\UrlModels\CashgamePlayerUrlModel.cs" />
+    <Compile Include="Models\UrlModels\CashgameUrlModel.cs" />
+    <Compile Include="Models\UrlModels\HomeUrlModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -341,7 +343,6 @@
     <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPostModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\UserListItemModelFactory.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />

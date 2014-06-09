@@ -31,6 +31,5 @@ namespace Web.Models.CashgameModels.Toplist
         {
             return sortOrder.ToString().ToLower();
         }
-
     }
 }

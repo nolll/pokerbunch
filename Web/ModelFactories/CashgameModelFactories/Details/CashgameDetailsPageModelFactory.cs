@@ -3,6 +3,7 @@ using Application.Services;
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
@@ -48,7 +49,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     EnableEdit = isManager,
                     EnableCheckpointsButton = cashgame.IsInGame(player.Id),
                     EditUrl = _urlProvider.GetCashgameEditUrl(homegame.Slug, cashgame.DateString),
-                    CheckpointsUrl = _urlProvider.GetCashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
+                    CheckpointsUrl = new CashgameActionUrlModel(homegame.Slug, cashgame.DateString, player.Id),
                     ChartDataUrl = _urlProvider.GetCashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString)
                 };
 

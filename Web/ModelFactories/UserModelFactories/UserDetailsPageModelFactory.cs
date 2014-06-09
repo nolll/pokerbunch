@@ -3,6 +3,7 @@ using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels;
+using Web.Services;
 
 namespace Web.ModelFactories.UserModelFactories
 {
@@ -42,7 +43,7 @@ namespace Web.ModelFactories.UserModelFactories
             if (currentUser.IsAdmin || isViewingCurrentUser)
             {
                 model.ShowEditLink = true;
-                model.EditLink = _urlProvider.GetUserEditUrl(displayUser.UserName);
+                model.EditLink = new EditUserUrlModel(displayUser.UserName);
             }
 
             if (isViewingCurrentUser)

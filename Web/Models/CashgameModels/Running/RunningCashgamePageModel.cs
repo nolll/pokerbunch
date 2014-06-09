@@ -1,4 +1,5 @@
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -13,10 +14,10 @@ namespace Web.Models.CashgameModels.Running
         public bool ReportButtonEnabled { get; set; }
         public bool CashoutButtonEnabled { get; set; }
         public bool EndGameButtonEnabled { get; set; }
-        public string BuyinUrl { get; set; }
+        public UrlModel BuyinUrl { get; set; }
         public string ReportUrl { get; set; }
-        public string CashoutUrl { get; set; }
-        public string EndGameUrl { get; set; }
+        public UrlModel CashoutUrl { get; set; }
+        public UrlModel EndGameUrl { get; set; }
         public RunningCashgameTableModel RunningCashgameTableModel { get; set; }
         public bool ShowTable { get; set; }
         public string ChartDataUrl { get; set; }
