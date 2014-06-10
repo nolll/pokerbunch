@@ -84,7 +84,7 @@ namespace Web.Services
 
         public string GetRunningCashgameUrl(string slug)
         {
-            return new RunningCashgameUrl(slug).Relative;
+            return new RunningCashgameUrlModel(slug).Relative;
         }
 
         public static string FormatCashgamePlayerUrl(string format, string slug, string dateStr, int playerId)

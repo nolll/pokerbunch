@@ -21,7 +21,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private static UrlModel GetUrl(string slug, bool gameIsRunning)
         {
             if (gameIsRunning)
-                return new RunningCashgameUrl(slug);
+                return new RunningCashgameUrlModel(slug);
             return new AddCashgameUrlModel(slug);
         }
     }

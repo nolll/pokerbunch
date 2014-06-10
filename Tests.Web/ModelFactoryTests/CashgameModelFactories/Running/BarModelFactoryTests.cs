@@ -47,7 +47,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.IsInstanceOf<RunningCashgameUrl>(result.Url);
+            Assert.IsInstanceOf<RunningCashgameUrlModel>(result.Url);
         }
 
         [Test]

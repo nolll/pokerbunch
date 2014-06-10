@@ -2,9 +2,9 @@
 
 namespace Web.Models.UrlModels
 {
-    public class RunningCashgameUrl : HomegameUrlModel
+    public class RunningCashgameUrlModel : HomegameUrlModel
     {
-        public RunningCashgameUrl(string slug)
+        public RunningCashgameUrlModel(string slug)
             : base(RouteFormats.RunningCashgame, slug)
         {
         }
