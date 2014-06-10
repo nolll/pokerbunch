@@ -1,34 +1,33 @@
 using System.Web.Mvc;
-using Application.Services;
 using Web.Commands.AuthCommands;
 using Web.ModelServices;
 using Web.Models.AuthModels;
 using Web.Models.UrlModels;
 
-namespace Web.Controllers{
+namespace Web.Controllers
+{
 
-	public class AuthController : ControllerBase {
-	    private readonly IUrlProvider _urlProvider;
-	    private readonly IAuthCommandProvider _authCommandProvider;
-	    private readonly IAuthModelService _authModelService;
+    public class AuthController : ControllerBase
+    {
+        private readonly IAuthCommandProvider _authCommandProvider;
+        private readonly IAuthModelService _authModelService;
 
-	    public AuthController(
-            IUrlProvider urlProvider,
+        public AuthController(
             IAuthCommandProvider authCommandProvider,
             IAuthModelService authModelService)
-	    {
-	        _urlProvider = urlProvider;
-	        _authCommandProvider = authCommandProvider;
-	        _authModelService = authModelService;
-	    }
+        {
+            _authCommandProvider = authCommandProvider;
+            _authModelService = authModelService;
+        }
 
-		public ActionResult Login(){
-		    var model = _authModelService.GetLoginModel();
+        public ActionResult Login()
+        {
+            var model = _authModelService.GetLoginModel();
             return View("Login", model);
-		}
+        }
 
         [HttpPost]
-		public ActionResult Login(AuthLoginPostModel postModel)
+        public ActionResult Login(AuthLoginPostModel postModel)
         {
             var command = _authCommandProvider.GetLoginCommand(postModel);
             if (command.Execute())
@@ -39,7 +38,7 @@ namespace Web.Controllers{
             AddModelErrors(command.Errors);
             var model = _authModelService.GetLoginModel(postModel);
             return View("Login", model);
-		}
+        }
 
         public ActionResult Logout()
         {

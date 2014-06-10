@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Application.Services;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelServices;
@@ -9,24 +8,20 @@ using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
 using Web.Security.Attributes;
-using Web.Services;
 
 namespace Web.Controllers
 {
 	public class UserController : ControllerBase
     {
-	    private readonly IUrlProvider _urlProvider;
 	    private readonly IUserCommandProvider _userCommandProvider;
 	    private readonly IUserModelService _userModelService;
 	    private readonly IUserListPageBuilder _userListPageBuilder;
 
 	    public UserController(
-            IUrlProvider urlProvider,
             IUserCommandProvider userCommandProvider,
             IUserModelService userModelService,
             IUserListPageBuilder userListPageBuilder)
 	    {
-	        _urlProvider = urlProvider;
 	        _userCommandProvider = userCommandProvider;
 	        _userModelService = userModelService;
 	        _userListPageBuilder = userListPageBuilder;

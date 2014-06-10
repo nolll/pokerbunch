@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.UserCommands;
@@ -19,7 +18,6 @@ namespace Tests.Web.ControllerTests
         public void SetUp()
         {
             _sut = new UserController(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IUserCommandProvider>().Object,
                 GetMock<IUserModelService>().Object,
                 GetMock<IUserListPageBuilder>().Object);

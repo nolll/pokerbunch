@@ -69,7 +69,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
         private ActionPageModelFactory GetSut(){
             return new ActionPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<ICheckpointModelFactory>().Object,
                 GetMock<IGlobalization>().Object);
 		}

@@ -76,7 +76,6 @@ namespace Tests.Web.ModelFactoryTests.AuthModelFactories
         {
             return new AuthLoginPageModelFactory(
                 GetMock<IWebContext>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<IApplicationContextInteractor>().Object);
         }
 

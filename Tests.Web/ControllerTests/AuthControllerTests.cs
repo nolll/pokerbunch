@@ -95,7 +95,6 @@ namespace Tests.Web.ControllerTests
         private AuthController GetSut()
         {
             return new AuthController(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IAuthCommandProvider>().Object,
                 GetMock<IAuthModelService>().Object);
         }

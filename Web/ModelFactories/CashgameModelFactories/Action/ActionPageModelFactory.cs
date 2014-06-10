@@ -6,25 +6,21 @@ using Core.Entities.Checkpoints;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Action;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
 {
     public class ActionPageModelFactory : IActionPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly ICheckpointModelFactory _checkpointModelFactory;
         private readonly IGlobalization _globalization;
 
         public ActionPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider,
             ICheckpointModelFactory checkpointModelFactory,
             IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
             _checkpointModelFactory = checkpointModelFactory;
             _globalization = globalization;
         }

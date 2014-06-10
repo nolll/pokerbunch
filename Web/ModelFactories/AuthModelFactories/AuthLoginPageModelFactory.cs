@@ -1,6 +1,5 @@
 using Application.Services;
 using Application.UseCases.ApplicationContext;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.AuthModels;
 using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
@@ -10,16 +9,13 @@ namespace Web.ModelFactories.AuthModelFactories
     public class AuthLoginPageModelFactory : IAuthLoginPageModelFactory
     {
         private readonly IWebContext _webContext;
-        private readonly IUrlProvider _urlProvider;
         private readonly IApplicationContextInteractor _applicationContextInteractor;
 
         public AuthLoginPageModelFactory(
             IWebContext webContext,
-            IUrlProvider urlProvider,
             IApplicationContextInteractor applicationContextInteractor)
         {
             _webContext = webContext;
-            _urlProvider = urlProvider;
             _applicationContextInteractor = applicationContextInteractor;
         }
 
