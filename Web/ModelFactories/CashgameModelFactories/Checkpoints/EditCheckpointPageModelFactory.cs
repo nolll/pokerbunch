@@ -30,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                     Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
                     Stack = checkpoint.Stack,
                     Amount = checkpoint.Amount,
-                    DeleteUrl = _urlProvider.GetCashgameCheckpointDeleteUrl(homegame.Slug, dateStr, playerId, checkpoint.Id),
+                    DeleteUrl = new DeleteCheckpointUrlModel(homegame.Slug, dateStr, playerId, checkpoint.Id),
                     CancelUrl = new CashgameActionUrlModel(homegame.Slug, dateStr, playerId),
                     EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
                     StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"

@@ -7,71 +7,70 @@ using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 using Web.Models.UrlModels;
 
-namespace Tests.Web.ModelFactoryTests.AuthModelFactories{
+namespace Tests.Web.ModelFactoryTests.AuthModelFactories
+{
 
-	public class AuthLoginPageModelFactoryTests : MockContainer
-	{
-		[Test]
+    public class AuthLoginPageModelFactoryTests : MockContainer
+    {
+        [Test]
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
-		{
+        {
             var homeUrl = new HomeUrlModel();
-		    GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
-		    var sut = GetSut();
+            var sut = GetSut();
 
-		    var result = sut.Create(null);
+            var result = sut.Create(null);
 
-			Assert.AreEqual(homeUrl.Relative, result.ReturnUrl);
-		}
+            Assert.AreEqual(homeUrl.Relative, result.ReturnUrl);
+        }
 
-		[Test]
+        [Test]
         public void ReturnUrl_WithReturnUrl_IsSet()
-		{
+        {
             GetMock<IWebContext>().Setup(o => o.GetQueryParam("return")).Returns("return-url");
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
-		    var sut = GetSut();
+            var sut = GetSut();
             var result = sut.Create(null);
 
-			Assert.AreEqual("return-url", result.ReturnUrl);
-		}
+            Assert.AreEqual("return-url", result.ReturnUrl);
+        }
 
-		[Test]
+        [Test]
         public void AddUserUrl_IsSet()
-		{
+        {
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
-			var result = sut.Create(null);
+            var result = sut.Create(null);
 
-			Assert.IsInstanceOf<AddUserUrlModel>(result.AddUserUrl);
-		}
+            Assert.IsInstanceOf<AddUserUrlModel>(result.AddUserUrl);
+        }
 
-		[Test]
-        public void ForgotPasswordUrl_IsSet(){
-            const string forgotPasswordUrl = "a";
-            
-            GetMock<IUrlProvider>().Setup(o => o.GetForgotPasswordUrl()).Returns(forgotPasswordUrl);
+        [Test]
+        public void ForgotPasswordUrl_IsSet()
+        {
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
-			var result = sut.Create(null);
+            var result = sut.Create(null);
 
-			Assert.AreEqual(forgotPasswordUrl, result.ForgotPasswordUrl);
-		}
+            Assert.IsInstanceOf<ForgotPasswordUrlModel>(result.ForgotPasswordUrl);
+        }
 
-		[Test]
+        [Test]
         public void LoginName_IsSet()
-		{
-		    var postModel = new AuthLoginPostModel {LoginName = "login-name"};
+        {
+            var postModel = new AuthLoginPostModel { LoginName = "login-name" };
 
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
-			var result = sut.Create(postModel);
+            var result = sut.Create(postModel);
 
-			Assert.AreEqual(result.LoginName, "login-name");
-		}
+            Assert.AreEqual(result.LoginName, "login-name");
+        }
 
         private AuthLoginPageModelFactory GetSut()
         {
@@ -81,6 +80,6 @@ namespace Tests.Web.ModelFactoryTests.AuthModelFactories{
                 GetMock<IApplicationContextInteractor>().Object);
         }
 
-	}
+    }
 
 }

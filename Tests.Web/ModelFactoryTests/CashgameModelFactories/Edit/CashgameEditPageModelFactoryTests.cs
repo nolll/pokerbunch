@@ -8,6 +8,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 {
@@ -40,27 +41,23 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 		[Test]
 		public void CancelUrl_IsSet()
 		{
-		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
 
-			Assert.AreEqual(detailsUrl, result.CancelUrl);
+			Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.CancelUrl);
 		}
 
 		[Test]
 		public void DeleteUrl_IsSet()
         {
-            const string deleteUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDeleteUrl(_homegame.Slug, cashgame.DateString)).Returns(deleteUrl);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
 
-			Assert.AreEqual(deleteUrl, result.DeleteUrl);
+			Assert.IsInstanceOf<DeleteCashgameUrlModel>(result.DeleteUrl);
 		}
 
 		[Test]

@@ -7,6 +7,7 @@ using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Security.Attributes;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -57,7 +58,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetHomegameAddConfirmationUrl());
+                return Redirect(new AddHomegameConfirmationUrlModel().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _homegameModelService.GetAddModel(postModel);

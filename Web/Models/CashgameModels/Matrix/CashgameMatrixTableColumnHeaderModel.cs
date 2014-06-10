@@ -1,8 +1,10 @@
-namespace Web.Models.CashgameModels.Matrix{
-    public class CashgameMatrixTableColumnHeaderModel{
+using Web.Models.UrlModels;
 
-	    public string Date { get; set; }
-	    public string CashgameUrl { get; set; }
-
-	}
+namespace Web.Models.CashgameModels.Matrix
+{
+    public class CashgameMatrixTableColumnHeaderModel
+    {
+        public string Date { get; set; }
+        public UrlModel CashgameUrl { get; set; }
+    }
 }

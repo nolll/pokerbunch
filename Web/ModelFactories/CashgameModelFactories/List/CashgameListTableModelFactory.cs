@@ -3,6 +3,7 @@ using System.Linq;
 using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
@@ -22,7 +23,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
         public CashgameListTableModel Create(Homegame homegame, IList<Cashgame> cashgames, ListSortOrder sortOrder, int? year)
         {
             var showYear = SpansMultipleYears(cashgames);
-            var sortUrl = string.Concat(_urlProvider.GetCashgameListUrl(homegame.Slug, year), "?orderby={0}");
+            var sortUrl = string.Concat(new CashgameListUrlModel(homegame.Slug, year).Relative, "?orderby={0}");
             var sortedCashgames = SortCashgames(cashgames, sortOrder);
 
             return new CashgameListTableModel

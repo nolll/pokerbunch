@@ -118,13 +118,11 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running
             var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
             var cashgame = new FakeCashgame(status: GameStatus.Running, results: new List<CashgameResult> { cashgameResult });
-            const string reportUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(homegame.Slug, player.Id)).Returns(reportUrl);
-
+            
             var sut = GetSut();
             var result = sut.Create(homegame, cashgame, player, isManager);
 
-            Assert.AreEqual(reportUrl, result.ReportUrl);
+            Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
         }
 
         [Test]

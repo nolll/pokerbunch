@@ -5,22 +5,25 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Services;
 
-namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
-
-	public class CashgameMatrixTableColumnHeaderModelFactoryTests : MockContainer
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
+{
+    public class CashgameMatrixTableColumnHeaderModelFactoryTests : MockContainer
     {
         private Homegame _homegame;
-	    private bool _showYear;
+        private bool _showYear;
 
         [SetUp]
-		public void SetUp(){
-			_homegame = new FakeHomegame();
+        public void SetUp()
+        {
+            _homegame = new FakeHomegame();
             _showYear = false;
-		}
+        }
 
         [Test]
-		public void ColumnHeader_DateIsSet(){
+        public void ColumnHeader_DateIsSet()
+        {
             const string formatted = "a";
             var startTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: startTime);
@@ -30,35 +33,35 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
 
-			Assert.AreEqual(formatted, result.Date);
-		}
+            Assert.AreEqual(formatted, result.Date);
+        }
 
-		[Test]
-		public void ColumnHeader_ShowYearIsTrue_DateWithYearIsSet(){
+        [Test]
+        public void ColumnHeader_ShowYearIsTrue_DateWithYearIsSet()
+        {
             const string formatted = "a";
             var startTime = DateTime.Parse("2010-01-01");
             var cashgame = new FakeCashgame(startTime: startTime);
-		    _showYear = true;
+            _showYear = true;
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
-			var sut = GetSut();
+            var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
 
             Assert.AreEqual(formatted, result.Date);
-		}
+        }
 
-		[Test]
-		public void ColumnHeader_CashgameUrlIsSet(){
-            const string detailsUrl = "a";
+        [Test]
+        public void ColumnHeader_CashgameUrlIsSet()
+        {
             var cashgame = new FakeCashgame(startTime: DateTime.Parse("2010-01-01"));
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
-			var sut = GetSut();
-		    var result = sut.Create(_homegame, cashgame, _showYear);
+            var sut = GetSut();
+            var result = sut.Create(_homegame, cashgame, _showYear);
 
-            Assert.AreEqual(detailsUrl, result.CashgameUrl);
-		}
+            Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.CashgameUrl);
+        }
 
         private CashgameMatrixTableColumnHeaderModelFactory GetSut()
         {
@@ -66,7 +69,5 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
                 GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
-
-	}
-
+    }
 }

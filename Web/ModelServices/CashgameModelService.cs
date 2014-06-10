@@ -32,20 +32,21 @@ using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
-using Web.Security;
+using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Web.ModelServices
 {
     public class CashgameModelService : ICashgameModelService
     {
-        public string GetIndexUrl(string slug)
+        public UrlModel GetIndexUrl(string slug)
         {
             var year = _cashgameService.GetLatestYear(slug);
             if (year.HasValue)
             {
-                return _urlProvider.GetCashgameMatrixUrl(slug, year);
+                return new CashgameMatrixUrlModel(slug, year);
             }
-            return _urlProvider.GetCashgameAddUrl(slug);
+            return new AddCashgameUrlModel(slug);
         }
 
         public CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null)

@@ -11,21 +11,22 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
 using Web.Services;
 
-namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
+namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
+{
+    public class CashgameDetailsPageModelFactoryTests : MockContainer
+    {
+        private Homegame _homegame;
+        private bool _isManager;
 
-	public class CashgameDetailsPageModelFactoryTests : MockContainer {
-
-		private Homegame _homegame;
-		private bool _isManager;
-
-		[SetUp]
-        public void SetUp(){
-			_isManager = false;
-			_homegame = new FakeHomegame();
-		}
+        [SetUp]
+        public void SetUp()
+        {
+            _isManager = false;
+            _homegame = new FakeHomegame();
+        }
 
         [Test]
-		public void Heading_IsSet()
+        public void Heading_IsSet()
         {
             const string formattedDate = "a";
 
@@ -38,54 +39,56 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.AreEqual("Cashgame a", result.Heading);
-		}
+            Assert.AreEqual("Cashgame a", result.Heading);
+        }
 
-		[Test]
-		public void Duration_IsSet()
-		{
-		    const string formattedDuration = "a";
-		    const int duration = 1;
+        [Test]
+        public void Duration_IsSet()
+        {
+            const string formattedDuration = "a";
+            const int duration = 1;
             var cashgame = new FakeCashgame(duration: duration);
             var player = new FakePlayer();
 
-		    GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formattedDuration);
+            GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formattedDuration);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
             Assert.AreEqual(formattedDuration, result.Duration);
-		}
+        }
 
-		[Test]
-		public void Duration_WithDurationLargerThanZero_IsEnabled(){
+        [Test]
+        public void Duration_WithDurationLargerThanZero_IsEnabled()
+        {
             var cashgame = new FakeCashgame(duration: 1);
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsTrue(result.DurationEnabled);
-		}
+            Assert.IsTrue(result.DurationEnabled);
+        }
 
-		[Test]
-		public void StartTime_WithRunningGame_IsSet()
-		{
-		    const string formattedTime = "a";
-		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
+        [Test]
+        public void StartTime_WithRunningGame_IsSet()
+        {
+            const string formattedTime = "a";
+            var startTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(startTime: startTime, status: GameStatus.Running);
             var player = new FakePlayer();
 
-		    GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
+            GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
             Assert.AreEqual(formattedTime, result.StartTime);
-		}
+        }
 
-		[Test]
-		public void EndTime_WithFinishedGame_IsSet(){
+        [Test]
+        public void EndTime_WithFinishedGame_IsSet()
+        {
             const string formattedTime = "a";
             var endTime = DateTime.Parse("2010-01-01 01:00:00");
             var cashgame = new FakeCashgame(endTime: endTime, status: GameStatus.Finished);
@@ -96,85 +99,86 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.AreEqual(formattedTime, result.EndTime);
-		}
+            Assert.AreEqual(formattedTime, result.EndTime);
+        }
 
-		[Test]
-		public void Location_IsSet()
-		{
-		    const string location = "a";
+        [Test]
+        public void Location_IsSet()
+        {
+            const string location = "a";
             var cashgame = new FakeCashgame(location: location);
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.AreEqual(location, result.Location);
-		}
+            Assert.AreEqual(location, result.Location);
+        }
 
-		[Test]
-		public void EditUrl_IsCorrectType(){
-            const string editUrl = "a";
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
-
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameEditUrl(_homegame.Slug, cashgame.DateString)).Returns(editUrl);
-
-            var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, player, _isManager);
-
-			Assert.AreEqual(editUrl, result.EditUrl);
-		}
-
-		[Test]
-		public void CheckpointsUrl_IsCorrectType()
-		{
+        [Test]
+        public void EditUrl_IsCorrectType()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsInstanceOf<CashgameActionUrlModel>(result.CheckpointsUrl);
-		}
+            Assert.IsInstanceOf<EditCashgameUrlModel>(result.EditUrl);
+        }
 
-		[Test]
-		public void ShowStartTime_WithCreatedGame_IsFalse(){
+        [Test]
+        public void CheckpointsUrl_IsCorrectType()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.ShowStartTime);
-		}
+            Assert.IsInstanceOf<CashgameActionUrlModel>(result.CheckpointsUrl);
+        }
 
-		[Test]
-		public void ShowEndTime_WithCreatedGame_IsFalse(){
+        [Test]
+        public void ShowStartTime_WithCreatedGame_IsFalse()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.ShowEndTime);
-		}
+            Assert.IsFalse(result.ShowStartTime);
+        }
 
-		[Test]
-		public void EnableCheckpointsButton_WithPlayerNotInGame_IsFalse(){
+        [Test]
+        public void ShowEndTime_WithCreatedGame_IsFalse()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.EnableCheckpointsButton);
-		}
+            Assert.IsFalse(result.ShowEndTime);
+        }
 
-		[Test]
-		public void EnableCheckpointsButton_WithPlayerInGame_IsTrue()
-		{
-		    const int playerId = 1;
+        [Test]
+        public void EnableCheckpointsButton_WithPlayerNotInGame_IsFalse()
+        {
+            var cashgame = new FakeCashgame();
+            var player = new FakePlayer();
+
+            var sut = GetSut();
+            var result = sut.Create(_homegame, cashgame, player, _isManager);
+
+            Assert.IsFalse(result.EnableCheckpointsButton);
+        }
+
+        [Test]
+        public void EnableCheckpointsButton_WithPlayerInGame_IsTrue()
+        {
+            const int playerId = 1;
             var player = new FakePlayer(playerId);
             var cashgameResult = new FakeCashgameResult(playerId);
             var cashgame = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
@@ -182,104 +186,104 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsTrue(result.EnableCheckpointsButton);
-		}
+            Assert.IsTrue(result.EnableCheckpointsButton);
+        }
 
-		[Test]
-		public void EnableCheckpointsButton_WithFinishedGame_IsFalse(){
+        [Test]
+        public void EnableCheckpointsButton_WithFinishedGame_IsFalse()
+        {
             var cashgame = new FakeCashgame(status: GameStatus.Finished);
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.EnableCheckpointsButton);
-		}
+            Assert.IsFalse(result.EnableCheckpointsButton);
+        }
 
-		[Test]
-		public void ShowEndTime_WithRunningGame_IsFalse(){
+        [Test]
+        public void ShowEndTime_WithRunningGame_IsFalse()
+        {
             var cashgame = new FakeCashgame(status: GameStatus.Running);
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.ShowEndTime);
-		}
+            Assert.IsFalse(result.ShowEndTime);
+        }
 
-		[Test]
-		public void EnableEdit_WithPlayerRights_IsFalse(){
+        [Test]
+        public void EnableEdit_WithPlayerRights_IsFalse()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsFalse(result.EnableEdit);
-		}
+            Assert.IsFalse(result.EnableEdit);
+        }
 
-		[Test]
-		public void EnableEdit_WithManagerRights_IsTrue(){
-			_isManager = true;
+        [Test]
+        public void EnableEdit_WithManagerRights_IsTrue()
+        {
+            _isManager = true;
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsTrue(result.EnableEdit);
-		}
+            Assert.IsTrue(result.EnableEdit);
+        }
 
-		[Test]
-		public void Status_IsNotNull(){
+        [Test]
+        public void Status_IsNotNull()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
-            
-            var sut = GetSut();
-            var result = sut.Create(_homegame, cashgame, player, _isManager);
-
-			Assert.IsNotNull(result.Status);
-		}
-
-		[Test]
-		public void ResultTableModel_WithCreatedGame_IsCorrectType()
-		{
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
-
-		    GetMock<ICashgameDetailsTableModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
-		         .Returns(new CashgameDetailsTableModel());
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-			Assert.IsNotNull(result.CashgameDetailsTableModel);
-		}
+            Assert.IsNotNull(result.Status);
+        }
 
-		[Test]
-		public void ChartDataUrl_IsSet()
-		{
-		    const string chartDataUrl = "a";
+        [Test]
+        public void ResultTableModel_WithCreatedGame_IsCorrectType()
+        {
             var cashgame = new FakeCashgame();
             var player = new FakePlayer();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsChartJsonUrl(_homegame.Slug, cashgame.DateString)).Returns(chartDataUrl);
+            GetMock<ICashgameDetailsTableModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
+                 .Returns(new CashgameDetailsTableModel());
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-            Assert.AreEqual(chartDataUrl, result.ChartDataUrl);
-		}
+            Assert.IsNotNull(result.CashgameDetailsTableModel);
+        }
+
+        [Test]
+        public void ChartDataUrl_IsSet()
+        {
+            var cashgame = new FakeCashgame();
+            var player = new FakePlayer();
+
+            var sut = GetSut();
+            var result = sut.Create(_homegame, cashgame, player, _isManager);
+
+            Assert.IsInstanceOf<CashgameDetailsChartJsonUrlModel>(result.ChartDataUrl);
+        }
 
         private CashgameDetailsPageModelFactory GetSut()
         {
             return new CashgameDetailsPageModelFactory(
-                GetMock<IPagePropertiesFactory>().Object, 
+                GetMock<IPagePropertiesFactory>().Object,
                 GetMock<ICashgameDetailsTableModelFactory>().Object,
                 GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
-
-	}
-
+    }
 }

@@ -106,7 +106,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetChangePasswordCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetChangePasswordConfirmationUrl());
+                return Redirect(new ChangePasswordConfirmationUrlModel().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetChangePasswordModel();
@@ -131,7 +131,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetForgotPasswordCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetForgotPasswordConfirmationUrl());
+                return Redirect(new ForgotPasswordConfirmationUrlModel().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetForgotPasswordModel(postModel);

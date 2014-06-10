@@ -35,7 +35,7 @@ namespace Web.ModelFactories.AuthModelFactories
                     PageProperties = new PageProperties(applicationContextResult),
                     ReturnUrl = returnUrlModel.Relative,
                     AddUserUrl = new AddUserUrlModel(),
-                    ForgotPasswordUrl = _urlProvider.GetForgotPasswordUrl()
+                    ForgotPasswordUrl = new ForgotPasswordUrlModel()
                 };
         }
 

@@ -47,7 +47,7 @@ namespace Web.Controllers
 	    public ActionResult Index(string slug)
 	    {
             var url = _cashgameModelService.GetIndexUrl(slug);
-            return Redirect(url);
+            return Redirect(url.Relative);
 		}
 
         [AuthorizePlayer]
@@ -120,7 +120,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetEditCommand(slug, dateStr, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetCashgameDetailsUrl(slug, dateStr));
+                return Redirect(new CashgameDetailsUrlModel(slug, dateStr).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetEditModel(slug, dateStr, postModel);

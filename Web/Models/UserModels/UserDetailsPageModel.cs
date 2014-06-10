@@ -13,7 +13,7 @@ namespace Web.Models.UserModels
         public string RealName { get; set; }
         public string Email { get; set; }
         public UrlModel EditLink { get; set; }
-        public string ChangePasswordLink { get; set; }
+        public UrlModel ChangePasswordLink { get; set; }
         public bool ShowEditLink { get; set; }
         public bool ShowPasswordLink { get; set; }
         public AvatarModel AvatarModel { get; set; }

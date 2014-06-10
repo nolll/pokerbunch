@@ -5,6 +5,7 @@ using Application.Services;
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Edit;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Edit
 {
@@ -31,8 +32,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
                     BrowserTitle = "Edit Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
                     IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
-			        CancelUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString),
-			        DeleteUrl = _urlProvider.GetCashgameDeleteUrl(homegame.Slug, cashgame.DateString),
+			        CancelUrl = new CashgameDetailsUrlModel(homegame.Slug, cashgame.DateString),
+			        DeleteUrl = new DeleteCashgameUrlModel(homegame.Slug, cashgame.DateString),
 			        EnableDelete = cashgame.Status != GameStatus.Published,
                     TypedLocation = cashgame.Location,
                     SelectedLocation = cashgame.Location,

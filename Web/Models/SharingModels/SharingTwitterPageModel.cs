@@ -1,4 +1,5 @@
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.SharingModels
 {
@@ -8,6 +9,6 @@ namespace Web.Models.SharingModels
 	    public string BrowserTitle { get; set; }
 		public string TwitterName { get; set; }
 		public bool IsSharing { get; set; }
-		public string PostUrl { get; set; }
+		public UrlModel PostUrl { get; set; }
     }
 }

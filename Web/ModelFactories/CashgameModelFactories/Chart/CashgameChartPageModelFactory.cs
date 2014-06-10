@@ -5,6 +5,7 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.NavigationModels;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
@@ -33,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 {
                     BrowserTitle = "Cashgame Chart",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
-			        ChartDataUrl = _urlProvider.GetCashgameChartJsonUrl(homegame.Slug, year),
+			        ChartDataUrl = new CashgameChartJsonUrlModel(homegame.Slug, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Chart),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Chart, year)
                 };

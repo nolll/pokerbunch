@@ -8,6 +8,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 
@@ -55,15 +56,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action{
 		[Test]
         public void ChartDataUrl_IsSet()
 		{
-		    const string chartDataUrl = "a";
             var player = new FakePlayer(displayName: "b");
             var cashgameResult = new FakeCashgameResult();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameActionChartJsonUrl(_homegame.Slug, _cashgame.DateString, player.Id)).Returns(chartDataUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
 
-            Assert.AreEqual(chartDataUrl, result.ChartDataUrl);
+            Assert.IsInstanceOf<CashgameActionChartJsonUrlModel>(result.ChartDataUrl);
 		}
 
         private ActionPageModelFactory GetSut(){

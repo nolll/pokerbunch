@@ -49,7 +49,7 @@ namespace Web.ModelFactories.UserModelFactories
             if (isViewingCurrentUser)
             {
                 model.ShowPasswordLink = true;
-                model.ChangePasswordLink = _urlProvider.GetChangePasswordUrl();
+                model.ChangePasswordLink = new ChangePasswordUrlModel();
             }
 
             return model;

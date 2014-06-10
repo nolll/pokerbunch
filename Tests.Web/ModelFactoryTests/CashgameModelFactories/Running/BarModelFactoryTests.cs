@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
@@ -42,13 +43,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
         {
             _runningGame = new FakeCashgame();
 
-            const string runningGameUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetRunningCashgameUrl(_homegame.Slug)).Returns(runningGameUrl);
-
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.AreEqual(runningGameUrl, result.Url);
+            Assert.IsInstanceOf<RunningCashgameUrl>(result.Url);
         }
 
         [Test]
@@ -56,18 +54,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
         {
             _runningGame = null;
 
-            const string addGameUrl = "a";
-            GetMock<IUrlProvider>().Setup(o => o.GetCashgameAddUrl(_homegame.Slug)).Returns(addGameUrl);
-
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.AreEqual(addGameUrl, result.Url);
+            Assert.IsInstanceOf<AddCashgameUrlModel>(result.Url);
         }
 
 		private BarModelFactory GetSut(){
-			return new BarModelFactory(
-                GetMock<IUrlProvider>().Object);
+			return new BarModelFactory();
 		}
 
 	}

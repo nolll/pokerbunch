@@ -164,17 +164,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		[Test]
 		public void ReportUrl_WithManager_IsCorrectType()
 		{
-		    const string reportUrl = "a";
 			_isManager = true;
 			var player = new FakePlayer();
             var cashgameResult = new FakeCashgameResult();
 
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameReportUrl(_homegame.Slug, player.Id)).Returns(reportUrl);
-
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, _isManager);
 
-			Assert.AreEqual(reportUrl, result.ReportUrl);
+			Assert.IsInstanceOf<CashgameReportUrlModel>(result.ReportUrl);
 		}
 
 		[Test]

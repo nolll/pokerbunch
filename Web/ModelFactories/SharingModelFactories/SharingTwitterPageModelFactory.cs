@@ -2,6 +2,8 @@
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
+using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Web.ModelFactories.SharingModelFactories
 {
@@ -32,13 +34,13 @@ namespace Web.ModelFactories.SharingModelFactories
                 };
         }
 
-        private string GetPostUrlModel(bool isSharing)
+        private UrlModel GetPostUrlModel(bool isSharing)
         {
             if (isSharing)
             {
-                return _urlProvider.GetTwitterStopShareUrl();
+                return new TwitterStopShareUrlModel();
             }
-            return _urlProvider.GetTwitterStartShareUrl();
+            return new TwitterStartShareUrlModel();
         }
     }
 }

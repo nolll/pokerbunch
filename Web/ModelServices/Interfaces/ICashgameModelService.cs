@@ -12,13 +12,14 @@ using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
+using Web.Models.UrlModels;
 
 namespace Web.ModelServices
 {
     public interface ICashgameModelService
     {
         CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null);
-        string GetIndexUrl(string slug);
+        UrlModel GetIndexUrl(string slug);
         CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr);
         ChartModel GetDetailsChartJsonModel(string slug, string dateStr);
         AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel = null);

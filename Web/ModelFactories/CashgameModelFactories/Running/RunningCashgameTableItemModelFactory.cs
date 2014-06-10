@@ -29,7 +29,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     Name = player.DisplayName,
                     PlayerUrl = new CashgameActionUrlModel(homegame.Slug, cashgame.DateString, player.Id),
                     BuyinUrl = new CashgameBuyinUrlModel(homegame.Slug, player.Id),
-                    ReportUrl = _urlProvider.GetCashgameReportUrl(homegame.Slug, player.Id),
+                    ReportUrl = new CashgameReportUrlModel(homegame.Slug, player.Id),
                     CashoutUrl = new CashgameCashoutUrlModel(homegame.Slug, player.Id),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),

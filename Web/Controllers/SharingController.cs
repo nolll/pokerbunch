@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Application.Services;
 using Web.Commands.SharingCommands;
 using Web.ModelServices;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -52,7 +53,7 @@ namespace Web.Controllers
         {
 		    var command = _sharingCommandProvider.GetTwitterStopCommand();
 		    command.Execute();
-			return Redirect(_urlProvider.GetTwitterSettingsUrl());
+			return Redirect(new TwitterSettingsUrlModel().Relative);
 		}
 
         [Authorize]
@@ -62,7 +63,7 @@ namespace Web.Controllers
             var verifier = _webContext.GetQueryParam("oauth_verifier");
             var command = _sharingCommandProvider.GetStartCommand(token, verifier);
             command.Execute();
-            return Redirect(_urlProvider.GetTwitterSettingsUrl());
+            return Redirect(new TwitterSettingsUrlModel().Relative);
 		}
 
 	}

@@ -10,6 +10,7 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.HomeModelFactories
 {
@@ -18,9 +19,6 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
         [Test]
         public void AllProperties_DefaultState_IsFalse()
         {
-            const string addHomegameUrl = "c";
-            GetMock<IUrlProvider>().Setup(o => o.GetHomegameAddUrl()).Returns(addHomegameUrl);
-
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
@@ -28,7 +26,7 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
             var result = sut.Create();
 
             Assert.IsFalse(result.IsLoggedIn);
-            Assert.AreEqual(addHomegameUrl, result.AddHomegameUrl);
+            Assert.IsInstanceOf<AddHomegameUrlModel>(result.AddHomegameUrl);
             Assert.IsInstanceOf<LoginUrlModel>(result.LoginUrl);
             Assert.IsInstanceOf<AddUserUrlModel>(result.RegisterUrl);
         }

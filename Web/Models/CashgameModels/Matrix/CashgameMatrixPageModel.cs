@@ -1,6 +1,7 @@
 using Web.Models.CashgameModels.Running;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -10,7 +11,7 @@ namespace Web.Models.CashgameModels.Matrix
         public PageProperties PageProperties { get; set; }
         public BarModel BarModel { get; set; }
         public bool GameIsRunning { get; set; }
-        public string StartGameUrl { get; set; }
+        public UrlModel StartGameUrl { get; set; }
         public CashgameMatrixTableModel TableModel { get; set; }
         public CashgamePageNavigationModel PageNavModel { get; set; }
         public CashgameYearNavigationModel YearNavModel { get; set; }

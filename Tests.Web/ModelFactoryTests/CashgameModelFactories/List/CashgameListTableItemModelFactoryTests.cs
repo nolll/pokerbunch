@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.List;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 
@@ -99,14 +100,12 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		[Test]
 		public void TableItem_SetsDetailsUrl()
 		{
-		    const string detailsUrl = "a";
             var cashgame = new FakeCashgame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetCashgameDetailsUrl(_homegame.Slug, cashgame.DateString)).Returns(detailsUrl);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
-            Assert.AreEqual(detailsUrl, result.DetailsUrl);
+            Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.DetailsUrl);
 		}
 
 		[Test]

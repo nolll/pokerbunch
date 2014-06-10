@@ -3,6 +3,7 @@ using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Web.Models.CashgameModels.Action;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
 {
@@ -27,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     Stack = _globalization.FormatCurrency(homegame.Currency, checkpoint.Stack),
                     Timestamp = _globalization.FormatTime(TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone)),
                     ShowLink = role >= Role.Manager,
-                    EditUrl = _urlProvider.GetCashgameCheckpointEditUrl(homegame.Slug, cashgame.DateString, player.Id, checkpoint.Id)
+                    EditUrl = new EditCheckpointUrlModel(homegame.Slug, cashgame.DateString, player.Id, checkpoint.Id)
                 };
         }
     }

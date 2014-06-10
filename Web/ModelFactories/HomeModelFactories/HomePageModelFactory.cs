@@ -7,6 +7,7 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
 using Web.Models.NavigationModels;
 using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Web.ModelFactories.HomeModelFactories
 {
@@ -42,7 +43,7 @@ namespace Web.ModelFactories.HomeModelFactories
                     BrowserTitle = "Poker Bunch",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        IsLoggedIn = _auth.IsAuthenticated,
-                    AddHomegameUrl = _urlProvider.GetHomegameAddUrl(),
+                    AddHomegameUrl = new AddHomegameUrlModel(),
                     LoginUrl = new LoginUrlModel(),
                     RegisterUrl = new AddUserUrlModel(),
 			        AdminNav = new AdminNavigationModel(applicationContextResult)

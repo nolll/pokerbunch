@@ -7,6 +7,8 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
+using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
@@ -46,7 +48,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 			var runningGame = _cashgameRepository.GetRunning(homegame);
 			var years = _cashgameRepository.GetYears(homegame);
 	        var gameIsRunning = runningGame != null;
-	        var startGameUrl = !gameIsRunning ? _urlProvider.GetCashgameAddUrl(homegame.Slug) : null;
+	        var startGameUrl = GetStartGameUrl(homegame.Slug, gameIsRunning);
 
 			return new CashgameMatrixPageModel
 			    {
@@ -60,5 +62,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                     StartGameUrl = startGameUrl
 			    };
 		}
-	}
+
+	    private UrlModel GetStartGameUrl(string slug, bool gameIsRunning)
+	    {
+	        if (gameIsRunning)
+	            return new EmptyUrlModel();
+	        return new AddCashgameUrlModel(slug);
+	    }
+    }
 }

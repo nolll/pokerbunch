@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Action;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
 {
@@ -37,7 +38,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     PageProperties = _pagePropertiesFactory.Create(homegame),
                     Heading = string.Format("Cashgame {0}, {1}", dateString, player.DisplayName),
                     Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role),
-                    ChartDataUrl = _urlProvider.GetCashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.Id)
+                    ChartDataUrl = new CashgameActionChartJsonUrlModel(homegame.Slug, cashgame.DateString, player.Id)
                 };
         }
 

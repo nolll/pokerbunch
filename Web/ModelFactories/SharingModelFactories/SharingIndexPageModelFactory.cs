@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
+using Web.Services;
 
 namespace Web.ModelFactories.SharingModelFactories
 {
@@ -24,7 +25,7 @@ namespace Web.ModelFactories.SharingModelFactories
                     BrowserTitle = "Sharing",
                     PageProperties = _pagePropertiesFactory.Create(),
                     IsSharingToTwitter = isSharing,
-			        ShareToTwitterSettingsUrl = _urlProvider.GetTwitterSettingsUrl()
+			        ShareToTwitterSettingsUrl = new TwitterSettingsUrlModel()
                 };
         }
     }

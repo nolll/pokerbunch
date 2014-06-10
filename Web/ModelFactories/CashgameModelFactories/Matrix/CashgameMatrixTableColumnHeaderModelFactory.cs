@@ -1,6 +1,7 @@
 using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.Matrix;
+using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
@@ -22,7 +23,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             return new CashgameMatrixTableColumnHeaderModel
                 {
                     Date = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : string.Empty,
-                    CashgameUrl = _urlProvider.GetCashgameDetailsUrl(homegame.Slug, cashgame.DateString)
+                    CashgameUrl = new CashgameDetailsUrlModel(homegame.Slug, cashgame.DateString)
                 };
         }
     }

@@ -15,12 +15,12 @@ namespace Web.Models.CashgameModels.Running
         public bool CashoutButtonEnabled { get; set; }
         public bool EndGameButtonEnabled { get; set; }
         public UrlModel BuyinUrl { get; set; }
-        public string ReportUrl { get; set; }
+        public UrlModel ReportUrl { get; set; }
         public UrlModel CashoutUrl { get; set; }
         public UrlModel EndGameUrl { get; set; }
         public RunningCashgameTableModel RunningCashgameTableModel { get; set; }
         public bool ShowTable { get; set; }
-        public string ChartDataUrl { get; set; }
+        public UrlModel ChartDataUrl { get; set; }
         public bool ShowChart { get; set; }
 	}
 }

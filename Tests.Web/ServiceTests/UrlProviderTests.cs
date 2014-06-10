@@ -39,10 +39,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameAddUrl(slug);
+            var result = new AddCashgameUrlModel(slug);
 
-            Assert.AreEqual("/a/cashgame/add", result);
+            Assert.AreEqual("/a/cashgame/add", result.Relative);
         }
 
         [Test]
@@ -51,10 +50,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameChartUrl(slug, year);
+            var result = new CashgameChartUrlModel(slug, year);
 
-            Assert.AreEqual("/a/cashgame/chart/2010", result);
+            Assert.AreEqual("/a/cashgame/chart/2010", result.Relative);
         }
 
         [Test]
@@ -62,10 +60,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameChartUrl(slug, null);
+            var result = new CashgameChartUrlModel(slug, null);
 
-            Assert.AreEqual("/a/cashgame/chart", result);
+            Assert.AreEqual("/a/cashgame/chart", result.Relative);
         }
 
         [Test]
@@ -74,10 +71,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const string dateStr = "b";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameDeleteUrl(slug, dateStr);
+            var result = new DeleteCashgameUrlModel(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/delete/b", result);
+            Assert.AreEqual("/a/cashgame/delete/b", result.Relative);
         }
 
         [Test]
@@ -86,10 +82,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const string dateStr = "b";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameDetailsUrl(slug, dateStr);
+            var result = new CashgameDetailsUrlModel(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/details/b", result);
+            Assert.AreEqual("/a/cashgame/details/b", result.Relative);
         }
 
         [Test]
@@ -98,10 +93,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const string dateStr = "b";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameEditUrl(slug, dateStr);
+            var result = new EditCashgameUrlModel(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/edit/b", result);
+            Assert.AreEqual("/a/cashgame/edit/b", result.Relative);
         }
 
         [Test]
@@ -120,10 +114,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameToplistUrl(slug, year);
+            var result = new TopListUrlModel(slug, year);
 
-            Assert.AreEqual("/a/cashgame/toplist/2010", result);
+            Assert.AreEqual("/a/cashgame/toplist/2010", result.Relative);
         }
 
         [Test]
@@ -131,10 +124,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameToplistUrl(slug, null);
+            var result = new TopListUrlModel(slug, null);
 
-            Assert.AreEqual("/a/cashgame/toplist", result);
+            Assert.AreEqual("/a/cashgame/toplist", result.Relative);
         }
 
         [Test]
@@ -143,10 +135,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameMatrixUrl(slug, year);
+            var result = new CashgameMatrixUrlModel(slug, year);
 
-            Assert.AreEqual("/a/cashgame/matrix/2010", result);
+            Assert.AreEqual("/a/cashgame/matrix/2010", result.Relative);
         }
 
         [Test]
@@ -154,10 +145,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameMatrixUrl(slug, null);
+            var result = new CashgameMatrixUrlModel(slug, null);
 
-            Assert.AreEqual("/a/cashgame/matrix", result);
+            Assert.AreEqual("/a/cashgame/matrix", result.Relative);
         }
 
         [Test]
@@ -166,10 +156,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameListUrl(slug, year);
+            var result = new CashgameListUrlModel(slug, year);
 
-            Assert.AreEqual("/a/cashgame/list/2010", result);
+            Assert.AreEqual("/a/cashgame/list/2010", result.Relative);
         }
 
         [Test]
@@ -177,10 +166,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameListUrl(slug, null);
+            var result = new CashgameListUrlModel(slug, null);
 
-            Assert.AreEqual("/a/cashgame/list", result);
+            Assert.AreEqual("/a/cashgame/list", result.Relative);
         }
 
         [Test]
@@ -212,10 +200,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int playerId = 1;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameReportUrl(slug, playerId);
+            var result = new CashgameReportUrlModel(slug, playerId);
 
-            Assert.AreEqual("/a/cashgame/report/1", result);
+            Assert.AreEqual("/a/cashgame/report/1", result.Relative);
         }
 
         [Test]
@@ -232,55 +219,49 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void ChangePasswordConfirmationUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetChangePasswordConfirmationUrl();
+            var result = new ChangePasswordConfirmationUrlModel();
 
-            Assert.AreEqual("/-/user/changedpassword", result);
+            Assert.AreEqual("/-/user/changedpassword", result.Relative);
         }
 
         [Test]
         public void ChangePasswordFormUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetChangePasswordUrl();
+            var result = new ChangePasswordUrlModel();
 
-            Assert.AreEqual("/-/user/changepassword", result);
+            Assert.AreEqual("/-/user/changepassword", result.Relative);
         }
 
         [Test]
         public void ForgotPasswordConfirmationUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetForgotPasswordConfirmationUrl();
+            var result = new ForgotPasswordConfirmationUrlModel();
 
-            Assert.AreEqual("/-/user/passwordsent", result);
+            Assert.AreEqual("/-/user/passwordsent", result.Relative);
         }
 
         [Test]
         public void ForgotPasswordFormUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetForgotPasswordUrl();
+            var result = new ForgotPasswordUrlModel();
 
-            Assert.AreEqual("/-/user/forgotpassword", result);
+            Assert.AreEqual("/-/user/forgotpassword", result.Relative);
         }
 
         [Test]
         public void HomegameAddUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetHomegameAddUrl();
+            var result = new AddHomegameUrlModel();
 
-            Assert.AreEqual("/-/homegame/add", result);
+            Assert.AreEqual("/-/homegame/add", result.Relative);
         }
 
         [Test]
         public void HomegameAddConfirmationUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetHomegameAddConfirmationUrl();
+            var result = new AddHomegameConfirmationUrlModel();
 
-            Assert.AreEqual("/-/homegame/created", result);
+            Assert.AreEqual("/-/homegame/created", result.Relative);
         }
 
         [Test]
@@ -310,10 +291,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetJoinHomegameUrl(slug);
+            var result = new JoinHomeGameUrlModel(slug);
 
-            Assert.AreEqual("/a/homegame/join", result);
+            Assert.AreEqual("/a/homegame/join", result.Relative);
         }
 
         [Test]
@@ -406,37 +386,33 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void SharingSettingsUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetSharingSettingsUrl();
+            var result = new SharingSettingsUrlModel();
 
-            Assert.AreEqual("/-/sharing", result);
+            Assert.AreEqual("/-/sharing", result.Relative);
         }
 
         [Test]
         public void TwitterSettingsUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetTwitterSettingsUrl();
+            var result = new TwitterSettingsUrlModel();
 
-            Assert.AreEqual("/-/sharing/twitter", result);
+            Assert.AreEqual("/-/sharing/twitter", result.Relative);
         }
 
         [Test]
         public void TwitterStartShareUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetTwitterStartShareUrl();
+            var result = new TwitterStartShareUrlModel();
 
-            Assert.AreEqual("/-/sharing/twitterstart", result);
+            Assert.AreEqual("/-/sharing/twitterstart", result.Relative);
         }
 
         [Test]
         public void TwitterStopShareUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetTwitterStopShareUrl();
+            var result = new TwitterStopShareUrlModel();
 
-            Assert.AreEqual("/-/sharing/twitterstop", result);
+            Assert.AreEqual("/-/sharing/twitterstop", result.Relative);
         }
 
         [Test]
@@ -502,10 +478,9 @@ namespace Tests.Web.ServiceTests
             const string dateStr = "b";
             const int playerId = 1;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameActionChartJsonUrl(slug, dateStr, playerId);
+            var result = new CashgameActionChartJsonUrlModel(slug, dateStr, playerId);
 
-            Assert.AreEqual("/a/cashgame/actionchartjson/b/1", result);
+            Assert.AreEqual("/a/cashgame/actionchartjson/b/1", result.Relative);
         }
 
         [Test]
@@ -514,10 +489,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameChartJsonUrl(slug, year);
+            var result = new CashgameChartJsonUrlModel(slug, year);
 
-            Assert.AreEqual("/a/cashgame/chartjson/2010", result);
+            Assert.AreEqual("/a/cashgame/chartjson/2010", result.Relative);
         }
 
         [Test]
@@ -528,10 +502,9 @@ namespace Tests.Web.ServiceTests
             const int playerId = 1;
             const int checkpointId = 2;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameCheckpointDeleteUrl(slug, dateStr, playerId, checkpointId);
+            var result = new DeleteCheckpointUrlModel(slug, dateStr, playerId, checkpointId);
 
-            Assert.AreEqual("/a/cashgame/deletecheckpoint/b/1/2", result);
+            Assert.AreEqual("/a/cashgame/deletecheckpoint/b/1/2", result.Relative);
         }
 
         [Test]
@@ -542,10 +515,9 @@ namespace Tests.Web.ServiceTests
             const int playerId = 1;
             const int checkpointId = 2;
 
-            var sut = GetSut();
-            var result = sut.GetCashgameCheckpointEditUrl(slug, dateStr, playerId, checkpointId);
+            var result = new EditCheckpointUrlModel(slug, dateStr, playerId, checkpointId);
 
-            Assert.AreEqual("/a/cashgame/editcheckpoint/b/1/2", result);
+            Assert.AreEqual("/a/cashgame/editcheckpoint/b/1/2", result.Relative);
         }
 
         [Test]
@@ -554,10 +526,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const string dateStr = "b";
 
-            var sut = GetSut();
-            var result = sut.GetCashgameDetailsChartJsonUrl(slug, dateStr);
+            var result = new CashgameDetailsChartJsonUrlModel(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/detailschartjson/b", result);
+            Assert.AreEqual("/a/cashgame/detailschartjson/b", result.Relative);
         }
 
         [Test]
