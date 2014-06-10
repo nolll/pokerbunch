@@ -6,6 +6,7 @@ using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
+using Web.Models.UrlModels;
 using Web.Security.Attributes;
 using Web.Services;
 

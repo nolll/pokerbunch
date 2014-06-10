@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Checkpoints;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints

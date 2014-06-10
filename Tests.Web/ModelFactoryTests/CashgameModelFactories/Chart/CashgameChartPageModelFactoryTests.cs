@@ -8,6 +8,7 @@ using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Chart

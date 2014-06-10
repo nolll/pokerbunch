@@ -22,6 +22,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Matrix;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Tests.Web.ModelServiceTests

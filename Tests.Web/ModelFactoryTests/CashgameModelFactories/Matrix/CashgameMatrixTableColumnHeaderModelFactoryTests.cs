@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix

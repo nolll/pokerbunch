@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.ModelFactories.SharingModelFactories

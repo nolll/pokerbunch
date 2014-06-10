@@ -2,6 +2,7 @@
 using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.UrlModels;
 using Web.Models.UserModels;
 using Web.Services;
 

@@ -2,6 +2,7 @@ using System;
 using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.Running;
+using Web.Models.UrlModels;
 using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
