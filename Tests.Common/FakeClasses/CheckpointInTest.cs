@@ -3,11 +3,11 @@ using Core.Entities.Checkpoints;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCheckpoint : Checkpoint
+    public class CheckpointInTest : Checkpoint
     {
         private string _description;
 
-        public FakeCheckpoint(
+        public CheckpointInTest(
             DateTime timestamp = default(DateTime),
             CheckpointType type = default(CheckpointType),
             int stack = default(int),

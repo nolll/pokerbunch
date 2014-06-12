@@ -22,10 +22,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Buyin{
 		public void StackFieldEnabled_WithPlayerInGame_IsTrue()
 		{
 		    const int playerId = 1;
-            var player = new FakePlayer(playerId);
-		    var homegame = new FakeHomegame();
-			var cashgameResult = new FakeCashgameResult(playerId);
-		    var cashgame = new FakeCashgame(results: new List<CashgameResult>{cashgameResult});
+            var player = new PlayerInTest(playerId);
+		    var homegame = new HomegameInTest();
+			var cashgameResult = new CashgameResultInTest(playerId);
+		    var cashgame = new CashgameInTest(results: new List<CashgameResult>{cashgameResult});
 
 			var sut = GetSut();
             var result = sut.Create(homegame, player, cashgame, null);
@@ -35,9 +35,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Buyin{
 
 		[Test]
 		public void StackFieldEnabled_WithPlayerNotInGame_IsFalse(){
-            var player = new FakePlayer(2);
-            var homegame = new FakeHomegame();
-		    var cashgame = new FakeCashgame();
+            var player = new PlayerInTest(2);
+            var homegame = new HomegameInTest();
+		    var cashgame = new CashgameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(homegame, player, cashgame, null);
@@ -47,9 +47,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Buyin{
 
 		[Test]
 		public void BuyinAmount_WithoutPostedValue_IsSetToDefaultBuyin(){
-            var player = new FakePlayer();
-            var homegame = new FakeHomegame(defaultBuyin: 1);
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var homegame = new HomegameInTest(defaultBuyin: 1);
+            var cashgame = new CashgameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(homegame, player, cashgame, null);
@@ -59,10 +59,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Buyin{
 
 		[Test]
 		public void BuyinAmount_WithPostedValue_IsSetToPostedValue(){
-            var player = new FakePlayer();
-            var homegame = new FakeHomegame(defaultBuyin: 1);
+            var player = new PlayerInTest();
+            var homegame = new HomegameInTest(defaultBuyin: 1);
 		    _postModel = new BuyinPostModel {BuyinAmount = 2};
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(homegame, player, cashgame, _postModel);

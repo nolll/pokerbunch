@@ -115,7 +115,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var years = new List<int>(); 
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
             var request = new CashgameContextRequest { Slug = slug };
             var bunchContextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 

@@ -4,7 +4,7 @@ using Infrastructure.Data.Interfaces;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {
-    public class FakeStorageDataReader : IStorageDataReader
+    public class StorageDataReaderInTest : IStorageDataReader
     {
         public string GetStringValue(string key)
         {

@@ -3,9 +3,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeFactBuilder : FactBuilder
+    public class FactBuilderInTest : FactBuilder
     {
-        public FakeFactBuilder(
+        public FactBuilderInTest(
             int gameCount = default(int),
             CashgameResult bestResult = default(CashgameResult),
             CashgameResult worstResult = default(CashgameResult),

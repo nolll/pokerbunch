@@ -5,9 +5,9 @@ using Core.Entities.Checkpoints;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCashgameResult : CashgameResult
+    public class CashgameResultInTest : CashgameResult
     {
-        public FakeCashgameResult(
+        public CashgameResultInTest(
             int playerId = default(int),
             int buyin = default(int),
             int winnings = default(int),

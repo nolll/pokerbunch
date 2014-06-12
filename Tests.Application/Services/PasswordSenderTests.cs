@@ -14,7 +14,7 @@ namespace Tests.Application.Services
             const string subject = "b";
             const string body = "c";
             const string password = "d";
-            var user = new FakeUser(email: email);
+            var user = new UserInTest(email: email);
             GetMock<IPasswordMessageBuilder>().Setup(o => o.GetSubject()).Returns(subject);
             GetMock<IPasswordMessageBuilder>().Setup(o => o.GetBody(password)).Returns(body);
 

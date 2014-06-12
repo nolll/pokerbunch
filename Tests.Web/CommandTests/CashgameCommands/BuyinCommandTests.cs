@@ -21,8 +21,8 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithInvalidBuyin_ReturnsFalse()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
             var model = new BuyinPostModel { BuyinAmount = InvalidBuyin, StackAmount = ValidStack };
 
             var sut = GetSut(player, cashgame, model);
@@ -34,8 +34,8 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithInvalidStack_ReturnsFalse()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
             var model = new BuyinPostModel { BuyinAmount = ValidBuyin, StackAmount = InvalidStack };
 
             var sut = GetSut(player, cashgame, model);
@@ -47,8 +47,8 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithValidData_ReturnsTrue()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
             var model = new BuyinPostModel { BuyinAmount = ValidBuyin, StackAmount = ValidStack };
 
             var sut = GetSut(player, cashgame, model);
@@ -60,10 +60,10 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithValidData_CallsAddCheckpoint()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
             var model = new BuyinPostModel { BuyinAmount = ValidBuyin, StackAmount = ValidStack };
-            var checkpoint = new FakeCheckpoint(type: CheckpointType.Buyin);
+            var checkpoint = new CheckpointInTest(type: CheckpointType.Buyin);
 
             GetMock<ICheckpointModelMapper>().Setup(o => o.GetCheckpoint(model)).Returns(checkpoint);
 
@@ -76,8 +76,8 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithCashgameThatIsStarted_DoesntCallStartGame()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame(isStarted: true);
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest(isStarted: true);
             var model = new BuyinPostModel { BuyinAmount = ValidBuyin, StackAmount = ValidStack };
 
             var sut = GetSut(player, cashgame, model);
@@ -89,8 +89,8 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithCashgameThatIsntStarted_CallsStartGame()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
             var model = new BuyinPostModel { BuyinAmount = ValidBuyin, StackAmount = ValidStack };
 
             var sut = GetSut(player, cashgame, model);

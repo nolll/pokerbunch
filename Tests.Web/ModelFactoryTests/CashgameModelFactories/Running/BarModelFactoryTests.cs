@@ -17,7 +17,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
+			_homegame = new HomegameInTest();
 			_runningGame = null;
 		}
 
@@ -31,7 +31,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
 		[Test]
         public void GameIsRunning_WithRunningGame_IsTrue(){
-			_runningGame = new FakeCashgame();
+			_runningGame = new CashgameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
         [Test]
         public void Url_WithRunningGame_IsSetToRunningGameUrl()
         {
-            _runningGame = new FakeCashgame();
+            _runningGame = new CashgameInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);

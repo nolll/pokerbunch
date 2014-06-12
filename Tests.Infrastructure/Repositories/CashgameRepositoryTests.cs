@@ -16,7 +16,7 @@ namespace Tests.Infrastructure.Repositories
 		[Test]
 		public void StartGame_CallsUpdateWithRawCashgame()
         {
-			var cashgame = new FakeCashgame();
+			var cashgame = new CashgameInTest();
             var rawCashgame = new RawCashgame();
 
             GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, null)).Returns(rawCashgame);
@@ -30,8 +30,8 @@ namespace Tests.Infrastructure.Repositories
 		[Test]
 		public void EndGame_CallsUpdateGameAndSetsCurrentDateAndStatusPublished()
 		{
-		    var homegame = new FakeHomegame();
-            var cashgame = new FakeCashgame();
+		    var homegame = new HomegameInTest();
+            var cashgame = new CashgameInTest();
             var rawCashgame = new RawCashgame();
 
             GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
@@ -47,7 +47,7 @@ namespace Tests.Infrastructure.Repositories
             return new CashgameRepository(
                 GetMock<ICashgameStorage>().Object,
                 GetMock<IRawCashgameFactory>().Object,
-                CacheContainerFake,
+                CacheContainer,
                 GetMock<ICheckpointStorage>().Object,
                 GetMock<ICacheKeyProvider>().Object,
                 GetMock<ICacheBuster>().Object,

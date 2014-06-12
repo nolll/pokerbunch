@@ -27,8 +27,8 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string playerName = "b";
             const int playerId = 1;
-            var homegame = new FakeHomegame(slug: slug);
-            var player = new FakePlayer(id: playerId, displayName: playerName);
+            var homegame = new HomegameInTest(slug: slug);
+            var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
             var request = new PlayerListRequest { Slug = slug };
 
@@ -48,8 +48,8 @@ namespace Tests.Application.UseCases
         {
             const string playerName1 = "b";
             const string playerName2 = "a";
-            var player1 = new FakePlayer(displayName: playerName1);
-            var player2 = new FakePlayer(displayName: playerName2);
+            var player1 = new PlayerInTest(displayName: playerName1);
+            var player2 = new PlayerInTest(displayName: playerName2);
             var players = new List<Player> { player1, player2 };
             var request = new PlayerListRequest();
 

@@ -17,10 +17,10 @@ namespace Tests.Application.Services
         [TestCase(1)]
         public void GetSuite_WithOrWithoutYear_ReturnsSuite(int? year)
         {
-            var homegame = new FakeHomegame();
+            var homegame = new HomegameInTest();
             var players = new List<Player>();
             var cashgames = new List<Cashgame>();
-            var suite = new FakeCashgameSuite();
+            var suite = new CashgameSuiteInTest();
 
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
@@ -38,10 +38,10 @@ namespace Tests.Application.Services
             const int playerId1 = 1;
             const int playerId2 = 2;
             var playerIds = new List<int> {playerId1, playerId2};
-            var result1 = new FakeCashgameResult(playerId1);
-            var result2 = new FakeCashgameResult(playerId2);
+            var result1 = new CashgameResultInTest(playerId1);
+            var result2 = new CashgameResultInTest(playerId2);
             var results = new List<CashgameResult>{result1, result2};
-            var cashgame = new FakeCashgame(results: results);
+            var cashgame = new CashgameInTest(results: results);
             var players = new List<Player>();
 
             GetMock<IPlayerRepository>().Setup(o => o.GetList(playerIds)).Returns(players);
@@ -67,8 +67,8 @@ namespace Tests.Application.Services
         public void CashgameIsRunning_WithRunningGame_ReturnsTrue()
         {
             const string slug = "a";
-            var homegame = new FakeHomegame();
-            var cashgame = new FakeCashgame();
+            var homegame = new HomegameInTest();
+            var cashgame = new CashgameInTest();
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
@@ -83,7 +83,7 @@ namespace Tests.Application.Services
         public void GetLatestYear_WithoutGames_ReturnsNull()
         {
             const string slug = "a";
-            var homegame = new FakeHomegame();
+            var homegame = new HomegameInTest();
             var years = new List<int>();
             
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
@@ -99,7 +99,7 @@ namespace Tests.Application.Services
         public void GetLatestYear_WithGames_ReturnsFirstYearInList()
         {
             const string slug = "a";
-            var homegame = new FakeHomegame();
+            var homegame = new HomegameInTest();
             const int latestYear = 2;
             const int previousYear = 1;
             var years = new List<int>{latestYear, previousYear};

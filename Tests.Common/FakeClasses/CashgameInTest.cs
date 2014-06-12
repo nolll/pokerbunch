@@ -4,9 +4,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCashgame : Cashgame
+    public class CashgameInTest : Cashgame
     {
-        public FakeCashgame(
+        public CashgameInTest(
             int id = default(int),
             int homegameId = default(int),
             string location = default(string),

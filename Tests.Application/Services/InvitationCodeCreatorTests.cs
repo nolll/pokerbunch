@@ -12,7 +12,7 @@ namespace Tests.Application.Services{
 		public void GetCode_ReturnsEncryptedPlayerName()
         {
             const string playerName = "a";
-			var player = new FakePlayer(displayName: playerName);
+			var player = new PlayerInTest(displayName: playerName);
             GetMock<IEncryptionService>().Setup(o => o.Encrypt(playerName, It.IsAny<string>())).Returns("b");
 
             var sut = GetSut();

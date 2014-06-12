@@ -2,9 +2,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakePlayer : Player
+    public class PlayerInTest : Player
     {
-        public FakePlayer(
+        public PlayerInTest(
             int id = default(int),
             int userId = default(int),
             string displayName = default(string),

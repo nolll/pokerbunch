@@ -8,11 +8,11 @@ namespace Tests.Common
     public class MockContainer
     {
         private IDictionary<Type, Mock> _mocks;
-        protected readonly CacheContainerFake CacheContainerFake;
+        protected readonly CacheContainerInTest CacheContainer;
 
         public MockContainer()
         {
-            CacheContainerFake = new CacheContainerFake();
+            CacheContainer = new CacheContainerInTest();
         }
 
         [SetUp]

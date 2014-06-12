@@ -25,15 +25,15 @@ namespace Tests.Application.Factories{
             const int expectedCashout = 2;
             const int expectedWinrate = 60;
             
-            var player = new FakePlayer(playerId);
-            var cashgameResult = new FakeCashgameResult(
+            var player = new PlayerInTest(playerId);
+            var cashgameResult = new CashgameResultInTest(
                 playerId,
                 winnings: singleGameWinnings,
                 playedTime: singleGameTime,
                 buyin: singleGameBuyin,
                 stack: singleGameStack);
-            var cashgame1 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
-            var cashgame2 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
+            var cashgame1 = new CashgameInTest(results: new List<CashgameResult> { cashgameResult });
+            var cashgame2 = new CashgameInTest(results: new List<CashgameResult> { cashgameResult });
             var cashgames = new List<Cashgame> {cashgame1, cashgame2};
             
             var sut = GetSut();
@@ -52,13 +52,13 @@ namespace Tests.Application.Factories{
 	    {
 	        const int playerId1 = 1;
 	        const int playerId2 = 2;
-            var player1 = new FakePlayer(playerId1);
-            var player2 = new FakePlayer(playerId2);
+            var player1 = new PlayerInTest(playerId1);
+            var player2 = new PlayerInTest(playerId2);
 	        var players = new List<Player> {player1, player2};
-            var cashgameResult1 = new FakeCashgameResult(playerId1, winnings: -1);
-            var cashgameResult2 = new FakeCashgameResult(playerId2, winnings: 1);
-            var cashgame1 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult1, cashgameResult2 });
-            var cashgame2 = new FakeCashgame(results: new List<CashgameResult> { cashgameResult1, cashgameResult2 });
+            var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: -1);
+            var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: 1);
+            var cashgame1 = new CashgameInTest(results: new List<CashgameResult> { cashgameResult1, cashgameResult2 });
+            var cashgame2 = new CashgameInTest(results: new List<CashgameResult> { cashgameResult1, cashgameResult2 });
             var cashgames = new List<Cashgame> {cashgame1, cashgame2};
 
 	        const int expectedCount = 2;

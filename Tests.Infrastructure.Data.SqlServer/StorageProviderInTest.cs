@@ -5,20 +5,20 @@ using Infrastructure.Data.SqlServer;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {
-    public class FakeStorageProvider : IStorageProvider
+    public class StorageProviderInTest : IStorageProvider
     {
         public string Sql { get; private set; }
 
         public IStorageDataReader Query(string sql, IList<SimpleSqlParameter> parameters = null)
         {
             Sql = GetFakeSql(sql, parameters);
-            return new FakeStorageDataReader();
+            return new StorageDataReaderInTest();
         }
 
         public IStorageDataReader Query(string sql, ListSqlParameter parameter)
         {
             Sql = GetFakeSql(sql, parameter);
-            return new FakeStorageDataReader();
+            return new StorageDataReaderInTest();
         }
 
         public int Execute(string sql, IList<SimpleSqlParameter> parameters = null)

@@ -19,7 +19,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
+			_homegame = new HomegameInTest();
 			_locations = new List<string>();
 		}
 
@@ -28,7 +28,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
         {
             const string formattedStartDate = "a";
             var startTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(startTime: startTime);
+            var cashgame = new CashgameInTest(startTime: startTime);
 
             GetMock<IGlobalization>().Setup(o => o.FormatIsoDate(startTime)).Returns(formattedStartDate);
 
@@ -41,7 +41,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 		[Test]
 		public void CancelUrl_IsSet()
 		{
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
@@ -52,7 +52,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 		[Test]
 		public void DeleteUrl_IsSet()
         {
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
@@ -62,7 +62,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 
 		[Test]
 		public void EnableDelete_WithPublishedGame_IsFalse(){
-            var cashgame = new FakeCashgame(status: GameStatus.Published);
+            var cashgame = new CashgameInTest(status: GameStatus.Published);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
@@ -72,7 +72,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 
 		[Test]
 		public void EnableDelete_WithFinishedGame_IsTrue(){
-            var cashgame = new FakeCashgame(status: GameStatus.Finished);
+            var cashgame = new CashgameInTest(status: GameStatus.Finished);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
@@ -83,7 +83,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
         [Test]
 		public void LocationSelectModel_IsCorrectType(){
             _locations = new List<string>{"location 1", "location 2", "location 3"};
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);

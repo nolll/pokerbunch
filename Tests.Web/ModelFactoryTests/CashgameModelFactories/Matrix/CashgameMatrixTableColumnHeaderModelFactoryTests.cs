@@ -17,7 +17,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [SetUp]
         public void SetUp()
         {
-            _homegame = new FakeHomegame();
+            _homegame = new HomegameInTest();
             _showYear = false;
         }
 
@@ -26,7 +26,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         {
             const string formatted = "a";
             var startTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: startTime);
+            var cashgame = new CashgameInTest(startTime: startTime);
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
@@ -41,7 +41,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         {
             const string formatted = "a";
             var startTime = DateTime.Parse("2010-01-01");
-            var cashgame = new FakeCashgame(startTime: startTime);
+            var cashgame = new CashgameInTest(startTime: startTime);
             _showYear = true;
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
@@ -55,7 +55,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [Test]
         public void ColumnHeader_CashgameUrlIsSet()
         {
-            var cashgame = new FakeCashgame(startTime: DateTime.Parse("2010-01-01"));
+            var cashgame = new CashgameInTest(startTime: DateTime.Parse("2010-01-01"));
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);

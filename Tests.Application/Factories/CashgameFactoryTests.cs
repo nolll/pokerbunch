@@ -32,12 +32,12 @@ namespace Tests.Application.Factories
 
             _results = new List<CashgameResult>
                 {
-                    new FakeCashgameResult
+                    new CashgameResultInTest
                         (
                             buyinTime: _earliestBuyinTime,
                             cashoutTime: _earliestCashoutTime
                         ),
-                    new FakeCashgameResult
+                    new CashgameResultInTest
                         (
                             buyinTime: _latestBuyinTime,
                             cashoutTime: _latestCashoutTime

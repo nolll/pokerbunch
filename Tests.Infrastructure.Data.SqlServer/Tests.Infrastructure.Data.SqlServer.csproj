@@ -45,8 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeStorageDataReader.cs" />
-    <Compile Include="FakeStorageProvider.cs" />
+    <Compile Include="StorageDataReaderInTest.cs" />
+    <Compile Include="StorageProviderInTest.cs" />
     <Compile Include="ListSqlParameterTests.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="SqlServerCashgameStorageTests.cs" />

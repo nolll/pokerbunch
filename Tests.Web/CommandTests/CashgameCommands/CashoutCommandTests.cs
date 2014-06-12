@@ -18,9 +18,9 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithInvalidStack_ReturnsFalse()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
+            var cashgameResult = new CashgameResultInTest();
             var model = new CashoutPostModel { StackAmount = InvalidStack };
 
             var sut = GetSut(player, cashgame, cashgameResult, model);
@@ -32,9 +32,9 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithValidData_ReturnsTrue()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
+            var cashgameResult = new CashgameResultInTest();
             var model = new CashoutPostModel { StackAmount = ValidStack };
 
             var sut = GetSut(player, cashgame, cashgameResult, model);
@@ -46,11 +46,11 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithValidDataAndNonexistingCheckpoint_CallsAddCheckpoint()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
+            var cashgameResult = new CashgameResultInTest();
             var model = new CashoutPostModel { StackAmount = ValidStack };
-            var checkpoint = new FakeCheckpoint(type: CheckpointType.Cashout);
+            var checkpoint = new CheckpointInTest(type: CheckpointType.Cashout);
 
             GetMock<ICheckpointModelMapper>().Setup(o => o.GetCheckpoint(model, null)).Returns(checkpoint);
 
@@ -63,10 +63,10 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_WithValidDataAndExistingCheckpoint_CallsUpdateCheckpoint()
         {
-            var player = new FakePlayer();
-            var cashgame = new FakeCashgame();
-            var checkpoint = new FakeCheckpoint(type: CheckpointType.Cashout);
-            var cashgameResult = new FakeCashgameResult(cashoutCheckpoint: checkpoint);
+            var player = new PlayerInTest();
+            var cashgame = new CashgameInTest();
+            var checkpoint = new CheckpointInTest(type: CheckpointType.Cashout);
+            var cashgameResult = new CashgameResultInTest(cashoutCheckpoint: checkpoint);
             var model = new CashoutPostModel { StackAmount = ValidStack };
 
             GetMock<ICheckpointModelMapper>().Setup(o => o.GetCheckpoint(model, checkpoint)).Returns(checkpoint);

@@ -14,7 +14,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Cashout{
 		
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
+			_homegame = new HomegameInTest();
 		}
         
         [Test]

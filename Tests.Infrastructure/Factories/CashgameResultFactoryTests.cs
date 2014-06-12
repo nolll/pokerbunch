@@ -18,8 +18,8 @@ namespace Tests.Infrastructure.Factories{
 
         [Test]
 		public void GetWinnings_ReturnsDifferenceBetweenLastCheckpointStackAndBuyin(){
-			var buyinCheckPoint = new FakeCheckpoint(new DateTime(), stack: 100, amount: 100, type: CheckpointType.Buyin);
-			var reportCheckpoint = new FakeCheckpoint(new DateTime(), stack: 200);
+			var buyinCheckPoint = new CheckpointInTest(new DateTime(), stack: 100, amount: 100, type: CheckpointType.Buyin);
+			var reportCheckpoint = new CheckpointInTest(new DateTime(), stack: 200);
 
 			_checkpoints = new List<Checkpoint> {buyinCheckPoint, reportCheckpoint};
 
@@ -39,7 +39,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetCheckpoints_OneCheckpoint_ReturnsThatCheckpoint(){
-			var checkpoint = new FakeCheckpoint(new DateTime(), stack: 200);
+			var checkpoint = new CheckpointInTest(new DateTime(), stack: 200);
 			_checkpoints = new List<Checkpoint> {checkpoint};
 
 			var result = GetResult();
@@ -49,7 +49,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetBuyinTime_WithoutBuyinCheckpoint_ReturnsNull(){
-			var otherCheckpoint = new FakeCheckpoint();
+			var otherCheckpoint = new CheckpointInTest();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, otherCheckpoint};
 
 		    var result = GetResult();
@@ -60,8 +60,8 @@ namespace Tests.Infrastructure.Factories{
 		[Test]
 		public void GetBuyinTime_WithBuyinCheckpoint_ReturnsBuyinTime(){
 			var buyinTime = DateTime.Parse("2010-01-01 19:00:00");
-            var buyinCheckpoint = new FakeCheckpoint(buyinTime, stack: 0, amount: 200, type: CheckpointType.Buyin);
-			var otherCheckpoint = new FakeCheckpoint();
+            var buyinCheckpoint = new CheckpointInTest(buyinTime, stack: 0, amount: 200, type: CheckpointType.Buyin);
+			var otherCheckpoint = new CheckpointInTest();
 		    _checkpoints = new List<Checkpoint> {otherCheckpoint, buyinCheckpoint, otherCheckpoint};
 
 		    var result = GetResult();
@@ -71,7 +71,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetCashoutTime_WithoutCashoutCheckpoint_ReturnsNull(){
-			var otherCheckpoint = new FakeCheckpoint();
+			var otherCheckpoint = new CheckpointInTest();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, otherCheckpoint};
 
 			var result = GetResult();
@@ -82,8 +82,8 @@ namespace Tests.Infrastructure.Factories{
 		[Test]
 		public void GetCashoutTime_WithCashoutCheckpoint_ReturnsCashoutTime(){
 			var cashoutTime = DateTime.Parse("2010-01-01 23:00:00");
-            var cashoutCheckpoint = new FakeCheckpoint(cashoutTime, stack: 200, type: CheckpointType.Cashout);
-			var otherCheckpoint = new FakeCheckpoint();
+            var cashoutCheckpoint = new CheckpointInTest(cashoutTime, stack: 200, type: CheckpointType.Cashout);
+			var otherCheckpoint = new CheckpointInTest();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, cashoutCheckpoint, otherCheckpoint};
 
 			var result = GetResult();
@@ -102,7 +102,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetPlayedTime_MissingStartTime_ReturnsZero(){
-            _checkpoints = new List<Checkpoint> { new FakeCheckpoint(DateTime.Parse("2010-01-01 02:00:00")) };
+            _checkpoints = new List<Checkpoint> { new CheckpointInTest(DateTime.Parse("2010-01-01 02:00:00")) };
 
 			var result = GetResult();
 
@@ -111,7 +111,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetPlayedTime_MissingEndTime_ReturnsZero(){
-            _checkpoints = new List<Checkpoint> { new FakeCheckpoint(DateTime.Parse("2010-01-01 01:00:00")) };
+            _checkpoints = new List<Checkpoint> { new CheckpointInTest(DateTime.Parse("2010-01-01 01:00:00")) };
 
 			var result = GetResult();
 
@@ -122,8 +122,8 @@ namespace Tests.Infrastructure.Factories{
 		public void GetPlayedTime_ReturnsDifferenceBetweenStartDateAndEndDate(){
 			_checkpoints = new List<Checkpoint>
 			    {
-			        new FakeCheckpoint(DateTime.Parse("2010-01-01 01:00:00"), CheckpointType.Buyin),
-                    new FakeCheckpoint(DateTime.Parse("2010-01-01 02:00:00"), CheckpointType.Cashout)
+			        new CheckpointInTest(DateTime.Parse("2010-01-01 01:00:00"), CheckpointType.Buyin),
+                    new CheckpointInTest(DateTime.Parse("2010-01-01 02:00:00"), CheckpointType.Cashout)
 			    };
 
             var result = GetResult();

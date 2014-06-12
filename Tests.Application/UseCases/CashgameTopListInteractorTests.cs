@@ -26,11 +26,11 @@ namespace Tests.Application.UseCases
         public void Execute_WithSlug_ReturnsTopListItems()
         {
             const string slug = "a";
-            var homegame = new FakeHomegame();
-            var totalResult = new FakeCashgameTotalResult(player: new FakePlayer());
+            var homegame = new HomegameInTest();
+            var totalResult = new CashgameTotalResultInTest(player: new PlayerInTest());
             var totalResultList = new List<CashgameTotalResult> {totalResult};
             var playerList = new List<Player>();
-            var suite = new FakeCashgameSuite(totalResults: totalResultList, players: playerList);
+            var suite = new CashgameSuiteInTest(totalResults: totalResultList, players: playerList);
             var request = new TopListRequest{Slug = slug};
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
@@ -54,8 +54,8 @@ namespace Tests.Application.UseCases
             const int winnings = 6;
             const int winRate = 7;
             const int expectedRank = 1;
-            var player = new FakePlayer(playerId, displayName: playerName);
-            var totalResult = new FakeCashgameTotalResult(player: player, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
+            var player = new PlayerInTest(playerId, displayName: playerName);
+            var totalResult = new CashgameTotalResultInTest(player: player, buyin: buyin, cashout: cashout, gameCount: gamesPlayed, timePlayed: minutesPlayed, winnings: winnings, winRate: winRate);
             const int index = 0;
             var currency = Currency.Default;
             

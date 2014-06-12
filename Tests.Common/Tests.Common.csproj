@@ -41,26 +41,26 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheContainerFake.cs" />
+    <Compile Include="CacheContainerInTest.cs" />
     <Compile Include="FakeClasses\ApplicationContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
     <Compile Include="FakeClasses\CashgameContextResultInTest.cs" />
-    <Compile Include="FakeClasses\FakeBunchListResult.cs" />
-    <Compile Include="FakeClasses\FakeFactBuilder.cs" />
-    <Compile Include="FakeClasses\FakeCashgameSuite.cs" />
-    <Compile Include="FakeClasses\FakeCashgameTotalResult.cs" />
-    <Compile Include="FakeClasses\FakeCheckpoint.cs" />
-    <Compile Include="FakeClasses\FakeTwitterCredentials.cs" />
+    <Compile Include="FakeClasses\BunchListResultInTest.cs" />
+    <Compile Include="FakeClasses\FactBuilderInTest.cs" />
+    <Compile Include="FakeClasses\CashgameSuiteInTest.cs" />
+    <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
+    <Compile Include="FakeClasses\CheckpointInTest.cs" />
+    <Compile Include="FakeClasses\TwitterCredentialsInTest.cs" />
     <Compile Include="FakeClasses\MoneyInTest.cs" />
     <Compile Include="FakeClasses\TimeInTest.cs" />
     <Compile Include="MockContainer.cs" />
-    <Compile Include="FakeClasses\FakeCashgame.cs" />
-    <Compile Include="FakeClasses\FakeCashgameResult.cs" />
-    <Compile Include="FakeClasses\FakeHomegame.cs" />
-    <Compile Include="FakeClasses\FakePlayer.cs" />
-    <Compile Include="FakeClasses\FakeUser.cs" />
-    <Compile Include="FakeCommands\FakeFailedCommand.cs" />
-    <Compile Include="FakeCommands\FakeSuccessfulCommand.cs" />
+    <Compile Include="FakeClasses\CashgameInTest.cs" />
+    <Compile Include="FakeClasses\CashgameResultInTest.cs" />
+    <Compile Include="FakeClasses\HomegameInTest.cs" />
+    <Compile Include="FakeClasses\PlayerInTest.cs" />
+    <Compile Include="FakeClasses\UserInTest.cs" />
+    <Compile Include="FakeCommands\FailedCommandInTest.cs" />
+    <Compile Include="FakeCommands\SuccessfulCommandInTest.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

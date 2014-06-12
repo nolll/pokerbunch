@@ -16,7 +16,7 @@ namespace Tests.Application.UseCases
         {
             const int expected = 1;
             const string userName = "a";
-            var users = new List<User> {new FakeUser(userName: userName)};
+            var users = new List<User> {new UserInTest(userName: userName)};
 
             GetMock<IUserRepository>().Setup(o => o.GetList()).Returns(users);
 

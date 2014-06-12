@@ -30,7 +30,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void LoginPost_LoginSucceededButNoReturnUrl_RedirectsToRoot()
         {
-            var command = new FakeSuccessfulCommand();
+            var command = new SuccessfulCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
             var homeUrl = new HomeUrlModel();
@@ -47,7 +47,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void LoginPost_LoginSucceededWithReturnUrl_RedirectsToReturnUrl()
         {
-            var command = new FakeSuccessfulCommand();
+            var command = new SuccessfulCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
             var sut = GetSut();
@@ -62,7 +62,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void LoginPost_UserNotFound_ShowsForm()
         {
-            var command = new FakeFailedCommand();
+            var command = new FailedCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
             var loginPageModel = new AuthLoginPostModel();
@@ -80,7 +80,7 @@ namespace Tests.Web.ControllerTests
         {
             var homeUrl = new HomeUrlModel();
 
-            var command = new FakeSuccessfulCommand();
+            var command = new SuccessfulCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLogoutCommand()).Returns(command);
 
             var sut = GetSut();

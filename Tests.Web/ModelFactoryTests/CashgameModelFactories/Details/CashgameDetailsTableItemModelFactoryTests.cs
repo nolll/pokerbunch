@@ -18,14 +18,14 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
-			_cashgame = new FakeCashgame(startTime: new DateTime());
+			_homegame = new HomegameInTest();
+			_cashgame = new CashgameInTest(startTime: new DateTime());
         }
 
 		[Test]
         public void Name_IsSet(){
-			var player = new FakePlayer(displayName: "a");
-            var cashgameResult = new FakeCashgameResult();
+			var player = new PlayerInTest(displayName: "a");
+            var cashgameResult = new CashgameResultInTest();
 		    
             var sut = GetSut();
 		    var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -36,8 +36,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		[Test]
         public void PlayerUrl_IsSet()
 		{
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest();
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -50,8 +50,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		{
 		    const string formattedBuyin = "a";
 		    const int buyin = 1;
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult(buyin: buyin);
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest(buyin: buyin);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), buyin)).Returns(formattedBuyin);
 
@@ -65,8 +65,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
         public void Cashout_IsSet(){
             const string formattedStack = "a";
             const int stack = 1;
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult(stack: stack);
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest(stack: stack);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), stack)).Returns(formattedStack);
 
@@ -80,8 +80,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
         public void Winnings_IsSet(){
             const string formattedWinnings = "a";
             const int winnings = 1;
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult(winnings: winnings);
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest(winnings: winnings);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<Currency>(), winnings)).Returns(formattedWinnings);
 
@@ -94,8 +94,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		[Test]
         public void WinningsClass_IsSet(){
 		    const string resultClass = "pos-result";
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult(winnings: 1);
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest(winnings: 1);
 		    
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
@@ -108,8 +108,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 		{
 		    const string formattedWinrate = "a";
 		    const int winnings = 1;
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult(winnings: winnings, playedTime: 60);
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest(winnings: winnings, playedTime: 60);
 
             GetMock<IGlobalization>().Setup(o => o.FormatWinrate(It.IsAny<Currency>(), winnings)).Returns(formattedWinrate);
 
@@ -121,8 +121,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 
 		[Test]
         public void Winrate_WithoutDuration_IsEmpty(){
-            var player = new FakePlayer();
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest();
+            var cashgameResult = new CashgameResultInTest();
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);

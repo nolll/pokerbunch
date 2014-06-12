@@ -3,9 +3,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeHomegame : Homegame
+    public class HomegameInTest : Homegame
     {
-        public FakeHomegame(
+        public HomegameInTest(
             int id = default(int),
             string slug = default(string),
             string displayName = default(string),

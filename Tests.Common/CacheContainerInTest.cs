@@ -5,12 +5,12 @@ using Infrastructure.Data.Cache;
 
 namespace Tests.Common
 {
-    public class CacheContainerFake : ICacheContainer
+    public class CacheContainerInTest : ICacheContainer
     {
         private string _fakedCacheKey;
         private object _fakedCacheValue;
 
-        public CacheContainerFake()
+        public CacheContainerInTest()
         {
             _fakedCacheKey = null;
             _fakedCacheValue = null;

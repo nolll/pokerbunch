@@ -23,9 +23,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
 
         public CheckpointModelFactoryTests()
         {
-            _homegame = new FakeHomegame();
-            _cashgame = new FakeCashgame(startTime: new DateTime());
-            _player = new FakePlayer();
+            _homegame = new HomegameInTest();
+            _cashgame = new CashgameInTest(startTime: new DateTime());
+            _player = new PlayerInTest();
         }
 
         [SetUp]
@@ -34,7 +34,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
             const string description = "description";
             _stack = 200;
             _timestamp = DateTime.Parse("2010-01-01 01:00:00");
-            _checkpoint = new FakeCheckpoint(_timestamp, stack: _stack, description: description);
+            _checkpoint = new CheckpointInTest(_timestamp, stack: _stack, description: description);
             _role = Role.Player;
         }
 

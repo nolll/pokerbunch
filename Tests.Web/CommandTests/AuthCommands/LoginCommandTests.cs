@@ -31,7 +31,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
         {
             _password = "a";
             const string userPassword = "a";
-			var user = new FakeUser(encryptedPassword: userPassword);
+			var user = new UserInTest(encryptedPassword: userPassword);
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
 
@@ -47,7 +47,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
         {
             _password = "a";
             const string userPassword = "b";
-            var user = new FakeUser(encryptedPassword: userPassword);
+            var user = new UserInTest(encryptedPassword: userPassword);
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
             GetMock<IEncryptionService>().Setup(o => o.Encrypt(It.IsAny<string>(), It.IsAny<string>())).Returns(_password);
 
@@ -61,7 +61,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
         [Test]
         public void Execute_UserFound_SignsIn()
 		{
-			var user = new FakeUser();
+			var user = new UserInTest();
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
 
             var sut = GetSut();
@@ -74,7 +74,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
         public void Execute_UserFoundAndRememberChecked_SetsPersistentCookie()
         {
             _rememberMe = true;
-            var user = new FakeUser();
+            var user = new UserInTest();
 
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(It.IsAny<string>())).Returns(user);
 

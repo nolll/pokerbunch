@@ -75,9 +75,9 @@ namespace Tests.Web.CommandTests.CashgameCommands
         {
             const string slug = "a";
             const int playerId = 1;
-            var homegame = new FakeHomegame();
-            var player = new FakePlayer(playerId);
-            var cashgame = new FakeCashgame();
+            var homegame = new HomegameInTest();
+            var player = new PlayerInTest(playerId);
+            var cashgame = new CashgameInTest();
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetById(playerId)).Returns(player);

@@ -18,13 +18,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
+			_homegame = new HomegameInTest();
 		}
 
 		[Test]
         public void StatusModels_CashgameWithOnePlayer_ContainsOneItem(){
-			var results = new List<CashgameResult>{new FakeCashgameResult()};
-            var cashgame = new FakeCashgame(results: results);
+			var results = new List<CashgameResult>{new CashgameResultInTest()};
+            var cashgame = new CashgameInTest(results: results);
 
 			var sut = GetSut();
 		    var result = sut.Create(_homegame, cashgame, false);
@@ -34,7 +34,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
 		[Test]
         public void StatusModels_CashgameWithTwoPlayers_HasTwoItems(){
-			var cashgame = new FakeCashgame(results: new List<CashgameResult>{new FakeCashgameResult(), new FakeCashgameResult()});
+			var cashgame = new CashgameInTest(results: new List<CashgameResult>{new CashgameResultInTest(), new CashgameResultInTest()});
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, false);
@@ -47,7 +47,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string formatted = "a";
 		    const int turnover = 1;
-			var cashgame = new FakeCashgame(turnover: 1);
+			var cashgame = new CashgameInTest(turnover: 1);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), turnover)).Returns(formatted);
 
@@ -62,7 +62,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 		{
 		    const string formatted = "a";
 		    const int totalStacks = 1;
-            var cashgame = new FakeCashgame(totalStacks: totalStacks);
+            var cashgame = new CashgameInTest(totalStacks: totalStacks);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), totalStacks)).Returns(formatted);
 
@@ -79,11 +79,11 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             const int playerId2 = 2;
 		    const string playerName1 = "a";
 		    const string playerName2 = "b";
-			var player1 = new FakePlayer(displayName: playerName1);
-		    var result1 = new FakeCashgameResult(winnings: 1, playerId: playerId1);
-		    var player2 = new FakePlayer(displayName: playerName2);
-		    var result2 = new FakeCashgameResult(winnings: 2, playerId: playerId2);
-            var cashgame = new FakeCashgame(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
+			var player1 = new PlayerInTest(displayName: playerName1);
+		    var result1 = new CashgameResultInTest(winnings: 1, playerId: playerId1);
+		    var player2 = new PlayerInTest(displayName: playerName2);
+		    var result2 = new CashgameResultInTest(winnings: 2, playerId: playerId2);
+            var cashgame = new CashgameInTest(startTime: new DateTime(), results: new List<CashgameResult>{result1, result2});
 
             GetMock<IRunningCashgameTableItemModelFactory>().Setup(o => o.Create(_homegame, cashgame, player1, result1, It.IsAny<bool>()))
                  .Returns(new RunningCashgameTableItemModel { Name = playerName1 });

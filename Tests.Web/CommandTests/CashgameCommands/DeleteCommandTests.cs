@@ -12,7 +12,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_CashgameWithPlayers_ReturnsFalse()
         {
-            var cashgame = new FakeCashgame(playerCount: 1);
+            var cashgame = new CashgameInTest(playerCount: 1);
 
             var sut = GetSut(cashgame);
             var result = sut.Execute();
@@ -23,7 +23,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_CashgameWithoutPlayers_CallsDeleteGameReturnsTrue()
         {
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
             var sut = GetSut(cashgame);
             var result = sut.Execute();

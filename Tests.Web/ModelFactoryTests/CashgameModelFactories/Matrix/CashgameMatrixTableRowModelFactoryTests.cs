@@ -22,16 +22,16 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [SetUp]
         public void SetUp()
         {
-            _homegame = new FakeHomegame();
+            _homegame = new HomegameInTest();
             _suite = GetSuite();
-            _player = new FakePlayer(displayName: "player name");
+            _player = new PlayerInTest(displayName: "player name");
             _rank = 1;
         }
 
         [Test]
         public void TableRow_RankIsSet()
         {
-            var totalResult = new FakeCashgameTotalResult();
+            var totalResult = new CashgameTotalResultInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [Test]
         public void TableRow_PlayerNameIsSet()
         {
-            var totalResult = new FakeCashgameTotalResult();
+            var totalResult = new CashgameTotalResultInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
@@ -56,7 +56,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         {
             const string formatted = "a";
             const int winnings = 1;
-            var totalResult = new FakeCashgameTotalResult(winnings);
+            var totalResult = new CashgameTotalResultInTest(winnings);
 
             GetMock<IGlobalization>().Setup(o => o.FormatResult(It.IsAny<Currency>(), winnings)).Returns(formatted);
 
@@ -70,7 +70,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         public void TableRow_WinningsClassIsSet()
         {
             const string resultClass = "pos-result";
-            var totalResult = new FakeCashgameTotalResult(winnings: 1);
+            var totalResult = new CashgameTotalResultInTest(winnings: 1);
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
@@ -81,7 +81,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [Test]
         public void TableRow_PlayerUrlIsSet()
         {
-            var totalResult = new FakeCashgameTotalResult();
+            var totalResult = new CashgameTotalResultInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
@@ -92,7 +92,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [Test]
         public void TableRow_CellModelsAreSet()
         {
-            var totalResult = new FakeCashgameTotalResult();
+            var totalResult = new CashgameTotalResultInTest();
 
             var cellModelList = new List<CashgameMatrixTableCellModel> { new CashgameMatrixTableCellModel() };
             GetMock<ICashgameMatrixTableCellModelFactory>().Setup(o => o.CreateList(_suite.Cashgames, _player)).Returns(cellModelList);
@@ -106,10 +106,10 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         [Test]
         public void Results_IsCorrectLength()
         {
-            var homegame = new FakeHomegame();
-            var suite = new FakeCashgameSuite();
-            var player = new FakePlayer();
-            var totalResult = new FakeCashgameTotalResult(player: player);
+            var homegame = new HomegameInTest();
+            var suite = new CashgameSuiteInTest();
+            var player = new PlayerInTest();
+            var totalResult = new CashgameTotalResultInTest(player: player);
             var totalResults = new List<CashgameTotalResult> { totalResult, totalResult };
 
             var sut = GetSut();
@@ -120,9 +120,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
 
         private CashgameSuite GetSuite()
         {
-            return new FakeCashgameSuite
+            return new CashgameSuiteInTest
             (
-                new List<Cashgame> { new FakeCashgame() }
+                new List<Cashgame> { new CashgameInTest() }
             );
         }
 

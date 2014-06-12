@@ -22,7 +22,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         public void SetUp()
         {
             _isManager = false;
-            _homegame = new FakeHomegame();
+            _homegame = new HomegameInTest();
         }
 
         [Test]
@@ -31,8 +31,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
             const string formattedDate = "a";
 
             var dateTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(startTime: dateTime);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(startTime: dateTime);
+            var player = new PlayerInTest();
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(dateTime, true)).Returns(formattedDate);
 
@@ -47,8 +47,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         {
             const string formattedDuration = "a";
             const int duration = 1;
-            var cashgame = new FakeCashgame(duration: duration);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(duration: duration);
+            var player = new PlayerInTest();
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formattedDuration);
 
@@ -61,8 +61,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void Duration_WithDurationLargerThanZero_IsEnabled()
         {
-            var cashgame = new FakeCashgame(duration: 1);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(duration: 1);
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -75,8 +75,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         {
             const string formattedTime = "a";
             var startTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(startTime: startTime, status: GameStatus.Running);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(startTime: startTime, status: GameStatus.Running);
+            var player = new PlayerInTest();
 
             GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
@@ -91,8 +91,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         {
             const string formattedTime = "a";
             var endTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(endTime: endTime, status: GameStatus.Finished);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(endTime: endTime, status: GameStatus.Finished);
+            var player = new PlayerInTest();
 
             GetMock<IGlobalization>().Setup(o => o.FormatTime(It.IsAny<DateTime>())).Returns(formattedTime);
 
@@ -106,8 +106,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         public void Location_IsSet()
         {
             const string location = "a";
-            var cashgame = new FakeCashgame(location: location);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(location: location);
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -118,8 +118,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void EditUrl_IsCorrectType()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -130,8 +130,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void CheckpointsUrl_IsCorrectType()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -142,8 +142,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void ShowStartTime_WithCreatedGame_IsFalse()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -154,8 +154,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void ShowEndTime_WithCreatedGame_IsFalse()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -166,8 +166,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void EnableCheckpointsButton_WithPlayerNotInGame_IsFalse()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -179,9 +179,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         public void EnableCheckpointsButton_WithPlayerInGame_IsTrue()
         {
             const int playerId = 1;
-            var player = new FakePlayer(playerId);
-            var cashgameResult = new FakeCashgameResult(playerId);
-            var cashgame = new FakeCashgame(results: new List<CashgameResult> { cashgameResult });
+            var player = new PlayerInTest(playerId);
+            var cashgameResult = new CashgameResultInTest(playerId);
+            var cashgame = new CashgameInTest(results: new List<CashgameResult> { cashgameResult });
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -192,8 +192,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void EnableCheckpointsButton_WithFinishedGame_IsFalse()
         {
-            var cashgame = new FakeCashgame(status: GameStatus.Finished);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(status: GameStatus.Finished);
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -204,8 +204,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void ShowEndTime_WithRunningGame_IsFalse()
         {
-            var cashgame = new FakeCashgame(status: GameStatus.Running);
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest(status: GameStatus.Running);
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -216,8 +216,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void EnableEdit_WithPlayerRights_IsFalse()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -229,8 +229,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         public void EnableEdit_WithManagerRights_IsTrue()
         {
             _isManager = true;
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -241,8 +241,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void Status_IsNotNull()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
@@ -253,8 +253,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void ResultTableModel_WithCreatedGame_IsCorrectType()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             GetMock<ICashgameDetailsTableModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>()))
                  .Returns(new CashgameDetailsTableModel());
@@ -268,8 +268,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
         [Test]
         public void ChartDataUrl_IsSet()
         {
-            var cashgame = new FakeCashgame();
-            var player = new FakePlayer();
+            var cashgame = new CashgameInTest();
+            var player = new PlayerInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);

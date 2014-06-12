@@ -12,8 +12,8 @@ namespace Tests.Web.CommandTests.PlayerCommands
         [Test]
         public void Execute_PlayerHasResults_ReturnsFalse()
         {
-            var homegame = new FakeHomegame();
-            var player = new FakePlayer();
+            var homegame = new HomegameInTest();
+            var player = new PlayerInTest();
 
             GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(true);
 
@@ -26,8 +26,8 @@ namespace Tests.Web.CommandTests.PlayerCommands
         [Test]
         public void Execute_PlayerHasNoResults_ReturnsTrue()
         {
-            var homegame = new FakeHomegame();
-            var player = new FakePlayer();
+            var homegame = new HomegameInTest();
+            var player = new PlayerInTest();
 
             GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(false);
 

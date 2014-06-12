@@ -57,7 +57,7 @@ namespace Tests.Web.ModelServiceTests
         public void GetMatrixModel_Authorized_ReturnsModel()
         {
             const string slug = "a";
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new FakeUser());
+            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new UserInTest());
             GetMock<IMatrixPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(new CashgameMatrixPageModel());
 
             var sut = GetSut();
@@ -71,8 +71,8 @@ namespace Tests.Web.ModelServiceTests
         {
             const string slug = "a";
             const string dateStr = "2000-01-01"; 
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new FakeUser());
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new FakeCashgame());
+            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(new UserInTest());
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(new CashgameInTest());
             GetMock<ICashgameDetailsPageModelFactory>().Setup(o => o.Create(It.IsAny<Homegame>(), It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<bool>())).Returns(new CashgameDetailsPageModel());
 
             var sut = GetSut();

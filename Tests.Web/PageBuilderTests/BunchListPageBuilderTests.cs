@@ -23,7 +23,7 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            var showBunchListResult = new FakeBunchListResult();
+            var showBunchListResult = new BunchListResultInTest();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
@@ -36,7 +36,7 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_PagePropertiesIsSet()
         {
-            var showBunchListResult = new FakeBunchListResult();
+            var showBunchListResult = new BunchListResultInTest();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
@@ -50,7 +50,7 @@ namespace Tests.Web.PageBuilderTests
         public void Build_BunchModelsAreSet()
         {
             var bunchItems = new List<BunchListItem>();
-            var showBunchListResult = new FakeBunchListResult(bunchItems);
+            var showBunchListResult = new BunchListResultInTest(bunchItems);
             
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());

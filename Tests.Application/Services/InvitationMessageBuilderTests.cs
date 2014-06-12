@@ -12,7 +12,7 @@ namespace Tests.Application.Services
         {
             const string displayName = "a";
             const string expected = "Invitation to Poker Bunch: a";
-            var homegame = new FakeHomegame(displayName: displayName);
+            var homegame = new HomegameInTest(displayName: displayName);
 
             var sut = GetSut();
             var result = sut.GetSubject(homegame);
@@ -36,8 +36,8 @@ namespace Tests.Application.Services
 To accept this invitation, go to cd and enter this verification code: e
 
 If you don't have an account, you can register at cf";
-            var homegame = new FakeHomegame(slug: slug, displayName: displayName);
-            var player = new FakePlayer();
+            var homegame = new HomegameInTest(slug: slug, displayName: displayName);
+            var player = new PlayerInTest();
 
             GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
             GetMock<IInvitationCodeCreator>().Setup(o => o.GetCode(player)).Returns(invitationCode);

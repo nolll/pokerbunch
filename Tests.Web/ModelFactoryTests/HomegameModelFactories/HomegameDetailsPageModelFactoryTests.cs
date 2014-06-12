@@ -20,7 +20,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		public void Create_SetsDisplayName()
         {
             const string displayName = "a";
-            var homegame = new FakeHomegame(displayName: displayName);
+            var homegame = new HomegameInTest(displayName: displayName);
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -32,7 +32,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         public void Create_SetsHouseRules()
 		{
 		    const string houseRules = "a";
-            var homegame = new FakeHomegame(houseRules: houseRules);
+            var homegame = new HomegameInTest(houseRules: houseRules);
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -45,7 +45,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		{
             const string houseRules = "a\n\rb";
             const string formattedHouseRules = "a<br />\n\rb";
-            var homegame = new FakeHomegame(houseRules: houseRules);
+            var homegame = new HomegameInTest(houseRules: houseRules);
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -56,7 +56,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		[Test]
         public void Create_SetsEditUrl()
 		{
-		    var homegame = new FakeHomegame();
+		    var homegame = new HomegameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -68,7 +68,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         public void Create_SetsDescription()
 		{
 		    const string description = "a";
-            var homegame = new FakeHomegame(description: description);
+            var homegame = new HomegameInTest(description: description);
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -79,7 +79,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		[Test]
         public void Create_WithPlayerRights_DoesNotOutputEditLink()
 		{
-		    var homegame = new FakeHomegame();
+		    var homegame = new HomegameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
@@ -90,7 +90,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		[Test]
         public void Create_WithManagerRights_ShowsEditLink()
         {
-            var homegame = new FakeHomegame();
+            var homegame = new HomegameInTest();
             _isInManagerMode = true;
 
 			var sut = GetSut();

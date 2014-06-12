@@ -14,13 +14,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
         [SetUp]
 		public void SetUp(){
-			_cashgame = new FakeCashgame();
+			_cashgame = new CashgameInTest();
 		}
 
         [Test]
 		public void ShowWinnings_WithResult_IsTrue()
         {
-            var cashgameResult = new FakeCashgameResult();
+            var cashgameResult = new CashgameResultInTest();
 
             var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -32,7 +32,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void Buyin_WithResult_IsSet()
 		{
 		    const int buyin = 1;
-            var cashgameResult = new FakeCashgameResult(buyin: buyin);
+            var cashgameResult = new CashgameResultInTest(buyin: buyin);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -43,7 +43,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		[Test]
 		public void Cashout_WithResult_IsSet(){
             const int stack = 1;
-            var cashgameResult = new FakeCashgameResult(stack: stack);
+            var cashgameResult = new CashgameResultInTest(stack: stack);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -55,7 +55,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void Winnings_WithResult_IsSet(){
             const string expectedResult = "+1";
             const int winnings = 1;
-            var cashgameResult = new FakeCashgameResult(winnings: winnings);
+            var cashgameResult = new CashgameResultInTest(winnings: winnings);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -74,7 +74,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		[Test]
 		public void ShowTransactions_ResultWithBuyin_IsTrue(){
             const int buyin = 1;
-            var cashgameResult = new FakeCashgameResult(buyin: buyin);
+            var cashgameResult = new CashgameResultInTest(buyin: buyin);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -84,7 +84,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		[Test]
 		public void ShowTransactions_ResultWithZeroBuyin_IsFalse(){
-            var cashgameResult = new FakeCashgameResult();
+            var cashgameResult = new CashgameResultInTest();
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -96,7 +96,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		public void WinningsClass_IsSet(){
             const string resultClass = "pos-result";
             const int winnings = 1;
-            var cashgameResult = new FakeCashgameResult(winnings: winnings);
+            var cashgameResult = new CashgameResultInTest(winnings: winnings);
 
 			var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);
@@ -106,8 +106,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		[Test]
 		public void HasBestResult_PlayerWithBestResult_IsTrue(){
-			var cashgameResult = new FakeCashgameResult();
-		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
+			var cashgameResult = new CashgameResultInTest();
+		    var cashgame = new CashgameInTest(results: new List<CashgameResult> {cashgameResult});
 
 			var sut = GetSut();
             var result = sut.Create(cashgame, cashgameResult);
@@ -117,7 +117,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 		[Test]
 		public void HasBestResult_PlayerWithoutBestResult_IsFalse(){
-            var cashgameResult = new FakeCashgameResult();
+            var cashgameResult = new CashgameResultInTest();
 		    
             var sut = GetSut();
             var result = sut.Create(_cashgame, cashgameResult);

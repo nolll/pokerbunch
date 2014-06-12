@@ -18,13 +18,13 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 
         [SetUp]
 		public void SetUp(){
-			_homegame = new FakeHomegame();
+			_homegame = new HomegameInTest();
 			_showYear = false;
 		}
 
         [Test]
 		public void TableItem_SetsPlayerCount(){
-			var cashgame = new FakeCashgame(playerCount: 2);
+			var cashgame = new CashgameInTest(playerCount: 2);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
@@ -36,7 +36,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		public void TableItem_SetsLocation()
 		{
 		    const string location = "a";
-            var cashgame = new FakeCashgame(location: location);
+            var cashgame = new CashgameInTest(location: location);
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
@@ -49,7 +49,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		{
 		    const string formatted = "a";
 		    const int duration = 1;
-		    var cashgame = new FakeCashgame(duration: duration);
+		    var cashgame = new CashgameInTest(duration: duration);
 
             GetMock<IGlobalization>().Setup(o => o.FormatDuration(duration)).Returns(formatted);
 
@@ -64,7 +64,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
         {
             const string formatted = "a";
 		    const int turnover = 1;
-            var cashgame = new FakeCashgame(turnover: turnover);
+            var cashgame = new CashgameInTest(turnover: turnover);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), turnover)).Returns(formatted);
 
@@ -79,7 +79,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		{
 		    const string formatted = "a";
 		    const int averageBuyin = 1;
-		    var cashgame = new FakeCashgame(averageBuyin: averageBuyin);
+		    var cashgame = new CashgameInTest(averageBuyin: averageBuyin);
 
             GetMock<IGlobalization>().Setup(o => o.FormatCurrency(It.IsAny<Currency>(), averageBuyin)).Returns(formatted);
 
@@ -92,7 +92,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		[Test]
 		public void TableItem_WithNoPlayers_DoesNotThrowDivisionByZeroException()
 		{
-		    var cashgame = new FakeCashgame(startTime: new DateTime());
+		    var cashgame = new CashgameInTest(startTime: new DateTime());
 
 			var sut = GetSut();
             sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
@@ -101,7 +101,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		[Test]
 		public void TableItem_SetsDetailsUrl()
 		{
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
 
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
@@ -114,7 +114,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 		{
 		    const string formatted = "a";
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(startTime: startTime);
+            var cashgame = new CashgameInTest(startTime: startTime);
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 
@@ -129,7 +129,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
             const string formatted = "a";
             _showYear = true;
 		    var startTime = DateTime.Parse("2010-01-01 01:00:00");
-            var cashgame = new FakeCashgame(startTime: startTime);
+            var cashgame = new CashgameInTest(startTime: startTime);
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(startTime, _showYear)).Returns(formatted);
 

@@ -61,11 +61,11 @@ namespace Tests.Web.ControllerTests
 		[Test]
 		public void Action_ReturnsCorrectModel()
 		{
-		    var homegame = new FakeHomegame();
-		    var user = new FakeUser();
-            var player = new FakePlayer(1);
-		    var cashgameResult = new FakeCashgameResult();
-		    var cashgame = new FakeCashgame(results: new List<CashgameResult> {cashgameResult});
+		    var homegame = new HomegameInTest();
+		    var user = new UserInTest();
+            var player = new PlayerInTest(1);
+		    var cashgameResult = new CashgameResultInTest();
+		    var cashgame = new CashgameInTest(results: new List<CashgameResult> {cashgameResult});
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);

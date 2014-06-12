@@ -12,7 +12,7 @@ namespace Tests.Web.CommandTests.CashgameCommands
         [Test]
         public void Execute_CallsDeleteCheckpointAndReturnsTrue()
         {
-            var cashgame = new FakeCashgame();
+            var cashgame = new CashgameInTest();
             const int checkpointId = 1;
 
             var sut = GetSut(cashgame, checkpointId);

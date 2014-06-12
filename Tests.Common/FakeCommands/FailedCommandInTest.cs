@@ -2,11 +2,11 @@
 
 namespace Tests.Common.FakeCommands
 {
-    public class FakeSuccessfulCommand : Command
+    public class FailedCommandInTest : Command
     {
         public override bool Execute()
         {
-            return true;
+            return false;
         }
     }
 }

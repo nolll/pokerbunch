@@ -40,7 +40,7 @@ namespace Tests.Web.ControllerTests
 		    const int playerId = 1;
             var listUrl = new PlayerIndexUrlModel(slug);
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeSuccessfulCommand());
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new SuccessfulCommandInTest());
 
             var sut = GetSut();
             var result = sut.Delete(slug, playerId) as RedirectResult;
@@ -56,7 +56,7 @@ namespace Tests.Web.ControllerTests
             const int playerId = 1;
             var playerDetailsUrl = new PlayerDetailsUrlModel(slug, playerId);
 
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FakeFailedCommand());
+            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FailedCommandInTest());
 
             var sut = GetSut();
             var result = sut.Delete(slug, playerId) as RedirectResult;

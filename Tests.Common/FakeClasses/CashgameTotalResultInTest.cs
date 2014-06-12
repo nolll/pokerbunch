@@ -2,9 +2,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCashgameTotalResult : CashgameTotalResult
+    public class CashgameTotalResultInTest : CashgameTotalResult
     {
-        public FakeCashgameTotalResult(
+        public CashgameTotalResultInTest(
             int winnings = default(int),
             int gameCount = default(int),
             int timePlayed = default(int),

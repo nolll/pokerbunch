@@ -15,7 +15,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
         [Test]
 		public void ListTableModel_IsSet()
         {
-            var homegame = new FakeHomegame();
+            var homegame = new HomegameInTest();
             var cashgames = new List<Cashgame>();
             GetMock<ICashgameListTableModelFactory>().Setup(o => o.Create(homegame, cashgames, ListSortOrder.date, null)).Returns(new CashgameListTableModel());
 

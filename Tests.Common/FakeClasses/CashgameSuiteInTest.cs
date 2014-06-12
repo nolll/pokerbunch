@@ -3,9 +3,9 @@ using Core.Entities;
 
 namespace Tests.Common.FakeClasses
 {
-    public class FakeCashgameSuite : CashgameSuite
+    public class CashgameSuiteInTest : CashgameSuite
     {
-        public FakeCashgameSuite(
+        public CashgameSuiteInTest(
             IList<Cashgame> cashgames = default(IList<Cashgame>),
             IList<CashgameTotalResult> totalResults = default(IList<CashgameTotalResult>),
             IList<Player> players = default(IList<Player>) 

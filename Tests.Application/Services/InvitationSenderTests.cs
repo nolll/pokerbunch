@@ -13,8 +13,8 @@ namespace Tests.Application.Services
             const string email = "a";
             const string subject = "b";
             const string body = "c";
-            var homegame = new FakeHomegame();
-            var player = new FakePlayer();
+            var homegame = new HomegameInTest();
+            var player = new PlayerInTest();
             GetMock<IInvitationMessageBuilder>().Setup(o => o.GetSubject(homegame)).Returns(subject);
             GetMock<IInvitationMessageBuilder>().Setup(o => o.GetBody(homegame, player)).Returns(body);
 

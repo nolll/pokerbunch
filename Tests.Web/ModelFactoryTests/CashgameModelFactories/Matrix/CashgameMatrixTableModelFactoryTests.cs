@@ -15,7 +15,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
 	    public CashgameMatrixTableModelFactoryTests()
 	    {
-            _homegame = new FakeHomegame();
+            _homegame = new HomegameInTest();
         }
 
         [SetUp]
@@ -24,8 +24,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 
         private CashgameSuite GetSuite(IList<Cashgame> cashgames)
         {
-            var totalResult = new FakeCashgameTotalResult();
-            return new FakeCashgameSuite
+            var totalResult = new CashgameTotalResultInTest();
+            return new CashgameSuiteInTest
             (
                 cashgames,
                 new List<CashgameTotalResult>
@@ -67,17 +67,17 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix{
 		{
 		    return new List<Cashgame>
 		        {
-		            new FakeCashgame
+		            new CashgameInTest
 		                (
 		                    status: GameStatus.Finished,
 		                    startTime: GetTestDate(yearOne)
 		                ),
-		            new FakeCashgame
+		            new CashgameInTest
 		                (
 		                    status: GameStatus.Published,
 		                    startTime: GetTestDate(yearOne)
 		                ),
-		            new FakeCashgame
+		            new CashgameInTest
 		                (
 		                    status: GameStatus.Published,
 		                    startTime: GetTestDate(yearTwo)

@@ -24,7 +24,7 @@ namespace Tests.Application.UseCases
         {
             const string displayName = "a";
             const string slug = "b";
-            var homegame = new FakeHomegame(displayName: displayName, slug: slug);
+            var homegame = new HomegameInTest(displayName: displayName, slug: slug);
             var homegames = new List<Homegame>{homegame};
             GetMock<IHomegameRepository>().Setup(o => o.GetList()).Returns(homegames);
 

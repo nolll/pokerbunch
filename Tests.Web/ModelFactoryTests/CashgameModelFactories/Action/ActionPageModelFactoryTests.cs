@@ -21,17 +21,17 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         [SetUp]
         public void SetUp()
         {
-            _homegame = new FakeHomegame();
-            _cashgame = new FakeCashgame();
+            _homegame = new HomegameInTest();
+            _cashgame = new CashgameInTest();
         }
 
         [Test]
         public void Heading_IsSet()
         {
-            var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest(displayName: "b");
+            var cashgameResult = new CashgameResultInTest();
             var dateTime = DateTime.Parse("2010-01-01 01:00:00");
-            _cashgame = new FakeCashgame(startTime: dateTime);
+            _cashgame = new CashgameInTest(startTime: dateTime);
 
             GetMock<IGlobalization>().Setup(o => o.FormatShortDate(dateTime, true)).Returns("a");
 
@@ -46,9 +46,9 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         {
             var timestamp = DateTime.Parse("2010-01-01 01:00:00");
             const int stack = 1;
-            var checkpoint = new FakeCheckpoint(timestamp, stack: stack);
-            var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new FakeCashgameResult(checkpoints: new List<Checkpoint> { checkpoint });
+            var checkpoint = new CheckpointInTest(timestamp, stack: stack);
+            var player = new PlayerInTest(displayName: "b");
+            var cashgameResult = new CashgameResultInTest(checkpoints: new List<Checkpoint> { checkpoint });
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
@@ -60,8 +60,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         [Test]
         public void ChartDataUrl_IsSet()
         {
-            var player = new FakePlayer(displayName: "b");
-            var cashgameResult = new FakeCashgameResult();
+            var player = new PlayerInTest(displayName: "b");
+            var cashgameResult = new CashgameResultInTest();
 
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
