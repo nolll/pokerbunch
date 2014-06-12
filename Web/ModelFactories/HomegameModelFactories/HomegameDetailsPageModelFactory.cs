@@ -2,6 +2,7 @@
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Details;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
@@ -30,7 +31,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 			        Description = homegame.Description,
 			        HouseRules = houseRules,
 	                ShowHouseRules = !string.IsNullOrEmpty(houseRules),
-			        EditUrl = _urlProvider.GetHomegameEditUrl(homegame.Slug),
+			        EditUrl = new EditHomegameUrlModel(homegame.Slug),
 			        ShowEditLink = isInManagerMode
                 };
         }

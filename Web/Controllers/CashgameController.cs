@@ -99,7 +99,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
+                return Redirect(new RunningCashgameUrlModel(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetAddModel(slug, postModel);
@@ -187,7 +187,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetBuyinCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
+                return Redirect(new RunningCashgameUrlModel(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetBuyinModel(slug, playerId, postModel);
@@ -208,7 +208,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetReportCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
+                return Redirect(new RunningCashgameUrlModel(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetReportModel(slug, postModel);
@@ -242,7 +242,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
+                return Redirect(new RunningCashgameUrlModel(slug).Relative);
             }
             var actionsUrl = new CashgameActionUrlModel(slug, dateStr, playerId);
             return Redirect(actionsUrl.Relative);
@@ -262,7 +262,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetCashoutCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetRunningCashgameUrl(slug));
+                return Redirect(new RunningCashgameUrlModel(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetCashoutModel(slug, postModel);

@@ -1,26 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Services;
 using Application.UseCases.BunchList;
 using Web.Models.HomegameModels.List;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class BunchListItemModelFactory : IBunchListItemModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
-
-        public BunchListItemModelFactory(IUrlProvider urlProvider)
-        {
-            _urlProvider = urlProvider;
-        }
-
         public BunchListItemModel Create(BunchListItem bunchListItem)
         {
             return new BunchListItemModel
             {
                 Name = bunchListItem.DisplayName,
-                Url = _urlProvider.GetHomegameDetailsUrl(bunchListItem.Slug)
+                Url = new HomegameDetailsUrlModel(bunchListItem.Slug)
             };
         }
 

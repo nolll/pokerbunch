@@ -5,6 +5,7 @@ using Application.Services;
 using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Edit;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
@@ -32,7 +33,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Edit Homegame",
 		            PageProperties = _pagePropertiesFactory.Create(homegame),
-			        CancelUrl = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
+			        CancelUrl = new HomegameDetailsUrlModel(homegame.Slug),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
 			        Description = homegame.Description,
 			        HouseRules = homegame.HouseRules,

@@ -586,6 +586,7 @@
     <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs" />
     <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs" />
+    <Compile Include="Models\UrlModels\EditCheckpointUrlModel.cs" />
     <Compile Include="Services\UrlProvider.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,8 +14,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         [SetUp]
         public virtual void SetUp()
         {
-            _sut = new BunchListItemModelFactory(
-                GetMock<IUrlProvider>().Object);
+            _sut = new BunchListItemModelFactory();
         }
 
         [Test]
@@ -23,14 +22,11 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         {
             const string displayName = "a";
             const string slug = "b";
-            const string url = "c";
             var bunchItem = new BunchListItem
                 {
                     DisplayName = displayName,
                     Slug = slug
                 };
-
-            GetMock<IUrlProvider>().Setup(o => o.GetHomegameDetailsUrl(slug)).Returns(url);
 
             var result = _sut.Create(bunchItem);
 

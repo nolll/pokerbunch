@@ -6,10 +6,8 @@ using Web.Services;
 
 namespace Tests.Web.ServiceTests
 {
-
     public class UrlProviderTests : MockContainer
     {
-
         [Test]
         public void HomeUrl()
         {
@@ -269,10 +267,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetHomegameDetailsUrl(slug);
+            var result = new HomegameDetailsUrlModel(slug);
 
-            Assert.AreEqual("/a/homegame/details", result);
+            Assert.AreEqual("/a/homegame/details", result.Relative);
         }
 
         [Test]
@@ -280,10 +277,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetHomegameEditUrl(slug);
+            var result = new EditHomegameUrlModel(slug);
 
-            Assert.AreEqual("/a/homegame/edit", result);
+            Assert.AreEqual("/a/homegame/edit", result.Relative);
         }
 
         [Test]
@@ -301,19 +297,17 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetHomegameJoinConfirmationUrl(slug);
+            var result = new JoinHomegameConfirmationUrlModel(slug);
 
-            Assert.AreEqual("/a/homegame/joined", result);
+            Assert.AreEqual("/a/homegame/joined", result.Relative);
         }
 
         [Test]
         public void HomegameListUrl()
         {
-            var sut = GetSut();
-            var result = sut.GetHomegameListUrl();
+            var result = new HomegameListUrlModel();
 
-            Assert.AreEqual("/-/homegame/list", result);
+            Assert.AreEqual("/-/homegame/list", result.Relative);
         }
 
         [Test]
@@ -321,10 +315,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetPlayerAddUrl(slug);
+            var result = new AddPlayerUrlModel(slug);
 
-            Assert.AreEqual("/a/player/add", result);
+            Assert.AreEqual("/a/player/add", result.Relative);
         }
 
         [Test]
@@ -332,10 +325,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetPlayerAddConfirmationUrl(slug);
+            var result = new AddPlayerConfirmationUrlModel(slug);
 
-            Assert.AreEqual("/a/player/created", result);
+            Assert.AreEqual("/a/player/created", result.Relative);
         }
 
         [Test]
@@ -344,10 +336,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int playerId = 1;
 
-            var sut = GetSut();
-            var result = sut.GetPlayerDeleteUrl(slug, playerId);
+            var result = new DeletePlayerUrlModel(slug, playerId);
 
-            Assert.AreEqual("/a/player/delete/1", result);
+            Assert.AreEqual("/a/player/delete/1", result.Relative);
         }
 
         [Test]
@@ -377,10 +368,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int playerId = 1;
 
-            var sut = GetSut();
-            var result = sut.GetPlayerInviteUrl(slug, playerId);
+            var result = new InvitePlayerUrlModel(slug, playerId);
 
-            Assert.AreEqual("/a/player/invite/1", result);
+            Assert.AreEqual("/a/player/invite/1", result.Relative);
         }
 
         [Test]
@@ -558,10 +548,9 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int playerId = 1;
 
-            var sut = GetSut();
-            var result = sut.GetPlayerInviteConfirmationUrl(slug, playerId);
+            var result = new InvitePlayerConfirmationUrlModel(slug, playerId);
 
-            Assert.AreEqual("/a/player/invited/1", result);
+            Assert.AreEqual("/a/player/invited/1", result.Relative);
         }
 
         [Test]
@@ -569,10 +558,9 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var sut = GetSut();
-            var result = sut.GetRunningCashgameUrl(slug);
+            var result = new RunningCashgameUrlModel(slug);
 
-            Assert.AreEqual("/a/cashgame/running", result);
+            Assert.AreEqual("/a/cashgame/running", result.Relative);
         }
 
         private UrlProvider GetSut()
@@ -580,7 +568,5 @@ namespace Tests.Web.ServiceTests
             return new UrlProvider(
                 GetMock<ISettings>().Object);
         }
-
     }
-
 }

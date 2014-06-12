@@ -1,4 +1,5 @@
 using Web.Models.PageBaseModels;
+using Web.Models.UrlModels;
 
 namespace Web.Models.HomegameModels.Join
 {
@@ -7,6 +8,6 @@ namespace Web.Models.HomegameModels.Join
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public string BunchName { get; set; }
-        public string BunchUrl { get; set; }
+        public UrlModel BunchUrl { get; set; }
     }
 }

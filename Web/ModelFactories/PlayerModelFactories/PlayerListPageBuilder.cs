@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;
+using Web.Models.UrlModels;
 using Web.Security;
 
 namespace Web.ModelFactories.PlayerModelFactories
@@ -45,7 +46,7 @@ namespace Web.ModelFactories.PlayerModelFactories
                     BrowserTitle = "Player List",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        PlayerModels = _playerItemModelFactory.CreateList(slug, result.Players),
-			        AddUrl = _urlProvider.GetPlayerAddUrl(slug),
+			        AddUrl = new AddPlayerUrlModel(slug),
 			        ShowAddLink = isInManagerMode
                 };
         }

@@ -37,56 +37,6 @@ namespace Web.Services
             return string.Format(RouteFormats.TwitterCallback, _settings.GetSiteUrl());
         }
 
-        public string GetHomegameDetailsUrl(string slug)
-        {
-            return new HomegameDetailsUrlModel(slug).Relative;
-        }
-
-        public string GetHomegameEditUrl(string slug)
-        {
-            return new EditHomegameUrlModel(slug).Relative;
-        }
-
-        public string GetHomegameJoinConfirmationUrl(string slug)
-        {
-            return new JoinHomegameConfirmationUrlModel(slug).Relative;
-        }
-
-        public string GetHomegameListUrl()
-        {
-            return new HomegameListUrlModel().Relative;
-        }
-
-        public string GetPlayerAddConfirmationUrl(string slug)
-        {
-            return new AddPlayerConfirmationUrlModel(slug).Relative;
-        }
-
-        public string GetPlayerAddUrl(string slug)
-        {
-            return new AddPlayerUrlModel(slug).Relative;
-        }
-
-        public string GetPlayerDeleteUrl(string slug, int playerId)
-        {
-            return new DeletePlayerUrlModel(slug, playerId).Relative;
-        }
-
-        public string GetPlayerInviteConfirmationUrl(string slug, int playerId)
-        {
-            return new InvitePlayerConfirmationUrlModel(slug, playerId).Relative;
-        }
-
-        public string GetPlayerInviteUrl(string slug, int playerId)
-        {
-            return new InvitePlayerUrlModel(slug, playerId).Relative;
-        }
-
-        public string GetRunningCashgameUrl(string slug)
-        {
-            return new RunningCashgameUrlModel(slug).Relative;
-        }
-
         public static string FormatCashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
         {
             return string.Format(format, slug, dateStr, playerId);
@@ -125,14 +75,6 @@ namespace Web.Services
         public static string FormatUser(string format, string userName)
         {
             return string.Format(format, userName);
-        }
-    }
-
-    public class EditCheckpointUrlModel : CheckpointUrlModel
-    {
-        public EditCheckpointUrlModel(string slug, string dateStr, int playerId, int checkpointId)
-            : base(RouteFormats.CashgameCheckpointEdit, slug, dateStr, playerId, checkpointId)
-        {
         }
     }
 }

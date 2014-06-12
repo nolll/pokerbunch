@@ -57,7 +57,7 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerAddConfirmationUrl(slug));
+                return Redirect(new AddPlayerConfirmationUrlModel(slug).Relative);
             }
             AddModelErrors(command.Errors);
 			var model = _playerModelService.GetAddModel(slug, postModel);
@@ -95,7 +95,7 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetInviteCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(_urlProvider.GetPlayerInviteConfirmationUrl(slug, playerId));
+                return Redirect(new InvitePlayerConfirmationUrlModel(slug, playerId).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _playerModelService.GetInviteModel(slug, postModel);

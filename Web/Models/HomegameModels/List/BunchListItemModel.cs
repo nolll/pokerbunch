@@ -1,9 +1,10 @@
-namespace Web.Models.HomegameModels.List{
+using Web.Models.UrlModels;
 
-	public class BunchListItemModel{
-
-	    public string Name { get; set; }
-	    public string Url { get; set; }
-        
-	}
+namespace Web.Models.HomegameModels.List
+{
+    public class BunchListItemModel
+    {
+        public string Name { get; set; }
+        public UrlModel Url { get; set; }
+    }
 }

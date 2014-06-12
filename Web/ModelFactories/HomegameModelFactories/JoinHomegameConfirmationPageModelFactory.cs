@@ -1,21 +1,17 @@
-﻿using Application.Services;
-using Core.Entities;
+﻿using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Join;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class JoinHomegameConfirmationPageModelFactory : IJoinHomegameConfirmationPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
-        public JoinHomegameConfirmationPageModelFactory(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+        public JoinHomegameConfirmationPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public JoinHomegameConfirmationPageModel Create(Homegame homegame)
@@ -24,7 +20,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Welcome",
                     PageProperties = _pagePropertiesFactory.Create(),
-                    BunchUrl = _urlProvider.GetHomegameDetailsUrl(homegame.Slug),
+                    BunchUrl = new HomegameDetailsUrlModel(homegame.Slug),
                     BunchName = homegame.DisplayName
                 };
         }

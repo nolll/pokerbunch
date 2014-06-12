@@ -4,6 +4,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.UrlModels;
 
 namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 {
@@ -56,14 +57,12 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		[Test]
         public void Create_SetsEditUrl()
 		{
-		    const string editUrl = "a";
 		    var homegame = new FakeHomegame();
-		    GetMock<IUrlProvider>().Setup(o => o.GetHomegameEditUrl(homegame.Slug)).Returns(editUrl);
 
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
 
-			Assert.AreEqual(editUrl, result.EditUrl);
+			Assert.IsInstanceOf<EditHomegameUrlModel>(result.EditUrl);
 		}
 
 		[Test]
