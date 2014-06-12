@@ -9,11 +9,19 @@ namespace Tests.Web.ServiceTests
     public class UrlProviderTests : MockContainer
     {
         [Test]
-        public void HomeUrl()
+        public void HomeUrl_Relative_UrlIsRelative()
         {
             var result = new HomeUrlModel();
             
             Assert.AreEqual("/", result.Relative);
+        }
+
+        [Test]
+        public void Absolute_UrlContainsSchemeAndDomain()
+        {
+            var result = new HomeUrlModel();
+
+            Assert.AreEqual("http://pokerbunch.lan/", result.Absolute);
         }
 
         [Test]
@@ -452,13 +460,9 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void TwitterCallBackUrl()
         {
-            const string siteUrl = "http://siteurl";
-            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
+            var result = new TwitterCallbackUrlModel();
 
-            var sut = GetSut();
-            var result = sut.GetTwitterCallbackUrl();
-
-            Assert.AreEqual("http://siteurl/-/sharing/twittercallback", result);
+            Assert.AreEqual("/-/sharing/twittercallback", result.Relative);
         }
 
         [Test]

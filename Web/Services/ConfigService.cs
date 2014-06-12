@@ -1,5 +1,4 @@
 using System.Configuration;
-using System.Web.Configuration;
 using Application.Services;
 
 namespace Web.Services
@@ -8,7 +7,7 @@ namespace Web.Services
     {
         public string GetAppSetting(string key)
         {
-            return WebConfigurationManager.AppSettings.Get(key);
+            return ConfigurationManager.AppSettings.Get(key);
         }
 
         public string GetConnectionString(string key)

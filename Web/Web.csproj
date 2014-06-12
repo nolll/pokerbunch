@@ -225,6 +225,7 @@
     <Compile Include="Models\UrlModels\CheckpointUrlModel.cs" />
     <Compile Include="Models\UrlModels\EmptyUrlModel.cs" />
     <Compile Include="Models\UrlModels\HomeUrlModel.cs" />
+    <Compile Include="Models\UrlModels\TwitterCallbackUrlModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
