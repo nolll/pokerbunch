@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Application.Services;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelServices;
@@ -8,24 +7,20 @@ using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Models.UrlModels;
 using Web.Security.Attributes;
-using Web.Services;
 
 namespace Web.Controllers
 {
 	public class HomegameController : ControllerBase
     {
-	    private readonly IUrlProvider _urlProvider;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameModelService _homegameModelService;
 	    private readonly IBunchListPageBuilder _bunchListPageBuilder;
 
 	    public HomegameController(
-            IUrlProvider urlProvider,
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameModelService homegameModelService,
             IBunchListPageBuilder bunchListPageBuilder)
 	    {
-	        _urlProvider = urlProvider;
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameModelService = homegameModelService;
 	        _bunchListPageBuilder = bunchListPageBuilder;

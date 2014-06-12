@@ -2,12 +2,10 @@ using Application.Services;
 using Application.UseCases.ApplicationContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomeModels;
 using Web.Models.NavigationModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.HomeModelFactories
 {
@@ -16,20 +14,17 @@ namespace Web.ModelFactories.HomeModelFactories
         private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IApplicationContextInteractor _applicationContextInteractor;
 
         public HomePageModelFactory(
             IAuth auth, 
             IHomegameRepository homegameRepository, 
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider,
             IApplicationContextInteractor applicationContextInteractor)
         {
             _auth = auth;
             _homegameRepository = homegameRepository;
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
             _applicationContextInteractor = applicationContextInteractor;
         }
 

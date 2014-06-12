@@ -4,7 +4,6 @@ using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
@@ -12,18 +11,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
         public RunningCashgamePageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
-            IUrlProvider urlProvider,
             IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 

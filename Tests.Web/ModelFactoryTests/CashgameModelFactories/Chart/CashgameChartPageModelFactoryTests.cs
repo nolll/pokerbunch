@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Application.Services;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
@@ -9,7 +8,6 @@ using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Chart
 {
@@ -43,7 +41,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Chart
         {
             return new CashgameChartPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<ICashgamePageNavigationModelFactory>().Object,
                 GetMock<ICashgameYearNavigationModelFactory>().Object);
         }

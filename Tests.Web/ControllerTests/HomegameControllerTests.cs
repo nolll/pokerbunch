@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.HomegameCommands;
@@ -19,7 +18,6 @@ namespace Tests.Web.ControllerTests
         public void SetUp()
         {
             _sut = new HomegameController(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IHomegameCommandProvider>().Object,
                 GetMock<IHomegameModelService>().Object,
                 GetMock<IBunchListPageBuilder>().Object);

@@ -12,16 +12,13 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class HomegameEditPageModelFactory : IHomegameEditPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
         public HomegameEditPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider,
             IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 

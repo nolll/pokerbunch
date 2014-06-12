@@ -8,7 +8,6 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
 {
@@ -104,7 +103,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         private CheckpointModelFactory GetSut()
         {
             return new CheckpointModelFactory(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
     }

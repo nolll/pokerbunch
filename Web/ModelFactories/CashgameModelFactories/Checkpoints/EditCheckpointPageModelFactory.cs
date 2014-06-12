@@ -1,25 +1,20 @@
 using System;
-using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
     public class EditCheckpointPageModelFactory : IEditCheckpointPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public EditCheckpointPageModelFactory(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public EditCheckpointPageModel Create(Homegame homegame, Checkpoint checkpoint, string dateStr, int playerId)

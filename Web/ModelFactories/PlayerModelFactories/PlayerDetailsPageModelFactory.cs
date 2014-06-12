@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Application.Services;
 using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
@@ -12,20 +11,17 @@ namespace Web.ModelFactories.PlayerModelFactories
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAvatarModelFactory _avatarModelFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IPlayerFactsModelFactory _playerFactsModelFactory;
         private readonly IPlayerBadgesModelFactory _playerBadgesModelFactory;
 
         public PlayerDetailsPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
             IAvatarModelFactory avatarModelFactory,
-            IUrlProvider urlProvider,
             IPlayerFactsModelFactory playerFactsModelFactory,
             IPlayerBadgesModelFactory playerBadgesModelFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _avatarModelFactory = avatarModelFactory;
-            _urlProvider = urlProvider;
             _playerFactsModelFactory = playerFactsModelFactory;
             _playerBadgesModelFactory = playerBadgesModelFactory;
         }

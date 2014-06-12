@@ -220,12 +220,201 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
-    <Compile Include="Models\UrlModels\CashgamePlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CheckpointUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EmptyUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomeUrlModel.cs" />
-    <Compile Include="Models\UrlModels\TwitterCallbackUrlModel.cs" />
+    <Compile Include="Models\UrlModels\AddCashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddHomegameConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddHomegameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddPlayerConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddPlayerUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddUserConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\AddUserUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameActionUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameBuyinUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameChartUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameFactsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameListUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgamePlayerUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ChartUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\CheckpointUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\DeleteCashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\DeleteCheckpointUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\DeletePlayerUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EditCashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EditCheckpointUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EditHomegameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EditUserUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EmptyUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\EndCashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\FactsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\HomegameListUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\HomegameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\HomegameWithOptionalYearUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\HomeUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\InvitePlayerConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\InvitePlayerUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\JoinHomegameConfirmationUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\JoinHomeGameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\ListUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\LoginUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\LogoutUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\MatrixUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\PlayerUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\RunningCashgameUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\TopListUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\TwitterCallbackUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\UrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\UserListUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UrlModels\UserUrlModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
@@ -351,28 +540,6 @@
     <Compile Include="Plumbing\ControllerInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="Models\UrlModels\AddUserUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ChartUrlModel.cs" />
-    <Compile Include="Models\UrlModels\FactsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameListUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\HomegameWithOptionalYearUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ListUrlModel.cs" />
-    <Compile Include="Models\UrlModels\LoginUrlModel.cs" />
-    <Compile Include="Models\UrlModels\LogoutUrlModel.cs" />
-    <Compile Include="Models\UrlModels\MatrixUrlModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs" />
-    <Compile Include="Models\UrlModels\PlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\TopListUrlModel.cs" />
-    <Compile Include="Models\UrlModels\UrlModel.cs" />
-    <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\UserListUrlModel.cs" />
-    <Compile Include="Models\UrlModels\UserUrlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -549,45 +716,8 @@
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
     <Compile Include="Security\CustomIdentity.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
-    <Compile Include="Models\UrlModels\AddCashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AddHomegameConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AddHomegameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AddPlayerConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AddPlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\AddUserConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameActionUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameBuyinUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameChartUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameFactsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameListUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs" />
-    <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Security\Auth.cs" />
-    <Compile Include="Models\UrlModels\DeleteCashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\DeleteCheckpointUrlModel.cs" />
-    <Compile Include="Models\UrlModels\DeletePlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EditCashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EditHomegameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EditUserUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EndCashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\InvitePlayerConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\InvitePlayerUrlModel.cs" />
-    <Compile Include="Models\UrlModels\JoinHomegameConfirmationUrlModel.cs" />
-    <Compile Include="Models\UrlModels\JoinHomeGameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\RunningCashgameUrlModel.cs" />
-    <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs" />
-    <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs" />
-    <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs" />
-    <Compile Include="Models\UrlModels\EditCheckpointUrlModel.cs" />
     <Compile Include="Services\UrlProvider.cs" />
   </ItemGroup>
   <ItemGroup>

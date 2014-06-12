@@ -1,22 +1,17 @@
-﻿using Application.Services;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.SharingModelFactories
 {
     public class SharingIndexPageModelFactory : ISharingIndexPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public SharingIndexPageModelFactory(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public SharingIndexPageModel Create(bool isSharing)

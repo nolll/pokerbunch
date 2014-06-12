@@ -10,7 +10,6 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.HomeModelFactories
 {
@@ -50,7 +49,6 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
                 GetMock<IAuth>().Object,
                 GetMock<IHomegameRepository>().Object,
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<IApplicationContextInteractor>().Object);
         }
     }

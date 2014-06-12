@@ -2,20 +2,16 @@ using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public class CashgameMatrixTableColumnHeaderModelFactory : ICashgameMatrixTableColumnHeaderModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
         public CashgameMatrixTableColumnHeaderModelFactory(
-            IUrlProvider urlProvider,
             IGlobalization globalization)
         {
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 

@@ -9,7 +9,6 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running
 {
@@ -283,7 +282,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running
             return new RunningCashgamePageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
                 GetMock<IRunningCashgameTableModelFactory>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
 

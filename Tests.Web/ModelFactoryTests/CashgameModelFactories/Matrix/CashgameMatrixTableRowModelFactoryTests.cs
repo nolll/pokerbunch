@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Application.Services;
 using Core.Entities;
-using Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -129,10 +128,8 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         private CashgameMatrixTableRowModelFactory GetSut()
         {
             return new CashgameMatrixTableRowModelFactory(
-                GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameMatrixTableCellModelFactory>().Object,
-                GetMock<IGlobalization>().Object,
-                GetMock<IPlayerRepository>().Object);
+                GetMock<IGlobalization>().Object);
         }
     }
 }

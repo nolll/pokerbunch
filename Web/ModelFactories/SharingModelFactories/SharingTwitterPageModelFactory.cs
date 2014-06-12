@@ -1,23 +1,18 @@
-﻿using Application.Services;
-using Core.Entities;
+﻿using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.SharingModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.SharingModelFactories
 {
     public class SharingTwitterPageModelFactory : ISharingTwitterPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public SharingTwitterPageModelFactory(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public SharingTwitterPageModel Create(bool isSharing, TwitterCredentials credentials)

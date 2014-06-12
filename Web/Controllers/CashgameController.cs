@@ -14,13 +14,11 @@ using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
 using Web.Models.UrlModels;
 using Web.Security.Attributes;
-using Web.Services;
 
 namespace Web.Controllers
 {
 	public class CashgameController : ControllerBase
     {
-	    private readonly IUrlProvider _urlProvider;
 	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly ICashgameModelService _cashgameModelService;
@@ -28,14 +26,12 @@ namespace Web.Controllers
 	    private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
 
 	    public CashgameController(
-            IUrlProvider urlProvider,
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
             ICashgameModelService cashgameModelService,
             IToplistPageBuilder toplistPageBuilder,
             ICashgameFactsPageBuilder cashgameFactsPageBuilder)
 	    {
-	        _urlProvider = urlProvider;
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;

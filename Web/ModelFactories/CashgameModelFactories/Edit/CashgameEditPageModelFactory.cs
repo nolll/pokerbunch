@@ -6,23 +6,19 @@ using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Edit
 {
     public class CashgameEditPageModelFactory : ICashgameEditPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
         public CashgameEditPageModelFactory(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider,
             IGlobalization globalization)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 

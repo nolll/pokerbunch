@@ -2,20 +2,16 @@ using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
     public class CashgameListTableItemModelFactory : ICashgameListTableItemModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly IGlobalization _globalization;
 
         public CashgameListTableItemModelFactory(
-            IUrlProvider urlProvider,
             IGlobalization globalization)
         {
-            _urlProvider = urlProvider;
             _globalization = globalization;
         }
 

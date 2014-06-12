@@ -9,7 +9,6 @@ using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
 {
@@ -96,7 +95,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
         {
             return new CashgameEditPageModelFactory(
                 GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
 	}

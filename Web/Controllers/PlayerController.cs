@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Application.Services;
 using Web.Commands.PlayerCommands;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelServices;
@@ -13,18 +12,15 @@ namespace Web.Controllers
     public class PlayerController : ControllerBase
     {
 	    private readonly IPlayerModelService _playerModelService;
-	    private readonly IUrlProvider _urlProvider;
 	    private readonly IPlayerCommandProvider _playerCommandProvider;
         private readonly IPlayerListPageBuilder _playerListPageBuilder;
 
         public PlayerController(
             IPlayerModelService playerModelService,
-            IUrlProvider urlProvider,
             IPlayerCommandProvider playerCommandProvider,
             IPlayerListPageBuilder playerListPageBuilder)
 	    {
 	        _playerModelService = playerModelService;
-	        _urlProvider = urlProvider;
 	        _playerCommandProvider = playerCommandProvider;
 	        _playerListPageBuilder = playerListPageBuilder;
 	    }

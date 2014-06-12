@@ -1,10 +1,8 @@
-﻿using Application.Services;
-using Core.Entities;
+﻿using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
 using Web.Models.UserModels;
-using Web.Services;
 
 namespace Web.ModelFactories.UserModelFactories
 {
@@ -12,16 +10,13 @@ namespace Web.ModelFactories.UserModelFactories
     {
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public UserDetailsPageModelFactory(
             IAvatarModelFactory avatarModelFactory, 
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IPagePropertiesFactory pagePropertiesFactory)
         {
             _avatarModelFactory = avatarModelFactory;
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public UserDetailsPageModel Create(User currentUser, User displayUser)

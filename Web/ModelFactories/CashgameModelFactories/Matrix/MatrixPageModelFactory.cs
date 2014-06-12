@@ -8,7 +8,6 @@ using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
@@ -21,7 +20,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 	    private readonly IBarModelFactory _barModelFactory;
 	    private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
 	    private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
-	    private readonly IUrlProvider _urlProvider;
 
 	    public MatrixPageModelFactory(
             ICashgameRepository cashgameRepository,
@@ -30,8 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
             IBarModelFactory barModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
-            IUrlProvider urlProvider)
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
 	    {
 	        _cashgameRepository = cashgameRepository;
 	        _cashgameService = cashgameService;
@@ -40,7 +37,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 	        _barModelFactory = barModelFactory;
 	        _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
 	        _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
-	        _urlProvider = urlProvider;
 	    }
 
 	    public CashgameMatrixPageModel Create(Homegame homegame, int? year){

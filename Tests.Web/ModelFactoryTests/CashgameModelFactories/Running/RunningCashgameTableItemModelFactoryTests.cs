@@ -7,7 +7,6 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
@@ -211,7 +210,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
 
 		private RunningCashgameTableItemModelFactory GetSut(){
             return new RunningCashgameTableItemModelFactory(
-                GetMock<IUrlProvider>().Object,
                 GetMock<ITimeProvider>().Object,
                 GetMock<IGlobalization>().Object);
 		}

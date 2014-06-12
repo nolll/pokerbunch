@@ -9,14 +9,11 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class HomegameDetailsPageModelFactory : IHomegameDetailsPageModelFactory
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public HomegameDetailsPageModelFactory(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider)
+            IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
         }
 
         public HomegameDetailsPageModel Create(Homegame homegame, bool isInManagerMode)

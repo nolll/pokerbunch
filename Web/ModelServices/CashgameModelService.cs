@@ -33,7 +33,6 @@ using Web.Models.CashgameModels.Running;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.ChartModels;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelServices
 {
@@ -204,7 +203,6 @@ namespace Web.ModelServices
         private readonly IMatrixPageModelFactory _matrixPageModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUrlProvider _urlProvider;
         private readonly ICashgameDetailsPageModelFactory _cashgameDetailsPageModelFactory;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameDetailsChartModelFactory _cashgameDetailsChartModelFactory;
@@ -230,7 +228,6 @@ namespace Web.ModelServices
             IMatrixPageModelFactory matrixPageModelFactory,
             ICashgameService cashgameService,
             ICashgameRepository cashgameRepository,
-            IUrlProvider urlProvider,
             ICashgameDetailsPageModelFactory cashgameDetailsPageModelFactory,
             IPlayerRepository playerRepository,
             ICashgameDetailsChartModelFactory cashgameDetailsChartModelFactory,
@@ -255,7 +252,6 @@ namespace Web.ModelServices
             _matrixPageModelFactory = matrixPageModelFactory;
             _cashgameService = cashgameService;
             _cashgameRepository = cashgameRepository;
-            _urlProvider = urlProvider;
             _cashgameDetailsPageModelFactory = cashgameDetailsPageModelFactory;
             _playerRepository = playerRepository;
             _cashgameDetailsChartModelFactory = cashgameDetailsChartModelFactory;

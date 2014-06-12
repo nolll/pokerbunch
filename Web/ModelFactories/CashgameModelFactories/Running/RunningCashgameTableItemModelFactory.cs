@@ -3,22 +3,18 @@ using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.Running;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
     public class RunningCashgameTableItemModelFactory : IRunningCashgameTableItemModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly ITimeProvider _timeProvider;
         private readonly IGlobalization _globalization;
 
         public RunningCashgameTableItemModelFactory(
-            IUrlProvider urlProvider,
             ITimeProvider timeProvider,
             IGlobalization globalization)
         {
-            _urlProvider = urlProvider;
             _timeProvider = timeProvider;
             _globalization = globalization;
         }

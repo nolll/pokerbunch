@@ -1,4 +1,3 @@
-using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -102,8 +101,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 
 		private HomegameDetailsPageModelFactory GetSut(){
             return new HomegameDetailsPageModelFactory(
-                GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IUrlProvider>().Object);
+                GetMock<IPagePropertiesFactory>().Object);
 		}
 	}
 }

@@ -1,24 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Services;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
     public class CashgameListTableModelFactory : ICashgameListTableModelFactory
     {
         private readonly ICashgameListTableItemModelFactory _cashgameListTableItemModelFactory;
-        private readonly IUrlProvider _urlProvider;
 
         public CashgameListTableModelFactory(
-            ICashgameListTableItemModelFactory cashgameListTableItemModelFactory,
-            IUrlProvider urlProvider)
+            ICashgameListTableItemModelFactory cashgameListTableItemModelFactory)
         {
             _cashgameListTableItemModelFactory = cashgameListTableItemModelFactory;
-            _urlProvider = urlProvider;
         }
 
         public CashgameListTableModel Create(Homegame homegame, IList<Cashgame> cashgames, ListSortOrder sortOrder, int? year)

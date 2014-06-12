@@ -23,7 +23,6 @@ using Web.ModelServices;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelServiceTests
 {
@@ -90,7 +89,6 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<IMatrixPageModelFactory>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameDetailsPageModelFactory>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameDetailsChartModelFactory>().Object,

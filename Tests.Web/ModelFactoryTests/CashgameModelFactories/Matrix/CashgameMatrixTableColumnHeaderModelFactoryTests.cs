@@ -6,7 +6,6 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
 {
@@ -67,7 +66,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
         private CashgameMatrixTableColumnHeaderModelFactory GetSut()
         {
             return new CashgameMatrixTableColumnHeaderModelFactory(
-                GetMock<IUrlProvider>().Object,
                 GetMock<IGlobalization>().Object);
         }
     }

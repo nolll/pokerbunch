@@ -13,7 +13,6 @@ using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
-using Web.Security;
 
 namespace Tests.Web.ControllerTests
 {
@@ -196,7 +195,6 @@ namespace Tests.Web.ControllerTests
         private CashgameController GetSut()
         {
             return new CashgameController(
-                GetMock<IUrlProvider>().Object,
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<ICashgameModelService>().Object,

@@ -1,6 +1,5 @@
 using System;
 using System.Web.Mvc;
-using Application.Services;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
@@ -70,7 +69,6 @@ namespace Tests.Web.ControllerTests
         {
 			return new PlayerController(
                 GetMock<IPlayerModelService>().Object,
-                GetMock<IUrlProvider>().Object,
                 GetMock<IPlayerCommandProvider>().Object,
                 GetMock<IPlayerListPageBuilder>().Object);
 		}

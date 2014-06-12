@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web;
 using Application.Services;
 using Core.Entities;
-using Core.Repositories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.UrlModels;
 
@@ -10,21 +9,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public class CashgameMatrixTableRowModelFactory : ICashgameMatrixTableRowModelFactory
     {
-        private readonly IUrlProvider _urlProvider;
         private readonly ICashgameMatrixTableCellModelFactory _cashgameMatrixTableCellModelFactory;
         private readonly IGlobalization _globalization;
-        private readonly IPlayerRepository _playerRepository;
 
         public CashgameMatrixTableRowModelFactory(
-            IUrlProvider urlProvider,
             ICashgameMatrixTableCellModelFactory cashgameMatrixTableCellModelFactory,
-            IGlobalization globalization,
-            IPlayerRepository playerRepository)
+            IGlobalization globalization)
         {
-            _urlProvider = urlProvider;
             _cashgameMatrixTableCellModelFactory = cashgameMatrixTableCellModelFactory;
             _globalization = globalization;
-            _playerRepository = playerRepository;
         }
 
         public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)

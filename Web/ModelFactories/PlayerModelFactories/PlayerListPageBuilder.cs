@@ -5,14 +5,12 @@ using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.List;
 using Web.Models.UrlModels;
-using Web.Security;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
     public class PlayerListPageBuilder : IPlayerListPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IUrlProvider _urlProvider;
         private readonly IPlayerItemModelFactory _playerItemModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
@@ -20,14 +18,12 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         public PlayerListPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
-            IUrlProvider urlProvider,
             IPlayerItemModelFactory playerItemModelFactory,
             IHomegameRepository homegameRepository,
             IAuth auth,
             IPlayerListInteractor playerListInteractor)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
-            _urlProvider = urlProvider;
             _playerItemModelFactory = playerItemModelFactory;
             _homegameRepository = homegameRepository;
             _auth = auth;
