@@ -123,7 +123,6 @@ namespace Web.Plumbing
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
             RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
             RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>();
-            RegisterComponent<IBunchListItemModelFactory, BunchListItemModelFactory>();
             RegisterComponent<IBarModelFactory, BarModelFactory>();
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();

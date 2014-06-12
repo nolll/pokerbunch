@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
+using Application.UseCases.ApplicationContext;
 using Application.UseCases.BunchList;
-using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.HomegameModels.List;
-using Web.Models.PageBaseModels;
 
 namespace Tests.Web.PageBuilderTests
 {
@@ -18,18 +16,18 @@ namespace Tests.Web.PageBuilderTests
         public void SetUp()
         {
             _sut = new BunchListPageBuilder(
-                GetMock<IPagePropertiesFactory>().Object,
-                GetMock<IBunchListItemModelFactory>().Object,
+                GetMock<IApplicationContextInteractor>().Object,
                 GetMock<IBunchListInteractor>().Object);
         }
 
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            var showBunchListResult = new BunchListResult();
+            var showBunchListResult = new FakeBunchListResult();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            
             var result = _sut.Build();
 
             Assert.AreEqual("Bunches", result.BrowserTitle);
@@ -38,11 +36,10 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_PagePropertiesIsSet()
         {
-            var pageProperties = new PageProperties();
-            var showBunchListResult = new BunchListResult();
+            var showBunchListResult = new FakeBunchListResult();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IPagePropertiesFactory>().Setup(o => o.Create((Homegame) null)).Returns(pageProperties);
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var result = _sut.Build();
 
@@ -53,11 +50,10 @@ namespace Tests.Web.PageBuilderTests
         public void Build_BunchModelsAreSet()
         {
             var bunchItems = new List<BunchListItem>();
-            var showBunchListResult = new BunchListResult { Bunches = bunchItems };
-            var models = new List<BunchListItemModel>();
+            var showBunchListResult = new FakeBunchListResult(bunchItems);
             
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IBunchListItemModelFactory>().Setup(o => o.CreateList(bunchItems)).Returns(models);
+            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var result = _sut.Build();
 

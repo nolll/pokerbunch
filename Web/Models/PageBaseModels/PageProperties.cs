@@ -13,10 +13,6 @@ namespace Web.Models.PageBaseModels
         public string Version { get; private set; }
         public string CssUrl { get; private set; }
 
-        public PageProperties()
-        {
-        }
-
         public PageProperties(ApplicationContextResult applicationContextResult)
         {
             UserNavModel = new UserNavigationModel(applicationContextResult);

@@ -1,6 +1,6 @@
 @model Web.Models.CashgameModels.Details.CashgameDetailsTableItemModel
 <tr>
-    <td><a href="@Model.PlayerUrl">@Model.Name</a></td>
+    <td><a href="@Model.PlayerUrl.Relative">@Model.Name</a></td>
     <td class="numeric">@Model.Buyin</td>
     <td class="numeric">@Model.Cashout</td>
     <td class="numeric @Model.WinningsClass">@Model.Winnings</td>

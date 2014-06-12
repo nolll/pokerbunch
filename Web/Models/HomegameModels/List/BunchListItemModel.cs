@@ -1,10 +1,17 @@
+using Application.UseCases.BunchList;
 using Web.Models.UrlModels;
 
 namespace Web.Models.HomegameModels.List
 {
     public class BunchListItemModel
     {
-        public string Name { get; set; }
-        public UrlModel Url { get; set; }
+        public string Name { get; private set; }
+        public UrlModel Url { get; private set; }
+
+        public BunchListItemModel(BunchListItem bunchListItem)
+        {
+            Name = bunchListItem.DisplayName;
+            Url = new HomegameDetailsUrlModel(bunchListItem.Slug);
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
 {
     public class ActionPageModelFactoryTests : MockContainer
     {
+
         private Homegame _homegame;
         private Cashgame _cashgame;
 

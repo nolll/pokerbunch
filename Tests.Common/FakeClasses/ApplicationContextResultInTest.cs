@@ -7,10 +7,10 @@ namespace Tests.Common.FakeClasses
         public ApplicationContextResultInTest(
             bool isLoggedIn = false, 
             bool isAdmin = false, 
-            string userName = null, 
-            string userDisplayName = null, 
+            string userName = "", 
+            string userDisplayName = "", 
             bool isInProduction = false, 
-            string version = null)
+            string version = "")
             
             : base(
                 isLoggedIn, 

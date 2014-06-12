@@ -10,10 +10,10 @@
 <div class="block gutter">
 
 	<p>
-		Please sign in using your username and password. <a href="@Model.ForgotPasswordUrl">Forgot password?</a>
+		Please sign in using your username and password. <a href="@Model.ForgotPasswordUrl.Relative">Forgot password?</a>
 	</p>
 	<p>
-		If you are a new user, please <a href="@Model.AddUserUrl">register</a>!
+		If you are a new user, please <a href="@Model.AddUserUrl.Relative">register</a>!
 	</p>
 
 	@Html.Partial("~/Views/Forms/Errors.cshtml")

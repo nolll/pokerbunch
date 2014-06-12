@@ -7,6 +7,7 @@ using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.Models.UrlModels;
+using Web.Services;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 

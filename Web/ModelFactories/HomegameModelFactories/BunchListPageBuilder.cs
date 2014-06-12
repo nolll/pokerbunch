@@ -1,35 +1,30 @@
-﻿using Application.UseCases.BunchList;
-using Web.ModelFactories.PageBaseModelFactories;
+﻿using Application.UseCases.ApplicationContext;
+using Application.UseCases.BunchList;
 using Web.Models.HomegameModels.List;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class BunchListPageBuilder : IBunchListPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IBunchListItemModelFactory _bunchListItemModelFactory;
+        private readonly IApplicationContextInteractor _applicationContextInteractor;
         private readonly IBunchListInteractor _bunchListInteractor;
 
         public BunchListPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IBunchListItemModelFactory bunchListItemModelFactory,
+            IApplicationContextInteractor applicationContextInteractor,
             IBunchListInteractor bunchListInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _bunchListItemModelFactory = bunchListItemModelFactory;
+            _applicationContextInteractor = applicationContextInteractor;
             _bunchListInteractor = bunchListInteractor;
         }
 
         public BunchListPageModel Build()
         {
-            var result = _bunchListInteractor.Execute();
+            var applicationContextResult = _applicationContextInteractor.Execute();
+            var bunchListResult = _bunchListInteractor.Execute();
 
-            return new BunchListPageModel
-            {
-                BrowserTitle = "Bunches",
-                PageProperties = _pagePropertiesFactory.Create(),
-                BunchModels = _bunchListItemModelFactory.CreateList(result.Bunches)
-            };
+            return new BunchListPageModel(
+                applicationContextResult,
+                bunchListResult);
         }
     }
 }

@@ -44,6 +44,5 @@ namespace Application.Services
         {
             return _configService.GetAppSetting("SiteUrl");
         }
-
 	}
 }

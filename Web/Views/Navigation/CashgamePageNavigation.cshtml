@@ -1,10 +1,10 @@
 @model Web.Models.NavigationModels.CashgamePageNavigationModel
 <nav class="cashgame-nav bar">
     <ul>
-        <li class="@Model.MatrixSelectedClass"><a href="@Model.MatrixLink">Matrix</a></li>
-        <li class="@Model.ToplistSelectedClass"><a href="@Model.ToplistLink">Toplist</a></li>
-        <li class="@Model.ChartSelectedClass"><a href="@Model.ChartLink">Chart</a></li>
-        <li class="@Model.ListSelectedClass"><a href="@Model.ListLink">List</a></li>
-        <li class="@Model.FactsSelectedClass"><a href="@Model.FactsLink">Facts</a></li>
+        <li class="@Model.MatrixSelectedClass"><a href="@Model.MatrixLink.Relative">Matrix</a></li>
+        <li class="@Model.ToplistSelectedClass"><a href="@Model.ToplistLink.Relative">Toplist</a></li>
+        <li class="@Model.ChartSelectedClass"><a href="@Model.ChartLink.Relative">Chart</a></li>
+        <li class="@Model.ListSelectedClass"><a href="@Model.ListLink.Relative">List</a></li>
+        <li class="@Model.FactsSelectedClass"><a href="@Model.FactsLink.Relative">Facts</a></li>
     </ul>
 </nav>

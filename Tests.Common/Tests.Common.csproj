@@ -45,6 +45,7 @@
     <Compile Include="FakeClasses\ApplicationContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
     <Compile Include="FakeClasses\CashgameContextResultInTest.cs" />
+    <Compile Include="FakeClasses\FakeBunchListResult.cs" />
     <Compile Include="FakeClasses\FakeFactBuilder.cs" />
     <Compile Include="FakeClasses\FakeCashgameSuite.cs" />
     <Compile Include="FakeClasses\FakeCashgameTotalResult.cs" />

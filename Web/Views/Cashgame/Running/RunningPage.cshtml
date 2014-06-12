@@ -11,7 +11,7 @@
 <div class="button-list">
 	@if (Model.ReportButtonEnabled)
 	{
-        <a href="@Model.ReportUrl" class="icon-button">
+        <a href="@Model.ReportUrl.Relative" class="icon-button">
 			<i class="icon-reorder"></i>
 			Report
 		</a>
@@ -19,7 +19,7 @@
 
 	@if (Model.BuyinButtonEnabled)
 	{
-	    <a href="@Model.BuyinUrl" class="icon-button">
+	    <a href="@Model.BuyinUrl.Relative" class="icon-button">
 			<i class="icon-money"></i>
 			Buy In
 		</a>
@@ -27,7 +27,7 @@
 
 	@if (Model.CashoutButtonEnabled)
 	{
-        <a href="@Model.CashoutUrl" class="icon-button">
+        <a href="@Model.CashoutUrl.Relative" class="icon-button">
 			<i class="icon-signout"></i>
 			Cash Out
 		</a>
@@ -35,7 +35,7 @@
 	
 	@if (@Model.EndGameButtonEnabled)
 	{
-	    <a href="@Model.EndGameUrl" class="icon-button">
+	    <a href="@Model.EndGameUrl.Relative" class="icon-button">
 			<i class="icon-signout"></i>
 			End Game
 		</a>
@@ -57,7 +57,7 @@
 		
 	@if (Model.ShowChart)
 	{
-	    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+	    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl.Relative">Loading chart...</div>
 	}
 </div>
 

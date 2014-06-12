@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Application.UseCases.ApplicationContext;
-using Application.UseCases.CashgameContext;
 using Application.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;

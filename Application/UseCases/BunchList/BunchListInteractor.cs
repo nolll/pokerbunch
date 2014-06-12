@@ -18,10 +18,7 @@ namespace Application.UseCases.BunchList
         {
             var homegames = _homegameRepository.GetList();
             var itemList = homegames.Select(CreateItem).ToList();
-            return new BunchListResult
-                {
-                    Bunches = itemList
-                };
+            return new BunchListResult(itemList);
         }
 
         private BunchListItem CreateItem(Homegame homegame)

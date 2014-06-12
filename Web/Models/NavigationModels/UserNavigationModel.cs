@@ -30,7 +30,7 @@ namespace Web.Models.NavigationModels
 
         private IList<NavigationNode> GetNodes(ApplicationContextResult applicationContextResult)
         {
-            return applicationContextResult.IsLoggedIn != null ? GetLoggedInNodes(applicationContextResult.UserName, applicationContextResult.UserDisplayName) : GetAnonymousNodes();
+            return applicationContextResult.IsLoggedIn ? GetLoggedInNodes(applicationContextResult.UserName, applicationContextResult.UserDisplayName) : GetAnonymousNodes();
         }
 
         private IList<NavigationNode> GetAnonymousNodes()

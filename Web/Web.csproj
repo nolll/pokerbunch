@@ -159,7 +159,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\IChartValueModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IBunchListItemModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
@@ -202,7 +201,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\BunchListItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerItemModelFactory.cs" />

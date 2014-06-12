@@ -14,7 +14,7 @@
     @if (Model.DeleteEnabled)
     {
         <p>
-            <a href="@Model.DeleteUrl" class="button warning" data-require="delete-confirmation" data-message="Delete Player?">Delete</a>
+            <a href="@Model.DeleteUrl.Relative" class="button warning" data-require="delete-confirmation" data-message="Delete Player?">Delete</a>
         </p>
     }
 </div>
@@ -23,11 +23,11 @@
 		@if (Model.ShowUserInfo){
             @Html.Partial("~/Views/Misc/Avatar.cshtml", Model.AvatarModel)
 			<p>
-				<a href="@Model.UserUrl" class="button">User Profile</a>
+				<a href="@Model.UserUrl.Relative" class="button">User Profile</a>
 			</p>
 		} else {
 			<p>
-				<a href="@Model.InvitationUrl" class="button">Invite User</a>
+				<a href="@Model.InvitationUrl.Relative" class="button">Invite User</a>
 			</p>
 		}
 	</div>
