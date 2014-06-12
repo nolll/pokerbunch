@@ -37,8 +37,8 @@ namespace Tests.Web.ModelTests.NavigationModels
 
             var result = new AdminNavigationModel(applicationContextResult);
 
-            Assert.IsInstanceOf<HomegameListUrlModel>(result.Nodes[0].UrlModel);
-            Assert.IsInstanceOf<UserListUrlModel>(result.Nodes[1].UrlModel);
+            Assert.IsInstanceOf<HomegameListUrlModel>(result.Nodes[0].Url);
+            Assert.IsInstanceOf<UserListUrlModel>(result.Nodes[1].Url);
         }
     }
 }

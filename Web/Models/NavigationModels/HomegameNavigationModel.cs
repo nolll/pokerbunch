@@ -1,17 +1,15 @@
 using Application.UseCases.BunchContext;
-using Application.UseCases.CashgameContext;
 using Core.Entities;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.Models.NavigationModels
 {
     public class HomegameNavigationModel
     {
-        public string Heading { get; set; }
-        public UrlModel HeadingLink { get; set; }
-        public UrlModel CashgameLink { get; set; }
-        public UrlModel PlayerLink { get; set; }
+        public string Heading { get; private set; }
+        public UrlModel HeadingUrl { get; private set; }
+        public UrlModel CashgameUrl { get; private set; }
+        public UrlModel PlayerUrl { get; private set; }
 
         public HomegameNavigationModel(Homegame homegame)
             : this(homegame.Slug, homegame.DisplayName)
@@ -26,9 +24,9 @@ namespace Web.Models.NavigationModels
         private HomegameNavigationModel(string slug, string bunchName)
         {
             Heading = bunchName;
-            HeadingLink = new HomegameDetailsUrlModel(slug);
-            CashgameLink = new CashgameIndexUrlModel(slug);
-            PlayerLink = new PlayerIndexUrlModel(slug);
+            HeadingUrl = new HomegameDetailsUrlModel(slug);
+            CashgameUrl = new CashgameIndexUrlModel(slug);
+            PlayerUrl = new PlayerIndexUrlModel(slug);
         }
     }
 }

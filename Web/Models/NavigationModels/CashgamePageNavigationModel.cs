@@ -1,20 +1,19 @@
 using Application.UseCases.CashgameContext;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.Models.NavigationModels
 {
 	public class CashgamePageNavigationModel
     {
-	    public UrlModel MatrixLink { get; private set; }
+	    public UrlModel MatrixUrl { get; private set; }
         public string MatrixSelectedClass { get; private set; }
-        public UrlModel ToplistLink { get; private set; }
+        public UrlModel ToplistUrl { get; private set; }
         public string ToplistSelectedClass { get; private set; }
-        public UrlModel ChartLink { get; private set; }
+        public UrlModel ChartUrl { get; private set; }
         public string ChartSelectedClass { get; private set; }
-        public UrlModel ListLink { get; private set; }
+        public UrlModel ListUrl { get; private set; }
         public string ListSelectedClass { get; private set; }
-        public UrlModel FactsLink { get; private set; }
+        public UrlModel FactsUrl { get; private set; }
         public string FactsSelectedClass { get; private set; }
 
         public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
@@ -24,15 +23,15 @@ namespace Web.Models.NavigationModels
 
 	    public CashgamePageNavigationModel(string slug, int? latestYear, CashgamePage cashgamePage)
 	    {
-            MatrixLink = new MatrixUrlModel(slug, latestYear);
+            MatrixUrl = new MatrixUrlModel(slug, latestYear);
             MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage);
-            ToplistLink = new TopListUrlModel(slug, latestYear);
+            ToplistUrl = new TopListUrlModel(slug, latestYear);
             ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage);
-            ChartLink = new ChartUrlModel(slug, latestYear);
+            ChartUrl = new ChartUrlModel(slug, latestYear);
             ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage);
-            ListLink = new ListUrlModel(slug, latestYear);
+            ListUrl = new ListUrlModel(slug, latestYear);
             ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage);
-            FactsLink = new FactsUrlModel(slug, latestYear);
+            FactsUrl = new FactsUrlModel(slug, latestYear);
             FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage);
 	    }
 

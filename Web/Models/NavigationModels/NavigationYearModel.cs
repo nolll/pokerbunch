@@ -1,16 +1,15 @@
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.Models.NavigationModels
 {
     public class NavigationYearModel
     {
-        public UrlModel Link { get; private set; }
+        public UrlModel Url { get; private set; }
         public string Text { get; private set; }
 
         public NavigationYearModel(UrlModel link, string text)
         {
-            Link = link;
+            Url = link;
             Text = text;
         }
     }

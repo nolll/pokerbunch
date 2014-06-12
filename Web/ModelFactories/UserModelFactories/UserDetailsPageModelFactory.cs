@@ -39,13 +39,13 @@ namespace Web.ModelFactories.UserModelFactories
             if (currentUser.IsAdmin || isViewingCurrentUser)
             {
                 model.ShowEditLink = true;
-                model.EditLink = new EditUserUrlModel(displayUser.UserName);
+                model.EditUrl = new EditUserUrlModel(displayUser.UserName);
             }
 
             if (isViewingCurrentUser)
             {
                 model.ShowPasswordLink = true;
-                model.ChangePasswordLink = new ChangePasswordUrlModel();
+                model.ChangePasswordUrl = new ChangePasswordUrlModel();
             }
 
             return model;
