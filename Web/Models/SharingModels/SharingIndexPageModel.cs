@@ -8,6 +8,6 @@ namespace Web.Models.SharingModels
         public PageProperties PageProperties { get; set; }
         public string BrowserTitle { get; set; }
         public bool IsSharingToTwitter { get; set; }
-        public UrlModel ShareToTwitterSettingsUrl { get; set; }
+        public Url ShareToTwitterSettingsUrl { get; set; }
     }
 }

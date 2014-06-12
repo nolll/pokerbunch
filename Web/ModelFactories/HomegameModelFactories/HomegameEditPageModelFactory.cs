@@ -30,7 +30,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Edit Homegame",
 		            PageProperties = _pagePropertiesFactory.Create(homegame),
-			        CancelUrl = new HomegameDetailsUrlModel(homegame.Slug),
+			        CancelUrl = new HomegameDetailsUrl(homegame.Slug),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
 			        Description = homegame.Description,
 			        HouseRules = homegame.HouseRules,

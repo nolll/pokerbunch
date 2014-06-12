@@ -95,7 +95,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new RunningCashgameUrlModel(slug).Relative);
+                return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetAddModel(slug, postModel);
@@ -116,7 +116,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetEditCommand(slug, dateStr, postModel);
             if (command.Execute())
             {
-                return Redirect(new CashgameDetailsUrlModel(slug, dateStr).Relative);
+                return Redirect(new CashgameDetailsUrl(slug, dateStr).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetEditModel(slug, dateStr, postModel);
@@ -128,7 +128,7 @@ namespace Web.Controllers
         {
             if(!_cashgameService.CashgameIsRunning(slug))
             {
-                return Redirect(new CashgameIndexUrlModel(slug).Relative);
+                return Redirect(new CashgameIndexUrl(slug).Relative);
 			}
 			var model = _cashgameModelService.GetRunningModel(slug);
 			return View("Running/RunningPage", model);
@@ -183,7 +183,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetBuyinCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(new RunningCashgameUrlModel(slug).Relative);
+                return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetBuyinModel(slug, playerId, postModel);
@@ -204,7 +204,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetReportCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(new RunningCashgameUrlModel(slug).Relative);
+                return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetReportModel(slug, postModel);
@@ -225,7 +225,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetEditCheckpointCommand(slug, dateStr, checkpointId, postModel);
             if (command.Execute())
             {
-                return Redirect(new CashgameActionUrlModel(slug, dateStr, playerId).Relative);
+                return Redirect(new CashgameActionUrl(slug, dateStr, playerId).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetEditCheckpointModel(slug, dateStr, playerId, checkpointId, postModel);
@@ -238,9 +238,9 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
             if (command.Execute())
             {
-                return Redirect(new RunningCashgameUrlModel(slug).Relative);
+                return Redirect(new RunningCashgameUrl(slug).Relative);
             }
-            var actionsUrl = new CashgameActionUrlModel(slug, dateStr, playerId);
+            var actionsUrl = new CashgameActionUrl(slug, dateStr, playerId);
             return Redirect(actionsUrl.Relative);
 		}
         
@@ -258,7 +258,7 @@ namespace Web.Controllers
             var command = _cashgameCommandProvider.GetCashoutCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(new RunningCashgameUrlModel(slug).Relative);
+                return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _cashgameModelService.GetCashoutModel(slug, postModel);
@@ -278,7 +278,7 @@ namespace Web.Controllers
         {
             var command = _cashgameCommandProvider.GetEndGameCommand(slug);
             command.Execute();
-            return Redirect(new CashgameIndexUrlModel(slug).Relative);
+            return Redirect(new CashgameIndexUrl(slug).Relative);
 		}
 
         [AuthorizeManager]
@@ -286,7 +286,7 @@ namespace Web.Controllers
         {
             var command = _cashgameCommandProvider.GetDeleteCommand(slug, dateStr);
             command.Execute();
-            return Redirect(new CashgameIndexUrlModel(slug).Relative);
+            return Redirect(new CashgameIndexUrl(slug).Relative);
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Web.Models.CashgameModels.Matrix
 	    public string UrlEncodedName { get; set; }
 	    public string TotalResult { get; set; }
 	    public string ResultClass { get; set; }
-	    public UrlModel PlayerUrl { get; set; }
+	    public Url PlayerUrl { get; set; }
         public IList<CashgameMatrixTableCellModel> CellModels { get; set; }
 	}
 }

@@ -106,7 +106,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Toplist
 
             var result = new CashgameToplistTableItemModel(_topListItem, _slug, ToplistSortOrder.Winnings);
 
-            Assert.IsInstanceOf<PlayerDetailsUrlModel>(result.PlayerUrl);
+            Assert.IsInstanceOf<PlayerDetailsUrl>(result.PlayerUrl);
 		}
 
 	}

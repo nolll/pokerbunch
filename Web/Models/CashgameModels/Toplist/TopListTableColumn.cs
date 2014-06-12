@@ -24,7 +24,7 @@ namespace Web.Models.CashgameModels.Toplist
 
         private string GetSortUrl(TopListResult topListResult, ToplistSortOrder sortOrder)
         {
-            var format = string.Concat(new TopListUrlModel(topListResult.Slug, topListResult.Year), "?orderby={0}");
+            var format = string.Concat(new TopListUrl(topListResult.Slug, topListResult.Year), "?orderby={0}");
             return string.Format(format, GetSortOrderUrlName(sortOrder));
         }
 

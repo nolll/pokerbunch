@@ -20,7 +20,7 @@ namespace Web.ModelFactories.HomegameModelFactories
                 {
                     BrowserTitle = "Welcome",
                     PageProperties = _pagePropertiesFactory.Create(),
-                    BunchUrl = new HomegameDetailsUrlModel(homegame.Slug),
+                    BunchUrl = new HomegameDetailsUrl(homegame.Slug),
                     BunchName = homegame.DisplayName
                 };
         }

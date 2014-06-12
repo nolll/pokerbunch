@@ -33,7 +33,7 @@ namespace Tests.Web.ControllerTests
             var command = new SuccessfulCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<AuthLoginPostModel>())).Returns(command);
 
-            var homeUrl = new HomeUrlModel();
+            var homeUrl = new HomeUrl();
 
             var sut = GetSut();
 
@@ -78,7 +78,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void Logout_RedirectsToHome()
         {
-            var homeUrl = new HomeUrlModel();
+            var homeUrl = new HomeUrl();
 
             var command = new SuccessfulCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLogoutCommand()).Returns(command);

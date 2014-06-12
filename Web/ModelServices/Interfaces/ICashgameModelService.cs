@@ -19,7 +19,7 @@ namespace Web.ModelServices
     public interface ICashgameModelService
     {
         CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null);
-        UrlModel GetIndexUrl(string slug);
+        Url GetIndexUrl(string slug);
         CashgameDetailsPageModel GetDetailsModel(string slug, string dateStr);
         ChartModel GetDetailsChartJsonModel(string slug, string dateStr);
         AddCashgamePageModel GetAddModel(string slug, AddCashgamePostModel postModel = null);

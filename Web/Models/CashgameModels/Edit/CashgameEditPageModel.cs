@@ -11,8 +11,8 @@ namespace Web.Models.CashgameModels.Edit
         public PageProperties PageProperties { get; set; }
         public string IsoDate { get; set; }
         public bool EnableDelete { get; set; }
-        public UrlModel CancelUrl { get; set; }
-        public UrlModel DeleteUrl { get; set; }
+        public Url CancelUrl { get; set; }
+        public Url DeleteUrl { get; set; }
         public IEnumerable<SelectListItem> Locations { get; set; }
     }
 }

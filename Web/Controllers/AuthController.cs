@@ -32,7 +32,7 @@ namespace Web.Controllers
             var command = _authCommandProvider.GetLoginCommand(postModel);
             if (command.Execute())
             {
-                var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? new HomeUrlModel().Relative : postModel.ReturnUrl;
+                var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? new HomeUrl().Relative : postModel.ReturnUrl;
                 return Redirect(returnUrl);
             }
             AddModelErrors(command.Errors);
@@ -44,7 +44,7 @@ namespace Web.Controllers
         {
             var command = _authCommandProvider.GetLogoutCommand();
             command.Execute();
-            return Redirect(new HomeUrlModel().Relative);
+            return Redirect(new HomeUrl().Relative);
         }
 
     }

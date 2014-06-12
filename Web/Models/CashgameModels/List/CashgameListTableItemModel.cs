@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.List{
 		public string Duration { get; set; }
 		public string Turnover { get; set; }
 		public string AvgBuyin { get; set; }
-		public UrlModel DetailsUrl { get; set; }
+		public Url DetailsUrl { get; set; }
 		public string DisplayDate { get; set; }
 	    public string PlayerCountSortClass { get; set; }
 	    public string LocationSortClass { get; set; }

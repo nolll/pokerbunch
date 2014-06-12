@@ -7,9 +7,9 @@ namespace Web.Models.NavigationModels
     public class HomegameNavigationModel
     {
         public string Heading { get; private set; }
-        public UrlModel HeadingUrl { get; private set; }
-        public UrlModel CashgameUrl { get; private set; }
-        public UrlModel PlayerUrl { get; private set; }
+        public Url HeadingUrl { get; private set; }
+        public Url CashgameUrl { get; private set; }
+        public Url PlayerUrl { get; private set; }
 
         public HomegameNavigationModel(Homegame homegame)
             : this(homegame.Slug, homegame.DisplayName)
@@ -24,9 +24,9 @@ namespace Web.Models.NavigationModels
         private HomegameNavigationModel(string slug, string bunchName)
         {
             Heading = bunchName;
-            HeadingUrl = new HomegameDetailsUrlModel(slug);
-            CashgameUrl = new CashgameIndexUrlModel(slug);
-            PlayerUrl = new PlayerIndexUrlModel(slug);
+            HeadingUrl = new HomegameDetailsUrl(slug);
+            CashgameUrl = new CashgameIndexUrl(slug);
+            PlayerUrl = new PlayerIndexUrl(slug);
         }
     }
 }

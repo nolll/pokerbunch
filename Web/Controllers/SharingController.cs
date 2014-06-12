@@ -50,7 +50,7 @@ namespace Web.Controllers
         {
 		    var command = _sharingCommandProvider.GetTwitterStopCommand();
 		    command.Execute();
-			return Redirect(new TwitterSettingsUrlModel().Relative);
+			return Redirect(new TwitterSettingsUrl().Relative);
 		}
 
         [Authorize]
@@ -60,7 +60,7 @@ namespace Web.Controllers
             var verifier = _webContext.GetQueryParam("oauth_verifier");
             var command = _sharingCommandProvider.GetStartCommand(token, verifier);
             command.Execute();
-            return Redirect(new TwitterSettingsUrlModel().Relative);
+            return Redirect(new TwitterSettingsUrl().Relative);
 		}
 
 	}

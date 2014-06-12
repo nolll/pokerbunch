@@ -11,7 +11,7 @@ namespace Web.Models.HomegameModels.Details
         public string Description { get; set; }
         public string HouseRules { get; set; }
         public bool ShowHouseRules { get; set; }
-        public UrlModel EditUrl { get; set; }
+        public Url EditUrl { get; set; }
         public bool ShowEditLink { get; set; }
     }
 }

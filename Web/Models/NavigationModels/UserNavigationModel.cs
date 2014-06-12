@@ -37,9 +37,9 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Sign in", new LoginUrlModel()),
-                    new NavigationNode("Register", new AddUserUrlModel()),
-                    new NavigationNode("Forgot password", new ForgotPasswordUrlModel())
+                    new NavigationNode("Sign in", new LoginUrl()),
+                    new NavigationNode("Register", new AddUserUrl()),
+                    new NavigationNode("Forgot password", new ForgotPasswordUrl())
                 };
         }
 
@@ -47,9 +47,9 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode(userDisplayName, new UserDetailsUrlModel(userName)),
+                    new NavigationNode(userDisplayName, new UserDetailsUrl(userName)),
                     //new NavigationNode("Sharing", new SharingSettingsUrlModel()),
-                    new NavigationNode("Sign Out", new LogoutUrlModel())
+                    new NavigationNode("Sign Out", new LogoutUrl())
                 };
         }
     }

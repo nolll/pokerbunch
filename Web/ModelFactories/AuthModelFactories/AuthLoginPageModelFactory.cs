@@ -22,7 +22,7 @@ namespace Web.ModelFactories.AuthModelFactories
         private AuthLoginPageModel Create()
         {
             var returnUrl = _webContext.GetQueryParam("return");
-            var returnUrlModel = returnUrl != null ? new UrlModel(returnUrl) : new HomeUrlModel();
+            var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
             var applicationContextResult = _applicationContextInteractor.Execute();
 
             return new AuthLoginPageModel
@@ -30,8 +30,8 @@ namespace Web.ModelFactories.AuthModelFactories
                     BrowserTitle = "Login",
                     PageProperties = new PageProperties(applicationContextResult),
                     ReturnUrl = returnUrlModel.Relative,
-                    AddUserUrl = new AddUserUrlModel(),
-                    ForgotPasswordUrl = new ForgotPasswordUrlModel()
+                    AddUserUrl = new AddUserUrl(),
+                    ForgotPasswordUrl = new ForgotPasswordUrl()
                 };
         }
 

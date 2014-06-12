@@ -22,9 +22,9 @@ namespace Web.Models.CashgameModels.Details
         public bool EnableCheckpointsButton { get; set; }
         public bool DurationEnabled { get; set; }
 
-        public UrlModel EditUrl { get; set; }
-        public UrlModel CheckpointsUrl { get; set; }
-        public UrlModel ChartDataUrl { get; set; }
+        public Url EditUrl { get; set; }
+        public Url CheckpointsUrl { get; set; }
+        public Url ChartDataUrl { get; set; }
 
         public string Status { get; set; }
 

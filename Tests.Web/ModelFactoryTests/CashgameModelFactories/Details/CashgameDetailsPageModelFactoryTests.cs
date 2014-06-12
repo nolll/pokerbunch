@@ -124,7 +124,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-            Assert.IsInstanceOf<EditCashgameUrlModel>(result.EditUrl);
+            Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-            Assert.IsInstanceOf<CashgameActionUrlModel>(result.CheckpointsUrl);
+            Assert.IsInstanceOf<CashgameActionUrl>(result.CheckpointsUrl);
         }
 
         [Test]
@@ -274,7 +274,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, player, _isManager);
 
-            Assert.IsInstanceOf<CashgameDetailsChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.IsInstanceOf<CashgameDetailsChartJsonUrl>(result.ChartDataUrl);
         }
 
         private CashgameDetailsPageModelFactory GetSut()

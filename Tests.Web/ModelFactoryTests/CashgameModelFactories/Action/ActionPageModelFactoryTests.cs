@@ -66,7 +66,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult, Role.Player);
 
-            Assert.IsInstanceOf<CashgameActionChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.IsInstanceOf<CashgameActionChartJsonUrl>(result.ChartDataUrl);
         }
 
         private ActionPageModelFactory GetSut()

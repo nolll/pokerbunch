@@ -39,7 +39,7 @@ namespace Tests.Web.ModelServiceTests
             var sut = GetSut();
             var result = sut.GetIndexUrl(slug);
 
-            Assert.IsInstanceOf<CashgameMatrixUrlModel>(result);
+            Assert.IsInstanceOf<CashgameMatrixUrl>(result);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Tests.Web.ModelServiceTests
             var sut = GetSut();
             var result = sut.GetIndexUrl(slug);
 
-            Assert.IsInstanceOf<AddCashgameUrlModel>(result);
+            Assert.IsInstanceOf<AddCashgameUrl>(result);
         }
 
         [Test]

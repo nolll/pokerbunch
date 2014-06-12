@@ -106,7 +106,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.List{
 			var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear, ListSortOrder.date);
 
-            Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.DetailsUrl);
+            Assert.IsInstanceOf<CashgameDetailsUrl>(result.DetailsUrl);
 		}
 
 		[Test]

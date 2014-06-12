@@ -21,7 +21,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             return new CashgameDetailsTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = new CashgameActionUrlModel(homegame.Slug, cashgame.DateString, player.Id),
+                    PlayerUrl = new CashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Cashout = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

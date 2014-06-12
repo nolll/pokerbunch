@@ -25,9 +25,9 @@ namespace Tests.Web.ModelFactoryTests.HomeModelFactories
             var result = sut.Create();
 
             Assert.IsFalse(result.IsLoggedIn);
-            Assert.IsInstanceOf<AddHomegameUrlModel>(result.AddHomegameUrl);
-            Assert.IsInstanceOf<LoginUrlModel>(result.LoginUrl);
-            Assert.IsInstanceOf<AddUserUrlModel>(result.RegisterUrl);
+            Assert.IsInstanceOf<AddHomegameUrl>(result.AddHomegameUrl);
+            Assert.IsInstanceOf<LoginUrl>(result.LoginUrl);
+            Assert.IsInstanceOf<AddUserUrl>(result.RegisterUrl);
         }
 
         [Test]

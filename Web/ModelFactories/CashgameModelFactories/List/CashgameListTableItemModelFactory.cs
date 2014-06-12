@@ -31,7 +31,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.turnover),
                     AvgBuyin = GetAvgBuyin(homegame, cashgame),
                     AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.averagebuyin),
-                    DetailsUrl = new CashgameDetailsUrlModel(homegame.Slug, cashgame.DateString),
+                    DetailsUrl = new CashgameDetailsUrl(homegame.Slug, cashgame.DateString),
                     DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     DateSortClass = GetSortCssClass(sortOrder, ListSortOrder.date)
                 };

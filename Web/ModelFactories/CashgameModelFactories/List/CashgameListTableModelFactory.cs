@@ -19,7 +19,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
         public CashgameListTableModel Create(Homegame homegame, IList<Cashgame> cashgames, ListSortOrder sortOrder, int? year)
         {
             var showYear = SpansMultipleYears(cashgames);
-            var sortUrl = string.Concat(new CashgameListUrlModel(homegame.Slug, year).Relative, "?orderby={0}");
+            var sortUrl = string.Concat(new CashgameListUrl(homegame.Slug, year).Relative, "?orderby={0}");
             var sortedCashgames = SortCashgames(cashgames, sortOrder);
 
             return new CashgameListTableModel

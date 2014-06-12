@@ -30,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 {
                     BrowserTitle = "Cashgame Chart",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
-			        ChartDataUrl = new CashgameChartJsonUrlModel(homegame.Slug, year),
+			        ChartDataUrl = new CashgameChartJsonUrl(homegame.Slug, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Chart),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Chart, year)
                 };

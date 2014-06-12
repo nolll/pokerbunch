@@ -47,7 +47,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.IsInstanceOf<RunningCashgameUrlModel>(result.Url);
+            Assert.IsInstanceOf<RunningCashgameUrl>(result.Url);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Running{
             var sut = GetSut();
             var result = sut.Create(_homegame, _runningGame);
 
-            Assert.IsInstanceOf<AddCashgameUrlModel>(result.Url);
+            Assert.IsInstanceOf<AddCashgameUrl>(result.Url);
         }
 
 		private BarModelFactory GetSut(){

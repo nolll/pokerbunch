@@ -28,7 +28,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Chart
         {
             var result = GetResult();
 
-            Assert.IsInstanceOf<CashgameChartJsonUrlModel>(result.ChartDataUrl);
+            Assert.IsInstanceOf<CashgameChartJsonUrl>(result.ChartDataUrl);
         }
 
         private CashgameChartPageModel GetResult()

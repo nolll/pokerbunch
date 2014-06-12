@@ -34,27 +34,27 @@ namespace Web.Models.NavigationModels
             return yearModels;
         }
 
-        private UrlModel GetNavigationUrl(string slug, CashgamePage cashgamePage, int? year = null)
+        private Url GetNavigationUrl(string slug, CashgamePage cashgamePage, int? year = null)
         {
             if (cashgamePage.Equals(CashgamePage.Matrix))
             {
-                return new MatrixUrlModel(slug, year);
+                return new MatrixUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Toplist))
             {
-                return new TopListUrlModel(slug, year);
+                return new TopListUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Chart))
             {
-                return new ChartUrlModel(slug, year);
+                return new ChartUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.List))
             {
-                return new ListUrlModel(slug, year);
+                return new ListUrl(slug, year);
             }
             if (cashgamePage.Equals(CashgamePage.Facts))
             {
-                return new FactsUrlModel(slug, year);
+                return new FactsUrl(slug, year);
             }
             return null;
         }

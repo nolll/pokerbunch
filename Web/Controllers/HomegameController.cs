@@ -54,7 +54,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new AddHomegameConfirmationUrlModel().Relative);
+                return Redirect(new AddHomegameConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _homegameModelService.GetAddModel(postModel);
@@ -81,7 +81,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new HomegameDetailsUrlModel(slug).Relative);
+                return Redirect(new HomegameDetailsUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _homegameModelService.GetEditModel(slug, postModel);
@@ -102,7 +102,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetJoinCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new JoinHomegameConfirmationUrlModel(slug).Relative);
+                return Redirect(new JoinHomegameConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _homegameModelService.GetJoinModel(slug, postModel);

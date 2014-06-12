@@ -53,7 +53,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new AddUserConfirmationUrlModel().Relative);
+                return Redirect(new AddUserConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetAddModel(postModel);
@@ -80,7 +80,7 @@ namespace Web.Controllers
 			var command = _userCommandProvider.GetEditCommand(userName, postModel);
             if (command.Execute())
             {
-                return Redirect(new UserDetailsUrlModel(userName).Relative);
+                return Redirect(new UserDetailsUrl(userName).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetEditModel(userName, postModel);
@@ -101,7 +101,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetChangePasswordCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new ChangePasswordConfirmationUrlModel().Relative);
+                return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetChangePasswordModel();
@@ -126,7 +126,7 @@ namespace Web.Controllers
             var command = _userCommandProvider.GetForgotPasswordCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new ForgotPasswordConfirmationUrlModel().Relative);
+                return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
             var model = _userModelService.GetForgotPasswordModel(postModel);

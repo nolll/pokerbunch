@@ -9,9 +9,9 @@ namespace Web.Models.HomeModels
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public bool IsLoggedIn { get; set; }
-        public UrlModel AddHomegameUrl { get; set; }
-        public UrlModel LoginUrl { get; set; }
-        public UrlModel RegisterUrl { get; set; }
+        public Url AddHomegameUrl { get; set; }
+        public Url LoginUrl { get; set; }
+        public Url RegisterUrl { get; set; }
         public NavigationModel AdminNav { get; set; }
     }
 }

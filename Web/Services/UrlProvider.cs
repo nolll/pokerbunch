@@ -16,25 +16,25 @@ namespace Web.Services
         /* leave for now */
         public string GetLoginUrl()
         {
-            return new LoginUrlModel().Relative;
+            return new LoginUrl().Relative;
         }
 
         /* leave for now */
         public string GetAddUserUrl()
         {
-            return new AddUserUrlModel().Relative;
+            return new AddUserUrl().Relative;
         }
 
         /* leave for now */
         public string GetJoinHomegameUrl(string slug)
         {
-            return new JoinHomeGameUrlModel(slug).Relative;
+            return new JoinHomeGameUrl(slug).Relative;
         }
 
         /* leave for now */
         public string GetTwitterCallbackUrl()
         {
-            return new TwitterCallbackUrlModel().Absolute;
+            return new TwitterCallbackUrl().Absolute;
         }
     }
 }

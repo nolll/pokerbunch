@@ -29,17 +29,17 @@ namespace Web.ModelFactories.PlayerModelFactories
         public PlayerDetailsPageModel Create(Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
         {
             var hasUser = user != null;
-            var userUrl = hasUser ? new UserDetailsUrlModel(user.UserName) : null;
+            var userUrl = hasUser ? new UserDetailsUrl(user.UserName) : null;
             var userEmail = hasUser ? user.Email : null;
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
-            var invitationUrl = new InvitePlayerUrlModel(homegame.Slug, player.Id);
+            var invitationUrl = new InvitePlayerUrl(homegame.Slug, player.Id);
 
             return new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
                     DisplayName = player.DisplayName,
-                    DeleteUrl = new DeletePlayerUrlModel(homegame.Slug, player.Id),
+                    DeleteUrl = new DeletePlayerUrl(homegame.Slug, player.Id),
                     DeleteEnabled = isManager && !hasPlayed,
                     ShowUserInfo = hasUser,
                     PlayerFactsModel = _playerFactsModelFactory.Create(homegame.Currency, cashgames, player),

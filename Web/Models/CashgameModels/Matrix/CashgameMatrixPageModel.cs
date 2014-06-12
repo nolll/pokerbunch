@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Matrix
         public PageProperties PageProperties { get; set; }
         public BarModel BarModel { get; set; }
         public bool GameIsRunning { get; set; }
-        public UrlModel StartGameUrl { get; set; }
+        public Url StartGameUrl { get; set; }
         public CashgameMatrixTableModel TableModel { get; set; }
         public CashgamePageNavigationModel PageNavModel { get; set; }
         public CashgameYearNavigationModel YearNavModel { get; set; }

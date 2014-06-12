@@ -4,10 +4,10 @@ namespace Web.Models.NavigationModels
 {
     public class NavigationYearModel
     {
-        public UrlModel Url { get; private set; }
+        public Url Url { get; private set; }
         public string Text { get; private set; }
 
-        public NavigationYearModel(UrlModel link, string text)
+        public NavigationYearModel(Url link, string text)
         {
             Url = link;
             Text = text;

@@ -61,7 +61,7 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 			var sut = GetSut();
             var result = sut.Create(homegame, _isInManagerMode);
 
-			Assert.IsInstanceOf<EditHomegameUrlModel>(result.EditUrl);
+			Assert.IsInstanceOf<EditHomegameUrl>(result.EditUrl);
 		}
 
 		[Test]

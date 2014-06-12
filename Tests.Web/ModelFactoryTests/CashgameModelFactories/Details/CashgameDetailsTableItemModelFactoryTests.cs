@@ -42,7 +42,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Details{
 			var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, player, cashgameResult);
 
-			Assert.IsInstanceOf<CashgameActionUrlModel>(result.PlayerUrl);
+			Assert.IsInstanceOf<CashgameActionUrl>(result.PlayerUrl);
 		}
 
 		[Test]

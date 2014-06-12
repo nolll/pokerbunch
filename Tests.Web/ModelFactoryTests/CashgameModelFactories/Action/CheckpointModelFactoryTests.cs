@@ -97,7 +97,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
             var sut = GetSut();
             var result = sut.Create(_homegame, _cashgame, _player, _checkpoint, _role);
 
-            Assert.IsInstanceOf<EditCheckpointUrlModel>(result.EditUrl);
+            Assert.IsInstanceOf<EditCheckpointUrl>(result.EditUrl);
         }
 
         private CheckpointModelFactory GetSut()

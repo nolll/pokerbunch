@@ -15,7 +15,7 @@ namespace Tests.Web.ModelFactoryTests.AuthModelFactories
         [Test]
         public void ReturnUrl_NoReturnUrl_IsSetToRoot()
         {
-            var homeUrl = new HomeUrlModel();
+            var homeUrl = new HomeUrl();
             GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
 
             var sut = GetSut();
@@ -45,7 +45,7 @@ namespace Tests.Web.ModelFactoryTests.AuthModelFactories
             var sut = GetSut();
             var result = sut.Create(null);
 
-            Assert.IsInstanceOf<AddUserUrlModel>(result.AddUserUrl);
+            Assert.IsInstanceOf<AddUserUrl>(result.AddUserUrl);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Tests.Web.ModelFactoryTests.AuthModelFactories
             var sut = GetSut();
             var result = sut.Create(null);
 
-            Assert.IsInstanceOf<ForgotPasswordUrlModel>(result.ForgotPasswordUrl);
+            Assert.IsInstanceOf<ForgotPasswordUrl>(result.ForgotPasswordUrl);
         }
 
         [Test]

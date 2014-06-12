@@ -13,7 +13,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             return new PlayerItemModel
             {
                 Name = p.Name,
-                Url = new PlayerDetailsUrlModel(slug, p.Id)
+                Url = new PlayerDetailsUrl(slug, p.Id)
             };
         }
 

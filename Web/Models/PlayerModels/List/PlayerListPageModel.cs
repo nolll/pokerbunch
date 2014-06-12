@@ -9,7 +9,7 @@ namespace Web.Models.PlayerModels.List
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public IList<PlayerItemModel> PlayerModels { get; set; }
-	    public UrlModel AddUrl { get; set; }
+	    public Url AddUrl { get; set; }
 	    public bool ShowAddLink { get; set; }
     }
 }

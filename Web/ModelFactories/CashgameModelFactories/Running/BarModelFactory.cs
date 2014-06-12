@@ -18,11 +18,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                 };
         }
 
-        private static UrlModel GetUrl(string slug, bool gameIsRunning)
+        private static Url GetUrl(string slug, bool gameIsRunning)
         {
             if (gameIsRunning)
-                return new RunningCashgameUrlModel(slug);
-            return new AddCashgameUrlModel(slug);
+                return new RunningCashgameUrl(slug);
+            return new AddCashgameUrl(slug);
         }
     }
 }

@@ -29,13 +29,13 @@ namespace Web.ModelFactories.SharingModelFactories
                 };
         }
 
-        private UrlModel GetPostUrlModel(bool isSharing)
+        private Url GetPostUrlModel(bool isSharing)
         {
             if (isSharing)
             {
-                return new TwitterStopShareUrlModel();
+                return new TwitterStopShareUrl();
             }
-            return new TwitterStartShareUrlModel();
+            return new TwitterStartShareUrl();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 			        Description = homegame.Description,
 			        HouseRules = houseRules,
 	                ShowHouseRules = !string.IsNullOrEmpty(houseRules),
-			        EditUrl = new EditHomegameUrlModel(homegame.Slug),
+			        EditUrl = new EditHomegameUrl(homegame.Slug),
 			        ShowEditLink = isInManagerMode
                 };
         }

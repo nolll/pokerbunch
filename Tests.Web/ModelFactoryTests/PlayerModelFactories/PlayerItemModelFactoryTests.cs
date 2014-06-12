@@ -29,7 +29,7 @@ namespace Tests.Web.ModelFactoryTests.PlayerModelFactories
             var result = _sut.Create(slug, playerListItem);
 
             Assert.AreEqual(displayName, result.Name);
-            Assert.IsInstanceOf<PlayerDetailsUrlModel>(result.Url);
+            Assert.IsInstanceOf<PlayerDetailsUrl>(result.Url);
         }
 
         [Test]

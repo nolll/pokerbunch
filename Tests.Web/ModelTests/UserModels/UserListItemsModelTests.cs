@@ -18,7 +18,7 @@ namespace Tests.Web.ModelTests.UserModels
             var result = new UserListItemModel(userItem);
 
             Assert.AreEqual(name, result.Name);
-            Assert.IsInstanceOf<UserDetailsUrlModel>(result.Url);
+            Assert.IsInstanceOf<UserDetailsUrl>(result.Url);
         }
     }
 }

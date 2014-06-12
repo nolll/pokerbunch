@@ -38,9 +38,9 @@ namespace Web.ModelFactories.HomeModelFactories
                     BrowserTitle = "Poker Bunch",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
 			        IsLoggedIn = _auth.IsAuthenticated,
-                    AddHomegameUrl = new AddHomegameUrlModel(),
-                    LoginUrl = new LoginUrlModel(),
-                    RegisterUrl = new AddUserUrlModel(),
+                    AddHomegameUrl = new AddHomegameUrl(),
+                    LoginUrl = new LoginUrl(),
+                    RegisterUrl = new AddUserUrl(),
 			        AdminNav = new AdminNavigationModel(applicationContextResult)
                 };
         }

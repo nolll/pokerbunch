@@ -36,10 +36,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = GetStartTime(cashgame, homegame.Timezone),
-                    BuyinUrl = new CashgameBuyinUrlModel(homegame.Slug, player.Id),
-                    ReportUrl = new CashgameReportUrlModel(homegame.Slug, player.Id),
-                    CashoutUrl = new CashgameCashoutUrlModel(homegame.Slug, player.Id),
-                    EndGameUrl = new EndCashgameUrlModel(homegame.Slug),
+                    BuyinUrl = new CashgameBuyinUrl(homegame.Slug, player.Id),
+                    ReportUrl = new CashgameReportUrl(homegame.Slug, player.Id),
+                    CashoutUrl = new CashgameCashoutUrl(homegame.Slug, player.Id),
+                    EndGameUrl = new EndCashgameUrl(homegame.Slug),
                     BuyinButtonEnabled = canReport,
                     ReportButtonEnabled = canReport && isInGame,
                     CashoutButtonEnabled = isInGame,
@@ -51,11 +51,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                 };
         }
 
-        private static UrlModel GetChartDataUrl(Homegame homegame, Cashgame cashgame)
+        private static Url GetChartDataUrl(Homegame homegame, Cashgame cashgame)
         {
             if (cashgame.IsStarted)
-                return new CashgameDetailsChartJsonUrlModel(homegame.Slug, cashgame.DateString);
-            return new EmptyUrlModel();
+                return new CashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString);
+            return new EmptyUrl();
         }
 
         private string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)

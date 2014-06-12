@@ -59,11 +59,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 			    };
 		}
 
-	    private UrlModel GetStartGameUrl(string slug, bool gameIsRunning)
+	    private Url GetStartGameUrl(string slug, bool gameIsRunning)
 	    {
 	        if (gameIsRunning)
-	            return new EmptyUrlModel();
-	        return new AddCashgameUrlModel(slug);
+	            return new EmptyUrl();
+	        return new AddCashgameUrl(slug);
 	    }
     }
 }

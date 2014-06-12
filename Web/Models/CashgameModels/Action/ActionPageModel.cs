@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.Action
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
         public List<CheckpointModel> Checkpoints { get; set; }
-        public UrlModel ChartDataUrl { get; set; }
+        public Url ChartDataUrl { get; set; }
         public string Heading { get; set; }
     }
 }

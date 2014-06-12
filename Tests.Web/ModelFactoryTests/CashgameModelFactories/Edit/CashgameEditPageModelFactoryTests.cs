@@ -46,7 +46,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
 
-			Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.CancelUrl);
+			Assert.IsInstanceOf<CashgameDetailsUrl>(result.CancelUrl);
 		}
 
 		[Test]
@@ -57,7 +57,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Edit
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _locations, null);
 
-			Assert.IsInstanceOf<DeleteCashgameUrlModel>(result.DeleteUrl);
+			Assert.IsInstanceOf<DeleteCashgameUrl>(result.DeleteUrl);
 		}
 
 		[Test]

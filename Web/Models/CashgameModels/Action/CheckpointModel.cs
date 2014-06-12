@@ -8,6 +8,6 @@ namespace Web.Models.CashgameModels.Action
         public string Stack { get; set; }
         public string Timestamp { get; set; }
         public bool ShowLink { get; set; }
-        public UrlModel EditUrl { get; set; }
+        public Url EditUrl { get; set; }
     }
 }

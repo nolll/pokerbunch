@@ -38,14 +38,14 @@ namespace Web.ModelServices
 {
     public class CashgameModelService : ICashgameModelService
     {
-        public UrlModel GetIndexUrl(string slug)
+        public Url GetIndexUrl(string slug)
         {
             var year = _cashgameService.GetLatestYear(slug);
             if (year.HasValue)
             {
-                return new CashgameMatrixUrlModel(slug, year);
+                return new CashgameMatrixUrl(slug, year);
             }
-            return new AddCashgameUrlModel(slug);
+            return new AddCashgameUrl(slug);
         }
 
         public CashgameMatrixPageModel GetMatrixModel(string slug, int? year = null)

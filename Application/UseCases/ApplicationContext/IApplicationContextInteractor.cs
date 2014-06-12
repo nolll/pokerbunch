@@ -1,6 +1,4 @@
-﻿using Application.UseCases.CashgameContext;
-
-namespace Application.UseCases.ApplicationContext
+﻿namespace Application.UseCases.ApplicationContext
 {
     public interface IApplicationContextInteractor
     {

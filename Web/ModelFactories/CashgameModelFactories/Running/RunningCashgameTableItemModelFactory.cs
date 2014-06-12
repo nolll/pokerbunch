@@ -24,10 +24,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgameTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = new CashgameActionUrlModel(homegame.Slug, cashgame.DateString, player.Id),
-                    BuyinUrl = new CashgameBuyinUrlModel(homegame.Slug, player.Id),
-                    ReportUrl = new CashgameReportUrlModel(homegame.Slug, player.Id),
-                    CashoutUrl = new CashgameCashoutUrlModel(homegame.Slug, player.Id),
+                    PlayerUrl = new CashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
+                    BuyinUrl = new CashgameBuyinUrl(homegame.Slug, player.Id),
+                    ReportUrl = new CashgameReportUrl(homegame.Slug, player.Id),
+                    CashoutUrl = new CashgameCashoutUrl(homegame.Slug, player.Id),
                     Buyin = _globalization.FormatCurrency(homegame.Currency, result.Buyin),
                     Stack = _globalization.FormatCurrency(homegame.Currency, result.Stack),
                     Winnings = _globalization.FormatResult(homegame.Currency, result.Winnings),

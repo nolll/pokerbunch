@@ -53,7 +53,7 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new AddPlayerConfirmationUrlModel(slug).Relative);
+                return Redirect(new AddPlayerConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
 			var model = _playerModelService.GetAddModel(slug, postModel);
@@ -72,9 +72,9 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetDeleteCommand(slug, playerId);
             if (command.Execute())
             {
-                return Redirect(new PlayerIndexUrlModel(slug).Relative);
+                return Redirect(new PlayerIndexUrl(slug).Relative);
             }
-            return Redirect(new PlayerDetailsUrlModel(slug, playerId).Relative);
+            return Redirect(new PlayerDetailsUrl(slug, playerId).Relative);
 		}
 
         [AuthorizeManager]
@@ -91,7 +91,7 @@ namespace Web.Controllers
             var command = _playerCommandProvider.GetInviteCommand(slug, playerId, postModel);
             if (command.Execute())
             {
-                return Redirect(new InvitePlayerConfirmationUrlModel(slug, playerId).Relative);
+                return Redirect(new InvitePlayerConfirmationUrl(slug, playerId).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _playerModelService.GetInviteModel(slug, postModel);

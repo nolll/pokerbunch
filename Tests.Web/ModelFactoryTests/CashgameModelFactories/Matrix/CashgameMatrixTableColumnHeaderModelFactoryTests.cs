@@ -60,7 +60,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
             var sut = GetSut();
             var result = sut.Create(_homegame, cashgame, _showYear);
 
-            Assert.IsInstanceOf<CashgameDetailsUrlModel>(result.CashgameUrl);
+            Assert.IsInstanceOf<CashgameDetailsUrl>(result.CashgameUrl);
         }
 
         private CashgameMatrixTableColumnHeaderModelFactory GetSut()

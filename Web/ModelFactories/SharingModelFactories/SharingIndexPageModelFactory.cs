@@ -21,7 +21,7 @@ namespace Web.ModelFactories.SharingModelFactories
                     BrowserTitle = "Sharing",
                     PageProperties = _pagePropertiesFactory.Create(),
                     IsSharingToTwitter = isSharing,
-			        ShareToTwitterSettingsUrl = new TwitterSettingsUrlModel()
+			        ShareToTwitterSettingsUrl = new TwitterSettingsUrl()
                 };
         }
     }

@@ -218,199 +218,199 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
-    <Compile Include="Models\UrlModels\AddCashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddCashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddHomegameConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddHomegameConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddHomegameUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddHomegameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddPlayerConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddPlayerConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddPlayerUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddPlayerUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddUserConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddUserConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\AddUserUrlModel.cs">
+    <Compile Include="Models\UrlModels\AddUserUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameActionChartJsonUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameActionChartJsonUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameActionUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameActionUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameBuyinUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameBuyinUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameCashoutUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameCashoutUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameChartJsonUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameChartJsonUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameChartUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameChartUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameDetailsChartJsonUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameDetailsUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameDetailsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameFactsUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameFactsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameIndexUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameIndexUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameListUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameListUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameMatrixUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameMatrixUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgamePlayerUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgamePlayerUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameReportUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameReportUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\CashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\ChangePasswordConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ChangePasswordUrlModel.cs">
+    <Compile Include="Models\UrlModels\ChangePasswordUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ChartUrlModel.cs">
+    <Compile Include="Models\UrlModels\ChartUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\CheckpointUrlModel.cs">
+    <Compile Include="Models\UrlModels\CheckpointUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\DeleteCashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\DeleteCashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\DeleteCheckpointUrlModel.cs">
+    <Compile Include="Models\UrlModels\DeleteCheckpointUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\DeletePlayerUrlModel.cs">
+    <Compile Include="Models\UrlModels\DeletePlayerUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EditCashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\EditCashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EditCheckpointUrlModel.cs">
+    <Compile Include="Models\UrlModels\EditCheckpointUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EditHomegameUrlModel.cs">
+    <Compile Include="Models\UrlModels\EditHomegameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EditUserUrlModel.cs">
+    <Compile Include="Models\UrlModels\EditUserUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EmptyUrlModel.cs">
+    <Compile Include="Models\UrlModels\EmptyUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\EndCashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\EndCashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\FactsUrlModel.cs">
+    <Compile Include="Models\UrlModels\FactsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\ForgotPasswordConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ForgotPasswordUrlModel.cs">
+    <Compile Include="Models\UrlModels\ForgotPasswordUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\HomegameDetailsUrlModel.cs">
+    <Compile Include="Models\UrlModels\HomegameDetailsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\HomegameListUrlModel.cs">
+    <Compile Include="Models\UrlModels\HomegameListUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\HomegameUrlModel.cs">
+    <Compile Include="Models\UrlModels\HomegameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\HomegameWithOptionalYearUrlModel.cs">
+    <Compile Include="Models\UrlModels\HomegameWithOptionalYearUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\HomeUrlModel.cs">
+    <Compile Include="Models\UrlModels\HomeUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\InvitePlayerConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\InvitePlayerConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\InvitePlayerUrlModel.cs">
+    <Compile Include="Models\UrlModels\InvitePlayerUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\JoinHomegameConfirmationUrlModel.cs">
+    <Compile Include="Models\UrlModels\JoinHomegameConfirmationUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\JoinHomeGameUrlModel.cs">
+    <Compile Include="Models\UrlModels\JoinHomeGameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\ListUrlModel.cs">
+    <Compile Include="Models\UrlModels\ListUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\LoginUrlModel.cs">
+    <Compile Include="Models\UrlModels\LoginUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\LogoutUrlModel.cs">
+    <Compile Include="Models\UrlModels\LogoutUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\MatrixUrlModel.cs">
+    <Compile Include="Models\UrlModels\MatrixUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\PlayerDetailsUrlModel.cs">
+    <Compile Include="Models\UrlModels\PlayerDetailsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\PlayerIndexUrlModel.cs">
+    <Compile Include="Models\UrlModels\PlayerIndexUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\PlayerUrlModel.cs">
+    <Compile Include="Models\UrlModels\PlayerUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\RunningCashgameUrlModel.cs">
+    <Compile Include="Models\UrlModels\RunningCashgameUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\SharingSettingsUrlModel.cs">
+    <Compile Include="Models\UrlModels\SharingSettingsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\TopListUrlModel.cs">
+    <Compile Include="Models\UrlModels\TopListUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\TwitterCallbackUrlModel.cs">
+    <Compile Include="Models\UrlModels\TwitterCallbackUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\TwitterSettingsUrlModel.cs">
+    <Compile Include="Models\UrlModels\TwitterSettingsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\TwitterStartShareUrlModel.cs">
+    <Compile Include="Models\UrlModels\TwitterStartShareUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\TwitterStopShareUrlModel.cs">
+    <Compile Include="Models\UrlModels\TwitterStopShareUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\UrlModel.cs">
+    <Compile Include="Models\UrlModels\Url.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\UserDetailsUrlModel.cs">
+    <Compile Include="Models\UrlModels\UserDetailsUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\UserListUrlModel.cs">
+    <Compile Include="Models\UrlModels\UserListUrl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\UrlModels\UserUrlModel.cs">
+    <Compile Include="Models\UrlModels\UserUrl.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />

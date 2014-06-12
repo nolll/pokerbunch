@@ -86,7 +86,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Matrix
             var sut = GetSut();
             var result = sut.Create(_homegame, _suite, _player, totalResult, _rank);
 
-            Assert.IsInstanceOf<PlayerDetailsUrlModel>(result.PlayerUrl);
+            Assert.IsInstanceOf<PlayerDetailsUrl>(result.PlayerUrl);
         }
 
         [Test]

@@ -9,7 +9,7 @@ namespace Web.Models.HomegameModels.Edit
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
-        public UrlModel CancelUrl { get; set; }
+        public Url CancelUrl { get; set; }
         public string Heading { get; set; }
         public List<SelectListItem> CurrencyLayoutSelectItems { get; set; }
         public List<SelectListItem> TimezoneSelectItems { get; set; }
