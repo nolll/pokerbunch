@@ -1,4 +1,6 @@
-﻿using Application.UseCases.ApplicationContext;
+﻿using Application.Services;
+using Application.UseCases.ApplicationContext;
+using Core.Entities;
 using Core.Repositories;
 
 namespace Application.UseCases.BunchContext
@@ -7,25 +9,37 @@ namespace Application.UseCases.BunchContext
     {
         private readonly IApplicationContextInteractor _applicationContextInteractor;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly IAuth _auth;
 
         public BunchContextInteractor(
             IApplicationContextInteractor applicationContextInteractor,
-            IHomegameRepository homegameRepository)
+            IHomegameRepository homegameRepository,
+            IAuth auth)
         {
             _applicationContextInteractor = applicationContextInteractor;
             _homegameRepository = homegameRepository;
+            _auth = auth;
         }
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
             var applicationContextResult = _applicationContextInteractor.Execute();
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+
+            var homegame = GetBunch(request);
 
             return new BunchContextResult(
                 applicationContextResult,
-                request.Slug,
+                homegame.Slug,
                 homegame.Id,
                 homegame.DisplayName);
+        }
+
+        private Homegame GetBunch(BunchContextRequest request)
+        {
+            if (request.HasSlug)
+                return _homegameRepository.GetBySlug(request.Slug);
+            var bunches = _homegameRepository.GetByUser(_auth.CurrentUser);
+            return bunches.Count == 1 ? bunches[0] : null;
         }
     }
 }

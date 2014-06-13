@@ -1,21 +1,21 @@
 using System.Web.Mvc;
-using Web.ModelServices;
+using Web.ModelFactories.HomeModelFactories;
 
-namespace Web.Controllers{
+namespace Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly IHomePageBuilder _homePageBuilder;
 
-	public class HomeController : Controller {
-	    private readonly IHomeModelService _homeModelService;
-
-	    public HomeController(IHomeModelService homeModelService)
+        public HomeController(IHomePageBuilder homePageBuilder)
         {
-            _homeModelService = homeModelService;
+            _homePageBuilder = homePageBuilder;
         }
 
-	    public ActionResult Index()
-		{
-		    var model = _homeModelService.GetIndexModel();
-		    return View(model);
-		}
-
-	}
+        public ActionResult Index()
+        {
+            var model = _homePageBuilder.Build();
+            return View(model);
+        }
+    }
 }

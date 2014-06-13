@@ -2,8 +2,8 @@ using Web.Models.HomeModels;
 
 namespace Web.ModelFactories.HomeModelFactories
 {
-    public interface IHomePageModelFactory
+    public interface IHomePageBuilder
     {
-        HomePageModel Create();
+        HomePageModel Build();
     }
 }

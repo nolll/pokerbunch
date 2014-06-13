@@ -1,5 +1,4 @@
-﻿using Application.Services;
-using Core.Entities;
+﻿using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Details;
 using Web.Models.UrlModels;

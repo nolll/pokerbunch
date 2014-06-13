@@ -1,17 +1,26 @@
+using Application.UseCases.BunchContext;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 
 namespace Web.Models.HomeModels
 {
-    public class HomePageModel : IPageModel
+    public class HomePageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
-        public bool IsLoggedIn { get; set; }
-        public Url AddHomegameUrl { get; set; }
-        public Url LoginUrl { get; set; }
-        public Url RegisterUrl { get; set; }
-        public NavigationModel AdminNav { get; set; }
+        public bool IsLoggedIn { get; private set; }
+        public Url AddHomegameUrl { get; private set; }
+        public Url LoginUrl { get; private set; }
+        public Url RegisterUrl { get; private set; }
+        public NavigationModel AdminNav { get; private set; }
+
+        public HomePageModel(BunchContextResult bunchContextResult)
+            : base("Poker Bunch", bunchContextResult)
+        {
+			IsLoggedIn = bunchContextResult.IsLoggedIn;
+            AddHomegameUrl = new AddHomegameUrl();
+            LoginUrl = new LoginUrl();
+            RegisterUrl = new AddUserUrl();
+            AdminNav = new AdminNavigationModel(bunchContextResult);
+        }
     }
 }

@@ -130,8 +130,6 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
-    <Compile Include="ModelServices\HomeModelService.cs" />
-    <Compile Include="ModelServices\Interfaces\IHomeModelService.cs" />
     <Compile Include="ModelServices\AuthModelService.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
@@ -490,8 +488,8 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomeModelFactories\HomePageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomeModelFactories\IHomePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomeModelFactories\HomePageBuilder.cs" />
+    <Compile Include="ModelFactories\HomeModelFactories\IHomePageBuilder.cs" />
     <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />

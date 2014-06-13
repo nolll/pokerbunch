@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Application.Factories;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
@@ -11,71 +10,71 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
-namespace Tests.Infrastructure.Repositories{
-
-	public class HomegameRepositoryTests : MockContainer
-	{
+namespace Tests.Infrastructure.Repositories
+{
+    public class HomegameRepositoryTests : MockContainer
+    {
         [Test]
-		public void GetByName_NoHomegameFound_ReturnsNull()
+        public void GetByName_NoHomegameFound_ReturnsNull()
         {
             var sut = GetSut();
 
-			var result = sut.GetBySlug("anyname");
+            var result = sut.GetBySlug("anyname");
 
-			Assert.IsNull(result);
-		}
+            Assert.IsNull(result);
+        }
 
-		[Test]
-		public void GetByName_HomegameFound_ReturnsHomegame()
-		{
-		    const string slug = "a";
-		    const int id = 1;
+        [Test]
+        public void GetByName_HomegameFound_ReturnsHomegame()
+        {
+            const string slug = "a";
+            const int id = 1;
 
-		    var rawHomegame = new RawHomegame {Slug = slug, TimezoneName = "UTC"};
-		    var expectedHomegame = new HomegameInTest(slug: slug);
+            var rawHomegame = new RawHomegame { Slug = slug, TimezoneName = "UTC" };
+            var expectedHomegame = new HomegameInTest(slug: slug);
 
             GetMock<IHomegameStorage>().Setup(o => o.GetIdBySlug(slug)).Returns(id);
             GetMock<IHomegameStorage>().Setup(o => o.GetById(id)).Returns(rawHomegame);
             GetMock<IHomegameDataMapper>().Setup(o => o.Map(rawHomegame)).Returns(expectedHomegame);
 
-		    var sut = GetSut();
+            var sut = GetSut();
             var result = sut.GetBySlug(slug);
 
-			Assert.AreEqual(result.Slug, slug);
-		}
+            Assert.AreEqual(result.Slug, slug);
+        }
 
-	    [Test]
-	    public void GetByUser_HomegameStorageReturnsOneRawHomegame_ReturnsOneHomegame()
-	    {
-	        const int userId = 1;
-	        var user = new UserInTest(userId);
-	        var rawHomegames = new List<RawHomegame>{new RawHomegame()};
+        [Test]
+        public void GetByUser_HomegameStorageReturnsOneRawHomegame_ReturnsOneHomegame()
+        {
+            const int userId = 1;
+            var user = new UserInTest(userId);
+            var rawHomegames = new List<RawHomegame> { new RawHomegame() };
 
             GetMock<IHomegameStorage>().Setup(o => o.GetHomegamesByUserId(userId)).Returns(rawHomegames);
             GetMock<IHomegameDataMapper>().Setup(o => o.Map(It.IsAny<RawHomegame>())).Returns(new HomegameInTest());
 
-	        var sut = GetSut();
+            var sut = GetSut();
 
-	        var result = sut.GetByUser(user);
+            var result = sut.GetByUser(user);
 
             Assert.AreEqual(1, result.Count);
-	    }
+        }
 
-	    [Test]
-	    public void GetAll_NoHomegamesInCache_ReturnsTwoHomegamesFromDatabase()
-	    {
-	        var ids = new List<int> {1, 2};
+        [Test]
+        public void GetAll_NoHomegamesInCache_ReturnsTwoHomegamesFromDatabase()
+        {
+            var ids = new List<int> { 1, 2 };
             var homegamesFromDatabase = new List<RawHomegame> { new RawHomegame(), new RawHomegame() };
             GetMock<IHomegameStorage>().Setup(o => o.GetAllIds()).Returns(ids);
             GetMock<IHomegameStorage>().Setup(o => o.GetHomegames(ids)).Returns(homegamesFromDatabase);
             GetMock<IHomegameDataMapper>().Setup(o => o.Map(It.IsAny<RawHomegame>())).Returns(new HomegameInTest());
 
-	        var sut = GetSut();
+            var sut = GetSut();
 
-	        var result = sut.GetList();
+            var result = sut.GetList();
 
             Assert.AreEqual(2, result.Count);
-	    }
+        }
 
         // Todo: Maybe move these tests to cache tests
         /*
@@ -133,15 +132,12 @@ namespace Tests.Infrastructure.Repositories{
         private HomegameRepository GetSut()
         {
             return new HomegameRepository(
-                GetMock<IHomegameStorage>().Object, 
-                GetMock<IHomegameFactory>().Object, 
-                CacheContainer, 
+                GetMock<IHomegameStorage>().Object,
+                CacheContainer,
                 GetMock<ICacheKeyProvider>().Object,
                 GetMock<ICacheBuster>().Object,
                 GetMock<IRawHomegameFactory>().Object,
                 GetMock<IHomegameDataMapper>().Object);
         }
-
-	}
-
+    }
 }

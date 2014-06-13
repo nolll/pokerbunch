@@ -57,7 +57,6 @@ namespace Web.Plumbing
             RegisterComponent<IUrlProvider, UrlProvider>();
 
             // Model Services
-            RegisterComponent<IHomeModelService, HomeModelService>();
             RegisterComponent<IAuthModelService, AuthModelService>();
             RegisterComponent<IHomegameModelService, HomegameModelService>();
             RegisterComponent<IPlayerModelService, PlayerModelService>();
@@ -66,7 +65,7 @@ namespace Web.Plumbing
             RegisterComponent<ISharingModelService, SharingModelService>();
 
             // Page Model Factories
-            RegisterComponent<IHomePageModelFactory, HomePageModelFactory>();
+            RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>();
             RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>();
             RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>();

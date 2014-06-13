@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Factories;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
@@ -14,7 +13,6 @@ namespace Infrastructure.Data.Repositories {
 	public class HomegameRepository : IHomegameRepository
 	{
 	    private readonly IHomegameStorage _homegameStorage;
-	    private readonly IHomegameFactory _homegameFactory;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
@@ -23,7 +21,6 @@ namespace Infrastructure.Data.Repositories {
 
 	    public HomegameRepository(
             IHomegameStorage homegameStorage, 
-            IHomegameFactory homegameFactory, 
             ICacheContainer cacheContainer, 
             ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster,
@@ -31,7 +28,6 @@ namespace Infrastructure.Data.Repositories {
             IHomegameDataMapper homegameDataMapper)
 	    {
 	        _homegameStorage = homegameStorage;
-	        _homegameFactory = homegameFactory;
 	        _cacheContainer = cacheContainer;
 	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
@@ -54,10 +50,13 @@ namespace Infrastructure.Data.Repositories {
         public IList<Homegame> GetByUser(User user)
         {
             if (user == null)
-            {
                 return new List<Homegame>();
-            }
-            var rawHomegames = _homegameStorage.GetHomegamesByUserId(user.Id);
+            return GetByUserId(user.Id);
+        }
+
+	    private IList<Homegame> GetByUserId(int userId)
+        {
+            var rawHomegames = _homegameStorage.GetHomegamesByUserId(userId);
             return rawHomegames.Select(_homegameDataMapper.Map).ToList();
         }
 
