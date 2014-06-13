@@ -1,5 +1,3 @@
-using Application.UseCases.ApplicationContext;
-using Application.UseCases.CashgameContext;
 using NUnit.Framework;
 using Tests.Common.FakeClasses;
 using Web.Models.NavigationModels;

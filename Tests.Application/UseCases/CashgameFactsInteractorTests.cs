@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using Application.UseCases.CashgameFacts;
-using Core.Entities;
+﻿using Application.UseCases.CashgameFacts;
 using Core.Repositories;
-using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {

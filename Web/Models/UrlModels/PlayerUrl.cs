@@ -1,6 +1,4 @@
-﻿using Web.Services;
-
-namespace Web.Models.UrlModels
+﻿namespace Web.Models.UrlModels
 {
     public abstract class PlayerUrl : Url
     {

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Application.Services;
+﻿using Application.Services;
 using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.PlayerModelFactories;
@@ -7,7 +6,6 @@ using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
 using Web.Models.PlayerModels.List;
-using Web.Security;
 
 namespace Web.ModelServices
 {

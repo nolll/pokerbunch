@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Application.UseCases.CashgameTopList;
 using Core.Entities;
 using Core.Repositories;
