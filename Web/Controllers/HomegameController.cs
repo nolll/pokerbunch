@@ -15,15 +15,18 @@ namespace Web.Controllers
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameModelService _homegameModelService;
 	    private readonly IBunchListPageBuilder _bunchListPageBuilder;
+	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
 
 	    public HomegameController(
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameModelService homegameModelService,
-            IBunchListPageBuilder bunchListPageBuilder)
+            IBunchListPageBuilder bunchListPageBuilder,
+            IHomegameDetailsPageBuilder homegameDetailsPageBuilder)
 	    {
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameModelService = homegameModelService;
 	        _bunchListPageBuilder = bunchListPageBuilder;
+	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
 	    }
 
         [AuthorizeAdmin]
@@ -36,7 +39,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Details(string slug)
         {
-            var model = _homegameModelService.GetDetailsModel(slug);
+            var model = _homegameDetailsPageBuilder.Build(slug);
 			return View("HomegameDetails", model);
 		}
 

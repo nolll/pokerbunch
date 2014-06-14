@@ -78,7 +78,7 @@ namespace Web.Plumbing
             RegisterComponent<IPlayerListPageBuilder, PlayerListPageBuilder>();
             RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>();
             RegisterComponent<IBunchListPageBuilder, BunchListPageBuilder>();
-            RegisterComponent<IHomegameDetailsPageModelFactory, HomegameDetailsPageModelFactory>();
+            RegisterComponent<IHomegameDetailsPageBuilder, HomegameDetailsPageBuilder>();
             RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>();
             RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>();
             RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>();

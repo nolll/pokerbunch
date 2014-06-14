@@ -1,3 +1,6 @@
+using Application.Services;
+using Application.UseCases.BunchContext;
+using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -21,9 +24,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         {
             const string displayName = "a";
             var homegame = new HomegameInTest(displayName: displayName);
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.AreEqual(displayName, result.DisplayName);
 		}
@@ -33,9 +37,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		{
 		    const string houseRules = "a";
             var homegame = new HomegameInTest(houseRules: houseRules);
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.AreEqual(houseRules, result.HouseRules);
 		}
@@ -46,9 +51,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
             const string houseRules = "a\n\rb";
             const string formattedHouseRules = "a<br />\n\rb";
             var homegame = new HomegameInTest(houseRules: houseRules);
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.AreEqual(formattedHouseRules, result.HouseRules);
 		}
@@ -57,9 +63,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         public void Create_SetsEditUrl()
 		{
 		    var homegame = new HomegameInTest();
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.IsInstanceOf<EditHomegameUrl>(result.EditUrl);
 		}
@@ -69,9 +76,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 		{
 		    const string description = "a";
             var homegame = new HomegameInTest(description: description);
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.AreEqual(description, result.Description);
 		}
@@ -80,9 +88,10 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         public void Create_WithPlayerRights_DoesNotOutputEditLink()
 		{
 		    var homegame = new HomegameInTest();
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.IsFalse(result.ShowEditLink);
 		}
@@ -92,16 +101,19 @@ namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
         {
             var homegame = new HomegameInTest();
             _isInManagerMode = true;
+            var bunchContextResult = new BunchContextResultInTest();
 
 			var sut = GetSut();
-            var result = sut.Create(homegame, _isInManagerMode);
+            var result = sut.Create(bunchContextResult, homegame, _isInManagerMode);
 
 			Assert.IsTrue(result.ShowEditLink);
 		}
 
-		private HomegameDetailsPageModelFactory GetSut(){
-            return new HomegameDetailsPageModelFactory(
-                GetMock<IPagePropertiesFactory>().Object);
+		private HomegameDetailsPageBuilder GetSut(){
+            return new HomegameDetailsPageBuilder(
+                GetMock<IHomegameRepository>().Object,
+                GetMock<IAuth>().Object,
+                GetMock<IBunchContextInteractor>().Object);
 		}
 	}
 }

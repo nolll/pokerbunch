@@ -6,7 +6,6 @@ using Web.Commands.HomegameCommands;
 using Web.Controllers;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelServices;
-using Web.Models.HomegameModels.List;
 
 namespace Tests.Web.ControllerTests
 {
@@ -20,7 +19,8 @@ namespace Tests.Web.ControllerTests
             _sut = new HomegameController(
                 GetMock<IHomegameCommandProvider>().Object,
                 GetMock<IHomegameModelService>().Object,
-                GetMock<IBunchListPageBuilder>().Object);
+                GetMock<IBunchListPageBuilder>().Object,
+                GetMock<IHomegameDetailsPageBuilder>().Object);
         }
 
         [Test]

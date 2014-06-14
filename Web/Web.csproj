@@ -448,10 +448,10 @@
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameEditPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\BunchListPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IBunchListPageBuilder.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
