@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Application.Services;
 using Core.Entities;
 
-namespace Infrastructure.System{
+namespace Application.Services{
 
 	public class Globalization : IGlobalization
 	{
@@ -95,10 +94,15 @@ namespace Infrastructure.System{
             return date.ToString(GetShortDateTimeFormat(includeYear), CultureInfo.InvariantCulture);
 		}
 
-		public string FormatTime(DateTime date)
+		public string FormatTime(DateTime dateTime)
 		{
-            return date.ToString("HH:mm", CultureInfo.InvariantCulture);
+		    return FormatTimeStatic(dateTime);
 		}
+
+        public static string FormatTimeStatic(DateTime dateTime)
+        {
+            return dateTime.ToString("HH:mm", CultureInfo.InvariantCulture);
+        }
 
 		public string FormatIsoDate(DateTime date)
 		{

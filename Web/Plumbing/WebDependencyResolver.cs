@@ -116,7 +116,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>();
             RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>();
             RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>();
-            RegisterComponent<ICheckpointModelFactory, CheckpointModelFactory>();
             RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
             RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();

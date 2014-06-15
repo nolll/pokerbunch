@@ -142,8 +142,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\CheckpointModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\ICheckpointModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsTableModelFactory.cs" />

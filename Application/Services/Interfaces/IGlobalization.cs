@@ -17,7 +17,7 @@ namespace Application.Services
         string FormatDuration(TimeSpan timeSpan);
         string FormatTimespan(TimeSpan timeSpan);
         string FormatShortDate(DateTime date, bool includeYear = false);
-        string FormatTime(DateTime date);
+        string FormatTime(DateTime dateTime);
         string FormatIsoDate(DateTime date);
         string FormatIsoDateTime(DateTime date);
         IList<TimeZoneInfo> GetTimezones();

@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using Application.Services;
 using Application.UseCases.Actions;
 using Application.UseCases.CashgameContext;
 using Core.Entities;
-using Core.Entities.Checkpoints;
-using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.UrlModels;
 
 namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
 {
@@ -77,12 +70,6 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         private ActionPageBuilder GetSut()
         {
             return new ActionPageBuilder(
-                GetMock<ICheckpointModelFactory>().Object,
-                GetMock<IGlobalization>().Object,
-                GetMock<IHomegameRepository>().Object,
-                GetMock<ICashgameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
-                GetMock<IAuth>().Object,
                 GetMock<ICashgameContextInteractor>().Object,
                 GetMock<IActionsInteractor>().Object);
         }
