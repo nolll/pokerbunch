@@ -96,6 +96,10 @@
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
+    <Compile Include="UseCases\Actions\ActionsRequest.cs" />
+    <Compile Include="UseCases\Actions\ActionsResult.cs" />
+    <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
     <Compile Include="UseCases\ApplicationContext\ApplicationContextInteractor.cs" />
     <Compile Include="UseCases\ApplicationContext\IApplicationContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />

@@ -98,7 +98,7 @@
     <Compile Include="ModelFactoryTests\ChartModelFactories\ChartValueModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\HomegameModelFactories\BunchListItemModelTests.cs" />
-    <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageModelFactoryTests.cs" />
+    <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageBuilderTests.cs" />
     <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
     <Compile Include="ModelFactoryTests\PlayerModelFactories\PlayerItemModelFactoryTests.cs" />
     <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />

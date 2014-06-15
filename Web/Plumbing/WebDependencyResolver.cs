@@ -80,7 +80,7 @@ namespace Web.Plumbing
             RegisterComponent<IBunchListPageBuilder, BunchListPageBuilder>();
             RegisterComponent<IHomegameDetailsPageBuilder, HomegameDetailsPageBuilder>();
             RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>();
-            RegisterComponent<IActionPageModelFactory, ActionPageModelFactory>();
+            RegisterComponent<IActionPageBuilder, ActionPageBuilder>();
             RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>();
             RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>();
             RegisterComponent<ICashgameChartPageModelFactory, CashgameChartPageModelFactory>();

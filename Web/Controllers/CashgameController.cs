@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Services.Interfaces;
 using Web.Commands.CashgameCommands;
+using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelServices;
@@ -23,19 +24,22 @@ namespace Web.Controllers
 	    private readonly ICashgameModelService _cashgameModelService;
 	    private readonly IToplistPageBuilder _toplistPageBuilder;
 	    private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
+	    private readonly IActionPageBuilder _actionPageBuilder;
 
 	    public CashgameController(
             ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
             ICashgameModelService cashgameModelService,
             IToplistPageBuilder toplistPageBuilder,
-            ICashgameFactsPageBuilder cashgameFactsPageBuilder)
+            ICashgameFactsPageBuilder cashgameFactsPageBuilder,
+            IActionPageBuilder actionPageBuilder)
 	    {
 	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _cashgameModelService = cashgameModelService;
 	        _toplistPageBuilder = toplistPageBuilder;
 	        _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
+	        _actionPageBuilder = actionPageBuilder;
 	    }
 
         [AuthorizePlayer]
@@ -157,7 +161,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
-            var model = _cashgameModelService.GetActionModel(slug, dateStr, playerId);
+            var model = _actionPageBuilder.Build(slug, dateStr, playerId);
 			return View("Action/Action", model);
 		}
 

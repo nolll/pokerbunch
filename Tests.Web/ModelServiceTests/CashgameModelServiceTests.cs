@@ -99,7 +99,7 @@ namespace Tests.Web.ModelServiceTests
                 GetMock<ICashgameListPageModelFactory>().Object,
                 GetMock<ICashgameChartPageModelFactory>().Object,
                 GetMock<ICashgameSuiteChartModelFactory>().Object,
-                GetMock<IActionPageModelFactory>().Object,
+                GetMock<IActionPageBuilder>().Object,
                 GetMock<IActionChartModelFactory>().Object,
                 GetMock<IBuyinPageModelFactory>().Object,
                 GetMock<IReportPageModelFactory>().Object,

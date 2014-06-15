@@ -5,12 +5,11 @@ using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;
 
 namespace Tests.Web.ModelFactoryTests.HomegameModelFactories
 {
-	public class HomegameDetailsPageModelFactoryTests : MockContainer
+	public class HomegameDetailsPageBuilderTests : MockContainer
     {
 		private bool _isInManagerMode;
 

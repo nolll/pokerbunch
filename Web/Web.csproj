@@ -419,7 +419,7 @@
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegamePageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\AddPlayerConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\AddPlayerPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Add\AddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\CashgameEditPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\End\EndPageModelFactory.cs" />
@@ -436,7 +436,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Facts\CashgameFactsPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Toplist\ToplistPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListPageModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionPageModelFactory.cs" />
+    <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Add\IAddCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsPageModelFactory.cs" />

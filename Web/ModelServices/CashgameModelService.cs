@@ -18,7 +18,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
@@ -132,16 +131,6 @@ namespace Web.ModelServices
             return _cashgameSuiteChartModelFactory.Create(suite);
         }
 
-        public ActionPageModel GetActionModel(string slug, string dateStr, int playerId)
-        {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-            var player = _playerRepository.GetById(playerId);
-            var result = cashgame.GetResult(player.Id);
-            var role = _auth.GetRole(slug);
-            return _actionPageModelFactory.Create(homegame, cashgame, player, result, role);
-        }
-
         public ChartModel GetActionChartJsonModel(string slug, string dateStr, int playerId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
@@ -213,7 +202,7 @@ namespace Web.ModelServices
         private readonly ICashgameListPageModelFactory _cashgameListPageModelFactory;
         private readonly ICashgameChartPageModelFactory _cashgameChartPageModelFactory;
         private readonly ICashgameSuiteChartModelFactory _cashgameSuiteChartModelFactory;
-        private readonly IActionPageModelFactory _actionPageModelFactory;
+        private readonly IActionPageBuilder _actionPageBuilder;
         private readonly IActionChartModelFactory _actionChartModelFactory;
         private readonly IBuyinPageModelFactory _buyinPageModelFactory;
         private readonly IReportPageModelFactory _reportPageModelFactory;
@@ -238,7 +227,7 @@ namespace Web.ModelServices
             ICashgameListPageModelFactory cashgameListPageModelFactory,
             ICashgameChartPageModelFactory cashgameChartPageModelFactory,
             ICashgameSuiteChartModelFactory cashgameSuiteChartModelFactory,
-            IActionPageModelFactory actionPageModelFactory,
+            IActionPageBuilder actionPageBuilder,
             IActionChartModelFactory actionChartModelFactory,
             IBuyinPageModelFactory buyinPageModelFactory,
             IReportPageModelFactory reportPageModelFactory,
@@ -262,7 +251,7 @@ namespace Web.ModelServices
             _cashgameListPageModelFactory = cashgameListPageModelFactory;
             _cashgameChartPageModelFactory = cashgameChartPageModelFactory;
             _cashgameSuiteChartModelFactory = cashgameSuiteChartModelFactory;
-            _actionPageModelFactory = actionPageModelFactory;
+            _actionPageBuilder = actionPageBuilder;
             _actionChartModelFactory = actionChartModelFactory;
             _buyinPageModelFactory = buyinPageModelFactory;
             _reportPageModelFactory = reportPageModelFactory;
