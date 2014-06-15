@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
+using Application.Urls;
 using Application.UseCases.Actions;
 using Application.UseCases.CashgameContext;
 using Core.Entities;
@@ -62,7 +63,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     PageProperties = new PageProperties(cashgameContextResult),
                     Heading = heading,
                     Checkpoints = GetCheckpointModels(homegame, cashgame, result, player, role),
-                    ChartDataUrl = new CashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.Id)
+                    ChartDataUrl = actionsResult.ChartDataUrl
                 };
         }
 

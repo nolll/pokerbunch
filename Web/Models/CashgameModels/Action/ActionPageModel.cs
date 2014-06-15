@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.Urls;
 using Web.Models.PageBaseModels;
 using Web.Models.UrlModels;
 

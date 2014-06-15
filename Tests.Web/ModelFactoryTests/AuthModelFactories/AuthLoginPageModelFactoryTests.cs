@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.Urls;
 using Application.UseCases.ApplicationContext;
 using NUnit.Framework;
 using Tests.Common;

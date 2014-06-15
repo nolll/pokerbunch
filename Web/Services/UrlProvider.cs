@@ -1,6 +1,6 @@
 ﻿using Application.Services;
+using Application.Urls;
 using Web.Models.UrlModels;
-using Web.Routing;
 
 namespace Web.Services
 {
@@ -34,7 +34,7 @@ namespace Web.Services
         /* leave for now */
         public string GetTwitterCallbackUrl()
         {
-            return new TwitterCallbackUrl().Absolute;
+            return new TwitterCallbackUrl().Absolute();
         }
     }
 }

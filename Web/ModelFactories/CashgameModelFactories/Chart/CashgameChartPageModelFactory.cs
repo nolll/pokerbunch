@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Application.Urls;
 using Core.Entities;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;

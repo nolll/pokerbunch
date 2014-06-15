@@ -1,5 +1,6 @@
 using System;
 using Application.Services;
+using Application.Urls;
 using Core.Entities;
 using Moq;
 using NUnit.Framework;

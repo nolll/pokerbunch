@@ -2,6 +2,7 @@
 using System.Web;
 using Application.Exceptions;
 using Application.Services;
+using Application.Urls;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;

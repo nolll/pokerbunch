@@ -1,4 +1,5 @@
-﻿using Application.UseCases.UserList;
+﻿using Application.Urls;
+using Application.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Models.UrlModels;

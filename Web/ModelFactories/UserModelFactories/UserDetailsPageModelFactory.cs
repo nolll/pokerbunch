@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Application.Urls;
+using Core.Entities;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UrlModels;

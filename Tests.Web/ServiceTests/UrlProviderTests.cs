@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.Urls;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Models.UrlModels;
@@ -21,7 +22,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new HomeUrl();
 
-            Assert.AreEqual("http://pokerbunch.lan/", result.Absolute);
+            Assert.AreEqual("http://pokerbunch.lan/", result.Absolute());
         }
 
         [Test]

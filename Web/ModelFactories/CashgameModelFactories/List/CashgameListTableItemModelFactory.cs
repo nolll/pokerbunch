@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.Urls;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
 using Web.Models.UrlModels;

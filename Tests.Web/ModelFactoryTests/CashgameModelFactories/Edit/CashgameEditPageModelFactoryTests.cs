@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Services;
+using Application.Urls;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;

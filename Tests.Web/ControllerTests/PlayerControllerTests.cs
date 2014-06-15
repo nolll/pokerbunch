@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using Application.Urls;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;

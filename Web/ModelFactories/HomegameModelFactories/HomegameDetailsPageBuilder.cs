@@ -1,10 +1,10 @@
 ﻿using Application.Services;
+using Application.Urls;
 using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.HomegameModels.Details;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {

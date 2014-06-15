@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Application.Urls;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
 using Web.Models.UrlModels;
