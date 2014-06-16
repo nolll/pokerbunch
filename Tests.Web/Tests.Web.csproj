@@ -69,38 +69,6 @@
     <Compile Include="ControllerTests\UserControllerTests.cs" />
     <Compile Include="ControllerTests\HomegameControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />
-    <Compile Include="ModelFactoryTests\AuthModelFactories\AuthLoginPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Action\ActionPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Add\AddCashgamePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Buyin\BuyinPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Cashout\CashoutPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Chart\CashgameChartPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Details\CashgameDetailsTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Edit\CashgameEditPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Facts\CashgameFactsPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListPageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\List\CashgameListTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\BarModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgamePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Running\RunningCashgameTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistPageBuilderTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableItemModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\CashgameModelFactories\Toplist\CashgameToplistTableModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\ChartModelFactories\ChartValueModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\HomegameModelFactories\AddHomegamePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\HomegameModelFactories\BunchListItemModelTests.cs" />
-    <Compile Include="ModelFactoryTests\HomegameModelFactories\HomegameDetailsPageBuilderTests.cs" />
-    <Compile Include="ModelFactoryTests\HomeModelFactories\HomePageModelFactoryTests.cs" />
-    <Compile Include="ModelFactoryTests\PlayerModelFactories\PlayerItemModelFactoryTests.cs" />
-    <Compile Include="ModelServiceTests\CashgameModelServiceTests.cs" />
     <Compile Include="ModelTests\NavigationModels\AdminNavigationModelTests.cs" />
     <Compile Include="ModelTests\UserModels\UserListItemsModelTests.cs" />
     <Compile Include="PageBuilderTests\BunchListPageBuilderTests.cs" />
@@ -141,9 +109,7 @@
       <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModelFactoryTests\NavigationModelFactories\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
