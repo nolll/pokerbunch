@@ -1,5 +1,5 @@
 using Application.UseCases.Actions;
-using Application.UseCases.CashgameContext;
+using Application.UseCases.BunchContext;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
@@ -70,7 +70,7 @@ namespace Tests.Web.ModelFactoryTests.CashgameModelFactories.Action
         private ActionPageBuilder GetSut()
         {
             return new ActionPageBuilder(
-                GetMock<ICashgameContextInteractor>().Object,
+                GetMock<IBunchContextInteractor>().Object,
                 GetMock<IActionsInteractor>().Object);
         }
     }

@@ -26,7 +26,7 @@ namespace Application.UseCases.BunchContext
             var applicationContextResult = _applicationContextInteractor.Execute();
 
             var homegame = GetBunch(request);
-
+            
             return new BunchContextResult(
                 applicationContextResult,
                 homegame.Slug,

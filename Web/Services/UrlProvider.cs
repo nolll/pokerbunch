@@ -6,13 +6,6 @@ namespace Web.Services
 {
     public class UrlProvider : IUrlProvider
     {
-        private readonly ISettings _settings;
-
-        public UrlProvider(ISettings settings)
-        {
-            _settings = settings;
-        }
-
         /* leave for now */
         public string GetLoginUrl()
         {

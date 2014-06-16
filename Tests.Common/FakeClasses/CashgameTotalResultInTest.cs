@@ -5,19 +5,19 @@ namespace Tests.Common.FakeClasses
     public class CashgameTotalResultInTest : CashgameTotalResult
     {
         public CashgameTotalResultInTest(
-            int winnings = default(int),
-            int gameCount = default(int),
-            int timePlayed = default(int),
-            int winRate = default(int),
+            int winnings = 0,
+            int gameCount = 0,
+            int timePlayed = 0,
+            int winRate = 0,
             Player player = null,
-            int buyin = default(int),
-            int cashout = default(int))
+            int buyin = 0,
+            int cashout = 0)
             : base(
                 winnings, 
                 gameCount, 
                 timePlayed, 
                 winRate, 
-                player,
+                player ?? new PlayerInTest(),
                 buyin,
                 cashout)
         {

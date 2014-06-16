@@ -83,11 +83,16 @@ namespace Application.Services{
             }
             return minutes + " minutes";
         }
-        
+
         public string FormatShortDate(DateTime date, bool includeYear = false)
-		{
+        {
+            return FormatShortDateStatic(date, includeYear);
+        }
+
+        public static string FormatShortDateStatic(DateTime date, bool includeYear = false)
+        {
             return date.ToString(GetShortDateFormat(includeYear), CultureInfo.InvariantCulture);
-		}
+        }
 
 		public string FormatShortDateTime(DateTime date, bool includeYear = false)
 		{
@@ -135,12 +140,12 @@ namespace Application.Services{
 		        };
 		}
 
-        private string GetShortDateFormat(bool includeYear = false)
+        private static string GetShortDateFormat(bool includeYear = false)
         {
             return includeYear ? "MMM d yyyy" : "MMM d";
         }
 
-        private string GetShortDateTimeFormat(bool includeYear = false)
+        private static string GetShortDateTimeFormat(bool includeYear = false)
         {
             return includeYear ? "MMM d yyyy HH:mm" : "MMM d HH:mm";
         }

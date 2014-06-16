@@ -56,7 +56,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         {
             if (cashgame.IsStarted)
                 return new CashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString);
-            return new EmptyUrl();
+            return Url.Empty;
         }
 
         private string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)

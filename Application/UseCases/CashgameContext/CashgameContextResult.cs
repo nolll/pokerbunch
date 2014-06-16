@@ -16,7 +16,7 @@ namespace Application.UseCases.CashgameContext
             IList<int> years,
             int? selectedYear,
             int? latestYear)
-            : base(
+            : this(
             bunchContextResult.IsLoggedIn,
             bunchContextResult.IsAdmin,
             bunchContextResult.UserName,
@@ -25,12 +25,12 @@ namespace Application.UseCases.CashgameContext
             bunchContextResult.Version,
             bunchContextResult.Slug,
             bunchContextResult.BunchId,
-            bunchContextResult.BunchName)
+            bunchContextResult.BunchName,
+            gameIsRunning,
+            years,
+            selectedYear,
+            latestYear)
         {
-            GameIsRunning = gameIsRunning;
-            Years = years;
-            SelectedYear = selectedYear;
-            LatestYear = latestYear;
         }
 
         protected CashgameContextResult(

@@ -166,6 +166,7 @@
     <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
     <Compile Include="UseCases\Actions\ActionsRequest.cs" />
     <Compile Include="UseCases\Actions\ActionsResult.cs" />
+    <Compile Include="UseCases\Actions\CheckpointItem.cs" />
     <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
     <Compile Include="UseCases\ApplicationContext\ApplicationContextInteractor.cs" />
     <Compile Include="UseCases\ApplicationContext\IApplicationContextInteractor.cs" />

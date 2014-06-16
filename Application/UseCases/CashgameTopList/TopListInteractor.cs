@@ -70,11 +70,5 @@ namespace Application.UseCases.CashgameTopList
                     return items.OrderByDescending(o => o.Winnings).ToList();
             }
         }
-
-        private string GetPlayerName(IEnumerable<Player> players, int id)
-        {
-            var player = players.FirstOrDefault(o => o.Id == id);
-            return player != null ? player.DisplayName : "";
-        }
     }
 }

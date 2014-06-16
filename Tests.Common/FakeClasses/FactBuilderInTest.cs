@@ -6,25 +6,25 @@ namespace Tests.Common.FakeClasses
     public class FactBuilderInTest : FactBuilder
     {
         public FactBuilderInTest(
-            int gameCount = default(int),
-            CashgameResult bestResult = default(CashgameResult),
-            CashgameResult worstResult = default(CashgameResult),
-            CashgameTotalResult bestTotalResult = default(CashgameTotalResult),
-            CashgameTotalResult worstTotalResult = default(CashgameTotalResult),
-            CashgameTotalResult mostTimeResult = default(CashgameTotalResult),
-            CashgameTotalResult biggestBuyinTotalResult = default(CashgameTotalResult),
-            CashgameTotalResult biggestCashoutTotalResult = default(CashgameTotalResult),
-            int totalGameTime = default(int),
-            int totalTurnover = default(int)) : 
+            int gameCount = 0,
+            CashgameResult bestResult = null,
+            CashgameResult worstResult = null,
+            CashgameTotalResult bestTotalResult = null,
+            CashgameTotalResult worstTotalResult = null,
+            CashgameTotalResult mostTimeResult = null,
+            CashgameTotalResult biggestBuyinTotalResult = null,
+            CashgameTotalResult biggestCashoutTotalResult = null,
+            int totalGameTime = 0,
+            int totalTurnover = 0) : 
                 base(
                 gameCount,
-                bestResult,
-                worstResult,
-                bestTotalResult,
-                worstTotalResult,
-                mostTimeResult,
-                biggestBuyinTotalResult,
-                biggestCashoutTotalResult,
+                bestResult ?? new CashgameResultInTest(),
+                worstResult ?? new CashgameResultInTest(),
+                bestTotalResult ?? new CashgameTotalResultInTest(),
+                worstTotalResult ?? new CashgameTotalResultInTest(),
+                mostTimeResult ?? new CashgameTotalResultInTest(),
+                biggestBuyinTotalResult ?? new CashgameTotalResultInTest(),
+                biggestCashoutTotalResult ?? new CashgameTotalResultInTest(),
                 totalGameTime,
                 totalTurnover)
         {

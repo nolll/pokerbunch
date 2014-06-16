@@ -1,20 +1,19 @@
-using Application.Services;
 using Application.Urls;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Tests.Web.ServiceTests
 {
     public class UrlProviderTests : MockContainer
     {
         [Test]
-        public void HomeUrl_Relative_UrlIsRelative()
+        public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()
         {
             var result = new HomeUrl();
             
             Assert.AreEqual("/", result.Relative);
+            Assert.IsFalse(result.IsEmpty());
         }
 
         [Test]
@@ -568,10 +567,12 @@ namespace Tests.Web.ServiceTests
             Assert.AreEqual("/a/cashgame/running", result.Relative);
         }
 
-        private UrlProvider GetSut()
+        [Test]
+        public void EmptyUrl_IsEmptyIsTrue()
         {
-            return new UrlProvider(
-                GetMock<ISettings>().Object);
+            var result = Url.Empty;
+
+            Assert.IsTrue(result.IsEmpty());
         }
     }
 }

@@ -27,6 +27,11 @@ namespace Application.UseCases.CashgameFacts
             var cashgames = _cashgameRepository.GetPublished(homegame, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
+            return GetFactsResult(homegame, factBuilder);
+        }
+
+        public CashgameFactsResult GetFactsResult(Homegame homegame, FactBuilder factBuilder)
+        {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);
             var turnover = new Money(factBuilder.TotalTurnover, homegame.Currency);
@@ -39,18 +44,18 @@ namespace Application.UseCases.CashgameFacts
             var biggestTotalCashout = GetBiggestTotalCashout(factBuilder, homegame.Currency);
 
             return new CashgameFactsResult
-                {
-                    GameCount = gameCount,
-                    TotalTimePlayed = timePlayed,
-                    Turnover = turnover,
-                    BestResult = bestResult,
-                    WorstResult = worstResult,
-                    BestTotalResult = bestTotalResult,
-                    WorstTotalResult = worstTotalResult,
-                    MostTimePlayed = mostTimeResult,
-                    BiggestBuyin = biggestTotalBuyin,
-                    BiggestCashout = biggestTotalCashout
-                };
+            {
+                GameCount = gameCount,
+                TotalTimePlayed = timePlayed,
+                Turnover = turnover,
+                BestResult = bestResult,
+                WorstResult = worstResult,
+                BestTotalResult = bestTotalResult,
+                WorstTotalResult = worstTotalResult,
+                MostTimePlayed = mostTimeResult,
+                BiggestBuyin = biggestTotalBuyin,
+                BiggestCashout = biggestTotalCashout
+            };
         }
 
         private MoneyFact GetBestResult(FactBuilder facts, Currency currency)

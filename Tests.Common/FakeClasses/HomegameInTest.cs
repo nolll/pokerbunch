@@ -6,40 +6,24 @@ namespace Tests.Common.FakeClasses
     public class HomegameInTest : Homegame
     {
         public HomegameInTest(
-            int id = default(int),
-            string slug = default(string),
-            string displayName = default(string),
-            string description = default(string),
-            string houseRules = default(string),
-            TimeZoneInfo timezone = default(TimeZoneInfo),
-            int defaultBuyin = default(int),
-            Currency currency = default(Currency)
+            int id = 0,
+            string slug = "",
+            string displayName = "",
+            string description = "",
+            string houseRules = "",
+            TimeZoneInfo timezone = null,
+            int defaultBuyin = 0,
+            Currency currency = null
             ) : base(
                 id,
                 slug,
                 displayName,
                 description,
                 houseRules,
-                timezone ?? DefaultTimezone,
+                timezone ?? TimeZoneInfo.Utc,
                 defaultBuyin,
-                currency ?? DefaultCurrency)
+                currency ?? new Currency("$", "{SYMBOL}{AMOUNT}"))
         {
-        }
-
-        private static TimeZoneInfo DefaultTimezone
-        {
-            get
-            {
-                return TimeZoneInfo.Utc;
-            }
-        }
-
-        private static Currency DefaultCurrency
-        {
-            get
-            {
-                return new Currency("$", "{SYMBOL}{AMOUNT}");
-            }
         }
     }
 }

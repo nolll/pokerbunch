@@ -8,25 +8,25 @@ namespace Tests.Common.FakeClasses
     public class CashgameResultInTest : CashgameResult
     {
         public CashgameResultInTest(
-            int playerId = default(int),
-            int buyin = default(int),
-            int winnings = default(int),
-            IList<Checkpoint> checkpoints = default(IList<Checkpoint>),
-            DateTime? buyinTime = default(DateTime?),
-            DateTime? cashoutTime = default(DateTime?),
-            int playedTime = default(int),
-            int stack = default(int),
-            DateTime? lastReportTime = default(DateTime?), 
-            Checkpoint cashoutCheckpoint = default(Checkpoint))
+            int playerId = 0,
+            int buyin = 0,
+            int winnings = 0,
+            IList<Checkpoint> checkpoints = null,
+            DateTime? buyinTime = null,
+            DateTime? cashoutTime = null,
+            int playedTime = 0,
+            int stack = 0,
+            DateTime? lastReportTime = null, 
+            Checkpoint cashoutCheckpoint = null)
             : base(
                 playerId,
                 buyin, 
                 winnings, 
                 checkpoints ?? new List<Checkpoint>(), 
-                buyinTime, 
+                buyinTime,
                 cashoutTime, 
                 playedTime, 
-                stack, 
+                stack,
                 lastReportTime, 
                 cashoutCheckpoint)
         {

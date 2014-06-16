@@ -14,13 +14,16 @@ namespace Application.UseCases.BunchContext
             int bunchId,
             string bunchName)
 
-            : base(
-                applicationContextResult.IsLoggedIn,
-                applicationContextResult.IsAdmin,
-                applicationContextResult.UserName,
-                applicationContextResult.UserDisplayName,
-                applicationContextResult.IsInProduction,
-                applicationContextResult.Version)
+            : this(
+            applicationContextResult.IsLoggedIn,
+            applicationContextResult.IsAdmin,
+            applicationContextResult.UserName,
+            applicationContextResult.UserDisplayName,
+            applicationContextResult.IsInProduction,
+            applicationContextResult.Version,
+            slug,
+            bunchId,
+            bunchName)
         {
             Slug = slug;
             BunchId = bunchId;

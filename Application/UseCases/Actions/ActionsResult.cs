@@ -1,13 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Urls;
+using Core.Entities;
 
 namespace Application.UseCases.Actions
 {
     public class ActionsResult
     {
-        public string Date { get; set; }
-        public string PlayerName { get; set; }
-        public Url ChartDataUrl { get; set; }
-        public IList<CheckpointItem> CheckpointItems { get; set; }
+        public DateTime Date { get; private set; }
+        public string PlayerName { get; private set; }
+        public Url ChartDataUrl { get; private set; }
+        public IList<CheckpointItem> CheckpointItems { get; private set; }
+
+        public ActionsResult(Homegame homegame, Cashgame cashgame, Player player, Role role, CashgameResult playerResult)
+        {
+            var chartDataUrl = new CashgameActionChartJsonUrl(homegame.Slug, cashgame.DateString, player.Id);
+            var checkpointItems = playerResult.Checkpoints.Select(o => new CheckpointItem(homegame, cashgame, player, role, o)).ToList();
+
+            Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
+            PlayerName = player.DisplayName;
+            ChartDataUrl = chartDataUrl;
+            CheckpointItems = checkpointItems;
+        }
     }
 }
