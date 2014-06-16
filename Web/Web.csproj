@@ -130,15 +130,11 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="ModelServices\Interfaces\ISharingModelService.cs" />
     <Compile Include="ModelServices\SharingModelService.cs" />
-    <Compile Include="ModelServices\AuthModelService.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
     <Compile Include="Commands\UserCommands\ForgotPasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\HomegameCommandProvider.cs" />
-    <Compile Include="ModelServices\Interfaces\IAuthModelService.cs" />
-    <Compile Include="ModelServices\HomegameModelService.cs" />
-    <Compile Include="ModelServices\Interfaces\IHomegameModelService.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableModelFactory.cs" />
@@ -187,7 +183,7 @@
     <Compile Include="ModelServices\PlayerModelService.cs" />
     <Compile Include="ModelServices\UserModelService.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
-    <Compile Include="Models\AuthModels\AuthLoginPostModel.cs" />
+    <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
@@ -219,10 +215,10 @@
     </Compile>
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegameConfirmationPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegamePageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegameConfirmationPageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegamePageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\AddPlayerConfirmationPageModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\AddPlayerPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionPageBuilder.cs" />
@@ -251,14 +247,14 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\HomegameEditPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegameConfirmationPageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\AddHomegamePageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\EditHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\HomegameDetailsPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\BunchListPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegameConfirmationPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IHomegameEditPageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IEditHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IBunchListPageBuilder.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
@@ -286,17 +282,17 @@
     <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
-    <Compile Include="ModelFactories\AuthModelFactories\AuthLoginPageModelFactory.cs" />
+    <Compile Include="ModelFactories\AuthModelFactories\LoginPageBuilder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelFactories\AuthModelFactories\IAuthLoginPageModelFactory.cs" />
+    <Compile Include="ModelFactories\AuthModelFactories\ILoginPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageModelFactory.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageModelFactory.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\HomePageBuilder.cs" />
     <Compile Include="ModelFactories\HomeModelFactories\IHomePageBuilder.cs" />
-    <Compile Include="Models\AuthModels\AuthLoginPageModel.cs" />
+    <Compile Include="Models\AuthModels\LoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />

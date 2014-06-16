@@ -3,16 +3,16 @@ using Web.Models.HomegameModels.Add;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class AddHomegameConfirmationPageModelFactory : IAddHomegameConfirmationPageModelFactory
+    public class AddHomegameConfirmationPageBuilder : IAddHomegameConfirmationPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
 
-        public AddHomegameConfirmationPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public AddHomegameConfirmationPageBuilder(IPagePropertiesFactory pagePropertiesFactory)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
         }
 
-        public AddHomegameConfirmationPageModel Create()
+        public AddHomegameConfirmationPageModel Build()
         {
             return new AddHomegameConfirmationPageModel
                 {

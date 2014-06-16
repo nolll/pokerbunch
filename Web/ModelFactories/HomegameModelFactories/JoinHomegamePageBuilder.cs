@@ -1,20 +1,27 @@
 using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Join;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class JoinHomegamePageModelFactory : IJoinHomegamePageModelFactory
+    public class JoinHomegamePageBuilder : IJoinHomegamePageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IHomegameRepository _homegameRepository;
 
-        public JoinHomegamePageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public JoinHomegamePageBuilder(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IHomegameRepository homegameRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _homegameRepository = homegameRepository;
         }
 
-        private JoinHomegamePageModel Create(Homegame homegame)
+        private JoinHomegamePageModel Build(string slug)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+
             return new JoinHomegamePageModel
                 {
                     BrowserTitle = "Join Bunch",
@@ -23,9 +30,9 @@ namespace Web.ModelFactories.HomegameModelFactories
                 };
         }
 
-        public JoinHomegamePageModel Create(Homegame homegame, JoinHomegamePostModel postModel)
+        public JoinHomegamePageModel Build(string slug, JoinHomegamePostModel postModel)
         {
-            var model = Create(homegame);
+            var model = Build(slug);
             if (postModel != null)
             {
                 model.Code = postModel.Code;

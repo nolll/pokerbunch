@@ -2,20 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
-using Application.Urls;
-using Core.Entities;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.HomegameModels.Edit;
-using Web.Models.UrlModels;
+using Web.Models.HomegameModels.Add;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class HomegameEditPageModelFactory : IHomegameEditPageModelFactory
+    public class AddHomegamePageBuilder : IAddHomegamePageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
 
-        public HomegameEditPageModelFactory(
+        public AddHomegamePageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             IGlobalization globalization)
         {
@@ -23,35 +20,23 @@ namespace Web.ModelFactories.HomegameModelFactories
             _globalization = globalization;
         }
 
-        private HomegameEditPageModel Create(Homegame homegame)
+        private AddHomegamePageModel Create()
         {
-            var currency = homegame.Currency;
-
-            return new HomegameEditPageModel
+            return new AddHomegamePageModel
                 {
-                    BrowserTitle = "Edit Homegame",
-		            PageProperties = _pagePropertiesFactory.Create(homegame),
-			        CancelUrl = new HomegameDetailsUrl(homegame.Slug),
-		            Heading = string.Format("{0} Settings", homegame.DisplayName),
-			        Description = homegame.Description,
-			        HouseRules = homegame.HouseRules,
-			        DefaultBuyin = homegame.DefaultBuyin,
-                    TimeZone = homegame.Timezone.Id,
+                    BrowserTitle = "Create Homegame",
+                    PageProperties = _pagePropertiesFactory.Create(),
                     TimezoneSelectItems = GetTimezoneSelectModel(),
-                    CurrencySymbol = currency.Symbol,
-			        CurrencyLayout = homegame.Currency.Layout,
-			        CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
-			        //CashgamesEnabled = homegame.CashgamesEnabled,
-			        //TournamentsEnabled = homegame.TournamentsEnabled,
-			        //VideosEnabled = homegame.VideosEnabled
+                    CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
                 };
         }
 
-        public HomegameEditPageModel Create(Homegame homegame, HomegameEditPostModel postModel)
+        public AddHomegamePageModel Build(AddHomegamePostModel postModel)
         {
-            var model = Create(homegame);
+            var model = Create();
             if (postModel != null)
             {
+                model.DisplayName = postModel.DisplayName;
                 model.Description = postModel.Description;
                 model.TimeZone = postModel.TimeZone;
                 model.CurrencySymbol = postModel.CurrencySymbol;

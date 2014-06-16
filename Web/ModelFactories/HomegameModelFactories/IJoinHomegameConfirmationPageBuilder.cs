@@ -3,8 +3,8 @@ using Web.Models.HomegameModels.Join;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public interface IJoinHomegameConfirmationPageModelFactory
+    public interface IJoinHomegameConfirmationPageBuilder
     {
-        JoinHomegameConfirmationPageModel Create(Homegame homegame);
+        JoinHomegameConfirmationPageModel Build(string slug);
     }
 }

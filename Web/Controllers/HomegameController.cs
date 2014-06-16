@@ -2,11 +2,9 @@ using System.Web.Mvc;
 using Application.Urls;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelServices;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
-using Web.Models.UrlModels;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
@@ -14,20 +12,32 @@ namespace Web.Controllers
 	public class HomegameController : ControllerBase
     {
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
-	    private readonly IHomegameModelService _homegameModelService;
 	    private readonly IBunchListPageBuilder _bunchListPageBuilder;
 	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
+	    private readonly IAddHomegamePageBuilder _addHomegamePageBuilder;
+	    private readonly IAddHomegameConfirmationPageBuilder _addHomegameConfirmationPageBuilder;
+	    private readonly IEditHomegamePageBuilder _editHomegamePageBuilder;
+	    private readonly IJoinHomegamePageBuilder _joinHomegamePageBuilder;
+	    private readonly IJoinHomegameConfirmationPageBuilder _joinHomegameConfirmationPageBuilder;
 
 	    public HomegameController(
             IHomegameCommandProvider homegameCommandProvider,
-            IHomegameModelService homegameModelService,
             IBunchListPageBuilder bunchListPageBuilder,
-            IHomegameDetailsPageBuilder homegameDetailsPageBuilder)
+            IHomegameDetailsPageBuilder homegameDetailsPageBuilder,
+            IAddHomegamePageBuilder addHomegamePageBuilder,
+            IAddHomegameConfirmationPageBuilder addHomegameConfirmationPageBuilder,
+            IEditHomegamePageBuilder editHomegamePageBuilder,
+            IJoinHomegamePageBuilder joinHomegamePageBuilder,
+            IJoinHomegameConfirmationPageBuilder joinHomegameConfirmationPageBuilder)
 	    {
 	        _homegameCommandProvider = homegameCommandProvider;
-	        _homegameModelService = homegameModelService;
 	        _bunchListPageBuilder = bunchListPageBuilder;
 	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
+	        _addHomegamePageBuilder = addHomegamePageBuilder;
+	        _addHomegameConfirmationPageBuilder = addHomegameConfirmationPageBuilder;
+	        _editHomegamePageBuilder = editHomegamePageBuilder;
+	        _joinHomegamePageBuilder = joinHomegamePageBuilder;
+	        _joinHomegameConfirmationPageBuilder = joinHomegameConfirmationPageBuilder;
 	    }
 
         [AuthorizeAdmin]
@@ -47,7 +57,7 @@ namespace Web.Controllers
         [Authorize]
         public ActionResult Add()
         {
-            var model = _homegameModelService.GetAddModel();
+            var model = _addHomegamePageBuilder.Build();
             return View("AddHomegame", model);
         }
 
@@ -61,20 +71,20 @@ namespace Web.Controllers
                 return Redirect(new AddHomegameConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _homegameModelService.GetAddModel(postModel);
+            var model = _addHomegamePageBuilder.Build(postModel);
             return View("AddHomegame", model);
 		}
 
         public ActionResult Created()
         {
-            var model = _homegameModelService.GetAddConfirmationModel();
+            var model = _addHomegameConfirmationPageBuilder.Build();
 			return View("AddHomegameConfirmation", model);
 		}
 
         [AuthorizeManager]
         public ActionResult Edit(string slug)
         {
-            var model = _homegameModelService.GetEditModel(slug);
+            var model = _editHomegamePageBuilder.Build(slug);
 			return View("Edit/Edit", model);
 		}
 
@@ -88,14 +98,14 @@ namespace Web.Controllers
                 return Redirect(new HomegameDetailsUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _homegameModelService.GetEditModel(slug, postModel);
+            var model = _editHomegamePageBuilder.Build(slug, postModel);
             return View("Edit/Edit", model);
 		}
 
         [Authorize]
         public ActionResult Join(string slug)
         {
-            var model = _homegameModelService.GetJoinModel(slug);
+            var model = _joinHomegamePageBuilder.Build(slug);
 			return View("Join/Join", model);
 		}
 
@@ -109,14 +119,14 @@ namespace Web.Controllers
                 return Redirect(new JoinHomegameConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _homegameModelService.GetJoinModel(slug, postModel);
+            var model = _joinHomegamePageBuilder.Build(slug, postModel);
             return View("Join/Join", model);
 		}
 
         [AuthorizePlayer]
 		public ActionResult Joined(string slug)
 		{
-		    var model = _homegameModelService.GetJoinConfirmationModel(slug);
+            var model = _joinHomegameConfirmationPageBuilder.Build(slug);
 			return View("Join/Confirmation", model);
 		}
 

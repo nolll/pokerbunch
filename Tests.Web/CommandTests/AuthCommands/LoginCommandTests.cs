@@ -86,7 +86,7 @@ namespace Tests.Web.CommandTests.AuthCommands{
 
         private LoginCommand GetSut()
         {
-            var postModel = new AuthLoginPostModel
+            var postModel = new LoginPostModel
                 {
                     LoginName = _loginName,
                     Password = _password,

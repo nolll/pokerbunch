@@ -1,6 +1,6 @@
 namespace Web.Models.AuthModels
 {
-    public class AuthLoginPostModel
+    public class LoginPostModel
     {
         public string LoginName { get; set; }
         public string Password { get; set; }

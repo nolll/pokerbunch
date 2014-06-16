@@ -4,7 +4,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.AuthModels
 {
-    public class AuthLoginPageModel : AuthLoginPostModel, IPageModel
+    public class LoginPageModel : LoginPostModel, IPageModel
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }

@@ -2,41 +2,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
+using Application.Urls;
+using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
-using Web.Models.HomegameModels.Add;
+using Web.Models.HomegameModels.Edit;
+using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class AddHomegamePageModelFactory : IAddHomegamePageModelFactory
+    public class EditHomegamePageBuilder : IEditHomegamePageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
+        private readonly IHomegameRepository _homegameRepository;
 
-        public AddHomegamePageModelFactory(
+        public EditHomegamePageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IHomegameRepository homegameRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _globalization = globalization;
+            _homegameRepository = homegameRepository;
         }
 
-        private AddHomegamePageModel Create()
+        private HomegameEditPageModel Build(string slug)
         {
-            return new AddHomegamePageModel
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var currency = homegame.Currency;
+
+            return new HomegameEditPageModel
                 {
-                    BrowserTitle = "Create Homegame",
-                    PageProperties = _pagePropertiesFactory.Create(),
+                    BrowserTitle = "Edit Homegame",
+		            PageProperties = _pagePropertiesFactory.Create(homegame),
+			        CancelUrl = new HomegameDetailsUrl(homegame.Slug),
+		            Heading = string.Format("{0} Settings", homegame.DisplayName),
+			        Description = homegame.Description,
+			        HouseRules = homegame.HouseRules,
+			        DefaultBuyin = homegame.DefaultBuyin,
+                    TimeZone = homegame.Timezone.Id,
                     TimezoneSelectItems = GetTimezoneSelectModel(),
-                    CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
+                    CurrencySymbol = currency.Symbol,
+			        CurrencyLayout = homegame.Currency.Layout,
+			        CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
+			        //CashgamesEnabled = homegame.CashgamesEnabled,
+			        //TournamentsEnabled = homegame.TournamentsEnabled,
+			        //VideosEnabled = homegame.VideosEnabled
                 };
         }
 
-        public AddHomegamePageModel Create(AddHomegamePostModel postModel)
+        public HomegameEditPageModel Build(string slug, HomegameEditPostModel postModel)
         {
-            var model = Create();
+            var model = Build(slug);
             if (postModel != null)
             {
-                model.DisplayName = postModel.DisplayName;
                 model.Description = postModel.Description;
                 model.TimeZone = postModel.TimeZone;
                 model.CurrencySymbol = postModel.CurrencySymbol;

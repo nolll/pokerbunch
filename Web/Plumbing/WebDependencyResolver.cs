@@ -57,8 +57,6 @@ namespace Web.Plumbing
             RegisterComponent<IUrlProvider, UrlProvider>();
 
             // Model Services
-            RegisterComponent<IAuthModelService, AuthModelService>();
-            RegisterComponent<IHomegameModelService, HomegameModelService>();
             RegisterComponent<IPlayerModelService, PlayerModelService>();
             RegisterComponent<ICashgameModelService, CashgameModelService>();
             RegisterComponent<IUserModelService, UserModelService>();
@@ -67,9 +65,9 @@ namespace Web.Plumbing
             // Page Model Factories
             RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageModelFactory, MatrixPageModelFactory>();
-            RegisterComponent<IAuthLoginPageModelFactory, AuthLoginPageModelFactory>();
-            RegisterComponent<IAddHomegamePageModelFactory, AddHomegamePageModelFactory>();
-            RegisterComponent<IAddHomegameConfirmationPageModelFactory, AddHomegameConfirmationPageModelFactory>();
+            RegisterComponent<ILoginPageBuilder, LoginPageBuilder>();
+            RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
+            RegisterComponent<IAddHomegameConfirmationPageBuilder, AddHomegameConfirmationPageBuilder>();
             RegisterComponent<IBuyinPageModelFactory, BuyinPageModelFactory>();
             RegisterComponent<IReportPageModelFactory, ReportPageModelFactory>();
             RegisterComponent<ICashoutPageModelFactory, CashoutPageModelFactory>();
@@ -79,7 +77,7 @@ namespace Web.Plumbing
             RegisterComponent<IPlayerDetailsPageModelFactory, PlayerDetailsPageModelFactory>();
             RegisterComponent<IBunchListPageBuilder, BunchListPageBuilder>();
             RegisterComponent<IHomegameDetailsPageBuilder, HomegameDetailsPageBuilder>();
-            RegisterComponent<IHomegameEditPageModelFactory, HomegameEditPageModelFactory>();
+            RegisterComponent<IEditHomegamePageBuilder, EditHomegamePageBuilder>();
             RegisterComponent<IActionPageBuilder, ActionPageBuilder>();
             RegisterComponent<IAddCashgamePageModelFactory, AddCashgamePageModelFactory>();
             RegisterComponent<ICashgameEditPageModelFactory, CashgameEditPageModelFactory>();
@@ -93,8 +91,8 @@ namespace Web.Plumbing
             RegisterComponent<IAddPlayerConfirmationPageModelFactory, AddPlayerConfirmationPageModelFactory>();
             RegisterComponent<IInvitePlayerPageModelFactory, InvitePlayerPageModelFactory>();
             RegisterComponent<IInvitePlayerConfirmationPageModelFactory, InvitePlayerConfirmationPageModelFactory>();
-            RegisterComponent<IJoinHomegamePageModelFactory, JoinHomegamePageModelFactory>();
-            RegisterComponent<IJoinHomegameConfirmationPageModelFactory, JoinHomegameConfirmationPageModelFactory>();
+            RegisterComponent<IJoinHomegamePageBuilder, JoinHomegamePageBuilder>();
+            RegisterComponent<IJoinHomegameConfirmationPageBuilder, JoinHomegameConfirmationPageBuilder>();
             RegisterComponent<IUserListPageBuilder, UserListPageBuilder>();
             RegisterComponent<IAddUserPageModelFactory, AddUserPageModelFactory>();
             RegisterComponent<IAddUserConfirmationPageModelFactory, AddUserConfirmationPageModelFactory>();

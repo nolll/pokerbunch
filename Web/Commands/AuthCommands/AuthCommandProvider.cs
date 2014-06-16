@@ -28,7 +28,7 @@ namespace Web.Commands.AuthCommands
             _playerRepository = playerRepository;
         }
 
-        public Command GetLoginCommand(AuthLoginPostModel postModel)
+        public Command GetLoginCommand(LoginPostModel postModel)
         {
             return new LoginCommand(
                 _userRepository,

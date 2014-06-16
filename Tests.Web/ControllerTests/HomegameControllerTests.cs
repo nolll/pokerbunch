@@ -5,7 +5,6 @@ using Tests.Common;
 using Web.Commands.HomegameCommands;
 using Web.Controllers;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelServices;
 
 namespace Tests.Web.ControllerTests
 {
@@ -18,9 +17,13 @@ namespace Tests.Web.ControllerTests
         {
             _sut = new HomegameController(
                 GetMock<IHomegameCommandProvider>().Object,
-                GetMock<IHomegameModelService>().Object,
                 GetMock<IBunchListPageBuilder>().Object,
-                GetMock<IHomegameDetailsPageBuilder>().Object);
+                GetMock<IHomegameDetailsPageBuilder>().Object,
+                GetMock<IAddHomegamePageBuilder>().Object,
+                GetMock<IAddHomegameConfirmationPageBuilder>().Object,
+                GetMock<IEditHomegamePageBuilder>().Object,
+                GetMock<IJoinHomegamePageBuilder>().Object,
+                GetMock<IJoinHomegameConfirmationPageBuilder>().Object);
         }
 
         [Test]
@@ -30,20 +33,6 @@ namespace Tests.Web.ControllerTests
             var result = SecurityTestHelper.RequiresAdmin(methodToTest);
 
             Assert.IsTrue(result);
-        }
-
-        [Test]
-        [Ignore("Do we really need tests like this?")]
-        public void List_GetsPageModelFromModelBuilder()
-        {
-            //var model = new BunchListPageModel();
-
-            //GetMock<IBunchListPageBuilder>().Setup(o => o.Build()).Returns(model);
-
-            //var result = _sut.List() as ViewResult;
-
-            //Assert.NotNull(result);
-            //Assert.AreEqual(model, result.Model);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Web.Commands.AuthCommands
         private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly AuthLoginPostModel _postModel;
+        private readonly LoginPostModel _postModel;
         
         public LoginCommand(
             IUserRepository userRepository,
@@ -22,7 +22,7 @@ namespace Web.Commands.AuthCommands
             IAuth auth,
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
-            AuthLoginPostModel postModel)
+            LoginPostModel postModel)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;

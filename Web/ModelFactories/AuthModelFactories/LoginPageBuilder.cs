@@ -7,12 +7,12 @@ using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.AuthModelFactories
 {
-    public class AuthLoginPageModelFactory : IAuthLoginPageModelFactory
+    public class LoginPageBuilder : ILoginPageBuilder
     {
         private readonly IWebContext _webContext;
         private readonly IApplicationContextInteractor _applicationContextInteractor;
 
-        public AuthLoginPageModelFactory(
+        public LoginPageBuilder(
             IWebContext webContext,
             IApplicationContextInteractor applicationContextInteractor)
         {
@@ -20,13 +20,13 @@ namespace Web.ModelFactories.AuthModelFactories
             _applicationContextInteractor = applicationContextInteractor;
         }
 
-        private AuthLoginPageModel Create()
+        private LoginPageModel Create()
         {
             var returnUrl = _webContext.GetQueryParam("return");
             var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
             var applicationContextResult = _applicationContextInteractor.Execute();
 
-            return new AuthLoginPageModel
+            return new LoginPageModel
                 {
                     BrowserTitle = "Login",
                     PageProperties = new PageProperties(applicationContextResult),
@@ -36,7 +36,7 @@ namespace Web.ModelFactories.AuthModelFactories
                 };
         }
 
-        public AuthLoginPageModel Create(AuthLoginPostModel postModel)
+        public LoginPageModel Build(LoginPostModel postModel)
         {
             var model = Create();
             if (postModel != null)

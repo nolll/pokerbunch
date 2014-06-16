@@ -1,22 +1,27 @@
 ﻿using Application.Urls;
-using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Join;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class JoinHomegameConfirmationPageModelFactory : IJoinHomegameConfirmationPageModelFactory
+    public class JoinHomegameConfirmationPageBuilder : IJoinHomegameConfirmationPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IHomegameRepository _homegameRepository;
 
-        public JoinHomegameConfirmationPageModelFactory(IPagePropertiesFactory pagePropertiesFactory)
+        public JoinHomegameConfirmationPageBuilder(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IHomegameRepository homegameRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _homegameRepository = homegameRepository;
         }
 
-        public JoinHomegameConfirmationPageModel Create(Homegame homegame)
+        public JoinHomegameConfirmationPageModel Build(string slug)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+
             return new JoinHomegameConfirmationPageModel
                 {
                     BrowserTitle = "Welcome",
