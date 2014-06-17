@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Web;
 using Application.Services;
 using Application.Urls;
 using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
@@ -13,20 +14,42 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameDetailsTableModelFactory _cashgameDetailsTableModelFactory;
         private readonly IGlobalization _globalization;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IAuth _auth;
 
         public CashgameDetailsPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory, 
             ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IHomegameRepository homegameRepository,
+            ICashgameRepository cashgameRepository,
+            IPlayerRepository playerRepository,
+            IAuth auth)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameDetailsTableModelFactory = cashgameDetailsTableModelFactory;
             _globalization = globalization;
+            _homegameRepository = homegameRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _auth = auth;
         }
 
-        public CashgameDetailsPageModel Build(Homegame homegame, Cashgame cashgame, Player player, bool isManager)
+        public CashgameDetailsPageModel Build(string slug, string dateStr)
         {
-            var dateStr = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+            if (cashgame == null)
+            {
+                throw new HttpException(404, "Cashgame not found");
+            }
+            var user = _auth.CurrentUser;
+            var player = _playerRepository.GetByUserName(homegame, user.UserName);
+            var isManager = _auth.IsInRole(slug, Role.Manager);
+            
+            var date = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
             
@@ -34,7 +57,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 {
                     BrowserTitle = "Cashgame",
                     PageProperties = _pagePropertiesFactory.Create(homegame),
-                    Heading = string.Format("Cashgame {0}", dateStr),
+                    Heading = string.Format("Cashgame {0}", date),
 			        Location = cashgame.Location,
                     Duration = _globalization.FormatDuration(cashgame.Duration),
 			        DurationEnabled = cashgame.Duration > 0,

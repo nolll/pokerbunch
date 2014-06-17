@@ -2,33 +2,48 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services.Interfaces;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
-    public class CashgameDetailsChartModelFactory : ICashgameDetailsChartModelFactory
+    public class CashgameDetailsChartJsonBuilder : ICashgameDetailsChartJsonBuilder
     {
         private readonly ITimeProvider _timeProvider;
         private readonly IChartValueModelFactory _chartValueModelFactory;
         private readonly ICashgameService _cashgameService;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public CashgameDetailsChartModelFactory(
+        public CashgameDetailsChartJsonBuilder(
             ITimeProvider timeProvider,
             IChartValueModelFactory chartValueModelFactory,
-            ICashgameService cashgameService)
+            ICashgameService cashgameService,
+            IHomegameRepository homegameRepository,
+            ICashgameRepository cashgameRepository)
         {
             _timeProvider = timeProvider;
             _chartValueModelFactory = chartValueModelFactory;
             _cashgameService = cashgameService;
+            _homegameRepository = homegameRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
-        public ChartModel Create(Homegame homegame, Cashgame cashgame)
+        public ChartModel Build(string slug, string dateStr)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+            if (cashgame == null)
+            {
+                throw new HttpException(404, "Cashgame not found");
+            }
+            
             var players = _cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
 
             return new ChartModel

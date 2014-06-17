@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Application.Urls;
-using Core.Entities;
+﻿using Application.Urls;
+using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Chart;
 using Web.Models.NavigationModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
@@ -14,19 +12,28 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
         public CashgameChartPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory)
+            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
+            IHomegameRepository homegameRepository,
+            ICashgameRepository cashgameRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
+            _homegameRepository = homegameRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
-        public CashgameChartPageModel Build(Homegame homegame, int? year, IList<int> years)
+        public CashgameChartPageModel Build(string slug, int? year)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var years = _cashgameRepository.GetYears(homegame);
+            
             return new CashgameChartPageModel
                 {
                     BrowserTitle = "Cashgame Chart",

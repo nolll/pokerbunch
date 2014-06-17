@@ -3,29 +3,39 @@ using System.Linq;
 using Application.Services;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
-    public class CashgameSuiteChartModelFactory : ICashgameSuiteChartModelFactory
+    public class CashgameSuiteChartJsonBuilder : ICashgameSuiteChartJsonBuilder
     {
         private readonly IGlobalization _globalization;
         private readonly IChartValueModelFactory _chartValueModelFactory;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public CashgameSuiteChartModelFactory(
+        public CashgameSuiteChartJsonBuilder(
             IGlobalization globalization,
             IChartValueModelFactory chartValueModelFactory,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            IHomegameRepository homegameRepository,
+            ICashgameService cashgameService)
         {
             _globalization = globalization;
             _chartValueModelFactory = chartValueModelFactory;
             _playerRepository = playerRepository;
+            _homegameRepository = homegameRepository;
+            _cashgameService = cashgameService;
         }
 
-        public ChartModel Create(CashgameSuite suite)
+        public ChartModel Build(string slug, int? year)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var suite = _cashgameService.GetSuite(homegame, year);
+            
             return new ChartModel
                 {
                     Columns = GetColumnModels(suite.TotalResults),

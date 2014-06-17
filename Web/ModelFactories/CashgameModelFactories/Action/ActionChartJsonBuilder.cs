@@ -3,26 +3,37 @@ using System.Collections.Generic;
 using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
 {
-    public class ActionChartModelFactory : IActionChartModelFactory
+    public class ActionChartJsonBuilder : IActionChartJsonBuilder
     {
         private readonly ITimeProvider _timeProvider;
         private readonly IChartValueModelFactory _chartValueModelFactory;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public ActionChartModelFactory(
+        public ActionChartJsonBuilder(
             ITimeProvider timeProvider,
-            IChartValueModelFactory chartValueModelFactory)
+            IChartValueModelFactory chartValueModelFactory,
+            IHomegameRepository homegameRepository,
+            ICashgameRepository cashgameRepository)
         {
             _timeProvider = timeProvider;
             _chartValueModelFactory = chartValueModelFactory;
+            _homegameRepository = homegameRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
-        public ChartModel Create(Homegame homegame, Cashgame cashgame, CashgameResult result)
+        public ChartModel Build(string slug, string dateStr, int playerId)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+            var result = cashgame.GetResult(playerId);
+            
             return new ChartModel
                 {
                     Columns = GetActionColumns(),

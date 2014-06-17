@@ -2,9 +2,9 @@
 using Application.Services;
 using Application.Urls;
 using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
@@ -13,19 +13,37 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
         private readonly IGlobalization _globalization;
+        private readonly IAuth _auth;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
         public RunningCashgamePageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IAuth auth,
+            IHomegameRepository homegameRepository,
+            IPlayerRepository playerRepository,
+            ICashgameRepository cashgameRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _globalization = globalization;
+            _auth = auth;
+            _homegameRepository = homegameRepository;
+            _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
-        public RunningCashgamePageModel Build(Homegame homegame, Cashgame cashgame, Player player, bool isManager)
+        public RunningCashgamePageModel Build(string slug)
         {
+            var user = _auth.CurrentUser;
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var player = _playerRepository.GetByUserName(homegame, user.UserName);
+            var cashgame = _cashgameRepository.GetRunning(homegame);
+            var isManager = _auth.IsInRole(slug, Role.Manager);
+            
             var canBeEnded = CanBeEnded(cashgame);
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);

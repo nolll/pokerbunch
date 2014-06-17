@@ -7,8 +7,6 @@ using Tests.Common.FakeCommands;
 using Web.Commands.PlayerCommands;
 using Web.Controllers;
 using Web.ModelFactories.PlayerModelFactories;
-using Web.ModelServices;
-using Web.Models.UrlModels;
 
 namespace Tests.Web.ControllerTests
 {
@@ -69,9 +67,13 @@ namespace Tests.Web.ControllerTests
         private PlayerController GetSut()
         {
 			return new PlayerController(
-                GetMock<IPlayerModelService>().Object,
                 GetMock<IPlayerCommandProvider>().Object,
-                GetMock<IPlayerListPageBuilder>().Object);
+                GetMock<IPlayerListPageBuilder>().Object,
+                GetMock<IPlayerDetailsPageBuilder>().Object,
+                GetMock<IAddPlayerPageBuilder>().Object,
+                GetMock<IAddPlayerConfirmationPageBuilder>().Object,
+                GetMock<IInvitePlayerPageBuilder>().Object,
+                GetMock<IInvitePlayerConfirmationPageBuilder>().Object);
 		}
 	}
 }

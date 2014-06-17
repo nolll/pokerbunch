@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Application.Services;
 using Application.Urls;
 using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PlayerModels.Details;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
@@ -14,21 +14,43 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IPlayerFactsModelFactory _playerFactsModelFactory;
         private readonly IPlayerBadgesModelFactory _playerBadgesModelFactory;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IAuth _auth;
 
         public PlayerDetailsPageBuilder(
             IPagePropertiesFactory pagePropertiesFactory,
             IAvatarModelFactory avatarModelFactory,
             IPlayerFactsModelFactory playerFactsModelFactory,
-            IPlayerBadgesModelFactory playerBadgesModelFactory)
+            IPlayerBadgesModelFactory playerBadgesModelFactory,
+            IHomegameRepository homegameRepository,
+            IPlayerRepository playerRepository,
+            IUserRepository userRepository,
+            ICashgameRepository cashgameRepository,
+            IAuth auth)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
             _avatarModelFactory = avatarModelFactory;
             _playerFactsModelFactory = playerFactsModelFactory;
             _playerBadgesModelFactory = playerBadgesModelFactory;
+            _homegameRepository = homegameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
+            _cashgameRepository = cashgameRepository;
+            _auth = auth;
         }
 
-        public PlayerDetailsPageModel Build(Homegame homegame, Player player, User user, IList<Cashgame> cashgames, bool isManager, bool hasPlayed)
+        public PlayerDetailsPageModel Build(string slug, int playerId)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var player = _playerRepository.GetById(playerId);
+            var user = _userRepository.GetById(player.UserId);
+            var cashgames = _cashgameRepository.GetPublished(homegame);
+            var isManager = _auth.IsInRole(slug, Role.Manager);
+            var hasPlayed = _cashgameRepository.HasPlayed(player);
+            
             var hasUser = user != null;
             var userUrl = hasUser ? new UserDetailsUrl(user.UserName) : null;
             var userEmail = hasUser ? user.Email : null;

@@ -6,7 +6,7 @@ using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Edit
 {
-    public class CashgameEditPageModel : CashgameEditPostModel, IPageModel
+    public class EditCashgamePageModel : CashgameEditPostModel, IPageModel
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }

@@ -3,8 +3,6 @@ using Application.Services;
 using Application.Urls;
 using Web.Commands.SharingCommands;
 using Web.ModelFactories.SharingModelFactories;
-using Web.ModelServices;
-using Web.Models.UrlModels;
 
 namespace Web.Controllers
 {

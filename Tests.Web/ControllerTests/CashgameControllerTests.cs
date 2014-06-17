@@ -11,9 +11,20 @@ using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
+using Web.ModelFactories.CashgameModelFactories.Add;
+using Web.ModelFactories.CashgameModelFactories.Buyin;
+using Web.ModelFactories.CashgameModelFactories.Cashout;
+using Web.ModelFactories.CashgameModelFactories.Chart;
+using Web.ModelFactories.CashgameModelFactories.Checkpoints;
+using Web.ModelFactories.CashgameModelFactories.Details;
+using Web.ModelFactories.CashgameModelFactories.Edit;
+using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.Facts;
+using Web.ModelFactories.CashgameModelFactories.List;
+using Web.ModelFactories.CashgameModelFactories.Matrix;
+using Web.ModelFactories.CashgameModelFactories.Report;
+using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.CashgameModelFactories.Toplist;
-using Web.ModelServices;
 
 namespace Tests.Web.ControllerTests
 {
@@ -21,7 +32,6 @@ namespace Tests.Web.ControllerTests
 	{
         private const string Slug = "homegame1";
         private const string DateStr = "2010-01-01";
-        private const string PlayerName = "Player 1";
 	    private const int PlayerId = 1;
 
 		[Test]
@@ -198,10 +208,24 @@ namespace Tests.Web.ControllerTests
             return new CashgameController(
                 GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<ICashgameModelService>().Object,
                 GetMock<IToplistPageBuilder>().Object,
                 GetMock<ICashgameFactsPageBuilder>().Object,
-                GetMock<IActionPageBuilder>().Object);
+                GetMock<IActionPageBuilder>().Object,
+                GetMock<IMatrixPageBuilder>().Object,
+                GetMock<ICashgameDetailsPageBuilder>().Object,
+                GetMock<ICashgameDetailsChartJsonBuilder>().Object,
+                GetMock<IAddCashgamePageBuilder>().Object,
+                GetMock<IEditCashgamePageBuilder>().Object,
+                GetMock<IRunningCashgamePageBuilder>().Object,
+                GetMock<ICashgameListPageBuilder>().Object,
+                GetMock<ICashgameChartPageBuilder>().Object,
+                GetMock<ICashgameSuiteChartJsonBuilder>().Object,
+                GetMock<IActionChartJsonBuilder>().Object,
+                GetMock<IBuyinPageBuilder>().Object,
+                GetMock<IReportPageBuilder>().Object,
+                GetMock<ICashoutPageBuilder>().Object,
+                GetMock<IEndPageBuilder>().Object,
+                GetMock<IEditCheckpointPageBuilder>().Object);
         }
 	}
 }

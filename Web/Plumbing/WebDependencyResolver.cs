@@ -35,7 +35,6 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
-using Web.ModelServices;
 using Web.Models.PlayerModels.Badges;
 using Web.Security;
 using Web.Services;
@@ -56,10 +55,6 @@ namespace Web.Plumbing
             RegisterComponent<IConfigService, ConfigService>();
             RegisterComponent<IUrlProvider, UrlProvider>();
 
-            // Model Services
-            RegisterComponent<IPlayerModelService, PlayerModelService>();
-            RegisterComponent<ICashgameModelService, CashgameModelService>();
-
             // Page Model Factories
             RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
@@ -78,7 +73,7 @@ namespace Web.Plumbing
             RegisterComponent<IEditHomegamePageBuilder, EditHomegamePageBuilder>();
             RegisterComponent<IActionPageBuilder, ActionPageBuilder>();
             RegisterComponent<IAddCashgamePageBuilder, AddCashgamePageBuilder>();
-            RegisterComponent<ICashgameEditPageBuilder, CashgameEditPageBuilder>();
+            RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameDetailsPageBuilder, CashgameDetailsPageBuilder>();
             RegisterComponent<ICashgameFactsPageBuilder, CashgameFactsPageBuilder>();
@@ -122,9 +117,9 @@ namespace Web.Plumbing
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();
             RegisterComponent<ICashgameMatrixTableCellModelFactory, CashgameMatrixTableCellModelFactory>();
             RegisterComponent<IPlayerFactsModelFactory, PlayerFactsModelFactory>();
-            RegisterComponent<ICashgameSuiteChartModelFactory, CashgameSuiteChartModelFactory>();
-            RegisterComponent<IActionChartModelFactory, ActionChartModelFactory>();
-            RegisterComponent<ICashgameDetailsChartModelFactory, CashgameDetailsChartModelFactory>();
+            RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
+            RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
+            RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();
             RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
             RegisterComponent<IPlayerBadgesModelFactory, PlayerBadgesModelFactory>();
             RegisterComponent<IBadgeModelFactory, BadgeModelFactory>();

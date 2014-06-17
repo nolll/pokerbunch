@@ -1,25 +1,33 @@
 using System;
 using Application.Urls;
-using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Checkpoints;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
     public class EditCheckpointPageBuilder : IEditCheckpointPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IHomegameRepository _homegameRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
 
         public EditCheckpointPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory)
+            IPagePropertiesFactory pagePropertiesFactory,
+            IHomegameRepository homegameRepository,
+            ICheckpointRepository checkpointRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _homegameRepository = homegameRepository;
+            _checkpointRepository = checkpointRepository;
         }
 
-        public EditCheckpointPageModel Build(Homegame homegame, Checkpoint checkpoint, string dateStr, int playerId)
+        public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId)
         {
+            var homegame = _homegameRepository.GetBySlug(slug);
+            var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
+            
             return new EditCheckpointPageModel
                 {
                     BrowserTitle = "Edit Checkpoint",
@@ -34,9 +42,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
                 };
         }
 
-        public EditCheckpointPageModel Build(Homegame homegame, Checkpoint checkpoint, string dateStr, int playerId, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var model = Build(homegame, checkpoint, dateStr, playerId);
+            var model = Build(slug, dateStr, playerId, checkpointId);
             if (postModel != null)
             {
                 model.Timestamp = postModel.Timestamp;
