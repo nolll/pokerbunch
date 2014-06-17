@@ -1,5 +1,6 @@
-﻿using Application.Urls;
-using Core.Entities;
+﻿using Application.Services;
+using Application.Urls;
+using Core.Repositories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels;
@@ -10,17 +11,26 @@ namespace Web.ModelFactories.UserModelFactories
     {
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
 
         public UserDetailsPageBuilder(
             IAvatarModelFactory avatarModelFactory, 
-            IPagePropertiesFactory pagePropertiesFactory)
+            IPagePropertiesFactory pagePropertiesFactory,
+            IAuth auth,
+            IUserRepository userRepository)
         {
             _avatarModelFactory = avatarModelFactory;
             _pagePropertiesFactory = pagePropertiesFactory;
+            _auth = auth;
+            _userRepository = userRepository;
         }
 
-        public UserDetailsPageModel Build(User currentUser, User displayUser)
+        public UserDetailsPageModel Build(string userName)
         {
+            var currentUser = _auth.CurrentUser;
+            var displayUser = _userRepository.GetByNameOrEmail(userName);
+            
             var model = new UserDetailsPageModel
                 {
                     BrowserTitle = "User Details",

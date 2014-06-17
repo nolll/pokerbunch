@@ -5,7 +5,6 @@ using Tests.Common;
 using Web.Commands.UserCommands;
 using Web.Controllers;
 using Web.ModelFactories.UserModelFactories;
-using Web.ModelServices;
 using Web.Models.UserModels.List;
 
 namespace Tests.Web.ControllerTests
@@ -19,8 +18,13 @@ namespace Tests.Web.ControllerTests
         {
             _sut = new UserController(
                 GetMock<IUserCommandProvider>().Object,
-                GetMock<IUserModelService>().Object,
-                GetMock<IUserListPageBuilder>().Object);
+                GetMock<IUserListPageBuilder>().Object,
+                GetMock<IUserDetailsPageBuilder>().Object,
+                GetMock<IAddUserPageBuilder>().Object,
+                GetMock<IAddUserConfirmationPageBuilder>().Object,
+                GetMock<IEditUserPageBuilder>().Object,
+                GetMock<IChangePasswordPageBuilder>().Object,
+                GetMock<IForgotPasswordPageBuilder>().Object);
         }
 
         [Test]

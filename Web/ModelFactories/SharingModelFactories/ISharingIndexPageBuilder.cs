@@ -4,6 +4,6 @@ namespace Web.ModelFactories.SharingModelFactories
 {
     public interface ISharingIndexPageBuilder
     {
-        SharingIndexPageModel Build(bool isSharing);
+        SharingIndexPageModel Build();
     }
 }

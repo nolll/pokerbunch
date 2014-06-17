@@ -2,8 +2,6 @@ using System.Web.Mvc;
 using Application.Urls;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.UserModelFactories;
-using Web.ModelServices;
-using Web.Models.UrlModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
@@ -15,23 +13,38 @@ namespace Web.Controllers
 	public class UserController : ControllerBase
     {
 	    private readonly IUserCommandProvider _userCommandProvider;
-	    private readonly IUserModelService _userModelService;
 	    private readonly IUserListPageBuilder _userListPageBuilder;
+	    private readonly IUserDetailsPageBuilder _userDetailsPageBuilder;
+	    private readonly IAddUserPageBuilder _addUserPageBuilder;
+	    private readonly IAddUserConfirmationPageBuilder _addUserConfirmationPageBuilder;
+	    private readonly IEditUserPageBuilder _editUserPageBuilder;
+	    private readonly IChangePasswordPageBuilder _changePasswordPageBuilder;
+	    private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
 
 	    public UserController(
             IUserCommandProvider userCommandProvider,
-            IUserModelService userModelService,
-            IUserListPageBuilder userListPageBuilder)
+            IUserListPageBuilder userListPageBuilder,
+            IUserDetailsPageBuilder userDetailsPageBuilder,
+            IAddUserPageBuilder addUserPageBuilder,
+            IAddUserConfirmationPageBuilder addUserConfirmationPageBuilder,
+            IEditUserPageBuilder editUserPageBuilder,
+            IChangePasswordPageBuilder changePasswordPageBuilder,
+            IForgotPasswordPageBuilder forgotPasswordPageBuilder)
 	    {
 	        _userCommandProvider = userCommandProvider;
-	        _userModelService = userModelService;
 	        _userListPageBuilder = userListPageBuilder;
+	        _userDetailsPageBuilder = userDetailsPageBuilder;
+	        _addUserPageBuilder = addUserPageBuilder;
+	        _addUserConfirmationPageBuilder = addUserConfirmationPageBuilder;
+	        _editUserPageBuilder = editUserPageBuilder;
+	        _changePasswordPageBuilder = changePasswordPageBuilder;
+	        _forgotPasswordPageBuilder = forgotPasswordPageBuilder;
 	    }
 
         [Authorize]
 		public ActionResult Details(string userName)
         {
-			var model = _userModelService.GetDetailsModel(userName); 
+			var model = _userDetailsPageBuilder.Build(userName);
 			return View("Details", model);
 		}
 
@@ -44,7 +57,7 @@ namespace Web.Controllers
 
         public ActionResult Add()
         {
-            var model = _userModelService.GetAddModel();
+            var model = _addUserPageBuilder.Build();
 			return View("Add/Add", model);
 		}
 
@@ -57,20 +70,20 @@ namespace Web.Controllers
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _userModelService.GetAddModel(postModel);
+            var model = _addUserPageBuilder.Build(postModel);
             return View("Add/Add", model);
 		}
 
 		public ActionResult Created()
 		{
-		    var model = _userModelService.GetAddConfirmationModel();
+		    var model = _addUserConfirmationPageBuilder.Build();
 			return View("Add/Confirmation", model);
 		}
 
         [Authorize]
         public ActionResult Edit(string userName)
         {
-            var model = _userModelService.GetEditModel(userName);
+            var model = _editUserPageBuilder.Build(userName);
             return View("Edit/Edit", model);
 		}
 
@@ -84,14 +97,14 @@ namespace Web.Controllers
                 return Redirect(new UserDetailsUrl(userName).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _userModelService.GetEditModel(userName, postModel);
+            var model = _editUserPageBuilder.Build(userName, postModel);
             return View("Edit/Edit", model);
 		}
 
         [Authorize]
         public ActionResult ChangePassword()
         {
-            var model = _userModelService.GetChangePasswordModel();
+            var model = _changePasswordPageBuilder.Build();
 			return View("ChangePassword/ChangePassword", model);
 		}
 
@@ -105,19 +118,19 @@ namespace Web.Controllers
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _userModelService.GetChangePasswordModel();
+            var model = _changePasswordPageBuilder.Build();
             return View("ChangePassword/ChangePassword", model);
 		}
 
 		public ActionResult ChangedPassword()
         {
-            var model = _userModelService.GetChangePasswordConfirmationModel();
+            var model = _changePasswordPageBuilder.BuildConfirmation();
 			return View("ChangePassword/Confirmation", model);
 		}
 
         public ActionResult ForgotPassword()
         {
-            var model = _userModelService.GetForgotPasswordModel();
+            var model = _forgotPasswordPageBuilder.Build();
 			return View("ForgotPassword/ForgotPassword", model);
 		}
 
@@ -130,13 +143,13 @@ namespace Web.Controllers
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _userModelService.GetForgotPasswordModel(postModel);
+            var model = _forgotPasswordPageBuilder.Build(postModel);
             return View("ForgotPassword/ForgotPassword", model);
 		}
 
 		public ActionResult PasswordSent()
 		{
-		    var model = _userModelService.GetForgotPasswordConfirmationModel();
+            var model = _forgotPasswordPageBuilder.BuildConfirmation();
 			return View("ForgotPassword/Confirmation", model);
 		}
 

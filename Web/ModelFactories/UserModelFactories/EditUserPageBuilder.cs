@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.Repositories;
 using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.UserModels.Edit;
 
@@ -7,13 +8,31 @@ namespace Web.ModelFactories.UserModelFactories
     public class EditUserPageBuilder : IEditUserPageBuilder
     {
         private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IUserRepository _userRepository;
 
-        public EditUserPageBuilder(IPagePropertiesFactory pagePropertiesFactory)
+        public EditUserPageBuilder(
+            IPagePropertiesFactory pagePropertiesFactory,
+            IUserRepository userRepository)
         {
             _pagePropertiesFactory = pagePropertiesFactory;
+            _userRepository = userRepository;
         }
 
-        private EditUserPageModel Create(User user)
+        public EditUserPageModel Build(string userName, EditUserPostModel postModel)
+        {
+            var user = _userRepository.GetByNameOrEmail(userName);
+
+            var model = Build(user);
+            if (postModel != null)
+            {
+                model.RealName = postModel.RealName;
+                model.DisplayName = postModel.DisplayName;
+                model.Email = postModel.Email;
+            }
+            return model;
+        }
+
+        private EditUserPageModel Build(User user)
         {
             return new EditUserPageModel
                 {
@@ -25,18 +44,5 @@ namespace Web.ModelFactories.UserModelFactories
                     Email = user.Email
                 };
         }
-
-        public EditUserPageModel Build(User user, EditUserPostModel postModel)
-        {
-            var model = Create(user);
-            if (postModel != null)
-            {
-                model.RealName = postModel.RealName;
-                model.DisplayName = postModel.DisplayName;
-                model.Email = postModel.Email;
-            }
-            return model;
-        }
-
     }
 }

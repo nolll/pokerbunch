@@ -4,6 +4,6 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public interface IAddUserPageBuilder
     {
-        AddUserPageModel Build(AddUserPostModel postModel);
+        AddUserPageModel Build(AddUserPostModel postModel = null);
     }
 }

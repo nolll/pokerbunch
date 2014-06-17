@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Application.Services;
 using Application.Urls;
 using Web.Commands.SharingCommands;
+using Web.ModelFactories.SharingModelFactories;
 using Web.ModelServices;
 using Web.Models.UrlModels;
 
@@ -11,32 +12,35 @@ namespace Web.Controllers
     {
 	    private readonly IWebContext _webContext;
 	    private readonly ITwitterIntegration _twitterIntegration;
-	    private readonly ISharingModelService _sharingModelService;
 	    private readonly ISharingCommandProvider _sharingCommandProvider;
+	    private readonly ISharingIndexPageBuilder _sharingIndexPageBuilder;
+	    private readonly ISharingTwitterPageBuilder _sharingTwitterPageBuilder;
 
 	    public SharingController(
             IWebContext webContext,
             ITwitterIntegration twitterIntegration,
-            ISharingModelService sharingModelService,
-            ISharingCommandProvider sharingCommandProvider)
+            ISharingCommandProvider sharingCommandProvider,
+            ISharingIndexPageBuilder sharingIndexPageBuilder,
+            ISharingTwitterPageBuilder sharingTwitterPageBuilder)
 	    {
 	        _webContext = webContext;
 	        _twitterIntegration = twitterIntegration;
-	        _sharingModelService = sharingModelService;
 	        _sharingCommandProvider = sharingCommandProvider;
+	        _sharingIndexPageBuilder = sharingIndexPageBuilder;
+	        _sharingTwitterPageBuilder = sharingTwitterPageBuilder;
 	    }
 
         [Authorize]
         public ActionResult Index()
         {
-	        var model = _sharingModelService.GetIndexModel();
+            var model = _sharingIndexPageBuilder.Build();
 			return View("Index", model);
 		}
 
         [Authorize]
         public ActionResult Twitter()
         {
-			var model = _sharingModelService.GetTwitterModel();
+            var model = _sharingTwitterPageBuilder.Build();
 			return View("Twitter", model);
 		}
 
