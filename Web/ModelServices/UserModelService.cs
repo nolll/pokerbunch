@@ -6,7 +6,6 @@ using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
-using Web.Security;
 
 namespace Web.ModelServices
 {
@@ -14,74 +13,74 @@ namespace Web.ModelServices
     {
         private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
-        private readonly IUserDetailsPageModelFactory _userDetailsPageModelFactory;
-        private readonly IAddUserPageModelFactory _addUserPageModelFactory;
-        private readonly IAddUserConfirmationPageModelFactory _addUserConfirmationPageModelFactory;
-        private readonly IEditUserPageModelFactory _editUserPageModelFactory;
-        private readonly IChangePasswordPageModelFactory _changePasswordPageModelFactory;
-        private readonly IForgotPasswordPageModelFactory _forgotPasswordPageModelFactory;
+        private readonly IUserDetailsPageBuilder _userDetailsPageBuilder;
+        private readonly IAddUserPageBuilder _addUserPageBuilder;
+        private readonly IAddUserConfirmationPageBuilder _addUserConfirmationPageBuilder;
+        private readonly IEditUserPageBuilder _editUserPageBuilder;
+        private readonly IChangePasswordPageBuilder _changePasswordPageBuilder;
+        private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
 
         public UserModelService(
             IAuth auth,
             IUserRepository userRepository,
-            IUserDetailsPageModelFactory userDetailsPageModelFactory,
-            IAddUserPageModelFactory addUserPageModelFactory,
-            IAddUserConfirmationPageModelFactory addUserConfirmationPageModelFactory,
-            IEditUserPageModelFactory editUserPageModelFactory,
-            IChangePasswordPageModelFactory changePasswordPageModelFactory,
-            IForgotPasswordPageModelFactory forgotPasswordPageModelFactory)
+            IUserDetailsPageBuilder userDetailsPageBuilder,
+            IAddUserPageBuilder addUserPageBuilder,
+            IAddUserConfirmationPageBuilder addUserConfirmationPageBuilder,
+            IEditUserPageBuilder editUserPageBuilder,
+            IChangePasswordPageBuilder changePasswordPageBuilder,
+            IForgotPasswordPageBuilder forgotPasswordPageBuilder)
         {
             _auth = auth;
             _userRepository = userRepository;
-            _userDetailsPageModelFactory = userDetailsPageModelFactory;
-            _addUserPageModelFactory = addUserPageModelFactory;
-            _addUserConfirmationPageModelFactory = addUserConfirmationPageModelFactory;
-            _editUserPageModelFactory = editUserPageModelFactory;
-            _changePasswordPageModelFactory = changePasswordPageModelFactory;
-            _forgotPasswordPageModelFactory = forgotPasswordPageModelFactory;
+            _userDetailsPageBuilder = userDetailsPageBuilder;
+            _addUserPageBuilder = addUserPageBuilder;
+            _addUserConfirmationPageBuilder = addUserConfirmationPageBuilder;
+            _editUserPageBuilder = editUserPageBuilder;
+            _changePasswordPageBuilder = changePasswordPageBuilder;
+            _forgotPasswordPageBuilder = forgotPasswordPageBuilder;
         }
 
         public UserDetailsPageModel GetDetailsModel(string userName)
         {
             var currentUser = _auth.CurrentUser;
             var displayUser = _userRepository.GetByNameOrEmail(userName);
-            return _userDetailsPageModelFactory.Create(currentUser, displayUser);
+            return _userDetailsPageBuilder.Build(currentUser, displayUser);
         }
 
         public AddUserPageModel GetAddModel(AddUserPostModel postModel)
         {
-            return _addUserPageModelFactory.Create(postModel);
+            return _addUserPageBuilder.Build(postModel);
         }
 
         public AddUserConfirmationPageModel GetAddConfirmationModel()
         {
-            return _addUserConfirmationPageModelFactory.Create();
+            return _addUserConfirmationPageBuilder.Build();
         }
 
         public EditUserPageModel GetEditModel(string userName, EditUserPostModel postModel)
         {
             var user = _userRepository.GetByNameOrEmail(userName);
-            return _editUserPageModelFactory.Create(user, postModel);
+            return _editUserPageBuilder.Build(user, postModel);
         }
 
         public ChangePasswordPageModel GetChangePasswordModel()
         {
-            return _changePasswordPageModelFactory.Create(); 
+            return _changePasswordPageBuilder.Build(); 
         }
 
         public ChangePasswordConfirmationPageModel GetChangePasswordConfirmationModel()
         {
-            return _changePasswordPageModelFactory.CreateConfirmation();
+            return _changePasswordPageBuilder.BuildConfirmation();
         }
 
         public ForgotPasswordPageModel GetForgotPasswordModel(ForgotPasswordPostModel postModel)
         {
-            return _forgotPasswordPageModelFactory.Create(postModel);
+            return _forgotPasswordPageBuilder.Build(postModel);
         }
 
         public ForgotPasswordConfirmationPageModel GetForgotPasswordConfirmationModel()
         {
-            return _forgotPasswordPageModelFactory.CreateConfirmation();
+            return _forgotPasswordPageBuilder.BuildConfirmation();
         }
     }
 }

@@ -12,28 +12,28 @@ namespace Web.ModelServices
         private readonly IAuth _auth;
         private readonly ISharingRepository _sharingRepository;
         private readonly ITwitterRepository _twitterRepository;
-        private readonly ISharingIndexPageModelFactory _sharingIndexPageModelFactory;
-        private readonly ISharingTwitterPageModelFactory _sharingTwitterPageModelFactory;
+        private readonly ISharingIndexPageBuilder _sharingIndexPageBuilder;
+        private readonly ISharingTwitterPageBuilder _sharingTwitterPageBuilder;
 
         public SharingModelService(
             IAuth auth,
             ISharingRepository sharingRepository,
             ITwitterRepository twitterRepository,
-            ISharingIndexPageModelFactory sharingIndexPageModelFactory,
-            ISharingTwitterPageModelFactory sharingTwitterPageModelFactory)
+            ISharingIndexPageBuilder sharingIndexPageBuilder,
+            ISharingTwitterPageBuilder sharingTwitterPageBuilder)
         {
             _auth = auth;
             _sharingRepository = sharingRepository;
             _twitterRepository = twitterRepository;
-            _sharingIndexPageModelFactory = sharingIndexPageModelFactory;
-            _sharingTwitterPageModelFactory = sharingTwitterPageModelFactory;
+            _sharingIndexPageBuilder = sharingIndexPageBuilder;
+            _sharingTwitterPageBuilder = sharingTwitterPageBuilder;
         }
 
         public SharingIndexPageModel GetIndexModel()
         {
             var user = _auth.CurrentUser;
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
-            return _sharingIndexPageModelFactory.Create(isSharing);
+            return _sharingIndexPageBuilder.Build(isSharing);
         }
 
         public SharingTwitterPageModel GetTwitterModel()
@@ -41,7 +41,7 @@ namespace Web.ModelServices
             var user = _auth.CurrentUser;
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
             var credentials = _twitterRepository.GetCredentials(user);
-            return _sharingTwitterPageModelFactory.Create(isSharing, credentials);
+            return _sharingTwitterPageBuilder.Build(isSharing, credentials);
         }
     }
 }

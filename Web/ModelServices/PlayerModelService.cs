@@ -11,12 +11,12 @@ namespace Web.ModelServices
 {
     public class PlayerModelService : IPlayerModelService
     {
-        private readonly IPlayerDetailsPageModelFactory _playerDetailsPageModelFactory;
+        private readonly IPlayerDetailsPageBuilder _playerDetailsPageBuilder;
         private readonly IPlayerListPageBuilder _playerListPageBuilder;
-        private readonly IAddPlayerPageModelFactory _addPlayerPageModelFactory;
-        private readonly IAddPlayerConfirmationPageModelFactory _addPlayerConfirmationPageModelFactory;
-        private readonly IInvitePlayerPageModelFactory _invitePlayerPageModelFactory;
-        private readonly IInvitePlayerConfirmationPageModelFactory _invitePlayerConfirmationPageModelFactory;
+        private readonly IAddPlayerPageBuilder _addPlayerPageBuilder;
+        private readonly IAddPlayerConfirmationPageBuilder _addPlayerConfirmationPageBuilder;
+        private readonly IInvitePlayerPageBuilder _invitePlayerPageBuilder;
+        private readonly IInvitePlayerConfirmationPageBuilder _invitePlayerConfirmationPageBuilder;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICashgameRepository _cashgameRepository;
@@ -24,24 +24,24 @@ namespace Web.ModelServices
         private readonly IHomegameRepository _homegameRepository;
 
         public PlayerModelService(
-            IPlayerDetailsPageModelFactory playerDetailsPageModelFactory,
+            IPlayerDetailsPageBuilder playerDetailsPageBuilder,
             IPlayerListPageBuilder playerListPageBuilder,
-            IAddPlayerPageModelFactory addPlayerPageModelFactory,
-            IAddPlayerConfirmationPageModelFactory addPlayerConfirmationPageModelFactory,
-            IInvitePlayerPageModelFactory invitePlayerPageModelFactory,
-            IInvitePlayerConfirmationPageModelFactory invitePlayerConfirmationPageModelFactory,
+            IAddPlayerPageBuilder addPlayerPageBuilder,
+            IAddPlayerConfirmationPageBuilder addPlayerConfirmationPageBuilder,
+            IInvitePlayerPageBuilder invitePlayerPageBuilder,
+            IInvitePlayerConfirmationPageBuilder invitePlayerConfirmationPageBuilder,
             IPlayerRepository playerRepository,
             IUserRepository userRepository,
             ICashgameRepository cashgameRepository,
             IAuth auth,
             IHomegameRepository homegameRepository)
         {
-            _playerDetailsPageModelFactory = playerDetailsPageModelFactory;
+            _playerDetailsPageBuilder = playerDetailsPageBuilder;
             _playerListPageBuilder = playerListPageBuilder;
-            _addPlayerPageModelFactory = addPlayerPageModelFactory;
-            _addPlayerConfirmationPageModelFactory = addPlayerConfirmationPageModelFactory;
-            _invitePlayerPageModelFactory = invitePlayerPageModelFactory;
-            _invitePlayerConfirmationPageModelFactory = invitePlayerConfirmationPageModelFactory;
+            _addPlayerPageBuilder = addPlayerPageBuilder;
+            _addPlayerConfirmationPageBuilder = addPlayerConfirmationPageBuilder;
+            _invitePlayerPageBuilder = invitePlayerPageBuilder;
+            _invitePlayerConfirmationPageBuilder = invitePlayerConfirmationPageBuilder;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
             _cashgameRepository = cashgameRepository;
@@ -62,31 +62,31 @@ namespace Web.ModelServices
             var cashgames = _cashgameRepository.GetPublished(homegame);
             var isManager = _auth.IsInRole(slug, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(player);
-            return _playerDetailsPageModelFactory.Create(homegame, player, user, cashgames, isManager, hasPlayed);
+            return _playerDetailsPageBuilder.Build(homegame, player, user, cashgames, isManager, hasPlayed);
         }
 
         public AddPlayerPageModel GetAddModel(string slug, AddPlayerPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            return _addPlayerPageModelFactory.Create(homegame, postModel);
+            return _addPlayerPageBuilder.Build(homegame, postModel);
         }
 
         public AddPlayerConfirmationPageModel GetAddConfirmationModel(string slug)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            return _addPlayerConfirmationPageModelFactory.Create(homegame);
+            return _addPlayerConfirmationPageBuilder.Build(homegame);
         }
 
         public InvitePlayerPageModel GetInviteModel(string slug, InvitePlayerPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            return _invitePlayerPageModelFactory.Create(homegame, postModel);
+            return _invitePlayerPageBuilder.Build(homegame, postModel);
         }
 
         public InvitePlayerConfirmationPageModel GetInviteConfirmationModel(string slug)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            return _invitePlayerConfirmationPageModelFactory.Create(homegame);
+            return _invitePlayerConfirmationPageBuilder.Build(homegame);
         }
 
     }
