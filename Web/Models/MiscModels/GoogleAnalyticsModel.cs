@@ -11,9 +11,9 @@ namespace Web.Models.MiscModels
         {
         }
 
-        public GoogleAnalyticsModel(ApplicationContextResult applicationContextResult)
+        public GoogleAnalyticsModel(AppContextResult appContextResult)
         {
-            EnableAnalytics = applicationContextResult.IsInProduction;
+            EnableAnalytics = appContextResult.IsInProduction;
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Web.Models.UserModels.List
 	    }
 
 	    public UserListPageModel(
-            ApplicationContextResult applicationContextResult,
+            AppContextResult appContextResult,
             UserListResult userListResult)
 	    {
             BrowserTitle = "Users";
-            PageProperties = new PageProperties(applicationContextResult);
+            PageProperties = new PageProperties(appContextResult);
             UserModels = userListResult.Users.Select(o => new UserListItemModel(o)).ToList();
 	    }
     }

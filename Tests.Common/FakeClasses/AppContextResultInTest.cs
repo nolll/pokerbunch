@@ -2,9 +2,9 @@ using Application.UseCases.ApplicationContext;
 
 namespace Tests.Common.FakeClasses
 {
-    public class ApplicationContextResultInTest : ApplicationContextResult
+    public class AppContextResultInTest : AppContextResult
     {
-        public ApplicationContextResultInTest(
+        public AppContextResultInTest(
             bool isLoggedIn = false, 
             bool isAdmin = false, 
             string userName = "", 

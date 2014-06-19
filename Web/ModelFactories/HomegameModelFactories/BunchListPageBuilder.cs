@@ -6,20 +6,20 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public class BunchListPageBuilder : IBunchListPageBuilder
     {
-        private readonly IApplicationContextInteractor _applicationContextInteractor;
+        private readonly IAppContextInteractor _appContextInteractor;
         private readonly IBunchListInteractor _bunchListInteractor;
 
         public BunchListPageBuilder(
-            IApplicationContextInteractor applicationContextInteractor,
+            IAppContextInteractor appContextInteractor,
             IBunchListInteractor bunchListInteractor)
         {
-            _applicationContextInteractor = applicationContextInteractor;
+            _appContextInteractor = appContextInteractor;
             _bunchListInteractor = bunchListInteractor;
         }
 
         public BunchListPageModel Build()
         {
-            var applicationContextResult = _applicationContextInteractor.Execute();
+            var applicationContextResult = _appContextInteractor.Execute();
             var bunchListResult = _bunchListInteractor.Execute();
 
             return new BunchListPageModel(

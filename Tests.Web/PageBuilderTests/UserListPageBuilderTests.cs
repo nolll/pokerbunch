@@ -15,7 +15,7 @@ namespace Tests.Web.PageBuilderTests
         {
             var showUserListResult = new UserListResult{Users = new List<UserListItem>()};
 
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
             GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
 
             var result = Sut.Build();
@@ -29,7 +29,7 @@ namespace Tests.Web.PageBuilderTests
             var userItems = new List<UserListItem>();
             var showUserListResult = new UserListResult { Users = userItems };
 
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
             GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
 
             var result = Sut.Build();
@@ -42,7 +42,7 @@ namespace Tests.Web.PageBuilderTests
             get
             {
                 return new UserListPageBuilder(
-                    GetMock<IApplicationContextInteractor>().Object,
+                    GetMock<IAppContextInteractor>().Object,
                     GetMock<IUserListInteractor>().Object);
             }
         }

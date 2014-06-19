@@ -12,10 +12,10 @@ namespace Web.Models.HomegameModels.List
 	    public PageProperties PageProperties { get; private set; }
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 
-	    public BunchListPageModel(ApplicationContextResult applicationContextResult, BunchListResult bunchListResult)
+	    public BunchListPageModel(AppContextResult appContextResult, BunchListResult bunchListResult)
 	    {
 	        BrowserTitle = "Bunches";
-            PageProperties = new PageProperties(applicationContextResult);
+            PageProperties = new PageProperties(appContextResult);
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();
 	    }
     }

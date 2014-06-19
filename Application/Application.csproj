@@ -168,8 +168,8 @@
     <Compile Include="UseCases\Actions\ActionsResult.cs" />
     <Compile Include="UseCases\Actions\CheckpointItem.cs" />
     <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
-    <Compile Include="UseCases\ApplicationContext\ApplicationContextInteractor.cs" />
-    <Compile Include="UseCases\ApplicationContext\IApplicationContextInteractor.cs" />
+    <Compile Include="UseCases\ApplicationContext\AppContextInteractor.cs" />
+    <Compile Include="UseCases\ApplicationContext\IAppContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />
@@ -178,7 +178,7 @@
     <Compile Include="UseCases\BunchList\BunchListItem.cs" />
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
     <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
-    <Compile Include="UseCases\ApplicationContext\ApplicationContextResult.cs" />
+    <Compile Include="UseCases\ApplicationContext\AppContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

@@ -16,8 +16,8 @@ namespace Web.Models.NavigationModels
             Nodes = GetNodes(isAdmin);
         }
 
-        public AdminNavigationModel(ApplicationContextResult applicationContextResult)
-            : this(applicationContextResult.IsAdmin)
+        public AdminNavigationModel(AppContextResult appContextResult)
+            : this(appContextResult.IsAdmin)
         {
         }
 

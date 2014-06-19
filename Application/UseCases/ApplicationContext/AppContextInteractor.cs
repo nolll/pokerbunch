@@ -2,16 +2,16 @@
 
 namespace Application.UseCases.ApplicationContext
 {
-    public class ApplicationContextInteractor : IApplicationContextInteractor
+    public class AppContextInteractor : IAppContextInteractor
     {
         private readonly IAuth _auth;
 
-        public ApplicationContextInteractor(IAuth auth)
+        public AppContextInteractor(IAuth auth)
         {
             _auth = auth;
         }
 
-        public ApplicationContextResult Execute()
+        public AppContextResult Execute()
         {
             var user = _auth.CurrentUser;
             var isLoggedIn = user != null;
@@ -21,7 +21,7 @@ namespace Application.UseCases.ApplicationContext
             const bool isInProduction = false;
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            return new ApplicationContextResult(
+            return new AppContextResult(
                 isLoggedIn,
                 isAdmin,
                 userName,

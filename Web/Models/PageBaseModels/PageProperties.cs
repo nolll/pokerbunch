@@ -13,15 +13,15 @@ namespace Web.Models.PageBaseModels
         public string Version { get; private set; }
         public string CssUrl { get; private set; }
 
-        public PageProperties(ApplicationContextResult applicationContextResult)
+        public PageProperties(AppContextResult appContextResult)
         {
-            UserNavModel = new UserNavigationModel(applicationContextResult);
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(applicationContextResult);
-            Version = applicationContextResult.Version;
+            UserNavModel = new UserNavigationModel(appContextResult);
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(appContextResult);
+            Version = appContextResult.Version;
             CssUrl = BundleConfig.BundleUrl;
         }
 
-        public PageProperties(BunchContextResult bunchContextResult) : this((ApplicationContextResult)bunchContextResult)
+        public PageProperties(BunchContextResult bunchContextResult) : this((AppContextResult)bunchContextResult)
         {
             HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
         }

@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.ApplicationContext
 {
-    public class ApplicationContextResult
+    public class AppContextResult
     {
         public bool IsLoggedIn { get; private set; }
         public bool IsAdmin { get; private set; }
@@ -9,7 +9,7 @@
         public bool IsInProduction { get; private set; }
         public string Version { get; private set; }
 
-        public ApplicationContextResult(
+        public AppContextResult(
             bool isLoggedIn,
             bool isAdmin,
             string userName,

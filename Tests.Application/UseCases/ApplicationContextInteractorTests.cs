@@ -51,10 +51,10 @@ namespace Tests.Application.UseCases
             Assert.IsTrue(result.IsAdmin);
         }
 
-        private ApplicationContextInteractor Sut
+        private AppContextInteractor Sut
         {
             get {
-                return new ApplicationContextInteractor(
+                return new AppContextInteractor(
                 GetMock<IAuth>().Object);
             }
         }

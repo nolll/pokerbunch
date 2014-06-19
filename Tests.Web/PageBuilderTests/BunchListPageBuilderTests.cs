@@ -16,7 +16,7 @@ namespace Tests.Web.PageBuilderTests
         public void SetUp()
         {
             _sut = new BunchListPageBuilder(
-                GetMock<IApplicationContextInteractor>().Object,
+                GetMock<IAppContextInteractor>().Object,
                 GetMock<IBunchListInteractor>().Object);
         }
 
@@ -26,7 +26,7 @@ namespace Tests.Web.PageBuilderTests
             var showBunchListResult = new BunchListResultInTest();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
             
             var result = _sut.Build();
 
@@ -39,7 +39,7 @@ namespace Tests.Web.PageBuilderTests
             var showBunchListResult = new BunchListResultInTest();
 
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
 
             var result = _sut.Build();
 
@@ -53,7 +53,7 @@ namespace Tests.Web.PageBuilderTests
             var showBunchListResult = new BunchListResultInTest(bunchItems);
             
             GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(new ApplicationContextResultInTest());
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
 
             var result = _sut.Build();
 

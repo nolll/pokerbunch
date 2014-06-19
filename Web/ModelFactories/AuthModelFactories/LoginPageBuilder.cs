@@ -3,28 +3,27 @@ using Application.Urls;
 using Application.UseCases.ApplicationContext;
 using Web.Models.AuthModels;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.AuthModelFactories
 {
     public class LoginPageBuilder : ILoginPageBuilder
     {
         private readonly IWebContext _webContext;
-        private readonly IApplicationContextInteractor _applicationContextInteractor;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public LoginPageBuilder(
             IWebContext webContext,
-            IApplicationContextInteractor applicationContextInteractor)
+            IAppContextInteractor appContextInteractor)
         {
             _webContext = webContext;
-            _applicationContextInteractor = applicationContextInteractor;
+            _appContextInteractor = appContextInteractor;
         }
 
         private LoginPageModel Create()
         {
             var returnUrl = _webContext.GetQueryParam("return");
             var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
-            var applicationContextResult = _applicationContextInteractor.Execute();
+            var applicationContextResult = _appContextInteractor.Execute();
 
             return new LoginPageModel
                 {

@@ -7,23 +7,23 @@ namespace Application.UseCases.BunchContext
 {
     public class BunchContextInteractor : IBunchContextInteractor
     {
-        private readonly IApplicationContextInteractor _applicationContextInteractor;
+        private readonly IAppContextInteractor _appContextInteractor;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
 
         public BunchContextInteractor(
-            IApplicationContextInteractor applicationContextInteractor,
+            IAppContextInteractor appContextInteractor,
             IHomegameRepository homegameRepository,
             IAuth auth)
         {
-            _applicationContextInteractor = applicationContextInteractor;
+            _appContextInteractor = appContextInteractor;
             _homegameRepository = homegameRepository;
             _auth = auth;
         }
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var applicationContextResult = _applicationContextInteractor.Execute();
+            var applicationContextResult = _appContextInteractor.Execute();
 
             var homegame = GetBunch(request);
             

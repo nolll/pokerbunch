@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheContainerInTest.cs" />
-    <Compile Include="FakeClasses\ApplicationContextResultInTest.cs" />
+    <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
     <Compile Include="FakeClasses\CashgameContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchListResultInTest.cs" />

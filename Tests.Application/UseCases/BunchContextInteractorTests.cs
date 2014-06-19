@@ -18,10 +18,10 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             var request = new BunchContextRequest { Slug = slug };
-            var applicationContextResult = new ApplicationContextResultInTest();
+            var applicationContextResult = new AppContextResultInTest();
             var homegame = new HomegameInTest(slug: slug);
 
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(applicationContextResult);
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(applicationContextResult);
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
 
             var result = Sut.Execute(request);
@@ -34,10 +34,10 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             var request = new BunchContextRequest();
-            var applicationContextResult = new ApplicationContextResultInTest();
+            var applicationContextResult = new AppContextResultInTest();
             var homegame = new HomegameInTest(slug: slug);
 
-            GetMock<IApplicationContextInteractor>().Setup(o => o.Execute()).Returns(applicationContextResult);
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(applicationContextResult);
             GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>{homegame});
 
             var result = Sut.Execute(request);
@@ -50,7 +50,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new BunchContextInteractor(
-                    GetMock<IApplicationContextInteractor>().Object,
+                    GetMock<IAppContextInteractor>().Object,
                     GetMock<IHomegameRepository>().Object,
                     GetMock<IAuth>().Object);
             }

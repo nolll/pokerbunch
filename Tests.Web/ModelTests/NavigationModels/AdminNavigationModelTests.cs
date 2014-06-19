@@ -11,7 +11,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_AdminUser_DefaultContentSet()
         {
-            var applicationContextResult = new ApplicationContextResultInTest(isAdmin: true);
+            var applicationContextResult = new AppContextResultInTest(isAdmin: true);
 
             var result = new AdminNavigationModel(applicationContextResult);
 
@@ -22,7 +22,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithNonAdminUser_NoNodes()
         {
-            var applicationContextResult = new ApplicationContextResultInTest();
+            var applicationContextResult = new AppContextResultInTest();
 
             var result = new AdminNavigationModel(applicationContextResult);
 
@@ -32,7 +32,7 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithAdminUser_SetsNodes()
         {
-            var applicationContextResult = new ApplicationContextResultInTest(isAdmin: true);
+            var applicationContextResult = new AppContextResultInTest(isAdmin: true);
 
             var result = new AdminNavigationModel(applicationContextResult);
 
