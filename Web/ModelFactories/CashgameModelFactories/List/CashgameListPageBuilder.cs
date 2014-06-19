@@ -1,39 +1,40 @@
 ﻿using System;
 using Application.Services;
+using Application.UseCases.BunchContext;
 using Core.Repositories;
 using Web.ModelFactories.NavigationModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.List;
 using Web.Models.NavigationModels;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
     public class CashgameListPageBuilder : ICashgameListPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameListTableModelFactory _cashgameListTableModelFactory;
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IWebContext _webContext;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public CashgameListPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             ICashgameListTableModelFactory cashgameListTableModelFactory,
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            IWebContext webContext)
+            IWebContext webContext,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameListTableModelFactory = cashgameListTableModelFactory;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _webContext = webContext;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public CashgameListPageModel Build(string slug, int? year)
@@ -42,11 +43,13 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetListSortOrder();
-            
+
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             return new CashgameListPageModel
                 {
                     BrowserTitle = "Cashgame List",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames, sortOrder, year),
                     PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.List),
                     YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.List, year)

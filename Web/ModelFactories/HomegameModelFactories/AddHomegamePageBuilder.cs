@@ -2,38 +2,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.AppContext;
 using Web.Models.HomegameModels.Add;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegamePageBuilder : IAddHomegamePageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public AddHomegamePageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IGlobalization globalization)
+            IGlobalization globalization,
+            IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _globalization = globalization;
-        }
-
-        private AddHomegamePageModel Create()
-        {
-            return new AddHomegamePageModel
-                {
-                    BrowserTitle = "Create Homegame",
-                    PageProperties = _pagePropertiesFactory.Create(),
-                    TimezoneSelectItems = GetTimezoneSelectModel(),
-                    CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
-                };
+            _appContextInteractor = appContextInteractor;
         }
 
         public AddHomegamePageModel Build(AddHomegamePostModel postModel)
         {
-            var model = Create();
+            var model = Build();
             if (postModel != null)
             {
                 model.DisplayName = postModel.DisplayName;
@@ -43,6 +33,19 @@ namespace Web.ModelFactories.HomegameModelFactories
                 model.CurrencyLayout = postModel.CurrencyLayout;
             }
             return model;
+        }
+
+        private AddHomegamePageModel Build()
+        {
+            var contextResult = _appContextInteractor.Execute();
+
+            return new AddHomegamePageModel
+                {
+                    BrowserTitle = "Create Homegame",
+                    PageProperties = new PageProperties(contextResult),
+                    TimezoneSelectItems = GetTimezoneSelectModel(),
+                    CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
+                };
         }
 
         private List<SelectListItem> GetTimezoneSelectModel()

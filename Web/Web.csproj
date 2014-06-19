@@ -248,8 +248,6 @@
     <Compile Include="ModelFactories\HomegameModelFactories\IHomegameDetailsPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IEditHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IBunchListPageBuilder.cs" />
-    <Compile Include="ModelFactories\PageBaseModelFactories\IPagePropertiesFactory.cs" />
-    <Compile Include="ModelFactories\PageBaseModelFactories\PagePropertiesFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerConfirmationPageBuilder.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IInvitePlayerPageBuilder.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\InvitePlayerConfirmationPageBuilder.cs" />

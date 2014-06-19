@@ -3,30 +3,31 @@ using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Edit;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Edit
 {
     public class EditCashgamePageBuilder : IEditCashgamePageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public EditCashgamePageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IGlobalization globalization,
             IHomegameRepository homegameRepository,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _globalization = globalization;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public EditCashgamePageModel Build(string slug, string dateStr, CashgameEditPostModel postModel)
@@ -35,7 +36,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
             
-            var model = Build(homegame, cashgame, locations);
+            var model = Build(slug, cashgame, locations);
             if (postModel != null)
             {
                 model.TypedLocation = postModel.TypedLocation;
@@ -44,15 +45,17 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             return model;
         }
 
-        private EditCashgamePageModel Build(Homegame homegame, Cashgame cashgame, IEnumerable<string> locations)
+        private EditCashgamePageModel Build(string slug, Cashgame cashgame, IEnumerable<string> locations)
         {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             return new EditCashgamePageModel
                 {
                     BrowserTitle = "Edit Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
-                    CancelUrl = new CashgameDetailsUrl(homegame.Slug, cashgame.DateString),
-                    DeleteUrl = new DeleteCashgameUrl(homegame.Slug, cashgame.DateString),
+                    CancelUrl = new CashgameDetailsUrl(slug, cashgame.DateString),
+                    DeleteUrl = new DeleteCashgameUrl(slug, cashgame.DateString),
                     EnableDelete = cashgame.Status != GameStatus.Published,
                     TypedLocation = cashgame.Location,
                     SelectedLocation = cashgame.Location,

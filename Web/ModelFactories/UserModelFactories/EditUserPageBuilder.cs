@@ -1,21 +1,22 @@
+using Application.UseCases.AppContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.PageBaseModels;
 using Web.Models.UserModels.Edit;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public class EditUserPageBuilder : IEditUserPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IUserRepository _userRepository;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public EditUserPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _userRepository = userRepository;
+            _appContextInteractor = appContextInteractor;
         }
 
         public EditUserPageModel Build(string userName, EditUserPostModel postModel)
@@ -34,10 +35,12 @@ namespace Web.ModelFactories.UserModelFactories
 
         private EditUserPageModel Build(User user)
         {
+            var contextResult = _appContextInteractor.Execute();
+
             return new EditUserPageModel
                 {
                     BrowserTitle = "Edit Profile",
-                    PageProperties = _pagePropertiesFactory.Create(),
+                    PageProperties = new PageProperties(contextResult),
                     UserName = user.UserName,
                     RealName = user.RealName,
                     DisplayName = user.DisplayName,

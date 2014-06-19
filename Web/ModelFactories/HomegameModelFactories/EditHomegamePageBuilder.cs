@@ -3,28 +3,27 @@ using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
 using Application.Urls;
-using Core.Entities;
+using Application.UseCases.AppContext;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.HomegameModels.Edit;
-using Web.Models.UrlModels;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class EditHomegamePageBuilder : IEditHomegamePageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IGlobalization _globalization;
         private readonly IHomegameRepository _homegameRepository;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public EditHomegamePageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IGlobalization globalization,
-            IHomegameRepository homegameRepository)
+            IHomegameRepository homegameRepository,
+            IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _globalization = globalization;
             _homegameRepository = homegameRepository;
+            _appContextInteractor = appContextInteractor;
         }
 
         private HomegameEditPageModel Build(string slug)
@@ -32,10 +31,12 @@ namespace Web.ModelFactories.HomegameModelFactories
             var homegame = _homegameRepository.GetBySlug(slug);
             var currency = homegame.Currency;
 
+            var contextResult = _appContextInteractor.Execute();
+
             return new HomegameEditPageModel
                 {
                     BrowserTitle = "Edit Homegame",
-		            PageProperties = _pagePropertiesFactory.Create(homegame),
+		            PageProperties = new PageProperties(contextResult),
 			        CancelUrl = new HomegameDetailsUrl(homegame.Slug),
 		            Heading = string.Format("{0} Settings", homegame.DisplayName),
 			        Description = homegame.Description,

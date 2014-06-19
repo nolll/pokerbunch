@@ -1,16 +1,16 @@
 ﻿using Application.Services;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.ModelFactories.MiscModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Details;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
     public class PlayerDetailsPageBuilder : IPlayerDetailsPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IPlayerFactsModelFactory _playerFactsModelFactory;
         private readonly IPlayerBadgesModelFactory _playerBadgesModelFactory;
@@ -19,9 +19,9 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IUserRepository _userRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IAuth _auth;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public PlayerDetailsPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IAvatarModelFactory avatarModelFactory,
             IPlayerFactsModelFactory playerFactsModelFactory,
             IPlayerBadgesModelFactory playerBadgesModelFactory,
@@ -29,9 +29,9 @@ namespace Web.ModelFactories.PlayerModelFactories
             IPlayerRepository playerRepository,
             IUserRepository userRepository,
             ICashgameRepository cashgameRepository,
-            IAuth auth)
+            IAuth auth,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _avatarModelFactory = avatarModelFactory;
             _playerFactsModelFactory = playerFactsModelFactory;
             _playerBadgesModelFactory = playerBadgesModelFactory;
@@ -40,6 +40,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _userRepository = userRepository;
             _cashgameRepository = cashgameRepository;
             _auth = auth;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public PlayerDetailsPageModel Build(string slug, int playerId)
@@ -57,10 +58,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
             var invitationUrl = new InvitePlayerUrl(homegame.Slug, player.Id);
 
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest {Slug = slug});
+
             return new PlayerDetailsPageModel
                 {
                     BrowserTitle = "Player Details",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     DisplayName = player.DisplayName,
                     DeleteUrl = new DeletePlayerUrl(homegame.Slug, player.Id),
                     DeleteEnabled = isManager && !hasPlayed,

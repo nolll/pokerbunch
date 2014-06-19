@@ -2,27 +2,27 @@
 using System.Linq;
 using System.Web.Mvc;
 using Application.Exceptions;
-using Core.Entities;
+using Application.UseCases.BunchContext;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Add;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Add
 {
     public class AddCashgamePageBuilder : IAddCashgamePageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public AddCashgamePageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IHomegameRepository homegameRepository,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public AddCashgamePageModel Build(string slug, AddCashgamePostModel postModel)
@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
             }
             var locations = _cashgameRepository.GetLocations(homegame);
             
-            var model = Build(homegame, locations);
+            var model = Build(slug, locations);
             if (postModel != null)
             {
                 model.TypedLocation = postModel.TypedLocation;
@@ -44,12 +44,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
             return model;
         }
 
-        private AddCashgamePageModel Build(Homegame homegame, IEnumerable<string> locations)
+        private AddCashgamePageModel Build(string slug, IEnumerable<string> locations)
         {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             return new AddCashgamePageModel
                 {
                     BrowserTitle = "New Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     Locations = GetLocationListItems(locations)
                 };
         }

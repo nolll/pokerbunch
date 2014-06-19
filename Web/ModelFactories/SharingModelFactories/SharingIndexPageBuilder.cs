@@ -3,7 +3,6 @@ using Application.Urls;
 using Application.UseCases.AppContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.PageBaseModels;
 using Web.Models.SharingModels;
 
@@ -30,12 +29,12 @@ namespace Web.ModelFactories.SharingModelFactories
             var user = _auth.CurrentUser;
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
 
-            var appContextResult = _appContextInteractor.Execute();
+            var contextResult = _appContextInteractor.Execute();
             
             return new SharingIndexPageModel
                 {
                     BrowserTitle = "Sharing",
-                    PageProperties = new PageProperties(appContextResult),
+                    PageProperties = new PageProperties(contextResult),
                     IsSharingToTwitter = isSharing,
 			        ShareToTwitterSettingsUrl = new TwitterSettingsUrl()
                 };

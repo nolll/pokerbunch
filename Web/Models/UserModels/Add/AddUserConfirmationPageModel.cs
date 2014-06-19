@@ -1,10 +1,13 @@
+using Application.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Add
 {
-    public class AddUserConfirmationPageModel : IPageModel
+    public class AddUserConfirmationPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
+        public AddUserConfirmationPageModel(AppContextResult appContextResult)
+            : base("Homegame Created", appContextResult)
+        {
+        }
     }
 }

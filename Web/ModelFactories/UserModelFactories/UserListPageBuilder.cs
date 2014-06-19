@@ -19,11 +19,11 @@ namespace Web.ModelFactories.UserModelFactories
 
         public UserListPageModel Build()
         {
-            var appContextResult = _appContextInteractor.Execute();
+            var contextResult = _appContextInteractor.Execute();
             var showUserListResult = _userListInteractor.Execute();
 
             return new UserListPageModel(
-                appContextResult,
+                contextResult,
                 showUserListResult);
         }
     }

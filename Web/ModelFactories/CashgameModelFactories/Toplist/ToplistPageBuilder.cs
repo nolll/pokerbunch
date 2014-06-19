@@ -20,11 +20,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var cashgameContextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
+            var contextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
             var topListResult = _topListInteractor.Execute(GetTopListRequest(slug, sortOrderParam, year));
 
             return new CashgameToplistPageModel(
-                cashgameContextResult,
+                contextResult,
                 topListResult);
         }
 

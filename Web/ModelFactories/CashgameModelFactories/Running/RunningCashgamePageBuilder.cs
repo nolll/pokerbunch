@@ -1,39 +1,40 @@
 ﻿using System;
 using Application.Services;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Running;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
     public class RunningCashgamePageBuilder : IRunningCashgamePageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
         private readonly IGlobalization _globalization;
         private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public RunningCashgamePageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
             IGlobalization globalization,
             IAuth auth,
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _globalization = globalization;
             _auth = auth;
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public RunningCashgamePageModel Build(string slug)
@@ -47,11 +48,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var canBeEnded = CanBeEnded(cashgame);
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
-            
+
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = slug });
+
             return new RunningCashgamePageModel
                 {
                     BrowserTitle = "Running Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = GetStartTime(cashgame, homegame.Timezone),

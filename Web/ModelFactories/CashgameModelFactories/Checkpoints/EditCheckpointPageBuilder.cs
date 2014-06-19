@@ -1,37 +1,40 @@
 using System;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Checkpoints;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
     public class EditCheckpointPageBuilder : IEditCheckpointPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICheckpointRepository _checkpointRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public EditCheckpointPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IHomegameRepository homegameRepository,
-            ICheckpointRepository checkpointRepository)
+            ICheckpointRepository checkpointRepository,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _homegameRepository = homegameRepository;
             _checkpointRepository = checkpointRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
+
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
             
             return new EditCheckpointPageModel
                 {
                     BrowserTitle = "Edit Checkpoint",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
                     Stack = checkpoint.Stack,
                     Amount = checkpoint.Amount,

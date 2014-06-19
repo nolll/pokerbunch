@@ -19,11 +19,11 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         public BunchListPageModel Build()
         {
-            var appContextResult = _appContextInteractor.Execute();
+            var contextResult = _appContextInteractor.Execute();
             var bunchListResult = _bunchListInteractor.Execute();
 
             return new BunchListPageModel(
-                appContextResult,
+                contextResult,
                 bunchListResult);
         }
     }

@@ -1,28 +1,22 @@
-using Core.Entities;
-using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.Report;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Report
 {
     public class ReportPageBuilder : IReportPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public ReportPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IHomegameRepository homegameRepository)
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _homegameRepository = homegameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public ReportPageModel Build(string slug, ReportPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            
-            var model = Build(homegame);
+            var model = Build(slug);
             if (postModel != null)
             {
                 model.StackAmount = postModel.StackAmount;
@@ -30,12 +24,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
             return model;
         }
 
-        private ReportPageModel Build(Homegame homegame)
+        private ReportPageModel Build(string slug)
         {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             return new ReportPageModel
                 {
                     BrowserTitle = "Report Stack",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                 };
         }
     }

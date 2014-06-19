@@ -2,39 +2,40 @@
 using System.Web;
 using Application.Services;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.Models.CashgameModels.Details;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {
     public class CashgameDetailsPageBuilder : ICashgameDetailsPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly ICashgameDetailsTableModelFactory _cashgameDetailsTableModelFactory;
         private readonly IGlobalization _globalization;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IAuth _auth;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public CashgameDetailsPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory, 
             ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory,
             IGlobalization globalization,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
-            IAuth auth)
+            IAuth auth,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _cashgameDetailsTableModelFactory = cashgameDetailsTableModelFactory;
             _globalization = globalization;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _auth = auth;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public CashgameDetailsPageModel Build(string slug, string dateStr)
@@ -52,11 +53,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             var date = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
-            
+
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             var model = new CashgameDetailsPageModel
                 {
                     BrowserTitle = "Cashgame",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     Heading = string.Format("Cashgame {0}", date),
 			        Location = cashgame.Location,
                     Duration = _globalization.FormatDuration(cashgame.Duration),

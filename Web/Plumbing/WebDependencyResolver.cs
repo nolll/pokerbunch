@@ -30,7 +30,6 @@ using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
@@ -100,7 +99,6 @@ namespace Web.Plumbing
 
             // Model Factories
             RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();
-            RegisterComponent<IPagePropertiesFactory, PagePropertiesFactory>();
             RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();

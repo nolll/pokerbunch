@@ -23,12 +23,12 @@ namespace Application.UseCases.BunchContext
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var appContextResult = _appContextInteractor.Execute();
+            var contextResult = _appContextInteractor.Execute();
 
             var homegame = GetBunch(request);
             
             return new BunchContextResult(
-                appContextResult,
+                contextResult,
                 homegame.Slug,
                 homegame.Id,
                 homegame.DisplayName);

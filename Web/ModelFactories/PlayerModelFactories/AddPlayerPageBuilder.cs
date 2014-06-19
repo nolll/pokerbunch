@@ -1,30 +1,27 @@
-using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.BunchContext;
+using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Add;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
     public class AddPlayerPageBuilder : IAddPlayerPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public AddPlayerPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IHomegameRepository homegameRepository)
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _homegameRepository = homegameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public AddPlayerPageModel Build(string slug, AddPlayerPostModel postModel = null)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             var model = new AddPlayerPageModel
                 {
                     BrowserTitle = "Add Player",
-                    PageProperties = _pagePropertiesFactory.Create(homegame)
+                    PageProperties = new PageProperties(contextResult)
                 };
             if (postModel != null)
             {

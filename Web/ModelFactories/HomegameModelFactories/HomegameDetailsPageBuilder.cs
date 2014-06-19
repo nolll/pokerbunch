@@ -27,13 +27,13 @@ namespace Web.ModelFactories.HomegameModelFactories
         public HomegameDetailsPageModel Build(string slug)
         {
             var bunchContextRequest = new BunchContextRequest {Slug = slug};
-            var bunchContextResult = _bunchContextInteractor.Execute(bunchContextRequest);
+            var contextResult = _bunchContextInteractor.Execute(bunchContextRequest);
             var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
-            return Create(bunchContextResult, homegame, isInManagerMode);
+            return Create(contextResult, homegame, isInManagerMode);
         }
 
-        public HomegameDetailsPageModel Create(BunchContextResult bunchContextResult, Homegame homegame, bool isInManagerMode)
+        private HomegameDetailsPageModel Create(BunchContextResult bunchContextResult, Homegame homegame, bool isInManagerMode)
         {
             var houseRules = FormatHouseRules(homegame.HouseRules);
 

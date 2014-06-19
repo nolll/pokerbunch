@@ -1,47 +1,44 @@
 ﻿using Application.Services;
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Application.UseCases.PlayerList;
 using Core.Entities;
-using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.List;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.PlayerModelFactories
 {
     public class PlayerListPageBuilder : IPlayerListPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IPlayerItemModelFactory _playerItemModelFactory;
-        private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
         private readonly IPlayerListInteractor _playerListInteractor;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public PlayerListPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IPlayerItemModelFactory playerItemModelFactory,
-            IHomegameRepository homegameRepository,
             IAuth auth,
-            IPlayerListInteractor playerListInteractor)
+            IPlayerListInteractor playerListInteractor,
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _playerItemModelFactory = playerItemModelFactory;
-            _homegameRepository = homegameRepository;
             _auth = auth;
             _playerListInteractor = playerListInteractor;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public PlayerListPageModel Build(string slug)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             var request = new PlayerListRequest {Slug = slug};
             var result = _playerListInteractor.Execute(request);
 
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+
             return new PlayerListPageModel
                 {
                     BrowserTitle = "Player List",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
 			        PlayerModels = _playerItemModelFactory.CreateList(slug, result.Players),
 			        AddUrl = new AddPlayerUrl(slug),
 			        ShowAddLink = isInManagerMode

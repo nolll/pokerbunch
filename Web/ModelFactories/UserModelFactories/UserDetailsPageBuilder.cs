@@ -1,8 +1,9 @@
 ﻿using Application.Services;
 using Application.Urls;
+using Application.UseCases.AppContext;
 using Core.Repositories;
 using Web.ModelFactories.MiscModelFactories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.PageBaseModels;
 using Web.Models.UserModels;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -10,31 +11,33 @@ namespace Web.ModelFactories.UserModelFactories
     public class UserDetailsPageBuilder : IUserDetailsPageBuilder
     {
         private readonly IAvatarModelFactory _avatarModelFactory;
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public UserDetailsPageBuilder(
             IAvatarModelFactory avatarModelFactory, 
-            IPagePropertiesFactory pagePropertiesFactory,
             IAuth auth,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IAppContextInteractor appContextInteractor)
         {
             _avatarModelFactory = avatarModelFactory;
-            _pagePropertiesFactory = pagePropertiesFactory;
             _auth = auth;
             _userRepository = userRepository;
+            _appContextInteractor = appContextInteractor;
         }
 
         public UserDetailsPageModel Build(string userName)
         {
             var currentUser = _auth.CurrentUser;
             var displayUser = _userRepository.GetByNameOrEmail(userName);
-            
+
+            var contextResult = _appContextInteractor.Execute();
+
             var model = new UserDetailsPageModel
                 {
                     BrowserTitle = "User Details",
-                    PageProperties = _pagePropertiesFactory.Create(),
+                    PageProperties = new PageProperties(contextResult),
                     UserName = displayUser.UserName,
                     DisplayName = displayUser.DisplayName,
                     RealName = displayUser.RealName,

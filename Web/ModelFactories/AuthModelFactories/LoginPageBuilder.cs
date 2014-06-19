@@ -23,12 +23,12 @@ namespace Web.ModelFactories.AuthModelFactories
         {
             var returnUrl = _webContext.GetQueryParam("return");
             var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
-            var appContextResult = _appContextInteractor.Execute();
+            var contextResult = _appContextInteractor.Execute();
 
             return new LoginPageModel
                 {
                     BrowserTitle = "Login",
-                    PageProperties = new PageProperties(appContextResult),
+                    PageProperties = new PageProperties(contextResult),
                     ReturnUrl = returnUrlModel.Relative,
                     AddUserUrl = new AddUserUrl(),
                     ForgotPasswordUrl = new ForgotPasswordUrl()

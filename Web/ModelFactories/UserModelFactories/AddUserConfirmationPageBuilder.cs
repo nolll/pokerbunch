@@ -1,24 +1,22 @@
-﻿using Web.ModelFactories.PageBaseModelFactories;
+﻿using Application.UseCases.AppContext;
 using Web.Models.UserModels.Add;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public class AddUserConfirmationPageBuilder : IAddUserConfirmationPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IAppContextInteractor _appContextInteractor;
 
-        public AddUserConfirmationPageBuilder(IPagePropertiesFactory pagePropertiesFactory)
+        public AddUserConfirmationPageBuilder(IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
+            _appContextInteractor = appContextInteractor;
         }
 
         public AddUserConfirmationPageModel Build()
         {
-            return new AddUserConfirmationPageModel
-                {
-                    BrowserTitle = "Homegame Created",
-                    PageProperties = _pagePropertiesFactory.Create()
-                };
+            var contextResult = _appContextInteractor.Execute();
+
+            return new AddUserConfirmationPageModel(contextResult);
         }
     }
 }

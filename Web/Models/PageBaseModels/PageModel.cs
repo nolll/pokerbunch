@@ -1,3 +1,4 @@
+using Application.UseCases.AppContext;
 using Application.UseCases.BunchContext;
 
 namespace Web.Models.PageBaseModels
@@ -17,6 +18,12 @@ namespace Web.Models.PageBaseModels
         {
             BrowserTitle = browserTitle;
             PageProperties = new PageProperties(bunchContextResult);
+        }
+
+        protected PageModel(string browserTitle, AppContextResult appContextResult)
+        {
+            BrowserTitle = browserTitle;
+            PageProperties = new PageProperties(appContextResult);
         }
     }
 }

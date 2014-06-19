@@ -1,29 +1,30 @@
 ﻿using Application.Services;
 using Application.Urls;
+using Application.UseCases.AppContext;
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Web.Models.PageBaseModels;
 using Web.Models.SharingModels;
 
 namespace Web.ModelFactories.SharingModelFactories
 {
     public class SharingTwitterPageBuilder : ISharingTwitterPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
         private readonly IAuth _auth;
         private readonly ISharingRepository _sharingRepository;
         private readonly ITwitterRepository _twitterRepository;
+        private readonly IAppContextInteractor _appContextInteractor;
 
         public SharingTwitterPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
             IAuth auth,
             ISharingRepository sharingRepository,
-            ITwitterRepository twitterRepository)
+            ITwitterRepository twitterRepository,
+            IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
             _auth = auth;
             _sharingRepository = sharingRepository;
             _twitterRepository = twitterRepository;
+            _appContextInteractor = appContextInteractor;
         }
 
         public SharingTwitterPageModel Build()
@@ -33,10 +34,12 @@ namespace Web.ModelFactories.SharingModelFactories
             var credentials = _twitterRepository.GetCredentials(user);
             var twitterName = isSharing && credentials != null ? credentials.TwitterName : null;
 
+            var contextResult = _appContextInteractor.Execute();
+
             return new SharingTwitterPageModel
                 {
                     BrowserTitle = "Twitter Sharing",
-                    PageProperties = _pagePropertiesFactory.Create(),
+                    PageProperties = new PageProperties(contextResult),
                     IsSharing = isSharing,
                     TwitterName = twitterName,
                     PostUrl = GetPostUrlModel(isSharing)

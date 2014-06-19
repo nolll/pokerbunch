@@ -1,28 +1,22 @@
-using Core.Entities;
-using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.Cashout;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Cashout
 {
     public class CashoutPageBuilder : ICashoutPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public CashoutPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IHomegameRepository homegameRepository)
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _homegameRepository = homegameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public CashoutPageModel Build(string slug, CashoutPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            
-            var model = Build(homegame);
+            var model = Build(slug);
             if (postModel != null)
             {
                 model.StackAmount = postModel.StackAmount;                
@@ -30,12 +24,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
             return model;
         }
 
-        private CashoutPageModel Build(Homegame homegame)
+        private CashoutPageModel Build(string slug)
         {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest {Slug = slug});
+
             return new CashoutPageModel
                 {
                     BrowserTitle = "Cash Out",
-                    PageProperties = _pagePropertiesFactory.Create(homegame)
+                    PageProperties = new PageProperties(contextResult)
                 };
         }
     }

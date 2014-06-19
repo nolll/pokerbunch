@@ -1,30 +1,27 @@
-using Core.Repositories;
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.End;
+using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.End
 {
     public class EndPageBuilder : IEndPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchContextInteractor _bunchContextInteractor;
 
         public EndPageBuilder(
-            IPagePropertiesFactory pagePropertiesFactory,
-            IHomegameRepository homegameRepository)
+            IBunchContextInteractor bunchContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-            _homegameRepository = homegameRepository;
+            _bunchContextInteractor = bunchContextInteractor;
         }
 
         public EndPageModel Build(string slug)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
             
             return new EndPageModel
                 {
                     BrowserTitle = "End Game",
-                    PageProperties = _pagePropertiesFactory.Create(homegame),
+                    PageProperties = new PageProperties(contextResult),
                     ShowDiff = true
                 };
         }

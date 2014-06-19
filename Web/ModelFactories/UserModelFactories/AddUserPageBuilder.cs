@@ -1,29 +1,21 @@
-using Web.ModelFactories.PageBaseModelFactories;
+using Application.UseCases.AppContext;
+using Web.Models.PageBaseModels;
 using Web.Models.UserModels.Add;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public class AddUserPageBuilder : IAddUserPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IAppContextInteractor _appContextInteractor;
 
-        public AddUserPageBuilder(IPagePropertiesFactory pagePropertiesFactory)
+        public AddUserPageBuilder(IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
-        }
-
-        private AddUserPageModel Create()
-        {
-            return new AddUserPageModel
-                {
-                    BrowserTitle = "Register",
-                    PageProperties = _pagePropertiesFactory.Create()
-                };
+            _appContextInteractor = appContextInteractor;
         }
 
         public AddUserPageModel Build(AddUserPostModel postModel)
         {
-            var model = Create();
+            var model = Build();
             if (postModel != null)
             {
                 model.UserName = postModel.UserName;
@@ -33,5 +25,15 @@ namespace Web.ModelFactories.UserModelFactories
             return model;
         }
 
+        private AddUserPageModel Build()
+        {
+            var contextResult = _appContextInteractor.Execute();
+
+            return new AddUserPageModel
+                {
+                    BrowserTitle = "Register",
+                    PageProperties = new PageProperties(contextResult)
+                };
+        }
     }
 }

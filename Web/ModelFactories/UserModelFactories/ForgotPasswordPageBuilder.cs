@@ -1,23 +1,26 @@
-﻿using Web.ModelFactories.PageBaseModelFactories;
+﻿using Application.UseCases.AppContext;
+using Web.Models.PageBaseModels;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.ModelFactories.UserModelFactories
 {
     public class ForgotPasswordPageBuilder : IForgotPasswordPageBuilder
     {
-        private readonly IPagePropertiesFactory _pagePropertiesFactory;
+        private readonly IAppContextInteractor _appContextInteractor;
 
-        public ForgotPasswordPageBuilder(IPagePropertiesFactory pagePropertiesFactory)
+        public ForgotPasswordPageBuilder(IAppContextInteractor appContextInteractor)
         {
-            _pagePropertiesFactory = pagePropertiesFactory;
+            _appContextInteractor = appContextInteractor;
         }
 
         private ForgotPasswordPageModel Create()
         {
+            var contextResult = _appContextInteractor.Execute();
+
             return new ForgotPasswordPageModel
             {
                 BrowserTitle = "Forgot Password",
-                PageProperties = _pagePropertiesFactory.Create()
+                PageProperties = new PageProperties(contextResult)
             };
         }
 
@@ -33,10 +36,12 @@ namespace Web.ModelFactories.UserModelFactories
 
         public ForgotPasswordConfirmationPageModel BuildConfirmation()
         {
+            var contextResult = _appContextInteractor.Execute();
+
             return new ForgotPasswordConfirmationPageModel
             {
                 BrowserTitle = "Password Sent",
-                PageProperties = _pagePropertiesFactory.Create()
+                PageProperties = new PageProperties(contextResult)
             };
         }
     }

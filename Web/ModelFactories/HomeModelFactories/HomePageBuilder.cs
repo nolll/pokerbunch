@@ -15,9 +15,9 @@ namespace Web.ModelFactories.HomeModelFactories
         public HomePageModel Build()
         {
             var bunchContextRequest = new BunchContextRequest();
-            var bunchContextResult = _bunchContextInteractor.Execute(bunchContextRequest);
+            var contextResult = _bunchContextInteractor.Execute(bunchContextRequest);
 
-            return new HomePageModel(bunchContextResult);
+            return new HomePageModel(contextResult);
         }
     }
 }

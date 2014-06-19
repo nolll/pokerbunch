@@ -1,10 +1,13 @@
+using Application.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Invite
 {
-	public class InvitePlayerConfirmationPageModel : IPageModel
+	public class InvitePlayerConfirmationPageModel : PageModel
     {
-	    public string BrowserTitle { get; set; }
-	    public PageProperties PageProperties { get; set; }
-	}
+	    public InvitePlayerConfirmationPageModel(BunchContextResult bunchContextResult)
+            : base("Player Invited", bunchContextResult)
+	    {
+	    }
+    }
 }
