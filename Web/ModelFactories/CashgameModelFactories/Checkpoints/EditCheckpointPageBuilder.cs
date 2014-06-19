@@ -12,16 +12,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public EditCheckpointPageBuilder(
             IHomegameRepository homegameRepository,
             ICheckpointRepository checkpointRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _homegameRepository = homegameRepository;
             _checkpointRepository = checkpointRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId)
@@ -29,7 +29,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
             
             return new EditCheckpointPageModel
                 {

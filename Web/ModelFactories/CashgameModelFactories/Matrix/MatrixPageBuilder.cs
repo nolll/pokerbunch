@@ -19,7 +19,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
         private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public MatrixPageBuilder(
             ICashgameRepository cashgameRepository,
@@ -29,7 +29,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _cashgameRepository = cashgameRepository;
             _cashgameService = cashgameService;
@@ -38,7 +38,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashgameMatrixPageModel Build(string slug, int? year)
@@ -51,7 +51,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var gameIsRunning = runningGame != null;
             var startGameUrl = GetStartGameUrl(homegame.Slug, gameIsRunning);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
 
             return new CashgameMatrixPageModel
                 {

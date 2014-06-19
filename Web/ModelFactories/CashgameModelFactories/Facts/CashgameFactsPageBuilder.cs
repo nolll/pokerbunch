@@ -6,20 +6,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 {
     public class CashgameFactsPageBuilder : ICashgameFactsPageBuilder
     {
-        private readonly ICashgameContextInteractor _cashgameContextInteractor;
+        private readonly ICashgameContextInteractor _contextInteractor;
         private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
 
         public CashgameFactsPageBuilder(
-            ICashgameContextInteractor cashgameContextInteractor,
+            ICashgameContextInteractor contextInteractor,
             ICashgameFactsInteractor cashgameFactsInteractor)
         {
-            _cashgameContextInteractor = cashgameContextInteractor;
+            _contextInteractor = contextInteractor;
             _cashgameFactsInteractor = cashgameFactsInteractor;
         }
 
         public CashgameFactsPageModel Build(string slug, int? year = null)
         {
-            var contextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
+            var contextResult = _contextInteractor.Execute(GetCashgameContextRequest(slug, year));
             var factsResult = _cashgameFactsInteractor.Execute(GetFactsRequest(slug, year));
 
             return new CashgameFactsPageModel(

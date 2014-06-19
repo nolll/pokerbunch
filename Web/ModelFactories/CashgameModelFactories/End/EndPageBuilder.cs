@@ -6,17 +6,17 @@ namespace Web.ModelFactories.CashgameModelFactories.End
 {
     public class EndPageBuilder : IEndPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public EndPageBuilder(
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public EndPageModel Build(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
             
             return new EndPageModel
                 {

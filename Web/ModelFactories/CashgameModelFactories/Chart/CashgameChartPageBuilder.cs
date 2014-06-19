@@ -14,20 +14,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public CashgameChartPageBuilder(
             ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
             ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
             _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashgameChartPageModel Build(string slug, int? year)
@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             var homegame = _homegameRepository.GetBySlug(slug);
             var years = _cashgameRepository.GetYears(homegame);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new CashgameChartPageModel
                 {

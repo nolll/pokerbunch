@@ -14,16 +14,16 @@ namespace Web.ModelFactories.HomegameModelFactories
     {
         private readonly IGlobalization _globalization;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public EditHomegamePageBuilder(
             IGlobalization globalization,
             IHomegameRepository homegameRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _globalization = globalization;
             _homegameRepository = homegameRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         private HomegameEditPageModel Build(string slug)
@@ -31,7 +31,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             var homegame = _homegameRepository.GetBySlug(slug);
             var currency = homegame.Currency;
 
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new HomegameEditPageModel
                 {

@@ -6,12 +6,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
 {
     public class CashoutPageBuilder : ICashoutPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public CashoutPageBuilder(
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashoutPageModel Build(string slug, CashoutPostModel postModel)
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
 
         private CashoutPageModel Build(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest {Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest {Slug = slug});
 
             return new CashoutPageModel
                 {

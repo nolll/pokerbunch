@@ -12,22 +12,22 @@ namespace Web.ModelFactories.HomegameModelFactories
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public HomegameDetailsPageBuilder(
             IHomegameRepository homegameRepository,
             IAuth auth,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _homegameRepository = homegameRepository;
             _auth = auth;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public HomegameDetailsPageModel Build(string slug)
         {
             var bunchContextRequest = new BunchContextRequest {Slug = slug};
-            var contextResult = _bunchContextInteractor.Execute(bunchContextRequest);
+            var contextResult = _contextInteractor.Execute(bunchContextRequest);
             var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             return Create(contextResult, homegame, isInManagerMode);

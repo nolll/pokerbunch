@@ -17,7 +17,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public RunningCashgamePageBuilder(
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _globalization = globalization;
@@ -34,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public RunningCashgamePageModel Build(string slug)
@@ -49,7 +49,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
 
             return new RunningCashgamePageModel
                 {

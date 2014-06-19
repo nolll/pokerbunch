@@ -18,7 +18,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IAuth _auth;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public CashgameDetailsPageBuilder(
             ICashgameDetailsTableModelFactory cashgameDetailsTableModelFactory,
@@ -27,7 +27,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
             IAuth auth,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _cashgameDetailsTableModelFactory = cashgameDetailsTableModelFactory;
             _globalization = globalization;
@@ -35,7 +35,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _auth = auth;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashgameDetailsPageModel Build(string slug, string dateStr)
@@ -54,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             var model = new CashgameDetailsPageModel
                 {

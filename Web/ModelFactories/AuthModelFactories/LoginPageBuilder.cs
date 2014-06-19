@@ -9,21 +9,21 @@ namespace Web.ModelFactories.AuthModelFactories
     public class LoginPageBuilder : ILoginPageBuilder
     {
         private readonly IWebContext _webContext;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public LoginPageBuilder(
             IWebContext webContext,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _webContext = webContext;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         private LoginPageModel Create()
         {
             var returnUrl = _webContext.GetQueryParam("return");
             var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new LoginPageModel
                 {

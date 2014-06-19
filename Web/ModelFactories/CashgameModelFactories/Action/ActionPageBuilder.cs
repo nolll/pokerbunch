@@ -6,20 +6,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 {
     public class ActionPageBuilder : IActionPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
         private readonly IActionsInteractor _actionsInteractor;
 
         public ActionPageBuilder(
-            IBunchContextInteractor bunchContextInteractor,
+            IBunchContextInteractor contextInteractor,
             IActionsInteractor actionsInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
             _actionsInteractor = actionsInteractor;
         }
 
         public ActionPageModel Build(string slug, string dateStr, int playerId)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
             var actionsResult = _actionsInteractor.Execute(new ActionsRequest(slug, dateStr, playerId));
 
             return new ActionPageModel(contextResult, actionsResult);

@@ -13,16 +13,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public AddCashgamePageBuilder(
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public AddCashgamePageModel Build(string slug, AddCashgamePostModel postModel)
@@ -46,7 +46,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
 
         private AddCashgamePageModel Build(string slug, IEnumerable<string> locations)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new AddCashgamePageModel
                 {

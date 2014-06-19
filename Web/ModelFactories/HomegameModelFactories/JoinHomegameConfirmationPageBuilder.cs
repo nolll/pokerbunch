@@ -9,21 +9,21 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class JoinHomegameConfirmationPageBuilder : IJoinHomegameConfirmationPageBuilder
     {
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public JoinHomegameConfirmationPageBuilder(
             IHomegameRepository homegameRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _homegameRepository = homegameRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public JoinHomegameConfirmationPageModel Build(string slug)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
 
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new JoinHomegameConfirmationPageModel
                 {

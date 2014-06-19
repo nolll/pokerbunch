@@ -13,18 +13,18 @@ namespace Web.ModelFactories.UserModelFactories
         private readonly IAvatarModelFactory _avatarModelFactory;
         private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public UserDetailsPageBuilder(
             IAvatarModelFactory avatarModelFactory, 
             IAuth auth,
             IUserRepository userRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _avatarModelFactory = avatarModelFactory;
             _auth = auth;
             _userRepository = userRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public UserDetailsPageModel Build(string userName)
@@ -32,7 +32,7 @@ namespace Web.ModelFactories.UserModelFactories
             var currentUser = _auth.CurrentUser;
             var displayUser = _userRepository.GetByNameOrEmail(userName);
 
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             var model = new UserDetailsPageModel
                 {

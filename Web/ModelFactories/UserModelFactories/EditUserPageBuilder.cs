@@ -9,14 +9,14 @@ namespace Web.ModelFactories.UserModelFactories
     public class EditUserPageBuilder : IEditUserPageBuilder
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public EditUserPageBuilder(
             IUserRepository userRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _userRepository = userRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public EditUserPageModel Build(string userName, EditUserPostModel postModel)
@@ -35,7 +35,7 @@ namespace Web.ModelFactories.UserModelFactories
 
         private EditUserPageModel Build(User user)
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new EditUserPageModel
                 {

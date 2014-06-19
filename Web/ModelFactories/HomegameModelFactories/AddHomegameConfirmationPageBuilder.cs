@@ -5,16 +5,16 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegameConfirmationPageBuilder : IAddHomegameConfirmationPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
-        public AddHomegameConfirmationPageBuilder(IAppContextInteractor appContextInteractor)
+        public AddHomegameConfirmationPageBuilder(IAppContextInteractor contextInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public AddHomegameConfirmationPageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new AddHomegameConfirmationPageModel(contextResult);
         }

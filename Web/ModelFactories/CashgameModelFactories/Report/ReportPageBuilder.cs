@@ -6,12 +6,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
 {
     public class ReportPageBuilder : IReportPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public ReportPageBuilder(
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public ReportPageModel Build(string slug, ReportPostModel postModel)
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
 
         private ReportPageModel Build(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new ReportPageModel
                 {

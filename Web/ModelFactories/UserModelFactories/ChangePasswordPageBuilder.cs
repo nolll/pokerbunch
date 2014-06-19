@@ -6,16 +6,16 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public class ChangePasswordPageBuilder : IChangePasswordPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
-        public ChangePasswordPageBuilder(IAppContextInteractor appContextInteractor)
+        public ChangePasswordPageBuilder(IAppContextInteractor contextInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public ChangePasswordPageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new ChangePasswordPageModel
                 {
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.UserModelFactories
 
         public ChangePasswordConfirmationPageModel BuildConfirmation()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new ChangePasswordConfirmationPageModel
                 {

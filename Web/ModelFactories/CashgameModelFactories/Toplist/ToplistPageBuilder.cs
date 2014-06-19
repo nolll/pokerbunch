@@ -8,19 +8,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
     public class ToplistPageBuilder : IToplistPageBuilder
     {
         private readonly ITopListInteractor _topListInteractor;
-        private readonly ICashgameContextInteractor _cashgameContextInteractor;
+        private readonly ICashgameContextInteractor _contextInteractor;
 
         public ToplistPageBuilder(
             ITopListInteractor topListInteractor,
-            ICashgameContextInteractor cashgameContextInteractor)
+            ICashgameContextInteractor contextInteractor)
         {
             _topListInteractor = topListInteractor;
-            _cashgameContextInteractor = cashgameContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
-            var contextResult = _cashgameContextInteractor.Execute(GetCashgameContextRequest(slug, year));
+            var contextResult = _contextInteractor.Execute(GetCashgameContextRequest(slug, year));
             var topListResult = _topListInteractor.Execute(GetTopListRequest(slug, sortOrderParam, year));
 
             return new CashgameToplistPageModel(

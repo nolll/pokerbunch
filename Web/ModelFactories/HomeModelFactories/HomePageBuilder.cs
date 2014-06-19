@@ -5,17 +5,17 @@ namespace Web.ModelFactories.HomeModelFactories
 {
     public class HomePageBuilder : IHomePageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
-        public HomePageBuilder(IBunchContextInteractor bunchContextInteractor)
+        public HomePageBuilder(IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public HomePageModel Build()
         {
             var bunchContextRequest = new BunchContextRequest();
-            var contextResult = _bunchContextInteractor.Execute(bunchContextRequest);
+            var contextResult = _contextInteractor.Execute(bunchContextRequest);
 
             return new HomePageModel(contextResult);
         }

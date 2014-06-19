@@ -11,18 +11,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public BuyinPageBuilder(
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public BuyinPageModel Build(string slug, int playerId, BuyinPostModel postModel)
@@ -42,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
 
         private BuyinPageModel Build(Homegame homegame, Player player, Cashgame runningGame)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = homegame.Slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = homegame.Slug });
 
             return new BuyinPageModel
                 {

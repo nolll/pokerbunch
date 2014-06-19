@@ -17,7 +17,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IWebContext _webContext;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public CashgameListPageBuilder(
             ICashgameListTableModelFactory cashgameListTableModelFactory,
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
             IWebContext webContext,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _cashgameListTableModelFactory = cashgameListTableModelFactory;
             _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
@@ -34,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _webContext = webContext;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public CashgameListPageModel Build(string slug, int? year)
@@ -44,7 +44,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetListSortOrder();
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new CashgameListPageModel
                 {

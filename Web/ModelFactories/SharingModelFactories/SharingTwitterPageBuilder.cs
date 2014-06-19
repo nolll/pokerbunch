@@ -13,18 +13,18 @@ namespace Web.ModelFactories.SharingModelFactories
         private readonly IAuth _auth;
         private readonly ISharingRepository _sharingRepository;
         private readonly ITwitterRepository _twitterRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public SharingTwitterPageBuilder(
             IAuth auth,
             ISharingRepository sharingRepository,
             ITwitterRepository twitterRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _auth = auth;
             _sharingRepository = sharingRepository;
             _twitterRepository = twitterRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public SharingTwitterPageModel Build()
@@ -34,7 +34,7 @@ namespace Web.ModelFactories.SharingModelFactories
             var credentials = _twitterRepository.GetCredentials(user);
             var twitterName = isSharing && credentials != null ? credentials.TwitterName : null;
 
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new SharingTwitterPageModel
                 {

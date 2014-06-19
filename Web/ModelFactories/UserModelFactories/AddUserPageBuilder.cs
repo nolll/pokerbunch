@@ -6,11 +6,11 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public class AddUserPageBuilder : IAddUserPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
-        public AddUserPageBuilder(IAppContextInteractor appContextInteractor)
+        public AddUserPageBuilder(IAppContextInteractor contextInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public AddUserPageModel Build(AddUserPostModel postModel)
@@ -27,7 +27,7 @@ namespace Web.ModelFactories.UserModelFactories
 
         private AddUserPageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new AddUserPageModel
                 {

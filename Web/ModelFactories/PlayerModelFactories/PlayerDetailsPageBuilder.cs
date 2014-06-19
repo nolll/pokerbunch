@@ -19,7 +19,7 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IUserRepository _userRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IAuth _auth;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public PlayerDetailsPageBuilder(
             IAvatarModelFactory avatarModelFactory,
@@ -30,7 +30,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             IUserRepository userRepository,
             ICashgameRepository cashgameRepository,
             IAuth auth,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _avatarModelFactory = avatarModelFactory;
             _playerFactsModelFactory = playerFactsModelFactory;
@@ -40,7 +40,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             _userRepository = userRepository;
             _cashgameRepository = cashgameRepository;
             _auth = auth;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public PlayerDetailsPageModel Build(string slug, int playerId)
@@ -58,7 +58,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
             var invitationUrl = new InvitePlayerUrl(homegame.Slug, player.Id);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest {Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest {Slug = slug});
 
             return new PlayerDetailsPageModel
                 {

@@ -5,17 +5,17 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public class InvitePlayerConfirmationPageBuilder : IInvitePlayerConfirmationPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public InvitePlayerConfirmationPageBuilder(
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public InvitePlayerConfirmationPageModel Build(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
 
             return new InvitePlayerConfirmationPageModel(contextResult);
         }

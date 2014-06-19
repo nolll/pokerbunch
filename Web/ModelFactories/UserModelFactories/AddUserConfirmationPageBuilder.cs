@@ -5,16 +5,16 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public class AddUserConfirmationPageBuilder : IAddUserConfirmationPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
-        public AddUserConfirmationPageBuilder(IAppContextInteractor appContextInteractor)
+        public AddUserConfirmationPageBuilder(IAppContextInteractor contextInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public AddUserConfirmationPageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new AddUserConfirmationPageModel(contextResult);
         }

@@ -12,16 +12,16 @@ namespace Web.ModelFactories.SharingModelFactories
     {
         private readonly IAuth _auth;
         private readonly ISharingRepository _sharingRepository;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public SharingIndexPageBuilder(
             IAuth auth,
             ISharingRepository sharingRepository,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _auth = auth;
             _sharingRepository = sharingRepository;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public SharingIndexPageModel Build()
@@ -29,7 +29,7 @@ namespace Web.ModelFactories.SharingModelFactories
             var user = _auth.CurrentUser;
             var isSharing = _sharingRepository.IsSharing(user, SocialServiceIdentifier.Twitter);
 
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
             
             return new SharingIndexPageModel
                 {

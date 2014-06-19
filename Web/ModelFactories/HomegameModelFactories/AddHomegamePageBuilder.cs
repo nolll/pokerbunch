@@ -11,14 +11,14 @@ namespace Web.ModelFactories.HomegameModelFactories
     public class AddHomegamePageBuilder : IAddHomegamePageBuilder
     {
         private readonly IGlobalization _globalization;
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
         public AddHomegamePageBuilder(
             IGlobalization globalization,
-            IAppContextInteractor appContextInteractor)
+            IAppContextInteractor contextInteractor)
         {
             _globalization = globalization;
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public AddHomegamePageModel Build(AddHomegamePostModel postModel)
@@ -37,7 +37,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private AddHomegamePageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new AddHomegamePageModel
                 {

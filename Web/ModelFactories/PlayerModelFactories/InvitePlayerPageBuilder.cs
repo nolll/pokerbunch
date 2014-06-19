@@ -6,12 +6,12 @@ namespace Web.ModelFactories.PlayerModelFactories
 {
     public class InvitePlayerPageBuilder : IInvitePlayerPageBuilder
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public InvitePlayerPageBuilder(
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public InvitePlayerPageModel Build(string slug, InvitePlayerPostModel postModel)
@@ -26,7 +26,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         private InvitePlayerPageModel Build(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new InvitePlayerPageModel
                 {

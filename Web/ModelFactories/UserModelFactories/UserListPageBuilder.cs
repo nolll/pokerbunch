@@ -6,20 +6,20 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public class UserListPageBuilder : IUserListPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
         private readonly IUserListInteractor _userListInteractor;
 
         public UserListPageBuilder(
-            IAppContextInteractor appContextInteractor,
+            IAppContextInteractor contextInteractor,
             IUserListInteractor userListInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
             _userListInteractor = userListInteractor;
         }
 
         public UserListPageModel Build()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
             var showUserListResult = _userListInteractor.Execute();
 
             return new UserListPageModel(

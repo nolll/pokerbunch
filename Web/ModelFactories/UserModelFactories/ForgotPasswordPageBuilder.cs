@@ -6,16 +6,16 @@ namespace Web.ModelFactories.UserModelFactories
 {
     public class ForgotPasswordPageBuilder : IForgotPasswordPageBuilder
     {
-        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly IAppContextInteractor _contextInteractor;
 
-        public ForgotPasswordPageBuilder(IAppContextInteractor appContextInteractor)
+        public ForgotPasswordPageBuilder(IAppContextInteractor contextInteractor)
         {
-            _appContextInteractor = appContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         private ForgotPasswordPageModel Create()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new ForgotPasswordPageModel
             {
@@ -36,7 +36,7 @@ namespace Web.ModelFactories.UserModelFactories
 
         public ForgotPasswordConfirmationPageModel BuildConfirmation()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = _contextInteractor.Execute();
 
             return new ForgotPasswordConfirmationPageModel
             {

@@ -13,18 +13,18 @@ namespace Web.ModelFactories.PlayerModelFactories
         private readonly IPlayerItemModelFactory _playerItemModelFactory;
         private readonly IAuth _auth;
         private readonly IPlayerListInteractor _playerListInteractor;
-        private readonly IBunchContextInteractor _bunchContextInteractor;
+        private readonly IBunchContextInteractor _contextInteractor;
 
         public PlayerListPageBuilder(
             IPlayerItemModelFactory playerItemModelFactory,
             IAuth auth,
             IPlayerListInteractor playerListInteractor,
-            IBunchContextInteractor bunchContextInteractor)
+            IBunchContextInteractor contextInteractor)
         {
             _playerItemModelFactory = playerItemModelFactory;
             _auth = auth;
             _playerListInteractor = playerListInteractor;
-            _bunchContextInteractor = bunchContextInteractor;
+            _contextInteractor = contextInteractor;
         }
 
         public PlayerListPageModel Build(string slug)
@@ -33,7 +33,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             var request = new PlayerListRequest {Slug = slug};
             var result = _playerListInteractor.Execute(request);
 
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
 
             return new PlayerListPageModel
                 {
