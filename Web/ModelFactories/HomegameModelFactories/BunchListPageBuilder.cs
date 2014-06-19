@@ -1,4 +1,4 @@
-﻿using Application.UseCases.ApplicationContext;
+﻿using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
 using Web.Models.HomegameModels.List;
 
@@ -19,11 +19,11 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         public BunchListPageModel Build()
         {
-            var applicationContextResult = _appContextInteractor.Execute();
+            var appContextResult = _appContextInteractor.Execute();
             var bunchListResult = _bunchListInteractor.Execute();
 
             return new BunchListPageModel(
-                applicationContextResult,
+                appContextResult,
                 bunchListResult);
         }
     }

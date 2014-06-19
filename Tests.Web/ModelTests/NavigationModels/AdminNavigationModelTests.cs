@@ -2,7 +2,6 @@ using Application.Urls;
 using NUnit.Framework;
 using Tests.Common.FakeClasses;
 using Web.Models.NavigationModels;
-using Web.Models.UrlModels;
 
 namespace Tests.Web.ModelTests.NavigationModels
 {
@@ -11,9 +10,9 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_AdminUser_DefaultContentSet()
         {
-            var applicationContextResult = new AppContextResultInTest(isAdmin: true);
+            var appContextResult = new AppContextResultInTest(isAdmin: true);
 
-            var result = new AdminNavigationModel(applicationContextResult);
+            var result = new AdminNavigationModel(appContextResult);
 
             Assert.AreEqual("Admin", result.Heading);
             Assert.AreEqual("admin-nav", result.CssClass);
@@ -22,9 +21,9 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithNonAdminUser_NoNodes()
         {
-            var applicationContextResult = new AppContextResultInTest();
+            var appContextResult = new AppContextResultInTest();
 
-            var result = new AdminNavigationModel(applicationContextResult);
+            var result = new AdminNavigationModel(appContextResult);
 
             Assert.AreEqual(0, result.Nodes.Count);
         }
@@ -32,9 +31,9 @@ namespace Tests.Web.ModelTests.NavigationModels
         [Test]
         public void Show_WithAdminUser_SetsNodes()
         {
-            var applicationContextResult = new AppContextResultInTest(isAdmin: true);
+            var appContextResult = new AppContextResultInTest(isAdmin: true);
 
-            var result = new AdminNavigationModel(applicationContextResult);
+            var result = new AdminNavigationModel(appContextResult);
 
             Assert.IsInstanceOf<HomegameListUrl>(result.Nodes[0].Url);
             Assert.IsInstanceOf<UserListUrl>(result.Nodes[1].Url);

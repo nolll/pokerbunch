@@ -1,6 +1,6 @@
 using Application.Services;
 using Application.Urls;
-using Application.UseCases.ApplicationContext;
+using Application.UseCases.AppContext;
 using Web.Models.AuthModels;
 using Web.Models.PageBaseModels;
 
@@ -23,12 +23,12 @@ namespace Web.ModelFactories.AuthModelFactories
         {
             var returnUrl = _webContext.GetQueryParam("return");
             var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
-            var applicationContextResult = _appContextInteractor.Execute();
+            var appContextResult = _appContextInteractor.Execute();
 
             return new LoginPageModel
                 {
                     BrowserTitle = "Login",
-                    PageProperties = new PageProperties(applicationContextResult),
+                    PageProperties = new PageProperties(appContextResult),
                     ReturnUrl = returnUrlModel.Relative,
                     AddUserUrl = new AddUserUrl(),
                     ForgotPasswordUrl = new ForgotPasswordUrl()

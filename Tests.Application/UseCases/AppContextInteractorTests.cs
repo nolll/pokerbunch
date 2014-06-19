@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Application.UseCases.ApplicationContext;
+using Application.UseCases.AppContext;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
@@ -7,7 +7,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class ApplicationContextInteractorTests : MockContainer
+    class AppContextInteractorTests : MockContainer
     {
         [Test]
         public void Execute_WithoutUser_AllPropertiesAreSet()

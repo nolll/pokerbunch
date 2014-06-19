@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Application.Urls;
-using Application.UseCases.ApplicationContext;
+using Application.UseCases.AppContext;
 using Application.UseCases.CashgameContext;
 using Core.Entities;
 using Web.Models.UrlModels;

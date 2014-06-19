@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Application.UseCases.ApplicationContext;
+using Application.UseCases.AppContext;
 using Core.Entities;
 using Core.Repositories;
 
@@ -23,12 +23,12 @@ namespace Application.UseCases.BunchContext
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var applicationContextResult = _appContextInteractor.Execute();
+            var appContextResult = _appContextInteractor.Execute();
 
             var homegame = GetBunch(request);
             
             return new BunchContextResult(
-                applicationContextResult,
+                appContextResult,
                 homegame.Slug,
                 homegame.Id,
                 homegame.DisplayName);

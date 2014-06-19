@@ -58,7 +58,7 @@
     <Compile Include="Services\SaltGeneratorTests.cs" />
     <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="UseCases\ActionsResultTests.cs" />
-    <Compile Include="UseCases\ApplicationContextInteractorTests.cs" />
+    <Compile Include="UseCases\AppContextInteractorTests.cs" />
     <Compile Include="UseCases\BunchContextInteractorTests.cs" />
     <Compile Include="UseCases\BunchListInteractorTests.cs" />
     <Compile Include="UseCases\CashgameContextInteractorTests.cs" />

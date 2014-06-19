@@ -1,4 +1,4 @@
-using Application.UseCases.ApplicationContext;
+using Application.UseCases.AppContext;
 
 namespace Tests.Common.FakeClasses
 {

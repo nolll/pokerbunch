@@ -1,4 +1,4 @@
-﻿using Application.UseCases.ApplicationContext;
+﻿using Application.UseCases.AppContext;
 using Application.UseCases.UserList;
 using Web.Models.UserModels.List;
 
@@ -19,11 +19,11 @@ namespace Web.ModelFactories.UserModelFactories
 
         public UserListPageModel Build()
         {
-            var applicationContextResult = _appContextInteractor.Execute();
+            var appContextResult = _appContextInteractor.Execute();
             var showUserListResult = _userListInteractor.Execute();
 
             return new UserListPageModel(
-                applicationContextResult,
+                appContextResult,
                 showUserListResult);
         }
     }

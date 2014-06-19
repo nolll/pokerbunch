@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.ApplicationContext
+﻿namespace Application.UseCases.AppContext
 {
     public class AppContextResult
     {

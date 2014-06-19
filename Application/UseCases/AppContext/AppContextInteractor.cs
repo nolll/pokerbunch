@@ -1,6 +1,6 @@
 ﻿using Application.Services;
 
-namespace Application.UseCases.ApplicationContext
+namespace Application.UseCases.AppContext
 {
     public class AppContextInteractor : IAppContextInteractor
     {
