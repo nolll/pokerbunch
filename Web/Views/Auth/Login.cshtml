@@ -26,9 +26,8 @@
                 @Html.TextBoxFor(model => model.LoginName, new { @class = "textfield", autocapitalize = "off" })
             </p>
             <p>
-                @Html.LabelFor(model => model.Password, "Password", new { @class = "label" })
-                @Html.PasswordFor(model => model.Password, new { @class = "textfield" })
-            </p>
+                <label for="Password" class="label">Password</label>
+                <input class="textfield" id="Password" name="Password" type="password" />            </p>
             <p class="checkbox-layout">
                 @Html.LabelFor(model => model.RememberMe, "Keep me signed in", new { @class = "checkbox-label" })
                 @Html.CheckBoxFor(model => model.RememberMe)

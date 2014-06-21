@@ -6,7 +6,5 @@ namespace Web.Models.PlayerModels.Invite
     {
         public string BrowserTitle { get; set; }
         public PageProperties PageProperties { get; set; }
-
 	}
-
 }

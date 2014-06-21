@@ -27,11 +27,9 @@ namespace Application.UseCases.BunchContext
 
             var homegame = GetBunch(request);
             
-            return new BunchContextResult(
-                appContextResult,
-                homegame.Slug,
-                homegame.Id,
-                homegame.DisplayName);
+            if(homegame == null)
+                return new BunchContextResult(appContextResult);
+            return new BunchContextResult(appContextResult, homegame.Slug, homegame.Id, homegame.DisplayName);
         }
 
         private Homegame GetBunch(BunchContextRequest request)

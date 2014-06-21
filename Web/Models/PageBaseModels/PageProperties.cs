@@ -23,21 +23,14 @@ namespace Web.Models.PageBaseModels
 
         public PageProperties(BunchContextResult bunchContextResult) : this((AppContextResult)bunchContextResult)
         {
-            HomegameNavModel = bunchContextResult != null ? new HomegameNavigationModel(bunchContextResult) : null;
+            HomegameNavModel = GetHomegameNavModel(bunchContextResult);
         }
 
-        public PageProperties(
-            NavigationModel userNavModel,
-            GoogleAnalyticsModel googleAnalyticsModel,
-            HomegameNavigationModel homegameNavModel,
-            string version,
-            string cssUrl)
+        private HomegameNavigationModel GetHomegameNavModel(BunchContextResult bunchContextResult)
         {
-            UserNavModel = userNavModel;
-            HomegameNavModel = homegameNavModel;
-            GoogleAnalyticsModel = googleAnalyticsModel;
-            Version = version;
-            CssUrl = cssUrl;
+            if(bunchContextResult != null && bunchContextResult.HasBunch)
+                return new HomegameNavigationModel(bunchContextResult);
+            return null;
         }
     }
 }

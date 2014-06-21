@@ -1,8 +1,6 @@
 using Application.Services;
-using Application.Urls;
 using Application.UseCases.AppContext;
 using Web.Models.AuthModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.AuthModelFactories
 {
@@ -19,32 +17,12 @@ namespace Web.ModelFactories.AuthModelFactories
             _contextInteractor = contextInteractor;
         }
 
-        private LoginPageModel Create()
-        {
-            var returnUrl = _webContext.GetQueryParam("return");
-            var returnUrlModel = returnUrl != null ? new Url(returnUrl) : new HomeUrl();
-            var contextResult = _contextInteractor.Execute();
-
-            return new LoginPageModel
-                {
-                    BrowserTitle = "Login",
-                    PageProperties = new PageProperties(contextResult),
-                    ReturnUrl = returnUrlModel.Relative,
-                    AddUserUrl = new AddUserUrl(),
-                    ForgotPasswordUrl = new ForgotPasswordUrl()
-                };
-        }
-
         public LoginPageModel Build(LoginPostModel postModel)
         {
-            var model = Create();
-            if (postModel != null)
-            {
-                model.LoginName = postModel.LoginName;
-                model.RememberMe = postModel.RememberMe;
-                model.ReturnUrl = postModel.ReturnUrl;
-            }
-            return model;
+            var returnUrl = _webContext.GetQueryParam("return");
+            var contextResult = _contextInteractor.Execute();
+
+            return new LoginPageModel(contextResult, returnUrl, postModel);
         }
     }
 }

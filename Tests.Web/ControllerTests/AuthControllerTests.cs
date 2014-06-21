@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
+using Tests.Common.FakeModels;
 using Web.Commands.AuthCommands;
 using Web.Controllers;
 using Web.ModelFactories.AuthModelFactories;
@@ -16,7 +17,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void Login_ReturnsCorrectViewAndModel()
         {
-            var model = new LoginPageModel();
+            var model = new LoginPageModelInTest();
             GetMock<ILoginPageBuilder>().Setup(o => o.Build(null)).Returns(model);
 
             var sut = GetSut();
@@ -37,7 +38,7 @@ namespace Tests.Web.ControllerTests
 
             var sut = GetSut();
 
-            var loginPageModel = new LoginPageModel();
+            var loginPageModel = new LoginPostModel();
             var result = sut.Login(loginPageModel) as RedirectResult;
 
             Assert.IsNotNull(result);
@@ -52,7 +53,7 @@ namespace Tests.Web.ControllerTests
 
             var sut = GetSut();
 
-            var loginPageModel = new LoginPageModel { ReturnUrl = "return-url" };
+            var loginPageModel = new LoginPostModel { ReturnUrl = "return-url" };
             var result = sut.Login(loginPageModel) as RedirectResult;
 
             Assert.IsNotNull(result);
@@ -65,11 +66,11 @@ namespace Tests.Web.ControllerTests
             var command = new FailedCommandInTest();
             GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<LoginPostModel>())).Returns(command);
 
-            var loginPageModel = new LoginPostModel();
-            GetMock<ILoginPageBuilder>().Setup(o => o.Build(loginPageModel)).Returns(new LoginPageModel());
+            var loginPostModel = new LoginPostModel();
+            GetMock<ILoginPageBuilder>().Setup(o => o.Build(loginPostModel)).Returns(new LoginPageModelInTest());
 
             var sut = GetSut();
-            var result = sut.Login(loginPageModel) as ViewResult;
+            var result = sut.Login(loginPostModel) as ViewResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Login", result.ViewName);

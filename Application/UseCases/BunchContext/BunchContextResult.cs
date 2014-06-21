@@ -7,6 +7,13 @@ namespace Application.UseCases.BunchContext
         public string Slug { get; private set; }
         public string BunchName { get; private set; }
         public int BunchId { get; private set; }
+        public bool HasBunch { get; private set; }
+
+        public BunchContextResult(AppContextResult appContextResult)
+            : this(appContextResult, null, 0, null)
+        {
+            HasBunch = false;
+        }
 
         public BunchContextResult(
             AppContextResult appContextResult,
@@ -28,6 +35,7 @@ namespace Application.UseCases.BunchContext
             Slug = slug;
             BunchId = bunchId;
             BunchName = bunchName;
+            HasBunch = true;
         }
 
         protected BunchContextResult(
@@ -52,6 +60,7 @@ namespace Application.UseCases.BunchContext
             Slug = slug;
             BunchId = bunchId;
             BunchName = bunchName;
+            HasBunch = true;
         }
     }
 }
