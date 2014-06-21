@@ -42,7 +42,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
 
         private BuyinPageModel Build(Homegame homegame, Player player, Cashgame runningGame)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = homegame.Slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(homegame.Slug));
 
             return new BuyinPageModel
                 {

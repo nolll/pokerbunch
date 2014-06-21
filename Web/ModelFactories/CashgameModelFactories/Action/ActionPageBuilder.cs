@@ -19,7 +19,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 
         public ActionPageModel Build(string slug, string dateStr, int playerId)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             var actionsResult = _actionsInteractor.Execute(new ActionsRequest(slug, dateStr, playerId));
 
             return new ActionPageModel(contextResult, actionsResult);

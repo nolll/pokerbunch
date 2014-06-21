@@ -2,7 +2,13 @@
 {
     public class CashgameContextRequest
     {
-        public string Slug { get; set; }
-        public int? Year { get; set; }
+        public string Slug { get; private set; }
+        public int? Year { get; private set; }
+
+        public CashgameContextRequest(string slug, int? year = null)
+        {
+            Slug = slug;
+            Year = year;
+        }
     }
 }

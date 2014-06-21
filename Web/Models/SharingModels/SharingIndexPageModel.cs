@@ -1,14 +1,17 @@
 using Application.Urls;
+using Application.UseCases.AppContext;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.SharingModels
 {
-    public class SharingIndexPageModel : IPageModel
+    public class SharingIndexPageModel : PageModel
     {
-        public PageProperties PageProperties { get; set; }
-        public string BrowserTitle { get; set; }
         public bool IsSharingToTwitter { get; set; }
         public Url ShareToTwitterSettingsUrl { get; set; }
+
+        public SharingIndexPageModel(AppContextResult appContextResult)
+            : base("Sharing", appContextResult)
+        {
+        }
     }
 }

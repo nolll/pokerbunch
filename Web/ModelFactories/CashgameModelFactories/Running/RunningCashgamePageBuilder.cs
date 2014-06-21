@@ -49,7 +49,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new RunningCashgamePageModel
                 {

@@ -202,6 +202,7 @@
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerBadgesModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\PlayerBadgesModelFactory.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
+    <Compile Include="Models\PageBaseModels\IPageModel.cs" />
     <Compile Include="Models\UrlModels\UrlExtensions.cs">
       <SubType>Code</SubType>
     </Compile>

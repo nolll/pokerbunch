@@ -28,7 +28,7 @@ namespace Tests.Application.UseCases
             const string name = "b";
             const int year = 1;
             var years = new List<int>();
-            var request = new CashgameContextRequest { Slug = slug, Year = year };
+            var request = new CashgameContextRequest(slug, year);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -45,7 +45,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var years = new List<int>();
-            var cashgameContextRequest = new CashgameContextRequest {Slug = slug};
+            var cashgameContextRequest = new CashgameContextRequest(slug);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -63,7 +63,7 @@ namespace Tests.Application.UseCases
             const string name = "b";
             const int year = 1;
             var years = new List<int>();
-            var request = new CashgameContextRequest { Slug = slug, Year = year };
+            var request = new CashgameContextRequest(slug, year);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -80,7 +80,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var years = new List<int>();
-            var request = new CashgameContextRequest { Slug = slug };
+            var request = new CashgameContextRequest(slug);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -98,7 +98,7 @@ namespace Tests.Application.UseCases
             const string name = "b";
             const int year = 1;
             var years = new List<int>();
-            var request = new CashgameContextRequest { Slug = slug, Year = year };
+            var request = new CashgameContextRequest(slug, year);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -116,7 +116,7 @@ namespace Tests.Application.UseCases
             const string name = "b";
             var years = new List<int>(); 
             var cashgame = new CashgameInTest();
-            var request = new CashgameContextRequest { Slug = slug };
+            var request = new CashgameContextRequest(slug);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -134,7 +134,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var years = new List<int>();
-            var request = new CashgameContextRequest { Slug = slug };
+            var request = new CashgameContextRequest(slug);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
@@ -152,7 +152,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string name = "b";
             var years = new List<int>{1, 2, 3};
-            var request = new CashgameContextRequest { Slug = slug };
+            var request = new CashgameContextRequest(slug);
             var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);

@@ -29,7 +29,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             
             return new EditCheckpointPageModel
                 {

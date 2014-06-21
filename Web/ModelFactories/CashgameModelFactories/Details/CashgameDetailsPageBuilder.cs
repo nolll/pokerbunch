@@ -54,7 +54,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             var model = new CashgameDetailsPageModel
                 {

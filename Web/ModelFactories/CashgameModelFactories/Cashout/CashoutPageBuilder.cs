@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
 
         private CashoutPageModel Build(string slug)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest {Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new CashoutPageModel
                 {

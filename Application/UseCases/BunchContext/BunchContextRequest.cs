@@ -2,7 +2,12 @@
 {
     public class BunchContextRequest
     {
-        public string Slug { get; set; }
+        public string Slug { get; private set; }
+
+        public BunchContextRequest(string slug = null)
+        {
+            Slug = slug;
+        }
 
         public bool HasSlug
         {

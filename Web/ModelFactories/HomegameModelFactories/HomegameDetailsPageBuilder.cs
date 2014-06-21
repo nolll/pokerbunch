@@ -26,7 +26,7 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         public HomegameDetailsPageModel Build(string slug)
         {
-            var bunchContextRequest = new BunchContextRequest {Slug = slug};
+            var bunchContextRequest = new BunchContextRequest(slug);
             var contextResult = _contextInteractor.Execute(bunchContextRequest);
             var homegame = _homegameRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);

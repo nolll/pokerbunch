@@ -31,10 +31,8 @@ namespace Web.ModelFactories.SharingModelFactories
 
             var contextResult = _contextInteractor.Execute();
             
-            return new SharingIndexPageModel
+            return new SharingIndexPageModel(contextResult)
                 {
-                    BrowserTitle = "Sharing",
-                    PageProperties = new PageProperties(contextResult),
                     IsSharingToTwitter = isSharing,
 			        ShareToTwitterSettingsUrl = new TwitterSettingsUrl()
                 };

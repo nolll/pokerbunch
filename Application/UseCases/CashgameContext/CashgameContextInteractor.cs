@@ -20,16 +20,16 @@ namespace Application.UseCases.CashgameContext
 
         public CashgameContextResult Execute(CashgameContextRequest request)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest{Slug = request.Slug});
+            var bunchContextResult = _bunchContextInteractor.Execute(new BunchContextRequest(request.Slug));
 
-            var runningGame = _cashgameRepository.GetRunning(contextResult.BunchId);
+            var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(contextResult.BunchId);
+            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
             var latestYear = GetLatestYear(years);
 
             return new CashgameContextResult(
-                contextResult,
+                bunchContextResult,
                 gameIsRunning,
                 years,
                 request.Year,

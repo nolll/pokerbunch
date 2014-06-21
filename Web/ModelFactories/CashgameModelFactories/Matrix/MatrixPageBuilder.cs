@@ -51,7 +51,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var gameIsRunning = runningGame != null;
             var startGameUrl = GetStartGameUrl(homegame.Slug, gameIsRunning);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new CashgameMatrixPageModel
                 {

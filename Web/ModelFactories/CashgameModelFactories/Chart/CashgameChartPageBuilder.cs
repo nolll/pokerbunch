@@ -1,49 +1,32 @@
 ﻿using Application.Urls;
-using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameContext;
 using Core.Repositories;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.Models.CashgameModels.Chart;
-using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
     public class CashgameChartPageBuilder : ICashgameChartPageBuilder
     {
-        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
-        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _contextInteractor;
+        private readonly ICashgameContextInteractor _cashgameContextInteractor;
 
         public CashgameChartPageBuilder(
-            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
-            ICashgameRepository cashgameRepository,
-            IBunchContextInteractor contextInteractor)
+            ICashgameContextInteractor cashgameContextInteractor)
         {
-            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
-            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
-            _cashgameRepository = cashgameRepository;
-            _contextInteractor = contextInteractor;
+            _cashgameContextInteractor = cashgameContextInteractor;
         }
 
         public CashgameChartPageModel Build(string slug, int? year)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
-            var years = _cashgameRepository.GetYears(homegame);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var cashgameContextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year));
 
-            return new CashgameChartPageModel
+            return new CashgameChartPageModel(cashgameContextResult)
                 {
-                    BrowserTitle = "Cashgame Chart",
-                    PageProperties = new PageProperties(contextResult),
 			        ChartDataUrl = new CashgameChartJsonUrl(homegame.Slug, year),
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Chart),
-                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Chart, year)
                 };
         }
     }

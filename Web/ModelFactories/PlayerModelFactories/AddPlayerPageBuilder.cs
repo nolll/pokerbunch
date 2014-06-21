@@ -16,7 +16,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         public AddPlayerPageModel Build(string slug, AddPlayerPostModel postModel = null)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             var model = new AddPlayerPageModel
                 {

@@ -16,7 +16,7 @@ namespace Web.ModelFactories.CashgameModelFactories.End
 
         public EndPageModel Build(string slug)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             
             return new EndPageModel
                 {

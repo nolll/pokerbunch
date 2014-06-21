@@ -30,7 +30,7 @@ namespace Tests.Application.UseCases
             var totalResultList = new List<CashgameTotalResult> {totalResult};
             var playerList = new List<Player>();
             var suite = new CashgameSuiteInTest(totalResults: totalResultList, players: playerList);
-            var request = new TopListRequest{Slug = slug};
+            var request = new TopListRequest(slug, ToplistSortOrder.Winnings, null);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, null)).Returns(suite);

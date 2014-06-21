@@ -15,7 +15,7 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         public InvitePlayerConfirmationPageModel Build(string slug)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest { Slug = slug });
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new InvitePlayerConfirmationPageModel(contextResult);
         }

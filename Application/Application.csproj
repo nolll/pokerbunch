@@ -200,6 +200,7 @@
     <Compile Include="UseCases\PlayerList\IPlayerListInteractor.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListInteractor.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
+    <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\UserList\IUserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListInteractor.cs" />

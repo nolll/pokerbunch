@@ -19,30 +19,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Facts
 
         public CashgameFactsPageModel Build(string slug, int? year = null)
         {
-            var contextResult = _contextInteractor.Execute(GetCashgameContextRequest(slug, year));
-            var factsResult = _cashgameFactsInteractor.Execute(GetFactsRequest(slug, year));
+            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var factsResult = _cashgameFactsInteractor.Execute(new CashgameFactsRequest(slug, year));
 
-            return new CashgameFactsPageModel(
-                contextResult,
-                factsResult);
-        }
-
-        private static CashgameFactsRequest GetFactsRequest(string slug, int? year)
-        {
-            return new CashgameFactsRequest
-                {
-                    Slug = slug,
-                    Year = year
-                };
-        }
-
-        private static CashgameContextRequest GetCashgameContextRequest(string slug, int? year)
-        {
-            return new CashgameContextRequest
-                {
-                    Slug = slug,
-                    Year = year
-                };
+            return new CashgameFactsPageModel(contextResult, factsResult);
         }
     }
 }

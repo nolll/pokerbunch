@@ -30,10 +30,10 @@ namespace Web.ModelFactories.PlayerModelFactories
         public PlayerListPageModel Build(string slug)
         {
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
-            var request = new PlayerListRequest {Slug = slug};
+            var request = new PlayerListRequest(slug);
             var result = _playerListInteractor.Execute(request);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new PlayerListPageModel
                 {

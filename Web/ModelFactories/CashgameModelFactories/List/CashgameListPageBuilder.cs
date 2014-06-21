@@ -44,7 +44,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var years = _cashgameRepository.GetYears(homegame);
             var sortOrder = GetListSortOrder();
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new CashgameListPageModel
                 {

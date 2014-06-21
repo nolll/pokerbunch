@@ -47,7 +47,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
 
         private EditCashgamePageModel Build(string slug, Cashgame cashgame, IEnumerable<string> locations)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new EditCashgamePageModel
                 {

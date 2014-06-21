@@ -17,7 +17,7 @@ namespace Tests.Application.UseCases
         public void ExecuteWithSlug_SlugIsSetFromSelectedHomegame()
         {
             const string slug = "a";
-            var request = new BunchContextRequest { Slug = slug };
+            var request = new BunchContextRequest(slug);
             var contextResult = new AppContextResultInTest();
             var homegame = new HomegameInTest(slug: slug);
 

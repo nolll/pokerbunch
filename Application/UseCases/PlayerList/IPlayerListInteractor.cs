@@ -4,9 +4,4 @@
     {
         PlayerListResult Execute(PlayerListRequest request);
     }
-
-    public class PlayerListRequest
-    {
-        public string Slug;
-    }
 }

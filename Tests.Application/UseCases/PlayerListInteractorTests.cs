@@ -30,7 +30,7 @@ namespace Tests.Application.UseCases
             var homegame = new HomegameInTest(slug: slug);
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
-            var request = new PlayerListRequest { Slug = slug };
+            var request = new PlayerListRequest(slug);
 
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
@@ -51,7 +51,7 @@ namespace Tests.Application.UseCases
             var player1 = new PlayerInTest(displayName: playerName1);
             var player2 = new PlayerInTest(displayName: playerName2);
             var players = new List<Player> { player1, player2 };
-            var request = new PlayerListRequest();
+            var request = new PlayerListRequest("anyslug");
 
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Homegame>())).Returns(players);
 

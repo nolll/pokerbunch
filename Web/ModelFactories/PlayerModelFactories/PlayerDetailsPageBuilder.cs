@@ -58,7 +58,7 @@ namespace Web.ModelFactories.PlayerModelFactories
             var avatarModel = hasUser ? _avatarModelFactory.Create(user.Email) : null;
             var invitationUrl = new InvitePlayerUrl(homegame.Slug, player.Id);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest {Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new PlayerDetailsPageModel
                 {

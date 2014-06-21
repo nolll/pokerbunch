@@ -33,7 +33,7 @@ namespace Tests.Application.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
 
-            var request = new CashgameFactsRequest{Slug = slug, Year = year};
+            var request = new CashgameFactsRequest(slug, year);
             var result = Sut.Execute(request);
 
             Assert.IsNotNull(result);

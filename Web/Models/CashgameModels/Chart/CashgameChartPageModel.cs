@@ -1,16 +1,16 @@
 using Application.Urls;
+using Application.UseCases.CashgameContext;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Chart
 {
-    public class CashgameChartPageModel : IPageModel
+    public class CashgameChartPageModel : CashgameContextPageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
-		public Url ChartDataUrl { get; set; }
-        public CashgamePageNavigationModel PageNavModel { get; set; }
-        public CashgameYearNavigationModel YearNavModel { get; set; }
-	}
+        public Url ChartDataUrl { get; set; }
+
+        public CashgameChartPageModel(CashgameContextResult cashgameContextResult)
+            : base("Cashgame Chart", cashgameContextResult, CashgamePage.Chart)
+        {
+        }
+    }
 }

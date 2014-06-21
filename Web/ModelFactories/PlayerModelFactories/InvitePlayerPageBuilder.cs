@@ -16,23 +16,9 @@ namespace Web.ModelFactories.PlayerModelFactories
 
         public InvitePlayerPageModel Build(string slug, InvitePlayerPostModel postModel)
         {
-            var model = Build(slug);
-            if (postModel != null)
-            {
-                model.Email = postModel.Email;
-            }
-            return model;
-        }
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-        private InvitePlayerPageModel Build(string slug)
-        {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
-
-            return new InvitePlayerPageModel
-                {
-                    BrowserTitle = "Invite Player",
-                    PageProperties = new PageProperties(contextResult)
-                };
+            return new InvitePlayerPageModel(contextResult, postModel);
         }
     }
 }

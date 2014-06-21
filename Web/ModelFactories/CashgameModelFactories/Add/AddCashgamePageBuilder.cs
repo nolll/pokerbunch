@@ -46,7 +46,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
 
         private AddCashgamePageModel Build(string slug, IEnumerable<string> locations)
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest{Slug = slug});
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             return new AddCashgamePageModel
                 {
