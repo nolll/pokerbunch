@@ -46,13 +46,17 @@ namespace Tests.Application.UseCases
         [Test]
         public void Execute_PlayersAreSortedAlphabetically()
         {
+            const string slug = "c";
             const string playerName1 = "b";
             const string playerName2 = "a";
+
+            var homegame = new HomegameInTest();
             var player1 = new PlayerInTest(displayName: playerName1);
             var player2 = new PlayerInTest(displayName: playerName2);
             var players = new List<Player> { player1, player2 };
-            var request = new PlayerListRequest("anyslug");
+            var request = new PlayerListRequest(slug);
 
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Homegame>())).Returns(players);
 
             var result = _sut.Execute(request);

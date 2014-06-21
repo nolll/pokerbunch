@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Entities;
 
 namespace Application.UseCases.BunchList
 {
@@ -6,7 +8,12 @@ namespace Application.UseCases.BunchList
     {
         public IList<BunchListItem> Bunches { get; private set; }
 
-        public BunchListResult(IList<BunchListItem> bunches)
+        public BunchListResult(IEnumerable<Homegame> homegames)
+        {
+            Bunches = homegames.Select(o => new BunchListItem(o)).ToList();
+        }
+
+        protected BunchListResult(IList<BunchListItem> bunches)
         {
             Bunches = bunches;
         }

@@ -4,14 +4,40 @@ namespace Application.UseCases.CashgameTopList
 {
     public class TopListItem
     {
-        public int Rank { get; set; }
-        public int PlayerId { get; set; }
-        public string Name { get; set; }
-        public Money Winnings { get; set; }
-        public Money Buyin { get; set; }
-        public Money Cashout { get; set; }
-        public Time TimePlayed { get; set; }
-        public int GamesPlayed { get; set; }
-        public Money WinRate { get; set; }
+        public int Rank { get; private set; }
+        public int PlayerId { get; private set; }
+        public string Name { get; private set; }
+        public Money Winnings { get; private set; }
+        public Money Buyin { get; private set; }
+        public Money Cashout { get; private set; }
+        public Time TimePlayed { get; private set; }
+        public int GamesPlayed { get; private set; }
+        public Money WinRate { get; private set; }
+
+        public TopListItem(CashgameTotalResult totalResult, int index, Currency currency)
+        {
+            Buyin = new Money(totalResult.Buyin, currency);
+            Cashout = new Money(totalResult.Cashout, currency);
+            GamesPlayed = totalResult.GameCount;
+            TimePlayed = Time.FromMinutes(totalResult.TimePlayed);
+            Name = totalResult.Player.DisplayName;
+            PlayerId = totalResult.Player.Id;
+            Rank = index + 1;
+            Winnings = new MoneyResult(totalResult.Winnings, currency);
+            WinRate = new MoneyWinRate(totalResult.WinRate, currency);
+        }
+
+        protected TopListItem(int rank, int playerId, string name, Money winnings, Money buyin, Money cashout, Time timePlayed, int gamesPlayed, Money winRate)
+        {
+            Rank = rank;
+            PlayerId = playerId;
+            Name = name;
+            Winnings = winnings;
+            Buyin = buyin;
+            Cashout = cashout;
+            TimePlayed = timePlayed;
+            GamesPlayed = gamesPlayed;
+            WinRate = winRate;
+        }
     }
 }

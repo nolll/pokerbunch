@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Core.Entities;
-using Core.Repositories;
+﻿using Core.Repositories;
 
 namespace Application.UseCases.PlayerList
 {
@@ -22,20 +20,7 @@ namespace Application.UseCases.PlayerList
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var players = _playerRepository.GetList(homegame);
 
-            return new PlayerListResult
-                {
-                    Slug = request.Slug,
-                    Players = players.Select(CreatePlayerListItem).OrderBy(o => o.Name).ToList()
-                };
+            return new PlayerListResult(homegame, players);
         }
-
-        private PlayerListItem CreatePlayerListItem(Player player)
-        {
-            return new PlayerListItem
-                {
-                    Id = player.Id,
-                    Name = player.DisplayName
-                };
-        } 
     }
 }

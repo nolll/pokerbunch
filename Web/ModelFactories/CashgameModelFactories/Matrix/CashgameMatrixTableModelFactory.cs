@@ -19,7 +19,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 
         public CashgameMatrixTableModel Create(Homegame homegame, CashgameSuite suite)
         {
-            var showYear = suite.SpansMultipleYears();
+            var showYear = suite.SpansMultipleYears;
             var headerModels = suite.Cashgames.Select(cashgame => _cashgameMatrixTableColumnHeaderModelFactory.Create(homegame, cashgame, showYear)).ToList();
 
             return new CashgameMatrixTableModel

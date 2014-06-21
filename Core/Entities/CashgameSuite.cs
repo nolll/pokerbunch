@@ -18,21 +18,24 @@ namespace Core.Entities
             Players = players;
         }
 
-        public bool SpansMultipleYears()
+        public bool SpansMultipleYears
         {
-            var years = new List<int>();
-            foreach (var cashgame in Cashgames)
+            get
             {
-                if (cashgame.StartTime.HasValue)
+                var years = new List<int>();
+                foreach (var cashgame in Cashgames)
                 {
-                    var year = cashgame.StartTime.Value.Year;
-                    if (!years.Contains(year))
+                    if (cashgame.StartTime.HasValue)
                     {
-                        years.Add(year);
+                        var year = cashgame.StartTime.Value.Year;
+                        if (!years.Contains(year))
+                        {
+                            years.Add(year);
+                        }
                     }
                 }
+                return years.Count > 1;                
             }
-            return years.Count > 1;
         }
 	}
 }

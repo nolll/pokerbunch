@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Core.Entities;
-using Core.Repositories;
+﻿using Core.Repositories;
 
 namespace Application.UseCases.BunchList
 {
@@ -17,17 +15,8 @@ namespace Application.UseCases.BunchList
         public BunchListResult Execute()
         {
             var homegames = _homegameRepository.GetList();
-            var itemList = homegames.Select(CreateItem).ToList();
-            return new BunchListResult(itemList);
-        }
-
-        private BunchListItem CreateItem(Homegame homegame)
-        {
-            return new BunchListItem
-                {
-                    DisplayName = homegame.DisplayName,
-                    Slug = homegame.Slug
-                };
+            
+            return new BunchListResult(homegames);
         }
     }
 }
