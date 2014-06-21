@@ -55,6 +55,7 @@
     <Compile Include="FakeClasses\TwitterCredentialsInTest.cs" />
     <Compile Include="FakeClasses\MoneyInTest.cs" />
     <Compile Include="FakeClasses\TimeInTest.cs" />
+    <Compile Include="FakeModels\UserListPageModelInTest.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="FakeClasses\CashgameInTest.cs" />
     <Compile Include="FakeClasses\CashgameResultInTest.cs" />

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Core.Repositories;
+﻿using Core.Repositories;
 
 namespace Application.UseCases.UserList
 {
@@ -15,16 +13,9 @@ namespace Application.UseCases.UserList
 
         public UserListResult Execute()
         {
-            return new UserListResult
-                {
-                    Users = GetUserItems()
-                };
-        }
-
-        private IList<UserListItem> GetUserItems()
-        {
             var users = _userRepository.GetList();
-            return users.Select(o => new UserListItem(o.UserName, o.UserName)).ToList();
+
+            return new UserListResult(users);
         }
     }
 }

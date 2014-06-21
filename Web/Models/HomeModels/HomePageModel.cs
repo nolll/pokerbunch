@@ -13,14 +13,14 @@ namespace Web.Models.HomeModels
         public Url RegisterUrl { get; private set; }
         public NavigationModel AdminNav { get; private set; }
 
-        public HomePageModel(BunchContextResult bunchContextResult)
-            : base("Poker Bunch", bunchContextResult)
+        public HomePageModel(BunchContextResult contextResult)
+            : base("Poker Bunch", contextResult)
         {
-			IsLoggedIn = bunchContextResult.IsLoggedIn;
+			IsLoggedIn = contextResult.IsLoggedIn;
             AddHomegameUrl = new AddHomegameUrl();
             LoginUrl = new LoginUrl();
             RegisterUrl = new AddUserUrl();
-            AdminNav = new AdminNavigationModel(bunchContextResult);
+            AdminNav = new AdminNavigationModel(contextResult);
         }
     }
 }

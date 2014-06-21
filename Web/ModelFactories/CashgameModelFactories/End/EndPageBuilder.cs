@@ -1,6 +1,5 @@
 using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.End;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.End
 {
@@ -18,12 +17,7 @@ namespace Web.ModelFactories.CashgameModelFactories.End
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             
-            return new EndPageModel
-                {
-                    BrowserTitle = "End Game",
-                    PageProperties = new PageProperties(contextResult),
-                    ShowDiff = true
-                };
+            return new EndPageModel(contextResult);
         }
     }
 }

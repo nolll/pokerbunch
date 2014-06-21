@@ -6,16 +6,13 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.List
 {
-	public class BunchListPageModel : IPageModel
+	public class BunchListPageModel : PageModel
     {
-	    public string BrowserTitle { get; private set; }
-	    public PageProperties PageProperties { get; private set; }
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 
-	    public BunchListPageModel(AppContextResult appContextResult, BunchListResult bunchListResult)
+	    public BunchListPageModel(AppContextResult contextResult, BunchListResult bunchListResult)
+            : base("Bunches", contextResult)
 	    {
-	        BrowserTitle = "Bunches";
-            PageProperties = new PageProperties(appContextResult);
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();
 	    }
     }

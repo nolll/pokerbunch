@@ -1,11 +1,15 @@
+using Application.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Add
 {
-    public class AddPlayerConfirmationPageModel : IPageModel
+    public class AddPlayerConfirmationPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
         public string HomegameName { get; set; }
+
+        public AddPlayerConfirmationPageModel(BunchContextResult contextResult)
+            : base("Player Added", contextResult)
+        {
+        }
     }
 }

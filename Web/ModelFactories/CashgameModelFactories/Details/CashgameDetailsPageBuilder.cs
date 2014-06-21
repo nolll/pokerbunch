@@ -56,10 +56,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            var model = new CashgameDetailsPageModel
+            return new CashgameDetailsPageModel(contextResult)
                 {
-                    BrowserTitle = "Cashgame",
-                    PageProperties = new PageProperties(contextResult),
                     Heading = string.Format("Cashgame {0}", date),
 			        Location = cashgame.Location,
                     Duration = _globalization.FormatDuration(cashgame.Duration),
@@ -76,8 +74,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     CheckpointsUrl = new CashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
                     ChartDataUrl = new CashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString)
                 };
-
-            return model;
         }
     }
 }

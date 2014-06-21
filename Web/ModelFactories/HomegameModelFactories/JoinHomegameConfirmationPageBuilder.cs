@@ -2,7 +2,6 @@
 using Application.UseCases.AppContext;
 using Core.Repositories;
 using Web.Models.HomegameModels.Join;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
@@ -25,10 +24,8 @@ namespace Web.ModelFactories.HomegameModelFactories
 
             var contextResult = _contextInteractor.Execute();
 
-            return new JoinHomegameConfirmationPageModel
+            return new JoinHomegameConfirmationPageModel(contextResult)
                 {
-                    BrowserTitle = "Welcome",
-                    PageProperties = new PageProperties(contextResult),
                     BunchUrl = new HomegameDetailsUrl(homegame.Slug),
                     BunchName = homegame.DisplayName
                 };

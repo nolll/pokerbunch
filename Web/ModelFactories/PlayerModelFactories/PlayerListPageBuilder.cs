@@ -35,10 +35,8 @@ namespace Web.ModelFactories.PlayerModelFactories
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            return new PlayerListPageModel
+            return new PlayerListPageModel(contextResult)
                 {
-                    BrowserTitle = "Player List",
-                    PageProperties = new PageProperties(contextResult),
 			        PlayerModels = _playerItemModelFactory.CreateList(slug, result.Players),
 			        AddUrl = new AddPlayerUrl(slug),
 			        ShowAddLink = isInManagerMode

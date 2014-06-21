@@ -1,10 +1,13 @@
+using Application.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ChangePassword
 {
-    public class ChangePasswordPageModel : IPageModel
+    public class ChangePasswordPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
+        public ChangePasswordPageModel(AppContextResult contextResult)
+            : base("Change Password", contextResult)
+        {
+        }
     }
 }

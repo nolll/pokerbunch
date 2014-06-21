@@ -38,11 +38,7 @@ namespace Web.ModelFactories.UserModelFactories
         {
             var contextResult = _contextInteractor.Execute();
 
-            return new ForgotPasswordConfirmationPageModel
-            {
-                BrowserTitle = "Password Sent",
-                PageProperties = new PageProperties(contextResult)
-            };
+            return new ForgotPasswordConfirmationPageModel(contextResult);
         }
     }
 }

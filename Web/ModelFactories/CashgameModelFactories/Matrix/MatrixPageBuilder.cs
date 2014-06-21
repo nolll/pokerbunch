@@ -1,12 +1,10 @@
 using Application.Urls;
-using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameContext;
 using Core.Repositories;
 using Core.Services.Interfaces;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
@@ -16,27 +14,21 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameMatrixTableModelFactory _cashgameMatrixTableModelFactory;
         private readonly IBarModelFactory _barModelFactory;
-        private readonly ICashgamePageNavigationModelFactory _cashgamePageNavigationModelFactory;
-        private readonly ICashgameYearNavigationModelFactory _cashgameYearNavigationModelFactory;
         private readonly IHomegameRepository _homegameRepository;
-        private readonly IBunchContextInteractor _contextInteractor;
+        private readonly ICashgameContextInteractor _contextInteractor;
 
         public MatrixPageBuilder(
             ICashgameRepository cashgameRepository,
             ICashgameService cashgameService,
             ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
             IBarModelFactory barModelFactory,
-            ICashgamePageNavigationModelFactory cashgamePageNavigationModelFactory,
-            ICashgameYearNavigationModelFactory cashgameYearNavigationModelFactory,
             IHomegameRepository homegameRepository,
-            IBunchContextInteractor contextInteractor)
+            ICashgameContextInteractor contextInteractor)
         {
             _cashgameRepository = cashgameRepository;
             _cashgameService = cashgameService;
             _cashgameMatrixTableModelFactory = cashgameMatrixTableModelFactory;
             _barModelFactory = barModelFactory;
-            _cashgamePageNavigationModelFactory = cashgamePageNavigationModelFactory;
-            _cashgameYearNavigationModelFactory = cashgameYearNavigationModelFactory;
             _homegameRepository = homegameRepository;
             _contextInteractor = contextInteractor;
         }
@@ -47,19 +39,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 
             var suite = _cashgameService.GetSuite(homegame, year);
             var runningGame = _cashgameRepository.GetRunning(homegame);
-            var years = _cashgameRepository.GetYears(homegame);
             var gameIsRunning = runningGame != null;
             var startGameUrl = GetStartGameUrl(homegame.Slug, gameIsRunning);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year));
 
-            return new CashgameMatrixPageModel
+            return new CashgameMatrixPageModel(contextResult, CashgamePage.Matrix)
                 {
-                    BrowserTitle = "Cashgame Matrix",
-                    PageProperties = new PageProperties(contextResult),
                     TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
-                    PageNavModel = _cashgamePageNavigationModelFactory.Create(homegame.Slug, CashgamePage.Matrix),
-                    YearNavModel = _cashgameYearNavigationModelFactory.Create(homegame.Slug, years, CashgamePage.Matrix, year),
                     BarModel = _barModelFactory.Create(homegame, runningGame),
                     GameIsRunning = gameIsRunning,
                     StartGameUrl = startGameUrl

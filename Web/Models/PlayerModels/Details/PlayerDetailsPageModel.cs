@@ -1,16 +1,14 @@
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Badges;
 using Web.Models.PlayerModels.Facts;
-using Web.Models.UrlModels;
 
 namespace Web.Models.PlayerModels.Details
 {
-    public class PlayerDetailsPageModel : IPageModel
+    public class PlayerDetailsPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
         public bool ShowUserInfo { get; set; }
         public string DisplayName { get; set; }
         public bool DeleteEnabled { get; set; }
@@ -21,5 +19,10 @@ namespace Web.Models.PlayerModels.Details
         public AvatarModel AvatarModel { get; set; }
         public PlayerFactsModel PlayerFactsModel { get; set; }
         public PlayerBadgesModel PlayerBadgesModel { get; set; }
+
+        public PlayerDetailsPageModel(BunchContextResult contextResult)
+            : base("Player Details", contextResult)
+        {
+        }
     }
 }

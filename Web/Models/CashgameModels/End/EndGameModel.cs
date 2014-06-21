@@ -1,11 +1,13 @@
+using Application.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.End
 {
-    public class EndPageModel : IPageModel
+    public class EndPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
-        public bool ShowDiff { get; set; }
+        public EndPageModel(BunchContextResult contextResult)
+            : base("End Game", contextResult)
+        {
+        }
     }
 }

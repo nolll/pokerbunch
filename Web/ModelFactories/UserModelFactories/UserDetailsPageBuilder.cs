@@ -3,7 +3,6 @@ using Application.Urls;
 using Application.UseCases.AppContext;
 using Core.Repositories;
 using Web.ModelFactories.MiscModelFactories;
-using Web.Models.PageBaseModels;
 using Web.Models.UserModels;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -34,10 +33,8 @@ namespace Web.ModelFactories.UserModelFactories
 
             var contextResult = _contextInteractor.Execute();
 
-            var model = new UserDetailsPageModel
+            var model = new UserDetailsPageModel(contextResult)
                 {
-                    BrowserTitle = "User Details",
-                    PageProperties = new PageProperties(contextResult),
                     UserName = displayUser.UserName,
                     DisplayName = displayUser.DisplayName,
                     RealName = displayUser.RealName,

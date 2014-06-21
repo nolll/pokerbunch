@@ -1,14 +1,15 @@
+using Application.UseCases.CashgameContext;
 using Web.Models.NavigationModels;
-using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.List
 {
-    public class CashgameListPageModel : IPageModel
+    public class CashgameListPageModel : CashgameContextPageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
         public CashgameListTableModel ListTableModel { get; set; }
-        public CashgamePageNavigationModel PageNavModel { get; set; }
-        public CashgameYearNavigationModel YearNavModel { get; set; }
+
+        public CashgameListPageModel(CashgameContextResult cashgameContextResult, CashgamePage selectedPage)
+            : base("Cashgame List", cashgameContextResult, selectedPage)
+        {
+        }
     }
 }

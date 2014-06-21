@@ -60,10 +60,8 @@ namespace Web.ModelFactories.PlayerModelFactories
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            return new PlayerDetailsPageModel
+            return new PlayerDetailsPageModel(contextResult)
                 {
-                    BrowserTitle = "Player Details",
-                    PageProperties = new PageProperties(contextResult),
                     DisplayName = player.DisplayName,
                     DeleteUrl = new DeletePlayerUrl(homegame.Slug, player.Id),
                     DeleteEnabled = isManager && !hasPlayed,

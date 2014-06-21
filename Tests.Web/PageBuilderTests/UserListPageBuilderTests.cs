@@ -13,7 +13,7 @@ namespace Tests.Web.PageBuilderTests
         [Test]
         public void Build_BrowserTitleIsSet()
         {
-            var showUserListResult = new UserListResult{Users = new List<UserListItem>()};
+            var showUserListResult = new UserListResultInTest();
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
             GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);
@@ -27,7 +27,7 @@ namespace Tests.Web.PageBuilderTests
         public void Build_BunchModelsAreSet()
         {
             var userItems = new List<UserListItem>();
-            var showUserListResult = new UserListResult { Users = userItems };
+            var showUserListResult = new UserListResultInTest(userItems);
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
             GetMock<IUserListInteractor>().Setup(o => o.Execute()).Returns(showUserListResult);

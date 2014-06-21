@@ -7,8 +7,8 @@ namespace Web.Models.PlayerModels.Invite
     {
         public string Email { get; set; }
 
-        public InvitePlayerPageModel(BunchContextResult bunchContextResult, InvitePlayerPostModel postModel)
-            : base("Invite Player", bunchContextResult)
+        public InvitePlayerPageModel(BunchContextResult contextResult, InvitePlayerPostModel postModel)
+            : base("Invite Player", contextResult)
         {
             if (postModel == null) return;
             Email = postModel.Email;

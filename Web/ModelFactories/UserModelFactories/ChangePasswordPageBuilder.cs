@@ -17,22 +17,14 @@ namespace Web.ModelFactories.UserModelFactories
         {
             var contextResult = _contextInteractor.Execute();
 
-            return new ChangePasswordPageModel
-                {
-                    BrowserTitle = "Change Password",
-                    PageProperties = new PageProperties(contextResult)
-                };
+            return new ChangePasswordPageModel(contextResult);
         }
 
         public ChangePasswordConfirmationPageModel BuildConfirmation()
         {
             var contextResult = _contextInteractor.Execute();
 
-            return new ChangePasswordConfirmationPageModel
-                {
-                    BrowserTitle = "Password Changed",
-                    PageProperties = new PageProperties(contextResult)
-                };
+            return new ChangePasswordConfirmationPageModel(contextResult);
         }
     }
 }

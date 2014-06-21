@@ -14,8 +14,8 @@ namespace Web.Models.CashgameModels.Action
         public Url ChartDataUrl { get; private set; }
         public string Heading { get; private set; }
 
-        public ActionPageModel(BunchContextResult bunchContextResult, ActionsResult actionsResult)
-            : base("Player Actions", bunchContextResult)
+        public ActionPageModel(BunchContextResult contextResult, ActionsResult actionsResult)
+            : base("Player Actions", contextResult)
         {
             var date = Globalization.FormatShortDateStatic(actionsResult.Date, true);
             Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);

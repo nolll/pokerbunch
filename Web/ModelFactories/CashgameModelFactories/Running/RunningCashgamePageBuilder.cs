@@ -5,7 +5,6 @@ using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Running;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
 {
@@ -51,10 +50,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            return new RunningCashgamePageModel
+            return new RunningCashgamePageModel(contextResult)
                 {
-                    BrowserTitle = "Running Cashgame",
-                    PageProperties = new PageProperties(contextResult),
                     Location = cashgame.Location,
                     ShowStartTime = cashgame.IsStarted,
                     StartTime = GetStartTime(cashgame, homegame.Timezone),

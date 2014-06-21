@@ -152,9 +152,7 @@
     <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\CashgameYearNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgameYearNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\PlayerModelFactories\IPlayerFactsModelFactory.cs" />
@@ -179,8 +177,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\CashgamePageNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\ICashgamePageNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />

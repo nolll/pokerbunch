@@ -1,14 +1,12 @@
 using Application.Urls;
+using Application.UseCases.AppContext;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.UserModels
 {
-    public class UserDetailsPageModel : IPageModel
+    public class UserDetailsPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
         public string UserName { get; set; }
         public string DisplayName { get; set; }
         public string RealName { get; set; }
@@ -18,5 +16,10 @@ namespace Web.Models.UserModels
         public bool ShowEditLink { get; set; }
         public bool ShowPasswordLink { get; set; }
         public AvatarModel AvatarModel { get; set; }
+
+        public UserDetailsPageModel(AppContextResult contextResult)
+            : base("User Details", contextResult)
+        {
+        }
     }
 }

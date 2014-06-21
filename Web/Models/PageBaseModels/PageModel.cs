@@ -8,16 +8,16 @@ namespace Web.Models.PageBaseModels
         public string BrowserTitle { get; private set; }
         public PageProperties PageProperties { get; private set; }
 
-        protected PageModel(string browserTitle, BunchContextResult bunchContextResult)
+        protected PageModel(string browserTitle, BunchContextResult contextResult)
         {
             BrowserTitle = browserTitle;
-            PageProperties = new PageProperties(bunchContextResult);
+            PageProperties = new PageProperties(contextResult);
         }
 
-        protected PageModel(string browserTitle, AppContextResult appContextResult)
+        protected PageModel(string browserTitle, AppContextResult contextResult)
         {
             BrowserTitle = browserTitle;
-            PageProperties = new PageProperties(appContextResult);
+            PageProperties = new PageProperties(contextResult);
         }
     }
 }

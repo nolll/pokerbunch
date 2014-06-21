@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.FakeModels;
 using Web.Commands.UserCommands;
 using Web.Controllers;
 using Web.ModelFactories.UserModelFactories;
@@ -39,7 +40,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void List_GetsPageModelFromModelBuilder()
         {
-            var model = new UserListPageModel();
+            var model = new UserListPageModelInTest();
 
             GetMock<IUserListPageBuilder>().Setup(o => o.Build()).Returns(model);
 

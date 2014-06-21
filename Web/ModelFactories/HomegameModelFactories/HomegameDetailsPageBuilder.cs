@@ -4,7 +4,6 @@ using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.HomegameModels.Details;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
@@ -37,10 +36,8 @@ namespace Web.ModelFactories.HomegameModelFactories
         {
             var houseRules = FormatHouseRules(homegame.HouseRules);
 
-            return new HomegameDetailsPageModel
+            return new HomegameDetailsPageModel(bunchContextResult)
                 {
-                    BrowserTitle = "Homegame Details",
-                    PageProperties = new PageProperties(bunchContextResult),
 	                DisplayName = homegame.DisplayName,
 			        Description = homegame.Description,
 			        HouseRules = houseRules,

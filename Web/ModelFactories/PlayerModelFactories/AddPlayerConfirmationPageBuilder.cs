@@ -24,10 +24,8 @@ namespace Web.ModelFactories.PlayerModelFactories
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             
-            return new AddPlayerConfirmationPageModel
+            return new AddPlayerConfirmationPageModel(contextResult)
                 {
-                    BrowserTitle = "Player Added",
-                    PageProperties = new PageProperties(contextResult),
                     HomegameName = homegame.DisplayName
                 };
         }

@@ -9,8 +9,8 @@ namespace Web.Models.SharingModels
         public bool IsSharingToTwitter { get; set; }
         public Url ShareToTwitterSettingsUrl { get; set; }
 
-        public SharingIndexPageModel(AppContextResult appContextResult)
-            : base("Sharing", appContextResult)
+        public SharingIndexPageModel(AppContextResult contextResult)
+            : base("Sharing", contextResult)
         {
         }
     }

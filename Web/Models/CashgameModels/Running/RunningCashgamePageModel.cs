@@ -1,13 +1,11 @@
 using Application.Urls;
+using Application.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
-using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Running
 {
-	public class RunningCashgamePageModel : IPageModel
+	public class RunningCashgamePageModel : PageModel
     {
-	    public string BrowserTitle { get; set; }
-	    public PageProperties PageProperties { get; set; }
         public string StartTime { get; set; }
         public bool ShowStartTime { get; set; }
         public string Location { get; set; }
@@ -23,5 +21,10 @@ namespace Web.Models.CashgameModels.Running
         public bool ShowTable { get; set; }
         public Url ChartDataUrl { get; set; }
         public bool ShowChart { get; set; }
-	}
+
+	    public RunningCashgamePageModel(BunchContextResult contextResult)
+            : base("Running Cashgame", contextResult)
+	    {
+	    }
+    }
 }

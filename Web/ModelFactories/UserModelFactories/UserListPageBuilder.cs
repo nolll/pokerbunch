@@ -22,9 +22,7 @@ namespace Web.ModelFactories.UserModelFactories
             var contextResult = _contextInteractor.Execute();
             var showUserListResult = _userListInteractor.Execute();
 
-            return new UserListPageModel(
-                contextResult,
-                showUserListResult);
+            return new UserListPageModel(contextResult, showUserListResult);
         }
     }
 }

@@ -102,14 +102,12 @@ namespace Web.Plumbing
             RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
-            RegisterComponent<ICashgamePageNavigationModelFactory, CashgamePageNavigationModelFactory>();
             RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>();
             RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>();
             RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
             RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
             RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
-            RegisterComponent<ICashgameYearNavigationModelFactory, CashgameYearNavigationModelFactory>();
             RegisterComponent<IBarModelFactory, BarModelFactory>();
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();

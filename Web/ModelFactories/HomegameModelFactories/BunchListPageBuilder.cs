@@ -22,9 +22,7 @@ namespace Web.ModelFactories.HomegameModelFactories
             var contextResult = _contextInteractor.Execute();
             var bunchListResult = _bunchListInteractor.Execute();
 
-            return new BunchListPageModel(
-                contextResult,
-                bunchListResult);
+            return new BunchListPageModel(contextResult, bunchListResult);
         }
     }
 }
