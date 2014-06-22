@@ -1,8 +1,6 @@
 using Application.UseCases.BunchContext;
-using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Buyin;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Buyin
 {
@@ -30,27 +28,22 @@ namespace Web.ModelFactories.CashgameModelFactories.Buyin
             var homegame = _homegameRepository.GetBySlug(slug);
             var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
-            
-            var model = Build(homegame, player, runningGame);
+
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(homegame.Slug));
+
+            var model = new BuyinPageModel(contextResult)
+            {
+                StackFieldEnabled = runningGame.IsInGame(player.Id),
+                BuyinAmount = homegame.DefaultBuyin
+            };
+
             if (postModel != null)
             {
                 model.BuyinAmount = postModel.BuyinAmount;
                 model.StackAmount = postModel.StackAmount;
             }
+
             return model;
-        }
-
-        private BuyinPageModel Build(Homegame homegame, Player player, Cashgame runningGame)
-        {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(homegame.Slug));
-
-            return new BuyinPageModel
-                {
-                    BrowserTitle = "Buy In",
-                    PageProperties = new PageProperties(contextResult),
-                    StackFieldEnabled = runningGame.IsInGame(player.Id),
-                    BuyinAmount = homegame.DefaultBuyin
-                };
         }
     }
 }

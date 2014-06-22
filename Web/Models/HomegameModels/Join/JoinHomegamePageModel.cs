@@ -1,11 +1,16 @@
+using Application.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join
 {
-    public class JoinHomegamePageModel : JoinHomegamePostModel, IPageModel
+    public class JoinHomegamePageModel : PageModel
     {
-        public PageProperties PageProperties { get; set; }
-        public string BrowserTitle { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
+
+        public JoinHomegamePageModel(AppContextResult contextResult)
+            : base("Join Bunch", contextResult)
+        {
+        }
     }
 }

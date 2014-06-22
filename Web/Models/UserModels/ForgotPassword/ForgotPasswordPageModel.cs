@@ -1,10 +1,15 @@
+using Application.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ForgotPassword
 {
-    public class ForgotPasswordPageModel : ForgotPasswordPostModel, IPageModel
+    public class ForgotPasswordPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
-	}
+        public string Email { get; set; }
+
+        public ForgotPasswordPageModel(AppContextResult contextResult)
+            : base("Forgot Password", contextResult)
+        {
+        }
+    }
 }

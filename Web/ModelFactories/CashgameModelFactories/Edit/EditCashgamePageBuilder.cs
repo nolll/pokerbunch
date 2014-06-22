@@ -35,32 +35,27 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
-            
-            var model = Build(slug, cashgame, locations);
+
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+
+            var model = new EditCashgamePageModel(contextResult)
+            {
+                IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
+                CancelUrl = new CashgameDetailsUrl(slug, cashgame.DateString),
+                DeleteUrl = new DeleteCashgameUrl(slug, cashgame.DateString),
+                EnableDelete = cashgame.Status != GameStatus.Published,
+                TypedLocation = cashgame.Location,
+                SelectedLocation = cashgame.Location,
+                Locations = locations.Select(l => new SelectListItem { Text = l, Value = l })
+            };
+
             if (postModel != null)
             {
                 model.TypedLocation = postModel.TypedLocation;
                 model.SelectedLocation = postModel.SelectedLocation;
             }
+
             return model;
-        }
-
-        private EditCashgamePageModel Build(string slug, Cashgame cashgame, IEnumerable<string> locations)
-        {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
-
-            return new EditCashgamePageModel
-                {
-                    BrowserTitle = "Edit Cashgame",
-                    PageProperties = new PageProperties(contextResult),
-                    IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
-                    CancelUrl = new CashgameDetailsUrl(slug, cashgame.DateString),
-                    DeleteUrl = new DeleteCashgameUrl(slug, cashgame.DateString),
-                    EnableDelete = cashgame.Status != GameStatus.Published,
-                    TypedLocation = cashgame.Location,
-                    SelectedLocation = cashgame.Location,
-                    Locations = locations.Select(l => new SelectListItem { Text = l, Value = l })
-                };
         }
     }
 }

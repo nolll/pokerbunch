@@ -1,5 +1,4 @@
 ﻿using Application.UseCases.AppContext;
-using Web.Models.PageBaseModels;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -13,24 +12,17 @@ namespace Web.ModelFactories.UserModelFactories
             _contextInteractor = contextInteractor;
         }
 
-        private ForgotPasswordPageModel Create()
+        public ForgotPasswordPageModel Build(ForgotPasswordPostModel postModel)
         {
             var contextResult = _contextInteractor.Execute();
 
-            return new ForgotPasswordPageModel
-            {
-                BrowserTitle = "Forgot Password",
-                PageProperties = new PageProperties(contextResult)
-            };
-        }
+            var model = new ForgotPasswordPageModel(contextResult);
 
-        public ForgotPasswordPageModel Build(ForgotPasswordPostModel postModel)
-        {
-            var model = Create();
             if (postModel != null)
             {
                 model.Email = postModel.Email;
             }
+
             return model;
         }
 

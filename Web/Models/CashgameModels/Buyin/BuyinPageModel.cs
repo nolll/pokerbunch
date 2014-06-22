@@ -1,11 +1,18 @@
+using Application.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Buyin
 {
-    public class BuyinPageModel : BuyinPostModel, IPageModel
+    public class BuyinPageModel : PageModel
     {
-        public string BrowserTitle { get; set; }
-        public PageProperties PageProperties { get; set; }
         public bool StackFieldEnabled { get; set; }
-	}
+        public int BuyinAmount { get; set; }
+        public int StackAmount { get; set; }
+
+
+        public BuyinPageModel(BunchContextResult contextResult)
+            : base("Buy In", contextResult)
+        {
+        }
+    }
 }

@@ -23,7 +23,14 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         public AddHomegamePageModel Build(AddHomegamePostModel postModel)
         {
-            var model = Build();
+            var contextResult = _contextInteractor.Execute();
+
+            var model = new AddHomegamePageModel(contextResult)
+            {
+                TimezoneSelectItems = GetTimezoneSelectModel(),
+                CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
+            };
+
             if (postModel != null)
             {
                 model.DisplayName = postModel.DisplayName;
@@ -32,20 +39,8 @@ namespace Web.ModelFactories.HomegameModelFactories
                 model.CurrencySymbol = postModel.CurrencySymbol;
                 model.CurrencyLayout = postModel.CurrencyLayout;
             }
+
             return model;
-        }
-
-        private AddHomegamePageModel Build()
-        {
-            var contextResult = _contextInteractor.Execute();
-
-            return new AddHomegamePageModel
-                {
-                    BrowserTitle = "Create Homegame",
-                    PageProperties = new PageProperties(contextResult),
-                    TimezoneSelectItems = GetTimezoneSelectModel(),
-                    CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
-                };
         }
 
         private List<SelectListItem> GetTimezoneSelectModel()

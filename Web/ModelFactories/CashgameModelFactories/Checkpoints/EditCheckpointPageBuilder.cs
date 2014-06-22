@@ -24,36 +24,31 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             _contextInteractor = contextInteractor;
         }
 
-        public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId)
+        public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
-            
-            return new EditCheckpointPageModel
-                {
-                    BrowserTitle = "Edit Checkpoint",
-                    PageProperties = new PageProperties(contextResult),
-                    Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
-                    Stack = checkpoint.Stack,
-                    Amount = checkpoint.Amount,
-                    DeleteUrl = new DeleteCheckpointUrl(homegame.Slug, dateStr, playerId, checkpoint.Id),
-                    CancelUrl = new CashgameActionUrl(homegame.Slug, dateStr, playerId),
-                    EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
-                    StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"
-                };
-        }
 
-        public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
-        {
-            var model = Build(slug, dateStr, playerId, checkpointId);
+            var model = new EditCheckpointPageModel(contextResult)
+            {
+                Timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone),
+                Stack = checkpoint.Stack,
+                Amount = checkpoint.Amount,
+                DeleteUrl = new DeleteCheckpointUrl(homegame.Slug, dateStr, playerId, checkpoint.Id),
+                CancelUrl = new CashgameActionUrl(homegame.Slug, dateStr, playerId),
+                EnableAmountField = checkpoint.Type == CheckpointType.Buyin,
+                StackLabel = checkpoint.Type == CheckpointType.Buyin ? "Stack after buyin" : "Stack"
+            };
+
             if (postModel != null)
             {
                 model.Timestamp = postModel.Timestamp;
                 model.Stack = postModel.Stack;
                 model.Amount = postModel.Amount;
             }
+            
             return model;
         }
     }

@@ -3,7 +3,7 @@ using Application.UseCases.BunchContext;
 
 namespace Web.Models.PageBaseModels
 {
-    public abstract class PageModel : IPageModel
+    public abstract class PageModel
     {
         public string BrowserTitle { get; private set; }
         public PageProperties PageProperties { get; private set; }

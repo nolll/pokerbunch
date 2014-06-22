@@ -1,5 +1,4 @@
 using Application.UseCases.BunchContext;
-using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Add;
 
 namespace Web.ModelFactories.PlayerModelFactories
@@ -18,15 +17,13 @@ namespace Web.ModelFactories.PlayerModelFactories
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            var model = new AddPlayerPageModel
-                {
-                    BrowserTitle = "Add Player",
-                    PageProperties = new PageProperties(contextResult)
-                };
+            var model = new AddPlayerPageModel(contextResult);
+
             if (postModel != null)
             {
                 model.Name = postModel.Name;
             }
+
             return model;
         }
     }

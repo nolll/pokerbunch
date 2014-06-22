@@ -1,7 +1,6 @@
 using Application.UseCases.AppContext;
 using Core.Repositories;
 using Web.Models.HomegameModels.Join;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
@@ -18,27 +17,22 @@ namespace Web.ModelFactories.HomegameModelFactories
             _contextInteractor = contextInteractor;
         }
 
-        private JoinHomegamePageModel Build(string slug)
+        public JoinHomegamePageModel Build(string slug, JoinHomegamePostModel postModel)
         {
             var homegame = _homegameRepository.GetBySlug(slug);
 
             var contextResult = _contextInteractor.Execute();
 
-            return new JoinHomegamePageModel
-                {
-                    BrowserTitle = "Join Bunch",
-                    PageProperties = new PageProperties(contextResult),
-                    Name = homegame.DisplayName
-                };
-        }
+            var model = new JoinHomegamePageModel(contextResult)
+            {
+                Name = homegame.DisplayName
+            };
 
-        public JoinHomegamePageModel Build(string slug, JoinHomegamePostModel postModel)
-        {
-            var model = Build(slug);
             if (postModel != null)
             {
                 model.Code = postModel.Code;
             }
+            
             return model;
         }
 

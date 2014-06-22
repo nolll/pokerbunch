@@ -1,6 +1,5 @@
 using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.Cashout;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Cashout
 {
@@ -16,23 +15,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Cashout
 
         public CashoutPageModel Build(string slug, CashoutPostModel postModel)
         {
-            var model = Build(slug);
-            if (postModel != null)
-            {
-                model.StackAmount = postModel.StackAmount;                
-            }
-            return model;
-        }
-
-        private CashoutPageModel Build(string slug)
-        {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            return new CashoutPageModel
-                {
-                    BrowserTitle = "Cash Out",
-                    PageProperties = new PageProperties(contextResult)
-                };
+            return new CashoutPageModel(contextResult, postModel);
         }
     }
 }

@@ -9,7 +9,6 @@ using Castle.Windsor.Installer;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Models.PageBaseModels;
 using Web.Plumbing;
 using DependencyResolver = Plumbing.DependencyResolver;
 
@@ -25,7 +24,6 @@ namespace Tests.Web.PlumbingTests
             // Interface som inte är injicerade och som inte ska injiceras
             _ignoredInterfaces = new List<Type>
                 {
-                    typeof(IPageModel),
                     typeof(ICacheable),
                     typeof(ISocialService)
                 };

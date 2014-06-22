@@ -16,23 +16,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Report
 
         public ReportPageModel Build(string slug, ReportPostModel postModel)
         {
-            var model = Build(slug);
+            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+
+            var model = new ReportPageModel(contextResult);
+            
             if (postModel != null)
             {
                 model.StackAmount = postModel.StackAmount;
             }
+            
             return model;
-        }
-
-        private ReportPageModel Build(string slug)
-        {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
-
-            return new ReportPageModel
-                {
-                    BrowserTitle = "Report Stack",
-                    PageProperties = new PageProperties(contextResult),
-                };
         }
     }
 }

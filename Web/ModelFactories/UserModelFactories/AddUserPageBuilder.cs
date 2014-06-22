@@ -15,25 +15,18 @@ namespace Web.ModelFactories.UserModelFactories
 
         public AddUserPageModel Build(AddUserPostModel postModel)
         {
-            var model = Build();
+            var contextResult = _contextInteractor.Execute();
+
+            var model = new AddUserPageModel(contextResult);
+
             if (postModel != null)
             {
                 model.UserName = postModel.UserName;
                 model.DisplayName = postModel.DisplayName;
                 model.Email = postModel.Email;
             }
+
             return model;
-        }
-
-        private AddUserPageModel Build()
-        {
-            var contextResult = _contextInteractor.Execute();
-
-            return new AddUserPageModel
-                {
-                    BrowserTitle = "Register",
-                    PageProperties = new PageProperties(contextResult)
-                };
         }
     }
 }

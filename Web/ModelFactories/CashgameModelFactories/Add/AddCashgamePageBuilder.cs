@@ -5,7 +5,6 @@ using Application.Exceptions;
 using Application.UseCases.BunchContext;
 using Core.Repositories;
 using Web.Models.CashgameModels.Add;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Add
 {
@@ -35,25 +34,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
             }
             var locations = _cashgameRepository.GetLocations(homegame);
             
-            var model = Build(slug, locations);
-            if (postModel != null)
-            {
-                model.TypedLocation = postModel.TypedLocation;
-                model.SelectedLocation = postModel.SelectedLocation;
-            }
-            return model;
-        }
-
-        private AddCashgamePageModel Build(string slug, IEnumerable<string> locations)
-        {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            return new AddCashgamePageModel
-                {
-                    BrowserTitle = "New Cashgame",
-                    PageProperties = new PageProperties(contextResult),
-                    Locations = GetLocationListItems(locations)
-                };
+            return new AddCashgamePageModel(contextResult, postModel)
+            {
+                Locations = GetLocationListItems(locations)
+            };
         }
 
         private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<string> locations)

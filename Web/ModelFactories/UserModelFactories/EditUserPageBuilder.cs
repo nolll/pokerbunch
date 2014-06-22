@@ -1,7 +1,5 @@
 using Application.UseCases.AppContext;
-using Core.Entities;
 using Core.Repositories;
-using Web.Models.PageBaseModels;
 using Web.Models.UserModels.Edit;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -23,29 +21,24 @@ namespace Web.ModelFactories.UserModelFactories
         {
             var user = _userRepository.GetByNameOrEmail(userName);
 
-            var model = Build(user);
+            var contextResult = _contextInteractor.Execute();
+
+            var model = new EditUserPageModel(contextResult)
+            {
+                UserName = user.UserName,
+                RealName = user.RealName,
+                DisplayName = user.DisplayName,
+                Email = user.Email
+            };
+
             if (postModel != null)
             {
                 model.RealName = postModel.RealName;
                 model.DisplayName = postModel.DisplayName;
                 model.Email = postModel.Email;
             }
+            
             return model;
-        }
-
-        private EditUserPageModel Build(User user)
-        {
-            var contextResult = _contextInteractor.Execute();
-
-            return new EditUserPageModel
-                {
-                    BrowserTitle = "Edit Profile",
-                    PageProperties = new PageProperties(contextResult),
-                    UserName = user.UserName,
-                    RealName = user.RealName,
-                    DisplayName = user.DisplayName,
-                    Email = user.Email
-                };
         }
     }
 }
