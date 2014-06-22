@@ -11,7 +11,7 @@
         <meta name="author" content="">
         <meta name="keywords" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        @Styles.Render(@Model.PageProperties.CssUrl)
+        @Styles.Render(@Model.CssUrl)
         @* <link href="@Model.PageProperties.CssUrl" rel="stylesheet" /> *@
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>@Model.BrowserTitle</title>
@@ -24,9 +24,9 @@
             <header class="page-header">
                 <div class="content">
                     <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
-                    @if (Model.PageProperties.HomegameNavModel != null)
+                    @if (Model.HomegameNavModel != null)
                     {
-                        @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.PageProperties.HomegameNavModel)
+                        @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.HomegameNavModel)
                     }
                 </div>
             </header>
@@ -35,7 +35,7 @@
                 @RenderBody()
             </div>
             
-            @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.PageProperties.UserNavModel)
+            @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.UserNavModel)
 		
         </div>
         
@@ -45,10 +45,10 @@
         <![endif]-->
         <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require-2.1.2-jquery-1.8.2.min.js"></script>
         
-        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.PageProperties.GoogleAnalyticsModel)
+        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
 
     </body>
 
 </html>
 
-<!-- version: @Model.PageProperties.Version -->
+<!-- version: @Model.Version -->

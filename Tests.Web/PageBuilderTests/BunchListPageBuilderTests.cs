@@ -34,19 +34,6 @@ namespace Tests.Web.PageBuilderTests
         }
 
         [Test]
-        public void Build_PagePropertiesIsSet()
-        {
-            var showBunchListResult = new BunchListResultInTest();
-
-            GetMock<IBunchListInteractor>().Setup(o => o.Execute()).Returns(showBunchListResult);
-            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
-
-            var result = _sut.Build();
-
-            Assert.IsNotNull(result.PageProperties);
-        }
-
-        [Test]
         public void Build_BunchModelsAreSet()
         {
             var bunchItems = new List<BunchListItem>();
