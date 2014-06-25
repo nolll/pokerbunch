@@ -12,14 +12,14 @@ namespace Tests.Application.UseCases
         [Test]
         public void Execute_WithoutUser_AllPropertiesAreSet()
         {
+            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
+
             var result = Sut.Execute();
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsFalse(result.IsAdmin);
             Assert.IsEmpty(result.UserName);
             Assert.IsEmpty(result.UserDisplayName);
-            Assert.IsFalse(result.IsInProduction);
-            Assert.IsNotEmpty(result.Version);
         }
 
         [Test]
@@ -29,6 +29,7 @@ namespace Tests.Application.UseCases
             const string userDisplayName = "b";
             var user = new UserInTest(userName: userName, displayName: userDisplayName);
 
+            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
 
             var result = Sut.Execute();
@@ -44,6 +45,7 @@ namespace Tests.Application.UseCases
         {
             var user = new UserInTest(globalRole: Role.Admin);
 
+            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
 
             var result = Sut.Execute();
@@ -55,7 +57,8 @@ namespace Tests.Application.UseCases
         {
             get {
                 return new AppContextInteractor(
-                GetMock<IAuth>().Object);
+                    GetMock<IBaseContextInteractor>().Object,
+                    GetMock<IAuth>().Object);
             }
         }
     }

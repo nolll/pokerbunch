@@ -26,6 +26,5 @@ namespace Web.Controllers
 
             return View("Email", model);
         }
-
     }
 }

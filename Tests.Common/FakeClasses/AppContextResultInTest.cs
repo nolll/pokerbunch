@@ -5,20 +5,31 @@ namespace Tests.Common.FakeClasses
     public class AppContextResultInTest : AppContextResult
     {
         public AppContextResultInTest(
+            BaseContextResult baseContextResult = null,
             bool isLoggedIn = false, 
             bool isAdmin = false, 
             string userName = "", 
-            string userDisplayName = "", 
-            bool isInProduction = false, 
-            string version = "")
+            string userDisplayName = "")
             
             : base(
+                baseContextResult ?? new BaseContextResultInTest(),
                 isLoggedIn, 
                 isAdmin, 
                 userName, 
-                userDisplayName, 
-                isInProduction, 
-                version)
+                userDisplayName)
+        {
+        }
+    }
+
+    public class BaseContextResultInTest : BaseContextResult
+    {
+        public BaseContextResultInTest(
+            bool isInProduction = false,
+            string version = null)
+            
+            : base(
+            isInProduction,
+            version)
         {
         }
     }

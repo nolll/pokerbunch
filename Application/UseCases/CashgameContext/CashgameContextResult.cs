@@ -16,47 +16,11 @@ namespace Application.UseCases.CashgameContext
             IList<int> years,
             int? selectedYear,
             int? latestYear)
-            : this(
-            bunchContextResult.IsLoggedIn,
-            bunchContextResult.IsAdmin,
-            bunchContextResult.UserName,
-            bunchContextResult.UserDisplayName,
-            bunchContextResult.IsInProduction,
-            bunchContextResult.Version,
+            : base(
+            bunchContextResult,
             bunchContextResult.Slug,
             bunchContextResult.BunchId,
-            bunchContextResult.BunchName,
-            gameIsRunning,
-            years,
-            selectedYear,
-            latestYear)
-        {
-        }
-
-        protected CashgameContextResult(
-            bool isLoggedIn,
-            bool isAdmin,
-            string userName,
-            string userDisplayName,
-            bool isInProduction,
-            string version,
-            string slug,
-            int bunchId,
-            string bunchName,
-            bool gameIsRunning,
-            IList<int> years,
-            int? selectedYear,
-            int? latestYear)
-            : base(
-            isLoggedIn,
-            isAdmin,
-            userName,
-            userDisplayName,
-            isInProduction,
-            version,
-            slug,
-            bunchId,
-            bunchName)
+            bunchContextResult.BunchName)
         {
             GameIsRunning = gameIsRunning;
             Years = years;

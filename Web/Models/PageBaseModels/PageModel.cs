@@ -14,20 +14,25 @@ namespace Web.Models.PageBaseModels
         public string CssUrl { get; private set; }
 
         public string Version { get; private set; }
-        
+
+        protected PageModel(string browserTitle, BaseContextResult contextResult)
+        {
+            BrowserTitle = browserTitle;
+            CssUrl = BundleConfig.BundleUrl;
+            Version = contextResult.Version;
+        }
+
+        protected PageModel(string browserTitle, AppContextResult contextResult)
+            : this(browserTitle, (BaseContextResult)contextResult)
+        {
+            UserNavModel = new UserNavigationModel(contextResult);
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
+        }
+
         protected PageModel(string browserTitle, BunchContextResult contextResult)
             : this(browserTitle, (AppContextResult)contextResult)
         {
             HomegameNavModel = GetHomegameNavModel(contextResult);
-        }
-
-        protected PageModel(string browserTitle, AppContextResult contextResult)
-        {
-            BrowserTitle = browserTitle;
-            UserNavModel = new UserNavigationModel(contextResult);
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
-            CssUrl = BundleConfig.BundleUrl; 
-            Version = contextResult.Version;
         }
 
         private HomegameNavigationModel GetHomegameNavModel(BunchContextResult bunchContextResult)

@@ -21,41 +21,12 @@ namespace Application.UseCases.BunchContext
             int bunchId,
             string bunchName)
 
-            : this(
+            : base(
+            appContextResult,
             appContextResult.IsLoggedIn,
             appContextResult.IsAdmin,
             appContextResult.UserName,
-            appContextResult.UserDisplayName,
-            appContextResult.IsInProduction,
-            appContextResult.Version,
-            slug,
-            bunchId,
-            bunchName)
-        {
-            Slug = slug;
-            BunchId = bunchId;
-            BunchName = bunchName;
-            HasBunch = true;
-        }
-
-        protected BunchContextResult(
-            bool isLoggedIn,
-            bool isAdmin,
-            string userName,
-            string userDisplayName,
-            bool isInProduction,
-            string version,
-            string slug,
-            int bunchId,
-            string bunchName)
-
-            : base(
-                isLoggedIn,
-                isAdmin,
-                userName,
-                userDisplayName,
-                isInProduction,
-                version)
+            appContextResult.UserDisplayName)
         {
             Slug = slug;
             BunchId = bunchId;

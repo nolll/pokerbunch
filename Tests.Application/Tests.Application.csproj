@@ -65,6 +65,7 @@
     <Compile Include="UseCases\CashgameFactsInteractorTests.cs" />
     <Compile Include="UseCases\CashgameTopListInteractorTests.cs" />
     <Compile Include="UseCases\CheckpointItemTests.cs" />
+    <Compile Include="UseCases\BaseContextInteractorTests.cs" />
     <Compile Include="UseCases\PlayerListInteractorTests.cs" />
     <Compile Include="UseCases\TopListItemTests.cs" />
     <Compile Include="UseCases\TopListResultTests.cs" />

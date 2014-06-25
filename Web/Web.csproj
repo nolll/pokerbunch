@@ -121,6 +121,7 @@
     <Compile Include="Commands\SharingCommands\TwitterStartCommand.cs" />
     <Compile Include="Commands\SharingCommands\TwitterStopCommand.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\EditCheckpointPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Checkpoints\IEditCheckpointPageBuilder.cs" />
@@ -668,6 +669,7 @@
     <Content Include="Views\Cashgame\Checkpoints\Edit.cshtml" />
     <Content Include="Views\Player\PlayerBadge.cshtml" />
     <Content Include="Views\Cashgame\Toplist\ToplistTableColumn.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

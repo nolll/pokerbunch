@@ -35,7 +35,10 @@
                 @RenderBody()
             </div>
             
-            @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.UserNavModel)
+            @if (Model.UserNavModel != null)
+            {
+                @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.UserNavModel)
+            }
 		
         </div>
         
@@ -45,7 +48,10 @@
         <![endif]-->
         <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require-2.1.2-jquery-1.8.2.min.js"></script>
         
-        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
+        @if (Model.GoogleAnalyticsModel != null)
+        {
+            @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
+        }
 
     </body>
 
