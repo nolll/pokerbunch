@@ -1,4 +1,5 @@
 using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 
 namespace Tests.Common.FakeClasses
 {

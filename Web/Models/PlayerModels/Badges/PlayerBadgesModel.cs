@@ -1,54 +1,24 @@
+using Application.UseCases.PlayerBadges;
+
 namespace Web.Models.PlayerModels.Badges
 {
 	public class PlayerBadgesModel
     {
-	    public BadgeModel PlayedOneGame { get; set; }
-        public BadgeModel PlayedTenGames { get; set; }
-        public BadgeModel Played50Games { get; set; }
-        public BadgeModel Played100Games { get; set; }
-        public BadgeModel Played200Games { get; set; }
-        public BadgeModel Played500Games { get; set; }
+	    public BadgeModel PlayedOneGame { get; private set; }
+        public BadgeModel PlayedTenGames { get; private set; }
+        public BadgeModel Played50Games { get; private set; }
+        public BadgeModel Played100Games { get; private set; }
+        public BadgeModel Played200Games { get; private set; }
+        public BadgeModel Played500Games { get; private set; }
 
-	    public PlayerBadgesModel(
-            BadgeModel playedOneGame,
-            BadgeModel playedTenGames,
-            BadgeModel played50Games,
-            BadgeModel played100Games,
-            BadgeModel played200Games,
-            BadgeModel played500Games)
+	    public PlayerBadgesModel(PlayerBadgesResult badgesResult)
 	    {
-	        PlayedOneGame = playedOneGame;
-	        PlayedTenGames = playedTenGames;
-	        Played50Games = played50Games;
-	        Played100Games = played100Games;
-	        Played200Games = played200Games;
-	        Played500Games = played500Games;
+	        PlayedOneGame = new BadgeModel("Played one game", badgesResult.PlayedOneGame);
+            PlayedTenGames = new BadgeModel("Played ten games", badgesResult.PlayedTenGames);
+            Played50Games = new BadgeModel("Played 50 games", badgesResult.Played50Games);
+            Played100Games = new BadgeModel("Played 100 games", badgesResult.Played100Games);
+            Played200Games = new BadgeModel("Played 200 games", badgesResult.Played200Games);
+            Played500Games = new BadgeModel("Played 500 games", badgesResult.Played500Games);
 	    }
-    }
-
-    public class BadgeModel
-    {
-        public string Description { get; private set; }
-        public string CssClass { get; private set; }
-        
-        public BadgeModel(string description, string cssClass)
-        {
-            Description = description;
-            CssClass = cssClass;
-        }
-    }
-
-    public interface IBadgeModelFactory
-    {
-        BadgeModel Create(string description, bool wasEarned);
-    }
-
-    public class BadgeModelFactory : IBadgeModelFactory
-    {
-        public BadgeModel Create(string description, bool wasEarned)
-        {
-            var cssClass = wasEarned ? "icon-check" : "icon-check-empty";
-            return new BadgeModel(description, cssClass);
-        }
     }
 }

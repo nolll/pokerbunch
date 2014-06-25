@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Application.UseCases.CashgameOptions
+namespace Application.UseCases.AddCashgameForm
 {
     public class AddCashgameFormResult
     {

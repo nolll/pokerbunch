@@ -1,4 +1,5 @@
 using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Web.Models.MiscModels;
 using Web.Models.NavigationModels;

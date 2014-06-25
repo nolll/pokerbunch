@@ -1,5 +1,7 @@
 using Application.UseCases.BunchContext;
+using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
+using Application.UseCases.PlayerFacts;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Badges;
@@ -16,19 +18,21 @@ namespace Web.Models.PlayerModels.Details
         public string UserUrl { get; private set; }
         public string InvitationUrl { get; private set; }
         public AvatarModel AvatarModel { get; private set; }
-        public PlayerFactsModel PlayerFactsModel { get; set; }
-        public PlayerBadgesModel PlayerBadgesModel { get; set; }
+        public PlayerFactsModel PlayerFactsModel { get; private set; }
+        public PlayerBadgesModel PlayerBadgesModel { get; private set; }
 
-        public PlayerDetailsPageModel(BunchContextResult contextResult, PlayerDetailsResult playerDetailsResult)
+        public PlayerDetailsPageModel(BunchContextResult contextResult, PlayerDetailsResult detailsResult, PlayerFactsResult factsResult, PlayerBadgesResult badgesResult)
             : base("Player Details", contextResult)
         {
-            DisplayName = playerDetailsResult.DisplayName;
-            DeleteUrl = playerDetailsResult.DeleteUrl.Relative;
-            DeleteEnabled = playerDetailsResult.CanDelete;
-            ShowUserInfo = playerDetailsResult.IsUser;
-            UserUrl = playerDetailsResult.UserUrl.Relative;
-            AvatarModel = new AvatarModel(playerDetailsResult.AvatarUrl);
-            InvitationUrl = playerDetailsResult.InvitationUrl.Relative;
+            DisplayName = detailsResult.DisplayName;
+            DeleteUrl = detailsResult.DeleteUrl.Relative;
+            DeleteEnabled = detailsResult.CanDelete;
+            ShowUserInfo = detailsResult.IsUser;
+            UserUrl = detailsResult.UserUrl.Relative;
+            AvatarModel = new AvatarModel(detailsResult.AvatarUrl);
+            InvitationUrl = detailsResult.InvitationUrl.Relative;
+            PlayerBadgesModel = new PlayerBadgesModel(badgesResult);
+            PlayerFactsModel = new PlayerFactsModel(factsResult);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Application.Services{
 
 	public class Globalization : IGlobalization
 	{
-		public string FormatNumber(int number)
+		public static string FormatNumber(int number)
 		{
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
             return number.ToString("N0", culture);

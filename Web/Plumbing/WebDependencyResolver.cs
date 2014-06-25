@@ -34,7 +34,6 @@ using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
-using Web.Models.PlayerModels.Badges;
 using Web.Security;
 using Web.Services;
 
@@ -112,13 +111,10 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
             RegisterComponent<IPlayerItemModelFactory, PlayerItemModelFactory>();
             RegisterComponent<ICashgameMatrixTableCellModelFactory, CashgameMatrixTableCellModelFactory>();
-            RegisterComponent<IPlayerFactsModelFactory, PlayerFactsModelFactory>();
             RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();
             RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
-            RegisterComponent<IPlayerBadgesModelFactory, PlayerBadgesModelFactory>();
-            RegisterComponent<IBadgeModelFactory, BadgeModelFactory>();
 
             // Mappers
             RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();
@@ -138,6 +134,5 @@ namespace Web.Plumbing
             // Security
             RegisterComponent<IAuth, Auth>();
         }
-
     }
 }

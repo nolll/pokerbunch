@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.CashgameOptions
+﻿namespace Application.UseCases.AddCashgameForm
 {
     public interface IAddCashgameFormInteractor
     {

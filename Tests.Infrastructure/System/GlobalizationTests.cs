@@ -1,7 +1,6 @@
 using System;
 using Application.Services;
 using Core.Entities;
-using Infrastructure.System;
 using NUnit.Framework;
 
 namespace Tests.Infrastructure.System{
@@ -16,8 +15,7 @@ namespace Tests.Infrastructure.System{
         [TestCase(1234567890, "1 234 567 890")]
 		public void FormatNumber(int input, string expected)
         {
-            var sut = GetSut();
-			var result = sut.FormatNumber(input);
+			var result = Globalization.FormatNumber(input);
 			Assert.AreEqual(expected, result);
 		}
 

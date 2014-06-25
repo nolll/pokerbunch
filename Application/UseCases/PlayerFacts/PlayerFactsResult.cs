@@ -1,56 +1,40 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Services;
 using Core.Entities;
-using Web.Models.PlayerModels.Facts;
 
-namespace Web.ModelFactories.PlayerModelFactories
+namespace Application.UseCases.PlayerFacts
 {
-    public class PlayerFactsModelFactory : IPlayerFactsModelFactory
+    public class PlayerFactsResult
     {
-        private readonly IGlobalization _globalization;
+        public MoneyResult Winnings { get; private set; }
+        public MoneyResult BestResult { get; private set; }
+        public MoneyResult WorstResult { get; private set; }
+        public int GamesPlayed { get; private set; }
+        public Time TimePlayed { get; private set; }
+        public int BestResultCount { get; private set; }
+        public int WinningStreak { get; private set; }
+        public int LosingStreak { get; private set; }
 
-        public PlayerFactsModelFactory(IGlobalization globalization)
+        public PlayerFactsResult(IList<Cashgame> cashgames, int playerId, Currency currency)
         {
-            _globalization = globalization;
+            var filteredCashgames = FilterCashgames(cashgames, playerId);
+
+            Winnings = new MoneyResult(GetWinnings(filteredCashgames, playerId), currency);
+            BestResult = new MoneyResult(GetBestResult(filteredCashgames, playerId), currency);
+            WorstResult = new MoneyResult(GetWorstResult(filteredCashgames, playerId), currency);
+            GamesPlayed = filteredCashgames.Count;
+            TimePlayed = Time.FromMinutes(GetMinutesPlayed(filteredCashgames));
+            BestResultCount = GetBestResultCount(cashgames, playerId);
+            WinningStreak = GetWinningStreak(cashgames, playerId);
+            LosingStreak = GetLosingStreak(cashgames, playerId);
         }
 
-        public PlayerFactsModel Create(Currency currency, IList<Cashgame> cashgames, Player player)
-        {
-            var filteredGames = FilterCashgames(cashgames, player);
-
-            return new PlayerFactsModel
-                {
-                    Winnings = _globalization.FormatResult(currency, GetWinnings(filteredGames, player)),
-                    BestResult = _globalization.FormatResult(currency, GetBestResult(filteredGames, player)),
-                    WorstResult = _globalization.FormatResult(currency, GetWorstResult(filteredGames, player)),
-                    GamesPlayed = filteredGames.Count,
-                    TimePlayed = _globalization.FormatDuration(GetMinutesPlayed(filteredGames)),
-                    BestResultCount = GetBestResultCount(cashgames, player),
-                    WinningStreak = GetWinningStreak(cashgames, player),
-                    LosingStreak = GetLosingStreak(cashgames, player)
-                };
-        }
-
-        private List<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, Player player)
-        {
-            var filteredCashgames = new List<Cashgame>();
-            foreach (var cashgame in cashgames)
-            {
-                if (cashgame.IsInGame(player.Id))
-                {
-                    filteredCashgames.Add(cashgame);
-                }
-            }
-            return filteredCashgames;
-        }
-
-        private int GetWinnings(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetWinnings(IEnumerable<Cashgame> cashgames, int playerId)
         {
             var winnings = 0;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.GetResult(playerId);
                 if (result != null)
                 {
                     winnings += result.Winnings;
@@ -59,12 +43,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             return winnings;
         }
 
-        private int GetBestResult(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetBestResult(IEnumerable<Cashgame> cashgames, int playerId)
         {
             int? best = null;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.GetResult(playerId);
                 if (!best.HasValue || result != null && result.Winnings > best)
                 {
                     best = result.Winnings;
@@ -73,12 +57,12 @@ namespace Web.ModelFactories.PlayerModelFactories
             return best.HasValue ? best.Value : 0;
         }
 
-        private int GetWorstResult(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetWorstResult(IEnumerable<Cashgame> cashgames, int playerId)
         {
             int? worst = null;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.GetResult(playerId);
                 if (!worst.HasValue || result != null && result.Winnings < worst)
                 {
                     worst = result.Winnings;
@@ -92,13 +76,13 @@ namespace Web.ModelFactories.PlayerModelFactories
             return cashgames.Sum(cashgame => cashgame.Duration);
         }
 
-        private int GetBestResultCount(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetBestResultCount(IEnumerable<Cashgame> cashgames, int playerId)
         {
             var count = 0;
             foreach (var cashgame in cashgames)
             {
                 var result = cashgame.GetBestResult();
-                if(result.PlayerId == player.Id)
+                if (result.PlayerId == playerId)
                 {
                     count++;
                 }
@@ -106,13 +90,13 @@ namespace Web.ModelFactories.PlayerModelFactories
             return count;
         }
 
-        private int GetWinningStreak(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetWinningStreak(IEnumerable<Cashgame> cashgames, int playerId)
         {
             var bestStreak = 0;
             var currentStreak = 0;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.GetResult(playerId);
                 if (result == null)
                 {
                     continue;
@@ -133,13 +117,13 @@ namespace Web.ModelFactories.PlayerModelFactories
             return bestStreak;
         }
 
-        private int GetLosingStreak(IEnumerable<Cashgame> cashgames, Player player)
+        private int GetLosingStreak(IEnumerable<Cashgame> cashgames, int playerId)
         {
             var worstStreak = 0;
             var currentStreak = 0;
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.GetResult(playerId);
                 if (result == null)
                 {
                     continue;
@@ -160,5 +144,17 @@ namespace Web.ModelFactories.PlayerModelFactories
             return worstStreak;
         }
 
+        private List<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, int playerId)
+        {
+            var filteredCashgames = new List<Cashgame>();
+            foreach (var cashgame in cashgames)
+            {
+                if (cashgame.IsInGame(playerId))
+                {
+                    filteredCashgames.Add(cashgame);
+                }
+            }
+            return filteredCashgames;
+        }
     }
 }

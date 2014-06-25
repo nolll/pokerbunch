@@ -1,4 +1,6 @@
-﻿namespace Application.UseCases.AppContext
+﻿using Application.UseCases.BaseContext;
+
+namespace Application.UseCases.AppContext
 {
     public class AppContextResult : BaseContextResult
     {
@@ -22,20 +24,6 @@
             IsAdmin = isAdmin;
             UserName = userName;
             UserDisplayName = userDisplayName;
-        }
-    }
-
-    public class BaseContextResult
-    {
-        public bool IsInProduction { get; private set; }
-        public string Version { get; private set; }
-
-        public BaseContextResult(
-            bool isInProduction,
-            string version)
-        {
-            IsInProduction = isInProduction;
-            Version = version;
         }
     }
 }
