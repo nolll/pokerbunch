@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Controllers

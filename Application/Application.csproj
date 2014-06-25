@@ -170,6 +170,8 @@
     <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
     <Compile Include="UseCases\AppContext\AppContextInteractor.cs" />
     <Compile Include="UseCases\AppContext\IAppContextInteractor.cs" />
+    <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
+    <Compile Include="UseCases\BaseContext\IBaseContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />

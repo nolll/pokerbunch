@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.UseCases.BaseContext;
 
 namespace Application.UseCases.AppContext
 {
@@ -31,24 +32,6 @@ namespace Application.UseCases.AppContext
                 isAdmin,
                 userName,
                 userDisplayName);
-        }
-    }
-
-    public interface IBaseContextInteractor
-    {
-        BaseContextResult Execute();
-    }
-
-    public class BaseContextInteractor : IBaseContextInteractor
-    {
-        public BaseContextResult Execute()
-        {
-            const bool isInProduction = false;
-            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-            return new BaseContextResult(
-                isInProduction,
-                version);
         }
     }
 }
