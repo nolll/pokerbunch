@@ -1,52 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using Application.Exceptions;
-using Application.UseCases.BunchContext;
-using Core.Repositories;
+﻿using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameOptions;
 using Web.Models.CashgameModels.Add;
 
 namespace Web.ModelFactories.CashgameModelFactories.Add
 {
     public class AddCashgamePageBuilder : IAddCashgamePageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
-        private readonly ICashgameRepository _cashgameRepository;
         private readonly IBunchContextInteractor _contextInteractor;
+        private readonly ICashgameOptionsInteractor _cashgameOptionsInteractor;
 
         public AddCashgamePageBuilder(
-            IHomegameRepository homegameRepository,
-            ICashgameRepository cashgameRepository,
-            IBunchContextInteractor contextInteractor)
+            IBunchContextInteractor contextInteractor,
+            ICashgameOptionsInteractor cashgameOptionsInteractor)
         {
-            _homegameRepository = homegameRepository;
-            _cashgameRepository = cashgameRepository;
             _contextInteractor = contextInteractor;
+            _cashgameOptionsInteractor = cashgameOptionsInteractor;
         }
 
         public AddCashgamePageModel Build(string slug, AddCashgamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            if (runningGame != null)
-            {
-                throw new CashgameRunningException();
-            }
-            var locations = _cashgameRepository.GetLocations(homegame);
-            
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+            var optionsResult = _cashgameOptionsInteractor.Execute(new CashgameOptionsRequest(slug));
 
-            return new AddCashgamePageModel(contextResult, postModel)
-            {
-                Locations = GetLocationListItems(locations)
-            };
-        }
-
-        private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<string> locations)
-        {
-            var listItems = locations.Select(l => new SelectListItem {Text = l, Value = l});
-            var firstItem = new SelectListItem{Text = "Select Location", Value = ""};
-            return new List<SelectListItem> {firstItem}.Concat(listItems);
+            return new AddCashgamePageModel(contextResult, optionsResult, postModel);
         } 
     }
 }
