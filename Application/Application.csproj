@@ -221,6 +221,10 @@
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
+    <Compile Include="UseCases\UserDetails\IUserDetailsInteractor.cs" />
+    <Compile Include="UseCases\UserDetails\UserDetailsInteractor.cs" />
+    <Compile Include="UseCases\UserDetails\UserDetailsRequest.cs" />
+    <Compile Include="UseCases\UserDetails\UserDetailsResult.cs" />
     <Compile Include="UseCases\UserList\IUserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListItem.cs" />

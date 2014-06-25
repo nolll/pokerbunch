@@ -13,6 +13,7 @@ using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
 using Application.UseCases.PlayerList;
+using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
 using Castle.Core;
 using Castle.Windsor;
@@ -138,6 +139,7 @@ namespace Plumbing
             RegisterComponent<IPlayerDetailsInteractor, PlayerDetailsInteractor>();
             RegisterComponent<IPlayerFactsInteractor, PlayerFactsInteractor>();
             RegisterComponent<IPlayerBadgesInteractor, PlayerBadgesInteractor>();
+            RegisterComponent<IUserDetailsInteractor, UserDetailsInteractor>();
         }
     }
 }
