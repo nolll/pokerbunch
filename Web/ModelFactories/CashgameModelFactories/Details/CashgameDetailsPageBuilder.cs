@@ -6,7 +6,6 @@ using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Details;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
 {

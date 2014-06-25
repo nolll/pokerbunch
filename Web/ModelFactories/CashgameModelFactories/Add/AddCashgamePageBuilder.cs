@@ -7,20 +7,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Add
     public class AddCashgamePageBuilder : IAddCashgamePageBuilder
     {
         private readonly IBunchContextInteractor _contextInteractor;
-        private readonly ICashgameOptionsInteractor _cashgameOptionsInteractor;
+        private readonly IAddCashgameFormInteractor _addCashgameFormInteractor;
 
         public AddCashgamePageBuilder(
             IBunchContextInteractor contextInteractor,
-            ICashgameOptionsInteractor cashgameOptionsInteractor)
+            IAddCashgameFormInteractor addCashgameFormInteractor)
         {
             _contextInteractor = contextInteractor;
-            _cashgameOptionsInteractor = cashgameOptionsInteractor;
+            _addCashgameFormInteractor = addCashgameFormInteractor;
         }
 
         public AddCashgamePageModel Build(string slug, AddCashgamePostModel postModel)
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
-            var optionsResult = _cashgameOptionsInteractor.Execute(new CashgameOptionsRequest(slug));
+            var optionsResult = _addCashgameFormInteractor.Execute(new AddCashgameFormRequest(slug));
 
             return new AddCashgamePageModel(contextResult, optionsResult, postModel);
         } 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
@@ -12,14 +11,13 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Web.Plumbing;
 using Web.Security;
-using Web.Services;
 using DependencyResolver = Plumbing.DependencyResolver;
 
 namespace Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         private static DependencyResolver _dependencyResolver;
 

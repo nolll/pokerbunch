@@ -14,14 +14,9 @@ namespace Web.ModelFactories.MiscModelFactories{
 		}
         
 	    public AvatarModel Create(string email, AvatarSize size = AvatarSize.Large){
-			var model = new AvatarModel();
-			if(email != null){
-				model.AvatarEnabled = true;
-                model.AvatarUrl = GetAvatarUrl(email, size);
-			} else {
-				model.AvatarEnabled = false;
-			}
-			return model;
+			if(email == null)
+                return new AvatarModel();
+		    return new AvatarModel(GetAvatarUrl(email, size));
 		}
 
 		private string GetAvatarUrl(string email, AvatarSize size){

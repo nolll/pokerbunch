@@ -8,6 +8,7 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameOptions;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerList;
 using Application.UseCases.UserList;
 using Castle.Core;
@@ -130,7 +131,8 @@ namespace Plumbing
             RegisterComponent<ITopListInteractor, TopListInteractor>();
             RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
             RegisterComponent<IActionsInteractor, ActionsInteractor>();
-            RegisterComponent<ICashgameOptionsInteractor, CashgameOptionsInteractor>();
+            RegisterComponent<IAddCashgameFormInteractor, AddCashgameFormInteractor>();
+            RegisterComponent<IPlayerDetailsInteractor, PlayerDetailsInteractor>();
         }
     }
 }
