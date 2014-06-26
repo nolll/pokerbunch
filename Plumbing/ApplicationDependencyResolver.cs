@@ -7,6 +7,7 @@ using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Application.UseCases.BunchList;
 using Application.UseCases.CashgameContext;
+using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.PlayerBadges;
@@ -140,6 +141,7 @@ namespace Plumbing
             RegisterComponent<IPlayerFactsInteractor, PlayerFactsInteractor>();
             RegisterComponent<IPlayerBadgesInteractor, PlayerBadgesInteractor>();
             RegisterComponent<IUserDetailsInteractor, UserDetailsInteractor>();
+            RegisterComponent<ICashgameDetailsInteractor, CashgameDetailsInteractor>();
         }
     }
 }

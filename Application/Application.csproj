@@ -38,6 +38,7 @@
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
+    <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Factories\CashgameFactory.cs" />
@@ -186,6 +187,11 @@
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\ICashgameContextInteractor.cs" />
+    <Compile Include="UseCases\CashgameDetails\CashgameDetailsInteractor.cs" />
+    <Compile Include="UseCases\CashgameDetails\CashgameDetailsRequest.cs" />
+    <Compile Include="UseCases\CashgameDetails\CashgameDetailsResult.cs" />
+    <Compile Include="UseCases\CashgameDetails\ICashgameDetailsInteractor.cs" />
+    <Compile Include="UseCases\CashgameDetails\PlayerResultItem.cs" />
     <Compile Include="UseCases\CashgameFacts\MoneyFact.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsRequest.cs" />

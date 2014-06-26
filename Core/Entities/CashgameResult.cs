@@ -40,5 +40,17 @@ namespace Core.Entities
 	        LastReportTime = lastReportTime;
 	        CashoutCheckpoint = cashoutCheckpoint;
 	    }
+
+        public int WinRate
+        {
+            get
+            {
+                if (PlayedTime > 0)
+                {
+                    return (int)Math.Round((double)Winnings / PlayedTime * 60);
+                }
+                return 0;
+            }
+        }
 	}
 }

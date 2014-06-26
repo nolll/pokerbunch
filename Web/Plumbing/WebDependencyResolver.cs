@@ -101,8 +101,6 @@ namespace Web.Plumbing
             RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
-            RegisterComponent<ICashgameDetailsTableModelFactory, CashgameDetailsTableModelFactory>();
-            RegisterComponent<ICashgameDetailsTableItemModelFactory, CashgameDetailsTableItemModelFactory>();
             RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
             RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();

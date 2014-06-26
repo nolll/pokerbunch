@@ -36,11 +36,11 @@
         
         <div class="buttons">
             @if (Model.EnableCheckpointsButton){
-                <a href="@Model.CheckpointsUrl.Relative" class="button action">My Details</a>
+                <a href="@Model.CheckpointsUrl" class="button action">My Details</a>
             }
             @if (Model.EnableEdit)
             {
-                <a href="@Model.EditUrl.Relative" class="button action">Edit Cashgame</a>
+                <a href="@Model.EditUrl" class="button action">Edit Cashgame</a>
             }
         </div>
     </div>
@@ -49,6 +49,6 @@
 <div class="block gutter">
     @Html.Partial("Details/ResultTable", Model.CashgameDetailsTableModel)
 
-    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl.Relative">Loading chart...</div>
+    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
 
 </div>
