@@ -22,7 +22,7 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_WithSlug_SlugIsSet()
+        public void Execute_NoRunningGame_GameIsRunningIsFalse()
         {
             const string slug = "a";
             const string name = "b";
@@ -110,7 +110,7 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_WithRunningGame_GameIsRunningGameIsTrue()
+        public void Execute_WithRunningGame_GameIsRunningIsTrue()
         {
             const string slug = "a";
             const string name = "b";

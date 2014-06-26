@@ -219,6 +219,7 @@
     <Compile Include="UseCases\PlayerDetails\PlayerDetailsRequest.cs" />
     <Compile Include="UseCases\PlayerDetails\PlayerDetailsResult.cs" />
     <Compile Include="UseCases\PlayerFacts\IPlayerFactsInteractor.cs" />
+    <Compile Include="UseCases\PlayerFacts\PlayerFactsEvaluator.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsInteractor.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsRequest.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsResult.cs" />

@@ -27,6 +27,7 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(slug, result.Slug);
+            Assert.IsTrue(result.HasBunch);
         }
 
         [Test]
@@ -38,11 +39,28 @@ namespace Tests.Application.UseCases
             var homegame = new HomegameInTest(slug: slug);
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>{homegame});
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame> { homegame });
 
             var result = Sut.Execute(request);
 
             Assert.AreEqual(slug, result.Slug);
+            Assert.IsTrue(result.HasBunch);
+        }
+
+        [Test]
+        public void Execute_WithoutHomegame_SlugIsSetFromFirstHomegame()
+        {
+            const string slug = "a";
+            var request = new BunchContextRequest();
+            var contextResult = new AppContextResultInTest();
+
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
+
+            var result = Sut.Execute(request);
+
+            Assert.IsNull(result.Slug);
+            Assert.IsFalse(result.HasBunch);
         }
 
         private BunchContextInteractor Sut
