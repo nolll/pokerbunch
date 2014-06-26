@@ -1,5 +1,4 @@
-﻿using Application.UseCases.AppContext;
-using Application.UseCases.BaseContext;
+﻿using Application.UseCases.BaseContext;
 using NUnit.Framework;
 using Tests.Common;
 

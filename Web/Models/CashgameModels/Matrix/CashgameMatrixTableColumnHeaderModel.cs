@@ -1,5 +1,4 @@
 using Application.Urls;
-using Web.Models.UrlModels;
 
 namespace Web.Models.CashgameModels.Matrix
 {

@@ -1,6 +1,4 @@
-﻿using Application.UseCases.AppContext;
-
-namespace Application.UseCases.BaseContext
+﻿namespace Application.UseCases.BaseContext
 {
     public class BaseContextInteractor : IBaseContextInteractor
     {

@@ -9,21 +9,21 @@ namespace Application.UseCases.CashgameDetails
 {
     public class CashgameDetailsResult
     {
-        public string Date { get; set; }
-        public Time Duration { get; set; }
-        public DateTime? StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
-        public string Location { get; set; }
-        public bool HasStartTime { get; set; }
-        public bool HasEndTime { get; set; }
-        public bool CanEdit { get; set; }
-        public bool HasCheckpoints { get; set; }
-        public bool HasDuration { get; set; }
-        public Url EditUrl { get; set; }
-        public Url CheckpointsUrl { get; set; }
-        public Url ChartDataUrl { get; set; }
-        public GameStatus Status { get; set; }
-        public IList<PlayerResultItem> PlayerItems { get; set; }
+        public string Date { get; private set; }
+        public Time Duration { get; private set; }
+        public DateTime? StartTime { get; private set; }
+        public DateTime? EndTime { get; private set; }
+        public string Location { get; private set; }
+        public bool HasStartTime { get; private set; }
+        public bool HasEndTime { get; private set; }
+        public bool CanEdit { get; private set; }
+        public bool HasCheckpoints { get; private set; }
+        public bool HasDuration { get; private set; }
+        public Url EditUrl { get; private set; }
+        public Url CheckpointsUrl { get; private set; }
+        public Url ChartDataUrl { get; private set; }
+        public GameStatus Status { get; private set; }
+        public IList<PlayerResultItem> PlayerItems { get; private set; }
 
         public CashgameDetailsResult(Homegame homegame, Cashgame cashgame, IList<Player> players, Player player, bool isManager)
         {
