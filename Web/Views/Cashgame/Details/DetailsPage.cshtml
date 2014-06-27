@@ -13,8 +13,6 @@
 @section Aside2{
     <div class="block gutter">
         <dl class="value-list">
-            <dt class="label">Status</dt>
-            <dd>@Model.Status</dd>
             @if (Model.ShowStartTime)
             {
                 <dt class="label">Start Time</dt>
@@ -35,9 +33,6 @@
         </dl>
         
         <div class="buttons">
-            @if (Model.EnableCheckpointsButton){
-                <a href="@Model.CheckpointsUrl" class="button action">My Details</a>
-            }
             @if (Model.EnableEdit)
             {
                 <a href="@Model.EditUrl" class="button action">Edit Cashgame</a>

@@ -10,7 +10,7 @@ namespace Application.UseCases.CashgameDetails
         public Money Buyin { get; private set; }
         public Money Cashout { get; private set; }
         public MoneyResult Winnings { get; private set; }
-        public MoneyWinRate Winrate { get; private set; }
+        public MoneyWinRate WinRate { get; private set; }
 
         public PlayerResultItem(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result)
         {
@@ -19,7 +19,7 @@ namespace Application.UseCases.CashgameDetails
             Buyin = new Money(result.Buyin, homegame.Currency);
             Cashout = new Money(result.Stack, homegame.Currency);
             Winnings = new MoneyResult(result.Winnings, homegame.Currency);
-            Winrate = new MoneyWinRate(result.WinRate, homegame.Currency);
+            WinRate = new MoneyWinRate(result.WinRate, homegame.Currency);
         }
     }
 }

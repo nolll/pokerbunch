@@ -1,6 +1,6 @@
 ﻿namespace Core.Entities
 {
-    public class MoneyWinRate : MoneyResult
+    public class MoneyWinRate : Money
     {
         public MoneyWinRate(int amount) : base(amount)
         {

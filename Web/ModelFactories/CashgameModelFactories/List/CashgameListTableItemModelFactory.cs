@@ -58,11 +58,6 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             return _globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
         }
 
-        private string GetPublishedClass(Cashgame cashgame)
-        {
-            return cashgame.Status == GameStatus.Published ? string.Empty : "unpublished";
-        }
-
         private string GetSortCssClass(ListSortOrder selectedSortOrder, ListSortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";

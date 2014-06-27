@@ -23,7 +23,6 @@ namespace Web.ModelMappers
                     cashgame.IsStarted,
                     cashgame.StartTime,
                     cashgame.EndTime,
-                    cashgame.Duration,
                     cashgame.Results,
                     cashgame.PlayerCount,
                     cashgame.Diff,

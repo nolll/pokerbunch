@@ -9,7 +9,6 @@ namespace Web.Models.CashgameModels.Edit
     public class EditCashgamePageModel : PageModel
     {
         public string IsoDate { get; set; }
-        public bool EnableDelete { get; set; }
         public Url CancelUrl { get; set; }
         public Url DeleteUrl { get; set; }
         public IEnumerable<SelectListItem> Locations { get; set; }

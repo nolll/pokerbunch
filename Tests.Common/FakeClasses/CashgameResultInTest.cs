@@ -17,18 +17,21 @@ namespace Tests.Common.FakeClasses
             int playedTime = 0,
             int stack = 0,
             DateTime? lastReportTime = null, 
-            Checkpoint cashoutCheckpoint = null)
+            Checkpoint cashoutCheckpoint = null,
+            int winRate = 0)
+            
             : base(
-                playerId,
-                buyin, 
-                winnings, 
-                checkpoints ?? new List<Checkpoint>(), 
-                buyinTime,
-                cashoutTime, 
-                playedTime, 
-                stack,
-                lastReportTime, 
-                cashoutCheckpoint)
+            playerId,
+            buyin, 
+            winnings, 
+            checkpoints ?? new List<Checkpoint>(), 
+            buyinTime,
+            cashoutTime, 
+            playedTime, 
+            stack,
+            lastReportTime, 
+            cashoutCheckpoint,
+            winRate)
         {
         }
     }

@@ -52,7 +52,7 @@ namespace Infrastructure.Data.Repositories
 
         public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
         {
-            return GetList(homegame, GameStatus.Published, year);
+            return GetList(homegame, GameStatus.Running, year);
         }
 
         public Cashgame GetRunning(Homegame homegame)
@@ -163,7 +163,7 @@ namespace Infrastructure.Data.Repositories
 
 		public bool EndGame(Homegame homegame, Cashgame cashgame)
         {
-            var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Published);
+            var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Finished);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
             _cacheBuster.CashgameUpdated(cashgame);
 			return success;

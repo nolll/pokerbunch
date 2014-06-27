@@ -34,7 +34,7 @@ namespace Tests.Infrastructure.Repositories
             var cashgame = new CashgameInTest();
             var rawCashgame = new RawCashgame();
 
-            GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Published)).Returns(rawCashgame);
+            GetMock<IRawCashgameFactory>().Setup(o => o.Create(cashgame, GameStatus.Finished)).Returns(rawCashgame);
 
             var sut = GetSut();
 			sut.EndGame(homegame, cashgame);

@@ -16,30 +16,29 @@ namespace Web.Models.CashgameModels.Details
         public bool ShowStartTime { get; private set; }
         public bool ShowEndTime { get; private set; }
         public bool EnableEdit { get; private set; }
-        public bool EnableCheckpointsButton { get; private set; }
         public bool DurationEnabled { get; private set; }
         public string EditUrl { get; private set; }
-        public string CheckpointsUrl { get; private set; }
         public string ChartDataUrl { get; private set; }
-        public string Status { get; private set; }
-        public CashgameDetailsTableModel CashgameDetailsTableModel { get; set; }
+        public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
 
         public CashgameDetailsPageModel(BunchContextResult contextResult, CashgameDetailsResult detailsResult)
             : base("Cashgame", contextResult)
         {
-            Heading = string.Format("Cashgame {0}", detailsResult.Date);
+            var date = Globalization.FormatShortDate(detailsResult.Date, true);
+            var showStartTime = detailsResult.StartTime.HasValue;
+            var showEndTime = detailsResult.EndTime.HasValue;
+            var showDuration = showStartTime && showEndTime;
+            
+            Heading = string.Format("Cashgame {0}", date);
             Location = detailsResult.Location;
             Duration = detailsResult.Duration.ToString();
-			DurationEnabled = detailsResult.HasDuration;
-            ShowStartTime = detailsResult.HasStartTime;
-            StartTime = detailsResult.StartTime.HasValue ? Globalization.FormatTime(detailsResult.StartTime.Value) : "";
-			ShowEndTime = detailsResult.HasEndTime;
-            EndTime = detailsResult.EndTime.HasValue ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
-            Status = GameStatusName.GetName(detailsResult.Status);
+			DurationEnabled = showDuration;
+            ShowStartTime = showStartTime;
+            StartTime = showStartTime ? Globalization.FormatTime(detailsResult.StartTime.Value) : "";
+			ShowEndTime = showEndTime;
+            EndTime = showEndTime ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
             EnableEdit = detailsResult.CanEdit;
-            EnableCheckpointsButton = detailsResult.HasCheckpoints;
             EditUrl = detailsResult.EditUrl.Relative;
-            CheckpointsUrl = detailsResult.CheckpointsUrl.Relative;
             ChartDataUrl = detailsResult.ChartDataUrl.Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
         }

@@ -13,7 +13,6 @@ namespace Core.Entities
         public bool IsStarted { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
-        public int Duration { get; private set; }
         public IList<CashgameResult> Results { get; private set; }
         public int PlayerCount { get; private set; }
         public int Diff { get; private set; }
@@ -31,8 +30,7 @@ namespace Core.Entities
 	            bool isStarted,
 	            DateTime? startTime,
 	            DateTime? endTime,
-	            int duration,
-                IList<CashgameResult> results,
+	            IList<CashgameResult> results,
 	            int playerCount,
 	            int diff,
 	            int turnover,
@@ -49,7 +47,6 @@ namespace Core.Entities
             IsStarted = isStarted;
             StartTime = startTime;
             EndTime = endTime;
-            Duration = duration;
             Results = results;
             PlayerCount = playerCount;
             Diff = diff;
@@ -60,7 +57,20 @@ namespace Core.Entities
             DateString = dateString;
         }
 
-	    public CashgameResult GetResult(int playerId)
+        public int Duration
+        {
+            get
+            {
+                if (!StartTime.HasValue || !EndTime.HasValue)
+                {
+                    return 0;
+                }
+                var timespan = EndTime - StartTime;
+                return (int) Math.Round(timespan.Value.TotalMinutes);
+            }
+        }
+
+        public CashgameResult GetResult(int playerId)
 	    {
 	        return Results.FirstOrDefault(result => result.PlayerId == playerId);
 	    }

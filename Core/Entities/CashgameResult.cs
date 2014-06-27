@@ -16,6 +16,7 @@ namespace Core.Entities
         public int Stack { get; private set; }
         public DateTime? LastReportTime { get; private set; }
         public Checkpoint CashoutCheckpoint { get; private set; }
+        public int WinRate { get; private set; }
 
 	    public CashgameResult(
             int playerId,
@@ -27,7 +28,8 @@ namespace Core.Entities
             int playedTime, 
             int stack, 
             DateTime? lastReportTime, 
-            Checkpoint cashoutCheckpoint)
+            Checkpoint cashoutCheckpoint,
+            int winRate)
 	    {
 	        PlayerId = playerId;
 	        Buyin = buyin;
@@ -39,18 +41,7 @@ namespace Core.Entities
 	        Stack = stack;
 	        LastReportTime = lastReportTime;
 	        CashoutCheckpoint = cashoutCheckpoint;
+	        WinRate = winRate;
 	    }
-
-        public int WinRate
-        {
-            get
-            {
-                if (PlayedTime > 0)
-                {
-                    return (int)Math.Round((double)Winnings / PlayedTime * 60);
-                }
-                return 0;
-            }
-        }
 	}
 }

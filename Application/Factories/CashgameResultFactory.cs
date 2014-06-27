@@ -28,6 +28,7 @@ namespace Application.Factories
             if (cashoutCheckpoint != null)
                 cashoutTime = cashoutCheckpoint.Timestamp;
             var playedTime = GetPlayedTime(buyinTime, cashoutTime);
+            var winRate = GetWinRate(winnings, playedTime);
 
             return new CashgameResult(
                 playerId,
@@ -39,7 +40,8 @@ namespace Application.Factories
                 playedTime,
                 stack,
                 lastReportTime,
-                cashoutCheckpoint);
+                cashoutCheckpoint,
+                winRate);
         }
 
         private int GetBuyinSum(IEnumerable<Checkpoint> checkpoints)
@@ -97,6 +99,15 @@ namespace Application.Factories
             }
             var timespan = endTime - startTime;
             return (int)Math.Round(timespan.Value.TotalMinutes);
+        }
+
+        public int GetWinRate(int winnings, int playedTime)
+        {
+            if (playedTime > 0)
+            {
+                return (int)Math.Round((double)winnings / playedTime * 60);
+            }
+            return 0;
         }
 
         private DateTime GetLastReportTime(List<Checkpoint> checkpoints)

@@ -24,7 +24,6 @@ namespace Application.Factories
             bool isStarted,
             DateTime? startTime,
             DateTime? endTime,
-            int duration,
             IList<CashgameResult> results,
             int playerCount,
             int diff,
@@ -42,7 +41,6 @@ namespace Application.Factories
                 isStarted,
                 startTime,
                 endTime,
-                duration,
                 results,
                 playerCount,
                 diff,
@@ -75,7 +73,6 @@ namespace Application.Factories
                 startTime.HasValue,
                 startTime,
                 endTime,
-                GetDuration(startTime, endTime),
                 results,
                 playerCount,
                 buyinSum - cashoutSum,
@@ -83,8 +80,7 @@ namespace Application.Factories
                 HasActivePlayers(results),
                 GetTotalStacks(results),
                 GetAverageBuyin(buyinSum, playerCount),
-                dateString
-                );
+                dateString);
         }
 
         private DateTime? GetStartTime(IEnumerable<CashgameResult> results)
@@ -111,16 +107,6 @@ namespace Application.Factories
                 }
             }
             return endTime;
-        }
-
-        private int GetDuration(DateTime? startTime = null, DateTime? endTime = null)
-        {
-            if (!startTime.HasValue || !endTime.HasValue)
-            {
-                return 0;
-            }
-            var timespan = endTime - startTime;
-            return (int) Math.Round(timespan.Value.TotalMinutes);
         }
 
         private int GetBuyinSum(IEnumerable<CashgameResult> results)

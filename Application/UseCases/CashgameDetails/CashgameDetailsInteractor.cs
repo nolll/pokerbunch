@@ -41,7 +41,7 @@ namespace Application.UseCases.CashgameDetails
             var isManager = _auth.IsInRole(request.Slug, Role.Manager);
             var players = GetPlayers(cashgame);
             
-            return new CashgameDetailsResult(homegame, cashgame, players, player, isManager);
+            return new CashgameDetailsResult(homegame, cashgame, players, isManager);
         }
 
         private IList<Player> GetPlayers(Cashgame cashgame)

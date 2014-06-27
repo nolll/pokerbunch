@@ -37,6 +37,7 @@
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
+    <Compile Include="Entities\Date.cs" />
     <Compile Include="Entities\Identifier.cs" />
     <Compile Include="Entities\Money.cs" />
     <Compile Include="Entities\MoneyResult.cs" />

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.BunchContext;
-using Core.Entities;
 using Core.Repositories;
 using Web.Models.CashgameModels.Edit;
 
@@ -41,7 +40,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
                 IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
                 CancelUrl = new CashgameDetailsUrl(slug, cashgame.DateString),
                 DeleteUrl = new DeleteCashgameUrl(slug, cashgame.DateString),
-                EnableDelete = cashgame.Status != GameStatus.Published,
                 TypedLocation = cashgame.Location,
                 SelectedLocation = cashgame.Location,
                 Locations = locations.Select(l => new SelectListItem { Text = l, Value = l })

@@ -21,7 +21,7 @@ namespace Web.Models.CashgameModels.Details
             Cashout = resultItem.Cashout.ToString();
             Winnings = resultItem.Winnings.ToString();
             WinningsClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings);
-            Winrate = resultItem.Winrate.ToString();
+            Winrate = resultItem.WinRate.ToString();
         }
     }
 }

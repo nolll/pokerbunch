@@ -14,7 +14,6 @@ namespace Tests.Common.FakeClasses
             bool isStarted = default(bool),
             DateTime? startTime = default(DateTime?),
             DateTime? endTime = default(DateTime?),
-            int duration = default(int),
             IList<CashgameResult> results = default(IList<CashgameResult>),
             int playerCount = default(int),
             int diff = default(int),
@@ -32,7 +31,6 @@ namespace Tests.Common.FakeClasses
               isStarted,
               startTime,
               endTime,
-              duration,
               results ?? new List<CashgameResult>(),
               playerCount,
               diff,
@@ -40,8 +38,7 @@ namespace Tests.Common.FakeClasses
               hasActivePlayers,
               totalStacks,
               averageBuyin,
-              dateString
-              )
+              dateString)
         {
         }
     }

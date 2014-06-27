@@ -13,18 +13,18 @@ namespace Tests.Infrastructure.Data.Factories
         public void Create_WithoutStatus_StatusIsSetFromCashgame()
         {
             var sut = GetSut();
-            var result = sut.Create(new CashgameInTest (status: GameStatus.Published));
+            var result = sut.Create(new CashgameInTest (status: GameStatus.Finished));
 
-            Assert.AreEqual(result.Status, (int)GameStatus.Published);
+            Assert.AreEqual(result.Status, (int)GameStatus.Finished);
         }
 
         [Test]
         public void Create_WithStatus_StatusIsSet()
         {
             var sut = GetSut();
-            var result = sut.Create(new CashgameInTest (), GameStatus.Published);
+            var result = sut.Create(new CashgameInTest(), GameStatus.Finished);
 
-            Assert.AreEqual(result.Status, (int)GameStatus.Published);
+            Assert.AreEqual(result.Status, (int)GameStatus.Finished);
         }
 
         private RawCashgameFactory GetSut()

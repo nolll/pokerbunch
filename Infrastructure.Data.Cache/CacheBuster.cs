@@ -94,11 +94,11 @@ namespace Infrastructure.Data.Cache
 
         private void ClearCashgameList(Cashgame cashgame)
         {
-            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Published);
+            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Finished);
             _cacheContainer.Remove(allTimeCacheKey);
             if (cashgame.StartTime.HasValue)
             {
-                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Published, cashgame.StartTime.Value.Year);
+                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Finished, cashgame.StartTime.Value.Year);
                 _cacheContainer.Remove(currentYearCacheKey);
             }
         }

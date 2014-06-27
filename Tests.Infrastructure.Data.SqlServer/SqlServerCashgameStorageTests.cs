@@ -105,7 +105,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             const int homegameId = 1;
             const int status = 2;
-            const string expectedSql = "SELECT g.GameID FROM game g WHERE g.HomegameID = 1 AND g.Status = 2";
+            const string expectedSql = "SELECT g.GameID FROM game g WHERE g.HomegameID = 1 AND g.Status >= 2";
 
             var sut = GetSut();
             sut.GetGameIds(homegameId, status);
@@ -132,7 +132,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             const int homegameId = 1;
             const int status = 2;
             const int year = 3;
-            const string expectedSql = "SELECT g.GameID FROM game g WHERE g.HomegameID = 1 AND g.Status = 2 AND YEAR(g.Date) = 3";
+            const string expectedSql = "SELECT g.GameID FROM game g WHERE g.HomegameID = 1 AND g.Status >= 2 AND YEAR(g.Date) = 3";
 
             var sut = GetSut();
             sut.GetGameIds(homegameId, status, year);

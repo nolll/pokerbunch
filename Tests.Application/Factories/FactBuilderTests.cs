@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Application.UseCases.CashgameFacts;
 using Core.Entities;
@@ -77,8 +78,13 @@ namespace Tests.Application.Factories
         [Test]
         public void GetTotalGameTime_ReturnsTheSumOfTheGameDurations()
         {
-            var cashgame1 = new CashgameInTest(duration: 1);
-            var cashgame2 = new CashgameInTest(duration: 2);
+            var startTime1 = DateTime.MinValue.AddDays(1);
+            var endTime1 = startTime1.AddMinutes(1);
+            var startTime2 = DateTime.MinValue.AddDays(2);
+            var endTime2 = startTime2.AddMinutes(2);
+
+            var cashgame1 = new CashgameInTest(startTime: startTime1, endTime: endTime1);
+            var cashgame2 = new CashgameInTest(startTime: startTime2, endTime: endTime2);
             _cashgames = new List<Cashgame> {cashgame1, cashgame2};
 
             GetMock<ICashgameTotalResultFactory>()
