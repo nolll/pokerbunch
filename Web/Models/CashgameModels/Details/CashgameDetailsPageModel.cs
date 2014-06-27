@@ -32,9 +32,9 @@ namespace Web.Models.CashgameModels.Details
             Duration = detailsResult.Duration.ToString();
 			DurationEnabled = detailsResult.HasDuration;
             ShowStartTime = detailsResult.HasStartTime;
-            StartTime = detailsResult.StartTime.HasValue ? Globalization.FormatTimeStatic(detailsResult.StartTime.Value) : "";
+            StartTime = detailsResult.StartTime.HasValue ? Globalization.FormatTime(detailsResult.StartTime.Value) : "";
 			ShowEndTime = detailsResult.HasEndTime;
-            EndTime = detailsResult.EndTime.HasValue ? Globalization.FormatTimeStatic(detailsResult.EndTime.Value) : "";
+            EndTime = detailsResult.EndTime.HasValue ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
             Status = GameStatusName.GetName(detailsResult.Status);
             EnableEdit = detailsResult.CanEdit;
             EnableCheckpointsButton = detailsResult.HasCheckpoints;

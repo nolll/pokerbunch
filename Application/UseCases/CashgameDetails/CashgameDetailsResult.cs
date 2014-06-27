@@ -27,7 +27,7 @@ namespace Application.UseCases.CashgameDetails
 
         public CashgameDetailsResult(Homegame homegame, Cashgame cashgame, IList<Player> players, Player player, bool isManager)
         {
-            var date = cashgame.StartTime.HasValue ? Globalization.FormatShortDateStatic(cashgame.StartTime.Value, true) : string.Empty;
+            var date = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, true) : string.Empty;
             var showStartTime = cashgame.Status >= GameStatus.Running && cashgame.StartTime.HasValue;
             var showEndTime = cashgame.Status >= GameStatus.Finished && cashgame.EndTime != null;
             var sortedResults = cashgame.Results.OrderByDescending(o => o.Winnings);

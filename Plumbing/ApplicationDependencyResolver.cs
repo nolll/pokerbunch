@@ -71,7 +71,7 @@ namespace Plumbing
             RegisterComponent<ICacheKeyProvider, CacheKeyProvider>();
 
             // System
-            RegisterComponent<IGlobalization, Globalization>();
+            RegisterComponent<IGlobalization, GlobalizationImpl>();
             RegisterComponent<IWebContext, WebContext>();
             RegisterComponent<ITimeProvider, TimeProvider>();
             RegisterComponent<ISettings, Settings>();

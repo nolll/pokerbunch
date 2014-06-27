@@ -17,7 +17,7 @@ namespace Web.Models.CashgameModels.Action
         public ActionPageModel(BunchContextResult contextResult, ActionsResult actionsResult)
             : base("Player Actions", contextResult)
         {
-            var date = Globalization.FormatShortDateStatic(actionsResult.Date, true);
+            var date = Globalization.FormatShortDate(actionsResult.Date, true);
             Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
             Checkpoints = GetCheckpointModels(actionsResult);
             ChartDataUrl = actionsResult.ChartDataUrl;

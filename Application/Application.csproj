@@ -57,6 +57,7 @@
     <Compile Include="Factories\UserFactory.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Globalization.cs" />
+    <Compile Include="Services\GlobalizationImpl.cs" />
     <Compile Include="Services\IAuth.cs" />
     <Compile Include="Services\Interfaces\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
