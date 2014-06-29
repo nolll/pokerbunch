@@ -8,14 +8,6 @@ namespace Application.Factories
 {
     public class CashgameFactory : ICashgameFactory
     {
-        private readonly IGlobalization _globalization;
-
-        public CashgameFactory(
-            IGlobalization globalization)
-        {
-            _globalization = globalization;
-        }
-
         public Cashgame Create(
             int id,
             int homegameId,
@@ -63,7 +55,7 @@ namespace Application.Factories
             var endTime = GetEndTime(results);
             var buyinSum = GetBuyinSum(results);
             var cashoutSum = GetCashoutSum(results);
-            var dateString = startTime.HasValue ? _globalization.FormatIsoDate(startTime.Value) : string.Empty;
+            var dateString = startTime.HasValue ? Globalization.FormatIsoDate(startTime.Value) : string.Empty;
 
             return Create(
                 id.HasValue ? id.Value : 0,

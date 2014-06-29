@@ -98,7 +98,7 @@ namespace Infrastructure.Data.SqlServer
 		        };
             if (status.HasValue)
             {
-                sql = string.Concat(sql, " AND g.Status >= @status");
+                sql = string.Concat(sql, " AND g.Status = @status");
                 parameters.Add(new SimpleSqlParameter("@status", status.Value));
             }
             if (year.HasValue)

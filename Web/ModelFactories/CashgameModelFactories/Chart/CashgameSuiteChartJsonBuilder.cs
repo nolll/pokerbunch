@@ -11,20 +11,17 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
     public class CashgameSuiteChartJsonBuilder : ICashgameSuiteChartJsonBuilder
     {
-        private readonly IGlobalization _globalization;
         private readonly IChartValueModelFactory _chartValueModelFactory;
         private readonly IPlayerRepository _playerRepository;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameService _cashgameService;
 
         public CashgameSuiteChartJsonBuilder(
-            IGlobalization globalization,
             IChartValueModelFactory chartValueModelFactory,
             IPlayerRepository playerRepository,
             IHomegameRepository homegameRepository,
             ICashgameService cashgameService)
         {
-            _globalization = globalization;
             _chartValueModelFactory = chartValueModelFactory;
             _playerRepository = playerRepository;
             _homegameRepository = homegameRepository;
@@ -107,7 +104,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         private ChartRowModel GetRowModel(Cashgame cashgame, IEnumerable<CashgameTotalResult> results, IDictionary<int, int?> currentSum)
         {
             var values = new List<ChartValueModel>();
-            var dateStr = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
+            var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
             values.Add(_chartValueModelFactory.Create(dateStr));
             foreach (var result in results)
             {

@@ -57,13 +57,11 @@
     <Compile Include="Factories\UserFactory.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Globalization.cs" />
-    <Compile Include="Services\GlobalizationImpl.cs" />
     <Compile Include="Services\IAuth.cs" />
     <Compile Include="Services\Interfaces\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
     <Compile Include="Services\Interfaces\IConfigService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
-    <Compile Include="Services\Interfaces\IGlobalization.cs" />
     <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
     <Compile Include="Services\Interfaces\IInvitationSender.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />

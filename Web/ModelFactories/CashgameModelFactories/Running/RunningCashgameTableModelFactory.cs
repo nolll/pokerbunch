@@ -10,16 +10,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     public class RunningCashgameTableModelFactory : IRunningCashgameTableModelFactory
     {
         private readonly IRunningCashgameTableItemModelFactory _runningCashgameTableItemModelFactory;
-        private readonly IGlobalization _globalization;
         private readonly IPlayerRepository _playerRepository;
 
         public RunningCashgameTableModelFactory(
             IRunningCashgameTableItemModelFactory runningCashgameTableItemModelFactory,
-            IGlobalization globalization,
             IPlayerRepository playerRepository)
         {
             _runningCashgameTableItemModelFactory = runningCashgameTableItemModelFactory;
-            _globalization = globalization;
             _playerRepository = playerRepository;
         }
 
@@ -36,8 +33,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             return new RunningCashgameTableModel
                 {
                     StatusModels = resultModels,
-                    TotalBuyin = _globalization.FormatCurrency(homegame.Currency, cashgame.Turnover),
-                    TotalStacks = _globalization.FormatCurrency(homegame.Currency, cashgame.TotalStacks)
+                    TotalBuyin = Globalization.FormatCurrency(homegame.Currency, cashgame.Turnover),
+                    TotalStacks = Globalization.FormatCurrency(homegame.Currency, cashgame.TotalStacks)
                 };
         }
 

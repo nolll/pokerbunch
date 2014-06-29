@@ -52,7 +52,7 @@ namespace Infrastructure.Data.Repositories
 
         public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
         {
-            return GetList(homegame, GameStatus.Running, year);
+            return GetList(homegame, GameStatus.Finished, year);
         }
 
         public Cashgame GetRunning(Homegame homegame)

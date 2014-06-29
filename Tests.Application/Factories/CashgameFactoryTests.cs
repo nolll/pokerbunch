@@ -66,8 +66,7 @@ namespace Tests.Application.Factories
 		}
 
 		private CashgameFactory GetSut(){
-			return new CashgameFactory(
-                GetMock<IGlobalization>().Object);
+			return new CashgameFactory();
 		}
 	}
 }

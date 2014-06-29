@@ -10,18 +10,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
 {
     public class EditCashgamePageBuilder : IEditCashgamePageBuilder
     {
-        private readonly IGlobalization _globalization;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IBunchContextInteractor _contextInteractor;
 
         public EditCashgamePageBuilder(
-            IGlobalization globalization,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
             IBunchContextInteractor contextInteractor)
         {
-            _globalization = globalization;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
             _contextInteractor = contextInteractor;
@@ -37,7 +34,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
 
             var model = new EditCashgamePageModel(contextResult)
             {
-                IsoDate = cashgame.StartTime.HasValue ? _globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
+                IsoDate = cashgame.StartTime.HasValue ? Globalization.FormatIsoDate(cashgame.StartTime.Value) : null,
                 CancelUrl = new CashgameDetailsUrl(slug, cashgame.DateString),
                 DeleteUrl = new DeleteCashgameUrl(slug, cashgame.DateString),
                 TypedLocation = cashgame.Location,

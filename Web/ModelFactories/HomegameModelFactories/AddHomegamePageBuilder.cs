@@ -4,20 +4,15 @@ using System.Web.Mvc;
 using Application.Services;
 using Application.UseCases.AppContext;
 using Web.Models.HomegameModels.Add;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
     public class AddHomegamePageBuilder : IAddHomegamePageBuilder
     {
-        private readonly IGlobalization _globalization;
         private readonly IAppContextInteractor _contextInteractor;
 
-        public AddHomegamePageBuilder(
-            IGlobalization globalization,
-            IAppContextInteractor contextInteractor)
+        public AddHomegamePageBuilder(IAppContextInteractor contextInteractor)
         {
-            _globalization = globalization;
             _contextInteractor = contextInteractor;
         }
 
@@ -45,13 +40,13 @@ namespace Web.ModelFactories.HomegameModelFactories
 
         private List<SelectListItem> GetTimezoneSelectModel()
         {
-            var timezones = _globalization.GetTimezones();
+            var timezones = Globalization.GetTimezones();
             return timezones.Select(t => new SelectListItem{ Text = t.DisplayName, Value = t.Id }).ToList();
         }
 
         private List<SelectListItem> GetCurrencyLayoutSelectModel()
         {
-            var layouts = _globalization.GetCurrencyLayouts();
+            var layouts = Globalization.GetCurrencyLayouts();
             var items = new List<SelectListItem>();
             if (layouts != null)
             {

@@ -2,20 +2,11 @@ using Application.Services;
 using Application.Urls;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
-using Web.Models.UrlModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
     public class CashgameListTableItemModelFactory : ICashgameListTableItemModelFactory
     {
-        private readonly IGlobalization _globalization;
-
-        public CashgameListTableItemModelFactory(
-            IGlobalization globalization)
-        {
-            _globalization = globalization;
-        }
-
         public CashgameListTableItemModel Create(Homegame homegame, Cashgame cashgame, bool showYear, ListSortOrder sortOrder)
         {
             var playerCount = cashgame.PlayerCount;
@@ -33,7 +24,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                     AvgBuyin = GetAvgBuyin(homegame, cashgame),
                     AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.averagebuyin),
                     DetailsUrl = new CashgameDetailsUrl(homegame.Slug, cashgame.DateString),
-                    DisplayDate = cashgame.StartTime.HasValue ? _globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
+                    DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
                     DateSortClass = GetSortCssClass(sortOrder, ListSortOrder.date)
                 };
         }
@@ -43,19 +34,19 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var duration = cashgame.Duration;
             if (duration > 0)
             {
-                return _globalization.FormatDuration(duration);
+                return Globalization.FormatDuration(duration);
             }
             return string.Empty;
         }
 
         private string GetTurnover(Homegame homegame, Cashgame cashgame)
         {
-            return _globalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
+            return Globalization.FormatCurrency(homegame.Currency, cashgame.Turnover);
         }
 
         private string GetAvgBuyin(Homegame homegame, Cashgame cashgame)
         {
-            return _globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
+            return Globalization.FormatCurrency(homegame.Currency, cashgame.AverageBuyin);
         }
 
         private string GetSortCssClass(ListSortOrder selectedSortOrder, ListSortOrder columnSortOrder)

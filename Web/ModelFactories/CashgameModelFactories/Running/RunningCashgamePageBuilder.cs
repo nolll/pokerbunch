@@ -11,7 +11,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     public class RunningCashgamePageBuilder : IRunningCashgamePageBuilder
     {
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
-        private readonly IGlobalization _globalization;
         private readonly IAuth _auth;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IPlayerRepository _playerRepository;
@@ -20,7 +19,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
 
         public RunningCashgamePageBuilder(
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
-            IGlobalization globalization,
             IAuth auth,
             IHomegameRepository homegameRepository,
             IPlayerRepository playerRepository,
@@ -28,7 +26,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             IBunchContextInteractor contextInteractor)
         {
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
-            _globalization = globalization;
             _auth = auth;
             _homegameRepository = homegameRepository;
             _playerRepository = playerRepository;
@@ -82,7 +79,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             if (cashgame.IsStarted && cashgame.StartTime.HasValue)
             {
                 var localTime = TimeZoneInfo.ConvertTime(cashgame.StartTime.Value, timezone);
-                return _globalization.FormatTime(localTime);
+                return Globalization.FormatTime(localTime);
             }
             return null;
         }
