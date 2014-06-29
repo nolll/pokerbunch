@@ -1,5 +1,9 @@
 --NEXT RELEASE
 
+
+--6.0
+--update game set status = 2 where status = 3
+
 --5.0
 --ALTER TABLE `game` DROP COLUMN `Notified`, DROP COLUMN `Duration`, DROP COLUMN `StartTime`, DROP COLUMN `EndTime`;
 --ALTER TABLE `homegame` CHANGE COLUMN `CashgamesEnabled` `CashgamesEnabled` BIT NOT NULL DEFAULT b'0' AFTER `CurrencyLayout`, CHANGE COLUMN `TournamentsEnabled` `TournamentsEnabled` BIT NOT NULL DEFAULT b'0' AFTER `CashgamesEnabled`, CHANGE COLUMN `VideosEnabled` `VideosEnabled` BIT NOT NULL DEFAULT b'0' AFTER `TournamentsEnabled`;
