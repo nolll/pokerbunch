@@ -1,5 +1,5 @@
-﻿using Application.UseCases.AddCashgameForm;
-using Application.UseCases.BunchContext;
+﻿using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameOptions;
 using Web.Models.CashgameModels.Add;
 
 namespace Web.ModelFactories.CashgameModelFactories.Add

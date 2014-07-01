@@ -1,7 +1,7 @@
 ﻿using Application.Exceptions;
 using Core.Repositories;
 
-namespace Application.UseCases.AddCashgameForm
+namespace Application.UseCases.CashgameOptions
 {
     public class AddCashgameFormInteractor : IAddCashgameFormInteractor
     {

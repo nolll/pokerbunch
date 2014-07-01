@@ -1,5 +1,5 @@
 ﻿using Application.Exceptions;
-using Application.UseCases.AddCashgameForm;
+using Application.UseCases.CashgameOptions;
 using Core.Entities;
 using Core.Repositories;
 using Moq;

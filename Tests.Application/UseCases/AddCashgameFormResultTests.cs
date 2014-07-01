@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.AddCashgameForm;
+using Application.UseCases.CashgameOptions;
 using NUnit.Framework;
 
 namespace Tests.Application.UseCases

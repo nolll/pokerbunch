@@ -1,7 +1,6 @@
 ﻿using Application.Factories;
 using Application.Services;
 using Application.UseCases.Actions;
-using Application.UseCases.AddCashgameForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
@@ -9,6 +8,7 @@ using Application.UseCases.BunchList;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
+using Application.UseCases.CashgameOptions;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
