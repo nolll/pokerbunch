@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,10 @@
     <Compile Include="UseCases\Actions\ActionsResult.cs" />
     <Compile Include="UseCases\Actions\CheckpointItem.cs" />
     <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
+    <Compile Include="UseCases\AddCashgame\AddCashgameRequest.cs" />
+    <Compile Include="UseCases\AddCashgame\AddCashgameResult.cs" />
+    <Compile Include="UseCases\AddCashgame\IAddCashgameInteractor.cs" />
+    <Compile Include="UseCases\AddCashgame\AddCashgameInteractor.cs" />
     <Compile Include="UseCases\AppContext\AppContextInteractor.cs" />
     <Compile Include="UseCases\AppContext\IAppContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
@@ -235,6 +240,7 @@
     <Compile Include="UseCases\UserList\UserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListItem.cs" />
     <Compile Include="UseCases\UserList\UserListResult.cs" />
+    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

@@ -1,6 +1,7 @@
 ﻿using Application.Factories;
 using Application.Services;
 using Application.UseCases.Actions;
+using Application.UseCases.AddCashgame;
 using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
@@ -141,6 +142,7 @@ namespace Plumbing
             RegisterComponent<IPlayerBadgesInteractor, PlayerBadgesInteractor>();
             RegisterComponent<IUserDetailsInteractor, UserDetailsInteractor>();
             RegisterComponent<ICashgameDetailsInteractor, CashgameDetailsInteractor>();
+            RegisterComponent<IAddCashgameInteractor, AddCashgameInteractor>();
         }
     }
 }

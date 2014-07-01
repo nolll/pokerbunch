@@ -1,12 +1,10 @@
-﻿using Application.Factories;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 using Web.Commands.CashgameCommands;
 using Web.ModelMappers;
-using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Edit;
@@ -23,15 +21,6 @@ namespace Tests.Web.CommandTests.CashgameCommands
             var result = sut.GetEndGameCommand(It.IsAny<string>());
 
             Assert.IsInstanceOf<EndGameCommand>(result);
-        }
-
-        [Test]
-        public void GetAddCommand_ReturnsAddCashgameCommand()
-        {
-            var sut = GetSut();
-            var result = sut.GetAddCommand(It.IsAny<string>(), It.IsAny<AddCashgamePostModel>());
-
-            Assert.IsInstanceOf<AddCashgameCommand>(result);
         }
 
         [Test]
@@ -103,7 +92,6 @@ namespace Tests.Web.CommandTests.CashgameCommands
             return new CashgameCommandProvider(
                 GetMock<IHomegameRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<ICashgameFactory>().Object,
                 GetMock<ICashgameModelMapper>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICheckpointModelMapper>().Object,

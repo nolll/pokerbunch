@@ -1,4 +1,3 @@
-using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
@@ -10,7 +9,6 @@ namespace Web.Commands.CashgameCommands
     public interface ICashgameCommandProvider
     {
         Command GetEndGameCommand(string slug);
-        Command GetAddCommand(string slug, AddCashgamePostModel postModel);
         Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel);
         Command GetBuyinCommand(string slug, int playerId, BuyinPostModel postModel);
         Command GetReportCommand(string slug, int playerId, ReportPostModel postModel);

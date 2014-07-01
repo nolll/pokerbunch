@@ -1,7 +1,5 @@
-using Application.Factories;
 using Core.Repositories;
 using Web.ModelMappers;
-using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
@@ -14,7 +12,6 @@ namespace Web.Commands.CashgameCommands
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameFactory _cashgameFactory;
         private readonly ICashgameModelMapper _cashgameModelMapper;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICheckpointModelMapper _checkpointModelMapper;
@@ -23,7 +20,6 @@ namespace Web.Commands.CashgameCommands
         public CashgameCommandProvider(
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            ICashgameFactory cashgameFactory,
             ICashgameModelMapper cashgameModelMapper,
             IPlayerRepository playerRepository,
             ICheckpointModelMapper checkpointModelMapper,
@@ -31,7 +27,6 @@ namespace Web.Commands.CashgameCommands
         {
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _cashgameFactory = cashgameFactory;
             _cashgameModelMapper = cashgameModelMapper;
             _playerRepository = playerRepository;
             _checkpointModelMapper = checkpointModelMapper;
@@ -43,12 +38,6 @@ namespace Web.Commands.CashgameCommands
             var homegame = _homegameRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             return new EndGameCommand(_cashgameRepository, homegame, cashgame);
-        }
-
-        public Command GetAddCommand(string slug, AddCashgamePostModel postModel)
-        {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            return new AddCashgameCommand(_cashgameRepository, _cashgameFactory, homegame, postModel);
         }
 
         public Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel)

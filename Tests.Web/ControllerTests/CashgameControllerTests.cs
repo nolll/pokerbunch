@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Services;
+using Application.UseCases.AddCashgame;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services.Interfaces;
@@ -215,6 +216,7 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameDetailsPageBuilder>().Object,
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,
                 GetMock<IAddCashgamePageBuilder>().Object,
+                GetMock<IAddCashgameInteractor>().Object,
                 GetMock<IEditCashgamePageBuilder>().Object,
                 GetMock<IRunningCashgamePageBuilder>().Object,
                 GetMock<ICashgameListPageBuilder>().Object,

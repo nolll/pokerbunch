@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Application.Urls;
+using Application.UseCases.AddCashgame;
 using Core.Services.Interfaces;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -39,6 +40,7 @@ namespace Web.Controllers
 	    private readonly ICashgameDetailsPageBuilder _cashgameDetailsPageBuilder;
 	    private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
 	    private readonly IAddCashgamePageBuilder _addCashgamePageBuilder;
+	    private readonly IAddCashgameInteractor _addCashgameInteractor;
 	    private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
 	    private readonly IRunningCashgamePageBuilder _runningCashgamePageBuilder;
 	    private readonly ICashgameListPageBuilder _cashgameListPageBuilder;
@@ -61,6 +63,7 @@ namespace Web.Controllers
             ICashgameDetailsPageBuilder cashgameDetailsPageBuilder,
             ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder,
             IAddCashgamePageBuilder addCashgamePageBuilder,
+            IAddCashgameInteractor addCashgameInteractor,
             IEditCashgamePageBuilder editCashgamePageBuilder,
             IRunningCashgamePageBuilder runningCashgamePageBuilder,
             ICashgameListPageBuilder cashgameListPageBuilder,
@@ -82,6 +85,7 @@ namespace Web.Controllers
 	        _cashgameDetailsPageBuilder = cashgameDetailsPageBuilder;
 	        _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
 	        _addCashgamePageBuilder = addCashgamePageBuilder;
+	        _addCashgameInteractor = addCashgameInteractor;
 	        _editCashgamePageBuilder = editCashgamePageBuilder;
 	        _runningCashgamePageBuilder = runningCashgamePageBuilder;
 	        _cashgameListPageBuilder = cashgameListPageBuilder;
@@ -158,17 +162,19 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Add(string slug, AddCashgamePostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetAddCommand(slug, postModel);
-            if (command.Execute())
+            var request = new AddCashgameRequest(slug, postModel.Location);
+            var result = _addCashgameInteractor.Execute(request);
+            
+            if (result.CreatedGame)
             {
                 return Redirect(new RunningCashgameUrl(slug).Relative);
             }
-            AddModelErrors(command.Errors);
+            AddModelErrors(result.Errors);
             var model = _addCashgamePageBuilder.Build(slug, postModel);
             return View("Add/Add", model);
 		}
-
-        [AuthorizeManager]
+        
+	    [AuthorizeManager]
         public ActionResult Edit(string slug, string dateStr)
         {
             var model = _editCashgamePageBuilder.Build(slug, dateStr);
