@@ -21,22 +21,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Toplist
         public CashgameToplistPageModel Build(string slug, string sortOrderParam, int? year)
         {
             var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year));
-            var topListResult = _topListInteractor.Execute(GetTopListRequest(slug, sortOrderParam, year));
+            var topListResult = _topListInteractor.Execute(new TopListRequest(slug, sortOrderParam, year));
 
             return new CashgameToplistPageModel(contextResult, topListResult);
-        }
-
-        private TopListRequest GetTopListRequest(string slug, string sortOrderParam, int? year)
-        {
-            return new TopListRequest(slug, ParseToplistSortOrder(sortOrderParam), year);
-        }
-
-        private ToplistSortOrder ParseToplistSortOrder(string s)
-        {
-            if (s == null)
-                return ToplistSortOrder.Winnings;
-            ToplistSortOrder sortOrder;
-            return Enum.TryParse(s, true, out sortOrder) ? sortOrder : ToplistSortOrder.Winnings;
         }
     }
 }

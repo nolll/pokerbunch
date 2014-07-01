@@ -14,12 +14,22 @@ namespace Application.UseCases.CashgameTopList
         public TopListResult(Homegame homegame, IEnumerable<CashgameTotalResult> results, ToplistSortOrder sortOrder, int? year)
         {
             var sortedResults = results.OrderByDescending(o => o.Winnings);
-            var items = sortedResults.Select((o, index) => new TopListItem(o, index, homegame.Currency));
-            
-            Items = SortItems(items, sortOrder);
-            OrderBy = sortOrder;
-            Slug = homegame.Slug;
+            var items = sortedResults.Select((o, index) => new TopListItem(o, index, homegame.Currency)).ToList();
+
+            SetValues(items, sortOrder, homegame.Slug, year);
+        }
+
+        private void SetValues(IList<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
+        {
+            Items = SortItems(items, orderBy);
+            OrderBy = orderBy;
+            Slug = slug;
             Year = year;
+        }
+
+        protected TopListResult(IList<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
+        {
+            SetValues(items, orderBy, slug, year);
         }
 
         public static IList<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
@@ -40,6 +50,5 @@ namespace Application.UseCases.CashgameTopList
                     return items.OrderByDescending(o => o.Winnings).ToList();
             }
         }
-
     }
 }

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
-using Application.Services;
 using Application.UseCases.AddCashgame;
-using Core.Entities;
-using Core.Repositories;
-using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
+using Tests.Common.FakeInteractors;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -73,16 +68,6 @@ namespace Tests.Web.ControllerTests
 		[Test]
 		public void Action_ReturnsCorrectModel()
 		{
-		    var homegame = new HomegameInTest();
-		    var user = new UserInTest();
-            var player = new PlayerInTest(1);
-		    var cashgameResult = new CashgameResultInTest();
-		    var cashgame = new CashgameInTest(results: new List<CashgameResult> {cashgameResult});
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
-
 			var sut = GetSut();
             var viewResult = (ViewResult)sut.Action(Slug, DateStr, PlayerId);
 
@@ -207,7 +192,6 @@ namespace Tests.Web.ControllerTests
         private CashgameController GetSut()
         {
             return new CashgameController(
-                GetMock<ICashgameService>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<IToplistPageBuilder>().Object,
                 GetMock<ICashgameFactsPageBuilder>().Object,
@@ -227,7 +211,9 @@ namespace Tests.Web.ControllerTests
                 GetMock<IReportPageBuilder>().Object,
                 GetMock<ICashoutPageBuilder>().Object,
                 GetMock<IEndPageBuilder>().Object,
-                GetMock<IEditCheckpointPageBuilder>().Object);
+                GetMock<IEditCheckpointPageBuilder>().Object,
+                new CashgameContextInteractorInTest(),
+                new TopListInteractorInTest());
         }
 	}
 }

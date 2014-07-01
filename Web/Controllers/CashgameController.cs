@@ -1,7 +1,8 @@
 using System.Web.Mvc;
 using Application.Urls;
 using Application.UseCases.AddCashgame;
-using Core.Services.Interfaces;
+using Application.UseCases.CashgameContext;
+using Application.UseCases.CashgameTopList;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Add;
@@ -17,7 +18,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
@@ -25,15 +25,14 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
+using Web.Models.CashgameModels.Toplist;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
 	public class CashgameController : ControllerBase
     {
-	    private readonly ICashgameService _cashgameService;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
-	    private readonly IToplistPageBuilder _toplistPageBuilder;
 	    private readonly ICashgameFactsPageBuilder _cashgameFactsPageBuilder;
 	    private readonly IActionPageBuilder _actionPageBuilder;
 	    private readonly IMatrixPageBuilder _matrixPageBuilder;
@@ -52,11 +51,11 @@ namespace Web.Controllers
 	    private readonly ICashoutPageBuilder _cashoutPageBuilder;
 	    private readonly IEndPageBuilder _endPageBuilder;
 	    private readonly IEditCheckpointPageBuilder _editCheckpointPageBuilder;
+	    private readonly ICashgameContextInteractor _cashgameContextInteractor;
+	    private readonly ITopListInteractor _topListInteractor;
 
 	    public CashgameController(
-            ICashgameService cashgameService,
             ICashgameCommandProvider cashgameCommandProvider,
-            IToplistPageBuilder toplistPageBuilder,
             ICashgameFactsPageBuilder cashgameFactsPageBuilder,
             IActionPageBuilder actionPageBuilder,
             IMatrixPageBuilder matrixPageBuilder,
@@ -74,11 +73,11 @@ namespace Web.Controllers
             IReportPageBuilder reportPageBuilder,
             ICashoutPageBuilder cashoutPageBuilder,
             IEndPageBuilder endPageBuilder,
-            IEditCheckpointPageBuilder editCheckpointPageBuilder)
+            IEditCheckpointPageBuilder editCheckpointPageBuilder,
+            ICashgameContextInteractor cashgameContextInteractor,
+            ITopListInteractor topListInteractor)
 	    {
-	        _cashgameService = cashgameService;
 	        _cashgameCommandProvider = cashgameCommandProvider;
-	        _toplistPageBuilder = toplistPageBuilder;
 	        _cashgameFactsPageBuilder = cashgameFactsPageBuilder;
 	        _actionPageBuilder = actionPageBuilder;
 	        _matrixPageBuilder = matrixPageBuilder;
@@ -97,23 +96,23 @@ namespace Web.Controllers
 	        _cashoutPageBuilder = cashoutPageBuilder;
 	        _endPageBuilder = endPageBuilder;
 	        _editCheckpointPageBuilder = editCheckpointPageBuilder;
+	        _cashgameContextInteractor = cashgameContextInteractor;
+	        _topListInteractor = topListInteractor;
 	    }
 
         [AuthorizePlayer]
 	    public ActionResult Index(string slug)
         {
-            var url = GetIndexUrl(slug);
+            var result = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug));
+            var url = GetIndexUrl(result);
             return Redirect(url.Relative);
 		}
 
-        private Url GetIndexUrl(string slug)
+        private Url GetIndexUrl(CashgameContextResult result)
         {
-            var year = _cashgameService.GetLatestYear(slug);
-            if (year.HasValue)
-            {
-                return new CashgameMatrixUrl(slug, year);
-            }
-            return new AddCashgameUrl(slug);
+            if (result.LatestYear.HasValue)
+                return new CashgameMatrixUrl(result.Slug, result.LatestYear);
+            return new AddCashgameUrl(result.Slug);
         }
 
         [AuthorizePlayer]
@@ -126,7 +125,9 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            var model = _toplistPageBuilder.Build(slug, orderBy, year);
+            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var topListResult = _topListInteractor.Execute(new TopListRequest(slug, orderBy, year));
+            var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("Toplist/ToplistPage", model);
 		}
 
@@ -198,10 +199,9 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Running(string slug)
         {
-            if(!_cashgameService.CashgameIsRunning(slug))
-            {
+            var result = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug));
+            if(!result.GameIsRunning)
                 return Redirect(new CashgameIndexUrl(slug).Relative);
-			}
             var model = _runningCashgamePageBuilder.Build(slug);
 			return View("Running/RunningPage", model);
 		}
