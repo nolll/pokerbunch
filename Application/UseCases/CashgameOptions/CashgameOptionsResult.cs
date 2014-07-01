@@ -2,11 +2,11 @@
 
 namespace Application.UseCases.CashgameOptions
 {
-    public class AddCashgameFormResult
+    public class CashgameOptionsResult
     {
         public IList<string> Locations { get; private set; }
 
-        public AddCashgameFormResult(IList<string> locations)
+        public CashgameOptionsResult(IList<string> locations)
         {
             Locations = locations;
         }

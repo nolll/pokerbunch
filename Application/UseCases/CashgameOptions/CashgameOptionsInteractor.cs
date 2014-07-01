@@ -3,12 +3,12 @@ using Core.Repositories;
 
 namespace Application.UseCases.CashgameOptions
 {
-    public class AddCashgameFormInteractor : IAddCashgameFormInteractor
+    public class CashgameOptionsInteractor : ICashgameOptionsInteractor
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public AddCashgameFormInteractor(
+        public CashgameOptionsInteractor(
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository)
         {
@@ -16,7 +16,7 @@ namespace Application.UseCases.CashgameOptions
             _cashgameRepository = cashgameRepository;
         }
 
-        public AddCashgameFormResult Execute(AddCashgameFormRequest request)
+        public CashgameOptionsResult Execute(CashgameOptionsRequest request)
         {
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var runningGame = _cashgameRepository.GetRunning(homegame);
@@ -25,7 +25,7 @@ namespace Application.UseCases.CashgameOptions
                 throw new CashgameRunningException();
             }
             var locations = _cashgameRepository.GetLocations(homegame);
-            return new AddCashgameFormResult(locations);
+            return new CashgameOptionsResult(locations);
         }
     }
 }

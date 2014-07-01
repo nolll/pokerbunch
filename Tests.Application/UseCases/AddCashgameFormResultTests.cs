@@ -13,7 +13,7 @@ namespace Tests.Application.UseCases
             const string location2 = "b";
             var locations = new List<string> { location1, location2 };
 
-            var result = new AddCashgameFormResult(locations);
+            var result = new CashgameOptionsResult(locations);
 
             Assert.AreEqual(2, result.Locations.Count);
             Assert.AreEqual(location1, result.Locations[0]);

@@ -15,9 +15,9 @@ namespace Tests.Application.UseCases
         public void Execute_ReturnsResultObject()
         {
             const string slug = "a";
-            var result = Sut.Execute(new AddCashgameFormRequest(slug));
+            var result = Sut.Execute(new CashgameOptionsRequest(slug));
 
-            Assert.IsInstanceOf<AddCashgameFormResult>(result);
+            Assert.IsInstanceOf<CashgameOptionsResult>(result);
         }
 
         [Test]
@@ -27,14 +27,14 @@ namespace Tests.Application.UseCases
 
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Homegame>())).Returns(new CashgameInTest());
 
-            Assert.Throws<CashgameRunningException>(() => Sut.Execute(new AddCashgameFormRequest(slug)));
+            Assert.Throws<CashgameRunningException>(() => Sut.Execute(new CashgameOptionsRequest(slug)));
         }
 
-        private AddCashgameFormInteractor Sut
+        private CashgameOptionsInteractor Sut
         {
             get
             {
-                return new AddCashgameFormInteractor(
+                return new CashgameOptionsInteractor(
                     GetMock<IHomegameRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
