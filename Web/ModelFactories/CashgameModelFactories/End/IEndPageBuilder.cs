@@ -4,6 +4,6 @@ namespace Web.ModelFactories.CashgameModelFactories.End
 {
     public interface IEndPageBuilder
     {
-        EndPageModel Build(string slug);
+        EndGamePageModel Build(string slug);
     }
 }

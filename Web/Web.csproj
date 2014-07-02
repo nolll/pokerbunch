@@ -186,6 +186,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
+    <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
@@ -571,7 +572,7 @@
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
-    <Compile Include="Models\CashgameModels\End\EndGameModel.cs" />
+    <Compile Include="Models\CashgameModels\End\EndGamePageModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePageModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />

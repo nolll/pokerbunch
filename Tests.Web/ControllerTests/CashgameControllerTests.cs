@@ -193,7 +193,6 @@ namespace Tests.Web.ControllerTests
         {
             return new CashgameController(
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<IToplistPageBuilder>().Object,
                 GetMock<ICashgameFactsPageBuilder>().Object,
                 GetMock<IActionPageBuilder>().Object,
                 GetMock<IMatrixPageBuilder>().Object,

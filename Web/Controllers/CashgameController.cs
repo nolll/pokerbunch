@@ -346,7 +346,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizePlayer]
-        public ActionResult End(string slug, EndPageModel postModel)
+        public ActionResult End(string slug, EndGamePostModel postModel)
         {
             var command = _cashgameCommandProvider.GetEndGameCommand(slug);
             command.Execute();

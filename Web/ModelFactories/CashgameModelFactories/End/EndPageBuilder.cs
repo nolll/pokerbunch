@@ -13,11 +13,11 @@ namespace Web.ModelFactories.CashgameModelFactories.End
             _contextInteractor = contextInteractor;
         }
 
-        public EndPageModel Build(string slug)
+        public EndGamePageModel Build(string slug)
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
             
-            return new EndPageModel(contextResult);
+            return new EndGamePageModel(contextResult);
         }
     }
 }

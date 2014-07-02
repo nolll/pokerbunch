@@ -3,9 +3,9 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.End
 {
-    public class EndPageModel : PageModel
+    public class EndGamePageModel : PageModel
     {
-        public EndPageModel(BunchContextResult contextResult)
+        public EndGamePageModel(BunchContextResult contextResult)
             : base("End Game", contextResult)
         {
         }
