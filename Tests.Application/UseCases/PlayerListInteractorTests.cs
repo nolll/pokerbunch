@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Application.Services;
 using Application.UseCases.PlayerList;
 using Core.Entities;
 using Core.Repositories;
@@ -18,7 +19,8 @@ namespace Tests.Application.UseCases
         {
             _sut = new PlayerListInteractor(
                 GetMock<IHomegameRepository>().Object,
-                GetMock<IPlayerRepository>().Object);
+                GetMock<IPlayerRepository>().Object,
+                GetMock<IAuth>().Object);
         }
 
         [Test]
@@ -27,6 +29,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const string playerName = "b";
             const int playerId = 1;
+
             var homegame = new HomegameInTest(slug: slug);
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
@@ -41,6 +44,7 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(1, result.Players.Count);
             Assert.AreEqual(playerId, result.Players[0].Id);
             Assert.AreEqual(playerName, result.Players[0].Name);
+            Assert.IsFalse(result.CanAddPlayer);
         }
 
         [Test]
@@ -63,6 +67,27 @@ namespace Tests.Application.UseCases
 
             Assert.AreEqual(playerName2, result.Players[0].Name);
             Assert.AreEqual(playerName1, result.Players[1].Name);
+        }
+
+        [Test]
+        public void Execute_PlayerIsManager_CanAddPlayerIsTrue()
+        {
+            const string slug = "a";
+            const string playerName = "b";
+            const int playerId = 1;
+
+            var homegame = new HomegameInTest(slug: slug);
+            var player = new PlayerInTest(id: playerId, displayName: playerName);
+            var players = new List<Player> { player };
+            var request = new PlayerListRequest(slug);
+
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
+            GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
+
+            var result = _sut.Execute(request);
+
+            Assert.IsTrue(result.CanAddPlayer);
         }
     }
 }

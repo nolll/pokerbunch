@@ -5,11 +5,12 @@ namespace Web.Models.PlayerModels.Add
 {
     public class AddPlayerConfirmationPageModel : PageModel
     {
-        public string HomegameName { get; set; }
+        public string HomegameName { get; private set; }
 
         public AddPlayerConfirmationPageModel(BunchContextResult contextResult)
             : base("Player Added", contextResult)
         {
+            HomegameName = contextResult.BunchName;
         }
     }
 }

@@ -5,13 +5,17 @@ namespace Web.Models.UserModels.Add
 {
     public class AddUserPageModel : PageModel
     {
-        public string UserName { get; set; }
-        public string DisplayName { get; set; }
-        public string Email { get; set; }
+        public string UserName { get; private set; }
+        public string DisplayName { get; private set; }
+        public string Email { get; private set; }
 
-        public AddUserPageModel(AppContextResult contextResult)
+        public AddUserPageModel(AppContextResult contextResult, AddUserPostModel postModel)
             : base("Register", contextResult)
         {
+            if (postModel == null) return;
+            UserName = postModel.UserName;
+            DisplayName = postModel.DisplayName;
+            Email = postModel.Email;
         }
     }
 }

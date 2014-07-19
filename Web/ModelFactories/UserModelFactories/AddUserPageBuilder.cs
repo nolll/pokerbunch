@@ -1,5 +1,4 @@
 using Application.UseCases.AppContext;
-using Web.Models.PageBaseModels;
 using Web.Models.UserModels.Add;
 
 namespace Web.ModelFactories.UserModelFactories
@@ -17,16 +16,7 @@ namespace Web.ModelFactories.UserModelFactories
         {
             var contextResult = _contextInteractor.Execute();
 
-            var model = new AddUserPageModel(contextResult);
-
-            if (postModel != null)
-            {
-                model.UserName = postModel.UserName;
-                model.DisplayName = postModel.DisplayName;
-                model.Email = postModel.Email;
-            }
-
-            return model;
+            return new AddUserPageModel(contextResult, postModel);
         }
     }
 }

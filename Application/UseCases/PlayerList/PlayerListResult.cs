@@ -6,13 +6,15 @@ namespace Application.UseCases.PlayerList
 {
     public class PlayerListResult
     {
-        public readonly IList<PlayerListItem> Players;
-        public readonly string Slug;
+        public IList<PlayerListItem> Players { get; private set; }
+        public string Slug { get; private set; }
+        public bool CanAddPlayer { get; private set; }
 
-        public PlayerListResult(Homegame homegame, IEnumerable<Player> players)
+        public PlayerListResult(Homegame homegame, IEnumerable<Player> players, bool isManager)
         {
             Slug = homegame.Slug;
             Players = players.Select(o => new PlayerListItem(o)).OrderBy(o => o.Name).ToList();
+            CanAddPlayer = isManager;
         }
     }
 }

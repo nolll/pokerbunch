@@ -17,14 +17,7 @@ namespace Web.ModelFactories.PlayerModelFactories
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            var model = new AddPlayerPageModel(contextResult);
-
-            if (postModel != null)
-            {
-                model.Name = postModel.Name;
-            }
-
-            return model;
+            return new AddPlayerPageModel(contextResult, postModel);
         }
     }
 }

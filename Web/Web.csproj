@@ -153,7 +153,6 @@
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\PlayerModelFactories\IPlayerItemModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageBuilder.cs" />
@@ -179,7 +178,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
-    <Compile Include="ModelFactories\PlayerModelFactories\PlayerItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameSuiteChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
