@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    public class BunchListInteractorTests : MockContainer
+    public class BunchListTests : MockContainer
     {
         private BunchListInteractor _sut;
 

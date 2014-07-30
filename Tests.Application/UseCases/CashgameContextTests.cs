@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameContextInteractorTests : MockContainer
+    class CashgameContextTests : MockContainer
     {
         private CashgameContextInteractor _sut;
 

@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class AppContextInteractorTests : MockContainer
+    class AppContextTests : MockContainer
     {
         [Test]
         public void Execute_WithoutUser_AllPropertiesAreSet()

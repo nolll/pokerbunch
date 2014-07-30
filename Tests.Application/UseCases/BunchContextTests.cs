@@ -11,7 +11,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class BunchContextInteractorTests : MockContainer
+    class BunchContextTests : MockContainer
     {
         [Test]
         public void ExecuteWithSlug_SlugIsSetFromSelectedHomegame()

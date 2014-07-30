@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameFactsInteractorTests : MockContainer
+    class CashgameFactsTests : MockContainer
     {
         [Test]
         public void Execute_ReturnsCashgameFactResult()

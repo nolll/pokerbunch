@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class PlayerListInteractorTests : MockContainer
+    class PlayerListTests : MockContainer
     {
         private PlayerListInteractor _sut;
 

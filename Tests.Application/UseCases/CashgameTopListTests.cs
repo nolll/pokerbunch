@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameTopListInteractorTests : MockContainer
+    class CashgameTopListTests : MockContainer
     {
         private TopListInteractor _sut;
 

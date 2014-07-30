@@ -58,24 +58,24 @@
     <Compile Include="Services\SaltGeneratorTests.cs" />
     <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="UseCases\ActionsResultTests.cs" />
-    <Compile Include="UseCases\AddCashgameFormInteractorTests.cs" />
+    <Compile Include="UseCases\AddCashgameFormTests.cs" />
     <Compile Include="UseCases\AddCashgameFormResultTests.cs" />
-    <Compile Include="UseCases\AppContextInteractorTests.cs" />
-    <Compile Include="UseCases\BunchContextInteractorTests.cs" />
-    <Compile Include="UseCases\BunchListInteractorTests.cs" />
-    <Compile Include="UseCases\CashgameContextInteractorTests.cs" />
+    <Compile Include="UseCases\AppContextTests.cs" />
+    <Compile Include="UseCases\BunchContextTests.cs" />
+    <Compile Include="UseCases\BunchListTests.cs" />
+    <Compile Include="UseCases\CashgameContextTests.cs" />
     <Compile Include="UseCases\CashgameDetailsResultTests.cs" />
-    <Compile Include="UseCases\CashgameFactsInteractorTests.cs" />
-    <Compile Include="UseCases\CashgameTopListInteractorTests.cs" />
+    <Compile Include="UseCases\CashgameFactsTests.cs" />
+    <Compile Include="UseCases\CashgameTopListTests.cs" />
     <Compile Include="UseCases\CheckpointItemTests.cs" />
-    <Compile Include="UseCases\BaseContextInteractorTests.cs" />
+    <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\PlayerFactsEvaluatorTests.cs" />
     <Compile Include="UseCases\PlayerFactsResultTests.cs" />
-    <Compile Include="UseCases\PlayerListInteractorTests.cs" />
+    <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\PlayerResultItemTests.cs" />
     <Compile Include="UseCases\TopListItemTests.cs" />
     <Compile Include="UseCases\TopListResultTests.cs" />
-    <Compile Include="UseCases\UserListInteractorTests.cs" />
+    <Compile Include="UseCases\UserListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

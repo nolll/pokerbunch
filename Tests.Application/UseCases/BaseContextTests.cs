@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class BaseContextInteractorTests : MockContainer
+    class BaseContextTests : MockContainer
     {
         [Test]
         public void Execute_AllPropertiesAreSet()
