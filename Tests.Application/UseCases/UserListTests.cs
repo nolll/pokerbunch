@@ -12,7 +12,7 @@ namespace Tests.Application.UseCases
     public class UserListTests : MockContainer
     {
         [Test]
-        public void Execute_WithUsers_ReturnsListOfUserItems()
+        public void UserList_ReturnsListOfUserItems()
         {
             const int expected = 1;
             const string userName = "a";
@@ -20,18 +20,20 @@ namespace Tests.Application.UseCases
 
             GetMock<IUserRepository>().Setup(o => o.GetList()).Returns(users);
 
-            var sut = GetSut();
-            var result = sut.Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(expected, result.Users.Count);
             Assert.AreEqual(userName, result.Users.First().DisplayName);
             Assert.AreEqual(userName, result.Users.First().UserName);
         }
 
-        private UserListInteractor GetSut()
+        private UserListInteractor Sut
         {
-            return new UserListInteractor(
-                GetMock<IUserRepository>().Object);
+            get
+            {
+                return new UserListInteractor(
+                    GetMock<IUserRepository>().Object);
+            }
         }
     }
 }

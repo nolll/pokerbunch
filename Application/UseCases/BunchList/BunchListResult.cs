@@ -12,10 +12,5 @@ namespace Application.UseCases.BunchList
         {
             Bunches = homegames.Select(o => new BunchListItem(o)).ToList();
         }
-
-        protected BunchListResult(IList<BunchListItem> bunches)
-        {
-            Bunches = bunches;
-        }
     }
 }

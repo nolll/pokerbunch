@@ -36,18 +36,5 @@ namespace Tests.Web.ControllerTests
 
             Assert.IsTrue(result);
         }
-
-        [Test]
-        public void List_GetsPageModelFromModelBuilder()
-        {
-            var model = new UserListPageModelInTest();
-
-            GetMock<IUserListPageBuilder>().Setup(o => o.Build()).Returns(model);
-
-            var result = _sut.List() as ViewResult;
-
-            Assert.NotNull(result);
-            Assert.AreEqual(model, result.Model);
-        }
     }
 }
