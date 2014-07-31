@@ -41,6 +41,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\HomegameBuilder.cs" />
+    <Compile Include="Builders\HomegameListBuilder.cs" />
     <Compile Include="CacheContainerInTest.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />

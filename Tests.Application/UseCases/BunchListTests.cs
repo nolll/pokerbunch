@@ -1,38 +1,34 @@
-﻿using System.Collections.Generic;
-using Application.UseCases.BunchList;
-using Core.Entities;
+﻿using Application.UseCases.BunchList;
 using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
+using Tests.Common.Builders;
 
 namespace Tests.Application.UseCases
 {
     public class BunchListTests : MockContainer
     {
-        private BunchListInteractor _sut;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _sut = new BunchListInteractor(
-                GetMock<IHomegameRepository>().Object);
-        }
-
         [Test]
-        public void Execute_WithBunches_ReturnsListOfBunchItems()
+        public void BunchList_ReturnsListOfBunchItems()
         {
-            const string displayName = "a";
-            const string slug = "b";
-            var homegame = new HomegameInTest(displayName: displayName, slug: slug);
-            var homegames = new List<Homegame>{homegame};
+            var homegames = new HomegameListBuilder().WithOneItem().Build();
+
             GetMock<IHomegameRepository>().Setup(o => o.GetList()).Returns(homegames);
 
-            var result = _sut.Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(1, result.Bunches.Count);
-            Assert.AreEqual(displayName, result.Bunches[0].DisplayName);
-            Assert.AreEqual(slug, result.Bunches[0].Slug);
+            Assert.AreEqual("a", result.Bunches[0].Slug);
+            Assert.AreEqual("b", result.Bunches[0].DisplayName);
+        }
+
+        private BunchListInteractor Sut
+        {
+            get
+            {
+                return new BunchListInteractor(
+                    GetMock<IHomegameRepository>().Object);
+            }
         }
     }
 }

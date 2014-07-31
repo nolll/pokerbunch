@@ -7,6 +7,7 @@ using Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Common.Builders;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
@@ -19,10 +20,10 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             var request = new BunchContextRequest(slug);
             var contextResult = new AppContextResultInTest();
-            var homegame = new HomegameInTest(slug: slug);
+            var homegame = new HomegameBuilder().Build();
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
 
             var result = Sut.Execute(request);
 
@@ -33,29 +34,28 @@ namespace Tests.Application.UseCases
         [Test]
         public void Execute_WithoutSlug_SlugIsSetFromFirstHomegame()
         {
-            const string slug = "a";
             var request = new BunchContextRequest();
             var contextResult = new AppContextResultInTest();
-            var homegame = new HomegameInTest(slug: slug);
+            var homegameList = new HomegameListBuilder().WithOneItem().Build();
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame> { homegame });
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(slug, result.Slug);
+            Assert.AreEqual("a", result.Slug);
             Assert.IsTrue(result.HasBunch);
         }
 
         [Test]
-        public void Execute_WithoutHomegame_SlugIsSetFromFirstHomegame()
+        public void Execute_WithoutHomegame_SlugIsNull()
         {
-            const string slug = "a";
             var request = new BunchContextRequest();
             var contextResult = new AppContextResultInTest();
+            var homegameList = new HomegameListBuilder().Build();
 
             GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(new List<Homegame>());
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
 
             var result = Sut.Execute(request);
 
