@@ -2,7 +2,6 @@
 using Core.Repositories;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.Builders;
 
 namespace Tests.Application.UseCases
 {
@@ -11,7 +10,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void BunchList_ReturnsListOfBunchItems()
         {
-            var homegames = new HomegameListBuilder().WithOneItem().Build();
+            var homegames = AHomegameList.WithOneItem().Build();
 
             GetMock<IHomegameRepository>().Setup(o => o.GetList()).Returns(homegames);
 

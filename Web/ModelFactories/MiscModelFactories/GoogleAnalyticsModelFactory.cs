@@ -14,7 +14,7 @@ namespace Web.ModelFactories.MiscModelFactories
 
         public GoogleAnalyticsModel Create()
         {
-            var host = _webContext.GetHost();
+            var host = _webContext.Host;
             var isEnabled = host == "pokerbunch.com";
 
             return new GoogleAnalyticsModel

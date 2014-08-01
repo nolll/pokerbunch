@@ -1,5 +1,3 @@
-using Application.Config;
-
 namespace Application.Services
 {
     public class Settings : ISettings
@@ -17,22 +15,6 @@ namespace Application.Services
 
 		public string GetTwitterSecret(){
             return _configService.GetAppSetting("TwitterSecret");
-		}
-
-		private string GetServerMode(){
-            return _configService.GetAppSetting("Mode");
-		}
-
-		public bool IsInProduction(){
-			return GetServerMode() == ServerMode.Production;
-		}
-
-		public bool IsInTest(){
-			return GetServerMode() == ServerMode.Test;
-		}
-
-		public bool IsInDevelopment(){
-			return GetServerMode() == ServerMode.Development;
 		}
 
 		public string GetConnectionString()

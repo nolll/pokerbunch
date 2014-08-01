@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using Tests.Common.Builders;
 
 namespace Tests.Common
 {
@@ -19,6 +20,21 @@ namespace Tests.Common
         public void SetUpMocks()
         {
             _mocks = new Dictionary<Type, Mock>();
+        }
+
+        protected HomegameBuilder AHomegame
+        {
+            get { return new HomegameBuilder(); }
+        }
+
+        protected HomegameListBuilder AHomegameList
+        {
+            get { return new HomegameListBuilder(); }
+        }
+
+        protected UserBuilder AUser
+        {
+            get { return new UserBuilder(); }
         }
 
         protected Mock<T> GetMock<T>() where T : class

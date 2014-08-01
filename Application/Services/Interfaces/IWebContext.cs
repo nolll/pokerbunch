@@ -4,6 +4,6 @@ namespace Application.Services
     {
 		string GetCookie(string name);
         string GetQueryParam(string key);
-	    string GetHost();
-	}
+	    string Host { get; }
+    }
 }

@@ -4,9 +4,6 @@ namespace Application.Services
     {
         string GetTwitterKey();
         string GetTwitterSecret();
-        bool IsInProduction();
-        bool IsInTest();
-        bool IsInDevelopment();
         string GetSiteUrl();
         string GetConnectionString();
     }

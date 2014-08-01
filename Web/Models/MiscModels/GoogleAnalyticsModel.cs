@@ -1,5 +1,4 @@
 using Application.UseCases.AppContext;
-using Application.UseCases.CashgameContext;
 
 namespace Web.Models.MiscModels
 {

@@ -1,23 +1,33 @@
 ﻿using System.Collections.Generic;
 using Application.UseCases.CashgameTopList;
 using Core.Entities;
+using Core.Repositories;
+using Core.Services.Interfaces;
 using NUnit.Framework;
+using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class TopListResultTests
+    class TopListTests : MockContainer
     {
         [Test]
-        public void Execute_WithSlug_ReturnsTopListItems()
+        public void TopList_ReturnsTopListItems()
         {
             const string slug = "a";
             const int year = 1;
-            var homegame = new HomegameInTest(slug: slug);
+            const string orderBy = "winnings";
+
+            var homegame = AHomegame.Build();
             var totalResult = new CashgameTotalResultInTest(player: new PlayerInTest());
             var totalResultList = new List<CashgameTotalResult> { totalResult };
+            var suite = new CashgameSuiteInTest(totalResults: totalResultList);
+            var request = new TopListRequest(slug, orderBy, year);
 
-            var result = new TopListResult(homegame, totalResultList, ToplistSortOrder.Winnings, year);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, year)).Returns(suite);
+
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<TopListResult>(result);
             Assert.AreEqual(1, result.Items.Count);
@@ -108,6 +118,16 @@ namespace Tests.Application.UseCases
             var result = TopListResult.SortItems(items, ToplistSortOrder.WinRate);
 
             Assert.AreEqual(high, result[0].WinRate.Amount);
+        }
+
+        private TopListInteractor Sut
+        {
+            get
+            {
+                return new TopListInteractor(
+                    GetMock<IHomegameRepository>().Object,
+                    GetMock<ICashgameService>().Object);
+            }
         }
     }
 }

@@ -11,9 +11,9 @@ namespace Tests.Application.UseCases
     class AppContextTests : MockContainer
     {
         [Test]
-        public void Execute_WithoutUser_AllPropertiesAreSet()
+        public void AppContext_WithoutUser_AllPropertiesAreSet()
         {
-            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
+            SetupBaseContext();
 
             var result = Sut.Execute();
 
@@ -24,34 +24,40 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_WithUser_LoggedInPropertiesAreSet()
+        public void AppContext_WithUser_LoggedInPropertiesAreSet()
         {
-            const string userName = "a";
-            const string userDisplayName = "b";
-            var user = new UserInTest(userName: userName, displayName: userDisplayName);
-
-            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
+            SetupBaseContext();
+            var user = AUser.Build();
+            SetupUser(user);
 
             var result = Sut.Execute();
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.IsFalse(result.IsAdmin);
-            Assert.AreEqual(userName, result.UserName);
-            Assert.AreEqual(userDisplayName, result.UserDisplayName);
+            Assert.AreEqual("a", result.UserName);
+            Assert.AreEqual("b", result.UserDisplayName);
         }
 
         [Test]
-        public void Execute_WithAdminUser_AdminIsTrue()
+        public void AppContext_WithAdminUser_AdminIsTrue()
         {
-            var user = new UserInTest(globalRole: Role.Admin);
-
-            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
+            SetupBaseContext();
+            var user = AUser.IsAdmin().Build();
+            SetupUser(user);
 
             var result = Sut.Execute();
 
             Assert.IsTrue(result.IsAdmin);
+        }
+
+        private void SetupUser(User user)
+        {
+            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
+        }
+
+        private void SetupBaseContext()
+        {
+            GetMock<IBaseContextInteractor>().Setup(o => o.Execute()).Returns(new BaseContextResultInTest());
         }
 
         private AppContextInteractor Sut

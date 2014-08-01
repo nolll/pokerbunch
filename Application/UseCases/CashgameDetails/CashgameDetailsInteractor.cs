@@ -36,8 +36,6 @@ namespace Application.UseCases.CashgameDetails
                 throw new CashgameNotFoundException();
             }
             
-            var user = _auth.CurrentUser;
-            var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var isManager = _auth.IsInRole(request.Slug, Role.Manager);
             var players = GetPlayers(cashgame);
             

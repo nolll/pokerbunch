@@ -16,12 +16,12 @@ namespace Infrastructure.Web
             return Request.QueryString.Get(key);
         }
 
-        public string GetHost()
+        public string Host
         {
-            return Request.Url.Host.Replace("www.", "");
+            get { return Request.Url.Host.Replace("www.", ""); }
         }
 
-        private HttpRequest Request
+        private static HttpRequest Request
 	    {
 	        get { return HttpContext.Current.Request; }
 	    }
