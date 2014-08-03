@@ -20,7 +20,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.CashgameModelFactories.Toplist;
 
 namespace Tests.Web.ControllerTests
 {
@@ -83,111 +82,6 @@ namespace Tests.Web.ControllerTests
 
             Assert.IsTrue(result);
         }
-
-        //todo: finish these tests before continuing with more controller tests
-		/*
-        [Test]
-		public void ActionBuyin_ReturnsModel(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-            TestHelper::setupUserWithPlayerRights(userContext);
-            $cashgame = new Cashgame();
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			$player.setUserName('user1');
-			playerRepositoryMock.returns('getByName', $player);
-
-			$viewResult = sut.action_buyin("homegame1", "Player 1");
-
-			assertIsA($viewResult.model, 'app\Cashgame\Action\BuyinModel');
-		}
-
-		[Test]
-		public void ActionBuyinPost_NotAuthorized_ThrowsException(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			userContext.throwOn('requirePlayer');
-			expectException();
-
-			sut.action_buyin_post("homegame1", "Player 1");
-		}
-
-		[Test]
-		public void ActionBuyinPost_PlayerIsNotInGame_AddsCheckpoint(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights(userContext);
-			$cashgame = new Cashgame();
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			playerRepositoryMock.returns('getByName', $player);
-			setupValidBuyinValidator();
-
-			cashgameRepositoryMock.expectOnce("addCheckpoint");
-
-			sut.action_buyin_post("homegame1", "Player 1");
-		}
-
-		[Test]
-		public void ActionBuyinPost_GameIsNotStarted_StartsGame(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights(userContext);
-			$cashgame = new Cashgame();
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			playerRepositoryMock.returns('getByName', $player);
-			setupValidBuyinValidator();
-
-			cashgameRepositoryMock.expectOnce("startGame");
-
-			sut.action_buyin_post("homegame1", "Player 1");
-		}
-
-		[Test]
-		public void ActionBuyinPost_GameIsStarted_DoesNotStartGame(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights(userContext);
-			$cashgame = new Cashgame();
-			$cashgame.setIsStarted(true);
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			playerRepositoryMock.returns('getByName', $player);
-			setupValidBuyinValidator();
-
-			cashgameRepositoryMock.expectNever("startGame");
-
-			sut.action_buyin_post("homegame1", "Player 1");
-		}
-
-		[Test]
-		public void ActionBuyinPost_RedirectsToRunningCashgame(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights(userContext);
-			$cashgame = new Cashgame();
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			playerRepositoryMock.returns('getByName', $player);
-			setupValidBuyinValidator();
-
-			$urlModel = sut.action_buyin_post("homegame1", "Player 1");
-
-			assertIsA($urlModel, 'app\Urls\RunningCashgameUrlModel');
-		}
-
-		[Test]
-		public void ActionBuyinPost_WithInvalidForm_ReturnsModel(){
-			homegameRepositoryMock.returns('getByName', new Homegame());
-			TestHelper::setupUserWithManagerRights(userContext);
-			$cashgame = new Cashgame();
-			$cashgame.setIsStarted(true);
-			cashgameRepositoryMock.returns('getRunning', $cashgame);
-			$player = new Player();
-			$player.setUserName('user1');
-			playerRepositoryMock.returns('getByName', $player);
-			setupInvalidBuyinValidator();
-
-			$viewResult = sut.action_buyin_post("homegame1", "Player 1");
-
-			assertIsA($viewResult.model, 'app\Cashgame\Action\BuyinModel');
-		}
-        */
 
         private CashgameController GetSut()
         {

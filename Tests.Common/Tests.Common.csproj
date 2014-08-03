@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\CashgameTotalResultBuilder.cs" />
     <Compile Include="Builders\HomegameBuilder.cs" />
     <Compile Include="Builders\HomegameListBuilder.cs" />
     <Compile Include="Builders\UserBuilder.cs" />

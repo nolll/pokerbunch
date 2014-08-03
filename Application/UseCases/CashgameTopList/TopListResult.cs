@@ -19,6 +19,11 @@ namespace Application.UseCases.CashgameTopList
             SetValues(items, sortOrder, homegame.Slug, year);
         }
 
+        protected TopListResult(IList<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
+        {
+            SetValues(items, orderBy, slug, year);
+        }
+
         private void SetValues(IList<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
         {
             Items = SortItems(items, orderBy);
@@ -27,12 +32,7 @@ namespace Application.UseCases.CashgameTopList
             Year = year;
         }
 
-        protected TopListResult(IList<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
-        {
-            SetValues(items, orderBy, slug, year);
-        }
-
-        public static IList<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
+        private static IList<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
         {
             switch (orderBy)
             {

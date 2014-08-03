@@ -73,7 +73,6 @@
     <Compile Include="UseCases\PlayerFactsResultTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\PlayerResultItemTests.cs" />
-    <Compile Include="UseCases\TopListItemTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
   </ItemGroup>
