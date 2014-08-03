@@ -42,7 +42,7 @@ namespace Application.UseCases.CashgameDetails
             return new CashgameDetailsResult(homegame, cashgame, players, isManager);
         }
 
-        private IList<Player> GetPlayers(Cashgame cashgame)
+        private IEnumerable<Player> GetPlayers(Cashgame cashgame)
         {
             var playerIds = cashgame.Results.Select(o => o.PlayerId).ToList();
             return _playerRepository.GetList(playerIds);

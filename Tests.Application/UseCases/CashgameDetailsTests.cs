@@ -1,29 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using Application.Services;
 using Application.Urls;
 using Application.UseCases.CashgameDetails;
 using Core.Entities;
+using Core.Repositories;
+using Moq;
 using NUnit.Framework;
+using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameDetailsResultTests
+    class CashgameDetailsTests : MockContainer
     {
         [Test]
-        public void Construct_WithoutCreatedGameAndNoStartOrEndTimes_DefaultPropertiesAreSet()
+        public void CashgameDetails_AllBaseValuesAreSet()
         {
             const string dateStr = "2000-01-01";
             const string location = "a";
             var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
             var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
 
-            var homegame = new HomegameInTest(timezone: TimeZoneInfo.Utc);
             var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime);
-            var players = new List<Player>();
-            const bool isManager = false;
+            
+            var request = new CashgameDetailsRequest("a", "2000-01-01");
 
-            var result = new CashgameDetailsResult(homegame, cashgame, players, isManager);
+            SetupHomegame();
+            SetupCashgame(cashgame);
+            
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(dateStr, result.Date.IsoString);
             Assert.AreEqual(location, result.Location);
@@ -37,7 +43,7 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Construct_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
+        public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
             const string dateStr = "2000-01-01";
             const string location = "a";
@@ -48,36 +54,76 @@ namespace Tests.Application.UseCases
             const int worstWinnings = -1;
             const int bestWinnings = 1;
             
-            var homegame = new HomegameInTest(timezone: TimeZoneInfo.Utc);
             var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: worstWinnings);
             var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: bestWinnings);
             var cashgameResults = new List<CashgameResult> {cashgameResult1, cashgameResult2};
             var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime, results: cashgameResults);
             var player1 = new PlayerInTest(playerId1);
             var player2 = new PlayerInTest(playerId2);
-            var players = new List<Player>{player1, player2};
-            const bool isManager = false;
 
-            var result = new CashgameDetailsResult(homegame, cashgame, players, isManager);
+            var request = new CashgameDetailsRequest("a", "2000-01-01");
+
+            SetupHomegame();
+            SetupCashgame(cashgame);
+            SetupPlayers(player1, player2);
+
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(bestWinnings, result.PlayerItems[0].Winnings.Amount);
             Assert.AreEqual(worstWinnings, result.PlayerItems[1].Winnings.Amount);
         }
 
+        private void SetupPlayers(Player player1, Player player2)
+        {
+            var players = new List<Player> { player1, player2 };
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
+        }
+
         [Test]
-        public void Construct_WithManager_CanEditIsTrue()
+        public void CashgameDetails_WithManager_CanEditIsTrue()
         {
             const string dateStr = "2000-01-01";
 
-            var homegame = new HomegameInTest(timezone: TimeZoneInfo.Utc);
             var cashgame = new CashgameInTest(dateString: dateStr);
-            var players = new List<Player>();
-            const bool isManager = true;
 
-            var result = new CashgameDetailsResult(homegame, cashgame, players, isManager);
+            var request = new CashgameDetailsRequest("a", "2000-01-01");
+
+            SetupHomegame();
+            SetupCashgame(cashgame);
+            SetupManager();
+            
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanEdit);
+        }
+
+        private void SetupHomegame()
+        {
+            var homegame = new HomegameInTest(timezone: TimeZoneInfo.Utc);
+            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
+        }
+
+        private void SetupCashgame(Cashgame cashgame)
+        {
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(cashgame);
+        }
+
+        private void SetupManager()
+        {
+            GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
+        }
+
+        private CashgameDetailsInteractor Sut
+        {
+            get
+            {
+                return new CashgameDetailsInteractor(
+                    GetMock<IHomegameRepository>().Object,
+                    GetMock<ICashgameRepository>().Object,
+                    GetMock<IAuth>().Object,
+                    GetMock<IPlayerRepository>().Object);
+            }
         }
     }
 }
