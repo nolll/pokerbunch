@@ -26,18 +26,5 @@ namespace Application.UseCases.CashgameTopList
             Winnings = new MoneyResult(totalResult.Winnings, currency);
             WinRate = new MoneyWinRate(totalResult.WinRate, currency);
         }
-
-        protected TopListItem(int rank, int playerId, string name, Money winnings, Money buyin, Money cashout, Time timePlayed, int gamesPlayed, Money winRate)
-        {
-            Rank = rank;
-            PlayerId = playerId;
-            Name = name;
-            Winnings = winnings;
-            Buyin = buyin;
-            Cashout = cashout;
-            TimePlayed = timePlayed;
-            GamesPlayed = gamesPlayed;
-            WinRate = winRate;
-        }
     }
 }

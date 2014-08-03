@@ -1,4 +1,5 @@
-﻿using Core.Repositories;
+﻿using System.Linq;
+using Core.Repositories;
 using Core.Services.Interfaces;
 
 namespace Application.UseCases.CashgameTopList
@@ -21,7 +22,10 @@ namespace Application.UseCases.CashgameTopList
             var homegame = _homegameRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
 
-            return new TopListResult(homegame, suite.TotalResults, request.OrderBy, request.Year);
+            var sortedResults = suite.TotalResults.OrderByDescending(o => o.Winnings);
+            var items = sortedResults.Select((o, index) => new TopListItem(o, index, homegame.Currency)).ToList();
+
+            return new TopListResult(items, request.OrderBy, homegame.Slug, request.Year);
         }
     }
 }
