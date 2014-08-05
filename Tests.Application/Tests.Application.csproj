@@ -57,7 +57,7 @@
     <Compile Include="Services\RegistrationConfirmationSenderTests.cs" />
     <Compile Include="Services\SaltGeneratorTests.cs" />
     <Compile Include="Services\SlugGeneratorTests.cs" />
-    <Compile Include="UseCases\ActionsResultTests.cs" />
+    <Compile Include="UseCases\ActionsTests.cs" />
     <Compile Include="UseCases\AddCashgameOptionsTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
@@ -66,7 +66,6 @@
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameTopListTests.cs" />
-    <Compile Include="UseCases\CheckpointItemTests.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\PlayerFactsTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />

@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Core.Entities;
 using Core.Repositories;
 
 namespace Application.UseCases.Actions
@@ -28,9 +29,9 @@ namespace Application.UseCases.Actions
             var cashgame = _cashgameRepository.GetByDateString(homegame, request.DateStr);
             var player = _playerRepository.GetById(request.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
-            var role = _auth.GetRole(homegame.Slug);
+            var isManager = _auth.IsInRole(homegame.Slug, Role.Manager);
 
-            return new ActionsResult(homegame, cashgame, player, role, playerResult);
+            return new ActionsResult(homegame, cashgame, player, isManager, playerResult);
         }
     }
 }
