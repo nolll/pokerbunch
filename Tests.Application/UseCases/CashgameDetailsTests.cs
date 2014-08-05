@@ -45,49 +45,42 @@ namespace Tests.Application.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            const string dateStr = "2000-01-01";
-            const string location = "a";
-            const int playerId1 = 1;
-            const int playerId2 = 2;
-            var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
-            var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
-            const int worstWinnings = -1;
-            const int bestWinnings = 1;
-            
-            var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: worstWinnings);
-            var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: bestWinnings);
-            var cashgameResults = new List<CashgameResult> {cashgameResult1, cashgameResult2};
-            var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime, results: cashgameResults);
-            var player1 = new PlayerInTest(playerId1);
-            var player2 = new PlayerInTest(playerId2);
-
             var request = new CashgameDetailsRequest("a", "2000-01-01");
 
             SetupHomegame();
-            SetupCashgame(cashgame);
-            SetupPlayers(player1, player2);
+            SetupCashgameWithResults();
 
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
-            Assert.AreEqual(bestWinnings, result.PlayerItems[0].Winnings.Amount);
-            Assert.AreEqual(worstWinnings, result.PlayerItems[1].Winnings.Amount);
+            Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
+            Assert.AreEqual(-1, result.PlayerItems[1].Winnings.Amount);
         }
 
-        private void SetupPlayers(Player player1, Player player2)
+        [Test]
+        public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var players = new List<Player> { player1, player2 };
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
+            var request = new CashgameDetailsRequest("a", "2000-01-01");
+
+            SetupHomegame();
+            SetupCashgameWithResults();
+
+            var result = Sut.Execute(request);
+
+            Assert.AreEqual("c", result.PlayerItems[0].Name);
+            Assert.IsInstanceOf<CashgameActionUrl>(result.PlayerItems[0].PlayerUrl);
+            Assert.AreEqual(2, result.PlayerItems[0].Buyin.Amount);
+            Assert.AreEqual(3, result.PlayerItems[0].Cashout.Amount);
+            Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
+            Assert.AreEqual(4, result.PlayerItems[0].WinRate.Amount);
         }
 
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
             const string dateStr = "2000-01-01";
-
             var cashgame = new CashgameInTest(dateString: dateStr);
-
-            var request = new CashgameDetailsRequest("a", "2000-01-01");
+            var request = new CashgameDetailsRequest("a", dateStr);
 
             SetupHomegame();
             SetupCashgame(cashgame);
@@ -96,6 +89,26 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanEdit);
+        }
+
+        private void SetupCashgameWithResults()
+        {
+            const string dateStr = "2000-01-01";
+            const string location = "a";
+            const int playerId1 = 1;
+            const int playerId2 = 2;
+            var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
+            var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
+            
+            var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: -1);
+            var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: 1, buyin: 2, stack: 3, winRate: 4);
+            var cashgameResults = new List<CashgameResult> { cashgameResult1, cashgameResult2 };
+            var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime, results: cashgameResults);
+            SetupCashgame(cashgame);
+            var player1 = new PlayerInTest(playerId1, displayName: "b");
+            var player2 = new PlayerInTest(playerId2, displayName: "c");
+            var players = new List<Player> { player1, player2 };
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
         }
 
         private void SetupHomegame()

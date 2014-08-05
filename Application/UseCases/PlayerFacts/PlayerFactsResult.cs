@@ -14,7 +14,7 @@ namespace Application.UseCases.PlayerFacts
         public int WinningStreak { get; private set; }
         public int LosingStreak { get; private set; }
 
-        public PlayerFactsResult(IList<Cashgame> cashgames, int playerId, Currency currency)
+        public PlayerFactsResult(IEnumerable<Cashgame> cashgames, int playerId, Currency currency)
         {
             var evaluator = new PlayerFactsEvaluator(cashgames, playerId);
 
