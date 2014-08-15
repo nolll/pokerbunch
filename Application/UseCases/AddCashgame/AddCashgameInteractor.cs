@@ -23,14 +23,14 @@ namespace Application.UseCases.AddCashgame
 
             if (!request.HasLocation)
                 validator.AddError("Please enter a location");
+
+            if (!validator.IsValid)
+                return new AddCashgameResult(validator);
             
-            if (validator.IsValid)
-            {
-                var homegame = _homegameRepository.GetBySlug(request.Slug);
-                var cashgame = _cashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
-                _cashgameRepository.AddGame(homegame, cashgame);
-            }
-            
+            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
+            _cashgameRepository.AddGame(homegame, cashgame);
+
             return new AddCashgameResult(validator);
         }
     }
