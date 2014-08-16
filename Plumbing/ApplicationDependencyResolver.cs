@@ -30,7 +30,6 @@ using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.SqlServer;
-using Infrastructure.Integration.Gravatar;
 using Infrastructure.Integration.Social;
 using Infrastructure.System;
 using Infrastructure.Web;

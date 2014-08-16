@@ -2,9 +2,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Application.Services{
-    public class EncryptionService : IEncryptionService{
-
+namespace Application.Services
+{
+    public class EncryptionService : IEncryptionService
+    {
 		public string Encrypt(string str, string salt)
 		{
             return GetSha1Hash(str + salt);
@@ -28,7 +29,5 @@ namespace Application.Services{
             }
             return sb.ToString();
         }
-
 	}
-
 }

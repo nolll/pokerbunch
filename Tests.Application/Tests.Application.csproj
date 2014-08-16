@@ -70,6 +70,7 @@
     <Compile Include="UseCases\PlayerFactsTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
+    <Compile Include="UseCases\UserDetailsTests.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
   </ItemGroup>
   <ItemGroup>

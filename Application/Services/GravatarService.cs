@@ -1,17 +1,10 @@
-using Application.Services;
 using Core.Entities;
 
-namespace Infrastructure.Integration.Gravatar
+namespace Application.Services
 {
 	public class GravatarService : IAvatarService
     {
-	    private readonly IEncryptionService _encryptionService;
-
-	    public GravatarService(
-            IEncryptionService encryptionService)
-	    {
-	        _encryptionService = encryptionService;
-	    }
+        private readonly EncryptionService _encryptionService = new EncryptionService();
 
 	    public string GetSmallAvatarUrl(string email)
         {

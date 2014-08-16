@@ -1,4 +1,5 @@
-﻿using Application.Urls;
+﻿using Application.Services;
+using Application.Urls;
 using Core.Entities;
 
 namespace Application.UseCases.UserDetails
@@ -15,9 +16,11 @@ namespace Application.UseCases.UserDetails
         public Url EditUrl { get; private set; }
         public Url ChangePasswordUrl { get; private set; }
 
-        public UserDetailsResult(User currentUser, User displayUser, string avatarUrl)
+        public UserDetailsResult(User currentUser, User displayUser)
         {
             var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
+            var avatarService = new GravatarService();
+            var avatarUrl = avatarService.GetLargeAvatarUrl(displayUser.Email);
 
             UserName = displayUser.UserName;
             DisplayName = displayUser.DisplayName;

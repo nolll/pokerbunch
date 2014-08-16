@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.CashgameDetails;
@@ -18,7 +19,7 @@ namespace Tests.Application.UseCases
         public void CashgameDetails_AllBaseValuesAreSet()
         {
             const string dateStr = "2000-01-01";
-            const string location = "a";
+            const string location = "b";
             var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
             var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
 
@@ -73,6 +74,15 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(3, result.PlayerItems[0].Cashout.Amount);
             Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
             Assert.AreEqual(4, result.PlayerItems[0].WinRate.Amount);
+        }
+
+        [Test]
+        public void AddCashgameOptions_WithRunningCashgame_ThrowsException()
+        {
+            const string slug = "a";
+            var request = new CashgameDetailsRequest(slug, "2000-01-01");
+
+            Assert.Throws<CashgameNotFoundException>(() => Sut.Execute(request));
         }
 
         [Test]
