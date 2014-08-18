@@ -2,8 +2,8 @@ namespace Application.UseCases.AddCashgame
 {
     public class AddCashgameRequest
     {
-        public string Slug { get; set; }
-        public string Location { get; set; }
+        public string Slug { get; private set; }
+        public string Location { get; private set; }
 
         public AddCashgameRequest(string slug, string location)
         {

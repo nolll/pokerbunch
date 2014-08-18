@@ -10,7 +10,10 @@ namespace Application.UseCases.AddCashgame
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICashgameFactory _cashgameFactory;
 
-        public AddCashgameInteractor(IHomegameRepository homegameRepository, ICashgameRepository cashgameRepository, ICashgameFactory cashgameFactory)
+        public AddCashgameInteractor(
+            IHomegameRepository homegameRepository, 
+            ICashgameRepository cashgameRepository, 
+            ICashgameFactory cashgameFactory)
         {
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
