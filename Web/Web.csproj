@@ -147,8 +147,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\IChartValueModelFactory.cs" />
-    <Compile Include="ModelFactories\MiscModelFactories\GoogleAnalyticsModelFactory.cs" />
-    <Compile Include="ModelFactories\MiscModelFactories\IGoogleAnalyticsModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
@@ -295,7 +293,6 @@
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationNode.cs" />
     <Compile Include="Models\PageBaseModels\PageModel.cs" />
-    <Compile Include="ModelFactories\MiscModelFactories\IAvatarModelFactory.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerConfirmationPageModel.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerPageModel.cs" />
     <Compile Include="Models\PlayerModels\Add\AddPlayerPostModel.cs" />
@@ -530,7 +527,6 @@
     <Compile Include="Models\PlayerModels\List\PlayerListPageModel.cs" />
     <Compile Include="Models\PlayerModels\List\PlayerItemModel.cs" />
     <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
-    <Compile Include="ModelFactories\MiscModelFactories\AvatarModelFactory.cs" />
     <Compile Include="Models\MiscModels\AvatarModel.cs" />
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
     <Compile Include="Models\PlayerModels\Badges\PlayerBadgesModel.cs" />

@@ -17,7 +17,7 @@ namespace Core.Repositories{
 		bool UpdateGame(Cashgame cashgame);
         bool StartGame(Cashgame cashgame);
         bool EndGame(Homegame homegame, Cashgame cashgame);
-		bool HasPlayed(Player player);
+		bool HasPlayed(int playerId);
 	}
 
 }

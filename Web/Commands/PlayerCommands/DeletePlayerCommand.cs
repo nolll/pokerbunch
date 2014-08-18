@@ -24,7 +24,7 @@ namespace Web.Commands.PlayerCommands
 
         public override bool Execute()
         {
-            var hasPlayed = _cashgameRepository.HasPlayed(_player);
+            var hasPlayed = _cashgameRepository.HasPlayed(_player.Id);
             if (!hasPlayed)
             {
                 _playerRepository.Delete(_homegame, _player);

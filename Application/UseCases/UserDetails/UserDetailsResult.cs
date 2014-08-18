@@ -20,7 +20,7 @@ namespace Application.UseCases.UserDetails
         {
             var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
             var avatarService = new GravatarService();
-            var avatarUrl = avatarService.GetLargeAvatarUrl(displayUser.Email);
+            var avatarUrl = avatarService.GetAvatarUrl(displayUser.Email);
 
             UserName = displayUser.UserName;
             DisplayName = displayUser.DisplayName;

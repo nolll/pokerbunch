@@ -28,7 +28,6 @@ using Web.ModelFactories.CashgameModelFactories.Toplist;
 using Web.ModelFactories.ChartModelFactories;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelFactories.MiscModelFactories;
 using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
@@ -97,8 +96,6 @@ namespace Web.Plumbing
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
 
             // Model Factories
-            RegisterComponent<IAvatarModelFactory, AvatarModelFactory>();
-            RegisterComponent<IGoogleAnalyticsModelFactory, GoogleAnalyticsModelFactory>();
             RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
             RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
             RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();

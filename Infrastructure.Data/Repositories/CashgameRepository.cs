@@ -169,9 +169,9 @@ namespace Infrastructure.Data.Repositories
 			return success;
 		}
 
-		public bool HasPlayed(Player player)
+		public bool HasPlayed(int playerId)
         {
-			return _cashgameStorage.HasPlayed(player.Id);
+			return _cashgameStorage.HasPlayed(playerId);
 		}
 	}
 }

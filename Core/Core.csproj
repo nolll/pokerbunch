@@ -105,9 +105,6 @@
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\AvatarSize.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Entities\SocialServiceIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>

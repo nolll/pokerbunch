@@ -12,10 +12,11 @@ namespace Tests.Web.CommandTests.PlayerCommands
         [Test]
         public void Execute_PlayerHasResults_ReturnsFalse()
         {
+            const int playerId = 1;
             var homegame = new HomegameInTest();
-            var player = new PlayerInTest();
+            var player = new PlayerInTest(id: playerId);
 
-            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(true);
+            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(playerId)).Returns(true);
 
             var sut = GetSut(homegame, player);
             var result = sut.Execute();
@@ -26,10 +27,11 @@ namespace Tests.Web.CommandTests.PlayerCommands
         [Test]
         public void Execute_PlayerHasNoResults_ReturnsTrue()
         {
+            const int playerId = 1;
             var homegame = new HomegameInTest();
-            var player = new PlayerInTest();
+            var player = new PlayerInTest(id: playerId);
 
-            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(player)).Returns(false);
+            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(playerId)).Returns(false);
 
             var sut = GetSut(homegame, player);
             var result = sut.Execute();
