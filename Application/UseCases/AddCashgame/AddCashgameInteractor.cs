@@ -8,7 +8,6 @@ namespace Application.UseCases.AddCashgame
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameFactory _cashgameFactory = new CashgameFactory();
 
         public AddCashgameInteractor(
             IHomegameRepository homegameRepository, 
@@ -22,14 +21,17 @@ namespace Application.UseCases.AddCashgame
         {
             var validator = new Validator(request);
 
-            if (!validator.IsValid)
-                return new AddCashgameResult(validator);
+            if (validator.IsValid)
+                AddGame(request);
             
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
-            var cashgame = _cashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
-            _cashgameRepository.AddGame(homegame, cashgame);
+            return new AddCashgameResult(request.Slug, validator);
+        }
 
-            return new AddCashgameResult(validator);
+        private void AddGame(AddCashgameRequest request)
+        {
+            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var cashgame = new CashgameFactory().Create(request.Location, homegame.Id, (int)GameStatus.Running);
+            _cashgameRepository.AddGame(homegame, cashgame);
         }
     }
 }

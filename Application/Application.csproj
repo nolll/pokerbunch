@@ -187,6 +187,9 @@
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
     <Compile Include="UseCases\BunchList\IBunchListInteractor.cs" />
     <Compile Include="UseCases\AppContext\AppContextResult.cs" />
+    <Compile Include="UseCases\BuyinForm\BuyinFormInteractor.cs" />
+    <Compile Include="UseCases\BuyinForm\BuyinFormRequest.cs" />
+    <Compile Include="UseCases\BuyinForm\BuyinFormResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

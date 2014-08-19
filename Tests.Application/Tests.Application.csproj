@@ -63,6 +63,7 @@
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
+    <Compile Include="UseCases\BuyinFormTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />

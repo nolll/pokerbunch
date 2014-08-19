@@ -181,7 +181,7 @@ namespace Web.Controllers
             var result = _addCashgameInteractor.Execute(request);
             
             if (result.CreatedGame)
-                return Redirect(new RunningCashgameUrl(slug).Relative);
+                return Redirect(result.ReturnUrl.Relative);
 
             AddModelErrors(result.Errors);
             var model = BuildAddModel(slug, postModel);

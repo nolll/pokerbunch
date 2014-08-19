@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Application.Factories;
+using Application.Urls;
 using Application.UseCases.AddCashgame;
 using Core.Repositories;
 using NUnit.Framework;
@@ -12,6 +12,17 @@ namespace Tests.Application.UseCases
     {
         private const string Slug = "a";
         private const string Location = "b";
+
+        [Test]
+        public void AddCashgame_ReturnUrlIsSet()
+        {
+            SetupHomegame();
+
+            var request = CreateRequest();
+            var result = Sut.Execute(request);
+
+            Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
+        }
 
         [Test]
         public void AddCashgame_WithLocation_CashgameIsAdded()
