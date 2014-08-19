@@ -1,18 +1,22 @@
 using System.Web.Mvc;
 using Application.Urls;
+using Application.UseCases.AppContext;
+using Application.UseCases.BunchList;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
+using Web.Models.HomegameModels.List;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
 	public class HomegameController : ControllerBase
     {
+	    private readonly IAppContextInteractor _appContextInteractor;
+	    private readonly IBunchListInteractor _bunchListInteractor;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
-	    private readonly IBunchListPageBuilder _bunchListPageBuilder;
 	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
 	    private readonly IAddHomegamePageBuilder _addHomegamePageBuilder;
 	    private readonly IAddHomegameConfirmationPageBuilder _addHomegameConfirmationPageBuilder;
@@ -21,8 +25,9 @@ namespace Web.Controllers
 	    private readonly IJoinHomegameConfirmationPageBuilder _joinHomegameConfirmationPageBuilder;
 
 	    public HomegameController(
+            IAppContextInteractor appContextInteractor,
+            IBunchListInteractor bunchListInteractor,
             IHomegameCommandProvider homegameCommandProvider,
-            IBunchListPageBuilder bunchListPageBuilder,
             IHomegameDetailsPageBuilder homegameDetailsPageBuilder,
             IAddHomegamePageBuilder addHomegamePageBuilder,
             IAddHomegameConfirmationPageBuilder addHomegameConfirmationPageBuilder,
@@ -30,8 +35,9 @@ namespace Web.Controllers
             IJoinHomegamePageBuilder joinHomegamePageBuilder,
             IJoinHomegameConfirmationPageBuilder joinHomegameConfirmationPageBuilder)
 	    {
+	        _appContextInteractor = appContextInteractor;
+	        _bunchListInteractor = bunchListInteractor;
 	        _homegameCommandProvider = homegameCommandProvider;
-	        _bunchListPageBuilder = bunchListPageBuilder;
 	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
 	        _addHomegamePageBuilder = addHomegamePageBuilder;
 	        _addHomegameConfirmationPageBuilder = addHomegameConfirmationPageBuilder;
@@ -43,7 +49,9 @@ namespace Web.Controllers
         [AuthorizeAdmin]
 	    public ActionResult List()
         {
-            var model = _bunchListPageBuilder.Build();
+            var contextResult = _appContextInteractor.Execute();
+            var bunchListResult = _bunchListInteractor.Execute();
+            var model = new BunchListPageModel(contextResult, bunchListResult);
 			return View("HomegameList", model);
 		}
 

@@ -59,6 +59,7 @@
     <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="UseCases\ActionsTests.cs" />
     <Compile Include="UseCases\AddCashgameOptionsTests.cs" />
+    <Compile Include="UseCases\AddCashgameTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />

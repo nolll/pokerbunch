@@ -1,13 +1,17 @@
 using System;
 using System.Web.Mvc;
+using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
+using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameDetails;
+using Application.UseCases.CashgameFacts;
+using Application.UseCases.CashgameOptions;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeInteractors;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Add;
 using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -15,7 +19,6 @@ using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.End;
-using Web.ModelFactories.CashgameModelFactories.Facts;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
@@ -25,35 +28,6 @@ namespace Tests.Web.ControllerTests
 {
 	public class CashgameControllerTests : MockContainer
 	{
-        private const string Slug = "homegame1";
-        private const string DateStr = "2010-01-01";
-	    private const int PlayerId = 1;
-
-		[Test]
-		public void Matrix_CorrectView(){
-		    var sut = GetSut();
-            var viewResult = (ViewResult)sut.Matrix(Slug);
-
-			Assert.AreEqual("Matrix/MatrixPage", viewResult.ViewName);
-		}
-
-        [Test]
-        public void Toplist_Authorized_ShowsCorrectView()
-        {
-		    var sut = GetSut();
-            var viewResult = (ViewResult)sut.Toplist(Slug);
-
-            Assert.AreEqual("Toplist/ToplistPage", viewResult.ViewName);
-		}
-
-		[Test]
-		public void Details_ReturnsCorrectView(){
-            var sut = GetSut();
-            var viewResult = (ViewResult)sut.Details(Slug, DateStr);
-
-            Assert.AreEqual("Details/DetailsPage", viewResult.ViewName);
-		}
-
         [Test]
         public void Action_RequiresPlayer()
         {
@@ -63,15 +37,6 @@ namespace Tests.Web.ControllerTests
 
             Assert.IsTrue(result);
         }
-
-		[Test]
-		public void Action_ReturnsCorrectModel()
-		{
-			var sut = GetSut();
-            var viewResult = (ViewResult)sut.Action(Slug, DateStr, PlayerId);
-
-            Assert.AreEqual("Action/Action", viewResult.ViewName);
-		}
 
         [Test]
         public void Buyin_RequiresOwnPlayer()
@@ -86,13 +51,11 @@ namespace Tests.Web.ControllerTests
         private CashgameController GetSut()
         {
             return new CashgameController(
+                GetMock<IBunchContextInteractor>().Object,
+                GetMock<ICashgameOptionsInteractor>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
-                GetMock<ICashgameFactsPageBuilder>().Object,
-                GetMock<IActionPageBuilder>().Object,
                 GetMock<IMatrixPageBuilder>().Object,
-                GetMock<ICashgameDetailsPageBuilder>().Object,
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,
-                GetMock<IAddCashgamePageBuilder>().Object,
                 GetMock<IAddCashgameInteractor>().Object,
                 GetMock<IEditCashgamePageBuilder>().Object,
                 GetMock<IRunningCashgamePageBuilder>().Object,
@@ -106,7 +69,10 @@ namespace Tests.Web.ControllerTests
                 GetMock<IEndPageBuilder>().Object,
                 GetMock<IEditCheckpointPageBuilder>().Object,
                 new CashgameContextInteractorInTest(),
-                new TopListInteractorInTest());
+                new TopListInteractorInTest(),
+                GetMock<ICashgameFactsInteractor>().Object,
+                GetMock<IActionsInteractor>().Object,
+                GetMock<ICashgameDetailsInteractor>().Object);
         }
 	}
 }

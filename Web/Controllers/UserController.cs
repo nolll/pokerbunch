@@ -1,20 +1,26 @@
 using System.Web.Mvc;
 using Application.Urls;
+using Application.UseCases.AppContext;
+using Application.UseCases.UserDetails;
+using Application.UseCases.UserList;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.UserModelFactories;
+using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 using Web.Models.UserModels.ForgotPassword;
+using Web.Models.UserModels.List;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
 	public class UserController : ControllerBase
     {
+	    private readonly IAppContextInteractor _appContextInteractor;
+	    private readonly IUserDetailsInteractor _userDetailsInteractor;
+	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
-	    private readonly IUserListPageBuilder _userListPageBuilder;
-	    private readonly IUserDetailsPageBuilder _userDetailsPageBuilder;
 	    private readonly IAddUserPageBuilder _addUserPageBuilder;
 	    private readonly IAddUserConfirmationPageBuilder _addUserConfirmationPageBuilder;
 	    private readonly IEditUserPageBuilder _editUserPageBuilder;
@@ -22,18 +28,20 @@ namespace Web.Controllers
 	    private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
 
 	    public UserController(
+            IAppContextInteractor appContextInteractor,
+            IUserDetailsInteractor userDetailsInteractor,
+            IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider,
-            IUserListPageBuilder userListPageBuilder,
-            IUserDetailsPageBuilder userDetailsPageBuilder,
             IAddUserPageBuilder addUserPageBuilder,
             IAddUserConfirmationPageBuilder addUserConfirmationPageBuilder,
             IEditUserPageBuilder editUserPageBuilder,
             IChangePasswordPageBuilder changePasswordPageBuilder,
             IForgotPasswordPageBuilder forgotPasswordPageBuilder)
 	    {
+	        _appContextInteractor = appContextInteractor;
+	        _userDetailsInteractor = userDetailsInteractor;
+	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
-	        _userListPageBuilder = userListPageBuilder;
-	        _userDetailsPageBuilder = userDetailsPageBuilder;
 	        _addUserPageBuilder = addUserPageBuilder;
 	        _addUserConfirmationPageBuilder = addUserConfirmationPageBuilder;
 	        _editUserPageBuilder = editUserPageBuilder;
@@ -44,14 +52,18 @@ namespace Web.Controllers
         [Authorize]
 		public ActionResult Details(string userName)
         {
-			var model = _userDetailsPageBuilder.Build(userName);
+            var contextResult = _appContextInteractor.Execute();
+            var userDetailsResult = _userDetailsInteractor.Execute(new UserDetailsRequest(userName));
+            var model = new UserDetailsPageModel(contextResult, userDetailsResult);
 			return View("Details", model);
 		}
 
         [AuthorizeAdmin]
         public ActionResult List()
         {
-            var model = _userListPageBuilder.Build();
+            var contextResult = _appContextInteractor.Execute();
+            var showUserListResult = _userListInteractor.Execute();
+            var model = new UserListPageModel(contextResult, showUserListResult);
 			return View("List/List", model);
 		}
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+using Application.UseCases.AppContext;
+using Application.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.HomegameCommands;
@@ -16,8 +18,9 @@ namespace Tests.Web.ControllerTests
         public void SetUp()
         {
             _sut = new HomegameController(
+                GetMock<IAppContextInteractor>().Object,
+                GetMock<IBunchListInteractor>().Object,
                 GetMock<IHomegameCommandProvider>().Object,
-                GetMock<IBunchListPageBuilder>().Object,
                 GetMock<IHomegameDetailsPageBuilder>().Object,
                 GetMock<IAddHomegamePageBuilder>().Object,
                 GetMock<IAddHomegameConfirmationPageBuilder>().Object,

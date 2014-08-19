@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
+using Application.UseCases.AppContext;
+using Application.UseCases.UserDetails;
+using Application.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeModels;
 using Web.Commands.UserCommands;
 using Web.Controllers;
 using Web.ModelFactories.UserModelFactories;
-using Web.Models.UserModels.List;
 
 namespace Tests.Web.ControllerTests
 {
@@ -18,9 +19,10 @@ namespace Tests.Web.ControllerTests
         public void SetUp()
         {
             _sut = new UserController(
+                GetMock<IAppContextInteractor>().Object,
+                GetMock<IUserDetailsInteractor>().Object,
+                GetMock<IUserListInteractor>().Object,
                 GetMock<IUserCommandProvider>().Object,
-                GetMock<IUserListPageBuilder>().Object,
-                GetMock<IUserDetailsPageBuilder>().Object,
                 GetMock<IAddUserPageBuilder>().Object,
                 GetMock<IAddUserConfirmationPageBuilder>().Object,
                 GetMock<IEditUserPageBuilder>().Object,

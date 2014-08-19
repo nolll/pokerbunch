@@ -8,16 +8,14 @@ namespace Application.UseCases.AddCashgame
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameFactory _cashgameFactory;
+        private readonly ICashgameFactory _cashgameFactory = new CashgameFactory();
 
         public AddCashgameInteractor(
             IHomegameRepository homegameRepository, 
-            ICashgameRepository cashgameRepository, 
-            ICashgameFactory cashgameFactory)
+            ICashgameRepository cashgameRepository)
         {
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _cashgameFactory = cashgameFactory;
         }
 
         public AddCashgameResult Execute(AddCashgameRequest request)
