@@ -95,7 +95,6 @@
     <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
     <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
     <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
-    <Compile Include="Commands\CashgameCommands\AddCashgameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\BuyinCommand.cs" />
     <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
@@ -460,6 +459,7 @@
     <Compile Include="Controllers\AuthController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Security\Attributes\AuthorizeAdminAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeCustomAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeManagerAttribute.cs" />

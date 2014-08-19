@@ -22,9 +22,6 @@ namespace Application.UseCases.AddCashgame
         {
             var validator = new Validator(request);
 
-            if (!request.HasLocation)
-                validator.AddError("Please enter a location");
-
             if (!validator.IsValid)
                 return new AddCashgameResult(validator);
             
