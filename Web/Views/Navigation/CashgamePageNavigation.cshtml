@@ -1,10 +1,13 @@
 @model Web.Models.NavigationModels.CashgamePageNavigationModel
-<nav class="cashgame-nav bar">
-    <ul>
-        <li class="@Model.MatrixSelectedClass"><a href="@Model.MatrixUrl.Relative">Matrix</a></li>
-        <li class="@Model.ToplistSelectedClass"><a href="@Model.ToplistUrl.Relative">Toplist</a></li>
-        <li class="@Model.ChartSelectedClass"><a href="@Model.ChartUrl.Relative">Chart</a></li>
-        <li class="@Model.ListSelectedClass"><a href="@Model.ListUrl.Relative">List</a></li>
-        <li class="@Model.FactsSelectedClass"><a href="@Model.FactsUrl.Relative">Facts</a></li>
-    </ul>
-</nav>
+@if (!Model.IsEmpty)
+{
+    <nav class="cashgame-nav bar">
+        <ul>
+            <li class="@Model.MatrixSelectedClass"><a href="@Model.MatrixUrl.Relative">Matrix</a></li>
+            <li class="@Model.ToplistSelectedClass"><a href="@Model.ToplistUrl.Relative">Toplist</a></li>
+            <li class="@Model.ChartSelectedClass"><a href="@Model.ChartUrl.Relative">Chart</a></li>
+            <li class="@Model.ListSelectedClass"><a href="@Model.ListUrl.Relative">List</a></li>
+            <li class="@Model.FactsSelectedClass"><a href="@Model.FactsUrl.Relative">Facts</a></li>
+        </ul>
+    </nav>       
+}

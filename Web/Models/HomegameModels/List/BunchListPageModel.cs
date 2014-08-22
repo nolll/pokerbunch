@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.List
 {
-	public class BunchListPageModel : PageModel
+	public class BunchListPageModel : AppPageModel
     {
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 

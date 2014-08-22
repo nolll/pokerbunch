@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
 {
-    public class AddHomegameConfirmationPageModel : PageModel
+    public class AddHomegameConfirmationPageModel : AppPageModel
     {
         public AddHomegameConfirmationPageModel(AppContextResult contextResult)
             : base("Homegame Created", contextResult)

@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Edit
 {
-    public class EditUserPageModel : PageModel
+    public class EditUserPageModel : AppPageModel
     {
         public string UserName { get; set; }
         public string DisplayName { get; set; }

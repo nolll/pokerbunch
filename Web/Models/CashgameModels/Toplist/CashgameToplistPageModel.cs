@@ -1,9 +1,10 @@
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameTopList;
+using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Toplist
 {
-    public class CashgameToplistPageModel : CashgameContextPageModel
+    public class CashgameToplistPageModel : CashgamePageModel
     {
 	    public ToplistTableModel TableModel { get; private set; }
 

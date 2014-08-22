@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels
 {
-    public class UserDetailsPageModel : PageModel
+    public class UserDetailsPageModel : AppPageModel
     {
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }

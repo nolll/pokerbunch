@@ -10,6 +10,12 @@ namespace Web.Models.NavigationModels
     {
         public string Selected { get; private set; }
         public List<NavigationYearModel> YearModels { get; private set; }
+        public bool IsEmpty { get; protected set; }
+
+        protected CashgameYearNavigationModel()
+            : this("", new List<int>(), CashgamePage.Unknown, null)
+        {
+        }
 
         private CashgameYearNavigationModel(string slug, IEnumerable<int> years, CashgamePage cashgamePage, int? year)
         {
@@ -56,6 +62,22 @@ namespace Web.Models.NavigationModels
                 return new FactsUrl(slug, year);
             }
             return null;
+        }
+
+        public static CashgameYearNavigationModel Empty
+        {
+            get
+            {
+                return new EmptyCashgameYearNavigationModel();
+            }
+        }
+
+        private class EmptyCashgameYearNavigationModel : CashgameYearNavigationModel
+        {
+            public EmptyCashgameYearNavigationModel()
+            {
+                IsEmpty = true;
+            }
         }
     }
 }

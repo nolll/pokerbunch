@@ -1,8 +1,9 @@
 using Application.UseCases.CashgameContext;
+using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.List
 {
-    public class CashgameListPageModel : CashgameContextPageModel
+    public class CashgameListPageModel : CashgamePageModel
     {
         public CashgameListTableModel ListTableModel { get; set; }
 

@@ -13,8 +13,10 @@ namespace Web.Models.PageBaseModels
         public string CssUrl { get; private set; }
         public string Version { get; private set; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
-        public NavigationModel UserNavModel { get; private set; }
+        public NavigationModel UserNavModel { get; protected set; }
         public HomegameNavigationModel HomegameNavModel { get; protected set; }
+        public CashgamePageNavigationModel PageNavModel { get; protected set; }
+        public CashgameYearNavigationModel YearNavModel { get; protected set; }
 
         protected PageModel(string browserTitle, BaseContextResult contextResult)
         {
@@ -23,19 +25,17 @@ namespace Web.Models.PageBaseModels
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
             HomegameNavModel = HomegameNavigationModel.Empty;
-        }
-
-        protected PageModel(string browserTitle, AppContextResult contextResult)
-            : this(browserTitle, contextResult.BaseContext)
-        {
-            UserNavModel = new UserNavigationModel(contextResult);
+            UserNavModel = UserNavigationModel.Empty;
+            PageNavModel = CashgamePageNavigationModel.Empty;
+            YearNavModel = CashgameYearNavigationModel.Empty;
         }
     }
 
     public abstract class AppPageModel : PageModel
     {
-        protected AppPageModel(string browserTitle, AppContextResult appContextResult) : base(browserTitle, appContextResult)
+        protected AppPageModel(string browserTitle, AppContextResult appContextResult) : base(browserTitle, appContextResult.BaseContext)
         {
+            UserNavModel = new UserNavigationModel(appContextResult);
         }
     }
 
@@ -59,6 +59,8 @@ namespace Web.Models.PageBaseModels
     {
         protected CashgamePageModel(string browserTitle, CashgameContextResult cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
         {
+            PageNavModel = new CashgamePageNavigationModel(cashgameContextResult);
+            YearNavModel = new CashgameYearNavigationModel(cashgameContextResult);
         }
     }
 }

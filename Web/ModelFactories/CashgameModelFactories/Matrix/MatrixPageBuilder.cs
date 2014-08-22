@@ -4,7 +4,6 @@ using Core.Repositories;
 using Core.Services.Interfaces;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Matrix;
-using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {

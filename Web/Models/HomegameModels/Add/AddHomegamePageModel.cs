@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
 {
-    public class AddHomegamePageModel : PageModel
+    public class AddHomegamePageModel : AppPageModel
     {
         public List<SelectListItem> CurrencyLayoutSelectItems { get; set; }
         public List<SelectListItem> TimezoneSelectItems { get; set; }

@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join
 {
-    public class JoinHomegamePageModel : PageModel
+    public class JoinHomegamePageModel : AppPageModel
     {
         public string Name { get; set; }
         public string Code { get; set; }

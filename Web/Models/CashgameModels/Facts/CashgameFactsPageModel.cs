@@ -1,10 +1,10 @@
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameFacts;
-using Web.Models.NavigationModels;
+using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts
 {
-	public class CashgameFactsPageModel : CashgameContextPageModel
+	public class CashgameFactsPageModel : CashgamePageModel
     {
         public int GameCount { get; private set; }
         public string TotalGameTime { get; private set; }

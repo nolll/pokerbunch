@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ForgotPassword
 {
-    public class ForgotPasswordConfirmationPageModel : PageModel
+    public class ForgotPasswordConfirmationPageModel : AppPageModel
     {
         public ForgotPasswordConfirmationPageModel(AppContextResult contextResult)
             : base("Password Sent", contextResult)

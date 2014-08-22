@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.SharingModels
 {
-    public class SharingIndexPageModel : PageModel
+    public class SharingIndexPageModel : AppPageModel
     {
         public bool IsSharingToTwitter { get; set; }
         public Url ShareToTwitterSettingsUrl { get; set; }

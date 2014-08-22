@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Add
 {
-    public class AddUserPageModel : PageModel
+    public class AddUserPageModel : AppPageModel
     {
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }

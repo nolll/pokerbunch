@@ -15,8 +15,14 @@ namespace Web.Models.NavigationModels
         public string ListSelectedClass { get; private set; }
         public Url FactsUrl { get; private set; }
         public string FactsSelectedClass { get; private set; }
+	    public bool IsEmpty { get; protected set; }
 
-        public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult)
+	    protected CashgamePageNavigationModel()
+            : this("", null, CashgamePage.Unknown)
+	    {
+	    }
+
+	    public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult)
             : this(cashgameContextResult.BunchContext.Slug, cashgameContextResult.SelectedYear, cashgameContextResult.SelectedPage)
 	    {
 	    }
@@ -38,6 +44,22 @@ namespace Web.Models.NavigationModels
         private string GetSelectedClass(CashgamePage current, CashgamePage selected)
         {
             return current.Equals(selected) ? "selected" : null;
+        }
+
+        public static CashgamePageNavigationModel Empty
+        {
+            get
+            {
+                return new EmptyCashgamePageNavigationModel();
+            }
+        }
+
+        private class EmptyCashgamePageNavigationModel : CashgamePageNavigationModel
+        {
+            public EmptyCashgamePageNavigationModel()
+            {
+                IsEmpty = true;
+            }
         }
     }
 }

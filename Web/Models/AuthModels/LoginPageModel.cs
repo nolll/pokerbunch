@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.AuthModels
 {
-    public class LoginPageModel : PageModel
+    public class LoginPageModel : AppPageModel
     {
         public Url AddUserUrl { get; private set; }
         public Url ForgotPasswordUrl { get; private set; }
@@ -12,17 +12,12 @@ namespace Web.Models.AuthModels
         public bool RememberMe { get; private set; }
         public string ReturnUrl { get; private set; }
 
-        public LoginPageModel(AppContextResult contextResult, string returnUrl)
+        public LoginPageModel(AppContextResult contextResult, string returnUrl, LoginPostModel postModel)
             : base("Login", contextResult)
         {
             ReturnUrl = returnUrl != null ? new Url(returnUrl).Relative : new HomeUrl().Relative;
             AddUserUrl = new AddUserUrl();
             ForgotPasswordUrl = new ForgotPasswordUrl();
-        }
-
-        public LoginPageModel(AppContextResult contextResult, string returnUrl, LoginPostModel postModel)
-            : this(contextResult, returnUrl)
-        {
             if (postModel == null) return;
             LoginName = postModel.LoginName;
             RememberMe = postModel.RememberMe;

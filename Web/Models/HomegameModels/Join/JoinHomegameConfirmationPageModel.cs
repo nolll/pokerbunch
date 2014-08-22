@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join
 {
-    public class JoinHomegameConfirmationPageModel : PageModel
+    public class JoinHomegameConfirmationPageModel : AppPageModel
     {
         public string BunchName { get; set; }
         public Url BunchUrl { get; set; }

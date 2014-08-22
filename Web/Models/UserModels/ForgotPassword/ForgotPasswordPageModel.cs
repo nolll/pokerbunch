@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ForgotPassword
 {
-    public class ForgotPasswordPageModel : PageModel
+    public class ForgotPasswordPageModel : AppPageModel
     {
         public string Email { get; set; }
 

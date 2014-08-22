@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.List
 {
-	public class UserListPageModel : PageModel
+	public class UserListPageModel : AppPageModel
     {
         public IList<UserListItemModel> UserModels { get; private set; }
 

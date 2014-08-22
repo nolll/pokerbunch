@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.SharingModels
 {
-	public class SharingTwitterPageModel : PageModel
+	public class SharingTwitterPageModel : AppPageModel
     {
 		public string TwitterName { get; set; }
 		public bool IsSharing { get; set; }
