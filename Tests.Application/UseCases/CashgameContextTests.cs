@@ -53,7 +53,7 @@ namespace Tests.Application.UseCases
 
             var result = _sut.Execute(cashgameContextRequest);
 
-            Assert.AreEqual(name, result.BunchName);
+            Assert.AreEqual(name, result.Context.BunchName);
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Tests.Application.UseCases
 
             var result = _sut.Execute(request);
 
-            Assert.AreEqual(slug, result.Slug);
+            Assert.AreEqual(slug, result.Context.Slug);
         }
 
         [Test]

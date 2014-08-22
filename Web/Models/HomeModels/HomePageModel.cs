@@ -16,11 +16,11 @@ namespace Web.Models.HomeModels
         public HomePageModel(BunchContextResult contextResult)
             : base("Poker Bunch", contextResult)
         {
-			IsLoggedIn = contextResult.IsLoggedIn;
+			IsLoggedIn = contextResult.Context.IsLoggedIn;
             AddHomegameUrl = new AddHomegameUrl();
             LoginUrl = new LoginUrl();
             RegisterUrl = new AddUserUrl();
-            AdminNav = new AdminNavigationModel(contextResult);
+            AdminNav = new AdminNavigationModel(contextResult.Context);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Web.Models.NavigationModels
         public string FactsSelectedClass { get; private set; }
 
         public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
-            : this(cashgameContextResult.Slug, cashgameContextResult.SelectedYear, cashgamePage)
+            : this(cashgameContextResult.Context.Slug, cashgameContextResult.SelectedYear, cashgamePage)
 	    {
 	    }
 

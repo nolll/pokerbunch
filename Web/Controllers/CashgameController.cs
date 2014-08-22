@@ -120,8 +120,8 @@ namespace Web.Controllers
         private Url GetIndexUrl(CashgameContextResult result)
         {
             if (result.LatestYear.HasValue)
-                return new CashgameMatrixUrl(result.Slug, result.LatestYear);
-            return new AddCashgameUrl(result.Slug);
+                return new CashgameMatrixUrl(result.Context.Slug, result.LatestYear);
+            return new AddCashgameUrl(result.Context.Slug);
         }
 
         [AuthorizePlayer]

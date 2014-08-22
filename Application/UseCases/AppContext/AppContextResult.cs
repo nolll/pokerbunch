@@ -2,12 +2,13 @@
 
 namespace Application.UseCases.AppContext
 {
-    public class AppContextResult : BaseContextResult
+    public class AppContextResult
     {
         public bool IsLoggedIn { get; private set; }
         public bool IsAdmin { get; private set; }
         public string UserName { get; private set; }
         public string UserDisplayName { get; private set; }
+        public BaseContextResult Context { get; private set; }
 
         public AppContextResult(
             BaseContextResult baseContextResult,
@@ -15,11 +16,8 @@ namespace Application.UseCases.AppContext
             bool isAdmin,
             string userName,
             string userDisplayName)
-
-            : base(
-            baseContextResult.IsInProduction,
-            baseContextResult.Version)
         {
+            Context = baseContextResult;
             IsLoggedIn = isLoggedIn;
             IsAdmin = isAdmin;
             UserName = userName;

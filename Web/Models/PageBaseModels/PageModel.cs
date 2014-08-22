@@ -21,17 +21,17 @@ namespace Web.Models.PageBaseModels
             BrowserTitle = browserTitle;
             CssUrl = BundleConfig.BundleUrl;
             Version = contextResult.Version;
-        }
-
-        protected PageModel(string browserTitle, AppContextResult contextResult)
-            : this(browserTitle, (BaseContextResult)contextResult)
-        {
-            UserNavModel = new UserNavigationModel(contextResult);
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
         }
 
+        protected PageModel(string browserTitle, AppContextResult contextResult)
+            : this(browserTitle, contextResult.Context)
+        {
+            UserNavModel = new UserNavigationModel(contextResult);
+        }
+
         protected PageModel(string browserTitle, BunchContextResult contextResult)
-            : this(browserTitle, (AppContextResult)contextResult)
+            : this(browserTitle, contextResult.Context)
         {
             HomegameNavModel = GetHomegameNavModel(contextResult);
         }

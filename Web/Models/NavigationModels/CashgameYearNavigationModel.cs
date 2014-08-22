@@ -3,8 +3,6 @@ using System.Globalization;
 using System.Linq;
 using Application.Urls;
 using Application.UseCases.CashgameContext;
-using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.Models.NavigationModels
 {
@@ -20,7 +18,7 @@ namespace Web.Models.NavigationModels
         }
 
         public CashgameYearNavigationModel(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
-            : this(cashgameContextResult.Slug, cashgameContextResult.Years, cashgamePage, cashgameContextResult.SelectedYear)
+            : this(cashgameContextResult.Context.Slug, cashgameContextResult.Years, cashgamePage, cashgameContextResult.SelectedYear)
         {
         }
 

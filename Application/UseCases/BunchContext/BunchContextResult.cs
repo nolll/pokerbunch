@@ -2,17 +2,17 @@
 
 namespace Application.UseCases.BunchContext
 {
-    public class BunchContextResult : AppContextResult
+    public class BunchContextResult
     {
         public string Slug { get; private set; }
         public string BunchName { get; private set; }
         public int BunchId { get; private set; }
         public bool HasBunch { get; private set; }
+        public AppContextResult Context { get; private set; }
 
         public BunchContextResult(AppContextResult appContextResult)
-            : this(appContextResult, null, 0, null)
         {
-            HasBunch = false;
+            Context = appContextResult;
         }
 
         public BunchContextResult(
@@ -20,13 +20,7 @@ namespace Application.UseCases.BunchContext
             string slug,
             int bunchId,
             string bunchName)
-
-            : base(
-            appContextResult,
-            appContextResult.IsLoggedIn,
-            appContextResult.IsAdmin,
-            appContextResult.UserName,
-            appContextResult.UserDisplayName)
+            : this(appContextResult)
         {
             Slug = slug;
             BunchId = bunchId;

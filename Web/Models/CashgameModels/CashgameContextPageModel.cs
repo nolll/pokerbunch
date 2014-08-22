@@ -13,7 +13,7 @@ namespace Web.Models.CashgameModels
             string browserTitle,
             CashgameContextResult cashgameContextResult,
             CashgamePage selectedPage)
-            : base(browserTitle, cashgameContextResult)
+            : base(browserTitle, cashgameContextResult.Context)
         {
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult, selectedPage);
             YearNavModel = new CashgameYearNavigationModel(cashgameContextResult, selectedPage);;

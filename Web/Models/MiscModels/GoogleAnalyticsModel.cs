@@ -1,4 +1,4 @@
-using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 
 namespace Web.Models.MiscModels
 {
@@ -6,9 +6,9 @@ namespace Web.Models.MiscModels
     {
         public bool EnableAnalytics { get; private set; }
 
-        public GoogleAnalyticsModel(AppContextResult appContextResult)
+        public GoogleAnalyticsModel(BaseContextResult baseContextResult)
         {
-            EnableAnalytics = appContextResult.IsInProduction;
+            EnableAnalytics = baseContextResult.IsInProduction;
         }
     }
 }
