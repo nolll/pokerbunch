@@ -7,6 +7,7 @@ namespace Web.Models.NavigationModels
 	    public string Heading { get; protected set; }
 	    public IList<NavigationNode> Nodes { get; protected set; }
 	    public string CssClass { get; protected set; }
+        public bool IsEmpty { get; protected set; }
 
 	    protected NavigationModel()
 	    {

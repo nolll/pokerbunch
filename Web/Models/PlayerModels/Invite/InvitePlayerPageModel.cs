@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Invite
 {
-    public class InvitePlayerPageModel : PageModel
+    public class InvitePlayerPageModel : BunchPageModel
     {
         public string Email { get; set; }
 

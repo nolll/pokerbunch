@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Details
 {
-    public class HomegameDetailsPageModel : PageModel
+    public class HomegameDetailsPageModel : BunchPageModel
     {
         public string DisplayName { get; set; }
         public string Description { get; set; }

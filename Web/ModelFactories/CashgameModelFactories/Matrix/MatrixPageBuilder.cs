@@ -42,9 +42,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var gameIsRunning = runningGame != null;
             var startGameUrl = GetStartGameUrl(homegame.Slug, gameIsRunning);
 
-            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
 
-            return new CashgameMatrixPageModel(contextResult, CashgamePage.Matrix)
+            return new CashgameMatrixPageModel(contextResult)
                 {
                     TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
                     BarModel = _barModelFactory.Create(homegame, runningGame),

@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {
-    public class EditCheckpointPageModel : PageModel
+    public class EditCheckpointPageModel : BunchPageModel
     {
         public Url DeleteUrl { get; set; }
         public Url CancelUrl { get; set; }

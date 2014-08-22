@@ -16,12 +16,12 @@ namespace Web.Models.NavigationModels
         public Url FactsUrl { get; private set; }
         public string FactsSelectedClass { get; private set; }
 
-        public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
-            : this(cashgameContextResult.Context.Slug, cashgameContextResult.SelectedYear, cashgamePage)
+        public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult)
+            : this(cashgameContextResult.BunchContext.Slug, cashgameContextResult.SelectedYear, cashgameContextResult.SelectedPage)
 	    {
 	    }
 
-	    public CashgamePageNavigationModel(string slug, int? latestYear, CashgamePage cashgamePage)
+	    private CashgamePageNavigationModel(string slug, int? latestYear, CashgamePage cashgamePage)
 	    {
             MatrixUrl = new MatrixUrl(slug, latestYear);
             MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage);

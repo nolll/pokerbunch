@@ -183,7 +183,6 @@
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
-    <Compile Include="Models\NavigationModels\CashgamePage.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PlayerModels\Badges\BadgeModel.cs" />
     <Compile Include="Models\UrlModels\UrlExtensions.cs">

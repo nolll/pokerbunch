@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Add
 {
-    public class AddPlayerConfirmationPageModel : PageModel
+    public class AddPlayerConfirmationPageModel : BunchPageModel
     {
         public string HomegameName { get; private set; }
 

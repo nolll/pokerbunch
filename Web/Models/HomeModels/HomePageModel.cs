@@ -5,7 +5,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomeModels
 {
-    public class HomePageModel : PageModel
+    public class HomePageModel : BunchPageModel
     {
         public bool IsLoggedIn { get; private set; }
         public Url AddHomegameUrl { get; private set; }
@@ -16,11 +16,11 @@ namespace Web.Models.HomeModels
         public HomePageModel(BunchContextResult contextResult)
             : base("Poker Bunch", contextResult)
         {
-			IsLoggedIn = contextResult.Context.IsLoggedIn;
+			IsLoggedIn = contextResult.AppContext.IsLoggedIn;
             AddHomegameUrl = new AddHomegameUrl();
             LoginUrl = new LoginUrl();
             RegisterUrl = new AddUserUrl();
-            AdminNav = new AdminNavigationModel(contextResult.Context);
+            AdminNav = new AdminNavigationModel(contextResult.AppContext);
         }
     }
 }

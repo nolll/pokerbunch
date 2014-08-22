@@ -8,11 +8,11 @@ namespace Application.UseCases.BunchContext
         public string BunchName { get; private set; }
         public int BunchId { get; private set; }
         public bool HasBunch { get; private set; }
-        public AppContextResult Context { get; private set; }
+        public AppContextResult AppContext { get; private set; }
 
         public BunchContextResult(AppContextResult appContextResult)
         {
-            Context = appContextResult;
+            AppContext = appContextResult;
         }
 
         public BunchContextResult(

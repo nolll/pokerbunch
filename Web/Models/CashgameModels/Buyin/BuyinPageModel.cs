@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Buyin
 {
-    public class BuyinPageModel : PageModel
+    public class BuyinPageModel : BunchPageModel
     {
         public bool StackFieldEnabled { get; set; }
         public int BuyinAmount { get; set; }

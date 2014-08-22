@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Edit
 {
-    public class HomegameEditPageModel : PageModel
+    public class HomegameEditPageModel : BunchPageModel
     {
         public Url CancelUrl { get; set; }
         public string Heading { get; set; }

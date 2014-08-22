@@ -193,6 +193,7 @@
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
+    <Compile Include="UseCases\CashgameContext\CashgamePage.cs" />
     <Compile Include="UseCases\CashgameContext\ICashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameDetails\CashgameDetailsInteractor.cs" />
     <Compile Include="UseCases\CashgameDetails\CashgameDetailsRequest.cs" />

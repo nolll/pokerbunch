@@ -7,7 +7,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.List
 {
-	public class PlayerListPageModel : PageModel
+    public class PlayerListPageModel : BunchPageModel
     {
         public IList<PlayerItemModel> PlayerModels { get; private set; }
 	    public Url AddUrl { get; private set; }

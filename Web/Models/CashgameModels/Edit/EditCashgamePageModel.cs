@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Edit
 {
-    public class EditCashgamePageModel : PageModel
+    public class EditCashgamePageModel : BunchPageModel
     {
         public string IsoDate { get; set; }
         public Url CancelUrl { get; set; }

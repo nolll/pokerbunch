@@ -8,17 +8,19 @@ namespace Tests.Common.FakeClasses
     {
         public CashgameContextResultInTest(
             BunchContextResult bunchContextResult = null,
+            CashgamePage selectedPage = CashgamePage.Matrix,
             bool gameIsRunning = false,
             IList<int> years = null,
             int? selectedYear = null,
             int? latestYear = null)
 
             : base(
-                bunchContextResult ?? new BunchContextResultInTest(), 
-                gameIsRunning,
-                years,
-                selectedYear,
-                latestYear)
+            bunchContextResult ?? new BunchContextResultInTest(), 
+            gameIsRunning,
+            selectedPage, 
+            years,
+            selectedYear,
+            latestYear)
         {
         }
     }

@@ -31,6 +31,7 @@ namespace Application.UseCases.CashgameContext
             return new CashgameContextResult(
                 bunchContextResult,
                 gameIsRunning,
+                request.SelectedPage,
                 years,
                 request.Year,
                 latestYear);

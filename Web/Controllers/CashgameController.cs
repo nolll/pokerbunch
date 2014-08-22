@@ -120,8 +120,8 @@ namespace Web.Controllers
         private Url GetIndexUrl(CashgameContextResult result)
         {
             if (result.LatestYear.HasValue)
-                return new CashgameMatrixUrl(result.Context.Slug, result.LatestYear);
-            return new AddCashgameUrl(result.Context.Slug);
+                return new CashgameMatrixUrl(result.BunchContext.Slug, result.LatestYear);
+            return new AddCashgameUrl(result.BunchContext.Slug);
         }
 
         [AuthorizePlayer]
@@ -134,7 +134,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Toplist));
             var topListResult = _topListInteractor.Execute(new TopListRequest(slug, orderBy, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("Toplist/ToplistPage", model);
@@ -159,7 +159,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Facts(string slug, int? year = null)
         {
-            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Facts));
             var factsResult = _cashgameFactsInteractor.Execute(new CashgameFactsRequest(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);

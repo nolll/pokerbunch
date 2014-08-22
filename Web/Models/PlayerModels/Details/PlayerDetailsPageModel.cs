@@ -9,7 +9,7 @@ using Web.Models.PlayerModels.Facts;
 
 namespace Web.Models.PlayerModels.Details
 {
-    public class PlayerDetailsPageModel : PageModel
+    public class PlayerDetailsPageModel : BunchPageModel
     {
         public string DisplayName { get; private set; }
         public string DeleteUrl { get; private set; }

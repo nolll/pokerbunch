@@ -35,9 +35,9 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             var sortOrder = GetListSortOrder();
 
-            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.List));
 
-            return new CashgameListPageModel(contextResult, CashgamePage.List)
+            return new CashgameListPageModel(contextResult)
                 {
 			        ListTableModel = _cashgameListTableModelFactory.Create(homegame, cashgames, sortOrder, year)
                 };

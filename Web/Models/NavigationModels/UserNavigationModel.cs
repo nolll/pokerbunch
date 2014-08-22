@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using Application.Urls;
 using Application.UseCases.AppContext;
-using Application.UseCases.CashgameContext;
 using Core.Entities;
-using Web.Models.UrlModels;
-using Web.Services;
 
 namespace Web.Models.NavigationModels
 {
     public class UserNavigationModel : NavigationModel
     {
+        protected UserNavigationModel()
+        {
+        }
+
         public UserNavigationModel(User user)
         {
             Heading = "Account";
@@ -52,6 +53,22 @@ namespace Web.Models.NavigationModels
                     //new NavigationNode("Sharing", new SharingSettingsUrlModel()),
                     new NavigationNode("Sign Out", new LogoutUrl())
                 };
+        }
+
+        public static UserNavigationModel Empty
+        {
+            get
+            {
+                return new EmptyUserNavigationModel();
+            }
+        }
+        
+        private class EmptyUserNavigationModel : UserNavigationModel
+        {
+            public EmptyUserNavigationModel()
+            {
+                IsEmpty = true;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Details
 {
-    public class CashgameDetailsPageModel : PageModel
+    public class CashgameDetailsPageModel : BunchPageModel
     {
         public string Heading { get; private set; }
         public string Duration { get; private set; }

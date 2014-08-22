@@ -29,8 +29,7 @@ namespace Web.Models.CashgameModels.Facts
             CashgameFactsResult factsResult) :
             base(
             "Cashgame Facts",
-            cashgameContextResult,
-            CashgamePage.Facts)
+            cashgameContextResult)
 	    {
 	        GameCount = factsResult.GameCount;
             TotalGameTime = factsResult.TotalTimePlayed.ToString();

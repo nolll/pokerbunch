@@ -8,7 +8,7 @@ namespace Application.UseCases.AppContext
         public bool IsAdmin { get; private set; }
         public string UserName { get; private set; }
         public string UserDisplayName { get; private set; }
-        public BaseContextResult Context { get; private set; }
+        public BaseContextResult BaseContext { get; private set; }
 
         public AppContextResult(
             BaseContextResult baseContextResult,
@@ -17,7 +17,7 @@ namespace Application.UseCases.AppContext
             string userName,
             string userDisplayName)
         {
-            Context = baseContextResult;
+            BaseContext = baseContextResult;
             IsLoggedIn = isLoggedIn;
             IsAdmin = isAdmin;
             UserName = userName;

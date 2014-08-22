@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Report
 {
-    public class ReportPageModel : PageModel
+    public class ReportPageModel : BunchPageModel
     {
         public int? StackAmount { get; set; }
 

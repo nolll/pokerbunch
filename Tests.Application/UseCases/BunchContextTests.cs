@@ -49,6 +49,20 @@ namespace Tests.Application.UseCases
             Assert.IsFalse(result.HasBunch);
         }
 
+        [Test]
+        public void Execute_AppContextIsSet()
+        {
+            const string slug = "a";
+            var contextResult = new AppContextResultInTest();
+            var cashgameContextRequest = new BunchContextRequest(slug);
+
+            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
+            
+            var result = Sut.Execute(cashgameContextRequest);
+
+            Assert.IsInstanceOf<AppContextResult>(result.AppContext);
+        }
+
         private BunchContextResult GetResult(string slug = null)
         {
             var request = new BunchContextRequest(slug);

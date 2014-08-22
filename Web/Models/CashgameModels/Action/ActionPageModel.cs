@@ -8,7 +8,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Action
 {
-    public class ActionPageModel : PageModel
+    public class ActionPageModel : BunchPageModel
     {
         public List<CheckpointModel> Checkpoints { get; private set; }
         public Url ChartDataUrl { get; private set; }

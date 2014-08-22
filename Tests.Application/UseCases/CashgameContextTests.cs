@@ -40,20 +40,19 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void Execute_WithBunch_BunchNameIsSet()
+        public void Execute_BunchContextIsSet()
         {
             const string slug = "a";
-            const string name = "b";
             var years = new List<int>();
             var cashgameContextRequest = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
+            var contextResult = new BunchContextResultInTest();
 
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
             var result = _sut.Execute(cashgameContextRequest);
 
-            Assert.AreEqual(name, result.Context.BunchName);
+            Assert.IsInstanceOf<BunchContextResult>(result.BunchContext);
         }
 
         [Test]
@@ -106,7 +105,7 @@ namespace Tests.Application.UseCases
 
             var result = _sut.Execute(request);
 
-            Assert.AreEqual(slug, result.Context.Slug);
+            Assert.IsFalse(result.GameIsRunning);
         }
 
         [Test]
@@ -162,6 +161,25 @@ namespace Tests.Application.UseCases
 
             Assert.AreEqual(3, result.Years.Count);
             Assert.AreEqual(3, result.LatestYear);
+        }
+
+        [TestCase(CashgamePage.Matrix)]
+        [TestCase(CashgamePage.List)]
+        public void Execute_SelectedPage_SelectedPageIsSet(CashgamePage selectedPage)
+        {
+            const string slug = "a";
+            const string name = "b";
+            const int year = 1;
+            var years = new List<int>();
+            var request = new CashgameContextRequest(slug, year, selectedPage);
+            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
+
+            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
+            GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
+
+            var result = _sut.Execute(request);
+
+            Assert.AreEqual(selectedPage, result.SelectedPage);
         }
     }
 }

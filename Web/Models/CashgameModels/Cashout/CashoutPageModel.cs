@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Cashout
 {
-    public class CashoutPageModel : PageModel
+    public class CashoutPageModel : BunchPageModel
     {
         public int? StackAmount { get; private set; }
 

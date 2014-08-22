@@ -1,6 +1,5 @@
 using Application.Urls;
 using Application.UseCases.CashgameContext;
-using Web.Models.NavigationModels;
 
 namespace Web.Models.CashgameModels.Chart
 {
@@ -9,7 +8,7 @@ namespace Web.Models.CashgameModels.Chart
         public Url ChartDataUrl { get; set; }
 
         public CashgameChartPageModel(CashgameContextResult cashgameContextResult)
-            : base("Cashgame Chart", cashgameContextResult, CashgamePage.Chart)
+            : base("Cashgame Chart", cashgameContextResult)
         {
         }
     }

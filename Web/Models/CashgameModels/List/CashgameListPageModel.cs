@@ -1,5 +1,4 @@
 using Application.UseCases.CashgameContext;
-using Web.Models.NavigationModels;
 
 namespace Web.Models.CashgameModels.List
 {
@@ -7,8 +6,8 @@ namespace Web.Models.CashgameModels.List
     {
         public CashgameListTableModel ListTableModel { get; set; }
 
-        public CashgameListPageModel(CashgameContextResult cashgameContextResult, CashgamePage selectedPage)
-            : base("Cashgame List", cashgameContextResult, selectedPage)
+        public CashgameListPageModel(CashgameContextResult cashgameContextResult)
+            : base("Cashgame List", cashgameContextResult)
         {
         }
     }

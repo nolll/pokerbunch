@@ -22,7 +22,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         {
             var homegame = _homegameRepository.GetBySlug(slug);
 
-            var cashgameContextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year));
+            var cashgameContextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Chart));
 
             return new CashgameChartPageModel(cashgameContextResult)
                 {

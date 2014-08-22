@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
 {
-	public class RunningCashgamePageModel : PageModel
+    public class RunningCashgamePageModel : BunchPageModel
     {
         public string StartTime { get; set; }
         public bool ShowStartTime { get; set; }

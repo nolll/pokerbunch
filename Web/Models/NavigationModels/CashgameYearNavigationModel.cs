@@ -8,21 +8,21 @@ namespace Web.Models.NavigationModels
 {
     public class CashgameYearNavigationModel
     {
-        public string Selected { get; set; }
-        public List<NavigationYearModel> YearModels { get; set; }
+        public string Selected { get; private set; }
+        public List<NavigationYearModel> YearModels { get; private set; }
 
-        public CashgameYearNavigationModel(string slug, IList<int> years, CashgamePage cashgamePage, int? year)
+        private CashgameYearNavigationModel(string slug, IEnumerable<int> years, CashgamePage cashgamePage, int? year)
         {
             Selected = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : "All Time";
             YearModels = GetYearModels(slug, cashgamePage, years);
         }
 
-        public CashgameYearNavigationModel(CashgameContextResult cashgameContextResult, CashgamePage cashgamePage)
-            : this(cashgameContextResult.Context.Slug, cashgameContextResult.Years, cashgamePage, cashgameContextResult.SelectedYear)
+        public CashgameYearNavigationModel(CashgameContextResult cashgameContextResult)
+            : this(cashgameContextResult.BunchContext.Slug, cashgameContextResult.Years, cashgameContextResult.SelectedPage, cashgameContextResult.SelectedYear)
         {
         }
 
-        private List<NavigationYearModel> GetYearModels(string slug, CashgamePage cashgamePage, IList<int> years)
+        private List<NavigationYearModel> GetYearModels(string slug, CashgamePage cashgamePage, IEnumerable<int> years)
         {
             var yearModels = new List<NavigationYearModel>();
             if (years != null)

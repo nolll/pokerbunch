@@ -7,7 +7,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add
 {
-    public class AddCashgamePageModel : PageModel
+    public class AddCashgamePageModel : BunchPageModel
     {
         public IEnumerable<SelectListItem> Locations { get; private set; }
         public string TypedLocation { get; private set; }

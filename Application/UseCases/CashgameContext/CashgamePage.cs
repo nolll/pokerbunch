@@ -1,7 +1,8 @@
-namespace Web.Models.NavigationModels
+namespace Application.UseCases.CashgameContext
 {
     public enum CashgamePage
     {
+        Unknown,
         Matrix,
         Toplist,
         Chart,

@@ -1,13 +1,15 @@
 @model Web.Models.NavigationModels.HomegameNavigationModel
-
-<nav class="game-nav">
-    <h2><a href="@Model.HeadingUrl.Relative">@Model.Heading</a></h2>
-    <ul>
-        <li>
-            <a href="@Model.CashgameUrl.Relative"><span>Cashgames</span></a>
-        </li>
-        <li>
-            <a href="@Model.PlayerUrl.Relative"><span>Players</span></a>
-        </li>
-    </ul>
-</nav>
+@if (!Model.IsEmpty)
+{
+    <nav class="game-nav">
+        <h2><a href="@Model.HeadingUrl.Relative">@Model.Heading</a></h2>
+        <ul>
+            <li>
+                <a href="@Model.CashgameUrl.Relative"><span>Cashgames</span></a>
+            </li>
+            <li>
+                <a href="@Model.PlayerUrl.Relative"><span>Players</span></a>
+            </li>
+        </ul>
+    </nav>
+}
