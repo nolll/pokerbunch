@@ -1,0 +1,15 @@
+﻿@model Web.Models.PageBaseModels.BunchPageModel
+
+@{
+    Layout = "AppPage.cshtml";
+}
+
+@RenderBody()
+
+@section ContentNav{
+    @RenderSection("ContentNav", false)
+}
+
+@section TopNav{
+    @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.HomegameNavModel)
+}

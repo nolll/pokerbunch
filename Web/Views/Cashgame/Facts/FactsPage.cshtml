@@ -1,16 +1,8 @@
+@using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.Facts.CashgameFactsPageModel
 
 @{
-    Layout = "~/Views/Layouts/TwoColumns.cshtml";
-}
-
-@section ContentTop
-{
-    @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
-
-    <div class="block gutter heading-nav-container">
-        @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
-    </div>
+    Layout = PageLayout.TwoColumns;
 }
 
 <div class="block gutter">    

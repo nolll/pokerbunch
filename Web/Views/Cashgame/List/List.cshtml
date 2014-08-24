@@ -1,14 +1,10 @@
+@using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.List.CashgameListPageModel
 
 @{
-    Layout = "~/Views/Layouts/OneColumn.cshtml";
+    Layout = PageLayout.OneColumn;
 }
 
-@Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
-
-<div class="block gutter heading-nav-container" id="sort-control-container">
-    @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
-</div>
 <div class="block gutter">
     @Html.Partial("List/CashgameTable", Model.ListTableModel)
 </div>

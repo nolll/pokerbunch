@@ -139,7 +139,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableColumnHeaderModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableRowModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Running\IBarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\IChartValueModelFactory.cs" />
@@ -170,7 +169,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Running\BarModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameSuiteChartJsonBuilder.cs" />
@@ -179,10 +177,16 @@
     <Compile Include="ModelFactories\ChartModelFactories\ChartValueModelFactory.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\StartButtonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
+    <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
+    <Compile Include="Models\PageBaseModels\BunchPageModel.cs" />
+    <Compile Include="Models\PageBaseModels\CashgamePageModel.cs" />
+    <Compile Include="Models\PageBaseModels\PageLayout.cs" />
     <Compile Include="Models\PlayerModels\Badges\BadgeModel.cs" />
     <Compile Include="Models\UrlModels\UrlExtensions.cs">
       <SubType>Code</SubType>
@@ -638,6 +642,10 @@
     <Content Include="Views\Player\PlayerBadge.cshtml" />
     <Content Include="Views\Cashgame\Toplist\ToplistTableColumn.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Layouts\AppPage.cshtml" />
+    <Content Include="Views\Layouts\BunchPage.cshtml" />
+    <Content Include="Views\Layouts\CashgamePage.cshtml" />
+    <Content Include="Views\Cashgame\Running\StartButton.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

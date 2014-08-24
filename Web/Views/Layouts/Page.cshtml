@@ -23,16 +23,17 @@
             <header class="page-header">
                 <div class="content">
                     <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
-                    @Html.Partial("~/Views/Navigation/HomegameNavigation.cshtml", Model.HomegameNavModel)
+                    @RenderSection("TopNav", false)
                 </div>
             </header>
-            
+
             <div class="main container">
+                @RenderSection("ContentNav", false)
                 @RenderBody()
             </div>
-            
-            @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.UserNavModel)
-		
+
+            @RenderSection("BottomNav", false)
+
         </div>
         
         <!--[if lt IE 9]>

@@ -1,0 +1,19 @@
+﻿@model Web.Models.PageBaseModels.AppPageModel
+
+@{
+    Layout = "Page.cshtml";
+}
+
+@RenderBody()
+
+@section TopNav{
+    @RenderSection("TopNav", false)
+}
+
+@section ContentNav{
+    @RenderSection("ContentNav", false)
+}
+
+@section BottomNav{
+    @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.UserNavModel)
+}

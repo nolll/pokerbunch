@@ -1,11 +1,24 @@
 using Application.Urls;
 
-namespace Web.Models.CashgameModels.Running{
+namespace Web.Models.CashgameModels.Running
+{
+    public class BarModel
+    {
+        protected readonly string Slug;
 
-	public class BarModel{
+        public BarModel(string slug)
+        {
+            Slug = slug;
+        }
 
-        public bool GameIsRunning { get; set; }
-        public Url Url { get; set; }
+        public virtual bool GameIsRunning
+        {
+            get { return false; }
+        }
 
-	}
+        public virtual Url Url
+        {
+            get { return new AddCashgameUrl(Slug); }
+        }
+    }
 }

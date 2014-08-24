@@ -1,19 +1,10 @@
+@using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.Matrix.CashgameMatrixPageModel
 
 @{
-    Layout = "~/Views/Layouts/OneColumn.cshtml";
+    Layout = PageLayout.OneColumn;
 }
 
-@Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
-@Html.Partial("~/Views/Cashgame/Running/Bar.cshtml", Model.BarModel)
-
-<div class="block gutter heading-nav-container">
-    @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
-    @if (!Model.GameIsRunning)
-    {
-        <a href="@Model.StartGameUrl.Relative" class="button action">Start game</a>
-    }
-</div>
 <div class="block gutter">
     @Html.Partial("Matrix/MatrixTable", Model.TableModel)
 </div>

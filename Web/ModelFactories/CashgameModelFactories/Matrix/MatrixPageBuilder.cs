@@ -2,7 +2,6 @@ using Application.Urls;
 using Application.UseCases.CashgameContext;
 using Core.Repositories;
 using Core.Services.Interfaces;
-using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
@@ -12,7 +11,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICashgameService _cashgameService;
         private readonly ICashgameMatrixTableModelFactory _cashgameMatrixTableModelFactory;
-        private readonly IBarModelFactory _barModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameContextInteractor _contextInteractor;
 
@@ -20,14 +18,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             ICashgameRepository cashgameRepository,
             ICashgameService cashgameService,
             ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
-            IBarModelFactory barModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameContextInteractor contextInteractor)
         {
             _cashgameRepository = cashgameRepository;
             _cashgameService = cashgameService;
             _cashgameMatrixTableModelFactory = cashgameMatrixTableModelFactory;
-            _barModelFactory = barModelFactory;
             _homegameRepository = homegameRepository;
             _contextInteractor = contextInteractor;
         }
@@ -46,7 +42,6 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             return new CashgameMatrixPageModel(contextResult)
                 {
                     TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite),
-                    BarModel = _barModelFactory.Create(homegame, runningGame),
                     GameIsRunning = gameIsRunning,
                     StartGameUrl = startGameUrl
                 };
