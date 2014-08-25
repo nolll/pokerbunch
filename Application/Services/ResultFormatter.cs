@@ -7,9 +7,8 @@ namespace Application.Services
 	{
 		public static string FormatWinnings(int winnings)
         {
-			if(winnings > 0){
+			if(winnings > 0)
 				return "+"  + winnings;
-			}
 			return winnings.ToString(CultureInfo.InvariantCulture);
 		}
 
@@ -20,11 +19,9 @@ namespace Application.Services
 
 		public static string GetWinningsCssClass(int winnings)
         {
-			if(winnings > 0)
-				return "pos-result";
-            if (winnings < 0)
-				return "neg-result";
-			return string.Empty;
+            if(winnings == 0)
+                return string.Empty;
+            return winnings > 0 ? "pos-result" : "neg-result";
 		}
 	}
 }
