@@ -62,7 +62,6 @@
     <Compile Include="Services\Interfaces\IInvitationMessageBuilder.cs" />
     <Compile Include="Services\Interfaces\IAvatarService.cs" />
     <Compile Include="Services\Interfaces\IConfigService.cs" />
-    <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\Interfaces\IInvitationCodeCreator.cs" />
     <Compile Include="Services\Interfaces\IInvitationSender.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
@@ -227,6 +226,13 @@
     <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormResult.cs" />
+    <Compile Include="UseCases\Login\ILoginInteractor.cs" />
+    <Compile Include="UseCases\Login\LoginInteractor.cs" />
+    <Compile Include="UseCases\Login\LoginRequest.cs" />
+    <Compile Include="UseCases\Login\LoginResult.cs" />
+    <Compile Include="UseCases\Logout\ILogoutInteractor.cs" />
+    <Compile Include="UseCases\Logout\LogoutInteractor.cs" />
+    <Compile Include="UseCases\Logout\LogoutResult.cs" />
     <Compile Include="UseCases\PlayerBadges\IPlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesRequest.cs" />

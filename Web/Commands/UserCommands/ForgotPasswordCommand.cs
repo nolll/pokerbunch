@@ -10,7 +10,6 @@ namespace Web.Commands.UserCommands
         private readonly IUserRepository _userRepository;
         private readonly IPasswordGenerator _passwordGenerator;
         private readonly ISaltGenerator _saltGenerator;
-        private readonly IEncryptionService _encryptionService;
         private readonly IPasswordSender _passwordSender;
         private readonly IUserModelMapper _userModelMapper;
         private readonly ForgotPasswordPostModel _postModel;
@@ -19,7 +18,6 @@ namespace Web.Commands.UserCommands
             IUserRepository userRepository,
             IPasswordGenerator passwordGenerator,
             ISaltGenerator saltGenerator,
-            IEncryptionService encryptionService,
             IPasswordSender passwordSender,
             IUserModelMapper userModelMapper,
             ForgotPasswordPostModel postModel)
@@ -27,7 +25,6 @@ namespace Web.Commands.UserCommands
             _userRepository = userRepository;
             _passwordGenerator = passwordGenerator;
             _saltGenerator = saltGenerator;
-            _encryptionService = encryptionService;
             _passwordSender = passwordSender;
             _userModelMapper = userModelMapper;
             _postModel = postModel;
@@ -46,7 +43,7 @@ namespace Web.Commands.UserCommands
             }
             var password = _passwordGenerator.CreatePassword();
             var salt = _saltGenerator.CreateSalt();
-            var encryptedPassword = _encryptionService.Encrypt(password, salt);
+            var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var changedUser = _userModelMapper.GetUser(user, encryptedPassword, salt);
             _userRepository.Save(changedUser);
             _passwordSender.Send(changedUser, password);

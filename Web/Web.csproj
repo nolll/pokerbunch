@@ -91,10 +91,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="Commands\AdminCommands\AdminCommandProvider.cs" />
-    <Compile Include="Commands\AuthCommands\LogoutCommand.cs" />
-    <Compile Include="Commands\AuthCommands\LoginCommand.cs" />
-    <Compile Include="Commands\AuthCommands\IAuthCommandProvider.cs" />
-    <Compile Include="Commands\AuthCommands\AuthCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />

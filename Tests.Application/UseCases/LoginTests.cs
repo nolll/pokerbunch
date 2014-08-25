@@ -1,0 +1,231 @@
+﻿using System.Collections.Generic;
+using Application.Services;
+using Application.Urls;
+using Application.UseCases.Login;
+using Core.Entities;
+using Core.Repositories;
+using Moq;
+using NUnit.Framework;
+using Tests.Common;
+using Tests.Common.FakeClasses;
+
+namespace Tests.Application.UseCases
+{
+    class LoginTests : MockContainer
+    {
+        private const string LoginName = "a";
+        private const string Password = "b";
+        private const string UserName = "c";
+        private const string UserDisplayName = "d";
+        private const string Slug = "e";
+        private const string PlayerDisplayName = "f";
+        private const string ReturnUrl = "g";
+        private const string EncryptedPassword = "e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98";
+        private const int UserId = 1;
+        private const int PlayerId = 2;
+
+        [Test]
+        public void Login_ReturnUrlIsSet()
+        {
+            var result = Sut.Execute(CreateRequest());
+
+            Assert.AreEqual(ReturnUrl, result.ReturnUrl.Relative);
+        }
+
+        [Test]
+        public void Login_UserNotFound_SuccessIsFalse()
+        {
+            var result = Sut.Execute(CreateRequest());
+
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual(1, result.Errors.Count);
+        }
+
+        [Test]
+        public void Login_UserFoundButPasswordIsWrong_SuccessIsFalse()
+        {
+            SetupUserWithWrongPassword();
+
+            var result = Sut.Execute(CreateRequest());
+
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual(1, result.Errors.Count);
+        }
+
+        [Test]
+        public void Login_UserFoundAndPasswordIsCorrect_SuccessIsTrue()
+        {
+            SetupUserWithCorrectPassword();
+
+            var result = Sut.Execute(CreateRequest());
+
+            Assert.IsTrue(result.Success);
+        }
+
+        [Test]
+        public void Login_UserFoundAndPasswordIsCorrect_UserIsSignedIn()
+        {
+            SetupUserWithCorrectPassword();
+
+            Sut.Execute(CreateRequest());
+
+            GetMock<IAuth>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>()));
+        }
+
+        [Test]
+        public void Login_UserFoundAndPasswordIsCorrect_UserIdentityHasUserProperties()
+        {
+            SetupUserWithCorrectPassword();
+            UserIdentity result = null;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
+
+            Sut.Execute(CreateRequest());
+
+            Assert.AreEqual(UserId, result.UserId);
+            Assert.AreEqual(UserName, result.UserName);
+            Assert.AreEqual(UserDisplayName, result.DisplayName);
+            Assert.IsFalse(result.IsAdmin);
+            Assert.AreEqual(0, result.Bunches.Count);
+        }
+
+        [Test]
+        public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToABunch_UserIdentityBunchesPropertiesAreCorrect()
+        {
+            var user = SetupUserWithCorrectPassword();
+            var homegame = new HomegameInTest(slug: Slug);
+            var homegameList = new List<Homegame>{homegame};
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+
+            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(It.IsAny<Homegame>(), It.IsAny<User>())).Returns(Role.Player);
+
+            var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), UserName)).Returns(player);
+
+            UserIdentity result = null;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
+
+            Sut.Execute(CreateRequest());
+
+            Assert.AreEqual(1, result.Bunches.Count);
+            Assert.AreEqual(Slug, result.Bunches[0].Slug);
+            Assert.AreEqual(Role.Player, result.Bunches[0].Role);
+            Assert.AreEqual(PlayerDisplayName, result.Bunches[0].Name);
+            Assert.AreEqual(PlayerId, result.Bunches[0].Id);
+        }
+
+        [Test]
+        public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToTwoBunch_UserIdentityBunchesLengthIsCorrect()
+        {
+            var user = SetupUserWithCorrectPassword();
+            var homegame = new HomegameInTest(slug: Slug);
+            var homegameList = new List<Homegame> { homegame, homegame };
+            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+
+            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(It.IsAny<Homegame>(), It.IsAny<User>())).Returns(Role.Player);
+
+            var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), UserName)).Returns(player);
+
+            UserIdentity result = null;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
+
+            Sut.Execute(CreateRequest());
+
+            Assert.AreEqual(2, result.Bunches.Count);
+        }
+
+        [Test]
+        public void Login_AdminUser_UserIdentityIsAdminIsTrue()
+        {
+            SetupAdminUserWithCorrectPassword();
+            UserIdentity result = null;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
+
+            Sut.Execute(CreateRequest());
+
+            Assert.IsTrue(result.IsAdmin);
+        }
+
+        [Test]
+        public void Login_RememberMeIsFalse_SignInDoesntSavePersistentCookie()
+        {
+            SetupUserWithCorrectPassword();
+            var result = false;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
+
+            Sut.Execute(CreateRequest());
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Login_RememberMeIsTrue_SignInSavesPersistentCookie()
+        {
+            SetupUserWithCorrectPassword();
+            var result = false;
+
+            GetMock<IAuth>().
+                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
+                Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
+
+            Sut.Execute(CreateRequest(true));
+
+            Assert.IsTrue(result);
+        }
+        
+        private void SetupUserWithWrongPassword()
+        {
+            var user = new UserInTest();
+            SetupUser(user);
+        }
+
+        private User SetupUserWithCorrectPassword(Role role = Role.Player)
+        {
+            var user = new UserInTest(UserId, UserName, UserDisplayName, encryptedPassword: EncryptedPassword, globalRole: role);
+            SetupUser(user);
+            return user;
+        }
+
+        private void SetupAdminUserWithCorrectPassword()
+        {
+            SetupUserWithCorrectPassword(Role.Admin);
+        }
+
+        private void SetupUser(User user)
+        {
+            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(LoginName)).Returns(user);
+        }
+
+        private static LoginRequest CreateRequest(bool rememberMe = false)
+        {
+            return new LoginRequest(LoginName, Password, rememberMe, ReturnUrl);
+        }
+
+        private LoginInteractor Sut
+        {
+            get
+            {
+                return new LoginInteractor(
+                    GetMock<IUserRepository>().Object,
+                    GetMock<IAuth>().Object,
+                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IPlayerRepository>().Object);
+            }
+        }
+    }
+}

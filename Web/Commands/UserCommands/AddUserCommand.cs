@@ -12,7 +12,6 @@ namespace Web.Commands.UserCommands
         private readonly IUserRepository _userRepository;
         private readonly IPasswordGenerator _passwordGenerator;
         private readonly ISaltGenerator _saltGenerator;
-        private readonly IEncryptionService _encryptionService;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
         private readonly AddUserPostModel _postModel;
 
@@ -22,7 +21,6 @@ namespace Web.Commands.UserCommands
             IUserRepository userRepository,
             IPasswordGenerator passwordGenerator,
             ISaltGenerator saltGenerator,
-            IEncryptionService encryptionService,
             IRegistrationConfirmationSender registrationConfirmationSender,
             AddUserPostModel postModel)
         {
@@ -31,7 +29,6 @@ namespace Web.Commands.UserCommands
             _userRepository = userRepository;
             _passwordGenerator = passwordGenerator;
             _saltGenerator = saltGenerator;
-            _encryptionService = encryptionService;
             _registrationConfirmationSender = registrationConfirmationSender;
             _postModel = postModel;
         }
@@ -53,7 +50,7 @@ namespace Web.Commands.UserCommands
             }
             var password = _passwordGenerator.CreatePassword();
             var salt = _saltGenerator.CreateSalt();
-            var encryptedPassword = _encryptionService.Encrypt(password, salt);
+            var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var user = _userModelMapper.GetUser(_postModel, encryptedPassword, salt);
             _userRepository.Add(user);
             _registrationConfirmationSender.Send(user, password);

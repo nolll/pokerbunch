@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Application.Urls;
 using Application.UseCases.AppContext;
+using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
-using Web.Commands.AuthCommands;
+using Application.UseCases.Logout;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers
@@ -11,16 +11,19 @@ namespace Web.Controllers
     {
         private readonly IAppContextInteractor _appContextInteractor;
         private readonly ILoginFormInteractor _loginFormInteractor;
-        private readonly IAuthCommandProvider _authCommandProvider;
+        private readonly ILoginInteractor _loginInteractor;
+        private readonly ILogoutInteractor _logoutInteractor;
 
         public AuthController(
             IAppContextInteractor appContextInteractor,
             ILoginFormInteractor loginFormInteractor,
-            IAuthCommandProvider authCommandProvider)
+            ILoginInteractor loginInteractor,
+            ILogoutInteractor logoutInteractor)
         {
             _appContextInteractor = appContextInteractor;
             _loginFormInteractor = loginFormInteractor;
-            _authCommandProvider = authCommandProvider;
+            _loginInteractor = loginInteractor;
+            _logoutInteractor = logoutInteractor;
         }
 
         public ActionResult Login(string returnUrl = null)
@@ -32,12 +35,13 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginPostModel postModel)
         {
-            var command = _authCommandProvider.GetLoginCommand(postModel);
-            if (command.Execute())
-            {
-                return Redirect(postModel.ReturnUrl);
-            }
-            AddModelErrors(command.Errors);
+            var request = new LoginRequest(postModel.LoginName, postModel.Password, postModel.RememberMe, postModel.ReturnUrl);
+            var result = _loginInteractor.Execute(request);
+
+            if(result.Success)
+                return Redirect(result.ReturnUrl.Relative);
+            
+            AddModelErrors(result.Errors);
             var model = BuildLoginModel(postModel);
             return View("Login", model);
         }
@@ -56,9 +60,8 @@ namespace Web.Controllers
 
         public ActionResult Logout()
         {
-            var command = _authCommandProvider.GetLogoutCommand();
-            command.Execute();
-            return Redirect(new HomeUrl().Relative);
+            var result = _logoutInteractor.Execute();
+            return Redirect(result.ReturnUrl.Relative);
         }
     }
 }

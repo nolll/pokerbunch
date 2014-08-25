@@ -9,7 +9,6 @@ namespace Web.Commands.UserCommands
     public class ChangePasswordCommand : Command
     {
         private readonly ISaltGenerator _saltGenerator;
-        private readonly IEncryptionService _encryptionService;
         private readonly IUserRepository _userRepository;
         private readonly IUserModelMapper _userModelMapper;
         private readonly User _user;
@@ -17,14 +16,12 @@ namespace Web.Commands.UserCommands
 
         public ChangePasswordCommand(
             ISaltGenerator saltGenerator,
-            IEncryptionService encryptionService,
             IUserRepository userRepository,
             IUserModelMapper userModelMapper,
             User user, 
             ChangePasswordPostModel postModel)
         {
             _saltGenerator = saltGenerator;
-            _encryptionService = encryptionService;
             _userRepository = userRepository;
             _userModelMapper = userModelMapper;
             _user = user;
@@ -43,7 +40,7 @@ namespace Web.Commands.UserCommands
                 return false;
             }
             var salt = _saltGenerator.CreateSalt();
-            var encryptedPassword = _encryptionService.Encrypt(_postModel.Password, salt);
+            var encryptedPassword = EncryptionService.Encrypt(_postModel.Password, salt);
             var user = _userModelMapper.GetUser(_user, encryptedPassword, salt);
             _userRepository.Save(user);
             return true;

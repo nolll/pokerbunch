@@ -4,19 +4,19 @@ using System.Text;
 
 namespace Application.Services
 {
-    public class EncryptionService : IEncryptionService
+    public static class EncryptionService
     {
-		public string Encrypt(string str, string salt)
+		public static string Encrypt(string str, string salt)
 		{
             return GetSha1Hash(str + salt);
 		}
 
-        public string GetSha1Hash(string input)
+        public static string GetSha1Hash(string input)
         {
             return string.Join("", SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(input)).Select(x => x.ToString("X2"))).ToLower();
         }
 
-        public string GetMd5Hash(string input)
+        public static string GetMd5Hash(string input)
         {
             var sb = new StringBuilder();
             using (var md5 = MD5.Create())

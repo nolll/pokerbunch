@@ -13,7 +13,9 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
+using Application.UseCases.Logout;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
@@ -107,7 +109,6 @@ namespace Plumbing
             RegisterComponent<IUserDataMapper, UserDataMapper>();
 
             // Services
-            RegisterComponent<IEncryptionService, EncryptionService>();
             RegisterComponent<IAvatarService, GravatarService>();
             RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>();
             RegisterComponent<IInvitationSender, InvitationSender>();
@@ -148,6 +149,8 @@ namespace Plumbing
             RegisterComponent<IBuyinFormInteractor, BuyinFormInteractor>();
             RegisterComponent<IBuyinInteractor, BuyinInteractor>();
             RegisterComponent<ILoginFormInteractor, LoginFormInteractor>();
+            RegisterComponent<ILoginInteractor, LoginInteractor>();
+            RegisterComponent<ILogoutInteractor, LogoutInteractor>();
         }
     }
 }

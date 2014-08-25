@@ -13,7 +13,6 @@ namespace Web.Commands.UserCommands
         private readonly IUserRepository _userRepository;
         private readonly IPasswordGenerator _passwordGenerator;
         private readonly ISaltGenerator _saltGenerator;
-        private readonly IEncryptionService _encryptionService;
         private readonly IPasswordSender _passwordSender;
         private readonly IUserModelMapper _userModelMapper;
         private readonly IUserService _userService;
@@ -24,7 +23,6 @@ namespace Web.Commands.UserCommands
             IUserRepository userRepository,
             IPasswordGenerator passwordGenerator,
             ISaltGenerator saltGenerator,
-            IEncryptionService encryptionService,
             IPasswordSender passwordSender,
             IUserModelMapper userModelMapper,
             IUserService userService,
@@ -34,7 +32,6 @@ namespace Web.Commands.UserCommands
             _userRepository = userRepository;
             _passwordGenerator = passwordGenerator;
             _saltGenerator = saltGenerator;
-            _encryptionService = encryptionService;
             _passwordSender = passwordSender;
             _userModelMapper = userModelMapper;
             _userService = userService;
@@ -48,7 +45,6 @@ namespace Web.Commands.UserCommands
                 _userRepository,
                 _passwordGenerator,
                 _saltGenerator,
-                _encryptionService,
                 _passwordSender,
                 _userModelMapper,
                 postModel);
@@ -60,7 +56,6 @@ namespace Web.Commands.UserCommands
 
             return new ChangePasswordCommand(
                 _saltGenerator,
-                _encryptionService,
                 _userRepository,
                 _userModelMapper,
                 user, 
@@ -86,7 +81,6 @@ namespace Web.Commands.UserCommands
                 _userRepository,
                 _passwordGenerator,
                 _saltGenerator,
-                _encryptionService,
                 _registrationConfirmationSender,
                 postModel);
         }
