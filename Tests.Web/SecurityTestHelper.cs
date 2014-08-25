@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Web.Security;
 using Web.Security.Attributes;
 
 namespace Tests.Web

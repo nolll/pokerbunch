@@ -4,8 +4,6 @@ using Application.Factories;
 using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Infrastructure.Data.Factories;
-using Infrastructure.Data.Mappers;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

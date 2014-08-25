@@ -3,7 +3,6 @@ using Application.Services;
 using Application.UseCases.CashgameContext;
 using Core.Repositories;
 using Web.Models.CashgameModels.List;
-using Web.Models.NavigationModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {

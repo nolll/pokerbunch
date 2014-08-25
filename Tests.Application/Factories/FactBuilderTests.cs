@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Application.UseCases.CashgameFacts;
 using Core.Entities;
-using Core.Factories;
 using Core.Factories.Interfaces;
 using Moq;
 using NUnit.Framework;

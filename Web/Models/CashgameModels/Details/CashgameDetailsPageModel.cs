@@ -1,7 +1,6 @@
 using Application.Services;
 using Application.UseCases.BunchContext;
 using Application.UseCases.CashgameDetails;
-using Core.Entities;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Details

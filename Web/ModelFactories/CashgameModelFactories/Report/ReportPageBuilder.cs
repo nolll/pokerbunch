@@ -1,6 +1,5 @@
 using Application.UseCases.BunchContext;
 using Web.Models.CashgameModels.Report;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Report
 {

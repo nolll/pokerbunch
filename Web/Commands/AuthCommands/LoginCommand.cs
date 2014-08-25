@@ -3,7 +3,6 @@ using Application.Services;
 using Core.Entities;
 using Core.Repositories;
 using Web.Models.AuthModels;
-using Web.Security;
 
 namespace Web.Commands.AuthCommands
 {

@@ -35,8 +35,7 @@ namespace Web.Controllers
             var command = _authCommandProvider.GetLoginCommand(postModel);
             if (command.Execute())
             {
-                var returnUrl = string.IsNullOrEmpty(postModel.ReturnUrl) ? new HomeUrl().Relative : postModel.ReturnUrl;
-                return Redirect(returnUrl);
+                return Redirect(postModel.ReturnUrl);
             }
             AddModelErrors(command.Errors);
             var model = BuildLoginModel(postModel);

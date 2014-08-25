@@ -4,7 +4,6 @@ using Application.UseCases.BunchContext;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Web.Models.CashgameModels.Checkpoints;
-using Web.Models.PageBaseModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
