@@ -213,10 +213,10 @@
     <Compile Include="UseCases\CashgameFacts\FactBuilder.cs" />
     <Compile Include="UseCases\CashgameFacts\ICashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\PlayerFact.cs" />
-    <Compile Include="UseCases\CashgameOptions\CashgameOptionsInteractor.cs" />
-    <Compile Include="UseCases\CashgameOptions\CashgameOptionsRequest.cs" />
-    <Compile Include="UseCases\CashgameOptions\CashgameOptionsResult.cs" />
-    <Compile Include="UseCases\CashgameOptions\ICashgameOptionsInteractor.cs" />
+    <Compile Include="UseCases\AddCashgameForm\CashgameOptionsInteractor.cs" />
+    <Compile Include="UseCases\AddCashgameForm\CashgameOptionsRequest.cs" />
+    <Compile Include="UseCases\AddCashgameForm\CashgameOptionsResult.cs" />
+    <Compile Include="UseCases\AddCashgameForm\ICashgameOptionsInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />

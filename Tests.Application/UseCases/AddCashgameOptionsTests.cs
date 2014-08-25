@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.Exceptions;
-using Application.UseCases.CashgameOptions;
+using Application.UseCases.AddCashgameForm;
 using Core.Entities;
 using Core.Repositories;
 using Moq;
