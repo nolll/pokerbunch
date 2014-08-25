@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using Application.Urls;
 
-namespace Application.UseCases.AddCashgame
+namespace Application.UseCases.Buyin
 {
-    public class AddCashgameResult
+    public class BuyinResult
     {
         public bool Success { get; private set; }
         public IEnumerable<string> Errors { get; private set; }
         public Url ReturnUrl { get; private set; }
 
-        public AddCashgameResult(string slug, Validator validator)
+        public BuyinResult(string slug, Validator validator)
         {
             Success = validator.IsValid;
             Errors = validator.Errors;

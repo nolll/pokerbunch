@@ -60,13 +60,14 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(7, result.Items[0].WinRate.Amount);
         }
 
-        [Test]
-        public void TopList_SortByWinnings_HighestWinningsIsFirst()
+        [TestCase("winnings")]
+        [TestCase(null)]
+        public void TopList_SortByWinnings_HighestWinningsIsFirst(string orderBy)
         {
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "winnings", 1);
+            var request = new TopListRequest("a", orderBy, 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithWinnings(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithWinnings(high).Build();

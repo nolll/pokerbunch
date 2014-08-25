@@ -56,7 +56,6 @@
     <Compile Include="CommandTests\AdminTests\EmailTestCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LoginCommandTests.cs" />
     <Compile Include="CommandTests\AuthCommands\LogoutCommandTests.cs" />
-    <Compile Include="CommandTests\CashgameCommands\BuyinCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashgameCommandProviderTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\CashoutCommandTests.cs" />
     <Compile Include="CommandTests\CashgameCommands\DeleteCheckpointCommandTests.cs" />

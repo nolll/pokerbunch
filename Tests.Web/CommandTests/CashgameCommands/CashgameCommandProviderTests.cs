@@ -33,15 +33,6 @@ namespace Tests.Web.CommandTests.CashgameCommands
         }
 
         [Test]
-        public void GetBuyinCommand_ReturnsBuyinCommand()
-        {
-            var sut = GetSut();
-            var result = sut.GetBuyinCommand(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<BuyinPostModel>());
-
-            Assert.IsInstanceOf<BuyinCommand>(result);
-        }
-
-        [Test]
         public void GetReportCommand_ReturnsReportCommand()
         {
             var sut = GetSut();

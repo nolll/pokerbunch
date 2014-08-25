@@ -1,6 +1,5 @@
 using Core.Repositories;
 using Web.ModelMappers;
-using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
@@ -43,14 +42,6 @@ namespace Web.Commands.CashgameCommands
         public Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel)
         {
             return new EditCashgameCommand(_homegameRepository, _cashgameRepository, _cashgameModelMapper, slug, dateStr, postModel);
-        }
-
-        public Command GetBuyinCommand(string slug, int playerId, BuyinPostModel postModel)
-        {
-            var homegame = _homegameRepository.GetBySlug(slug);
-            var player = _playerRepository.GetById(playerId);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
-            return new BuyinCommand(_checkpointModelMapper, _checkpointRepository, _cashgameRepository, player, runningGame, postModel);
         }
 
         public Command GetReportCommand(string slug, int playerId, ReportPostModel postModel)

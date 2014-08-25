@@ -64,10 +64,10 @@
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinFormTests.cs" />
+    <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
-    <Compile Include="UseCases\CashgameTopListTests.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\PlayerBadgesTests.cs" />
     <Compile Include="UseCases\PlayerDetailsTests.cs" />

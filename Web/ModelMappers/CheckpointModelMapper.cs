@@ -48,15 +48,5 @@ namespace Web.ModelMappers
                 CheckpointType.Report,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0);
         }
-
-        public Checkpoint GetCheckpoint(BuyinPostModel postModel)
-        {
-            return _checkpointFactory.Create(
-                _timeProvider.GetTime(),
-                CheckpointType.Buyin,
-                postModel.StackAmount + postModel.BuyinAmount,
-                postModel.BuyinAmount);
-        }
-
     }
 }

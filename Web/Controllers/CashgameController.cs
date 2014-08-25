@@ -3,6 +3,7 @@ using Application.Urls;
 using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.BunchContext;
+using Application.UseCases.Buyin;
 using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
@@ -60,6 +61,7 @@ namespace Web.Controllers
 	    private readonly IActionsInteractor _actionsInteractor;
 	    private readonly ICashgameDetailsInteractor _cashgameDetailsInteractor;
 	    private readonly IBuyinFormInteractor _buyinFormInteractor;
+	    private readonly IBuyinInteractor _buyinInteractor;
 
 	    public CashgameController(
             IBunchContextInteractor bunchContextInteractor,
@@ -83,7 +85,8 @@ namespace Web.Controllers
             ICashgameFactsInteractor cashgameFactsInteractor,
             IActionsInteractor actionsInteractor,
             ICashgameDetailsInteractor cashgameDetailsInteractor,
-            IBuyinFormInteractor buyinFormInteractor)
+            IBuyinFormInteractor buyinFormInteractor,
+            IBuyinInteractor buyinInteractor)
 	    {
 	        _bunchContextInteractor = bunchContextInteractor;
 	        _cashgameOptionsInteractor = cashgameOptionsInteractor;
@@ -107,6 +110,7 @@ namespace Web.Controllers
 	        _actionsInteractor = actionsInteractor;
 	        _cashgameDetailsInteractor = cashgameDetailsInteractor;
 	        _buyinFormInteractor = buyinFormInteractor;
+	        _buyinInteractor = buyinInteractor;
 	    }
 
         [AuthorizePlayer]
@@ -180,7 +184,7 @@ namespace Web.Controllers
             var request = new AddCashgameRequest(slug, postModel.Location);
             var result = _addCashgameInteractor.Execute(request);
             
-            if (result.CreatedGame)
+            if (result.Success)
                 return Redirect(result.ReturnUrl.Relative);
 
             AddModelErrors(result.Errors);
@@ -274,12 +278,13 @@ namespace Web.Controllers
         [AuthorizeOwnPlayer]
         public ActionResult Buyin(string slug, int playerId, BuyinPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetBuyinCommand(slug, playerId, postModel);
-            if (command.Execute())
-            {
-                return Redirect(new RunningCashgameUrl(slug).Relative);
-            }
-            AddModelErrors(command.Errors);
+            var request = new BuyinRequest(slug, playerId, postModel.BuyinAmount, postModel.StackAmount);
+            var result = _buyinInteractor.Execute(request);
+
+            if (result.Success)
+                return Redirect(result.ReturnUrl.Relative);
+
+            AddModelErrors(result.Errors);
             var model = BuildBuyinModel(slug, playerId, postModel);
             return View("Buyin/Buyin", model);
 		}

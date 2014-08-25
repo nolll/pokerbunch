@@ -8,16 +8,16 @@ namespace Application.UseCases.CashgameTopList
         public ToplistSortOrder OrderBy { get; private set; }
         public int? Year { get; private set; }
 
-        public TopListRequest(string slug, ToplistSortOrder orderBy, int? year)
+        public TopListRequest(string slug, string orderBy, int? year)
+            : this(slug, ParseToplistSortOrder(orderBy), year)
+        {
+        }
+
+        private TopListRequest(string slug, ToplistSortOrder orderBy, int? year)
         {
             Slug = slug;
             OrderBy = orderBy;
             Year = year;
-        }
-
-        public TopListRequest(string slug, string orderBy, int? year)
-            : this(slug, ParseToplistSortOrder(orderBy), year)
-        {
         }
 
         private static ToplistSortOrder ParseToplistSortOrder(string s)

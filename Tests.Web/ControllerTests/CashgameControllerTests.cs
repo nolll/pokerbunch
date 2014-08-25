@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.BunchContext;
+using Application.UseCases.Buyin;
 using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
@@ -72,7 +73,8 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameFactsInteractor>().Object,
                 GetMock<IActionsInteractor>().Object,
                 GetMock<ICashgameDetailsInteractor>().Object,
-                GetMock<IBuyinFormInteractor>().Object);
+                GetMock<IBuyinFormInteractor>().Object,
+                GetMock<IBuyinInteractor>().Object);
         }
 	}
 }

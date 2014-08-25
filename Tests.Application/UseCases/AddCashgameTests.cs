@@ -32,7 +32,7 @@ namespace Tests.Application.UseCases
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.IsTrue(result.CreatedGame);
+            Assert.IsTrue(result.Success);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Tests.Application.UseCases
             var request = CreateRequestWithoutLocation();
             var result = Sut.Execute(request);
 
-            Assert.IsFalse(result.CreatedGame);
+            Assert.IsFalse(result.Success);
             Assert.AreEqual(1, result.Errors.Count());
         }
 
