@@ -9,7 +9,6 @@ using Web.Commands.HomegameCommands;
 using Web.Commands.PlayerCommands;
 using Web.Commands.SharingCommands;
 using Web.Commands.UserCommands;
-using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -51,7 +50,6 @@ namespace Web.Plumbing
             // Page Model Factories
             RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
-            RegisterComponent<ILoginPageBuilder, LoginPageBuilder>();
             RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
             RegisterComponent<IAddHomegameConfirmationPageBuilder, AddHomegameConfirmationPageBuilder>();
             RegisterComponent<IReportPageBuilder, ReportPageBuilder>();

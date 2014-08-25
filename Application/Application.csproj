@@ -223,6 +223,10 @@
     <Compile Include="UseCases\CashgameTopList\ITopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\LoginForm\ILoginFormInteractor.cs" />
+    <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
+    <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />
+    <Compile Include="UseCases\LoginForm\LoginFormResult.cs" />
     <Compile Include="UseCases\PlayerBadges\IPlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesRequest.cs" />

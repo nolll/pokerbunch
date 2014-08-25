@@ -1,27 +1,31 @@
 using System.Web.Mvc;
 using Application.Urls;
+using Application.UseCases.AppContext;
+using Application.UseCases.LoginForm;
 using Web.Commands.AuthCommands;
-using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers
 {
     public class AuthController : ControllerBase
     {
-        private readonly ILoginPageBuilder _loginPageBuilder;
+        private readonly IAppContextInteractor _appContextInteractor;
+        private readonly ILoginFormInteractor _loginFormInteractor;
         private readonly IAuthCommandProvider _authCommandProvider;
 
         public AuthController(
-            ILoginPageBuilder loginPageBuilder,
+            IAppContextInteractor appContextInteractor,
+            ILoginFormInteractor loginFormInteractor,
             IAuthCommandProvider authCommandProvider)
         {
-            _loginPageBuilder = loginPageBuilder;
+            _appContextInteractor = appContextInteractor;
+            _loginFormInteractor = loginFormInteractor;
             _authCommandProvider = authCommandProvider;
         }
 
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = null)
         {
-            var model = _loginPageBuilder.Build();
+            var model = BuildLoginModel(returnUrl);
             return View("Login", model);
         }
 
@@ -35,8 +39,20 @@ namespace Web.Controllers
                 return Redirect(returnUrl);
             }
             AddModelErrors(command.Errors);
-            var model = _loginPageBuilder.Build(postModel);
+            var model = BuildLoginModel(postModel);
             return View("Login", model);
+        }
+
+        private LoginPageModel BuildLoginModel(string returnUrl, LoginPostModel postModel = null)
+        {
+            var contextResult = _appContextInteractor.Execute();
+            var loginFormResult = _loginFormInteractor.Execute(new LoginFormRequest(returnUrl));
+            return new LoginPageModel(contextResult, loginFormResult, postModel);
+        }
+
+        private LoginPageModel BuildLoginModel(LoginPostModel postModel)
+        {
+            return BuildLoginModel(postModel.ReturnUrl, postModel);
         }
 
         public ActionResult Logout()

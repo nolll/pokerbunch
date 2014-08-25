@@ -1,33 +1,19 @@
 using System.Web.Mvc;
 using Application.Urls;
+using Application.UseCases.AppContext;
+using Application.UseCases.LoginForm;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
-using Tests.Common.FakeModels;
 using Web.Commands.AuthCommands;
 using Web.Controllers;
-using Web.ModelFactories.AuthModelFactories;
 using Web.Models.AuthModels;
 
 namespace Tests.Web.ControllerTests
 {
     public class AuthControllerTests : MockContainer
     {
-        [Test]
-        public void Login_ReturnsCorrectViewAndModel()
-        {
-            var model = new LoginPageModelInTest();
-            GetMock<ILoginPageBuilder>().Setup(o => o.Build(null)).Returns(model);
-
-            var sut = GetSut();
-            var result = sut.Login() as ViewResult;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(model, result.Model);
-            Assert.AreEqual("Login", result.ViewName);
-        }
-
         [Test]
         public void LoginPost_LoginSucceededButNoReturnUrl_RedirectsToRoot()
         {
@@ -61,22 +47,6 @@ namespace Tests.Web.ControllerTests
         }
 
         [Test]
-        public void LoginPost_UserNotFound_ShowsForm()
-        {
-            var command = new FailedCommandInTest();
-            GetMock<IAuthCommandProvider>().Setup(o => o.GetLoginCommand(It.IsAny<LoginPostModel>())).Returns(command);
-
-            var loginPostModel = new LoginPostModel();
-            GetMock<ILoginPageBuilder>().Setup(o => o.Build(loginPostModel)).Returns(new LoginPageModelInTest());
-
-            var sut = GetSut();
-            var result = sut.Login(loginPostModel) as ViewResult;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Login", result.ViewName);
-        }
-
-        [Test]
         public void Logout_RedirectsToHome()
         {
             var homeUrl = new HomeUrl();
@@ -95,7 +65,8 @@ namespace Tests.Web.ControllerTests
         private AuthController GetSut()
         {
             return new AuthController(
-                GetMock<ILoginPageBuilder>().Object,
+                GetMock<IAppContextInteractor>().Object,
+                GetMock<ILoginFormInteractor>().Object,
                 GetMock<IAuthCommandProvider>().Object);
         }
     }

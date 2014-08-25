@@ -13,6 +13,7 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.LoginForm;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
@@ -146,6 +147,7 @@ namespace Plumbing
             RegisterComponent<IAddCashgameInteractor, AddCashgameInteractor>();
             RegisterComponent<IBuyinFormInteractor, BuyinFormInteractor>();
             RegisterComponent<IBuyinInteractor, BuyinInteractor>();
+            RegisterComponent<ILoginFormInteractor, LoginFormInteractor>();
         }
     }
 }

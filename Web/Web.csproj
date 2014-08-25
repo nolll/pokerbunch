@@ -238,11 +238,9 @@
     <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
     <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
-    <Compile Include="ModelFactories\AuthModelFactories\LoginPageBuilder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelFactories\AuthModelFactories\ILoginPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IAddHomegamePageBuilder.cs" />

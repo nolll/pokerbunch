@@ -22,7 +22,7 @@ namespace Web.Models.PageBaseModels
         {
             if (bunchContextResult != null && bunchContextResult.HasBunch)
                 return new HomegameNavigationModel(bunchContextResult);
-            return null;
+            return HomegameNavigationModel.Empty;
         }
     }
 }

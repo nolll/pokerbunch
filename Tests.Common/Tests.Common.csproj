@@ -57,7 +57,6 @@
     <Compile Include="FakeClasses\TopListResultInTest.cs" />
     <Compile Include="FakeInteractors\CashgameContextInteractorInTest.cs" />
     <Compile Include="FakeInteractors\TopListInteractorInTest.cs" />
-    <Compile Include="FakeModels\LoginPageModelInTest.cs" />
     <Compile Include="FakeClasses\TwitterCredentialsInTest.cs" />
     <Compile Include="FakeClasses\MoneyInTest.cs" />
     <Compile Include="FakeClasses\TimeInTest.cs" />
