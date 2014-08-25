@@ -3,6 +3,7 @@ using Application.Urls;
 using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.BunchContext;
+using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
@@ -10,7 +11,6 @@ using Application.UseCases.CashgameOptions;
 using Application.UseCases.CashgameTopList;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
@@ -50,7 +50,6 @@ namespace Web.Controllers
 	    private readonly ICashgameChartPageBuilder _cashgameChartPageBuilder;
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
-	    private readonly IBuyinPageBuilder _buyinPageBuilder;
 	    private readonly IReportPageBuilder _reportPageBuilder;
 	    private readonly ICashoutPageBuilder _cashoutPageBuilder;
 	    private readonly IEndPageBuilder _endPageBuilder;
@@ -60,6 +59,7 @@ namespace Web.Controllers
 	    private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
 	    private readonly IActionsInteractor _actionsInteractor;
 	    private readonly ICashgameDetailsInteractor _cashgameDetailsInteractor;
+	    private readonly IBuyinFormInteractor _buyinFormInteractor;
 
 	    public CashgameController(
             IBunchContextInteractor bunchContextInteractor,
@@ -74,7 +74,6 @@ namespace Web.Controllers
             ICashgameChartPageBuilder cashgameChartPageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
             IActionChartJsonBuilder actionChartJsonBuilder,
-            IBuyinPageBuilder buyinPageBuilder,
             IReportPageBuilder reportPageBuilder,
             ICashoutPageBuilder cashoutPageBuilder,
             IEndPageBuilder endPageBuilder,
@@ -83,7 +82,8 @@ namespace Web.Controllers
             ITopListInteractor topListInteractor,
             ICashgameFactsInteractor cashgameFactsInteractor,
             IActionsInteractor actionsInteractor,
-            ICashgameDetailsInteractor cashgameDetailsInteractor)
+            ICashgameDetailsInteractor cashgameDetailsInteractor,
+            IBuyinFormInteractor buyinFormInteractor)
 	    {
 	        _bunchContextInteractor = bunchContextInteractor;
 	        _cashgameOptionsInteractor = cashgameOptionsInteractor;
@@ -97,7 +97,6 @@ namespace Web.Controllers
 	        _cashgameChartPageBuilder = cashgameChartPageBuilder;
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
-	        _buyinPageBuilder = buyinPageBuilder;
 	        _reportPageBuilder = reportPageBuilder;
 	        _cashoutPageBuilder = cashoutPageBuilder;
 	        _endPageBuilder = endPageBuilder;
@@ -107,6 +106,7 @@ namespace Web.Controllers
 	        _cashgameFactsInteractor = cashgameFactsInteractor;
 	        _actionsInteractor = actionsInteractor;
 	        _cashgameDetailsInteractor = cashgameDetailsInteractor;
+	        _buyinFormInteractor = buyinFormInteractor;
 	    }
 
         [AuthorizePlayer]
@@ -266,7 +266,7 @@ namespace Web.Controllers
         [AuthorizeOwnPlayer]
         public ActionResult Buyin(string slug, int playerId)
         {
-            var model = _buyinPageBuilder.Build(slug, playerId);
+            var model = BuildBuyinModel(slug, playerId);
             return View("Buyin/Buyin", model);
 		}
 
@@ -280,9 +280,16 @@ namespace Web.Controllers
                 return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _buyinPageBuilder.Build(slug, playerId, postModel);
+            var model = BuildBuyinModel(slug, playerId, postModel);
             return View("Buyin/Buyin", model);
 		}
+
+        private BuyinPageModel BuildBuyinModel(string slug, int playerId, BuyinPostModel postModel = null)
+        {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var buyinFormResult = _buyinFormInteractor.Execute(new BuyinFormRequest(slug, playerId));
+            return new BuyinPageModel(contextResult, buyinFormResult, postModel);
+        }
 
         [AuthorizeOwnPlayer]
         public ActionResult Report(string slug, int playerId)

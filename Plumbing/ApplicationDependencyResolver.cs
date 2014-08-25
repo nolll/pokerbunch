@@ -6,6 +6,7 @@ using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Application.UseCases.BunchList;
+using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
@@ -142,6 +143,7 @@ namespace Plumbing
             RegisterComponent<IUserDetailsInteractor, UserDetailsInteractor>();
             RegisterComponent<ICashgameDetailsInteractor, CashgameDetailsInteractor>();
             RegisterComponent<IAddCashgameInteractor, AddCashgameInteractor>();
+            RegisterComponent<IBuyinFormInteractor, BuyinFormInteractor>();
         }
     }
 }

@@ -208,8 +208,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\End\IEndPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Report\IReportPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Report\ReportPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\BuyinPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Buyin\IBuyinPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageBuilder.cs" />

@@ -11,7 +11,6 @@ using Web.Commands.SharingCommands;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.AuthModelFactories;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
@@ -55,7 +54,6 @@ namespace Web.Plumbing
             RegisterComponent<ILoginPageBuilder, LoginPageBuilder>();
             RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
             RegisterComponent<IAddHomegameConfirmationPageBuilder, AddHomegameConfirmationPageBuilder>();
-            RegisterComponent<IBuyinPageBuilder, BuyinPageBuilder>();
             RegisterComponent<IReportPageBuilder, ReportPageBuilder>();
             RegisterComponent<ICashoutPageBuilder, CashoutPageBuilder>();
             RegisterComponent<IEndPageBuilder, EndPageBuilder>();

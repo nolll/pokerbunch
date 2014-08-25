@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.BunchContext;
+using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameOptions;
@@ -12,7 +13,6 @@ using Tests.Common.FakeInteractors;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Buyin;
 using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
@@ -63,7 +63,6 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameChartPageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
                 GetMock<IActionChartJsonBuilder>().Object,
-                GetMock<IBuyinPageBuilder>().Object,
                 GetMock<IReportPageBuilder>().Object,
                 GetMock<ICashoutPageBuilder>().Object,
                 GetMock<IEndPageBuilder>().Object,
@@ -72,7 +71,8 @@ namespace Tests.Web.ControllerTests
                 new TopListInteractorInTest(),
                 GetMock<ICashgameFactsInteractor>().Object,
                 GetMock<IActionsInteractor>().Object,
-                GetMock<ICashgameDetailsInteractor>().Object);
+                GetMock<ICashgameDetailsInteractor>().Object,
+                GetMock<IBuyinFormInteractor>().Object);
         }
 	}
 }

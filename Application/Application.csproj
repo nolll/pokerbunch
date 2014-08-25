@@ -190,6 +190,7 @@
     <Compile Include="UseCases\BuyinForm\BuyinFormInteractor.cs" />
     <Compile Include="UseCases\BuyinForm\BuyinFormRequest.cs" />
     <Compile Include="UseCases\BuyinForm\BuyinFormResult.cs" />
+    <Compile Include="UseCases\BuyinForm\IBuyinFormInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

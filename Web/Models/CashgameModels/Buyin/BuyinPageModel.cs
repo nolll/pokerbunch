@@ -1,18 +1,23 @@
 using Application.UseCases.BunchContext;
+using Application.UseCases.BuyinForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Buyin
 {
     public class BuyinPageModel : BunchPageModel
     {
-        public bool StackFieldEnabled { get; set; }
-        public int BuyinAmount { get; set; }
-        public int StackAmount { get; set; }
+        public bool StackFieldEnabled { get; private set; }
+        public int BuyinAmount { get; private set; }
+        public int StackAmount { get; private set; }
 
-
-        public BuyinPageModel(BunchContextResult contextResult)
+        public BuyinPageModel(BunchContextResult contextResult, BuyinFormResult buyinFormResult, BuyinPostModel postModel = null)
             : base("Buy In", contextResult)
         {
+            StackFieldEnabled = buyinFormResult.CanEnterStack;
+            BuyinAmount = buyinFormResult.BuyinAmount;
+            if (postModel == null) return;
+            BuyinAmount = postModel.BuyinAmount;
+            StackAmount = postModel.StackAmount;
         }
     }
 }
