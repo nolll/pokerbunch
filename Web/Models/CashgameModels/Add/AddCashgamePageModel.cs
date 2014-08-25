@@ -13,10 +13,10 @@ namespace Web.Models.CashgameModels.Add
         public string TypedLocation { get; private set; }
         public string SelectedLocation { get; private set; }
 
-        public AddCashgamePageModel(BunchContextResult contextResult, CashgameOptionsResult optionsResult, AddCashgamePostModel postModel)
+        public AddCashgamePageModel(BunchContextResult contextResult, AddCashgameFormResult formResult, AddCashgamePostModel postModel)
             : base("New Cashgame", contextResult)
         {
-            Locations = GetLocationListItems(optionsResult.Locations);
+            Locations = GetLocationListItems(formResult.Locations);
             if (postModel == null) return;
             TypedLocation = postModel.TypedLocation;
             SelectedLocation = postModel.SelectedLocation;

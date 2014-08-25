@@ -53,7 +53,7 @@ namespace Tests.Web.ControllerTests
         {
             return new CashgameController(
                 GetMock<IBunchContextInteractor>().Object,
-                GetMock<ICashgameOptionsInteractor>().Object,
+                GetMock<IAddCashgameFormInteractor>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<IMatrixPageBuilder>().Object,
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,

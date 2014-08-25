@@ -40,7 +40,7 @@ namespace Web.Controllers
 	public class CashgameController : ControllerBase
     {
 	    private readonly IBunchContextInteractor _bunchContextInteractor;
-	    private readonly ICashgameOptionsInteractor _cashgameOptionsInteractor;
+	    private readonly IAddCashgameFormInteractor _addCashgameFormInteractor;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly IMatrixPageBuilder _matrixPageBuilder;
 	    private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
@@ -65,7 +65,7 @@ namespace Web.Controllers
 
 	    public CashgameController(
             IBunchContextInteractor bunchContextInteractor,
-            ICashgameOptionsInteractor cashgameOptionsInteractor,
+            IAddCashgameFormInteractor addCashgameFormInteractor,
             ICashgameCommandProvider cashgameCommandProvider,
             IMatrixPageBuilder matrixPageBuilder,
             ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder,
@@ -89,7 +89,7 @@ namespace Web.Controllers
             IBuyinInteractor buyinInteractor)
 	    {
 	        _bunchContextInteractor = bunchContextInteractor;
-	        _cashgameOptionsInteractor = cashgameOptionsInteractor;
+	        _addCashgameFormInteractor = addCashgameFormInteractor;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _matrixPageBuilder = matrixPageBuilder;
 	        _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
@@ -195,7 +195,7 @@ namespace Web.Controllers
 	    private AddCashgamePageModel BuildAddModel(string slug, AddCashgamePostModel postModel = null)
 	    {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var optionsResult = _cashgameOptionsInteractor.Execute(new CashgameOptionsRequest(slug));
+            var optionsResult = _addCashgameFormInteractor.Execute(new AddCashgameFormRequest(slug));
             return new AddCashgamePageModel(contextResult, optionsResult, postModel);
 	    }
         

@@ -1,10 +1,10 @@
 ﻿namespace Application.UseCases.AddCashgameForm
 {
-    public class CashgameOptionsRequest
+    public class AddCashgameFormRequest
     {
         public string Slug { private set; get; }
 
-        public CashgameOptionsRequest(string slug)
+        public AddCashgameFormRequest(string slug)
         {
             Slug = slug;
         }

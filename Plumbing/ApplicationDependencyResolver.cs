@@ -137,7 +137,7 @@ namespace Plumbing
             RegisterComponent<ITopListInteractor, TopListInteractor>();
             RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
             RegisterComponent<IActionsInteractor, ActionsInteractor>();
-            RegisterComponent<ICashgameOptionsInteractor, CashgameOptionsInteractor>();
+            RegisterComponent<IAddCashgameFormInteractor, AddCashgameFormInteractor>();
             RegisterComponent<IPlayerDetailsInteractor, PlayerDetailsInteractor>();
             RegisterComponent<IPlayerFactsInteractor, PlayerFactsInteractor>();
             RegisterComponent<IPlayerBadgesInteractor, PlayerBadgesInteractor>();
