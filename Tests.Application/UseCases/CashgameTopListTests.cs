@@ -9,18 +9,9 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
+    //todo: Needs a lot more tests
     class CashgameTopListTests : MockContainer
     {
-        private TopListInteractor _sut;
-
-        [SetUp]
-        public virtual void SetUp()
-        {
-            _sut = new TopListInteractor(
-                GetMock<IHomegameRepository>().Object,
-                GetMock<ICashgameService>().Object);
-        }
-
         [Test]
         public void Execute_WithSlug_ReturnsTopListItems()
         {
@@ -35,9 +26,19 @@ namespace Tests.Application.UseCases
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, null)).Returns(suite);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<TopListResult>(result);
+        }
+
+        private TopListInteractor Sut
+        {
+            get
+            {
+                return new TopListInteractor(
+                    GetMock<IHomegameRepository>().Object,
+                    GetMock<ICashgameService>().Object);
+            }
         }
     }
 }

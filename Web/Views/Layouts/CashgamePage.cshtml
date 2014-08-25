@@ -1,7 +1,8 @@
-﻿@model Web.Models.PageBaseModels.CashgamePageModel
+﻿@using Web.Models.PageBaseModels
+@model CashgamePageModel
 
 @{
-    Layout = "BunchPage.cshtml";
+    Layout = ContextLayout.Bunch;
 }
 
 @RenderBody()

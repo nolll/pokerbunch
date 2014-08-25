@@ -186,6 +186,7 @@
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
     <Compile Include="Models\PageBaseModels\BunchPageModel.cs" />
     <Compile Include="Models\PageBaseModels\CashgamePageModel.cs" />
+    <Compile Include="Models\PageBaseModels\ContextLayout.cs" />
     <Compile Include="Models\PageBaseModels\PageLayout.cs" />
     <Compile Include="Models\PlayerModels\Badges\BadgeModel.cs" />
     <Compile Include="Models\UrlModels\UrlExtensions.cs">

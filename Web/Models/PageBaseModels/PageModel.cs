@@ -20,7 +20,7 @@ namespace Web.Models.PageBaseModels
 
         public virtual string Layout
         {
-            get { return "Page.cshtml"; }
+            get { return ContextLayout.Base; }
         }
     }
 }

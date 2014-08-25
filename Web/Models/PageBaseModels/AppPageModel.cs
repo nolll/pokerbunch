@@ -14,7 +14,7 @@ namespace Web.Models.PageBaseModels
 
         public override string Layout
         {
-            get { return "AppPage.cshtml"; }
+            get { return ContextLayout.App; }
         }
     }
 }

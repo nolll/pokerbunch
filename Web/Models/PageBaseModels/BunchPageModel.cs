@@ -15,7 +15,7 @@ namespace Web.Models.PageBaseModels
 
         public override string Layout
         {
-            get { return "BunchPage.cshtml"; }
+            get { return ContextLayout.Bunch; }
         }
 
         private HomegameNavigationModel GetHomegameNavModel(BunchContextResult bunchContextResult)

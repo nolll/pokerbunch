@@ -1,7 +1,8 @@
-﻿@model Web.Models.PageBaseModels.BunchPageModel
+﻿@using Web.Models.PageBaseModels
+@model BunchPageModel
 
 @{
-    Layout = "AppPage.cshtml";
+    Layout = ContextLayout.App;
 }
 
 @RenderBody()

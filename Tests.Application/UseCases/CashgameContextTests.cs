@@ -11,16 +11,6 @@ namespace Tests.Application.UseCases
 {
     class CashgameContextTests : MockContainer
     {
-        private CashgameContextInteractor _sut;
-
-        [SetUp]
-        public virtual void SetUp()
-        {
-            _sut = new CashgameContextInteractor(
-                GetMock<IBunchContextInteractor>().Object,
-                GetMock<ICashgameRepository>().Object);
-        }
-
         [Test]
         public void Execute_NoRunningGame_GameIsRunningIsFalse()
         {
@@ -34,7 +24,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -50,7 +40,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(cashgameContextRequest);
+            var result = Sut.Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<BunchContextResult>(result.BunchContext);
         }
@@ -68,7 +58,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(year, result.SelectedYear);
         }
@@ -85,7 +75,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsNull(result.SelectedYear);
         }
@@ -103,7 +93,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -122,7 +112,7 @@ namespace Tests.Application.UseCases
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.GameIsRunning);
         }
@@ -139,7 +129,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsEmpty(result.Years);
             Assert.IsNull(result.LatestYear);
@@ -157,7 +147,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(3, result.Years.Count);
             Assert.AreEqual(3, result.LatestYear);
@@ -177,9 +167,19 @@ namespace Tests.Application.UseCases
             GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(selectedPage, result.SelectedPage);
+        }
+
+        private CashgameContextInteractor Sut
+        {
+            get
+            {
+                return new CashgameContextInteractor(
+                    GetMock<IBunchContextInteractor>().Object,
+                    GetMock<ICashgameRepository>().Object);
+            }
         }
     }
 }

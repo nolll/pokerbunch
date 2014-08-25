@@ -22,7 +22,7 @@ namespace Web.Models.PageBaseModels
 
         public override string Layout
         {
-            get { return "CashgamePage.cshtml"; }
+            get { return ContextLayout.Cashgame; }
         }
     }
 }

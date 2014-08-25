@@ -12,17 +12,6 @@ namespace Tests.Application.UseCases
 {
     class PlayerListTests : MockContainer
     {
-        private PlayerListInteractor _sut;
-
-        [SetUp]
-        public virtual void SetUp()
-        {
-            _sut = new PlayerListInteractor(
-                GetMock<IHomegameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
-                GetMock<IAuth>().Object);
-        }
-
         [Test]
         public void Execute_WithSlug_SlugAndPlayersAreSet()
         {
@@ -38,7 +27,7 @@ namespace Tests.Application.UseCases
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(slug, result.Slug);
             Assert.AreEqual(1, result.Players.Count);
@@ -63,7 +52,7 @@ namespace Tests.Application.UseCases
             GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Homegame>())).Returns(players);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(playerName2, result.Players[0].Name);
             Assert.AreEqual(playerName1, result.Players[1].Name);
@@ -85,9 +74,20 @@ namespace Tests.Application.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
 
-            var result = _sut.Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanAddPlayer);
+        }
+
+        private PlayerListInteractor Sut
+        {
+            get
+            {
+                return new PlayerListInteractor(
+                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IPlayerRepository>().Object,
+                    GetMock<IAuth>().Object);
+            }
         }
     }
 }

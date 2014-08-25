@@ -1,7 +1,8 @@
-﻿@model Web.Models.PageBaseModels.AppPageModel
+﻿@using Web.Models.PageBaseModels
+@model AppPageModel
 
 @{
-    Layout = "Page.cshtml";
+    Layout = ContextLayout.Base;
 }
 
 @RenderBody()
