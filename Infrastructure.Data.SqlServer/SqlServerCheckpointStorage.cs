@@ -10,16 +10,13 @@ namespace Infrastructure.Data.SqlServer
     {
 	    private readonly IStorageProvider _storageProvider;
         private readonly ITimeProvider _timeProvider;
-        private readonly IRawCheckpointFactory _rawCheckpointFactory;
 
         public SqlServerCheckpointStorage(
             IStorageProvider storageProvider,
-            ITimeProvider timeProvider,
-            IRawCheckpointFactory rawCheckpointFactory)
+            ITimeProvider timeProvider)
         {
             _storageProvider = storageProvider;
             _timeProvider = timeProvider;
-            _rawCheckpointFactory = rawCheckpointFactory;
         }
 
         public int AddCheckpoint(int cashgameId, int playerId, RawCheckpoint checkpoint)
@@ -70,7 +67,7 @@ namespace Infrastructure.Data.SqlServer
 		            new SimpleSqlParameter("@cashgameId", cashgameId)
 		        };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadList(_rawCheckpointFactory.Create);
+            return reader.ReadList(RawCheckpointFactory.Create);
         }
 
         public IList<RawCheckpoint> GetCheckpoints(IList<int> cashgameIdList)
@@ -78,7 +75,7 @@ namespace Infrastructure.Data.SqlServer
             const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID IN (@cashgameIdList) ORDER BY cp.PlayerID, cp.Timestamp";
             var parameter = new ListSqlParameter("@cashgameIdList", cashgameIdList);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(_rawCheckpointFactory.Create);
+            return reader.ReadList(RawCheckpointFactory.Create);
         }
 
         public RawCheckpoint GetCheckpoint(int checkpointId)
@@ -89,7 +86,7 @@ namespace Infrastructure.Data.SqlServer
 		            new SimpleSqlParameter("@checkpointId", checkpointId)
 		        };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawCheckpointFactory.Create);
+            return reader.ReadOne(RawCheckpointFactory.Create);
         }
     }
 }

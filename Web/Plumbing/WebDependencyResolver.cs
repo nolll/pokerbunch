@@ -92,9 +92,6 @@ namespace Web.Plumbing
             RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
 
             // Mappers
-            RegisterComponent<IHomegameModelMapper, HomegameModelMapper>();
-            RegisterComponent<ICashgameModelMapper, CashgameModelMapper>();
-            RegisterComponent<IUserModelMapper, UserModelMapper>();
             RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>();
 
             // Command Providers

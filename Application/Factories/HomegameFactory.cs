@@ -3,9 +3,9 @@ using Core.Entities;
 
 namespace Application.Factories
 {
-    public class HomegameFactory : IHomegameFactory
+    public static class HomegameFactory
     {
-        public Homegame Create(
+        public static Homegame Create(
             int id,
             string slug,
             string displayName,

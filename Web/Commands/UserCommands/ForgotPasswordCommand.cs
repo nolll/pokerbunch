@@ -8,25 +8,16 @@ namespace Web.Commands.UserCommands
     public class ForgotPasswordCommand : Command
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordGenerator _passwordGenerator;
-        private readonly ISaltGenerator _saltGenerator;
         private readonly IPasswordSender _passwordSender;
-        private readonly IUserModelMapper _userModelMapper;
         private readonly ForgotPasswordPostModel _postModel;
         
         public ForgotPasswordCommand(
             IUserRepository userRepository,
-            IPasswordGenerator passwordGenerator,
-            ISaltGenerator saltGenerator,
             IPasswordSender passwordSender,
-            IUserModelMapper userModelMapper,
             ForgotPasswordPostModel postModel)
         {
             _userRepository = userRepository;
-            _passwordGenerator = passwordGenerator;
-            _saltGenerator = saltGenerator;
             _passwordSender = passwordSender;
-            _userModelMapper = userModelMapper;
             _postModel = postModel;
         }
 
@@ -41,10 +32,10 @@ namespace Web.Commands.UserCommands
             {
                 return false;
             }
-            var password = _passwordGenerator.CreatePassword();
-            var salt = _saltGenerator.CreateSalt();
+            var password = PasswordGenerator.CreatePassword();
+            var salt = SaltGenerator.CreateSalt();
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
-            var changedUser = _userModelMapper.GetUser(user, encryptedPassword, salt);
+            var changedUser = UserModelMapper.GetUser(user, encryptedPassword, salt);
             _userRepository.Save(changedUser);
             _passwordSender.Send(changedUser, password);
             return true;

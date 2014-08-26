@@ -13,15 +13,9 @@ namespace Tests.Application.Services
             const string playerName = "a";
 			var player = new PlayerInTest(displayName: playerName);
 
-            var sut = GetSut();
-            var result = sut.GetCode(player);
+            var result = InvitationCodeCreator.GetCode(player);
 
             Assert.AreEqual("b8260ca84de1d8bc2ed1126d0096dbaadd4db2fe", result);
 		}
-
-        private InvitationCodeCreator GetSut()
-        {
-            return new InvitationCodeCreator();
-        }
 	}
 }

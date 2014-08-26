@@ -4,9 +4,9 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public class RawUserFactory : IRawUserFactory
+    public static class RawUserFactory
     {
-        public RawUser Create(IStorageDataReader reader)
+        public static RawUser Create(IStorageDataReader reader)
         {
             return new RawUser
             {
@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Factories
             };
         }
 
-        public RawUser Create(User user)
+        public static RawUser Create(User user)
         {
             return new RawUser
             {

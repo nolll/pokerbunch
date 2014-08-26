@@ -6,21 +6,14 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
-    public class HomegameDataMapper : IHomegameDataMapper
+    public static class HomegameDataMapper
     {
-        private readonly IHomegameFactory _homegameFactory;
-
-        public HomegameDataMapper(IHomegameFactory homegameFactory)
-        {
-            _homegameFactory = homegameFactory;
-        }
-
-        public Homegame Map(RawHomegame rawHomegame)
+        public static Homegame Map(RawHomegame rawHomegame)
         {
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
             var currency = new Currency(rawHomegame.CurrencySymbol, rawHomegame.CurrencyLayout, culture);
 
-            return _homegameFactory.Create(
+            return HomegameFactory.Create(
                 rawHomegame.Id,
                 rawHomegame.Slug,
                 rawHomegame.DisplayName,

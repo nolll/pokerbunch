@@ -52,8 +52,7 @@ namespace Tests.Application.Factories
         [Test]
 		public void Get_CashgamePropertiesAreSet()
         {
-			var sut = GetSut();
-			var result = sut.Create(_location, _homegameId, (int)_status, _id, _results);
+			var result = CashgameFactory.Create(_location, _homegameId, (int)_status, _id, _results);
 
 			Assert.AreEqual(_location, result.Location);
             Assert.AreEqual(_status, result.Status);
@@ -62,10 +61,6 @@ namespace Tests.Application.Factories
             Assert.AreEqual(_earliestBuyinTime, result.StartTime);
             Assert.AreEqual(_latestCashoutTime, result.EndTime);
             Assert.AreEqual(180, result.Duration);
-		}
-
-		private CashgameFactory GetSut(){
-			return new CashgameFactory();
 		}
 	}
 }

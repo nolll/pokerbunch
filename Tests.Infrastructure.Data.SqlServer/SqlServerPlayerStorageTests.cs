@@ -127,8 +127,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         private SqlServerPlayerStorage GetSut()
         {
             return new SqlServerPlayerStorage(
-                StorageProvider,
-                GetMock<IRawPlayerFactory>().Object);
+                StorageProvider);
         }
     }
 }

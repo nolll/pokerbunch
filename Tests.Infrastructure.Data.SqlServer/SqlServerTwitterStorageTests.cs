@@ -50,8 +50,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         private SqlServerTwitterStorage GetSut()
         {
             return new SqlServerTwitterStorage(
-                StorageProvider,
-                GetMock<IRawTwitterCredentialsFactory>().Object);
+                StorageProvider);
         }
     }
 }

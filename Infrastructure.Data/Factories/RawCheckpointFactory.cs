@@ -6,9 +6,9 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public class RawCheckpointFactory : IRawCheckpointFactory
+    public static class RawCheckpointFactory
     {
-        public RawCheckpoint Create(IStorageDataReader reader)
+        public static RawCheckpoint Create(IStorageDataReader reader)
         {
             return new RawCheckpoint
                 {
@@ -22,7 +22,7 @@ namespace Infrastructure.Data.Factories
                 };
         }
 
-        public RawCheckpoint Create(Cashgame cashgame, Checkpoint checkpoint)
+        public static RawCheckpoint Create(Cashgame cashgame, Checkpoint checkpoint)
         {
             return new RawCheckpoint
             {

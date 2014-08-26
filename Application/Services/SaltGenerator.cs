@@ -1,18 +1,12 @@
 namespace Application.Services{
 
-	public class SaltGenerator : ISaltGenerator
+	public static class SaltGenerator
 	{
-	    private readonly IRandomStringGenerator _randomStringGenerator;
 	    private const int SaltLength = 10;
 	    private const string AllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
 
-	    public SaltGenerator(IRandomStringGenerator randomStringGenerator)
-	    {
-	        _randomStringGenerator = randomStringGenerator;
-	    }
-
-	    public string CreateSalt(){
-            return _randomStringGenerator.GetString(SaltLength, AllowedCharacters);
+	    public static string CreateSalt(){
+            return RandomStringGenerator.GetString(SaltLength, AllowedCharacters);
 		}
 
 	}

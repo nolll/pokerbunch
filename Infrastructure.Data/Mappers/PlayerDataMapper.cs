@@ -8,19 +8,16 @@ namespace Infrastructure.Data.Mappers
     public class PlayerDataMapper : IPlayerDataMapper
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPlayerFactory _playerFactory;
 
         public PlayerDataMapper(
-            IUserRepository userRepository,
-            IPlayerFactory playerFactory)
+            IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _playerFactory = playerFactory;
         }
 
         public Player Create(RawPlayer rawPlayer)
         {
-            return _playerFactory.Create(
+            return PlayerFactory.Create(
                 rawPlayer.Id,
                 rawPlayer.UserId,
                 GetDisplayName(rawPlayer),

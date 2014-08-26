@@ -2,11 +2,11 @@ using Core.Entities;
 
 namespace Application.Services
 {
-    public class InvitationCodeCreator : IInvitationCodeCreator
+    public static class InvitationCodeCreator
     {
         private const string Salt = "0lsns5kjdl";
 
-        public string GetCode(Player player)
+        public static string GetCode(Player player)
         {
             return EncryptionService.Encrypt(player.DisplayName, Salt);
         }

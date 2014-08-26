@@ -30,7 +30,7 @@ namespace Application.UseCases.AddCashgame
         private void AddGame(AddCashgameRequest request)
         {
             var homegame = _homegameRepository.GetBySlug(request.Slug);
-            var cashgame = new CashgameFactory().Create(request.Location, homegame.Id, (int)GameStatus.Running);
+            var cashgame = CashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
             _cashgameRepository.AddGame(homegame, cashgame);
         }
     }

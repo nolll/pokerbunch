@@ -11,19 +11,16 @@ namespace Web.ModelMappers
     public class CheckpointModelMapper : ICheckpointModelMapper
     {
         private readonly ITimeProvider _timeProvider;
-        private readonly ICheckpointFactory _checkpointFactory;
 
         public CheckpointModelMapper(
-            ITimeProvider timeProvider,
-            ICheckpointFactory checkpointFactory)
+            ITimeProvider timeProvider)
         {
             _timeProvider = timeProvider;
-            _checkpointFactory = checkpointFactory;
         }
 
         public Checkpoint GetCheckpoint(EditCheckpointPostModel postModel, Checkpoint existingCheckpoint, TimeZoneInfo timeZone)
         {
-            return _checkpointFactory.Create(
+            return CheckpointFactory.Create(
                 TimeZoneInfo.ConvertTimeToUtc(postModel.Timestamp, timeZone),
                 existingCheckpoint.Type,
                 postModel.Stack,
@@ -33,7 +30,7 @@ namespace Web.ModelMappers
 
         public Checkpoint GetCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
-            return _checkpointFactory.Create(
+            return CheckpointFactory.Create(
                 _timeProvider.GetTime(),
                 CheckpointType.Cashout,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
@@ -42,7 +39,7 @@ namespace Web.ModelMappers
 
         public Checkpoint GetCheckpoint(ReportPostModel postModel)
         {
-            return _checkpointFactory.Create(
+            return CheckpointFactory.Create(
                 _timeProvider.GetTime(),
                 CheckpointType.Report,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0);

@@ -3,15 +3,11 @@ using System.Text;
 
 namespace Application.Services{
 
-	public class RandomStringGenerator : IRandomStringGenerator
+	public static class RandomStringGenerator
 	{
-	    private readonly Random _random;
+	    private static readonly Random Random = new Random();
 
-		public RandomStringGenerator(){
-            _random = new Random();
-		}
-
-		public string GetString(int stringLength, string allowedCharacters)
+		public static string GetString(int stringLength, string allowedCharacters)
 		{
             if (string.IsNullOrEmpty(allowedCharacters))
             {
@@ -21,7 +17,7 @@ namespace Application.Services{
 		    var str = new StringBuilder();
 			for(var i = 0; i < stringLength; i++)
 			{
-			    var randomPos = _random.Next(max);
+			    var randomPos = Random.Next(max);
 			    str.Append(allowedCharacters.Substring(randomPos, 1));
 			}
 			return str.ToString();

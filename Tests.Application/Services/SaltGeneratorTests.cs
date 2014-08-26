@@ -1,30 +1,26 @@
 using Application.Services;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Application.Services{
-
-	public class SaltGeneratorTests : MockContainer {
-
+namespace Tests.Application.Services
+{
+	public class SaltGeneratorTests : MockContainer
+    {
         [Test]
         public void CreateSalt_Returns10CharSalt()
         {
-            const string expectedSalt = "a";
+            var result = SaltGenerator.CreateSalt();
 
-            GetMock<IRandomStringGenerator>().Setup(o => o.GetString(It.IsAny<int>(), It.IsAny<string>())).Returns(expectedSalt);
-
-            var sut = GetSut();
-            var result = sut.CreateSalt();
-
-            Assert.AreEqual(expectedSalt, result);
+            Assert.AreEqual(10, result.Length);
         }
 
-        private SaltGenerator GetSut()
+        [Test]
+        public void CreateSalt_GeneratesDifferentSaltsEachTime()
         {
-            return new SaltGenerator(GetMock<IRandomStringGenerator>().Object);
+            var result1 = SaltGenerator.CreateSalt();
+            var result2 = SaltGenerator.CreateSalt();
+
+            Assert.AreNotEqual(result1, result2);
         }
-
 	}
-
 }

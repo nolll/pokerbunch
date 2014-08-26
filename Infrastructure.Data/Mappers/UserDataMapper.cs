@@ -4,18 +4,11 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
-    public class UserDataMapper : IUserDataMapper
+    public static class UserDataMapper
     {
-        private readonly IUserFactory _userFactory;
-
-        public UserDataMapper(IUserFactory userFactory)
+        public static User Map(RawUser rawUser)
         {
-            _userFactory = userFactory;
-        }
-
-        public User Map(RawUser rawUser)
-        {
-            return _userFactory.Create(
+            return UserFactory.Create(
                 rawUser.Id,
                 rawUser.UserName,
                 rawUser.DisplayName,

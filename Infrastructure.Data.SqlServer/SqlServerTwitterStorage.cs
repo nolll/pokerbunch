@@ -8,14 +8,11 @@ namespace Infrastructure.Data.SqlServer
 	public class SqlServerTwitterStorage : ITwitterStorage
     {
 	    private readonly IStorageProvider _storageProvider;
-	    private readonly IRawTwitterCredentialsFactory _rawTwitterCredentialsFactory;
 
         public SqlServerTwitterStorage(
-            IStorageProvider storageProvider,
-            IRawTwitterCredentialsFactory rawTwitterCredentialsFactory)
+            IStorageProvider storageProvider)
 	    {
 	        _storageProvider = storageProvider;
-	        _rawTwitterCredentialsFactory = rawTwitterCredentialsFactory;
 	    }
 
 	    public RawTwitterCredentials GetCredentials(int userId)
@@ -26,7 +23,7 @@ namespace Infrastructure.Data.SqlServer
 	                new SimpleSqlParameter("@userId", userId)
 	            };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawTwitterCredentialsFactory.Create);
+            return reader.ReadOne(RawTwitterCredentialsFactory.Create);
 		}
 
 		public int AddCredentials(int userId, RawTwitterCredentials credentials)

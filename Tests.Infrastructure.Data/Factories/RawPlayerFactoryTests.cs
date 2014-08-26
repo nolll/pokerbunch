@@ -21,18 +21,12 @@ namespace Tests.Infrastructure.Data.Factories
             readerMock.Setup(o => o.GetIntValue("UserID")).Returns(userId);
             readerMock.Setup(o => o.GetIntValue("PlayerID")).Returns(playerId);
 
-            var sut = GetSut();
-            var result = sut.Create(readerMock.Object);
+            var result = RawPlayerFactory.Create(readerMock.Object);
 
             Assert.AreEqual(playerName, result.DisplayName);
             Assert.AreEqual(role, result.Role);
             Assert.AreEqual(userId, result.UserId);
             Assert.AreEqual(playerId, result.Id);
-        }
-
-        private RawPlayerFactory GetSut()
-        {
-            return new RawPlayerFactory();
         }
     }
 }

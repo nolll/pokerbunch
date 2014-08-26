@@ -62,12 +62,7 @@ namespace Plumbing
             RegisterComponent<ITwitterStorage, SqlServerTwitterStorage>();
 
             // Raw Factories
-            RegisterComponent<IRawHomegameFactory, RawHomegameFactory>();
-            RegisterComponent<IRawUserFactory, RawUserFactory>();
             RegisterComponent<IRawCashgameFactory, RawCashgameFactory>();
-            RegisterComponent<IRawPlayerFactory, RawPlayerFactory>();
-            RegisterComponent<IRawCheckpointFactory, RawCheckpointFactory>();
-            RegisterComponent<IRawTwitterCredentialsFactory, RawTwitterCredentialsFactory>();
 
             // Cache
             RegisterComponent<ICacheProvider, CacheProvider>();
@@ -90,40 +85,25 @@ namespace Plumbing
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
 
             // Core Factories
-            RegisterComponent<IHomegameFactory, HomegameFactory>();
-            RegisterComponent<IUserFactory, UserFactory>();
-            RegisterComponent<ICashgameFactory, CashgameFactory>();
-            RegisterComponent<IPlayerFactory, PlayerFactory>();
             RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
             RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
             RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
-            RegisterComponent<ICheckpointFactory, CheckpointFactory>();
-            RegisterComponent<ITwitterCredentialsFactory, TwitterCredentialsFactory>();
 
             // Data Mappers
             RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();
-            RegisterComponent<IHomegameDataMapper, HomegameDataMapper>();
             RegisterComponent<IPlayerDataMapper, PlayerDataMapper>();
-            RegisterComponent<ICheckpointDataMapper, CheckpointDataMapper>();
-            RegisterComponent<ITwitterCredentialsDataMapper, TwitterCredentialsDataMapper>();
-            RegisterComponent<IUserDataMapper, UserDataMapper>();
 
             // Services
             RegisterComponent<IAvatarService, GravatarService>();
-            RegisterComponent<IInvitationCodeCreator, InvitationCodeCreator>();
             RegisterComponent<IInvitationSender, InvitationSender>();
             RegisterComponent<IInvitationMessageBuilder, InvitationMessageBuilder>();
             RegisterComponent<IMessageSender, MessageSender>();
             RegisterComponent<IUserService, UserService>();
-            RegisterComponent<IPasswordGenerator, PasswordGenerator>();
-            RegisterComponent<ISaltGenerator, SaltGenerator>();
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
             RegisterComponent<IRegistrationConfirmationMessageBuilder, RegistrationConfirmationMessageBuilder>();
-            RegisterComponent<ISlugGenerator, SlugGenerator>();
             RegisterComponent<IPasswordSender, PasswordSender>();
             RegisterComponent<IPasswordMessageBuilder, PasswordMessageBuilder>();
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
-            RegisterComponent<IRandomStringGenerator, RandomStringGenerator>();
             RegisterComponent<ICashgameService, CashgameService>();
             RegisterComponent<IResultSharer, ResultSharer>();
             RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();

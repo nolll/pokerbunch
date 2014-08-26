@@ -4,18 +4,11 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
-    public class TwitterCredentialsDataMapper : ITwitterCredentialsDataMapper
+    public static class TwitterCredentialsDataMapper
     {
-        private readonly ITwitterCredentialsFactory _twitterCredentialsFactory;
-
-        public TwitterCredentialsDataMapper(ITwitterCredentialsFactory twitterCredentialsFactory)
+        public static TwitterCredentials Map(RawTwitterCredentials rawCredentials)
         {
-            _twitterCredentialsFactory = twitterCredentialsFactory;
-        }
-
-        public TwitterCredentials Map(RawTwitterCredentials rawCredentials)
-        {
-            return _twitterCredentialsFactory.Create(
+            return TwitterCredentialsFactory.Create(
                 rawCredentials.Key,
                 rawCredentials.Secret,
                 rawCredentials.TwitterName);

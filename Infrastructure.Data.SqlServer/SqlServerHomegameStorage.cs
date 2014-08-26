@@ -9,14 +9,11 @@ namespace Infrastructure.Data.SqlServer {
 	public class SqlServerHomegameStorage : IHomegameStorage
     {
 	    private readonly IStorageProvider _storageProvider;
-	    private readonly IRawHomegameFactory _rawHomegameFactory;
 
 	    public SqlServerHomegameStorage(
-            IStorageProvider storageProvider,
-            IRawHomegameFactory rawHomegameFactory)
+            IStorageProvider storageProvider)
         {
             _storageProvider = storageProvider;
-            _rawHomegameFactory = rawHomegameFactory;
         }
 
 	    public IList<int> GetAllIds()
@@ -42,7 +39,7 @@ namespace Infrastructure.Data.SqlServer {
             const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(_rawHomegameFactory.Create);
+            return reader.ReadList(RawHomegameFactory.Create);
         }
 
         public IList<RawHomegame> GetHomegamesByUserId(int userId)
@@ -53,7 +50,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadList(_rawHomegameFactory.Create);
+            return reader.ReadList(RawHomegameFactory.Create);
         }
 
 		public RawHomegame GetHomegameByName(string slug){
@@ -63,7 +60,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawHomegameFactory.Create);
+            return reader.ReadOne(RawHomegameFactory.Create);
 		}
 
         public RawHomegame GetById(int id)
@@ -74,7 +71,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawHomegameFactory.Create);
+            return reader.ReadOne(RawHomegameFactory.Create);
         }
         
         public int GetHomegameRole(int homegameId, int userId)

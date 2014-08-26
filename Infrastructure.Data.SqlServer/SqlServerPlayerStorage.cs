@@ -9,14 +9,11 @@ namespace Infrastructure.Data.SqlServer
     public class SqlServerPlayerStorage : IPlayerStorage
     {
         private readonly IStorageProvider _storageProvider;
-	    private readonly IRawPlayerFactory _rawPlayerFactory;
 
 	    public SqlServerPlayerStorage(
-            IStorageProvider storageProvider,
-            IRawPlayerFactory rawPlayerFactory)
+            IStorageProvider storageProvider)
 	    {
 	        _storageProvider = storageProvider;
-	        _rawPlayerFactory = rawPlayerFactory;
 	    }
 
         public RawPlayer GetPlayerById(int id)
@@ -27,7 +24,7 @@ namespace Infrastructure.Data.SqlServer
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawPlayerFactory.Create);
+            return reader.ReadOne(RawPlayerFactory.Create);
         }
 
         public IList<RawPlayer> GetPlayerList(IList<int> ids)
@@ -35,7 +32,7 @@ namespace Infrastructure.Data.SqlServer
             const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID IN (@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(_rawPlayerFactory.Create);
+            return reader.ReadList(RawPlayerFactory.Create);
         }
 
         public int? GetPlayerIdByName(int homegameId, string name)

@@ -5,18 +5,11 @@ using Web.Models.UserModels.Edit;
 
 namespace Web.ModelMappers
 {
-    public class UserModelMapper : IUserModelMapper
+    public static class UserModelMapper
     {
-        private readonly IUserFactory _userFactory;
-
-        public UserModelMapper(IUserFactory userFactory)
+        public static User GetUser(AddUserPostModel postModel, string encryptedPassword, string salt)
         {
-            _userFactory = userFactory;
-        }
-
-        public User GetUser(AddUserPostModel postModel, string encryptedPassword, string salt)
-        {
-            return _userFactory.Create(
+            return UserFactory.Create(
                 0,
                 postModel.UserName,
                 postModel.DisplayName,
@@ -27,9 +20,9 @@ namespace Web.ModelMappers
                 salt);
         }
 
-        public User GetUser(User user, EditUserPostModel postModel)
+        public static User GetUser(User user, EditUserPostModel postModel)
         {
-            return _userFactory.Create(
+            return UserFactory.Create(
                 user.Id,
                 user.UserName,
                 postModel.DisplayName,
@@ -40,9 +33,9 @@ namespace Web.ModelMappers
                 user.Salt);
         }
 
-        public User GetUser(User user, string encryptedPassword, string salt)
+        public static User GetUser(User user, string encryptedPassword, string salt)
         {
-            return _userFactory.Create(
+            return UserFactory.Create(
                 user.Id,
                 user.UserName,
                 user.DisplayName,

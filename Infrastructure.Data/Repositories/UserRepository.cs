@@ -13,26 +13,20 @@ namespace Infrastructure.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IUserStorage _userStorage;
-        private readonly IRawUserFactory _rawUserFactory;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheKeyProvider _cacheKeyProvider;
         private readonly ICacheBuster _cacheBuster;
-        private readonly IUserDataMapper _userDataMapper;
 
         public UserRepository(
             IUserStorage userStorage,
-            IRawUserFactory rawUserFactory,
             ICacheContainer cacheContainer,
             ICacheKeyProvider cacheKeyProvider,
-            ICacheBuster cacheBuster,
-            IUserDataMapper userDataMapper)
+            ICacheBuster cacheBuster)
         {
             _userStorage = userStorage;
-            _rawUserFactory = rawUserFactory;
             _cacheContainer = cacheContainer;
             _cacheKeyProvider = cacheKeyProvider;
             _cacheBuster = cacheBuster;
-            _userDataMapper = userDataMapper;
         }
 
         public User GetById(int id)
@@ -56,7 +50,7 @@ namespace Infrastructure.Data.Repositories
 
         public bool Save(User user)
         {
-            var rawUser = _rawUserFactory.Create(user);
+            var rawUser = RawUserFactory.Create(user);
             var updated = _userStorage.UpdateUser(rawUser);
             _cacheBuster.UserUpdated(user);
             return updated;
@@ -64,7 +58,7 @@ namespace Infrastructure.Data.Repositories
 
         public int Add(User user)
         {
-            var rawUser = _rawUserFactory.Create(user);
+            var rawUser = RawUserFactory.Create(user);
             var id = _userStorage.AddUser(rawUser);
             _cacheBuster.UserAdded();
             return id;
@@ -73,13 +67,13 @@ namespace Infrastructure.Data.Repositories
         private User GetByIdUncached(int id)
         {
             var rawUser = _userStorage.GetUserById(id);
-            return rawUser != null ? _userDataMapper.Map(rawUser) : null;
+            return rawUser != null ? UserDataMapper.Map(rawUser) : null;
         }
 
         private IList<User> GetListUncached(IList<int> ids)
         {
             var rawUsers = _userStorage.GetUserList(ids);
-            return rawUsers.Select(_userDataMapper.Map).ToList();
+            return rawUsers.Select(UserDataMapper.Map).ToList();
         }
 
         private int? GetIdByNameOrEmail(string nameOrEmail)

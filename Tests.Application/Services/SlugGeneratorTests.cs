@@ -1,15 +1,14 @@
 using Application.Services;
 using NUnit.Framework;
 
-namespace Tests.Application.Services{
-
-	public class SlugGeneratorTests {
-
+namespace Tests.Application.Services
+{
+	public class SlugGeneratorTests
+    {
 		[Test]
         public void GetSlug_NameWithSpaces_RemovesSpaces()
         {
-			var sut = GetSut();
-			var result = sut.GetSlug("a b c");
+			var result = SlugGenerator.GetSlug("a b c");
 
 			Assert.AreEqual(result, "abc");
 		}
@@ -17,8 +16,7 @@ namespace Tests.Application.Services{
 		[Test]
         public void GetSlug_NameWithCaps_RemovesCaps()
         {
-			var sut = GetSut();
-			var result = sut.GetSlug("AbC");
+            var result = SlugGenerator.GetSlug("AbC");
 
             Assert.AreEqual(result, "abc");
 		}
@@ -26,17 +24,9 @@ namespace Tests.Application.Services{
 	    [Test]
 	    public void GetSlug_WithNull_ReturnsNull()
 	    {
-	        var sut = GetSut();
-	        var result = sut.GetSlug(null);
+            var result = SlugGenerator.GetSlug(null);
 
             Assert.IsNull(result);
 	    }
-
-        private SlugGenerator GetSut()
-        {
-            return new SlugGenerator();
-        }
-
 	}
-
 }

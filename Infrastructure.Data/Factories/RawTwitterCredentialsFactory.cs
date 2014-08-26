@@ -4,9 +4,9 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public class RawTwitterCredentialsFactory : IRawTwitterCredentialsFactory
+    public static class RawTwitterCredentialsFactory
     {
-        public RawTwitterCredentials Create(IStorageDataReader reader)
+        public static RawTwitterCredentials Create(IStorageDataReader reader)
         {
             return new RawTwitterCredentials
                 {
@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Factories
                 };
         }
 
-        public RawTwitterCredentials Create(TwitterCredentials credentials)
+        public static RawTwitterCredentials Create(TwitterCredentials credentials)
         {
             return new RawTwitterCredentials
                 {

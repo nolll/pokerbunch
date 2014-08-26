@@ -9,28 +9,22 @@ namespace Infrastructure.Data.Repositories
     public class TwitterRepository : ITwitterRepository
     {
         private readonly ITwitterStorage _twitterStorage;
-        private readonly IRawTwitterCredentialsFactory _rawTwitterCredentialsFactory;
-        private readonly ITwitterCredentialsDataMapper _twitterCredentialsDataMapper;
 
         public TwitterRepository(
-            ITwitterStorage twitterStorage,
-            IRawTwitterCredentialsFactory rawTwitterCredentialsFactory,
-            ITwitterCredentialsDataMapper twitterCredentialsDataMapper)
+            ITwitterStorage twitterStorage)
         {
             _twitterStorage = twitterStorage;
-            _rawTwitterCredentialsFactory = rawTwitterCredentialsFactory;
-            _twitterCredentialsDataMapper = twitterCredentialsDataMapper;
         }
 
         public TwitterCredentials GetCredentials(User user)
         {
             var rawCredentials = _twitterStorage.GetCredentials(user.Id);
-            return _twitterCredentialsDataMapper.Map(rawCredentials);
+            return TwitterCredentialsDataMapper.Map(rawCredentials);
         }
 
         public int AddCredentials(User user, TwitterCredentials credentials)
         {
-            var rawTwitterCredentials = _rawTwitterCredentialsFactory.Create(credentials);
+            var rawTwitterCredentials = RawTwitterCredentialsFactory.Create(credentials);
             return _twitterStorage.AddCredentials(user.Id, rawTwitterCredentials);
         }
     }

@@ -3,9 +3,9 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public class RawPlayerFactory : IRawPlayerFactory
+    public static class RawPlayerFactory
     {
-        public RawPlayer Create(IStorageDataReader reader)
+        public static RawPlayer Create(IStorageDataReader reader)
         {
             return new RawPlayer
             {

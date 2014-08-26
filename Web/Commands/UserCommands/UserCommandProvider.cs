@@ -1,6 +1,5 @@
 using Application.Services;
 using Core.Repositories;
-using Web.ModelMappers;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
@@ -11,29 +10,20 @@ namespace Web.Commands.UserCommands
     public class UserCommandProvider : IUserCommandProvider
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordGenerator _passwordGenerator;
-        private readonly ISaltGenerator _saltGenerator;
         private readonly IPasswordSender _passwordSender;
-        private readonly IUserModelMapper _userModelMapper;
         private readonly IUserService _userService;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
         private readonly IAuth _auth;
 
         public UserCommandProvider(
             IUserRepository userRepository,
-            IPasswordGenerator passwordGenerator,
-            ISaltGenerator saltGenerator,
             IPasswordSender passwordSender,
-            IUserModelMapper userModelMapper,
             IUserService userService,
             IRegistrationConfirmationSender registrationConfirmationSender,
             IAuth auth)
         {
             _userRepository = userRepository;
-            _passwordGenerator = passwordGenerator;
-            _saltGenerator = saltGenerator;
             _passwordSender = passwordSender;
-            _userModelMapper = userModelMapper;
             _userService = userService;
             _registrationConfirmationSender = registrationConfirmationSender;
             _auth = auth;
@@ -43,10 +33,7 @@ namespace Web.Commands.UserCommands
         {
             return new ForgotPasswordCommand(
                 _userRepository,
-                _passwordGenerator,
-                _saltGenerator,
                 _passwordSender,
-                _userModelMapper,
                 postModel);
         }
 
@@ -55,9 +42,7 @@ namespace Web.Commands.UserCommands
             var user = _auth.CurrentUser;
 
             return new ChangePasswordCommand(
-                _saltGenerator,
                 _userRepository,
-                _userModelMapper,
                 user, 
                 postModel);
         }
@@ -67,7 +52,6 @@ namespace Web.Commands.UserCommands
             var user = _userRepository.GetByNameOrEmail(userName);
 
             return new EditUserCommand(
-                _userModelMapper,
                 _userRepository,
                 user, 
                 postModel);
@@ -77,10 +61,7 @@ namespace Web.Commands.UserCommands
         {
             return new AddUserCommand(
                 _userService,
-                _userModelMapper,
                 _userRepository,
-                _passwordGenerator,
-                _saltGenerator,
                 _registrationConfirmationSender,
                 postModel);
         }

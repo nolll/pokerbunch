@@ -10,17 +10,11 @@ namespace Infrastructure.Data.Mappers
     public class CashgameDataMapper : ICashgameDataMapper
     {
         private readonly ICashgameResultFactory _cashgameResultFactory;
-        private readonly ICashgameFactory _cashgameFactory;
-        private readonly ICheckpointDataMapper _checkpointDataMapper;
 
         public CashgameDataMapper(
-            ICashgameResultFactory cashgameResultFactory,
-            ICashgameFactory cashgameFactory,
-            ICheckpointDataMapper checkpointDataMapper)
+            ICashgameResultFactory cashgameResultFactory)
         {
             _cashgameResultFactory = cashgameResultFactory;
-            _cashgameFactory = cashgameFactory;
-            _checkpointDataMapper = checkpointDataMapper;
         }
 
         public Cashgame Map(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
@@ -44,13 +38,13 @@ namespace Infrastructure.Data.Mappers
                 var realCheckpoints = new List<Checkpoint>();
                 foreach (var playerCheckpoint in playerCheckpoints)
                 {
-                    realCheckpoints.Add(_checkpointDataMapper.Map(playerCheckpoint));
+                    realCheckpoints.Add(CheckpointDataMapper.Map(playerCheckpoint));
                 }
                 var playerResults = _cashgameResultFactory.Create(playerKey, realCheckpoints);
                 results.Add(playerResults);
             }
 
-            return _cashgameFactory.Create(rawGame.Location, rawGame.HomegameId, rawGame.Status, rawGame.Id, results);
+            return CashgameFactory.Create(rawGame.Location, rawGame.HomegameId, rawGame.Status, rawGame.Id, results);
         }
 
         public IList<Cashgame> MapList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)

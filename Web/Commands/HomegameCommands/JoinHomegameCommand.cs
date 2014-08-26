@@ -9,20 +9,17 @@ namespace Web.Commands.HomegameCommands
     {
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IInvitationCodeCreator _invitationCodeCreator;
         private readonly Homegame _homegame;
         private readonly JoinHomegamePostModel _postModel;
 
         public JoinHomegameCommand(
             IAuth auth,
             IPlayerRepository playerRepository,
-            IInvitationCodeCreator invitationCodeCreator,
             Homegame homegame,
             JoinHomegamePostModel postModel)
         {
             _auth = auth;
             _playerRepository = playerRepository;
-            _invitationCodeCreator = invitationCodeCreator;
             _homegame = homegame;
             _postModel = postModel;
         }
@@ -46,7 +43,7 @@ namespace Web.Commands.HomegameCommands
             var players = _playerRepository.GetList(homegame);
             foreach (var player in players)
             {
-                var code = _invitationCodeCreator.GetCode(player);
+                var code = InvitationCodeCreator.GetCode(player);
                 if (code == postedCode)
                 {
                     return player;

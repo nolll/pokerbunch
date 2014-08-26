@@ -8,14 +8,10 @@ namespace Infrastructure.Data.SqlServer
     public class SqlServerUserStorage : IUserStorage 
     {
 	    private readonly IStorageProvider _storageProvider;
-	    private readonly IRawUserFactory _rawUserFactory;
 
-        public SqlServerUserStorage(
-            IStorageProvider storageProvider,
-            IRawUserFactory rawUserFactory)
+        public SqlServerUserStorage(IStorageProvider storageProvider)
 	    {
 	        _storageProvider = storageProvider;
-	        _rawUserFactory = rawUserFactory;
 	    }
 
         public RawUser GetUserById(int id)
@@ -26,7 +22,7 @@ namespace Infrastructure.Data.SqlServer
                     new SimpleSqlParameter("@userId", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawUserFactory.Create);
+            return reader.ReadOne(RawUserFactory.Create);
         }
 
         public int? GetUserIdByNameOrEmail(string userNameOrEmail)
@@ -45,7 +41,7 @@ namespace Infrastructure.Data.SqlServer
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(_rawUserFactory.Create);
+            return reader.ReadList(RawUserFactory.Create);
         }
 
         public IList<int> GetUserIdList()

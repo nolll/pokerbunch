@@ -7,24 +7,13 @@ using Web.Models.HomegameModels.Edit;
 
 namespace Web.ModelMappers
 {
-    public class HomegameModelMapper : IHomegameModelMapper
+    public static class HomegameModelMapper
     {
-        private readonly ISlugGenerator _slugGenerator;
-        private readonly IHomegameFactory _homegameFactory;
-
-        public HomegameModelMapper(
-            ISlugGenerator slugGenerator,
-            IHomegameFactory homegameFactory)
+        public static Homegame GetHomegame(AddHomegamePostModel postModel)
         {
-            _slugGenerator = slugGenerator;
-            _homegameFactory = homegameFactory;
-        }
-
-        public Homegame GetHomegame(AddHomegamePostModel postModel)
-        {
-            return _homegameFactory.Create(
+            return HomegameFactory.Create(
                     0,
-                    _slugGenerator.GetSlug(postModel.DisplayName),
+                    SlugGenerator.GetSlug(postModel.DisplayName),
                     postModel.DisplayName,
                     postModel.Description,
                     string.Empty,
@@ -33,9 +22,9 @@ namespace Web.ModelMappers
                     new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
 
-        public Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
+        public static Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
         {
-            return _homegameFactory.Create(
+            return HomegameFactory.Create(
                     homegame.Id,
                     homegame.Slug,
                     homegame.DisplayName,

@@ -12,8 +12,7 @@ namespace Tests.Application.Services
         [TestCase(-1, 0)]
         public void GetString_WithSpecifiedLength_ReturnsStringOfCorrectLength(int specifiedLength, int expectedLength)
         {
-            var sut = GetSut();
-            var result = sut.GetString(specifiedLength, "any");
+            var result = RandomStringGenerator.GetString(specifiedLength, "any");
 
             Assert.AreEqual(expectedLength, result.Length);
         }
@@ -24,8 +23,7 @@ namespace Tests.Application.Services
         {
             const int specifiedLength = 1;
 
-            var sut = GetSut();
-            var result = sut.GetString(specifiedLength, allowedCharacters);
+            var result = RandomStringGenerator.GetString(specifiedLength, allowedCharacters);
 
             Assert.AreEqual(string.Empty, result);
         }
@@ -37,8 +35,7 @@ namespace Tests.Application.Services
             const string allowedCharacters = "a";
             const string expected = "aaa";
 
-            var sut = GetSut();
-            var result = sut.GetString(specifiedLength, allowedCharacters);
+            var result = RandomStringGenerator.GetString(specifiedLength, allowedCharacters);
 
             Assert.AreEqual(expected, result);
         }
@@ -49,16 +46,10 @@ namespace Tests.Application.Services
             const int specifiedLength = 10;
             const string allowedCharacters = "abcdefghij";
 
-            var sut = GetSut();
-            var result1 = sut.GetString(specifiedLength, allowedCharacters);
-            var result2 = sut.GetString(specifiedLength, allowedCharacters);
+            var result1 = RandomStringGenerator.GetString(specifiedLength, allowedCharacters);
+            var result2 = RandomStringGenerator.GetString(specifiedLength, allowedCharacters);
 
             Assert.AreNotEqual(result1, result2);
-        }
-
-        private RandomStringGenerator GetSut()
-        {
-            return new RandomStringGenerator();
         }
     }
 }

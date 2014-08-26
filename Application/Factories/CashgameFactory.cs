@@ -6,9 +6,9 @@ using Core.Entities;
 
 namespace Application.Factories
 {
-    public class CashgameFactory : ICashgameFactory
+    public static class CashgameFactory
     {
-        public Cashgame Create(
+        public static Cashgame Create(
             int id,
             int homegameId,
             string location,
@@ -43,7 +43,7 @@ namespace Application.Factories
                 dateString);
         }
 
-        public Cashgame Create(string location, int homegameId, int? status = null, int? id = null, IList<CashgameResult> results = null)
+        public static Cashgame Create(string location, int homegameId, int? status = null, int? id = null, IList<CashgameResult> results = null)
         {
             if (results == null)
             {
@@ -75,7 +75,7 @@ namespace Application.Factories
                 dateString);
         }
 
-        private DateTime? GetStartTime(IEnumerable<CashgameResult> results)
+        private static DateTime? GetStartTime(IEnumerable<CashgameResult> results)
         {
             DateTime? startTime = null;
             foreach (var result in results)
@@ -88,7 +88,7 @@ namespace Application.Factories
             return startTime;
         }
 
-        private DateTime? GetEndTime(IEnumerable<CashgameResult> results)
+        private static DateTime? GetEndTime(IEnumerable<CashgameResult> results)
         {
             DateTime? endTime = null;
             foreach (var result in results)
@@ -101,27 +101,27 @@ namespace Application.Factories
             return endTime;
         }
 
-        private int GetBuyinSum(IEnumerable<CashgameResult> results)
+        private static int GetBuyinSum(IEnumerable<CashgameResult> results)
         {
             return results.Sum(result => result.Buyin);
         }
 
-        private int GetCashoutSum(IEnumerable<CashgameResult> results)
+        private static int GetCashoutSum(IEnumerable<CashgameResult> results)
         {
             return results.Sum(result => result.Stack);
         }
 
-        private bool HasActivePlayers(IEnumerable<CashgameResult> results)
+        private static bool HasActivePlayers(IEnumerable<CashgameResult> results)
         {
             return results.Any(result => !result.CashoutTime.HasValue);
         }
 
-        private int GetTotalStacks(IEnumerable<CashgameResult> results)
+        private static int GetTotalStacks(IEnumerable<CashgameResult> results)
         {
             return results.Sum(result => result.Stack);
         }
 
-        private int GetAverageBuyin(int turnover, int playerCount)
+        private static int GetAverageBuyin(int turnover, int playerCount)
         {
             if (playerCount == 0)
             {

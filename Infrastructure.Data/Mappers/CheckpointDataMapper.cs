@@ -4,18 +4,11 @@ using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
-    public class CheckpointDataMapper : ICheckpointDataMapper
+    public static class CheckpointDataMapper
     {
-        private readonly ICheckpointFactory _checkpointFactory;
-
-        public CheckpointDataMapper(ICheckpointFactory checkpointFactory)
+        public static Checkpoint Map(RawCheckpoint rawCheckpoint)
         {
-            _checkpointFactory = checkpointFactory;
-        }
-
-        public Checkpoint Map(RawCheckpoint rawCheckpoint)
-        {
-            return _checkpointFactory.Create(
+            return CheckpointFactory.Create(
                 rawCheckpoint.Timestamp,
                 (CheckpointType)rawCheckpoint.Type,
                 rawCheckpoint.Stack,

@@ -2,9 +2,9 @@ using Core.Entities;
 
 namespace Application.Factories
 {
-    public class UserFactory : IUserFactory
+    public static class UserFactory
     {
-        public User Create(
+        public static User Create(
             int id,
             string userName,
             string displayName,

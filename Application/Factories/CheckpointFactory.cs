@@ -3,14 +3,14 @@ using Core.Entities.Checkpoints;
 
 namespace Application.Factories
 {
-    public class CheckpointFactory : ICheckpointFactory
+    public static class CheckpointFactory
     {
-        public Checkpoint Create(
+        public static Checkpoint Create(
             DateTime timestamp,
             CheckpointType type,
             int stack,
-            int amount,
-            int id)
+            int amount = 0,
+            int id = 0)
         {
             switch (type)
             {

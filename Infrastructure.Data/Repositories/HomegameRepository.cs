@@ -16,23 +16,17 @@ namespace Infrastructure.Data.Repositories {
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
-	    private readonly IRawHomegameFactory _rawHomegameFactory;
-	    private readonly IHomegameDataMapper _homegameDataMapper;
 
 	    public HomegameRepository(
             IHomegameStorage homegameStorage, 
             ICacheContainer cacheContainer, 
             ICacheKeyProvider cacheKeyProvider,
-            ICacheBuster cacheBuster,
-            IRawHomegameFactory rawHomegameFactory,
-            IHomegameDataMapper homegameDataMapper)
+            ICacheBuster cacheBuster)
 	    {
 	        _homegameStorage = homegameStorage;
 	        _cacheContainer = cacheContainer;
 	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
-	        _rawHomegameFactory = rawHomegameFactory;
-	        _homegameDataMapper = homegameDataMapper;
 	    }
 
         public Homegame GetBySlug(string name)
@@ -57,7 +51,7 @@ namespace Infrastructure.Data.Repositories {
 	    private IList<Homegame> GetByUserId(int userId)
         {
             var rawHomegames = _homegameStorage.GetHomegamesByUserId(userId);
-            return rawHomegames.Select(_homegameDataMapper.Map).ToList();
+            return rawHomegames.Select(HomegameDataMapper.Map).ToList();
         }
 
         public IList<Homegame> GetList()
@@ -74,15 +68,15 @@ namespace Infrastructure.Data.Repositories {
 
         public Homegame Add(Homegame homegame)
         {
-            var rawHomegame = _rawHomegameFactory.Create(homegame);
+            var rawHomegame = RawHomegameFactory.Create(homegame);
             rawHomegame = _homegameStorage.AddHomegame(rawHomegame);
             _cacheBuster.HomegameAdded();
-            return _homegameDataMapper.Map(rawHomegame);
+            return HomegameDataMapper.Map(rawHomegame);
         }
 
         public bool Save(Homegame homegame)
         {
-            var rawHomegame = _rawHomegameFactory.Create(homegame);
+            var rawHomegame = RawHomegameFactory.Create(homegame);
             var success = _homegameStorage.UpdateHomegame(rawHomegame);
             _cacheBuster.HomegameUpdated(homegame);
             return success;
@@ -91,7 +85,7 @@ namespace Infrastructure.Data.Repositories {
         private Homegame GetByIdUncached(int id)
         {
             var rawHomegame = _homegameStorage.GetById(id);
-            return rawHomegame != null ? _homegameDataMapper.Map(rawHomegame) : null;
+            return rawHomegame != null ? HomegameDataMapper.Map(rawHomegame) : null;
         }
 
         private int? GetIdBySlug(string slug)
@@ -103,7 +97,7 @@ namespace Infrastructure.Data.Repositories {
         private IList<Homegame> GetAllUncached(IList<int> ids)
         {
             var rawHomegames = _homegameStorage.GetHomegames(ids);
-            return rawHomegames.Select(_homegameDataMapper.Map).ToList();
+            return rawHomegames.Select(HomegameDataMapper.Map).ToList();
         }
 
         private IList<int> GetAllIds()

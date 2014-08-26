@@ -11,7 +11,6 @@ namespace Web.Commands.CashgameCommands
     {
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameModelMapper _cashgameModelMapper;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICheckpointModelMapper _checkpointModelMapper;
         private readonly ICheckpointRepository _checkpointRepository;
@@ -19,14 +18,12 @@ namespace Web.Commands.CashgameCommands
         public CashgameCommandProvider(
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository,
-            ICashgameModelMapper cashgameModelMapper,
             IPlayerRepository playerRepository,
             ICheckpointModelMapper checkpointModelMapper,
             ICheckpointRepository checkpointRepository)
         {
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
-            _cashgameModelMapper = cashgameModelMapper;
             _playerRepository = playerRepository;
             _checkpointModelMapper = checkpointModelMapper;
             _checkpointRepository = checkpointRepository;
@@ -41,7 +38,7 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            return new EditCashgameCommand(_homegameRepository, _cashgameRepository, _cashgameModelMapper, slug, dateStr, postModel);
+            return new EditCashgameCommand(_homegameRepository, _cashgameRepository, slug, dateStr, postModel);
         }
 
         public Command GetReportCommand(string slug, int playerId, ReportPostModel postModel)

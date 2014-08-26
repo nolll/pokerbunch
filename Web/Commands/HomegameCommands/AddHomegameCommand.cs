@@ -8,26 +8,20 @@ namespace Web.Commands.HomegameCommands
 {
     public class AddHomegameCommand : Command
     {
-        private readonly IHomegameModelMapper _homegameModelMapper;
         private readonly IHomegameRepository _homegameRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
-        private readonly ISlugGenerator _slugGenerator;
         private readonly AddHomegamePostModel _postModel;
 
         public AddHomegameCommand(
-            IHomegameModelMapper homegameModelMapper,
             IHomegameRepository homegameRepository,
             IAuth auth,
             IPlayerRepository playerRepository,
-            ISlugGenerator slugGenerator,
             AddHomegamePostModel postModel)
         {
-            _homegameModelMapper = homegameModelMapper;
             _homegameRepository = homegameRepository;
             _auth = auth;
             _playerRepository = playerRepository;
-            _slugGenerator = slugGenerator;
             _postModel = postModel;
         }
 
@@ -39,7 +33,7 @@ namespace Web.Commands.HomegameCommands
                 AddError("The Homegame name is not available");
                 return false;
             }
-            var homegame = _homegameModelMapper.GetHomegame(_postModel);
+            var homegame = HomegameModelMapper.GetHomegame(_postModel);
             homegame = _homegameRepository.Add(homegame);
             var user = _auth.CurrentUser;
             _playerRepository.Add(homegame, user, Role.Manager);
@@ -48,7 +42,7 @@ namespace Web.Commands.HomegameCommands
 
         private bool HomegameExists()
         {
-            var slug = _slugGenerator.GetSlug(_postModel.DisplayName);
+            var slug = SlugGenerator.GetSlug(_postModel.DisplayName);
             var homegame = _homegameRepository.GetBySlug(slug);
             return homegame != null;
         }

@@ -12,18 +12,15 @@ namespace Infrastructure.Integration.Social
 	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ISettings _settings;
 	    private readonly IUrlProvider _urlProvider;
-	    private readonly ITwitterCredentialsFactory _twitterCredentialsFactory;
 
 	    public TwitterIntegration(
             ITwitterRepository twitterRepository,
             ISettings settings,
-            IUrlProvider urlProvider,
-            ITwitterCredentialsFactory twitterCredentialsFactory)
+            IUrlProvider urlProvider)
 	    {
 	        _twitterRepository = twitterRepository;
 	        _settings = settings;
 	        _urlProvider = urlProvider;
-	        _twitterCredentialsFactory = twitterCredentialsFactory;
 	    }
 
         public string GetAuthUrl()
@@ -47,7 +44,7 @@ namespace Infrastructure.Integration.Social
             service.AuthenticateWith(accessToken.Token, accessToken.TokenSecret);
             var twitterUser = service.VerifyCredentials(new VerifyCredentialsOptions());
 
-            return _twitterCredentialsFactory.Create(
+            return TwitterCredentialsFactory.Create(
                     accessToken.Token,
                     accessToken.TokenSecret,
                     twitterUser.ScreenName);

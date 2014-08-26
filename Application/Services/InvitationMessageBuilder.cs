@@ -6,16 +6,13 @@ namespace Application.Services
     {
         private readonly ISettings _settings;
         private readonly IUrlProvider _urlProvider;
-        private readonly IInvitationCodeCreator _invitationCodeCreator;
 
         public InvitationMessageBuilder(
             ISettings settings,
-            IUrlProvider urlProvider,
-            IInvitationCodeCreator invitationCodeCreator)
+            IUrlProvider urlProvider)
         {
             _settings = settings;
             _urlProvider = urlProvider;
-            _invitationCodeCreator = invitationCodeCreator;
         }
 
         public string GetSubject(Homegame homegame)
@@ -30,7 +27,7 @@ namespace Application.Services
             var fullJoinUrl = siteUrl + joinUrl;
             var userAddUrl = _urlProvider.GetAddUserUrl();
             var fullAddUrl = siteUrl + userAddUrl;
-            var invitationCode = _invitationCodeCreator.GetCode(player);
+            var invitationCode = InvitationCodeCreator.GetCode(player);
             return string.Format(BodyFormat, homegame.DisplayName, fullJoinUrl, invitationCode, fullAddUrl);
         }
 

@@ -157,8 +157,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         private SqlServerHomegameStorage GetSut()
         {
             return new SqlServerHomegameStorage(
-                StorageProvider,
-                GetMock<IRawHomegameFactory>().Object);
+                StorageProvider);
         }
     }
 }

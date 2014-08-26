@@ -8,22 +8,16 @@ namespace Web.Commands.UserCommands
 {
     public class ChangePasswordCommand : Command
     {
-        private readonly ISaltGenerator _saltGenerator;
         private readonly IUserRepository _userRepository;
-        private readonly IUserModelMapper _userModelMapper;
         private readonly User _user;
         private readonly ChangePasswordPostModel _postModel;
 
         public ChangePasswordCommand(
-            ISaltGenerator saltGenerator,
             IUserRepository userRepository,
-            IUserModelMapper userModelMapper,
             User user, 
             ChangePasswordPostModel postModel)
         {
-            _saltGenerator = saltGenerator;
             _userRepository = userRepository;
-            _userModelMapper = userModelMapper;
             _user = user;
             _postModel = postModel;
         }
@@ -39,9 +33,9 @@ namespace Web.Commands.UserCommands
                 AddError("The passwords does not match");
                 return false;
             }
-            var salt = _saltGenerator.CreateSalt();
+            var salt = SaltGenerator.CreateSalt();
             var encryptedPassword = EncryptionService.Encrypt(_postModel.Password, salt);
-            var user = _userModelMapper.GetUser(_user, encryptedPassword, salt);
+            var user = UserModelMapper.GetUser(_user, encryptedPassword, salt);
             _userRepository.Save(user);
             return true;
         }

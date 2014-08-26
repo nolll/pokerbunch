@@ -2,9 +2,9 @@
 
 namespace Application.Factories
 {
-    public class TwitterCredentialsFactory : ITwitterCredentialsFactory
+    public static class TwitterCredentialsFactory
     {
-        public TwitterCredentials Create(string key, string secret, string twitterName)
+        public static TwitterCredentials Create(string key, string secret, string twitterName)
         {
             return new TwitterCredentials
                 (

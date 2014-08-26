@@ -105,8 +105,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         private SqlServerUserStorage GetSut()
         {
             return new SqlServerUserStorage(
-                StorageProvider,
-                GetMock<IRawUserFactory>().Object);
+                StorageProvider);
         }
     }
 }

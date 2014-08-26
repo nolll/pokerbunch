@@ -100,8 +100,7 @@ namespace Tests.Infrastructure.Data.SqlServer
         {
             return new SqlServerCheckpointStorage(
                 StorageProvider,
-                GetMock<ITimeProvider>().Object,
-                GetMock<IRawCheckpointFactory>().Object);
+                GetMock<ITimeProvider>().Object);
         }
     }
 }

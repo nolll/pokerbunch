@@ -230,10 +230,7 @@
     <Compile Include="ModelFactories\UserModelFactories\IAddUserPageBuilder.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
     <Compile Include="ModelMappers\UserModelMapper.cs" />
-    <Compile Include="ModelMappers\IUserModelMapper.cs" />
-    <Compile Include="ModelMappers\ICashgameModelMapper.cs" />
     <Compile Include="ModelMappers\HomegameModelMapper.cs" />
-    <Compile Include="ModelMappers\IHomegameModelMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

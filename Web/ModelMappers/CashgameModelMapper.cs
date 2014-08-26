@@ -4,18 +4,11 @@ using Web.Models.CashgameModels.Edit;
 
 namespace Web.ModelMappers
 {
-    public class CashgameModelMapper : ICashgameModelMapper
+    public static class CashgameModelMapper
     {
-        private readonly ICashgameFactory _cashgameFactory;
-
-        public CashgameModelMapper(ICashgameFactory cashgameFactory)
+        public static Cashgame Map(Cashgame cashgame, CashgameEditPostModel postModel)
         {
-            _cashgameFactory = cashgameFactory;
-        }
-
-        public Cashgame Map(Cashgame cashgame, CashgameEditPostModel postModel)
-        {
-            return _cashgameFactory.Create(
+            return CashgameFactory.Create(
                     cashgame.Id,
                     cashgame.HomegameId,
                     postModel.Location,

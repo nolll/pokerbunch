@@ -4,9 +4,9 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public class RawHomegameFactory : IRawHomegameFactory
+    public static class RawHomegameFactory
     {
-        public RawHomegame Create(IStorageDataReader reader)
+        public static RawHomegame Create(IStorageDataReader reader)
         {
             return new RawHomegame
             {
@@ -25,7 +25,7 @@ namespace Infrastructure.Data.Factories
             };
         }
 
-        public RawHomegame Create(Homegame homegame)
+        public static RawHomegame Create(Homegame homegame)
         {
             return new RawHomegame
             {
