@@ -12,16 +12,13 @@ namespace Infrastructure.Integration.Social
     {
 	    private readonly ITwitterRepository _twitterRepository;
 	    private readonly ISettings _settings;
-	    private readonly IUrlProvider _urlProvider;
 
 	    public TwitterIntegration(
             ITwitterRepository twitterRepository,
-            ISettings settings,
-            IUrlProvider urlProvider)
+            ISettings settings)
 	    {
 	        _twitterRepository = twitterRepository;
 	        _settings = settings;
-	        _urlProvider = urlProvider;
 	    }
 
         public string GetAuthUrl()

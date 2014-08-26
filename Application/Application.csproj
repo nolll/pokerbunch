@@ -64,7 +64,6 @@
     <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
     <Compile Include="Services\Interfaces\ITimeProvider.cs" />
     <Compile Include="Services\Interfaces\ITwitterIntegration.cs" />
-    <Compile Include="Services\Interfaces\IUrlProvider.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IWebContext.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />

@@ -43,7 +43,6 @@ namespace Web.Plumbing
         {
             // Services
             RegisterComponent<IConfigService, ConfigService>();
-            RegisterComponent<IUrlProvider, UrlProvider>();
 
             // Page Model Factories
             RegisterComponent<IHomePageBuilder, HomePageBuilder>();
