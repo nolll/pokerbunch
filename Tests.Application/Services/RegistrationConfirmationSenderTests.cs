@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -8,27 +9,22 @@ namespace Tests.Application.Services
     public class RegistrationConfirmationSenderTests : MockContainer
     {
         [Test]
-        public void Send_SendsMessageWithCorrectSubjectBody()
+        public void Send_SendsMessage()
         {
             const string email = "a";
-            const string subject = "b";
-            const string body = "c";
             const string password = "d";
             var user = new UserInTest(email: email);
-            GetMock<IRegistrationConfirmationMessageBuilder>().Setup(o => o.GetSubject()).Returns(subject);
-            GetMock<IRegistrationConfirmationMessageBuilder>().Setup(o => o.GetBody(password)).Returns(body);
 
             var sut = GetSut();
             sut.Send(user, password);
 
-            GetMock<IMessageSender>().Verify(o => o.Send(email, subject, body));
+            GetMock<IMessageSender>().Verify(o => o.Send(email, It.IsAny<string>(), It.IsAny<string>()));
         }
 
         private RegistrationConfirmationSender GetSut()
         {
             return new RegistrationConfirmationSender(
-                GetMock<IMessageSender>().Object,
-                GetMock<IRegistrationConfirmationMessageBuilder>().Object);
+                GetMock<IMessageSender>().Object);
         }
     }
 }

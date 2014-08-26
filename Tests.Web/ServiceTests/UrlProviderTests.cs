@@ -21,7 +21,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new HomeUrl();
 
-            Assert.AreEqual("http://pokerbunch.lan/", result.Absolute());
+            Assert.AreEqual("http://pokerbunch.com/", result.Absolute);
         }
 
         [Test]

@@ -11,8 +11,7 @@ namespace Tests.Application.Services
         {
             const string expected = "Poker Bunch password recovery";
 
-            var sut = GetSut();
-            var result = sut.GetSubject();
+            var result = PasswordMessageBuilder.GetSubject();
 
             Assert.AreEqual(expected, result);
         }
@@ -24,25 +23,12 @@ namespace Tests.Application.Services
 @"Here is your new password for Poker Bunch:
 a
 
-Please sign in here: bc";
+Please sign in here: http://pokerbunch.com/-/auth/login";
             const string password = "a";
-            const string siteUrl = "b";
-            const string loginUrl = "c";
 
-            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetLoginUrl()).Returns(loginUrl);
-
-            var sut = GetSut();
-            var result = sut.GetBody(password);
+            var result = PasswordMessageBuilder.GetBody(password);
 
             Assert.AreEqual(expected, result);
-        }
-
-        private PasswordMessageBuilder GetSut()
-        {
-            return new PasswordMessageBuilder(
-                GetMock<ISettings>().Object,
-                GetMock<IUrlProvider>().Object);
         }
     }
 }

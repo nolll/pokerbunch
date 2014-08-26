@@ -1,6 +1,7 @@
 using System;
 using Application.Factories;
 using Application.Services;
+using Application.Urls;
 using Core.Entities;
 using Core.Repositories;
 using TweetSharp;
@@ -26,7 +27,7 @@ namespace Infrastructure.Integration.Social
         public string GetAuthUrl()
         {
 			var service = GetService();
-            var requestToken = service.GetRequestToken(_urlProvider.GetTwitterCallbackUrl());
+            var requestToken = service.GetRequestToken(new TwitterCallbackUrl().Absolute);
             return service.GetAuthenticationUrl(requestToken).ToString();
 		}
 

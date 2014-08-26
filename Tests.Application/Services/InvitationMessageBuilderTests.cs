@@ -14,8 +14,7 @@ namespace Tests.Application.Services
             const string expected = "Invitation to Poker Bunch: a";
             var homegame = new HomegameInTest(displayName: displayName);
 
-            var sut = GetSut();
-            var result = sut.GetSubject(homegame);
+            var result = InvitationMessageBuilder.GetSubject(homegame);
 
             Assert.AreEqual(expected, result);
         }
@@ -25,34 +24,19 @@ namespace Tests.Application.Services
         {
             const string displayName = "a";
             const string slug = "b";
-            const string siteUrl = "c";
-            const string joinUrl = "d";
-            const string addUserUrl = "f";
 
             const string expected =
 @"You have been invited to join the poker game: a.
 
-To accept this invitation, go to cd and enter this verification code: 9d2f82be03d5bae28167fff215bce098b7049984
+To accept this invitation, go to http://pokerbunch.com/b/homegame/join and enter this verification code: 9d2f82be03d5bae28167fff215bce098b7049984
 
-If you don't have an account, you can register at cf";
+If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
             var homegame = new HomegameInTest(slug: slug, displayName: displayName);
             var player = new PlayerInTest();
 
-            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetAddUserUrl()).Returns(addUserUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetJoinHomegameUrl(slug)).Returns(joinUrl);
-
-            var sut = GetSut();
-            var result = sut.GetBody(homegame, player);
+            var result = InvitationMessageBuilder.GetBody(homegame, player);
 
             Assert.AreEqual(expected, result);
-        }
-
-        private InvitationMessageBuilder GetSut()
-        {
-            return new InvitationMessageBuilder(
-                GetMock<ISettings>().Object,
-                GetMock<IUrlProvider>().Object);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Application.UseCases.PlayerDetails
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IAvatarService _avatarService = new GravatarService();
 
         public PlayerDetailsInteractor(
             IAuth auth,
@@ -34,7 +33,7 @@ namespace Application.UseCases.PlayerDetails
             var user = _userRepository.GetById(player.UserId);
             var isManager = _auth.IsInRole(request.Slug, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(request.PlayerId);
-            var avatarUrl = user != null ? _avatarService.GetAvatarUrl(user.Email) : string.Empty;
+            var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
             
             return new PlayerDetailsResult(homegame, player, user, isManager, hasPlayed, avatarUrl);
         }

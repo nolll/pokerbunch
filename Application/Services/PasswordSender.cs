@@ -5,20 +5,17 @@ namespace Application.Services{
 	public class PasswordSender : IPasswordSender
     {
 	    private readonly IMessageSender _messageSender;
-	    private readonly IPasswordMessageBuilder _passwordMessageBuilder;
 
 	    public PasswordSender(
-            IMessageSender messageSender,
-            IPasswordMessageBuilder passwordMessageBuilder)
+            IMessageSender messageSender)
 	    {
 	        _messageSender = messageSender;
-	        _passwordMessageBuilder = passwordMessageBuilder;
 	    }
 
 	    public void Send(User user, string password)
 	    {
-	        var subject = _passwordMessageBuilder.GetSubject();
-            var body = _passwordMessageBuilder.GetBody(password);
+	        var subject = PasswordMessageBuilder.GetSubject();
+            var body = PasswordMessageBuilder.GetBody(password);
 			_messageSender.Send(user.Email, subject, body);
 		}
 

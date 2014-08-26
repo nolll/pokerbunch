@@ -137,10 +137,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\ChartModelFactories\IChartValueModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\AdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IAdminNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\Interfaces\IUserNavigationModelFactory.cs" />
-    <Compile Include="ModelFactories\NavigationModelFactories\UserNavigationModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageBuilder.cs" />

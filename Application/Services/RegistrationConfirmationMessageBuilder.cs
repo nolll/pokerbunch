@@ -1,29 +1,18 @@
+using Application.Urls;
+
 namespace Application.Services
 {
-    public class RegistrationConfirmationMessageBuilder : IRegistrationConfirmationMessageBuilder
+    public static class RegistrationConfirmationMessageBuilder
     {
-        private readonly ISettings _settings;
-        private readonly IUrlProvider _urlProvider;
-
-        public RegistrationConfirmationMessageBuilder(
-            ISettings settings,
-            IUrlProvider urlProvider)
-        {
-            _settings = settings;
-            _urlProvider = urlProvider;
-        }
-
-        public string GetSubject()
+        public static string GetSubject()
         {
             return "Poker Bunch Registration";
         }
 
-        public string GetBody(string password)
+        public static string GetBody(string password)
         {
-            var siteUrl = _settings.GetSiteUrl();
-            var loginUrl = _urlProvider.GetLoginUrl();
-            var absoluteLoginUrl = siteUrl + loginUrl;
-            return string.Format(BodyFormat, password, absoluteLoginUrl);
+            var loginUrl = new LoginUrl().Absolute;
+            return string.Format(BodyFormat, password, loginUrl);
         }
 
         private const string BodyFormat = 
@@ -33,6 +22,5 @@ Here is your password:
 {0}
 
 Please sign in here: {1}";
-
     }
 }

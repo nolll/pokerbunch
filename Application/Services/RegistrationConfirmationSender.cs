@@ -5,19 +5,15 @@ namespace Application.Services{
 	public class RegistrationConfirmationSender : IRegistrationConfirmationSender
     {
 	    private readonly IMessageSender _messageSender;
-	    private readonly IRegistrationConfirmationMessageBuilder _registrationConfirmationMessageBuilder;
 
-	    public RegistrationConfirmationSender(
-            IMessageSender messageSender,
-            IRegistrationConfirmationMessageBuilder registrationConfirmationMessageBuilder)
+	    public RegistrationConfirmationSender(IMessageSender messageSender)
 	    {
 	        _messageSender = messageSender;
-	        _registrationConfirmationMessageBuilder = registrationConfirmationMessageBuilder;
 	    }
 
 	    public void Send(User user, string password){
-            var subject = _registrationConfirmationMessageBuilder.GetSubject();
-            var body = _registrationConfirmationMessageBuilder.GetBody(password);
+            var subject = RegistrationConfirmationMessageBuilder.GetSubject();
+            var body = RegistrationConfirmationMessageBuilder.GetBody(password);
 			_messageSender.Send(user.Email, subject, body);
 		}
 

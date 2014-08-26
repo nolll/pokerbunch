@@ -94,15 +94,11 @@ namespace Plumbing
             RegisterComponent<IPlayerDataMapper, PlayerDataMapper>();
 
             // Services
-            RegisterComponent<IAvatarService, GravatarService>();
             RegisterComponent<IInvitationSender, InvitationSender>();
-            RegisterComponent<IInvitationMessageBuilder, InvitationMessageBuilder>();
             RegisterComponent<IMessageSender, MessageSender>();
             RegisterComponent<IUserService, UserService>();
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
-            RegisterComponent<IRegistrationConfirmationMessageBuilder, RegistrationConfirmationMessageBuilder>();
             RegisterComponent<IPasswordSender, PasswordSender>();
-            RegisterComponent<IPasswordMessageBuilder, PasswordMessageBuilder>();
             RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<ICashgameService, CashgameService>();
             RegisterComponent<IResultSharer, ResultSharer>();

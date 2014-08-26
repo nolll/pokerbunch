@@ -11,8 +11,7 @@ namespace Tests.Application.Services
         {
             const string expected = "Poker Bunch Registration";
 
-            var sut = GetSut();
-            var result = sut.GetSubject();
+            var result = RegistrationConfirmationMessageBuilder.GetSubject();
 
             Assert.AreEqual(expected, result);
         }
@@ -26,25 +25,12 @@ namespace Tests.Application.Services
 Here is your password:
 a
 
-Please sign in here: bc";
+Please sign in here: http://pokerbunch.com/-/auth/login";
             const string password = "a";
-            const string siteUrl = "b";
-            const string loginUrl = "c";
 
-            GetMock<ISettings>().Setup(o => o.GetSiteUrl()).Returns(siteUrl);
-            GetMock<IUrlProvider>().Setup(o => o.GetLoginUrl()).Returns(loginUrl);
-
-            var sut = GetSut();
-            var result = sut.GetBody(password);
+            var result = RegistrationConfirmationMessageBuilder.GetBody(password);
 
             Assert.AreEqual(expected, result);
-        }
-
-        private RegistrationConfirmationMessageBuilder GetSut()
-        {
-            return new RegistrationConfirmationMessageBuilder(
-                GetMock<ISettings>().Object,
-                GetMock<IUrlProvider>().Object);
         }
     }
 }

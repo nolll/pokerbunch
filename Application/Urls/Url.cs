@@ -2,11 +2,21 @@
 {
     public class Url
     {
-        public string Relative { get; private set; }
+        private readonly string _url;
 
         public Url(string url)
         {
-            Relative = url ?? string.Empty;
+            _url = url ?? string.Empty;
+        }
+
+        public string Relative
+        {
+            get { return _url; }
+        }
+
+        public string Absolute
+        {
+            get { return string.Concat("http://pokerbunch.com", _url); }
         }
 
         public override string ToString()

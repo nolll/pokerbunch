@@ -5,20 +5,17 @@ namespace Application.Services
     public class InvitationSender : IInvitationSender
     {
 	    private readonly IMessageSender _messageSender;
-        private readonly IInvitationMessageBuilder _invitationMessageBuilder;
 
         public InvitationSender(
-            IMessageSender messageSender,
-            IInvitationMessageBuilder invitationMessageBuilder)
+            IMessageSender messageSender)
 	    {
 	        _messageSender = messageSender;
-	        _invitationMessageBuilder = invitationMessageBuilder;
 	    }
 
 	    public void Send(Homegame homegame, Player player, string email)
         {
-			var subject = _invitationMessageBuilder.GetSubject(homegame);
-			var body = _invitationMessageBuilder.GetBody(homegame, player);
+			var subject = InvitationMessageBuilder.GetSubject(homegame);
+			var body = InvitationMessageBuilder.GetBody(homegame, player);
 			_messageSender.Send(email, subject, body);
 		}
 

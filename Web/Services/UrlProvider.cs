@@ -7,12 +7,6 @@ namespace Web.Services
     public class UrlProvider : IUrlProvider
     {
         /* leave for now */
-        public string GetLoginUrl()
-        {
-            return new LoginUrl().Relative;
-        }
-
-        /* leave for now */
         public string GetAddUserUrl()
         {
             return new AddUserUrl().Relative;
@@ -22,12 +16,6 @@ namespace Web.Services
         public string GetJoinHomegameUrl(string slug)
         {
             return new JoinHomeGameUrl(slug).Relative;
-        }
-
-        /* leave for now */
-        public string GetTwitterCallbackUrl()
-        {
-            return new TwitterCallbackUrl().Absolute();
         }
     }
 }

@@ -22,7 +22,6 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.ChartModelFactories;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
-using Web.ModelFactories.NavigationModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
@@ -78,8 +77,6 @@ namespace Web.Plumbing
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
 
             // Model Factories
-            RegisterComponent<IUserNavigationModelFactory, UserNavigationModelFactory>();
-            RegisterComponent<IAdminNavigationModelFactory, AdminNavigationModelFactory>();
             RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
             RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();

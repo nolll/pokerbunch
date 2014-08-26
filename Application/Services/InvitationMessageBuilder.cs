@@ -1,34 +1,21 @@
+using Application.Urls;
 using Core.Entities;
 
 namespace Application.Services
 {
-    public class InvitationMessageBuilder : IInvitationMessageBuilder
+    public static class InvitationMessageBuilder
     {
-        private readonly ISettings _settings;
-        private readonly IUrlProvider _urlProvider;
-
-        public InvitationMessageBuilder(
-            ISettings settings,
-            IUrlProvider urlProvider)
-        {
-            _settings = settings;
-            _urlProvider = urlProvider;
-        }
-
-        public string GetSubject(Homegame homegame)
+        public static string GetSubject(Homegame homegame)
         {
             return string.Format("Invitation to Poker Bunch: {0}", homegame.DisplayName);
         }
 
-        public string GetBody(Homegame homegame, Player player)
+        public static string GetBody(Homegame homegame, Player player)
         {
-            var siteUrl = _settings.GetSiteUrl();
-            var joinUrl = _urlProvider.GetJoinHomegameUrl(homegame.Slug);
-            var fullJoinUrl = siteUrl + joinUrl;
-            var userAddUrl = _urlProvider.GetAddUserUrl();
-            var fullAddUrl = siteUrl + userAddUrl;
+            var joinUrl = new JoinHomeGameUrl(homegame.Slug).Absolute;
+            var addUserUrl = new AddUserUrl().Absolute;
             var invitationCode = InvitationCodeCreator.GetCode(player);
-            return string.Format(BodyFormat, homegame.DisplayName, fullJoinUrl, invitationCode, fullAddUrl);
+            return string.Format(BodyFormat, homegame.DisplayName, joinUrl, invitationCode, addUserUrl);
         }
 
         private const string BodyFormat =
