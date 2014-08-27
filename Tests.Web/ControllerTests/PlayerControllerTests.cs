@@ -79,9 +79,7 @@ namespace Tests.Web.ControllerTests
                 GetMock<IPlayerListInteractor>().Object,
                 GetMock<IPlayerCommandProvider>().Object,
                 GetMock<IAddPlayerPageBuilder>().Object,
-                GetMock<IAddPlayerConfirmationPageBuilder>().Object,
-                GetMock<IInvitePlayerPageBuilder>().Object,
-                GetMock<IInvitePlayerConfirmationPageBuilder>().Object);
+                GetMock<IInvitePlayerPageBuilder>().Object);
 		}
 	}
 }

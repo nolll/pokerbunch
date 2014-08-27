@@ -31,7 +31,6 @@ namespace Tests.Web.ControllerTests
                     GetMock<IHomegameCommandProvider>().Object,
                     GetMock<IHomegameDetailsPageBuilder>().Object,
                     GetMock<IAddHomegamePageBuilder>().Object,
-                    GetMock<IAddHomegameConfirmationPageBuilder>().Object,
                     GetMock<IEditHomegamePageBuilder>().Object,
                     GetMock<IJoinHomegamePageBuilder>().Object,
                     GetMock<IJoinHomegameConfirmationPageBuilder>().Object);

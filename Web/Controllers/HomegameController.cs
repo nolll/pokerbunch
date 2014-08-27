@@ -19,7 +19,6 @@ namespace Web.Controllers
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
 	    private readonly IAddHomegamePageBuilder _addHomegamePageBuilder;
-	    private readonly IAddHomegameConfirmationPageBuilder _addHomegameConfirmationPageBuilder;
 	    private readonly IEditHomegamePageBuilder _editHomegamePageBuilder;
 	    private readonly IJoinHomegamePageBuilder _joinHomegamePageBuilder;
 	    private readonly IJoinHomegameConfirmationPageBuilder _joinHomegameConfirmationPageBuilder;
@@ -30,7 +29,6 @@ namespace Web.Controllers
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameDetailsPageBuilder homegameDetailsPageBuilder,
             IAddHomegamePageBuilder addHomegamePageBuilder,
-            IAddHomegameConfirmationPageBuilder addHomegameConfirmationPageBuilder,
             IEditHomegamePageBuilder editHomegamePageBuilder,
             IJoinHomegamePageBuilder joinHomegamePageBuilder,
             IJoinHomegameConfirmationPageBuilder joinHomegameConfirmationPageBuilder)
@@ -40,7 +38,6 @@ namespace Web.Controllers
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
 	        _addHomegamePageBuilder = addHomegamePageBuilder;
-	        _addHomegameConfirmationPageBuilder = addHomegameConfirmationPageBuilder;
 	        _editHomegamePageBuilder = editHomegamePageBuilder;
 	        _joinHomegamePageBuilder = joinHomegamePageBuilder;
 	        _joinHomegameConfirmationPageBuilder = joinHomegameConfirmationPageBuilder;
@@ -85,7 +82,8 @@ namespace Web.Controllers
 
         public ActionResult Created()
         {
-            var model = _addHomegameConfirmationPageBuilder.Build();
+            var contextResult = _appContextInteractor.Execute();
+            var model = new AddHomegameConfirmationPageModel(contextResult);
 			return View("AddHomegameConfirmation", model);
 		}
 

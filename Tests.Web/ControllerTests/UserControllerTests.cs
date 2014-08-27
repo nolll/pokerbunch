@@ -32,7 +32,6 @@ namespace Tests.Web.ControllerTests
                     GetMock<IUserListInteractor>().Object,
                     GetMock<IUserCommandProvider>().Object,
                     GetMock<IAddUserPageBuilder>().Object,
-                    GetMock<IAddUserConfirmationPageBuilder>().Object,
                     GetMock<IEditUserPageBuilder>().Object,
                     GetMock<IChangePasswordPageBuilder>().Object,
                     GetMock<IForgotPasswordPageBuilder>().Object);

@@ -24,9 +24,7 @@ namespace Web.Controllers
         private readonly IPlayerListInteractor _playerListInteractor;
         private readonly IPlayerCommandProvider _playerCommandProvider;
         private readonly IAddPlayerPageBuilder _addPlayerPageBuilder;
-        private readonly IAddPlayerConfirmationPageBuilder _addPlayerConfirmationPageBuilder;
         private readonly IInvitePlayerPageBuilder _invitePlayerPageBuilder;
-        private readonly IInvitePlayerConfirmationPageBuilder _invitePlayerConfirmationPageBuilder;
 
         public PlayerController(
             IBunchContextInteractor bunchContextInteractor,
@@ -36,9 +34,7 @@ namespace Web.Controllers
             IPlayerListInteractor playerListInteractor,
             IPlayerCommandProvider playerCommandProvider,
             IAddPlayerPageBuilder addPlayerPageBuilder,
-            IAddPlayerConfirmationPageBuilder addPlayerConfirmationPageBuilder,
-            IInvitePlayerPageBuilder invitePlayerPageBuilder,
-            IInvitePlayerConfirmationPageBuilder invitePlayerConfirmationPageBuilder)
+            IInvitePlayerPageBuilder invitePlayerPageBuilder)
 	    {
             _bunchContextInteractor = bunchContextInteractor;
             _playerDetailsInteractor = playerDetailsInteractor;
@@ -47,9 +43,7 @@ namespace Web.Controllers
             _playerListInteractor = playerListInteractor;
             _playerCommandProvider = playerCommandProvider;
             _addPlayerPageBuilder = addPlayerPageBuilder;
-            _addPlayerConfirmationPageBuilder = addPlayerConfirmationPageBuilder;
             _invitePlayerPageBuilder = invitePlayerPageBuilder;
-            _invitePlayerConfirmationPageBuilder = invitePlayerConfirmationPageBuilder;
 	    }
 
         [AuthorizePlayer]
@@ -95,7 +89,8 @@ namespace Web.Controllers
 
         public ActionResult Created(string slug)
         {
-            var model = _addPlayerConfirmationPageBuilder.Build(slug);
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var model = new AddPlayerConfirmationPageModel(contextResult);
 			return View("AddConfirmation", model);
 		}
 
@@ -133,7 +128,8 @@ namespace Web.Controllers
 
         public ActionResult Invited(string slug, int playerId)
         {
-		    var model = _invitePlayerConfirmationPageBuilder.Build(slug);
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var model = new InvitePlayerConfirmationPageModel(contextResult);
 			return View("InviteConfirmation", model);
 		}
     }

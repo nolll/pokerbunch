@@ -8,7 +8,6 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services.Interfaces;
-using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
@@ -16,20 +15,17 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
     public class CashgameDetailsChartJsonBuilder : ICashgameDetailsChartJsonBuilder
     {
         private readonly ITimeProvider _timeProvider;
-        private readonly IChartValueModelFactory _chartValueModelFactory;
         private readonly ICashgameService _cashgameService;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public CashgameDetailsChartJsonBuilder(
             ITimeProvider timeProvider,
-            IChartValueModelFactory chartValueModelFactory,
             ICashgameService cashgameService,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository)
         {
             _timeProvider = timeProvider;
-            _chartValueModelFactory = chartValueModelFactory;
             _cashgameService = cashgameService;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
@@ -82,8 +78,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private ChartRowModel GetCurrentStacks(TimeZoneInfo timeZone, IEnumerable<CashgameResult> results)
         {
             var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), timeZone);
-            var values = new List<ChartValueModel> {_chartValueModelFactory.Create(timestamp)};
-            values.AddRange(results.Select(result => _chartValueModelFactory.Create(result.Winnings)));
+            var values = new List<ChartValueModel> { new ChartValueModel(timestamp) };
+            values.AddRange(results.Select(result => new ChartValueModel(result.Winnings)));
             return new ChartRowModel
                 {
                     C = values
@@ -99,7 +95,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetActionRow(IList<Player> players, DateTime dateTime, int winnings, int currentPlayerId)
         {
-            var values = new List<ChartValueModel> {_chartValueModelFactory.Create(dateTime)};
+            var values = new List<ChartValueModel> { new ChartValueModel(dateTime) };
             foreach (var player in players)
             {
                 string val = null;
@@ -107,7 +103,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 {
                     val = winnings.ToString(CultureInfo.InvariantCulture);
                 }
-                values.Add(_chartValueModelFactory.Create(val));
+                values.Add(new ChartValueModel(val));
             }
             return new ChartRowModel
                 {

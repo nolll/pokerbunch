@@ -19,7 +19,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.ChartModelFactories;
 using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
@@ -48,7 +47,6 @@ namespace Web.Plumbing
             RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
-            RegisterComponent<IAddHomegameConfirmationPageBuilder, AddHomegameConfirmationPageBuilder>();
             RegisterComponent<IReportPageBuilder, ReportPageBuilder>();
             RegisterComponent<ICashoutPageBuilder, CashoutPageBuilder>();
             RegisterComponent<IEndPageBuilder, EndPageBuilder>();
@@ -59,13 +57,10 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
             RegisterComponent<IAddPlayerPageBuilder, AddPlayerPageBuilder>();
-            RegisterComponent<IAddPlayerConfirmationPageBuilder, AddPlayerConfirmationPageBuilder>();
             RegisterComponent<IInvitePlayerPageBuilder, InvitePlayerPageBuilder>();
-            RegisterComponent<IInvitePlayerConfirmationPageBuilder, InvitePlayerConfirmationPageBuilder>();
             RegisterComponent<IJoinHomegamePageBuilder, JoinHomegamePageBuilder>();
             RegisterComponent<IJoinHomegameConfirmationPageBuilder, JoinHomegameConfirmationPageBuilder>();
             RegisterComponent<IAddUserPageBuilder, AddUserPageBuilder>();
-            RegisterComponent<IAddUserConfirmationPageBuilder, AddUserConfirmationPageBuilder>();
             RegisterComponent<IEditUserPageBuilder, EditUserPageBuilder>();
             RegisterComponent<IChangePasswordPageBuilder, ChangePasswordPageBuilder>();
             RegisterComponent<IForgotPasswordPageBuilder, ForgotPasswordPageBuilder>();
@@ -85,7 +80,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();
-            RegisterComponent<IChartValueModelFactory, ChartValueModelFactory>();
 
             // Mappers
             RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>();

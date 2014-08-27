@@ -22,7 +22,6 @@ namespace Web.Controllers
 	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
 	    private readonly IAddUserPageBuilder _addUserPageBuilder;
-	    private readonly IAddUserConfirmationPageBuilder _addUserConfirmationPageBuilder;
 	    private readonly IEditUserPageBuilder _editUserPageBuilder;
 	    private readonly IChangePasswordPageBuilder _changePasswordPageBuilder;
 	    private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
@@ -33,7 +32,6 @@ namespace Web.Controllers
             IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider,
             IAddUserPageBuilder addUserPageBuilder,
-            IAddUserConfirmationPageBuilder addUserConfirmationPageBuilder,
             IEditUserPageBuilder editUserPageBuilder,
             IChangePasswordPageBuilder changePasswordPageBuilder,
             IForgotPasswordPageBuilder forgotPasswordPageBuilder)
@@ -43,7 +41,6 @@ namespace Web.Controllers
 	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
 	        _addUserPageBuilder = addUserPageBuilder;
-	        _addUserConfirmationPageBuilder = addUserConfirmationPageBuilder;
 	        _editUserPageBuilder = editUserPageBuilder;
 	        _changePasswordPageBuilder = changePasswordPageBuilder;
 	        _forgotPasswordPageBuilder = forgotPasswordPageBuilder;
@@ -88,7 +85,8 @@ namespace Web.Controllers
 
 		public ActionResult Created()
 		{
-		    var model = _addUserConfirmationPageBuilder.Build();
+            var contextResult = _appContextInteractor.Execute();
+            var model = new AddUserConfirmationPageModel(contextResult);
 			return View("Add/Confirmation", model);
 		}
 

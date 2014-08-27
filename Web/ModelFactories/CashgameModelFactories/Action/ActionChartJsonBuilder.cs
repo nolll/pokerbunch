@@ -4,7 +4,6 @@ using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Web.ModelFactories.ChartModelFactories;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
@@ -12,18 +11,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
     public class ActionChartJsonBuilder : IActionChartJsonBuilder
     {
         private readonly ITimeProvider _timeProvider;
-        private readonly IChartValueModelFactory _chartValueModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public ActionChartJsonBuilder(
             ITimeProvider timeProvider,
-            IChartValueModelFactory chartValueModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameRepository cashgameRepository)
         {
             _timeProvider = timeProvider;
-            _chartValueModelFactory = chartValueModelFactory;
             _homegameRepository = homegameRepository;
             _cashgameRepository = cashgameRepository;
         }
@@ -90,9 +86,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         {
             var values = new List<ChartValueModel>
                 {
-                    _chartValueModelFactory.Create(dateTime),
-                    _chartValueModelFactory.Create(stack),
-                    _chartValueModelFactory.Create(buyin)
+                    new ChartValueModel(dateTime),
+                    new ChartValueModel(stack),
+                    new ChartValueModel(buyin)
                 };
             return new ChartRowModel
                 {
