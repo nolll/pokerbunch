@@ -31,8 +31,7 @@ namespace Tests.Web.ControllerTests
                     GetMock<IUserDetailsInteractor>().Object,
                     GetMock<IUserListInteractor>().Object,
                     GetMock<IUserCommandProvider>().Object,
-                    GetMock<IEditUserPageBuilder>().Object,
-                    GetMock<IForgotPasswordPageBuilder>().Object);
+                    GetMock<IEditUserPageBuilder>().Object);
             }
         }
     }

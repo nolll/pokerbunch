@@ -3,6 +3,7 @@ using Application.Urls;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
+using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
@@ -20,29 +21,29 @@ namespace Web.Controllers
 	    private readonly IBunchListInteractor _bunchListInteractor;
 	    private readonly IAddBunchFormInteractor _addBunchFormInteractor;
 	    private readonly IJoinBunchFormInteractor _joinBunchFormInteractor;
+	    private readonly IJoinBunchConfirmationInteractor _joinBunchConfirmationInteractor;
 	    private readonly IBunchCommandProvider _bunchCommandProvider;
 	    private readonly IBunchDetailsPageBuilder _bunchDetailsPageBuilder;
 	    private readonly IEditBunchPageBuilder _editBunchPageBuilder;
-	    private readonly IJoinBunchConfirmationPageBuilder _joinBunchConfirmationPageBuilder;
 
 	    public HomegameController(
             IAppContextInteractor appContextInteractor,
             IBunchListInteractor bunchListInteractor,
             IAddBunchFormInteractor addBunchFormInteractor,
             IJoinBunchFormInteractor joinBunchFormInteractor,
+            IJoinBunchConfirmationInteractor joinBunchConfirmationInteractor,
             IBunchCommandProvider bunchCommandProvider,
             IBunchDetailsPageBuilder bunchDetailsPageBuilder,
-            IEditBunchPageBuilder editBunchPageBuilder,
-            IJoinBunchConfirmationPageBuilder joinBunchConfirmationPageBuilder)
+            IEditBunchPageBuilder editBunchPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _bunchListInteractor = bunchListInteractor;
 	        _addBunchFormInteractor = addBunchFormInteractor;
 	        _joinBunchFormInteractor = joinBunchFormInteractor;
+	        _joinBunchConfirmationInteractor = joinBunchConfirmationInteractor;
 	        _bunchCommandProvider = bunchCommandProvider;
 	        _bunchDetailsPageBuilder = bunchDetailsPageBuilder;
 	        _editBunchPageBuilder = editBunchPageBuilder;
-	        _joinBunchConfirmationPageBuilder = joinBunchConfirmationPageBuilder;
 	    }
 
         [AuthorizeAdmin]
@@ -151,7 +152,12 @@ namespace Web.Controllers
         [AuthorizePlayer]
 		public ActionResult Joined(string slug)
 		{
-            var model = _joinBunchConfirmationPageBuilder.Build(slug);
+            var contextResult = _appContextInteractor.Execute();
+
+            var request = new JoinBunchConfirmationRequest(slug);
+            var joinBunchConfirmationResult = _joinBunchConfirmationInteractor.Execute(request);
+
+            var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
 			return View("Join/Confirmation", model);
 		}
 

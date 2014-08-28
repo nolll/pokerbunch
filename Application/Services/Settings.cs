@@ -1,5 +1,8 @@
+using Application.Annotations;
+
 namespace Application.Services
 {
+    [UsedImplicitly]
     public class Settings : ISettings
 	{
         private readonly IConfigService _configService;

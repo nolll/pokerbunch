@@ -136,8 +136,6 @@
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingIndexPageBuilder.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\ForgotPasswordPageBuilder.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IForgotPasswordPageBuilder.cs" />
     <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
     <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
@@ -172,13 +170,8 @@
     <Compile Include="Models\PageBaseModels\ContextLayout.cs" />
     <Compile Include="Models\PageBaseModels\PageLayout.cs" />
     <Compile Include="Models\PlayerModels\Badges\BadgeModel.cs" />
-    <Compile Include="Models\UrlModels\UrlExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\JoinBunchConfirmationPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IJoinBunchConfirmationPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />

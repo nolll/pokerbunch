@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Infrastructure.Data.Factories;
 using Infrastructure.Data.SqlServer;
 using NUnit.Framework;
 

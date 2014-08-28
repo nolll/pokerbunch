@@ -49,6 +49,7 @@
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />
     <Compile Include="Factories\UserFactory.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
@@ -213,6 +214,10 @@
     <Compile Include="UseCases\Home\HomeInteractor.cs" />
     <Compile Include="UseCases\Home\HomeResult.cs" />
     <Compile Include="UseCases\Home\IHomeInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchConfirmation\IJoinBunchConfirmationInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchConfirmation\JoinBunchConfirmationInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchConfirmation\JoinBunchConfirmationRequest.cs" />
+    <Compile Include="UseCases\JoinBunchConfirmation\JoinBunchConfirmationResult.cs" />
     <Compile Include="UseCases\JoinBunchForm\IJoinBunchFormInteractor.cs" />
     <Compile Include="UseCases\JoinBunchForm\JoinBunchFormInteractor.cs" />
     <Compile Include="UseCases\JoinBunchForm\JoinBunchFormRequest.cs" />
@@ -262,9 +267,7 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
+using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using NUnit.Framework;
 using Tests.Common;
@@ -32,10 +33,10 @@ namespace Tests.Web.ControllerTests
                     GetMock<IBunchListInteractor>().Object,
                     GetMock<IAddBunchFormInteractor>().Object,
                     GetMock<IJoinBunchFormInteractor>().Object,
+                    GetMock<IJoinBunchConfirmationInteractor>().Object,
                     GetMock<IBunchCommandProvider>().Object,
                     GetMock<IBunchDetailsPageBuilder>().Object,
-                    GetMock<IEditBunchPageBuilder>().Object,
-                    GetMock<IJoinBunchConfirmationPageBuilder>().Object);
+                    GetMock<IEditBunchPageBuilder>().Object);
             }
         }
     }

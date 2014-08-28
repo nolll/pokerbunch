@@ -22,22 +22,19 @@ namespace Web.Controllers
 	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
 	    private readonly IEditUserPageBuilder _editUserPageBuilder;
-	    private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
 
 	    public UserController(
             IAppContextInteractor appContextInteractor,
             IUserDetailsInteractor userDetailsInteractor,
             IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider,
-            IEditUserPageBuilder editUserPageBuilder,
-            IForgotPasswordPageBuilder forgotPasswordPageBuilder)
+            IEditUserPageBuilder editUserPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _userDetailsInteractor = userDetailsInteractor;
 	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
 	        _editUserPageBuilder = editUserPageBuilder;
-	        _forgotPasswordPageBuilder = forgotPasswordPageBuilder;
 	    }
 
         [Authorize]
@@ -147,7 +144,7 @@ namespace Web.Controllers
 
         public ActionResult ForgotPassword()
         {
-            var model = _forgotPasswordPageBuilder.Build();
+            var model = BuildForgotPasswordModel();
 			return View("ForgotPassword/ForgotPassword", model);
 		}
 
@@ -160,13 +157,20 @@ namespace Web.Controllers
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _forgotPasswordPageBuilder.Build(postModel);
+            var model = BuildForgotPasswordModel(postModel);
             return View("ForgotPassword/ForgotPassword", model);
 		}
 
+        public ForgotPasswordPageModel BuildForgotPasswordModel(ForgotPasswordPostModel postModel = null)
+	    {
+            var contextResult = _appContextInteractor.Execute();
+            return new ForgotPasswordPageModel(contextResult, postModel);
+	    }
+
 		public ActionResult PasswordSent()
 		{
-            var model = _forgotPasswordPageBuilder.BuildConfirmation();
+            var contextResult = _appContextInteractor.Execute();
+            var model = new ForgotPasswordConfirmationPageModel(contextResult);
 			return View("ForgotPassword/Confirmation", model);
 		}
 

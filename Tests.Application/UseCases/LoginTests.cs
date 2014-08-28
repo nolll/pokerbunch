@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Application.Services;
-using Application.Urls;
 using Application.UseCases.Login;
 using Core.Entities;
 using Core.Repositories;
