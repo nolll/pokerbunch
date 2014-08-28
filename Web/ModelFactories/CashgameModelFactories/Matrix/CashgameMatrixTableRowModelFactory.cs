@@ -7,18 +7,11 @@ using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
-    public class CashgameMatrixTableRowModelFactory : ICashgameMatrixTableRowModelFactory
+    public static class CashgameMatrixTableRowModelFactory
     {
-        private readonly ICashgameMatrixTableCellModelFactory _cashgameMatrixTableCellModelFactory;
-
-        public CashgameMatrixTableRowModelFactory(ICashgameMatrixTableCellModelFactory cashgameMatrixTableCellModelFactory)
+        public static CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)
         {
-            _cashgameMatrixTableCellModelFactory = cashgameMatrixTableCellModelFactory;
-        }
-
-        public CashgameMatrixTableRowModel Create(Homegame homegame, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)
-        {
-            var cellModels = _cashgameMatrixTableCellModelFactory.CreateList(suite.Cashgames, player);
+            var cellModels = CashgameMatrixTableCellModelFactory.CreateList(suite.Cashgames, player);
             
             return new CashgameMatrixTableRowModel
                 {
@@ -32,7 +25,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                 };
         }
 
-        public List<CashgameMatrixTableRowModel> CreateList(Homegame homegame, CashgameSuite suite, IEnumerable<CashgameTotalResult> results)
+        public static List<CashgameMatrixTableRowModel> CreateList(Homegame homegame, CashgameSuite suite, IEnumerable<CashgameTotalResult> results)
         {
             var models = new List<CashgameMatrixTableRowModel>();
             var rank = 0;

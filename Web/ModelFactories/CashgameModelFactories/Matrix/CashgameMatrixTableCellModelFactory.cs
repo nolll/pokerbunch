@@ -5,9 +5,9 @@ using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
-    public class CashgameMatrixTableCellModelFactory : ICashgameMatrixTableCellModelFactory
+    public static  class CashgameMatrixTableCellModelFactory
     {
-        public CashgameMatrixTableCellModel Create(Cashgame cashgame, CashgameResult result)
+        public static CashgameMatrixTableCellModel Create(Cashgame cashgame, CashgameResult result)
         {
             if (result == null)
             {
@@ -32,7 +32,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
                 };
         }
 
-        public IList<CashgameMatrixTableCellModel> CreateList(IEnumerable<Cashgame> cashgames, Player player)
+        public static IList<CashgameMatrixTableCellModel> CreateList(IEnumerable<Cashgame> cashgames, Player player)
         {
             var models = new List<CashgameMatrixTableCellModel>();
             if (cashgames != null)

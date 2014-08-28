@@ -71,12 +71,8 @@ namespace Web.Plumbing
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
 
             // Model Factories
-            RegisterComponent<ICashgameMatrixTableModelFactory, CashgameMatrixTableModelFactory>();
-            RegisterComponent<ICashgameMatrixTableColumnHeaderModelFactory, CashgameMatrixTableColumnHeaderModelFactory>();
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
             RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
-            RegisterComponent<ICashgameMatrixTableRowModelFactory, CashgameMatrixTableRowModelFactory>();
-            RegisterComponent<ICashgameMatrixTableCellModelFactory, CashgameMatrixTableCellModelFactory>();
             RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();

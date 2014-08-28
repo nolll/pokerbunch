@@ -5,9 +5,9 @@ using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
-    public class CashgameMatrixTableColumnHeaderModelFactory : ICashgameMatrixTableColumnHeaderModelFactory
+    public static class CashgameMatrixTableColumnHeaderModelFactory
     {
-        public CashgameMatrixTableColumnHeaderModel Create(Homegame homegame, Cashgame cashgame, bool showYear = false)
+        public static CashgameMatrixTableColumnHeaderModel Create(Homegame homegame, Cashgame cashgame, bool showYear = false)
         {
             return new CashgameMatrixTableColumnHeaderModel
                 {

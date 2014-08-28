@@ -8,18 +8,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
     public class MatrixPageBuilder : IMatrixPageBuilder
     {
         private readonly ICashgameService _cashgameService;
-        private readonly ICashgameMatrixTableModelFactory _cashgameMatrixTableModelFactory;
         private readonly IHomegameRepository _homegameRepository;
         private readonly ICashgameContextInteractor _contextInteractor;
 
         public MatrixPageBuilder(
             ICashgameService cashgameService,
-            ICashgameMatrixTableModelFactory cashgameMatrixTableModelFactory,
             IHomegameRepository homegameRepository,
             ICashgameContextInteractor contextInteractor)
         {
             _cashgameService = cashgameService;
-            _cashgameMatrixTableModelFactory = cashgameMatrixTableModelFactory;
             _homegameRepository = homegameRepository;
             _contextInteractor = contextInteractor;
         }
@@ -33,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 
             return new CashgameMatrixPageModel(contextResult)
                 {
-                    TableModel = _cashgameMatrixTableModelFactory.Create(homegame, suite)
+                    TableModel = CashgameMatrixTableModelFactory.Create(homegame, suite)
                 };
         }
     }

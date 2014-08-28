@@ -130,10 +130,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableCellModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableColumnHeaderModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\ICashgameMatrixTableRowModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageBuilder.cs" />
