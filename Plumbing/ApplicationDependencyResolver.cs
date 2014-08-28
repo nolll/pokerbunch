@@ -55,7 +55,7 @@ namespace Plumbing
         private void RegisterTypes()
         {
             // Storage
-            RegisterComponent<IHomegameStorage, SqlServerHomegameStorage>();
+            RegisterComponent<IBunchStorage, SqlServerBunchStorage>();
             RegisterComponent<ICashgameStorage, SqlServerCashgameStorage>();
             RegisterComponent<ICheckpointStorage, SqlServerCheckpointStorage>();
             RegisterComponent<IPlayerStorage, SqlServerPlayerStorage>();
@@ -79,7 +79,7 @@ namespace Plumbing
             RegisterComponent<ISettings, Settings>();
 
             // Repositories
-            RegisterComponent<IHomegameRepository, HomegameRepository>();
+            RegisterComponent<IBunchRepository, BunchRepository>();
             RegisterComponent<ICashgameRepository, CashgameRepository>();
             RegisterComponent<IPlayerRepository, PlayerRepository>();
             RegisterComponent<IUserRepository, UserRepository>();

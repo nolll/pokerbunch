@@ -7,20 +7,20 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
     public class CashgameChartPageBuilder : ICashgameChartPageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameContextInteractor _cashgameContextInteractor;
 
         public CashgameChartPageBuilder(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameContextInteractor cashgameContextInteractor)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameContextInteractor = cashgameContextInteractor;
         }
 
         public CashgameChartPageModel Build(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
 
             var cashgameContextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Chart));
 

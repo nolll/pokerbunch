@@ -7,20 +7,20 @@ namespace Application.UseCases.PlayerDetails
     public class PlayerDetailsInteractor : IPlayerDetailsInteractor
     {
         private readonly IAuth _auth;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
 
         public PlayerDetailsInteractor(
             IAuth auth,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             IUserRepository userRepository)
         {
             _auth = auth;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
             _userRepository = userRepository;
@@ -28,7 +28,7 @@ namespace Application.UseCases.PlayerDetails
 
         public PlayerDetailsResult Execute(PlayerDetailsRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var player = _playerRepository.GetById(request.PlayerId);
             var user = _userRepository.GetById(player.UserId);
             var isManager = _auth.IsInRole(request.Slug, Role.Manager);

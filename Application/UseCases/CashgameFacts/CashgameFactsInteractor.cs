@@ -6,23 +6,23 @@ namespace Application.UseCases.CashgameFacts
 {
     public class CashgameFactsInteractor : ICashgameFactsInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
         public CashgameFactsInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
         public CashgameFactsResult Execute(CashgameFactsRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetPublished(homegame, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
@@ -30,18 +30,18 @@ namespace Application.UseCases.CashgameFacts
             return GetFactsResult(homegame, factBuilder);
         }
 
-        public CashgameFactsResult GetFactsResult(Homegame homegame, FactBuilder factBuilder)
+        public CashgameFactsResult GetFactsResult(Bunch bunch, FactBuilder factBuilder)
         {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);
-            var turnover = new Money(factBuilder.TotalTurnover, homegame.Currency);
-            var bestResult = GetBestResult(factBuilder, homegame.Currency);
-            var worstResult = GetWorstResult(factBuilder, homegame.Currency);
-            var bestTotalResult = GetBestTotalResult(factBuilder, homegame.Currency);
-            var worstTotalResult = GetWorstTotalResult(factBuilder, homegame.Currency);
+            var turnover = new Money(factBuilder.TotalTurnover, bunch.Currency);
+            var bestResult = GetBestResult(factBuilder, bunch.Currency);
+            var worstResult = GetWorstResult(factBuilder, bunch.Currency);
+            var bestTotalResult = GetBestTotalResult(factBuilder, bunch.Currency);
+            var worstTotalResult = GetWorstTotalResult(factBuilder, bunch.Currency);
             var mostTimeResult = GetMostTimeResult(factBuilder);
-            var biggestTotalBuyin = GetBiggestTotalBuyin(factBuilder, homegame.Currency);
-            var biggestTotalCashout = GetBiggestTotalCashout(factBuilder, homegame.Currency);
+            var biggestTotalBuyin = GetBiggestTotalBuyin(factBuilder, bunch.Currency);
+            var biggestTotalCashout = GetBiggestTotalCashout(factBuilder, bunch.Currency);
 
             return new CashgameFactsResult
             {

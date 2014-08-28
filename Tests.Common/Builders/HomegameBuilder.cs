@@ -16,9 +16,9 @@ namespace Tests.Common.Builders
             _displayName = "b";
         }
 
-        public Homegame Build()
+        public Bunch Build()
         {
-            return new HomegameInTest(_id, _slug, _displayName);
+            return new BunchInTest(_id, _slug, _displayName);
         }
 
         public HomegameBuilder WithId(int id)

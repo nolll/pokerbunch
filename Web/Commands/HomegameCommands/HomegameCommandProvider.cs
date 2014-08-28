@@ -8,24 +8,24 @@ namespace Web.Commands.HomegameCommands
 {
     public class HomegameCommandProvider : IHomegameCommandProvider
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
 
         public HomegameCommandProvider(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IAuth auth,
             IPlayerRepository playerRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _auth = auth;
             _playerRepository = playerRepository;
         }
 
-        public Command GetAddCommand(AddHomegamePostModel postModel)
+        public Command GetAddCommand(AddBunchPostModel postModel)
         {
             return new AddHomegameCommand(
-                _homegameRepository,
+                _bunchRepository,
                 _auth,
                 _playerRepository,
                 postModel);
@@ -33,17 +33,17 @@ namespace Web.Commands.HomegameCommands
 
         public Command GetEditCommand(string slug, HomegameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
 
             return new EditHomegameCommand(
-                _homegameRepository,
+                _bunchRepository,
                 homegame,
                 postModel);
         }
 
         public Command GetJoinCommand(string slug, JoinHomegamePostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
 
             return new JoinHomegameCommand(
                 _auth,

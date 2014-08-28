@@ -56,8 +56,8 @@ namespace Tests.Application.UseCases
 
         private void SetupHomegame(int defaultBuyin = 0)
         {
-            var homegame = new HomegameInTest(id: BunchId, defaultBuyin: defaultBuyin);
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var homegame = new BunchInTest(id: BunchId, defaultBuyin: defaultBuyin);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
 
         private void SetupGameAndPlayer(int playerId)
@@ -73,7 +73,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new BuyinFormInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
         }

@@ -60,7 +60,7 @@
     <Compile Include="Routing\RouteTests.cs" />
     <Compile Include="SecurityTestHelper.cs" />
     <Compile Include="ServiceTests\ResultFormatterTests.cs" />
-    <Compile Include="ServiceTests\UrlProviderTests.cs" />
+    <Compile Include="ServiceTests\UrlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -16,24 +16,24 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
     {
         private readonly ITimeProvider _timeProvider;
         private readonly ICashgameService _cashgameService;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public CashgameDetailsChartJsonBuilder(
             ITimeProvider timeProvider,
             ICashgameService cashgameService,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository)
         {
             _timeProvider = timeProvider;
             _cashgameService = cashgameService;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public ChartModel Build(string slug, string dateStr)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             if (cashgame == null)
             {
@@ -49,7 +49,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 };
         }
 
-        private IList<ChartRowModel> GetActionRows(Homegame homegame, Cashgame cashgame, IList<Player> players)
+        private IList<ChartRowModel> GetActionRows(Bunch bunch, Cashgame cashgame, IList<Player> players)
         {
             var rowModels = new List<ChartRowModel>();
             var results = cashgame.Results.OrderBy(o => o.PlayerId);
@@ -64,13 +64,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                     {
                         totalBuyin += checkpoint.Amount;
                     }
-                    var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone);
+                    var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
                     rowModels.Add(GetActionRow(players, localTime, checkpoint.Stack - totalBuyin, playerId));
                 }
             }
             if (cashgame.Status == GameStatus.Running)
             {
-                rowModels.Add(GetCurrentStacks(homegame.Timezone, results));
+                rowModels.Add(GetCurrentStacks(bunch.Timezone, results));
             }
             return rowModels;
         }

@@ -7,7 +7,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
 {
-    public class AddHomegamePageModel : AppPageModel
+    public class AddBunchPageModel : AppPageModel
     {
         public List<SelectListItem> CurrencyLayoutSelectItems { get; private set; }
         public List<SelectListItem> TimezoneSelectItems { get; private set; }
@@ -17,7 +17,7 @@ namespace Web.Models.HomegameModels.Add
         public string CurrencyLayout { get; private set; }
         public string TimeZone { get; private set; }
 
-        public AddHomegamePageModel(AppContextResult contextResult, AddBunchFormResult bunchFormResult, AddHomegamePostModel postModel)
+        public AddBunchPageModel(AppContextResult contextResult, AddBunchFormResult bunchFormResult, AddBunchPostModel postModel)
             : base("Create Homegame", contextResult)
         {
             CurrencyLayoutSelectItems = bunchFormResult.CurrencyLayouts.Select(o => new SelectListItem{ Text = o, Value = o }).ToList();

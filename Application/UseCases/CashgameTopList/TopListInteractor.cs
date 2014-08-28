@@ -6,20 +6,20 @@ namespace Application.UseCases.CashgameTopList
 {
     public class TopListInteractor : ITopListInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameService _cashgameService;
 
         public TopListInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameService cashgameService)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
         }
 
         public TopListResult Execute(TopListRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var suite = _cashgameService.GetSuite(homegame, request.Year);
 
             var sortedResults = suite.TotalResults.OrderByDescending(o => o.Winnings);

@@ -76,14 +76,14 @@ namespace Tests.Application.UseCases
 
         private void SetupGame()
         {
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var checkpoint1 = new CheckpointInTest(description: CheckPointType, stack: 1, timestamp: _checkpointTime);
             var checkpoint2 = new CheckpointInTest();
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2 };
             var cashgameResult = new CashgameResultInTest(checkpoints: checkpoints);
             var cashgame = new CashgameInTest(startTime: _date, results: new List<CashgameResult> { cashgameResult });
             var player = new PlayerInTest(displayName: PlayerName);
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(homegame, DateStr)).Returns(cashgame);
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
@@ -98,7 +98,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new ActionsInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object,
                     GetMock<IPlayerRepository>().Object,
                     GetMock<IAuth>().Object);

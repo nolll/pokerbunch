@@ -9,23 +9,23 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
 {
     public class EditCheckpointPageBuilder : IEditCheckpointPageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly IBunchContextInteractor _contextInteractor;
 
         public EditCheckpointPageBuilder(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICheckpointRepository checkpointRepository,
             IBunchContextInteractor contextInteractor)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
             _contextInteractor = contextInteractor;
         }
 
         public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));

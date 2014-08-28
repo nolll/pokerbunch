@@ -6,22 +6,22 @@ namespace Web.Commands.CashgameCommands
     public class EndGameCommand : Command
     {
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly Homegame _homegame;
+        private readonly Bunch _bunch;
         private readonly Cashgame _cashgame;
 
         public EndGameCommand(
             ICashgameRepository cashgameRepository,
-            Homegame homegame,
+            Bunch bunch,
             Cashgame cashgame)
         {
             _cashgameRepository = cashgameRepository;
-            _homegame = homegame;
+            _bunch = bunch;
             _cashgame = cashgame;
         }
 
         public override bool Execute()
         {
-            _cashgameRepository.EndGame(_homegame, _cashgame);
+            _cashgameRepository.EndGame(_bunch, _cashgame);
             return true;
         }
     }

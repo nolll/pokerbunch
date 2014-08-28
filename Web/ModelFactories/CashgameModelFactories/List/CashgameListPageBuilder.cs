@@ -9,20 +9,20 @@ namespace Web.ModelFactories.CashgameModelFactories.List
     public class CashgameListPageBuilder : ICashgameListPageBuilder
     {
         private readonly ICashgameListTableModelFactory _cashgameListTableModelFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IWebContext _webContext;
         private readonly ICashgameContextInteractor _contextInteractor;
 
         public CashgameListPageBuilder(
             ICashgameListTableModelFactory cashgameListTableModelFactory,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IWebContext webContext,
             ICashgameContextInteractor contextInteractor)
         {
             _cashgameListTableModelFactory = cashgameListTableModelFactory;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _webContext = webContext;
             _contextInteractor = contextInteractor;
@@ -30,7 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
 
         public CashgameListPageModel Build(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             var sortOrder = GetListSortOrder();
 

@@ -20,13 +20,13 @@ namespace Infrastructure.Data.SqlServer
 	        _rawCashgameFactory = rawCashgameFactory;
 	    }
 
-        public int AddGame(Homegame homegame, RawCashgame cashgame)
+        public int AddGame(Bunch bunch, RawCashgame cashgame)
         {
             const string sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (@homegameId, @location, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, homegame.Timezone);
+            var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, bunch.Timezone);
 		    var parameters = new List<SimpleSqlParameter>
                 {
-                    new SimpleSqlParameter("@homegameId", homegame.Id),
+                    new SimpleSqlParameter("@homegameId", bunch.Id),
                     new SimpleSqlParameter("@location", cashgame.Location),
                     new SimpleSqlParameter("@status", cashgame.Status),
                     new SimpleSqlParameter("@date", timezoneAdjustedDate)

@@ -31,9 +31,9 @@ namespace Infrastructure.Data.Repositories {
 	        _cacheBuster = cacheBuster;
 	    }
 
-        public IList<Player> GetList(Homegame homegame)
+        public IList<Player> GetList(Bunch bunch)
         {
-            var ids = GetIds(homegame);
+            var ids = GetIds(bunch);
             return GetList(ids);
         }
 
@@ -49,10 +49,10 @@ namespace Infrastructure.Data.Repositories {
             return rawPlayers.Select(_playerDataMapper.Create).ToList();
         }
 
-        private IList<int> GetIds(Homegame homegame)
+        private IList<int> GetIds(Bunch bunch)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(homegame.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = _cacheKeyProvider.PlayerIdsKey(bunch.Id);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(bunch.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public Player GetById(int id)
@@ -67,55 +67,55 @@ namespace Infrastructure.Data.Repositories {
             return rawUser != null ? _playerDataMapper.Create(rawUser) : null;
         }
 
-        public Player GetByName(Homegame homegame, string name)
+        public Player GetByName(Bunch bunch, string name)
         {
-            var playerId = GetIdByName(homegame, name);
+            var playerId = GetIdByName(bunch, name);
             return playerId.HasValue ? GetById(playerId.Value) : null;
         }
 
-        private int? GetIdByName(Homegame homegame, string name)
+        private int? GetIdByName(Bunch bunch, string name)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdByNameKey(homegame.Id, name);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(homegame.Id, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = _cacheKeyProvider.PlayerIdByNameKey(bunch.Id, name);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunch.Id, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public Player GetByUserName(Homegame homegame, string userName)
+        public Player GetByUserName(Bunch bunch, string userName)
         {
-            var playerId = GetIdByUserName(homegame, userName);
+            var playerId = GetIdByUserName(bunch, userName);
             return playerId.HasValue ? GetById(playerId.Value) : null;
         }
 
-        private int? GetIdByUserName(Homegame homegame, string userName)
+        private int? GetIdByUserName(Bunch bunch, string userName)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdByUserNameKey(homegame.Id, userName);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(homegame.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = _cacheKeyProvider.PlayerIdByUserNameKey(bunch.Id, userName);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunch.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-		public int Add(Homegame homegame, string playerName)
+		public int Add(Bunch bunch, string playerName)
         {
-            var playerId = _playerStorage.AddPlayer(homegame.Id, playerName);
-            _cacheBuster.PlayerAdded(homegame);
+            var playerId = _playerStorage.AddPlayer(bunch.Id, playerName);
+            _cacheBuster.PlayerAdded(bunch);
 		    return playerId;
 		}
 
-		public int Add(Homegame homegame, User user, Role role)
+		public int Add(Bunch bunch, User user, Role role)
         {
-            var playerId = _playerStorage.AddPlayerWithUser(homegame.Id, user.Id, (int)role);
-            _cacheBuster.PlayerAdded(homegame);
+            var playerId = _playerStorage.AddPlayerWithUser(bunch.Id, user.Id, (int)role);
+            _cacheBuster.PlayerAdded(bunch);
 		    return playerId;
 		}
 
-		public bool JoinHomegame(Player player, Homegame homegame, User user)
+		public bool JoinHomegame(Player player, Bunch bunch, User user)
         {
-            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, homegame.Id, user.Id);
+            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, user.Id);
             _cacheBuster.PlayerUpdated(player);
 		    return success;
 		}
 
-		public bool Delete(Homegame homegame, Player player)
+		public bool Delete(Bunch bunch, Player player)
         {
 			var success = _playerStorage.DeletePlayer(player.Id);
-            _cacheBuster.PlayerDeleted(homegame, player);
+            _cacheBuster.PlayerDeleted(bunch, player);
             return success;
 		}
 

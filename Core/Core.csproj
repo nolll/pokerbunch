@@ -90,11 +90,11 @@
     <Compile Include="Entities\Currency.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Homegame.cs" />
+    <Compile Include="Entities\Bunch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\ICheckpointRepository.cs" />
-    <Compile Include="Repositories\IHomegameRepository.cs" />
+    <Compile Include="Repositories\IBunchRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
   </ItemGroup>
   <ItemGroup>

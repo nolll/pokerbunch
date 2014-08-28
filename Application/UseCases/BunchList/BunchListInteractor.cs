@@ -4,17 +4,17 @@ namespace Application.UseCases.BunchList
 {
     public class BunchListInteractor : IBunchListInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
 
         public BunchListInteractor(
-            IHomegameRepository homegameRepository)
+            IBunchRepository bunchRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
         }
 
         public BunchListResult Execute()
         {
-            var homegames = _homegameRepository.GetList();
+            var homegames = _bunchRepository.GetList();
             
             return new BunchListResult(homegames);
         }

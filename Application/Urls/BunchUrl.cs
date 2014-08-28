@@ -1,8 +1,8 @@
 ﻿namespace Application.Urls
 {
-    public abstract class HomegameUrl : Url
+    public abstract class BunchUrl : Url
     {
-        protected HomegameUrl(string format, string slug)
+        protected BunchUrl(string format, string slug)
             : base(string.Format(format, slug))
         {
         }

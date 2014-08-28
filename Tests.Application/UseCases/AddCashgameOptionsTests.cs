@@ -26,7 +26,7 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
 
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Homegame>())).Returns(new CashgameInTest());
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(new CashgameInTest());
 
             Assert.Throws<CashgameRunningException>(() => Sut.Execute(new AddCashgameFormRequest(slug)));
         }
@@ -38,7 +38,7 @@ namespace Tests.Application.UseCases
             const string location2 = "b";
             var locations = new List<string> { location1, location2 };
 
-            GetMock<ICashgameRepository>().Setup(o => o.GetLocations(It.IsAny<Homegame>())).Returns(locations);
+            GetMock<ICashgameRepository>().Setup(o => o.GetLocations(It.IsAny<Bunch>())).Returns(locations);
 
             const string slug = "a";
             var result = Sut.Execute(new AddCashgameFormRequest(slug));
@@ -53,7 +53,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new AddCashgameFormInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
         }

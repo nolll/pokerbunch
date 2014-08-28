@@ -9,7 +9,7 @@ namespace Web.ModelMappers
 {
     public static class HomegameModelMapper
     {
-        public static Homegame GetHomegame(AddHomegamePostModel postModel)
+        public static Bunch GetHomegame(AddBunchPostModel postModel)
         {
             return HomegameFactory.Create(
                     0,
@@ -22,12 +22,12 @@ namespace Web.ModelMappers
                     new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
 
-        public static Homegame GetHomegame(Homegame homegame, HomegameEditPostModel postModel)
+        public static Bunch GetHomegame(Bunch bunch, HomegameEditPostModel postModel)
         {
             return HomegameFactory.Create(
-                    homegame.Id,
-                    homegame.Slug,
-                    homegame.DisplayName,
+                    bunch.Id,
+                    bunch.Slug,
+                    bunch.DisplayName,
                     postModel.Description,
                     postModel.HouseRules,
                     TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),

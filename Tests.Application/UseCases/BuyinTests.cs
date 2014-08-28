@@ -102,13 +102,13 @@ namespace Tests.Application.UseCases
 
         private void SetupCashgame(Cashgame cashgame)
         {
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Homegame>())).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(cashgame);
         }
 
         private BuyinInteractor Sut
         {
             get { return new BuyinInteractor(
-                GetMock<IHomegameRepository>().Object,
+                GetMock<IBunchRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<ICheckpointRepository>().Object,

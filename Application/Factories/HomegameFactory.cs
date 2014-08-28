@@ -5,7 +5,7 @@ namespace Application.Factories
 {
     public static class HomegameFactory
     {
-        public static Homegame Create(
+        public static Bunch Create(
             int id,
             string slug,
             string displayName,
@@ -15,7 +15,7 @@ namespace Application.Factories
             int defaultBuyin,
             Currency currency)
         {
-            return new Homegame
+            return new Bunch
                 (
                     id,
                     slug,

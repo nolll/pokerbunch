@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Repositories
 {
     public class CashgameSearchCriteria
     {
-        public Homegame Homegame { get; set; }
+        public Bunch Bunch { get; set; }
         public GameStatus? Status { get; set; }
         public int? Year { get; set; }
     }
@@ -47,17 +47,17 @@ namespace Infrastructure.Data.Repositories
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
         {
-            return GetList(searchCriteria.Homegame, searchCriteria.Status, searchCriteria.Year);
+            return GetList(searchCriteria.Bunch, searchCriteria.Status, searchCriteria.Year);
         }
 
-        public IList<Cashgame> GetPublished(Homegame homegame, int? year = null)
+        public IList<Cashgame> GetPublished(Bunch bunch, int? year = null)
         {
-            return GetList(homegame, GameStatus.Finished, year);
+            return GetList(bunch, GameStatus.Finished, year);
         }
 
-        public Cashgame GetRunning(Homegame homegame)
+        public Cashgame GetRunning(Bunch bunch)
         {
-            return GetRunning(homegame.Id);
+            return GetRunning(bunch.Id);
         }
 
         public Cashgame GetRunning(int bunchId)
@@ -66,9 +66,9 @@ namespace Infrastructure.Data.Repositories
             return id.HasValue ? GetById(id.Value) : null;
         }
 
-        public Cashgame GetByDateString(Homegame homegame, string dateString)
+        public Cashgame GetByDateString(Bunch bunch, string dateString)
         {
-            var id = GetIdByDateString(homegame.Id, dateString);
+            var id = GetIdByDateString(bunch.Id, dateString);
             return id.HasValue ? GetById(id.Value) : null;
         }
 
@@ -90,9 +90,9 @@ namespace Infrastructure.Data.Repositories
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetRunningCashgameId(homegameId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
-        public IList<int> GetYears(Homegame homegame)
+        public IList<int> GetYears(Bunch bunch)
         {
-            return GetYears(homegame.Id);
+            return GetYears(bunch.Id);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -101,9 +101,9 @@ namespace Infrastructure.Data.Repositories
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetYears(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
-	    private IList<Cashgame> GetList(Homegame homegame, GameStatus? status = null, int? year = null)
+	    private IList<Cashgame> GetList(Bunch bunch, GameStatus? status = null, int? year = null)
         {
-            var ids = GetIds(homegame.Id, status, year);
+            var ids = GetIds(bunch.Id, status, year);
             var cashgames = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return cashgames.OrderBy(o => o.Id).ToList();
         }
@@ -128,20 +128,20 @@ namespace Infrastructure.Data.Repositories
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetGameIds(homegameId, (int?)status, year), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public IList<string> GetLocations(Homegame homegame)
+        public IList<string> GetLocations(Bunch bunch)
         {
-			return _cashgameStorage.GetLocations(homegame.Slug);
+			return _cashgameStorage.GetLocations(bunch.Slug);
 		}
 
 		public bool DeleteGame(Cashgame cashgame){
 			return _cashgameStorage.DeleteGame(cashgame.Id);
 		}
 
-		public int AddGame(Homegame homegame, Cashgame cashgame)
+		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = _rawCashgameFactory.Create(cashgame);
-            var id = _cashgameStorage.AddGame(homegame, rawCashgame);
-            _cacheBuster.CashgameStarted(homegame);
+            var id = _cashgameStorage.AddGame(bunch, rawCashgame);
+            _cacheBuster.CashgameStarted(bunch);
 			return id;
 		}
 
@@ -161,7 +161,7 @@ namespace Infrastructure.Data.Repositories
 		    return success;
 		}
 
-		public bool EndGame(Homegame homegame, Cashgame cashgame)
+		public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
             var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Finished);
             var success = _cashgameStorage.UpdateGame(rawCashgame);

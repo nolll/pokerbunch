@@ -12,7 +12,7 @@ namespace Tests.Application.Services
         {
             const string displayName = "a";
             const string expected = "Invitation to Poker Bunch: a";
-            var homegame = new HomegameInTest(displayName: displayName);
+            var homegame = new BunchInTest(displayName: displayName);
 
             var result = InvitationMessageBuilder.GetSubject(homegame);
 
@@ -31,7 +31,7 @@ namespace Tests.Application.Services
 To accept this invitation, go to http://pokerbunch.com/b/homegame/join and enter this verification code: 9d2f82be03d5bae28167fff215bce098b7049984
 
 If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
-            var homegame = new HomegameInTest(slug: slug, displayName: displayName);
+            var homegame = new BunchInTest(slug: slug, displayName: displayName);
             var player = new PlayerInTest();
 
             var result = InvitationMessageBuilder.GetBody(homegame, player);

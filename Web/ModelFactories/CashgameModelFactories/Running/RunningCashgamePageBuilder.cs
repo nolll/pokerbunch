@@ -12,7 +12,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
     {
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
         private readonly IAuth _auth;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IBunchContextInteractor _contextInteractor;
@@ -20,14 +20,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         public RunningCashgamePageBuilder(
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
             IAuth auth,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             IBunchContextInteractor contextInteractor)
         {
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _auth = auth;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
             _contextInteractor = contextInteractor;
@@ -36,7 +36,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         public RunningCashgamePageModel Build(string slug)
         {
             var user = _auth.CurrentUser;
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var isManager = _auth.IsInRole(slug, Role.Manager);
@@ -67,10 +67,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
                 };
         }
 
-        private static Url GetChartDataUrl(Homegame homegame, Cashgame cashgame)
+        private static Url GetChartDataUrl(Bunch bunch, Cashgame cashgame)
         {
             if (cashgame.IsStarted)
-                return new CashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString);
+                return new CashgameDetailsChartJsonUrl(bunch.Slug, cashgame.DateString);
             return Url.Empty;
         }
 

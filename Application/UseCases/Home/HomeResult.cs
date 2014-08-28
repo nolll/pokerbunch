@@ -14,7 +14,7 @@ namespace Application.UseCases.Home
         {
             IsLoggedIn = isLoggedIn;
             IsAdmin = isAdmin;
-            AddBunchUrl = new AddHomegameUrl();
+            AddBunchUrl = new AddBunchUrl();
             LoginUrl = new LoginUrl();
             AddUserUrl = new AddUserUrl();
         }

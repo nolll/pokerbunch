@@ -6,14 +6,14 @@ namespace Application.UseCases.AddCashgame
 {
     public class AddCashgameInteractor : IAddCashgameInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public AddCashgameInteractor(
-            IHomegameRepository homegameRepository, 
+            IBunchRepository bunchRepository, 
             ICashgameRepository cashgameRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
@@ -29,7 +29,7 @@ namespace Application.UseCases.AddCashgame
 
         private void AddGame(AddCashgameRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var cashgame = CashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
             _cashgameRepository.AddGame(homegame, cashgame);
         }

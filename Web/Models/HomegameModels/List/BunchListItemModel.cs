@@ -11,7 +11,7 @@ namespace Web.Models.HomegameModels.List
         public BunchListItemModel(BunchListItem bunchListItem)
         {
             Name = bunchListItem.DisplayName;
-            Url = new HomegameDetailsUrl(bunchListItem.Slug);
+            Url = new BunchDetailsUrl(bunchListItem.Slug);
         }
     }
 }

@@ -9,18 +9,18 @@ namespace Application.UseCases.CashgameDetails
 {
     public class CashgameDetailsInteractor : ICashgameDetailsInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
 
         public CashgameDetailsInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IAuth auth,
             IPlayerRepository playerRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _auth = auth;
             _playerRepository = playerRepository;
@@ -28,7 +28,7 @@ namespace Application.UseCases.CashgameDetails
 
         public CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, request.DateStr);
 
             if (cashgame == null)

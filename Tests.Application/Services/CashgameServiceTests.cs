@@ -15,7 +15,7 @@ namespace Tests.Application.Services
         [TestCase(1)]
         public void GetSuite_WithOrWithoutYear_ReturnsSuite(int? year)
         {
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var players = new List<Player>();
             var cashgames = new List<Cashgame>();
             var suite = new CashgameSuiteInTest();
@@ -65,10 +65,10 @@ namespace Tests.Application.Services
         public void CashgameIsRunning_WithRunningGame_ReturnsTrue()
         {
             const string slug = "a";
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var cashgame = new CashgameInTest();
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(homegame)).Returns(cashgame);
 
             var sut = GetSut();
@@ -81,10 +81,10 @@ namespace Tests.Application.Services
         public void GetLatestYear_WithoutGames_ReturnsNull()
         {
             const string slug = "a";
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var years = new List<int>();
             
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var sut = GetSut();
@@ -97,12 +97,12 @@ namespace Tests.Application.Services
         public void GetLatestYear_WithGames_ReturnsFirstYearInList()
         {
             const string slug = "a";
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             const int latestYear = 2;
             const int previousYear = 1;
             var years = new List<int>{latestYear, previousYear};
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(homegame)).Returns(years);
 
             var sut = GetSut();
@@ -117,7 +117,7 @@ namespace Tests.Application.Services
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<ICashgameSuiteFactory>().Object,
-                GetMock<IHomegameRepository>().Object);
+                GetMock<IBunchRepository>().Object);
         }
     }
 }

@@ -16,16 +16,16 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             _cashgameListTableItemModelFactory = cashgameListTableItemModelFactory;
         }
 
-        public CashgameListTableModel Create(Homegame homegame, IList<Cashgame> cashgames, ListSortOrder sortOrder, int? year)
+        public CashgameListTableModel Create(Bunch bunch, IList<Cashgame> cashgames, ListSortOrder sortOrder, int? year)
         {
             var showYear = SpansMultipleYears(cashgames);
-            var sortUrl = string.Concat(new CashgameListUrl(homegame.Slug, year).Relative, "?orderby={0}");
+            var sortUrl = string.Concat(new CashgameListUrl(bunch.Slug, year).Relative, "?orderby={0}");
             var sortedCashgames = SortCashgames(cashgames, sortOrder);
 
             return new CashgameListTableModel
                 {
                     ShowYear = showYear,
-                    ListItemModels = GetListItemModels(homegame, sortedCashgames, showYear, sortOrder),
+                    ListItemModels = GetListItemModels(bunch, sortedCashgames, showYear, sortOrder),
                     DateSortClass = GetSortCssClass(sortOrder, ListSortOrder.date),
                     DateSortUrl = string.Format(sortUrl, ListSortOrder.date),
                     PlayerSortClass = GetSortCssClass(sortOrder, ListSortOrder.playercount),
@@ -41,9 +41,9 @@ namespace Web.ModelFactories.CashgameModelFactories.List
                 };
         }
 
-        private List<CashgameListTableItemModel> GetListItemModels(Homegame homegame, IEnumerable<Cashgame> cashgames, bool showYear, ListSortOrder sortOrder)
+        private List<CashgameListTableItemModel> GetListItemModels(Bunch bunch, IEnumerable<Cashgame> cashgames, bool showYear, ListSortOrder sortOrder)
         {
-            return cashgames.Select(cashgame => _cashgameListTableItemModelFactory.Create(homegame, cashgame, showYear, sortOrder)).ToList();
+            return cashgames.Select(cashgame => _cashgameListTableItemModelFactory.Create(bunch, cashgame, showYear, sortOrder)).ToList();
         }
 
         private bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)

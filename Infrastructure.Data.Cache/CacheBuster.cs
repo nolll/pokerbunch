@@ -31,24 +31,24 @@ namespace Infrastructure.Data.Cache
             _cacheContainer.Remove(emailKey);
         }
 
-        public void HomegameAdded()
+        public void BunchAdded()
         {
             var key = _cacheKeyProvider.HomegameIdsKey();
             _cacheContainer.Remove(key);
         }
 
-        public void HomegameUpdated(Homegame homegame)
+        public void BunchUpdated(Bunch bunch)
         {
-            var singleHomegameKey = _cacheKeyProvider.HomegameKey(homegame.Id);
+            var singleHomegameKey = _cacheKeyProvider.HomegameKey(bunch.Id);
             _cacheContainer.Remove(singleHomegameKey);
 
-            var slugKey = _cacheKeyProvider.HomegameIdBySlugKey(homegame.Slug);
+            var slugKey = _cacheKeyProvider.HomegameIdBySlugKey(bunch.Slug);
             _cacheContainer.Remove(slugKey);
         }
 
-        public void PlayerAdded(Homegame homegame)
+        public void PlayerAdded(Bunch bunch)
         {
-            var key = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
+            var key = _cacheKeyProvider.PlayerIdsKey(bunch.Id);
             _cacheContainer.Remove(key);
         }
 
@@ -58,18 +58,18 @@ namespace Infrastructure.Data.Cache
             _cacheContainer.Remove(singleUserKey);
         }
 
-        public void PlayerDeleted(Homegame homegame, Player player)
+        public void PlayerDeleted(Bunch bunch, Player player)
         {
-            var key = _cacheKeyProvider.PlayerIdsKey(homegame.Id);
+            var key = _cacheKeyProvider.PlayerIdsKey(bunch.Id);
             _cacheContainer.Remove(key);
 
             var singleUserKey = _cacheKeyProvider.PlayerKey(player.Id);
             _cacheContainer.Remove(singleUserKey);
         }
 
-        public void CashgameStarted(Homegame homegame)
+        public void CashgameStarted(Bunch bunch)
         {
-            ClearRunningCashgame(homegame.Id);
+            ClearRunningCashgame(bunch.Id);
         }
 
         public void CashgameUpdated(Cashgame cashgame)

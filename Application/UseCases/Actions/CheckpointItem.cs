@@ -13,13 +13,13 @@ namespace Application.UseCases.Actions
         public Money Stack { get; private set; }
         public bool CanEdit { get; private set; }
 
-        public CheckpointItem(Homegame homegame, Cashgame cashgame, Player player, bool isManager, Checkpoint checkpoint)
+        public CheckpointItem(Bunch bunch, Cashgame cashgame, Player player, bool isManager, Checkpoint checkpoint)
         {
             Type = checkpoint.Description;
-            Stack = new Money(checkpoint.Stack, homegame.Currency);
-            Time = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, homegame.Timezone);
+            Stack = new Money(checkpoint.Stack, bunch.Currency);
+            Time = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
             CanEdit = isManager;
-            EditUrl = new EditCheckpointUrl(homegame.Slug, cashgame.DateString, player.Id, checkpoint.Id);
+            EditUrl = new EditCheckpointUrl(bunch.Slug, cashgame.DateString, player.Id, checkpoint.Id);
         }
     }
 }

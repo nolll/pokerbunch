@@ -5,14 +5,14 @@ namespace Tests.Common.Builders
 {
     public class HomegameListBuilder
     {
-        private readonly IList<Homegame> _homegames; 
+        private readonly IList<Bunch> _homegames; 
 
         public HomegameListBuilder()
         {
-            _homegames = new List<Homegame>();
+            _homegames = new List<Bunch>();
         }
 
-        public IList<Homegame> Build()
+        public IList<Bunch> Build()
         {
             return _homegames;
         }

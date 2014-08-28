@@ -7,10 +7,10 @@ namespace Application.UseCases.BunchList
         public string DisplayName { get; private set; }
         public string Slug { get; private set; }
 
-        public BunchListItem(Homegame homegame)
+        public BunchListItem(Bunch bunch)
         {
-            DisplayName = homegame.DisplayName;
-            Slug = homegame.Slug;
+            DisplayName = bunch.DisplayName;
+            Slug = bunch.Slug;
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Application.UseCases.CashgameDetails
         public MoneyResult Winnings { get; private set; }
         public MoneyWinRate WinRate { get; private set; }
 
-        public PlayerResultItem(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result)
+        public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
         {
             Name = player.DisplayName;
-            PlayerUrl = new CashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id);
-            Buyin = new Money(result.Buyin, homegame.Currency);
-            Cashout = new Money(result.Stack, homegame.Currency);
-            Winnings = new MoneyResult(result.Winnings, homegame.Currency);
-            WinRate = new MoneyWinRate(result.WinRate, homegame.Currency);
+            PlayerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
+            Buyin = new Money(result.Buyin, bunch.Currency);
+            Cashout = new Money(result.Stack, bunch.Currency);
+            Winnings = new MoneyResult(result.Winnings, bunch.Currency);
+            WinRate = new MoneyWinRate(result.WinRate, bunch.Currency);
         }
     }
 }

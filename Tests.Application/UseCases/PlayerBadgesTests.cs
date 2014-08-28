@@ -90,7 +90,7 @@ namespace Tests.Application.UseCases
         private void SetupGames(int gameCount)
         {
             var games = CreateGameList(gameCount);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Homegame>(), It.IsAny<int?>())).Returns(games);
+            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), It.IsAny<int?>())).Returns(games);
         }
 
         private IList<Cashgame> CreateGameList(int gameCount)
@@ -117,7 +117,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new PlayerBadgesInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
         }

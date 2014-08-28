@@ -12,7 +12,7 @@ namespace Tests.Application.UseCases
         {
             var homegames = AHomegameList.WithOneItem().Build();
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetList()).Returns(homegames);
+            GetMock<IBunchRepository>().Setup(o => o.GetList()).Returns(homegames);
 
             var result = Sut.Execute();
 
@@ -26,7 +26,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new BunchListInteractor(
-                    GetMock<IHomegameRepository>().Object);
+                    GetMock<IBunchRepository>().Object);
             }
         }
     }

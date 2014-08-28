@@ -16,7 +16,7 @@ namespace Tests.Application.UseCases
         {
             var result = Sut.Execute();
 
-            Assert.IsInstanceOf<AddHomegameUrl>(result.AddBunchUrl);
+            Assert.IsInstanceOf<AddBunchUrl>(result.AddBunchUrl);
             Assert.IsInstanceOf<LoginUrl>(result.LoginUrl);
             Assert.IsInstanceOf<AddUserUrl>(result.AddUserUrl);
         }

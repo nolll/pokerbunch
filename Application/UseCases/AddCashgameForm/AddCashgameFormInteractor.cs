@@ -5,20 +5,20 @@ namespace Application.UseCases.AddCashgameForm
 {
     public class AddCashgameFormInteractor : IAddCashgameFormInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public AddCashgameFormInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public AddCashgameFormResult Execute(AddCashgameFormRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             if (runningGame != null)
             {

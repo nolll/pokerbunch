@@ -123,13 +123,13 @@ namespace Tests.Application.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new HomegameInTest(timezone: TimeZoneInfo.Utc);
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
+            var homegame = new BunchInTest(timezone: TimeZoneInfo.Utc);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
         }
 
         private void SetupCashgame(Cashgame cashgame)
         {
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Homegame>(), It.IsAny<string>())).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), It.IsAny<string>())).Returns(cashgame);
         }
 
         private void SetupManager()
@@ -142,7 +142,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new CashgameDetailsInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object,
                     GetMock<IAuth>().Object,
                     GetMock<IPlayerRepository>().Object);

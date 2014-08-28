@@ -18,19 +18,19 @@ namespace Application.UseCases.CashgameDetails
         public Url ChartDataUrl { get; private set; }
         public IList<PlayerResultItem> PlayerItems { get; private set; }
 
-        public CashgameDetailsResult(Homegame homegame, Cashgame cashgame, IEnumerable<Player> players, bool isManager)
+        public CashgameDetailsResult(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, bool isManager)
         {
             var sortedResults = cashgame.Results.OrderByDescending(o => o.Winnings);
 
             Date = Date.Parse(cashgame.DateString);
             Location = cashgame.Location;
             Duration = Time.FromMinutes(cashgame.Duration);
-            StartTime = GetLocalTime(cashgame.StartTime, homegame.Timezone);
-            EndTime = GetLocalTime(cashgame.EndTime, homegame.Timezone);
+            StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
+            EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);
             CanEdit = isManager;
-            EditUrl = new EditCashgameUrl(homegame.Slug, cashgame.DateString);
-            ChartDataUrl = new CashgameDetailsChartJsonUrl(homegame.Slug, cashgame.DateString);
-            PlayerItems = sortedResults.Select(o => new PlayerResultItem(homegame, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
+            EditUrl = new EditCashgameUrl(bunch.Slug, cashgame.DateString);
+            ChartDataUrl = new CashgameDetailsChartJsonUrl(bunch.Slug, cashgame.DateString);
+            PlayerItems = sortedResults.Select(o => new PlayerResultItem(bunch, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
         }
 
         private static DateTime? GetLocalTime(DateTime? d, TimeZoneInfo timeZone)

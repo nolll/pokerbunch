@@ -12,24 +12,24 @@ namespace Core.Services
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
 
         public CashgameService(
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             ICashgameSuiteFactory cashgameSuiteFactory,
-            IHomegameRepository homegameRepository)
+            IBunchRepository bunchRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
             _cashgameSuiteFactory = cashgameSuiteFactory;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
         }
 
-        public CashgameSuite GetSuite(Homegame homegame, int? year = null)
+        public CashgameSuite GetSuite(Bunch bunch, int? year = null)
         {
-            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.GetPublished(homegame, year);
+            var players = _playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.GetPublished(bunch, year);
             return _cashgameSuiteFactory.Create(cashgames, players);
         }
 
@@ -41,14 +41,14 @@ namespace Core.Services
 
         public bool CashgameIsRunning(string bunchName)
         {
-            var homegame = _homegameRepository.GetBySlug(bunchName);
+            var homegame = _bunchRepository.GetBySlug(bunchName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             return cashgame != null;
         }
 
         public int? GetLatestYear(string slug)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var years = _cashgameRepository.GetYears(homegame);
             if (years.Count == 0)
             {

@@ -5,17 +5,17 @@ namespace Application.Services
 {
     public static class InvitationMessageBuilder
     {
-        public static string GetSubject(Homegame homegame)
+        public static string GetSubject(Bunch bunch)
         {
-            return string.Format("Invitation to Poker Bunch: {0}", homegame.DisplayName);
+            return string.Format("Invitation to Poker Bunch: {0}", bunch.DisplayName);
         }
 
-        public static string GetBody(Homegame homegame, Player player)
+        public static string GetBody(Bunch bunch, Player player)
         {
-            var joinUrl = new JoinHomeGameUrl(homegame.Slug).Absolute;
+            var joinUrl = new JoinBunchUrl(bunch.Slug).Absolute;
             var addUserUrl = new AddUserUrl().Absolute;
             var invitationCode = InvitationCodeCreator.GetCode(player);
-            return string.Format(BodyFormat, homegame.DisplayName, joinUrl, invitationCode, addUserUrl);
+            return string.Format(BodyFormat, bunch.DisplayName, joinUrl, invitationCode, addUserUrl);
         }
 
         private const string BodyFormat =

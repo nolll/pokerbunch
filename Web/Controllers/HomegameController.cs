@@ -23,7 +23,7 @@ namespace Web.Controllers
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
 	    private readonly IEditHomegamePageBuilder _editHomegamePageBuilder;
-	    private readonly IJoinHomegameConfirmationPageBuilder _joinHomegameConfirmationPageBuilder;
+	    private readonly IJoinBunchConfirmationPageBuilder _joinBunchConfirmationPageBuilder;
 
 	    public HomegameController(
             IAppContextInteractor appContextInteractor,
@@ -33,7 +33,7 @@ namespace Web.Controllers
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameDetailsPageBuilder homegameDetailsPageBuilder,
             IEditHomegamePageBuilder editHomegamePageBuilder,
-            IJoinHomegameConfirmationPageBuilder joinHomegameConfirmationPageBuilder)
+            IJoinBunchConfirmationPageBuilder joinBunchConfirmationPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _bunchListInteractor = bunchListInteractor;
@@ -42,7 +42,7 @@ namespace Web.Controllers
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
 	        _editHomegamePageBuilder = editHomegamePageBuilder;
-	        _joinHomegameConfirmationPageBuilder = joinHomegameConfirmationPageBuilder;
+	        _joinBunchConfirmationPageBuilder = joinBunchConfirmationPageBuilder;
 	    }
 
         [AuthorizeAdmin]
@@ -70,23 +70,23 @@ namespace Web.Controllers
 
 	    [HttpPost]
         [Authorize]
-        public ActionResult Add(AddHomegamePostModel postModel)
+        public ActionResult Add(AddBunchPostModel postModel)
         {
             var command = _homegameCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new AddHomegameConfirmationUrl().Relative);
+                return Redirect(new AddBunchConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
             var model = BuildAddBunchModel(postModel);
             return View("AddHomegame", model);
 		}
 
-	    private AddHomegamePageModel BuildAddBunchModel(AddHomegamePostModel postModel = null)
+	    private AddBunchPageModel BuildAddBunchModel(AddBunchPostModel postModel = null)
 	    {
 	        var contextResult = _appContextInteractor.Execute();
 	        var bunchFormResult = _addBunchFormInteractor.Execute();
-	        return new AddHomegamePageModel(contextResult, bunchFormResult, postModel);
+	        return new AddBunchPageModel(contextResult, bunchFormResult, postModel);
 	    }
 
 	    public ActionResult Created()
@@ -110,7 +110,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new HomegameDetailsUrl(slug).Relative);
+                return Redirect(new BunchDetailsUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = _editHomegamePageBuilder.Build(slug, postModel);
@@ -131,7 +131,7 @@ namespace Web.Controllers
             var command = _homegameCommandProvider.GetJoinCommand(slug, postModel);
             if (command.Execute())
             {
-                return Redirect(new JoinHomegameConfirmationUrl(slug).Relative);
+                return Redirect(new JoinBunchConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
             var model = BuildJoinBunchFormModel(slug, postModel);
@@ -151,7 +151,7 @@ namespace Web.Controllers
         [AuthorizePlayer]
 		public ActionResult Joined(string slug)
 		{
-            var model = _joinHomegameConfirmationPageBuilder.Build(slug);
+            var model = _joinBunchConfirmationPageBuilder.Build(slug);
 			return View("Join/Confirmation", model);
 		}
 

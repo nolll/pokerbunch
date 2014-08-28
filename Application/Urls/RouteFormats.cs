@@ -37,13 +37,13 @@ namespace Application.Urls{
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
         public const string CashgameCheckpointEdit = "/{0}/cashgame/editcheckpoint/{1}/{2}/{3}";
 
-        public const string HomegameAdd = "/-/homegame/add";
-        public const string HomegameAddConfirmation = "/-/homegame/created";
-        public const string HomegameDetails = "/{0}/homegame/details";
-        public const string HomegameEdit = "/{0}/homegame/edit";
-        public const string HomegameJoin = "/{0}/homegame/join";
-        public const string HomegameJoinConfirmation = "/{0}/homegame/joined";
-        public const string HomegameList = "/-/homegame/list";
+        public const string BunchAdd = "/-/homegame/add";
+        public const string BunchAddConfirmation = "/-/homegame/created";
+        public const string BunchDetails = "/{0}/homegame/details";
+        public const string BunchEdit = "/{0}/homegame/edit";
+        public const string BunchJoin = "/{0}/homegame/join";
+        public const string BunchJoinConfirmation = "/{0}/homegame/joined";
+        public const string BunchList = "/-/homegame/list";
 
         public const string PlayerAdd = "/{0}/player/add";
         public const string PlayerAddConfirmation = "/{0}/player/created";

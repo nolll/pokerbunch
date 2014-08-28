@@ -1,11 +1,10 @@
 using Application.Urls;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Models.UrlModels;
 
 namespace Tests.Web.ServiceTests
 {
-    public class UrlProviderTests : MockContainer
+    public class UrlTests : MockContainer
     {
         [Test]
         public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()
@@ -255,65 +254,65 @@ namespace Tests.Web.ServiceTests
         }
 
         [Test]
-        public void HomegameAddUrl()
+        public void BunchAddUrl()
         {
-            var result = new AddHomegameUrl();
+            var result = new AddBunchUrl();
 
             Assert.AreEqual("/-/homegame/add", result.Relative);
         }
 
         [Test]
-        public void HomegameAddConfirmationUrl()
+        public void BunchAddConfirmationUrl()
         {
-            var result = new AddHomegameConfirmationUrl();
+            var result = new AddBunchConfirmationUrl();
 
             Assert.AreEqual("/-/homegame/created", result.Relative);
         }
 
         [Test]
-        public void HomegameDetailsUrl()
+        public void BunchDetailsUrl()
         {
             const string slug = "a";
 
-            var result = new HomegameDetailsUrl(slug);
+            var result = new BunchDetailsUrl(slug);
 
             Assert.AreEqual("/a/homegame/details", result.Relative);
         }
 
         [Test]
-        public void HomegameEditUrl()
+        public void BunchEditUrl()
         {
             const string slug = "a";
 
-            var result = new EditHomegameUrl(slug);
+            var result = new EditBunchUrl(slug);
 
             Assert.AreEqual("/a/homegame/edit", result.Relative);
         }
 
         [Test]
-        public void HomegameJoinUrl()
+        public void BunchJoinUrl()
         {
             const string slug = "a";
 
-            var result = new JoinHomeGameUrl(slug);
+            var result = new JoinBunchUrl(slug);
 
             Assert.AreEqual("/a/homegame/join", result.Relative);
         }
 
         [Test]
-        public void HomegameJoinConfirmationUrl()
+        public void BunchJoinConfirmationUrl()
         {
             const string slug = "a";
 
-            var result = new JoinHomegameConfirmationUrl(slug);
+            var result = new JoinBunchConfirmationUrl(slug);
 
             Assert.AreEqual("/a/homegame/joined", result.Relative);
         }
 
         [Test]
-        public void HomegameListUrl()
+        public void BunchListUrl()
         {
-            var result = new HomegameListUrl();
+            var result = new BunchListUrl();
 
             Assert.AreEqual("/-/homegame/list", result.Relative);
         }

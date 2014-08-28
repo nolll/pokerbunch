@@ -10,18 +10,18 @@ namespace Application.UseCases.Login
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuth _auth;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
 
         public LoginInteractor(
             IUserRepository userRepository,
             IAuth auth,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IPlayerRepository playerRepository)
         {
             _userRepository = userRepository;
             _auth = auth;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
         }
 
@@ -60,14 +60,14 @@ namespace Application.UseCases.Login
 
         private List<UserBunch> GetUserBunches(User user)
         {
-            var homegames = _homegameRepository.GetByUser(user);
+            var homegames = _bunchRepository.GetByUser(user);
             var userBunches = new List<UserBunch>();
 
             if (homegames == null) return userBunches;
 
             foreach (var homegame in homegames)
             {
-                var role = _homegameRepository.GetHomegameRole(homegame, user);
+                var role = _bunchRepository.GetRole(homegame, user);
                 var player = _playerRepository.GetByUserName(homegame, user.UserName);
                 var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);

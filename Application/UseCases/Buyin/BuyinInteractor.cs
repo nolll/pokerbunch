@@ -6,20 +6,20 @@ namespace Application.UseCases.Buyin
 {
     public class BuyinInteractor : IBuyinInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly ITimeProvider _timeProvider;
 
         public BuyinInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             ICheckpointRepository checkpointRepository,
             ITimeProvider timeProvider)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
             _checkpointRepository = checkpointRepository;
@@ -38,7 +38,7 @@ namespace Application.UseCases.Buyin
 
         private void AddCheckpoint(BuyinRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var player = _playerRepository.GetById(request.PlayerId);
             var game = _cashgameRepository.GetRunning(homegame);
             var checkpoint = CreateCheckpoint(request);

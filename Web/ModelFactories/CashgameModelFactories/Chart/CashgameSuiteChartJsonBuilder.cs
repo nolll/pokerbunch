@@ -11,22 +11,22 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
     public class CashgameSuiteChartJsonBuilder : ICashgameSuiteChartJsonBuilder
     {
         private readonly IPlayerRepository _playerRepository;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameService _cashgameService;
 
         public CashgameSuiteChartJsonBuilder(
             IPlayerRepository playerRepository,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameService cashgameService)
         {
             _playerRepository = playerRepository;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
         }
 
         public ChartModel Build(string slug, int? year)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
             
             return new ChartModel

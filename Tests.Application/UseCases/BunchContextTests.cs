@@ -73,13 +73,13 @@ namespace Tests.Application.UseCases
         {
             SetupAppContext();
             var homegame = AHomegame.Build();
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
         }
 
-        private void SetupHomegameListByUser(IList<Homegame> homegameList)
+        private void SetupHomegameListByUser(IList<Bunch> homegameList)
         {
             SetupAppContext();
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
+            GetMock<IBunchRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
         }
 
         private void SetupAppContext()
@@ -93,7 +93,7 @@ namespace Tests.Application.UseCases
             {
                 return new BunchContextInteractor(
                     GetMock<IAppContextInteractor>().Object,
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<IAuth>().Object);
             }
         }

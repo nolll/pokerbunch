@@ -177,8 +177,8 @@
     </Compile>
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegameConfirmationPageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\JoinBunchConfirmationPageBuilder.cs" />
+    <Compile Include="ModelFactories\HomegameModelFactories\IJoinBunchConfirmationPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />
@@ -213,9 +213,9 @@
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
     <Compile Include="Models\CashgameModels\Report\ReportPostModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddHomegameConfirmationPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\AddHomegamePostModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\AddBunchPostModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\HomegameEditPostModel.cs" />
-    <Compile Include="Models\HomegameModels\Join\JoinHomegameConfirmationPageModel.cs" />
+    <Compile Include="Models\HomegameModels\Join\JoinBunchConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinHomegamePostModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListItemModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListPageModel.cs" />
@@ -493,7 +493,7 @@
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\AddHomegamePageModel.cs" />
+    <Compile Include="Models\HomegameModels\Add\AddBunchPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />

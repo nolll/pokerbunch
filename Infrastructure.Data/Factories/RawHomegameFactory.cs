@@ -6,9 +6,9 @@ namespace Infrastructure.Data.Factories
 {
     public static class RawHomegameFactory
     {
-        public static RawHomegame Create(IStorageDataReader reader)
+        public static RawBunch Create(IStorageDataReader reader)
         {
-            return new RawHomegame
+            return new RawBunch
             {
                 Id = reader.GetIntValue("HomegameID"),
                 Slug = reader.GetStringValue("Name"),
@@ -25,22 +25,22 @@ namespace Infrastructure.Data.Factories
             };
         }
 
-        public static RawHomegame Create(Homegame homegame)
+        public static RawBunch Create(Bunch bunch)
         {
-            return new RawHomegame
+            return new RawBunch
             {
-                Id = homegame.Id,
-                Slug = homegame.Slug,
-                DisplayName = homegame.DisplayName,
-                Description = homegame.Description,
-                HouseRules = homegame.HouseRules,
-                CurrencyLayout = homegame.Currency.Layout,
-                CurrencySymbol = homegame.Currency.Symbol,
-                TimezoneName = homegame.Timezone.Id,
-                DefaultBuyin = homegame.DefaultBuyin,
-                CashgamesEnabled = homegame.CashgamesEnabled,
-                TournamentsEnabled = homegame.TournamentsEnabled,
-                VideosEnabled = homegame.VideosEnabled
+                Id = bunch.Id,
+                Slug = bunch.Slug,
+                DisplayName = bunch.DisplayName,
+                Description = bunch.Description,
+                HouseRules = bunch.HouseRules,
+                CurrencyLayout = bunch.Currency.Layout,
+                CurrencySymbol = bunch.Currency.Symbol,
+                TimezoneName = bunch.Timezone.Id,
+                DefaultBuyin = bunch.DefaultBuyin,
+                CashgamesEnabled = bunch.CashgamesEnabled,
+                TournamentsEnabled = bunch.TournamentsEnabled,
+                VideosEnabled = bunch.VideosEnabled
             };
         }
     }

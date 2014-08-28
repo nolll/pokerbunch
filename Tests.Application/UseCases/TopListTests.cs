@@ -174,7 +174,7 @@ namespace Tests.Application.UseCases
             var homegame = AHomegame.Build();
             var suite = BuildSuite(totalResult1, totalResult2);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
             GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, It.IsAny<int?>())).Returns(suite);
         }
 
@@ -191,7 +191,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new TopListInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameService>().Object);
             }
         }

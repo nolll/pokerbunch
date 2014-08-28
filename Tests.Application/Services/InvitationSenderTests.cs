@@ -12,7 +12,7 @@ namespace Tests.Application.Services
         public void Send_SendsMessage()
         {
             const string email = "a";
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var player = new PlayerInTest();
 
             var sut = GetSut();

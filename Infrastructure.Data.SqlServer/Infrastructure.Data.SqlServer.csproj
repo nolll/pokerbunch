@@ -42,7 +42,7 @@
     <Compile Include="ListSqlParameter.cs" />
     <Compile Include="SqlServerCashgameStorage.cs" />
     <Compile Include="SqlServerCheckpointStorage.cs" />
-    <Compile Include="SqlServerHomegameStorage.cs" />
+    <Compile Include="SqlServerBunchStorage.cs" />
     <Compile Include="SqlServerPlayerStorage.cs" />
     <Compile Include="SqlServerSharingStorage.cs" />
     <Compile Include="SqlServerStorageProvider.cs" />

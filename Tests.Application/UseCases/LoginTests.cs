@@ -95,14 +95,14 @@ namespace Tests.Application.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToABunch_UserIdentityBunchesPropertiesAreCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = new HomegameInTest(slug: Slug);
-            var homegameList = new List<Homegame>{homegame};
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+            var homegame = new BunchInTest(slug: Slug);
+            var homegameList = new List<Bunch>{homegame};
+            GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(It.IsAny<Homegame>(), It.IsAny<User>())).Returns(Role.Player);
+            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
 
             var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), UserName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
 
             UserIdentity result = null;
 
@@ -123,14 +123,14 @@ namespace Tests.Application.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToTwoBunch_UserIdentityBunchesLengthIsCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = new HomegameInTest(slug: Slug);
-            var homegameList = new List<Homegame> { homegame, homegame };
-            GetMock<IHomegameRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+            var homegame = new BunchInTest(slug: Slug);
+            var homegameList = new List<Bunch> { homegame, homegame };
+            GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetHomegameRole(It.IsAny<Homegame>(), It.IsAny<User>())).Returns(Role.Player);
+            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
 
             var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Homegame>(), UserName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
 
             UserIdentity result = null;
 
@@ -223,7 +223,7 @@ namespace Tests.Application.UseCases
                 return new LoginInteractor(
                     GetMock<IUserRepository>().Object,
                     GetMock<IAuth>().Object,
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<IPlayerRepository>().Object);
             }
         }

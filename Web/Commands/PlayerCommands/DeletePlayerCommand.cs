@@ -7,18 +7,18 @@ namespace Web.Commands.PlayerCommands
     {
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly Homegame _homegame;
+        private readonly Bunch _bunch;
         private readonly Player _player;
 
         public DeletePlayerCommand(
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
-            Homegame homegame,
+            Bunch bunch,
             Player player)
         {
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _homegame = homegame;
+            _bunch = bunch;
             _player = player;
         }
 
@@ -27,7 +27,7 @@ namespace Web.Commands.PlayerCommands
             var hasPlayed = _cashgameRepository.HasPlayed(_player.Id);
             if (!hasPlayed)
             {
-                _playerRepository.Delete(_homegame, _player);
+                _playerRepository.Delete(_bunch, _player);
                 return true;
             }
             AddError("This player has played games, and can't be deleted");

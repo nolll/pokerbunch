@@ -6,7 +6,7 @@ namespace Infrastructure.Data.Interfaces
 {
 	public interface ICashgameStorage
     {
-        int AddGame(Homegame homegame, RawCashgame cashgame);
+        int AddGame(Bunch bunch, RawCashgame cashgame);
 		bool DeleteGame(int cashgameId);
         RawCashgame GetGame(int cashgameId);
         int? GetRunningCashgameId(int homegameId);

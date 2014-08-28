@@ -27,7 +27,7 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", new HomegameListUrl()),
+                    new NavigationNode("Bunches", new BunchListUrl()),
                     new NavigationNode("Users", new UserListUrl())
                 };
         }

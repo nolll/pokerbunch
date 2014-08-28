@@ -15,10 +15,10 @@ namespace Tests.Application.UseCases
         [Test]
         public void JoinBunchForm_BunchNameIsSet()
         {
-            var bunch = new HomegameInTest(displayName: BunchName);
+            var bunch = new BunchInTest(displayName: BunchName);
             var request = new JoinBunchFormRequest(Slug);
             
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
 
             var result = Sut.Execute(request);
 
@@ -30,7 +30,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new JoinBunchFormInteractor(
-                    GetMock<IHomegameRepository>().Object);
+                    GetMock<IBunchRepository>().Object);
             }
         }
     }

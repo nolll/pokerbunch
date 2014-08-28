@@ -8,16 +8,16 @@ namespace Application.UseCases.BunchContext
     public class BunchContextInteractor : IBunchContextInteractor
     {
         private readonly IAppContextInteractor _appContextInteractor;
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
 
         public BunchContextInteractor(
             IAppContextInteractor appContextInteractor,
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IAuth auth)
         {
             _appContextInteractor = appContextInteractor;
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _auth = auth;
         }
 
@@ -32,11 +32,11 @@ namespace Application.UseCases.BunchContext
             return new BunchContextResult(appContextResult, homegame.Slug, homegame.Id, homegame.DisplayName);
         }
 
-        private Homegame GetBunch(BunchContextRequest request)
+        private Bunch GetBunch(BunchContextRequest request)
         {
             if (request.HasSlug)
-                return _homegameRepository.GetBySlug(request.Slug);
-            var bunches = _homegameRepository.GetByUser(_auth.CurrentUser);
+                return _bunchRepository.GetBySlug(request.Slug);
+            var bunches = _bunchRepository.GetByUser(_auth.CurrentUser);
             return bunches.Count == 1 ? bunches[0] : null;
         }
     }

@@ -6,12 +6,12 @@ namespace Infrastructure.Data.Cache
     {
         void UserAdded();
         void UserUpdated(User user);
-        void HomegameAdded();
-        void HomegameUpdated(Homegame homegame);
-        void PlayerAdded(Homegame homegame);
+        void BunchAdded();
+        void BunchUpdated(Bunch bunch);
+        void PlayerAdded(Bunch bunch);
         void PlayerUpdated(Player player);
-        void PlayerDeleted(Homegame homegame, Player player);
-        void CashgameStarted(Homegame cashgame);
+        void PlayerDeleted(Bunch bunch, Player player);
+        void CashgameStarted(Bunch bunch);
         void CashgameUpdated(Cashgame cashgame);
     }
 }

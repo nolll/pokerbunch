@@ -10,23 +10,23 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
 {
     public class EditCashgamePageBuilder : IEditCashgamePageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IBunchContextInteractor _contextInteractor;
 
         public EditCashgamePageBuilder(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IBunchContextInteractor contextInteractor)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _contextInteractor = contextInteractor;
         }
 
         public EditCashgamePageModel Build(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
 

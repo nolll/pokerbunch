@@ -11,27 +11,27 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public class EditHomegamePageBuilder : IEditHomegamePageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IBunchContextInteractor _contextInteractor;
 
         public EditHomegamePageBuilder(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IBunchContextInteractor contextInteractor)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _contextInteractor = contextInteractor;
         }
 
         public HomegameEditPageModel Build(string slug, HomegameEditPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var currency = homegame.Currency;
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
             var model = new HomegameEditPageModel(contextResult)
             {
-                CancelUrl = new HomegameDetailsUrl(homegame.Slug),
+                CancelUrl = new BunchDetailsUrl(homegame.Slug),
                 Heading = string.Format("{0} Settings", homegame.DisplayName),
                 Description = homegame.Description,
                 HouseRules = homegame.HouseRules,

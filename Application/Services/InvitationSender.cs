@@ -12,10 +12,10 @@ namespace Application.Services
 	        _messageSender = messageSender;
 	    }
 
-	    public void Send(Homegame homegame, Player player, string email)
+	    public void Send(Bunch bunch, Player player, string email)
         {
-			var subject = InvitationMessageBuilder.GetSubject(homegame);
-			var body = InvitationMessageBuilder.GetBody(homegame, player);
+			var subject = InvitationMessageBuilder.GetSubject(bunch);
+			var body = InvitationMessageBuilder.GetBody(bunch, player);
 			_messageSender.Send(email, subject, body);
 		}
 

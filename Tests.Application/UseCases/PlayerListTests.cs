@@ -19,12 +19,12 @@ namespace Tests.Application.UseCases
             const string playerName = "b";
             const int playerId = 1;
 
-            var homegame = new HomegameInTest(slug: slug);
+            var homegame = new BunchInTest(slug: slug);
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
             var request = new PlayerListRequest(slug);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
 
             var result = Sut.Execute(request);
@@ -43,14 +43,14 @@ namespace Tests.Application.UseCases
             const string playerName1 = "b";
             const string playerName2 = "a";
 
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var player1 = new PlayerInTest(displayName: playerName1);
             var player2 = new PlayerInTest(displayName: playerName2);
             var players = new List<Player> { player1, player2 };
             var request = new PlayerListRequest(slug);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Homegame>())).Returns(players);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Bunch>())).Returns(players);
 
             var result = Sut.Execute(request);
 
@@ -65,12 +65,12 @@ namespace Tests.Application.UseCases
             const string playerName = "b";
             const int playerId = 1;
 
-            var homegame = new HomegameInTest(slug: slug);
+            var homegame = new BunchInTest(slug: slug);
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
             var request = new PlayerListRequest(slug);
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
 
@@ -84,7 +84,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new PlayerListInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<IPlayerRepository>().Object,
                     GetMock<IAuth>().Object);
             }

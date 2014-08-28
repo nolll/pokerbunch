@@ -8,7 +8,7 @@ namespace Application.UseCases.BunchList
     {
         public IList<BunchListItem> Bunches { get; private set; }
 
-        public BunchListResult(IEnumerable<Homegame> homegames)
+        public BunchListResult(IEnumerable<Bunch> homegames)
         {
             Bunches = homegames.Select(o => new BunchListItem(o)).ToList();
         }

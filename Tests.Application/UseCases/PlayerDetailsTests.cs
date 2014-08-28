@@ -186,8 +186,8 @@ namespace Tests.Application.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new HomegameInTest();
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var homegame = new BunchInTest();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
 
         private void SetupUser(Role role = Role.Player)
@@ -207,7 +207,7 @@ namespace Tests.Application.UseCases
             {
                 return new PlayerDetailsInteractor(
                     GetMock<IAuth>().Object,
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<IPlayerRepository>().Object,
                     GetMock<ICashgameRepository>().Object,
                     GetMock<IUserRepository>().Object);

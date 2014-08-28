@@ -3,7 +3,7 @@ using Web.Annotations;
 
 namespace Web.Models.HomegameModels.Add
 {
-    public class AddHomegamePostModel
+    public class AddBunchPostModel
     {
         [Required(ErrorMessage = "Display Name can't be empty")]
         public string DisplayName { get; [UsedImplicitly] set; }

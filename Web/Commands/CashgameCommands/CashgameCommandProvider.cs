@@ -9,20 +9,20 @@ namespace Web.Commands.CashgameCommands
 {
     public class CashgameCommandProvider : ICashgameCommandProvider
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICheckpointModelMapper _checkpointModelMapper;
         private readonly ICheckpointRepository _checkpointRepository;
 
         public CashgameCommandProvider(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
             ICheckpointModelMapper checkpointModelMapper,
             ICheckpointRepository checkpointRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _checkpointModelMapper = checkpointModelMapper;
@@ -31,19 +31,19 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetEndGameCommand(string slug)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             return new EndGameCommand(_cashgameRepository, homegame, cashgame);
         }
 
         public Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            return new EditCashgameCommand(_homegameRepository, _cashgameRepository, slug, dateStr, postModel);
+            return new EditCashgameCommand(_bunchRepository, _cashgameRepository, slug, dateStr, postModel);
         }
 
         public Command GetReportCommand(string slug, int playerId, ReportPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var player = _playerRepository.GetById(playerId);
             return new ReportCommand(_checkpointModelMapper, _checkpointRepository, cashgame, player, postModel);
@@ -51,14 +51,14 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             return new DeleteCheckpointCommand(_checkpointRepository, cashgame, checkpointId);
         }
 
         public Command GetCashoutCommand(string slug, int playerId, CashoutPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var result = runningGame.GetResult(player.Id);
@@ -67,14 +67,14 @@ namespace Web.Commands.CashgameCommands
 
         public Command GetDeleteCommand(string slug, string dateStr)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             return new DeleteCommand(_cashgameRepository, cashgame);
         }
 
         public Command GetEditCheckpointCommand(string slug, string dateStr, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(checkpointId);
             return new EditCheckpointCommand(_checkpointRepository, _checkpointModelMapper, cashgame, postModel, existingCheckpoint, homegame.Timezone);

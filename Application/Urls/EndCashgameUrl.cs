@@ -1,6 +1,6 @@
 ﻿namespace Application.Urls
 {
-    public class EndCashgameUrl : HomegameUrl
+    public class EndCashgameUrl : BunchUrl
     {
         public EndCashgameUrl(string slug)
             : base(RouteFormats.CashgameEnd, slug)

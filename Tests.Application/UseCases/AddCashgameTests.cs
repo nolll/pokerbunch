@@ -59,8 +59,8 @@ namespace Tests.Application.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new HomegameInTest();
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var homegame = new BunchInTest();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
 
         private AddCashgameInteractor Sut
@@ -68,7 +68,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new AddCashgameInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
         }

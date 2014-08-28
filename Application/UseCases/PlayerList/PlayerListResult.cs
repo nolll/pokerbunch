@@ -10,9 +10,9 @@ namespace Application.UseCases.PlayerList
         public string Slug { get; private set; }
         public bool CanAddPlayer { get; private set; }
 
-        public PlayerListResult(Homegame homegame, IEnumerable<Player> players, bool isManager)
+        public PlayerListResult(Bunch bunch, IEnumerable<Player> players, bool isManager)
         {
-            Slug = homegame.Slug;
+            Slug = bunch.Slug;
             Players = players.Select(o => new PlayerListItem(o)).OrderBy(o => o.Name).ToList();
             CanAddPlayer = isManager;
         }

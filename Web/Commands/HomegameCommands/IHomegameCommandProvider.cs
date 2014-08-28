@@ -6,7 +6,7 @@ namespace Web.Commands.HomegameCommands
 {
     public interface IHomegameCommandProvider
     {
-        Command GetAddCommand(AddHomegamePostModel postModel);
+        Command GetAddCommand(AddBunchPostModel postModel);
         Command GetEditCommand(string slug, HomegameEditPostModel postModel);
         Command GetJoinCommand(string slug, JoinHomegamePostModel postModel);
     }

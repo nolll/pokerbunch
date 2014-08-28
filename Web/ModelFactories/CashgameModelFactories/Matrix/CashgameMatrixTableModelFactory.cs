@@ -6,16 +6,16 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {
     public static class CashgameMatrixTableModelFactory
     {
-        public static CashgameMatrixTableModel Create(Homegame homegame, CashgameSuite suite)
+        public static CashgameMatrixTableModel Create(Bunch bunch, CashgameSuite suite)
         {
             var showYear = suite.SpansMultipleYears;
-            var headerModels = suite.Cashgames.Select(cashgame => CashgameMatrixTableColumnHeaderModelFactory.Create(homegame, cashgame, showYear)).ToList();
+            var headerModels = suite.Cashgames.Select(cashgame => CashgameMatrixTableColumnHeaderModelFactory.Create(bunch, cashgame, showYear)).ToList();
 
             return new CashgameMatrixTableModel
                 {
                     ShowYear = showYear,
                     ColumnHeaderModels = headerModels,
-                    RowModels = CashgameMatrixTableRowModelFactory.CreateList(homegame, suite, suite.TotalResults)
+                    RowModels = CashgameMatrixTableRowModelFactory.CreateList(bunch, suite, suite.TotalResults)
                 };
         }
     }

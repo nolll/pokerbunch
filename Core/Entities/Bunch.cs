@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Entities
 {
-    public class Homegame : ICacheable
+    public class Bunch : ICacheable
     {
 	    public int Id { get; private set; }
 	    public string Slug { get; private set; }
@@ -16,7 +16,7 @@ namespace Core.Entities
         public bool TournamentsEnabled { get; private set; }
         public bool VideosEnabled { get; private set; }
 
-        public Homegame(
+        public Bunch(
             int id, 
             string slug, 
             string displayName, 

@@ -20,9 +20,9 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             const int playerId = 1;
             var request = new PlayerFactsRequest(slug, playerId);
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, null)).Returns(GetCashgames());
 
             var result = Sut.Execute(request);
@@ -82,7 +82,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new PlayerFactsInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object);
             }
         }

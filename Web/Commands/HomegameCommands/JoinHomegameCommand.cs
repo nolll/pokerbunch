@@ -9,38 +9,38 @@ namespace Web.Commands.HomegameCommands
     {
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
-        private readonly Homegame _homegame;
+        private readonly Bunch _bunch;
         private readonly JoinHomegamePostModel _postModel;
 
         public JoinHomegameCommand(
             IAuth auth,
             IPlayerRepository playerRepository,
-            Homegame homegame,
+            Bunch bunch,
             JoinHomegamePostModel postModel)
         {
             _auth = auth;
             _playerRepository = playerRepository;
-            _homegame = homegame;
+            _bunch = bunch;
             _postModel = postModel;
         }
 
         public override bool Execute()
         {
             if (!IsValid(_postModel)) return false;
-            var player = GetMatchedPlayer(_homegame, _postModel.Code);
+            var player = GetMatchedPlayer(_bunch, _postModel.Code);
             if (player != null && player.IsUser)
             {
                 var user = _auth.CurrentUser;
-                _playerRepository.JoinHomegame(player, _homegame, user);
+                _playerRepository.JoinHomegame(player, _bunch, user);
                 return true;
             }
             AddError("That code didn't work. Please check for errors and try again");
             return false;
         }
 
-        private Player GetMatchedPlayer(Homegame homegame, string postedCode)
+        private Player GetMatchedPlayer(Bunch bunch, string postedCode)
         {
-            var players = _playerRepository.GetList(homegame);
+            var players = _playerRepository.GetList(bunch);
             foreach (var player in players)
             {
                 var code = InvitationCodeCreator.GetCode(player);

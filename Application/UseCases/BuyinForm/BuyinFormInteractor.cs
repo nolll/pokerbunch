@@ -4,20 +4,20 @@ namespace Application.UseCases.BuyinForm
 {
     public class BuyinFormInteractor : IBuyinFormInteractor
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
         public BuyinFormInteractor(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public BuyinFormResult Execute(BuyinFormRequest request)
         {
-            var homegame = _homegameRepository.GetBySlug(request.Slug);
+            var homegame = _bunchRepository.GetBySlug(request.Slug);
             var runningGame = _cashgameRepository.GetRunning(homegame.Id);
             var canEnterStack = runningGame.IsInGame(request.PlayerId);
 

@@ -15,7 +15,7 @@ namespace Tests.Application.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var player1 = new PlayerInTest();
             var player2 = new PlayerInTest();
             var players = new List<Player>{player1, player2};
@@ -29,7 +29,7 @@ namespace Tests.Application.UseCases
             var cashgame2 = new CashgameInTest(results:cashgame2Results);
             var cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
-            GetMock<IHomegameRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
 
@@ -42,7 +42,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void GetFactsResult_AllPropertiesAreSet()
         {
-            var homegame = new HomegameInTest();
+            var homegame = new BunchInTest();
             var factBuilder = new FactBuilderInTest(
                 gameCount: 2,
                 totalGameTime: 3,
@@ -74,7 +74,7 @@ namespace Tests.Application.UseCases
             get
             {
                 return new CashgameFactsInteractor(
-                    GetMock<IHomegameRepository>().Object,
+                    GetMock<IBunchRepository>().Object,
                     GetMock<ICashgameRepository>().Object,
                     GetMock<IPlayerRepository>().Object);
             }

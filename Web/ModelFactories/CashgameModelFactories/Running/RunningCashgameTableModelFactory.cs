@@ -20,21 +20,21 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             _playerRepository = playerRepository;
         }
 
-        public RunningCashgameTableModel Create(Homegame homegame, Cashgame cashgame, bool isManager)
+        public RunningCashgameTableModel Create(Bunch bunch, Cashgame cashgame, bool isManager)
         {
             var results = GetSortedResults(cashgame);
             var resultModels = new List<RunningCashgameTableItemModel>();
             foreach (var result in results)
             {
                 var player = _playerRepository.GetById(result.PlayerId);
-                resultModels.Add(_runningCashgameTableItemModelFactory.Create(homegame, cashgame, player, result, isManager));
+                resultModels.Add(_runningCashgameTableItemModelFactory.Create(bunch, cashgame, player, result, isManager));
             }
             
             return new RunningCashgameTableModel
                 {
                     StatusModels = resultModels,
-                    TotalBuyin = Globalization.FormatCurrency(homegame.Currency, cashgame.Turnover),
-                    TotalStacks = Globalization.FormatCurrency(homegame.Currency, cashgame.TotalStacks)
+                    TotalBuyin = Globalization.FormatCurrency(bunch.Currency, cashgame.Turnover),
+                    TotalStacks = Globalization.FormatCurrency(bunch.Currency, cashgame.TotalStacks)
                 };
         }
 

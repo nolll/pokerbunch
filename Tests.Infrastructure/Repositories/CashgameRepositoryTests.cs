@@ -30,7 +30,7 @@ namespace Tests.Infrastructure.Repositories
 		[Test]
 		public void EndGame_CallsUpdateGameAndSetsCurrentDateAndStatusPublished()
 		{
-		    var homegame = new HomegameInTest();
+		    var homegame = new BunchInTest();
             var cashgame = new CashgameInTest();
             var rawCashgame = new RawCashgame();
 

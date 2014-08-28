@@ -15,18 +15,18 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             _timeProvider = timeProvider;
         }
 
-        public RunningCashgameTableItemModel Create(Homegame homegame, Cashgame cashgame, Player player, CashgameResult result, bool isManager)
+        public RunningCashgameTableItemModel Create(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result, bool isManager)
         {
             return new RunningCashgameTableItemModel
                 {
                     Name = player.DisplayName,
-                    PlayerUrl = new CashgameActionUrl(homegame.Slug, cashgame.DateString, player.Id),
-                    BuyinUrl = new CashgameBuyinUrl(homegame.Slug, player.Id),
-                    ReportUrl = new CashgameReportUrl(homegame.Slug, player.Id),
-                    CashoutUrl = new CashgameCashoutUrl(homegame.Slug, player.Id),
-                    Buyin = Globalization.FormatCurrency(homegame.Currency, result.Buyin),
-                    Stack = Globalization.FormatCurrency(homegame.Currency, result.Stack),
-                    Winnings = Globalization.FormatResult(homegame.Currency, result.Winnings),
+                    PlayerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id),
+                    BuyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id),
+                    ReportUrl = new CashgameReportUrl(bunch.Slug, player.Id),
+                    CashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id),
+                    Buyin = Globalization.FormatCurrency(bunch.Currency, result.Buyin),
+                    Stack = Globalization.FormatCurrency(bunch.Currency, result.Stack),
+                    Winnings = Globalization.FormatResult(bunch.Currency, result.Winnings),
                     Time = GetTime(result.LastReportTime),
                     WinningsClass = ResultFormatter.GetWinningsCssClass(result.Winnings),
                     HasCashedOut = result.CashoutTime != null,

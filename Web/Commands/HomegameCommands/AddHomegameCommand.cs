@@ -8,18 +8,18 @@ namespace Web.Commands.HomegameCommands
 {
     public class AddHomegameCommand : Command
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
-        private readonly AddHomegamePostModel _postModel;
+        private readonly AddBunchPostModel _postModel;
 
         public AddHomegameCommand(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IAuth auth,
             IPlayerRepository playerRepository,
-            AddHomegamePostModel postModel)
+            AddBunchPostModel postModel)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _auth = auth;
             _playerRepository = playerRepository;
             _postModel = postModel;
@@ -34,7 +34,7 @@ namespace Web.Commands.HomegameCommands
                 return false;
             }
             var homegame = HomegameModelMapper.GetHomegame(_postModel);
-            homegame = _homegameRepository.Add(homegame);
+            homegame = _bunchRepository.Add(homegame);
             var user = _auth.CurrentUser;
             _playerRepository.Add(homegame, user, Role.Manager);
             return true;
@@ -43,7 +43,7 @@ namespace Web.Commands.HomegameCommands
         private bool HomegameExists()
         {
             var slug = SlugGenerator.GetSlug(_postModel.DisplayName);
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             return homegame != null;
         }
 		

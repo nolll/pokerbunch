@@ -9,16 +9,16 @@ namespace Web.ModelFactories.HomegameModelFactories
 {
     public class HomegameDetailsPageBuilder : IHomegameDetailsPageBuilder
     {
-        private readonly IHomegameRepository _homegameRepository;
+        private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IBunchContextInteractor _contextInteractor;
 
         public HomegameDetailsPageBuilder(
-            IHomegameRepository homegameRepository,
+            IBunchRepository bunchRepository,
             IAuth auth,
             IBunchContextInteractor contextInteractor)
         {
-            _homegameRepository = homegameRepository;
+            _bunchRepository = bunchRepository;
             _auth = auth;
             _contextInteractor = contextInteractor;
         }
@@ -27,22 +27,22 @@ namespace Web.ModelFactories.HomegameModelFactories
         {
             var bunchContextRequest = new BunchContextRequest(slug);
             var contextResult = _contextInteractor.Execute(bunchContextRequest);
-            var homegame = _homegameRepository.GetBySlug(slug);
+            var homegame = _bunchRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
             return Create(contextResult, homegame, isInManagerMode);
         }
 
-        private HomegameDetailsPageModel Create(BunchContextResult bunchContextResult, Homegame homegame, bool isInManagerMode)
+        private HomegameDetailsPageModel Create(BunchContextResult bunchContextResult, Bunch bunch, bool isInManagerMode)
         {
-            var houseRules = FormatHouseRules(homegame.HouseRules);
+            var houseRules = FormatHouseRules(bunch.HouseRules);
 
             return new HomegameDetailsPageModel(bunchContextResult)
                 {
-	                DisplayName = homegame.DisplayName,
-			        Description = homegame.Description,
+	                DisplayName = bunch.DisplayName,
+			        Description = bunch.Description,
 			        HouseRules = houseRules,
 	                ShowHouseRules = !string.IsNullOrEmpty(houseRules),
-			        EditUrl = new EditHomegameUrl(homegame.Slug),
+			        EditUrl = new EditBunchUrl(bunch.Slug),
 			        ShowEditLink = isInManagerMode
                 };
         }

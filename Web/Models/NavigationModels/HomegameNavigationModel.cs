@@ -24,7 +24,7 @@ namespace Web.Models.NavigationModels
         private HomegameNavigationModel(string slug, string bunchName)
         {
             Heading = bunchName;
-            HeadingUrl = new HomegameDetailsUrl(slug);
+            HeadingUrl = new BunchDetailsUrl(slug);
             CashgameUrl = new CashgameIndexUrl(slug);
             PlayerUrl = new PlayerIndexUrl(slug);
         }
