@@ -21,9 +21,7 @@ namespace Web.Controllers
 	    private readonly IUserDetailsInteractor _userDetailsInteractor;
 	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
-	    private readonly IAddUserPageBuilder _addUserPageBuilder;
 	    private readonly IEditUserPageBuilder _editUserPageBuilder;
-	    private readonly IChangePasswordPageBuilder _changePasswordPageBuilder;
 	    private readonly IForgotPasswordPageBuilder _forgotPasswordPageBuilder;
 
 	    public UserController(
@@ -31,18 +29,14 @@ namespace Web.Controllers
             IUserDetailsInteractor userDetailsInteractor,
             IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider,
-            IAddUserPageBuilder addUserPageBuilder,
             IEditUserPageBuilder editUserPageBuilder,
-            IChangePasswordPageBuilder changePasswordPageBuilder,
             IForgotPasswordPageBuilder forgotPasswordPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _userDetailsInteractor = userDetailsInteractor;
 	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
-	        _addUserPageBuilder = addUserPageBuilder;
 	        _editUserPageBuilder = editUserPageBuilder;
-	        _changePasswordPageBuilder = changePasswordPageBuilder;
 	        _forgotPasswordPageBuilder = forgotPasswordPageBuilder;
 	    }
 
@@ -66,7 +60,7 @@ namespace Web.Controllers
 
         public ActionResult Add()
         {
-            var model = _addUserPageBuilder.Build();
+            var model = BuildAddModel();
 			return View("Add/Add", model);
 		}
 
@@ -79,9 +73,15 @@ namespace Web.Controllers
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _addUserPageBuilder.Build(postModel);
+            var model = BuildAddModel(postModel);
             return View("Add/Add", model);
 		}
+
+	    private AddUserPageModel BuildAddModel(AddUserPostModel postModel = null)
+	    {
+	        var contextResult = _appContextInteractor.Execute();
+            return new AddUserPageModel(contextResult, postModel);
+	    }
 
 		public ActionResult Created()
 		{
@@ -114,7 +114,7 @@ namespace Web.Controllers
         [Authorize]
         public ActionResult ChangePassword()
         {
-            var model = _changePasswordPageBuilder.Build();
+            var model = BuildChangePasswordModel();
 			return View("ChangePassword/ChangePassword", model);
 		}
 
@@ -128,13 +128,20 @@ namespace Web.Controllers
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _changePasswordPageBuilder.Build();
+            var model = BuildChangePasswordModel();
             return View("ChangePassword/ChangePassword", model);
 		}
 
+	    private ChangePasswordPageModel BuildChangePasswordModel()
+	    {
+            var contextResult = _appContextInteractor.Execute();
+            return new ChangePasswordPageModel(contextResult);
+	    }
+
 		public ActionResult ChangedPassword()
         {
-            var model = _changePasswordPageBuilder.BuildConfirmation();
+            var contextResult = _appContextInteractor.Execute();
+            var model = new ChangePasswordConfirmationPageModel(contextResult);
 			return View("ChangePassword/Confirmation", model);
 		}
 

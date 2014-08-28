@@ -5,7 +5,7 @@ namespace Web.Models.PlayerModels.Invite
 {
     public class InvitePlayerPageModel : BunchPageModel
     {
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
         public InvitePlayerPageModel(BunchContextResult contextResult, InvitePlayerPostModel postModel)
             : base("Invite Player", contextResult)

@@ -14,15 +14,12 @@ using Tests.Common.FakeInteractors;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
-using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Tests.Web.ControllerTests
@@ -64,9 +61,6 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameChartPageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
                 GetMock<IActionChartJsonBuilder>().Object,
-                GetMock<IReportPageBuilder>().Object,
-                GetMock<ICashoutPageBuilder>().Object,
-                GetMock<IEndPageBuilder>().Object,
                 GetMock<IEditCheckpointPageBuilder>().Object,
                 new CashgameContextInteractorInTest(),
                 new TopListInteractorInTest(),

@@ -12,15 +12,12 @@ using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
-using Web.ModelFactories.CashgameModelFactories.Cashout;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.ModelFactories.CashgameModelFactories.End;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
-using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
@@ -51,9 +48,6 @@ namespace Web.Controllers
 	    private readonly ICashgameChartPageBuilder _cashgameChartPageBuilder;
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
-	    private readonly IReportPageBuilder _reportPageBuilder;
-	    private readonly ICashoutPageBuilder _cashoutPageBuilder;
-	    private readonly IEndPageBuilder _endPageBuilder;
 	    private readonly IEditCheckpointPageBuilder _editCheckpointPageBuilder;
 	    private readonly ICashgameContextInteractor _cashgameContextInteractor;
 	    private readonly ITopListInteractor _topListInteractor;
@@ -76,9 +70,6 @@ namespace Web.Controllers
             ICashgameChartPageBuilder cashgameChartPageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
             IActionChartJsonBuilder actionChartJsonBuilder,
-            IReportPageBuilder reportPageBuilder,
-            ICashoutPageBuilder cashoutPageBuilder,
-            IEndPageBuilder endPageBuilder,
             IEditCheckpointPageBuilder editCheckpointPageBuilder,
             ICashgameContextInteractor cashgameContextInteractor,
             ITopListInteractor topListInteractor,
@@ -100,9 +91,6 @@ namespace Web.Controllers
 	        _cashgameChartPageBuilder = cashgameChartPageBuilder;
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
-	        _reportPageBuilder = reportPageBuilder;
-	        _cashoutPageBuilder = cashoutPageBuilder;
-	        _endPageBuilder = endPageBuilder;
 	        _editCheckpointPageBuilder = editCheckpointPageBuilder;
 	        _cashgameContextInteractor = cashgameContextInteractor;
 	        _topListInteractor = topListInteractor;
@@ -299,7 +287,7 @@ namespace Web.Controllers
         [AuthorizeOwnPlayer]
         public ActionResult Report(string slug, int playerId)
         {
-            var model = _reportPageBuilder.Build(slug);
+            var model = BuildReportModel(slug);
             return View("Report/Report", model);
 		}
 
@@ -313,9 +301,15 @@ namespace Web.Controllers
                 return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _reportPageBuilder.Build(slug, postModel);
+            var model = BuildReportModel(slug, postModel);
             return View("Report/Report", model);
 		}
+
+	    private ReportPageModel BuildReportModel(string slug, ReportPostModel postModel = null)
+	    {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new ReportPageModel(contextResult, postModel);
+	    }
 
         [AuthorizeManager]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
@@ -353,7 +347,7 @@ namespace Web.Controllers
         [AuthorizeOwnPlayer]
         public ActionResult Cashout(string slug, int playerId)
         {
-            var model = _cashoutPageBuilder.Build(slug);
+            var model = BuildCashoutModel(slug);
             return View("Cashout/Cashout", model);
 		}
 
@@ -367,14 +361,21 @@ namespace Web.Controllers
                 return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _cashoutPageBuilder.Build(slug, postModel);
+            var model = BuildCashoutModel(slug, postModel);
             return View("Cashout/Cashout", model);
 		}
+
+	    private CashoutPageModel BuildCashoutModel(string slug, CashoutPostModel postModel = null)
+	    {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new CashoutPageModel(contextResult, postModel);
+	    }
 
         [AuthorizePlayer]
         public ActionResult End(string slug)
         {
-            var model = _endPageBuilder.Build(slug);
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var model = new EndGamePageModel(contextResult);
 			return View("End/End", model);
 		}
 

@@ -5,11 +5,13 @@ namespace Web.Models.CashgameModels.Report
 {
     public class ReportPageModel : BunchPageModel
     {
-        public int? StackAmount { get; set; }
+        public int? StackAmount { get; private set; }
 
-        public ReportPageModel(BunchContextResult contextResult)
+        public ReportPageModel(BunchContextResult contextResult, ReportPostModel postModel)
             : base("Report Stack", contextResult)
         {
+            if (postModel == null) return;
+            StackAmount = postModel.StackAmount;
         }
     }
 }

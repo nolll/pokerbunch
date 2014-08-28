@@ -6,7 +6,6 @@ using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
 using Application.UseCases.PlayerList;
 using Web.Commands.PlayerCommands;
-using Web.ModelFactories.PlayerModelFactories;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
@@ -23,8 +22,6 @@ namespace Web.Controllers
         private readonly IPlayerBadgesInteractor _playerBadgesInteractor;
         private readonly IPlayerListInteractor _playerListInteractor;
         private readonly IPlayerCommandProvider _playerCommandProvider;
-        private readonly IAddPlayerPageBuilder _addPlayerPageBuilder;
-        private readonly IInvitePlayerPageBuilder _invitePlayerPageBuilder;
 
         public PlayerController(
             IBunchContextInteractor bunchContextInteractor,
@@ -32,9 +29,7 @@ namespace Web.Controllers
             IPlayerFactsInteractor playerFactsInteractor,
             IPlayerBadgesInteractor playerBadgesInteractor,
             IPlayerListInteractor playerListInteractor,
-            IPlayerCommandProvider playerCommandProvider,
-            IAddPlayerPageBuilder addPlayerPageBuilder,
-            IInvitePlayerPageBuilder invitePlayerPageBuilder)
+            IPlayerCommandProvider playerCommandProvider)
 	    {
             _bunchContextInteractor = bunchContextInteractor;
             _playerDetailsInteractor = playerDetailsInteractor;
@@ -42,8 +37,6 @@ namespace Web.Controllers
             _playerBadgesInteractor = playerBadgesInteractor;
             _playerListInteractor = playerListInteractor;
             _playerCommandProvider = playerCommandProvider;
-            _addPlayerPageBuilder = addPlayerPageBuilder;
-            _invitePlayerPageBuilder = invitePlayerPageBuilder;
 	    }
 
         [AuthorizePlayer]
@@ -69,7 +62,7 @@ namespace Web.Controllers
         [AuthorizeManager]
         public ActionResult Add(string slug)
         {
-            var model = _addPlayerPageBuilder.Build(slug);
+            var model = BuildAddModel(slug);
             return View("Add", model);
 		}
 
@@ -83,9 +76,15 @@ namespace Web.Controllers
                 return Redirect(new AddPlayerConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _addPlayerPageBuilder.Build(slug, postModel);
+            var model = BuildAddModel(slug, postModel);
 			return View("Add", model);
 		}
+
+        private AddPlayerPageModel BuildAddModel(string slug, AddPlayerPostModel postModel = null)
+        {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new AddPlayerPageModel(contextResult, postModel);
+        }
 
         public ActionResult Created(string slug)
         {
@@ -108,7 +107,7 @@ namespace Web.Controllers
         [AuthorizeManager]
         public ActionResult Invite(string slug, int playerId)
         {
-            var model = _invitePlayerPageBuilder.Build(slug);
+            var model = BuildInviteModel(slug);
             return View("Invite", model);
 		}
 
@@ -122,9 +121,15 @@ namespace Web.Controllers
                 return Redirect(new InvitePlayerConfirmationUrl(slug, playerId).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _invitePlayerPageBuilder.Build(slug, postModel);
+            var model = BuildInviteModel(slug, postModel);
             return View("Invite", model);
 		}
+
+        private InvitePlayerPageModel BuildInviteModel(string slug, InvitePlayerPostModel postModel = null)
+        {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new InvitePlayerPageModel(contextResult, postModel);
+        }
 
         public ActionResult Invited(string slug, int playerId)
         {
