@@ -40,7 +40,6 @@ namespace Web.Plumbing
 
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
-            RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
             RegisterComponent<IHomegameDetailsPageBuilder, HomegameDetailsPageBuilder>();
             RegisterComponent<IEditHomegamePageBuilder, EditHomegamePageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
 using NUnit.Framework;
@@ -28,9 +29,9 @@ namespace Tests.Web.ControllerTests
                 return new HomegameController(
                     GetMock<IAppContextInteractor>().Object,
                     GetMock<IBunchListInteractor>().Object,
+                    GetMock<IAddBunchFormInteractor>().Object,
                     GetMock<IHomegameCommandProvider>().Object,
                     GetMock<IHomegameDetailsPageBuilder>().Object,
-                    GetMock<IAddHomegamePageBuilder>().Object,
                     GetMock<IEditHomegamePageBuilder>().Object,
                     GetMock<IJoinHomegamePageBuilder>().Object,
                     GetMock<IJoinHomegameConfirmationPageBuilder>().Object);

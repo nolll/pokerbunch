@@ -1,6 +1,7 @@
 ﻿using Application.Factories;
 using Application.Services;
 using Application.UseCases.Actions;
+using Application.UseCases.AddBunchForm;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.AddCashgameForm;
 using Application.UseCases.AppContext;
@@ -129,6 +130,7 @@ namespace Plumbing
             RegisterComponent<ILoginInteractor, LoginInteractor>();
             RegisterComponent<ILogoutInteractor, LogoutInteractor>();
             RegisterComponent<IHomeInteractor, HomeInteractor>();
+            RegisterComponent<IAddBunchFormInteractor, AddBunchFormInteractor>();
         }
     }
 }

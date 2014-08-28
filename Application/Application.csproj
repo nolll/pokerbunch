@@ -152,6 +152,10 @@
     <Compile Include="UseCases\Actions\ActionsResult.cs" />
     <Compile Include="UseCases\Actions\CheckpointItem.cs" />
     <Compile Include="UseCases\Actions\IActionsInteractor.cs" />
+    <Compile Include="UseCases\AddBunchForm\AddBunchFormInteractor.cs" />
+    <Compile Include="UseCases\AddBunchForm\AddBunchFormResult.cs" />
+    <Compile Include="UseCases\AddBunchForm\IAddBunchFormInteractor.cs" />
+    <Compile Include="UseCases\AddBunchForm\TimeZoneItem.cs" />
     <Compile Include="UseCases\AddCashgame\AddCashgameRequest.cs" />
     <Compile Include="UseCases\AddCashgame\AddCashgameResult.cs" />
     <Compile Include="UseCases\AddCashgame\IAddCashgameInteractor.cs" />
