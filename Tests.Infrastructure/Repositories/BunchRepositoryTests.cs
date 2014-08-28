@@ -1,21 +1,18 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Repositories
 {
-    public class HomegameRepositoryTests : MockContainer
+    public class BunchRepositoryTests : MockContainer
     {
         [Test]
-        public void GetByName_NoHomegameFound_ReturnsNull()
+        public void GetByName_NoBunchFound_ReturnsNull()
         {
             var sut = GetSut();
 
@@ -25,15 +22,15 @@ namespace Tests.Infrastructure.Repositories
         }
 
         [Test]
-        public void GetByName_HomegameFound_ReturnsHomegame()
+        public void GetByName_BunchFound_ReturnsBunch()
         {
             const string slug = "a";
             const int id = 1;
 
-            var rawHomegame = new RawBunch { Slug = slug, TimezoneName = "UTC" };
+            var rawBunch = new RawBunch { Slug = slug, TimezoneName = "UTC" };
 
             GetMock<IBunchStorage>().Setup(o => o.GetIdBySlug(slug)).Returns(id);
-            GetMock<IBunchStorage>().Setup(o => o.GetById(id)).Returns(rawHomegame);
+            GetMock<IBunchStorage>().Setup(o => o.GetById(id)).Returns(rawBunch);
 
             var sut = GetSut();
             var result = sut.GetBySlug(slug);
@@ -42,13 +39,13 @@ namespace Tests.Infrastructure.Repositories
         }
 
         [Test]
-        public void GetByUser_HomegameStorageReturnsOneRawHomegame_ReturnsOneHomegame()
+        public void GetByUser_BunchStorageReturnsOneRawBunch_ReturnsOneBunch()
         {
             const int userId = 1;
             var user = new UserInTest(userId);
-            var rawHomegames = new List<RawBunch> { new RawBunch{TimezoneName = "UTC"} };
+            var rawBunches = new List<RawBunch> { new RawBunch { TimezoneName = "UTC" } };
 
-            GetMock<IBunchStorage>().Setup(o => o.GetBunchesByUserId(userId)).Returns(rawHomegames);
+            GetMock<IBunchStorage>().Setup(o => o.GetBunchesByUserId(userId)).Returns(rawBunches);
 
             var sut = GetSut();
 
@@ -58,7 +55,7 @@ namespace Tests.Infrastructure.Repositories
         }
 
         [Test]
-        public void GetAll_NoHomegamesInCache_ReturnsTwoHomegamesFromDatabase()
+        public void GetAll_NoBunchesInCache_ReturnsTwoBunchesFromDatabase()
         {
             var ids = new List<int> { 1, 2 };
             var homegamesFromDatabase = new List<RawBunch> { new RawBunch { TimezoneName = "UTC" }, new RawBunch { TimezoneName = "UTC" } };
@@ -75,7 +72,7 @@ namespace Tests.Infrastructure.Repositories
         // Todo: Maybe move these tests to cache tests
         /*
         [Test]
-        public void GetAll_OneHomegameInCache_ReturnsTwoHomegamesWhereOneIsFromCache()
+        public void GetAll_OneBunchInCache_ReturnsTwoBunchesWhereOneIsFromCache()
         {
             const string slugA = "a";
             const string slugB = "b";
@@ -100,7 +97,7 @@ namespace Tests.Infrastructure.Repositories
         }
 
         [Test]
-        public void GetAll_TwoHomegamesInCache_ReturnsTwoHomegamesWhereBothIsFromCache()
+        public void GetAll_TwoBunchesInCache_ReturnsTwoBunchesWhereBothIsFromCache()
         {
             const string slugA = "a";
             const string slugB = "b";

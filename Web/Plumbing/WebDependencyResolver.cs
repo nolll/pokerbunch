@@ -40,8 +40,8 @@ namespace Web.Plumbing
 
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
-            RegisterComponent<IHomegameDetailsPageBuilder, HomegameDetailsPageBuilder>();
-            RegisterComponent<IEditHomegamePageBuilder, EditHomegamePageBuilder>();
+            RegisterComponent<IBunchDetailsPageBuilder, BunchDetailsPageBuilder>();
+            RegisterComponent<IEditBunchPageBuilder, EditBunchPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
@@ -68,7 +68,7 @@ namespace Web.Plumbing
             // Command Providers
             RegisterComponent<IPlayerCommandProvider, PlayerCommandProvider>();
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
-            RegisterComponent<IHomegameCommandProvider, HomegameCommandProvider>();
+            RegisterComponent<IBunchCommandProvider, BunchCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
             RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
             RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();

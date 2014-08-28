@@ -7,7 +7,7 @@ namespace Core.Entities
     public class Cashgame : ICacheable
     {
 	    public int Id { get; private set; }
-        public int HomegameId { get; set; }
+        public int BunchId { get; private set; }
         public string Location { get; private set; }
         public GameStatus Status { get; private set; }
         public bool IsStarted { get; private set; }
@@ -24,7 +24,7 @@ namespace Core.Entities
 
         public Cashgame(
                 int id,
-                int homegameId,
+                int bunchId,
 	            string location,
 	            GameStatus status,
 	            bool isStarted,
@@ -41,7 +41,7 @@ namespace Core.Entities
             )
         {
             Id = id;
-            HomegameId = homegameId;
+            BunchId = bunchId;
             Location = location;
             Status = status;
             IsStarted = isStarted;

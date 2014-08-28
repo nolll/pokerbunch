@@ -6,14 +6,14 @@ using Web.Models.HomegameModels.Add;
 
 namespace Web.Commands.HomegameCommands
 {
-    public class AddHomegameCommand : Command
+    public class AddBunchCommand : Command
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
         private readonly AddBunchPostModel _postModel;
 
-        public AddHomegameCommand(
+        public AddBunchCommand(
             IBunchRepository bunchRepository,
             IAuth auth,
             IPlayerRepository playerRepository,
@@ -28,19 +28,19 @@ namespace Web.Commands.HomegameCommands
         public override bool Execute()
         {
             if (!IsValid(_postModel)) return false;
-            if (HomegameExists())
+            if (BunchExists())
             {
                 AddError("The Homegame name is not available");
                 return false;
             }
-            var homegame = HomegameModelMapper.GetHomegame(_postModel);
+            var homegame = BunchModelMapper.GetBunch(_postModel);
             homegame = _bunchRepository.Add(homegame);
             var user = _auth.CurrentUser;
             _playerRepository.Add(homegame, user, Role.Manager);
             return true;
         }
 
-        private bool HomegameExists()
+        private bool BunchExists()
         {
             var slug = SlugGenerator.GetSlug(_postModel.DisplayName);
             var homegame = _bunchRepository.GetBySlug(slug);

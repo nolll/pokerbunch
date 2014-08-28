@@ -37,7 +37,7 @@ namespace Infrastructure.Data.Repositories {
 
         public Bunch GetById(int id)
         {
-            var cacheKey = _cacheKeyProvider.HomegameKey(id);
+            var cacheKey = _cacheKeyProvider.BunchKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -68,7 +68,7 @@ namespace Infrastructure.Data.Repositories {
 
         public Bunch Add(Bunch bunch)
         {
-            var rawHomegame = RawHomegameFactory.Create(bunch);
+            var rawHomegame = RawBunchFactory.Create(bunch);
             rawHomegame = _bunchStorage.AddBunch(rawHomegame);
             _cacheBuster.BunchAdded();
             return BunchDataMapper.Map(rawHomegame);
@@ -76,7 +76,7 @@ namespace Infrastructure.Data.Repositories {
 
         public bool Save(Bunch bunch)
         {
-            var rawHomegame = RawHomegameFactory.Create(bunch);
+            var rawHomegame = RawBunchFactory.Create(bunch);
             var success = _bunchStorage.UpdateBunch(rawHomegame);
             _cacheBuster.BunchUpdated(bunch);
             return success;
@@ -90,7 +90,7 @@ namespace Infrastructure.Data.Repositories {
 
         private int? GetIdBySlug(string slug)
         {
-            var cacheKey = _cacheKeyProvider.HomegameIdBySlugKey(slug);
+            var cacheKey = _cacheKeyProvider.BunchIdBySlugKey(slug);
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetIdBySlug(slug), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -102,7 +102,7 @@ namespace Infrastructure.Data.Repositories {
 
         private IList<int> GetAllIds()
         {
-            var cacheKey = _cacheKeyProvider.HomegameIdsKey();
+            var cacheKey = _cacheKeyProvider.BunchIdsKey();
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 

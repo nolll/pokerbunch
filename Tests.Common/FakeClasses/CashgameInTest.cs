@@ -8,7 +8,7 @@ namespace Tests.Common.FakeClasses
     {
         public CashgameInTest(
             int id = default(int),
-            int homegameId = default(int),
+            int bunchId = default(int),
             string location = default(string),
             GameStatus status = default(GameStatus),
             bool isStarted = default(bool),
@@ -25,7 +25,7 @@ namespace Tests.Common.FakeClasses
             )
             : base(
               id,
-              homegameId,
+              bunchId,
               location,
               status,
               isStarted,

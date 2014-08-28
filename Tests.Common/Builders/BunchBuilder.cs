@@ -3,13 +3,13 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
 {
-    public class HomegameBuilder
+    public class BunchBuilder
     {
         private int _id;
         private string _slug;
         private string _displayName;
 
-        public HomegameBuilder()
+        public BunchBuilder()
         {
             _id = 1;
             _slug = "a";
@@ -21,19 +21,19 @@ namespace Tests.Common.Builders
             return new BunchInTest(_id, _slug, _displayName);
         }
 
-        public HomegameBuilder WithId(int id)
+        public BunchBuilder WithId(int id)
         {
             _id = id;
             return this;
         }
 
-        public HomegameBuilder WithSlug(string slug)
+        public BunchBuilder WithSlug(string slug)
         {
             _slug = slug;
             return this;
         }
 
-        public HomegameBuilder WithDisplayName(string displayName)
+        public BunchBuilder WithDisplayName(string displayName)
         {
             _displayName = displayName;
             return this;

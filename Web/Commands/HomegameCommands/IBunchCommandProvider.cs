@@ -4,10 +4,10 @@ using Web.Models.HomegameModels.Join;
 
 namespace Web.Commands.HomegameCommands
 {
-    public interface IHomegameCommandProvider
+    public interface IBunchCommandProvider
     {
         Command GetAddCommand(AddBunchPostModel postModel);
-        Command GetEditCommand(string slug, HomegameEditPostModel postModel);
-        Command GetJoinCommand(string slug, JoinHomegamePostModel postModel);
+        Command GetEditCommand(string slug, BunchEditPostModel postModel);
+        Command GetJoinCommand(string slug, JoinBunchPostModel postModel);
     }
 }

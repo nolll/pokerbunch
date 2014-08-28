@@ -3,7 +3,7 @@ using Web.Annotations;
 
 namespace Web.Models.HomegameModels.Edit
 {
-    public class HomegameEditPostModel
+    public class BunchEditPostModel
     {
         public string Description { get; [UsedImplicitly] set; }
         

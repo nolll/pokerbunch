@@ -3,7 +3,7 @@ using Application.UseCases.BunchContext;
 
 namespace Web.Models.NavigationModels
 {
-    public class HomegameNavigationModel
+    public class BunchNavigationModel
     {
         public string Heading { get; private set; }
         public Url HeadingUrl { get; private set; }
@@ -11,17 +11,17 @@ namespace Web.Models.NavigationModels
         public Url PlayerUrl { get; private set; }
         public bool IsEmpty { get; private set; }
 
-        protected HomegameNavigationModel()
+        protected BunchNavigationModel()
             : this("", "")
         {
         }
 
-        public HomegameNavigationModel(BunchContextResult bunchContextResult)
+        public BunchNavigationModel(BunchContextResult bunchContextResult)
             : this(bunchContextResult.Slug, bunchContextResult.BunchName)
         {
         }
 
-        private HomegameNavigationModel(string slug, string bunchName)
+        private BunchNavigationModel(string slug, string bunchName)
         {
             Heading = bunchName;
             HeadingUrl = new BunchDetailsUrl(slug);
@@ -29,17 +29,17 @@ namespace Web.Models.NavigationModels
             PlayerUrl = new PlayerIndexUrl(slug);
         }
 
-        public static HomegameNavigationModel Empty
+        public static BunchNavigationModel Empty
         {
             get
             {
-                return new EmptyHomegameNavigationModel();
+                return new EmptyBunchNavigationModel();
             }
         }
 
-        private class EmptyHomegameNavigationModel : HomegameNavigationModel
+        private class EmptyBunchNavigationModel : BunchNavigationModel
         {
-            public EmptyHomegameNavigationModel()
+            public EmptyBunchNavigationModel()
             {
                 IsEmpty = true;
             }

@@ -2,8 +2,8 @@ using Web.Models.HomegameModels.Details;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public interface IHomegameDetailsPageBuilder
+    public interface IBunchDetailsPageBuilder
     {
-        HomegameDetailsPageModel Build(string slug);
+        BunchDetailsPageModel Build(string slug);
     }
 }

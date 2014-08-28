@@ -5,12 +5,12 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class BunchPageModel : AppPageModel
     {
-        public HomegameNavigationModel HomegameNavModel { get; private set; }
+        public BunchNavigationModel BunchNavModel { get; private set; }
 
         protected BunchPageModel(string browserTitle, BunchContextResult bunchContextResult)
             : base(browserTitle, bunchContextResult.AppContext)
         {
-            HomegameNavModel = GetHomegameNavModel(bunchContextResult);
+            BunchNavModel = GetHomegameNavModel(bunchContextResult);
         }
 
         public override string Layout
@@ -18,11 +18,11 @@ namespace Web.Models.PageBaseModels
             get { return ContextLayout.Bunch; }
         }
 
-        private HomegameNavigationModel GetHomegameNavModel(BunchContextResult bunchContextResult)
+        private BunchNavigationModel GetHomegameNavModel(BunchContextResult bunchContextResult)
         {
             if (bunchContextResult != null && bunchContextResult.HasBunch)
-                return new HomegameNavigationModel(bunchContextResult);
-            return HomegameNavigationModel.Empty;
+                return new BunchNavigationModel(bunchContextResult);
+            return BunchNavigationModel.Empty;
         }
     }
 }

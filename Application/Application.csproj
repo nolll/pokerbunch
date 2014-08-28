@@ -44,7 +44,7 @@
     <Compile Include="Factories\CashgameFactory.cs" />
     <Compile Include="Factories\CashgameResultFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
-    <Compile Include="Factories\HomegameFactory.cs" />
+    <Compile Include="Factories\BunchFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\TwitterCredentialsFactory.cs" />

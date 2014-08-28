@@ -28,7 +28,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void BunchContext_WithoutSlug_SlugIsSetFromFirstHomegame()
         {
-            var homegameList = AHomegameList.WithOneItem().Build();
+            var homegameList = ABunchList.WithOneItem().Build();
             SetupHomegameListByUser(homegameList);
 
             var result = GetResult();
@@ -40,7 +40,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void BunchContext_WithoutSlugAndHomegames_SlugIsNull()
         {
-            var homegameList = AHomegameList.Build(); 
+            var homegameList = ABunchList.Build(); 
             SetupHomegameListByUser(homegameList);
 
             var result = GetResult();
@@ -72,7 +72,7 @@ namespace Tests.Application.UseCases
         private void SetupHomegameBySlug(string slug)
         {
             SetupAppContext();
-            var homegame = AHomegame.Build();
+            var homegame = ABunch.Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
         }
 

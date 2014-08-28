@@ -33,16 +33,16 @@ namespace Infrastructure.Data.Cache
 
         public void BunchAdded()
         {
-            var key = _cacheKeyProvider.HomegameIdsKey();
+            var key = _cacheKeyProvider.BunchIdsKey();
             _cacheContainer.Remove(key);
         }
 
         public void BunchUpdated(Bunch bunch)
         {
-            var singleHomegameKey = _cacheKeyProvider.HomegameKey(bunch.Id);
+            var singleHomegameKey = _cacheKeyProvider.BunchKey(bunch.Id);
             _cacheContainer.Remove(singleHomegameKey);
 
-            var slugKey = _cacheKeyProvider.HomegameIdBySlugKey(bunch.Slug);
+            var slugKey = _cacheKeyProvider.BunchIdBySlugKey(bunch.Slug);
             _cacheContainer.Remove(slugKey);
         }
 
@@ -74,10 +74,10 @@ namespace Infrastructure.Data.Cache
 
         public void CashgameUpdated(Cashgame cashgame)
         {
-            ClearRunningCashgame(cashgame.HomegameId);
+            ClearRunningCashgame(cashgame.BunchId);
             ClearCashgame(cashgame.Id);
             ClearCashgameList(cashgame);
-            ClearCashgameYears(cashgame.HomegameId);
+            ClearCashgameYears(cashgame.BunchId);
         }
 
         private void ClearCashgame(int cashgameId)
@@ -94,11 +94,11 @@ namespace Infrastructure.Data.Cache
 
         private void ClearCashgameList(Cashgame cashgame)
         {
-            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Finished);
+            var allTimeCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.BunchId, GameStatus.Finished);
             _cacheContainer.Remove(allTimeCacheKey);
             if (cashgame.StartTime.HasValue)
             {
-                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.HomegameId, GameStatus.Finished, cashgame.StartTime.Value.Year);
+                var currentYearCacheKey = _cacheKeyProvider.CashgameIdsKey(cashgame.BunchId, GameStatus.Finished, cashgame.StartTime.Value.Year);
                 _cacheContainer.Remove(currentYearCacheKey);
             }
         }

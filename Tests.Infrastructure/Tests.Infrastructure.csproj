@@ -44,7 +44,7 @@
     <Compile Include="Data\Factories\RawCashgameFactoryTests.cs" />
     <Compile Include="Factories\CashgameResultFactoryTests.cs" />
     <Compile Include="Repositories\CashgameRepositoryTests.cs" />
-    <Compile Include="Repositories\HomegameRepositoryTests.cs" />
+    <Compile Include="Repositories\BunchRepositoryTests.cs" />
     <Compile Include="System\GlobalizationTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,13 +6,13 @@ using Web.Models.HomegameModels.Join;
 
 namespace Web.Commands.HomegameCommands
 {
-    public class HomegameCommandProvider : IHomegameCommandProvider
+    public class BunchCommandProvider : IBunchCommandProvider
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
 
-        public HomegameCommandProvider(
+        public BunchCommandProvider(
             IBunchRepository bunchRepository,
             IAuth auth,
             IPlayerRepository playerRepository)
@@ -24,31 +24,31 @@ namespace Web.Commands.HomegameCommands
 
         public Command GetAddCommand(AddBunchPostModel postModel)
         {
-            return new AddHomegameCommand(
+            return new AddBunchCommand(
                 _bunchRepository,
                 _auth,
                 _playerRepository,
                 postModel);
         }
 
-        public Command GetEditCommand(string slug, HomegameEditPostModel postModel)
+        public Command GetEditCommand(string slug, BunchEditPostModel postModel)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
+            var bunch = _bunchRepository.GetBySlug(slug);
 
-            return new EditHomegameCommand(
+            return new EditBunchCommand(
                 _bunchRepository,
-                homegame,
+                bunch,
                 postModel);
         }
 
-        public Command GetJoinCommand(string slug, JoinHomegamePostModel postModel)
+        public Command GetJoinCommand(string slug, JoinBunchPostModel postModel)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
+            var bunch = _bunchRepository.GetBySlug(slug);
 
-            return new JoinHomegameCommand(
+            return new JoinBunchCommand(
                 _auth,
                 _playerRepository,
-                homegame,
+                bunch,
                 postModel);
         }
     }

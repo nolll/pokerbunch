@@ -32,9 +32,9 @@ namespace Tests.Web.ControllerTests
                     GetMock<IBunchListInteractor>().Object,
                     GetMock<IAddBunchFormInteractor>().Object,
                     GetMock<IJoinBunchFormInteractor>().Object,
-                    GetMock<IHomegameCommandProvider>().Object,
-                    GetMock<IHomegameDetailsPageBuilder>().Object,
-                    GetMock<IEditHomegamePageBuilder>().Object,
+                    GetMock<IBunchCommandProvider>().Object,
+                    GetMock<IBunchDetailsPageBuilder>().Object,
+                    GetMock<IEditBunchPageBuilder>().Object,
                     GetMock<IJoinBunchConfirmationPageBuilder>().Object);
             }
         }

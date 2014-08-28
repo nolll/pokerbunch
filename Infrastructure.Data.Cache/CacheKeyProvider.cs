@@ -20,17 +20,17 @@ namespace Infrastructure.Data.Cache
             return ConstructCacheKey("UserIds", "all");
         }
 
-        public string HomegameKey(int id)
+        public string BunchKey(int id)
         {
             return ConstructCacheKey("Homegame", id);
         }
 
-        public string HomegameIdBySlugKey(string slug)
+        public string BunchIdBySlugKey(string slug)
         {
             return ConstructCacheKey("HomegameId", "slug", slug);
         }
 
-        public string HomegameIdsKey()
+        public string BunchIdsKey()
         {
             return ConstructCacheKey("HomegameIds", "all");
         }
@@ -40,19 +40,19 @@ namespace Infrastructure.Data.Cache
             return ConstructCacheKey("Player", id);
         }
 
-        public string PlayerIdsKey(int homegameId)
+        public string PlayerIdsKey(int bunchId)
         {
-            return ConstructCacheKey("PlayerIds", homegameId);
+            return ConstructCacheKey("PlayerIds", bunchId);
         }
 
-        public string PlayerIdByNameKey(int homegameId, string name)
+        public string PlayerIdByNameKey(int bunchId, string name)
         {
-            return ConstructCacheKey("PlayerId", "name", homegameId, name);
+            return ConstructCacheKey("PlayerId", "name", bunchId, name);
         }
 
-        public string PlayerIdByUserNameKey(int homegameId, string userName)
+        public string PlayerIdByUserNameKey(int bunchId, string userName)
         {
-            return ConstructCacheKey("PlayerId", "user", homegameId, userName);
+            return ConstructCacheKey("PlayerId", "user", bunchId, userName);
         }
 
         public string CashgameKey(int id)
@@ -60,24 +60,24 @@ namespace Infrastructure.Data.Cache
             return ConstructCacheKey("Cashgame", id);
         }
 
-        public string CashgameIdByDateStringKey(int homegameId, string dateString)
+        public string CashgameIdByDateStringKey(int bunchId, string dateString)
         {
-            return ConstructCacheKey("CashgameId", homegameId, dateString);
+            return ConstructCacheKey("CashgameId", bunchId, dateString);
         }
 
-        public string CashgameIdByRunningKey(int homegameId)
+        public string CashgameIdByRunningKey(int bunchId)
         {
-            return ConstructCacheKey("CashgameId", homegameId, "running");
+            return ConstructCacheKey("CashgameId", bunchId, "running");
         }
 
-        public string CashgameIdsKey(int homegameId, GameStatus? status = null, int? year = null)
+        public string CashgameIdsKey(int bunchId, GameStatus? status = null, int? year = null)
         {
-            return ConstructCacheKey("CashgameIds", homegameId, status, year);
+            return ConstructCacheKey("CashgameIds", bunchId, status, year);
         }
 
-        public string CashgameYearsKey(int homegameId)
+        public string CashgameYearsKey(int bunchId)
         {
-            return ConstructCacheKey("CashgameYears", homegameId);
+            return ConstructCacheKey("CashgameYears", bunchId);
         }
 
         public string ConstructCacheKey(string typeName, params object[] procedureParameters)

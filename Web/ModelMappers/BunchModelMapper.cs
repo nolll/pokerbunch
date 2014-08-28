@@ -7,11 +7,11 @@ using Web.Models.HomegameModels.Edit;
 
 namespace Web.ModelMappers
 {
-    public static class HomegameModelMapper
+    public static class BunchModelMapper
     {
-        public static Bunch GetHomegame(AddBunchPostModel postModel)
+        public static Bunch GetBunch(AddBunchPostModel postModel)
         {
-            return HomegameFactory.Create(
+            return BunchFactory.Create(
                     0,
                     SlugGenerator.GetSlug(postModel.DisplayName),
                     postModel.DisplayName,
@@ -22,9 +22,9 @@ namespace Web.ModelMappers
                     new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
 
-        public static Bunch GetHomegame(Bunch bunch, HomegameEditPostModel postModel)
+        public static Bunch GetBunch(Bunch bunch, BunchEditPostModel postModel)
         {
-            return HomegameFactory.Create(
+            return BunchFactory.Create(
                     bunch.Id,
                     bunch.Slug,
                     bunch.DisplayName,

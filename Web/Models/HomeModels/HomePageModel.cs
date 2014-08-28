@@ -9,7 +9,7 @@ namespace Web.Models.HomeModels
     public class HomePageModel : BunchPageModel
     {
         public bool IsLoggedIn { get; private set; }
-        public Url AddHomegameUrl { get; private set; }
+        public Url AddBunchUrl { get; private set; }
         public Url LoginUrl { get; private set; }
         public Url RegisterUrl { get; private set; }
         public NavigationModel AdminNav { get; private set; }
@@ -18,7 +18,7 @@ namespace Web.Models.HomeModels
             : base("Poker Bunch", contextResult)
         {
 			IsLoggedIn = homeResult.IsLoggedIn;
-            AddHomegameUrl = homeResult.AddBunchUrl;
+            AddBunchUrl = homeResult.AddBunchUrl;
             LoginUrl = homeResult.LoginUrl;
             RegisterUrl = homeResult.AddUserUrl;
             AdminNav = new AdminNavigationModel(homeResult);

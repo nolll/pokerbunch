@@ -4,7 +4,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Details
 {
-    public class HomegameDetailsPageModel : BunchPageModel
+    public class BunchDetailsPageModel : BunchPageModel
     {
         public string DisplayName { get; set; }
         public string Description { get; set; }
@@ -13,8 +13,8 @@ namespace Web.Models.HomegameModels.Details
         public Url EditUrl { get; set; }
         public bool ShowEditLink { get; set; }
 
-        public HomegameDetailsPageModel(BunchContextResult contextResult)
-            : base("Homegame Details", contextResult)
+        public BunchDetailsPageModel(BunchContextResult contextResult)
+            : base("Bunch Details", contextResult)
         {
         }
     }

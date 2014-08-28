@@ -9,12 +9,12 @@ using Web.Models.HomegameModels.Edit;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class EditHomegamePageBuilder : IEditHomegamePageBuilder
+    public class EditBunchPageBuilder : IEditBunchPageBuilder
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IBunchContextInteractor _contextInteractor;
 
-        public EditHomegamePageBuilder(
+        public EditBunchPageBuilder(
             IBunchRepository bunchRepository,
             IBunchContextInteractor contextInteractor)
         {
@@ -22,24 +22,24 @@ namespace Web.ModelFactories.HomegameModelFactories
             _contextInteractor = contextInteractor;
         }
 
-        public HomegameEditPageModel Build(string slug, HomegameEditPostModel postModel)
+        public BunchEditPageModel Build(string slug, BunchEditPostModel postModel)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var currency = homegame.Currency;
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var currency = bunch.Currency;
 
             var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
 
-            var model = new HomegameEditPageModel(contextResult)
+            var model = new BunchEditPageModel(contextResult)
             {
-                CancelUrl = new BunchDetailsUrl(homegame.Slug),
-                Heading = string.Format("{0} Settings", homegame.DisplayName),
-                Description = homegame.Description,
-                HouseRules = homegame.HouseRules,
-                DefaultBuyin = homegame.DefaultBuyin,
-                TimeZone = homegame.Timezone.Id,
+                CancelUrl = new BunchDetailsUrl(bunch.Slug),
+                Heading = string.Format("{0} Settings", bunch.DisplayName),
+                Description = bunch.Description,
+                HouseRules = bunch.HouseRules,
+                DefaultBuyin = bunch.DefaultBuyin,
+                TimeZone = bunch.Timezone.Id,
                 TimezoneSelectItems = GetTimezoneSelectModel(),
                 CurrencySymbol = currency.Symbol,
-                CurrencyLayout = homegame.Currency.Layout,
+                CurrencyLayout = bunch.Currency.Layout,
                 CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel()
                 //CashgamesEnabled = homegame.CashgamesEnabled,
                 //TournamentsEnabled = homegame.TournamentsEnabled,

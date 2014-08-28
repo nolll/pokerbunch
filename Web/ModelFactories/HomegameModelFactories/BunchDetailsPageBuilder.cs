@@ -7,13 +7,13 @@ using Web.Models.HomegameModels.Details;
 
 namespace Web.ModelFactories.HomegameModelFactories
 {
-    public class HomegameDetailsPageBuilder : IHomegameDetailsPageBuilder
+    public class BunchDetailsPageBuilder : IBunchDetailsPageBuilder
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
         private readonly IBunchContextInteractor _contextInteractor;
 
-        public HomegameDetailsPageBuilder(
+        public BunchDetailsPageBuilder(
             IBunchRepository bunchRepository,
             IAuth auth,
             IBunchContextInteractor contextInteractor)
@@ -23,20 +23,20 @@ namespace Web.ModelFactories.HomegameModelFactories
             _contextInteractor = contextInteractor;
         }
 
-        public HomegameDetailsPageModel Build(string slug)
+        public BunchDetailsPageModel Build(string slug)
         {
             var bunchContextRequest = new BunchContextRequest(slug);
             var contextResult = _contextInteractor.Execute(bunchContextRequest);
-            var homegame = _bunchRepository.GetBySlug(slug);
+            var bunch = _bunchRepository.GetBySlug(slug);
             var isInManagerMode = _auth.IsInRole(slug, Role.Manager);
-            return Create(contextResult, homegame, isInManagerMode);
+            return Create(contextResult, bunch, isInManagerMode);
         }
 
-        private HomegameDetailsPageModel Create(BunchContextResult bunchContextResult, Bunch bunch, bool isInManagerMode)
+        private BunchDetailsPageModel Create(BunchContextResult bunchContextResult, Bunch bunch, bool isInManagerMode)
         {
             var houseRules = FormatHouseRules(bunch.HouseRules);
 
-            return new HomegameDetailsPageModel(bunchContextResult)
+            return new BunchDetailsPageModel(bunchContextResult)
                 {
 	                DisplayName = bunch.DisplayName,
 			        Description = bunch.Description,

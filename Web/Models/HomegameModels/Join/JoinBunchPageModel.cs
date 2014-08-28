@@ -4,12 +4,12 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join
 {
-    public class JoinHomegamePageModel : AppPageModel
+    public class JoinBunchPageModel : AppPageModel
     {
         public string Name { get; private set; }
         public string Code { get; private set; }
 
-        public JoinHomegamePageModel(AppContextResult contextResult, JoinBunchFormResult joinBunchFormResult, JoinHomegamePostModel postModel)
+        public JoinBunchPageModel(AppContextResult contextResult, JoinBunchFormResult joinBunchFormResult, JoinBunchPostModel postModel)
             : base("Join Bunch", contextResult)
         {
             Name = joinBunchFormResult.BunchName;

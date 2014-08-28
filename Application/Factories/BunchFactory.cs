@@ -3,7 +3,7 @@ using Core.Entities;
 
 namespace Application.Factories
 {
-    public static class HomegameFactory
+    public static class BunchFactory
     {
         public static Bunch Create(
             int id,

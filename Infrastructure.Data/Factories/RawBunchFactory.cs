@@ -4,7 +4,7 @@ using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {
-    public static class RawHomegameFactory
+    public static class RawBunchFactory
     {
         public static RawBunch Create(IStorageDataReader reader)
         {

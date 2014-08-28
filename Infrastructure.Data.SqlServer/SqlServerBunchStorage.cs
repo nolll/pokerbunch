@@ -39,7 +39,7 @@ namespace Infrastructure.Data.SqlServer {
             const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(RawHomegameFactory.Create);
+            return reader.ReadList(RawBunchFactory.Create);
         }
 
         public IList<RawBunch> GetBunchesByUserId(int userId)
@@ -50,7 +50,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadList(RawHomegameFactory.Create);
+            return reader.ReadList(RawBunchFactory.Create);
         }
 
 		public RawBunch GetBunchByName(string slug){
@@ -60,7 +60,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawHomegameFactory.Create);
+            return reader.ReadOne(RawBunchFactory.Create);
 		}
 
         public RawBunch GetById(int id)
@@ -71,7 +71,7 @@ namespace Infrastructure.Data.SqlServer {
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawHomegameFactory.Create);
+            return reader.ReadOne(RawBunchFactory.Create);
         }
         
         public int GetBunchRole(int bunchId, int userId)

@@ -59,7 +59,7 @@
     <Compile Include="Mappers\PlayerDataMapper.cs" />
     <Compile Include="Factories\RawCashgameFactory.cs" />
     <Compile Include="Factories\RawCheckpointFactory.cs" />
-    <Compile Include="Factories\RawHomegameFactory.cs" />
+    <Compile Include="Factories\RawBunchFactory.cs" />
     <Compile Include="Factories\RawPlayerFactory.cs" />
     <Compile Include="Factories\RawTwitterCredentialsFactory.cs" />
     <Compile Include="Factories\RawUserFactory.cs" />

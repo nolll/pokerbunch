@@ -5,18 +5,18 @@ using Web.Models.HomegameModels.Join;
 
 namespace Web.Commands.HomegameCommands
 {
-    public class JoinHomegameCommand : Command
+    public class JoinBunchCommand : Command
     {
         private readonly IAuth _auth;
         private readonly IPlayerRepository _playerRepository;
         private readonly Bunch _bunch;
-        private readonly JoinHomegamePostModel _postModel;
+        private readonly JoinBunchPostModel _postModel;
 
-        public JoinHomegameCommand(
+        public JoinBunchCommand(
             IAuth auth,
             IPlayerRepository playerRepository,
             Bunch bunch,
-            JoinHomegamePostModel postModel)
+            JoinBunchPostModel postModel)
         {
             _auth = auth;
             _playerRepository = playerRepository;

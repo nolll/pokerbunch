@@ -22,14 +22,14 @@ namespace Tests.Common
             _mocks = new Dictionary<Type, Mock>();
         }
 
-        protected HomegameBuilder AHomegame
+        protected BunchBuilder ABunch
         {
-            get { return new HomegameBuilder(); }
+            get { return new BunchBuilder(); }
         }
 
-        protected HomegameListBuilder AHomegameList
+        protected BunchListBuilder ABunchList
         {
-            get { return new HomegameListBuilder(); }
+            get { return new BunchListBuilder(); }
         }
 
         protected UserBuilder AUser

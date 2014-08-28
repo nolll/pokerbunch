@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Mappers
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
             var currency = new Currency(rawBunch.CurrencySymbol, rawBunch.CurrencyLayout, culture);
 
-            return HomegameFactory.Create(
+            return BunchFactory.Create(
                 rawBunch.Id,
                 rawBunch.Slug,
                 rawBunch.DisplayName,
