@@ -1,29 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Application.Services;
 using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer
 {
 	public class SqlServerStorageProvider : IStorageProvider
     {
-	    private readonly ISettings _settings;
-
-        public SqlServerStorageProvider(
-            ISettings settings)
-        {
-            _settings = settings;
-        }
-
 	    private SqlConnection GetConnection()
         {
-            return new SqlConnection(_settings.GetConnectionString());
+            var connectionString = ConnectionString;
+            return new SqlConnection(connectionString);
         }
 
-        public IStorageDataReader Query(string sql, IList<SimpleSqlParameter> parameters)
+	    private static string ConnectionString
+	    {
+	        get { return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString; }
+	    }
+
+	    public IStorageDataReader Query(string sql, IList<SimpleSqlParameter> parameters)
 	    {
             using (var connection = GetConnection())
             {

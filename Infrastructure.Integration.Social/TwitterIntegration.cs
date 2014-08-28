@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using Application.Factories;
 using Application.Services;
 using Application.Urls;
@@ -11,14 +12,10 @@ namespace Infrastructure.Integration.Social
 	public class TwitterIntegration : ISocialService, ITwitterIntegration
     {
 	    private readonly ITwitterRepository _twitterRepository;
-	    private readonly ISettings _settings;
 
-	    public TwitterIntegration(
-            ITwitterRepository twitterRepository,
-            ISettings settings)
+	    public TwitterIntegration(ITwitterRepository twitterRepository)
 	    {
 	        _twitterRepository = twitterRepository;
-	        _settings = settings;
 	    }
 
         public string GetAuthUrl()
@@ -54,13 +51,13 @@ namespace Infrastructure.Integration.Social
         }
         
 	    private string GetKey()
-        {
-            return _settings.GetTwitterKey();
-        }
+	    {
+            return ConfigurationManager.AppSettings.Get("TwitterKey");
+	    }
 
 	    private string GetSecret()
         {
-            return _settings.GetTwitterSecret();
+            return ConfigurationManager.AppSettings.Get("TwitterSecret");
         }
 
         public void ShareResult(User user, int amount)

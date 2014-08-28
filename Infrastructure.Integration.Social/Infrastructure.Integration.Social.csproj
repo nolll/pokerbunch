@@ -35,6 +35,7 @@
       <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

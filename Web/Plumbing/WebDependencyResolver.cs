@@ -21,7 +21,6 @@ using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
 using Web.Security;
-using Web.Services;
 
 namespace Web.Plumbing
 {
@@ -35,9 +34,6 @@ namespace Web.Plumbing
 
         private void RegisterTypes()
         {
-            // Services
-            RegisterComponent<IConfigService, ConfigService>();
-
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IBunchDetailsPageBuilder, BunchDetailsPageBuilder>();

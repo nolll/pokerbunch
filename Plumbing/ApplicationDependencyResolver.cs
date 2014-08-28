@@ -77,7 +77,6 @@ namespace Plumbing
             // System
             RegisterComponent<IWebContext, WebContext>();
             RegisterComponent<ITimeProvider, TimeProvider>();
-            RegisterComponent<ISettings, Settings>();
 
             // Repositories
             RegisterComponent<IBunchRepository, BunchRepository>();

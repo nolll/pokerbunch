@@ -54,13 +54,11 @@
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IAuth.cs" />
-    <Compile Include="Services\Interfaces\IConfigService.cs" />
     <Compile Include="Services\Interfaces\IInvitationSender.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IPasswordSender.cs" />
     <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
     <Compile Include="Services\Interfaces\IResultSharer.cs" />
-    <Compile Include="Services\Interfaces\ISettings.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
     <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
     <Compile Include="Services\Interfaces\ITimeProvider.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\ResultSharer.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
-    <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Urls\AddCashgameUrl.cs" />
