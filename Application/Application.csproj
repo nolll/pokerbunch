@@ -206,6 +206,9 @@
     <Compile Include="UseCases\CashgameTopList\ITopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\Home\HomeInteractor.cs" />
+    <Compile Include="UseCases\Home\HomeResult.cs" />
+    <Compile Include="UseCases\Home\IHomeInteractor.cs" />
     <Compile Include="UseCases\LoginForm\ILoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />

@@ -5,7 +5,6 @@ namespace Application.UseCases.AppContext
     public class AppContextResult
     {
         public bool IsLoggedIn { get; private set; }
-        public bool IsAdmin { get; private set; }
         public string UserName { get; private set; }
         public string UserDisplayName { get; private set; }
         public BaseContextResult BaseContext { get; private set; }
@@ -19,7 +18,6 @@ namespace Application.UseCases.AppContext
         {
             BaseContext = baseContextResult;
             IsLoggedIn = isLoggedIn;
-            IsAdmin = isAdmin;
             UserName = userName;
             UserDisplayName = userDisplayName;
         }

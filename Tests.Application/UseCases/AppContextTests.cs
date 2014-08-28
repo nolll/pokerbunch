@@ -18,7 +18,6 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute();
 
             Assert.IsFalse(result.IsLoggedIn);
-            Assert.IsFalse(result.IsAdmin);
             Assert.IsEmpty(result.UserName);
             Assert.IsEmpty(result.UserDisplayName);
         }
@@ -33,21 +32,8 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute();
 
             Assert.IsTrue(result.IsLoggedIn);
-            Assert.IsFalse(result.IsAdmin);
             Assert.AreEqual("a", result.UserName);
             Assert.AreEqual("b", result.UserDisplayName);
-        }
-
-        [Test]
-        public void AppContext_WithAdminUser_AdminIsTrue()
-        {
-            SetupBaseContext();
-            var user = AUser.IsAdmin().Build();
-            SetupUser(user);
-
-            var result = Sut.Execute();
-
-            Assert.IsTrue(result.IsAdmin);
         }
 
         private void SetupUser(User user)

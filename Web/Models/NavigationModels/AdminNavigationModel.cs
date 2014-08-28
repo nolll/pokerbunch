@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Application.Urls;
-using Application.UseCases.AppContext;
+using Application.UseCases.Home;
 
 namespace Web.Models.NavigationModels
 {
@@ -13,8 +13,8 @@ namespace Web.Models.NavigationModels
             Nodes = GetNodes(isAdmin);
         }
 
-        public AdminNavigationModel(AppContextResult appContextResult)
-            : this(appContextResult.IsAdmin)
+        public AdminNavigationModel(HomeResult homeResult)
+            : this(homeResult.IsAdmin)
         {
         }
 

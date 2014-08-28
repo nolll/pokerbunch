@@ -19,7 +19,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Report;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.HomeModelFactories;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.PlayerModelFactories;
 using Web.ModelFactories.SharingModelFactories;
@@ -44,7 +43,6 @@ namespace Web.Plumbing
             RegisterComponent<IConfigService, ConfigService>();
 
             // Page Model Factories
-            RegisterComponent<IHomePageBuilder, HomePageBuilder>();
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IAddHomegamePageBuilder, AddHomegamePageBuilder>();
             RegisterComponent<IReportPageBuilder, ReportPageBuilder>();

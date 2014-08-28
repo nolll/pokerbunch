@@ -13,6 +13,7 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.Home;
 using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
 using Application.UseCases.Logout;
@@ -127,6 +128,7 @@ namespace Plumbing
             RegisterComponent<ILoginFormInteractor, LoginFormInteractor>();
             RegisterComponent<ILoginInteractor, LoginInteractor>();
             RegisterComponent<ILogoutInteractor, LogoutInteractor>();
+            RegisterComponent<IHomeInteractor, HomeInteractor>();
         }
     }
 }
