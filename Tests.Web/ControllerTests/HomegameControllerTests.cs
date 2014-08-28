@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
+using Application.UseCases.JoinBunchForm;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.HomegameCommands;
@@ -30,10 +31,10 @@ namespace Tests.Web.ControllerTests
                     GetMock<IAppContextInteractor>().Object,
                     GetMock<IBunchListInteractor>().Object,
                     GetMock<IAddBunchFormInteractor>().Object,
+                    GetMock<IJoinBunchFormInteractor>().Object,
                     GetMock<IHomegameCommandProvider>().Object,
                     GetMock<IHomegameDetailsPageBuilder>().Object,
                     GetMock<IEditHomegamePageBuilder>().Object,
-                    GetMock<IJoinHomegamePageBuilder>().Object,
                     GetMock<IJoinHomegameConfirmationPageBuilder>().Object);
             }
         }

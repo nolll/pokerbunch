@@ -15,6 +15,7 @@ using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.Home;
+using Application.UseCases.JoinBunchForm;
 using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
 using Application.UseCases.Logout;
@@ -131,6 +132,7 @@ namespace Plumbing
             RegisterComponent<ILogoutInteractor, LogoutInteractor>();
             RegisterComponent<IHomeInteractor, HomeInteractor>();
             RegisterComponent<IAddBunchFormInteractor, AddBunchFormInteractor>();
+            RegisterComponent<IJoinBunchFormInteractor, JoinBunchFormInteractor>();
         }
     }
 }

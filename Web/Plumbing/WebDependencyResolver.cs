@@ -46,7 +46,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
-            RegisterComponent<IJoinHomegamePageBuilder, JoinHomegamePageBuilder>();
             RegisterComponent<IJoinHomegameConfirmationPageBuilder, JoinHomegameConfirmationPageBuilder>();
             RegisterComponent<IEditUserPageBuilder, EditUserPageBuilder>();
             RegisterComponent<IForgotPasswordPageBuilder, ForgotPasswordPageBuilder>();

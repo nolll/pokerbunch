@@ -3,6 +3,7 @@ using Application.Urls;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BunchList;
+using Application.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
@@ -18,29 +19,29 @@ namespace Web.Controllers
 	    private readonly IAppContextInteractor _appContextInteractor;
 	    private readonly IBunchListInteractor _bunchListInteractor;
 	    private readonly IAddBunchFormInteractor _addBunchFormInteractor;
+	    private readonly IJoinBunchFormInteractor _joinBunchFormInteractor;
 	    private readonly IHomegameCommandProvider _homegameCommandProvider;
 	    private readonly IHomegameDetailsPageBuilder _homegameDetailsPageBuilder;
 	    private readonly IEditHomegamePageBuilder _editHomegamePageBuilder;
-	    private readonly IJoinHomegamePageBuilder _joinHomegamePageBuilder;
 	    private readonly IJoinHomegameConfirmationPageBuilder _joinHomegameConfirmationPageBuilder;
 
 	    public HomegameController(
             IAppContextInteractor appContextInteractor,
             IBunchListInteractor bunchListInteractor,
             IAddBunchFormInteractor addBunchFormInteractor,
+            IJoinBunchFormInteractor joinBunchFormInteractor,
             IHomegameCommandProvider homegameCommandProvider,
             IHomegameDetailsPageBuilder homegameDetailsPageBuilder,
             IEditHomegamePageBuilder editHomegamePageBuilder,
-            IJoinHomegamePageBuilder joinHomegamePageBuilder,
             IJoinHomegameConfirmationPageBuilder joinHomegameConfirmationPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _bunchListInteractor = bunchListInteractor;
 	        _addBunchFormInteractor = addBunchFormInteractor;
+	        _joinBunchFormInteractor = joinBunchFormInteractor;
 	        _homegameCommandProvider = homegameCommandProvider;
 	        _homegameDetailsPageBuilder = homegameDetailsPageBuilder;
 	        _editHomegamePageBuilder = editHomegamePageBuilder;
-	        _joinHomegamePageBuilder = joinHomegamePageBuilder;
 	        _joinHomegameConfirmationPageBuilder = joinHomegameConfirmationPageBuilder;
 	    }
 
@@ -119,7 +120,7 @@ namespace Web.Controllers
         [Authorize]
         public ActionResult Join(string slug)
         {
-            var model = _joinHomegamePageBuilder.Build(slug);
+            var model = BuildJoinBunchFormModel(slug);
 			return View("Join/Join", model);
 		}
 
@@ -133,9 +134,19 @@ namespace Web.Controllers
                 return Redirect(new JoinHomegameConfirmationUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _joinHomegamePageBuilder.Build(slug, postModel);
+            var model = BuildJoinBunchFormModel(slug, postModel);
             return View("Join/Join", model);
 		}
+
+	    private object BuildJoinBunchFormModel(string slug, JoinHomegamePostModel postModel = null)
+	    {
+            var contextResult = _appContextInteractor.Execute();
+
+            var joinBunchFormRequest = new JoinBunchFormRequest(slug);
+            var joinBunchFormResult = _joinBunchFormInteractor.Execute(joinBunchFormRequest);
+
+            return new JoinHomegamePageModel(contextResult, joinBunchFormResult, postModel);
+	    }
 
         [AuthorizePlayer]
 		public ActionResult Joined(string slug)

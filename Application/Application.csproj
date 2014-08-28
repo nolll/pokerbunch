@@ -213,6 +213,10 @@
     <Compile Include="UseCases\Home\HomeInteractor.cs" />
     <Compile Include="UseCases\Home\HomeResult.cs" />
     <Compile Include="UseCases\Home\IHomeInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchForm\IJoinBunchFormInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchForm\JoinBunchFormInteractor.cs" />
+    <Compile Include="UseCases\JoinBunchForm\JoinBunchFormRequest.cs" />
+    <Compile Include="UseCases\JoinBunchForm\JoinBunchFormResult.cs" />
     <Compile Include="UseCases\LoginForm\ILoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />

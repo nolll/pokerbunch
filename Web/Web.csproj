@@ -179,8 +179,6 @@
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegameConfirmationPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegameConfirmationPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IJoinHomegamePageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\JoinHomegamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />

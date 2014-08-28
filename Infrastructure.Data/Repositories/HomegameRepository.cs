@@ -29,9 +29,9 @@ namespace Infrastructure.Data.Repositories {
 	        _cacheBuster = cacheBuster;
 	    }
 
-        public Homegame GetBySlug(string name)
+        public Homegame GetBySlug(string slug)
         {
-            var userId = GetIdBySlug(name);
+            var userId = GetIdBySlug(slug);
             return userId.HasValue ? GetById(userId.Value) : null;
         }
 
