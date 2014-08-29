@@ -136,8 +136,6 @@
     <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageBuilder.cs" />
     <Compile Include="ModelFactories\SharingModelFactories\SharingIndexPageBuilder.cs" />
-    <Compile Include="ModelMappers\CheckpointModelMapper.cs" />
-    <Compile Include="ModelMappers\ICheckpointModelMapper.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />

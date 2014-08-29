@@ -1,5 +1,5 @@
+using Application.Services;
 using Core.Repositories;
-using Web.ModelMappers;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
@@ -12,21 +12,21 @@ namespace Web.Commands.CashgameCommands
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly ICheckpointModelMapper _checkpointModelMapper;
         private readonly ICheckpointRepository _checkpointRepository;
+        private readonly ITimeProvider _timeProvider;
 
         public CashgameCommandProvider(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
-            ICheckpointModelMapper checkpointModelMapper,
-            ICheckpointRepository checkpointRepository)
+            ICheckpointRepository checkpointRepository,
+            ITimeProvider timeProvider)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _checkpointModelMapper = checkpointModelMapper;
             _checkpointRepository = checkpointRepository;
+            _timeProvider = timeProvider;
         }
 
         public Command GetEndGameCommand(string slug)
@@ -46,7 +46,7 @@ namespace Web.Commands.CashgameCommands
             var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var player = _playerRepository.GetById(playerId);
-            return new ReportCommand(_checkpointModelMapper, _checkpointRepository, cashgame, player, postModel);
+            return new ReportCommand(_checkpointRepository, _timeProvider, cashgame, player, postModel);
         }
 
         public Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId)
@@ -62,7 +62,7 @@ namespace Web.Commands.CashgameCommands
             var player = _playerRepository.GetById(playerId);
             var runningGame = _cashgameRepository.GetRunning(homegame);
             var result = runningGame.GetResult(player.Id);
-            return new CashoutCommand(_checkpointRepository, _checkpointModelMapper, runningGame, player, result, postModel);
+            return new CashoutCommand(_checkpointRepository, _timeProvider, runningGame, player, result, postModel);
         }
 
         public Command GetDeleteCommand(string slug, string dateStr)
@@ -77,7 +77,7 @@ namespace Web.Commands.CashgameCommands
             var homegame = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(checkpointId);
-            return new EditCheckpointCommand(_checkpointRepository, _checkpointModelMapper, cashgame, postModel, existingCheckpoint, homegame.Timezone);
+            return new EditCheckpointCommand(_checkpointRepository, cashgame, postModel, existingCheckpoint, homegame.Timezone);
         }
     }
 }

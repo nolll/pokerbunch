@@ -54,9 +54,6 @@ namespace Web.Plumbing
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();
 
-            // Mappers
-            RegisterComponent<ICheckpointModelMapper, CheckpointModelMapper>();
-
             // Command Providers
             RegisterComponent<IPlayerCommandProvider, PlayerCommandProvider>();
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
