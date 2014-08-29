@@ -7,8 +7,11 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using Application;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Core.Entities;
+using Newtonsoft.Json;
 using Web.Plumbing;
 using Web.Security;
 using DependencyResolver = Plumbing.DependencyResolver;
@@ -59,9 +62,9 @@ namespace Web
                 return;
             }
 
-            var identity = new CustomIdentity(true, authTicket.UserData);
-            var principal = new CustomPrincipal(identity);
-            HttpContext.Current.User = principal;
+            var userIdentity = JsonConvert.DeserializeObject<UserIdentity>(authTicket.UserData);
+            var customIdentity = new CustomIdentity(true, userIdentity);
+            HttpContext.Current.User = new CustomPrincipal(customIdentity);
         }
         
         private void EnsureLowercaseUrl()

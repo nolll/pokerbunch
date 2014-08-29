@@ -1,5 +1,6 @@
 using System.Web;
 using System.Web.Mvc;
+using Application;
 using Application.Exceptions;
 
 namespace Web.Security.Attributes

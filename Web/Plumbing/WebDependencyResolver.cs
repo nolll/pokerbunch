@@ -20,7 +20,6 @@ using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
 using Web.ModelMappers;
-using Web.Security;
 
 namespace Web.Plumbing
 {
@@ -36,7 +35,6 @@ namespace Web.Plumbing
         {
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
-            RegisterComponent<IBunchDetailsPageBuilder, BunchDetailsPageBuilder>();
             RegisterComponent<IEditBunchPageBuilder, EditBunchPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
@@ -66,9 +64,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
             RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
             RegisterComponent<IAdminCommandProvider, AdminCommandProvider>();
-
-            // Security
-            RegisterComponent<IAuth, Auth>();
         }
     }
 }

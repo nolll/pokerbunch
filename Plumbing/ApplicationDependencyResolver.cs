@@ -7,6 +7,7 @@ using Application.UseCases.AddCashgameForm;
 using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
+using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
 using Application.UseCases.Buyin;
 using Application.UseCases.BuyinForm;
@@ -97,6 +98,7 @@ namespace Plumbing
             RegisterComponent<IPlayerDataMapper, PlayerDataMapper>();
 
             // Services
+            RegisterComponent<IAuth, Auth>();
             RegisterComponent<IInvitationSender, InvitationSender>();
             RegisterComponent<IMessageSender, MessageSender>();
             RegisterComponent<IUserService, UserService>();
@@ -134,6 +136,7 @@ namespace Plumbing
             RegisterComponent<IAddBunchFormInteractor, AddBunchFormInteractor>();
             RegisterComponent<IJoinBunchFormInteractor, JoinBunchFormInteractor>();
             RegisterComponent<IJoinBunchConfirmationInteractor, JoinBunchConfirmationInteractor>();
+            RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
         }
     }
 }

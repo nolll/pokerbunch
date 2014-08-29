@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Principal;
-using System.Web.Security;
 using Core.Entities;
-using Newtonsoft.Json;
 
-namespace Web.Security
+namespace Application
 {
     [Serializable]
     public class CustomIdentity : IIdentity
@@ -19,15 +17,10 @@ namespace Web.Security
             _user = new UserIdentity();
         }
 
-        public CustomIdentity(bool isAuthenticated, string userData)
+        public CustomIdentity(bool isAuthenticated, UserIdentity userIdentity)
         {
             _isAuthenticated = isAuthenticated;
-            _user = JsonConvert.DeserializeObject<UserIdentity>(userData);
-        }
-
-        public CustomIdentity(FormsAuthenticationTicket ticket)
-            : this(ticket != null, ticket.UserData)
-        {
+            _user = userIdentity;
         }
 
         public string AuthenticationType

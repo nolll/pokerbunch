@@ -181,8 +181,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\EditBunchPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\BunchDetailsPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IBunchDetailsPageBuilder.cs" />
     <Compile Include="ModelFactories\HomegameModelFactories\IEditBunchPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IEditUserPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\EditUserPageBuilder.cs" />
@@ -413,9 +411,7 @@
     <Compile Include="Security\Attributes\AuthorizeOwnUserAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizePlayerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
-    <Compile Include="Security\CustomIdentity.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
-    <Compile Include="Security\Auth.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />

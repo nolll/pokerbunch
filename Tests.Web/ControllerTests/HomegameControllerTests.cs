@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
+using Application.UseCases.BunchContext;
+using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
@@ -30,12 +32,13 @@ namespace Tests.Web.ControllerTests
             {
                 return new HomegameController(
                     GetMock<IAppContextInteractor>().Object,
+                    GetMock<IBunchContextInteractor>().Object,
                     GetMock<IBunchListInteractor>().Object,
                     GetMock<IAddBunchFormInteractor>().Object,
                     GetMock<IJoinBunchFormInteractor>().Object,
                     GetMock<IJoinBunchConfirmationInteractor>().Object,
+                    GetMock<IBunchDetailsInteractor>().Object,
                     GetMock<IBunchCommandProvider>().Object,
-                    GetMock<IBunchDetailsPageBuilder>().Object,
                     GetMock<IEditBunchPageBuilder>().Object);
             }
         }

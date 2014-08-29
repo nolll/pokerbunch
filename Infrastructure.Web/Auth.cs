@@ -1,12 +1,13 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Web;
 using System.Web.Security;
+using Application;
 using Application.Services;
 using Core.Entities;
 using Core.Repositories;
 using Newtonsoft.Json;
 
-namespace Web.Security
+namespace Infrastructure.Web
 {
     public class Auth : IAuth
     {

@@ -2,12 +2,15 @@ using System.Web.Mvc;
 using Application.Urls;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AppContext;
+using Application.UseCases.BunchContext;
+using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
 using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
+using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Models.HomegameModels.List;
@@ -18,31 +21,34 @@ namespace Web.Controllers
 	public class HomegameController : ControllerBase
     {
 	    private readonly IAppContextInteractor _appContextInteractor;
+	    private readonly IBunchContextInteractor _bunchContextInteractor;
 	    private readonly IBunchListInteractor _bunchListInteractor;
 	    private readonly IAddBunchFormInteractor _addBunchFormInteractor;
 	    private readonly IJoinBunchFormInteractor _joinBunchFormInteractor;
 	    private readonly IJoinBunchConfirmationInteractor _joinBunchConfirmationInteractor;
+	    private readonly IBunchDetailsInteractor _bunchDetailsInteractor;
 	    private readonly IBunchCommandProvider _bunchCommandProvider;
-	    private readonly IBunchDetailsPageBuilder _bunchDetailsPageBuilder;
 	    private readonly IEditBunchPageBuilder _editBunchPageBuilder;
 
 	    public HomegameController(
             IAppContextInteractor appContextInteractor,
+            IBunchContextInteractor bunchContextInteractor,
             IBunchListInteractor bunchListInteractor,
             IAddBunchFormInteractor addBunchFormInteractor,
             IJoinBunchFormInteractor joinBunchFormInteractor,
             IJoinBunchConfirmationInteractor joinBunchConfirmationInteractor,
+            IBunchDetailsInteractor bunchDetailsInteractor,
             IBunchCommandProvider bunchCommandProvider,
-            IBunchDetailsPageBuilder bunchDetailsPageBuilder,
             IEditBunchPageBuilder editBunchPageBuilder)
 	    {
 	        _appContextInteractor = appContextInteractor;
+	        _bunchContextInteractor = bunchContextInteractor;
 	        _bunchListInteractor = bunchListInteractor;
 	        _addBunchFormInteractor = addBunchFormInteractor;
 	        _joinBunchFormInteractor = joinBunchFormInteractor;
 	        _joinBunchConfirmationInteractor = joinBunchConfirmationInteractor;
+	        _bunchDetailsInteractor = bunchDetailsInteractor;
 	        _bunchCommandProvider = bunchCommandProvider;
-	        _bunchDetailsPageBuilder = bunchDetailsPageBuilder;
 	        _editBunchPageBuilder = editBunchPageBuilder;
 	    }
 
@@ -58,7 +64,13 @@ namespace Web.Controllers
         [AuthorizePlayer]
         public ActionResult Details(string slug)
         {
-            var model = _bunchDetailsPageBuilder.Build(slug);
+            var bunchContextRequest = new BunchContextRequest(slug);
+            var bunchContextResult = _bunchContextInteractor.Execute(bunchContextRequest);
+
+            var bunchDetailsRequest = new BunchDetailsRequest(slug);
+            var bunchDetailsResult = _bunchDetailsInteractor.Execute(bunchDetailsRequest);
+
+            var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
 			return View("HomegameDetails", model);
 		}
 
