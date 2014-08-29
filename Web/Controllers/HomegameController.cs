@@ -5,10 +5,10 @@ using Application.UseCases.AppContext;
 using Application.UseCases.BunchContext;
 using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
+using Application.UseCases.EditBunchForm;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
-using Web.ModelFactories.HomegameModelFactories;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Edit;
@@ -27,8 +27,8 @@ namespace Web.Controllers
 	    private readonly IJoinBunchFormInteractor _joinBunchFormInteractor;
 	    private readonly IJoinBunchConfirmationInteractor _joinBunchConfirmationInteractor;
 	    private readonly IBunchDetailsInteractor _bunchDetailsInteractor;
+	    private readonly IEditBunchFormInteractor _editBunchFormInteractor;
 	    private readonly IBunchCommandProvider _bunchCommandProvider;
-	    private readonly IEditBunchPageBuilder _editBunchPageBuilder;
 
 	    public HomegameController(
             IAppContextInteractor appContextInteractor,
@@ -38,8 +38,8 @@ namespace Web.Controllers
             IJoinBunchFormInteractor joinBunchFormInteractor,
             IJoinBunchConfirmationInteractor joinBunchConfirmationInteractor,
             IBunchDetailsInteractor bunchDetailsInteractor,
-            IBunchCommandProvider bunchCommandProvider,
-            IEditBunchPageBuilder editBunchPageBuilder)
+            IEditBunchFormInteractor editBunchFormInteractor,
+            IBunchCommandProvider bunchCommandProvider)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _bunchContextInteractor = bunchContextInteractor;
@@ -48,8 +48,8 @@ namespace Web.Controllers
 	        _joinBunchFormInteractor = joinBunchFormInteractor;
 	        _joinBunchConfirmationInteractor = joinBunchConfirmationInteractor;
 	        _bunchDetailsInteractor = bunchDetailsInteractor;
+	        _editBunchFormInteractor = editBunchFormInteractor;
 	        _bunchCommandProvider = bunchCommandProvider;
-	        _editBunchPageBuilder = editBunchPageBuilder;
 	    }
 
         [AuthorizeAdmin]
@@ -112,7 +112,7 @@ namespace Web.Controllers
         [AuthorizeManager]
         public ActionResult Edit(string slug)
         {
-            var model = _editBunchPageBuilder.Build(slug);
+            var model = BuildEditModel(slug);
 			return View("Edit/Edit", model);
 		}
 
@@ -126,9 +126,19 @@ namespace Web.Controllers
                 return Redirect(new BunchDetailsUrl(slug).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _editBunchPageBuilder.Build(slug, postModel);
+            var model = BuildEditModel(slug, postModel);
             return View("Edit/Edit", model);
 		}
+
+        private BunchEditPageModel BuildEditModel(string slug, BunchEditPostModel postModel = null)
+	    {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+
+            var editBunchFormRequest = new EditBunchFormRequest(slug);
+            var editBunchFormResult = _editBunchFormInteractor.Execute(editBunchFormRequest);
+
+            return new BunchEditPageModel(contextResult, editBunchFormResult, postModel);
+	    }
 
         [Authorize]
         public ActionResult Join(string slug)

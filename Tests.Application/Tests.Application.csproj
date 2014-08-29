@@ -71,6 +71,7 @@
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
+    <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\HomeTests.cs" />
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
     <Compile Include="UseCases\JoinBunchFormTests.cs" />

@@ -37,13 +37,9 @@ namespace Web.Commands.CashgameCommands
             if (!IsValid(_model)) return false;
             var postedCheckpoint = CreateCheckpoint(_model, _result.CashoutCheckpoint);
             if (_result.CashoutCheckpoint != null)
-            {
                 _checkpointRepository.UpdateCheckpoint(_cashgame, postedCheckpoint);
-            }
             else
-            {
                 _checkpointRepository.AddCheckpoint(_cashgame, _player, postedCheckpoint);
-            }
             return true;
         }
 

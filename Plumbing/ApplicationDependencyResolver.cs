@@ -15,6 +15,7 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.EditBunchForm;
 using Application.UseCases.Home;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
@@ -137,6 +138,7 @@ namespace Plumbing
             RegisterComponent<IJoinBunchFormInteractor, JoinBunchFormInteractor>();
             RegisterComponent<IJoinBunchConfirmationInteractor, JoinBunchConfirmationInteractor>();
             RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
+            RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
         }
     }
 }

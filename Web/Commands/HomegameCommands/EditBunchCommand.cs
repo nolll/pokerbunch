@@ -1,3 +1,4 @@
+using System;
 using Core.Entities;
 using Core.Repositories;
 using Web.ModelMappers;
@@ -24,9 +25,22 @@ namespace Web.Commands.HomegameCommands
         public override bool Execute()
         {
             if (!IsValid(_postModel)) return false;
-            var postedHomegame = BunchModelMapper.GetBunch(_bunch, _postModel);
+            var postedHomegame = CreateBunch(_bunch, _postModel);
             _bunchRepository.Save(postedHomegame);
             return false;
+        }
+
+        private static Bunch CreateBunch(Bunch bunch, BunchEditPostModel postModel)
+        {
+            return new Bunch(
+                    bunch.Id,
+                    bunch.Slug,
+                    bunch.DisplayName,
+                    postModel.Description,
+                    postModel.HouseRules,
+                    TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
+                    postModel.DefaultBuyin,
+                    new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
         }
     }
 }

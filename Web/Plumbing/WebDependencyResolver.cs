@@ -1,5 +1,4 @@
-﻿using Application.Services;
-using Castle.Core;
+﻿using Castle.Core;
 using Castle.Windsor;
 using Plumbing;
 using Web.Commands.AdminCommands;
@@ -16,10 +15,8 @@ using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.HomegameModelFactories;
 using Web.ModelFactories.SharingModelFactories;
 using Web.ModelFactories.UserModelFactories;
-using Web.ModelMappers;
 
 namespace Web.Plumbing
 {
@@ -35,7 +32,6 @@ namespace Web.Plumbing
         {
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
-            RegisterComponent<IEditBunchPageBuilder, EditBunchPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();

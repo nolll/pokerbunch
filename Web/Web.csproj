@@ -178,13 +178,10 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\EditBunchPageBuilder.cs" />
-    <Compile Include="ModelFactories\HomegameModelFactories\IEditBunchPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\IEditUserPageBuilder.cs" />
     <Compile Include="ModelFactories\UserModelFactories\EditUserPageBuilder.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
     <Compile Include="ModelMappers\UserModelMapper.cs" />
-    <Compile Include="ModelMappers\BunchModelMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

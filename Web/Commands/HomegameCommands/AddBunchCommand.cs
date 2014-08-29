@@ -1,3 +1,4 @@
+using System;
 using Application.Services;
 using Core.Entities;
 using Core.Repositories;
@@ -30,10 +31,10 @@ namespace Web.Commands.HomegameCommands
             if (!IsValid(_postModel)) return false;
             if (BunchExists())
             {
-                AddError("The Homegame name is not available");
+                AddError("The Bunch name is not available");
                 return false;
             }
-            var homegame = BunchModelMapper.GetBunch(_postModel);
+            var homegame = CreateBunch(_postModel);
             homegame = _bunchRepository.Add(homegame);
             var user = _auth.CurrentUser;
             _playerRepository.Add(homegame, user, Role.Manager);
@@ -46,6 +47,18 @@ namespace Web.Commands.HomegameCommands
             var homegame = _bunchRepository.GetBySlug(slug);
             return homegame != null;
         }
-		
+
+        private static Bunch CreateBunch(AddBunchPostModel postModel)
+        {
+            return new Bunch(
+                    0,
+                    SlugGenerator.GetSlug(postModel.DisplayName),
+                    postModel.DisplayName,
+                    postModel.Description,
+                    string.Empty,
+                    TimeZoneInfo.FindSystemTimeZoneById(postModel.TimeZone),
+                    200,
+                    new Currency(postModel.CurrencySymbol, postModel.CurrencyLayout));
+        }
     }
 }

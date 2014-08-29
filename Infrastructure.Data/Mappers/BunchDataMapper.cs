@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using Application.Factories;
 using Core.Entities;
 using Infrastructure.Data.Classes;
 
@@ -13,7 +12,7 @@ namespace Infrastructure.Data.Mappers
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
             var currency = new Currency(rawBunch.CurrencySymbol, rawBunch.CurrencyLayout, culture);
 
-            return BunchFactory.Create(
+            return new Bunch(
                 rawBunch.Id,
                 rawBunch.Slug,
                 rawBunch.DisplayName,

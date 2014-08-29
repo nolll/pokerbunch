@@ -5,13 +5,13 @@ using Application.UseCases.AppContext;
 using Application.UseCases.BunchContext;
 using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
+using Application.UseCases.EditBunchForm;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.HomegameCommands;
 using Web.Controllers;
-using Web.ModelFactories.HomegameModelFactories;
 
 namespace Tests.Web.ControllerTests
 {
@@ -38,8 +38,8 @@ namespace Tests.Web.ControllerTests
                     GetMock<IJoinBunchFormInteractor>().Object,
                     GetMock<IJoinBunchConfirmationInteractor>().Object,
                     GetMock<IBunchDetailsInteractor>().Object,
-                    GetMock<IBunchCommandProvider>().Object,
-                    GetMock<IEditBunchPageBuilder>().Object);
+                    GetMock<IEditBunchFormInteractor>().Object,
+                    GetMock<IBunchCommandProvider>().Object);
             }
         }
     }
