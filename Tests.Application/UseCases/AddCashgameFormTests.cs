@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class AddCashgameOptionsTests : MockContainer
+    class AddCashgameFormTests : MockContainer
     {
         [Test]
         public void AddCashgameOptions_ReturnsResultObject()

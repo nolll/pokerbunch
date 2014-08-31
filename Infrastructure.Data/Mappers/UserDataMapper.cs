@@ -1,4 +1,3 @@
-using Application.Factories;
 using Core.Entities;
 using Infrastructure.Data.Classes;
 
@@ -8,7 +7,7 @@ namespace Infrastructure.Data.Mappers
     {
         public static User Map(RawUser rawUser)
         {
-            return UserFactory.Create(
+            return new User(
                 rawUser.Id,
                 rawUser.UserName,
                 rawUser.DisplayName,

@@ -11,7 +11,7 @@ namespace Application.Services
             return GetSha1Hash(str + salt);
 		}
 
-        public static string GetSha1Hash(string input)
+        private static string GetSha1Hash(string input)
         {
             return string.Join("", SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(input)).Select(x => x.ToString("X2"))).ToLower();
         }

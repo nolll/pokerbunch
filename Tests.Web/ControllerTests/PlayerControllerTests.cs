@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using Application.Urls;
 using Application.UseCases.BunchContext;
+using Application.UseCases.InvitePlayer;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
@@ -76,6 +77,7 @@ namespace Tests.Web.ControllerTests
                 GetMock<IPlayerFactsInteractor>().Object,
                 GetMock<IPlayerBadgesInteractor>().Object,
                 GetMock<IPlayerListInteractor>().Object,
+                GetMock<IInvitePlayerInteractor>().Object,
                 GetMock<IPlayerCommandProvider>().Object);
 		}
 	}

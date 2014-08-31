@@ -17,6 +17,7 @@ using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.EditBunchForm;
 using Application.UseCases.Home;
+using Application.UseCases.InvitePlayer;
 using Application.UseCases.JoinBunchConfirmation;
 using Application.UseCases.JoinBunchForm;
 using Application.UseCases.Login;
@@ -100,7 +101,6 @@ namespace Plumbing
 
             // Services
             RegisterComponent<IAuth, Auth>();
-            RegisterComponent<IInvitationSender, InvitationSender>();
             RegisterComponent<IMessageSender, MessageSender>();
             RegisterComponent<IUserService, UserService>();
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
@@ -139,6 +139,7 @@ namespace Plumbing
             RegisterComponent<IJoinBunchConfirmationInteractor, JoinBunchConfirmationInteractor>();
             RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
             RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
+            RegisterComponent<IInvitePlayerInteractor, InvitePlayerInteractor>();
         }
     }
 }

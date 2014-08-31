@@ -1,4 +1,3 @@
-using Application.Factories;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Classes;
@@ -17,7 +16,7 @@ namespace Infrastructure.Data.Mappers
 
         public Player Create(RawPlayer rawPlayer)
         {
-            return PlayerFactory.Create(
+            return new Player(
                 rawPlayer.Id,
                 rawPlayer.UserId,
                 GetDisplayName(rawPlayer),

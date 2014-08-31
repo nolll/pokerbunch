@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Application.Urls;
 using Application.UseCases.BunchContext;
+using Application.UseCases.InvitePlayer;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
@@ -21,6 +22,7 @@ namespace Web.Controllers
         private readonly IPlayerFactsInteractor _playerFactsInteractor;
         private readonly IPlayerBadgesInteractor _playerBadgesInteractor;
         private readonly IPlayerListInteractor _playerListInteractor;
+        private readonly IInvitePlayerInteractor _invitePlayerInteractor;
         private readonly IPlayerCommandProvider _playerCommandProvider;
 
         public PlayerController(
@@ -29,6 +31,7 @@ namespace Web.Controllers
             IPlayerFactsInteractor playerFactsInteractor,
             IPlayerBadgesInteractor playerBadgesInteractor,
             IPlayerListInteractor playerListInteractor,
+            IInvitePlayerInteractor invitePlayerInteractor,
             IPlayerCommandProvider playerCommandProvider)
 	    {
             _bunchContextInteractor = bunchContextInteractor;
@@ -36,6 +39,7 @@ namespace Web.Controllers
             _playerFactsInteractor = playerFactsInteractor;
             _playerBadgesInteractor = playerBadgesInteractor;
             _playerListInteractor = playerListInteractor;
+            _invitePlayerInteractor = invitePlayerInteractor;
             _playerCommandProvider = playerCommandProvider;
 	    }
 
@@ -115,12 +119,13 @@ namespace Web.Controllers
         [AuthorizeManager]
         public ActionResult Invite(string slug, int playerId, InvitePlayerPostModel postModel)
         {
-            var command = _playerCommandProvider.GetInviteCommand(slug, playerId, postModel);
-            if (command.Execute())
-            {
-                return Redirect(new InvitePlayerConfirmationUrl(slug, playerId).Relative);
-            }
-            AddModelErrors(command.Errors);
+            var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
+            var result = _invitePlayerInteractor.Execute(request);
+
+            if (result.Success)
+                return Redirect(result.ReturnUrl.Relative);
+
+            AddModelErrors(result.Errors);
             var model = BuildInviteModel(slug, postModel);
             return View("Invite", model);
 		}

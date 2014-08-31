@@ -39,7 +39,7 @@ namespace Infrastructure.Integration.Social
             service.AuthenticateWith(accessToken.Token, accessToken.TokenSecret);
             var twitterUser = service.VerifyCredentials(new VerifyCredentialsOptions());
 
-            return TwitterCredentialsFactory.Create(
+            return new TwitterCredentials(
                     accessToken.Token,
                     accessToken.TokenSecret,
                     twitterUser.ScreenName);

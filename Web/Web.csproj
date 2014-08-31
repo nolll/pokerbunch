@@ -138,7 +138,6 @@
     <Compile Include="ModelFactories\SharingModelFactories\SharingIndexPageBuilder.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\PlayerCommands\InvitePlayerCommand.cs" />
     <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\PlayerCommandProvider.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />

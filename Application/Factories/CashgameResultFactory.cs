@@ -70,9 +70,7 @@ namespace Application.Factories
         {
             var checkpoint = GetFirstBuyinCheckpoint(checkpoints);
             if (checkpoint == null)
-            {
                 return null;
-            }
             return checkpoint.Timestamp;
         }
         
@@ -94,19 +92,15 @@ namespace Application.Factories
         private int GetPlayedTime(DateTime? startTime = null, DateTime? endTime = null)
         {
             if (!startTime.HasValue || !endTime.HasValue)
-            {
                 return 0;
-            }
             var timespan = endTime - startTime;
             return (int)Math.Round(timespan.Value.TotalMinutes);
         }
 
-        public int GetWinRate(int winnings, int playedTime)
+        private int GetWinRate(int winnings, int playedTime)
         {
             if (playedTime > 0)
-            {
                 return (int)Math.Round((double)winnings / playedTime * 60);
-            }
             return 0;
         }
 
@@ -114,18 +108,8 @@ namespace Application.Factories
         {
             var checkpoint = GetLastCheckpoint(checkpoints);
             if (checkpoint == null)
-            {
                 return _timeProvider.GetTime();
-            }
             return checkpoint.Timestamp;
         }
-
-        private bool HasReported(IEnumerable<Checkpoint> checkpoints)
-        {
-            var reportCheckpoints = GetCheckpointsOfType(checkpoints, CheckpointType.Report);
-            return reportCheckpoints.Count > 0;
-        }
-
     }
-
 }

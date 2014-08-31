@@ -1,5 +1,4 @@
-﻿using Application.Factories;
-using Core.Entities;
+﻿using Core.Entities;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
@@ -8,7 +7,7 @@ namespace Infrastructure.Data.Mappers
     {
         public static TwitterCredentials Map(RawTwitterCredentials rawCredentials)
         {
-            return TwitterCredentialsFactory.Create(
+            return new TwitterCredentials(
                 rawCredentials.Key,
                 rawCredentials.Secret,
                 rawCredentials.TwitterName);

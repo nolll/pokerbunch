@@ -1,4 +1,3 @@
-using Application.Factories;
 using Core.Entities;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.Edit;
@@ -9,7 +8,7 @@ namespace Web.ModelMappers
     {
         public static User GetUser(AddUserPostModel postModel, string encryptedPassword, string salt)
         {
-            return UserFactory.Create(
+            return new User(
                 0,
                 postModel.UserName,
                 postModel.DisplayName,
@@ -22,7 +21,7 @@ namespace Web.ModelMappers
 
         public static User GetUser(User user, EditUserPostModel postModel)
         {
-            return UserFactory.Create(
+            return new User(
                 user.Id,
                 user.UserName,
                 postModel.DisplayName,
@@ -35,7 +34,7 @@ namespace Web.ModelMappers
 
         public static User GetUser(User user, string encryptedPassword, string salt)
         {
-            return UserFactory.Create(
+            return new User(
                 user.Id,
                 user.UserName,
                 user.DisplayName,

@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Application.Urls;
 using Application.UseCases.AddCashgame;
+using Core.Entities;
 using Core.Repositories;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -25,7 +27,7 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void AddCashgame_WithLocation_CashgameIsAdded()
+        public void AddCashgame_WithLocation_SuccessIsTrue()
         {
             SetupHomegame();
 
@@ -36,7 +38,18 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void AddCashgame_WithoutLocation_CashgameIsAdded()
+        public void AddCashgame_WithLocation_GameIsAdded()
+        {
+            SetupHomegame();
+
+            var request = CreateRequest();
+            Sut.Execute(request);
+
+            GetMock<ICashgameRepository>().Verify(o => o.AddGame(It.IsAny<Bunch>(), It.IsAny<Cashgame>()));
+        }
+
+        [Test]
+        public void AddCashgame_WithoutLocation_SuccessIsFalse()
         {
             SetupHomegame();
 
