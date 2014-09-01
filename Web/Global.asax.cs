@@ -31,7 +31,7 @@ namespace Web
             AreaRegistration.RegisterAllAreas();
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
