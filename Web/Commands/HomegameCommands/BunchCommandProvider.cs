@@ -31,7 +31,7 @@ namespace Web.Commands.HomegameCommands
                 postModel);
         }
 
-        public Command GetEditCommand(string slug, BunchEditPostModel postModel)
+        public Command GetEditCommand(string slug, EditBunchPostModel postModel)
         {
             var bunch = _bunchRepository.GetBySlug(slug);
 

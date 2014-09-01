@@ -1,7 +1,5 @@
-using System.Linq;
 using Application.Services;
 using Application.Urls;
-using Application.UseCases.AddBunchForm;
 using Core.Repositories;
 
 namespace Application.UseCases.EditBunchForm
@@ -26,11 +24,10 @@ namespace Application.UseCases.EditBunchForm
             var timeZoneId = bunch.Timezone.Id;
             var currencySymbol = bunch.Currency.Symbol;
             var currencyLayout = bunch.Currency.Layout;
-            var timeZones = Globalization.GetTimezones();
-            var timeZoneItems = timeZones.Select(t => new TimeZoneItem(t.Id, t.DisplayName)).ToList();
+            var timeZones = TimeZoneService.GetTimeZones();
             var currencyLayouts = Globalization.GetCurrencyLayouts();
             
-            return new EditBunchFormResult(heading, cancelUrl, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZoneItems, currencyLayouts);
+            return new EditBunchFormResult(heading, cancelUrl, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZones, currencyLayouts);
         }
     }
 }

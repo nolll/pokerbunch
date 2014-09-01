@@ -118,7 +118,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeManager]
-        public ActionResult Edit(string slug, BunchEditPostModel postModel)
+        public ActionResult Edit(string slug, EditBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
@@ -130,14 +130,14 @@ namespace Web.Controllers
             return View("Edit/Edit", model);
 		}
 
-        private BunchEditPageModel BuildEditModel(string slug, BunchEditPostModel postModel = null)
+        private EditBunchPageModel BuildEditModel(string slug, EditBunchPostModel postModel = null)
 	    {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
 
             var editBunchFormRequest = new EditBunchFormRequest(slug);
             var editBunchFormResult = _editBunchFormInteractor.Execute(editBunchFormRequest);
 
-            return new BunchEditPageModel(contextResult, editBunchFormResult, postModel);
+            return new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
 	    }
 
         [Authorize]

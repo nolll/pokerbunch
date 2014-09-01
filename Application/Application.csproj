@@ -73,6 +73,7 @@
     <Compile Include="Services\ResultSharer.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
+    <Compile Include="Services\TimeZoneService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Urls\AddCashgameUrl.cs" />
     <Compile Include="Urls\AddBunchConfirmationUrl.cs" />

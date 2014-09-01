@@ -199,7 +199,7 @@
     <Compile Include="Models\CashgameModels\Report\ReportPostModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddBunchConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddBunchPostModel.cs" />
-    <Compile Include="Models\HomegameModels\Edit\BunchEditPostModel.cs" />
+    <Compile Include="Models\HomegameModels\Edit\EditBunchPostModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinBunchConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinBunchPostModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListItemModel.cs" />
@@ -482,7 +482,7 @@
     <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePageModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePageModel.cs" />
-    <Compile Include="Models\HomegameModels\Edit\BunchEditPageModel.cs" />
+    <Compile Include="Models\HomegameModels\Edit\EditBunchPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
     <Compile Include="Models\HomegameModels\Join\JoinBunchPageModel.cs" />
     <Compile Include="Models\UserModels\List\UserListItemModel.cs" />

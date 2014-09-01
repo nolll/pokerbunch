@@ -10,12 +10,12 @@ namespace Web.Commands.HomegameCommands
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly Bunch _bunch;
-        private readonly BunchEditPostModel _postModel;
+        private readonly EditBunchPostModel _postModel;
 
         public EditBunchCommand(
             IBunchRepository bunchRepository,
             Bunch bunch, 
-            BunchEditPostModel postModel)
+            EditBunchPostModel postModel)
         {
             _bunchRepository = bunchRepository;
             _bunch = bunch;
@@ -30,7 +30,7 @@ namespace Web.Commands.HomegameCommands
             return false;
         }
 
-        private static Bunch CreateBunch(Bunch bunch, BunchEditPostModel postModel)
+        private static Bunch CreateBunch(Bunch bunch, EditBunchPostModel postModel)
         {
             return new Bunch(
                     bunch.Id,

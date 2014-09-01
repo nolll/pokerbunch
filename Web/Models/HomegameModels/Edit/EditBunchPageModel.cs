@@ -8,7 +8,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Edit
 {
-    public class BunchEditPageModel : BunchPageModel
+    public class EditBunchPageModel : BunchPageModel
     {
         public string CancelUrl { get; private set; }
         public string Heading { get; private set; }
@@ -21,7 +21,7 @@ namespace Web.Models.HomegameModels.Edit
         public string HouseRules { get; private set; }
         public int DefaultBuyin { get; private set; }
 
-        public BunchEditPageModel(BunchContextResult contextResult, EditBunchFormResult editBunchFormResult, BunchEditPostModel postModel)
+        public EditBunchPageModel(BunchContextResult contextResult, EditBunchFormResult editBunchFormResult, EditBunchPostModel postModel)
             : base("Edit Bunch", contextResult)
         {
             CancelUrl = editBunchFormResult.CancelUrl.Relative;

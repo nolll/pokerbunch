@@ -1,4 +1,3 @@
-using System.Linq;
 using Application.Services;
 
 namespace Application.UseCases.AddBunchForm
@@ -7,12 +6,10 @@ namespace Application.UseCases.AddBunchForm
     {
         public AddBunchFormResult Execute()
         {
-            var timeZones = Globalization.GetTimezones();
-            var timeZoneItems = timeZones.Select(t => new TimeZoneItem(t.Id, t.DisplayName)).ToList();
-
+            var timeZones = TimeZoneService.GetTimeZones();
             var currencyLayouts = Globalization.GetCurrencyLayouts();
 
-            return new AddBunchFormResult(timeZoneItems, currencyLayouts);
+            return new AddBunchFormResult(timeZones, currencyLayouts);
         }
     }
 }

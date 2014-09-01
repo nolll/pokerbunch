@@ -7,7 +7,7 @@ namespace Web.Commands.HomegameCommands
     public interface IBunchCommandProvider
     {
         Command GetAddCommand(AddBunchPostModel postModel);
-        Command GetEditCommand(string slug, BunchEditPostModel postModel);
+        Command GetEditCommand(string slug, EditBunchPostModel postModel);
         Command GetJoinCommand(string slug, JoinBunchPostModel postModel);
     }
 }
