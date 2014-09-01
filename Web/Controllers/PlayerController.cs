@@ -64,6 +64,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
+        [Route("{slug}/player/add")]
         public ActionResult Add(string slug)
         {
             var model = BuildAddModel(slug);
@@ -72,6 +73,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeManager]
+        [Route("{slug}/player/add")]
         public ActionResult Add(string slug, AddPlayerPostModel postModel)
         {
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
@@ -109,6 +111,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
+        [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite(string slug, int playerId)
         {
             var model = BuildInviteModel(slug);
@@ -117,6 +120,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeManager]
+        [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite(string slug, int playerId, InvitePlayerPostModel postModel)
         {
             var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
