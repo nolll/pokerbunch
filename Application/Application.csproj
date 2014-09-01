@@ -141,6 +141,7 @@
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
     <Compile Include="Urls\UserUrl.cs" />
+    <Compile Include="UseCaseHelpers\UseCaseResultWithValidator.cs" />
     <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
     <Compile Include="UseCases\Actions\ActionsRequest.cs" />
     <Compile Include="UseCases\Actions\ActionsResult.cs" />

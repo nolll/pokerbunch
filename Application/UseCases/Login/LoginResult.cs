@@ -1,18 +1,13 @@
-using System.Collections.Generic;
 using Application.Urls;
+using Application.UseCaseHelpers;
 
 namespace Application.UseCases.Login
 {
-    public class LoginResult
+    public class LoginResult : UseCaseResultWithValidator
     {
-        public bool Success { get; private set; }
-        public IList<string> Errors { get; private set; }
-        public Url ReturnUrl { get; private set; }
-
-        public LoginResult(bool success, IList<string> errors, Url returnUrl)
+        public LoginResult(Validator validator, Url returnUrl)
+            : base(validator)
         {
-            Success = success;
-            Errors = errors;
             ReturnUrl = returnUrl;
         }
     }

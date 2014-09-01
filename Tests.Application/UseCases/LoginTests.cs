@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Application.Services;
 using Application.UseCases.Login;
 using Core.Entities;
@@ -37,7 +38,7 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count);
+            Assert.AreEqual(1, result.Errors.Count());
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count);
+            Assert.AreEqual(1, result.Errors.Count());
         }
 
         [Test]

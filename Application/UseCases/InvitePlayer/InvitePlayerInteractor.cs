@@ -26,22 +26,14 @@ namespace Application.UseCases.InvitePlayer
         {
             var validator = new Validator(request);
 
-            var success = false;
-            var errors = new List<string>();
-
             if (validator.IsValid)
             {
-                success = true;
                 SendMessage(request);
-            }
-            else
-            {
-                errors = validator.Errors.ToList();
             }
 
             var url = new InvitePlayerConfirmationUrl(request.Slug, request.PlayerId);
 
-            return new InvitePlayerResult(success, errors, url);
+            return new InvitePlayerResult(validator, url);
         }
 
         private void SendMessage(InvitePlayerRequest request)

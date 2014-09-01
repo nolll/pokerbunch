@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using System.Linq;
+using Application.Services;
 using Application.Urls;
 using Application.UseCases.InvitePlayer;
 using Core.Repositories;
@@ -51,7 +52,7 @@ namespace Tests.Application.UseCases
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.Success);
-            Assert.AreEqual(0, result.Errors.Count);
+            Assert.AreEqual(0, result.Errors.Count());
         }
 
         [Test]

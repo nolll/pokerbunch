@@ -1,18 +1,13 @@
-using System.Collections.Generic;
 using Application.Urls;
+using Application.UseCaseHelpers;
 
 namespace Application.UseCases.AddCashgame
 {
-    public class AddCashgameResult
+    public class AddCashgameResult : UseCaseResultWithValidator
     {
-        public bool Success { get; private set; }
-        public IEnumerable<string> Errors { get; private set; }
-        public Url ReturnUrl { get; private set; }
-
         public AddCashgameResult(string slug, Validator validator)
+            : base(validator)
         {
-            Success = validator.IsValid;
-            Errors = validator.Errors;
             ReturnUrl = new RunningCashgameUrl(slug);
         }
     }

@@ -6,15 +6,18 @@ namespace Application
 {
     public class Validator
     {
-        private readonly object _subject;
         private readonly IList<ValidationResult> _errors;
 
         public Validator(object subject)
         {
-            _subject = subject;
             _errors = new List<ValidationResult>();
-            var context = new ValidationContext(_subject);
-            System.ComponentModel.DataAnnotations.Validator.TryValidateObject(_subject, context, _errors, true);
+            var context = new ValidationContext(subject);
+            System.ComponentModel.DataAnnotations.Validator.TryValidateObject(subject, context, _errors, true);
+        }
+
+        public Validator()
+        {
+            _errors = new List<ValidationResult>();
         }
 
         public void AddError(string message)
@@ -27,7 +30,7 @@ namespace Application
             get { return _errors.Select(o => o.ErrorMessage); }
         }
 
-        public bool HasErrors
+        private bool HasErrors
         {
             get { return _errors.Count > 0; }
         }

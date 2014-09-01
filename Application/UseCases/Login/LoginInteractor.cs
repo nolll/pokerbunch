@@ -28,22 +28,21 @@ namespace Application.UseCases.Login
         public LoginResult Execute(LoginRequest request)
         {
             var user = GetLoggedInUser(request.LoginName, request.Password);
-            var success = false;
-            var errors = new List<string>();
+
+            var validator = new Validator();
 
             if (user != null)
             {
                 var identity = CreateUserIdentity(user);
                 _auth.SignIn(identity, request.RememberMe);
-                success = true;
             }
             else
             {
-                errors.Add("There was something wrong with your username or password. Please try again.");
+                validator.AddError("There was something wrong with your username or password. Please try again.");
             }
             
             var returnUrl = new Url(request.ReturnUrl);
-            return new LoginResult(success, errors, returnUrl);
+            return new LoginResult(validator, returnUrl);
         }
 
         private UserIdentity CreateUserIdentity(User user)
