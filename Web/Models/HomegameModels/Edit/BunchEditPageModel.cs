@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Application.Services;
-using Application.Urls;
 using Application.UseCases.BunchContext;
 using Application.UseCases.EditBunchForm;
 using Web.Models.PageBaseModels;
@@ -11,10 +10,10 @@ namespace Web.Models.HomegameModels.Edit
 {
     public class BunchEditPageModel : BunchPageModel
     {
-        public Url CancelUrl { get; set; }
+        public string CancelUrl { get; private set; }
         public string Heading { get; private set; }
-        public List<SelectListItem> CurrencyLayoutSelectItems { get; set; }
-        public List<SelectListItem> TimezoneSelectItems { get; set; }
+        public List<SelectListItem> CurrencyLayoutSelectItems { get; private set; }
+        public List<SelectListItem> TimezoneSelectItems { get; private set; }
         public string Description { get; private set; }
         public string CurrencySymbol { get; private set; }
         public string CurrencyLayout { get; private set; }
@@ -25,7 +24,7 @@ namespace Web.Models.HomegameModels.Edit
         public BunchEditPageModel(BunchContextResult contextResult, EditBunchFormResult editBunchFormResult, BunchEditPostModel postModel)
             : base("Edit Bunch", contextResult)
         {
-            CancelUrl = editBunchFormResult.CancelUrl;
+            CancelUrl = editBunchFormResult.CancelUrl.Relative;
             Heading = editBunchFormResult.Heading;
             Description = editBunchFormResult.Description;
             HouseRules = editBunchFormResult.HouseRules;

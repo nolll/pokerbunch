@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Application.Urls;
+using Application.UseCases.AddBunchForm;
 
 namespace Application.UseCases.EditBunchForm
 {
@@ -12,8 +14,10 @@ namespace Application.UseCases.EditBunchForm
         public string TimeZoneId { get; private set; }
         public string CurrencySymbol { get; private set; }
         public string CurrencyLayout { get; private set; }
+        public IList<TimeZoneItem> TimeZones { get; private set; }
+        public IList<string> CurrencyLayouts { get; private set; }
 
-        public EditBunchFormResult(string heading, Url cancelUrl, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout)
+        public EditBunchFormResult(string heading, Url cancelUrl, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout, IList<TimeZoneItem> timeZones, IList<string> currencyLayouts)
         {
             Heading = heading;
             CancelUrl = cancelUrl;
@@ -23,6 +27,8 @@ namespace Application.UseCases.EditBunchForm
             TimeZoneId = timeZoneId;
             CurrencySymbol = currencySymbol;
             CurrencyLayout = currencyLayout;
+            TimeZones = timeZones;
+            CurrencyLayouts = currencyLayouts;
         }
     }
 }
