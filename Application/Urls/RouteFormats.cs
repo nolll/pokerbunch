@@ -1,7 +1,7 @@
-namespace Application.Urls{
-
-	public static class RouteFormats{
-
+namespace Application.Urls
+{
+    public static class RouteFormats
+    {
         public const string Home = "/";
 
         public const string AuthLogin = "/-/auth/login";
@@ -69,7 +69,5 @@ namespace Application.Urls{
         public const string ChangePasswordConfirmation = "/-/user/changedpassword";
         public const string ForgotPassword = "/-/user/forgotpassword";
         public const string ForgotPasswordConfirmation = "/-/user/passwordsent";
-
-	}
-
+    }
 }

@@ -14,6 +14,7 @@ namespace Web.Controllers
             _contextInteractor = contextInteractor;
         }
 
+        //todo: add route
         public ActionResult NotFound()
         {
             var contextResult = _contextInteractor.Execute();
@@ -22,6 +23,7 @@ namespace Web.Controllers
             return View("Error", model);
         }
 
+        //todo: add route
         public ActionResult ServerError()
         {
             var contextResult = _contextInteractor.Execute();

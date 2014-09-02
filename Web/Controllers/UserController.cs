@@ -38,7 +38,8 @@ namespace Web.Controllers
 	    }
 
         [Authorize]
-		public ActionResult Details(string userName)
+        [Route("-/user/details/{userName}")]
+        public ActionResult Details(string userName)
         {
             var contextResult = _appContextInteractor.Execute();
             var userDetailsResult = _userDetailsInteractor.Execute(new UserDetailsRequest(userName));
@@ -47,6 +48,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizeAdmin]
+        //todo: add route
         public ActionResult List()
         {
             var contextResult = _appContextInteractor.Execute();
@@ -55,6 +57,7 @@ namespace Web.Controllers
 			return View("List/List", model);
 		}
 
+        //todo: add route
         public ActionResult Add()
         {
             var model = BuildAddModel();
@@ -62,7 +65,8 @@ namespace Web.Controllers
 		}
 
         [HttpPost]
-		public ActionResult Add(AddUserPostModel postModel)
+        //todo: add route
+        public ActionResult Add(AddUserPostModel postModel)
         {
             var command = _userCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
@@ -80,7 +84,8 @@ namespace Web.Controllers
             return new AddUserPageModel(contextResult, postModel);
 	    }
 
-		public ActionResult Created()
+        //todo: add route
+        public ActionResult Created()
 		{
             var contextResult = _appContextInteractor.Execute();
             var model = new AddUserConfirmationPageModel(contextResult);
@@ -88,6 +93,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult Edit(string userName)
         {
             var model = _editUserPageBuilder.Build(userName);
@@ -96,6 +102,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
+        //todo: add route
         public ActionResult Edit(string userName, EditUserPostModel postModel)
         {
 			var command = _userCommandProvider.GetEditCommand(userName, postModel);
@@ -109,6 +116,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult ChangePassword()
         {
             var model = BuildChangePasswordModel();
@@ -117,6 +125,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
+        //todo: add route
         public ActionResult ChangePassword(ChangePasswordPostModel postModel)
         {
             var command = _userCommandProvider.GetChangePasswordCommand(postModel);
@@ -135,13 +144,15 @@ namespace Web.Controllers
             return new ChangePasswordPageModel(contextResult);
 	    }
 
-		public ActionResult ChangedPassword()
+        //todo: add route
+        public ActionResult ChangedPassword()
         {
             var contextResult = _appContextInteractor.Execute();
             var model = new ChangePasswordConfirmationPageModel(contextResult);
 			return View("ChangePassword/Confirmation", model);
 		}
 
+        //todo: add route
         public ActionResult ForgotPassword()
         {
             var model = BuildForgotPasswordModel();
@@ -149,7 +160,8 @@ namespace Web.Controllers
 		}
 
         [HttpPost]
-		public ActionResult ForgotPassword(ForgotPasswordPostModel postModel)
+        //todo: add route
+        public ActionResult ForgotPassword(ForgotPasswordPostModel postModel)
         {
             var command = _userCommandProvider.GetForgotPasswordCommand(postModel);
             if (command.Execute())
@@ -167,7 +179,8 @@ namespace Web.Controllers
             return new ForgotPasswordPageModel(contextResult, postModel);
 	    }
 
-		public ActionResult PasswordSent()
+        //todo: add route
+        public ActionResult PasswordSent()
 		{
             var contextResult = _appContextInteractor.Execute();
             var model = new ForgotPasswordConfirmationPageModel(contextResult);

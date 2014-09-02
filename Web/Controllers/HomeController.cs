@@ -18,6 +18,7 @@ namespace Web.Controllers
             _homeInteractor = homeInteractor;
         }
 
+        [Route("")]
         public ActionResult Index()
         {
             var contextResult = _contextInteractor.Execute(new BunchContextRequest());

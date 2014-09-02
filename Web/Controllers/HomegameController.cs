@@ -53,7 +53,8 @@ namespace Web.Controllers
 	    }
 
         [AuthorizeAdmin]
-	    public ActionResult List()
+        [Route("-/homegame/list")]
+        public ActionResult List()
         {
             var contextResult = _appContextInteractor.Execute();
             var bunchListResult = _bunchListInteractor.Execute();
@@ -62,6 +63,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizePlayer]
+        [Route("{slug}/homegame/details")]
         public ActionResult Details(string slug)
         {
             var bunchContextRequest = new BunchContextRequest(slug);
@@ -75,6 +77,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        [Route("-/homegame/add")]
         public ActionResult Add()
         {
             var model = BuildAddBunchModel();
@@ -83,6 +86,7 @@ namespace Web.Controllers
 
 	    [HttpPost]
         [Authorize]
+        //todo: add route
         public ActionResult Add(AddBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetAddCommand(postModel);
@@ -102,7 +106,8 @@ namespace Web.Controllers
 	        return new AddBunchPageModel(contextResult, bunchFormResult, postModel);
 	    }
 
-	    public ActionResult Created()
+        [Route("-/homegame/created")]
+        public ActionResult Created()
         {
             var contextResult = _appContextInteractor.Execute();
             var model = new AddBunchConfirmationPageModel(contextResult);
@@ -110,6 +115,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
+        [Route("{slug}/homegame/edit")]
         public ActionResult Edit(string slug)
         {
             var model = BuildEditModel(slug);
@@ -118,6 +124,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [AuthorizeManager]
+        //todo: add route
         public ActionResult Edit(string slug, EditBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetEditCommand(slug, postModel);
@@ -141,6 +148,7 @@ namespace Web.Controllers
 	    }
 
         [Authorize]
+        //todo: add route
         public ActionResult Join(string slug)
         {
             var model = BuildJoinBunchFormModel(slug);
@@ -149,6 +157,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
+        //todo: add route
         public ActionResult Join(string slug, JoinBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetJoinCommand(slug, postModel);
@@ -172,7 +181,8 @@ namespace Web.Controllers
 	    }
 
         [AuthorizePlayer]
-		public ActionResult Joined(string slug)
+        //todo: add route
+        public ActionResult Joined(string slug)
 		{
             var contextResult = _appContextInteractor.Execute();
 

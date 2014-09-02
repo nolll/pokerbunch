@@ -87,6 +87,7 @@ namespace Web
 
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapMvcAttributeRoutes();
             RouteConfig.RegisterRoutes(routes);
         }
 

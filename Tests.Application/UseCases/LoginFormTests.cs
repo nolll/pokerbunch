@@ -9,7 +9,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void LoginForm_AddUserUrlIsSet()
         {
-            var request = new LoginFormRequest();
+            var request = new LoginFormRequest("");
             
             var result = Sut.Execute(request);
 
@@ -19,7 +19,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void LoginForm_ForgotPasswordUrlIsSet()
         {
-            var request = new LoginFormRequest();
+            var request = new LoginFormRequest("");
 
             var result = Sut.Execute(request);
 
@@ -29,7 +29,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void LoginForm_WithoutReturnUrl_ReturnUrlHomeUrl()
         {
-            var request = new LoginFormRequest();
+            var request = new LoginFormRequest("");
 
             var result = Sut.Execute(request);
 

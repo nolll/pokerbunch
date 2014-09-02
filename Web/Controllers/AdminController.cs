@@ -16,6 +16,7 @@ namespace Web.Controllers
         }
 
         [AuthorizeAdmin]
+        [Route("-/admin/sendemail")]
         public ActionResult SendEmail()
         {
             const string to = "henriks@gmail.com";

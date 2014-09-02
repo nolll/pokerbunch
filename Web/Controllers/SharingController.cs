@@ -29,6 +29,7 @@ namespace Web.Controllers
 	    }
 
         [Authorize]
+        //todo: add route
         public ActionResult Index()
         {
             var model = _sharingIndexPageBuilder.Build();
@@ -36,6 +37,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult Twitter()
         {
             var model = _sharingTwitterPageBuilder.Build();
@@ -43,12 +45,14 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult TwitterStart()
         {
 			return Redirect(_twitterIntegration.GetAuthUrl());
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult TwitterStop()
         {
 		    var command = _sharingCommandProvider.GetTwitterStopCommand();
@@ -57,6 +61,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
+        //todo: add route
         public ActionResult TwitterCallback()
         {
 			var token = _webContext.GetQueryParam("oauth_token");

@@ -26,6 +26,7 @@ namespace Web.Controllers
             _logoutInteractor = logoutInteractor;
         }
 
+        [Route("-/auth/login")]
         public ActionResult Login(string returnUrl = null)
         {
             var model = BuildLoginModel(returnUrl);
@@ -33,7 +34,8 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginPostModel postModel)
+        [Route("-/auth/login")]
+        public ActionResult LoginPost(LoginPostModel postModel)
         {
             var request = new LoginRequest(postModel.LoginName, postModel.Password, postModel.RememberMe, postModel.ReturnUrl);
             var result = _loginInteractor.Execute(request);
@@ -58,6 +60,7 @@ namespace Web.Controllers
             return BuildLoginModel(postModel.ReturnUrl, postModel);
         }
 
+        [Route("-/auth/logout")]
         public ActionResult Logout()
         {
             var result = _logoutInteractor.Execute();

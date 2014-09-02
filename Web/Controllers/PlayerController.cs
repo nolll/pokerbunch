@@ -44,6 +44,7 @@ namespace Web.Controllers
 	    }
 
         [AuthorizePlayer]
+        [Route("{slug}/player/index")]
 	    public ActionResult Index(string slug)
         {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
@@ -53,6 +54,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizePlayer]
+        [Route("{slug}/player/details/{playerId:int}")]
         public ActionResult Details(string slug, int playerId)
         {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
@@ -86,12 +88,7 @@ namespace Web.Controllers
 			return View("Add", model);
 		}
 
-        private AddPlayerPageModel BuildAddModel(string slug, AddPlayerPostModel postModel = null)
-        {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            return new AddPlayerPageModel(contextResult, postModel);
-        }
-
+        [Route("{slug}/player/created")]
         public ActionResult Created(string slug)
         {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
@@ -100,6 +97,7 @@ namespace Web.Controllers
 		}
 
         [AuthorizeManager]
+        [Route("{slug}/player/delete/{playerId:int}")]
         public ActionResult Delete(string slug, int playerId)
         {
             var command = _playerCommandProvider.GetDeleteCommand(slug, playerId);
@@ -134,18 +132,25 @@ namespace Web.Controllers
             return View("Invite", model);
 		}
 
-        private InvitePlayerPageModel BuildInviteModel(string slug, InvitePlayerPostModel postModel = null)
-        {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            return new InvitePlayerPageModel(contextResult, postModel);
-        }
-
+        [Route("{slug}/player/invited/{playerId:int}")]
         public ActionResult Invited(string slug, int playerId)
         {
             var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
             var model = new InvitePlayerConfirmationPageModel(contextResult);
 			return View("InviteConfirmation", model);
 		}
+
+        private AddPlayerPageModel BuildAddModel(string slug, AddPlayerPostModel postModel = null)
+        {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new AddPlayerPageModel(contextResult, postModel);
+        }
+
+        private InvitePlayerPageModel BuildInviteModel(string slug, InvitePlayerPostModel postModel = null)
+        {
+            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            return new InvitePlayerPageModel(contextResult, postModel);
+        }
     }
 
 }

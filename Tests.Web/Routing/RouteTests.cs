@@ -1,112 +1,235 @@
-﻿using System.Web.Routing;
+﻿using System.Net.Http;
+using System.Web.Routing;
 using MvcRouteTester;
 using NUnit.Framework;
 using Web;
 using Web.Controllers;
+using Web.Models.AuthModels;
 
 namespace Tests.Web.Routing
 {
     public class RouteTests
     {
-        private const string ExpectedUser = "username";
-        private const string ExpectedBunch = "bunchname";
-        private const string ExpectedDate = "2001-01-01";
-        private const int ExpectedPlayer = 1;
-        private const int ExpectedYear = 2000;
-
-        //private readonly RouteTester<MvcApplication> _tester;
+        private readonly RouteCollection _routes;
 
         public RouteTests()
         {
-            //_tester = new RouteTester<MvcApplication>();
-            RouteTable.Routes.Clear();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            _routes = RouteTable.Routes;
+            _routes.Clear();
+            _routes.MapAttributeRoutesInAssembly(typeof(HomeController).Assembly);
+            RouteConfig.RegisterRoutes(_routes);
         }
 
-        [TestCase("/", "Home", "Index")]
-        [TestCase("/-/auth/login", "Auth", "Login")]
-        [TestCase("/-/auth/logout", "Auth", "Logout")]
-        [TestCase("/-/homegame/list", "Homegame", "List")]
-        [TestCase("/-/homegame/add", "Homegame", "Add")]
-        [TestCase("/-/homegame/created", "Homegame", "Created")]
-        public void SiteRoutes_WithNoParams(string url, string controller, string action)
+        [Test]
+        public void Home()
         {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action);
+            _routes.ShouldMap("/").To<HomeController>(x => x.Index());
         }
 
-        [TestCase("/-/user/details/username", "User", "Details")]
-        public void SiteRoutes_WithUserNameParam(string url, string controller, string action)
+        [Test]
+        public void Login()
         {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { userName = ExpectedUser });
+            _routes.ShouldMap("/-/auth/login").To<AuthController>(x => x.Login(null));
+            _routes.ShouldMap("/-/auth/login?returnUrl=a").To<AuthController>(x => x.Login("a"));
+            _routes.ShouldMap("/-/auth/login").To<AuthController>(HttpMethod.Post, x => x.LoginPost(new LoginPostModel()));
         }
 
-        [TestCase("/bunchname/homegame/details", "Homegame", "Details")]
-        [TestCase("/bunchname/homegame/edit", "Homegame", "Edit")]
-        [TestCase("/bunchname/player/index", "Player", "Index")]
-        [TestCase("/bunchname/player/created", "Player", "Created")]
-        [TestCase("/bunchname/cashgame/index", "Cashgame", "Index")]
-        [TestCase("/bunchname/cashgame/add", "Cashgame", "Add")]
-        [TestCase("/bunchname/cashgame/running", "Cashgame", "Running")]
-        [TestCase("/bunchname/cashgame/matrix", "Cashgame", "Matrix")]
-        [TestCase("/bunchname/cashgame/facts", "Cashgame", "Facts")]
-        [TestCase("/bunchname/cashgame/toplist", "Cashgame", "Toplist")]
-        [TestCase("/bunchname/cashgame/list", "Cashgame", "List")]
-        [TestCase("/bunchname/cashgame/chart", "Cashgame", "Chart")]
-        [TestCase("/bunchname/cashgame/chartjson", "Cashgame", "ChartJson")]
-        public void BunchRoutes_WithNoParams(string url, string controller, string action)
+        [Test]
+        public void Logout()
         {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch });
+            _routes.ShouldMap("/-/auth/logout").To<AuthController>(x => x.Logout());
+        }
+
+        [Test]
+        public void UserDetailds()
+        {
+            _routes.ShouldMap("/-/user/details/a").To<UserController>(x => x.Details("a"));
+        }
+
+        [Test]
+        public void BunchDetails()
+        {
+            _routes.ShouldMap("/a/homegame/details").To<HomegameController>(x => x.Details("a"));
+        }
+
+        [Test]
+        public void EditBunch()
+        {
+            _routes.ShouldMap("/a/homegame/edit").To<HomegameController>(x => x.Edit("a"));
+        }
+
+        [Test]
+        public void BunchList()
+        {
+            _routes.ShouldMap("/-/homegame/list").To<HomegameController>(x => x.List());
+        }
+
+        [Test]
+        public void AddBunch()
+        {
+            _routes.ShouldMap("/-/homegame/add").To<HomegameController>(x => x.Add());
+        }
+
+        [Test]
+        public void AddBunchConfirmation()
+        {
+            _routes.ShouldMap("/-/homegame/created").To<HomegameController>(x => x.Created());
+        }
+
+        [Test]
+        public void PlayerIndex()
+        {
+            _routes.ShouldMap("/a/player/index").To<PlayerController>(x => x.Index("a"));
         }
 
         [Test]
         public void AddPlayerRoute()
         {
-            RouteTable.Routes.ShouldMap("/a/player/add").To<PlayerController>(x => x.Add("a"));
-        }
-
-        [TestCase("/bunchname/player/details/1", "Player", "Details")]
-        [TestCase("/bunchname/player/delete/1", "Player", "Delete")]
-        [TestCase("/bunchname/cashgame/buyin/1", "Cashgame", "Buyin")]
-        [TestCase("/bunchname/cashgame/report/1", "Cashgame", "Report")]
-        [TestCase("/bunchname/cashgame/cashout/1", "Cashgame", "Cashout")]
-        public void BunchRoutes_WithPlayerIdParam(string url, string controller, string action)
-        {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, playerId = ExpectedPlayer });
-        }
-
-        [TestCase("/bunchname/cashgame/matrix/2000", "Cashgame", "Matrix")]
-        [TestCase("/bunchname/cashgame/facts/2000", "Cashgame", "Facts")]
-        [TestCase("/bunchname/cashgame/toplist/2000", "Cashgame", "Toplist")]
-        [TestCase("/bunchname/cashgame/list/2000", "Cashgame", "List")]
-        [TestCase("/bunchname/cashgame/chart/2000", "Cashgame", "Chart")]
-        [TestCase("/bunchname/cashgame/chartjson/2000", "Cashgame", "ChartJson")]
-        public void BunchRouts_WithYearParam(string url, string controller, string action)
-        {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, year = ExpectedYear });
-        }
-
-        [TestCase("/bunchname/cashgame/details/2001-01-01", "Cashgame", "Details")]
-        [TestCase("/bunchname/cashgame/detailschartjson/2001-01-01", "Cashgame", "DetailsChartJson")]
-        public void BunchRoutes_WithDateParam(string url, string controller, string action)
-        {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate });
-        }
-
-        [TestCase("/bunchname/cashgame/action/2001-01-01/1", "Cashgame", "Action")]
-        [TestCase("/bunchname/cashgame/actionchartjson/2001-01-01/1", "Cashgame", "ActionChartJson")]
-        public void BunchRoutes_WithDateAndPlayerIdParams(string url, string controller, string action)
-        {
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerId = ExpectedPlayer });
+            _routes.ShouldMap("/a/player/add").To<PlayerController>(x => x.Add("a"));
         }
 
         [Test]
-        public void DeleteCheckpointRoute_WithDateAndPlayerIdAndCheckpointIdParams()
+        public void AddPlayerConfirmation()
         {
-            const int expectedId = 2;
-            const string url = "/bunchname/cashgame/deletecheckpoint/2001-01-01/1/2";
-            const string controller = "Cashgame";
-            const string action = "DeleteCheckpoint";
-            //_tester.WithIncomingRequest(url).ShouldMatchRoute(controller, action, new { slug = ExpectedBunch, dateStr = ExpectedDate, playerId = ExpectedPlayer, checkpointId = expectedId });
+            _routes.ShouldMap("/a/player/created").To<PlayerController>(x => x.Created("a"));
+        }
+
+        [Test]
+        public void PlayerDetails()
+        {
+            _routes.ShouldMap("/a/player/details/1").To<PlayerController>(x => x.Details("a", 1));
+        }
+
+        [Test]
+        public void DeletePlayer()
+        {
+            _routes.ShouldMap("/a/player/delete/1").To<PlayerController>(x => x.Delete("a", 1));
+        }
+
+        [Test]
+        public void InvitePlayer()
+        {
+            _routes.ShouldMap("/a/player/invite/1").To<PlayerController>(x => x.Invite("a", 1));
+        }
+
+        [Test]
+        public void InvitePlayerConfirmation()
+        {
+            _routes.ShouldMap("/a/player/invited/1").To<PlayerController>(x => x.Invited("a", 1));
+        }
+
+        [Test]
+        public void CashgameIndex()
+        {
+            _routes.ShouldMap("/a/cashgame/index").To<CashgameController>(x => x.Index("a"));
+        }
+
+        [Test]
+        public void AddCashgame()
+        {
+            _routes.ShouldMap("/a/cashgame/add").To<CashgameController>(x => x.Add("a"));
+        }
+
+        [Test]
+        public void RunningCashgame()
+        {
+            _routes.ShouldMap("/a/cashgame/running").To<CashgameController>(x => x.Running("a"));
+        }
+
+        [Test]
+        public void CashgameMatrix()
+        {
+            _routes.ShouldMap("/a/cashgame/matrix").To<CashgameController>(x => x.Matrix("a", null));
+            _routes.ShouldMap("/a/cashgame/matrix/1").To<CashgameController>(x => x.Matrix("a", 1));
+        }
+
+        [Test]
+        public void CashgameFacts()
+        {
+            _routes.ShouldMap("/a/cashgame/facts").To<CashgameController>(x => x.Facts("a", null));
+            _routes.ShouldMap("/a/cashgame/facts/1").To<CashgameController>(x => x.Facts("a", 1));
+        }
+
+        [Test]
+        public void CashgameToplist()
+        {
+            _routes.ShouldMap("/a/cashgame/toplist").To<CashgameController>(x => x.Toplist("a", null, null));
+            _routes.ShouldMap("/a/cashgame/toplist/1").To<CashgameController>(x => x.Toplist("a", null, 1));
+        }
+
+        [Test]
+        public void CashgameList()
+        {
+            _routes.ShouldMap("/a/cashgame/list").To<CashgameController>(x => x.List("a", null));
+            _routes.ShouldMap("/a/cashgame/list/1").To<CashgameController>(x => x.List("a", 1));
+        }
+
+        [Test]
+        public void CashgameChart()
+        {
+            _routes.ShouldMap("/a/cashgame/chart").To<CashgameController>(x => x.Chart("a", null));
+            _routes.ShouldMap("/a/cashgame/chart/1").To<CashgameController>(x => x.Chart("a", 1));
+        }
+
+        [Test]
+        public void CashgameChartJson()
+        {
+            _routes.ShouldMap("/a/cashgame/chartjson").To<CashgameController>(x => x.ChartJson("a", null));
+            _routes.ShouldMap("/a/cashgame/chartjson/1").To<CashgameController>(x => x.ChartJson("a", 1));
+        }
+
+        [Test]
+        public void CashgameBuyin()
+        {
+            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameController>(x => x.Buyin("a", 1));
+        }
+
+        [Test]
+        public void CashgameReport()
+        {
+            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameController>(x => x.Report("a", 1));
+        }
+
+        [Test]
+        public void CashgameCashout()
+        {
+            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameController>(x => x.Cashout("a", 1));
+        }
+
+        [Test]
+        public void CashgameDetails()
+        {
+            _routes.ShouldMap("/a/cashgame/details/2001-01-01").To<CashgameController>(x => x.Details("a", "2001-01-01"));
+        }
+
+        [Test]
+        public void CashgameDetailsChartJson()
+        {
+            _routes.ShouldMap("/a/cashgame/detailschartjson/2001-01-01").To<CashgameController>(x => x.DetailsChartJson("a", "2001-01-01"));
+        }
+
+        [Test]
+        public void CashgameAction()
+        {
+            _routes.ShouldMap("/a/cashgame/action/2001-01-01/1").To<CashgameController>(x => x.Action("a", "2001-01-01", 1));
+        }
+
+        [Test]
+        public void CashgameActionChartJson()
+        {
+            _routes.ShouldMap("/a/cashgame/actionchartjson/2001-01-01/1").To<CashgameController>(x => x.ActionChartJson("a", "2001-01-01", 1));
+        }
+
+        [Test]
+        public void DeleteCheckpoint()
+        {
+            _routes.ShouldMap("/a/cashgame/deletecheckpoint/2001-01-01/1/2").To<CashgameController>(x => x.DeleteCheckpoint("a", "2001-01-01", 1, 2));
+        }
+
+        [Test]
+        public void SendEmail()
+        {
+            _routes.ShouldMap("/-/admin/sendemail").To<AdminController>(x => x.SendEmail());
         }
     }
 }
