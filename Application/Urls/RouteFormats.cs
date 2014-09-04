@@ -8,7 +8,6 @@ namespace Application.Urls
         public const string AuthLogout = "/-/auth/logout";
 
         public const string CashgameAdd = "/{0}/cashgame/add";
-        //const cashgameAddResult = '/%1$s/cashgame/addresult/%2$s';
         public const string CashgameChart = "/{0}/cashgame/chart";
         public const string CashgameChartWithYear = "/{0}/cashgame/chart/{1}";
         public const string CashgameChartJson = "/{0}/cashgame/chartjson";
@@ -32,7 +31,6 @@ namespace Application.Urls
         public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
         public const string CashgameReport = "/{0}/cashgame/report/{1}";
         public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";
-        //const cashgameRemoveResult = '/%1$s/cashgame/removeresult/%2$s';
         public const string RunningCashgame = "/{0}/cashgame/running";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
         public const string CashgameCheckpointEdit = "/{0}/cashgame/editcheckpoint/{1}/{2}/{3}";

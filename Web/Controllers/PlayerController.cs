@@ -76,7 +76,7 @@ namespace Web.Controllers
         [HttpPost]
         [AuthorizeManager]
         [Route("{slug}/player/add")]
-        public ActionResult Add(string slug, AddPlayerPostModel postModel)
+        public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
             var command = _playerCommandProvider.GetAddCommand(slug, postModel);
             if (command.Execute())
@@ -119,7 +119,7 @@ namespace Web.Controllers
         [HttpPost]
         [AuthorizeManager]
         [Route("{slug}/player/invite/{playerId:int}")]
-        public ActionResult Invite(string slug, int playerId, InvitePlayerPostModel postModel)
+        public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
             var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
             var result = _invitePlayerInteractor.Execute(request);

@@ -48,6 +48,13 @@ namespace Web.Controllers
             return View("Login", model);
         }
 
+        [Route("-/auth/logout")]
+        public ActionResult Logout()
+        {
+            var result = _logoutInteractor.Execute();
+            return Redirect(result.ReturnUrl.Relative);
+        }
+
         private LoginPageModel BuildLoginModel(string returnUrl, LoginPostModel postModel = null)
         {
             var contextResult = _appContextInteractor.Execute();
@@ -58,13 +65,6 @@ namespace Web.Controllers
         private LoginPageModel BuildLoginModel(LoginPostModel postModel)
         {
             return BuildLoginModel(postModel.ReturnUrl, postModel);
-        }
-
-        [Route("-/auth/logout")]
-        public ActionResult Logout()
-        {
-            var result = _logoutInteractor.Execute();
-            return Redirect(result.ReturnUrl.Relative);
         }
     }
 }

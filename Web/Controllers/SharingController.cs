@@ -29,7 +29,7 @@ namespace Web.Controllers
 	    }
 
         [Authorize]
-        //todo: add route
+        [Route("-/sharing")]
         public ActionResult Index()
         {
             var model = _sharingIndexPageBuilder.Build();
@@ -37,7 +37,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
-        //todo: add route
+        [Route("-/sharing/twitter")]
         public ActionResult Twitter()
         {
             var model = _sharingTwitterPageBuilder.Build();
@@ -45,14 +45,14 @@ namespace Web.Controllers
 		}
 
         [Authorize]
-        //todo: add route
+        [Route("-/sharing/twitterstart")]
         public ActionResult TwitterStart()
         {
 			return Redirect(_twitterIntegration.GetAuthUrl());
 		}
 
         [Authorize]
-        //todo: add route
+        [Route("-/sharing/twitterstop")]
         public ActionResult TwitterStop()
         {
 		    var command = _sharingCommandProvider.GetTwitterStopCommand();
@@ -61,7 +61,7 @@ namespace Web.Controllers
 		}
 
         [Authorize]
-        //todo: add route
+        [Route("-/sharing/twittercallback")]
         public ActionResult TwitterCallback()
         {
 			var token = _webContext.GetQueryParam("oauth_token");
@@ -70,6 +70,5 @@ namespace Web.Controllers
             command.Execute();
             return Redirect(new TwitterSettingsUrl().Relative);
 		}
-
 	}
 }

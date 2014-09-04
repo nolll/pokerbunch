@@ -86,8 +86,8 @@ namespace Web.Controllers
 
 	    [HttpPost]
         [Authorize]
-        //todo: add route
-        public ActionResult Add(AddBunchPostModel postModel)
+        [Route("-/homegame/add")]
+        public ActionResult Add_Post(AddBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
@@ -99,14 +99,7 @@ namespace Web.Controllers
             return View("AddHomegame", model);
 		}
 
-	    private AddBunchPageModel BuildAddBunchModel(AddBunchPostModel postModel = null)
-	    {
-	        var contextResult = _appContextInteractor.Execute();
-	        var bunchFormResult = _addBunchFormInteractor.Execute();
-	        return new AddBunchPageModel(contextResult, bunchFormResult, postModel);
-	    }
-
-        [Route("-/homegame/created")]
+	    [Route("-/homegame/created")]
         public ActionResult Created()
         {
             var contextResult = _appContextInteractor.Execute();
@@ -114,7 +107,7 @@ namespace Web.Controllers
 			return View("AddHomegameConfirmation", model);
 		}
 
-        [AuthorizeManager]
+	    [AuthorizeManager]
         [Route("{slug}/homegame/edit")]
         public ActionResult Edit(string slug)
         {
@@ -122,10 +115,10 @@ namespace Web.Controllers
 			return View("Edit/Edit", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeManager]
-        //todo: add route
-        public ActionResult Edit(string slug, EditBunchPostModel postModel)
+        [Route("{slug}/homegame/edit")]
+        public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetEditCommand(slug, postModel);
             if (command.Execute())
@@ -137,28 +130,18 @@ namespace Web.Controllers
             return View("Edit/Edit", model);
 		}
 
-        private EditBunchPageModel BuildEditModel(string slug, EditBunchPostModel postModel = null)
-	    {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-
-            var editBunchFormRequest = new EditBunchFormRequest(slug);
-            var editBunchFormResult = _editBunchFormInteractor.Execute(editBunchFormRequest);
-
-            return new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
-	    }
-
-        [Authorize]
-        //todo: add route
+	    [Authorize]
+        [Route("{slug}/homegame/join")]
         public ActionResult Join(string slug)
         {
             var model = BuildJoinBunchFormModel(slug);
 			return View("Join/Join", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [Authorize]
-        //todo: add route
-        public ActionResult Join(string slug, JoinBunchPostModel postModel)
+        [Route("{slug}/homegame/join")]
+        public ActionResult Join_Post(string slug, JoinBunchPostModel postModel)
         {
             var command = _bunchCommandProvider.GetJoinCommand(slug, postModel);
             if (command.Execute())
@@ -170,18 +153,8 @@ namespace Web.Controllers
             return View("Join/Join", model);
 		}
 
-	    private object BuildJoinBunchFormModel(string slug, JoinBunchPostModel postModel = null)
-	    {
-            var contextResult = _appContextInteractor.Execute();
-
-            var joinBunchFormRequest = new JoinBunchFormRequest(slug);
-            var joinBunchFormResult = _joinBunchFormInteractor.Execute(joinBunchFormRequest);
-
-            return new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
-	    }
-
-        [AuthorizePlayer]
-        //todo: add route
+	    [AuthorizePlayer]
+        [Route("{slug}/homegame/joined")]
         public ActionResult Joined(string slug)
 		{
             var contextResult = _appContextInteractor.Execute();
@@ -193,5 +166,31 @@ namespace Web.Controllers
 			return View("Join/Confirmation", model);
 		}
 
+	    private AddBunchPageModel BuildAddBunchModel(AddBunchPostModel postModel = null)
+	    {
+	        var contextResult = _appContextInteractor.Execute();
+	        var bunchFormResult = _addBunchFormInteractor.Execute();
+	        return new AddBunchPageModel(contextResult, bunchFormResult, postModel);
+	    }
+
+	    private EditBunchPageModel BuildEditModel(string slug, EditBunchPostModel postModel = null)
+	    {
+	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+
+	        var editBunchFormRequest = new EditBunchFormRequest(slug);
+	        var editBunchFormResult = _editBunchFormInteractor.Execute(editBunchFormRequest);
+
+	        return new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
+	    }
+
+	    private object BuildJoinBunchFormModel(string slug, JoinBunchPostModel postModel = null)
+	    {
+	        var contextResult = _appContextInteractor.Execute();
+
+	        var joinBunchFormRequest = new JoinBunchFormRequest(slug);
+	        var joinBunchFormResult = _joinBunchFormInteractor.Execute(joinBunchFormRequest);
+
+	        return new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
+	    }
     }
 }

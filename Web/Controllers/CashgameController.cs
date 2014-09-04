@@ -110,14 +110,7 @@ namespace Web.Controllers
             return Redirect(url.Relative);
 		}
 
-        private Url GetIndexUrl(CashgameContextResult result)
-        {
-            if (result.LatestYear.HasValue)
-                return new CashgameMatrixUrl(result.BunchContext.Slug, result.LatestYear);
-            return new AddCashgameUrl(result.BunchContext.Slug);
-        }
-
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/matrix/{year?}")]
         public ActionResult Matrix(string slug, int? year = null)
         {
@@ -125,7 +118,7 @@ namespace Web.Controllers
 			return View("Matrix/MatrixPage", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/toplist/{year?}")]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
@@ -135,7 +128,7 @@ namespace Web.Controllers
             return View("Toplist/ToplistPage", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/details/{dateStr}")]
         public ActionResult Details(string slug, string dateStr)
         {
@@ -145,7 +138,7 @@ namespace Web.Controllers
 			return View("Details/DetailsPage", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/detailschartjson/{dateStr}")]
         public ActionResult DetailsChartJson(string slug, string dateStr)
         {
@@ -153,7 +146,7 @@ namespace Web.Controllers
 		    return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/facts/{year?}")]
         public ActionResult Facts(string slug, int? year = null)
         {
@@ -164,7 +157,7 @@ namespace Web.Controllers
 			return View("Facts/FactsPage", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/add")]
         public ActionResult Add(string slug)
         {
@@ -172,7 +165,7 @@ namespace Web.Controllers
             return View("Add/Add", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizePlayer]
         [Route("{slug}/cashgame/add")]
         public ActionResult Add_Post(string slug, AddCashgamePostModel postModel)
@@ -188,13 +181,6 @@ namespace Web.Controllers
             return View("Add/Add", model);
 		}
 
-	    private AddCashgamePageModel BuildAddModel(string slug, AddCashgamePostModel postModel = null)
-	    {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var optionsResult = _addCashgameFormInteractor.Execute(new AddCashgameFormRequest(slug));
-            return new AddCashgamePageModel(contextResult, optionsResult, postModel);
-	    }
-        
 	    [AuthorizeManager]
         [Route("{slug}/cashgame/edit/{dateStr}")]
         public ActionResult Edit(string slug, string dateStr)
@@ -203,7 +189,7 @@ namespace Web.Controllers
 			return View("Edit/Edit", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeManager]
         [Route("{slug}/cashgame/edit/{dateStr}")]
         public ActionResult Edit_Post(string slug, string dateStr, CashgameEditPostModel postModel)
@@ -218,7 +204,7 @@ namespace Web.Controllers
             return View("Edit/Edit", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/running")]
         public ActionResult Running(string slug)
         {
@@ -229,7 +215,7 @@ namespace Web.Controllers
 			return View("Running/RunningPage", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/list/{year?}")]
         public ActionResult List(string slug, int? year = null)
         {
@@ -237,7 +223,7 @@ namespace Web.Controllers
             return View("List/List", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/chart/{year?}")]
         public ActionResult Chart(string slug, int? year = null)
         {
@@ -245,7 +231,7 @@ namespace Web.Controllers
             return View("Chart/Chart", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/chartjson/{year?}")]
         public JsonResult ChartJson(string slug, int? year = null)
         {
@@ -253,7 +239,7 @@ namespace Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/action/{dateStr}/{playerId:int}")]
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
@@ -263,7 +249,7 @@ namespace Web.Controllers
 			return View("Action/Action", model);
 		}
 
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/actionchartjson/{dateStr}/{playerId:int}")]
         public JsonResult ActionChartJson(string slug, string dateStr, int playerId)
         {
@@ -271,7 +257,7 @@ namespace Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-        [AuthorizeOwnPlayer]
+	    [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/buyin/{playerId:int}")]
         public ActionResult Buyin(string slug, int playerId)
         {
@@ -279,7 +265,7 @@ namespace Web.Controllers
             return View("Buyin/Buyin", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/buyin/{playerId:int}")]
         public ActionResult Buyin_Post(string slug, int playerId, BuyinPostModel postModel)
@@ -295,14 +281,7 @@ namespace Web.Controllers
             return View("Buyin/Buyin", model);
 		}
 
-        private BuyinPageModel BuildBuyinModel(string slug, int playerId, BuyinPostModel postModel = null)
-        {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var buyinFormResult = _buyinFormInteractor.Execute(new BuyinFormRequest(slug, playerId));
-            return new BuyinPageModel(contextResult, buyinFormResult, postModel);
-        }
-
-        [AuthorizeOwnPlayer]
+	    [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/report/{playerId:int}")]
         public ActionResult Report(string slug, int playerId)
         {
@@ -310,7 +289,7 @@ namespace Web.Controllers
             return View("Report/Report", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/report/{playerId:int}")]
         public ActionResult Report_Post(string slug, int playerId, ReportPostModel postModel)
@@ -325,13 +304,7 @@ namespace Web.Controllers
             return View("Report/Report", model);
 		}
 
-	    private ReportPageModel BuildReportModel(string slug, ReportPostModel postModel = null)
-	    {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            return new ReportPageModel(contextResult, postModel);
-	    }
-
-        [AuthorizeManager]
+	    [AuthorizeManager]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
@@ -339,7 +312,7 @@ namespace Web.Controllers
             return View("Checkpoints/Edit", model);
         }
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeManager]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
@@ -354,20 +327,21 @@ namespace Web.Controllers
             return View("Checkpoints/Edit", model);
         }
 
-        [AuthorizeManager]
+	    [AuthorizeManager]
         [Route("{slug}/cashgame/deletecheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult DeleteCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
             var command = _cashgameCommandProvider.GetDeleteCheckpointCommand(slug, dateStr, checkpointId);
             if (command.Execute())
             {
+                // if the cashgame isn't running, this should redirect back to the cashgame details
                 return Redirect(new RunningCashgameUrl(slug).Relative);
             }
             var actionsUrl = new CashgameActionUrl(slug, dateStr, playerId);
             return Redirect(actionsUrl.Relative);
 		}
-        
-        [AuthorizeOwnPlayer]
+
+	    [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/cashout/{playerId:int}")]
         public ActionResult Cashout(string slug, int playerId)
         {
@@ -375,7 +349,7 @@ namespace Web.Controllers
             return View("Cashout/Cashout", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/cashout/{playerId:int}")]
         public ActionResult Cashout_Post(string slug, int playerId, CashoutPostModel postModel)
@@ -390,13 +364,7 @@ namespace Web.Controllers
             return View("Cashout/Cashout", model);
 		}
 
-	    private CashoutPageModel BuildCashoutModel(string slug, CashoutPostModel postModel = null)
-	    {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            return new CashoutPageModel(contextResult, postModel);
-	    }
-
-        [AuthorizePlayer]
+	    [AuthorizePlayer]
         [Route("{slug}/cashgame/end")]
         public ActionResult End(string slug)
         {
@@ -405,7 +373,7 @@ namespace Web.Controllers
 			return View("End/End", model);
 		}
 
-        [HttpPost]
+	    [HttpPost]
         [AuthorizePlayer]
         [Route("{slug}/cashgame/end")]
         public ActionResult End_Post(string slug, EndGamePostModel postModel)
@@ -415,7 +383,7 @@ namespace Web.Controllers
             return Redirect(new CashgameIndexUrl(slug).Relative);
 		}
 
-        [AuthorizeManager]
+	    [AuthorizeManager]
         [Route("{slug}/cashgame/delete/{dateStr}")]
         public ActionResult Delete(string slug, string dateStr)
         {
@@ -423,5 +391,38 @@ namespace Web.Controllers
             command.Execute();
             return Redirect(new CashgameIndexUrl(slug).Relative);
 		}
-	}
+
+	    private Url GetIndexUrl(CashgameContextResult result)
+	    {
+	        if (result.LatestYear.HasValue)
+	            return new CashgameMatrixUrl(result.BunchContext.Slug, result.LatestYear);
+	        return new AddCashgameUrl(result.BunchContext.Slug);
+	    }
+
+	    private AddCashgamePageModel BuildAddModel(string slug, AddCashgamePostModel postModel = null)
+	    {
+	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+	        var optionsResult = _addCashgameFormInteractor.Execute(new AddCashgameFormRequest(slug));
+	        return new AddCashgamePageModel(contextResult, optionsResult, postModel);
+	    }
+
+	    private BuyinPageModel BuildBuyinModel(string slug, int playerId, BuyinPostModel postModel = null)
+	    {
+	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+	        var buyinFormResult = _buyinFormInteractor.Execute(new BuyinFormRequest(slug, playerId));
+	        return new BuyinPageModel(contextResult, buyinFormResult, postModel);
+	    }
+
+	    private ReportPageModel BuildReportModel(string slug, ReportPostModel postModel = null)
+	    {
+	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+	        return new ReportPageModel(contextResult, postModel);
+	    }
+
+	    private CashoutPageModel BuildCashoutModel(string slug, CashoutPostModel postModel = null)
+	    {
+	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+	        return new CashoutPageModel(contextResult, postModel);
+	    }
+    }
 }

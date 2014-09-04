@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Web.Routing;
-using Core.Entities;
 using MvcRouteTester;
 using NUnit.Framework;
 using Web;
@@ -13,6 +12,15 @@ using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;
 using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Report;
+using Web.Models.HomegameModels.Add;
+using Web.Models.HomegameModels.Edit;
+using Web.Models.HomegameModels.Join;
+using Web.Models.PlayerModels.Add;
+using Web.Models.PlayerModels.Invite;
+using Web.Models.UserModels.Add;
+using Web.Models.UserModels.ChangePassword;
+using Web.Models.UserModels.Edit;
+using Web.Models.UserModels.ForgotPassword;
 
 namespace Tests.Web.Routing
 {
@@ -22,7 +30,7 @@ namespace Tests.Web.Routing
 
         public RouteTests()
         {
-            _routes = RouteTable.Routes;
+            _routes = new RouteCollection();
             _routes.Clear();
             _routes.MapAttributeRoutesInAssembly(typeof(HomeController).Assembly);
             RouteConfig.RegisterRoutes(_routes);
@@ -55,6 +63,43 @@ namespace Tests.Web.Routing
         }
 
         [Test]
+        public void UserList()
+        {
+            _routes.ShouldMap("/-/user/list").To<UserController>(x => x.List());
+        }
+
+        [Test]
+        public void AddUser()
+        {
+            _routes.ShouldMap("/-/user/add").To<UserController>(x => x.Add());
+            _routes.ShouldMap("/-/user/add").To<UserController>(HttpMethod.Post, x => x.Add_Post(new AddUserPostModel()));
+            _routes.ShouldMap("/-/user/created").To<UserController>(x => x.Created());
+        }
+
+        [Test]
+        public void EditUser()
+        {
+            _routes.ShouldMap("/-/user/edit/a").To<UserController>(x => x.Edit("a"));
+            _routes.ShouldMap("/-/user/edit/a").To<UserController>(HttpMethod.Post, x => x.Edit_Post("a", new EditUserPostModel()));
+        }
+
+        [Test]
+        public void ChangePassword()
+        {
+            _routes.ShouldMap("/-/user/changepassword").To<UserController>(x => x.ChangePassword());
+            _routes.ShouldMap("/-/user/changepassword").To<UserController>(HttpMethod.Post, x => x.ChangePassword_Post(new ChangePasswordPostModel()));
+            _routes.ShouldMap("/-/user/changedpassword").To<UserController>(x => x.ChangedPassword());
+        }
+
+        [Test]
+        public void ForgotPassword()
+        {
+            _routes.ShouldMap("/-/user/forgotpassword").To<UserController>(x => x.ForgotPassword());
+            _routes.ShouldMap("/-/user/forgotpassword").To<UserController>(HttpMethod.Post, x => x.ForgotPassword_Post(new ForgotPasswordPostModel()));
+            _routes.ShouldMap("/-/user/passwordsent").To<UserController>(x => x.PasswordSent());
+        }
+
+        [Test]
         public void BunchDetails()
         {
             _routes.ShouldMap("/a/homegame/details").To<HomegameController>(x => x.Details("a"));
@@ -64,6 +109,7 @@ namespace Tests.Web.Routing
         public void EditBunch()
         {
             _routes.ShouldMap("/a/homegame/edit").To<HomegameController>(x => x.Edit("a"));
+            _routes.ShouldMap("/a/homegame/edit").To<HomegameController>(HttpMethod.Post, x => x.Edit_Post("a", new EditBunchPostModel()));
         }
 
         [Test]
@@ -76,12 +122,16 @@ namespace Tests.Web.Routing
         public void AddBunch()
         {
             _routes.ShouldMap("/-/homegame/add").To<HomegameController>(x => x.Add());
+            _routes.ShouldMap("/-/homegame/add").To<HomegameController>(HttpMethod.Post, x => x.Add_Post(new AddBunchPostModel()));
+            _routes.ShouldMap("/-/homegame/created").To<HomegameController>(x => x.Created());
         }
 
         [Test]
-        public void AddBunchConfirmation()
+        public void JoinBunch()
         {
-            _routes.ShouldMap("/-/homegame/created").To<HomegameController>(x => x.Created());
+            _routes.ShouldMap("/a/homegame/join").To<HomegameController>(x => x.Join("a"));
+            _routes.ShouldMap("/a/homegame/join").To<HomegameController>(HttpMethod.Post, x => x.Join_Post("a", new JoinBunchPostModel()));
+            _routes.ShouldMap("/a/homegame/joined").To<HomegameController>(x => x.Joined("a"));
         }
 
         [Test]
@@ -94,11 +144,7 @@ namespace Tests.Web.Routing
         public void AddPlayerRoute()
         {
             _routes.ShouldMap("/a/player/add").To<PlayerController>(x => x.Add("a"));
-        }
-
-        [Test]
-        public void AddPlayerConfirmation()
-        {
+            _routes.ShouldMap("/a/player/add").To<PlayerController>(HttpMethod.Post, x => x.Add_Post("a", new AddPlayerPostModel()));
             _routes.ShouldMap("/a/player/created").To<PlayerController>(x => x.Created("a"));
         }
 
@@ -118,11 +164,7 @@ namespace Tests.Web.Routing
         public void InvitePlayer()
         {
             _routes.ShouldMap("/a/player/invite/1").To<PlayerController>(x => x.Invite("a", 1));
-        }
-
-        [Test]
-        public void InvitePlayerConfirmation()
-        {
+            _routes.ShouldMap("/a/player/invite/1").To<PlayerController>(HttpMethod.Post, x => x.Invite_Post("a", 1, new InvitePlayerPostModel()));
             _routes.ShouldMap("/a/player/invited/1").To<PlayerController>(x => x.Invited("a", 1));
         }
 
@@ -266,9 +308,31 @@ namespace Tests.Web.Routing
         }
 
         [Test]
+        public void Sharing()
+        {
+            _routes.ShouldMap("/-/sharing").To<SharingController>(x => x.Index());
+        }
+
+        [Test]
+        public void Twitter()
+        {
+            _routes.ShouldMap("/-/sharing/twitter").To<SharingController>(x => x.Twitter());
+            _routes.ShouldMap("/-/sharing/twitterstart").To<SharingController>(x => x.TwitterStart());
+            _routes.ShouldMap("/-/sharing/twitterstop").To<SharingController>(x => x.TwitterStop());
+            _routes.ShouldMap("/-/sharing/twittercallback").To<SharingController>(x => x.TwitterCallback());
+        }
+
+        [Test]
         public void SendEmail()
         {
             _routes.ShouldMap("/-/admin/sendemail").To<AdminController>(x => x.SendEmail());
+        }
+
+        [Test]
+        public void ErrorNotFound()
+        {
+            _routes.ShouldMap("/-/error/notfound").To<ErrorController>(x => x.NotFound());
+            _routes.ShouldMap("/-/error/servererror").To<ErrorController>(x => x.ServerError());
         }
     }
 }
