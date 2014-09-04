@@ -4,6 +4,7 @@ using Application.UseCases.AppContext;
 using Application.UseCases.EditUserForm;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
+using Plumbing;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
@@ -189,9 +190,9 @@ namespace Web.Controllers
 
 	    private EditUserPageModel BuildEditModel(string userName, EditUserPostModel postModel = null)
 	    {
-	        var context = _appContextInteractor.Execute();
-            var editUserForm = UseCase.EditUserForm.Execute(new EditUserFormRequest(userName));
-	        return new EditUserPageModel(context, editUserForm, postModel);
+	        var contextResult = _appContextInteractor.Execute();
+            var editUserFormResult = _editUserFormInteractor.Execute(new EditUserFormRequest(userName));
+	        return new EditUserPageModel(contextResult, editUserFormResult, postModel);
 	    }
     }
 }
