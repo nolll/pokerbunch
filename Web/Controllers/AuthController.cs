@@ -35,7 +35,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("-/auth/login")]
-        public ActionResult LoginPost(LoginPostModel postModel)
+        public ActionResult Login_Post(LoginPostModel postModel)
         {
             var request = new LoginRequest(postModel.LoginName, postModel.Password, postModel.RememberMe, postModel.ReturnUrl);
             var result = _loginInteractor.Execute(request);

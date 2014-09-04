@@ -1,10 +1,18 @@
 ﻿using System.Net.Http;
 using System.Web.Routing;
+using Core.Entities;
 using MvcRouteTester;
 using NUnit.Framework;
 using Web;
 using Web.Controllers;
 using Web.Models.AuthModels;
+using Web.Models.CashgameModels.Add;
+using Web.Models.CashgameModels.Buyin;
+using Web.Models.CashgameModels.Cashout;
+using Web.Models.CashgameModels.Checkpoints;
+using Web.Models.CashgameModels.Edit;
+using Web.Models.CashgameModels.End;
+using Web.Models.CashgameModels.Report;
 
 namespace Tests.Web.Routing
 {
@@ -31,7 +39,7 @@ namespace Tests.Web.Routing
         {
             _routes.ShouldMap("/-/auth/login").To<AuthController>(x => x.Login(null));
             _routes.ShouldMap("/-/auth/login?returnUrl=a").To<AuthController>(x => x.Login("a"));
-            _routes.ShouldMap("/-/auth/login").To<AuthController>(HttpMethod.Post, x => x.LoginPost(new LoginPostModel()));
+            _routes.ShouldMap("/-/auth/login").To<AuthController>(HttpMethod.Post, x => x.Login_Post(new LoginPostModel()));
         }
 
         [Test]
@@ -128,6 +136,14 @@ namespace Tests.Web.Routing
         public void AddCashgame()
         {
             _routes.ShouldMap("/a/cashgame/add").To<CashgameController>(x => x.Add("a"));
+            _routes.ShouldMap("/a/cashgame/add").To<CashgameController>(HttpMethod.Post, x => x.Add_Post("a", new AddCashgamePostModel()));
+        }
+
+        [Test]
+        public void EditCashgame()
+        {
+            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<CashgameController>(x => x.Edit("a", "2000-01-01"));
+            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<CashgameController>(HttpMethod.Post, x => x.Edit_Post("a", "2000-01-01", new CashgameEditPostModel()));
         }
 
         [Test]
@@ -182,18 +198,28 @@ namespace Tests.Web.Routing
         public void CashgameBuyin()
         {
             _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameController>(x => x.Buyin("a", 1));
+            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameController>(HttpMethod.Post, x => x.Buyin_Post("a", 1, new BuyinPostModel()));
         }
 
         [Test]
         public void CashgameReport()
         {
             _routes.ShouldMap("/a/cashgame/report/1").To<CashgameController>(x => x.Report("a", 1));
+            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameController>(HttpMethod.Post, x => x.Report_Post("a", 1, new ReportPostModel()));
         }
 
         [Test]
         public void CashgameCashout()
         {
             _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameController>(x => x.Cashout("a", 1));
+            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameController>(HttpMethod.Post, x => x.Cashout_Post("a", 1, new CashoutPostModel()));
+        }
+
+        [Test]
+        public void CashgameEnd()
+        {
+            _routes.ShouldMap("/a/cashgame/end").To<CashgameController>(x => x.End("a"));
+            _routes.ShouldMap("/a/cashgame/end").To<CashgameController>(HttpMethod.Post, x => x.End_Post("a", new EndGamePostModel()));
         }
 
         [Test]
@@ -218,6 +244,19 @@ namespace Tests.Web.Routing
         public void CashgameActionChartJson()
         {
             _routes.ShouldMap("/a/cashgame/actionchartjson/2001-01-01/1").To<CashgameController>(x => x.ActionChartJson("a", "2001-01-01", 1));
+        }
+
+        [Test]
+        public void CashgameDelete()
+        {
+            _routes.ShouldMap("/a/cashgame/delete/2001-01-01").To<CashgameController>(x => x.Delete("a", "2001-01-01"));
+        }
+
+        [Test]
+        public void EditCheckpoint()
+        {
+            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<CashgameController>(x => x.EditCheckpoint("a", "2001-01-01", 1, 2));
+            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<CashgameController>(HttpMethod.Post, x => x.EditCheckpoint_Post("a", "2001-01-01", 1, 2, new EditCheckpointPostModel()));
         }
 
         [Test]
