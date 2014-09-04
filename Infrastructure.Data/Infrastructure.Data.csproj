@@ -39,10 +39,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Cache\CacheKeyProvider.cs" />
     <Compile Include="Cache\CacheTime.cs" />
     <Compile Include="Cache\ICacheBuster.cs" />
     <Compile Include="Cache\ICacheContainer.cs" />
-    <Compile Include="Cache\ICacheKeyProvider.cs" />
     <Compile Include="Cache\ICacheProvider.cs" />
     <Compile Include="Classes\RawCashgame.cs" />
     <Compile Include="Classes\RawCashgameResult.cs" />

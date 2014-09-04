@@ -9,14 +9,12 @@ namespace Infrastructure.Data.Cache
     public class CacheContainer : ICacheContainer
     {
         private readonly ICacheProvider _cacheProvider;
-        private readonly ICacheKeyProvider _cacheKeyProvider;
 
         private readonly CacheableNullValue _nullValue = new CacheableNullValue();
 
-        public CacheContainer(ICacheProvider cacheProvider, ICacheKeyProvider cacheKeyProvider)
+        public CacheContainer(ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
-            _cacheKeyProvider = cacheKeyProvider;
         }
 
         public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue) where T : class
@@ -148,7 +146,7 @@ namespace Infrastructure.Data.Cache
 
         private string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
-            return _cacheKeyProvider.ConstructCacheKey(typeName, procedureParameters);
+            return CacheKeyProvider.ConstructCacheKey(typeName, procedureParameters);
         }
 
         private class CacheableNullValue

@@ -127,7 +127,6 @@ namespace Tests.Infrastructure.Repositories
             return new BunchRepository(
                 GetMock<IBunchStorage>().Object,
                 CacheContainer,
-                GetMock<ICacheKeyProvider>().Object,
                 GetMock<ICacheBuster>().Object);
         }
     }

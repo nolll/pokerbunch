@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using Application.Urls;
 using Application.UseCases.AppContext;
+using Application.UseCases.EditUserForm;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
 using Web.Commands.UserCommands;
-using Web.ModelFactories.UserModelFactories;
 using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
@@ -21,20 +21,20 @@ namespace Web.Controllers
 	    private readonly IUserDetailsInteractor _userDetailsInteractor;
 	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
-	    private readonly IEditUserPageBuilder _editUserPageBuilder;
+	    private readonly IEditUserFormInteractor _editUserFormInteractor;
 
 	    public UserController(
             IAppContextInteractor appContextInteractor,
             IUserDetailsInteractor userDetailsInteractor,
             IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider,
-            IEditUserPageBuilder editUserPageBuilder)
+            IEditUserFormInteractor editUserFormInteractor)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _userDetailsInteractor = userDetailsInteractor;
 	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
-	        _editUserPageBuilder = editUserPageBuilder;
+	        _editUserFormInteractor = editUserFormInteractor;
 	    }
 
         [Authorize]
@@ -90,7 +90,7 @@ namespace Web.Controllers
         [Route("-/user/edit/{userName}")]
         public ActionResult Edit(string userName)
         {
-            var model = _editUserPageBuilder.Build(userName);
+            var model = BuildEditModel(userName);
             return View("Edit/Edit", model);
 		}
 
@@ -105,7 +105,7 @@ namespace Web.Controllers
                 return Redirect(new UserDetailsUrl(userName).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _editUserPageBuilder.Build(userName, postModel);
+            var model = BuildEditModel(userName, postModel);
             return View("Edit/Edit", model);
 		}
 
@@ -185,6 +185,13 @@ namespace Web.Controllers
 	    {
 	        var contextResult = _appContextInteractor.Execute();
 	        return new ForgotPasswordPageModel(contextResult, postModel);
+	    }
+
+	    private EditUserPageModel BuildEditModel(string userName, EditUserPostModel postModel = null)
+	    {
+	        var context = _appContextInteractor.Execute();
+            var editUserForm = UseCase.EditUserForm.Execute(new EditUserFormRequest(userName));
+	        return new EditUserPageModel(context, editUserForm, postModel);
 	    }
     }
 }

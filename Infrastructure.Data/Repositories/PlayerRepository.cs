@@ -14,20 +14,17 @@ namespace Infrastructure.Data.Repositories {
 	    private readonly IPlayerStorage _playerStorage;
 	    private readonly IPlayerDataMapper _playerDataMapper;
 	    private readonly ICacheContainer _cacheContainer;
-	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
 
 	    public PlayerRepository(
             IPlayerStorage playerStorage,
             IPlayerDataMapper playerDataMapper,
             ICacheContainer cacheContainer,
-            ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster)
 	    {
 	        _playerStorage = playerStorage;
 	        _playerDataMapper = playerDataMapper;
 	        _cacheContainer = cacheContainer;
-	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
 	    }
 
@@ -51,13 +48,13 @@ namespace Infrastructure.Data.Repositories {
 
         private IList<int> GetIds(Bunch bunch)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdsKey(bunch.Id);
+            var cacheKey = CacheKeyProvider.PlayerIdsKey(bunch.Id);
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(bunch.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public Player GetById(int id)
         {
-            var cacheKey = _cacheKeyProvider.PlayerKey(id);
+            var cacheKey = CacheKeyProvider.PlayerKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -75,7 +72,7 @@ namespace Infrastructure.Data.Repositories {
 
         private int? GetIdByName(Bunch bunch, string name)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdByNameKey(bunch.Id, name);
+            var cacheKey = CacheKeyProvider.PlayerIdByNameKey(bunch.Id, name);
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunch.Id, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -87,7 +84,7 @@ namespace Infrastructure.Data.Repositories {
 
         private int? GetIdByUserName(Bunch bunch, string userName)
         {
-            var cacheKey = _cacheKeyProvider.PlayerIdByUserNameKey(bunch.Id, userName);
+            var cacheKey = CacheKeyProvider.PlayerIdByUserNameKey(bunch.Id, userName);
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunch.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 

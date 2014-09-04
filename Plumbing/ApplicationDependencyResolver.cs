@@ -16,6 +16,7 @@ using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.EditBunchForm;
+using Application.UseCases.EditUserForm;
 using Application.UseCases.Home;
 using Application.UseCases.InvitePlayer;
 using Application.UseCases.JoinBunchConfirmation;
@@ -75,7 +76,6 @@ namespace Plumbing
             RegisterComponent<ICacheProvider, CacheProvider>();
             RegisterComponent<ICacheContainer, CacheContainer>();
             RegisterComponent<ICacheBuster, CacheBuster>();
-            RegisterComponent<ICacheKeyProvider, CacheKeyProvider>();
 
             // System
             RegisterComponent<IWebContext, WebContext>();
@@ -140,6 +140,7 @@ namespace Plumbing
             RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
             RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
             RegisterComponent<IInvitePlayerInteractor, InvitePlayerInteractor>();
+            RegisterComponent<IEditUserFormInteractor, EditUserFormInteractor>();
         }
     }
 }

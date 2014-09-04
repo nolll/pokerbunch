@@ -211,8 +211,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageBuilder.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\IEditUserPageBuilder.cs" />
-    <Compile Include="ModelFactories\UserModelFactories\EditUserPageBuilder.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
     <Compile Include="ModelMappers\UserModelMapper.cs" />
     <Compile Include="Global.asax.cs">
@@ -262,6 +260,7 @@
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
+    <Compile Include="Plumbing\CustomControllerFactory.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>

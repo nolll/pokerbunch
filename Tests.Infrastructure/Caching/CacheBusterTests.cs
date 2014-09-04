@@ -10,9 +10,7 @@ namespace Tests.Infrastructure.Caching
         [Test]
         public void UserAdded_RemovesAllUserIds()
         {
-            const string key = "a";
-
-            GetMock<ICacheKeyProvider>().Setup(o => o.UserIdsKey()).Returns(key);
+            const string key = "UserIds:all";
 
             var sut = GetSut();
             sut.UserAdded();
@@ -26,14 +24,10 @@ namespace Tests.Infrastructure.Caching
             const int userId = 1;
             const string userName = "a1";
             const string email = "a2";
-            const string userKey = "b1";
-            const string nameKey = "b3";
-            const string emailKey = "b4";
+            const string userKey = "User:1";
+            const string nameKey = "UserId:nameoremail:a1";
+            const string emailKey = "UserId:nameoremail:a2";
             var user = new UserInTest(userId, userName, email: email);
-
-            GetMock<ICacheKeyProvider>().Setup(o => o.UserKey(userId)).Returns(userKey);
-            GetMock<ICacheKeyProvider>().Setup(o => o.UserIdByNameOrEmailKey(userName)).Returns(nameKey);
-            GetMock<ICacheKeyProvider>().Setup(o => o.UserIdByNameOrEmailKey(email)).Returns(emailKey);
 
             var sut = GetSut();
             sut.UserUpdated(user);
@@ -45,9 +39,7 @@ namespace Tests.Infrastructure.Caching
 
         private CacheBuster GetSut()
         {
-            return new CacheBuster(
-                GetMock<ICacheContainer>().Object,
-                GetMock<ICacheKeyProvider>().Object);
+            return new CacheBuster(GetMock<ICacheContainer>().Object);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 
@@ -10,15 +11,13 @@ namespace Web.Controllers
      */
     public class JsonNetResult : JsonResult
     {
-        public JsonNetResult()
+        public JsonNetResult(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            Settings = new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Error
-                };
+            Data = data;
+            ContentType = contentType;
+            ContentEncoding = contentEncoding;
+            JsonRequestBehavior = behavior;
         }
-
-        private JsonSerializerSettings Settings { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
@@ -41,6 +40,14 @@ namespace Web.Controllers
             {
                 scriptSerializer.Serialize(sw, Data);
                 response.Write(sw.ToString());
+            }
+        }
+
+        private JsonSerializerSettings Settings
+        {
+            get
+            {
+                return new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Error };
             }
         }
     }

@@ -14,18 +14,15 @@ namespace Infrastructure.Data.Repositories {
 	{
 	    private readonly IBunchStorage _bunchStorage;
 	    private readonly ICacheContainer _cacheContainer;
-	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
 
 	    public BunchRepository(
             IBunchStorage bunchStorage, 
             ICacheContainer cacheContainer, 
-            ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster)
 	    {
 	        _bunchStorage = bunchStorage;
 	        _cacheContainer = cacheContainer;
-	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
 	    }
 
@@ -37,7 +34,7 @@ namespace Infrastructure.Data.Repositories {
 
         public Bunch GetById(int id)
         {
-            var cacheKey = _cacheKeyProvider.BunchKey(id);
+            var cacheKey = CacheKeyProvider.BunchKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -90,7 +87,7 @@ namespace Infrastructure.Data.Repositories {
 
         private int? GetIdBySlug(string slug)
         {
-            var cacheKey = _cacheKeyProvider.BunchIdBySlugKey(slug);
+            var cacheKey = CacheKeyProvider.BunchIdBySlugKey(slug);
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetIdBySlug(slug), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -102,7 +99,7 @@ namespace Infrastructure.Data.Repositories {
 
         private IList<int> GetAllIds()
         {
-            var cacheKey = _cacheKeyProvider.BunchIdsKey();
+            var cacheKey = CacheKeyProvider.BunchIdsKey();
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 

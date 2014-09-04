@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="CacheBuster.cs" />
     <Compile Include="CacheContainer.cs" />
-    <Compile Include="CacheKeyProvider.cs" />
     <Compile Include="CacheProvider.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>

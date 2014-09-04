@@ -23,7 +23,6 @@ namespace Infrastructure.Data.Repositories
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
-	    private readonly ICacheKeyProvider _cacheKeyProvider;
 	    private readonly ICacheBuster _cacheBuster;
 	    private readonly ICashgameDataMapper _cashgameDataMapper;
 
@@ -32,7 +31,6 @@ namespace Infrastructure.Data.Repositories
             IRawCashgameFactory rawCashgameFactory,
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
-            ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster,
             ICashgameDataMapper cashgameDataMapper)
 	    {
@@ -40,7 +38,6 @@ namespace Infrastructure.Data.Repositories
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
-	        _cacheKeyProvider = cacheKeyProvider;
 	        _cacheBuster = cacheBuster;
 	        _cashgameDataMapper = cashgameDataMapper;
 	    }
@@ -74,19 +71,19 @@ namespace Infrastructure.Data.Repositories
 
         private Cashgame GetById(int id)
         {
-            var cacheKey = _cacheKeyProvider.CashgameKey(id);
+            var cacheKey = CacheKeyProvider.CashgameKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private int? GetIdByDateString(int homegameId, string dateString)
         {
-            var cacheKey = _cacheKeyProvider.CashgameIdByDateStringKey(homegameId, dateString);
+            var cacheKey = CacheKeyProvider.CashgameIdByDateStringKey(homegameId, dateString);
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetCashgameId(homegameId, dateString), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private int? GetIdByRunning(int homegameId)
         {
-            var cacheKey = _cacheKeyProvider.CashgameIdByRunningKey(homegameId);
+            var cacheKey = CacheKeyProvider.CashgameIdByRunningKey(homegameId);
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetRunningCashgameId(homegameId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
@@ -97,7 +94,7 @@ namespace Infrastructure.Data.Repositories
 
         public IList<int> GetYears(int bunchId)
         {
-            var cacheKey = _cacheKeyProvider.CashgameYearsKey(bunchId);
+            var cacheKey = CacheKeyProvider.CashgameYearsKey(bunchId);
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetYears(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
@@ -124,7 +121,7 @@ namespace Infrastructure.Data.Repositories
 
         private IList<int> GetIds(int homegameId, GameStatus? status = null, int? year = null)
         {
-            var cacheKey = _cacheKeyProvider.CashgameIdsKey(homegameId, status, year);
+            var cacheKey = CacheKeyProvider.CashgameIdsKey(homegameId, status, year);
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetGameIds(homegameId, (int?)status, year), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 

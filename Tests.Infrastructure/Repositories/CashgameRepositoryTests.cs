@@ -49,7 +49,6 @@ namespace Tests.Infrastructure.Repositories
                 GetMock<IRawCashgameFactory>().Object,
                 CacheContainer,
                 GetMock<ICheckpointStorage>().Object,
-                GetMock<ICacheKeyProvider>().Object,
                 GetMock<ICacheBuster>().Object,
                 GetMock<ICashgameDataMapper>().Object);
         }

@@ -8,10 +8,12 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using Application;
+using Castle.MicroKernel;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Core.Entities;
 using Newtonsoft.Json;
+using Plumbing;
 using Web.Plumbing;
 using Web.Security;
 using DependencyResolver = Plumbing.DependencyResolver;
@@ -96,6 +98,13 @@ namespace Web
             var windsorContainer = new WindsorContainer().Install(FromAssembly.This());
             _dependencyResolver = new WebDependencyResolver(windsorContainer);
             var controllerFactory = new WindsorControllerFactory(windsorContainer.Kernel);
+            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+        }
+
+        private static void BootstrapDependencies()
+        {
+            var deps = new DependencyContainer();
+            var controllerFactory = new CustomControllerFactory(deps);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
         }
 

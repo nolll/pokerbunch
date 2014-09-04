@@ -2,29 +2,24 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Castle.MicroKernel;
+using Plumbing;
 
 namespace Web.Plumbing
 {
-    public class WindsorControllerFactory : DefaultControllerFactory
+    public class CustomControllerFactory : DefaultControllerFactory
     {
-        private readonly IKernel _kernel;
+        private readonly DependencyContainer _deps;
 
-        public WindsorControllerFactory(IKernel kernel)
+        public CustomControllerFactory(DependencyContainer deps)
         {
-            _kernel = kernel;
-        }
-
-        public override void ReleaseController(IController controller)
-        {
-            _kernel.ReleaseComponent(controller);
+            _deps = deps;
         }
 
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             if (controllerType == null)
                 throw new HttpException(404, string.Format("The controller for path '{0}' could not be found.", requestContext.HttpContext.Request.Path));
-            return (IController)_kernel.Resolve(controllerType);
+            return (IController) Activator.CreateInstance(controllerType, new object[]{_deps});
         }
     }
 }

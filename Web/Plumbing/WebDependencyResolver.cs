@@ -16,7 +16,6 @@ using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.ModelFactories.SharingModelFactories;
-using Web.ModelFactories.UserModelFactories;
 
 namespace Web.Plumbing
 {
@@ -36,7 +35,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
-            RegisterComponent<IEditUserPageBuilder, EditUserPageBuilder>();
             RegisterComponent<ISharingIndexPageBuilder, SharingIndexPageBuilder>();
             RegisterComponent<ISharingTwitterPageBuilder, SharingTwitterPageBuilder>();
             RegisterComponent<ICashgameListTableModelFactory, CashgameListTableModelFactory>();

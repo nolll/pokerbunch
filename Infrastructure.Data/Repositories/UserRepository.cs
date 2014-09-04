@@ -14,24 +14,21 @@ namespace Infrastructure.Data.Repositories
     {
         private readonly IUserStorage _userStorage;
         private readonly ICacheContainer _cacheContainer;
-        private readonly ICacheKeyProvider _cacheKeyProvider;
         private readonly ICacheBuster _cacheBuster;
 
         public UserRepository(
             IUserStorage userStorage,
             ICacheContainer cacheContainer,
-            ICacheKeyProvider cacheKeyProvider,
             ICacheBuster cacheBuster)
         {
             _userStorage = userStorage;
             _cacheContainer = cacheContainer;
-            _cacheKeyProvider = cacheKeyProvider;
             _cacheBuster = cacheBuster;
         }
 
         public User GetById(int id)
         {
-            var cacheKey = _cacheKeyProvider.UserKey(id);
+            var cacheKey = CacheKeyProvider.UserKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
@@ -78,13 +75,13 @@ namespace Infrastructure.Data.Repositories
 
         private int? GetIdByNameOrEmail(string nameOrEmail)
         {
-            var cacheKey = _cacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
+            var cacheKey = CacheKeyProvider.UserIdByNameOrEmailKey(nameOrEmail);
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdByNameOrEmail(nameOrEmail), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private IList<int> GetIds()
         {
-            var cacheKey = _cacheKeyProvider.UserIdsKey();
+            var cacheKey = CacheKeyProvider.UserIdsKey();
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
     }

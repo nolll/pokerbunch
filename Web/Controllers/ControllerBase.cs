@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
+using Plumbing;
 
 namespace Web.Controllers
 {
     public class ControllerBase : Controller
     {
+        protected DependencyContainer UseCase
+        {
+            get { return new DependencyContainer(); }
+        }
+
         protected void AddModelErrors(IEnumerable<string> errors)
         {
             var i = 0;
@@ -19,13 +25,7 @@ namespace Web.Controllers
         
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            return new JsonNetResult
-            {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                JsonRequestBehavior = behavior
-            };
+            return new JsonNetResult(data, contentType, contentEncoding, behavior);
         }
     }
 }
