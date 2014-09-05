@@ -381,38 +381,6 @@ namespace Tests.Web.ServiceTests
         }
 
         [Test]
-        public void SharingSettingsUrl()
-        {
-            var result = new SharingSettingsUrl();
-
-            Assert.AreEqual("/-/sharing", result.Relative);
-        }
-
-        [Test]
-        public void TwitterSettingsUrl()
-        {
-            var result = new TwitterSettingsUrl();
-
-            Assert.AreEqual("/-/sharing/twitter", result.Relative);
-        }
-
-        [Test]
-        public void TwitterStartShareUrl()
-        {
-            var result = new TwitterStartShareUrl();
-
-            Assert.AreEqual("/-/sharing/twitterstart", result.Relative);
-        }
-
-        [Test]
-        public void TwitterStopShareUrl()
-        {
-            var result = new TwitterStopShareUrl();
-
-            Assert.AreEqual("/-/sharing/twitterstop", result.Relative);
-        }
-
-        [Test]
         public void UserAddConfirmationUrl()
         {
             var result = new AddUserConfirmationUrl();
@@ -454,14 +422,6 @@ namespace Tests.Web.ServiceTests
             var result = new UserListUrl();
 
             Assert.AreEqual("/-/user/list", result.Relative);
-        }
-
-        [Test]
-        public void TwitterCallBackUrl()
-        {
-            var result = new TwitterCallbackUrl();
-
-            Assert.AreEqual("/-/sharing/twittercallback", result.Relative);
         }
 
         [Test]

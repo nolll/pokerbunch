@@ -4,7 +4,6 @@ using Plumbing;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
 using Web.Commands.PlayerCommands;
-using Web.Commands.SharingCommands;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -14,7 +13,6 @@ using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Running;
-using Web.ModelFactories.SharingModelFactories;
 
 namespace Web.Plumbing
 {
@@ -34,8 +32,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
-            RegisterComponent<ISharingIndexPageBuilder, SharingIndexPageBuilder>();
-            RegisterComponent<ISharingTwitterPageBuilder, SharingTwitterPageBuilder>();
             RegisterComponent<ICashgameListTableModelFactory, CashgameListTableModelFactory>();
             RegisterComponent<ICashgameListTableItemModelFactory, CashgameListTableItemModelFactory>();
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
@@ -52,7 +48,6 @@ namespace Web.Plumbing
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
             RegisterComponent<IBunchCommandProvider, BunchCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
-            RegisterComponent<ISharingCommandProvider, SharingCommandProvider>();
         }
     }
 }

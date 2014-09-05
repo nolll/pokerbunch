@@ -1,3 +1,4 @@
+using System;
 using Application.Factories;
 using Application.Services;
 using Core.Entities;
@@ -50,6 +51,14 @@ namespace Web.Commands.CashgameCommands
                 CheckpointType.Cashout,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
+        }
+
+        // todo: display sharing options
+        private string GetMessage(int amount)
+        {
+            var formattedAmount = Math.Abs(amount) + " kr";
+            var wonOrLost = amount < 0 ? "lost" : "won";
+            return string.Format("I just {0} {1} playing poker. #pokerbunch", wonOrLost, formattedAmount);
         }
     }
 }

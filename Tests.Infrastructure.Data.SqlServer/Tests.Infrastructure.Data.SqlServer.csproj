@@ -54,8 +54,6 @@
     <Compile Include="SqlServerCheckpointStorageTests.cs" />
     <Compile Include="SqlServerHomegameStorageTests.cs" />
     <Compile Include="SqlServerPlayerStorageTests.cs" />
-    <Compile Include="SqlServerSharingStorageTests.cs" />
-    <Compile Include="SqlServerTwitterStorageTests.cs" />
     <Compile Include="SqlServerUserStorageTests.cs" />
     <Compile Include="StorageTests.cs" />
   </ItemGroup>

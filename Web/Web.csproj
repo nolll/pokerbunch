@@ -138,10 +138,6 @@
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\EditUserCommand.cs" />
     <Compile Include="Commands\HomegameCommands\AddBunchCommand.cs" />
-    <Compile Include="Commands\SharingCommands\ISharingCommandProvider.cs" />
-    <Compile Include="Commands\SharingCommands\SharingCommandProvider.cs" />
-    <Compile Include="Commands\SharingCommands\TwitterStartCommand.cs" />
-    <Compile Include="Commands\SharingCommands\TwitterStopCommand.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\JsonNetResult.cs" />
@@ -160,10 +156,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
-    <Compile Include="ModelFactories\SharingModelFactories\ISharingTwitterPageBuilder.cs" />
-    <Compile Include="ModelFactories\SharingModelFactories\SharingTwitterPageBuilder.cs" />
-    <Compile Include="ModelFactories\SharingModelFactories\ISharingIndexPageBuilder.cs" />
-    <Compile Include="ModelFactories\SharingModelFactories\SharingIndexPageBuilder.cs" />
     <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
@@ -517,9 +509,6 @@
     <Compile Include="Models\HomegameModels\Join\JoinBunchPageModel.cs" />
     <Compile Include="Models\UserModels\List\UserListItemModel.cs" />
     <Compile Include="Models\UserModels\List\UserListPageModel.cs" />
-    <Compile Include="Controllers\SharingController.cs" />
-    <Compile Include="Models\SharingModels\SharingIndexPageModel.cs" />
-    <Compile Include="Models\SharingModels\SharingTwitterPageModel.cs" />
     <Content Include="FrontEnd\Css\mediaqueries.less" />
     <None Include="FrontEnd\Css\constants.less" />
     <None Include="FrontEnd\Css\mixins.less" />
@@ -546,8 +535,6 @@
     <Content Include="Views\Player\AddConfirmation.cshtml" />
     <Content Include="Views\Player\InviteConfirmation.cshtml" />
     <Content Include="Views\Player\Invite.cshtml" />
-    <Content Include="Views\Sharing\Index.cshtml" />
-    <Content Include="Views\Sharing\Twitter.cshtml" />
     <Content Include="Views\User\Add\Add.cshtml" />
     <Content Include="Views\User\Add\Confirmation.cshtml" />
     <Content Include="Views\User\ChangePassword\Confirmation.cshtml" />

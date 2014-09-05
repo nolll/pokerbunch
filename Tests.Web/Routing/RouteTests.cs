@@ -308,21 +308,6 @@ namespace Tests.Web.Routing
         }
 
         [Test]
-        public void Sharing()
-        {
-            _routes.ShouldMap("/-/sharing").To<SharingController>(x => x.Index());
-        }
-
-        [Test]
-        public void Twitter()
-        {
-            _routes.ShouldMap("/-/sharing/twitter").To<SharingController>(x => x.Twitter());
-            _routes.ShouldMap("/-/sharing/twitterstart").To<SharingController>(x => x.TwitterStart());
-            _routes.ShouldMap("/-/sharing/twitterstop").To<SharingController>(x => x.TwitterStop());
-            _routes.ShouldMap("/-/sharing/twittercallback").To<SharingController>(x => x.TwitterCallback());
-        }
-
-        [Test]
         public void SendEmail()
         {
             _routes.ShouldMap("/-/admin/sendemail").To<AdminController>(x => x.SendEmail());

@@ -44,7 +44,6 @@ using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.SqlServer;
-using Infrastructure.Integration.Social;
 using Infrastructure.System;
 using Infrastructure.Web;
 
@@ -67,8 +66,6 @@ namespace Plumbing
             RegisterComponent<IPlayerStorage, SqlServerPlayerStorage>();
             RegisterComponent<IUserStorage, SqlServerUserStorage>();
             RegisterComponent<IStorageProvider, SqlServerStorageProvider>();
-            RegisterComponent<ISharingStorage, SqlServerSharingStorage>();
-            RegisterComponent<ITwitterStorage, SqlServerTwitterStorage>();
 
             // Raw Factories
             RegisterComponent<IRawCashgameFactory, RawCashgameFactory>();
@@ -87,8 +84,6 @@ namespace Plumbing
             RegisterComponent<ICashgameRepository, CashgameRepository>();
             RegisterComponent<IPlayerRepository, PlayerRepository>();
             RegisterComponent<IUserRepository, UserRepository>();
-            RegisterComponent<ITwitterRepository, TwitterRepository>();
-            RegisterComponent<ISharingRepository, SharingRepository>();
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
 
             // Core Factories
@@ -106,10 +101,7 @@ namespace Plumbing
             RegisterComponent<IUserService, UserService>();
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
             RegisterComponent<IPasswordSender, PasswordSender>();
-            RegisterComponent<ITwitterIntegration, TwitterIntegration>();
             RegisterComponent<ICashgameService, CashgameService>();
-            RegisterComponent<IResultSharer, ResultSharer>();
-            RegisterComponent<ISocialServiceProvider, SocialServiceProvider>();
 
             // Use Cases
             RegisterComponent<IBaseContextInteractor, BaseContextInteractor>();

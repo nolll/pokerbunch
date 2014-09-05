@@ -49,7 +49,6 @@
     <Compile Include="Classes\RawCheckpoint.cs" />
     <Compile Include="Classes\RawBunch.cs" />
     <Compile Include="Classes\RawPlayer.cs" />
-    <Compile Include="Classes\RawTwitterCredentials.cs" />
     <Compile Include="Classes\RawUser.cs" />
     <Compile Include="Mappers\CheckpointDataMapper.cs" />
     <Compile Include="Mappers\BunchDataMapper.cs" />
@@ -62,24 +61,18 @@
     <Compile Include="Factories\RawCheckpointFactory.cs" />
     <Compile Include="Factories\RawBunchFactory.cs" />
     <Compile Include="Factories\RawPlayerFactory.cs" />
-    <Compile Include="Factories\RawTwitterCredentialsFactory.cs" />
     <Compile Include="Factories\RawUserFactory.cs" />
-    <Compile Include="Mappers\TwitterCredentialsDataMapper.cs" />
     <Compile Include="Mappers\UserDataMapper.cs" />
     <Compile Include="Interfaces\ICashgameStorage.cs" />
     <Compile Include="Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Interfaces\IBunchStorage.cs" />
     <Compile Include="Interfaces\IPlayerStorage.cs" />
-    <Compile Include="Interfaces\ISharingStorage.cs" />
     <Compile Include="Interfaces\IStorageDataReader.cs" />
-    <Compile Include="Interfaces\ITwitterStorage.cs" />
     <Compile Include="Interfaces\IUserStorage.cs" />
     <Compile Include="Repositories\CashgameRepository.cs" />
     <Compile Include="Repositories\CheckpointRepository.cs" />
     <Compile Include="Repositories\BunchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
-    <Compile Include="Repositories\SharingRepository.cs" />
-    <Compile Include="Repositories\TwitterRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="StorageDataReader.cs" />
   </ItemGroup>

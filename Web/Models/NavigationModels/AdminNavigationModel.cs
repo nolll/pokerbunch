@@ -14,7 +14,7 @@ namespace Web.Models.NavigationModels
 
         private IList<NavigationNode> GetNodes(HomeResult homeResult)
         {
-            return homeResult.IsAdmin ? GetAdminNodeList(homeResult) : GetEmptyNodeList();
+            return homeResult.IsAdmin ? GetAdminNodeList(homeResult) : new List<NavigationNode>();
         }
 
         private List<NavigationNode> GetAdminNodeList(HomeResult homeResult)
@@ -25,11 +25,6 @@ namespace Web.Models.NavigationModels
                     new NavigationNode("Users", homeResult.UserListUrl),
                     new NavigationNode("Test Email", homeResult.TestEmailUrl)
                 };
-        }
-
-        private static List<NavigationNode> GetEmptyNodeList()
-        {
-            return new List<NavigationNode>();
         }
     }
 }

@@ -56,11 +56,8 @@
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IPasswordSender.cs" />
     <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
-    <Compile Include="Services\Interfaces\IResultSharer.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
-    <Compile Include="Services\Interfaces\ISocialServiceProvider.cs" />
     <Compile Include="Services\Interfaces\ITimeProvider.cs" />
-    <Compile Include="Services\Interfaces\ITwitterIntegration.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IWebContext.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
@@ -72,7 +69,6 @@
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\RegistrationConfirmationSender.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
-    <Compile Include="Services\ResultSharer.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
@@ -133,13 +129,8 @@
     <Compile Include="Urls\PlayerUrl.cs" />
     <Compile Include="Urls\RouteFormats.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />
-    <Compile Include="Urls\SharingSettingsUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
-    <Compile Include="Urls\TwitterCallbackUrl.cs" />
-    <Compile Include="Urls\TwitterSettingsUrl.cs" />
-    <Compile Include="Urls\TwitterStartShareUrl.cs" />
-    <Compile Include="Urls\TwitterStopShareUrl.cs" />
     <Compile Include="Urls\Url.cs" />
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />

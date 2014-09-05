@@ -66,12 +66,7 @@ namespace Infrastructure.Integration.Social
             PostToTwitter(user, message);
         }
 
-        private string GetMessage(int amount)
-        {
-            var formattedAmount = Math.Abs(amount) + " kr";
-            var wonOrLost = amount < 0 ? "lost" : "won";
-            return string.Format("I just {0} {1} playing poker. #pokerbunch", wonOrLost, formattedAmount);
-        }
+        
 
         private void PostToTwitter(User user, string message)
         {

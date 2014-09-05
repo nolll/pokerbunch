@@ -43,7 +43,6 @@
     <Compile Include="Entities\MoneyResult.cs" />
     <Compile Include="Entities\MoneyWinRate.cs" />
     <Compile Include="Entities\Time.cs" />
-    <Compile Include="Entities\TwitterCredentials.cs" />
     <Compile Include="Entities\ICacheable.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="Entities\UserBunch.cs" />
@@ -98,14 +97,7 @@
     <Compile Include="Repositories\IPlayerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\ISharingRepository.cs" />
-    <Compile Include="Repositories\ITwitterRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Repositories\IUserRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\SocialServiceIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

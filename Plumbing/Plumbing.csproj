@@ -72,10 +72,6 @@
       <Project>{8E10B75F-B051-4158-87B7-D1F1D50B17C0}</Project>
       <Name>Infrastructure.Integration.Gravatar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Integration.Social\Infrastructure.Integration.Social.csproj">
-      <Project>{F64D77E4-EFB0-48DB-A4F2-B52BEA68865E}</Project>
-      <Name>Infrastructure.Integration.Social</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
       <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
       <Name>Infrastructure.System</Name>

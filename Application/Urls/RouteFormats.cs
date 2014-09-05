@@ -51,13 +51,6 @@ namespace Application.Urls
         public const string PlayerInvite = "/{0}/player/invite/{1}";
         public const string PlayerInviteConfirmation = "/{0}/player/invited/{1}";
 
-        public const string SharingSettings = "/-/sharing";
-
-        public const string TwitterCallback = "/-/sharing/twittercallback";
-        public const string TwitterSettings = "/-/sharing/twitter";
-        public const string TwitterStartShare = "/-/sharing/twitterstart";
-        public const string TwitterStopShare = "/-/sharing/twitterstop";
-
         public const string UserAdd = "/-/user/add";
         public const string UserAddConfirmation = "/-/user/created";
         public const string UserDetails = "/-/user/details/{0}";
