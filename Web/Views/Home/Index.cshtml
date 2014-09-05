@@ -13,7 +13,7 @@
     {
         <p>
             Poker Bunch helps you keep track of the results in your poker homegames.
-            Please select one of your bunches, or <a href="@Model.AddBunchUrl.Relative">create a new bunch</a>.
+            Please select one of your bunches, or <a href="@Model.AddBunchUrl">create a new bunch</a>.
         </p>
         <p>
             If you want to join an existing bunch, you will need an invitation from the bunch manager.
@@ -25,7 +25,7 @@
             Poker Bunch helps you keep track of the results in your poker homegames.
         </p>
         <p>
-            <a href="@Model.LoginUrl.Relative">Sign in</a> if you already have an account, or <a href="@Model.RegisterUrl.Relative">register</a> to create a bunch and begin inviting players.
+            <a href="@Model.LoginUrl">Sign in</a> if you already have an account, or <a href="@Model.RegisterUrl">register</a> to create a bunch and begin inviting players.
         </p>
     }
     @Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.AdminNav)

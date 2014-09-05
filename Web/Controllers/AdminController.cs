@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Web.Commands.AdminCommands;
+using Application.UseCases.TestEmail;
 using Web.Models.AdminModels;
 using Web.Security.Attributes;
 
@@ -7,23 +7,20 @@ namespace Web.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IAdminCommandProvider _adminCommandProvider;
+        private readonly ITestEmailInteractor _testEmailInteractor;
 
-        public AdminController(
-            IAdminCommandProvider adminCommandProvider)
+        public AdminController(ITestEmailInteractor testEmailInteractor)
         {
-            _adminCommandProvider = adminCommandProvider;
+            _testEmailInteractor = testEmailInteractor;
         }
 
         [AuthorizeAdmin]
         [Route("-/admin/sendemail")]
         public ActionResult SendEmail()
         {
-            const string to = "henriks@gmail.com";
-            var command = _adminCommandProvider.GetEmailTestCommand(to);
-            command.Execute();
+            var result = _testEmailInteractor.Execute();
 
-            var model = new EmailModel(to);
+            var model = new EmailModel(result);
 
             return View("Email", model);
         }

@@ -1,34 +1,29 @@
 using System.Collections.Generic;
-using Application.Urls;
 using Application.UseCases.Home;
 
 namespace Web.Models.NavigationModels
 {
     public class AdminNavigationModel : NavigationModel
     {
-        public AdminNavigationModel(bool isAdmin)
+        public AdminNavigationModel(HomeResult homeResult)
         {
             Heading = "Admin";
             CssClass = "admin-nav";
-            Nodes = GetNodes(isAdmin);
+            Nodes = GetNodes(homeResult);
         }
 
-        public AdminNavigationModel(HomeResult homeResult)
-            : this(homeResult.IsAdmin)
+        private IList<NavigationNode> GetNodes(HomeResult homeResult)
         {
+            return homeResult.IsAdmin ? GetAdminNodeList(homeResult) : GetEmptyNodeList();
         }
 
-        private IList<NavigationNode> GetNodes(bool isAdmin)
-        {
-            return isAdmin ? GetAdminNodeList() : GetEmptyNodeList();
-        }
-
-        private List<NavigationNode> GetAdminNodeList()
+        private List<NavigationNode> GetAdminNodeList(HomeResult homeResult)
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", new BunchListUrl()),
-                    new NavigationNode("Users", new UserListUrl())
+                    new NavigationNode("Bunches", homeResult.BunchListUrl),
+                    new NavigationNode("Users", homeResult.UserListUrl),
+                    new NavigationNode("Test Email", homeResult.TestEmailUrl)
                 };
         }
 

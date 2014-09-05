@@ -1,4 +1,3 @@
-using Application.Urls;
 using Application.UseCases.BunchContext;
 using Application.UseCases.Home;
 using Web.Models.NavigationModels;
@@ -9,18 +8,18 @@ namespace Web.Models.HomeModels
     public class HomePageModel : BunchPageModel
     {
         public bool IsLoggedIn { get; private set; }
-        public Url AddBunchUrl { get; private set; }
-        public Url LoginUrl { get; private set; }
-        public Url RegisterUrl { get; private set; }
+        public string AddBunchUrl { get; private set; }
+        public string LoginUrl { get; private set; }
+        public string RegisterUrl { get; private set; }
         public NavigationModel AdminNav { get; private set; }
 
         public HomePageModel(BunchContextResult contextResult, HomeResult homeResult)
             : base("Poker Bunch", contextResult)
         {
 			IsLoggedIn = homeResult.IsLoggedIn;
-            AddBunchUrl = homeResult.AddBunchUrl;
-            LoginUrl = homeResult.LoginUrl;
-            RegisterUrl = homeResult.AddUserUrl;
+            AddBunchUrl = homeResult.AddBunchUrl.Relative;
+            LoginUrl = homeResult.LoginUrl.Relative;
+            RegisterUrl = homeResult.AddUserUrl.Relative;
             AdminNav = new AdminNavigationModel(homeResult);
         }
     }

@@ -121,7 +121,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
-    <Compile Include="Commands\AdminCommands\AdminCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />
@@ -131,11 +130,9 @@
     <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\ReportCommand.cs" />
-    <Compile Include="Commands\AdminCommands\EmailTestCommand.cs" />
     <Compile Include="Commands\HomegameCommands\EditBunchCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IBunchCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinBunchCommand.cs" />
-    <Compile Include="Commands\AdminCommands\IAdminCommandProvider.cs" />
     <Compile Include="Commands\PlayerCommands\DeletePlayerCommand.cs" />
     <Compile Include="Commands\UserCommands\AddUserCommand.cs" />
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />

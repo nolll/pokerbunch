@@ -1,12 +1,14 @@
-﻿namespace Web.Models.AdminModels
+﻿using Application.UseCases.TestEmail;
+
+namespace Web.Models.AdminModels
 {
     public class EmailModel
     {
         public string Email { get; private set; }
 
-        public EmailModel(string email)
+        public EmailModel(TestEmailResult result)
         {
-            Email = email;
+            Email = result.Email;
         }
     }
 }

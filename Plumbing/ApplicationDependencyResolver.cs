@@ -28,6 +28,7 @@ using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
 using Application.UseCases.PlayerList;
+using Application.UseCases.TestEmail;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
 using Castle.Core;
@@ -141,6 +142,7 @@ namespace Plumbing
             RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
             RegisterComponent<IInvitePlayerInteractor, InvitePlayerInteractor>();
             RegisterComponent<IEditUserFormInteractor, EditUserFormInteractor>();
+            RegisterComponent<ITestEmailInteractor, TestEmailInteractor>();
         }
     }
 }

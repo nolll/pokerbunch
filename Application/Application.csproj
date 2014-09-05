@@ -134,6 +134,7 @@
     <Compile Include="Urls\RouteFormats.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\SharingSettingsUrl.cs" />
+    <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
     <Compile Include="Urls\TwitterCallbackUrl.cs" />
     <Compile Include="Urls\TwitterSettingsUrl.cs" />
@@ -262,6 +263,9 @@
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
+    <Compile Include="UseCases\TestEmail\ITestEmailInteractor.cs" />
+    <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
+    <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
     <Compile Include="UseCases\UserDetails\IUserDetailsInteractor.cs" />
     <Compile Include="UseCases\UserDetails\UserDetailsInteractor.cs" />
     <Compile Include="UseCases\UserDetails\UserDetailsRequest.cs" />

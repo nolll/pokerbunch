@@ -19,6 +19,9 @@ namespace Tests.Application.UseCases
             Assert.IsInstanceOf<AddBunchUrl>(result.AddBunchUrl);
             Assert.IsInstanceOf<LoginUrl>(result.LoginUrl);
             Assert.IsInstanceOf<AddUserUrl>(result.AddUserUrl);
+            Assert.IsInstanceOf<UserListUrl>(result.UserListUrl);
+            Assert.IsInstanceOf<BunchListUrl>(result.BunchListUrl);
+            Assert.IsInstanceOf<TestEmailUrl>(result.TestEmailUrl);
         }
 
         [Test]
