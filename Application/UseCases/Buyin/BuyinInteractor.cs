@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Services;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
@@ -30,10 +31,11 @@ namespace Application.UseCases.Buyin
         {
             var validator = new Validator(request);
 
-            if (validator.IsValid)
-                AddCheckpoint(request);
+            if (!validator.IsValid)
+                throw new ValidationException(validator);
 
-            return new BuyinResult(request.Slug, validator);
+            AddCheckpoint(request);
+            return new BuyinResult(request.Slug);
         }
 
         private void AddCheckpoint(BuyinRequest request)

@@ -40,8 +40,10 @@
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
+    <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Factories\CashgameFactory.cs" />
     <Compile Include="Factories\CashgameResultFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
@@ -141,7 +143,6 @@
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
     <Compile Include="Urls\UserUrl.cs" />
-    <Compile Include="UseCaseHelpers\UseCaseResultWithValidator.cs" />
     <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
     <Compile Include="UseCases\Actions\ActionsRequest.cs" />
     <Compile Include="UseCases\Actions\ActionsResult.cs" />

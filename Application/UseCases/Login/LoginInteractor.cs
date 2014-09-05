@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Core.Entities;
@@ -29,8 +30,6 @@ namespace Application.UseCases.Login
         {
             var user = GetLoggedInUser(request.LoginName, request.Password);
 
-            var validator = new Validator();
-
             if (user != null)
             {
                 var identity = CreateUserIdentity(user);
@@ -38,11 +37,11 @@ namespace Application.UseCases.Login
             }
             else
             {
-                validator.AddError("There was something wrong with your username or password. Please try again.");
+                throw new LoginException();
             }
             
             var returnUrl = new Url(request.ReturnUrl);
-            return new LoginResult(validator, returnUrl);
+            return new LoginResult(returnUrl);
         }
 
         private UserIdentity CreateUserIdentity(User user)

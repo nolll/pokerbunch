@@ -1,12 +1,12 @@
 using Application.Urls;
-using Application.UseCaseHelpers;
 
 namespace Application.UseCases.InvitePlayer
 {
-    public class InvitePlayerResult : UseCaseResultWithValidator
+    public class InvitePlayerResult
     {
-        public InvitePlayerResult(Validator validator, Url returnUrl)
-            : base(validator)
+        public Url ReturnUrl { get; private set; }
+
+        public InvitePlayerResult(Url returnUrl)
         {
             ReturnUrl = returnUrl;
         }

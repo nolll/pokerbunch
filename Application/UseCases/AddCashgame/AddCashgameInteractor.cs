@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Factories;
 using Core.Entities;
 using Core.Repositories;
@@ -21,10 +22,11 @@ namespace Application.UseCases.AddCashgame
         {
             var validator = new Validator(request);
 
-            if (validator.IsValid)
-                AddGame(request);
-            
-            return new AddCashgameResult(request.Slug, validator);
+            if (!validator.IsValid)
+                throw new ValidationException(validator);
+
+            AddGame(request);
+            return new AddCashgameResult(request.Slug);
         }
 
         private void AddGame(AddCashgameRequest request)

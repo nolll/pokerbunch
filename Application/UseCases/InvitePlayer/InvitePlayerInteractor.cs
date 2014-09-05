@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Core.Repositories;
@@ -26,14 +25,12 @@ namespace Application.UseCases.InvitePlayer
         {
             var validator = new Validator(request);
 
-            if (validator.IsValid)
-            {
-                SendMessage(request);
-            }
-
+            if (!validator.IsValid)
+                throw new ValidationException(validator);
+                
+            SendMessage(request);
             var url = new InvitePlayerConfirmationUrl(request.Slug, request.PlayerId);
-
-            return new InvitePlayerResult(validator, url);
+            return new InvitePlayerResult(url);
         }
 
         private void SendMessage(InvitePlayerRequest request)

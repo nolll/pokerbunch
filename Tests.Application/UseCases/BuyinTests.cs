@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.Buyin;
@@ -26,20 +27,18 @@ namespace Tests.Application.UseCases
         public void Buyin_InvalidBuyin_ReturnsError()
         {
             var request = new BuyinRequest(Slug, PlayerId, InvalidBuyin, ValidStack);
-            var result = Sut.Execute(request);
 
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count());
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            Assert.AreEqual(1, ex.Messages.Count());
         }
 
         [Test]
         public void Buyin_InvalidStackSize_ReturnsError()
         {
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, InvalidStack);
-            var result = Sut.Execute(request);
 
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count());
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            Assert.AreEqual(1, ex.Messages.Count());
         }
 
         [Test]

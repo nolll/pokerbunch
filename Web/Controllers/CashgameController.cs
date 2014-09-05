@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Application.Exceptions;
 using Application.Urls;
 using Application.UseCases.Actions;
 using Application.UseCases.AddCashgame;
@@ -171,12 +172,17 @@ namespace Web.Controllers
         public ActionResult Add_Post(string slug, AddCashgamePostModel postModel)
         {
             var request = new AddCashgameRequest(slug, postModel.Location);
-            var result = _addCashgameInteractor.Execute(request);
-            
-            if (result.Success)
-                return Redirect(result.ReturnUrl.Relative);
 
-            AddModelErrors(result.Errors);
+	        try
+	        {
+	            var result = _addCashgameInteractor.Execute(request);
+                return Redirect(result.ReturnUrl.Relative);
+	        }
+	        catch (ValidationException ex)
+	        {
+                AddModelErrors(ex.Messages);
+	        }
+            
             var model = BuildAddModel(slug, postModel);
             return View("Add/Add", model);
 		}
@@ -271,12 +277,17 @@ namespace Web.Controllers
         public ActionResult Buyin_Post(string slug, int playerId, BuyinPostModel postModel)
         {
             var request = new BuyinRequest(slug, playerId, postModel.BuyinAmount, postModel.StackAmount);
-            var result = _buyinInteractor.Execute(request);
 
-            if (result.Success)
+	        try
+	        {
+                var result = _buyinInteractor.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
+	        }
+	        catch (ValidationException ex)
+	        {
+                AddModelErrors(ex.Messages);
+	        }
 
-            AddModelErrors(result.Errors);
             var model = BuildBuyinModel(slug, playerId, postModel);
             return View("Buyin/Buyin", model);
 		}

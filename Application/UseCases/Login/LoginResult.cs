@@ -1,12 +1,12 @@
 using Application.Urls;
-using Application.UseCaseHelpers;
 
 namespace Application.UseCases.Login
 {
-    public class LoginResult : UseCaseResultWithValidator
+    public class LoginResult
     {
-        public LoginResult(Validator validator, Url returnUrl)
-            : base(validator)
+        public Url ReturnUrl { get; private set; }
+
+        public LoginResult(Url returnUrl)
         {
             ReturnUrl = returnUrl;
         }

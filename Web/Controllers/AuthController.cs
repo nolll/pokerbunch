@@ -1,4 +1,6 @@
+using System;
 using System.Web.Mvc;
+using Application.Exceptions;
 using Application.UseCases.AppContext;
 using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
@@ -38,12 +40,17 @@ namespace Web.Controllers
         public ActionResult Login_Post(LoginPostModel postModel)
         {
             var request = new LoginRequest(postModel.LoginName, postModel.Password, postModel.RememberMe, postModel.ReturnUrl);
-            var result = _loginInteractor.Execute(request);
 
-            if(result.Success)
+            try
+            {
+                var result = _loginInteractor.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
-            
-            AddModelErrors(result.Errors);
+            }
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
             var model = BuildLoginModel(postModel);
             return View("Login", model);
         }

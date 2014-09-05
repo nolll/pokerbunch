@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Application.Exceptions;
 using Application.Services;
 using Application.UseCases.Login;
 using Core.Entities;
@@ -27,39 +28,25 @@ namespace Tests.Application.UseCases
         [Test]
         public void Login_ReturnUrlIsSet()
         {
+            SetupUserWithCorrectPassword();
+
             var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(ReturnUrl, result.ReturnUrl.Relative);
         }
 
         [Test]
-        public void Login_UserNotFound_SuccessIsFalse()
+        public void Login_UserNotFound_ThrowsException()
         {
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count());
+            Assert.Throws<LoginException>(() => Sut.Execute(CreateRequest()));
         }
 
         [Test]
-        public void Login_UserFoundButPasswordIsWrong_SuccessIsFalse()
+        public void Login_UserFoundButPasswordIsWrong_ThrowsException()
         {
             SetupUserWithWrongPassword();
 
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count());
-        }
-
-        [Test]
-        public void Login_UserFoundAndPasswordIsCorrect_SuccessIsTrue()
-        {
-            SetupUserWithCorrectPassword();
-
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.IsTrue(result.Success);
+            Assert.Throws<LoginException>(() => Sut.Execute(CreateRequest()));
         }
 
         [Test]

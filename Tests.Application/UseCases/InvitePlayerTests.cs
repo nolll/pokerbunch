@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.InvitePlayer;
@@ -32,27 +33,12 @@ namespace Tests.Application.UseCases
 
         [TestCase("")]
         [TestCase("a")]
-        public void InvitePlayer_InvalidEmail_SuccessIsFalseAndErrorListContainsErrors(string email)
+        public void InvitePlayer_InvalidEmail_ThrowsException(string email)
         {
             var request = CreateRequest(email);
 
-            var result = Sut.Execute(request);
-
-            Assert.IsFalse(result.Success);
-        }
-
-        [Test]
-        public void InvitePlayer_ValidEmail_SuccessIsTrue()
-        {
-            var request = CreateRequest();
-
-            SetupBunch();
-            SetupPlayer();
-
-            var result = Sut.Execute(request);
-
-            Assert.IsTrue(result.Success);
-            Assert.AreEqual(0, result.Errors.Count());
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            Assert.AreEqual(1, ex.Messages.Count());
         }
 
         [Test]

@@ -1,12 +1,12 @@
 using Application.Urls;
-using Application.UseCaseHelpers;
 
 namespace Application.UseCases.Buyin
 {
-    public class BuyinResult : UseCaseResultWithValidator
+    public class BuyinResult
     {
-        public BuyinResult(string slug, Validator validator)
-            : base(validator)
+        public Url ReturnUrl { get; private set; }
+
+        public BuyinResult(string slug)
         {
             ReturnUrl = new RunningCashgameUrl(slug);
         }

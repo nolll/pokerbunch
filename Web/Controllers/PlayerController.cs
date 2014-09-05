@@ -1,4 +1,6 @@
+using System;
 using System.Web.Mvc;
+using Application.Exceptions;
 using Application.Urls;
 using Application.UseCases.BunchContext;
 using Application.UseCases.InvitePlayer;
@@ -122,12 +124,17 @@ namespace Web.Controllers
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
             var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
-            var result = _invitePlayerInteractor.Execute(request);
 
-            if (result.Success)
+            try
+            {
+                var result = _invitePlayerInteractor.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
+            }
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
 
-            AddModelErrors(result.Errors);
             var model = BuildInviteModel(slug, postModel);
             return View("Invite", model);
 		}

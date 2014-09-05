@@ -1,12 +1,12 @@
 using Application.Urls;
-using Application.UseCaseHelpers;
 
 namespace Application.UseCases.AddCashgame
 {
-    public class AddCashgameResult : UseCaseResultWithValidator
+    public class AddCashgameResult
     {
-        public AddCashgameResult(string slug, Validator validator)
-            : base(validator)
+        public Url ReturnUrl { get; private set; }
+
+        public AddCashgameResult(string slug)
         {
             ReturnUrl = new RunningCashgameUrl(slug);
         }

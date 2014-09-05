@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Application.Exceptions;
 using Application.Urls;
 using Application.UseCases.AddCashgame;
 using Core.Entities;
@@ -27,17 +29,6 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void AddCashgame_WithLocation_SuccessIsTrue()
-        {
-            SetupHomegame();
-
-            var request = CreateRequest();
-            var result = Sut.Execute(request);
-
-            Assert.IsTrue(result.Success);
-        }
-
-        [Test]
         public void AddCashgame_WithLocation_GameIsAdded()
         {
             SetupHomegame();
@@ -49,15 +40,14 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void AddCashgame_WithoutLocation_SuccessIsFalse()
+        public void AddCashgame_WithoutLocation_ThrowsValidationException()
         {
             SetupHomegame();
 
             var request = CreateRequestWithoutLocation();
-            var result = Sut.Execute(request);
 
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual(1, result.Errors.Count());
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            Assert.AreEqual(1, ex.Messages.Count());
         }
 
         private static AddCashgameRequest CreateRequestWithoutLocation()
