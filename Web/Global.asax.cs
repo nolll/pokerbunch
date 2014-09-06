@@ -87,7 +87,7 @@ namespace Web
             }
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
+        private static void RegisterRoutes(RouteCollection routes)
         {
             routes.MapMvcAttributeRoutes();
             RouteConfig.RegisterRoutes(routes);
@@ -98,13 +98,6 @@ namespace Web
             var windsorContainer = new WindsorContainer().Install(FromAssembly.This());
             _dependencyResolver = new WebDependencyResolver(windsorContainer);
             var controllerFactory = new WindsorControllerFactory(windsorContainer.Kernel);
-            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
-        }
-
-        private static void BootstrapDependencies()
-        {
-            var deps = new DependencyContainer();
-            var controllerFactory = new CustomControllerFactory(deps);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using Application.UseCases.AppContext;
-using Application.UseCases.EditUserForm;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
 using NUnit.Framework;
@@ -30,8 +29,7 @@ namespace Tests.Web.ControllerTests
                     GetMock<IAppContextInteractor>().Object,
                     GetMock<IUserDetailsInteractor>().Object,
                     GetMock<IUserListInteractor>().Object,
-                    GetMock<IUserCommandProvider>().Object,
-                    GetMock<IEditUserFormInteractor>().Object);
+                    GetMock<IUserCommandProvider>().Object);
             }
         }
     }

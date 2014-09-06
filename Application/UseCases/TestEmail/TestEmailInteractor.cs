@@ -2,21 +2,14 @@ using Application.Services;
 
 namespace Application.UseCases.TestEmail
 {
-    public class TestEmailInteractor : ITestEmailInteractor
+    public static class TestEmailInteractor
     {
-        private readonly IMessageSender _messageSender;
-
-        public TestEmailInteractor(IMessageSender messageSender)
-        {
-            _messageSender = messageSender;
-        }
-
-        public TestEmailResult Execute()
+        public static TestEmailResult Execute(IMessageSender messageSender)
         {
             const string email = "henriks@gmail.com";
             const string subject = "Test Email";
             const string body = "This is a test email from pokerbunch.com";
-            _messageSender.Send(email, subject, body);
+            messageSender.Send(email, subject, body);
 
             return new TestEmailResult(email);
         }

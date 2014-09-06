@@ -249,7 +249,6 @@
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="Plumbing\WebDependencyResolver.cs" />
     <Compile Include="Plumbing\ControllerInstaller.cs" />
-    <Compile Include="Plumbing\CustomControllerFactory.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>

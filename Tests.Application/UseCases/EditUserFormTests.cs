@@ -18,7 +18,7 @@ namespace Tests.Application.UseCases
         {
             SetupUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(UserName, result.UserName);
         }
@@ -28,7 +28,7 @@ namespace Tests.Application.UseCases
         {
             SetupUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(RealName, result.RealName);
         }
@@ -38,7 +38,7 @@ namespace Tests.Application.UseCases
         {
             SetupUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(DisplayName, result.DisplayName);
         }
@@ -48,7 +48,7 @@ namespace Tests.Application.UseCases
         {
             SetupUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(Email, result.Email);
         }
@@ -64,9 +64,9 @@ namespace Tests.Application.UseCases
             return new EditUserFormRequest(UserName);
         }
 
-        private EditUserFormInteractor Sut
+        private EditUserFormResult Execute(EditUserFormRequest request)
         {
-            get { return new EditUserFormInteractor(GetMock<IUserRepository>().Object); }
+            return EditUserFormInteractor.ExecuteStatic(GetMock<IUserRepository>().Object, request);
         }
     }
 }

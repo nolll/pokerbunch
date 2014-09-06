@@ -8,17 +8,27 @@ namespace Tests.Application.UseCases
 {
     class TestEmailTests : MockContainer
     {
+        private const string Email = "henriks@gmail.com";
+
         [Test]
         public void TestEmail_MessageIsSent()
         {
-            Sut.Execute();
+            Execute();
 
-            GetMock<IMessageSender>().Verify(o => o.Send("henriks@gmail.com", It.IsAny<string>(), It.IsAny<string>()));
+            GetMock<IMessageSender>().Verify(o => o.Send(Email, It.IsAny<string>(), It.IsAny<string>()));
         }
 
-        private TestEmailInteractor Sut
+        [Test]
+        public void TestEmail_EmailIsSet()
         {
-            get { return new TestEmailInteractor(GetMock<IMessageSender>().Object); }
+            var result = Execute();
+
+            Assert.AreEqual(Email, result.Email);
+        }
+
+        private TestEmailResult Execute()
+        {
+            return TestEmailInteractor.Execute(GetMock<IMessageSender>().Object);
         }
     }
 }

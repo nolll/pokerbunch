@@ -209,7 +209,6 @@
     <Compile Include="UseCases\EditUserForm\EditUserFormInteractor.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />
-    <Compile Include="UseCases\EditUserForm\IEditUserFormInteractor.cs" />
     <Compile Include="UseCases\Home\HomeInteractor.cs" />
     <Compile Include="UseCases\Home\HomeResult.cs" />
     <Compile Include="UseCases\Home\IHomeInteractor.cs" />
@@ -254,7 +253,6 @@
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
-    <Compile Include="UseCases\TestEmail\ITestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
     <Compile Include="UseCases\UserDetails\IUserDetailsInteractor.cs" />

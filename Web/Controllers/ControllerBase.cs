@@ -9,7 +9,7 @@ namespace Web.Controllers
     {
         protected DependencyContainer UseCase
         {
-            get { return new DependencyContainer(); }
+            get { return DependencyContainer.Instance; }
         }
 
         protected void AddModelErrors(IEnumerable<string> errors)

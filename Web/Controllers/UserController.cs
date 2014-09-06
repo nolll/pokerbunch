@@ -21,20 +21,17 @@ namespace Web.Controllers
 	    private readonly IUserDetailsInteractor _userDetailsInteractor;
 	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
-	    private readonly IEditUserFormInteractor _editUserFormInteractor;
 
 	    public UserController(
             IAppContextInteractor appContextInteractor,
             IUserDetailsInteractor userDetailsInteractor,
             IUserListInteractor userListInteractor,
-            IUserCommandProvider userCommandProvider,
-            IEditUserFormInteractor editUserFormInteractor)
+            IUserCommandProvider userCommandProvider)
 	    {
 	        _appContextInteractor = appContextInteractor;
 	        _userDetailsInteractor = userDetailsInteractor;
 	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
-	        _editUserFormInteractor = editUserFormInteractor;
 	    }
 
         [Authorize]
@@ -190,7 +187,7 @@ namespace Web.Controllers
 	    private EditUserPageModel BuildEditModel(string userName, EditUserPostModel postModel = null)
 	    {
 	        var contextResult = _appContextInteractor.Execute();
-            var editUserFormResult = _editUserFormInteractor.Execute(new EditUserFormRequest(userName));
+            var editUserFormResult = UseCase.EditUserForm(new EditUserFormRequest(userName));
 	        return new EditUserPageModel(contextResult, editUserFormResult, postModel);
 	    }
     }

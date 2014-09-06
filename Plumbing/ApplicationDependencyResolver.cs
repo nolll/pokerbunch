@@ -133,8 +133,6 @@ namespace Plumbing
             RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
             RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
             RegisterComponent<IInvitePlayerInteractor, InvitePlayerInteractor>();
-            RegisterComponent<IEditUserFormInteractor, EditUserFormInteractor>();
-            RegisterComponent<ITestEmailInteractor, TestEmailInteractor>();
         }
     }
 }
