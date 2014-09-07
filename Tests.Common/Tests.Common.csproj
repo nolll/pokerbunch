@@ -54,8 +54,6 @@
     <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
     <Compile Include="FakeClasses\CheckpointInTest.cs" />
     <Compile Include="FakeClasses\TopListResultInTest.cs" />
-    <Compile Include="FakeInteractors\CashgameContextInteractorInTest.cs" />
-    <Compile Include="FakeInteractors\TopListInteractorInTest.cs" />
     <Compile Include="FakeClasses\MoneyInTest.cs" />
     <Compile Include="FakeClasses\TimeInTest.cs" />
     <Compile Include="MockContainer.cs" />

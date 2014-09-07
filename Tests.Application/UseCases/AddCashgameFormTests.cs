@@ -16,7 +16,7 @@ namespace Tests.Application.UseCases
         public void AddCashgameOptions_ReturnsResultObject()
         {
             const string slug = "a";
-            var result = Sut.Execute(new AddCashgameFormRequest(slug));
+            var result = Execute(new AddCashgameFormRequest(slug));
 
             Assert.IsInstanceOf<AddCashgameFormResult>(result);
         }
@@ -28,7 +28,7 @@ namespace Tests.Application.UseCases
 
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(new CashgameInTest());
 
-            Assert.Throws<CashgameRunningException>(() => Sut.Execute(new AddCashgameFormRequest(slug)));
+            Assert.Throws<CashgameRunningException>(() => Execute(new AddCashgameFormRequest(slug)));
         }
 
         [Test]
@@ -41,21 +41,19 @@ namespace Tests.Application.UseCases
             GetMock<ICashgameRepository>().Setup(o => o.GetLocations(It.IsAny<Bunch>())).Returns(locations);
 
             const string slug = "a";
-            var result = Sut.Execute(new AddCashgameFormRequest(slug));
+            var result = Execute(new AddCashgameFormRequest(slug));
 
             Assert.AreEqual(2, result.Locations.Count);
             Assert.AreEqual(location1, result.Locations[0]);
             Assert.AreEqual(location2, result.Locations[1]);
         }
 
-        private AddCashgameFormInteractor Sut
+        private AddCashgameFormResult Execute(AddCashgameFormRequest request)
         {
-            get
-            {
-                return new AddCashgameFormInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return AddCashgameFormInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                request);
         }
     }
 }

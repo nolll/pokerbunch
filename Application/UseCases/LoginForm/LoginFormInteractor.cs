@@ -1,8 +1,8 @@
 namespace Application.UseCases.LoginForm
 {
-    public class LoginFormInteractor : ILoginFormInteractor
+    public class LoginFormInteractor
     {
-        public LoginFormResult Execute(LoginFormRequest request)
+        public static LoginFormResult Execute(LoginFormRequest request)
         {
             return new LoginFormResult(request.ReturnUrl);
         }

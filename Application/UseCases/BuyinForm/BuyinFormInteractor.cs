@@ -2,23 +2,12 @@ using Core.Repositories;
 
 namespace Application.UseCases.BuyinForm
 {
-    public class BuyinFormInteractor : IBuyinFormInteractor
+    public static class BuyinFormInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-
-        public BuyinFormInteractor(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository)
+        public static BuyinFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, BuyinFormRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-        }
-
-        public BuyinFormResult Execute(BuyinFormRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var runningGame = _cashgameRepository.GetRunning(homegame.Id);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var runningGame = cashgameRepository.GetRunning(homegame.Id);
             var canEnterStack = runningGame.IsInGame(request.PlayerId);
 
             return new BuyinFormResult(homegame.DefaultBuyin, canEnterStack);

@@ -21,7 +21,7 @@ namespace Tests.Application.UseCases
             var totalResult1 = new CashgameTotalResultBuilder().Build();
             SetupSuite(totalResult1);
             
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(1, result.Items.Count);
             Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
@@ -47,7 +47,7 @@ namespace Tests.Application.UseCases
 
             SetupSuite(totalResult1);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(1, result.Items[0].Rank);
             Assert.AreEqual(2, result.Items[0].Buyin.Amount);
@@ -73,7 +73,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithWinnings(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].Winnings.Amount);
             Assert.AreEqual(low, result.Items[1].Winnings.Amount);
@@ -91,7 +91,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithBuyin(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].Buyin.Amount);
             Assert.AreEqual(low, result.Items[1].Buyin.Amount);
@@ -109,7 +109,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithCashout(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].Cashout.Amount);
             Assert.AreEqual(low, result.Items[1].Cashout.Amount);
@@ -127,7 +127,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithMinutesPlayed(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].TimePlayed.Minutes);
             Assert.AreEqual(low, result.Items[1].TimePlayed.Minutes);
@@ -145,7 +145,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithGamesPlayed(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].GamesPlayed);
             Assert.AreEqual(low, result.Items[1].GamesPlayed);
@@ -163,7 +163,7 @@ namespace Tests.Application.UseCases
             var totalResult2 = new CashgameTotalResultBuilder().WithWinRate(high).Build();
             SetupSuite(totalResult1, totalResult2);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(high, result.Items[0].WinRate.Amount);
             Assert.AreEqual(low, result.Items[1].WinRate.Amount);
@@ -186,14 +186,9 @@ namespace Tests.Application.UseCases
             return new CashgameSuiteInTest(totalResults: totalResultList);
         }
 
-        private TopListInteractor Sut
+        private TopListResult Execute(TopListRequest request)
         {
-            get
-            {
-                return new TopListInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameService>().Object);
-            }
+            return TopListInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameService>().Object, request);
         }
     }
 }

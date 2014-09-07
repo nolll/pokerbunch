@@ -1,42 +1,29 @@
-﻿using Application.Services;
+﻿using System;
+using Application.Services;
 using Application.UseCases.AppContext;
 using Core.Entities;
 using Core.Repositories;
 
 namespace Application.UseCases.BunchContext
 {
-    public class BunchContextInteractor : IBunchContextInteractor
+    public class BunchContextInteractor
     {
-        private readonly IAppContextInteractor _appContextInteractor;
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IAuth _auth;
-
-        public BunchContextInteractor(
-            IAppContextInteractor appContextInteractor,
-            IBunchRepository bunchRepository,
-            IAuth auth)
+        public static BunchContextResult Execute(Func<AppContextResult> appContext, IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
         {
-            _appContextInteractor = appContextInteractor;
-            _bunchRepository = bunchRepository;
-            _auth = auth;
-        }
+            var appContextResult = appContext();
 
-        public BunchContextResult Execute(BunchContextRequest request)
-        {
-            var appContextResult = _appContextInteractor.Execute();
-
-            var homegame = GetBunch(request);
+            var homegame = GetBunch(bunchRepository, auth, request);
             
             if(homegame == null)
                 return new BunchContextResult(appContextResult);
             return new BunchContextResult(appContextResult, homegame.Slug, homegame.Id, homegame.DisplayName);
         }
 
-        private Bunch GetBunch(BunchContextRequest request)
+        private static Bunch GetBunch(IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
         {
             if (request.HasSlug)
-                return _bunchRepository.GetBySlug(request.Slug);
-            var bunches = _bunchRepository.GetByUser(_auth.CurrentUser);
+                return bunchRepository.GetBySlug(request.Slug);
+            var bunches = bunchRepository.GetByUser(auth.CurrentUser);
             return bunches.Count == 1 ? bunches[0] : null;
         }
     }

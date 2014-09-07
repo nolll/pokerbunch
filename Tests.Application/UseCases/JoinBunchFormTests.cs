@@ -19,18 +19,16 @@ namespace Tests.Application.UseCases
             
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(BunchName, result.BunchName);
         }
 
-        private JoinBunchFormInteractor Sut
+        private JoinBunchFormResult Execute(JoinBunchFormRequest request)
         {
-            get
-            {
-                return new JoinBunchFormInteractor(
-                    GetMock<IBunchRepository>().Object);
-            }
+            return JoinBunchFormInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                request);
         }
     }
 }

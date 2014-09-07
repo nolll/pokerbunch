@@ -1,9 +1,7 @@
 using System.Web.Mvc;
 using Application.Urls;
-using Application.UseCases.AppContext;
 using Application.UseCases.EditUserForm;
 using Application.UseCases.UserDetails;
-using Application.UseCases.UserList;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels;
 using Web.Models.UserModels.Add;
@@ -17,20 +15,11 @@ namespace Web.Controllers
 {
 	public class UserController : ControllerBase
     {
-	    private readonly IAppContextInteractor _appContextInteractor;
-	    private readonly IUserDetailsInteractor _userDetailsInteractor;
-	    private readonly IUserListInteractor _userListInteractor;
 	    private readonly IUserCommandProvider _userCommandProvider;
 
 	    public UserController(
-            IAppContextInteractor appContextInteractor,
-            IUserDetailsInteractor userDetailsInteractor,
-            IUserListInteractor userListInteractor,
             IUserCommandProvider userCommandProvider)
 	    {
-	        _appContextInteractor = appContextInteractor;
-	        _userDetailsInteractor = userDetailsInteractor;
-	        _userListInteractor = userListInteractor;
 	        _userCommandProvider = userCommandProvider;
 	    }
 
@@ -38,8 +27,8 @@ namespace Web.Controllers
         [Route("-/user/details/{userName}")]
         public ActionResult Details(string userName)
         {
-            var contextResult = _appContextInteractor.Execute();
-            var userDetailsResult = _userDetailsInteractor.Execute(new UserDetailsRequest(userName));
+            var contextResult = UseCase.AppContext();
+            var userDetailsResult = UseCase.UserDetails(new UserDetailsRequest(userName));
             var model = new UserDetailsPageModel(contextResult, userDetailsResult);
 			return View("Details", model);
 		}
@@ -48,8 +37,8 @@ namespace Web.Controllers
         [Route("-/user/list")]
         public ActionResult List()
         {
-            var contextResult = _appContextInteractor.Execute();
-            var showUserListResult = _userListInteractor.Execute();
+            var contextResult = UseCase.AppContext();
+            var showUserListResult = UseCase.UserList();
             var model = new UserListPageModel(contextResult, showUserListResult);
 			return View("List/List", model);
 		}
@@ -78,7 +67,7 @@ namespace Web.Controllers
 	    [Route("-/user/created")]
         public ActionResult Created()
 		{
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
             var model = new AddUserConfirmationPageModel(contextResult);
 			return View("Add/Confirmation", model);
 		}
@@ -132,7 +121,7 @@ namespace Web.Controllers
 	    [Route("-/user/changedpassword")]
         public ActionResult ChangedPassword()
         {
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
             var model = new ChangePasswordConfirmationPageModel(contextResult);
 			return View("ChangePassword/Confirmation", model);
 		}
@@ -161,32 +150,32 @@ namespace Web.Controllers
 	    [Route("-/user/passwordsent")]
         public ActionResult PasswordSent()
 		{
-            var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
             var model = new ForgotPasswordConfirmationPageModel(contextResult);
 			return View("ForgotPassword/Confirmation", model);
 		}
 
 	    private AddUserPageModel BuildAddModel(AddUserPostModel postModel = null)
 	    {
-	        var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
 	        return new AddUserPageModel(contextResult, postModel);
 	    }
 
 	    private ChangePasswordPageModel BuildChangePasswordModel()
 	    {
-	        var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
 	        return new ChangePasswordPageModel(contextResult);
 	    }
 
 	    private ForgotPasswordPageModel BuildForgotPasswordModel(ForgotPasswordPostModel postModel = null)
 	    {
-	        var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
 	        return new ForgotPasswordPageModel(contextResult, postModel);
 	    }
 
 	    private EditUserPageModel BuildEditModel(string userName, EditUserPostModel postModel = null)
 	    {
-	        var contextResult = _appContextInteractor.Execute();
+            var contextResult = UseCase.AppContext();
             var editUserFormResult = UseCase.EditUserForm(new EditUserFormRequest(userName));
 	        return new EditUserPageModel(contextResult, editUserFormResult, postModel);
 	    }

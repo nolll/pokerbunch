@@ -66,7 +66,7 @@ namespace Tests.Application.UseCases
 
         private EditUserFormResult Execute(EditUserFormRequest request)
         {
-            return EditUserFormInteractor.ExecuteStatic(GetMock<IUserRepository>().Object, request);
+            return EditUserFormInteractor.Execute(GetMock<IUserRepository>().Object, request);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
 
             var request = CreateRequest();
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
         }
@@ -34,7 +34,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
 
             var request = CreateRequest();
-            Sut.Execute(request);
+            Execute(request);
 
             GetMock<ICashgameRepository>().Verify(o => o.AddGame(It.IsAny<Bunch>(), It.IsAny<Cashgame>()));
         }
@@ -46,7 +46,7 @@ namespace Tests.Application.UseCases
 
             var request = CreateRequestWithoutLocation();
 
-            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -65,15 +65,10 @@ namespace Tests.Application.UseCases
             var homegame = new BunchInTest();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
-
-        private AddCashgameInteractor Sut
+        
+        private AddCashgameResult Execute(AddCashgameRequest request)
         {
-            get
-            {
-                return new AddCashgameInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return AddCashgameInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, request);
         }
     }
 }

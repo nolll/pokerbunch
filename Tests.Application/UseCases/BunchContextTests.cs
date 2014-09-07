@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Application.Services;
 using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
@@ -53,49 +55,38 @@ namespace Tests.Application.UseCases
         public void Execute_AppContextIsSet()
         {
             const string slug = "a";
-            var contextResult = new AppContextResultInTest();
             var cashgameContextRequest = new BunchContextRequest(slug);
 
-            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(contextResult);
-            
-            var result = Sut.Execute(cashgameContextRequest);
+            var result = Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<AppContextResult>(result.AppContext);
+        }
+
+        private BunchContextResult Execute(BunchContextRequest request)
+        {
+            return BunchContextInteractor.Execute(AppContextFunc, GetMock<IBunchRepository>().Object, GetMock<IAuth>().Object, request);
+        }
+
+        private AppContextResult AppContextFunc()
+        {
+            return new AppContextResultInTest();
         }
 
         private BunchContextResult GetResult(string slug = null)
         {
             var request = new BunchContextRequest(slug);
-            return Sut.Execute(request);
+            return Execute(request);
         }
 
         private void SetupHomegameBySlug(string slug)
         {
-            SetupAppContext();
             var homegame = ABunch.Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
         }
 
         private void SetupHomegameListByUser(IList<Bunch> homegameList)
         {
-            SetupAppContext();
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
-        }
-
-        private void SetupAppContext()
-        {
-            GetMock<IAppContextInteractor>().Setup(o => o.Execute()).Returns(new AppContextResultInTest());
-        }
-
-        private BunchContextInteractor Sut
-        {
-            get
-            {
-                return new BunchContextInteractor(
-                    GetMock<IAppContextInteractor>().Object,
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IAuth>().Object);
-            }
         }
     }
 }

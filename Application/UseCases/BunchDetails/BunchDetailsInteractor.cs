@@ -5,27 +5,16 @@ using Core.Repositories;
 
 namespace Application.UseCases.BunchDetails
 {
-    public class BunchDetailsInteractor : IBunchDetailsInteractor
+    public static class BunchDetailsInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IAuth _auth;
-
-        public BunchDetailsInteractor(
-            IBunchRepository bunchRepository,
-            IAuth auth)
+        public static BunchDetailsResult Execute(IBunchRepository bunchRepository, IAuth auth, BunchDetailsRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _auth = auth;
-        }
-
-        public BunchDetailsResult Execute(BunchDetailsRequest request)
-        {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var editBunchUrl = new EditBunchUrl(bunch.Slug);
-            var canEdit = _auth.IsInRole(bunch.Slug, Role.Manager);
+            var canEdit = auth.IsInRole(bunch.Slug, Role.Manager);
 
             return new BunchDetailsResult(bunchName, description, houseRules, editBunchUrl, canEdit);
         }

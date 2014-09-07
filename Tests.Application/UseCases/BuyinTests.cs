@@ -28,7 +28,7 @@ namespace Tests.Application.UseCases
         {
             var request = new BuyinRequest(Slug, PlayerId, InvalidBuyin, ValidStack);
 
-            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -37,7 +37,7 @@ namespace Tests.Application.UseCases
         {
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, InvalidStack);
 
-            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -57,7 +57,7 @@ namespace Tests.Application.UseCases
                 Callback((Cashgame cashgame, Player player, Checkpoint c) => result = c);
 
             var request = new BuyinRequest(Slug, PlayerId, buyin, stack);
-            Sut.Execute(request);
+            Execute(request);
             
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
@@ -70,7 +70,7 @@ namespace Tests.Application.UseCases
             SetupCashgameThatIsntStarted();
 
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
-            Sut.Execute(request);
+            Execute(request);
 
             GetMock<ICheckpointRepository>().Verify(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<BuyinCheckpoint>()));
             GetMock<ICashgameRepository>().Verify(o => o.StartGame(It.IsAny<Cashgame>()));
@@ -82,7 +82,7 @@ namespace Tests.Application.UseCases
             SetupCashgame();
 
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
         }
@@ -103,16 +103,16 @@ namespace Tests.Application.UseCases
         {
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(cashgame);
         }
-
-        private BuyinInteractor Sut
+        
+        private BuyinResult Execute(BuyinRequest request)
         {
-            get { return new BuyinInteractor(
+            return BuyinInteractor.Execute(
                 GetMock<IBunchRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<ICheckpointRepository>().Object,
-                GetMock<ITimeProvider>().Object);
-            }
+                GetMock<ITimeProvider>().Object,
+                request);
         }
     }
 }

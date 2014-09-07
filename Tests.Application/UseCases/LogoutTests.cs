@@ -11,7 +11,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void Logout_SignsOut()
         {
-            Sut.Execute();
+            Execute();
 
             GetMock<IAuth>().Verify(o => o.SignOut());
         }
@@ -19,15 +19,14 @@ namespace Tests.Application.UseCases
         [Test]
         public void Logout_ReturnUrlIsSet()
         {
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.IsInstanceOf<HomeUrl>(result.ReturnUrl);
         }
 
-        private LogoutInteractor Sut
+        private LogoutResult Execute()
         {
-            get { return new LogoutInteractor(
-                GetMock<IAuth>().Object); }
+            return LogoutInteractor.Execute(GetMock<IAuth>().Object);
         }
     }
 }

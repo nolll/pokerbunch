@@ -1,16 +1,7 @@
 using System;
 using System.Web.Mvc;
-using Application.UseCases.Actions;
-using Application.UseCases.AddCashgame;
-using Application.UseCases.AddCashgameForm;
-using Application.UseCases.BunchContext;
-using Application.UseCases.Buyin;
-using Application.UseCases.BuyinForm;
-using Application.UseCases.CashgameDetails;
-using Application.UseCases.CashgameFacts;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeInteractors;
 using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
@@ -49,26 +40,16 @@ namespace Tests.Web.ControllerTests
         private CashgameController GetSut()
         {
             return new CashgameController(
-                GetMock<IBunchContextInteractor>().Object,
-                GetMock<IAddCashgameFormInteractor>().Object,
                 GetMock<ICashgameCommandProvider>().Object,
                 GetMock<IMatrixPageBuilder>().Object,
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,
-                GetMock<IAddCashgameInteractor>().Object,
                 GetMock<IEditCashgamePageBuilder>().Object,
                 GetMock<IRunningCashgamePageBuilder>().Object,
                 GetMock<ICashgameListPageBuilder>().Object,
                 GetMock<ICashgameChartPageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
                 GetMock<IActionChartJsonBuilder>().Object,
-                GetMock<IEditCheckpointPageBuilder>().Object,
-                new CashgameContextInteractorInTest(),
-                new TopListInteractorInTest(),
-                GetMock<ICashgameFactsInteractor>().Object,
-                GetMock<IActionsInteractor>().Object,
-                GetMock<ICashgameDetailsInteractor>().Object,
-                GetMock<IBuyinFormInteractor>().Object,
-                GetMock<IBuyinInteractor>().Object);
+                GetMock<IEditCheckpointPageBuilder>().Object);
         }
 	}
 }

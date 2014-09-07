@@ -7,45 +7,33 @@ using Core.Repositories;
 
 namespace Application.UseCases.CashgameDetails
 {
-    public class CashgameDetailsInteractor : ICashgameDetailsInteractor
+    public static class CashgameDetailsInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IAuth _auth;
-        private readonly IPlayerRepository _playerRepository;
-
-        public CashgameDetailsInteractor(
+        public static CashgameDetailsResult Execute(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IAuth auth,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            CashgameDetailsRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _auth = auth;
-            _playerRepository = playerRepository;
-        }
-
-        public CashgameDetailsResult Execute(CashgameDetailsRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, request.DateStr);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var cashgame = cashgameRepository.GetByDateString(homegame, request.DateStr);
 
             if (cashgame == null)
             {
                 throw new CashgameNotFoundException();
             }
             
-            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
-            var players = GetPlayers(cashgame);
+            var isManager = auth.IsInRole(request.Slug, Role.Manager);
+            var players = GetPlayers(playerRepository, cashgame);
             
             return new CashgameDetailsResult(homegame, cashgame, players, isManager);
         }
 
-        private IEnumerable<Player> GetPlayers(Cashgame cashgame)
+        private static IEnumerable<Player> GetPlayers(IPlayerRepository playerRepository, Cashgame cashgame)
         {
             var playerIds = cashgame.Results.Select(o => o.PlayerId).ToList();
-            return _playerRepository.GetList(playerIds);
+            return playerRepository.GetList(playerIds);
         }
     }
 }

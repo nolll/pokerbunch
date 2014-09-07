@@ -4,27 +4,17 @@ using Core.Repositories;
 
 namespace Application.UseCases.PlayerList
 {
-    public class PlayerListInteractor : IPlayerListInteractor
+    public static class PlayerListInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IAuth _auth;
-
-        public PlayerListInteractor(
+        public static PlayerListResult Execute(
             IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
-            IAuth auth)
+            IAuth auth,
+            PlayerListRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
-            _auth = auth;
-        }
-
-        public PlayerListResult Execute(PlayerListRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var players = _playerRepository.GetList(homegame);
-            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var players = playerRepository.GetList(homegame);
+            var isManager = auth.IsInRole(request.Slug, Role.Manager);
 
             return new PlayerListResult(homegame, players, isManager);
         }

@@ -4,23 +4,12 @@ using Core.Services.Interfaces;
 
 namespace Application.UseCases.CashgameTopList
 {
-    public class TopListInteractor : ITopListInteractor
+    public static class TopListInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameService _cashgameService;
-
-        public TopListInteractor(
-            IBunchRepository bunchRepository,
-            ICashgameService cashgameService)
+        public static TopListResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, TopListRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameService = cashgameService;
-        }
-
-        public TopListResult Execute(TopListRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var suite = _cashgameService.GetSuite(homegame, request.Year);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var suite = cashgameService.GetSuite(homegame, request.Year);
 
             var sortedResults = suite.TotalResults.OrderByDescending(o => o.Winnings);
             var items = sortedResults.Select((o, index) => new TopListItem(o, index, homegame.Currency)).ToList();

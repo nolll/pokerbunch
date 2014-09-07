@@ -2,18 +2,11 @@
 
 namespace Application.UseCases.UserList
 {
-    public class UserListInteractor : IUserListInteractor
+    public static  class UserListInteractor
     {
-        private readonly IUserRepository _userRepository;
-
-        public UserListInteractor(IUserRepository userRepository)
+        public static UserListResult Execute(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
-        }
-
-        public UserListResult Execute()
-        {
-            var users = _userRepository.GetList();
+            var users = userRepository.GetList();
 
             return new UserListResult(users);
         }

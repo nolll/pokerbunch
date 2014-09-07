@@ -1,12 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Application.Urls;
-using Application.UseCases.BunchContext;
-using Application.UseCases.InvitePlayer;
-using Application.UseCases.PlayerBadges;
-using Application.UseCases.PlayerDetails;
-using Application.UseCases.PlayerFacts;
-using Application.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeCommands;
@@ -72,12 +66,6 @@ namespace Tests.Web.ControllerTests
         private PlayerController GetSut()
         {
 			return new PlayerController(
-                GetMock<IBunchContextInteractor>().Object,
-                GetMock<IPlayerDetailsInteractor>().Object,
-                GetMock<IPlayerFactsInteractor>().Object,
-                GetMock<IPlayerBadgesInteractor>().Object,
-                GetMock<IPlayerListInteractor>().Object,
-                GetMock<IInvitePlayerInteractor>().Object,
                 GetMock<IPlayerCommandProvider>().Object);
 		}
 	}

@@ -17,7 +17,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(BunchName, result.BunchName);
         }
@@ -27,7 +27,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<BunchDetailsUrl>(result.BunchDetailsUrl);
         }
@@ -43,13 +43,11 @@ namespace Tests.Application.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
-        private JoinBunchConfirmationInteractor Sut
+        private JoinBunchConfirmationResult Execute(JoinBunchConfirmationRequest request)
         {
-            get
-            {
-                return new JoinBunchConfirmationInteractor(
-                    GetMock<IBunchRepository>().Object);
-            }
+            return JoinBunchConfirmationInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                request);
         }
     }
 }

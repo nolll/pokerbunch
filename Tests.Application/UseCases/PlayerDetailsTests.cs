@@ -23,7 +23,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual("b", result.DisplayName);
         }
@@ -34,7 +34,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<DeletePlayerUrl>(result.DeleteUrl);
         }
@@ -45,7 +45,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<InvitePlayerUrl>(result.InvitationUrl);
         }
@@ -56,7 +56,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -67,7 +67,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayerAndUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             const string expected = "http://www.gravatar.com/avatar/4a8a08f09d37b73795649038408b5f33?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
@@ -79,7 +79,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -90,7 +90,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayerAndUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<UserUrl>(result.UserUrl);
         }
@@ -101,7 +101,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayer();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.IsUser);
         }
@@ -112,7 +112,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayerAndUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.IsUser);
         }
@@ -123,7 +123,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupPlayerAndUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanDelete);
         }
@@ -135,7 +135,7 @@ namespace Tests.Application.UseCases
             SetupPlayerAndUser();
             SetupManager();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanDelete);
         }
@@ -148,7 +148,7 @@ namespace Tests.Application.UseCases
             SetupManager();
             SetupPlayedCashgames();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanDelete);
         }
@@ -200,18 +200,16 @@ namespace Tests.Application.UseCases
         {
             GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(PlayerId)).Returns(true);
         }
-
-        private PlayerDetailsInteractor Sut
+        
+        private PlayerDetailsResult Execute(PlayerDetailsRequest request)
         {
-            get
-            {
-                return new PlayerDetailsInteractor(
-                    GetMock<IAuth>().Object,
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IPlayerRepository>().Object,
-                    GetMock<ICashgameRepository>().Object,
-                    GetMock<IUserRepository>().Object);
-            }
+            return PlayerDetailsInteractor.Execute(
+                GetMock<IAuth>().Object,
+                GetMock<IBunchRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IUserRepository>().Object,
+                request);
         }
     }
 }

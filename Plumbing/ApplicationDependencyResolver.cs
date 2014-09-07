@@ -1,36 +1,5 @@
 ﻿using Application.Factories;
 using Application.Services;
-using Application.UseCases.Actions;
-using Application.UseCases.AddBunchForm;
-using Application.UseCases.AddCashgame;
-using Application.UseCases.AddCashgameForm;
-using Application.UseCases.AppContext;
-using Application.UseCases.BaseContext;
-using Application.UseCases.BunchContext;
-using Application.UseCases.BunchDetails;
-using Application.UseCases.BunchList;
-using Application.UseCases.Buyin;
-using Application.UseCases.BuyinForm;
-using Application.UseCases.CashgameContext;
-using Application.UseCases.CashgameDetails;
-using Application.UseCases.CashgameFacts;
-using Application.UseCases.CashgameTopList;
-using Application.UseCases.EditBunchForm;
-using Application.UseCases.EditUserForm;
-using Application.UseCases.Home;
-using Application.UseCases.InvitePlayer;
-using Application.UseCases.JoinBunchConfirmation;
-using Application.UseCases.JoinBunchForm;
-using Application.UseCases.Login;
-using Application.UseCases.LoginForm;
-using Application.UseCases.Logout;
-using Application.UseCases.PlayerBadges;
-using Application.UseCases.PlayerDetails;
-using Application.UseCases.PlayerFacts;
-using Application.UseCases.PlayerList;
-using Application.UseCases.TestEmail;
-using Application.UseCases.UserDetails;
-using Application.UseCases.UserList;
 using Castle.Core;
 using Castle.Windsor;
 using Core.Factories;
@@ -102,37 +71,6 @@ namespace Plumbing
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
             RegisterComponent<IPasswordSender, PasswordSender>();
             RegisterComponent<ICashgameService, CashgameService>();
-
-            // Use Cases
-            RegisterComponent<IBaseContextInteractor, BaseContextInteractor>();
-            RegisterComponent<IAppContextInteractor, AppContextInteractor>();
-            RegisterComponent<IBunchContextInteractor, BunchContextInteractor>();
-            RegisterComponent<ICashgameContextInteractor, CashgameContextInteractor>();
-            RegisterComponent<IUserListInteractor, UserListInteractor>();
-            RegisterComponent<IBunchListInteractor, BunchListInteractor>();
-            RegisterComponent<IPlayerListInteractor, PlayerListInteractor>();
-            RegisterComponent<ITopListInteractor, TopListInteractor>();
-            RegisterComponent<ICashgameFactsInteractor, CashgameFactsInteractor>();
-            RegisterComponent<IActionsInteractor, ActionsInteractor>();
-            RegisterComponent<IAddCashgameFormInteractor, AddCashgameFormInteractor>();
-            RegisterComponent<IPlayerDetailsInteractor, PlayerDetailsInteractor>();
-            RegisterComponent<IPlayerFactsInteractor, PlayerFactsInteractor>();
-            RegisterComponent<IPlayerBadgesInteractor, PlayerBadgesInteractor>();
-            RegisterComponent<IUserDetailsInteractor, UserDetailsInteractor>();
-            RegisterComponent<ICashgameDetailsInteractor, CashgameDetailsInteractor>();
-            RegisterComponent<IAddCashgameInteractor, AddCashgameInteractor>();
-            RegisterComponent<IBuyinFormInteractor, BuyinFormInteractor>();
-            RegisterComponent<IBuyinInteractor, BuyinInteractor>();
-            RegisterComponent<ILoginFormInteractor, LoginFormInteractor>();
-            RegisterComponent<ILoginInteractor, LoginInteractor>();
-            RegisterComponent<ILogoutInteractor, LogoutInteractor>();
-            RegisterComponent<IHomeInteractor, HomeInteractor>();
-            RegisterComponent<IAddBunchFormInteractor, AddBunchFormInteractor>();
-            RegisterComponent<IJoinBunchFormInteractor, JoinBunchFormInteractor>();
-            RegisterComponent<IJoinBunchConfirmationInteractor, JoinBunchConfirmationInteractor>();
-            RegisterComponent<IBunchDetailsInteractor, BunchDetailsInteractor>();
-            RegisterComponent<IEditBunchFormInteractor, EditBunchFormInteractor>();
-            RegisterComponent<IInvitePlayerInteractor, InvitePlayerInteractor>();
         }
     }
 }

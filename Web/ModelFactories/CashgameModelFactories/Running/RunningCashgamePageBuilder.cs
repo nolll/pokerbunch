@@ -4,6 +4,7 @@ using Application.Urls;
 using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
+using Plumbing;
 using Web.Models.CashgameModels.Running;
 
 namespace Web.ModelFactories.CashgameModelFactories.Running
@@ -15,22 +16,19 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchContextInteractor _contextInteractor;
 
         public RunningCashgamePageBuilder(
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
             IAuth auth,
             IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
-            ICashgameRepository cashgameRepository,
-            IBunchContextInteractor contextInteractor)
+            ICashgameRepository cashgameRepository)
         {
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _auth = auth;
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _contextInteractor = contextInteractor;
         }
 
         public RunningCashgamePageModel Build(string slug)
@@ -45,7 +43,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = DependencyContainer.Instance.BunchContext(new BunchContextRequest(slug));
 
             return new RunningCashgamePageModel(contextResult)
                 {

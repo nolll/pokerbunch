@@ -30,7 +30,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupCashgame(cashgame);
             
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(dateStr, result.Date.IsoString);
             Assert.AreEqual(location, result.Location);
@@ -51,7 +51,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupCashgameWithResults();
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
@@ -66,7 +66,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupCashgameWithResults();
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual("c", result.PlayerItems[0].Name);
             Assert.IsInstanceOf<CashgameActionUrl>(result.PlayerItems[0].PlayerUrl);
@@ -82,7 +82,7 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             var request = new CashgameDetailsRequest(slug, "2000-01-01");
 
-            Assert.Throws<CashgameNotFoundException>(() => Sut.Execute(request));
+            Assert.Throws<CashgameNotFoundException>(() => Execute(request));
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Tests.Application.UseCases
             SetupCashgame(cashgame);
             SetupManager();
             
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -137,16 +137,14 @@ namespace Tests.Application.UseCases
             GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
         }
 
-        private CashgameDetailsInteractor Sut
+        private CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
-            get
-            {
-                return new CashgameDetailsInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object,
-                    GetMock<IAuth>().Object,
-                    GetMock<IPlayerRepository>().Object);
-            }
+            return CashgameDetailsInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IAuth>().Object,
+                GetMock<IPlayerRepository>().Object,
+                request);
         }
     }
 }

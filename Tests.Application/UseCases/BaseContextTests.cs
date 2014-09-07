@@ -12,7 +12,7 @@ namespace Tests.Application.UseCases
         {
             SetupDevServer();
 
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.IsNotEmpty(result.Version);
         }
@@ -22,7 +22,7 @@ namespace Tests.Application.UseCases
         {
             SetupDevServer();
 
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.IsFalse(result.IsInProduction);
         }
@@ -32,9 +32,14 @@ namespace Tests.Application.UseCases
         {
             SetupProductionServer();
 
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.IsTrue(result.IsInProduction);
+        }
+
+        private BaseContextResult Execute()
+        {
+            return BaseContextInteractor.Execute(GetMock<IWebContext>().Object);
         }
 
         private void SetupDevServer()
@@ -50,14 +55,6 @@ namespace Tests.Application.UseCases
         private void SetupServer(string serverName)
         {
             GetMock<IWebContext>().Setup(o => o.Host).Returns(serverName);
-        }
-
-        private BaseContextInteractor Sut
-        {
-            get {
-                return new BaseContextInteractor(
-                    GetMock<IWebContext>().Object);
-            }
         }
     }
 }

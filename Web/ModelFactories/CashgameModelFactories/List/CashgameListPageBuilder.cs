@@ -2,6 +2,7 @@
 using Application.Services;
 using Application.UseCases.CashgameContext;
 using Core.Repositories;
+using Plumbing;
 using Web.Models.CashgameModels.List;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
@@ -12,20 +13,17 @@ namespace Web.ModelFactories.CashgameModelFactories.List
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IWebContext _webContext;
-        private readonly ICashgameContextInteractor _contextInteractor;
 
         public CashgameListPageBuilder(
             ICashgameListTableModelFactory cashgameListTableModelFactory,
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
-            IWebContext webContext,
-            ICashgameContextInteractor contextInteractor)
+            IWebContext webContext)
         {
             _cashgameListTableModelFactory = cashgameListTableModelFactory;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _webContext = webContext;
-            _contextInteractor = contextInteractor;
         }
 
         public CashgameListPageModel Build(string slug, int? year)
@@ -34,7 +32,7 @@ namespace Web.ModelFactories.CashgameModelFactories.List
             var cashgames = _cashgameRepository.GetPublished(homegame, year);
             var sortOrder = GetListSortOrder();
 
-            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.List));
+            var contextResult = DependencyContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.List));
 
             return new CashgameListPageModel(contextResult)
                 {

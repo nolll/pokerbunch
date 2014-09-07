@@ -2,31 +2,21 @@
 
 namespace Application.UseCases.BaseContext
 {
-    public class BaseContextInteractor : IBaseContextInteractor
+    public class BaseContextInteractor
     {
-        private readonly IWebContext _webContext;
-
-        public BaseContextInteractor(IWebContext webContext)
-        {
-            _webContext = webContext;
-        }
-
-        public BaseContextResult Execute()
+        public static BaseContextResult Execute(IWebContext webContext)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             return new BaseContextResult(
-                IsInProduction,
+                IsInProduction(webContext),
                 version);
         }
 
-        private bool IsInProduction
+        private static bool IsInProduction(IWebContext webContext)
         {
-            get
-            {
-                var host = _webContext.Host;
-                return host.Contains("pokerbunch.com");
-            }
+            var host = webContext.Host;
+            return host.Contains("pokerbunch.com");
         }
     }
 }

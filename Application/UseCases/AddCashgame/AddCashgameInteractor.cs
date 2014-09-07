@@ -5,35 +5,24 @@ using Core.Repositories;
 
 namespace Application.UseCases.AddCashgame
 {
-    public class AddCashgameInteractor : IAddCashgameInteractor
+    public static class AddCashgameInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-
-        public AddCashgameInteractor(
-            IBunchRepository bunchRepository, 
-            ICashgameRepository cashgameRepository)
-        {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-        }
-
-        public AddCashgameResult Execute(AddCashgameRequest request)
+        public static AddCashgameResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, AddCashgameRequest request)
         {
             var validator = new Validator(request);
 
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            AddGame(request);
+            AddGame(bunchRepository, cashgameRepository, request);
             return new AddCashgameResult(request.Slug);
         }
 
-        private void AddGame(AddCashgameRequest request)
+        private static void AddGame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, AddCashgameRequest request)
         {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
             var cashgame = CashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
-            _cashgameRepository.AddGame(homegame, cashgame);
+            cashgameRepository.AddGame(homegame, cashgame);
         }
     }
 }

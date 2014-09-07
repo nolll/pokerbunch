@@ -25,7 +25,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual("b Settings", result.Heading);
         }
@@ -35,7 +35,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<BunchDetailsUrl>(result.CancelUrl);
         }
@@ -45,7 +45,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(Description, result.Description);
         }
@@ -55,7 +55,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(HouseRules, result.HouseRules);
         }
@@ -65,7 +65,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(DefaultBuyin, result.DefaultBuyin);
         }
@@ -75,7 +75,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(TimeZoneId, result.TimeZoneId);
         }
@@ -85,7 +85,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(CurrencySymbol, result.CurrencySymbol);
         }
@@ -95,7 +95,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(CurrencyLayout, result.CurrencyLayout);
         }
@@ -105,7 +105,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(103, result.TimeZones.Count);
             Assert.AreEqual("Dateline Standard Time", result.TimeZones[0].Id);
@@ -119,7 +119,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(4, result.CurrencyLayouts.Count);
             Assert.AreEqual("{SYMBOL} {AMOUNT}", result.CurrencyLayouts[0]);
@@ -151,12 +151,11 @@ namespace Tests.Application.UseCases
             return new EditBunchFormRequest(Slug);
         }
 
-        private EditBunchFormInteractor Sut
+        private EditBunchFormResult Execute(EditBunchFormRequest request)
         {
-            get
-            {
-                return new EditBunchFormInteractor(GetMock<IBunchRepository>().Object);
-            }
+            return EditBunchFormInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                request);
         }
     }
 }

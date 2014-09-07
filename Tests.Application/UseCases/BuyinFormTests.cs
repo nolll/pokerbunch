@@ -22,7 +22,7 @@ namespace Tests.Application.UseCases
             SetupHomegame(defaultBuyin);
             SetupGameAndPlayer(PlayerIdInGame);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(defaultBuyin, result.BuyinAmount);
         }
@@ -33,7 +33,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupGameAndPlayer(PlayerIdOther);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanEnterStack);
         }
@@ -44,7 +44,7 @@ namespace Tests.Application.UseCases
             SetupHomegame();
             SetupGameAndPlayer(PlayerIdInGame);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEnterStack);
         }
@@ -68,14 +68,12 @@ namespace Tests.Application.UseCases
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(BunchId)).Returns(game);
         }
 
-        private BuyinFormInteractor Sut
+        private BuyinFormResult Execute(BuyinFormRequest request)
         {
-            get
-            {
-                return new BuyinFormInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return BuyinFormInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                request);
         }
     }
 }

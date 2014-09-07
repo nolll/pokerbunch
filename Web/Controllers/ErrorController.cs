@@ -1,23 +1,15 @@
 ﻿using System.Web.Mvc;
-using Application.UseCases.BaseContext;
 using Web.Models.ErrorModels;
 
 namespace Web.Controllers
 {
     [HandleError]
-    public class ErrorController : Controller
+    public class ErrorController : ControllerBase
     {
-        private readonly IBaseContextInteractor _contextInteractor;
-
-        public ErrorController(IBaseContextInteractor contextInteractor)
-        {
-            _contextInteractor = contextInteractor;
-        }
-
         [Route("-/error/notfound")]
         public ActionResult NotFound()
         {
-            var contextResult = _contextInteractor.Execute();
+            var contextResult = UseCase.BaseContext();
 
             var model = new Error404PageModel(contextResult);
             return View("Error", model);
@@ -26,7 +18,7 @@ namespace Web.Controllers
         [Route("-/error/servererror")]
         public ActionResult ServerError()
         {
-            var contextResult = _contextInteractor.Execute();
+            var contextResult = UseCase.BaseContext();
 
             var exception = Server.GetLastError();
             var message = exception != null ? exception.Message : "Unknown error";

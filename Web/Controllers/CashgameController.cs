@@ -37,12 +37,9 @@ namespace Web.Controllers
 {
 	public class CashgameController : ControllerBase
     {
-	    private readonly IBunchContextInteractor _bunchContextInteractor;
-	    private readonly IAddCashgameFormInteractor _addCashgameFormInteractor;
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 	    private readonly IMatrixPageBuilder _matrixPageBuilder;
 	    private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
-	    private readonly IAddCashgameInteractor _addCashgameInteractor;
 	    private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
 	    private readonly IRunningCashgamePageBuilder _runningCashgamePageBuilder;
 	    private readonly ICashgameListPageBuilder _cashgameListPageBuilder;
@@ -50,42 +47,22 @@ namespace Web.Controllers
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
 	    private readonly IEditCheckpointPageBuilder _editCheckpointPageBuilder;
-	    private readonly ICashgameContextInteractor _cashgameContextInteractor;
-	    private readonly ITopListInteractor _topListInteractor;
-	    private readonly ICashgameFactsInteractor _cashgameFactsInteractor;
-	    private readonly IActionsInteractor _actionsInteractor;
-	    private readonly ICashgameDetailsInteractor _cashgameDetailsInteractor;
-	    private readonly IBuyinFormInteractor _buyinFormInteractor;
-	    private readonly IBuyinInteractor _buyinInteractor;
 
 	    public CashgameController(
-            IBunchContextInteractor bunchContextInteractor,
-            IAddCashgameFormInteractor addCashgameFormInteractor,
             ICashgameCommandProvider cashgameCommandProvider,
             IMatrixPageBuilder matrixPageBuilder,
             ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder,
-            IAddCashgameInteractor addCashgameInteractor,
             IEditCashgamePageBuilder editCashgamePageBuilder,
             IRunningCashgamePageBuilder runningCashgamePageBuilder,
             ICashgameListPageBuilder cashgameListPageBuilder,
             ICashgameChartPageBuilder cashgameChartPageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
             IActionChartJsonBuilder actionChartJsonBuilder,
-            IEditCheckpointPageBuilder editCheckpointPageBuilder,
-            ICashgameContextInteractor cashgameContextInteractor,
-            ITopListInteractor topListInteractor,
-            ICashgameFactsInteractor cashgameFactsInteractor,
-            IActionsInteractor actionsInteractor,
-            ICashgameDetailsInteractor cashgameDetailsInteractor,
-            IBuyinFormInteractor buyinFormInteractor,
-            IBuyinInteractor buyinInteractor)
+            IEditCheckpointPageBuilder editCheckpointPageBuilder)
 	    {
-	        _bunchContextInteractor = bunchContextInteractor;
-	        _addCashgameFormInteractor = addCashgameFormInteractor;
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _matrixPageBuilder = matrixPageBuilder;
 	        _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
-	        _addCashgameInteractor = addCashgameInteractor;
 	        _editCashgamePageBuilder = editCashgamePageBuilder;
 	        _runningCashgamePageBuilder = runningCashgamePageBuilder;
 	        _cashgameListPageBuilder = cashgameListPageBuilder;
@@ -93,20 +70,13 @@ namespace Web.Controllers
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
 	        _editCheckpointPageBuilder = editCheckpointPageBuilder;
-	        _cashgameContextInteractor = cashgameContextInteractor;
-	        _topListInteractor = topListInteractor;
-	        _cashgameFactsInteractor = cashgameFactsInteractor;
-	        _actionsInteractor = actionsInteractor;
-	        _cashgameDetailsInteractor = cashgameDetailsInteractor;
-	        _buyinFormInteractor = buyinFormInteractor;
-	        _buyinInteractor = buyinInteractor;
 	    }
 
         [AuthorizePlayer]
         [Route("{slug}/cashgame/index")]
         public ActionResult Index(string slug)
         {
-            var result = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug));
+            var result = UseCase.CashgameContext(new CashgameContextRequest(slug));
             var url = GetIndexUrl(result);
             return Redirect(url.Relative);
 		}
@@ -123,8 +93,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/toplist/{year?}")]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Toplist));
-            var topListResult = _topListInteractor.Execute(new TopListRequest(slug, orderBy, year));
+            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Toplist));
+            var topListResult = UseCase.TopList(new TopListRequest(slug, orderBy, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("Toplist/ToplistPage", model);
 		}
@@ -133,8 +103,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/details/{dateStr}")]
         public ActionResult Details(string slug, string dateStr)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var cashgameDetailsResult = _cashgameDetailsInteractor.Execute(new CashgameDetailsRequest(slug, dateStr));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var cashgameDetailsResult = UseCase.CashgameDetails(new CashgameDetailsRequest(slug, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult);
 			return View("Details/DetailsPage", model);
 		}
@@ -151,8 +121,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/facts/{year?}")]
         public ActionResult Facts(string slug, int? year = null)
         {
-            var contextResult = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Facts));
-            var factsResult = _cashgameFactsInteractor.Execute(new CashgameFactsRequest(slug, year));
+            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Facts));
+            var factsResult = UseCase.CashgameFacts(new CashgameFactsRequest(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
 			return View("Facts/FactsPage", model);
@@ -175,7 +145,7 @@ namespace Web.Controllers
 
 	        try
 	        {
-	            var result = _addCashgameInteractor.Execute(request);
+	            var result = UseCase.AddCashgame(request);
                 return Redirect(result.ReturnUrl.Relative);
 	        }
 	        catch (ValidationException ex)
@@ -214,7 +184,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/running")]
         public ActionResult Running(string slug)
         {
-            var result = _cashgameContextInteractor.Execute(new CashgameContextRequest(slug));
+            var result = UseCase.CashgameContext(new CashgameContextRequest(slug));
             if(!result.GameIsRunning)
                 return Redirect(new CashgameIndexUrl(slug).Relative);
             var model = _runningCashgamePageBuilder.Build(slug);
@@ -249,8 +219,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/action/{dateStr}/{playerId:int}")]
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var actionsResult = _actionsInteractor.Execute(new ActionsRequest(slug, dateStr, playerId));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var actionsResult = UseCase.Actions(new ActionsRequest(slug, dateStr, playerId));
             var model = new ActionPageModel(contextResult, actionsResult);
 			return View("Action/Action", model);
 		}
@@ -280,7 +250,7 @@ namespace Web.Controllers
 
 	        try
 	        {
-                var result = _buyinInteractor.Execute(request);
+                var result = UseCase.Buyin(request);
                 return Redirect(result.ReturnUrl.Relative);
 	        }
 	        catch (ValidationException ex)
@@ -379,7 +349,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/end")]
         public ActionResult End(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new EndGamePageModel(contextResult);
 			return View("End/End", model);
 		}
@@ -412,27 +382,27 @@ namespace Web.Controllers
 
 	    private AddCashgamePageModel BuildAddModel(string slug, AddCashgamePostModel postModel = null)
 	    {
-	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-	        var optionsResult = _addCashgameFormInteractor.Execute(new AddCashgameFormRequest(slug));
+	        var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+	        var optionsResult = UseCase.AddCashgameForm(new AddCashgameFormRequest(slug));
 	        return new AddCashgamePageModel(contextResult, optionsResult, postModel);
 	    }
 
 	    private BuyinPageModel BuildBuyinModel(string slug, int playerId, BuyinPostModel postModel = null)
 	    {
-	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-	        var buyinFormResult = _buyinFormInteractor.Execute(new BuyinFormRequest(slug, playerId));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+	        var buyinFormResult = UseCase.BuyinForm(new BuyinFormRequest(slug, playerId));
 	        return new BuyinPageModel(contextResult, buyinFormResult, postModel);
 	    }
 
 	    private ReportPageModel BuildReportModel(string slug, ReportPostModel postModel = null)
 	    {
-	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
 	        return new ReportPageModel(contextResult, postModel);
 	    }
 
 	    private CashoutPageModel BuildCashoutModel(string slug, CashoutPostModel postModel = null)
 	    {
-	        var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
 	        return new CashoutPageModel(contextResult, postModel);
 	    }
     }

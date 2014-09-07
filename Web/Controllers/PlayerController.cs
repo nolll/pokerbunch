@@ -19,29 +19,11 @@ namespace Web.Controllers
 {
     public class PlayerController : ControllerBase
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
-        private readonly IPlayerDetailsInteractor _playerDetailsInteractor;
-        private readonly IPlayerFactsInteractor _playerFactsInteractor;
-        private readonly IPlayerBadgesInteractor _playerBadgesInteractor;
-        private readonly IPlayerListInteractor _playerListInteractor;
-        private readonly IInvitePlayerInteractor _invitePlayerInteractor;
         private readonly IPlayerCommandProvider _playerCommandProvider;
 
         public PlayerController(
-            IBunchContextInteractor bunchContextInteractor,
-            IPlayerDetailsInteractor playerDetailsInteractor,
-            IPlayerFactsInteractor playerFactsInteractor,
-            IPlayerBadgesInteractor playerBadgesInteractor,
-            IPlayerListInteractor playerListInteractor,
-            IInvitePlayerInteractor invitePlayerInteractor,
             IPlayerCommandProvider playerCommandProvider)
 	    {
-            _bunchContextInteractor = bunchContextInteractor;
-            _playerDetailsInteractor = playerDetailsInteractor;
-            _playerFactsInteractor = playerFactsInteractor;
-            _playerBadgesInteractor = playerBadgesInteractor;
-            _playerListInteractor = playerListInteractor;
-            _invitePlayerInteractor = invitePlayerInteractor;
             _playerCommandProvider = playerCommandProvider;
 	    }
 
@@ -49,8 +31,8 @@ namespace Web.Controllers
         [Route("{slug}/player/index")]
 	    public ActionResult Index(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var playerListResult = _playerListInteractor.Execute(new PlayerListRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var playerListResult = UseCase.PlayerList(new PlayerListRequest(slug));
             var model = new PlayerListPageModel(contextResult, playerListResult);
 			return View("List", model);
 		}
@@ -59,10 +41,10 @@ namespace Web.Controllers
         [Route("{slug}/player/details/{playerId:int}")]
         public ActionResult Details(string slug, int playerId)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
-            var detailsResult = _playerDetailsInteractor.Execute(new PlayerDetailsRequest(slug, playerId));
-            var factsResult = _playerFactsInteractor.Execute(new PlayerFactsRequest(slug, playerId));
-            var badgesResult = _playerBadgesInteractor.Execute(new PlayerBadgesRequest(slug, playerId));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var detailsResult = UseCase.PlayerDetails(new PlayerDetailsRequest(slug, playerId));
+            var factsResult = UseCase.PlayerFacts(new PlayerFactsRequest(slug, playerId));
+            var badgesResult = UseCase.PlayerBadges(new PlayerBadgesRequest(slug, playerId));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);
 			return View("Details", model);
 		}
@@ -93,7 +75,7 @@ namespace Web.Controllers
         [Route("{slug}/player/created")]
         public ActionResult Created(string slug)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new AddPlayerConfirmationPageModel(contextResult);
 			return View("AddConfirmation", model);
 		}
@@ -127,7 +109,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = _invitePlayerInteractor.Execute(request);
+                var result = UseCase.InvitePlayer(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -142,20 +124,20 @@ namespace Web.Controllers
         [Route("{slug}/player/invited/{playerId:int}")]
         public ActionResult Invited(string slug, int playerId)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new InvitePlayerConfirmationPageModel(contextResult);
 			return View("InviteConfirmation", model);
 		}
 
         private AddPlayerPageModel BuildAddModel(string slug, AddPlayerPostModel postModel = null)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             return new AddPlayerPageModel(contextResult, postModel);
         }
 
         private InvitePlayerPageModel BuildInviteModel(string slug, InvitePlayerPostModel postModel = null)
         {
-            var contextResult = _bunchContextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             return new InvitePlayerPageModel(contextResult, postModel);
         }
     }

@@ -1,6 +1,7 @@
 using Application.UseCases.CashgameContext;
 using Core.Repositories;
 using Core.Services.Interfaces;
+using Plumbing;
 using Web.Models.CashgameModels.Matrix;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
@@ -9,16 +10,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
     {
         private readonly ICashgameService _cashgameService;
         private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameContextInteractor _contextInteractor;
 
         public MatrixPageBuilder(
             ICashgameService cashgameService,
-            IBunchRepository bunchRepository,
-            ICashgameContextInteractor contextInteractor)
+            IBunchRepository bunchRepository)
         {
             _cashgameService = cashgameService;
             _bunchRepository = bunchRepository;
-            _contextInteractor = contextInteractor;
         }
 
         public CashgameMatrixPageModel Build(string slug, int? year)
@@ -26,7 +24,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var homegame = _bunchRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
 
-            var contextResult = _contextInteractor.Execute(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
+            var contextResult = DependencyContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
 
             return new CashgameMatrixPageModel(contextResult)
                 {

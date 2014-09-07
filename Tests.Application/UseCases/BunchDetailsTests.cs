@@ -21,7 +21,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(BunchName, result.BunchName);
         }
@@ -31,7 +31,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(Description, result.Description);
         }
@@ -41,7 +41,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(HouseRules, result.HouseRules);
         }
@@ -51,7 +51,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<EditBunchUrl>(result.EditBunchUrl);
         }
@@ -61,7 +61,7 @@ namespace Tests.Application.UseCases
         {
             SetupBunch();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanEdit);
         }
@@ -72,7 +72,7 @@ namespace Tests.Application.UseCases
             SetupBunch();
             SetupManager();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -93,14 +93,12 @@ namespace Tests.Application.UseCases
             return new BunchDetailsRequest(Slug);
         }
 
-        private BunchDetailsInteractor Sut
+        private BunchDetailsResult Execute(BunchDetailsRequest request)
         {
-            get
-            {
-                return new BunchDetailsInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IAuth>().Object);
-            }
+            return BunchDetailsInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<IAuth>().Object,
+                request);
         }
     }
 }

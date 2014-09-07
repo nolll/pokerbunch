@@ -12,7 +12,6 @@ namespace Application.UseCases.AppContext
         public AppContextResult(
             BaseContextResult baseContextResult,
             bool isLoggedIn,
-            bool isAdmin,
             string userName,
             string userDisplayName)
         {

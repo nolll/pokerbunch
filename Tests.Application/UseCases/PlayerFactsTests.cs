@@ -25,7 +25,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, null)).Returns(GetCashgames());
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(4, result.GamesPlayed);
             Assert.AreEqual(8, result.TimePlayed.Minutes);
@@ -75,16 +75,14 @@ namespace Tests.Application.UseCases
             var cashgame5 = new CashgameInTest(results: results5);
 
             return new List<Cashgame> { cashgame1, cashgame2, cashgame3, cashgame4, cashgame5 };
-        } 
+        }
 
-        private PlayerFactsInteractor Sut
+        private PlayerFactsResult Execute(PlayerFactsRequest request)
         {
-            get
-            {
-                return new PlayerFactsInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return PlayerFactsInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                request);
         }
     }
 }

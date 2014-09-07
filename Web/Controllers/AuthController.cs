@@ -1,33 +1,13 @@
-using System;
 using System.Web.Mvc;
 using Application.Exceptions;
-using Application.UseCases.AppContext;
 using Application.UseCases.Login;
 using Application.UseCases.LoginForm;
-using Application.UseCases.Logout;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers
 {
     public class AuthController : ControllerBase
     {
-        private readonly IAppContextInteractor _appContextInteractor;
-        private readonly ILoginFormInteractor _loginFormInteractor;
-        private readonly ILoginInteractor _loginInteractor;
-        private readonly ILogoutInteractor _logoutInteractor;
-
-        public AuthController(
-            IAppContextInteractor appContextInteractor,
-            ILoginFormInteractor loginFormInteractor,
-            ILoginInteractor loginInteractor,
-            ILogoutInteractor logoutInteractor)
-        {
-            _appContextInteractor = appContextInteractor;
-            _loginFormInteractor = loginFormInteractor;
-            _loginInteractor = loginInteractor;
-            _logoutInteractor = logoutInteractor;
-        }
-
         [Route("-/auth/login")]
         public ActionResult Login(string returnUrl = null)
         {
@@ -43,7 +23,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = _loginInteractor.Execute(request);
+                var result = UseCase.Login(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -58,14 +38,14 @@ namespace Web.Controllers
         [Route("-/auth/logout")]
         public ActionResult Logout()
         {
-            var result = _logoutInteractor.Execute();
+            var result = UseCase.Logout();
             return Redirect(result.ReturnUrl.Relative);
         }
 
         private LoginPageModel BuildLoginModel(string returnUrl, LoginPostModel postModel = null)
         {
-            var contextResult = _appContextInteractor.Execute();
-            var loginFormResult = _loginFormInteractor.Execute(new LoginFormRequest(returnUrl));
+            var contextResult = UseCase.AppContext();
+            var loginFormResult = UseCase.LoginForm(new LoginFormRequest(returnUrl));
             return new LoginPageModel(contextResult, loginFormResult, postModel);
         }
 

@@ -11,7 +11,7 @@ namespace Tests.Application.UseCases
         {
             var request = new LoginFormRequest("");
             
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<AddUserUrl>(result.AddUserUrl);
         }
@@ -21,7 +21,7 @@ namespace Tests.Application.UseCases
         {
             var request = new LoginFormRequest("");
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<ForgotPasswordUrl>(result.ForgotPasswordUrl);
         }
@@ -31,7 +31,7 @@ namespace Tests.Application.UseCases
         {
             var request = new LoginFormRequest("");
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<HomeUrl>(result.ReturnUrl);
         }
@@ -42,17 +42,14 @@ namespace Tests.Application.UseCases
             const string resultUrl = "/a";
             var request = new LoginFormRequest(resultUrl);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(resultUrl, result.ReturnUrl.Relative);
         }
-
-        private LoginFormInteractor Sut
+        
+        private LoginFormResult Execute(LoginFormRequest request)
         {
-            get
-            {
-                return new LoginFormInteractor();
-            }
+            return LoginFormInteractor.Execute(request);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(UserName, result.UserName);
         }
@@ -33,7 +33,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(DisplayName, result.DisplayName);
         }
@@ -44,7 +44,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(RealName, result.RealName);
         }
@@ -55,7 +55,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(Email, result.Email);
         }
@@ -66,7 +66,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanEdit);
         }
@@ -77,7 +77,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUserAsAdmin();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -88,7 +88,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUserAsDisplayUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -99,7 +99,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanChangePassword);
         }
@@ -110,7 +110,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUserAsDisplayUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.CanChangePassword);
         }
@@ -121,7 +121,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<EditUserUrl>(result.EditUrl);
         }
@@ -132,7 +132,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<ChangePasswordUrl>(result.ChangePasswordUrl);
         }
@@ -143,7 +143,7 @@ namespace Tests.Application.UseCases
             SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             const string expected = "http://www.gravatar.com/avatar/8277e0910d750195b448797616e091ad?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
@@ -185,14 +185,12 @@ namespace Tests.Application.UseCases
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(currentUser);
         }
 
-        private UserDetailsInteractor Sut
+        private UserDetailsResult Execute(UserDetailsRequest request)
         {
-            get
-            {
-                return new UserDetailsInteractor(
-                    GetMock<IAuth>().Object,
-                    GetMock<IUserRepository>().Object);
-            }
+            return UserDetailsInteractor.Execute(
+                GetMock<IAuth>().Object,
+                GetMock<IUserRepository>().Object,
+                request);
         }
     }
 }

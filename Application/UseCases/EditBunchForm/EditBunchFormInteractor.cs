@@ -4,18 +4,11 @@ using Core.Repositories;
 
 namespace Application.UseCases.EditBunchForm
 {
-    public class EditBunchFormInteractor : IEditBunchFormInteractor
+    public static class EditBunchFormInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-
-        public EditBunchFormInteractor(IBunchRepository bunchRepository)
+        public static EditBunchFormResult Execute(IBunchRepository bunchRepository, EditBunchFormRequest request)
         {
-            _bunchRepository = bunchRepository;
-        }
-
-        public EditBunchFormResult Execute(EditBunchFormRequest request)
-        {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
             var heading = string.Format("{0} Settings", bunch.DisplayName);
             var cancelUrl = new BunchDetailsUrl(bunch.Slug);
             var description = bunch.Description;

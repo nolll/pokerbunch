@@ -26,7 +26,7 @@ namespace Tests.Application.UseCases
             SetupBunch();
             SetupPlayer();
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsInstanceOf<InvitePlayerConfirmationUrl>(result.ReturnUrl);
         }
@@ -37,7 +37,7 @@ namespace Tests.Application.UseCases
         {
             var request = CreateRequest(email);
 
-            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -55,9 +55,14 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
             SetupBunch();
             SetupPlayer();
 
-            Sut.Execute(request);
+            Execute(request);
 
             GetMock<IMessageSender>().Verify(o => o.Send(ValidEmail, subject, body));
+        }
+
+        private InvitePlayerResult Execute(InvitePlayerRequest request)
+        {
+            return InvitePlayerInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IMessageSender>().Object, request);
         }
 
         private static InvitePlayerRequest CreateRequest(string email = ValidEmail)
@@ -75,17 +80,6 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
         {
             var player = new PlayerInTest(displayName: PlayerName);
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
-        }
-
-        private InvitePlayerInteractor Sut
-        {
-            get
-            {
-                return new InvitePlayerInteractor(
-                    GetMock<IMessageSender>().Object,
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IPlayerRepository>().Object);
-            }
         }
     }
 }

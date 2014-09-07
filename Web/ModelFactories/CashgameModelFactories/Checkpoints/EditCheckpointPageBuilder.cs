@@ -3,6 +3,7 @@ using Application.Urls;
 using Application.UseCases.BunchContext;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Plumbing;
 using Web.Models.CashgameModels.Checkpoints;
 
 namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
@@ -11,16 +12,13 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IBunchContextInteractor _contextInteractor;
 
         public EditCheckpointPageBuilder(
             IBunchRepository bunchRepository,
-            ICheckpointRepository checkpointRepository,
-            IBunchContextInteractor contextInteractor)
+            ICheckpointRepository checkpointRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
-            _contextInteractor = contextInteractor;
         }
 
         public EditCheckpointPageModel Build(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
@@ -28,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Checkpoints
             var homegame = _bunchRepository.GetBySlug(slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(checkpointId);
 
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest(slug));
+            var contextResult = DependencyContainer.Instance.BunchContext(new BunchContextRequest(slug));
 
             var model = new EditCheckpointPageModel(contextResult)
             {

@@ -2,23 +2,15 @@
 
 namespace Application.UseCases.PlayerBadges
 {
-    public class PlayerBadgesInteractor : IPlayerBadgesInteractor
+    public static class PlayerBadgesInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-
-        public PlayerBadgesInteractor(
+        public static PlayerBadgesResult Execute(
             IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            PlayerBadgesRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-        }
-
-        public PlayerBadgesResult Execute(PlayerBadgesRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var cashgames = _cashgameRepository.GetPublished(homegame);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var cashgames = cashgameRepository.GetPublished(homegame);
 
             return new PlayerBadgesResult(request.PlayerId, cashgames);
         }

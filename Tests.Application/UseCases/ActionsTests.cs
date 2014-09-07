@@ -37,7 +37,7 @@ namespace Tests.Application.UseCases
 
             SetupGame();
             
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(_date, result.Date);
             Assert.AreEqual(PlayerName, result.PlayerName);
@@ -52,7 +52,7 @@ namespace Tests.Application.UseCases
 
             SetupGame();
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(CheckPointType, result.CheckpointItems[0].Type);
             Assert.AreEqual(1, result.CheckpointItems[0].Stack.Amount);
@@ -69,7 +69,7 @@ namespace Tests.Application.UseCases
             SetupGame();
             SetupManager();
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
         }
@@ -93,16 +93,9 @@ namespace Tests.Application.UseCases
             GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
         }
 
-        private ActionsInteractor Sut
+        private ActionsResult Execute(ActionsRequest request)
         {
-            get
-            {
-                return new ActionsInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object,
-                    GetMock<IPlayerRepository>().Object,
-                    GetMock<IAuth>().Object);
-            }
+            return ActionsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IAuth>().Object, request);
         }
     }
 }

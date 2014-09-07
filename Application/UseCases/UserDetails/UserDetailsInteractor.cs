@@ -3,23 +3,12 @@ using Core.Repositories;
 
 namespace Application.UseCases.UserDetails
 {
-    public class UserDetailsInteractor : IUserDetailsInteractor
+    public static class UserDetailsInteractor
     {
-        private readonly IAuth _auth;
-        private readonly IUserRepository _userRepository;
-
-        public UserDetailsInteractor(
-            IAuth auth,
-            IUserRepository userRepository)
+        public static UserDetailsResult Execute(IAuth auth, IUserRepository userRepository, UserDetailsRequest request)
         {
-            _auth = auth;
-            _userRepository = userRepository;
-        }
-
-        public UserDetailsResult Execute(UserDetailsRequest request)
-        {
-            var currentUser = _auth.CurrentUser;
-            var displayUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = auth.CurrentUser;
+            var displayUser = userRepository.GetByNameOrEmail(request.UserName);
 
             return new UserDetailsResult(currentUser, displayUser);
         }

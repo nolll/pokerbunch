@@ -7,33 +7,21 @@ using Core.Repositories;
 
 namespace Application.UseCases.Login
 {
-    public class LoginInteractor : ILoginInteractor
+    public class LoginInteractor
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IAuth _auth;
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
-
-        public LoginInteractor(
+        public static LoginResult Execute(
             IUserRepository userRepository,
             IAuth auth,
             IBunchRepository bunchRepository,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            LoginRequest request)
         {
-            _userRepository = userRepository;
-            _auth = auth;
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
-        }
-
-        public LoginResult Execute(LoginRequest request)
-        {
-            var user = GetLoggedInUser(request.LoginName, request.Password);
+            var user = GetLoggedInUser(userRepository, request.LoginName, request.Password);
 
             if (user != null)
             {
-                var identity = CreateUserIdentity(user);
-                _auth.SignIn(identity, request.RememberMe);
+                var identity = CreateUserIdentity(bunchRepository, playerRepository, user);
+                auth.SignIn(identity, request.RememberMe);
             }
             else
             {
@@ -44,11 +32,11 @@ namespace Application.UseCases.Login
             return new LoginResult(returnUrl);
         }
 
-        private UserIdentity CreateUserIdentity(User user)
+        private static UserIdentity CreateUserIdentity(IBunchRepository bunchRepository, IPlayerRepository playerRepository, User user)
         {
             return new UserIdentity
             {
-                Bunches = GetUserBunches(user),
+                Bunches = GetUserBunches(bunchRepository, playerRepository, user),
                 DisplayName = user.DisplayName,
                 IsAdmin = user.IsAdmin,
                 UserId = user.Id,
@@ -56,26 +44,26 @@ namespace Application.UseCases.Login
             };
         }
 
-        private List<UserBunch> GetUserBunches(User user)
+        private static List<UserBunch> GetUserBunches(IBunchRepository bunchRepository, IPlayerRepository playerRepository, User user)
         {
-            var homegames = _bunchRepository.GetByUser(user);
+            var homegames = bunchRepository.GetByUser(user);
             var userBunches = new List<UserBunch>();
 
             if (homegames == null) return userBunches;
 
             foreach (var homegame in homegames)
             {
-                var role = _bunchRepository.GetRole(homegame, user);
-                var player = _playerRepository.GetByUserName(homegame, user.UserName);
+                var role = bunchRepository.GetRole(homegame, user);
+                var player = playerRepository.GetByUserName(homegame, user.UserName);
                 var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);
             }
             return userBunches;
         }
 
-        private User GetLoggedInUser(string loginName, string password)
+        private static User GetLoggedInUser(IUserRepository userRepository, string loginName, string password)
         {
-            var user = _userRepository.GetByNameOrEmail(loginName);
+            var user = userRepository.GetByNameOrEmail(loginName);
             if (user == null)
                 return null;
             var encryptedPassword = EncryptionService.Encrypt(password, user.Salt);

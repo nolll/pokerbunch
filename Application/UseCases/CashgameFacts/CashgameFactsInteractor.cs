@@ -4,39 +4,30 @@ using Core.Repositories;
 
 namespace Application.UseCases.CashgameFacts
 {
-    public class CashgameFactsInteractor : ICashgameFactsInteractor
+    public static class CashgameFactsInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
-
-        public CashgameFactsInteractor(
+        public static CashgameFactsResult Execute(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            CashgameFactsRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
-        }
-
-        public CashgameFactsResult Execute(CashgameFactsRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var players = _playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.GetPublished(homegame, request.Year);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var players = playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = cashgameRepository.GetPublished(homegame, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
-            return GetFactsResult(homegame, factBuilder);
+            return GetFactsResult(playerRepository, homegame, factBuilder);
         }
 
-        public CashgameFactsResult GetFactsResult(Bunch bunch, FactBuilder factBuilder)
+        // todo: make this method private and test throught the Execute-method
+        public static CashgameFactsResult GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)
         {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);
             var turnover = new Money(factBuilder.TotalTurnover, bunch.Currency);
-            var bestResult = GetBestResult(factBuilder, bunch.Currency);
-            var worstResult = GetWorstResult(factBuilder, bunch.Currency);
+            var bestResult = GetBestResult(playerRepository, factBuilder, bunch.Currency);
+            var worstResult = GetWorstResult(playerRepository, factBuilder, bunch.Currency);
             var bestTotalResult = GetBestTotalResult(factBuilder, bunch.Currency);
             var worstTotalResult = GetWorstTotalResult(factBuilder, bunch.Currency);
             var mostTimeResult = GetMostTimeResult(factBuilder);
@@ -58,53 +49,53 @@ namespace Application.UseCases.CashgameFacts
             };
         }
 
-        private MoneyFact GetBestResult(FactBuilder facts, Currency currency)
+        private static MoneyFact GetBestResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.BestResult.PlayerId);
+            var playerName = GetPlayerName(playerRepository, facts.BestResult.PlayerId);
             var amount = new MoneyResult(facts.BestResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
-        private MoneyFact GetWorstResult(FactBuilder facts, Currency currency)
+        private static MoneyFact GetWorstResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(facts.WorstResult.PlayerId);
+            var playerName = GetPlayerName(playerRepository, facts.WorstResult.PlayerId);
             var amount = new MoneyResult(facts.WorstResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
-        private MoneyFact GetBestTotalResult(FactBuilder facts, Currency currency)
+        private static MoneyFact GetBestTotalResult(FactBuilder facts, Currency currency)
         {
             var amount = new MoneyResult(facts.BestTotalResult.Winnings, currency);
             return new MoneyFact(facts.BestTotalResult.Player.DisplayName, amount);
         }
 
-        private MoneyFact GetWorstTotalResult(FactBuilder facts, Currency currency)
+        private static MoneyFact GetWorstTotalResult(FactBuilder facts, Currency currency)
         {
             var amount = new MoneyResult(facts.WorstTotalResult.Winnings, currency);
             return new MoneyFact(facts.WorstTotalResult.Player.DisplayName, amount);
         }
 
-        private DurationFact GetMostTimeResult(FactBuilder facts)
+        private static DurationFact GetMostTimeResult(FactBuilder facts)
         {
             var timePlayed = Time.FromMinutes(facts.MostTimeResult.TimePlayed);
             return new DurationFact(facts.MostTimeResult.Player.DisplayName, timePlayed);
         }
 
-        private MoneyFact GetBiggestTotalBuyin(FactBuilder facts, Currency currency)
+        private static MoneyFact GetBiggestTotalBuyin(FactBuilder facts, Currency currency)
         {
             var amount = new Money(facts.BiggestBuyinTotalResult.Buyin, currency);
             return new MoneyFact(facts.BiggestBuyinTotalResult.Player.DisplayName, amount);
         }
 
-        private MoneyFact GetBiggestTotalCashout(FactBuilder facts, Currency currency)
+        private static MoneyFact GetBiggestTotalCashout(FactBuilder facts, Currency currency)
         {
             var amount = new Money(facts.BiggestCashoutTotalResult.Cashout, currency);
             return new MoneyFact(facts.BiggestCashoutTotalResult.Player.DisplayName, amount);
         }
 
-        private string GetPlayerName(int playerId)
+        private static string GetPlayerName(IPlayerRepository playerRepository, int playerId)
         {
-            var player = _playerRepository.GetById(playerId);
+            var player = playerRepository.GetById(playerId);
             return player == null ? string.Empty : player.DisplayName;
         }
     }

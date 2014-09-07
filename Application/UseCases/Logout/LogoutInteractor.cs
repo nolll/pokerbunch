@@ -2,18 +2,11 @@ using Application.Services;
 
 namespace Application.UseCases.Logout
 {
-    public class LogoutInteractor : ILogoutInteractor
+    public static class LogoutInteractor
     {
-        private readonly IAuth _auth;
-
-        public LogoutInteractor(IAuth auth)
+        public static LogoutResult Execute(IAuth auth)
         {
-            _auth = auth;
-        }
-
-        public LogoutResult Execute()
-        {
-            _auth.SignOut();
+            auth.SignOut();
 
             return new LogoutResult();
         }

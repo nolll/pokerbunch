@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Application.Exceptions;
 using Application.Services;
 using Application.UseCases.Login;
@@ -30,7 +29,7 @@ namespace Tests.Application.UseCases
         {
             SetupUserWithCorrectPassword();
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.AreEqual(ReturnUrl, result.ReturnUrl.Relative);
         }
@@ -38,7 +37,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void Login_UserNotFound_ThrowsException()
         {
-            Assert.Throws<LoginException>(() => Sut.Execute(CreateRequest()));
+            Assert.Throws<LoginException>(() => Execute(CreateRequest()));
         }
 
         [Test]
@@ -46,7 +45,7 @@ namespace Tests.Application.UseCases
         {
             SetupUserWithWrongPassword();
 
-            Assert.Throws<LoginException>(() => Sut.Execute(CreateRequest()));
+            Assert.Throws<LoginException>(() => Execute(CreateRequest()));
         }
 
         [Test]
@@ -54,7 +53,7 @@ namespace Tests.Application.UseCases
         {
             SetupUserWithCorrectPassword();
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             GetMock<IAuth>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>()));
         }
@@ -69,7 +68,7 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             Assert.AreEqual(UserId, result.UserId);
             Assert.AreEqual(UserName, result.UserName);
@@ -97,7 +96,7 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             Assert.AreEqual(1, result.Bunches.Count);
             Assert.AreEqual(Slug, result.Bunches[0].Slug);
@@ -125,7 +124,7 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             Assert.AreEqual(2, result.Bunches.Count);
         }
@@ -140,7 +139,7 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             Assert.IsTrue(result.IsAdmin);
         }
@@ -155,7 +154,7 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
 
-            Sut.Execute(CreateRequest());
+            Execute(CreateRequest());
 
             Assert.IsFalse(result);
         }
@@ -170,11 +169,21 @@ namespace Tests.Application.UseCases
                 Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
                 Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
 
-            Sut.Execute(CreateRequest(true));
+            Execute(CreateRequest(true));
 
             Assert.IsTrue(result);
         }
-        
+
+        private LoginResult Execute(LoginRequest request)
+        {
+            return LoginInteractor.Execute(
+                GetMock<IUserRepository>().Object,
+                GetMock<IAuth>().Object,
+                GetMock<IBunchRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
+                request);
+        }
+
         private void SetupUserWithWrongPassword()
         {
             var user = new UserInTest();
@@ -201,18 +210,6 @@ namespace Tests.Application.UseCases
         private static LoginRequest CreateRequest(bool rememberMe = false)
         {
             return new LoginRequest(LoginName, Password, rememberMe, ReturnUrl);
-        }
-
-        private LoginInteractor Sut
-        {
-            get
-            {
-                return new LoginInteractor(
-                    GetMock<IUserRepository>().Object,
-                    GetMock<IAuth>().Object,
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IPlayerRepository>().Object);
-            }
         }
     }
 }

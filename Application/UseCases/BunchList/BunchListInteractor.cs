@@ -2,19 +2,11 @@
 
 namespace Application.UseCases.BunchList
 {
-    public class BunchListInteractor : IBunchListInteractor
+    public static class BunchListInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-
-        public BunchListInteractor(
-            IBunchRepository bunchRepository)
+        public static BunchListResult Execute(IBunchRepository bunchRepository)
         {
-            _bunchRepository = bunchRepository;
-        }
-
-        public BunchListResult Execute()
-        {
-            var homegames = _bunchRepository.GetList();
+            var homegames = bunchRepository.GetList();
             
             return new BunchListResult(homegames);
         }

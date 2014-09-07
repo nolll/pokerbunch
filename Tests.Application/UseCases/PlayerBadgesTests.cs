@@ -17,7 +17,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void PlayerBadges_ZeroGames_AllBadgesAreFalse()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.PlayedOneGame);
             Assert.IsFalse(result.PlayedTenGames);
@@ -32,7 +32,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(1);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.PlayedOneGame);
         }
@@ -42,7 +42,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(10);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.PlayedTenGames);
         }
@@ -52,7 +52,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(50);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.Played50Games);
         }
@@ -62,7 +62,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(100);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.Played100Games);
         }
@@ -72,7 +72,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(200);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.Played200Games);
         }
@@ -82,7 +82,7 @@ namespace Tests.Application.UseCases
         {
             SetupGames(500);
 
-            var result = Sut.Execute(CreateRequest());
+            var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.Played500Games);
         }
@@ -112,14 +112,12 @@ namespace Tests.Application.UseCases
             return new PlayerBadgesRequest(Slug, PlayerId);
         }
 
-        private PlayerBadgesInteractor Sut
+        private PlayerBadgesResult Execute(PlayerBadgesRequest request)
         {
-            get
-            {
-                return new PlayerBadgesInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return PlayerBadgesInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<ICashgameRepository>().Object,
+                request);
         }
     }
 }

@@ -1,28 +1,16 @@
 using System.Web.Mvc;
 using Application.UseCases.BunchContext;
-using Application.UseCases.Home;
 using Web.Models.HomeModels;
 
 namespace Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
-        private readonly IBunchContextInteractor _contextInteractor;
-        private readonly IHomeInteractor _homeInteractor;
-
-        public HomeController(
-            IBunchContextInteractor contextInteractor,
-            IHomeInteractor homeInteractor)
-        {
-            _contextInteractor = contextInteractor;
-            _homeInteractor = homeInteractor;
-        }
-
         [Route("")]
         public ActionResult Index()
         {
-            var contextResult = _contextInteractor.Execute(new BunchContextRequest());
-            var homeResult = _homeInteractor.Execute();
+            var contextResult = UseCase.BunchContext(new BunchContextRequest());
+            var homeResult = UseCase.Home();
             var model = new HomePageModel(contextResult, homeResult);
             return View(model);
         }

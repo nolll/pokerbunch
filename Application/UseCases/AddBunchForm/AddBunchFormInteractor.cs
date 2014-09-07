@@ -2,9 +2,9 @@ using Application.Services;
 
 namespace Application.UseCases.AddBunchForm
 {
-    public class AddBunchFormInteractor : IAddBunchFormInteractor
+    public static class AddBunchFormInteractor
     {
-        public AddBunchFormResult Execute()
+        public static AddBunchFormResult Execute()
         {
             var timeZones = TimeZoneService.GetTimeZones();
             var currencyLayouts = Globalization.GetCurrencyLayouts();

@@ -3,28 +3,17 @@ using Core.Repositories;
 
 namespace Application.UseCases.AddCashgameForm
 {
-    public class AddCashgameFormInteractor : IAddCashgameFormInteractor
+    public static class AddCashgameFormInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-
-        public AddCashgameFormInteractor(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository)
+        public static AddCashgameFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, AddCashgameFormRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-        }
-
-        public AddCashgameFormResult Execute(AddCashgameFormRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var runningGame = _cashgameRepository.GetRunning(homegame);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var runningGame = cashgameRepository.GetRunning(homegame);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
-            var locations = _cashgameRepository.GetLocations(homegame);
+            var locations = cashgameRepository.GetLocations(homegame);
             return new AddCashgameFormResult(locations);
         }
     }

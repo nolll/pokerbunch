@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Application.UseCases.AppContext;
-using Application.UseCases.UserDetails;
-using Application.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Commands.UserCommands;
@@ -26,9 +23,6 @@ namespace Tests.Web.ControllerTests
             get
             {
                 return new UserController(
-                    GetMock<IAppContextInteractor>().Object,
-                    GetMock<IUserDetailsInteractor>().Object,
-                    GetMock<IUserListInteractor>().Object,
                     GetMock<IUserCommandProvider>().Object);
             }
         }

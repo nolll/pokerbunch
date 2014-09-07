@@ -27,7 +27,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(slug, result.Slug);
             Assert.AreEqual(1, result.Players.Count);
@@ -52,7 +52,7 @@ namespace Tests.Application.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Bunch>())).Returns(players);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(playerName2, result.Players[0].Name);
             Assert.AreEqual(playerName1, result.Players[1].Name);
@@ -74,20 +74,18 @@ namespace Tests.Application.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
             GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsTrue(result.CanAddPlayer);
         }
 
-        private PlayerListInteractor Sut
+        private PlayerListResult Execute(PlayerListRequest request)
         {
-            get
-            {
-                return new PlayerListInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<IPlayerRepository>().Object,
-                    GetMock<IAuth>().Object);
-            }
+            return PlayerListInteractor.Execute(
+                GetMock<IBunchRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
+                GetMock<IAuth>().Object,
+                request);
         }
     }
 }

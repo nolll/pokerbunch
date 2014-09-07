@@ -20,20 +20,16 @@ namespace Tests.Application.UseCases
 
             GetMock<IUserRepository>().Setup(o => o.GetList()).Returns(users);
 
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.AreEqual(expected, result.Users.Count);
             Assert.AreEqual(userName, result.Users.First().DisplayName);
             Assert.AreEqual(userName, result.Users.First().UserName);
         }
 
-        private UserListInteractor Sut
+        private UserListResult Execute()
         {
-            get
-            {
-                return new UserListInteractor(
-                    GetMock<IUserRepository>().Object);
-            }
+            return UserListInteractor.Execute(GetMock<IUserRepository>().Object);
         }
     }
 }

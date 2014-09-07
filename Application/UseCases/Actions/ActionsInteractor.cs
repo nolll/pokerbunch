@@ -4,32 +4,20 @@ using Core.Repositories;
 
 namespace Application.UseCases.Actions
 {
-    public class ActionsInteractor : IActionsInteractor
+    public static class ActionsInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IAuth _auth;
-
-        public ActionsInteractor(
+        public static ActionsResult Execute(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
-            IAuth auth)
+            IAuth auth,
+            ActionsRequest request)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
-            _auth = auth;
-        }
-
-        public ActionsResult Execute(ActionsRequest request)
-        {
-            var homegame = _bunchRepository.GetBySlug(request.Slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, request.DateStr);
-            var player = _playerRepository.GetById(request.PlayerId);
+            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var cashgame = cashgameRepository.GetByDateString(homegame, request.DateStr);
+            var player = playerRepository.GetById(request.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
-            var isManager = _auth.IsInRole(homegame.Slug, Role.Manager);
+            var isManager = auth.IsInRole(homegame.Slug, Role.Manager);
 
             return new ActionsResult(homegame, cashgame, player, isManager, playerResult);
         }

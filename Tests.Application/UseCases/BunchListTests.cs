@@ -14,20 +14,16 @@ namespace Tests.Application.UseCases
 
             GetMock<IBunchRepository>().Setup(o => o.GetList()).Returns(homegames);
 
-            var result = Sut.Execute();
+            var result = Execute();
 
             Assert.AreEqual(1, result.Bunches.Count);
             Assert.AreEqual("a", result.Bunches[0].Slug);
             Assert.AreEqual("b", result.Bunches[0].DisplayName);
         }
 
-        private BunchListInteractor Sut
+        private BunchListResult Execute()
         {
-            get
-            {
-                return new BunchListInteractor(
-                    GetMock<IBunchRepository>().Object);
-            }
+            return BunchListInteractor.Execute(GetMock<IBunchRepository>().Object);
         }
     }
 }

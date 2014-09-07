@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using Application.Services;
+using Application.UseCases.AppContext;
+using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Application.UseCases.CashgameContext;
 using Core.Repositories;
@@ -15,16 +18,13 @@ namespace Tests.Application.UseCases
         public void Execute_NoRunningGame_GameIsRunningIsFalse()
         {
             const string slug = "a";
-            const string name = "b";
             const int year = 1;
             var years = new List<int>();
             var request = new CashgameContextRequest(slug, year);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -35,12 +35,10 @@ namespace Tests.Application.UseCases
             const string slug = "a";
             var years = new List<int>();
             var cashgameContextRequest = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest();
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(cashgameContextRequest);
+            var result = Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<BunchContextResult>(result.BunchContext);
         }
@@ -49,16 +47,13 @@ namespace Tests.Application.UseCases
         public void Execute_WithYear_SelectedYearIsSet()
         {
             const string slug = "a";
-            const string name = "b";
             const int year = 1;
             var years = new List<int>();
             var request = new CashgameContextRequest(slug, year);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(year, result.SelectedYear);
         }
@@ -67,15 +62,12 @@ namespace Tests.Application.UseCases
         public void Execute_WithoutYear_SelectedYearIsNull()
         {
             const string slug = "a";
-            const string name = "b";
             var years = new List<int>();
             var request = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsNull(result.SelectedYear);
         }
@@ -84,16 +76,13 @@ namespace Tests.Application.UseCases
         public void Execute_WithoutRunningGame_GameIsRunningGameIsFalse()
         {
             const string slug = "a";
-            const string name = "b";
             const int year = 1;
             var years = new List<int>();
             var request = new CashgameContextRequest(slug, year);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -102,17 +91,14 @@ namespace Tests.Application.UseCases
         public void Execute_WithRunningGame_GameIsRunningIsTrue()
         {
             const string slug = "a";
-            const string name = "b";
             var years = new List<int>(); 
             var cashgame = new CashgameInTest();
             var request = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsTrue(result.GameIsRunning);
         }
@@ -121,15 +107,12 @@ namespace Tests.Application.UseCases
         public void Execute_WithoutYears_YearsAreEmptyAndLatestYearIsNull()
         {
             const string slug = "a";
-            const string name = "b";
             var years = new List<int>();
             var request = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsEmpty(result.Years);
             Assert.IsNull(result.LatestYear);
@@ -139,15 +122,12 @@ namespace Tests.Application.UseCases
         public void Execute_WithYears_YearsContainsThemAndLatestYearIsCorrect()
         {
             const string slug = "a";
-            const string name = "b";
             var years = new List<int>{1, 2, 3};
             var request = new CashgameContextRequest(slug);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(3, result.Years.Count);
             Assert.AreEqual(3, result.LatestYear);
@@ -158,28 +138,28 @@ namespace Tests.Application.UseCases
         public void Execute_SelectedPage_SelectedPageIsSet(CashgamePage selectedPage)
         {
             const string slug = "a";
-            const string name = "b";
             const int year = 1;
             var years = new List<int>();
             var request = new CashgameContextRequest(slug, year, selectedPage);
-            var contextResult = new BunchContextResultInTest(slug: slug, bunchName: name);
 
-            GetMock<IBunchContextInteractor>().Setup(o => o.Execute(It.IsAny<BunchContextRequest>())).Returns(contextResult);
             GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
 
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.AreEqual(selectedPage, result.SelectedPage);
         }
 
-        private CashgameContextInteractor Sut
+        private CashgameContextResult Execute(CashgameContextRequest request)
         {
-            get
-            {
-                return new CashgameContextInteractor(
-                    GetMock<IBunchContextInteractor>().Object,
-                    GetMock<ICashgameRepository>().Object);
-            }
+            return CashgameContextInteractor.Execute(
+                BunchContextFunc,
+                GetMock<ICashgameRepository>().Object,
+                request);
+        }
+
+        private BunchContextResult BunchContextFunc(BunchContextRequest request)
+        {
+            return new BunchContextResultInTest();
         }
     }
 }

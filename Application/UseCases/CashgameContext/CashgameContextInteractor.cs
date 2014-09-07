@@ -1,31 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Application.UseCases.BunchContext;
 using Core.Repositories;
 using System.Linq;
 
 namespace Application.UseCases.CashgameContext
 {
-    public class CashgameContextInteractor : ICashgameContextInteractor
+    public class CashgameContextInteractor
     {
-        private readonly IBunchContextInteractor _bunchContextInteractor;
-        private readonly ICashgameRepository _cashgameRepository;
-
-        public CashgameContextInteractor(
-            IBunchContextInteractor bunchContextInteractor,
-            ICashgameRepository cashgameRepository)
+        public static CashgameContextResult Execute(Func<BunchContextRequest, BunchContextResult> bunchContext, ICashgameRepository cashgameRepository, CashgameContextRequest request)
         {
-            _bunchContextInteractor = bunchContextInteractor;
-            _cashgameRepository = cashgameRepository;
-        }
+            var bunchContextResult = bunchContext(new BunchContextRequest(request.Slug));
 
-        public CashgameContextResult Execute(CashgameContextRequest request)
-        {
-            var bunchContextResult = _bunchContextInteractor.Execute(new BunchContextRequest(request.Slug));
-
-            var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
+            var runningGame = cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
+            var years = cashgameRepository.GetYears(bunchContextResult.BunchId);
             var latestYear = GetLatestYear(years);
 
             return new CashgameContextResult(
@@ -37,7 +27,7 @@ namespace Application.UseCases.CashgameContext
                 latestYear);
         }
 
-        private int? GetLatestYear(IList<int> years)
+        private static int? GetLatestYear(IList<int> years)
         {
             if (years.Count == 0)
                 return null;

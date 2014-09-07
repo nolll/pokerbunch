@@ -34,7 +34,7 @@ namespace Tests.Application.UseCases
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
 
             var request = new CashgameFactsRequest(slug, year);
-            var result = Sut.Execute(request);
+            var result = Execute(request);
 
             Assert.IsNotNull(result);
         }
@@ -55,7 +55,7 @@ namespace Tests.Application.UseCases
                 biggestCashoutTotalResult: new CashgameTotalResultInTest(cashout: 10),
                 mostTimeResult: new CashgameTotalResultInTest(timePlayed: 11));
             
-            var result = Sut.GetFactsResult(homegame, factBuilder);
+            var result = GetFactsResult(homegame, factBuilder);
 
             Assert.AreEqual(2, result.GameCount);
             Assert.AreEqual(3, result.TotalTimePlayed.Minutes);
@@ -69,15 +69,14 @@ namespace Tests.Application.UseCases
             Assert.AreEqual(11, result.MostTimePlayed.Time.Minutes);
         }
 
-        private CashgameFactsInteractor Sut
+        private CashgameFactsResult GetFactsResult(BunchInTest homegame, FactBuilderInTest factBuilder)
         {
-            get
-            {
-                return new CashgameFactsInteractor(
-                    GetMock<IBunchRepository>().Object,
-                    GetMock<ICashgameRepository>().Object,
-                    GetMock<IPlayerRepository>().Object);
-            }
+            return CashgameFactsInteractor.GetFactsResult(GetMock<IPlayerRepository>().Object, homegame, factBuilder);
+        }
+        
+        private CashgameFactsResult Execute(CashgameFactsRequest request)
+        {
+            return CashgameFactsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, request);
         }
     }
 }
