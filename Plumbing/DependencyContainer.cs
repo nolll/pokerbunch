@@ -1,5 +1,6 @@
 using System;
 using Application.Factories;
+using Application.Services;
 using Application.UseCases.Actions;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AddCashgame;
@@ -32,9 +33,13 @@ using Application.UseCases.TestEmail;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
 using Core.Factories;
+using Core.Factories.Interfaces;
+using Core.Repositories;
 using Core.Services;
+using Core.Services.Interfaces;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
+using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.SqlServer;
@@ -87,75 +92,168 @@ namespace Plumbing
 
         private DependencyContainer()
         {
-            var timeProvider = new TimeProvider();
-            var webContext = new WebContext();
+            BaseContext = () => BaseContextInteractor.Execute(WebContext);
+            AppContext = () => AppContextInteractor.Execute(BaseContext, Auth);
+            BunchContext = request => BunchContextInteractor.Execute(AppContext, BunchRepository, Auth, request);
+            CashgameContext = request => CashgameContextInteractor.Execute(BunchContext, CashgameRepository, request);
 
-            var storageProvider = new SqlServerStorageProvider();
-            var cacheProvider = new CacheProvider();
-            var cacheContainer = new CacheContainer(cacheProvider);
-            var cacheBuster = new CacheBuster(cacheContainer);
-            
-            var bunchStorage = new SqlServerBunchStorage(storageProvider);
-            var bunchRepository = new BunchRepository(bunchStorage, cacheContainer, cacheBuster);
-
-            var userStorage = new SqlServerUserStorage(storageProvider);
-            var userRepository = new UserRepository(userStorage, cacheContainer, cacheBuster);
-
-            var playerStorage = new SqlServerPlayerStorage(storageProvider);
-            var playerDataMapper = new PlayerDataMapper(userRepository);
-            var playerRepository = new PlayerRepository(playerStorage, playerDataMapper, cacheContainer, cacheBuster);
-
-            var rawCashgameFactory = new RawCashgameFactory(timeProvider);
-            var checkpointStorage = new SqlServerCheckpointStorage(storageProvider, timeProvider);
-            var cashgameStorage = new SqlServerCashgameStorage(storageProvider, rawCashgameFactory);
-            var cashgameResultFactory = new CashgameResultFactory(timeProvider);
-            var cashgameDataMapper = new CashgameDataMapper(cashgameResultFactory);
-            var cashgameRepository = new CashgameRepository(cashgameStorage, rawCashgameFactory, cacheContainer, checkpointStorage, cacheBuster, cashgameDataMapper);
-            var cashgameTotalResultFactory = new CashgameTotalResultFactory();
-            var cashgameSuiteFactory = new CashgameSuiteFactory(cashgameTotalResultFactory);
-            var cashgameService = new CashgameService(playerRepository, cashgameRepository, cashgameSuiteFactory, bunchRepository);
-            var checkpointRepository = new CheckpointRepository(checkpointStorage, cacheBuster);
-
-            var auth = new Auth(timeProvider, userRepository);
-            var messageSender = new MessageSender();
-
-            BaseContext = () => BaseContextInteractor.Execute(webContext);
-            AppContext = () => AppContextInteractor.Execute(BaseContext, auth);
-            BunchContext = request => BunchContextInteractor.Execute(AppContext, bunchRepository, auth, request);
-            CashgameContext = request => CashgameContextInteractor.Execute(BunchContext, cashgameRepository, request);
-
-            Home = () => HomeInteractor.Execute(auth);
+            Home = () => HomeInteractor.Execute(Auth);
             LoginForm = LoginFormInteractor.Execute;
-            Login = request => LoginInteractor.Execute(userRepository, auth, bunchRepository, playerRepository, request);
-            Logout = () => LogoutInteractor.Execute(auth); 
+            Login = request => LoginInteractor.Execute(UserRepository, Auth, BunchRepository, PlayerRepository, request);
+            Logout = () => LogoutInteractor.Execute(Auth); 
 
-            TestEmail = () => TestEmailInteractor.Execute(messageSender);
+            TestEmail = () => TestEmailInteractor.Execute(MessageSender);
 
-            UserList = () => UserListInteractor.Execute(userRepository);
-            UserDetails = request => UserDetailsInteractor.Execute(auth, userRepository, request);
-            EditUserForm = request => EditUserFormInteractor.Execute(userRepository, request);
+            UserList = () => UserListInteractor.Execute(UserRepository);
+            UserDetails = request => UserDetailsInteractor.Execute(Auth, UserRepository, request);
+            EditUserForm = request => EditUserFormInteractor.Execute(UserRepository, request);
 
-            BunchList = () => BunchListInteractor.Execute(bunchRepository);
-            BunchDetails = request => BunchDetailsInteractor.Execute(bunchRepository, auth, request);
+            BunchList = () => BunchListInteractor.Execute(BunchRepository);
+            BunchDetails = request => BunchDetailsInteractor.Execute(BunchRepository, Auth, request);
             AddBunchForm = AddBunchFormInteractor.Execute;;
-            EditBunchForm = request => EditBunchFormInteractor.Execute(bunchRepository, request);
-            JoinBunchForm = request => JoinBunchFormInteractor.Execute(bunchRepository, request);
-            JoinBunchConfirmation = request => JoinBunchConfirmationInteractor.Execute(bunchRepository, request);
+            EditBunchForm = request => EditBunchFormInteractor.Execute(BunchRepository, request);
+            JoinBunchForm = request => JoinBunchFormInteractor.Execute(BunchRepository, request);
+            JoinBunchConfirmation = request => JoinBunchConfirmationInteractor.Execute(BunchRepository, request);
 
-            TopList = request => TopListInteractor.Execute(bunchRepository, cashgameService, request);
-            CashgameDetails = request => CashgameDetailsInteractor.Execute(bunchRepository, cashgameRepository, auth, playerRepository, request);
-            CashgameFacts = request => CashgameFactsInteractor.Execute(bunchRepository, cashgameRepository, playerRepository, request);
-            AddCashgameForm = request => AddCashgameFormInteractor.Execute(bunchRepository, cashgameRepository, request);
-            AddCashgame = request => AddCashgameInteractor.Execute(bunchRepository, cashgameRepository, request);
-            Actions = request => ActionsInteractor.Execute(bunchRepository, cashgameRepository, playerRepository, auth, request);
-            BuyinForm = request => BuyinFormInteractor.Execute(bunchRepository, cashgameRepository, request);
-            Buyin = request => BuyinInteractor.Execute(bunchRepository, playerRepository, cashgameRepository, checkpointRepository, timeProvider, request);
+            TopList = request => TopListInteractor.Execute(BunchRepository, CashgameService, request);
+            CashgameDetails = request => CashgameDetailsInteractor.Execute(BunchRepository, CashgameRepository, Auth, PlayerRepository, request);
+            CashgameFacts = request => CashgameFactsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request);
+            AddCashgameForm = request => AddCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request);
+            AddCashgame = request => AddCashgameInteractor.Execute(BunchRepository, CashgameRepository, request);
+            Actions = request => ActionsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, Auth, request);
+            BuyinForm = request => BuyinFormInteractor.Execute(BunchRepository, CashgameRepository, request);
+            Buyin = request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, TimeProvider, request);
 
-            PlayerList = request => PlayerListInteractor.Execute(bunchRepository, playerRepository, auth, request);
-            PlayerDetails = request => PlayerDetailsInteractor.Execute(auth, bunchRepository, playerRepository, cashgameRepository, userRepository, request);
-            PlayerFacts = request => PlayerFactsInteractor.Execute(bunchRepository, cashgameRepository, request);
-            PlayerBadges = request => PlayerBadgesInteractor.Execute(bunchRepository, cashgameRepository, request);
-            InvitePlayer = request => InvitePlayerInteractor.Execute(bunchRepository, playerRepository, messageSender, request);
+            PlayerList = request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request);
+            PlayerDetails = request => PlayerDetailsInteractor.Execute(Auth, BunchRepository, PlayerRepository, CashgameRepository, UserRepository, request);
+            PlayerFacts = request => PlayerFactsInteractor.Execute(BunchRepository, CashgameRepository, request);
+            PlayerBadges = request => PlayerBadgesInteractor.Execute(BunchRepository, CashgameRepository, request);
+            InvitePlayer = request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request);
+        }
+
+        private ITimeProvider TimeProvider
+        {
+            get { return new TimeProvider(); }
+        }
+
+        private IWebContext WebContext
+        {
+            get { return new WebContext(); }
+        }
+
+        private IStorageProvider StorageProvider
+        {
+            get { return new SqlServerStorageProvider(); }
+        }
+
+        private ICacheProvider CacheProvider
+        {
+            get { return new CacheProvider(); }
+        }
+
+        private ICacheContainer CacheContainer
+        {
+            get { return new CacheContainer(CacheProvider); }
+        }
+
+        private ICacheBuster CacheBuster
+        {
+            get { return new CacheBuster(CacheContainer); }
+        }
+
+        private IBunchStorage BunchStorage
+        {
+            get { return new SqlServerBunchStorage(StorageProvider); }
+        }
+
+        private IBunchRepository BunchRepository
+        {
+            get { return new BunchRepository(BunchStorage, CacheContainer, CacheBuster); }
+        }
+
+        private IUserStorage UserStorage
+        {
+            get { return new SqlServerUserStorage(StorageProvider); }
+        }
+
+        private IUserRepository UserRepository
+        {
+            get { return new UserRepository(UserStorage, CacheContainer, CacheBuster); }
+        }
+
+        private IPlayerStorage PlayerStorage
+        {
+            get { return new SqlServerPlayerStorage(StorageProvider); }
+        }
+
+        private IPlayerDataMapper PlayerDataMapper
+        {
+            get { return new PlayerDataMapper(UserRepository); }
+        }
+
+        private IPlayerRepository PlayerRepository
+        {
+            get { return new PlayerRepository(PlayerStorage, PlayerDataMapper, CacheContainer, CacheBuster); }
+        }
+
+        private IRawCashgameFactory RawCashgameFactory
+        {
+            get { return new RawCashgameFactory(TimeProvider); }
+        }
+
+        private ICheckpointStorage CheckpointStorage
+        {
+            get { return new SqlServerCheckpointStorage(StorageProvider, TimeProvider); }
+        }
+
+        private ICashgameStorage CashgameStorage
+        {
+            get { return new SqlServerCashgameStorage(StorageProvider, RawCashgameFactory); }
+        }
+
+        private ICashgameResultFactory CashgameResultFactory
+        {
+            get { return new CashgameResultFactory(TimeProvider); }
+        }
+
+        private ICashgameDataMapper CashgameDataMapper
+        {
+            get { return new CashgameDataMapper(CashgameResultFactory); }
+        }
+
+        private ICashgameRepository CashgameRepository
+        {
+            get { return new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster, CashgameDataMapper); }
+        }
+
+        private ICashgameTotalResultFactory CashgameTotalResultFactory
+        {
+            get { return new CashgameTotalResultFactory(); }
+        }
+
+        private ICashgameSuiteFactory CashgameSuiteFactory
+        {
+            get { return new CashgameSuiteFactory(CashgameTotalResultFactory); }
+        }
+
+        private ICashgameService CashgameService
+        {
+            get { return new CashgameService(PlayerRepository, CashgameRepository, CashgameSuiteFactory, BunchRepository); }
+        }
+
+        private ICheckpointRepository CheckpointRepository
+        {
+            get { return new CheckpointRepository(CheckpointStorage, CacheBuster); }
+        }
+
+        private IAuth Auth
+        {
+            get { return new Auth(TimeProvider, UserRepository); }
+        }
+
+        private IMessageSender MessageSender
+        {
+            get { return new MessageSender(); }
         }
 
         public static DependencyContainer Instance
