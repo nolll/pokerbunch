@@ -61,6 +61,7 @@
     <Compile Include="UseCases\AddCashgameFormTests.cs" />
     <Compile Include="UseCases\AddCashgameTests.cs" />
     <Compile Include="UseCases\AddBunchFormTests.cs" />
+    <Compile Include="UseCases\AddPlayerTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchDetailsTests.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
+    <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditUserFormTests.cs" />
     <Compile Include="UseCases\HomeTests.cs" />

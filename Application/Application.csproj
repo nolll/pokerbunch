@@ -42,6 +42,7 @@
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
+    <Compile Include="Exceptions\PlayerExistsException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Factories\CashgameFactory.cs" />
@@ -145,6 +146,9 @@
     <Compile Include="UseCases\AddCashgame\AddCashgameRequest.cs" />
     <Compile Include="UseCases\AddCashgame\AddCashgameResult.cs" />
     <Compile Include="UseCases\AddCashgame\AddCashgameInteractor.cs" />
+    <Compile Include="UseCases\AddPlayer\AddPlayerInteractor.cs" />
+    <Compile Include="UseCases\AddPlayer\AddPlayerRequest.cs" />
+    <Compile Include="UseCases\AddPlayer\AddPlayerResult.cs" />
     <Compile Include="UseCases\AppContext\AppContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextResult.cs" />
@@ -187,6 +191,9 @@
     <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\DeletePlayer\DeletePlayerInteractor.cs" />
+    <Compile Include="UseCases\DeletePlayer\DeletePlayerRequest.cs" />
+    <Compile Include="UseCases\DeletePlayer\DeletePlayerResult.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormInteractor.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormRequest.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormResult.cs" />

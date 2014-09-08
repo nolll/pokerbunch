@@ -133,7 +133,6 @@
     <Compile Include="Commands\HomegameCommands\EditBunchCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IBunchCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinBunchCommand.cs" />
-    <Compile Include="Commands\PlayerCommands\DeletePlayerCommand.cs" />
     <Compile Include="Commands\UserCommands\AddUserCommand.cs" />
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\EditUserCommand.cs" />
@@ -156,10 +155,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
-    <Compile Include="Commands\PlayerCommands\AddPlayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\PlayerCommands\IPlayerCommandProvider.cs" />
-    <Compile Include="Commands\PlayerCommands\PlayerCommandProvider.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />

@@ -5,6 +5,7 @@ using Application.UseCases.Actions;
 using Application.UseCases.AddBunchForm;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.AddCashgameForm;
+using Application.UseCases.AddPlayer;
 using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
@@ -16,6 +17,7 @@ using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.DeletePlayer;
 using Application.UseCases.EditBunchForm;
 using Application.UseCases.EditUserForm;
 using Application.UseCases.Home;
@@ -89,6 +91,8 @@ namespace Plumbing
         public Func<PlayerFactsRequest, PlayerFactsResult> PlayerFacts { get; private set; }
         public Func<PlayerBadgesRequest, PlayerBadgesResult> PlayerBadges { get; private set; }
         public Func<InvitePlayerRequest, InvitePlayerResult> InvitePlayer { get; private set; }
+        public Func<AddPlayerRequest, AddPlayerResult> AddPlayer { get; private set; }
+        public Func<DeletePlayerRequest, DeletePlayerResult> DeletePlayer { get; private set; }
 
         private DependencyContainer()
         {
@@ -129,6 +133,8 @@ namespace Plumbing
             PlayerFacts = request => PlayerFactsInteractor.Execute(BunchRepository, CashgameRepository, request);
             PlayerBadges = request => PlayerBadgesInteractor.Execute(BunchRepository, CashgameRepository, request);
             InvitePlayer = request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request);
+            AddPlayer = request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request);
+            DeletePlayer = request => DeletePlayerInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, request);
         }
 
         private ITimeProvider TimeProvider

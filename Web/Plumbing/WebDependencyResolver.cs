@@ -3,7 +3,6 @@ using Castle.Windsor;
 using Plumbing;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
-using Web.Commands.PlayerCommands;
 using Web.Commands.UserCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -44,7 +43,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();
 
             // Command Providers
-            RegisterComponent<IPlayerCommandProvider, PlayerCommandProvider>();
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
             RegisterComponent<IBunchCommandProvider, BunchCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();

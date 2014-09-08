@@ -1,14 +1,13 @@
-using System;
 using System.Web.Mvc;
 using Application.Exceptions;
-using Application.Urls;
+using Application.UseCases.AddPlayer;
 using Application.UseCases.BunchContext;
+using Application.UseCases.DeletePlayer;
 using Application.UseCases.InvitePlayer;
 using Application.UseCases.PlayerBadges;
 using Application.UseCases.PlayerDetails;
 using Application.UseCases.PlayerFacts;
 using Application.UseCases.PlayerList;
-using Web.Commands.PlayerCommands;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
@@ -19,14 +18,6 @@ namespace Web.Controllers
 {
     public class PlayerController : ControllerBase
     {
-        private readonly IPlayerCommandProvider _playerCommandProvider;
-
-        public PlayerController(
-            IPlayerCommandProvider playerCommandProvider)
-	    {
-            _playerCommandProvider = playerCommandProvider;
-	    }
-
         [AuthorizePlayer]
         [Route("{slug}/player/index")]
 	    public ActionResult Index(string slug)
@@ -62,14 +53,20 @@ namespace Web.Controllers
         [Route("{slug}/player/add")]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
-            var command = _playerCommandProvider.GetAddCommand(slug, postModel);
-            if (command.Execute())
+            var request = new AddPlayerRequest(slug, postModel.Name);
+
+            try
             {
-                return Redirect(new AddPlayerConfirmationUrl(slug).Relative);
+                var result = UseCase.AddPlayer(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
             var model = BuildAddModel(slug, postModel);
-			return View("Add", model);
+            return View("Invite", model);
 		}
 
         [Route("{slug}/player/created")]
@@ -84,12 +81,9 @@ namespace Web.Controllers
         [Route("{slug}/player/delete/{playerId:int}")]
         public ActionResult Delete(string slug, int playerId)
         {
-            var command = _playerCommandProvider.GetDeleteCommand(slug, playerId);
-            if (command.Execute())
-            {
-                return Redirect(new PlayerIndexUrl(slug).Relative);
-            }
-            return Redirect(new PlayerDetailsUrl(slug, playerId).Relative);
+            var request = new DeletePlayerRequest(slug, playerId);
+            var result = UseCase.DeletePlayer(request);
+            return Redirect(result.ReturnUrl.Relative);
 		}
 
         [AuthorizeManager]

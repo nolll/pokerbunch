@@ -1,10 +1,7 @@
 using System;
 using System.Web.Mvc;
-using Application.Urls;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeCommands;
-using Web.Commands.PlayerCommands;
 using Web.Controllers;
 
 namespace Tests.Web.ControllerTests
@@ -31,42 +28,9 @@ namespace Tests.Web.ControllerTests
             Assert.IsTrue(result);
         }
         
-        [Test]
-		public void Delete_WithSuccessfulCommand_RedirectsToPlayerList()
-        {
-            const string slug = "a";
-		    const int playerId = 1;
-            var listUrl = new PlayerIndexUrl(slug);
-
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new SuccessfulCommandInTest());
-
-            var sut = GetSut();
-            var result = sut.Delete(slug, playerId) as RedirectResult;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(listUrl.Relative, result.Url);
-        }
-
-        [Test]
-        public void Delete_WithFailedCommand_RedirectsToPlayerList()
-        {
-            const string slug = "a";
-            const int playerId = 1;
-            var playerDetailsUrl = new PlayerDetailsUrl(slug, playerId);
-
-            GetMock<IPlayerCommandProvider>().Setup(o => o.GetDeleteCommand(slug, playerId)).Returns(new FailedCommandInTest());
-
-            var sut = GetSut();
-            var result = sut.Delete(slug, playerId) as RedirectResult;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(playerDetailsUrl.Relative, result.Url);
-        }
-
         private PlayerController GetSut()
         {
-			return new PlayerController(
-                GetMock<IPlayerCommandProvider>().Object);
+			return new PlayerController();
 		}
 	}
 }
