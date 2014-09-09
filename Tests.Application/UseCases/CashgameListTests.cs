@@ -17,8 +17,8 @@ namespace Tests.Application.UseCases
         {
             var bunch = A.Bunch.Build();
             var cashgames = new List<Cashgame>();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), null)).Returns(cashgames);
+            SetupBunch(bunch);
+            SetupCashgame(cashgames);
 
             var result = Execute(CreateRequest());
 
@@ -31,8 +31,8 @@ namespace Tests.Application.UseCases
             var bunch = A.Bunch.Build();
             var cashgame = A.Cashgame.Build();
             var cashgames = new List<Cashgame> { cashgame };
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), null)).Returns(cashgames);
+            SetupBunch(bunch);
+            SetupCashgame(cashgames);
 
             var result = Execute(CreateRequest());
 
@@ -42,6 +42,16 @@ namespace Tests.Application.UseCases
         private CashgameListRequest CreateRequest()
         {
             return new CashgameListRequest(Slug);
+        }
+
+        private void SetupBunch(Bunch bunch)
+        {
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+        }
+
+        private void SetupCashgame(List<Cashgame> cashgames)
+        {
+            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), null)).Returns(cashgames);
         }
 
         private CashgameListResult Execute(CashgameListRequest request)
