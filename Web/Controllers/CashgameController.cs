@@ -193,7 +193,7 @@ namespace Web.Controllers
 
 	    [AuthorizePlayer]
         [Route("{slug}/cashgame/list/{year?}")]
-        public ActionResult List(string slug, int? year = null)
+        public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var model = _cashgameListPageBuilder.Build(slug, year);
             return View("List/List", model);

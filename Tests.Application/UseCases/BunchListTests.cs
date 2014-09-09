@@ -10,7 +10,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void BunchList_ReturnsListOfBunchItems()
         {
-            var homegames = ABunchList.WithOneItem().Build();
+            var homegames = A.BunchList.WithOneItem().Build();
 
             GetMock<IBunchRepository>().Setup(o => o.GetList()).Returns(homegames);
 

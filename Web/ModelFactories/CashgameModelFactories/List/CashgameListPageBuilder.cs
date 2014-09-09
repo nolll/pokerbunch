@@ -44,14 +44,10 @@ namespace Web.ModelFactories.CashgameModelFactories.List
         {
             var param = _webContext.GetQueryParam("orderby");
             if (param == null)
-            {
                 return ListSortOrder.date;
-            }
             ListSortOrder sortOrder;
             if (Enum.TryParse(param, out sortOrder))
-            {
                 return sortOrder;
-            }
             return ListSortOrder.date;
         }
     }

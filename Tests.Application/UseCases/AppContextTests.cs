@@ -24,7 +24,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void AppContext_WithUser_LoggedInPropertiesAreSet()
         {
-            var user = AUser.Build();
+            var user = A.User.Build();
             SetupUser(user);
 
             var result = Execute();

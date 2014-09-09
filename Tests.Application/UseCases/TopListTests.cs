@@ -171,7 +171,7 @@ namespace Tests.Application.UseCases
 
         private void SetupSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)
         {
-            var homegame = ABunch.Build();
+            var homegame = A.Bunch.Build();
             var suite = BuildSuite(totalResult1, totalResult2);
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);

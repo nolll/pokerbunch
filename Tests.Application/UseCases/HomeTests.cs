@@ -34,7 +34,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void Home_LoggedIn_IsLoggedInIsTrue()
         {
-            var user = AUser.Build();
+            var user = A.User.Build();
             SetupUser(user);
 
             var result = Execute();
@@ -46,7 +46,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void Home_LoggedInAsAdmin_IsAdminIsTrue()
         {
-            var user = AUser.IsAdmin().Build();
+            var user = A.User.IsAdmin().Build();
             SetupUser(user);
 
             var result = Execute();

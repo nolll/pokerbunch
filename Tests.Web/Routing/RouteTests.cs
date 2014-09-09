@@ -218,8 +218,9 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameList()
         {
-            _routes.ShouldMap("/a/cashgame/list").To<CashgameController>(x => x.List("a", null));
-            _routes.ShouldMap("/a/cashgame/list/1").To<CashgameController>(x => x.List("a", 1));
+            _routes.ShouldMap("/a/cashgame/list").To<CashgameController>(x => x.List("a", null, null));
+            _routes.ShouldMap("/a/cashgame/list?orderby=b").To<CashgameController>(x => x.List("a", null, "b"));
+            _routes.ShouldMap("/a/cashgame/list/1").To<CashgameController>(x => x.List("a", 1, null));
         }
 
         [Test]
