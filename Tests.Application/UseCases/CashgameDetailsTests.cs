@@ -13,7 +13,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameDetailsTests : MockContainer
+    class CashgameDetailsTests : TestBase
     {
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()

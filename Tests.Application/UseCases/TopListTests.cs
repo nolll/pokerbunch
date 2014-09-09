@@ -11,7 +11,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class TopListTests : MockContainer
+    class TopListTests : TestBase
     {
         [Test]
         public void TopList_ReturnsTopListItems()

@@ -59,6 +59,7 @@
     <Compile Include="FakeClasses\MoneyInTest.cs" />
     <Compile Include="FakeClasses\TimeInTest.cs" />
     <Compile Include="MockContainer.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="FakeClasses\CashgameInTest.cs" />
     <Compile Include="FakeClasses\CashgameResultInTest.cs" />
     <Compile Include="FakeClasses\BunchInTest.cs" />

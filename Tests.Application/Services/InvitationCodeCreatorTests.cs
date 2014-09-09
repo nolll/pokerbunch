@@ -5,7 +5,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Services
 {
-	public class InvitationCodeCreatorTests : MockContainer
+	public class InvitationCodeCreatorTests : TestBase
     {
         [Test]
 		public void GetCode_ReturnsEncryptedPlayerName()

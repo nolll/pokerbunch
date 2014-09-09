@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class InvitePlayerTests : MockContainer
+    class InvitePlayerTests : TestBase
     {
         private const string Slug = "a";
         private const string BunchName = "b";

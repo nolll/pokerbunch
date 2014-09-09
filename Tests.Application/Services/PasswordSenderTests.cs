@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Services
 {
-    public class PasswordSenderTests : MockContainer
+    public class PasswordSenderTests : TestBase
     {
         [Test]
         public void Send_SendsMessage()

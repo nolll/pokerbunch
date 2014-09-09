@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class PlayerBadgesTests : MockContainer
+    class PlayerBadgesTests : TestBase
     {
         private const string Slug = "a";
         private const int PlayerId = 1;

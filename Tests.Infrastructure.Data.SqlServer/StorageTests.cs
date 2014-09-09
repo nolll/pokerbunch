@@ -3,7 +3,7 @@ using Tests.Common;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {
-    public abstract class StorageTests : MockContainer
+    public abstract class StorageTests : TestBase
     {
         protected StorageProviderInTest StorageProvider;
 

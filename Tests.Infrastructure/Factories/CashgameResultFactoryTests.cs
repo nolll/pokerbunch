@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Factories{
 
-	public class CashgameResultFactoryTests : MockContainer
+	public class CashgameResultFactoryTests : TestBase
     {
         private List<Checkpoint> _checkpoints;
 

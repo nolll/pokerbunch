@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Application.Services
 {
-    public class PasswordMessageBuilderTests : MockContainer
+    public class PasswordMessageBuilderTests : TestBase
     {
         [Test]
         public void GetSubject_EqualsExpectedSubject()

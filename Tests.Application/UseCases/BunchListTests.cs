@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    public class BunchListTests : MockContainer
+    public class BunchListTests : TestBase
     {
         [Test]
         public void BunchList_ReturnsListOfBunchItems()

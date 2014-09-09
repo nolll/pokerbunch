@@ -11,7 +11,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class LoginTests : MockContainer
+    class LoginTests : TestBase
     {
         private const string LoginName = "a";
         private const string Password = "b";

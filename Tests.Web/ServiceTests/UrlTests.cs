@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Web.ServiceTests
 {
-    public class UrlTests : MockContainer
+    public class UrlTests : TestBase
     {
         [Test]
         public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()

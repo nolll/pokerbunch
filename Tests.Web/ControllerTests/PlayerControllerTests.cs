@@ -6,7 +6,7 @@ using Web.Controllers;
 
 namespace Tests.Web.ControllerTests
 {
-	public class PlayerControllerTests : MockContainer
+	public class PlayerControllerTests : TestBase
     {
         [Test]
         public void Details_RequiresPlayer()

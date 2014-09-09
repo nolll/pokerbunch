@@ -13,7 +13,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class ActionsTests : MockContainer
+    class ActionsTests : TestBase
     {
         private const string Slug = "a";
         private const string DateStr = "2001-01-01";

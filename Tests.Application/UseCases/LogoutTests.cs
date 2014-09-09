@@ -6,7 +6,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class LogoutTests : MockContainer
+    class LogoutTests : TestBase
     {
         [Test]
         public void Logout_SignsOut()

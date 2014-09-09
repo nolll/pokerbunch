@@ -7,7 +7,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Data.Factories
 {
-    public class RawCashgameFactoryTests : MockContainer
+    public class RawCashgameFactoryTests : TestBase
     {
         [Test]
         public void Create_WithoutStatus_StatusIsSetFromCashgame()

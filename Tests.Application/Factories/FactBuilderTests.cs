@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Factories
 {
-    internal class FactBuilderTests : MockContainer
+    internal class FactBuilderTests : TestBase
     {
         private List<Cashgame> _cashgames;
         private List<Player> _players;

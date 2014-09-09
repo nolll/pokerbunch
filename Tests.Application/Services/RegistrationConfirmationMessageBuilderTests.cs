@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Application.Services
 {
-    public class RegistrationConfirmationMessageBuilderTests : MockContainer
+    public class RegistrationConfirmationMessageBuilderTests : TestBase
     {
         [Test]
         public void GetSubject_EqualsExpectedSubject()

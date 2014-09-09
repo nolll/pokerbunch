@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class EditUserFormTests : MockContainer
+    class EditUserFormTests : TestBase
     {
         private const string UserName = "a";
         private const string RealName = "b";

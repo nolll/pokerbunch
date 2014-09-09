@@ -7,7 +7,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class JoinBunchConfirmationTests : MockContainer
+    class JoinBunchConfirmationTests : TestBase
     {
         private const string Slug = "a";
         private const string BunchName = "b";

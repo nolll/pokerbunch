@@ -8,7 +8,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class DeletePlayerTests : MockContainer
+    class DeletePlayerTests : TestBase
     {
         private const string Slug = "a";
         private const int PlayerId = 1;

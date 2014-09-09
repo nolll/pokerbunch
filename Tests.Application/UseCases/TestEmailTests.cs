@@ -6,7 +6,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class TestEmailTests : MockContainer
+    class TestEmailTests : TestBase
     {
         private const string Email = "henriks@gmail.com";
 

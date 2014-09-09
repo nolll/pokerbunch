@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class BuyinFormTests : MockContainer
+    class BuyinFormTests : TestBase
     {
         private const string Slug = "a";
         private const int PlayerIdInGame = 1;

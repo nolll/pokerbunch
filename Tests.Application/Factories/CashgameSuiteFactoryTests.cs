@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Factories
 {
-	class CashgameSuiteFactoryTests : MockContainer
+	class CashgameSuiteFactoryTests : TestBase
     {
 		private List<Cashgame> _cashgames;
 		private List<Player> _players;

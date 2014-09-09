@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Services
 {
-    public class CashgameServiceTests : MockContainer
+    public class CashgameServiceTests : TestBase
     {
         [TestCase(null)]
         [TestCase(1)]

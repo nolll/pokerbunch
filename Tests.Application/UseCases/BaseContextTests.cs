@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class BaseContextTests : MockContainer
+    class BaseContextTests : TestBase
     {
         [Test]
         public void BaseContext_VersionIsSet()

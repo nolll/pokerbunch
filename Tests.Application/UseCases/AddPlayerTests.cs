@@ -11,7 +11,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class AddPlayerTests : MockContainer
+    class AddPlayerTests : TestBase
     {
         private const string Slug = "a";
         private const string InvalidName = "";

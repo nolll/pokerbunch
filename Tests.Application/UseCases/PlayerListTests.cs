@@ -10,7 +10,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class PlayerListTests : MockContainer
+    class PlayerListTests : TestBase
     {
         [Test]
         public void Execute_WithSlug_SlugAndPlayersAreSet()

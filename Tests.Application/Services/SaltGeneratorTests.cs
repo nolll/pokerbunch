@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Application.Services
 {
-	public class SaltGeneratorTests : MockContainer
+	public class SaltGeneratorTests : TestBase
     {
         [Test]
         public void CreateSalt_Returns10CharSalt()

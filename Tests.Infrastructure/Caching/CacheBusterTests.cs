@@ -5,7 +5,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Caching
 {
-    public class CacheBusterTests : MockContainer
+    public class CacheBusterTests : TestBase
     {
         [Test]
         public void UserAdded_RemovesAllUserIds()

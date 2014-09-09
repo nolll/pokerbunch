@@ -12,7 +12,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class AddCashgameTests : MockContainer
+    class AddCashgameTests : TestBase
     {
         private const string Slug = "a";
         private const string Location = "b";

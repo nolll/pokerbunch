@@ -15,7 +15,7 @@ using DependencyResolver = Plumbing.DependencyResolver;
 namespace Tests.Web.PlumbingTests
 {
     [TestFixture]
-    public class DependencyInjectionTests : MockContainer
+    public class DependencyInjectionTests : TestBase
     {
         private readonly IList<Type> _ignoredInterfaces;
 

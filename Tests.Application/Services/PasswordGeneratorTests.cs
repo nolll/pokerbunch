@@ -4,7 +4,7 @@ using Tests.Common;
 
 namespace Tests.Application.Services
 {
-    public class PasswordGeneratorTests : MockContainer
+    public class PasswordGeneratorTests : TestBase
     {
         [Test]
         public void CreatePassword_Returns8CharPassword()

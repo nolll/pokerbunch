@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class BunchDetailsTests : MockContainer
+    class BunchDetailsTests : TestBase
     {
         private const string Slug = "a";
         private const string BunchName = "b";

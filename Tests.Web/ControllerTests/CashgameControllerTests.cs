@@ -15,7 +15,7 @@ using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Tests.Web.ControllerTests
 {
-	public class CashgameControllerTests : MockContainer
+	public class CashgameControllerTests : TestBase
 	{
         [Test]
         public void Action_RequiresPlayer()

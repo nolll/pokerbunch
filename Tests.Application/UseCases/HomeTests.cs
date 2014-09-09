@@ -7,7 +7,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class HomeTests : MockContainer
+    class HomeTests : TestBase
     {
         [Test]
         public void Home_UrlsAreSet()

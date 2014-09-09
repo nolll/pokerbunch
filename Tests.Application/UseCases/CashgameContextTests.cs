@@ -12,7 +12,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameContextTests : MockContainer
+    class CashgameContextTests : TestBase
     {
         [Test]
         public void Execute_NoRunningGame_GameIsRunningIsFalse()

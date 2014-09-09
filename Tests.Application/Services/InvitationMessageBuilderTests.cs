@@ -5,7 +5,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Services
 {
-    public class InvitationMessageBuilderTests : MockContainer
+    public class InvitationMessageBuilderTests : TestBase
     {
         [Test]
         public void GetSubject_EqualsExpectedSubject()

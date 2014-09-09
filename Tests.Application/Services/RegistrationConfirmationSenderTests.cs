@@ -6,7 +6,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Services
 {
-    public class RegistrationConfirmationSenderTests : MockContainer
+    public class RegistrationConfirmationSenderTests : TestBase
     {
         [Test]
         public void Send_SendsMessage()

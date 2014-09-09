@@ -8,7 +8,7 @@ using Tests.Common;
 
 namespace Tests.Application.UseCases
 {
-    class CashgameListTests : MockContainer
+    class CashgameListTests : TestBase
     {
         private const string Slug = "a";
 

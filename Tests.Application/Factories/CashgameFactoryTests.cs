@@ -8,7 +8,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.Factories
 {
-	public class CashgameFactoryTests : MockContainer
+	public class CashgameFactoryTests : TestBase
     {
         private DateTime _earliestBuyinTime;
 		private DateTime _earliestCashoutTime;

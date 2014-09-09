@@ -9,7 +9,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    public class UserListTests : MockContainer
+    public class UserListTests : TestBase
     {
         [Test]
         public void UserList_ReturnsListOfUserItems()

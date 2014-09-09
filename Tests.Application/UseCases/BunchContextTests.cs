@@ -13,7 +13,7 @@ using Tests.Common.FakeClasses;
 
 namespace Tests.Application.UseCases
 {
-    class BunchContextTests : MockContainer
+    class BunchContextTests : TestBase
     {
         [Test]
         public void BunchContext_WithSlug_SlugIsSetFromSelectedHomegame()

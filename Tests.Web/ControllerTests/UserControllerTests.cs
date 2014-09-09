@@ -7,7 +7,7 @@ using Web.Controllers;
 
 namespace Tests.Web.ControllerTests
 {
-    class UserControllerTests : MockContainer
+    class UserControllerTests : TestBase
     {
         [Test]
         public void List_RequiresAdmin()

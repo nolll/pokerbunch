@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Tests.Infrastructure.Data.Factories
 {
-    public class RawPlayerFactoryTests : MockContainer
+    public class RawPlayerFactoryTests : TestBase
     {
         [Test]
         public void Create_AllPropertiesAreSetFromStorageDataReader()
