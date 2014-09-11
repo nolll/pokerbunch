@@ -31,8 +31,6 @@ namespace Web.Plumbing
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
-            RegisterComponent<ICashgameListTableModelFactory, CashgameListTableModelFactory>();
-            RegisterComponent<ICashgameListTableItemModelFactory, CashgameListTableItemModelFactory>();
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
 
             // Model Factories

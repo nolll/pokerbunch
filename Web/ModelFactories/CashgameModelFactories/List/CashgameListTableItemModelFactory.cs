@@ -1,47 +1,38 @@
 using Application.Services;
 using Application.Urls;
+using Application.UseCases.CashgameList;
 using Core.Entities;
 using Web.Models.CashgameModels.List;
 
 namespace Web.ModelFactories.CashgameModelFactories.List
 {
-    public class CashgameListTableItemModelFactory : ICashgameListTableItemModelFactory
+    public class CashgameListTableItemModelFactory
     {
-        public CashgameListTableItemModel Create(Bunch bunch, Cashgame cashgame, bool showYear, ListSortOrder sortOrder)
+        public CashgameListTableItemModel Create(CashgameItem item, ListSortOrder sortOrder, bool showYear)
         {
-            var playerCount = cashgame.PlayerCount;
-
             return new CashgameListTableItemModel
                 {
-                    PlayerCount = playerCount,
-                    PlayerCountSortClass = GetSortCssClass(sortOrder, ListSortOrder.playercount),
-                    Location = cashgame.Location,
-                    LocationSortClass = GetSortCssClass(sortOrder, ListSortOrder.location),
-                    Duration = GetDuration(cashgame),
-                    DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.duration),
-                    Turnover = GetTurnover(bunch, cashgame),
-                    TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.turnover),
+                    PlayerCount = item.PlayerCount,
+                    PlayerCountSortClass = GetSortCssClass(sortOrder, ListSortOrder.PlayerCount),
+                    Location = item.Location,
+                    LocationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Location),
+                    Duration = GetDuration(item.Duration),
+                    DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Duration),
+                    Turnover = Globalization.FormatCurrency(bunch.Currency, cashgame.Turnover); // todo: should be money
+                    TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.Turnover),
                     AvgBuyin = GetAvgBuyin(bunch, cashgame),
-                    AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.averagebuyin),
+                    AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.Averagebuyin),
                     DetailsUrl = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString),
-                    DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value, showYear) : null,
+                    DisplayDate = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(item.Date, showYear) : null,
                     DateSortClass = GetSortCssClass(sortOrder, ListSortOrder.date)
                 };
         }
 
-        private string GetDuration(Cashgame cashgame)
+        private string GetDuration(int duration)
         {
-            var duration = cashgame.Duration;
             if (duration > 0)
-            {
                 return Globalization.FormatDuration(duration);
-            }
             return string.Empty;
-        }
-
-        private string GetTurnover(Bunch bunch, Cashgame cashgame)
-        {
-            return Globalization.FormatCurrency(bunch.Currency, cashgame.Turnover);
         }
 
         private string GetAvgBuyin(Bunch bunch, Cashgame cashgame)

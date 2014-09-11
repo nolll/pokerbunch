@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Repositories;
 using Core.Services.Interfaces;
 
@@ -11,10 +12,29 @@ namespace Application.UseCases.CashgameTopList
             var homegame = bunchRepository.GetBySlug(request.Slug);
             var suite = cashgameService.GetSuite(homegame, request.Year);
 
-            var sortedResults = suite.TotalResults.OrderByDescending(o => o.Winnings);
-            var items = sortedResults.Select((o, index) => new TopListItem(o, index, homegame.Currency)).ToList();
+            var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, homegame.Currency));
+            items = SortItems(items, request.OrderBy);
 
             return new TopListResult(items, request.OrderBy, homegame.Slug, request.Year);
+        }
+
+        private static IEnumerable<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
+        {
+            switch (orderBy)
+            {
+                case ToplistSortOrder.WinRate:
+                    return items.OrderByDescending(o => o.WinRate);
+                case ToplistSortOrder.Buyin:
+                    return items.OrderByDescending(o => o.Buyin);
+                case ToplistSortOrder.Cashout:
+                    return items.OrderByDescending(o => o.Cashout);
+                case ToplistSortOrder.TimePlayed:
+                    return items.OrderByDescending(o => o.TimePlayed);
+                case ToplistSortOrder.GamesPlayed:
+                    return items.OrderByDescending(o => o.GamesPlayed);
+                default:
+                    return items.OrderByDescending(o => o.Winnings);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -151,8 +152,6 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartJsonBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableItemModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -191,9 +190,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\ICashgameListPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageBuilder.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />

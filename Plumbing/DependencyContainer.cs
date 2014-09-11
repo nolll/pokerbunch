@@ -16,6 +16,7 @@ using Application.UseCases.BuyinForm;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
+using Application.UseCases.CashgameList;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.DeletePlayer;
 using Application.UseCases.EditBunchForm;
@@ -80,6 +81,7 @@ namespace Plumbing
         public Func<TopListRequest, TopListResult> TopList { get; private set; }
         public Func<CashgameDetailsRequest, CashgameDetailsResult> CashgameDetails { get; private set; }
         public Func<CashgameFactsRequest, CashgameFactsResult> CashgameFacts { get; private set; }
+        public Func<CashgameListRequest, CashgameListResult> CashgameList { get; private set; }
         public Func<AddCashgameFormRequest, AddCashgameFormResult> AddCashgameForm { get; private set; }
         public Func<AddCashgameRequest, AddCashgameResult> AddCashgame { get; private set; }
         public Func<ActionsRequest, ActionsResult> Actions { get; private set; }
@@ -122,6 +124,7 @@ namespace Plumbing
             TopList = request => TopListInteractor.Execute(BunchRepository, CashgameService, request);
             CashgameDetails = request => CashgameDetailsInteractor.Execute(BunchRepository, CashgameRepository, Auth, PlayerRepository, request);
             CashgameFacts = request => CashgameFactsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request);
+            CashgameList = request => CashgameListInteractor.Execute(BunchRepository, CashgameRepository, request);
             AddCashgameForm = request => AddCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request);
             AddCashgame = request => AddCashgameInteractor.Execute(BunchRepository, CashgameRepository, request);
             Actions = request => ActionsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, Auth, request);

@@ -2,7 +2,7 @@
 
 namespace Core.Entities
 {
-    public class Date
+    public class Date : IComparable<Date>
     {
         public int Month { get; private set; }
         public int Day { get; private set; }
@@ -10,9 +10,14 @@ namespace Core.Entities
 
         public Date(int year, int month, int day)
         {
+            Year = year;
             Month = month;
             Day = day;
-            Year = year;
+        }
+
+        public Date(DateTime dateTime)
+            : this(dateTime.Year, dateTime.Month, dateTime.Day)
+        {
         }
 
         public string IsoString
@@ -32,6 +37,30 @@ namespace Core.Entities
         {
             var d = DateTime.Parse(s);
             return new Date(d.Year, d.Month, d.Day);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Date;
+            return other != null && Year == other.Year && Month == other.Month && Day == other.Day;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public int CompareTo(Date other)
+        {
+            if (Equals(other))
+                return 0;
+            if (Year.CompareTo(other.Year) < 0)
+                return -1;
+            if (Month.CompareTo(other.Month) < 0)
+                return -1;
+            if (Day.CompareTo(other.Day) < 0)
+                return -1;
+            return 0;
         }
     }
 }

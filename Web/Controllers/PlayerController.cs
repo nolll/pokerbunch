@@ -66,7 +66,7 @@ namespace Web.Controllers
             }
 
             var model = BuildAddModel(slug, postModel);
-            return View("Invite", model);
+            return View("Add", model);
 		}
 
         [Route("{slug}/player/created")]

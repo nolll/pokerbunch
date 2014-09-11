@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -186,6 +187,11 @@
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormInteractor.cs" />
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormRequest.cs" />
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormResult.cs" />
+    <Compile Include="UseCases\CashgameList\CashgameItem.cs" />
+    <Compile Include="UseCases\CashgameList\CashgameListInteractor.cs" />
+    <Compile Include="UseCases\CashgameList\CashgameListRequest.cs" />
+    <Compile Include="UseCases\CashgameList\CashgameListResult.cs" />
+    <Compile Include="UseCases\CashgameList\ListSortOrder.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />

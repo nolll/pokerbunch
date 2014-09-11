@@ -12,29 +12,10 @@ namespace Application.UseCases.CashgameTopList
 
         public TopListResult(IEnumerable<TopListItem> items, ToplistSortOrder orderBy, string slug, int? year)
         {
-            Items = SortItems(items, orderBy);
+            Items = items.ToList();
             OrderBy = orderBy;
             Slug = slug;
             Year = year;
-        }
-
-        private static IList<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)
-        {
-            switch (orderBy)
-            {
-                case ToplistSortOrder.WinRate:
-                    return items.OrderByDescending(o => o.WinRate).ToList();
-                case ToplistSortOrder.Buyin:
-                    return items.OrderByDescending(o => o.Buyin).ToList();
-                case ToplistSortOrder.Cashout:
-                    return items.OrderByDescending(o => o.Cashout).ToList();
-                case ToplistSortOrder.TimePlayed:
-                    return items.OrderByDescending(o => o.TimePlayed).ToList();
-                case ToplistSortOrder.GamesPlayed:
-                    return items.OrderByDescending(o => o.GamesPlayed).ToList();
-                default:
-                    return items.OrderByDescending(o => o.Winnings).ToList();
-            }
         }
     }
 }
