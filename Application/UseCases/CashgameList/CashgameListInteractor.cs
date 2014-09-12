@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 
@@ -14,14 +15,14 @@ namespace Application.UseCases.CashgameList
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
+            cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
             var list = cashgames.Select(o => new CashgameItem(bunch, o));
-            list = SortItems(list, request.SortOrder);
 
             return new CashgameListResult(request.Slug, list.ToList(), request.SortOrder, request.Year, spansMultipleYears);
         }
 
-        private static IEnumerable<CashgameItem> SortItems(IEnumerable<CashgameItem> items, ListSortOrder orderBy)
+        private static IEnumerable<Cashgame> SortItems(IEnumerable<Cashgame> items, ListSortOrder orderBy)
         {
             switch (orderBy)
             {
@@ -36,7 +37,7 @@ namespace Application.UseCases.CashgameList
                 case ListSortOrder.AverageBuyin:
                     return items.OrderByDescending(o => o.AverageBuyin);
                 default:
-                    return items.OrderByDescending(o => o.Date);
+                    return items.OrderByDescending(o => o.StartTime);
             }
         }
     }

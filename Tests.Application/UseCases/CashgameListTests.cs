@@ -48,7 +48,9 @@ namespace Tests.Application.UseCases
         [Test]
         public void CashgameList_WithYear_YearIsSet()
         {
-            SetupSingleGame();
+            var cashgame = A.Cashgame.Build();
+            var cashgameList = new List<Cashgame> {cashgame};
+            SetupCashgames(cashgameList, Year);
 
             var result = Execute(CreateRequest(year: Year));
 
@@ -194,8 +196,8 @@ namespace Tests.Application.UseCases
             var result = Execute(CreateRequest("duration"));
 
             Assert.AreEqual(ListSortOrder.Duration, result.SortOrder);
-            Assert.AreEqual(2, result.List[0].Duration);
-            Assert.AreEqual(1, result.List[1].Duration);
+            Assert.AreEqual(2, result.List[0].Duration.Minutes);
+            Assert.AreEqual(1, result.List[1].Duration.Minutes);
         }
 
         [Test]
@@ -211,8 +213,8 @@ namespace Tests.Application.UseCases
             var result = Execute(CreateRequest("turnover"));
 
             Assert.AreEqual(ListSortOrder.Turnover, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].Turnover);
-            Assert.AreEqual(low, result.List[1].Turnover);
+            Assert.AreEqual(high, result.List[0].Turnover.Amount);
+            Assert.AreEqual(low, result.List[1].Turnover.Amount);
         }
 
         [Test]
@@ -228,8 +230,8 @@ namespace Tests.Application.UseCases
             var result = Execute(CreateRequest("averagebuyin"));
 
             Assert.AreEqual(ListSortOrder.AverageBuyin, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].AverageBuyin);
-            Assert.AreEqual(low, result.List[1].AverageBuyin);
+            Assert.AreEqual(high, result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(low, result.List[1].AverageBuyin.Amount);
         }
 
         private void SetupTwoGames(Cashgame cashgame1, Cashgame cashgame2)
@@ -261,11 +263,11 @@ namespace Tests.Application.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
-        private void SetupCashgames(IList<Cashgame> cashgames)
+        private void SetupCashgames(IList<Cashgame> cashgames, int? year = null)
         {
             var bunch = A.Bunch.Build();
             SetupBunch(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), null)).Returns(cashgames);
+            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), year)).Returns(cashgames);
         }
 
         private CashgameListResult Execute(CashgameListRequest request)
