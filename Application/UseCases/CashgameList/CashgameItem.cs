@@ -8,20 +8,20 @@ namespace Application.UseCases.CashgameList
     {
         public string Location { get; private set; }
         public Url Url { get; private set; }
-        public int Duration { get; private set; }
+        public Time Duration { get; private set; }
         public Date Date { get; private set; }
-        public int Turnover { get; private set; }
-        public int AverageBuyin { get; private set; }
+        public Money Turnover { get; private set; }
+        public Money AverageBuyin { get; private set; }
         public int PlayerCount { get; private set; }
 
-        public CashgameItem(string slug, Cashgame cashgame)
+        public CashgameItem(Bunch bunch, Cashgame cashgame)
         {
             Location = cashgame.Location;
-            Url = new CashgameDetailsUrl(slug, cashgame.DateString);
-            Duration = cashgame.Duration;
+            Url = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString);
+            Duration = Time.FromMinutes(cashgame.Duration);
             Date = cashgame.StartTime.HasValue ? new Date(cashgame.StartTime.Value) : new Date(DateTime.MinValue);
-            Turnover = cashgame.Turnover;
-            AverageBuyin = cashgame.AverageBuyin;
+            Turnover = new Money(cashgame.Turnover, bunch.Currency);
+            AverageBuyin = new Money(cashgame.AverageBuyin, bunch.Currency);
             PlayerCount = cashgame.PlayerCount;
         }
     }

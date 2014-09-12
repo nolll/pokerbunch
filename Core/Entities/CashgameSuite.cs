@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Services;
 
 namespace Core.Entities
 {
@@ -20,22 +21,7 @@ namespace Core.Entities
 
         public bool SpansMultipleYears
         {
-            get
-            {
-                var years = new List<int>();
-                foreach (var cashgame in Cashgames)
-                {
-                    if (cashgame.StartTime.HasValue)
-                    {
-                        var year = cashgame.StartTime.Value.Year;
-                        if (!years.Contains(year))
-                        {
-                            years.Add(year);
-                        }
-                    }
-                }
-                return years.Count > 1;                
-            }
+            get { return CashgameService.SpansMultipleYears(Cashgames); }
         }
 	}
 }

@@ -9,7 +9,6 @@ using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Running;
 
@@ -29,7 +28,6 @@ namespace Web.Plumbing
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
             RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
-            RegisterComponent<ICashgameListPageBuilder, CashgameListPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
             RegisterComponent<IEditCheckpointPageBuilder, EditCheckpointPageBuilder>();
 

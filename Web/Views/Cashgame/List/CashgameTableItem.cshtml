@@ -1,7 +1,7 @@
 @model Web.Models.CashgameModels.List.CashgameListTableItemModel
 <tr>
     <td class="base-column ">
-        <a href="@Model.DetailsUrl.Relative" class="date">@Model.DisplayDate</a>
+        <a href="@Model.DetailsUrl" class="date">@Model.DisplayDate</a>
     </td>
     <td class="numeric @Model.PlayerCountSortClass">@Model.PlayerCount</td>
     <td class="@Model.LocationSortClass">@Model.Location</td>

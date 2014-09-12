@@ -12,7 +12,6 @@ using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameList;
 using Application.UseCases.CashgameTopList;
-using Plumbing;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -194,8 +193,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/list/{year?}")]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
-            var contextResult = DependencyContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.List));
-            var listResult = DependencyContainer.Instance.CashgameList(new CashgameListRequest(slug, orderBy, year));
+            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.List));
+            var listResult = UseCase.CashgameList(new CashgameListRequest(slug, orderBy, year));
 
             var model = new CashgameListPageModel(contextResult, listResult);
             return View("List/List", model);

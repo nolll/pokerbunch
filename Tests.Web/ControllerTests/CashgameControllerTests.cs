@@ -45,7 +45,6 @@ namespace Tests.Web.ControllerTests
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,
                 GetMock<IEditCashgamePageBuilder>().Object,
                 GetMock<IRunningCashgamePageBuilder>().Object,
-                GetMock<ICashgameListPageBuilder>().Object,
                 GetMock<ICashgameChartPageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
                 GetMock<IActionChartJsonBuilder>().Object,

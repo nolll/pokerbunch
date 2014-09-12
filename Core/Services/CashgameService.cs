@@ -26,6 +26,23 @@ namespace Core.Services
             _bunchRepository = bunchRepository;
         }
 
+        public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
+        {
+            var years = new List<int>();
+            foreach (var cashgame in cashgames)
+            {
+                if (cashgame.StartTime.HasValue)
+                {
+                    var year = cashgame.StartTime.Value.Year;
+                    if (!years.Contains(year))
+                    {
+                        years.Add(year);
+                    }
+                }
+            }
+            return years.Count > 1;                
+        }
+
         public CashgameSuite GetSuite(Bunch bunch, int? year = null)
         {
             var players = _playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();

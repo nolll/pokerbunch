@@ -25,17 +25,6 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void CashgameList_WithYear_YearIsSet()
-        {
-            SetupEmptyGameList();
-
-            var result = Execute(CreateRequest(year: Year));
-
-            Assert.IsTrue(result.ShowYear);
-            Assert.AreEqual(Year, result.Year);
-        }
-
-        [Test]
         public void CashgameList_WithoutYear_YearIsNull()
         {
             SetupEmptyGameList();
@@ -54,6 +43,17 @@ namespace Tests.Application.UseCases
             var result = Execute(CreateRequest());
 
             Assert.AreEqual(0, result.List.Count);
+        }
+
+        [Test]
+        public void CashgameList_WithYear_YearIsSet()
+        {
+            SetupSingleGame();
+
+            var result = Execute(CreateRequest(year: Year));
+
+            Assert.IsTrue(result.ShowYear);
+            Assert.AreEqual(Year, result.Year);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Tests.Application.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(1, result.List[0].Duration);
+            Assert.AreEqual(1, result.List[0].Duration.Minutes);
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace Tests.Application.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(2, result.List[0].Turnover);
+            Assert.AreEqual(2, result.List[0].Turnover.Amount);
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Tests.Application.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(3, result.List[0].AverageBuyin);
+            Assert.AreEqual(3, result.List[0].AverageBuyin.Amount);
         }
 
         [TestCase("date")]

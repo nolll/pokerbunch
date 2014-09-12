@@ -32,13 +32,9 @@ namespace Core.Entities
             var h = (int)Math.Floor((double)minutes / 60);
             var m = minutes % 60;
             if (h > 0 && m > 0)
-            {
                 return h + "h " + m + "m";
-            }
             if (h > 0)
-            {
                 return h + "h";
-            }
             return m + "m";
         }
     }

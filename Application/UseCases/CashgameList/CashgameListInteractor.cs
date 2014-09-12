@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Repositories;
+using Core.Services;
 
 namespace Application.UseCases.CashgameList
 {
@@ -13,10 +14,11 @@ namespace Application.UseCases.CashgameList
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
-            var list = cashgames.Select(o => new CashgameItem(bunch.Slug, o));
+            var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
+            var list = cashgames.Select(o => new CashgameItem(bunch, o));
             list = SortItems(list, request.SortOrder);
 
-            return new CashgameListResult(request.Slug, list.ToList(), request.SortOrder, request.Year);
+            return new CashgameListResult(request.Slug, list.ToList(), request.SortOrder, request.Year, spansMultipleYears);
         }
 
         private static IEnumerable<CashgameItem> SortItems(IEnumerable<CashgameItem> items, ListSortOrder orderBy)
