@@ -10,6 +10,6 @@ namespace Application.Services
         {
             var timeZones = Globalization.GetTimezones();
             return timeZones.Select(t => new TimeZoneItem(t.Id, t.DisplayName)).ToList();
-        }        
+        }
     }
 }

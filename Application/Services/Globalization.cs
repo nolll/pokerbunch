@@ -20,16 +20,6 @@ namespace Application.Services
             return amountFormatted.Replace("{SYMBOL}", currency.Symbol);
         }
 
-        public static string FormatCurrency(Money money)
-        {
-            return FormatCurrency(money.Currency, money.Amount);
-        }
-
-        public static string FormatWinrate(Money winrate)
-        {
-            return FormatWinrate(winrate.Currency, winrate.Amount);
-        }
-
         public static string FormatWinrate(Currency currency, int winrate)
         {
             return FormatCurrency(currency, winrate) + "/h";
@@ -45,11 +35,6 @@ namespace Application.Services
             return currencyValue;
         }
 
-        public static string FormatResult(Money money)
-        {
-            return FormatResult(money.Currency, money.Amount);
-        }
-
         public static string FormatDuration(int minutes)
         {
             var h = (int)Math.Floor((double)minutes / 60);
@@ -63,11 +48,6 @@ namespace Application.Services
                 return h + "h";
             }
             return m + "m";
-        }
-
-        public static string FormatDuration(TimeSpan timeSpan)
-        {
-            return FormatDuration(Convert.ToInt32(Math.Round(timeSpan.TotalMinutes)));
         }
 
         public static string FormatTimespan(TimeSpan timeSpan)
@@ -119,7 +99,7 @@ namespace Application.Services
             return dateTime.ToString("yyyy", CultureInfo.InvariantCulture);
         }
 
-        public static IList<TimeZoneInfo> GetTimezones()
+        public static IEnumerable<TimeZoneInfo> GetTimezones()
         {
             return TimeZoneInfo.GetSystemTimeZones();
         }
