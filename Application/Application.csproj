@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -52,6 +53,7 @@
     <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\EncryptionService.cs" />
+    <Compile Include="Services\Env.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IAuth.cs" />

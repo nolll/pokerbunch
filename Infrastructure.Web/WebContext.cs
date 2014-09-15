@@ -18,7 +18,7 @@ namespace Infrastructure.Web
 
         public string Host
         {
-            get { return Request.Url.Host.Replace("www.", ""); }
+            get { return Request.Url.Host; }
         }
 
         private static HttpRequest Request

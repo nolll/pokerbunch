@@ -9,14 +9,8 @@ namespace Application.UseCases.BaseContext
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             return new BaseContextResult(
-                IsInProduction(webContext),
+                Env.IsInProduction(webContext.Host),
                 version);
-        }
-
-        private static bool IsInProduction(IWebContext webContext)
-        {
-            var host = webContext.Host;
-            return host.Contains("pokerbunch.com");
         }
     }
 }

@@ -8,12 +8,11 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using Application;
-using Castle.MicroKernel;
+using Application.Services;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Core.Entities;
 using Newtonsoft.Json;
-using Plumbing;
 using Web.Plumbing;
 using Web.Security;
 using DependencyResolver = Plumbing.DependencyResolver;
@@ -43,26 +42,21 @@ namespace Web
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             EnsureLowercaseUrl();
+            EnsureHttps();
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
         {
             if (!Request.IsAuthenticated)
-            {
                 return;
-            }
 
             var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
             if (authCookie == null)
-            {
                 return;
-            }
             
             var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
             if (authTicket == null)
-            {
                 return;
-            }
 
             var userIdentity = JsonConvert.DeserializeObject<UserIdentity>(authTicket.UserData);
             var customIdentity = new CustomIdentity(true, userIdentity);
@@ -85,6 +79,16 @@ namespace Web
                 Response.AddHeader("Location", url.ToLower());
                 Response.End();
             }
+        }
+
+        private void EnsureHttps()
+        {
+            if(Context.Request.IsSecureConnection)
+                return;
+
+            var host = Context.Request.Url.Host;
+            if(Env.IsInProduction(host))
+                Response.RedirectPermanent(Context.Request.Url.ToString().Replace("http:", "https:"));
         }
 
         private static void RegisterRoutes(RouteCollection routes)
