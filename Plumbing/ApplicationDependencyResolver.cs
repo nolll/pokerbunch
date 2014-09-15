@@ -67,7 +67,6 @@ namespace Plumbing
             // Services
             RegisterComponent<IAuth, Auth>();
             RegisterComponent<IMessageSender, MessageSender>();
-            RegisterComponent<IUserService, UserService>();
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
             RegisterComponent<IPasswordSender, PasswordSender>();
             RegisterComponent<ICashgameService, CashgameService>();

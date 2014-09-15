@@ -68,9 +68,7 @@ namespace Core.Services
             var homegame = _bunchRepository.GetBySlug(slug);
             var years = _cashgameRepository.GetYears(homegame);
             if (years.Count == 0)
-            {
                 return null;
-            }
             return years[0];
         }
     }

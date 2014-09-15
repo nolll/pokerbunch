@@ -11,20 +11,17 @@ namespace Web.Commands.UserCommands
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordSender _passwordSender;
-        private readonly IUserService _userService;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
         private readonly IAuth _auth;
 
         public UserCommandProvider(
             IUserRepository userRepository,
             IPasswordSender passwordSender,
-            IUserService userService,
             IRegistrationConfirmationSender registrationConfirmationSender,
             IAuth auth)
         {
             _userRepository = userRepository;
             _passwordSender = passwordSender;
-            _userService = userService;
             _registrationConfirmationSender = registrationConfirmationSender;
             _auth = auth;
         }
@@ -60,7 +57,6 @@ namespace Web.Commands.UserCommands
         public Command GetAddCommand(AddUserPostModel postModel)
         {
             return new AddUserCommand(
-                _userService,
                 _userRepository,
                 _registrationConfirmationSender,
                 postModel);

@@ -62,7 +62,6 @@
     <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
     <Compile Include="Services\Interfaces\ITimeProvider.cs" />
-    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IWebContext.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="Urls\AddCashgameUrl.cs" />
     <Compile Include="Urls\AddBunchConfirmationUrl.cs" />
     <Compile Include="Urls\AddBunchUrl.cs" />
