@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System;
+using Core.Entities;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
@@ -8,6 +9,7 @@ namespace Tests.Common.Builders
         private int _id;
         private string _slug;
         private string _displayName;
+        private TimeZoneInfo _timeZone;
 
         public BunchBuilder()
         {
@@ -18,7 +20,7 @@ namespace Tests.Common.Builders
 
         public Bunch Build()
         {
-            return new BunchInTest(_id, _slug, _displayName);
+            return new BunchInTest(_id, _slug, _displayName, timezone: _timeZone);
         }
 
         public BunchBuilder WithId(int id)
@@ -36,6 +38,18 @@ namespace Tests.Common.Builders
         public BunchBuilder WithDisplayName(string displayName)
         {
             _displayName = displayName;
+            return this;
+        }
+
+        public BunchBuilder WithUtcTimeZone()
+        {
+            _timeZone = TimeZoneInfo.Utc;
+            return this;
+        }
+
+        public BunchBuilder WithLocalTimeZone()
+        {
+            _timeZone = TestService.LocalTimeZone;
             return this;
         }
     }

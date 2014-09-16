@@ -203,6 +203,9 @@
     <Compile Include="UseCases\EditBunchForm\EditBunchFormInteractor.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormRequest.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormResult.cs" />
+    <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormInteractor.cs" />
+    <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormRequest.cs" />
+    <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormResult.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormInteractor.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />

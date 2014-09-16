@@ -23,5 +23,15 @@ namespace Tests.Common
         {
             get { return new CashgameBuilder(); }
         }
+
+        public CheckpointBuilder Checkpoint
+        {
+            get { return new CheckpointBuilder(); }
+        }
+
+        public DateTimeBuilder DateTime
+        {
+            get { return new DateTimeBuilder(); }
+        }
     }
 }

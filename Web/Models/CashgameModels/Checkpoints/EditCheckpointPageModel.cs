@@ -1,23 +1,34 @@
 using System;
-using Application.Urls;
 using Application.UseCases.BunchContext;
+using Application.UseCases.EditCheckpointForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {
     public class EditCheckpointPageModel : BunchPageModel
     {
-        public Url DeleteUrl { get; set; }
-        public Url CancelUrl { get; set; }
-        public string StackLabel { get; set; }
-        public bool EnableAmountField { get; set; }
-        public DateTime Timestamp { get; set; }
-        public int Stack { get; set; }
-        public int Amount { get; set; }
+        public string DeleteUrl { get; private set; }
+        public string CancelUrl { get; private set; }
+        public string StackLabel { get; private set; }
+        public bool EnableAmountField { get; private set; }
+        public DateTime Timestamp { get; private set; }
+        public int Stack { get; private set; }
+        public int Amount { get; private set; }
 
-        public EditCheckpointPageModel(BunchContextResult contextResult)
+        public EditCheckpointPageModel(BunchContextResult contextResult, EditCheckpointFormResult editCheckpointFormResult, EditCheckpointPostModel postModel)
             : base("Edit Checkpoint", contextResult)
         {
+            Stack = editCheckpointFormResult.Stack;
+            Amount = editCheckpointFormResult.Amount;
+            Timestamp = editCheckpointFormResult.TimeStamp;
+            DeleteUrl = editCheckpointFormResult.DeleteUrl.Relative;
+            CancelUrl = editCheckpointFormResult.CancelUrl.Relative;
+            EnableAmountField = editCheckpointFormResult.CanEditAmount;
+            StackLabel = editCheckpointFormResult.CanEditAmount ? "Stack after buyin" : "Stack";
+            if (postModel == null) return;
+            Stack = postModel.Stack;
+            Amount = postModel.Amount;
+            Timestamp = postModel.Timestamp;
         }
     }
 }

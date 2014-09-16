@@ -12,6 +12,7 @@ using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameList;
 using Application.UseCases.CashgameTopList;
+using Application.UseCases.EditCheckpointForm;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
@@ -290,7 +291,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var model = _editCheckpointPageBuilder.Build(slug, dateStr, playerId, checkpointId);
+            var model = BuildEditCheckpointModel(slug, dateStr, playerId, checkpointId);
             return View("Checkpoints/Edit", model);
         }
 
@@ -305,7 +306,7 @@ namespace Web.Controllers
                 return Redirect(new CashgameActionUrl(slug, dateStr, playerId).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _editCheckpointPageBuilder.Build(slug, dateStr, playerId, checkpointId, postModel);
+            var model = BuildEditCheckpointModel(slug, dateStr, playerId, checkpointId, postModel);
             return View("Checkpoints/Edit", model);
         }
 
@@ -379,6 +380,13 @@ namespace Web.Controllers
 	        if (result.LatestYear.HasValue)
 	            return new CashgameMatrixUrl(result.BunchContext.Slug, result.LatestYear);
 	        return new AddCashgameUrl(result.BunchContext.Slug);
+	    }
+
+	    private EditCheckpointPageModel BuildEditCheckpointModel(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
+	    {
+	        var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+	        var editCheckpointFormResult = UseCase.EditCheckpointForm(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
+            return new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
 	    }
 
 	    private AddCashgamePageModel BuildAddModel(string slug, AddCashgamePostModel postModel = null)

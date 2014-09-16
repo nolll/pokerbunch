@@ -20,6 +20,7 @@ using Application.UseCases.CashgameList;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.DeletePlayer;
 using Application.UseCases.EditBunchForm;
+using Application.UseCases.EditCheckpointForm;
 using Application.UseCases.EditUserForm;
 using Application.UseCases.Home;
 using Application.UseCases.InvitePlayer;
@@ -87,6 +88,7 @@ namespace Plumbing
         public Func<ActionsRequest, ActionsResult> Actions { get; private set; }
         public Func<BuyinFormRequest, BuyinFormResult> BuyinForm { get; private set; }
         public Func<BuyinRequest, BuyinResult> Buyin { get; private set; }
+        public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get; private set; }
 
         public Func<PlayerListRequest, PlayerListResult> PlayerList { get; private set; }
         public Func<PlayerDetailsRequest, PlayerDetailsResult> PlayerDetails { get; private set; }
@@ -130,6 +132,7 @@ namespace Plumbing
             Actions = request => ActionsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, Auth, request);
             BuyinForm = request => BuyinFormInteractor.Execute(BunchRepository, CashgameRepository, request);
             Buyin = request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, TimeProvider, request);
+            EditCheckpointForm = request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request);
 
             PlayerList = request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request);
             PlayerDetails = request => PlayerDetailsInteractor.Execute(Auth, BunchRepository, PlayerRepository, CashgameRepository, UserRepository, request);

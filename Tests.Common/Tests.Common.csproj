@@ -45,6 +45,9 @@
     <Compile Include="Builders\CashgameTotalResultBuilder.cs" />
     <Compile Include="Builders\BunchBuilder.cs" />
     <Compile Include="Builders\BunchListBuilder.cs" />
+    <Compile Include="Builders\CheckpointBuilder.cs" />
+    <Compile Include="Builders\DateTimeBuilder.cs" />
+    <Compile Include="Builders\TestService.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="CacheContainerInTest.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
