@@ -7,6 +7,7 @@ using Application.UseCases.AddCashgameForm;
 using Application.UseCases.BunchContext;
 using Application.UseCases.Buyin;
 using Application.UseCases.BuyinForm;
+using Application.UseCases.CashgameChartContainer;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
@@ -24,6 +25,7 @@ using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
 using Web.Models.CashgameModels.Cashout;
+using Web.Models.CashgameModels.Chart;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Details;
 using Web.Models.CashgameModels.Edit;
@@ -43,7 +45,6 @@ namespace Web.Controllers
 	    private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
 	    private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
 	    private readonly IRunningCashgamePageBuilder _runningCashgamePageBuilder;
-	    private readonly ICashgameChartPageBuilder _cashgameChartPageBuilder;
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
 
@@ -53,7 +54,6 @@ namespace Web.Controllers
             ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder,
             IEditCashgamePageBuilder editCashgamePageBuilder,
             IRunningCashgamePageBuilder runningCashgamePageBuilder,
-            ICashgameChartPageBuilder cashgameChartPageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
             IActionChartJsonBuilder actionChartJsonBuilder)
 	    {
@@ -62,7 +62,6 @@ namespace Web.Controllers
 	        _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
 	        _editCashgamePageBuilder = editCashgamePageBuilder;
 	        _runningCashgamePageBuilder = runningCashgamePageBuilder;
-	        _cashgameChartPageBuilder = cashgameChartPageBuilder;
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
 	    }
@@ -201,7 +200,9 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/chart/{year?}")]
         public ActionResult Chart(string slug, int? year = null)
         {
-            var model = _cashgameChartPageBuilder.Build(slug, year);
+            var cashgameContextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Chart));
+            var cashgameChartContainerResult = UseCase.CashgameChartContainer(new CashgameChartContainerRequest(slug, year));
+            var model = new CashgameChartPageModel(cashgameContextResult, cashgameChartContainerResult);
             return View("Chart/Chart", model);
 		}
 

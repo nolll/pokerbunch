@@ -26,7 +26,6 @@ namespace Web.Plumbing
             // Page Model Factories
             RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
-            RegisterComponent<ICashgameChartPageBuilder, CashgameChartPageBuilder>();
             RegisterComponent<IRunningCashgamePageBuilder, RunningCashgamePageBuilder>();
 
             // Model Factories

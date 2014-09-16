@@ -13,6 +13,7 @@ using Application.UseCases.BunchDetails;
 using Application.UseCases.BunchList;
 using Application.UseCases.Buyin;
 using Application.UseCases.BuyinForm;
+using Application.UseCases.CashgameChartContainer;
 using Application.UseCases.CashgameContext;
 using Application.UseCases.CashgameDetails;
 using Application.UseCases.CashgameFacts;
@@ -89,6 +90,7 @@ namespace Plumbing
         public Func<BuyinFormRequest, BuyinFormResult> BuyinForm { get; private set; }
         public Func<BuyinRequest, BuyinResult> Buyin { get; private set; }
         public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get; private set; }
+        public Func<CashgameChartContainerRequest, CashgameChartContainerResult> CashgameChartContainer { get; private set; }
 
         public Func<PlayerListRequest, PlayerListResult> PlayerList { get; private set; }
         public Func<PlayerDetailsRequest, PlayerDetailsResult> PlayerDetails { get; private set; }
@@ -133,6 +135,7 @@ namespace Plumbing
             BuyinForm = request => BuyinFormInteractor.Execute(BunchRepository, CashgameRepository, request);
             Buyin = request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, TimeProvider, request);
             EditCheckpointForm = request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request);
+            CashgameChartContainer = CashgameChartContainerInteractor.Execute;
 
             PlayerList = request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request);
             PlayerDetails = request => PlayerDetailsInteractor.Execute(Auth, BunchRepository, PlayerRepository, CashgameRepository, UserRepository, request);

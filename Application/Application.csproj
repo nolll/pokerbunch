@@ -169,6 +169,9 @@
     <Compile Include="UseCases\Buyin\BuyinInteractor.cs" />
     <Compile Include="UseCases\Buyin\BuyinRequest.cs" />
     <Compile Include="UseCases\Buyin\BuyinResult.cs" />
+    <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerInteractor.cs" />
+    <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerRequest.cs" />
+    <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />

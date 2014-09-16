@@ -187,8 +187,6 @@
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameChartPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameChartPageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgamePageBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgamePageBuilder.cs" />
     <Compile Include="ModelMappers\CashgameModelMapper.cs" />
