@@ -6,10 +6,8 @@ using Web.Commands.CashgameCommands;
 using Web.Controllers;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
-using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.ModelFactories.CashgameModelFactories.List;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.ModelFactories.CashgameModelFactories.Running;
 
@@ -47,8 +45,7 @@ namespace Tests.Web.ControllerTests
                 GetMock<IRunningCashgamePageBuilder>().Object,
                 GetMock<ICashgameChartPageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
-                GetMock<IActionChartJsonBuilder>().Object,
-                GetMock<IEditCheckpointPageBuilder>().Object);
+                GetMock<IActionChartJsonBuilder>().Object);
         }
 	}
 }

@@ -16,7 +16,6 @@ using Application.UseCases.EditCheckpointForm;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
-using Web.ModelFactories.CashgameModelFactories.Checkpoints;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
@@ -47,7 +46,6 @@ namespace Web.Controllers
 	    private readonly ICashgameChartPageBuilder _cashgameChartPageBuilder;
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
-	    private readonly IEditCheckpointPageBuilder _editCheckpointPageBuilder;
 
 	    public CashgameController(
             ICashgameCommandProvider cashgameCommandProvider,
@@ -57,8 +55,7 @@ namespace Web.Controllers
             IRunningCashgamePageBuilder runningCashgamePageBuilder,
             ICashgameChartPageBuilder cashgameChartPageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
-            IActionChartJsonBuilder actionChartJsonBuilder,
-            IEditCheckpointPageBuilder editCheckpointPageBuilder)
+            IActionChartJsonBuilder actionChartJsonBuilder)
 	    {
 	        _cashgameCommandProvider = cashgameCommandProvider;
 	        _matrixPageBuilder = matrixPageBuilder;
@@ -68,7 +65,6 @@ namespace Web.Controllers
 	        _cashgameChartPageBuilder = cashgameChartPageBuilder;
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
-	        _editCheckpointPageBuilder = editCheckpointPageBuilder;
 	    }
 
         [AuthorizePlayer]
