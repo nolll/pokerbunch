@@ -45,58 +45,58 @@ namespace Tests.Web.Routing
         [Test]
         public void Login()
         {
-            _routes.ShouldMap("/-/auth/login").To<AuthController>(x => x.Login(null));
-            _routes.ShouldMap("/-/auth/login?returnUrl=a").To<AuthController>(x => x.Login("a"));
-            _routes.ShouldMap("/-/auth/login").To<AuthController>(HttpMethod.Post, x => x.Login_Post(new LoginPostModel()));
+            _routes.ShouldMap("/-/auth/login").To<LoginController>(x => x.Login(null));
+            _routes.ShouldMap("/-/auth/login?returnUrl=a").To<LoginController>(x => x.Login("a"));
+            _routes.ShouldMap("/-/auth/login").To<LoginController>(HttpMethod.Post, x => x.Post(new LoginPostModel()));
         }
 
         [Test]
         public void Logout()
         {
-            _routes.ShouldMap("/-/auth/logout").To<AuthController>(x => x.Logout());
+            _routes.ShouldMap("/-/auth/logout").To<LogoutController>(x => x.Logout());
         }
 
         [Test]
         public void UserDetailds()
         {
-            _routes.ShouldMap("/-/user/details/a").To<UserController>(x => x.Details("a"));
+            _routes.ShouldMap("/-/user/details/a").To<UserDetailsController>(x => x.UserDetails("a"));
         }
 
         [Test]
         public void UserList()
         {
-            _routes.ShouldMap("/-/user/list").To<UserController>(x => x.List());
+            _routes.ShouldMap("/-/user/list").To<UserListController>(x => x.List());
         }
 
         [Test]
         public void AddUser()
         {
-            _routes.ShouldMap("/-/user/add").To<UserController>(x => x.Add());
-            _routes.ShouldMap("/-/user/add").To<UserController>(HttpMethod.Post, x => x.Add_Post(new AddUserPostModel()));
-            _routes.ShouldMap("/-/user/created").To<UserController>(x => x.Created());
+            _routes.ShouldMap("/-/user/add").To<AddUserController>(x => x.AddUser());
+            _routes.ShouldMap("/-/user/add").To<AddUserController>(HttpMethod.Post, x => x.Post(new AddUserPostModel()));
+            _routes.ShouldMap("/-/user/created").To<AddUserController>(x => x.Done());
         }
 
         [Test]
         public void EditUser()
         {
-            _routes.ShouldMap("/-/user/edit/a").To<UserController>(x => x.Edit("a"));
-            _routes.ShouldMap("/-/user/edit/a").To<UserController>(HttpMethod.Post, x => x.Edit_Post("a", new EditUserPostModel()));
+            _routes.ShouldMap("/-/user/edit/a").To<EditUserController>(x => x.EditUser("a"));
+            _routes.ShouldMap("/-/user/edit/a").To<EditUserController>(HttpMethod.Post, x => x.Post("a", new EditUserPostModel()));
         }
 
         [Test]
         public void ChangePassword()
         {
-            _routes.ShouldMap("/-/user/changepassword").To<UserController>(x => x.ChangePassword());
-            _routes.ShouldMap("/-/user/changepassword").To<UserController>(HttpMethod.Post, x => x.ChangePassword_Post(new ChangePasswordPostModel()));
-            _routes.ShouldMap("/-/user/changedpassword").To<UserController>(x => x.ChangedPassword());
+            _routes.ShouldMap("/-/user/changepassword").To<ChangePasswordController>(x => x.ChangePassword());
+            _routes.ShouldMap("/-/user/changepassword").To<ChangePasswordController>(HttpMethod.Post, x => x.Post(new ChangePasswordPostModel()));
+            _routes.ShouldMap("/-/user/changedpassword").To<ChangePasswordController>(x => x.Done());
         }
 
         [Test]
         public void ForgotPassword()
         {
-            _routes.ShouldMap("/-/user/forgotpassword").To<UserController>(x => x.ForgotPassword());
-            _routes.ShouldMap("/-/user/forgotpassword").To<UserController>(HttpMethod.Post, x => x.ForgotPassword_Post(new ForgotPasswordPostModel()));
-            _routes.ShouldMap("/-/user/passwordsent").To<UserController>(x => x.PasswordSent());
+            _routes.ShouldMap("/-/user/forgotpassword").To<ForgotPasswordController>(x => x.ForgotPassword());
+            _routes.ShouldMap("/-/user/forgotpassword").To<ForgotPasswordController>(HttpMethod.Post, x => x.Post(new ForgotPasswordPostModel()));
+            _routes.ShouldMap("/-/user/passwordsent").To<ForgotPasswordController>(x => x.Done());
         }
 
         [Test]

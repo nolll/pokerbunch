@@ -92,7 +92,7 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="ControllerTests\CashgameControllerTests.cs" />
-    <Compile Include="ControllerTests\UserControllerTests.cs" />
+    <Compile Include="ControllerTests\UserListControllerTests.cs" />
     <Compile Include="ControllerTests\HomegameControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />

@@ -138,9 +138,17 @@
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\EditUserCommand.cs" />
     <Compile Include="Commands\HomegameCommands\AddBunchCommand.cs" />
+    <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\EditUserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\JsonNetResult.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\UserDetailsController.cs" />
+    <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
@@ -404,9 +412,6 @@
     <Content Include="Views\Layouts\Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AuthController.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Security\Attributes\AuthorizeAdminAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeCustomAttribute.cs" />
@@ -418,7 +423,7 @@
     <Compile Include="Security\CustomPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CashgameController.cs" />
@@ -523,12 +528,11 @@
     <Content Include="Views\Player\AddConfirmation.cshtml" />
     <Content Include="Views\Player\InviteConfirmation.cshtml" />
     <Content Include="Views\Player\Invite.cshtml" />
-    <Content Include="Views\User\Add\Add.cshtml" />
-    <Content Include="Views\User\Add\Confirmation.cshtml" />
-    <Content Include="Views\User\ChangePassword\Confirmation.cshtml" />
-    <Content Include="Views\User\ChangePassword\ChangePassword.cshtml" />
-    <Content Include="Views\User\Details.cshtml" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Content Include="Views\Pages\AddUser\AddUser.cshtml" />
+    <Content Include="Views\Pages\AddUser\AddUserDone.cshtml" />
+    <Content Include="Views\Pages\ChangePassword\ChangePasswordDone.cshtml" />
+    <Content Include="Views\Pages\ChangePassword\ChangePassword.cshtml" />
+    <Content Include="Views\Pages\UserDetails\UserDetails.cshtml" />
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
     <Content Include="Views\Cashgame\Add\Add.cshtml" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartPageModel.cs" />
@@ -567,11 +571,11 @@
     <Content Include="Views\Player\Item.cshtml" />
     <Content Include="Views\Player\List.cshtml" />
     <Content Include="Views\Player\PlayerBadges.cshtml" />
-    <Content Include="Views\User\Edit\Edit.cshtml" />
-    <Content Include="Views\User\ForgotPassword\Confirmation.cshtml" />
-    <Content Include="Views\User\ForgotPassword\ForgotPassword.cshtml" />
-    <Content Include="Views\User\List\Item.cshtml" />
-    <Content Include="Views\User\List\List.cshtml" />
+    <Content Include="Views\Pages\EditUser\EditUser.cshtml" />
+    <Content Include="Views\Pages\ForgotPassword\ForgotPasswordDone.cshtml" />
+    <Content Include="Views\Pages\ForgotPassword\ForgotPassword.cshtml" />
+    <Content Include="Views\Pages\UserList\Item.cshtml" />
+    <Content Include="Views\Pages\UserList\UserList.cshtml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
     <Content Include="Views\Admin\Email.cshtml" />

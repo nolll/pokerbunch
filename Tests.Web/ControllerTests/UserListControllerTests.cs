@@ -2,12 +2,11 @@
 using System.Web.Mvc;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Commands.UserCommands;
 using Web.Controllers;
 
 namespace Tests.Web.ControllerTests
 {
-    class UserControllerTests : TestBase
+    class UserListControllerTests : TestBase
     {
         [Test]
         public void List_RequiresAdmin()
@@ -18,12 +17,11 @@ namespace Tests.Web.ControllerTests
             Assert.IsTrue(result);
         }
 
-        private UserController Sut
+        private UserListController Sut
         {
             get
             {
-                return new UserController(
-                    GetMock<IUserCommandProvider>().Object);
+                return new UserListController();
             }
         }
     }
