@@ -23,6 +23,7 @@ using Application.UseCases.DeletePlayer;
 using Application.UseCases.EditBunchForm;
 using Application.UseCases.EditCheckpointForm;
 using Application.UseCases.EditUserForm;
+using Application.UseCases.ForgotPassword;
 using Application.UseCases.Home;
 using Application.UseCases.InvitePlayer;
 using Application.UseCases.JoinBunchConfirmation;
@@ -72,6 +73,7 @@ namespace Plumbing
         public Func<UserListResult> UserList { get; private set; }
         public Func<UserDetailsRequest, UserDetailsResult> UserDetails { get; private set; }
         public Func<EditUserFormRequest, EditUserFormResult> EditUserForm { get; private set; }
+        public Func<ForgotPasswordRequest, ForgotPasswordResult> ForgotPassword { get; private set; } 
 
         public Func<BunchListResult> BunchList { get; private set; }
         public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get; private set; }
@@ -117,6 +119,7 @@ namespace Plumbing
             UserList = () => UserListInteractor.Execute(UserRepository);
             UserDetails = request => UserDetailsInteractor.Execute(Auth, UserRepository, request);
             EditUserForm = request => EditUserFormInteractor.Execute(UserRepository, request);
+            ForgotPassword = request => ForgotPasswordInteractor.Execute(request);
 
             BunchList = () => BunchListInteractor.Execute(BunchRepository);
             BunchDetails = request => BunchDetailsInteractor.Execute(BunchRepository, Auth, request);

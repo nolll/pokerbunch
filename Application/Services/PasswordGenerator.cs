@@ -8,7 +8,5 @@ namespace Application.Services
         public static string CreatePassword(){
             return RandomStringGenerator.GetString(PasswordLength, AllowedCharacters);
 		}
-
 	}
-
 }

@@ -1,8 +1,8 @@
 using System;
 using System.Text;
 
-namespace Application.Services{
-
+namespace Application.Services
+{
 	public static class RandomStringGenerator
 	{
 	    private static readonly Random Random = new Random();
@@ -10,9 +10,7 @@ namespace Application.Services{
 		public static string GetString(int stringLength, string allowedCharacters)
 		{
             if (string.IsNullOrEmpty(allowedCharacters))
-            {
                 return string.Empty;
-            }
 		    var max = allowedCharacters.Length - 1;
 		    var str = new StringBuilder();
 			for(var i = 0; i < stringLength; i++)
@@ -22,7 +20,5 @@ namespace Application.Services{
 			}
 			return str.ToString();
 		}
-
 	}
-
 }

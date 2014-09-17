@@ -1,5 +1,7 @@
 using System.Web.Mvc;
+using Application.Exceptions;
 using Application.Urls;
+using Application.UseCases.ForgotPassword;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels.ForgotPassword;
 
@@ -30,13 +32,20 @@ namespace Web.Controllers
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             AddModelErrors(command.Errors);
             return GetForm(postModel);
-        }
 
-        private ActionResult GetForm(ForgotPasswordPostModel postModel = null)
-        {
-            var contextResult = UseCase.AppContext();
-            var model = new ForgotPasswordPageModel(contextResult, postModel);
-            return View("~/Views/Pages/ForgotPassword/ForgotPassword.cshtml", model);
+            var request = new ForgotPasswordRequest(postModel.Email);
+
+            try
+            {
+                var result = UseCase.ForgotPassword(request);
+                return Redirect(result.ReturnUrl.Relative);
+            }
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
+            return GetForm(postModel);
         }
 
         [Route("-/user/passwordsent")]
@@ -45,6 +54,13 @@ namespace Web.Controllers
             var contextResult = UseCase.AppContext();
             var model = new ForgotPasswordConfirmationPageModel(contextResult);
             return View("~/Views/Pages/ForgotPassword/ForgotPasswordDone.cshtml", model);
+        }
+
+        private ActionResult GetForm(ForgotPasswordPostModel postModel = null)
+        {
+            var contextResult = UseCase.AppContext();
+            var model = new ForgotPasswordPageModel(contextResult, postModel);
+            return View("~/Views/Pages/ForgotPassword/ForgotPassword.cshtml", model);
         }
     }
 }
