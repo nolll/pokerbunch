@@ -35,6 +35,12 @@ namespace Core.Entities
 	    {
 	        get { return GlobalRole == Role.Admin; }
 	    }
+
+        public void SetPassword(string encryptedPassword, string salt)
+        {
+            EncryptedPassword = encryptedPassword;
+            Salt = salt;
+        }
 	}
 
 }

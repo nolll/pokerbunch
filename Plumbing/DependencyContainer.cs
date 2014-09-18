@@ -119,7 +119,7 @@ namespace Plumbing
             UserList = () => UserListInteractor.Execute(UserRepository);
             UserDetails = request => UserDetailsInteractor.Execute(Auth, UserRepository, request);
             EditUserForm = request => EditUserFormInteractor.Execute(UserRepository, request);
-            ForgotPassword = request => ForgotPasswordInteractor.Execute(request);
+            ForgotPassword = request => ForgotPasswordInteractor.Execute(UserRepository, MessageSender, RandomService, request);
 
             BunchList = () => BunchListInteractor.Execute(BunchRepository);
             BunchDetails = request => BunchDetailsInteractor.Execute(BunchRepository, Auth, request);
@@ -152,6 +152,11 @@ namespace Plumbing
         private ITimeProvider TimeProvider
         {
             get { return new TimeProvider(); }
+        }
+
+        private IRandomService RandomService
+        {
+            get { return new RandomService(); }
         }
 
         private IWebContext WebContext

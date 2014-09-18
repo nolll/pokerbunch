@@ -70,6 +70,7 @@ namespace Plumbing
             RegisterComponent<IRegistrationConfirmationSender, RegistrationConfirmationSender>();
             RegisterComponent<IPasswordSender, PasswordSender>();
             RegisterComponent<ICashgameService, CashgameService>();
+            RegisterComponent<IRandomService, RandomService>();
         }
     }
 }

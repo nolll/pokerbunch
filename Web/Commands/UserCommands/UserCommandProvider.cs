@@ -3,35 +3,23 @@ using Core.Repositories;
 using Web.Models.UserModels.Add;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
-using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Commands.UserCommands
 {
     public class UserCommandProvider : IUserCommandProvider
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordSender _passwordSender;
         private readonly IRegistrationConfirmationSender _registrationConfirmationSender;
         private readonly IAuth _auth;
 
         public UserCommandProvider(
             IUserRepository userRepository,
-            IPasswordSender passwordSender,
             IRegistrationConfirmationSender registrationConfirmationSender,
             IAuth auth)
         {
             _userRepository = userRepository;
-            _passwordSender = passwordSender;
             _registrationConfirmationSender = registrationConfirmationSender;
             _auth = auth;
-        }
-
-        public Command GetForgotPasswordCommand(ForgotPasswordPostModel postModel)
-        {
-            return new ForgotPasswordCommand(
-                _userRepository,
-                _passwordSender,
-                postModel);
         }
 
         public Command GetChangePasswordCommand(ChangePasswordPostModel postModel)

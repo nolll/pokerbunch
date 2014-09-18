@@ -14,13 +14,15 @@ namespace Web.Controllers
 
         protected void AddModelErrors(IEnumerable<string> errors)
         {
-            var i = 0;
             foreach (var error in errors)
             {
-                var errorKey = string.Format("error{0}", i);
-                ModelState.AddModelError(errorKey, error);
-                i++;
+                AddModelError(error);
             }
+        }
+
+        protected void AddModelError(string error)
+        {
+            ModelState.AddModelError(error, error);
         }
         
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)

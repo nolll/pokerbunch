@@ -152,7 +152,6 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
-    <Compile Include="Commands\UserCommands\ForgotPasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\BunchCommandProvider.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartJsonBuilder.cs" />

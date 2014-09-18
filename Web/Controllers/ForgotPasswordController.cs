@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Exceptions;
 using Application.Urls;
@@ -27,12 +28,6 @@ namespace Web.Controllers
         [Route("-/user/forgotpassword")]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
-            var command = _userCommandProvider.GetForgotPasswordCommand(postModel);
-            if (command.Execute())
-                return Redirect(new ForgotPasswordConfirmationUrl().Relative);
-            AddModelErrors(command.Errors);
-            return GetForm(postModel);
-
             var request = new ForgotPasswordRequest(postModel.Email);
 
             try
@@ -43,6 +38,10 @@ namespace Web.Controllers
             catch (ValidationException ex)
             {
                 AddModelErrors(ex.Messages);
+            }
+            catch (UserNotFoundException ex)
+            {
+                AddModelError(ex.Message);
             }
 
             return GetForm(postModel);
