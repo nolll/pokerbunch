@@ -3,19 +3,31 @@ using Core.Entities;
 
 namespace Application.Services
 {
-    public static class InvitationMessageBuilder
+    public class InvitationMessage : IMessage
     {
-        public static string GetSubject(Bunch bunch)
+        private readonly Bunch _bunch;
+        private readonly Player _player;
+
+        public InvitationMessage(Bunch bunch, Player player)
         {
-            return string.Format("Invitation to Poker Bunch: {0}", bunch.DisplayName);
+            _bunch = bunch;
+            _player = player;
         }
 
-        public static string GetBody(Bunch bunch, Player player)
+        public string Subject
         {
-            var joinUrl = new JoinBunchUrl(bunch.Slug).Absolute;
-            var addUserUrl = new AddUserUrl().Absolute;
-            var invitationCode = InvitationCodeCreator.GetCode(player);
-            return string.Format(BodyFormat, bunch.DisplayName, joinUrl, invitationCode, addUserUrl);
+            get { return string.Format("Invitation to Poker Bunch: {0}", _bunch.DisplayName); }
+        }
+
+        public string Body
+        {
+            get
+            {
+                var joinUrl = new JoinBunchUrl(_bunch.Slug).Absolute;
+                var addUserUrl = new AddUserUrl().Absolute;
+                var invitationCode = InvitationCodeCreator.GetCode(_player);
+                return string.Format(BodyFormat, _bunch.DisplayName, joinUrl, invitationCode, addUserUrl);
+            }
         }
 
         private const string BodyFormat =

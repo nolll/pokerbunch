@@ -7,9 +7,8 @@ namespace Application.UseCases.TestEmail
         public static TestEmailResult Execute(IMessageSender messageSender)
         {
             const string email = "henriks@gmail.com";
-            const string subject = "Test Email";
-            const string body = "This is a test email from pokerbunch.com";
-            messageSender.Send(email, subject, body);
+            var message = new TestMessage();
+            messageSender.Send(email, message);
 
             return new TestEmailResult(email);
         }

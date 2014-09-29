@@ -51,6 +51,7 @@
     <Compile Include="Factories\CashgameResultFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="Factories\Interfaces\ICashgameResultFactory.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IAuth.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
-    <Compile Include="Services\Interfaces\IPasswordSender.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
     <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
@@ -67,8 +67,6 @@
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
-    <Compile Include="Services\PasswordMessageBuilder.cs" />
-    <Compile Include="Services\PasswordSender.cs" />
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
@@ -215,6 +213,7 @@
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordInteractor.cs" />
+    <Compile Include="UseCases\ForgotPassword\ForgotPasswordMessage.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordRequest.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordResult.cs" />
     <Compile Include="UseCases\Home\HomeInteractor.cs" />
@@ -252,6 +251,7 @@
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
+    <Compile Include="UseCases\TestEmail\TestMessage.cs" />
     <Compile Include="UseCases\UserDetails\UserDetailsInteractor.cs" />
     <Compile Include="UseCases\UserDetails\UserDetailsRequest.cs" />
     <Compile Include="UseCases\UserDetails\UserDetailsResult.cs" />

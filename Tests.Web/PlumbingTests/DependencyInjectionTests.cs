@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Application;
 using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
@@ -25,7 +26,8 @@ namespace Tests.Web.PlumbingTests
             _ignoredInterfaces = new List<Type>
                 {
                     typeof(ICacheable),
-                    typeof(ISocialService)
+                    typeof(ISocialService),
+                    typeof(IMessage)
                 };
         }
 

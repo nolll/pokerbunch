@@ -46,9 +46,6 @@
     <Compile Include="Factories\CashgameSuiteFactoryTests.cs" />
     <Compile Include="Factories\CashgameTotalResultTests.cs" />
     <Compile Include="Services\CashgameServiceTests.cs" />
-    <Compile Include="Services\PasswordSenderTests.cs" />
-    <Compile Include="Services\InvitationMessageBuilderTests.cs" />
-    <Compile Include="Services\PasswordMessageBuilderTests.cs" />
     <Compile Include="Services\EncryptionServiceTests.cs" />
     <Compile Include="Services\InvitationCodeCreatorTests.cs" />
     <Compile Include="Services\PasswordGeneratorTests.cs" />

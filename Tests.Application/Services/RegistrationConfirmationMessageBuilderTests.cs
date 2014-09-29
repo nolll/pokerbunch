@@ -11,7 +11,7 @@ namespace Tests.Application.Services
         {
             const string expected = "Poker Bunch Registration";
 
-            var result = RegistrationConfirmationMessageBuilder.GetSubject();
+            var result = new RegistrationMessage(null).Subject;
 
             Assert.AreEqual(expected, result);
         }
@@ -28,7 +28,7 @@ a
 Please sign in here: http://pokerbunch.com/-/auth/login";
             const string password = "a";
 
-            var result = RegistrationConfirmationMessageBuilder.GetBody(password);
+            var result = new RegistrationMessage(password).Body;
 
             Assert.AreEqual(expected, result);
         }

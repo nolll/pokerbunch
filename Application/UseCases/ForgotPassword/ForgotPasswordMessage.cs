@@ -1,19 +1,20 @@
+using Application.Services;
 using Application.Urls;
 
-namespace Application.Services
+namespace Application.UseCases.ForgotPassword
 {
-    public class RegistrationMessage : IMessage
+    public class ForgotPasswordMessage : IMessage
     {
         private readonly string _password;
 
-        public RegistrationMessage(string password)
+        public ForgotPasswordMessage(string password)
         {
             _password = password;
         }
 
         public string Subject
         {
-            get { return "Poker Bunch Registration"; }
+            get { return "Poker Bunch password recovery"; }
         }
 
         public string Body
@@ -26,9 +27,7 @@ namespace Application.Services
         }
 
         private const string BodyFormat =
-@"Thanks for registering with Poker Bunch.
-
-Here is your password:
+@"Here is your new password for Poker Bunch:
 {0}
 
 Please sign in here: {1}";

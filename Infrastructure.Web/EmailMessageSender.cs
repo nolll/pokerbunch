@@ -1,22 +1,19 @@
 using System.Net.Mail;
+using Application;
 using Application.Services;
 
 namespace Infrastructure.Web
 {
 	public class MessageSender : IMessageSender
     {
-		public void Send(string to, string subject, string body)
+        public void Send(string to, IMessage message)
         {
-            var message = new MailMessage
-                {
-                    From = new MailAddress("PokerBunch.com <noreply@pokerbunch.com>"),
-                    Subject = subject,
-                    Body = body
-                };
-		    message.To.Add(new MailAddress(to));
- 
+            const string from = "PokerBunch.com <noreply@pokerbunch.com>";
+
+            var email = new MailMessage(from, to, message.Subject, message.Body);
+
             var client = new SmtpClient();
-            client.Send(message);
-		}
+            client.Send(email);
+        }
 	}
 }

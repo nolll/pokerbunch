@@ -29,19 +29,12 @@ namespace Application.UseCases.ForgotPassword
             user.SetPassword(encryptedPassword, salt);
             userRepository.Save(user);
 
-            SendMessage(messageSender, request.Email, password);
+            var message = new ForgotPasswordMessage(password);
+            messageSender.Send(request.Email, message);
 
             var returnUrl = new ForgotPasswordConfirmationUrl();
 
             return new ForgotPasswordResult(returnUrl);
-        }
-
-        private static void SendMessage(IMessageSender messageSender, string email, string password)
-        {
-            var subject = PasswordMessageBuilder.GetSubject();
-            var body = PasswordMessageBuilder.GetBody(password);
-
-            messageSender.Send(email, subject, body);
         }
     }
 }

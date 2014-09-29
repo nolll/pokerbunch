@@ -16,9 +16,8 @@ namespace Application.UseCases.InvitePlayer
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
-            var subject = InvitationMessageBuilder.GetSubject(bunch);
-            var body = InvitationMessageBuilder.GetBody(bunch, player);
-            messageSender.Send(request.Email, subject, body);
+            var message = new InvitationMessage(bunch, player);
+            messageSender.Send(request.Email, message);
 
             var url = new InvitePlayerConfirmationUrl(request.Slug, request.PlayerId);
             return new InvitePlayerResult(url);

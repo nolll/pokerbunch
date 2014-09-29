@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Application;
 using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
@@ -42,12 +43,6 @@ namespace Tests.Application.UseCases
         }
 
         [Test]
-        public void ForgotPassword_SavesNewPassword()
-        {
-
-        }
-
-        [Test]
         public void ForgotPassword_SendsPasswordEmail()
         {
             const string subject = "Poker Bunch password recovery";
@@ -58,9 +53,21 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             SetupUser();
             SetupPasswordCharacters();
 
+            IMessage message = null;
+            string email = null;
+            GetMock<IMessageSender>()
+                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
+                .Callback((string e, IMessage m) =>
+                {
+                    email = e;
+                    message = m;
+                });
+
             Execute(CreateRequest());
 
-            GetMock<IMessageSender>().Verify(o => o.Send(ValidEmail, subject, body));
+            Assert.AreEqual(ValidEmail, email);
+            Assert.AreEqual(subject, message.Subject);
+            Assert.AreEqual(body, message.Body);
         }
 
         [Test]

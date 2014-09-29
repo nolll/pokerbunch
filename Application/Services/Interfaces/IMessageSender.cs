@@ -1,9 +1,7 @@
-namespace Application.Services{
-
-	public interface IMessageSender{
-
-		void Send(string to, string subject, string body);
-
-	}
-
+namespace Application.Services
+{
+    public interface IMessageSender
+    {
+        void Send(string to, IMessage message);
+    }
 }

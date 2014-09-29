@@ -12,10 +12,8 @@ namespace Application.Services{
 	    }
 
 	    public void Send(User user, string password){
-            var subject = RegistrationConfirmationMessageBuilder.GetSubject();
-            var body = RegistrationConfirmationMessageBuilder.GetBody(password);
-			_messageSender.Send(user.Email, subject, body);
+            var message = new RegistrationMessage(password);
+			_messageSender.Send(user.Email, message);
 		}
-
 	}
 }

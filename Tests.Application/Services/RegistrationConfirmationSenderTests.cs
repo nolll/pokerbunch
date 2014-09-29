@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application;
+using Application.Services;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
@@ -18,7 +19,7 @@ namespace Tests.Application.Services
             var sut = GetSut();
             sut.Send(user, password);
 
-            GetMock<IMessageSender>().Verify(o => o.Send(email, It.IsAny<string>(), It.IsAny<string>()));
+            GetMock<IMessageSender>().Verify(o => o.Send(email, It.IsAny<IMessage>()));
         }
 
         private RegistrationConfirmationSender GetSut()

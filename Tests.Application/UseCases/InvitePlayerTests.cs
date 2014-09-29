@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using Application;
 using Application.Exceptions;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.InvitePlayer;
 using Core.Repositories;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -55,9 +57,21 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
             SetupBunch();
             SetupPlayer();
 
+            string email = null;
+            IMessage message = null;
+            GetMock<IMessageSender>()
+                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
+                .Callback((string e, IMessage m) =>
+                {
+                    email = e;
+                    message = m;
+                });
+
             Execute(request);
 
-            GetMock<IMessageSender>().Verify(o => o.Send(ValidEmail, subject, body));
+            Assert.AreEqual(ValidEmail, email);
+            Assert.AreEqual(subject, message.Subject);
+            Assert.AreEqual(body, message.Body);
         }
 
         private InvitePlayerResult Execute(InvitePlayerRequest request)

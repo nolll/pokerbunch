@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application;
+using Application.Services;
 using Application.UseCases.TestEmail;
 using Moq;
 using NUnit.Framework;
@@ -15,7 +16,7 @@ namespace Tests.Application.UseCases
         {
             Execute();
 
-            GetMock<IMessageSender>().Verify(o => o.Send(Email, It.IsAny<string>(), It.IsAny<string>()));
+            GetMock<IMessageSender>().Verify(o => o.Send(Email, It.IsAny<IMessage>()));
         }
 
         [Test]
