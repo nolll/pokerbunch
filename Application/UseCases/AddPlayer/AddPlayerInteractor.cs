@@ -4,7 +4,7 @@ using Core.Repositories;
 
 namespace Application.UseCases.AddPlayer
 {
-    public class AddPlayerInteractor
+    public static class AddPlayerInteractor
     {
         public static AddPlayerResult Execute(
             IBunchRepository bunchRepository,

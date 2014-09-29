@@ -6,6 +6,7 @@ using Application.UseCases.AddBunchForm;
 using Application.UseCases.AddCashgame;
 using Application.UseCases.AddCashgameForm;
 using Application.UseCases.AddPlayer;
+using Application.UseCases.AddUser;
 using Application.UseCases.AppContext;
 using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
@@ -58,7 +59,6 @@ namespace Plumbing
     {
         private static DependencyContainer _instance;
 
-        public Func<BaseContextResult> BaseContext { get; private set; }
         public Func<AppContextResult> AppContext { get; private set; }
         public Func<BunchContextRequest, BunchContextResult> BunchContext { get; private set; }
         public Func<CashgameContextRequest, CashgameContextResult> CashgameContext { get; private set; }
@@ -72,6 +72,7 @@ namespace Plumbing
 
         public Func<UserListResult> UserList { get; private set; }
         public Func<UserDetailsRequest, UserDetailsResult> UserDetails { get; private set; }
+        public Func<AddUserRequest, AddUserResult> AddUser { get; private set; }
         public Func<EditUserFormRequest, EditUserFormResult> EditUserForm { get; private set; }
         public Func<ForgotPasswordRequest, ForgotPasswordResult> ForgotPassword { get; private set; } 
 
@@ -104,7 +105,6 @@ namespace Plumbing
 
         private DependencyContainer()
         {
-            BaseContext = () => BaseContextInteractor.Execute(WebContext);
             AppContext = () => AppContextInteractor.Execute(BaseContext, Auth);
             BunchContext = request => BunchContextInteractor.Execute(AppContext, BunchRepository, Auth, request);
             CashgameContext = request => CashgameContextInteractor.Execute(BunchContext, CashgameRepository, request);
@@ -118,6 +118,7 @@ namespace Plumbing
 
             UserList = () => UserListInteractor.Execute(UserRepository);
             UserDetails = request => UserDetailsInteractor.Execute(Auth, UserRepository, request);
+            AddUser = request => AddUserInteractor.Execute(UserRepository, request);
             EditUserForm = request => EditUserFormInteractor.Execute(UserRepository, request);
             ForgotPassword = request => ForgotPasswordInteractor.Execute(UserRepository, MessageSender, RandomService, request);
 
@@ -147,6 +148,11 @@ namespace Plumbing
             InvitePlayer = request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request);
             AddPlayer = request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request);
             DeletePlayer = request => DeletePlayerInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, request);
+        }
+
+        public Func<BaseContextResult> BaseContext
+        {
+            get { return () => BaseContextInteractor.Execute(WebContext); }
         }
 
         private ITimeProvider TimeProvider

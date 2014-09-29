@@ -64,6 +64,10 @@ namespace Web.Controllers
             {
                 AddModelErrors(ex.Messages);
             }
+            catch (PlayerExistsException ex)
+            {
+                AddModelError(ex.Message);
+            }
 
             var model = BuildAddModel(slug, postModel);
             return View("Add", model);

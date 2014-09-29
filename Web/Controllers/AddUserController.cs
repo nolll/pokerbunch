@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Application.Urls;
+using Application.UseCases.AddUser;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels.Add;
 
@@ -25,10 +25,13 @@ namespace Web.Controllers
         [Route("-/user/add")]
         public ActionResult Post(AddUserPostModel postModel)
         {
+            var request = new AddUserRequest(postModel.UserName, postModel.DisplayName, postModel.Email);
+            var result = UseCase.AddUser(request);
+
             var command = _userCommandProvider.GetAddCommand(postModel);
             if (command.Execute())
             {
-                return Redirect(new AddUserConfirmationUrl().Relative);
+                return Redirect(result.ReturnUrl.Relative);
             }
             AddModelErrors(command.Errors);
             return GetForm(postModel);

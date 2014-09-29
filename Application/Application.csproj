@@ -42,9 +42,11 @@
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
+    <Compile Include="Exceptions\EmailExistsException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\PlayerExistsException.cs" />
+    <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Factories\CashgameFactory.cs" />
@@ -150,6 +152,9 @@
     <Compile Include="UseCases\AddPlayer\AddPlayerInteractor.cs" />
     <Compile Include="UseCases\AddPlayer\AddPlayerRequest.cs" />
     <Compile Include="UseCases\AddPlayer\AddPlayerResult.cs" />
+    <Compile Include="UseCases\AddUser\AddUserInteractor.cs" />
+    <Compile Include="UseCases\AddUser\AddUserRequest.cs" />
+    <Compile Include="UseCases\AddUser\AddUserResult.cs" />
     <Compile Include="UseCases\AppContext\AppContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextResult.cs" />
