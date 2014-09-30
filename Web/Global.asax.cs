@@ -29,6 +29,10 @@ namespace Web
         {
             ModelBinders.Binders.DefaultBinder = new TrimModelBinder();
 
+            ViewEngines.Engines.Clear();
+            var viewEngine = new CustomViewEngine();
+            ViewEngines.Engines.Add(viewEngine);
+
             AreaRegistration.RegisterAllAreas();
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
