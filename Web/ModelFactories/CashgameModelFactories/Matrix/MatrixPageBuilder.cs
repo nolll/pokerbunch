@@ -24,7 +24,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var homegame = _bunchRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(homegame, year);
 
-            var contextResult = DependencyContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
+            var contextResult = UseCaseContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
 
             return new CashgameMatrixPageModel(contextResult)
                 {

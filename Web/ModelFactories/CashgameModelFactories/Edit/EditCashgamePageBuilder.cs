@@ -28,7 +28,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
             var locations = _cashgameRepository.GetLocations(homegame);
 
-            var contextResult = DependencyContainer.Instance.BunchContext(new BunchContextRequest(slug));
+            var contextResult = UseCaseContainer.Instance.BunchContext(new BunchContextRequest(slug));
 
             var model = new EditCashgamePageModel(contextResult)
             {

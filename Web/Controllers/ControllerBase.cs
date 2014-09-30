@@ -7,9 +7,9 @@ namespace Web.Controllers
 {
     public class ControllerBase : Controller
     {
-        protected DependencyContainer UseCase
+        protected UseCaseContainer UseCase
         {
-            get { return DependencyContainer.Instance; }
+            get { return UseCaseContainer.Instance; }
         }
 
         protected void AddModelErrors(IEnumerable<string> errors)

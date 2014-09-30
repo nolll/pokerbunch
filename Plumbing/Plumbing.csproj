@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreDependencyResolver.cs" />
-    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="UseCaseContainer.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="ApplicationDependencyResolver.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />

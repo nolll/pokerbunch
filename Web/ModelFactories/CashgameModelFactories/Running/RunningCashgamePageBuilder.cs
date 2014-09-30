@@ -43,7 +43,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
 
-            var contextResult = DependencyContainer.Instance.BunchContext(new BunchContextRequest(slug));
+            var contextResult = UseCaseContainer.Instance.BunchContext(new BunchContextRequest(slug));
 
             return new RunningCashgamePageModel(contextResult)
                 {

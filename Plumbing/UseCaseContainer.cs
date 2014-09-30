@@ -55,16 +55,16 @@ using Infrastructure.Web;
 
 namespace Plumbing
 {
-    public class DependencyContainer
+    public class UseCaseContainer
     {
-        private static DependencyContainer _instance;
+        private static UseCaseContainer _instance;
 
-        public static DependencyContainer Instance
+        public static UseCaseContainer Instance
         {
-            get { return _instance ?? (_instance = new DependencyContainer()); }
+            get { return _instance ?? (_instance = new UseCaseContainer()); }
         }
 
-        private DependencyContainer()
+        private UseCaseContainer()
         {
         }
 
