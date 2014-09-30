@@ -1,20 +1,12 @@
 using System.Web.Mvc;
+using Application.Exceptions;
 using Application.UseCases.AddUser;
-using Web.Commands.UserCommands;
 using Web.Models.UserModels.Add;
 
 namespace Web.Controllers
 {
     public class AddUserController : ControllerBase
     {
-        private readonly IUserCommandProvider _userCommandProvider;
-
-        public AddUserController(
-            IUserCommandProvider userCommandProvider)
-        {
-            _userCommandProvider = userCommandProvider;
-        }
-
         [Route("-/user/add")]
         public ActionResult AddUser()
         {
@@ -25,15 +17,25 @@ namespace Web.Controllers
         [Route("-/user/add")]
         public ActionResult Post(AddUserPostModel postModel)
         {
-            var request = new AddUserRequest(postModel.UserName, postModel.DisplayName, postModel.Email);
-            var result = UseCase.AddUser(request);
-
-            var command = _userCommandProvider.GetAddCommand(postModel);
-            if (command.Execute())
+            try
             {
+                var request = new AddUserRequest(postModel.UserName, postModel.DisplayName, postModel.Email);
+                var result = UseCase.AddUser(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            catch (UserExistsException ex)
+            {
+                AddModelError(ex.Message);
+            }
+            catch (EmailExistsException ex)
+            {
+                AddModelError(ex.Message);
+            }
+            
             return GetForm(postModel);
         }
 

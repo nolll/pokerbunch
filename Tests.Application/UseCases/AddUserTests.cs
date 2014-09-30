@@ -1,8 +1,12 @@
 ﻿using System.Linq;
+using Application;
 using Application.Exceptions;
+using Application.Services;
 using Application.Urls;
 using Application.UseCases.AddUser;
+using Core.Entities;
 using Core.Repositories;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -71,10 +75,78 @@ namespace Tests.Application.UseCases
             Assert.Throws<EmailExistsException>(() => Execute(request));
         }
 
+        [Test]
+        public void AddUser_WithValidInput_UserWithCorrectPropertiesIsAdded()
+        {
+            const string expectedEncryptedPassword = "f946ba8dd6db9197cf82bbdab303a4d05316384e";
+            const string expectedSalt = "bbbbbbbbbb";
+
+            SetupPasswordCharacters();
+            SetupSaltCharacters();
+            User user = null;
+            GetMock<IUserRepository>().Setup(o => o.Add(It.IsAny<User>())).Callback((User u) => user = u);
+
+            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
+            Execute(request);
+
+            Assert.AreEqual(0, user.Id);
+            Assert.AreEqual(ValidUserName, user.UserName);
+            Assert.AreEqual(ValidDisplayName, user.DisplayName);
+            Assert.AreEqual("", user.RealName);
+            Assert.AreEqual(ValidEmail, user.Email);
+            Assert.AreEqual(Role.Player, user.GlobalRole);
+            Assert.AreEqual(expectedEncryptedPassword, user.EncryptedPassword);
+            Assert.AreEqual(expectedSalt, user.Salt);
+        }
+
+        [Test]
+        public void AddUser_WithValidInput_SendsRegistrationEmail()
+        {
+            const string subject = "Poker Bunch Registration";
+            const string body = @"Thanks for registering with Poker Bunch.
+
+Here is your password:
+aaaaaaaa
+
+Please sign in here: http://pokerbunch.com/-/auth/login";
+
+            SetupPasswordCharacters();
+            SetupSaltCharacters();
+            string email = null;
+            IMessage message = null;
+            GetMock<IMessageSender>()
+                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
+                .Callback((string e, IMessage m) =>
+                {
+                    email = e;
+                    message = m;
+                });
+
+            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
+            Execute(request);
+
+            Assert.AreEqual(ValidEmail, email);
+            Assert.AreEqual(subject, message.Subject);
+            Assert.AreEqual(body, message.Body);
+        }
+
+        private void SetupPasswordCharacters()
+        {
+            GetMock<IRandomService>().Setup(o => o.GetPasswordCharacters()).Returns("a");
+        }
+
+        private void SetupSaltCharacters()
+        {
+            GetMock<IRandomService>().Setup(o => o.GetSaltCharacters()).Returns("b");
+        }
+
+
         private AddUserResult Execute(AddUserRequest request)
         {
             return AddUserInteractor.Execute(
                 GetMock<IUserRepository>().Object,
+                GetMock<IRandomService>().Object,
+                GetMock<IMessageSender>().Object,
                 request);
         }
     }

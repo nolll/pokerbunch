@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Application.Urls;
 using Application.UseCases.EditBunchForm;
 using Core.Entities;
@@ -107,9 +108,8 @@ namespace Tests.Application.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(103, result.TimeZones.Count);
-            Assert.AreEqual("Dateline Standard Time", result.TimeZones[0].Id);
-            Assert.AreEqual("Line Islands Standard Time", result.TimeZones[102].Id);
+            Assert.AreEqual("Dateline Standard Time", result.TimeZones.First().Id);
+            Assert.AreEqual("Line Islands Standard Time", result.TimeZones.Last().Id);
         }
 
         [Test]

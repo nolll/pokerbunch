@@ -1,23 +1,12 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Application.Exceptions;
-using Application.Urls;
 using Application.UseCases.ForgotPassword;
-using Web.Commands.UserCommands;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers
 {
     public class ForgotPasswordController : ControllerBase
     {
-        private readonly IUserCommandProvider _userCommandProvider;
-
-        public ForgotPasswordController(
-            IUserCommandProvider userCommandProvider)
-        {
-            _userCommandProvider = userCommandProvider;
-        }
-
         [Route("-/user/forgotpassword")]
         public ActionResult ForgotPassword()
         {
@@ -28,10 +17,9 @@ namespace Web.Controllers
         [Route("-/user/forgotpassword")]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
-            var request = new ForgotPasswordRequest(postModel.Email);
-
             try
             {
+                var request = new ForgotPasswordRequest(postModel.Email);
                 var result = UseCase.ForgotPassword(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

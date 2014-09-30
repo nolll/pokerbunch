@@ -23,7 +23,7 @@ namespace Application.UseCases.ForgotPassword
                 throw new UserNotFoundException();
 
             var password = PasswordGenerator.CreatePassword(randomService.GetPasswordCharacters());
-            var salt = SaltGenerator.CreateSalt(randomService.GetPasswordCharacters());
+            var salt = SaltGenerator.CreateSalt(randomService.GetSaltCharacters());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
 
             user.SetPassword(encryptedPassword, salt);

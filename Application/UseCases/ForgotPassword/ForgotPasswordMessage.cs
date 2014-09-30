@@ -14,7 +14,7 @@ namespace Application.UseCases.ForgotPassword
 
         public string Subject
         {
-            get { return "Poker Bunch password recovery"; }
+            get { return "Poker Bunch Password Recovery"; }
         }
 
         public string Body

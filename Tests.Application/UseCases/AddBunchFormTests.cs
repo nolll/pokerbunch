@@ -1,4 +1,5 @@
-﻿using Application.UseCases.AddBunchForm;
+﻿using System.Linq;
+using Application.UseCases.AddBunchForm;
 using NUnit.Framework;
 
 namespace Tests.Application.UseCases
@@ -10,9 +11,8 @@ namespace Tests.Application.UseCases
         {
             var result = Execute();
 
-            Assert.AreEqual(103, result.TimeZones.Count);
-            Assert.AreEqual("Dateline Standard Time", result.TimeZones[0].Id);
-            Assert.AreEqual("Line Islands Standard Time", result.TimeZones[102].Id);
+            Assert.AreEqual("Dateline Standard Time", result.TimeZones.First().Id);
+            Assert.AreEqual("Line Islands Standard Time", result.TimeZones.Last().Id);
         }
 
         [Test]

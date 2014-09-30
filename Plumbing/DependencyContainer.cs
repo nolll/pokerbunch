@@ -118,7 +118,7 @@ namespace Plumbing
 
             UserList = () => UserListInteractor.Execute(UserRepository);
             UserDetails = request => UserDetailsInteractor.Execute(Auth, UserRepository, request);
-            AddUser = request => AddUserInteractor.Execute(UserRepository, request);
+            AddUser = request => AddUserInteractor.Execute(UserRepository, RandomService, MessageSender, request);
             EditUserForm = request => EditUserFormInteractor.Execute(UserRepository, request);
             ForgotPassword = request => ForgotPasswordInteractor.Execute(UserRepository, MessageSender, RandomService, request);
 

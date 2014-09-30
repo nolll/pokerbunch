@@ -62,7 +62,6 @@
     <Compile Include="Services\IAuth.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
-    <Compile Include="Services\Interfaces\IRegistrationConfirmationSender.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
     <Compile Include="Services\Interfaces\ITimeProvider.cs" />
     <Compile Include="Services\Interfaces\IWebContext.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
-    <Compile Include="Services\RegistrationConfirmationSender.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />

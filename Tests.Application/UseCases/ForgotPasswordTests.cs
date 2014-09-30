@@ -45,7 +45,7 @@ namespace Tests.Application.UseCases
         [Test]
         public void ForgotPassword_SendsPasswordEmail()
         {
-            const string subject = "Poker Bunch password recovery";
+            const string subject = "Poker Bunch Password Recovery";
             const string body = @"Here is your new password for Poker Bunch:
 aaaaaaaa
 
@@ -82,7 +82,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
 
             Execute(CreateRequest());
 
-            Assert.AreEqual("63ff91274d5b2ed6c6e694bab8a02bce48078405", savedUser.EncryptedPassword);
+            Assert.AreEqual("f946ba8dd6db9197cf82bbdab303a4d05316384e", savedUser.EncryptedPassword);
             Assert.AreEqual("bbbbbbbbbb", savedUser.Salt);
         }
 
@@ -93,7 +93,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
 
         private void SetupSaltCharacters()
         {
-            GetMock<IRandomService>().Setup(o => o.GetPasswordCharacters()).Returns("b");
+            GetMock<IRandomService>().Setup(o => o.GetSaltCharacters()).Returns("b");
         }
 
         private ForgotPasswordRequest CreateRequest(string email = ValidEmail)

@@ -134,7 +134,6 @@
     <Compile Include="Commands\HomegameCommands\EditBunchCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IBunchCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinBunchCommand.cs" />
-    <Compile Include="Commands\UserCommands\AddUserCommand.cs" />
     <Compile Include="Commands\UserCommands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\UserCommands\EditUserCommand.cs" />
     <Compile Include="Commands\HomegameCommands\AddBunchCommand.cs" />
