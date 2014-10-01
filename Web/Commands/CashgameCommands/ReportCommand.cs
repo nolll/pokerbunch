@@ -3,7 +3,6 @@ using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Web.ModelMappers;
 using Web.Models.CashgameModels.Report;
 
 namespace Web.Commands.CashgameCommands

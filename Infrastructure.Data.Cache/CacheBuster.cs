@@ -101,7 +101,7 @@ namespace Infrastructure.Data.Cache
             }
         }
 
-        public void ClearCashgameYears(int homegameId)
+        private void ClearCashgameYears(int homegameId)
         {
             var cacheKey = CacheKeyProvider.CashgameYearsKey(homegameId);
             _cacheContainer.Remove(cacheKey);

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using Application.Services;
 using Application.UseCases.AppContext;
-using Application.UseCases.BaseContext;
 using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;

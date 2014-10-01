@@ -120,31 +120,31 @@ namespace Plumbing
         public Func<AddPlayerRequest, AddPlayerResult> AddPlayer { get { return request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request); } }
         public Func<DeletePlayerRequest, DeletePlayerResult> DeletePlayer { get { return request => DeletePlayerInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, request); } }
 
-        private ITimeProvider TimeProvider { get { return new TimeProvider(); } }
-        private IRandomService RandomService { get { return new RandomService(); } }
-        private IWebContext WebContext { get { return new WebContext(); } }
-        private IStorageProvider StorageProvider { get { return new SqlServerStorageProvider(); } }
-        private ICacheProvider CacheProvider { get { return new CacheProvider(); } }
-        private ICacheContainer CacheContainer { get { return new CacheContainer(CacheProvider); } }
-        private ICacheBuster CacheBuster { get { return new CacheBuster(CacheContainer); } }
-        private IBunchStorage BunchStorage { get { return new SqlServerBunchStorage(StorageProvider); } }
-        private IBunchRepository BunchRepository { get { return new BunchRepository(BunchStorage, CacheContainer, CacheBuster); } }
-        private IUserStorage UserStorage { get { return new SqlServerUserStorage(StorageProvider); } }
-        private IUserRepository UserRepository { get { return new UserRepository(UserStorage, CacheContainer, CacheBuster); } }
-        private IPlayerStorage PlayerStorage { get { return new SqlServerPlayerStorage(StorageProvider); } }
-        private IPlayerDataMapper PlayerDataMapper { get { return new PlayerDataMapper(UserRepository); } }
-        private IPlayerRepository PlayerRepository { get { return new PlayerRepository(PlayerStorage, PlayerDataMapper, CacheContainer, CacheBuster); } }
-        private IRawCashgameFactory RawCashgameFactory { get { return new RawCashgameFactory(TimeProvider); } }
-        private ICheckpointStorage CheckpointStorage { get { return new SqlServerCheckpointStorage(StorageProvider, TimeProvider); } }
-        private ICashgameStorage CashgameStorage { get { return new SqlServerCashgameStorage(StorageProvider, RawCashgameFactory); } }
-        private ICashgameResultFactory CashgameResultFactory { get { return new CashgameResultFactory(TimeProvider); } }
-        private ICashgameDataMapper CashgameDataMapper { get { return new CashgameDataMapper(CashgameResultFactory); } }
-        private ICashgameRepository CashgameRepository { get { return new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster, CashgameDataMapper); } }
-        private ICashgameTotalResultFactory CashgameTotalResultFactory { get { return new CashgameTotalResultFactory(); } }
-        private ICashgameSuiteFactory CashgameSuiteFactory { get { return new CashgameSuiteFactory(CashgameTotalResultFactory); } }
-        private ICashgameService CashgameService { get { return new CashgameService(PlayerRepository, CashgameRepository, CashgameSuiteFactory, BunchRepository); } }
-        private ICheckpointRepository CheckpointRepository { get { return new CheckpointRepository(CheckpointStorage, CacheBuster); } }
-        private IAuth Auth { get { return new Auth(TimeProvider, UserRepository); } }
-        private IMessageSender MessageSender { get { return new MessageSender(); } }
+        private static readonly ITimeProvider TimeProvider = new TimeProvider();
+        private static readonly IRandomService RandomService = new RandomService();
+        private static readonly IWebContext WebContext = new WebContext();
+        private static readonly IStorageProvider StorageProvider = new SqlServerStorageProvider();
+        private static readonly ICacheProvider CacheProvider = new CacheProvider();
+        private static readonly ICacheContainer CacheContainer = new CacheContainer(CacheProvider);
+        private static readonly ICacheBuster CacheBuster = new CacheBuster(CacheContainer);
+        private static readonly IBunchStorage BunchStorage = new SqlServerBunchStorage(StorageProvider);
+        private static readonly IBunchRepository BunchRepository = new BunchRepository(BunchStorage, CacheContainer, CacheBuster);
+        private static readonly IUserStorage UserStorage = new SqlServerUserStorage(StorageProvider);
+        private static readonly IUserRepository UserRepository = new UserRepository(UserStorage, CacheContainer, CacheBuster);
+        private static readonly IPlayerStorage PlayerStorage = new SqlServerPlayerStorage(StorageProvider);
+        private static readonly IPlayerDataMapper PlayerDataMapper = new PlayerDataMapper(UserRepository);
+        private static readonly IPlayerRepository PlayerRepository = new PlayerRepository(PlayerStorage, PlayerDataMapper, CacheContainer, CacheBuster);
+        private static readonly IRawCashgameFactory RawCashgameFactory = new RawCashgameFactory(TimeProvider);
+        private static readonly ICheckpointStorage CheckpointStorage = new SqlServerCheckpointStorage(StorageProvider, TimeProvider);
+        private static readonly ICashgameStorage CashgameStorage = new SqlServerCashgameStorage(StorageProvider, RawCashgameFactory);
+        private static readonly ICashgameResultFactory CashgameResultFactory = new CashgameResultFactory(TimeProvider);
+        private static readonly ICashgameDataMapper CashgameDataMapper = new CashgameDataMapper(CashgameResultFactory);
+        private static readonly ICashgameRepository CashgameRepository = new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster, CashgameDataMapper);
+        private static readonly ICashgameTotalResultFactory CashgameTotalResultFactory = new CashgameTotalResultFactory();
+        private static readonly ICashgameSuiteFactory CashgameSuiteFactory = new CashgameSuiteFactory(CashgameTotalResultFactory);
+        private static readonly ICashgameService CashgameService = new CashgameService(PlayerRepository, CashgameRepository, CashgameSuiteFactory, BunchRepository);
+        private static readonly ICheckpointRepository CheckpointRepository = new CheckpointRepository(CheckpointStorage, CacheBuster);
+        private static readonly IAuth Auth = new Auth(TimeProvider, UserRepository);
+        private static readonly IMessageSender MessageSender = new MessageSender();
     }
 }
