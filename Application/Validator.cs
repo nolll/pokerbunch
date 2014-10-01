@@ -15,16 +15,6 @@ namespace Application
             System.ComponentModel.DataAnnotations.Validator.TryValidateObject(subject, context, _errors, true);
         }
 
-        public Validator()
-        {
-            _errors = new List<ValidationResult>();
-        }
-
-        public void AddError(string message)
-        {
-            _errors.Add(new ValidationResult(message));
-        }
-
         public IEnumerable<string> Errors
         {
             get { return _errors.Select(o => o.ErrorMessage); }

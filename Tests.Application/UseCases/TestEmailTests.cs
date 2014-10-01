@@ -14,9 +14,22 @@ namespace Tests.Application.UseCases
         [Test]
         public void TestEmail_MessageIsSent()
         {
+            string email = null;
+            IMessage message = null;
+
+            GetMock<IMessageSender>()
+                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
+                .Callback((string e, IMessage m) =>
+                {
+                    email = e;
+                    message = m;
+                });
+            
             Execute();
 
-            GetMock<IMessageSender>().Verify(o => o.Send(Email, It.IsAny<IMessage>()));
+            Assert.AreEqual(Email, email);
+            Assert.AreEqual("Test Email", message.Subject);
+            Assert.AreEqual("This is a test email from pokerbunch.com", message.Body);
         }
 
         [Test]
