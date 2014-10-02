@@ -83,6 +83,7 @@
     <Compile Include="UseCases\LoginFormTests.cs" />
     <Compile Include="UseCases\LoginTests.cs" />
     <Compile Include="UseCases\LogoutTests.cs" />
+    <Compile Include="UseCases\MatrixTests.cs" />
     <Compile Include="UseCases\PlayerBadgesTests.cs" />
     <Compile Include="UseCases\PlayerDetailsTests.cs" />
     <Compile Include="UseCases\PlayerFactsTests.cs" />

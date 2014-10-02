@@ -238,6 +238,10 @@
     <Compile Include="UseCases\Login\LoginResult.cs" />
     <Compile Include="UseCases\Logout\LogoutInteractor.cs" />
     <Compile Include="UseCases\Logout\LogoutResult.cs" />
+    <Compile Include="UseCases\Matrix\GameItem.cs" />
+    <Compile Include="UseCases\Matrix\MatrixInteractor.cs" />
+    <Compile Include="UseCases\Matrix\MatrixRequest.cs" />
+    <Compile Include="UseCases\Matrix\MatrixResult.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesRequest.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesResult.cs" />

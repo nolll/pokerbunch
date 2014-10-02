@@ -164,12 +164,6 @@
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableColumnHeaderModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableItemModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\List\CashgameListTableModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableRowModelFactory.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\CashgameMatrixTableCellModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameSuiteChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartJsonBuilder.cs" />
