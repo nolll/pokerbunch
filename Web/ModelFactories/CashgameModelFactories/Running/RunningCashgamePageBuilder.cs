@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Services;
 using Application.Urls;
 using Application.UseCases.BunchContext;
+using Application.UseCases.RunningCashgame;
 using Core.Entities;
 using Core.Repositories;
 using Plumbing;
@@ -14,77 +17,52 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
         private readonly IRunningCashgameTableModelFactory _runningCashgameTableModelFactory;
         private readonly IAuth _auth;
         private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly ITimeProvider _timeProvider;
+        private readonly IPlayerRepository _playerRepository;
 
         public RunningCashgamePageBuilder(
             IRunningCashgameTableModelFactory runningCashgameTableModelFactory,
             IAuth auth,
             IBunchRepository bunchRepository,
-            IPlayerRepository playerRepository,
-            ICashgameRepository cashgameRepository)
+            ICashgameRepository cashgameRepository,
+            ITimeProvider timeProvider,
+            IPlayerRepository playerRepository)
         {
             _runningCashgameTableModelFactory = runningCashgameTableModelFactory;
             _auth = auth;
             _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
+            _timeProvider = timeProvider;
+            _playerRepository = playerRepository;
         }
 
         public RunningCashgamePageModel Build(string slug)
         {
-            var user = _auth.CurrentUser;
             var homegame = _bunchRepository.GetBySlug(slug);
-            var player = _playerRepository.GetByUserName(homegame, user.UserName);
             var cashgame = _cashgameRepository.GetRunning(homegame);
             var isManager = _auth.IsInRole(slug, Role.Manager);
+            var now = _timeProvider.GetTime();
+            var players = GetPlayers(cashgame);
             
-            var canBeEnded = CanBeEnded(cashgame);
-            var canReport = !canBeEnded;
-            var isInGame = cashgame.IsInGame(player.Id);
-
             var contextResult = UseCaseContainer.Instance.BunchContext(new BunchContextRequest(slug));
+            var runningCashgameResult = UseCaseContainer.Instance.RunningCashgame(new RunningCashgameRequest(slug));
 
-            return new RunningCashgamePageModel(contextResult)
+            return new RunningCashgamePageModel(contextResult, runningCashgameResult)
                 {
-                    Location = cashgame.Location,
-                    ShowStartTime = cashgame.IsStarted,
-                    StartTime = GetStartTime(cashgame, homegame.Timezone),
-                    BuyinUrl = new CashgameBuyinUrl(homegame.Slug, player.Id),
-                    ReportUrl = new CashgameReportUrl(homegame.Slug, player.Id),
-                    CashoutUrl = new CashgameCashoutUrl(homegame.Slug, player.Id),
-                    EndGameUrl = new EndCashgameUrl(homegame.Slug),
-                    BuyinButtonEnabled = canReport,
-                    ReportButtonEnabled = canReport && isInGame,
-                    CashoutButtonEnabled = isInGame,
-                    EndGameButtonEnabled = canBeEnded,
-                    ShowTable = cashgame.IsStarted,
-                    RunningCashgameTableModel = cashgame.IsStarted ? _runningCashgameTableModelFactory.Create(homegame, cashgame, isManager) : null,
-                    ShowChart = cashgame.IsStarted,
-                    ChartDataUrl = GetChartDataUrl(homegame, cashgame)
+                    RunningCashgameTableModel = cashgame.IsStarted ? _runningCashgameTableModelFactory.Create(homegame, cashgame, players, isManager, now) : null,
                 };
         }
 
-        private static Url GetChartDataUrl(Bunch bunch, Cashgame cashgame)
+        private IList<Player> GetPlayers(Cashgame cashgame)
         {
-            if (cashgame.IsStarted)
-                return new CashgameDetailsChartJsonUrl(bunch.Slug, cashgame.DateString);
-            return Url.Empty;
+            var ids = GetPlayerIds(cashgame);
+            return _playerRepository.GetList(ids);
         }
 
-        private string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)
+        private IList<int> GetPlayerIds(Cashgame cashgame)
         {
-            if (cashgame.IsStarted && cashgame.StartTime.HasValue)
-            {
-                var localTime = TimeZoneInfo.ConvertTime(cashgame.StartTime.Value, timezone);
-                return Globalization.FormatTime(localTime);
-            }
-            return null;
-        }
-
-        private bool CanBeEnded(Cashgame cashgame)
-        {
-            return cashgame.IsStarted && !cashgame.HasActivePlayers;
+            return cashgame.Results.Select(o => o.PlayerId).ToList();
         }
     }
 }

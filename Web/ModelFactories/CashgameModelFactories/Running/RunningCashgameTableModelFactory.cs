@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Services;
@@ -9,25 +10,22 @@ namespace Web.ModelFactories.CashgameModelFactories.Running
 {
     public class RunningCashgameTableModelFactory : IRunningCashgameTableModelFactory
     {
-        private readonly IRunningCashgameTableItemModelFactory _runningCashgameTableItemModelFactory;
         private readonly IPlayerRepository _playerRepository;
 
         public RunningCashgameTableModelFactory(
-            IRunningCashgameTableItemModelFactory runningCashgameTableItemModelFactory,
             IPlayerRepository playerRepository)
         {
-            _runningCashgameTableItemModelFactory = runningCashgameTableItemModelFactory;
             _playerRepository = playerRepository;
         }
 
-        public RunningCashgameTableModel Create(Bunch bunch, Cashgame cashgame, bool isManager)
+        public RunningCashgameTableModel Create(Bunch bunch, Cashgame cashgame, IList<Player> players, bool isManager, DateTime now)
         {
             var results = GetSortedResults(cashgame);
             var resultModels = new List<RunningCashgameTableItemModel>();
             foreach (var result in results)
             {
                 var player = _playerRepository.GetById(result.PlayerId);
-                resultModels.Add(_runningCashgameTableItemModelFactory.Create(bunch, cashgame, player, result, isManager));
+                resultModels.Add(new RunningCashgameTableItemModel(bunch, cashgame, player, result, isManager, now));
             }
             
             return new RunningCashgameTableModel

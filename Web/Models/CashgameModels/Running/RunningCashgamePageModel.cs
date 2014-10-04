@@ -1,30 +1,45 @@
 using Application.Urls;
 using Application.UseCases.BunchContext;
+using Application.UseCases.RunningCashgame;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
 {
     public class RunningCashgamePageModel : BunchPageModel
     {
-        public string StartTime { get; set; }
-        public bool ShowStartTime { get; set; }
-        public string Location { get; set; }
-        public bool BuyinButtonEnabled { get; set; }
-        public bool ReportButtonEnabled { get; set; }
-        public bool CashoutButtonEnabled { get; set; }
-        public bool EndGameButtonEnabled { get; set; }
-        public Url BuyinUrl { get; set; }
-        public Url ReportUrl { get; set; }
-        public Url CashoutUrl { get; set; }
-        public Url EndGameUrl { get; set; }
+        public string StartTime { get; private set; }
+        public bool ShowStartTime { get; private set; }
+        public string Location { get; private set; }
+        public bool BuyinButtonEnabled { get; private set; }
+        public bool ReportButtonEnabled { get; private set; }
+        public bool CashoutButtonEnabled { get; private set; }
+        public bool EndGameButtonEnabled { get; private set; }
+        public Url BuyinUrl { get; private set; }
+        public Url ReportUrl { get; private set; }
+        public Url CashoutUrl { get; private set; }
+        public Url EndGameUrl { get; private set; }
         public RunningCashgameTableModel RunningCashgameTableModel { get; set; }
-        public bool ShowTable { get; set; }
-        public Url ChartDataUrl { get; set; }
-        public bool ShowChart { get; set; }
+        public bool ShowTable { get; private set; }
+        public Url ChartDataUrl { get; private set; }
+        public bool ShowChart { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContextResult contextResult)
+	    public RunningCashgamePageModel(BunchContextResult contextResult, RunningCashgameResult runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
+	        Location = runningCashgameResult.Location;
+	        BuyinUrl = runningCashgameResult.BuyinUrl;
+	        ReportUrl = runningCashgameResult.ReportUrl;
+	        CashoutUrl = runningCashgameResult.CashoutUrl;
+	        EndGameUrl = runningCashgameResult.EndGameUrl;
+	        ShowStartTime = runningCashgameResult.ShowStartTime;
+            StartTime = runningCashgameResult.StartTime;
+            BuyinButtonEnabled = runningCashgameResult.BuyinButtonEnabled;
+            ReportButtonEnabled = runningCashgameResult.ReportButtonEnabled;
+            CashoutButtonEnabled = runningCashgameResult.CashoutButtonEnabled;
+            EndGameButtonEnabled = runningCashgameResult.EndGameButtonEnabled;
+            ShowTable = runningCashgameResult.ShowTable;
+            ShowChart = runningCashgameResult.ShowChart;
+            ChartDataUrl = runningCashgameResult.ChartDataUrl;
 	    }
     }
 }

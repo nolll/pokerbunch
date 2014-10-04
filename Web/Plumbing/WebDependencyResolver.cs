@@ -30,7 +30,6 @@ namespace Web.Plumbing
 
             // Model Factories
             RegisterComponent<IRunningCashgameTableModelFactory, RunningCashgameTableModelFactory>();
-            RegisterComponent<IRunningCashgameTableItemModelFactory, RunningCashgameTableItemModelFactory>();
             RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
             RegisterComponent<ICashgameDetailsChartJsonBuilder, CashgameDetailsChartJsonBuilder>();

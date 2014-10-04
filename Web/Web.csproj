@@ -157,12 +157,10 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\ICashgameSuiteChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartJsonBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\IRunningCashgameTableModelFactory.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableItemModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Running\RunningCashgameTableModelFactory.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Chart\CashgameSuiteChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
