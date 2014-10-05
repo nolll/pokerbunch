@@ -2,8 +2,6 @@
 using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
-using Core.Factories;
-using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Core.Services.Interfaces;
@@ -57,8 +55,6 @@ namespace Plumbing
 
             // Core Factories
             RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
-            RegisterComponent<ICashgameTotalResultFactory, CashgameTotalResultFactory>();
-            RegisterComponent<ICashgameSuiteFactory, CashgameSuiteFactory>();
 
             // Data Mappers
             RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();

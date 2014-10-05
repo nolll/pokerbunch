@@ -26,7 +26,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Matrix
             var suite = _cashgameService.GetSuite(bunch, year);
 
             var contextResult = UseCaseContainer.Instance.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
-            var matrixResult = UseCaseContainer.Instance.Matrix(new MatrixRequest(slug));
+            var matrixResult = UseCaseContainer.Instance.Matrix(new MatrixRequest(slug, year));
 
             return new CashgameMatrixPageModel(contextResult, matrixResult, bunch, suite);
         }

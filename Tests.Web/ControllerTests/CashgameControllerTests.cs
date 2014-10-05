@@ -9,7 +9,6 @@ using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
-using Web.ModelFactories.CashgameModelFactories.Running;
 
 namespace Tests.Web.ControllerTests
 {
@@ -42,7 +41,6 @@ namespace Tests.Web.ControllerTests
                 GetMock<IMatrixPageBuilder>().Object,
                 GetMock<ICashgameDetailsChartJsonBuilder>().Object,
                 GetMock<IEditCashgamePageBuilder>().Object,
-                GetMock<IRunningCashgamePageBuilder>().Object,
                 GetMock<ICashgameSuiteChartJsonBuilder>().Object,
                 GetMock<IActionChartJsonBuilder>().Object);
         }

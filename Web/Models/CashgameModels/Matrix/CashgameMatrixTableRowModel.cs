@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Application.Services;
 using Application.Urls;
 using Core.Entities;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Models.CashgameModels.Matrix
 {

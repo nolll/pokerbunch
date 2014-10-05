@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Factories.Interfaces;
+using Core.Factories;
 using Core.Repositories;
 using Core.Services.Interfaces;
 
@@ -11,18 +11,15 @@ namespace Core.Services
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICashgameSuiteFactory _cashgameSuiteFactory;
         private readonly IBunchRepository _bunchRepository;
 
         public CashgameService(
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
-            ICashgameSuiteFactory cashgameSuiteFactory,
             IBunchRepository bunchRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _cashgameSuiteFactory = cashgameSuiteFactory;
             _bunchRepository = bunchRepository;
         }
 
@@ -47,7 +44,7 @@ namespace Core.Services
         {
             var players = _playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetPublished(bunch, year);
-            return _cashgameSuiteFactory.Create(cashgames, players);
+            return CashgameSuiteFactory.Create(cashgames, players);
         }
 
         public IList<Player> GetPlayers(Cashgame cashgame)

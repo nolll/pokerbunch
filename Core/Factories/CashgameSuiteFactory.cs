@@ -1,23 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Factories.Interfaces;
 
 namespace Core.Factories
 {
-    public class CashgameSuiteFactory : ICashgameSuiteFactory
+    public static class CashgameSuiteFactory
     {
-	    private readonly ICashgameTotalResultFactory _cashgameTotalResultFactory;
-
-	    public CashgameSuiteFactory(ICashgameTotalResultFactory cashgameTotalResultFactory)
-		{
-		    _cashgameTotalResultFactory = cashgameTotalResultFactory;
-		}
-
-        public CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
+        public static CashgameSuite Create(IList<Cashgame> cashgames, IList<Player> players)
         {
 			var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
-			var totalResults = _cashgameTotalResultFactory.CreateList(players, cashgames);
+            var totalResults = CreateTotalResults(players, cashgames);
 
             return new CashgameSuite
                 (
@@ -26,5 +18,11 @@ namespace Core.Factories
                     players
                 );
 		}
+
+        private static IList<CashgameTotalResult> CreateTotalResults(IList<Player> players, IList<Cashgame> cashgames)
+        {
+            var list = players.Select(player => new CashgameTotalResult(player, cashgames)).ToList();
+            return list.Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
+        }
 	}
 }

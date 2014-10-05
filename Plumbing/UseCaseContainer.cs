@@ -41,8 +41,6 @@ using Application.UseCases.RunningCashgame;
 using Application.UseCases.TestEmail;
 using Application.UseCases.UserDetails;
 using Application.UseCases.UserList;
-using Core.Factories;
-using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Core.Services.Interfaces;
@@ -113,7 +111,7 @@ namespace Plumbing
         public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get { return request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request); } }
         public Func<CashgameChartContainerRequest, CashgameChartContainerResult> CashgameChartContainer { get { return CashgameChartContainerInteractor.Execute; } }
         public Func<MatrixRequest, MatrixResult> Matrix { get { return request => MatrixInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, request); } } 
+        public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, TimeProvider, request); } } 
 
         // Player
         public Func<PlayerListRequest, PlayerListResult> PlayerList { get { return request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request); } }
@@ -144,9 +142,7 @@ namespace Plumbing
         private static readonly ICashgameResultFactory CashgameResultFactory = new CashgameResultFactory(TimeProvider);
         private static readonly ICashgameDataMapper CashgameDataMapper = new CashgameDataMapper(CashgameResultFactory);
         private static readonly ICashgameRepository CashgameRepository = new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster, CashgameDataMapper);
-        private static readonly ICashgameTotalResultFactory CashgameTotalResultFactory = new CashgameTotalResultFactory();
-        private static readonly ICashgameSuiteFactory CashgameSuiteFactory = new CashgameSuiteFactory(CashgameTotalResultFactory);
-        private static readonly ICashgameService CashgameService = new CashgameService(PlayerRepository, CashgameRepository, CashgameSuiteFactory, BunchRepository);
+        private static readonly ICashgameService CashgameService = new CashgameService(PlayerRepository, CashgameRepository, BunchRepository);
         private static readonly ICheckpointRepository CheckpointRepository = new CheckpointRepository(CheckpointStorage, CacheBuster);
         private static readonly IAuth Auth = new Auth(TimeProvider, UserRepository);
         private static readonly IMessageSender MessageSender = new MessageSender();

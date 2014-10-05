@@ -41,18 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\CashgameFactoryTests.cs" />
-    <Compile Include="Factories\FactBuilderTests.cs" />
-    <Compile Include="Factories\CashgameSuiteFactoryTests.cs" />
-    <Compile Include="Factories\CashgameTotalResultTests.cs" />
-    <Compile Include="Services\CashgameServiceTests.cs" />
-    <Compile Include="Services\EncryptionServiceTests.cs" />
-    <Compile Include="Services\InvitationCodeCreatorTests.cs" />
-    <Compile Include="Services\PasswordGeneratorTests.cs" />
-    <Compile Include="Services\RandomStringGeneratorTests.cs" />
-    <Compile Include="Services\RegistrationConfirmationMessageBuilderTests.cs" />
-    <Compile Include="Services\SaltGeneratorTests.cs" />
-    <Compile Include="Services\SlugGeneratorTests.cs" />
     <Compile Include="UseCases\ActionsTests.cs" />
     <Compile Include="UseCases\AddCashgameFormTests.cs" />
     <Compile Include="UseCases\AddCashgameTests.cs" />

@@ -49,9 +49,6 @@
     <Compile Include="Entities\UserBunch.cs" />
     <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
-    <Compile Include="Factories\CashgameTotalResultFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameSuiteFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICashgameTotalResultFactory.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
   </ItemGroup>

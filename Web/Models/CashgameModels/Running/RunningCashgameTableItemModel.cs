@@ -1,7 +1,6 @@
-using System;
 using Application.Services;
 using Application.Urls;
-using Core.Entities;
+using Application.UseCases.RunningCashgame;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -20,28 +19,19 @@ namespace Web.Models.CashgameModels.Running
         public Url CashoutUrl { get; private set; }
         public bool HasCashedOut { get; private set; }
 
-        public RunningCashgameTableItemModel(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result, bool isManager, DateTime now)
+        public RunningCashgameTableItemModel(RunningCashgameTableItem item)
         {
-            Name = player.DisplayName;
-            PlayerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
-            BuyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
-            ReportUrl = new CashgameReportUrl(bunch.Slug, player.Id);
-            CashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
-            Buyin = Globalization.FormatCurrency(bunch.Currency, result.Buyin);
-            Stack = Globalization.FormatCurrency(bunch.Currency, result.Stack);
-            Winnings = Globalization.FormatResult(bunch.Currency, result.Winnings);
-            Time = GetTime(result.LastReportTime, now);
-            WinningsClass = ResultFormatter.GetWinningsCssClass(result.Winnings);
-            HasCashedOut = result.CashoutTime != null;
-            ManagerButtonsEnabled = isManager;
-        }
-
-        private string GetTime(DateTime? lastReportedTime, DateTime now)
-        {
-            if (!lastReportedTime.HasValue)
-                return null;
-            var timespan = now - lastReportedTime.Value;
-            return Globalization.FormatTimespan(timespan);
+            Name = item.Name;
+            PlayerUrl = item.PlayerUrl;
+            BuyinUrl = item.BuyinUrl;
+            ReportUrl = item.ReportUrl;
+            CashoutUrl = item.CashoutUrl;
+            Buyin = item.Buyin.ToString();
+            Stack = item.Stack.ToString();
+            Winnings = item.Winnings.ToString();
+            Time = item.Time.ToString();
+            WinningsClass = ResultFormatter.GetWinningsCssClass(item.Winnings);
+            HasCashedOut = item.HasCashedOut;
         }
     }
 }

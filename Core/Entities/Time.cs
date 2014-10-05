@@ -4,7 +4,12 @@ namespace Core.Entities
 {
     public class Time : IComparable<Time>
     {
-        public TimeSpan TimeSpan { get; set; }
+        private TimeSpan _timeSpan;
+
+        public static Time FromTimeSpan(TimeSpan timeSpan)
+        {
+            return new Time(timeSpan);
+        }
 
         public static Time FromMinutes(int minutes)
         {
@@ -13,17 +18,17 @@ namespace Core.Entities
 
         protected Time(TimeSpan timeSpan)
         {
-            TimeSpan = timeSpan;
+            _timeSpan = timeSpan;
         }
 
         public int Minutes
         {
-            get { return Convert.ToInt32(Math.Round(TimeSpan.TotalMinutes)); }
+            get { return Convert.ToInt32(Math.Round(_timeSpan.TotalMinutes)); }
         }
 
         public int CompareTo(Time other)
         {
-            return TimeSpan.CompareTo(other.TimeSpan);
+            return _timeSpan.CompareTo(other._timeSpan);
         }
 
         public override string ToString()

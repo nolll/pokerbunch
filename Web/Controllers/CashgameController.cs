@@ -14,13 +14,13 @@ using Application.UseCases.CashgameFacts;
 using Application.UseCases.CashgameList;
 using Application.UseCases.CashgameTopList;
 using Application.UseCases.EditCheckpointForm;
+using Application.UseCases.RunningCashgame;
 using Web.Commands.CashgameCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
-using Web.ModelFactories.CashgameModelFactories.Running;
 using Web.Models.CashgameModels.Action;
 using Web.Models.CashgameModels.Add;
 using Web.Models.CashgameModels.Buyin;
@@ -33,6 +33,7 @@ using Web.Models.CashgameModels.End;
 using Web.Models.CashgameModels.Facts;
 using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
+using Web.Models.CashgameModels.Running;
 using Web.Models.CashgameModels.Toplist;
 using Web.Security.Attributes;
 
@@ -44,7 +45,6 @@ namespace Web.Controllers
 	    private readonly IMatrixPageBuilder _matrixPageBuilder;
 	    private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
 	    private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
-	    private readonly IRunningCashgamePageBuilder _runningCashgamePageBuilder;
 	    private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 	    private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
 
@@ -53,7 +53,6 @@ namespace Web.Controllers
             IMatrixPageBuilder matrixPageBuilder,
             ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder,
             IEditCashgamePageBuilder editCashgamePageBuilder,
-            IRunningCashgamePageBuilder runningCashgamePageBuilder,
             ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder,
             IActionChartJsonBuilder actionChartJsonBuilder)
 	    {
@@ -61,7 +60,6 @@ namespace Web.Controllers
 	        _matrixPageBuilder = matrixPageBuilder;
 	        _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
 	        _editCashgamePageBuilder = editCashgamePageBuilder;
-	        _runningCashgamePageBuilder = runningCashgamePageBuilder;
 	        _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
 	        _actionChartJsonBuilder = actionChartJsonBuilder;
 	    }
@@ -178,11 +176,17 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/running")]
         public ActionResult Running(string slug)
         {
-            var result = UseCase.CashgameContext(new CashgameContextRequest(slug));
-            if(!result.GameIsRunning)
+	        try
+	        {
+	            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug));
+	            var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
+	            var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
+	            return View("Running/RunningPage", model);
+	        }
+	        catch (CashgameNotRunningException)
+	        {
                 return Redirect(new CashgameIndexUrl(slug).Relative);
-            var model = _runningCashgamePageBuilder.Build(slug);
-			return View("Running/RunningPage", model);
+	        }
 		}
 
 	    [AuthorizePlayer]

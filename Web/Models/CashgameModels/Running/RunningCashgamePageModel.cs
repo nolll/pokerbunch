@@ -1,11 +1,11 @@
 using Application.Urls;
-using Application.UseCases.BunchContext;
+using Application.UseCases.CashgameContext;
 using Application.UseCases.RunningCashgame;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
 {
-    public class RunningCashgamePageModel : BunchPageModel
+    public class RunningCashgamePageModel : CashgamePageModel
     {
         public string StartTime { get; private set; }
         public bool ShowStartTime { get; private set; }
@@ -23,7 +23,7 @@ namespace Web.Models.CashgameModels.Running
         public Url ChartDataUrl { get; private set; }
         public bool ShowChart { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContextResult contextResult, RunningCashgameResult runningCashgameResult)
+	    public RunningCashgamePageModel(CashgameContextResult contextResult, RunningCashgameResult runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
 	        Location = runningCashgameResult.Location;
@@ -37,6 +37,7 @@ namespace Web.Models.CashgameModels.Running
             ReportButtonEnabled = runningCashgameResult.ReportButtonEnabled;
             CashoutButtonEnabled = runningCashgameResult.CashoutButtonEnabled;
             EndGameButtonEnabled = runningCashgameResult.EndGameButtonEnabled;
+            RunningCashgameTableModel = runningCashgameResult.IsStarted ? new RunningCashgameTableModel(runningCashgameResult) : null;
             ShowTable = runningCashgameResult.ShowTable;
             ShowChart = runningCashgameResult.ShowChart;
             ChartDataUrl = runningCashgameResult.ChartDataUrl;

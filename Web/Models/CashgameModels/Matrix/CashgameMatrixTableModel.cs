@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Matrix
 
         public CashgameMatrixTableModel(MatrixResult matrixResult, Bunch bunch, CashgameSuite suite)
         {
-            var showYear = suite.SpansMultipleYears;
+            var showYear = matrixResult.SpansMultipleYears;
             var headerModels = matrixResult.GameItems.Select(o => new CashgameMatrixTableColumnHeaderModel(o, showYear)).ToList();
 
             ColumnHeaderModels = headerModels;
