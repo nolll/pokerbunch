@@ -42,6 +42,45 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="DateTests.cs" />
+    <Compile Include="UseCases\ActionsTests.cs" />
+    <Compile Include="UseCases\AddBunchFormTests.cs" />
+    <Compile Include="UseCases\AddCashgameFormTests.cs" />
+    <Compile Include="UseCases\AddCashgameTests.cs" />
+    <Compile Include="UseCases\AddPlayerTests.cs" />
+    <Compile Include="UseCases\AddUserTests.cs" />
+    <Compile Include="UseCases\AppContextTests.cs" />
+    <Compile Include="UseCases\BaseContextTests.cs" />
+    <Compile Include="UseCases\BunchContextTests.cs" />
+    <Compile Include="UseCases\BunchDetailsTests.cs" />
+    <Compile Include="UseCases\BunchListTests.cs" />
+    <Compile Include="UseCases\BuyinFormTests.cs" />
+    <Compile Include="UseCases\BuyinTests.cs" />
+    <Compile Include="UseCases\CashgameChartContainerTests.cs" />
+    <Compile Include="UseCases\CashgameContextTests.cs" />
+    <Compile Include="UseCases\CashgameDetailsTests.cs" />
+    <Compile Include="UseCases\CashgameFactsTests.cs" />
+    <Compile Include="UseCases\CashgameListTests.cs" />
+    <Compile Include="UseCases\DeletePlayerTests.cs" />
+    <Compile Include="UseCases\EditBunchFormTests.cs" />
+    <Compile Include="UseCases\EditCheckpointFormTests.cs" />
+    <Compile Include="UseCases\EditUserFormTests.cs" />
+    <Compile Include="UseCases\ForgotPasswordTests.cs" />
+    <Compile Include="UseCases\HomeTests.cs" />
+    <Compile Include="UseCases\InvitePlayerTests.cs" />
+    <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
+    <Compile Include="UseCases\JoinBunchFormTests.cs" />
+    <Compile Include="UseCases\LoginFormTests.cs" />
+    <Compile Include="UseCases\LoginTests.cs" />
+    <Compile Include="UseCases\LogoutTests.cs" />
+    <Compile Include="UseCases\MatrixTests.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests.cs" />
+    <Compile Include="UseCases\PlayerFactsTests.cs" />
+    <Compile Include="UseCases\PlayerListTests.cs" />
+    <Compile Include="UseCases\TestEmailTests.cs" />
+    <Compile Include="UseCases\TopListTests.cs" />
+    <Compile Include="UseCases\UserDetailsTests.cs" />
+    <Compile Include="UseCases\UserListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

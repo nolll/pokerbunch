@@ -37,7 +37,6 @@ namespace Tests.Web.PlumbingTests
             var assemblyNames = new List<string>
                 {
                     "PokerBunch.Core",
-                    "Application",
                     "Web"
                 };
 

@@ -16,7 +16,7 @@ using Infrastructure.Web;
 
 namespace Plumbing
 {
-    public class ApplicationDependencyResolver : CoreDependencyResolver
+    public class ApplicationDependencyResolver : DependencyResolver
     {
         protected ApplicationDependencyResolver(IWindsorContainer container, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
             : base(container, lifestyleType)
