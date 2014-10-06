@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Urls;
 using Core.Entities;
+using Core.Factories;
 using Core.Repositories;
-using Core.Services;
 
 namespace Application.UseCases.Matrix
 {
     public class MatrixInteractor
     {
-        public static MatrixResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, MatrixRequest request)
+        public static MatrixResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, MatrixRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
-
+            var players = playerRepository.GetList(bunch);
+            var suite = CashgameSuiteFactory.Create(cashgames, players);
+            
             var gameItems = CreateGameItems(bunch.Slug, cashgames);
             var playerItems = CreatePlayerItems();
-            var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
+            var spansMultipleYears = suite.SpansMultipleYears;
 
             return new MatrixResult(gameItems, playerItems, spansMultipleYears);
         }
@@ -27,7 +29,7 @@ namespace Application.UseCases.Matrix
             //Rank = rank;
             //Name = player.DisplayName;
             //PlayerUrl = new PlayerDetailsUrl(bunch.Slug, player.Id);
-            //CellModels = CreateCells(suite.Cashgames, player);
+            //Results = CreatePlayerResultItems(suite.Cashgames, player);
             //TotalResult = Globalization.FormatResult(bunch.Currency, result.Winnings);
             return new List<MatrixPlayerItem>();
         }

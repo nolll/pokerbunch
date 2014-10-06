@@ -21,8 +21,7 @@ namespace Core.Factories
 
         private static IList<CashgameTotalResult> CreateTotalResults(IList<Player> players, IList<Cashgame> cashgames)
         {
-            var list = players.Select(player => new CashgameTotalResult(player, cashgames)).ToList();
-            return list.Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
+            return players.Select(player => new CashgameTotalResult(player, cashgames)).Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
         }
 	}
 }
