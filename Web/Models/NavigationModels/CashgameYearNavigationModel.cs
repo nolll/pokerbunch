@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Application.Urls;
-using Application.UseCases.CashgameContext;
+using Core.Urls;
+using Core.UseCases.CashgameContext;
 
 namespace Web.Models.NavigationModels
 {

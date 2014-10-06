@@ -1,4 +1,4 @@
-using Application.UseCases.BaseContext;
+using Core.UseCases.BaseContext;
 using Web.Models.MiscModels;
 
 namespace Web.Models.PageBaseModels

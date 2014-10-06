@@ -1,6 +1,6 @@
-﻿using Application.Services;
-using Application.Urls;
-using Application.UseCases.Logout;
+﻿using Core.Services;
+using Core.Urls;
+using Core.UseCases.Logout;
 using NUnit.Framework;
 using Tests.Common;
 

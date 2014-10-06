@@ -1,6 +1,6 @@
 using System.Net.Mail;
-using Application;
-using Application.Services;
+using Core;
+using Core.Services.Interfaces;
 
 namespace Infrastructure.Web
 {

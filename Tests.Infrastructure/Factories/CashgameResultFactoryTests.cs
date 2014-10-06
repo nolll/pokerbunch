@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Application.Factories;
-using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Factories;
+using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

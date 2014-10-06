@@ -1,10 +1,10 @@
 using System.Web.Mvc;
-using Application.Urls;
-using Application.UseCases.BunchContext;
-using Application.UseCases.BunchDetails;
-using Application.UseCases.EditBunchForm;
-using Application.UseCases.JoinBunchConfirmation;
-using Application.UseCases.JoinBunchForm;
+using Core.Urls;
+using Core.UseCases.BunchContext;
+using Core.UseCases.BunchDetails;
+using Core.UseCases.EditBunchForm;
+using Core.UseCases.JoinBunchConfirmation;
+using Core.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;

@@ -1,5 +1,5 @@
-using Application.Services;
-using Application.UseCases.Actions;
+using Core.Services;
+using Core.UseCases.Actions;
 
 namespace Web.Models.CashgameModels.Action
 {

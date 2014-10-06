@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Application;
-using Application.Services;
 using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Core;
 using Core.Entities;
+using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Plumbing;

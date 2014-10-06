@@ -1,5 +1,5 @@
-using Application.UseCases.CashgameContext;
-using Application.UseCases.CashgameTopList;
+using Core.UseCases.CashgameContext;
+using Core.UseCases.CashgameTopList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Toplist

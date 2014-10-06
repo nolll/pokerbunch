@@ -1,5 +1,5 @@
-﻿using Application.UseCases.JoinBunchForm;
-using Core.Repositories;
+﻿using Core.Repositories;
+using Core.UseCases.JoinBunchForm;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.EditUserForm;
+using Core.UseCases.AppContext;
+using Core.UseCases.EditUserForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Edit

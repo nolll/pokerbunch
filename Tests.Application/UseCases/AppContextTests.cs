@@ -1,7 +1,7 @@
-﻿using Application.Services;
-using Application.UseCases.AppContext;
-using Application.UseCases.BaseContext;
-using Core.Entities;
+﻿using Core.Entities;
+using Core.Services;
+using Core.UseCases.AppContext;
+using Core.UseCases.BaseContext;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

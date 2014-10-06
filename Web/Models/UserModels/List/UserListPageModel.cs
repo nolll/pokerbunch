@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.AppContext;
-using Application.UseCases.UserList;
+using Core.UseCases.AppContext;
+using Core.UseCases.UserList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.List

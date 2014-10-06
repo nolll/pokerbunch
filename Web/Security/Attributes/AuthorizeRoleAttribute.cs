@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Web;
-using Application;
+using Core;
 using Core.Entities;
 
 namespace Web.Security.Attributes

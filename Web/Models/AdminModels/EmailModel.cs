@@ -1,4 +1,4 @@
-﻿using Application.UseCases.TestEmail;
+﻿using Core.UseCases.TestEmail;
 
 namespace Web.Models.AdminModels
 {

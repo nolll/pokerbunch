@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Urls;
-using Application.UseCases.BunchContext;
-using Application.UseCases.PlayerList;
+using Core.Urls;
+using Core.UseCases.BunchContext;
+using Core.UseCases.PlayerList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.List

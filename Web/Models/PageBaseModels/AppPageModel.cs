@@ -1,4 +1,4 @@
-using Application.UseCases.AppContext;
+using Core.UseCases.AppContext;
 using Web.Models.NavigationModels;
 
 namespace Web.Models.PageBaseModels

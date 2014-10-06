@@ -1,6 +1,6 @@
-using Application.UseCases.CashgameContext;
-using Application.UseCases.Matrix;
 using Core.Entities;
+using Core.UseCases.CashgameContext;
+using Core.UseCases.Matrix;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Matrix

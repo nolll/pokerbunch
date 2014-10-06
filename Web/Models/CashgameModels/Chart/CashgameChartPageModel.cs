@@ -1,5 +1,5 @@
-using Application.UseCases.CashgameChartContainer;
-using Application.UseCases.CashgameContext;
+using Core.UseCases.CashgameChartContainer;
+using Core.UseCases.CashgameContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Chart

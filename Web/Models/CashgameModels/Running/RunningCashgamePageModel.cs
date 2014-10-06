@@ -1,6 +1,6 @@
-using Application.Urls;
-using Application.UseCases.CashgameContext;
-using Application.UseCases.RunningCashgame;
+using Core.Urls;
+using Core.UseCases.CashgameContext;
+using Core.UseCases.RunningCashgame;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running

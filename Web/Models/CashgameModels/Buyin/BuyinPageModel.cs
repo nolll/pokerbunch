@@ -1,5 +1,5 @@
-using Application.UseCases.BunchContext;
-using Application.UseCases.BuyinForm;
+using Core.UseCases.BunchContext;
+using Core.UseCases.BuyinForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Buyin

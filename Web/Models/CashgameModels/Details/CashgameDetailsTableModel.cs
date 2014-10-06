@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.CashgameDetails;
+using Core.UseCases.CashgameDetails;
 
 namespace Web.Models.CashgameModels.Details
 {

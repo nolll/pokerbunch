@@ -1,8 +1,8 @@
-﻿using Application.Services;
-using Application.Urls;
-using Application.UseCases.PlayerDetails;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.PlayerDetails;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

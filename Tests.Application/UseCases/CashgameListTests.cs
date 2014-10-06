@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.UseCases.CashgameList;
 using Core.Entities;
 using Core.Repositories;
+using Core.UseCases.CashgameList;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

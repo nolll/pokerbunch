@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using Application.Exceptions;
-using Application.UseCases.ForgotPassword;
+using Core.Exceptions;
+using Core.UseCases.ForgotPassword;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers

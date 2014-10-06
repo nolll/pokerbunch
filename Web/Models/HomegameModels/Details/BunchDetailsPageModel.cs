@@ -1,5 +1,5 @@
-using Application.UseCases.BunchContext;
-using Application.UseCases.BunchDetails;
+using Core.UseCases.BunchContext;
+using Core.UseCases.BunchDetails;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Details

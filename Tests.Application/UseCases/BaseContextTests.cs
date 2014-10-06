@@ -1,5 +1,5 @@
-﻿using Application.Services;
-using Application.UseCases.BaseContext;
+﻿using Core.Services.Interfaces;
+using Core.UseCases.BaseContext;
 using NUnit.Framework;
 using Tests.Common;
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Application.Urls;
-using Application.UseCases.EditBunchForm;
 using Core.Entities;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.EditBunchForm;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

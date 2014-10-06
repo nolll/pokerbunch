@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Application.UseCases.AddCashgameForm;
-using Application.UseCases.BunchContext;
+using Core.UseCases.AddCashgameForm;
+using Core.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Application.Exceptions;
-using Application.Urls;
-using Application.UseCases.AddPlayer;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.AddPlayer;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

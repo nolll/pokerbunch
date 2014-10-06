@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.Services;
+using Core.Services.Interfaces;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.SqlServer;
 using NUnit.Framework;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.PlayerFacts;
 using Core.Entities;
 using Core.Repositories;
+using Core.UseCases.PlayerFacts;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

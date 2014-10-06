@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.PlayerBadges;
 using Core.Entities;
 using Core.Repositories;
+using Core.UseCases.PlayerBadges;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

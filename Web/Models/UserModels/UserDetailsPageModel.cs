@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.UserDetails;
+using Core.UseCases.AppContext;
+using Core.UseCases.UserDetails;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 

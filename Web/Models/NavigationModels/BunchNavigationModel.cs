@@ -1,5 +1,5 @@
-using Application.Urls;
-using Application.UseCases.BunchContext;
+using Core.Urls;
+using Core.UseCases.BunchContext;
 
 namespace Web.Models.NavigationModels
 {

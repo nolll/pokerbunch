@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.Urls;
-using Application.UseCases.Matrix;
 using Core.Entities;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.Matrix;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

@@ -1,5 +1,5 @@
-using Application.UseCases.BunchContext;
-using Application.UseCases.Home;
+using Core.UseCases.BunchContext;
+using Core.UseCases.Home;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
 

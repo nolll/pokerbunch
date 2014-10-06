@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Application.UseCases.Home;
+using Core.UseCases.Home;
 
 namespace Web.Models.NavigationModels
 {

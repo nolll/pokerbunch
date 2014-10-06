@@ -1,5 +1,5 @@
-using Application.Services;
-using Application.UseCases.CashgameList;
+using Core.Services;
+using Core.UseCases.CashgameList;
 
 namespace Web.Models.CashgameModels.List
 {

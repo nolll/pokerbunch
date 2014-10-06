@@ -1,4 +1,4 @@
-using Application.UseCases.CashgameContext;
+using Core.UseCases.CashgameContext;
 using Web.Models.CashgameModels.Running;
 using Web.Models.NavigationModels;
 

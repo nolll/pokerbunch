@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Application.Services;
-using Application.Urls;
 using Core.Entities;
+using Core.Services;
+using Core.Urls;
 
 namespace Web.Models.CashgameModels.Matrix
 {

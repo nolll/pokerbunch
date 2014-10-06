@@ -1,6 +1,6 @@
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.RunningCashgame;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.RunningCashgame;
 
 namespace Web.Models.CashgameModels.Running
 {

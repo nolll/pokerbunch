@@ -1,7 +1,7 @@
-﻿using Application.Urls;
-using Application.UseCases.DeletePlayer;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.DeletePlayer;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

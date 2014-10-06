@@ -1,5 +1,5 @@
-using Application.UseCases.CashgameContext;
-using Application.UseCases.CashgameList;
+using Core.UseCases.CashgameContext;
+using Core.UseCases.CashgameList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.List

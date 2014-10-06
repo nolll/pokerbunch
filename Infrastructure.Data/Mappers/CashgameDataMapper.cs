@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Factories;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Factories;
+using Core.Factories.Interfaces;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers

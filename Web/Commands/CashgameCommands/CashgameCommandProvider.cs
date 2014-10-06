@@ -1,5 +1,5 @@
-using Application.Services;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Models.CashgameModels.Edit;

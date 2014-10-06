@@ -1,6 +1,6 @@
-﻿using Application;
-using Application.Services;
-using Application.UseCases.TestEmail;
+﻿using Core;
+using Core.Services.Interfaces;
+using Core.UseCases.TestEmail;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

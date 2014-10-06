@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using Application;
-using Application.Exceptions;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.AddUser;
+using Core;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Services.Interfaces;
+using Core.Urls;
+using Core.UseCases.AddUser;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

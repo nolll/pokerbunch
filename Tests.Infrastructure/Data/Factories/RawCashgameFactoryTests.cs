@@ -1,5 +1,5 @@
-﻿using Application.Services;
-using Core.Entities;
+﻿using Core.Entities;
+using Core.Services.Interfaces;
 using Infrastructure.Data.Factories;
 using NUnit.Framework;
 using Tests.Common;

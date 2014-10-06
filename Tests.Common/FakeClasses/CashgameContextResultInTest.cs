@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.BunchContext;
-using Application.UseCases.CashgameContext;
+using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameContext;
 
 namespace Tests.Common.FakeClasses
 {

@@ -1,5 +1,5 @@
-﻿using Application.UseCases.BunchList;
-using Core.Repositories;
+﻿using Core.Repositories;
+using Core.UseCases.BunchList;
 using NUnit.Framework;
 using Tests.Common;
 

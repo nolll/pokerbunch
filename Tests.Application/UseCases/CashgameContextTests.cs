@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.BunchContext;
-using Application.UseCases.CashgameContext;
 using Core.Repositories;
+using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameContext;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

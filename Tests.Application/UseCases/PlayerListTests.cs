@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Application.Services;
-using Application.UseCases.PlayerList;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
+using Core.UseCases.PlayerList;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

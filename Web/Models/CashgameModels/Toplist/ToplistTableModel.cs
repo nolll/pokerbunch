@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.CashgameTopList;
+using Core.UseCases.CashgameTopList;
 
 namespace Web.Models.CashgameModels.Toplist
 {

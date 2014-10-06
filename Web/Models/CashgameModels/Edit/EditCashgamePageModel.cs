@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Application.Urls;
-using Application.UseCases.BunchContext;
+using Core.Urls;
+using Core.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Edit

@@ -1,4 +1,4 @@
-using Application.Urls;
+using Core.Urls;
 
 namespace Web.Models.CashgameModels.Running
 {

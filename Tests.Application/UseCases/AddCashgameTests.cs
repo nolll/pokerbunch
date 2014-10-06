@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Application.Exceptions;
-using Application.Urls;
-using Application.UseCases.AddCashgame;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.AddCashgame;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

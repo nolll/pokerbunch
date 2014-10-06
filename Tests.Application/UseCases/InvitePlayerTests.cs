@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Application;
-using Application.Exceptions;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.InvitePlayer;
+using Core;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Services.Interfaces;
+using Core.Urls;
+using Core.UseCases.InvitePlayer;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

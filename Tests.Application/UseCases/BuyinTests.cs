@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Application.Exceptions;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.Buyin;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Services.Interfaces;
+using Core.Urls;
+using Core.UseCases.Buyin;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

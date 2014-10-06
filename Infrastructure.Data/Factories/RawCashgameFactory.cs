@@ -1,6 +1,6 @@
 using System;
-using Application.Services;
 using Core.Entities;
+using Core.Services.Interfaces;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Interfaces;
 

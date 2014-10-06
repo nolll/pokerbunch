@@ -1,4 +1,4 @@
-using Application.UseCases.PlayerFacts;
+using Core.UseCases.PlayerFacts;
 
 namespace Web.Models.PlayerModels.Facts{
 

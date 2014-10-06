@@ -1,5 +1,5 @@
-using Application.Urls;
-using Application.UseCases.PlayerList;
+using Core.Urls;
+using Core.UseCases.PlayerList;
 
 namespace Web.Models.PlayerModels.List
 {

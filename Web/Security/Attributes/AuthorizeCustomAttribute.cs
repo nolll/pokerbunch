@@ -1,7 +1,7 @@
 using System.Web;
 using System.Web.Mvc;
-using Application;
-using Application.Exceptions;
+using Core;
+using Core.Exceptions;
 
 namespace Web.Security.Attributes
 {

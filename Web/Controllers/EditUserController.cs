@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using Application.Urls;
-using Application.UseCases.EditUserForm;
+using Core.Urls;
+using Core.UseCases.EditUserForm;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels.Edit;
 

@@ -1,7 +1,7 @@
-﻿using Application.Urls;
-using Application.UseCases.EditCheckpointForm;
-using Core.Entities.Checkpoints;
+﻿using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.EditCheckpointForm;
 using NUnit.Framework;
 using Tests.Common;
 

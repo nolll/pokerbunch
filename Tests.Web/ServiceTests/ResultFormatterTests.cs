@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Core.Services;
 using NUnit.Framework;
 
 namespace Tests.Web.ServiceTests

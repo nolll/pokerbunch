@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.AppContext;
-using Application.UseCases.BunchList;
+using Core.UseCases.AppContext;
+using Core.UseCases.BunchList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.List

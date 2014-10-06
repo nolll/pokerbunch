@@ -1,7 +1,7 @@
-﻿using Application.Factories;
-using Application.Services;
-using Castle.Core;
+﻿using Castle.Core;
 using Castle.Windsor;
+using Core.Factories;
+using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Core.Services.Interfaces;

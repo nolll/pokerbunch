@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.BunchContext;
 using Core.Repositories;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.BunchContext;
 using Plumbing;
 using Web.Models.CashgameModels.Edit;
 

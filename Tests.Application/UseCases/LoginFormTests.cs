@@ -1,5 +1,5 @@
-﻿using Application.Urls;
-using Application.UseCases.LoginForm;
+﻿using Core.Urls;
+using Core.UseCases.LoginForm;
 using NUnit.Framework;
 
 namespace Tests.Application.UseCases

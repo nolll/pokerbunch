@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.BaseContext;
+using Core.UseCases.AppContext;
+using Core.UseCases.BaseContext;
 
 namespace Tests.Common.FakeClasses
 {

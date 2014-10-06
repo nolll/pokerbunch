@@ -1,8 +1,8 @@
-﻿using Application.Services;
-using Application.Urls;
-using Application.UseCases.BunchDetails;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.BunchDetails;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

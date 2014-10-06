@@ -1,5 +1,5 @@
-using Application.Urls;
-using Application.UseCases.CashgameTopList;
+using Core.Urls;
+using Core.UseCases.CashgameTopList;
 
 namespace Web.Models.CashgameModels.Toplist
 {

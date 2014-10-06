@@ -1,5 +1,5 @@
-﻿using Application.Urls;
-using Application.UseCases.CashgameChartContainer;
+﻿using Core.Urls;
+using Core.UseCases.CashgameChartContainer;
 using NUnit.Framework;
 
 namespace Tests.Application.UseCases

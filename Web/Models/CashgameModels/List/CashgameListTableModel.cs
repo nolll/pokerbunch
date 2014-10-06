@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Urls;
-using Application.UseCases.CashgameList;
+using Core.Urls;
+using Core.UseCases.CashgameList;
 
 namespace Web.Models.CashgameModels.List{
 

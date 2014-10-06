@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.LoginForm;
+using Core.UseCases.AppContext;
+using Core.UseCases.LoginForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.AuthModels

@@ -1,5 +1,5 @@
-using Application.Urls;
-using Application.UseCases.BunchList;
+using Core.Urls;
+using Core.UseCases.BunchList;
 
 namespace Web.Models.HomegameModels.List
 {

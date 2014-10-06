@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
+using NUnit.Framework;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
@@ -14,6 +17,7 @@ namespace Tests.Common.Builders
         private int _turnover;
         private int _averageBuyin;
         private int _playerCount;
+        private IList<Checkpoint> _checkpoints; 
 
         public CashgameBuilder()
         {
@@ -25,6 +29,7 @@ namespace Tests.Common.Builders
             _turnover = 2;
             _averageBuyin = 3;
             _playerCount = 4;
+            _checkpoints = new List<Checkpoint>();
         }
 
         public Cashgame Build()
@@ -85,6 +90,18 @@ namespace Tests.Common.Builders
         public CashgameBuilder WithAverageBuyin(int averageBuyin)
         {
             _averageBuyin = averageBuyin;
+            return this;
+        }
+
+        public CashgameBuilder WithCheckpoints(IList<Checkpoint> checkpoints)
+        {
+            _checkpoints = checkpoints;
+            return this;
+        }
+
+        public CashgameBuilder AddCheckpoint(Checkpoint checkpoint)
+        {
+            _checkpoints.Add(checkpoint);
             return this;
         }
     }

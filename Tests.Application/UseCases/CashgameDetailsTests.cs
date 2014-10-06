@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.Exceptions;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.CashgameDetails;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.CashgameDetails;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

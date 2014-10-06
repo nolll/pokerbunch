@@ -1,4 +1,4 @@
-using Application.UseCases.BaseContext;
+using Core.UseCases.BaseContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.ErrorModels

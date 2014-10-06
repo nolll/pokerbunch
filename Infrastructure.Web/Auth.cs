@@ -1,10 +1,11 @@
 using System.Globalization;
 using System.Web;
 using System.Web.Security;
-using Application;
-using Application.Services;
+using Core;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
+using Core.Services.Interfaces;
 using Newtonsoft.Json;
 
 namespace Infrastructure.Web

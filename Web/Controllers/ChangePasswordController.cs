@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Application.Urls;
+using Core.Urls;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels.ChangePassword;
 

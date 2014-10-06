@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Application.Exceptions;
-using Application.Services;
-using Application.UseCases.Login;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
+using Core.UseCases.Login;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

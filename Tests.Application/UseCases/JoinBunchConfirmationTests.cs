@@ -1,6 +1,6 @@
-﻿using Application.Urls;
-using Application.UseCases.JoinBunchConfirmation;
-using Core.Repositories;
+﻿using Core.Repositories;
+using Core.Urls;
+using Core.UseCases.JoinBunchConfirmation;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

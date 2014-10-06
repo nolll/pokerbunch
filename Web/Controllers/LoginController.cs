@@ -1,7 +1,7 @@
 using System.Web.Mvc;
-using Application.Exceptions;
-using Application.UseCases.Login;
-using Application.UseCases.LoginForm;
+using Core.Exceptions;
+using Core.UseCases.Login;
+using Core.UseCases.LoginForm;
 using Web.Models.AuthModels;
 
 namespace Web.Controllers

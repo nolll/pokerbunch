@@ -1,6 +1,6 @@
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.Matrix;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.Matrix;
 
 namespace Web.Models.CashgameModels.Matrix
 {

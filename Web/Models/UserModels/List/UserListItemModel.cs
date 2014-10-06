@@ -1,5 +1,5 @@
-using Application.Urls;
-using Application.UseCases.UserList;
+using Core.Urls;
+using Core.UseCases.UserList;
 
 namespace Web.Models.UserModels.List
 {

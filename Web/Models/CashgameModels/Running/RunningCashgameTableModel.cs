@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.UseCases.RunningCashgame;
+using Core.UseCases.RunningCashgame;
 
 namespace Web.Models.CashgameModels.Running
 {

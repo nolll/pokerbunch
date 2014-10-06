@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.Actions;
-using Application.UseCases.BunchContext;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.Actions;
+using Core.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Action

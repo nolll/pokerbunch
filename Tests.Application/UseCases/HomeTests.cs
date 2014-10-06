@@ -1,7 +1,7 @@
-﻿using Application.Services;
-using Application.Urls;
-using Application.UseCases.Home;
-using Core.Entities;
+﻿using Core.Entities;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.Home;
 using NUnit.Framework;
 using Tests.Common;
 

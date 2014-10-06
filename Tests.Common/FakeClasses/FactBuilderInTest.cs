@@ -1,5 +1,5 @@
-using Application.UseCases.CashgameFacts;
 using Core.Entities;
+using Core.UseCases.CashgameFacts;
 
 namespace Tests.Common.FakeClasses
 {

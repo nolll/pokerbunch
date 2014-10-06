@@ -1,7 +1,7 @@
 using System;
-using Application.Factories;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Factories;
 using Core.Repositories;
 using Web.Models.CashgameModels.Checkpoints;
 

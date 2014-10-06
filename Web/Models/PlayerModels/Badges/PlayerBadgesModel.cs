@@ -1,4 +1,4 @@
-using Application.UseCases.PlayerBadges;
+using Core.UseCases.PlayerBadges;
 
 namespace Web.Models.PlayerModels.Badges
 {

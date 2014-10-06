@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Application.Urls;
-using Application.UseCases.AppContext;
 using Core.Entities;
+using Core.Urls;
+using Core.UseCases.AppContext;
 
 namespace Web.Models.NavigationModels
 {

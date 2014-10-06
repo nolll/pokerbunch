@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.JoinBunchConfirmation;
+using Core.UseCases.AppContext;
+using Core.UseCases.JoinBunchConfirmation;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join

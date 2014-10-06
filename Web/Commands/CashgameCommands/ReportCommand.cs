@@ -1,8 +1,8 @@
-using Application.Factories;
-using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Factories;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Web.Models.CashgameModels.Report;
 
 namespace Web.Commands.CashgameCommands

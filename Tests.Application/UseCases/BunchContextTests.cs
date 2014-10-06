@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Application.Services;
-using Application.UseCases.AppContext;
-using Application.UseCases.BunchContext;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
+using Core.UseCases.AppContext;
+using Core.UseCases.BunchContext;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

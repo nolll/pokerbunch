@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using Application.Exceptions;
-using Application.UseCases.AddUser;
+using Core.Exceptions;
+using Core.UseCases.AddUser;
 using Web.Models.UserModels.Add;
 
 namespace Web.Controllers

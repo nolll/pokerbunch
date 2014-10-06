@@ -1,6 +1,6 @@
 using System;
-using Application.UseCases.BunchContext;
-using Application.UseCases.EditCheckpointForm;
+using Core.UseCases.BunchContext;
+using Core.UseCases.EditCheckpointForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Checkpoints

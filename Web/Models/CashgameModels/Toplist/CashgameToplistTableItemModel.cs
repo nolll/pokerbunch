@@ -1,7 +1,7 @@
 using System.Web;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.CashgameTopList;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.CashgameTopList;
 
 namespace Web.Models.CashgameModels.Toplist
 {

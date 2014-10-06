@@ -1,7 +1,7 @@
-using Application.UseCases.CashgameContext;
-using Application.UseCases.Matrix;
 using Core.Repositories;
 using Core.Services.Interfaces;
+using Core.UseCases.CashgameContext;
+using Core.UseCases.Matrix;
 using Plumbing;
 using Web.Models.CashgameModels.Matrix;
 

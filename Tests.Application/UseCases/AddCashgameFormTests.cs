@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Application.Exceptions;
-using Application.UseCases.AddCashgameForm;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
+using Core.UseCases.AddCashgameForm;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

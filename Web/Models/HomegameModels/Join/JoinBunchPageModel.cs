@@ -1,5 +1,5 @@
-using Application.UseCases.AppContext;
-using Application.UseCases.JoinBunchForm;
+using Core.UseCases.AppContext;
+using Core.UseCases.JoinBunchForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join

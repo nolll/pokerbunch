@@ -1,5 +1,5 @@
-using Application.Services;
 using Core.Repositories;
+using Core.Services;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 

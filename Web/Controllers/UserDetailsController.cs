@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Application.UseCases.UserDetails;
+using Core.UseCases.UserDetails;
 using Web.Models.UserModels;
 
 namespace Web.Controllers

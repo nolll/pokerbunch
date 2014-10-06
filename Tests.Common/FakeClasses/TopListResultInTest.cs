@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Application.UseCases.CashgameTopList;
+using Core.UseCases.CashgameTopList;
 
 namespace Tests.Common.FakeClasses
 {

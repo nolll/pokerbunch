@@ -1,5 +1,5 @@
-using Application.Factories;
 using Core.Entities.Checkpoints;
+using Core.Factories;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers

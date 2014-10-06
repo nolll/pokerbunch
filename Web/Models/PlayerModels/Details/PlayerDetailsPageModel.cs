@@ -1,7 +1,7 @@
-using Application.UseCases.BunchContext;
-using Application.UseCases.PlayerBadges;
-using Application.UseCases.PlayerDetails;
-using Application.UseCases.PlayerFacts;
+using Core.UseCases.BunchContext;
+using Core.UseCases.PlayerBadges;
+using Core.UseCases.PlayerDetails;
+using Core.UseCases.PlayerFacts;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Badges;

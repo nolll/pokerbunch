@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Application.Services;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Services.Interfaces;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action

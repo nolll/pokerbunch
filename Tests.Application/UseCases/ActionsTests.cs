@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application.Services;
-using Application.Urls;
-using Application.UseCases.Actions;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Services;
+using Core.Urls;
+using Core.UseCases.Actions;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;

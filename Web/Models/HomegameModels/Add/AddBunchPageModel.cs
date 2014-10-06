@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Application.UseCases.AddBunchForm;
-using Application.UseCases.AppContext;
+using Core.UseCases.AddBunchForm;
+using Core.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
