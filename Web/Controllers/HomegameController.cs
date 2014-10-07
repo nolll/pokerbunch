@@ -12,6 +12,7 @@ using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Models.HomegameModels.List;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

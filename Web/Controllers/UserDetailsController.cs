@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.UseCases.UserDetails;
 using Web.Models.UserModels;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.UseCases.BunchContext;
 using Web.Models.HomeModels;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

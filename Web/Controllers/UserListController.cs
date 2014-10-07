@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Web.Models.UserModels.List;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

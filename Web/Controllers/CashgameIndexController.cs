@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Urls;
 using Core.UseCases.CashgameContext;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

@@ -4,6 +4,7 @@ using Core.UseCases.CashgameDetails;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.Models.CashgameModels.Details;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

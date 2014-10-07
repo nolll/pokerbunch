@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.ForgotPassword;
 using Web.Models.UserModels.ForgotPassword;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

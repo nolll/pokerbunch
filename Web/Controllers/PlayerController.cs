@@ -13,6 +13,7 @@ using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
 using Web.Models.PlayerModels.List;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

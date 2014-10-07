@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Web.ModelFactories.CashgameModelFactories.Matrix;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

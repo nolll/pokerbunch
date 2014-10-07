@@ -141,6 +141,8 @@
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Base\ControllerBase.cs" />
+    <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\CashgameDetailsController.cs" />
     <Compile Include="Controllers\CashgameFactsController.cs" />
     <Compile Include="Controllers\CashgameIndexController.cs" />
@@ -148,7 +150,6 @@
     <Compile Include="Controllers\EditUserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
-    <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MatrixController.cs" />
@@ -156,7 +157,6 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
-    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\BunchCommandProvider.cs" />

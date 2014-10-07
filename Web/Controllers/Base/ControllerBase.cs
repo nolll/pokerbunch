@@ -3,7 +3,7 @@ using System.Text;
 using System.Web.Mvc;
 using Web.Plumbing;
 
-namespace Web.Controllers
+namespace Web.Controllers.Base
 {
     public class ControllerBase : Controller
     {

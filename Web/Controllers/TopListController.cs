@@ -3,6 +3,7 @@ using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameTopList;
 using Web.Models.CashgameModels.Toplist;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

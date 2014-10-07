@@ -25,6 +25,7 @@ using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

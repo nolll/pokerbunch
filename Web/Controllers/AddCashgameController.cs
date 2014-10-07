@@ -5,6 +5,7 @@ using Core.UseCases.AddCashgameForm;
 using Core.UseCases.BunchContext;
 using Web.Models.CashgameModels.Add;
 using Web.Security.Attributes;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

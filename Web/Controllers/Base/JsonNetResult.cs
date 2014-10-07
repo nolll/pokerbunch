@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 
-namespace Web.Controllers
+namespace Web.Controllers.Base
 {
     /*
      * http://wingkaiwan.com/2012/12/28/replacing-mvc-javascriptserializer-with-json-net-jsonserializer/

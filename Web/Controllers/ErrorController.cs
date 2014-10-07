@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Web.Models.ErrorModels;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

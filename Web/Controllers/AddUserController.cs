@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.AddUser;
 using Web.Models.UserModels.Add;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {

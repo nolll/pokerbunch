@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Core.Urls;
 using Web.Commands.UserCommands;
 using Web.Models.UserModels.ChangePassword;
+using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
