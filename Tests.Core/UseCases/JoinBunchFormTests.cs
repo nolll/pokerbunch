@@ -2,7 +2,6 @@
 using Core.UseCases.JoinBunchForm;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -14,7 +13,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchForm_BunchNameIsSet()
         {
-            var bunch = new BunchInTest(displayName: BunchName);
+            var bunch = A.Bunch.WithDisplayName(BunchName).Build();
             var request = new JoinBunchFormRequest(Slug);
             
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);

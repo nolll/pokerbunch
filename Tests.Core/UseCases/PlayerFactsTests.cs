@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
             const string slug = "a";
             const int playerId = 1;
             var request = new PlayerFactsRequest(slug, playerId);
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, null)).Returns(GetCashgames());

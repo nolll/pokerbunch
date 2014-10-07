@@ -27,7 +27,7 @@ namespace Tests.Infrastructure.Caching
             const string userKey = "User:1";
             const string nameKey = "UserId:nameoremail:a1";
             const string emailKey = "UserId:nameoremail:a2";
-            var user = new UserInTest(userId, userName, email: email);
+            var user = A.User.WithId(userId).WithUserName(userName).WithEmail(email).Build();
 
             var sut = GetSut();
             sut.UserUpdated(user);

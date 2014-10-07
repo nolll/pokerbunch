@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedInAsAdmin_IsAdminIsTrue()
         {
-            var user = A.User.IsAdmin().Build();
+            var user = A.User.WithGlobalRole(Role.Admin).Build();
             SetupUser(user);
 
             var result = Execute();

@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegame(int defaultBuyin = 0)
         {
-            var homegame = new BunchInTest(id: BunchId, defaultBuyin: defaultBuyin);
+            var homegame = A.Bunch.WithId(BunchId).WithDefaultBuyin(defaultBuyin).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
 

@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
 
         private void SetupBunch()
         {
-            var bunch = new BunchInTest(slug: Slug, displayName: BunchName, description: Description, houseRules: HouseRules);
+            var bunch = A.Bunch.WithSlug(Slug).WithDisplayName(BunchName).WithDescription(Description).WithHouseRules(HouseRules).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 

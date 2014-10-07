@@ -23,7 +23,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithUser_LoggedInPropertiesAreSet()
         {
-            var user = A.User.Build();
+            const string userName = "a";
+            const string displayName = "b";
+            var user = A.User.WithUserName(userName).WithDisplayName(displayName).Build();
             SetupUser(user);
 
             var result = Execute();

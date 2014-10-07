@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using NUnit.Framework;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders

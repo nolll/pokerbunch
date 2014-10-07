@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             var player1 = new PlayerInTest();
             var player2 = new PlayerInTest();
             var players = new List<Player>{player1, player2};
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void GetFactsResult_AllPropertiesAreSet()
         {
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             var factBuilder = new FactBuilderInTest(
                 gameCount: 2,
                 totalGameTime: 3,
@@ -69,7 +69,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(11, result.MostTimePlayed.Time.Minutes);
         }
 
-        private CashgameFactsResult GetFactsResult(BunchInTest homegame, FactBuilderInTest factBuilder)
+        private CashgameFactsResult GetFactsResult(Bunch homegame, FactBuilderInTest factBuilder)
         {
             return CashgameFactsInteractor.GetFactsResult(GetMock<IPlayerRepository>().Object, homegame, factBuilder);
         }

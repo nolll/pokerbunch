@@ -6,7 +6,6 @@ using Core.Urls;
 using Core.UseCases.EditBunchForm;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -132,16 +131,17 @@ namespace Tests.Core.UseCases
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
-        private static BunchInTest CreateBunch()
+        private Bunch CreateBunch()
         {
-            return new BunchInTest(
-                displayName: BunchName,
-                description: Description,
-                houseRules: HouseRules,
-                slug: Slug,
-                timezone: TimeZoneInfo.Utc,
-                defaultBuyin: DefaultBuyin,
-                currency: new Currency(CurrencySymbol, CurrencyLayout));
+            return A.Bunch
+                .WithDisplayName(BunchName)
+                .WithDescription(Description)
+                .WithHouseRules(HouseRules)
+                .WithSlug(Slug)
+                .WithTimeZone(TimeZoneInfo.Utc)
+                .WithDefaultBuyin(DefaultBuyin)
+                .WithCurrency(new Currency(CurrencySymbol, CurrencyLayout))
+                .Build();
         }
 
         private static EditBunchFormRequest CreateRequest()

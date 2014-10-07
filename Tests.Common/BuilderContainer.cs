@@ -19,6 +19,11 @@ namespace Tests.Common
             get { return new UserBuilder(); }
         }
 
+        public RawUserBuilder RawUser
+        {
+            get { return new RawUserBuilder(); }
+        }
+
         public CashgameBuilder Cashgame
         {
             get { return new CashgameBuilder(); }

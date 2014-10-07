@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
 
         private void SetupBunch()
         {
-            var bunch = new BunchInTest(displayName: BunchName);
+            var bunch = A.Bunch.WithDisplayName(BunchName).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 

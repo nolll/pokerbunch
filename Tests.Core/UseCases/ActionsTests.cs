@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
 
         private void SetupGame()
         {
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             var checkpoint1 = new CheckpointInTest(description: CheckPointType, stack: 1, timestamp: _checkpointTime);
             var checkpoint2 = new CheckpointInTest();
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2 };

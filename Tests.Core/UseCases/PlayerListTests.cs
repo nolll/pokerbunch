@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
             const string playerName = "b";
             const int playerId = 1;
 
-            var homegame = new BunchInTest(slug: slug);
+            var homegame = A.Bunch.WithSlug(slug).Build();
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
             var request = new PlayerListRequest(slug);
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
             const string playerName1 = "b";
             const string playerName2 = "a";
 
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             var player1 = new PlayerInTest(displayName: playerName1);
             var player2 = new PlayerInTest(displayName: playerName2);
             var players = new List<Player> { player1, player2 };
@@ -65,7 +65,7 @@ namespace Tests.Core.UseCases
             const string playerName = "b";
             const int playerId = 1;
 
-            var homegame = new BunchInTest(slug: slug);
+            var homegame = A.Bunch.WithSlug(slug).Build();
             var player = new PlayerInTest(id: playerId, displayName: playerName);
             var players = new List<Player> { player };
             var request = new PlayerListRequest(slug);

@@ -22,7 +22,7 @@ namespace Infrastructure.Data.SqlServer
                     new SimpleSqlParameter("@userId", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawUserFactory.Create);
+            return reader.ReadOne(CreateRawUser);
         }
 
         public int? GetUserIdByNameOrEmail(string userNameOrEmail)
@@ -41,7 +41,7 @@ namespace Infrastructure.Data.SqlServer
             const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(RawUserFactory.Create);
+            return reader.ReadList(CreateRawUser);
         }
 
         public IList<int> GetUserIdList()
@@ -91,5 +91,18 @@ namespace Infrastructure.Data.SqlServer
 			var rowCount = _storageProvider.Execute(sql, parameters);
 			return rowCount > 0;
 		}
+
+        private static RawUser CreateRawUser(IStorageDataReader reader)
+        {
+            return new RawUser(
+                reader.GetIntValue("UserID"),
+                reader.GetStringValue("UserName"),
+                reader.GetStringValue("DisplayName"),
+                reader.GetStringValue("RealName"),
+                reader.GetStringValue("Email"),
+                reader.GetIntValue("RoleID"),
+                reader.GetStringValue("Password"),
+                reader.GetStringValue("Salt"));
+        }
 	}
 }

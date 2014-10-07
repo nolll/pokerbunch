@@ -5,7 +5,6 @@ using Core.Urls;
 using Core.UseCases.UserDetails;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -161,7 +160,12 @@ namespace Tests.Core.UseCases
 
         private User CreateDisplayUser()
         {
-            return new UserInTest(userName: UserName, displayName: DisplayName, realName: RealName, email: Email);
+            return A.User
+                    .WithUserName(UserName)
+                    .WithDisplayName(DisplayName)
+                    .WithRealName(RealName)
+                    .WithEmail(Email)
+                    .Build();
         }
 
         private void SetupCurrentUser()
@@ -181,7 +185,7 @@ namespace Tests.Core.UseCases
 
         private void SetupCurrentUser(Role role, User displayUser = null)
         {
-            var currentUser = displayUser ?? new UserInTest(globalRole: role);
+            var currentUser = displayUser ?? A.User.WithGlobalRole(role).Build();
             GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(currentUser);
         }
 

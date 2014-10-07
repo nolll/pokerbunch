@@ -265,7 +265,7 @@ namespace Tests.Core.UseCases
 
         private void SetupCashgames(IList<Cashgame> cashgames, int? year = null)
         {
-            var bunch = A.Bunch.Build();
+            var bunch = A.Bunch.WithSlug("a").Build();
             SetupBunch(bunch);
             GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), year)).Returns(cashgames);
         }

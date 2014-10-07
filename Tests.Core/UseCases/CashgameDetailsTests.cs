@@ -123,7 +123,7 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new BunchInTest(timezone: TimeZoneInfo.Utc);
+            var homegame = A.Bunch.WithTimeZone(TimeZoneInfo.Utc).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
         }
 

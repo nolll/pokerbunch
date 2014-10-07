@@ -20,7 +20,8 @@ namespace Tests.Common.Builders
         public BunchListBuilder WithOneItem()
         {
             var bunchBuilder = new BunchBuilder();
-            _bunches.Add(bunchBuilder.Build());
+            var bunch = bunchBuilder.WithSlug("a").WithDisplayName("b").Build();
+            _bunches.Add(bunch);
             return this;
         }
     }

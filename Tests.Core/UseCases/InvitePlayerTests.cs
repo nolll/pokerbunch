@@ -86,7 +86,7 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
         private void SetupBunch()
         {
-            var bunch = new BunchInTest(slug: Slug, displayName: BunchName);
+            var bunch = A.Bunch.WithSlug(Slug).WithDisplayName(BunchName).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 

@@ -186,13 +186,13 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
 
         private void SetupUser(Role role = Role.Player)
         {
-            var user = new UserInTest(email: Email, globalRole: role);
+            var user = A.User.WithEmail(Email).WithGlobalRole(role).Build();
             GetMock<IUserRepository>().Setup(o => o.GetById(UserId)).Returns(user);
         }
 

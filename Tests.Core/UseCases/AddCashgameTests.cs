@@ -61,7 +61,7 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegame()
         {
-            var homegame = new BunchInTest();
+            var homegame = A.Bunch.Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
         }
         

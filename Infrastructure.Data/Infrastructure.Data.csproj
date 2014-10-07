@@ -61,8 +61,6 @@
     <Compile Include="Factories\RawCheckpointFactory.cs" />
     <Compile Include="Factories\RawBunchFactory.cs" />
     <Compile Include="Factories\RawPlayerFactory.cs" />
-    <Compile Include="Factories\RawUserFactory.cs" />
-    <Compile Include="Mappers\UserDataMapper.cs" />
     <Compile Include="Interfaces\ICashgameStorage.cs" />
     <Compile Include="Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Interfaces\IBunchStorage.cs" />

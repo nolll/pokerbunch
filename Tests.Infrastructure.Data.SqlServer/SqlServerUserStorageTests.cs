@@ -63,7 +63,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             const string password = "d";
             const string salt = "e";
             const int userId = 1;
-            var user = new RawUser{DisplayName = displayName, RealName = realName, Email = email, EncryptedPassword = password, Salt = salt, Id = userId};
+            var user = A.RawUser.WithId(userId).WithDisplayName(displayName).WithRealName(realName).WithEmail(email).WithEncryptedPassword(password).WithSalt(salt).Build();
             const string expectedSql = "UPDATE [user] SET DisplayName = 'a', RealName = 'b', Email = 'c', Password = 'd', Salt = 'e' WHERE UserID = 1";
             
             var sut = GetSut();
@@ -80,7 +80,7 @@ namespace Tests.Infrastructure.Data.SqlServer
             const string email = "c";
             const string password = "d";
             const string salt = "e";
-            var user = new RawUser{UserName = userName, DisplayName = displayName, Email = email, EncryptedPassword = password, Salt = salt};
+            var user = A.RawUser.WithUserName(userName).WithDisplayName(displayName).WithEmail(email).WithEncryptedPassword(password).WithSalt(salt).Build();
             const string expectedSql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Password, Salt) VALUES ('a', 'b', 'c', 1, 'd', 'e') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 
             var sut = GetSut();

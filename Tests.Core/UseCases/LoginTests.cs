@@ -81,7 +81,7 @@ namespace Tests.Core.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToABunch_UserIdentityBunchesPropertiesAreCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = new BunchInTest(slug: Slug);
+            var homegame = A.Bunch.WithSlug(Slug).Build();
             var homegameList = new List<Bunch>{homegame};
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
@@ -109,7 +109,7 @@ namespace Tests.Core.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToTwoBunch_UserIdentityBunchesLengthIsCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = new BunchInTest(slug: Slug);
+            var homegame = A.Bunch.WithSlug(Slug).Build();
             var homegameList = new List<Bunch> { homegame, homegame };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
@@ -186,13 +186,12 @@ namespace Tests.Core.UseCases
 
         private void SetupUserWithWrongPassword()
         {
-            var user = new UserInTest();
-            SetupUser(user);
+            SetupUser(A.User.Build());
         }
 
         private User SetupUserWithCorrectPassword(Role role = Role.Player)
         {
-            var user = new UserInTest(UserId, UserName, UserDisplayName, encryptedPassword: EncryptedPassword, globalRole: role);
+            var user = A.User.WithId(UserId).WithUserName(UserName).WithDisplayName(UserDisplayName).WithEncryptedPassword(EncryptedPassword).WithGlobalRole(role).Build();
             SetupUser(user);
             return user;
         }

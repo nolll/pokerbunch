@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
 
         private void SetupUser()
         {
-            var user = new UserInTest(userName: UserName, realName: RealName, displayName: DisplayName, email: Email);
+            var user = A.User.WithUserName(UserName).WithRealName(RealName).WithDisplayName(DisplayName).WithEmail(Email).Build();
             GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(user);
         }
 

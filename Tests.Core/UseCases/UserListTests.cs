@@ -5,7 +5,6 @@ using Core.Repositories;
 using Core.UseCases.UserList;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -16,7 +15,8 @@ namespace Tests.Core.UseCases
         {
             const int expected = 1;
             const string userName = "a";
-            var users = new List<User> {new UserInTest(userName: userName)};
+            var user = A.User.WithUserName(userName).Build();
+            var users = new List<User> {user};
 
             GetMock<IUserRepository>().Setup(o => o.GetList()).Returns(users);
 

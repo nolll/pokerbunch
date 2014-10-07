@@ -4,9 +4,8 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Factories;
+using Infrastructure.Data.Classes;
 using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -47,7 +46,7 @@ namespace Infrastructure.Data.Repositories
 
         public bool Save(User user)
         {
-            var rawUser = RawUserFactory.Create(user);
+            var rawUser = CreateRawUser(user);
             var updated = _userStorage.UpdateUser(rawUser);
             _cacheBuster.UserUpdated(user);
             return updated;
@@ -55,7 +54,7 @@ namespace Infrastructure.Data.Repositories
 
         public int Add(User user)
         {
-            var rawUser = RawUserFactory.Create(user);
+            var rawUser = CreateRawUser(user);
             var id = _userStorage.AddUser(rawUser);
             _cacheBuster.UserAdded();
             return id;
@@ -64,13 +63,13 @@ namespace Infrastructure.Data.Repositories
         private User GetByIdUncached(int id)
         {
             var rawUser = _userStorage.GetUserById(id);
-            return rawUser != null ? UserDataMapper.Map(rawUser) : null;
+            return rawUser != null ? CreateUser(rawUser) : null;
         }
 
         private IList<User> GetListUncached(IList<int> ids)
         {
             var rawUsers = _userStorage.GetUserList(ids);
-            return rawUsers.Select(UserDataMapper.Map).ToList();
+            return rawUsers.Select(CreateUser).ToList();
         }
 
         private int? GetIdByNameOrEmail(string nameOrEmail)
@@ -83,6 +82,32 @@ namespace Infrastructure.Data.Repositories
         {
             var cacheKey = CacheKeyProvider.UserIdsKey();
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        private static User CreateUser(RawUser rawUser)
+        {
+            return new User(
+                rawUser.Id,
+                rawUser.UserName,
+                rawUser.DisplayName,
+                rawUser.RealName,
+                rawUser.Email,
+                (Role)rawUser.GlobalRole,
+                rawUser.EncryptedPassword,
+                rawUser.Salt);
+        }
+
+        private static RawUser CreateRawUser(User user)
+        {
+            return new RawUser(
+                user.Id,
+                user.UserName,
+                user.DisplayName,
+                user.RealName,
+                user.Email,
+                (int)user.GlobalRole,
+                user.EncryptedPassword,
+                user.Salt);
         }
     }
 }

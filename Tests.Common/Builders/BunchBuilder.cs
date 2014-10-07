@@ -9,18 +9,28 @@ namespace Tests.Common.Builders
         private int _id;
         private string _slug;
         private string _displayName;
+        private string _description;
+        private string _houseRules;
         private TimeZoneInfo _timeZone;
+        private int _defaultBuyin;
+        private Currency _currency;
 
         public BunchBuilder()
         {
             _id = 1;
-            _slug = "a";
-            _displayName = "b";
+            _slug = "";
+            _displayName = "";
+            _description = "";
+            _houseRules = "";
+            _timeZone = TimeZoneInfo.Utc;
+            _defaultBuyin = 0;
+            _currency = Currency.Default;
+
         }
 
         public Bunch Build()
         {
-            return new BunchInTest(_id, _slug, _displayName, timezone: _timeZone);
+            return new Bunch(_id, _slug, _displayName, _description, _houseRules, _timeZone, _defaultBuyin, _currency);
         }
 
         public BunchBuilder WithId(int id)
@@ -38,6 +48,36 @@ namespace Tests.Common.Builders
         public BunchBuilder WithDisplayName(string displayName)
         {
             _displayName = displayName;
+            return this;
+        }
+
+        public BunchBuilder WithDescription(string description)
+        {
+            _description = description;
+            return this;
+        }
+
+        public BunchBuilder WithHouseRules(string houseRules)
+        {
+            _houseRules = houseRules;
+            return this;
+        }
+
+        public BunchBuilder WithDefaultBuyin(int defaultBuyin)
+        {
+            _defaultBuyin = defaultBuyin;
+            return this;
+        }
+
+        public BunchBuilder WithCurrency(Currency currency)
+        {
+            _currency = currency;
+            return this;
+        }
+
+        public BunchBuilder WithTimeZone(TimeZoneInfo timeZone)
+        {
+            _timeZone = timeZone;
             return this;
         }
 
