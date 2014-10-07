@@ -51,7 +51,7 @@ aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
             SetupUser();
-            SetupPasswordCharacters();
+            SetupRandomCharacters();
 
             IMessage message = null;
             string email = null;
@@ -74,28 +74,22 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         public void ForgotPassword_SavesUserWithNewPassword()
         {
             SetupUser();
-            SetupPasswordCharacters();
-            SetupSaltCharacters();
+            SetupRandomCharacters();
 
             User savedUser = null;
             GetMock<IUserRepository>().Setup(o => o.Save(It.IsAny<User>())).Callback((User user) => savedUser = user);
 
             Execute(CreateRequest());
 
-            Assert.AreEqual("f946ba8dd6db9197cf82bbdab303a4d05316384e", savedUser.EncryptedPassword);
-            Assert.AreEqual("bbbbbbbbbb", savedUser.Salt);
+            Assert.AreEqual("0478095c8ece0bbc11f94663ac2c4f10b29666de", savedUser.EncryptedPassword);
+            Assert.AreEqual("aaaaaaaaaa", savedUser.Salt);
         }
 
-        private void SetupPasswordCharacters()
+        private void SetupRandomCharacters()
         {
-            GetMock<IRandomService>().Setup(o => o.GetPasswordCharacters()).Returns("a");
+            GetMock<IRandomService>().Setup(o => o.GetAllowedChars()).Returns("a");
         }
-
-        private void SetupSaltCharacters()
-        {
-            GetMock<IRandomService>().Setup(o => o.GetSaltCharacters()).Returns("b");
-        }
-
+        
         private ForgotPasswordRequest CreateRequest(string email = ValidEmail)
         {
             return new ForgotPasswordRequest(email);

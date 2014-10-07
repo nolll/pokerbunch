@@ -39,29 +39,12 @@ using Core.UseCases.RunningCashgame;
 using Core.UseCases.TestEmail;
 using Core.UseCases.UserDetails;
 using Core.UseCases.UserList;
+using Plumbing;
 
-namespace Plumbing
+namespace Web.Plumbing
 {
     public class UseCaseContainer : Dependencies
     {
-        private static UseCaseContainer _instance;
-        private static readonly object Padlock = new object();
-
-        public static UseCaseContainer Instance
-        {
-            get
-            {
-                lock (Padlock)
-                {
-                    return _instance ?? (_instance = new UseCaseContainer());
-                }
-            }
-        }
-
-        private UseCaseContainer()
-        {
-        }
-
         // Contexts
         public Func<BaseContextResult> BaseContext { get { return () => BaseContextInteractor.Execute(WebContext); } }
         public Func<AppContextResult> AppContext { get { return () => AppContextInteractor.Execute(BaseContext, Auth); } }
@@ -115,5 +98,23 @@ namespace Plumbing
         public Func<InvitePlayerRequest, InvitePlayerResult> InvitePlayer { get { return request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request); } }
         public Func<AddPlayerRequest, AddPlayerResult> AddPlayer { get { return request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request); } }
         public Func<DeletePlayerRequest, DeletePlayerResult> DeletePlayer { get { return request => DeletePlayerInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, request); } }
+
+        private static UseCaseContainer _instance;
+        private static readonly object Padlock = new object();
+
+        public static UseCaseContainer Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    return _instance ?? (_instance = new UseCaseContainer());
+                }
+            }
+        }
+
+        private UseCaseContainer()
+        {
+        }
     }
 }

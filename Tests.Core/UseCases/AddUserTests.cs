@@ -78,11 +78,10 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_WithValidInput_UserWithCorrectPropertiesIsAdded()
         {
-            const string expectedEncryptedPassword = "f946ba8dd6db9197cf82bbdab303a4d05316384e";
-            const string expectedSalt = "bbbbbbbbbb";
+            const string expectedEncryptedPassword = "0478095c8ece0bbc11f94663ac2c4f10b29666de";
+            const string expectedSalt = "aaaaaaaaaa";
 
-            SetupPasswordCharacters();
-            SetupSaltCharacters();
+            SetupRandomCharacters();
             User user = null;
             GetMock<IUserRepository>().Setup(o => o.Add(It.IsAny<User>())).Callback((User u) => user = u);
 
@@ -110,8 +109,7 @@ aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
 
-            SetupPasswordCharacters();
-            SetupSaltCharacters();
+            SetupRandomCharacters();
             string email = null;
             IMessage message = null;
             GetMock<IMessageSender>()
@@ -130,16 +128,10 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             Assert.AreEqual(body, message.Body);
         }
 
-        private void SetupPasswordCharacters()
+        private void SetupRandomCharacters()
         {
-            GetMock<IRandomService>().Setup(o => o.GetPasswordCharacters()).Returns("a");
+            GetMock<IRandomService>().Setup(o => o.GetAllowedChars()).Returns("a");
         }
-
-        private void SetupSaltCharacters()
-        {
-            GetMock<IRandomService>().Setup(o => o.GetSaltCharacters()).Returns("b");
-        }
-
 
         private AddUserResult Execute(AddUserRequest request)
         {

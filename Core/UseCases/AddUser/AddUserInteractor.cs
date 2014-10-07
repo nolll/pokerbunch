@@ -25,8 +25,8 @@ namespace Core.UseCases.AddUser
             if (userRepository.GetByNameOrEmail(request.Email) != null)
                 throw new EmailExistsException();
 
-            var password = PasswordGenerator.CreatePassword(randomService.GetPasswordCharacters());
-            var salt = SaltGenerator.CreateSalt(randomService.GetSaltCharacters());
+            var password = PasswordGenerator.CreatePassword(randomService.GetAllowedChars());
+            var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var user = CreateUser(request, encryptedPassword, salt);
             userRepository.Add(user);

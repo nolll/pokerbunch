@@ -91,7 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="ControllerTests\CashgameControllerTests.cs" />
+    <Compile Include="ControllerTests\CashgameBuyinControllerTests.cs" />
+    <Compile Include="ControllerTests\CashgameActionControllerTests.cs" />
     <Compile Include="ControllerTests\UserListControllerTests.cs" />
     <Compile Include="ControllerTests\HomegameControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />

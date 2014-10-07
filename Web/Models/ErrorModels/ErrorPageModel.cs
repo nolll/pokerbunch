@@ -14,5 +14,10 @@ namespace Web.Models.ErrorModels
             Title = title;
             Message = message;
         }
+
+        public override string Layout
+        {
+            get { return PageLayout.OneColumn; }
+        }
     }
 }

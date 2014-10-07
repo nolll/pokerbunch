@@ -4,14 +4,11 @@ namespace Core.Services
 {
     public class RandomService : IRandomService
     {
-        public string GetPasswordCharacters()
-        {
-            return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
-        }
+        private const string RandomChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
 
-        public string GetSaltCharacters()
+        public string GetAllowedChars()
         {
-            throw new System.NotImplementedException();
+            return RandomChars;
         }
     }
 }

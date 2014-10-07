@@ -4,6 +4,7 @@ using Core.UseCases.CashgameContext;
 using Core.UseCases.Matrix;
 using Plumbing;
 using Web.Models.CashgameModels.Matrix;
+using Web.Plumbing;
 
 namespace Web.ModelFactories.CashgameModelFactories.Matrix
 {

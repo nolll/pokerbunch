@@ -6,17 +6,17 @@ namespace Web
     {
         public CustomViewEngine()
         {
-            //ViewLocationFormats = new[]
-            //{
-            //    "~/Views/{1}/{0}.cshtml", "~/Views/Pages/{1}/{0}.cshtml"
-            //};
+            ViewLocationFormats = new[]
+            {
+                "~/Views/{0}.cshtml", "~/Views/Pages/{0}.cshtml", "~/Views/{1}/{0}.cshtml"
+            };
 
-            //PartialViewLocationFormats = ViewLocationFormats;
+            PartialViewLocationFormats = ViewLocationFormats;
 
-            //FileExtensions = new[]
-            //{
-            //    "cshtml"
-            //};
+            FileExtensions = new[]
+            {
+                "cshtml"
+            };
         }
     }
 }

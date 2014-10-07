@@ -1,5 +1,6 @@
 using Core.Repositories;
 using Core.Services;
+using Core.Services.Interfaces;
 using Web.Models.UserModels.ChangePassword;
 using Web.Models.UserModels.Edit;
 
@@ -9,13 +10,16 @@ namespace Web.Commands.UserCommands
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuth _auth;
+        private readonly IRandomService _randomService;
 
         public UserCommandProvider(
             IUserRepository userRepository,
-            IAuth auth)
+            IAuth auth,
+            IRandomService randomService)
         {
             _userRepository = userRepository;
             _auth = auth;
+            _randomService = randomService;
         }
 
         public Command GetChangePasswordCommand(ChangePasswordPostModel postModel)
@@ -24,6 +28,7 @@ namespace Web.Commands.UserCommands
 
             return new ChangePasswordCommand(
                 _userRepository,
+                _randomService,
                 user, 
                 postModel);
         }

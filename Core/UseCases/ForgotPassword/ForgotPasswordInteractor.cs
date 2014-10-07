@@ -23,8 +23,8 @@ namespace Core.UseCases.ForgotPassword
             if(user == null)
                 throw new UserNotFoundException();
 
-            var password = PasswordGenerator.CreatePassword(randomService.GetPasswordCharacters());
-            var salt = SaltGenerator.CreateSalt(randomService.GetSaltCharacters());
+            var password = PasswordGenerator.CreatePassword(randomService.GetAllowedChars());
+            var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
 
             user.SetPassword(encryptedPassword, salt);

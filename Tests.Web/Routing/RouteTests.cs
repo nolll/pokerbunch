@@ -171,141 +171,141 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameIndex()
         {
-            _routes.ShouldMap("/a/cashgame/index").To<CashgameController>(x => x.Index("a"));
+            _routes.ShouldMap("/a/cashgame/index").To<CashgameIndexController>(x => x.Index("a"));
         }
 
         [Test]
         public void AddCashgame()
         {
-            _routes.ShouldMap("/a/cashgame/add").To<CashgameController>(x => x.Add("a"));
-            _routes.ShouldMap("/a/cashgame/add").To<CashgameController>(HttpMethod.Post, x => x.Add_Post("a", new AddCashgamePostModel()));
+            _routes.ShouldMap("/a/cashgame/add").To<AddCashgameController>(x => x.AddCashgame("a"));
+            _routes.ShouldMap("/a/cashgame/add").To<AddCashgameController>(HttpMethod.Post, x => x.Post("a", new AddCashgamePostModel()));
         }
 
         [Test]
         public void EditCashgame()
         {
-            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<CashgameController>(x => x.Edit("a", "2000-01-01"));
-            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<CashgameController>(HttpMethod.Post, x => x.Edit_Post("a", "2000-01-01", new CashgameEditPostModel()));
+            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<EditCashgameController>(x => x.Edit("a", "2000-01-01"));
+            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<EditCashgameController>(HttpMethod.Post, x => x.Edit_Post("a", "2000-01-01", new CashgameEditPostModel()));
         }
 
         [Test]
         public void RunningCashgame()
         {
-            _routes.ShouldMap("/a/cashgame/running").To<CashgameController>(x => x.Running("a"));
+            _routes.ShouldMap("/a/cashgame/running").To<RunningCashgameController>(x => x.Running("a"));
         }
 
         [Test]
         public void CashgameMatrix()
         {
-            _routes.ShouldMap("/a/cashgame/matrix").To<CashgameController>(x => x.Matrix("a", null));
-            _routes.ShouldMap("/a/cashgame/matrix/1").To<CashgameController>(x => x.Matrix("a", 1));
+            _routes.ShouldMap("/a/cashgame/matrix").To<MatrixController>(x => x.Matrix("a", null));
+            _routes.ShouldMap("/a/cashgame/matrix/1").To<MatrixController>(x => x.Matrix("a", 1));
         }
 
         [Test]
         public void CashgameFacts()
         {
-            _routes.ShouldMap("/a/cashgame/facts").To<CashgameController>(x => x.Facts("a", null));
-            _routes.ShouldMap("/a/cashgame/facts/1").To<CashgameController>(x => x.Facts("a", 1));
+            _routes.ShouldMap("/a/cashgame/facts").To<CashgameFactsController>(x => x.Facts("a", null));
+            _routes.ShouldMap("/a/cashgame/facts/1").To<CashgameFactsController>(x => x.Facts("a", 1));
         }
 
         [Test]
         public void CashgameToplist()
         {
-            _routes.ShouldMap("/a/cashgame/toplist").To<CashgameController>(x => x.Toplist("a", null, null));
-            _routes.ShouldMap("/a/cashgame/toplist/1").To<CashgameController>(x => x.Toplist("a", null, 1));
+            _routes.ShouldMap("/a/cashgame/toplist").To<TopListController>(x => x.Toplist("a", null, null));
+            _routes.ShouldMap("/a/cashgame/toplist/1").To<TopListController>(x => x.Toplist("a", null, 1));
         }
 
         [Test]
         public void CashgameList()
         {
-            _routes.ShouldMap("/a/cashgame/list").To<CashgameController>(x => x.List("a", null, null));
-            _routes.ShouldMap("/a/cashgame/list?orderby=b").To<CashgameController>(x => x.List("a", null, "b"));
-            _routes.ShouldMap("/a/cashgame/list/1").To<CashgameController>(x => x.List("a", 1, null));
+            _routes.ShouldMap("/a/cashgame/list").To<CashgameListController>(x => x.List("a", null, null));
+            _routes.ShouldMap("/a/cashgame/list?orderby=b").To<CashgameListController>(x => x.List("a", null, "b"));
+            _routes.ShouldMap("/a/cashgame/list/1").To<CashgameListController>(x => x.List("a", 1, null));
         }
 
         [Test]
         public void CashgameChart()
         {
-            _routes.ShouldMap("/a/cashgame/chart").To<CashgameController>(x => x.Chart("a", null));
-            _routes.ShouldMap("/a/cashgame/chart/1").To<CashgameController>(x => x.Chart("a", 1));
+            _routes.ShouldMap("/a/cashgame/chart").To<CashgameChartController>(x => x.Chart("a", null));
+            _routes.ShouldMap("/a/cashgame/chart/1").To<CashgameChartController>(x => x.Chart("a", 1));
         }
 
         [Test]
         public void CashgameChartJson()
         {
-            _routes.ShouldMap("/a/cashgame/chartjson").To<CashgameController>(x => x.ChartJson("a", null));
-            _routes.ShouldMap("/a/cashgame/chartjson/1").To<CashgameController>(x => x.ChartJson("a", 1));
+            _routes.ShouldMap("/a/cashgame/chartjson").To<CashgameChartController>(x => x.ChartJson("a", null));
+            _routes.ShouldMap("/a/cashgame/chartjson/1").To<CashgameChartController>(x => x.ChartJson("a", 1));
         }
 
         [Test]
         public void CashgameBuyin()
         {
-            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameController>(x => x.Buyin("a", 1));
-            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameController>(HttpMethod.Post, x => x.Buyin_Post("a", 1, new BuyinPostModel()));
+            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameBuyinController>(x => x.Buyin("a", 1));
+            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameBuyinController>(HttpMethod.Post, x => x.Buyin_Post("a", 1, new BuyinPostModel()));
         }
 
         [Test]
         public void CashgameReport()
         {
-            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameController>(x => x.Report("a", 1));
-            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameController>(HttpMethod.Post, x => x.Report_Post("a", 1, new ReportPostModel()));
+            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameReportController>(x => x.Report("a", 1));
+            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameReportController>(HttpMethod.Post, x => x.Report_Post("a", 1, new ReportPostModel()));
         }
 
         [Test]
         public void CashgameCashout()
         {
-            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameController>(x => x.Cashout("a", 1));
-            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameController>(HttpMethod.Post, x => x.Cashout_Post("a", 1, new CashoutPostModel()));
+            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameCashoutController>(x => x.Cashout("a", 1));
+            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameCashoutController>(HttpMethod.Post, x => x.Cashout_Post("a", 1, new CashoutPostModel()));
         }
 
         [Test]
         public void CashgameEnd()
         {
-            _routes.ShouldMap("/a/cashgame/end").To<CashgameController>(x => x.End("a"));
-            _routes.ShouldMap("/a/cashgame/end").To<CashgameController>(HttpMethod.Post, x => x.End_Post("a", new EndGamePostModel()));
+            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(x => x.End("a"));
+            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(HttpMethod.Post, x => x.End_Post("a", new EndGamePostModel()));
         }
 
         [Test]
         public void CashgameDetails()
         {
-            _routes.ShouldMap("/a/cashgame/details/2001-01-01").To<CashgameController>(x => x.Details("a", "2001-01-01"));
+            _routes.ShouldMap("/a/cashgame/details/2001-01-01").To<CashgameDetailsController>(x => x.Details("a", "2001-01-01"));
         }
 
         [Test]
         public void CashgameDetailsChartJson()
         {
-            _routes.ShouldMap("/a/cashgame/detailschartjson/2001-01-01").To<CashgameController>(x => x.DetailsChartJson("a", "2001-01-01"));
+            _routes.ShouldMap("/a/cashgame/detailschartjson/2001-01-01").To<CashgameDetailsController>(x => x.DetailsChartJson("a", "2001-01-01"));
         }
 
         [Test]
         public void CashgameAction()
         {
-            _routes.ShouldMap("/a/cashgame/action/2001-01-01/1").To<CashgameController>(x => x.Action("a", "2001-01-01", 1));
+            _routes.ShouldMap("/a/cashgame/action/2001-01-01/1").To<CashgameActionController>(x => x.Action("a", "2001-01-01", 1));
         }
 
         [Test]
         public void CashgameActionChartJson()
         {
-            _routes.ShouldMap("/a/cashgame/actionchartjson/2001-01-01/1").To<CashgameController>(x => x.ActionChartJson("a", "2001-01-01", 1));
+            _routes.ShouldMap("/a/cashgame/actionchartjson/2001-01-01/1").To<CashgameActionController>(x => x.ActionChartJson("a", "2001-01-01", 1));
         }
 
         [Test]
         public void CashgameDelete()
         {
-            _routes.ShouldMap("/a/cashgame/delete/2001-01-01").To<CashgameController>(x => x.Delete("a", "2001-01-01"));
+            _routes.ShouldMap("/a/cashgame/delete/2001-01-01").To<DeleteCashgameController>(x => x.Delete("a", "2001-01-01"));
         }
 
         [Test]
         public void EditCheckpoint()
         {
-            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<CashgameController>(x => x.EditCheckpoint("a", "2001-01-01", 1, 2));
-            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<CashgameController>(HttpMethod.Post, x => x.EditCheckpoint_Post("a", "2001-01-01", 1, 2, new EditCheckpointPostModel()));
+            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<EditCheckpointController>(x => x.EditCheckpoint("a", "2001-01-01", 1, 2));
+            _routes.ShouldMap("/a/cashgame/editcheckpoint/2001-01-01/1/2").To<EditCheckpointController>(HttpMethod.Post, x => x.EditCheckpoint_Post("a", "2001-01-01", 1, 2, new EditCheckpointPostModel()));
         }
 
         [Test]
         public void DeleteCheckpoint()
         {
-            _routes.ShouldMap("/a/cashgame/deletecheckpoint/2001-01-01/1/2").To<CashgameController>(x => x.DeleteCheckpoint("a", "2001-01-01", 1, 2));
+            _routes.ShouldMap("/a/cashgame/deletecheckpoint/2001-01-01/1/2").To<DeleteCheckpointController>(x => x.DeleteCheckpoint("a", "2001-01-01", 1, 2));
         }
 
         [Test]
