@@ -1,12 +1,12 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.ForgotPassword;
+using Web.Controllers.Base;
 using Web.Models.UserModels.ForgotPassword;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class ForgotPasswordController : ControllerBase
+    public class ForgotPasswordController : PokerBunchController
     {
         [Route("-/user/forgotpassword")]
         public ActionResult ForgotPassword()

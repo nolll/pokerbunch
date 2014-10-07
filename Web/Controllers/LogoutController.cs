@@ -1,9 +1,9 @@
 using System.Web.Mvc;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
+using Web.Controllers.Base;
 
 namespace Web.Controllers
 {
-    public class LogoutController : ControllerBase
+    public class LogoutController : PokerBunchController
     {
         [Route("-/auth/logout")]
         public ActionResult Logout()

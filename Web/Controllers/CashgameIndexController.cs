@@ -1,12 +1,12 @@
 using System.Web.Mvc;
 using Core.Urls;
 using Core.UseCases.CashgameContext;
+using Web.Controllers.Base;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class CashgameIndexController : ControllerBase
+    public class CashgameIndexController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/index")]

@@ -141,7 +141,7 @@
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\Base\ControllerBase.cs" />
+    <Compile Include="Controllers\Base\PokerBunchController.cs" />
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\CashgameDetailsController.cs" />
     <Compile Include="Controllers\CashgameFactsController.cs" />

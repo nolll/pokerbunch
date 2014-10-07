@@ -5,7 +5,7 @@ using Web.Plumbing;
 
 namespace Web.Controllers.Base
 {
-    public class ControllerBase : Controller
+    public class PokerBunchController : Controller
     {
         protected UseCaseContainer UseCase
         {

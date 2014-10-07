@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
+using Web.Controllers.Base;
 using Web.Models.AdminModels;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class AdminController : ControllerBase
+    public class AdminController : PokerBunchController
     {
         [AuthorizeAdmin]
         [Route("-/admin/sendemail")]

@@ -1,13 +1,13 @@
 using System.Web.Mvc;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameTopList;
+using Web.Controllers.Base;
 using Web.Models.CashgameModels.Toplist;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class TopListController : ControllerBase
+    public class TopListController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/toplist/{year?}")]

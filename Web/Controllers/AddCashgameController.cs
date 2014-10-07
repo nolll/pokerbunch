@@ -3,13 +3,13 @@ using Core.Exceptions;
 using Core.UseCases.AddCashgame;
 using Core.UseCases.AddCashgameForm;
 using Core.UseCases.BunchContext;
+using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class AddCashgameController : ControllerBase
+    public class AddCashgameController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/add")]

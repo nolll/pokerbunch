@@ -1,11 +1,11 @@
 using System.Web.Mvc;
+using Web.Controllers.Base;
 using Web.Models.UserModels.List;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class UserListController : ControllerBase
+    public class UserListController : PokerBunchController
     {
         [AuthorizeAdmin]
         [Route("-/user/list")]

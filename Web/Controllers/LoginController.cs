@@ -2,12 +2,12 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.Login;
 using Core.UseCases.LoginForm;
+using Web.Controllers.Base;
 using Web.Models.AuthModels;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class LoginController : ControllerBase
+    public class LoginController : PokerBunchController
     {
         [Route("-/auth/login")]
         public ActionResult Login(string returnUrl = null)

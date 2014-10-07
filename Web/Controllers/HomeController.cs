@@ -1,11 +1,11 @@
 using System.Web.Mvc;
 using Core.UseCases.BunchContext;
+using Web.Controllers.Base;
 using Web.Models.HomeModels;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class HomeController : ControllerBase
+    public class HomeController : PokerBunchController
     {
         [Route("")]
         public ActionResult Index()

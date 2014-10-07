@@ -2,12 +2,12 @@ using System.Web.Mvc;
 using Core.Urls;
 using Core.UseCases.EditUserForm;
 using Web.Commands.UserCommands;
+using Web.Controllers.Base;
 using Web.Models.UserModels.Edit;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class EditUserController : ControllerBase
+    public class EditUserController : PokerBunchController
     {
         private readonly IUserCommandProvider _userCommandProvider;
 

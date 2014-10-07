@@ -1,14 +1,14 @@
 using System.Web.Mvc;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetails;
+using Web.Controllers.Base;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.Models.CashgameModels.Details;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class CashgameDetailsController : ControllerBase
+    public class CashgameDetailsController : PokerBunchController
     {
         private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
 

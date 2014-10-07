@@ -1,11 +1,11 @@
 using System.Web.Mvc;
 using Core.UseCases.UserDetails;
+using Web.Controllers.Base;
 using Web.Models.UserModels;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class UserDetailsController : ControllerBase
+    public class UserDetailsController : PokerBunchController
     {
         [Authorize]
         [Route("-/user/details/{userName}")]

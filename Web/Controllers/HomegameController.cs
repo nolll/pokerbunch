@@ -6,17 +6,17 @@ using Core.UseCases.EditBunchForm;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
 using Web.Commands.HomegameCommands;
+using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
 using Web.Models.HomegameModels.Details;
 using Web.Models.HomegameModels.Edit;
 using Web.Models.HomegameModels.Join;
 using Web.Models.HomegameModels.List;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-	public class HomegameController : ControllerBase
+	public class HomegameController : PokerBunchController
     {
 	    private readonly IBunchCommandProvider _bunchCommandProvider;
 

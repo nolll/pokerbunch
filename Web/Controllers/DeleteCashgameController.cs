@@ -11,6 +11,7 @@ using Core.UseCases.CashgameList;
 using Core.UseCases.EditCheckpointForm;
 using Core.UseCases.RunningCashgame;
 using Web.Commands.CashgameCommands;
+using Web.Controllers.Base;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Edit;
@@ -25,11 +26,10 @@ using Web.Models.CashgameModels.List;
 using Web.Models.CashgameModels.Report;
 using Web.Models.CashgameModels.Running;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class EditCashgameController : ControllerBase
+    public class EditCashgameController : PokerBunchController
     {
         private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
@@ -64,7 +64,7 @@ namespace Web.Controllers
 		} 
     }
 
-    public class RunningCashgameController : ControllerBase
+    public class RunningCashgameController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/running")]
@@ -84,7 +84,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameListController : ControllerBase
+    public class CashgameListController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/list/{year?}")]
@@ -98,7 +98,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameChartController : ControllerBase
+    public class CashgameChartController : PokerBunchController
     {
         private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
 
@@ -126,7 +126,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameActionController : ControllerBase
+    public class CashgameActionController : PokerBunchController
     {
         private readonly IActionChartJsonBuilder _actionChartJsonBuilder;
 
@@ -154,7 +154,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameBuyinController : ControllerBase
+    public class CashgameBuyinController : PokerBunchController
     {
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/buyin/{playerId:int}")]
@@ -193,7 +193,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameReportController : ControllerBase
+    public class CashgameReportController : PokerBunchController
     {
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
@@ -232,7 +232,7 @@ namespace Web.Controllers
         }
     }
 
-    public class EditCheckpointController : ControllerBase
+    public class EditCheckpointController : PokerBunchController
     {
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
@@ -272,7 +272,7 @@ namespace Web.Controllers
         }
     }
 
-    public class DeleteCheckpointController : ControllerBase
+    public class DeleteCheckpointController : PokerBunchController
     {
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
@@ -296,7 +296,7 @@ namespace Web.Controllers
         }
     }
 
-    public class CashgameCashoutController : ControllerBase
+    public class CashgameCashoutController : PokerBunchController
     {
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
@@ -335,7 +335,7 @@ namespace Web.Controllers
         }
     }
 
-    public class EndCashgameController : ControllerBase
+    public class EndCashgameController : PokerBunchController
     {
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
@@ -364,7 +364,7 @@ namespace Web.Controllers
         }
     }
 
-    public class DeleteCashgameController : ControllerBase
+    public class DeleteCashgameController : PokerBunchController
     {
 	    private readonly ICashgameCommandProvider _cashgameCommandProvider;
 

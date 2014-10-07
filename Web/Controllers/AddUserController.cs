@@ -1,12 +1,12 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.AddUser;
+using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class AddUserController : ControllerBase
+    public class AddUserController : PokerBunchController
     {
         [Route("-/user/add")]
         public ActionResult AddUser()

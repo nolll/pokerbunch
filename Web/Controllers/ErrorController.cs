@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
+using Web.Controllers.Base;
 using Web.Models.ErrorModels;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
     [HandleError]
-    public class ErrorController : ControllerBase
+    public class ErrorController : PokerBunchController
     {
         [Route("-/error/notfound")]
         public ActionResult NotFound()

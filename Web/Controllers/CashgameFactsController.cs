@@ -1,13 +1,13 @@
 using System.Web.Mvc;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameFacts;
+using Web.Controllers.Base;
 using Web.Models.CashgameModels.Facts;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class CashgameFactsController : ControllerBase
+    public class CashgameFactsController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/cashgame/facts/{year?}")]

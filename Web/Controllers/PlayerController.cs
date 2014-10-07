@@ -8,16 +8,16 @@ using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
+using Web.Controllers.Base;
 using Web.Models.PlayerModels.Add;
 using Web.Models.PlayerModels.Details;
 using Web.Models.PlayerModels.Invite;
 using Web.Models.PlayerModels.List;
 using Web.Security.Attributes;
-using ControllerBase = Web.Controllers.Base.ControllerBase;
 
 namespace Web.Controllers
 {
-    public class PlayerController : ControllerBase
+    public class PlayerController : PokerBunchController
     {
         [AuthorizePlayer]
         [Route("{slug}/player/index")]
