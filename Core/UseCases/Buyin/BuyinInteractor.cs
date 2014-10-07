@@ -21,9 +21,9 @@ namespace Core.UseCases.Buyin
         private static void AddCheckpoint(
             IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, ITimeProvider timeProvider, BuyinRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
-            var game = cashgameRepository.GetRunning(homegame);
+            var game = cashgameRepository.GetRunning(bunch);
             var checkpoint = CreateCheckpoint(timeProvider, request);
             checkpointRepository.AddCheckpoint(game, player, checkpoint);
 

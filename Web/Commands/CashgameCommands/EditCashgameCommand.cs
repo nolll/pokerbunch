@@ -34,8 +34,8 @@ namespace Web.Commands.CashgameCommands
                 AddError("Please enter a location");
                 return false;
             }
-            var homegame = _bunchRepository.GetBySlug(_slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, _dateStr);
+            var bunch = _bunchRepository.GetBySlug(_slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch, _dateStr);
             cashgame = CashgameModelMapper.Map(cashgame, _model);
             _cashgameRepository.UpdateGame(cashgame);
             return true;

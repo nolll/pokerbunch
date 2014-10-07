@@ -12,12 +12,12 @@ namespace Core.UseCases.CashgameFacts
             IPlayerRepository playerRepository,
             CashgameFactsRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(homegame).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = cashgameRepository.GetPublished(homegame, request.Year);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var players = playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
-            return GetFactsResult(playerRepository, homegame, factBuilder);
+            return GetFactsResult(playerRepository, bunch, factBuilder);
         }
 
         // todo: make this method private and test throught the Execute-method

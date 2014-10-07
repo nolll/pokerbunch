@@ -26,14 +26,14 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
 
         public ChartModel Build(string slug, string dateStr, int playerId)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch, dateStr);
             var result = cashgame.GetResult(playerId);
             
             return new ChartModel
                 {
                     Columns = GetActionColumns(),
-			        Rows = GetActionRows(homegame, cashgame, result)
+                    Rows = GetActionRows(bunch, cashgame, result)
                 };
         }
 

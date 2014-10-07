@@ -20,10 +20,10 @@ namespace Tests.Core.UseCases
             const string slug = "a";
             const int playerId = 1;
             var request = new PlayerFactsRequest(slug, playerId);
-            var homegame = A.Bunch.Build();
+            var bunch = A.Bunch.Build();
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, null)).Returns(GetCashgames());
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
+            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(bunch, null)).Returns(GetCashgames());
 
             var result = Execute(request);
 

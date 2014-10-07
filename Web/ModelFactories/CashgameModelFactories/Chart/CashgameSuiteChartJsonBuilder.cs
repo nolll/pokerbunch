@@ -26,8 +26,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
 
         public ChartModel Build(string slug, int? year)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var suite = _cashgameService.GetSuite(homegame, year);
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var suite = _cashgameService.GetSuite(bunch, year);
             
             return new ChartModel
                 {

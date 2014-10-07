@@ -12,11 +12,11 @@ namespace Core.UseCases.BunchContext
         {
             var appContextResult = appContext();
 
-            var homegame = GetBunch(bunchRepository, auth, request);
-            
-            if(homegame == null)
+            var bunch = GetBunch(bunchRepository, auth, request);
+
+            if (bunch == null)
                 return new BunchContextResult(appContextResult);
-            return new BunchContextResult(appContextResult, homegame.Slug, homegame.Id, homegame.DisplayName);
+            return new BunchContextResult(appContextResult, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
         private static Bunch GetBunch(IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)

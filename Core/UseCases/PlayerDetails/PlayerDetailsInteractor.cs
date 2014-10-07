@@ -14,14 +14,14 @@ namespace Core.UseCases.PlayerDetails
             IUserRepository userRepository,
             PlayerDetailsRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
             var user = userRepository.GetById(player.UserId);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
             var hasPlayed = cashgameRepository.HasPlayed(request.PlayerId);
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
-            
-            return new PlayerDetailsResult(homegame, player, user, isManager, hasPlayed, avatarUrl);
+
+            return new PlayerDetailsResult(bunch, player, user, isManager, hasPlayed, avatarUrl);
         }
     }
 }

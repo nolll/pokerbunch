@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
     class BunchContextTests : TestBase
     {
         [Test]
-        public void BunchContext_WithSlug_SlugIsSetFromSelectedHomegame()
+        public void BunchContext_WithSlug_SlugIsSetFromSelectedBunch()
         {
             const string slug = "a";
             SetupHomegameBySlug(slug);
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void BunchContext_WithoutSlug_SlugIsSetFromFirstHomegame()
+        public void BunchContext_WithoutSlug_SlugIsSetFromFirstBunch()
         {
             var homegameList = A.BunchList.WithOneItem().Build();
             SetupHomegameListByUser(homegameList);
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void BunchContext_WithoutSlugAndHomegames_SlugIsNull()
+        public void BunchContext_WithoutSlugAndBunches_SlugIsNull()
         {
             var homegameList = A.BunchList.Build(); 
             SetupHomegameListByUser(homegameList);
@@ -78,8 +78,8 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegameBySlug(string slug)
         {
-            var homegame = A.Bunch.WithSlug(slug).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
+            var bunch = A.Bunch.WithSlug(slug).Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
         }
 
         private void SetupHomegameListByUser(IList<Bunch> homegameList)

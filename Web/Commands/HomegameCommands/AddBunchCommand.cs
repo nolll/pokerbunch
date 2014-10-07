@@ -33,18 +33,18 @@ namespace Web.Commands.HomegameCommands
                 AddError("The Bunch name is not available");
                 return false;
             }
-            var homegame = CreateBunch(_postModel);
-            homegame = _bunchRepository.Add(homegame);
+            var bunch = CreateBunch(_postModel);
+            bunch = _bunchRepository.Add(bunch);
             var user = _auth.CurrentUser;
-            _playerRepository.Add(homegame, user, Role.Manager);
+            _playerRepository.Add(bunch, user, Role.Manager);
             return true;
         }
 
         private bool BunchExists()
         {
             var slug = SlugGenerator.GetSlug(_postModel.DisplayName);
-            var homegame = _bunchRepository.GetBySlug(slug);
-            return homegame != null;
+            var bunch = _bunchRepository.GetBySlug(slug);
+            return bunch != null;
         }
 
         private static Bunch CreateBunch(AddBunchPostModel postModel)

@@ -13,13 +13,13 @@ namespace Core.UseCases.Actions
             IAuth auth,
             ActionsRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(homegame, request.DateStr);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var player = playerRepository.GetById(request.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
-            var isManager = auth.IsInRole(homegame.Slug, Role.Manager);
+            var isManager = auth.IsInRole(bunch.Slug, Role.Manager);
 
-            return new ActionsResult(homegame, cashgame, player, isManager, playerResult);
+            return new ActionsResult(bunch, cashgame, player, isManager, playerResult);
         }
     }
 }

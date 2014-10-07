@@ -55,15 +55,15 @@ namespace Core.Services
 
         public bool CashgameIsRunning(string bunchName)
         {
-            var homegame = _bunchRepository.GetBySlug(bunchName);
-            var cashgame = _cashgameRepository.GetRunning(homegame);
+            var bunch = _bunchRepository.GetBySlug(bunchName);
+            var cashgame = _cashgameRepository.GetRunning(bunch);
             return cashgame != null;
         }
 
         public int? GetLatestYear(string slug)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var years = _cashgameRepository.GetYears(homegame);
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var years = _cashgameRepository.GetYears(bunch);
             if (years.Count == 0)
                 return null;
             return years[0];

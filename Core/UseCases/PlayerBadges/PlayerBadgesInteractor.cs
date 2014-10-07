@@ -9,8 +9,8 @@ namespace Core.UseCases.PlayerBadges
             ICashgameRepository cashgameRepository,
             PlayerBadgesRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetPublished(homegame);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var cashgames = cashgameRepository.GetPublished(bunch);
 
             return new PlayerBadgesResult(request.PlayerId, cashgames);
         }

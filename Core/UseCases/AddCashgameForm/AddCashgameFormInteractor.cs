@@ -7,13 +7,13 @@ namespace Core.UseCases.AddCashgameForm
     {
         public static AddCashgameFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, AddCashgameFormRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var runningGame = cashgameRepository.GetRunning(homegame);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var runningGame = cashgameRepository.GetRunning(bunch);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
-            var locations = cashgameRepository.GetLocations(homegame);
+            var locations = cashgameRepository.GetLocations(bunch);
             return new AddCashgameFormResult(locations);
         }
     }

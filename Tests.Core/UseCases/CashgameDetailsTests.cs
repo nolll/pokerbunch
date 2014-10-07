@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
             
             var request = new CashgameDetailsRequest("a", "2000-01-01");
 
-            SetupHomegame();
+            SetupBunch();
             SetupCashgame(cashgame);
             
             var result = Execute(request);
@@ -48,7 +48,7 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest("a", "2000-01-01");
 
-            SetupHomegame();
+            SetupBunch();
             SetupCashgameWithResults();
 
             var result = Execute(request);
@@ -63,7 +63,7 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest("a", "2000-01-01");
 
-            SetupHomegame();
+            SetupBunch();
             SetupCashgameWithResults();
 
             var result = Execute(request);
@@ -92,7 +92,7 @@ namespace Tests.Core.UseCases
             var cashgame = new CashgameInTest(dateString: dateStr);
             var request = new CashgameDetailsRequest("a", dateStr);
 
-            SetupHomegame();
+            SetupBunch();
             SetupCashgame(cashgame);
             SetupManager();
             
@@ -121,10 +121,10 @@ namespace Tests.Core.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
         }
 
-        private void SetupHomegame()
+        private void SetupBunch()
         {
-            var homegame = A.Bunch.WithTimeZone(TimeZoneInfo.Utc).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
+            var bunch = A.Bunch.WithTimeZone(TimeZoneInfo.Utc).Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
         }
 
         private void SetupCashgame(Cashgame cashgame)

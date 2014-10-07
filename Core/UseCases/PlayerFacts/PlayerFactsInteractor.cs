@@ -9,10 +9,10 @@ namespace Core.UseCases.PlayerFacts
             ICashgameRepository cashgameRepository,
             PlayerFactsRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetPublished(homegame);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var cashgames = cashgameRepository.GetPublished(bunch);
 
-            return new PlayerFactsResult(cashgames, request.PlayerId, homegame.Currency);
+            return new PlayerFactsResult(cashgames, request.PlayerId, bunch.Currency);
         }
     }
 }

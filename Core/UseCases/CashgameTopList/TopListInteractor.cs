@@ -9,13 +9,13 @@ namespace Core.UseCases.CashgameTopList
     {
         public static TopListResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, TopListRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var suite = cashgameService.GetSuite(homegame, request.Year);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var suite = cashgameService.GetSuite(bunch, request.Year);
 
-            var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, homegame.Currency));
+            var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, bunch.Currency));
             items = SortItems(items, request.OrderBy);
 
-            return new TopListResult(items, request.OrderBy, homegame.Slug, request.Year);
+            return new TopListResult(items, request.OrderBy, bunch.Slug, request.Year);
         }
 
         private static IEnumerable<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)

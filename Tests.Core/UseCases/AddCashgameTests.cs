@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_ReturnUrlIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
 
             var request = CreateRequest();
             var result = Execute(request);
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_WithLocation_GameIsAdded()
         {
-            SetupHomegame();
+            SetupBunch();
 
             var request = CreateRequest();
             Execute(request);
@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_WithoutLocation_ThrowsValidationException()
         {
-            SetupHomegame();
+            SetupBunch();
 
             var request = CreateRequestWithoutLocation();
 
@@ -59,10 +59,10 @@ namespace Tests.Core.UseCases
             return new AddCashgameRequest(Slug, location);
         }
 
-        private void SetupHomegame()
+        private void SetupBunch()
         {
-            var homegame = A.Bunch.Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var bunch = A.Bunch.Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
         
         private AddCashgameResult Execute(AddCashgameRequest request)

@@ -81,8 +81,8 @@ namespace Tests.Core.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToABunch_UserIdentityBunchesPropertiesAreCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = A.Bunch.WithSlug(Slug).Build();
-            var homegameList = new List<Bunch>{homegame};
+            var bunch = A.Bunch.WithSlug(Slug).Build();
+            var homegameList = new List<Bunch> { bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
             GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
@@ -109,8 +109,8 @@ namespace Tests.Core.UseCases
         public void Login_UserFoundAndPasswordIsCorrectAndUserBelongsToTwoBunch_UserIdentityBunchesLengthIsCorrect()
         {
             var user = SetupUserWithCorrectPassword();
-            var homegame = A.Bunch.WithSlug(Slug).Build();
-            var homegameList = new List<Bunch> { homegame, homegame };
+            var bunch = A.Bunch.WithSlug(Slug).Build();
+            var homegameList = new List<Bunch> { bunch, bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
             GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);

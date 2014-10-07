@@ -6,11 +6,11 @@ namespace Core.UseCases.BuyinForm
     {
         public static BuyinFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, BuyinFormRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var runningGame = cashgameRepository.GetRunning(homegame.Id);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var runningGame = cashgameRepository.GetRunning(bunch.Id);
             var canEnterStack = runningGame.IsInGame(request.PlayerId);
 
-            return new BuyinFormResult(homegame.DefaultBuyin, canEnterStack);
+            return new BuyinFormResult(bunch.DefaultBuyin, canEnterStack);
         }
     }
 }

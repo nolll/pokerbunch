@@ -171,11 +171,11 @@ namespace Tests.Core.UseCases
 
         private void SetupSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)
         {
-            var homegame = A.Bunch.WithSlug("a").Build();
+            var bunch = A.Bunch.WithSlug("a").Build();
             var suite = BuildSuite(totalResult1, totalResult2);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(homegame);
-            GetMock<ICashgameService>().Setup(o => o.GetSuite(homegame, It.IsAny<int?>())).Returns(suite);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
+            GetMock<ICashgameService>().Setup(o => o.GetSuite(bunch, It.IsAny<int?>())).Returns(suite);
         }
 
         private CashgameSuite BuildSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)

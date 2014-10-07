@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var homegame = A.Bunch.Build();
+            var bunch = A.Bunch.Build();
             var player1 = new PlayerInTest();
             var player2 = new PlayerInTest();
             var players = new List<Player>{player1, player2};
@@ -29,9 +29,9 @@ namespace Tests.Core.UseCases
             var cashgame2 = new CashgameInTest(results:cashgame2Results);
             var cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(homegame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(homegame)).Returns(players);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(homegame, year)).Returns(cashgames);
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(bunch)).Returns(players);
+            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(bunch, year)).Returns(cashgames);
 
             var request = new CashgameFactsRequest(slug, year);
             var result = Execute(request);
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void GetFactsResult_AllPropertiesAreSet()
         {
-            var homegame = A.Bunch.Build();
+            var bunch = A.Bunch.Build();
             var factBuilder = new FactBuilderInTest(
                 gameCount: 2,
                 totalGameTime: 3,
@@ -54,8 +54,8 @@ namespace Tests.Core.UseCases
                 biggestBuyinTotalResult: new CashgameTotalResultInTest(buyin: 9),
                 biggestCashoutTotalResult: new CashgameTotalResultInTest(cashout: 10),
                 mostTimeResult: new CashgameTotalResultInTest(timePlayed: 11));
-            
-            var result = GetFactsResult(homegame, factBuilder);
+
+            var result = GetFactsResult(bunch, factBuilder);
 
             Assert.AreEqual(2, result.GameCount);
             Assert.AreEqual(3, result.TotalTimePlayed.Minutes);

@@ -12,11 +12,11 @@ namespace Core.UseCases.PlayerList
             IAuth auth,
             PlayerListRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(homegame);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var players = playerRepository.GetList(bunch);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
 
-            return new PlayerListResult(homegame, players, isManager);
+            return new PlayerListResult(bunch, players, isManager);
         }
     }
 }

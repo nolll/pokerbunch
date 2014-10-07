@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DisplayNameIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DeleteUrlIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_InvitationUrlIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -53,7 +53,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -87,7 +87,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_UserUrlIsSet()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -98,7 +98,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -109,7 +109,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -120,7 +120,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithNormalUser_CanDeleteIsFalse()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -131,7 +131,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
             SetupManager();
 
@@ -143,7 +143,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupPlayerAndUser();
             SetupManager();
             SetupPlayedCashgames();
@@ -184,10 +184,10 @@ namespace Tests.Core.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
 
-        private void SetupHomegame()
+        private void SetupBunch()
         {
-            var homegame = A.Bunch.Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var bunch = A.Bunch.Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
         private void SetupUser(Role role = Role.Player)

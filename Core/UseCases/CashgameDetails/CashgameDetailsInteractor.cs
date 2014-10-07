@@ -16,8 +16,8 @@ namespace Core.UseCases.CashgameDetails
             IPlayerRepository playerRepository,
             CashgameDetailsRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(homegame, request.DateStr);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
 
             if (cashgame == null)
             {
@@ -26,8 +26,8 @@ namespace Core.UseCases.CashgameDetails
             
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
             var players = GetPlayers(playerRepository, cashgame);
-            
-            return new CashgameDetailsResult(homegame, cashgame, players, isManager);
+
+            return new CashgameDetailsResult(bunch, cashgame, players, isManager);
         }
 
         private static IEnumerable<Player> GetPlayers(IPlayerRepository playerRepository, Cashgame cashgame)

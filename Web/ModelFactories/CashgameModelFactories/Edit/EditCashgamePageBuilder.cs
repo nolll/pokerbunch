@@ -24,9 +24,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
 
         public EditCashgamePageModel Build(string slug, string dateStr, CashgameEditPostModel postModel)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
-            var locations = _cashgameRepository.GetLocations(homegame);
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch, dateStr);
+            var locations = _cashgameRepository.GetLocations(bunch);
 
             var contextResult = UseCaseContainer.Instance.BunchContext(new BunchContextRequest(slug));
 

@@ -32,19 +32,17 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         public ChartModel Build(string slug, string dateStr)
         {
-            var homegame = _bunchRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetByDateString(homegame, dateStr);
+            var bunch = _bunchRepository.GetBySlug(slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch, dateStr);
             if (cashgame == null)
-            {
                 throw new HttpException(404, "Cashgame not found");
-            }
             
             var players = _cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
 
             return new ChartModel
                 {
                     Columns = GetActionColumns(players),
-                    Rows = GetActionRows(homegame, cashgame, players)
+                    Rows = GetActionRows(bunch, cashgame, players)
                 };
         }
 

@@ -17,9 +17,9 @@ namespace Tests.Core.UseCases
 
         [TestCase(1)]
         [TestCase(2)]
-        public void BuyinForm_BuyinAmountIsSetFromHomegameDefaultAmount(int defaultBuyin)
+        public void BuyinForm_BuyinAmountIsSetFromBunchDefaultAmount(int defaultBuyin)
         {
-            SetupHomegame(defaultBuyin);
+            SetupBunch(defaultBuyin);
             SetupGameAndPlayer(PlayerIdInGame);
 
             var result = Execute(CreateRequest());
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BuyinForm_PlayerIsNotInGame_CanEnterStackIsFalse()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupGameAndPlayer(PlayerIdOther);
 
             var result = Execute(CreateRequest());
@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BuyinForm_PlayerIsInGame_CanEnterStackIsTrue()
         {
-            SetupHomegame();
+            SetupBunch();
             SetupGameAndPlayer(PlayerIdInGame);
 
             var result = Execute(CreateRequest());
@@ -54,10 +54,10 @@ namespace Tests.Core.UseCases
             return new BuyinFormRequest(Slug, PlayerIdInGame);
         }
 
-        private void SetupHomegame(int defaultBuyin = 0)
+        private void SetupBunch(int defaultBuyin = 0)
         {
-            var homegame = A.Bunch.WithId(BunchId).WithDefaultBuyin(defaultBuyin).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(homegame);
+            var bunch = A.Bunch.WithId(BunchId).WithDefaultBuyin(defaultBuyin).Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
         private void SetupGameAndPlayer(int playerId)

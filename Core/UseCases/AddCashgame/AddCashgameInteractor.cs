@@ -20,9 +20,9 @@ namespace Core.UseCases.AddCashgame
 
         private static void AddGame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, AddCashgameRequest request)
         {
-            var homegame = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = CashgameFactory.Create(request.Location, homegame.Id, (int)GameStatus.Running);
-            cashgameRepository.AddGame(homegame, cashgame);
+            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var cashgame = CashgameFactory.Create(request.Location, bunch.Id, (int)GameStatus.Running);
+            cashgameRepository.AddGame(bunch, cashgame);
         }
     }
 }

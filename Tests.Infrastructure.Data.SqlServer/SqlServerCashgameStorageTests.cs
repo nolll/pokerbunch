@@ -16,13 +16,13 @@ namespace Tests.Infrastructure.Data.SqlServer
             var date = DateTime.MinValue;
             const string location = "a";
             const int status = 2;
-            var homegame = A.Bunch.WithId(homegameId).Build();
+            var bunch = A.Bunch.WithId(homegameId).Build();
             var cashgame = new RawCashgame{Date = date, Location = location, Status = status};
 
             const string expectedSql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (1, 'a', 2, '0001-01-01 00:00:00') SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             
             var sut = GetSut();
-            sut.AddGame(homegame, cashgame);
+            sut.AddGame(bunch, cashgame);
 
             Assert.AreEqual(expectedSql, StorageProvider.Sql);
         }
