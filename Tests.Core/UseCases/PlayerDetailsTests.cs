@@ -171,7 +171,7 @@ namespace Tests.Core.UseCases
 
         private Player CreatePlayer(int userId = 0)
         {
-            return new PlayerInTest(displayName: DisplayName, userId: userId);
+            return A.Player.WithDisplayName(DisplayName).WithUserId(userId).Build();
         }
 
         private void SetupManager()

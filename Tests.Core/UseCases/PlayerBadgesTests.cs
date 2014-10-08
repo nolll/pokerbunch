@@ -103,7 +103,8 @@ namespace Tests.Core.UseCases
 
         private Cashgame CreateGame()
         {
-            var results = new List<CashgameResult> {new CashgameResultInTest(PlayerId)};
+            var result = A.CashgameResult.WithPlayerId(PlayerId).Build();
+            var results = new List<CashgameResult> {result};
             return new CashgameInTest(results: results);
         }
 

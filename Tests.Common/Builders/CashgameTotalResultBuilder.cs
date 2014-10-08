@@ -15,7 +15,7 @@ namespace Tests.Common.Builders
 
         public CashgameTotalResultBuilder()
         {
-            _player = new PlayerInTest();
+            _player = new PlayerBuilder().Build();
         }
 
         public CashgameTotalResult Build()

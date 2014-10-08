@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.UseCases.CashgameFacts;
+using Tests.Common.Builders;
 
 namespace Tests.Common.FakeClasses
 {
@@ -18,13 +19,13 @@ namespace Tests.Common.FakeClasses
             int totalTurnover = 0) : 
                 base(
                 gameCount,
-                bestResult ?? new CashgameResultInTest(),
-                worstResult ?? new CashgameResultInTest(),
-                bestTotalResult ?? new CashgameTotalResultInTest(),
-                worstTotalResult ?? new CashgameTotalResultInTest(),
-                mostTimeResult ?? new CashgameTotalResultInTest(),
-                biggestBuyinTotalResult ?? new CashgameTotalResultInTest(),
-                biggestCashoutTotalResult ?? new CashgameTotalResultInTest(),
+                bestResult ?? new CashgameResultBuilder().Build(),
+                worstResult ?? new CashgameResultBuilder().Build(),
+                bestTotalResult ?? new CashgameTotalResultBuilder().Build(),
+                worstTotalResult ?? new CashgameTotalResultBuilder().Build(),
+                mostTimeResult ?? new CashgameTotalResultBuilder().Build(),
+                biggestBuyinTotalResult ?? new CashgameTotalResultBuilder().Build(),
+                biggestCashoutTotalResult ?? new CashgameTotalResultBuilder().Build(),
                 totalGameTime,
                 totalTurnover)
         {

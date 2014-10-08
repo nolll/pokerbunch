@@ -92,7 +92,7 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
         private void SetupPlayer()
         {
-            var player = new PlayerInTest(displayName: PlayerName);
+            var player = A.Player.WithDisplayName(PlayerName).Build();
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
     }

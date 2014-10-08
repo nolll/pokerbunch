@@ -1,8 +1,6 @@
 ﻿using System;
-using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Factories;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
 {
@@ -56,18 +54,6 @@ namespace Tests.Common.Builders
         {
             _id = id;
             return this;
-        }
-    }
-
-    public class CashgameResultBuilder
-    {
-        public CashgameResultBuilder()
-        {
-        }
-
-        public CashgameResult Build()
-        {
-            return new CashgameResultInTest();
         }
     }
 }

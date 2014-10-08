@@ -87,7 +87,7 @@ namespace Tests.Core.UseCases
 
             GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
 
-            var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
+            var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
             GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
 
             UserIdentity result = null;
@@ -115,7 +115,7 @@ namespace Tests.Core.UseCases
 
             GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
 
-            var player = new PlayerInTest(PlayerId, displayName: PlayerDisplayName);
+            var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
             GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
 
             UserIdentity result = null;

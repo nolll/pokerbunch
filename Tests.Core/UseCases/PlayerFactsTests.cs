@@ -42,35 +42,35 @@ namespace Tests.Core.UseCases
             var results1 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: -1, playedTime: 2),
-                        new CashgameResultInTest(SecondPlayerId)
+                        A.CashgameResult.WithPlayerId(SecondPlayerId).Build()
                     };
             var cashgame1 = new CashgameInTest(results: results1);
 
             var results2 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: -2, playedTime: 2),
-                        new CashgameResultInTest(SecondPlayerId),
+                        A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
             var cashgame2 = new CashgameInTest(results: results2);
 
             var results3 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: 3, playedTime: 2),
-                        new CashgameResultInTest(SecondPlayerId),
+                        A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
             var cashgame3 = new CashgameInTest(results: results3);
 
             var results4 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: 4, playedTime: 2),
-                        new CashgameResultInTest(SecondPlayerId),
+                        A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
             var cashgame4 = new CashgameInTest(results: results4);
 
             var results5 = new List<CashgameResult>
                     {
-                        new CashgameResultInTest(SecondPlayerId),
-                        new CashgameResultInTest(ThirdPlayerId)
+                        A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
+                        A.CashgameResult.WithPlayerId(ThirdPlayerId).Build()
                     };
             var cashgame5 = new CashgameInTest(results: results5);
 

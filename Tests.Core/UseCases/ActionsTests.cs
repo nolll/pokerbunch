@@ -80,9 +80,9 @@ namespace Tests.Core.UseCases
             var checkpoint1 = A.Checkpoint.WithStack(1).WithTimestamp(_checkpointTime).Build();
             var checkpoint2 = A.Checkpoint.Build();
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2 };
-            var cashgameResult = new CashgameResultInTest(checkpoints: checkpoints);
+            var cashgameResult = A.CashgameResult.WithCheckpoints(checkpoints).Build();
             var cashgame = new CashgameInTest(startTime: _date, results: new List<CashgameResult> { cashgameResult });
-            var player = new PlayerInTest(displayName: PlayerName);
+            var player = A.Player.WithDisplayName(PlayerName).Build();
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(bunch, DateStr)).Returns(cashgame);
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);

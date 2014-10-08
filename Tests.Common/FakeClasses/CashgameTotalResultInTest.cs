@@ -1,4 +1,5 @@
 using Core.Entities;
+using Tests.Common.Builders;
 
 namespace Tests.Common.FakeClasses
 {
@@ -17,7 +18,7 @@ namespace Tests.Common.FakeClasses
                 gameCount, 
                 timePlayed, 
                 winRate, 
-                player ?? new PlayerInTest(),
+                player ?? new PlayerBuilder().Build(),
                 buyin,
                 cashout)
         {

@@ -42,11 +42,13 @@
   <ItemGroup>
     <Compile Include="BuilderContainer.cs" />
     <Compile Include="Builders\CashgameBuilder.cs" />
+    <Compile Include="Builders\CashgameResultBuilder.cs" />
     <Compile Include="Builders\CashgameTotalResultBuilder.cs" />
     <Compile Include="Builders\BunchBuilder.cs" />
     <Compile Include="Builders\BunchListBuilder.cs" />
     <Compile Include="Builders\CheckpointBuilder.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
+    <Compile Include="Builders\PlayerBuilder.cs" />
     <Compile Include="Builders\RawUserBuilder.cs" />
     <Compile Include="Builders\TestService.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
@@ -63,7 +65,6 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="FakeClasses\CashgameInTest.cs" />
     <Compile Include="FakeClasses\CashgameResultInTest.cs" />
-    <Compile Include="FakeClasses\PlayerInTest.cs" />
     <Compile Include="FakeCommands\FailedCommandInTest.cs" />
     <Compile Include="FakeCommands\SuccessfulCommandInTest.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />

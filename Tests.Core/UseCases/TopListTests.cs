@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_ItemHasCorrectValues()
         {
-            var player = new PlayerInTest(1, displayName: "a");
+            var player = A.Player.WithId(1).WithDisplayName("a").Build();
             var totalResult1 = new CashgameTotalResultBuilder()
                 .WithPlayer(player)
                 .WithBuyin(2)

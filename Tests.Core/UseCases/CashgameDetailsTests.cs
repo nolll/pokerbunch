@@ -115,8 +115,8 @@ namespace Tests.Core.UseCases
             var cashgameResults = new List<CashgameResult> { cashgameResult1, cashgameResult2 };
             var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime, results: cashgameResults);
             SetupCashgame(cashgame);
-            var player1 = new PlayerInTest(playerId1, displayName: "b");
-            var player2 = new PlayerInTest(playerId2, displayName: "c");
+            var player1 = A.Player.WithId(playerId1).WithDisplayName("b").Build();
+            var player2 = A.Player.WithId(playerId2).WithDisplayName("c").Build();
             var players = new List<Player> { player1, player2 };
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
         }

@@ -49,10 +49,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
+            var player = A.Player.Build();
+
+            GetMock<IPlayerRepository>().Setup(o => o.GetByName(It.IsAny<Bunch>(), Name)).Returns(player);
+            
             var request = new AddPlayerRequest(Slug, Name);
-
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(It.IsAny<Bunch>(), Name)).Returns(new PlayerInTest());
-
             Assert.Throws<PlayerExistsException>(() => Execute(request));
         }
 
