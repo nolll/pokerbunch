@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
 
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(new CashgameInTest());
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(A.Cashgame.Build());
 
             Assert.Throws<CashgameRunningException>(() => Execute(new AddCashgameFormRequest(slug)));
         }

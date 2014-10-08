@@ -1,3 +1,4 @@
+using Core.Entities;
 using Core.Repositories;
 using Web.ModelMappers;
 using Web.Models.CashgameModels.Edit;
@@ -36,7 +37,7 @@ namespace Web.Commands.CashgameCommands
             }
             var bunch = _bunchRepository.GetBySlug(_slug);
             var cashgame = _cashgameRepository.GetByDateString(bunch, _dateStr);
-            cashgame = CashgameModelMapper.Map(cashgame, _model);
+            cashgame = new Cashgame(cashgame.BunchId, _model.Location, cashgame.Status, cashgame.Id, cashgame.Results);
             _cashgameRepository.UpdateGame(cashgame);
             return true;
         }

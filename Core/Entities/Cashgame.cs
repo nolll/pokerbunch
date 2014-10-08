@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Services;
 
 namespace Core.Entities
 {
@@ -57,14 +58,76 @@ namespace Core.Entities
             DateString = dateString;
         }
 
+        public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IList<CashgameResult> results = null)
+        {
+            Results = results ?? new List<CashgameResult>();
+            Id = id ?? 0;
+            BunchId = bunchId;
+            Location = location;
+            Status = status;
+            StartTime = GetStartTime(Results);
+            IsStarted = StartTime.HasValue;
+            EndTime = GetEndTime(Results);
+            PlayerCount = Results.Count;
+            Turnover = GetBuyinSum(Results); 
+            Diff = Turnover - GetCashoutSum(Results); ;
+            HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
+            TotalStacks = Results.Sum(result => result.Stack);
+            AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
+            var startTime = GetStartTime(Results);
+            var dateString = startTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
+            DateString = dateString;
+        }
+
+        private static DateTime? GetStartTime(IEnumerable<CashgameResult> results)
+        {
+            DateTime? startTime = null;
+            foreach (var result in results)
+            {
+                if (!startTime.HasValue || result.BuyinTime < startTime)
+                {
+                    startTime = result.BuyinTime;
+                }
+            }
+            return startTime;
+        }
+
+        private static DateTime? GetEndTime(IEnumerable<CashgameResult> results)
+        {
+            DateTime? endTime = null;
+            foreach (var result in results)
+            {
+                if (!endTime.HasValue || result.CashoutTime > endTime)
+                {
+                    endTime = result.CashoutTime;
+                }
+            }
+            return endTime;
+        }
+
+        private static int GetBuyinSum(IEnumerable<CashgameResult> results)
+        {
+            return results.Sum(result => result.Buyin);
+        }
+
+        private static int GetCashoutSum(IEnumerable<CashgameResult> results)
+        {
+            return results.Sum(result => result.Stack);
+        }
+
+        private static int GetAverageBuyin(int turnover, int playerCount)
+        {
+            if (playerCount == 0)
+                return 0;
+            return (int)Math.Round(turnover / (double)playerCount);
+        }
+        
         public int Duration
         {
             get
             {
                 if (!StartTime.HasValue || !EndTime.HasValue)
-                {
                     return 0;
-                }
                 var timespan = EndTime - StartTime;
                 return (int) Math.Round(timespan.Value.TotalMinutes);
             }

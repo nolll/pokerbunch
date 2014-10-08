@@ -16,7 +16,7 @@ namespace Tests.Common.Builders
         private int _turnover;
         private int _averageBuyin;
         private int _playerCount;
-        private IList<Checkpoint> _checkpoints; 
+        private IList<CashgameResult> _results; 
 
         public CashgameBuilder()
         {
@@ -28,7 +28,7 @@ namespace Tests.Common.Builders
             _turnover = 2;
             _averageBuyin = 3;
             _playerCount = 4;
-            _checkpoints = new List<Checkpoint>();
+            _results = new List<CashgameResult>();
         }
 
         public Cashgame Build()
@@ -41,7 +41,8 @@ namespace Tests.Common.Builders
                 endTime: _endTime,
                 turnover: _turnover,
                 averageBuyin: _averageBuyin,
-                playerCount: _playerCount);
+                playerCount: _playerCount,
+                results: _results);
         }
 
         public CashgameBuilder WithId(int id)
@@ -92,15 +93,9 @@ namespace Tests.Common.Builders
             return this;
         }
 
-        public CashgameBuilder WithCheckpoints(IList<Checkpoint> checkpoints)
+        public CashgameBuilder WithResults(List<CashgameResult> results)
         {
-            _checkpoints = checkpoints;
-            return this;
-        }
-
-        public CashgameBuilder AddCheckpoint(Checkpoint checkpoint)
-        {
-            _checkpoints.Add(checkpoint);
+            _results = results;
             return this;
         }
     }

@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         {
             var result = A.CashgameResult.WithPlayerId(playerId).Build();
             var results = new List<CashgameResult>{result};
-            var game = new CashgameInTest(results: results);
+            var game = A.Cashgame.WithResults(results).Build();
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(BunchId)).Returns(game);
         }
 

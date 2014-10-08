@@ -61,7 +61,6 @@
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="Factories\CashgameFactory.cs" />
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="IMessage.cs" />
