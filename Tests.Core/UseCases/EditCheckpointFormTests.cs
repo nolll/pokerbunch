@@ -83,7 +83,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_WithBuyinCheckpoint_CanEditAmountIsTrue()
         {
-            var checkpoint = A.Checkpoint.WithType(CheckpointType.Buyin).Build();
+            var checkpoint = A.Checkpoint.OfType(CheckpointType.Buyin).Build();
             SetupCheckpoint(checkpoint);
 
             var result = Execute(CreateRequest());
@@ -95,7 +95,7 @@ namespace Tests.Core.UseCases
         [TestCase(CheckpointType.Cashout)]
         public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(CheckpointType type)
         {
-            var checkpoint = A.Checkpoint.WithType(type).Build();
+            var checkpoint = A.Checkpoint.OfType(type).Build();
             SetupCheckpoint(checkpoint);
 
             var result = Execute(CreateRequest());

@@ -1,34 +1,35 @@
 ﻿using System;
 using Core.Entities.Checkpoints;
+using Core.Factories;
 using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
 {
     public class CheckpointBuilder
     {
-        private int _id;
-        private int _stack;
         private int _amount;
+        private int _stack;
         private DateTime _timestamp;
         private CheckpointType _type;
+        private int _id;
 
         public CheckpointBuilder()
         {
-            _id = 1;
-            _stack = 2;
-            _amount = 3;
+            _amount = 0;
+            _stack = 0;
             _timestamp = DateTime.MinValue;
             _type = CheckpointType.Report;
+            _id = 0;
         }
 
         public Checkpoint Build()
         {
-            return new CheckpointInTest(id: _id, stack: _stack, amount: _amount, timestamp: _timestamp, type: _type);
+            return CheckpointFactory.Create(_timestamp, _type, _stack, _amount, _id);
         }
 
-        public CheckpointBuilder WithId(int id)
+        public CheckpointBuilder WithAmount(int amount)
         {
-            _id = id;
+            _amount = amount;
             return this;
         }
 
@@ -38,21 +39,21 @@ namespace Tests.Common.Builders
             return this;
         }
 
-        public CheckpointBuilder WithAmount(int amount)
+        public CheckpointBuilder WithTimestamp(DateTime dateTime)
         {
-            _amount = amount;
+            _timestamp = dateTime;
             return this;
         }
 
-        public CheckpointBuilder WithTimestamp(DateTime timestamp)
-        {
-            _timestamp = timestamp;
-            return this;
-        }
-
-        public CheckpointBuilder WithType(CheckpointType type)
+        public CheckpointBuilder OfType(CheckpointType type)
         {
             _type = type;
+            return this;
+        }
+
+        public CheckpointBuilder WithId(int id)
+        {
+            _id = id;
             return this;
         }
     }

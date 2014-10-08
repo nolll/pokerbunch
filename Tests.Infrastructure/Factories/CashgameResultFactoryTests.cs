@@ -6,7 +6,6 @@ using Core.Factories;
 using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Factories{
 
@@ -16,8 +15,8 @@ namespace Tests.Infrastructure.Factories{
 
         [Test]
 		public void GetWinnings_ReturnsDifferenceBetweenLastCheckpointStackAndBuyin(){
-			var buyinCheckPoint = new CheckpointInTest(new DateTime(), stack: 100, amount: 100, type: CheckpointType.Buyin);
-			var reportCheckpoint = new CheckpointInTest(new DateTime(), stack: 200);
+			var buyinCheckPoint = A.Checkpoint.WithTimestamp(new DateTime()).WithStack(100).WithAmount(100).OfType(CheckpointType.Buyin).Build();
+            var reportCheckpoint = A.Checkpoint.WithTimestamp(new DateTime()).WithStack(200).Build();
 
 			_checkpoints = new List<Checkpoint> {buyinCheckPoint, reportCheckpoint};
 
@@ -37,7 +36,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetCheckpoints_OneCheckpoint_ReturnsThatCheckpoint(){
-			var checkpoint = new CheckpointInTest(new DateTime(), stack: 200);
+            var checkpoint = A.Checkpoint.WithTimestamp(new DateTime()).WithStack(200).Build();
 			_checkpoints = new List<Checkpoint> {checkpoint};
 
 			var result = GetResult();
@@ -47,7 +46,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetBuyinTime_WithoutBuyinCheckpoint_ReturnsNull(){
-			var otherCheckpoint = new CheckpointInTest();
+            var otherCheckpoint = A.Checkpoint.Build();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, otherCheckpoint};
 
 		    var result = GetResult();
@@ -58,8 +57,8 @@ namespace Tests.Infrastructure.Factories{
 		[Test]
 		public void GetBuyinTime_WithBuyinCheckpoint_ReturnsBuyinTime(){
 			var buyinTime = DateTime.Parse("2010-01-01 19:00:00");
-            var buyinCheckpoint = new CheckpointInTest(buyinTime, stack: 0, amount: 200, type: CheckpointType.Buyin);
-			var otherCheckpoint = new CheckpointInTest();
+            var buyinCheckpoint = A.Checkpoint.WithTimestamp(buyinTime).WithAmount(200).OfType(CheckpointType.Buyin).Build();
+            var otherCheckpoint = A.Checkpoint.Build();
 		    _checkpoints = new List<Checkpoint> {otherCheckpoint, buyinCheckpoint, otherCheckpoint};
 
 		    var result = GetResult();
@@ -69,7 +68,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetCashoutTime_WithoutCashoutCheckpoint_ReturnsNull(){
-			var otherCheckpoint = new CheckpointInTest();
+            var otherCheckpoint = A.Checkpoint.Build();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, otherCheckpoint};
 
 			var result = GetResult();
@@ -80,8 +79,8 @@ namespace Tests.Infrastructure.Factories{
 		[Test]
 		public void GetCashoutTime_WithCashoutCheckpoint_ReturnsCashoutTime(){
 			var cashoutTime = DateTime.Parse("2010-01-01 23:00:00");
-            var cashoutCheckpoint = new CheckpointInTest(cashoutTime, stack: 200, type: CheckpointType.Cashout);
-			var otherCheckpoint = new CheckpointInTest();
+		    var cashoutCheckpoint = A.Checkpoint.WithTimestamp(cashoutTime).WithStack(200).OfType(CheckpointType.Cashout).Build();
+            var otherCheckpoint = A.Checkpoint.Build();
 			_checkpoints = new List<Checkpoint> {otherCheckpoint, cashoutCheckpoint, otherCheckpoint};
 
 			var result = GetResult();
@@ -100,7 +99,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetPlayedTime_MissingStartTime_ReturnsZero(){
-            _checkpoints = new List<Checkpoint> { new CheckpointInTest(DateTime.Parse("2010-01-01 02:00:00")) };
+            _checkpoints = new List<Checkpoint> { A.Checkpoint.WithTimestamp(DateTime.Parse("2010-01-01 01:00:00")).Build() };
 
 			var result = GetResult();
 
@@ -109,7 +108,7 @@ namespace Tests.Infrastructure.Factories{
 
 		[Test]
 		public void GetPlayedTime_MissingEndTime_ReturnsZero(){
-            _checkpoints = new List<Checkpoint> { new CheckpointInTest(DateTime.Parse("2010-01-01 01:00:00")) };
+            _checkpoints = new List<Checkpoint> { A.Checkpoint.WithTimestamp(DateTime.Parse("2010-01-01 02:00:00")).Build() };
 
 			var result = GetResult();
 
@@ -120,8 +119,8 @@ namespace Tests.Infrastructure.Factories{
 		public void GetPlayedTime_ReturnsDifferenceBetweenStartDateAndEndDate(){
 			_checkpoints = new List<Checkpoint>
 			    {
-			        new CheckpointInTest(DateTime.Parse("2010-01-01 01:00:00"), CheckpointType.Buyin),
-                    new CheckpointInTest(DateTime.Parse("2010-01-01 02:00:00"), CheckpointType.Cashout)
+                    A.Checkpoint.WithTimestamp(DateTime.Parse("2010-01-01 01:00:00")).OfType(CheckpointType.Buyin).Build(),
+                    A.Checkpoint.WithTimestamp(DateTime.Parse("2010-01-01 02:00:00")).OfType(CheckpointType.Cashout).Build(),
 			    };
 
             var result = GetResult();

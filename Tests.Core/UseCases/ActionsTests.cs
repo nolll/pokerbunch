@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         private const string DateStr = "2001-01-01";
         private const int PlayerId = 1;
         private const string PlayerName = "b";
-        private const string CheckPointType = "c";
+        private const string CheckPointType = "Report";
         private DateTime _date;
         private DateTime _checkpointTime;
 
@@ -77,8 +77,8 @@ namespace Tests.Core.UseCases
         private void SetupGame()
         {
             var bunch = A.Bunch.Build();
-            var checkpoint1 = new CheckpointInTest(description: CheckPointType, stack: 1, timestamp: _checkpointTime);
-            var checkpoint2 = new CheckpointInTest();
+            var checkpoint1 = A.Checkpoint.WithStack(1).WithTimestamp(_checkpointTime).Build();
+            var checkpoint2 = A.Checkpoint.Build();
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2 };
             var cashgameResult = new CashgameResultInTest(checkpoints: checkpoints);
             var cashgame = new CashgameInTest(startTime: _date, results: new List<CashgameResult> { cashgameResult });
