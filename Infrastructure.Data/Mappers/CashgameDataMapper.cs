@@ -3,21 +3,12 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Factories;
-using Core.Factories.Interfaces;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
     public class CashgameDataMapper : ICashgameDataMapper
     {
-        private readonly ICashgameResultFactory _cashgameResultFactory;
-
-        public CashgameDataMapper(
-            ICashgameResultFactory cashgameResultFactory)
-        {
-            _cashgameResultFactory = cashgameResultFactory;
-        }
-
         public Cashgame Map(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
         {
             var playerCheckpointMap = new Dictionary<int, IList<RawCheckpoint>>();
@@ -41,7 +32,7 @@ namespace Infrastructure.Data.Mappers
                 {
                     realCheckpoints.Add(CheckpointDataMapper.Map(playerCheckpoint));
                 }
-                var playerResults = _cashgameResultFactory.Create(playerKey, realCheckpoints);
+                var playerResults = new CashgameResult(playerKey, realCheckpoints);
                 results.Add(playerResults);
             }
 

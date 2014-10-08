@@ -1,7 +1,5 @@
 ﻿using Castle.Core;
 using Castle.Windsor;
-using Core.Factories;
-using Core.Factories.Interfaces;
 using Core.Repositories;
 using Core.Services;
 using Core.Services.Interfaces;
@@ -52,9 +50,6 @@ namespace Plumbing
             RegisterComponent<IPlayerRepository, PlayerRepository>();
             RegisterComponent<IUserRepository, UserRepository>();
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
-
-            // Core Factories
-            RegisterComponent<ICashgameResultFactory, CashgameResultFactory>();
 
             // Data Mappers
             RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();

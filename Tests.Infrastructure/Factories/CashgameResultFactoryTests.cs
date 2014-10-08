@@ -81,7 +81,7 @@ namespace Tests.Infrastructure.Factories{
 			var cashoutTime = DateTime.Parse("2010-01-01 23:00:00");
 		    var cashoutCheckpoint = A.Checkpoint.WithTimestamp(cashoutTime).WithStack(200).OfType(CheckpointType.Cashout).Build();
             var otherCheckpoint = A.Checkpoint.Build();
-			_checkpoints = new List<Checkpoint> {otherCheckpoint, cashoutCheckpoint, otherCheckpoint};
+			_checkpoints = new List<Checkpoint> {otherCheckpoint, otherCheckpoint, cashoutCheckpoint};
 
 			var result = GetResult();
 
@@ -139,8 +139,7 @@ namespace Tests.Infrastructure.Factories{
 
 		private CashgameResult GetResult(){
 			const int playerId = 1;
-			var factory = new CashgameResultFactory(GetMock<ITimeProvider>().Object);
-			return factory.Create(playerId, _checkpoints);
+			return new CashgameResult(playerId, _checkpoints);
 		}
 
 	}
