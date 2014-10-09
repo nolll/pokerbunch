@@ -13,7 +13,7 @@ namespace Web.Controllers
             var contextResult = UseCase.BunchContext(new BunchContextRequest());
             var homeResult = UseCase.Home();
             var model = new HomePageModel(contextResult, homeResult);
-            return View(model);
+            return View("Home/Index", model);
         }
     }
 }

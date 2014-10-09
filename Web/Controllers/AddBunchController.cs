@@ -19,7 +19,7 @@ namespace Web.Controllers
         [Route("-/homegame/add")]
         public ActionResult Add()
         {
-            return GetForm();
+            return ShowForm();
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace Web.Controllers
                 return Redirect(new AddBunchConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            return GetForm(postModel);
+            return ShowForm(postModel);
         }
 
         [Route("-/homegame/created")]
@@ -44,7 +44,7 @@ namespace Web.Controllers
             return View("AddBunch/AddHomegameConfirmation", model);
         }
 
-        private ActionResult GetForm(AddBunchPostModel postModel = null)
+        private ActionResult ShowForm(AddBunchPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
             var bunchFormResult = UseCase.AddBunchForm();

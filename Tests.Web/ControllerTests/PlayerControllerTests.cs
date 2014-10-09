@@ -11,8 +11,7 @@ namespace Tests.Web.ControllerTests
         [Test]
         public void Details_RequiresPlayer()
         {
-            var sut = GetSut();
-            Func<string, int, ActionResult> methodToTest = sut.Details;
+            Func<string, int, ActionResult> methodToTest = new PlayerDetailsController().Details;
             var result = SecurityTestHelper.RequiresPlayer(methodToTest);
 
             Assert.IsTrue(result);
@@ -21,16 +20,10 @@ namespace Tests.Web.ControllerTests
         [Test]
 		public void Delete_RequiresManager()
         {
-			var sut = GetSut();
-            Func<string, int, ActionResult> methodToTest = sut.Delete;
+            Func<string, int, ActionResult> methodToTest = new DeletePlayerController().Delete;
             var result = SecurityTestHelper.RequiresManager(methodToTest);
             
             Assert.IsTrue(result);
         }
-        
-        private PlayerController GetSut()
-        {
-			return new PlayerController();
-		}
 	}
 }

@@ -21,7 +21,7 @@ namespace Web.Controllers
         [Route("-/user/edit/{userName}")]
         public ActionResult EditUser(string userName)
         {
-            return GetForm(userName);
+            return ShowForm(userName);
         }
 
         [HttpPost]
@@ -35,10 +35,10 @@ namespace Web.Controllers
                 return Redirect(new UserDetailsUrl(userName).Relative);
             }
             AddModelErrors(command.Errors);
-            return GetForm(userName, postModel);
+            return ShowForm(userName, postModel);
         }
 
-        private ActionResult GetForm(string userName, EditUserPostModel postModel = null)
+        private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
             var editUserFormResult = UseCase.EditUserForm(new EditUserFormRequest(userName));

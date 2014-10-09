@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route("-/user/add")]
         public ActionResult AddUser()
         {
-            return GetForm();
+            return ShowForm();
         }
 
         [HttpPost]
@@ -37,10 +37,10 @@ namespace Web.Controllers
                 AddModelError(ex.Message);
             }
             
-            return GetForm(postModel);
+            return ShowForm(postModel);
         }
 
-        private ActionResult GetForm(AddUserPostModel postModel = null)
+        private ActionResult ShowForm(AddUserPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
             var model = new AddUserPageModel(contextResult, postModel);

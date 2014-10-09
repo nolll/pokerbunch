@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route("-/user/forgotpassword")]
         public ActionResult ForgotPassword()
         {
-            return GetForm();
+            return ShowForm();
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace Web.Controllers
                 AddModelError(ex.Message);
             }
 
-            return GetForm(postModel);
+            return ShowForm(postModel);
         }
 
         [Route("-/user/passwordsent")]
@@ -44,7 +44,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/ForgotPassword/ForgotPasswordDone.cshtml", model);
         }
 
-        private ActionResult GetForm(ForgotPasswordPostModel postModel = null)
+        private ActionResult ShowForm(ForgotPasswordPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
             var model = new ForgotPasswordPageModel(contextResult, postModel);

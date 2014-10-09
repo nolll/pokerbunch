@@ -137,35 +137,35 @@ namespace Tests.Web.Routing
         [Test]
         public void PlayerIndex()
         {
-            _routes.ShouldMap("/a/player/index").To<PlayerController>(x => x.Index("a"));
+            _routes.ShouldMap("/a/player/index").To<PlayerIndexController>(x => x.Index("a"));
         }
 
         [Test]
         public void AddPlayerRoute()
         {
-            _routes.ShouldMap("/a/player/add").To<PlayerController>(x => x.Add("a"));
-            _routes.ShouldMap("/a/player/add").To<PlayerController>(HttpMethod.Post, x => x.Add_Post("a", new AddPlayerPostModel()));
-            _routes.ShouldMap("/a/player/created").To<PlayerController>(x => x.Created("a"));
+            _routes.ShouldMap("/a/player/add").To<AddPlayerController>(x => x.Add("a"));
+            _routes.ShouldMap("/a/player/add").To<AddPlayerController>(HttpMethod.Post, x => x.Add_Post("a", new AddPlayerPostModel()));
+            _routes.ShouldMap("/a/player/created").To<AddPlayerController>(x => x.Created("a"));
         }
 
         [Test]
         public void PlayerDetails()
         {
-            _routes.ShouldMap("/a/player/details/1").To<PlayerController>(x => x.Details("a", 1));
+            _routes.ShouldMap("/a/player/details/1").To<PlayerDetailsController>(x => x.Details("a", 1));
         }
 
         [Test]
         public void DeletePlayer()
         {
-            _routes.ShouldMap("/a/player/delete/1").To<PlayerController>(x => x.Delete("a", 1));
+            _routes.ShouldMap("/a/player/delete/1").To<DeletePlayerController>(x => x.Delete("a", 1));
         }
 
         [Test]
         public void InvitePlayer()
         {
-            _routes.ShouldMap("/a/player/invite/1").To<PlayerController>(x => x.Invite("a", 1));
-            _routes.ShouldMap("/a/player/invite/1").To<PlayerController>(HttpMethod.Post, x => x.Invite_Post("a", 1, new InvitePlayerPostModel()));
-            _routes.ShouldMap("/a/player/invited/1").To<PlayerController>(x => x.Invited("a", 1));
+            _routes.ShouldMap("/a/player/invite/1").To<InvitePlayerController>(x => x.Invite("a", 1));
+            _routes.ShouldMap("/a/player/invite/1").To<InvitePlayerController>(HttpMethod.Post, x => x.Invite_Post("a", 1, new InvitePlayerPostModel()));
+            _routes.ShouldMap("/a/player/invited/1").To<InvitePlayerController>(x => x.Invited("a", 1));
         }
 
         [Test]

@@ -140,6 +140,7 @@
     <Compile Include="Commands\HomegameCommands\AddBunchCommand.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
+    <Compile Include="Controllers\AddPlayerController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Base\PokerBunchController.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Controllers\CashgameFactsController.cs" />
     <Compile Include="Controllers\CashgameIndexController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\DeletePlayerController.cs" />
     <Compile Include="Controllers\EditBunchController.cs" />
     <Compile Include="Controllers\EditUserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -157,6 +159,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MatrixController.cs" />
+    <Compile Include="Controllers\PlayerDetailsController.cs" />
+    <Compile Include="Controllers\PlayerIndexController.cs" />
     <Compile Include="Controllers\TopListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
@@ -398,7 +402,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Pages\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layouts\Page.cshtml" />
@@ -444,7 +448,7 @@
     <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\JoinBunchController.cs" />
-    <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\InvitePlayerController.cs" />
     <Compile Include="Models\PlayerModels\List\PlayerListPageModel.cs" />
     <Compile Include="Models\PlayerModels\List\PlayerItemModel.cs" />
     <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
@@ -516,10 +520,10 @@
     <Content Include="Views\Pages\JoinBunch\Confirmation.cshtml" />
     <Content Include="Views\Pages\JoinBunch\Join.cshtml" />
     <Content Include="Views\Misc\GoogleAnalytics.cshtml" />
-    <Content Include="Views\Player\Add.cshtml" />
-    <Content Include="Views\Player\AddConfirmation.cshtml" />
-    <Content Include="Views\Player\InviteConfirmation.cshtml" />
-    <Content Include="Views\Player\Invite.cshtml" />
+    <Content Include="Views\Pages\AddPlayer\Add.cshtml" />
+    <Content Include="Views\Pages\AddPlayer\AddConfirmation.cshtml" />
+    <Content Include="Views\Pages\InvitePlayer\InviteConfirmation.cshtml" />
+    <Content Include="Views\Pages\InvitePlayer\Invite.cshtml" />
     <Content Include="Views\Pages\AddUser\AddUser.cshtml" />
     <Content Include="Views\Pages\AddUser\AddUserDone.cshtml" />
     <Content Include="Views\Pages\ChangePassword\ChangePasswordDone.cshtml" />
@@ -558,11 +562,11 @@
     <Content Include="Views\Pages\Matrix\MatrixTable.cshtml" />
     <Content Include="Views\Navigation\HomegameNavigation.cshtml" />
     <Content Include="Views\Navigation\Navigation.cshtml" />
-    <Content Include="Views\Player\Details.cshtml" />
-    <Content Include="Views\Player\PlayerFacts.cshtml" />
-    <Content Include="Views\Player\Item.cshtml" />
-    <Content Include="Views\Player\List.cshtml" />
-    <Content Include="Views\Player\PlayerBadges.cshtml" />
+    <Content Include="Views\Pages\PlayerDetails\Details.cshtml" />
+    <Content Include="Views\Pages\PlayerDetails\PlayerFacts.cshtml" />
+    <Content Include="Views\Pages\PlayerList\Item.cshtml" />
+    <Content Include="Views\Pages\PlayerList\List.cshtml" />
+    <Content Include="Views\Pages\PlayerDetails\PlayerBadges.cshtml" />
     <Content Include="Views\Pages\EditUser\EditUser.cshtml" />
     <Content Include="Views\Pages\ForgotPassword\ForgotPasswordDone.cshtml" />
     <Content Include="Views\Pages\ForgotPassword\ForgotPassword.cshtml" />
@@ -572,7 +576,7 @@
     <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
     <Content Include="Views\Admin\Email.cshtml" />
     <Content Include="Views\Pages\EditCheckpoint\Edit.cshtml" />
-    <Content Include="Views\Player\PlayerBadge.cshtml" />
+    <Content Include="Views\Pages\PlayerDetails\PlayerBadge.cshtml" />
     <Content Include="Views\Pages\Toplist\ToplistTableColumn.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Layouts\AppPage.cshtml" />

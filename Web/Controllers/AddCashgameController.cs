@@ -15,8 +15,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/add")]
         public ActionResult AddCashgame(string slug)
         {
-            var model = GetForm(slug);
-            return View("AddCashgame/Add", model);
+            return ShowForm(slug);
         }
 
         [HttpPost]
@@ -36,15 +35,15 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            var model = GetForm(slug, postModel);
-            return View("AddCashgame/Add", model);
+            return ShowForm(slug, postModel);
         }
 
-        private AddCashgamePageModel GetForm(string slug, AddCashgamePostModel postModel = null)
+        private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var optionsResult = UseCase.AddCashgameForm(new AddCashgameFormRequest(slug));
-            return new AddCashgamePageModel(contextResult, optionsResult, postModel);
+            var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
+            return View("AddCashgame/Add", model);
         }
     }
 }

@@ -9,8 +9,8 @@
 	<h1>@Model.DisplayName</h1>
 </div>
 <div class="block gutter">
-    @Html.Partial("PlayerFacts", Model.PlayerFactsModel)
-    @Html.Partial("PlayerBadges", Model.PlayerBadgesModel)
+    @Html.Partial("PlayerDetails/PlayerFacts", Model.PlayerFactsModel)
+    @Html.Partial("PlayerDetails/PlayerBadges", Model.PlayerBadgesModel)
     
     @if (Model.DeleteEnabled)
     {

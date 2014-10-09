@@ -20,7 +20,7 @@ namespace Web.Controllers
         [Route("-/user/changepassword")]
         public ActionResult ChangePassword()
         {
-            return GetForm();
+            return ShowForm();
         }
 
         [HttpPost]
@@ -34,10 +34,10 @@ namespace Web.Controllers
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             AddModelErrors(command.Errors);
-            return GetForm();
+            return ShowForm();
         }
 
-        private ActionResult GetForm()
+        private ActionResult ShowForm()
         {
             var contextResult = UseCase.AppContext();
             var model = new ChangePasswordPageModel(contextResult);

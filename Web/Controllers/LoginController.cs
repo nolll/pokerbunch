@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route("-/auth/login")]
         public ActionResult Login(string returnUrl = null)
         {
-            return GetForm(returnUrl);
+            return ShowForm(returnUrl);
         }
 
         [HttpPost]
@@ -31,10 +31,10 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            return GetForm(postModel);
+            return ShowForm(postModel);
         }
 
-        private ActionResult GetForm(string returnUrl, LoginPostModel postModel = null)
+        private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
             var loginFormResult = UseCase.LoginForm(new LoginFormRequest(returnUrl));
@@ -42,9 +42,9 @@ namespace Web.Controllers
             return View("~/Views/Login/Login.cshtml", model);
         }
 
-        private ActionResult GetForm(LoginPostModel postModel)
+        private ActionResult ShowForm(LoginPostModel postModel)
         {
-            return GetForm(postModel.ReturnUrl, postModel);
+            return ShowForm(postModel.ReturnUrl, postModel);
         }
     }
 }
