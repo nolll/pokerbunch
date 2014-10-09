@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
             var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
             var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
 
-            var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime);
+            var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).Build();
             
             var request = new CashgameDetailsRequest("a", "2000-01-01");
 
@@ -89,7 +89,7 @@ namespace Tests.Core.UseCases
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
             const string dateStr = "2000-01-01";
-            var cashgame = new CashgameInTest(dateString: dateStr);
+            var cashgame = A.Cashgame.WithDateString(dateStr).Build();
             var request = new CashgameDetailsRequest("a", dateStr);
 
             SetupBunch();
@@ -113,7 +113,7 @@ namespace Tests.Core.UseCases
             var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: -1);
             var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: 1, buyin: 2, stack: 3, winRate: 4);
             var cashgameResults = new List<CashgameResult> { cashgameResult1, cashgameResult2 };
-            var cashgame = new CashgameInTest(dateString: dateStr, location: location, startTime: startTime, endTime: endTime, results: cashgameResults);
+            var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).WithResults(cashgameResults).Build();
             SetupCashgame(cashgame);
             var player1 = A.Player.WithId(playerId1).WithDisplayName("b").Build();
             var player2 = A.Player.WithId(playerId2).WithDisplayName("c").Build();

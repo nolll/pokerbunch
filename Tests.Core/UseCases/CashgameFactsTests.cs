@@ -22,11 +22,11 @@ namespace Tests.Core.UseCases
             var cashgame1BestResult = A.CashgameResult.Build();
             var cashgame1WorstResult = A.CashgameResult.Build();
             var cashgame1Results = new List<CashgameResult> {cashgame1BestResult, cashgame1WorstResult};
-            var cashgame1 = new CashgameInTest(results:cashgame1Results);
+            var cashgame1 = A.Cashgame.WithResults(cashgame1Results).Build();
             var cashgame2BestResult = A.CashgameResult.Build();
             var cashgame2WorstResult = A.CashgameResult.Build();
             var cashgame2Results = new List<CashgameResult> { cashgame2BestResult, cashgame2WorstResult };
-            var cashgame2 = new CashgameInTest(results:cashgame2Results);
+            var cashgame2 = A.Cashgame.WithResults(cashgame2Results).Build();
             var cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);

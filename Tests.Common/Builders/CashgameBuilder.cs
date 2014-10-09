@@ -2,47 +2,66 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Common.Builders
 {
     public class CashgameBuilder
     {
         private int _id;
+        private int _bunchId;
         private string _location;
-        private string _dateString;
-        private DateTime _startTime;
-        private DateTime _endTime;
-        private int _turnover;
-        private int _averageBuyin;
+        private GameStatus _status;
+        private bool _isStarted;
+        private DateTime? _startTime;
+        private DateTime? _endTime;
+        private IList<CashgameResult> _results;
         private int _playerCount;
-        private IList<CashgameResult> _results; 
-
+        private int _diff;
+        private int _turnover;
+        private bool _hasActivePlayers;
+        private int _totalStacks;
+        private int _averageBuyin;
+        private string _dateString;
+        private readonly IList<Checkpoint> _checkpoints;
+        private CheckpointBuilder _checkpointBuilder;
+        
         public CashgameBuilder()
         {
-            _id = 1;
-            _location = "Location";
-            _dateString = "2001-01-01";
-            _startTime = new DateTime(2001, 1, 1, 1, 1, 1);
-            _endTime = new DateTime(2001, 1, 1, 1, 2, 1);
-            _turnover = 2;
-            _averageBuyin = 3;
-            _playerCount = 4;
-            _results = new List<CashgameResult>();
+            _checkpoints = new List<Checkpoint>();
+            _checkpointBuilder = new CheckpointBuilder();
         }
 
         public Cashgame Build()
         {
-            return new CashgameInTest(
+            return new Cashgame(
                 _id, 
-                location: _location, 
-                dateString: _dateString, 
-                startTime: _startTime, 
-                endTime: _endTime,
-                turnover: _turnover,
-                averageBuyin: _averageBuyin,
-                playerCount: _playerCount,
-                results: _results);
+                _bunchId,
+                _location, 
+                _status,
+                _isStarted,
+                _startTime, 
+                _endTime,
+                _results,
+                _playerCount,
+                _diff,
+                _turnover,
+                _hasActivePlayers,
+                _totalStacks,
+                _averageBuyin,
+                _dateString);
+        }
+
+        public CashgameBuilder AddCheckpoint(Checkpoint checkpoint)
+        {
+            _checkpoints.Add(checkpoint);
+            return this;
+        }
+
+        public CashgameBuilder WithOnePlayerThatHasBoughtIn()
+        {
+            var checkpoint = new CheckpointBuilder().OfType(CheckpointType.Buyin).Build();
+            _checkpoints.Add(checkpoint);
+            return this;
         }
 
         public CashgameBuilder WithId(int id)
@@ -96,6 +115,18 @@ namespace Tests.Common.Builders
         public CashgameBuilder WithResults(List<CashgameResult> results)
         {
             _results = results;
+            return this;
+        }
+
+        public CashgameBuilder WithStatus(GameStatus status)
+        {
+            _status = status;
+            return this;
+        }
+
+        public CashgameBuilder ThatIsStarted()
+        {
+            _isStarted = true;
             return this;
         }
     }

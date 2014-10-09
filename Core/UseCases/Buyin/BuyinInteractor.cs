@@ -14,13 +14,6 @@ namespace Core.UseCases.Buyin
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            AddCheckpoint(bunchRepository, playerRepository, cashgameRepository, checkpointRepository, timeProvider, request);
-            return new BuyinResult(request.Slug);
-        }
-
-        private static void AddCheckpoint(
-            IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, ITimeProvider timeProvider, BuyinRequest request)
-        {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
             var game = cashgameRepository.GetRunning(bunch);
@@ -31,6 +24,8 @@ namespace Core.UseCases.Buyin
             {
                 cashgameRepository.StartGame(game);
             }
+
+            return new BuyinResult(request.Slug);
         }
 
         private static Checkpoint CreateCheckpoint(ITimeProvider timeProvider, BuyinRequest request)

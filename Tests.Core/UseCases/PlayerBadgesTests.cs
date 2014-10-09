@@ -105,7 +105,7 @@ namespace Tests.Core.UseCases
         {
             var result = A.CashgameResult.WithPlayerId(PlayerId).Build();
             var results = new List<CashgameResult> {result};
-            return new CashgameInTest(results: results);
+            return A.Cashgame.WithResults(results).Build();
         }
 
         private PlayerBadgesRequest CreateRequest()

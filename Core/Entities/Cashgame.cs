@@ -48,7 +48,7 @@ namespace Core.Entities
             IsStarted = isStarted;
             StartTime = startTime;
             EndTime = endTime;
-            Results = results;
+            Results = results ?? new List<CashgameResult>();
             PlayerCount = playerCount;
             Diff = diff;
             Turnover = turnover;

@@ -53,7 +53,6 @@
     <Compile Include="Mappers\CheckpointDataMapper.cs" />
     <Compile Include="Mappers\BunchDataMapper.cs" />
     <Compile Include="Mappers\CashgameDataMapper.cs" />
-    <Compile Include="Mappers\Interfaces\ICashgameDataMapper.cs" />
     <Compile Include="Mappers\Interfaces\IPlayerDataMapper.cs" />
     <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Mappers\PlayerDataMapper.cs" />

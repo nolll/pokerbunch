@@ -44,35 +44,35 @@ namespace Tests.Core.UseCases
                         new CashgameResultInTest(SelectedPlayerId, winnings: -1, playedTime: 2),
                         A.CashgameResult.WithPlayerId(SecondPlayerId).Build()
                     };
-            var cashgame1 = new CashgameInTest(results: results1);
+            var cashgame1 = A.Cashgame.WithResults(results1).Build();
 
             var results2 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: -2, playedTime: 2),
                         A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
-            var cashgame2 = new CashgameInTest(results: results2);
+            var cashgame2 = A.Cashgame.WithResults(results2).Build();
 
             var results3 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: 3, playedTime: 2),
                         A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
-            var cashgame3 = new CashgameInTest(results: results3);
+            var cashgame3 = A.Cashgame.WithResults(results3).Build();
 
             var results4 = new List<CashgameResult>
                     {
                         new CashgameResultInTest(SelectedPlayerId, winnings: 4, playedTime: 2),
                         A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                     };
-            var cashgame4 = new CashgameInTest(results: results4);
+            var cashgame4 = A.Cashgame.WithResults(results4).Build();
 
             var results5 = new List<CashgameResult>
                     {
                         A.CashgameResult.WithPlayerId(SecondPlayerId).Build(),
                         A.CashgameResult.WithPlayerId(ThirdPlayerId).Build()
                     };
-            var cashgame5 = new CashgameInTest(results: results5);
+            var cashgame5 = A.Cashgame.WithResults(results5).Build();
 
             return new List<Cashgame> { cashgame1, cashgame2, cashgame3, cashgame4, cashgame5 };
         }

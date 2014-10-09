@@ -62,6 +62,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
             Assert.AreEqual(savedStack, result.Stack);
+            GetMock<ICashgameRepository>().Verify(o => o.StartGame(It.IsAny<Cashgame>()), Times.Never);
         }
 
         [Test]
@@ -89,13 +90,13 @@ namespace Tests.Core.UseCases
 
         private void SetupCashgame()
         {
-            var cashgame = new CashgameInTest(isStarted: true);
+            var cashgame = A.Cashgame.ThatIsStarted().Build();
             SetupCashgame(cashgame);
         }
 
         private void SetupCashgameThatIsntStarted()
         {
-            var cashgame = new CashgameInTest();
+            var cashgame = A.Cashgame.Build();
             SetupCashgame(cashgame);
         }
 

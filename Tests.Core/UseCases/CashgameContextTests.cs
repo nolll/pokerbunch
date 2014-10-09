@@ -89,7 +89,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             var years = new List<int>(); 
-            var cashgame = new CashgameInTest();
+            var cashgame = A.Cashgame.Build();
             var request = new CashgameContextRequest(slug);
 
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);

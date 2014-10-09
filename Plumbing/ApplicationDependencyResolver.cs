@@ -52,7 +52,6 @@ namespace Plumbing
             RegisterComponent<ICheckpointRepository, CheckpointRepository>();
 
             // Data Mappers
-            RegisterComponent<ICashgameDataMapper, CashgameDataMapper>();
             RegisterComponent<IPlayerDataMapper, PlayerDataMapper>();
 
             // Services

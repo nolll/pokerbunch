@@ -24,22 +24,19 @@ namespace Infrastructure.Data.Repositories
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
 	    private readonly ICacheBuster _cacheBuster;
-	    private readonly ICashgameDataMapper _cashgameDataMapper;
 
 	    public CashgameRepository(
             ICashgameStorage cashgameStorage,
             IRawCashgameFactory rawCashgameFactory,
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
-            ICacheBuster cacheBuster,
-            ICashgameDataMapper cashgameDataMapper)
+            ICacheBuster cacheBuster)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _rawCashgameFactory = rawCashgameFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
 	        _cacheBuster = cacheBuster;
-	        _cashgameDataMapper = cashgameDataMapper;
 	    }
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
@@ -109,14 +106,14 @@ namespace Infrastructure.Data.Repositories
         {
             var rawCashgames = _cashgameStorage.GetGames(ids);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
-            return _cashgameDataMapper.MapList(rawCashgames, rawCheckpoints);
+            return CashgameDataMapper.MapList(rawCashgames, rawCheckpoints);
         }
 
         private Cashgame GetByIdUncached(int cashgameId)
         {
             var rawGame = _cashgameStorage.GetGame(cashgameId);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
-            return _cashgameDataMapper.Map(rawGame, rawCheckpoints);
+            return CashgameDataMapper.Map(rawGame, rawCheckpoints);
         }
 
         private IList<int> GetIds(int homegameId, GameStatus? status = null, int? year = null)

@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Factories;
 using Infrastructure.Data.Classes;
 
 namespace Infrastructure.Data.Mappers
 {
-    public class CashgameDataMapper : ICashgameDataMapper
+    public static class CashgameDataMapper
     {
-        public Cashgame Map(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
+        public static Cashgame Map(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
         {
             var playerCheckpointMap = new Dictionary<int, IList<RawCheckpoint>>();
             foreach (var checkpoint in checkpoints)
@@ -39,7 +38,7 @@ namespace Infrastructure.Data.Mappers
             return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id, results);
         }
 
-        public IList<Cashgame> MapList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
+        public static IList<Cashgame> MapList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
         {
             var checkpointMap = GetGameCheckpointMap(checkpoints);
 
@@ -57,7 +56,7 @@ namespace Infrastructure.Data.Mappers
             return cashgames;
         }
 
-        private IDictionary<int, IList<RawCheckpoint>> GetGameCheckpointMap(IEnumerable<RawCheckpoint> checkpoints)
+        private static IDictionary<int, IList<RawCheckpoint>> GetGameCheckpointMap(IEnumerable<RawCheckpoint> checkpoints)
         {
             var checkpointMap = new Dictionary<int, IList<RawCheckpoint>>();
             foreach (var checkpoint in checkpoints)

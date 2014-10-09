@@ -31,8 +31,7 @@ namespace Plumbing
         private static readonly IRawCashgameFactory RawCashgameFactory = new RawCashgameFactory(TimeProvider);
         private static readonly ICheckpointStorage CheckpointStorage = new SqlServerCheckpointStorage(StorageProvider, TimeProvider);
         private static readonly ICashgameStorage CashgameStorage = new SqlServerCashgameStorage(StorageProvider, RawCashgameFactory);
-        private static readonly ICashgameDataMapper CashgameDataMapper = new CashgameDataMapper();
-        protected static readonly ICashgameRepository CashgameRepository = new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster, CashgameDataMapper);
+        protected static readonly ICashgameRepository CashgameRepository = new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster);
         protected static readonly ICashgameService CashgameService = new CashgameService(PlayerRepository, CashgameRepository, BunchRepository);
         protected static readonly ICheckpointRepository CheckpointRepository = new CheckpointRepository(CheckpointStorage, CacheBuster);
         protected static readonly IAuth Auth = new Auth(TimeProvider, UserRepository);

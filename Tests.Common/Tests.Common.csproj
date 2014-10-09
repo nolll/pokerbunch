@@ -63,7 +63,6 @@
     <Compile Include="FakeClasses\TopListResultInTest.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="FakeClasses\CashgameInTest.cs" />
     <Compile Include="FakeClasses\CashgameResultInTest.cs" />
     <Compile Include="FakeCommands\FailedCommandInTest.cs" />
     <Compile Include="FakeCommands\SuccessfulCommandInTest.cs" />

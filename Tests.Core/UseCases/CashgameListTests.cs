@@ -248,7 +248,16 @@ namespace Tests.Core.UseCases
 
         private void SetupSingleGame()
         {
-            var cashgame = A.Cashgame.Build();
+            var cashgame = A.Cashgame
+                .WithTurnover(2)
+                .WithAverageBuyin(3)
+                .WithPlayerCount(4)
+                .WithDateString("2001-01-01")
+                .WithLocation("Location")
+                .WithStartTime(new DateTime(2001, 1, 1, 1, 1, 1))
+                .WithEndTime(new DateTime(2001, 1, 1, 1, 2, 1))
+                .Build();
+
             var cashgames = new List<Cashgame> { cashgame };
             SetupCashgames(cashgames);
         }
