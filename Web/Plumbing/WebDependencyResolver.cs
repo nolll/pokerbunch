@@ -8,7 +8,6 @@ using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.ModelFactories.CashgameModelFactories.Edit;
-using Web.ModelFactories.CashgameModelFactories.Matrix;
 
 namespace Web.Plumbing
 {
@@ -23,7 +22,6 @@ namespace Web.Plumbing
         private void RegisterTypes()
         {
             // Page Model Factories
-            RegisterComponent<IMatrixPageBuilder, MatrixPageBuilder>();
             RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
 
             // Model Factories

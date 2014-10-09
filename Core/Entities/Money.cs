@@ -5,12 +5,12 @@ namespace Core.Entities
     public class Money : IComparable<Money>
     {
         public int Amount { get; private set; }
-        public Currency Currency { get; private set; }
+        private readonly Currency _currency;
         
         public Money(int amount, Currency currency = null)
         {
             Amount = amount;
-            Currency = currency ?? Currency.Default;
+            _currency = currency ?? Currency.Default;
         }
 
         public int CompareTo(Money other)
@@ -20,9 +20,9 @@ namespace Core.Entities
 
         public override string ToString()
         {
-            var numberFormatted = Amount.ToString("N0", Currency.Culture);
-            var amountFormatted = Currency.Layout.Replace("{AMOUNT}", numberFormatted);
-            return amountFormatted.Replace("{SYMBOL}", Currency.Symbol);
+            var numberFormatted = Amount.ToString("N0", _currency.Culture);
+            var amountFormatted = _currency.Layout.Replace("{AMOUNT}", numberFormatted);
+            return amountFormatted.Replace("{SYMBOL}", _currency.Symbol);
         }
     }
 }

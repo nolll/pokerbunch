@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Core.Entities;
 using Core.Services;
-using Core.Urls;
+using Core.UseCases.Matrix;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -11,56 +10,45 @@ namespace Web.Models.CashgameModels.Matrix
 	    public string Name { get; private set; }
 	    public string TotalResult { get; private set; }
 	    public string ResultClass { get; private set; }
-	    public Url PlayerUrl { get; private set; }
+	    public string PlayerUrl { get; private set; }
         public IList<CashgameMatrixTableCellModel> CellModels { get; private set; }
 
-        public CashgameMatrixTableRowModel(Bunch bunch, CashgameSuite suite, Player player, CashgameTotalResult result, int rank)
+        public CashgameMatrixTableRowModel(IList<GameItem> gameItems, MatrixPlayerItem playerItem)
         {
-            Rank = rank;
-            Name = player.DisplayName;
-            PlayerUrl = new PlayerDetailsUrl(bunch.Slug, player.Id);
-            CellModels = CreateCells(suite.Cashgames, player);
-            TotalResult = Globalization.FormatResult(bunch.Currency, result.Winnings);
-            ResultClass = ResultFormatter.GetWinningsCssClass(result.Winnings); ;
+            Rank = playerItem.Rank;
+            Name = playerItem.Name;
+            PlayerUrl = playerItem.PlayerUrl.Relative;
+            CellModels = CreateCells(gameItems, playerItem);
+            TotalResult = ResultFormatter.FormatWinnings(playerItem.TotalResult);
+            ResultClass = ResultFormatter.GetWinningsCssClass(playerItem.TotalResult);
         }
 
-        private static IList<CashgameMatrixTableCellModel> CreateCells(IEnumerable<Cashgame> cashgames, Player player)
+        private static IList<CashgameMatrixTableCellModel> CreateCells(IList<GameItem> gameItems, MatrixPlayerItem playerItem)
         {
             var models = new List<CashgameMatrixTableCellModel>();
-            if (cashgames != null)
+            foreach (var gameItem in gameItems)
             {
-                foreach (var cashgame in cashgames)
+                MatrixResultItem resultItem;
+                if (playerItem.ResultItems.TryGetValue(gameItem.Id, out resultItem))
                 {
-                    var result = cashgame.GetResult(player.Id);
-                    models.Add(CreateCell(cashgame, result));
+                    var model = new CashgameMatrixTableCellModel
+                    {
+                        ShowResult = true,
+                        ShowTransactions = resultItem.HasTransactions,
+                        Buyin = resultItem.Buyin.Amount,
+                        Cashout = resultItem.Cashout.Amount,
+                        Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings.Amount),
+                        ResultClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings),
+                        WinnerClass = resultItem.HasBestResult ? "winner" : null
+                    };
+                    models.Add(model);
+                }
+                else
+                {
+                    models.Add(new CashgameMatrixTableCellModel());
                 }
             }
             return models;
-        }
-
-        private static CashgameMatrixTableCellModel CreateCell(Cashgame cashgame, CashgameResult result)
-        {
-            if (result == null)
-            {
-                return new CashgameMatrixTableCellModel
-                {
-                    ShowResult = false
-                };
-            }
-
-            var hasBestResult = cashgame.IsBestResult(result);
-
-            return new CashgameMatrixTableCellModel
-            {
-                ShowResult = true,
-                ShowTransactions = result.Buyin > 0,
-                Buyin = result.Buyin,
-                Cashout = result.Stack,
-                Winnings = ResultFormatter.FormatWinnings(result.Winnings),
-                ResultClass = ResultFormatter.GetWinningsCssClass(result.Winnings),
-                HasBestResult = hasBestResult,
-                WinnerClass = hasBestResult ? "winner" : null
-            };
         }
     }
 }

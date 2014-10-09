@@ -10,23 +10,21 @@ namespace Web.Models.CashgameModels.Matrix
 	    public List<CashgameMatrixTableColumnHeaderModel> ColumnHeaderModels { get; private set; }
 	    public List<CashgameMatrixTableRowModel> RowModels { get; private set; }
 
-        public CashgameMatrixTableModel(MatrixResult matrixResult, Bunch bunch, CashgameSuite suite)
+        public CashgameMatrixTableModel(MatrixResult matrixResult)
         {
             var showYear = matrixResult.SpansMultipleYears;
             var headerModels = matrixResult.GameItems.Select(o => new CashgameMatrixTableColumnHeaderModel(o, showYear)).ToList();
 
             ColumnHeaderModels = headerModels;
-            RowModels = CreateRows(bunch, suite, suite.TotalResults);
+            RowModels = CreateRows(matrixResult);
         }
 
-	    private static List<CashgameMatrixTableRowModel> CreateRows(Bunch bunch, CashgameSuite suite, IEnumerable<CashgameTotalResult> results)
+	    private static List<CashgameMatrixTableRowModel> CreateRows(MatrixResult matrixResult)
         {
             var models = new List<CashgameMatrixTableRowModel>();
-            var rank = 0;
-            foreach (var result in results)
+            foreach (var playerItem in matrixResult.PlayerItems)
             {
-                rank++;
-                models.Add(new CashgameMatrixTableRowModel(bunch, suite, result.Player, result, rank));
+                models.Add(new CashgameMatrixTableRowModel(matrixResult.GameItems, playerItem));
             }
             return models;
         }

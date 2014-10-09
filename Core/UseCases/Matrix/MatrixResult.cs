@@ -20,23 +20,37 @@ namespace Core.UseCases.Matrix
 
     public class MatrixPlayerItem
     {
-        public int Rank { get; set; }
-        public string Name { get; set; }
-        public Url PlayerUrl { get; set; }
-        public IList<MatrixResultItem> CellModels { get; set; }
-        public Money TotalResult { get; set; }
+        public int Rank { get; private set; }
+        public string Name { get; private set; }
+        public Url PlayerUrl { get; private set; }
+        public IDictionary<int, MatrixResultItem> ResultItems { get; private set; }
+        public Money TotalResult { get; private set; }
 
-        public MatrixPlayerItem(int rank, string name, Url playerUrl, IList<MatrixResultItem> cellModels, Money totalResult)
+        public MatrixPlayerItem(int rank, string name, Url playerUrl, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
         {
             Rank = rank;
             Name = name;
             PlayerUrl = playerUrl;
-            CellModels = cellModels;
+            ResultItems = resultItems;
             TotalResult = totalResult;
         }
     }
 
     public class MatrixResultItem
     {
+        public Money Buyin { get; private set; }
+        public Money Cashout { get; private set; }
+        public Money Winnings { get; private set; }
+        public bool HasBestResult { get; private set; }
+        public bool HasTransactions { get; private set; }
+
+        public MatrixResultItem(Money buyin, Money cashout, Money winnings, bool hasBestResult, bool hasTransactions)
+        {
+            Buyin = buyin;
+            Cashout = cashout;
+            Winnings = winnings;
+            HasBestResult = hasBestResult;
+            HasTransactions = hasTransactions;
+        }
     }
 }

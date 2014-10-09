@@ -194,8 +194,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\IMatrixPageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Matrix\MatrixPageBuilder.cs" />
     <Compile Include="Models\AuthModels\LoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />

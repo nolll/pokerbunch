@@ -2,10 +2,6 @@
 {
     public class MoneyResult : Money
     {
-        public MoneyResult(int amount) : base(amount)
-        {
-        }
-
         public MoneyResult(int amount, Currency currency) : base(amount, currency)
         {
         }

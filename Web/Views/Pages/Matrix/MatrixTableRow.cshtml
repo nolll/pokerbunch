@@ -3,7 +3,7 @@
 <tr>
     <td class="rank numeric">@Model.Rank.</td>
     <td class="name">
-        <a href="@Model.PlayerUrl.Relative">@Model.Name</a>
+        <a href="@Model.PlayerUrl">@Model.Name</a>
     </td>
     <td class="result numeric @Model.ResultClass">@Model.TotalResult</td>
     @foreach (var cellModel in Model.CellModels)
