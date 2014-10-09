@@ -41,7 +41,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.AppContext();
             var model = new AddBunchConfirmationPageModel(contextResult);
-            return View("AddBunch/AddHomegameConfirmation", model);
+            return View("AddBunch/AddBunchConfirmation", model);
         }
 
         private ActionResult ShowForm(AddBunchPostModel postModel = null)
@@ -49,7 +49,7 @@ namespace Web.Controllers
             var contextResult = UseCase.AppContext();
             var bunchFormResult = UseCase.AddBunchForm();
             var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel);
-            return View("AddBunch/AddHomegame", model);
+            return View("AddBunch/AddBunch", model);
         }
     }
 }

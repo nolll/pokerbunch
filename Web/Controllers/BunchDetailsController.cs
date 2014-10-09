@@ -20,7 +20,7 @@ namespace Web.Controllers
             var bunchDetailsResult = UseCase.BunchDetails(bunchDetailsRequest);
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
-            return View("BunchDetails/HomegameDetails", model);
+            return View("BunchDetails/BunchDetails", model);
         }
     }
 }
