@@ -94,7 +94,7 @@
     <Compile Include="ControllerTests\CashgameBuyinControllerTests.cs" />
     <Compile Include="ControllerTests\CashgameActionControllerTests.cs" />
     <Compile Include="ControllerTests\UserListControllerTests.cs" />
-    <Compile Include="ControllerTests\HomegameControllerTests.cs" />
+    <Compile Include="ControllerTests\BunchListControllerTests.cs" />
     <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <Compile Include="PlumbingTests\DependencyInjectionTests.cs" />
     <Compile Include="Routing\RouteTests.cs" />

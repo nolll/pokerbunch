@@ -102,36 +102,36 @@ namespace Tests.Web.Routing
         [Test]
         public void BunchDetails()
         {
-            _routes.ShouldMap("/a/homegame/details").To<HomegameController>(x => x.Details("a"));
+            _routes.ShouldMap("/a/homegame/details").To<BunchDetailsController>(x => x.Details("a"));
         }
 
         [Test]
         public void EditBunch()
         {
-            _routes.ShouldMap("/a/homegame/edit").To<HomegameController>(x => x.Edit("a"));
-            _routes.ShouldMap("/a/homegame/edit").To<HomegameController>(HttpMethod.Post, x => x.Edit_Post("a", new EditBunchPostModel()));
+            _routes.ShouldMap("/a/homegame/edit").To<EditBunchController>(x => x.Edit("a"));
+            _routes.ShouldMap("/a/homegame/edit").To<EditBunchController>(HttpMethod.Post, x => x.Edit_Post("a", new EditBunchPostModel()));
         }
 
         [Test]
         public void BunchList()
         {
-            _routes.ShouldMap("/-/homegame/list").To<HomegameController>(x => x.List());
+            _routes.ShouldMap("/-/homegame/list").To<BunchListController>(x => x.List());
         }
 
         [Test]
         public void AddBunch()
         {
-            _routes.ShouldMap("/-/homegame/add").To<HomegameController>(x => x.Add());
-            _routes.ShouldMap("/-/homegame/add").To<HomegameController>(HttpMethod.Post, x => x.Add_Post(new AddBunchPostModel()));
-            _routes.ShouldMap("/-/homegame/created").To<HomegameController>(x => x.Created());
+            _routes.ShouldMap("/-/homegame/add").To<AddBunchController>(x => x.Add());
+            _routes.ShouldMap("/-/homegame/add").To<AddBunchController>(HttpMethod.Post, x => x.Add_Post(new AddBunchPostModel()));
+            _routes.ShouldMap("/-/homegame/created").To<AddBunchController>(x => x.Created());
         }
 
         [Test]
         public void JoinBunch()
         {
-            _routes.ShouldMap("/a/homegame/join").To<HomegameController>(x => x.Join("a"));
-            _routes.ShouldMap("/a/homegame/join").To<HomegameController>(HttpMethod.Post, x => x.Join_Post("a", new JoinBunchPostModel()));
-            _routes.ShouldMap("/a/homegame/joined").To<HomegameController>(x => x.Joined("a"));
+            _routes.ShouldMap("/a/homegame/join").To<JoinBunchController>(x => x.Join("a"));
+            _routes.ShouldMap("/a/homegame/join").To<JoinBunchController>(HttpMethod.Post, x => x.Post("a", new JoinBunchPostModel()));
+            _routes.ShouldMap("/a/homegame/joined").To<JoinBunchController>(x => x.Joined("a"));
         }
 
         [Test]

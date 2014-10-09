@@ -2,12 +2,11 @@
 using System.Web.Mvc;
 using NUnit.Framework;
 using Tests.Common;
-using Web.Commands.HomegameCommands;
 using Web.Controllers;
 
 namespace Tests.Web.ControllerTests
 {
-    class HomegameControllerTests : TestBase
+    class BunchListControllerTests : TestBase
     {
         [Test]
         public void List_RequiresAdmin()
@@ -18,12 +17,11 @@ namespace Tests.Web.ControllerTests
             Assert.IsTrue(result);
         }
 
-        private HomegameController Sut
+        private BunchListController Sut
         {
             get
             {
-                return new HomegameController(
-                    GetMock<IBunchCommandProvider>().Object);
+                return new BunchListController();
             }
         }
     }
