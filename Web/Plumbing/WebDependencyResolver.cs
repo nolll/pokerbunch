@@ -7,7 +7,6 @@ using Web.Commands.UserCommands;
 using Web.ModelFactories.CashgameModelFactories.Action;
 using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.ModelFactories.CashgameModelFactories.Details;
-using Web.ModelFactories.CashgameModelFactories.Edit;
 
 namespace Web.Plumbing
 {
@@ -21,9 +20,6 @@ namespace Web.Plumbing
 
         private void RegisterTypes()
         {
-            // Page Model Factories
-            RegisterComponent<IEditCashgamePageBuilder, EditCashgamePageBuilder>();
-
             // Model Factories
             RegisterComponent<ICashgameSuiteChartJsonBuilder, CashgameSuiteChartJsonBuilder>();
             RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();

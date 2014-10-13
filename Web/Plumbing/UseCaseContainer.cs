@@ -41,7 +41,6 @@ using Core.UseCases.TestEmail;
 using Core.UseCases.UserDetails;
 using Core.UseCases.UserList;
 using Plumbing;
-using Web.ModelFactories.CashgameModelFactories.Edit;
 
 namespace Web.Plumbing
 {
@@ -91,7 +90,7 @@ namespace Web.Plumbing
         public Func<CashgameChartContainerRequest, CashgameChartContainerResult> CashgameChartContainer { get { return CashgameChartContainerInteractor.Execute; } }
         public Func<MatrixRequest, MatrixResult> Matrix { get { return request => MatrixInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
         public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, TimeProvider, request); } }
-        public Func<EditCashgameFormRequest, EditCashgameFormResult> EditCashgameForm{ get { return request => EditCashgameFormInteractor.Execute(request); }}
+        public Func<EditCashgameFormRequest, EditCashgameFormResult> EditCashgameForm{ get { return request => EditCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); }}
 
         // Player
         public Func<PlayerListRequest, PlayerListResult> PlayerList { get { return request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request); } }

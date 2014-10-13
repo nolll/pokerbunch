@@ -207,8 +207,6 @@
     <Compile Include="Models\PlayerModels\Badges\BadgeModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Edit\EditCashgamePageBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Edit\IEditCashgamePageBuilder.cs" />
     <Compile Include="ModelMappers\UserModelMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

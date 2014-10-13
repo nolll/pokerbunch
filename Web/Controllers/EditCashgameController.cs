@@ -1,8 +1,9 @@
 using System.Web.Mvc;
 using Core.Urls;
+using Core.UseCases.BunchContext;
+using Core.UseCases.EditCashgameForm;
 using Web.Commands.CashgameCommands;
 using Web.Controllers.Base;
-using Web.ModelFactories.CashgameModelFactories.Edit;
 using Web.Models.CashgameModels.Edit;
 using Web.Security.Attributes;
 
@@ -10,12 +11,10 @@ namespace Web.Controllers
 {
     public class EditCashgameController : PokerBunchController
     {
-        private readonly IEditCashgamePageBuilder _editCashgamePageBuilder;
         private readonly ICashgameCommandProvider _cashgameCommandProvider;
 
-        public EditCashgameController(IEditCashgamePageBuilder editCashgamePageBuilder, ICashgameCommandProvider cashgameCommandProvider)
+        public EditCashgameController(ICashgameCommandProvider cashgameCommandProvider)
         {
-            _editCashgamePageBuilder = editCashgamePageBuilder;
             _cashgameCommandProvider = cashgameCommandProvider;
         }
 
@@ -23,8 +22,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/edit/{dateStr}")]
         public ActionResult Edit(string slug, string dateStr)
         {
-            var model = _editCashgamePageBuilder.Build(slug, dateStr);
-            return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
+            return ShowForm(slug, dateStr);
         }
 
         [HttpPost]
@@ -38,8 +36,15 @@ namespace Web.Controllers
                 return Redirect(new CashgameDetailsUrl(slug, dateStr).Relative);
             }
             AddModelErrors(command.Errors);
-            var model = _editCashgamePageBuilder.Build(slug, dateStr, postModel);
+            return ShowForm(slug, dateStr, postModel);
+        }
+
+        private ActionResult ShowForm(string slug, string dateStr, CashgameEditPostModel postModel = null)
+        {
+            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var editCashgameFormResult = UseCase.EditCashgameForm(new EditCashgameFormRequest(slug, dateStr));
+            var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
-        } 
+        }
     }
 }
