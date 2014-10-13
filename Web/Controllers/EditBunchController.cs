@@ -23,7 +23,7 @@ namespace Web.Controllers
         public ActionResult Edit(string slug)
         {
             var model = BuildEditModel(slug);
-            return View("EditBunch/Edit", model);
+            return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace Web.Controllers
             }
             AddModelErrors(command.Errors);
             var model = BuildEditModel(slug, postModel);
-            return View("EditBunch/Edit", model);
+            return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
         }
 
         private EditBunchPageModel BuildEditModel(string slug, EditBunchPostModel postModel = null)

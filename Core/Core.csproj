@@ -220,6 +220,9 @@
     <Compile Include="UseCases\EditBunchForm\EditBunchFormInteractor.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormRequest.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormResult.cs" />
+    <Compile Include="UseCases\EditCashgameForm\EditCashgameFormInteractor.cs" />
+    <Compile Include="UseCases\EditCashgameForm\EditCashgameFormRequest.cs" />
+    <Compile Include="UseCases\EditCashgameForm\EditCashgameFormResult.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormInteractor.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormRequest.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormResult.cs" />

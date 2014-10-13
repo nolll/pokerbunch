@@ -147,13 +147,23 @@
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\BunchDetailsController.cs" />
     <Compile Include="Controllers\BunchListController.cs" />
+    <Compile Include="Controllers\CashgameActionController.cs" />
+    <Compile Include="Controllers\CashgameBuyinController.cs" />
+    <Compile Include="Controllers\CashgameCashoutController.cs" />
+    <Compile Include="Controllers\CashgameChartController.cs" />
     <Compile Include="Controllers\CashgameDetailsController.cs" />
     <Compile Include="Controllers\CashgameFactsController.cs" />
     <Compile Include="Controllers\CashgameIndexController.cs" />
+    <Compile Include="Controllers\CashgameListController.cs" />
+    <Compile Include="Controllers\CashgameReportController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\DeleteCheckpointController.cs" />
     <Compile Include="Controllers\DeletePlayerController.cs" />
     <Compile Include="Controllers\EditBunchController.cs" />
+    <Compile Include="Controllers\EditCashgameController.cs" />
+    <Compile Include="Controllers\EditCheckpointController.cs" />
     <Compile Include="Controllers\EditUserController.cs" />
+    <Compile Include="Controllers\EndCashgameController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -161,6 +171,7 @@
     <Compile Include="Controllers\MatrixController.cs" />
     <Compile Include="Controllers\PlayerDetailsController.cs" />
     <Compile Include="Controllers\PlayerIndexController.cs" />
+    <Compile Include="Controllers\RunningCashgameController.cs" />
     <Compile Include="Controllers\TopListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
@@ -381,7 +392,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Routing\" />
-    <Folder Include="Views\Cashgame\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

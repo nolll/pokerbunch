@@ -16,7 +16,7 @@ namespace Web.Controllers
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var playerListResult = UseCase.PlayerList(new PlayerListRequest(slug));
             var model = new PlayerListPageModel(contextResult, playerListResult);
-            return View("PlayerList/List", model);
+            return View("~/Views/Pages/PlayerList/List.cshtml", model);
         }
     }
 }

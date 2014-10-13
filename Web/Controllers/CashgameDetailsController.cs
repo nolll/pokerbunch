@@ -24,7 +24,7 @@ namespace Web.Controllers
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var cashgameDetailsResult = UseCase.CashgameDetails(new CashgameDetailsRequest(slug, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult);
-            return View("CashgameDetails/DetailsPage", model);
+            return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
         }
 
         [AuthorizePlayer]

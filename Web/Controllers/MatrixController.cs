@@ -16,7 +16,7 @@ namespace Web.Controllers
             var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Matrix));
             var matrixResult = UseCase.Matrix(new MatrixRequest(slug, year));
             var model = new CashgameMatrixPageModel(contextResult, matrixResult);
-            return View("Matrix/MatrixPage", model);
+            return View("~/Views/Pages/Matrix/MatrixPage.cshtml", model);
         }
     }
 }

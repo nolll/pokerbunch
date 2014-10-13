@@ -20,7 +20,7 @@ namespace Web.Controllers
             var factsResult = UseCase.PlayerFacts(new PlayerFactsRequest(slug, playerId));
             var badgesResult = UseCase.PlayerBadges(new PlayerBadgesRequest(slug, playerId));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);
-            return View("PlayerDetails/Details", model);
+            return View("~/Views/Pages/PlayerDetails/Details.cshtml", model);
         }
     }
 }

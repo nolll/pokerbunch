@@ -46,14 +46,14 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new AddPlayerConfirmationPageModel(contextResult);
-            return View("AddPlayer/AddConfirmation", model);
+            return View("~/Views/Pages/AddPlayer/AddConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new AddPlayerPageModel(contextResult, postModel);
-            return View("AddPlayer/Add", model);
+            return View("~/Views/Pages/AddPlayer/Add.cshtml", model);
         }
     }
 }

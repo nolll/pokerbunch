@@ -44,7 +44,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.AppContext();
             var model = new AddUserPageModel(contextResult, postModel);
-            return View("AddUser/AddUser", model);
+            return View("~/Views/Pages/AddUser/AddUser.cshtml", model);
         }
 
         [Route("-/user/created")]
@@ -52,7 +52,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.AppContext();
             var model = new AddUserConfirmationPageModel(contextResult);
-            return View("AddUser/AddUserDone", model);
+            return View("~/Views/Pages/AddUser/AddUserDone.cshtml", model);
         }
     }
 }

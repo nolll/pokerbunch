@@ -46,7 +46,7 @@ namespace Web.Controllers
             var contextResult = UseCase.AppContext();
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation(new JoinBunchConfirmationRequest(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
-            return View("JoinBunch/Confirmation", model);
+            return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, JoinBunchPostModel postModel = null)
@@ -54,7 +54,7 @@ namespace Web.Controllers
             var contextResult = UseCase.AppContext();
             var joinBunchFormResult = UseCase.JoinBunchForm(new JoinBunchFormRequest(slug));
             var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
-            return View("JoinBunch/Join", model);
+            return View("~/Views/Pages/JoinBunch/Join.cshtml", model);
         }
     }
 }

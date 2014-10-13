@@ -42,14 +42,14 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new InvitePlayerConfirmationPageModel(contextResult);
-            return View("InvitePlayer/InviteConfirmation", model);
+            return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var model = new InvitePlayerPageModel(contextResult, postModel);
-            return View("InvitePlayer/Invite", model);
+            return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }
     }
 }

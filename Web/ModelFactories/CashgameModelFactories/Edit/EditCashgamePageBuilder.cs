@@ -4,6 +4,7 @@ using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.BunchContext;
+using Core.UseCases.EditCashgameForm;
 using Web.Models.CashgameModels.Edit;
 using Web.Plumbing;
 
@@ -29,6 +30,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Edit
             var locations = _cashgameRepository.GetLocations(bunch);
 
             var contextResult = UseCaseContainer.Instance.BunchContext(new BunchContextRequest(slug));
+            var editCashgameForm = UseCaseContainer.Instance.EditCashgameForm(new EditCashgameFormRequest(slug, dateStr));
 
             var model = new EditCashgamePageModel(contextResult)
             {
