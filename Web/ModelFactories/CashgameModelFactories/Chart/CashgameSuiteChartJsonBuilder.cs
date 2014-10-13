@@ -8,18 +8,39 @@ using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Chart
 {
+    public class ChartPlayerItem
+    {
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+
+        public ChartPlayerItem(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
+
+    public class ChartGameItem
+    {
+        public string DateStr { get; set; }
+        public IList<ResultItem> Results { get; set; }
+    }
+
+    public class ResultItem
+    {
+        public int PlayerId { get; set; }
+        public int Stack { get; set; }
+    }
+
     public class CashgameSuiteChartJsonBuilder : ICashgameSuiteChartJsonBuilder
     {
-        private readonly IPlayerRepository _playerRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameService _cashgameService;
 
         public CashgameSuiteChartJsonBuilder(
-            IPlayerRepository playerRepository,
             IBunchRepository bunchRepository,
             ICashgameService cashgameService)
         {
-            _playerRepository = playerRepository;
             _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
         }
@@ -28,10 +49,12 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
         {
             var bunch = _bunchRepository.GetBySlug(slug);
             var suite = _cashgameService.GetSuite(bunch, year);
-            
+
+            var playerItems = GetPlayerItems(suite.TotalResults);
+
             return new ChartModel
                 {
-                    Columns = GetColumnModels(suite.TotalResults),
+                    Columns = GetColumnModels(playerItems),
                     Rows = GetRowModels(suite.Cashgames, suite.TotalResults)
                 };
         }
@@ -76,14 +99,15 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
             return playerSum;
         }
 
-        private IList<ChartColumnModel> GetColumnModels(IEnumerable<CashgameTotalResult> results)
+        private IList<ChartPlayerItem> GetPlayerItems(IEnumerable<CashgameTotalResult> results)
         {
-            var columnModels = new List<ChartColumnModel> {new ChartColumnModel("string", "Date")};
-            foreach (var result in results)
-            {
-                var player = _playerRepository.GetById(result.Player.Id);
-                columnModels.Add(new ChartColumnModel("number", player.DisplayName));
-            }
+            return results.Select(result => new ChartPlayerItem(result.Player.Id, result.Player.DisplayName)).ToList();
+        }
+
+        private IList<ChartColumnModel> GetColumnModels(IEnumerable<ChartPlayerItem> playerItems)
+        {
+            var columnModels = new List<ChartColumnModel> { new ChartColumnModel("string", "Date") };
+            columnModels.AddRange(playerItems.Select(item => new ChartColumnModel("number", item.Name)));
             return columnModels;
         }
 
@@ -108,9 +132,26 @@ namespace Web.ModelFactories.CashgameModelFactories.Chart
                 values.Add(new ChartValueModel(sum));
             }
             return new ChartRowModel
-                {
-                    C = values
-                };
+            {
+                C = values
+            };
+        }
+
+        private ChartRowModel GetGameItem(Cashgame cashgame, IEnumerable<CashgameTotalResult> results, IDictionary<int, int?> currentSum)
+        {
+            var gameItem = new ChartGameItem();
+            var values = new List<ChartValueModel>();
+            var dateStr = cashgame.StartTime.HasValue ? Globalization.FormatShortDate(cashgame.StartTime.Value) : string.Empty;
+            values.Add(new ChartValueModel(dateStr));
+            foreach (var result in results)
+            {
+                var sum = currentSum[result.Player.Id];
+                values.Add(new ChartValueModel(sum));
+            }
+            return new ChartRowModel
+            {
+                C = values
+            };
         }
     }
 }
