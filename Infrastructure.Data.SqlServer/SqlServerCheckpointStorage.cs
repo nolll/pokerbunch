@@ -29,7 +29,7 @@ namespace Infrastructure.Data.SqlServer
                     new SimpleSqlParameter("@type", checkpoint.Type),
                     new SimpleSqlParameter("@amount", checkpoint.Amount),
                     new SimpleSqlParameter("@stack", checkpoint.Stack),
-                    new SimpleSqlParameter("@timestamp", _timeProvider.ConvertToUtc(checkpoint.Timestamp))
+                    new SimpleSqlParameter("@timestamp", checkpoint.Timestamp.ToUniversalTime())
                 };
 			return _storageProvider.ExecuteInsert(sql, parameters);
 		}

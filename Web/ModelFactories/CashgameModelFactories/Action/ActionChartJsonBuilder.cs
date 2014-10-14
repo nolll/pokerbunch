@@ -57,7 +57,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
             }
             if (cashgame.Status == GameStatus.Running)
             {
-                rowModels.Add(GetActionRow(TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), bunch.Timezone), result.Stack, result.Buyin));
+                rowModels.Add(GetActionRow(TimeZoneInfo.ConvertTime(_timeProvider.UtcNow(), bunch.Timezone), result.Stack, result.Buyin));
             }
             return rowModels;
         }

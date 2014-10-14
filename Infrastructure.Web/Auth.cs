@@ -28,7 +28,7 @@ namespace Infrastructure.Web
         {
             var userData = JsonConvert.SerializeObject(user);
 
-            var currentTime = _timeProvider.GetTime();
+            var currentTime = _timeProvider.UtcNow();
             var expires = currentTime.AddYears(100);
 
             var authTicket = new FormsAuthenticationTicket(
@@ -76,22 +76,6 @@ namespace Infrastructure.Web
         {
             var identity = GetIdentity();
             return identity.IsInRole(slug, role);
-        }
-
-        public Role GetRole(string slug)
-        {
-            var identity = GetIdentity();
-            return identity.GetRole(slug);
-        }
-
-        public bool IsAdmin
-        {
-            get { return GetIdentity().IsAdmin; }
-        }
-
-        public bool IsAuthenticated
-        {
-            get { return GetIdentity().IsAuthenticated; }
         }
     }
 }

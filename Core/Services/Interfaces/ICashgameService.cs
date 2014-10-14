@@ -7,7 +7,5 @@ namespace Core.Services.Interfaces
     {
         CashgameSuite GetSuite(Bunch bunch, int? year = null);
         IList<Player> GetPlayers(Cashgame cashgame);
-        bool CashgameIsRunning(string bunchName);
-        int? GetLatestYear(string slug);
     }
 }

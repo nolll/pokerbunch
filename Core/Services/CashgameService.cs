@@ -11,16 +11,13 @@ namespace Core.Services
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IBunchRepository _bunchRepository;
 
         public CashgameService(
             IPlayerRepository playerRepository,
-            ICashgameRepository cashgameRepository,
-            IBunchRepository bunchRepository)
+            ICashgameRepository cashgameRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _bunchRepository = bunchRepository;
         }
 
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
@@ -51,22 +48,6 @@ namespace Core.Services
         {
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             return _playerRepository.GetList(playerIds);
-        }
-
-        public bool CashgameIsRunning(string bunchName)
-        {
-            var bunch = _bunchRepository.GetBySlug(bunchName);
-            var cashgame = _cashgameRepository.GetRunning(bunch);
-            return cashgame != null;
-        }
-
-        public int? GetLatestYear(string slug)
-        {
-            var bunch = _bunchRepository.GetBySlug(slug);
-            var years = _cashgameRepository.GetYears(bunch);
-            if (years.Count == 0)
-                return null;
-            return years[0];
         }
     }
 }

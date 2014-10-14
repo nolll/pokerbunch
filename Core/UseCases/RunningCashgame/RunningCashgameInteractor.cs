@@ -35,7 +35,7 @@ namespace Core.UseCases.RunningCashgame
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
-            var now = timeProvider.GetTime();
+            var now = timeProvider.UtcNow();
             
             var location = cashgame.Location;
             var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
@@ -154,120 +154,6 @@ namespace Core.UseCases.RunningCashgame
         {
             var results = cashgame.Results;
             return results.OrderByDescending(o => o.Winnings);
-        }
-    }
-
-    public class RunningCashgameTableItem
-    {
-        public string Name { get; private set; }
-        public Url PlayerUrl { get; private set; }
-        public Money Buyin { get; private set; }
-        public Money Stack { get; private set; }
-        public Money Winnings { get; private set; }
-        public Time Time { get; private set; }
-        public Url BuyinUrl { get; private set; }
-        public Url ReportUrl { get; private set; }
-        public Url CashoutUrl { get; private set; }
-        public bool HasCashedOut { get; private set; }
-
-        public RunningCashgameTableItem(string name, Url playerUrl, Money buyin, Money stack, Money winnings, Time time, Url buyinUrl, Url reportUrl, Url cashoutUrl, bool hasCashedOut)
-        {
-            Name = name;
-            PlayerUrl = playerUrl;
-            Buyin = buyin;
-            Stack = stack;
-            Winnings = winnings;
-            Time = time;
-            BuyinUrl = buyinUrl;
-            ReportUrl = reportUrl;
-            CashoutUrl = cashoutUrl;
-            HasCashedOut = hasCashedOut;
-        }
-    }
-
-    public class RunningCashgameTableData
-    {
-        public IList<RunningCashgameTableItem> Items { get; private set; }
-        public Money TotalBuyin { get; private set; }
-        public Money TotalStacks { get; private set; }
-
-        public RunningCashgameTableData(IList<RunningCashgameTableItem> items, Money totalBuyin, Money totalStacks)
-        {
-            Items = items;
-            TotalBuyin = totalBuyin;
-            TotalStacks = totalStacks;
-        }
-    }
-
-    public class RunningCashgameRequest
-    {
-        public string Slug { get; private set; }
-
-        public RunningCashgameRequest(string slug)
-        {
-            Slug = slug;
-        }
-    }
-
-    public class RunningCashgameResult
-    {
-        public string Location { get; private set; }
-        public Url BuyinUrl { get; private set; }
-        public Url ReportUrl { get; private set; }
-        public Url CashoutUrl { get; private set; }
-        public Url EndGameUrl { get; private set; }
-        public bool ShowStartTime { get; private set; }
-        public string StartTime { get; private set; }
-        public bool IsStarted { get; private set; }
-        public bool BuyinButtonEnabled { get; private set; }
-        public bool ReportButtonEnabled { get; private set; }
-        public bool CashoutButtonEnabled { get; private set; }
-        public bool EndGameButtonEnabled { get; private set; }
-        public bool ShowTable { get; private set; }
-        public bool ShowChart { get; private set; }
-        public Url ChartDataUrl { get; private set; }
-        public IList<RunningCashgameTableItem> Items { get; private set; }
-        public Money TotalBuyin { get; private set; }
-        public Money TotalStacks { get; private set; }
-
-        public RunningCashgameResult(
-            string location,
-            Url buyinUrl,
-            Url reportUrl,
-            Url cashoutUrl,
-            Url endGameUrl,
-            bool showStartTime,
-            string startTime,
-            bool isStarted,
-            bool buyinButtonEnabled,
-            bool reportButtonEnabled,
-            bool cashoutButtonEnabled,
-            bool endGameButtonEnabled,
-            bool showTable,
-            bool showChart,
-            Url chartDataUrl,
-            IList<RunningCashgameTableItem> items,
-            Money totalBuyin,
-            Money totalStacks)
-        {
-            Location = location;
-            BuyinUrl = buyinUrl;
-            ReportUrl = reportUrl;
-            CashoutUrl = cashoutUrl;
-            EndGameUrl = endGameUrl;
-            ShowStartTime = showStartTime;
-            StartTime = startTime;
-            IsStarted = isStarted;
-            BuyinButtonEnabled = buyinButtonEnabled;
-            ReportButtonEnabled = reportButtonEnabled;
-            CashoutButtonEnabled = cashoutButtonEnabled;
-            EndGameButtonEnabled = endGameButtonEnabled;
-            ShowTable = showTable;
-            ShowChart = showChart;
-            ChartDataUrl = chartDataUrl;
-            Items = items;
-            TotalBuyin = totalBuyin;
-            TotalStacks = totalStacks;
         }
     }
 }

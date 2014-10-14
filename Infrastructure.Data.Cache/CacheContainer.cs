@@ -139,11 +139,6 @@ namespace Infrastructure.Data.Cache
             _cacheProvider.Remove(cacheKey);
         }
 
-        public void FakeRemove(string cacheKey)
-        {
-            _cacheProvider.Remove(cacheKey);
-        }
-
         private string ConstructCacheKey(string typeName, params object[] procedureParameters)
         {
             return CacheKeyProvider.ConstructCacheKey(typeName, procedureParameters);

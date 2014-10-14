@@ -182,12 +182,10 @@
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\BunchCommandProvider.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartJsonBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Details\ICashgameDetailsChartJsonBuilder.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartJsonBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
@@ -485,7 +483,6 @@
     <Compile Include="Models\ChartModels\ChartNumberColumnModel.cs" />
     <Compile Include="Models\CashgameModels\Facts\CashgameFactsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Add\AddCashgamePageModel.cs" />
-    <Compile Include="Models\FormModels\LocationFieldModel.cs" />
     <Compile Include="Models\FormModels\ListFieldModel.cs" />
     <Compile Include="Models\FormModels\SelectFieldModel.cs" />
     <Compile Include="Models\FormModels\FormFieldModel.cs" />

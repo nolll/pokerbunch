@@ -52,20 +52,15 @@
     <Compile Include="Builders\RawUserBuilder.cs" />
     <Compile Include="Builders\TestService.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
-    <Compile Include="CacheContainerInTest.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
-    <Compile Include="FakeClasses\CashgameContextResultInTest.cs" />
     <Compile Include="FakeClasses\FactBuilderInTest.cs" />
     <Compile Include="FakeClasses\CashgameSuiteInTest.cs" />
     <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
-    <Compile Include="FakeClasses\TopListResultInTest.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="FakeClasses\CashgameResultInTest.cs" />
-    <Compile Include="FakeCommands\FailedCommandInTest.cs" />
-    <Compile Include="FakeCommands\SuccessfulCommandInTest.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

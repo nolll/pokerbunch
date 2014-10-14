@@ -41,7 +41,6 @@
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
-    <Compile Include="Entities\Identifier.cs" />
     <Compile Include="Entities\Money.cs" />
     <Compile Include="Entities\MoneyResult.cs" />
     <Compile Include="Entities\MoneyWinRate.cs" />
@@ -277,6 +276,9 @@
     <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgameRequest.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgameResult.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgameTableItem.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
     <Compile Include="UseCases\TestEmail\TestMessage.cs" />
