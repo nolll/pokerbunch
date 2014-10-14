@@ -193,6 +193,8 @@
     <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
+    <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
+    <Compile Include="Models\ChartModels\ChartIntValueModel.cs" />
     <Compile Include="Models\ErrorModels\Error404PageModel.cs" />
     <Compile Include="Models\ErrorModels\Error500PageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorPageModel.cs" />
