@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Services;
 using Core.UseCases.CashgameChart;
 using Web.Models.ChartModels;
 
@@ -42,7 +43,7 @@ namespace Web.Models.CashgameModels.Chart
         private static ChartRowModel GetRowModel(ChartGameItem gameItem, IList<ChartPlayerItem> playerItems)
         {
             var values = new List<ChartValueModel>();
-            values.Add(new ChartValueModel(gameItem.DateStr));
+            values.Add(new ChartValueModel(Globalization.FormatShortDate(gameItem.Date)));
             foreach (var playerItem in playerItems)
             {
                 int sum;

@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services.Interfaces;
+using Web.Models.CashgameModels.Action;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Action
@@ -29,12 +30,11 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
             var bunch = _bunchRepository.GetBySlug(slug);
             var cashgame = _cashgameRepository.GetByDateString(bunch, dateStr);
             var result = cashgame.GetResult(playerId);
-            
-            return new ChartModel
-                {
-                    Columns = GetActionColumns(),
-                    Rows = GetActionRows(bunch, cashgame, result)
-                };
+
+            var columns = GetActionColumns();
+            var rows = GetActionRows(bunch, cashgame, result);
+
+            return new ActionChartModel(columns, rows);
         }
 
         private IList<ChartRowModel> GetActionRows(Bunch bunch, Cashgame cashgame, CashgameResult result)
@@ -90,10 +90,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
                     new ChartIntValueModel(stack),
                     new ChartIntValueModel(buyin)
                 };
-            return new ChartRowModel
-                {
-                    C = values
-                };
+            return new ChartRowModel(values);
         }
     }
 }

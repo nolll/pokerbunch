@@ -20,12 +20,12 @@ namespace Core.UseCases.CashgameChart
 
     public class ChartGameItem
     {
-        public string DateStr { get; private set; }
+        public Date Date { get; private set; }
         public IDictionary<int, int> Winnings { get; private set; }
 
-        public ChartGameItem(string dateStr, IDictionary<int, int> winnings)
+        public ChartGameItem(Date date, IDictionary<int, int> winnings)
         {
-            DateStr = dateStr;
+            Date = date;
             Winnings = winnings;
         }
     }
@@ -69,7 +69,7 @@ namespace Core.UseCases.CashgameChart
                         currentSums.Add(playerId, sum.Value);
                     }
                 }
-                var gameItem = new ChartGameItem(cashgame.DateString, currentSums);
+                var gameItem = new ChartGameItem(new Date(cashgame.StartTime.Value), currentSums);
                 gameItems.Add(gameItem);
             }
             return gameItems;

@@ -175,6 +175,7 @@
     <Compile Include="Controllers\TopListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
+    <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
     <Compile Include="ModelFactories\CashgameModelFactories\Details\CashgameDetailsChartJsonBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
+    <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StartButtonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />

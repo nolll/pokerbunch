@@ -7,6 +7,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services.Interfaces;
+using Web.Models.CashgameModels.Details;
 using Web.Models.ChartModels;
 
 namespace Web.ModelFactories.CashgameModelFactories.Details
@@ -39,11 +40,10 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             
             var players = _cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
 
-            return new ChartModel
-                {
-                    Columns = GetActionColumns(players),
-                    Rows = GetActionRows(bunch, cashgame, players)
-                };
+            var columns = GetActionColumns(players);
+            var rows = GetActionRows(bunch, cashgame, players);
+
+            return new DetailsChartModel(columns, rows);
         }
 
         private IList<ChartRowModel> GetActionRows(Bunch bunch, Cashgame cashgame, IList<Player> players)
@@ -77,10 +77,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
             var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), timeZone);
             var values = new List<ChartValueModel> { new ChartDateTimeValueModel(timestamp) };
             values.AddRange(results.Select(result => new ChartIntValueModel(result.Winnings)));
-            return new ChartRowModel
-                {
-                    C = values
-                };
+            return new ChartRowModel(values);
         }
 
         private IList<ChartColumnModel> GetActionColumns(IList<Player> players)
@@ -102,10 +99,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
                 }
                 values.Add(new ChartValueModel(val));
             }
-            return new ChartRowModel
-                {
-                    C = values
-                };
+            return new ChartRowModel(values);
         }
     }
 }

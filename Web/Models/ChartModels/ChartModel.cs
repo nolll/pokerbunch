@@ -4,26 +4,21 @@ using Web.Annotations;
 
 namespace Web.Models.ChartModels
 {
-	public class ChartModel
+	public abstract class ChartModel
     {
         [UsedImplicitly]
         [JsonProperty("cols")]
-	    public IList<ChartColumnModel> Columns { get; set; }
+	    public IList<ChartColumnModel> Columns { get; private set; }
 
         [UsedImplicitly]
         [JsonProperty("rows")]
-        public IList<ChartRowModel> Rows { get; set; }
+        public IList<ChartRowModel> Rows { get; private set; }
 
         [UsedImplicitly]
         [JsonProperty("p")]
-        public string P { get; set; }
+        public string P { get; private set; }
 
-        public ChartModel()
-            : this(new List<ChartColumnModel>(), new List<ChartRowModel>())
-        {
-		}
-
-        public ChartModel(IList<ChartColumnModel> columns, IList<ChartRowModel> rows)
+	    protected ChartModel(IList<ChartColumnModel> columns, IList<ChartRowModel> rows)
         {
             Columns = columns;
             Rows = rows;

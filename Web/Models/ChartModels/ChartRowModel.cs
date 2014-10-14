@@ -10,11 +10,6 @@ namespace Web.Models.ChartModels
         [JsonProperty("c")]
 		public IList<ChartValueModel> C { get; set; }
 
-		public ChartRowModel()
-            : this(new List<ChartValueModel>())
-        {
-		}
-
         public ChartRowModel(IList<ChartValueModel> valueModels)
         {
             C = valueModels;
