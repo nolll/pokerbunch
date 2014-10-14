@@ -12,6 +12,7 @@ using Core.UseCases.BunchDetails;
 using Core.UseCases.BunchList;
 using Core.UseCases.Buyin;
 using Core.UseCases.BuyinForm;
+using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameChartContainer;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameDetails;
@@ -88,6 +89,7 @@ namespace Web.Plumbing
         public Func<BuyinRequest, BuyinResult> Buyin { get { return request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, TimeProvider, request); } }
         public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get { return request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request); } }
         public Func<CashgameChartContainerRequest, CashgameChartContainerResult> CashgameChartContainer { get { return CashgameChartContainerInteractor.Execute; } }
+        public Func<CashgameChartRequest, CashgameChartResult> CashgameChart { get { return request => CashgameChartInteractor.Execute(BunchRepository, CashgameService, request); } } 
         public Func<MatrixRequest, MatrixResult> Matrix { get { return request => MatrixInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
         public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, TimeProvider, request); } }
         public Func<EditCashgameFormRequest, EditCashgameFormResult> EditCashgameForm{ get { return request => EditCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); }}

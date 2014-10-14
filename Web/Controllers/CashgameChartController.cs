@@ -1,8 +1,8 @@
 using System.Web.Mvc;
+using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameChartContainer;
 using Core.UseCases.CashgameContext;
 using Web.Controllers.Base;
-using Web.ModelFactories.CashgameModelFactories.Chart;
 using Web.Models.CashgameModels.Chart;
 using Web.Security.Attributes;
 
@@ -10,13 +10,6 @@ namespace Web.Controllers
 {
     public class CashgameChartController : PokerBunchController
     {
-        private readonly ICashgameSuiteChartJsonBuilder _cashgameSuiteChartJsonBuilder;
-
-        public CashgameChartController(ICashgameSuiteChartJsonBuilder cashgameSuiteChartJsonBuilder)
-        {
-            _cashgameSuiteChartJsonBuilder = cashgameSuiteChartJsonBuilder;
-        }
-
         [AuthorizePlayer]
         [Route("{slug}/cashgame/chart/{year?}")]
         public ActionResult Chart(string slug, int? year = null)
@@ -31,7 +24,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/chartjson/{year?}")]
         public JsonResult ChartJson(string slug, int? year = null)
         {
-            var model = _cashgameSuiteChartJsonBuilder.Build(slug, year);
+            var cashgameChartResult = UseCase.CashgameChart(new CashgameChartRequest(slug, year));
+            var model = new CashgameChartModel(cashgameChartResult);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }

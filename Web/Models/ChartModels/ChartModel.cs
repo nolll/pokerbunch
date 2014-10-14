@@ -14,10 +14,16 @@ namespace Web.Models.ChartModels
         [JsonProperty("p")]
         public string P { get; set; }
 
-        public ChartModel(){
-            Columns = new List<ChartColumnModel>();
-            Rows = new List<ChartRowModel>();
-			P = null;
+        public ChartModel()
+            : this(new List<ChartColumnModel>(), new List<ChartRowModel>())
+        {
 		}
+
+        public ChartModel(IList<ChartColumnModel> columns, IList<ChartRowModel> rows)
+        {
+            Columns = columns;
+            Rows = rows;
+            P = null;
+        }
 	}
 }

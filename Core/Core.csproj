@@ -189,6 +189,7 @@
     <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerInteractor.cs" />
     <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerRequest.cs" />
     <Compile Include="UseCases\CashgameChartContainer\CashgameChartContainerResult.cs" />
+    <Compile Include="UseCases\CashgameChart\CashgameChartInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextInteractor.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
