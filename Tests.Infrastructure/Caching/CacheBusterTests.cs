@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Data.Cache;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Infrastructure.Caching
 {

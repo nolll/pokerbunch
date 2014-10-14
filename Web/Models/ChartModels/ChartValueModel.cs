@@ -7,30 +7,33 @@ namespace Web.Models.ChartModels
 {
     public class ChartValueModel
     {
+        [UsedImplicitly]
 	    [JsonProperty("v")]
         public string V { [UsedImplicitly] get; set; }
-        
+
+        [UsedImplicitly]
         [JsonProperty("f")]
         public string F { [UsedImplicitly] get; private set; }
-
-        public ChartValueModel()
-            : this(string.Empty)
-        {
-        }
 
         public ChartValueModel(string val)
         {
             V = val;
             F = null;
         }
+    }
 
-        public ChartValueModel(int? val)
-            : this(val.HasValue ? val.Value.ToString(CultureInfo.InvariantCulture) : null)
+    public class ChartIntValueModel : ChartValueModel
+    {
+        public ChartIntValueModel(int? val)
+            : base(val.HasValue ? val.Value.ToString(CultureInfo.InvariantCulture) : null)
         {
         }
+    }
 
-        public ChartValueModel(DateTime val)
-            : this(FormatDate(val))
+    public class ChartDateTimeValueModel : ChartValueModel
+    {
+        public ChartDateTimeValueModel(DateTime val)
+            : base(FormatDate(val))
         {
         }
 

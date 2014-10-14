@@ -34,12 +34,9 @@ namespace Web.Models.CashgameModels.Chart
 
         private static ChartRowModel GetFirstRow(IEnumerable<ChartGameItem> gameItems)
         {
-            var values = new List<ChartValueModel> { new ChartValueModel() };
-            values.AddRange(gameItems.Select(result => new ChartValueModel(0)));
-            return new ChartRowModel
-            {
-                C = values
-            };
+            var values = new List<ChartValueModel> { new ChartValueModel("") };
+            values.AddRange(gameItems.Select(result => new ChartIntValueModel(0)));
+            return new ChartRowModel(values);
         }
 
         private static ChartRowModel GetRowModel(ChartGameItem gameItem, IList<ChartPlayerItem> playerItems)
@@ -51,17 +48,14 @@ namespace Web.Models.CashgameModels.Chart
                 int sum;
                 if (gameItem.Winnings.TryGetValue(playerItem.Id, out sum))
                 {
-                    values.Add(new ChartValueModel(sum));
+                    values.Add(new ChartIntValueModel(sum));
                 }
                 else
                 {
-                    values.Add(new ChartValueModel((int?)null));
+                    values.Add(new ChartIntValueModel(null));
                 }
             }
-            return new ChartRowModel
-            {
-                C = values
-            };
+            return new ChartRowModel(values);
         }
     }
 }

@@ -86,9 +86,9 @@ namespace Web.ModelFactories.CashgameModelFactories.Action
         {
             var values = new List<ChartValueModel>
                 {
-                    new ChartValueModel(dateTime),
-                    new ChartValueModel(stack),
-                    new ChartValueModel(buyin)
+                    new ChartDateTimeValueModel(dateTime),
+                    new ChartIntValueModel(stack),
+                    new ChartIntValueModel(buyin)
                 };
             return new ChartRowModel
                 {

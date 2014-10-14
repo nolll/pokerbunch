@@ -75,8 +75,8 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
         private ChartRowModel GetCurrentStacks(TimeZoneInfo timeZone, IEnumerable<CashgameResult> results)
         {
             var timestamp = TimeZoneInfo.ConvertTime(_timeProvider.GetTime(), timeZone);
-            var values = new List<ChartValueModel> { new ChartValueModel(timestamp) };
-            values.AddRange(results.Select(result => new ChartValueModel(result.Winnings)));
+            var values = new List<ChartValueModel> { new ChartDateTimeValueModel(timestamp) };
+            values.AddRange(results.Select(result => new ChartIntValueModel(result.Winnings)));
             return new ChartRowModel
                 {
                     C = values
@@ -92,7 +92,7 @@ namespace Web.ModelFactories.CashgameModelFactories.Details
 
         private ChartRowModel GetActionRow(IList<Player> players, DateTime dateTime, int winnings, int currentPlayerId)
         {
-            var values = new List<ChartValueModel> { new ChartValueModel(dateTime) };
+            var values = new List<ChartValueModel> { new ChartDateTimeValueModel(dateTime) };
             foreach (var player in players)
             {
                 string val = null;

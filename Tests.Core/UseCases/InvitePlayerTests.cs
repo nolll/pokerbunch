@@ -8,7 +8,6 @@ using Core.UseCases.InvitePlayer;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {

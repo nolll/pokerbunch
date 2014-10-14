@@ -4,7 +4,6 @@ using Core.Repositories;
 using Core.UseCases.BuyinForm;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {

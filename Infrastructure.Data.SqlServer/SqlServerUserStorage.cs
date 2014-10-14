@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Factories;
 using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer

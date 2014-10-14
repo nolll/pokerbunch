@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Factories;
-using Core.Services.Interfaces;
 using NUnit.Framework;
 using Tests.Common;
 

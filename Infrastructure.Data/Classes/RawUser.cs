@@ -1,5 +1,3 @@
-using Core.Entities;
-
 namespace Infrastructure.Data.Classes
 {
 	public class RawUser

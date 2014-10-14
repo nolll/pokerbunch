@@ -3,7 +3,6 @@ using Core.Urls;
 using Core.UseCases.JoinBunchConfirmation;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {

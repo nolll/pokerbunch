@@ -1,6 +1,5 @@
 using Core.Entities;
 using Core.Repositories;
-using Web.ModelMappers;
 using Web.Models.CashgameModels.Edit;
 
 namespace Web.Commands.CashgameCommands
