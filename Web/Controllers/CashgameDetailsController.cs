@@ -1,22 +1,16 @@
 using System.Web.Mvc;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetails;
+using Core.UseCases.CashgameDetailsChart;
 using Web.Controllers.Base;
-using Web.ModelFactories.CashgameModelFactories.Details;
 using Web.Models.CashgameModels.Details;
+using Web.Plumbing;
 using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class CashgameDetailsController : PokerBunchController
     {
-        private readonly ICashgameDetailsChartJsonBuilder _cashgameDetailsChartJsonBuilder;
-
-        public CashgameDetailsController(ICashgameDetailsChartJsonBuilder cashgameDetailsChartJsonBuilder)
-        {
-            _cashgameDetailsChartJsonBuilder = cashgameDetailsChartJsonBuilder;
-        }
-
         [AuthorizePlayer]
         [Route("{slug}/cashgame/details/{dateStr}")]
         public ActionResult Details(string slug, string dateStr)
@@ -31,7 +25,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/detailschartjson/{dateStr}")]
         public ActionResult DetailsChartJson(string slug, string dateStr)
         {
-            var model = _cashgameDetailsChartJsonBuilder.Build(slug, dateStr);
+            var cashgameDetailsChartResult = UseCaseContainer.Instance.CashgameDetailsChart(new CashgameDetailsChartRequest(slug, dateStr));
+            var model = new DetailsChartModel(cashgameDetailsChartResult);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }

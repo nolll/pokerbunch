@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
 using Core.UseCases.CashgameChart;
+using Core.UseCases.Matrix;
 using Web.Models.ChartModels;
+using Web.Models.PlayerModels.List;
 
 namespace Web.Models.CashgameModels.Chart
 {
@@ -46,17 +48,17 @@ namespace Web.Models.CashgameModels.Chart
             values.Add(new ChartValueModel(Globalization.FormatShortDate(gameItem.Date)));
             foreach (var playerItem in playerItems)
             {
-                int sum;
-                if (gameItem.Winnings.TryGetValue(playerItem.Id, out sum))
-                {
-                    values.Add(new ChartIntValueModel(sum));
-                }
-                else
-                {
-                    values.Add(new ChartIntValueModel(null));
-                }
+                values.Add(GetValueModel(gameItem, playerItem));
             }
             return new ChartRowModel(values);
+        }
+
+        private static ChartValueModel GetValueModel(ChartGameItem gameItem, ChartPlayerItem playerItem)
+        {
+            int sum;
+            if (gameItem.Winnings.TryGetValue(playerItem.Id, out sum))
+                return new ChartIntValueModel(sum);
+            return new ChartIntValueModel(null);
         }
     }
 }

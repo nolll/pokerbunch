@@ -16,6 +16,7 @@ using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameChartContainer;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameDetails;
+using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
 using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
@@ -80,6 +81,7 @@ namespace Web.Plumbing
         // Cashgame
         public Func<TopListRequest, TopListResult> TopList { get { return request => TopListInteractor.Execute(BunchRepository, CashgameService, request); } }
         public Func<CashgameDetailsRequest, CashgameDetailsResult> CashgameDetails { get { return request => CashgameDetailsInteractor.Execute(BunchRepository, CashgameRepository, Auth, PlayerRepository, request); } }
+        public Func<CashgameDetailsChartRequest, CashgameDetailsChartResult> CashgameDetailsChart { get { return request => CashgameDetailsChartInteractor.Execute(TimeProvider, CashgameService, BunchRepository, CashgameRepository, request); } } 
         public Func<CashgameFactsRequest, CashgameFactsResult> CashgameFacts { get { return request => CashgameFactsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
         public Func<CashgameListRequest, CashgameListResult> CashgameList { get { return request => CashgameListInteractor.Execute(BunchRepository, CashgameRepository, request); } }
         public Func<AddCashgameFormRequest, AddCashgameFormResult> AddCashgameForm { get { return request => AddCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); } }

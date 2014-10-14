@@ -194,6 +194,11 @@
     <Compile Include="UseCases\CashgameContext\CashgameContextRequest.cs" />
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgamePage.cs" />
+    <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartInteractor.cs" />
+    <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartRequest.cs" />
+    <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartResult.cs" />
+    <Compile Include="UseCases\CashgameDetailsChart\DetailsChartPlayerItem.cs" />
+    <Compile Include="UseCases\CashgameDetailsChart\DetailsChartResultItem.cs" />
     <Compile Include="UseCases\CashgameDetails\CashgameDetailsInteractor.cs" />
     <Compile Include="UseCases\CashgameDetails\CashgameDetailsRequest.cs" />
     <Compile Include="UseCases\CashgameDetails\CashgameDetailsResult.cs" />
