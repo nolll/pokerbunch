@@ -7,15 +7,12 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using Castle.Windsor;
-using Castle.Windsor.Installer;
 using Core;
 using Core.Entities;
 using Core.Services;
 using Newtonsoft.Json;
 using Web.Plumbing;
 using Web.Security;
-using DependencyResolver = Plumbing.DependencyResolver;
 
 namespace Web
 {
@@ -39,8 +36,6 @@ namespace Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-            BootstrapContainer();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -101,17 +96,8 @@ namespace Web
             RouteConfig.RegisterRoutes(routes);
         }
 
-        private static void BootstrapContainer()
-        {
-            var windsorContainer = new WindsorContainer().Install(FromAssembly.This());
-            _dependencyResolver = new WebDependencyResolver(windsorContainer);
-            var controllerFactory = new WindsorControllerFactory(windsorContainer.Kernel);
-            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
-        }
-
         protected void Application_End()
         {
-            _dependencyResolver.Dispose();
         }
     }
 }
