@@ -147,6 +147,10 @@
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
     <Compile Include="Urls\UserUrl.cs" />
+    <Compile Include="UseCases\ActionsChart\ActionsChartCheckpointItem.cs" />
+    <Compile Include="UseCases\ActionsChart\ActionsChartInteractor.cs" />
+    <Compile Include="UseCases\ActionsChart\ActionsChartRequest.cs" />
+    <Compile Include="UseCases\ActionsChart\ActionsChartResult.cs" />
     <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
     <Compile Include="UseCases\Actions\ActionsRequest.cs" />
     <Compile Include="UseCases\Actions\ActionsResult.cs" />

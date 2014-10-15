@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using NUnit.Framework;
 using Tests.Common;
 using Web.Controllers;
-using Web.ModelFactories.CashgameModelFactories.Action;
 
 namespace Tests.Web.ControllerTests
 {
@@ -21,8 +20,7 @@ namespace Tests.Web.ControllerTests
 
         private CashgameActionController GetSut()
         {
-            return new CashgameActionController(
-                GetMock<IActionChartJsonBuilder>().Object);
+            return new CashgameActionController();
         }
     }
 }

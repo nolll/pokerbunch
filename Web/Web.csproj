@@ -181,11 +181,9 @@
     <Compile Include="Commands\UserCommands\IUserCommandProvider.cs" />
     <Compile Include="Commands\UserCommands\UserCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\BunchCommandProvider.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\IActionChartJsonBuilder.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
-    <Compile Include="ModelFactories\CashgameModelFactories\Action\ActionChartJsonBuilder.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />

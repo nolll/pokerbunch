@@ -4,7 +4,6 @@ using Plumbing;
 using Web.Commands.CashgameCommands;
 using Web.Commands.HomegameCommands;
 using Web.Commands.UserCommands;
-using Web.ModelFactories.CashgameModelFactories.Action;
 
 namespace Web.Plumbing
 {
@@ -18,10 +17,6 @@ namespace Web.Plumbing
 
         private void RegisterTypes()
         {
-            // Model Factories
-            RegisterComponent<IActionChartJsonBuilder, ActionChartJsonBuilder>();
-
-            // Command Providers
             RegisterComponent<IUserCommandProvider, UserCommandProvider>();
             RegisterComponent<IBunchCommandProvider, BunchCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
