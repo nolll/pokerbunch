@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Core.Urls;
+using Core.Exceptions;
 using Core.UseCases.BunchContext;
+using Core.UseCases.EditBunch;
 using Core.UseCases.EditBunchForm;
-using Web.Commands.HomegameCommands;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
 using Web.Security.Attributes;
@@ -11,19 +11,11 @@ namespace Web.Controllers
 {
     public class EditBunchController : PokerBunchController
     {
-        private readonly IBunchCommandProvider _bunchCommandProvider;
-
-        public EditBunchController(IBunchCommandProvider bunchCommandProvider)
-        {
-            _bunchCommandProvider = bunchCommandProvider;
-        }
-
         [AuthorizeManager]
         [Route("{slug}/homegame/edit")]
         public ActionResult Edit(string slug)
         {
-            var model = BuildEditModel(slug);
-            return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
+            return ShowForm(slug);
         }
 
         [HttpPost]
@@ -31,24 +23,27 @@ namespace Web.Controllers
         [Route("{slug}/homegame/edit")]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
-            var command = _bunchCommandProvider.GetEditCommand(slug, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new BunchDetailsUrl(slug).Relative);
+                var request = new EditBunchRequest(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var result = UseCase.EditBunch(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
-            var model = BuildEditModel(slug, postModel);
-            return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            
+            return ShowForm(slug, postModel);
         }
 
-        private EditBunchPageModel BuildEditModel(string slug, EditBunchPostModel postModel = null)
+        private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-
             var editBunchFormRequest = new EditBunchFormRequest(slug);
             var editBunchFormResult = UseCase.EditBunchForm(editBunchFormRequest);
-
-            return new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
+            var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
+            return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
         }
     }
 }

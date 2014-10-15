@@ -2,8 +2,6 @@ using Core.Repositories;
 using Core.Services.Interfaces;
 using Web.Models.CashgameModels.Cashout;
 using Web.Models.CashgameModels.Checkpoints;
-using Web.Models.CashgameModels.Edit;
-using Web.Models.CashgameModels.Report;
 
 namespace Web.Commands.CashgameCommands
 {

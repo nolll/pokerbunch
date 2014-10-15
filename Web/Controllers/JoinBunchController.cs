@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Core.Urls;
+using Core.Exceptions;
+using Core.UseCases.JoinBunch;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
-using Web.Commands.HomegameCommands;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Join;
 using Web.Security.Attributes;
@@ -11,13 +11,6 @@ namespace Web.Controllers
 {
     public class JoinBunchController : PokerBunchController
     {
-        private readonly IBunchCommandProvider _bunchCommandProvider;
-
-        public JoinBunchController(IBunchCommandProvider bunchCommandProvider)
-        {
-            _bunchCommandProvider = bunchCommandProvider;
-        }
-
         [Authorize]
         [Route("{slug}/homegame/join")]
         public ActionResult Join(string slug)
@@ -30,12 +23,21 @@ namespace Web.Controllers
         [Route("{slug}/homegame/join")]
         public ActionResult Post(string slug, JoinBunchPostModel postModel)
         {
-            var command = _bunchCommandProvider.GetJoinCommand(slug, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new JoinBunchConfirmationUrl(slug).Relative);
+                var request = new JoinBunchRequest(slug, postModel.Code);
+                var result = UseCase.JoinBunch(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            catch (InvalidJoinCodeException ex)
+            {
+                AddModelError(ex.Message);
+            }
+
             return ShowForm(slug, postModel);
         }
 

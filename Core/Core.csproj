@@ -50,10 +50,12 @@
     <Compile Include="Entities\UserBunch.cs" />
     <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
+    <Compile Include="Exceptions\BunchExistsException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
     <Compile Include="Exceptions\EmailExistsException.cs" />
+    <Compile Include="Exceptions\InvalidJoinCodeException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\PlayerExistsException.cs" />
@@ -158,6 +160,9 @@
     <Compile Include="UseCases\AddBunchForm\AddBunchFormInteractor.cs" />
     <Compile Include="UseCases\AddBunchForm\AddBunchFormResult.cs" />
     <Compile Include="UseCases\AddBunchForm\TimeZoneItem.cs" />
+    <Compile Include="UseCases\AddBunch\AddBunchInteractor.cs" />
+    <Compile Include="UseCases\AddBunch\AddBunchRequest.cs" />
+    <Compile Include="UseCases\AddBunch\AddBunchResult.cs" />
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormInteractor.cs" />
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormRequest.cs" />
     <Compile Include="UseCases\AddCashgameForm\AddCashgameFormResult.cs" />
@@ -232,6 +237,9 @@
     <Compile Include="UseCases\EditBunchForm\EditBunchFormInteractor.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormRequest.cs" />
     <Compile Include="UseCases\EditBunchForm\EditBunchFormResult.cs" />
+    <Compile Include="UseCases\EditBunch\EditBunchInteractor.cs" />
+    <Compile Include="UseCases\EditBunch\EditBunchRequest.cs" />
+    <Compile Include="UseCases\EditBunch\EditBunchResult.cs" />
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormInteractor.cs" />
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormRequest.cs" />
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormResult.cs" />
@@ -263,6 +271,9 @@
     <Compile Include="UseCases\JoinBunchForm\JoinBunchFormInteractor.cs" />
     <Compile Include="UseCases\JoinBunchForm\JoinBunchFormRequest.cs" />
     <Compile Include="UseCases\JoinBunchForm\JoinBunchFormResult.cs" />
+    <Compile Include="UseCases\JoinBunch\JoinBunchInteractor.cs" />
+    <Compile Include="UseCases\JoinBunch\JoinBunchRequest.cs" />
+    <Compile Include="UseCases\JoinBunch\JoinBunchResult.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />
     <Compile Include="UseCases\LoginForm\LoginFormResult.cs" />

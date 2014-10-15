@@ -2,7 +2,6 @@
 using Castle.Windsor;
 using Plumbing;
 using Web.Commands.CashgameCommands;
-using Web.Commands.HomegameCommands;
 
 namespace Web.Plumbing
 {
@@ -16,7 +15,6 @@ namespace Web.Plumbing
 
         private void RegisterTypes()
         {
-            RegisterComponent<IBunchCommandProvider, BunchCommandProvider>();
             RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
         }
     }

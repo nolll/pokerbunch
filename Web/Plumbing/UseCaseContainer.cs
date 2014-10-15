@@ -1,6 +1,7 @@
 using System;
 using Core.UseCases.Actions;
 using Core.UseCases.ActionsChart;
+using Core.UseCases.AddBunch;
 using Core.UseCases.AddBunchForm;
 using Core.UseCases.AddCashgame;
 using Core.UseCases.AddCashgameForm;
@@ -23,6 +24,7 @@ using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
 using Core.UseCases.ChangePassword;
 using Core.UseCases.DeletePlayer;
+using Core.UseCases.EditBunch;
 using Core.UseCases.EditBunchForm;
 using Core.UseCases.EditCashgame;
 using Core.UseCases.EditCashgameForm;
@@ -33,6 +35,7 @@ using Core.UseCases.EndCashgame;
 using Core.UseCases.ForgotPassword;
 using Core.UseCases.Home;
 using Core.UseCases.InvitePlayer;
+using Core.UseCases.JoinBunch;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
 using Core.UseCases.Login;
@@ -82,8 +85,11 @@ namespace Web.Plumbing
         public Func<BunchListResult> BunchList { get { return () => BunchListInteractor.Execute(BunchRepository); } }
         public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => BunchDetailsInteractor.Execute(BunchRepository, Auth, request); } }
         public Func<AddBunchFormResult> AddBunchForm { get { return AddBunchFormInteractor.Execute; } }
+        public Func<AddBunchRequest, AddBunchResult> AddBunch { get { return request => AddBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } }
         public Func<EditBunchFormRequest, EditBunchFormResult> EditBunchForm { get { return request => EditBunchFormInteractor.Execute(BunchRepository, request); } }
+        public Func<EditBunchRequest, EditBunchResult> EditBunch { get { return request => EditBunchInteractor.Execute(BunchRepository, request); } }
         public Func<JoinBunchFormRequest, JoinBunchFormResult> JoinBunchForm { get { return request => JoinBunchFormInteractor.Execute(BunchRepository, request); } }
+        public Func<JoinBunchRequest, JoinBunchResult> JoinBunch { get { return request => JoinBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } } 
         public Func<JoinBunchConfirmationRequest, JoinBunchConfirmationResult> JoinBunchConfirmation { get { return request => JoinBunchConfirmationInteractor.Execute(BunchRepository, request); } }
 
         // Cashgame

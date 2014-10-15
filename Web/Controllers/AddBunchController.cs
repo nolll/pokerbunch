@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using Core.Urls;
-using Web.Commands.HomegameCommands;
+using Core.Exceptions;
+using Core.UseCases.AddBunch;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
 
@@ -8,13 +8,6 @@ namespace Web.Controllers
 {
     public class AddBunchController : PokerBunchController
     {
-        private readonly IBunchCommandProvider _bunchCommandProvider;
-
-        public AddBunchController(IBunchCommandProvider bunchCommandProvider)
-        {
-            _bunchCommandProvider = bunchCommandProvider;
-        }
-
         [Authorize]
         [Route("-/homegame/add")]
         public ActionResult Add()
@@ -27,12 +20,21 @@ namespace Web.Controllers
         [Route("-/homegame/add")]
         public ActionResult Add_Post(AddBunchPostModel postModel)
         {
-            var command = _bunchCommandProvider.GetAddCommand(postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new AddBunchConfirmationUrl().Relative);
+                var request = new AddBunchRequest(postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
+                var result = UseCase.AddBunch(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            catch (BunchExistsException ex)
+            {
+                AddModelError(ex.Message);
+            }
+
             return ShowForm(postModel);
         }
 

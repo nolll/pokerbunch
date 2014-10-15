@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.CashgameContext;
+using Core.UseCases.BunchContext;
 using Core.UseCases.RunningCashgame;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Running;
@@ -17,7 +17,7 @@ namespace Web.Controllers
         {
             try
             {
-                var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug));
+                var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
                 var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);

@@ -1,11 +1,11 @@
 using Core.Urls;
-using Core.UseCases.CashgameContext;
+using Core.UseCases.BunchContext;
 using Core.UseCases.RunningCashgame;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
 {
-    public class RunningCashgamePageModel : CashgamePageModel
+    public class RunningCashgamePageModel : BunchPageModel
     {
         public string StartTime { get; private set; }
         public bool ShowStartTime { get; private set; }
@@ -18,12 +18,12 @@ namespace Web.Models.CashgameModels.Running
         public Url ReportUrl { get; private set; }
         public Url CashoutUrl { get; private set; }
         public Url EndGameUrl { get; private set; }
-        public RunningCashgameTableModel RunningCashgameTableModel { get; set; }
+        public RunningCashgameTableModel RunningCashgameTableModel { get; private set; }
         public bool ShowTable { get; private set; }
         public Url ChartDataUrl { get; private set; }
         public bool ShowChart { get; private set; }
 
-	    public RunningCashgamePageModel(CashgameContextResult contextResult, RunningCashgameResult runningCashgameResult)
+	    public RunningCashgamePageModel(BunchContextResult contextResult, RunningCashgameResult runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
 	        Location = runningCashgameResult.Location;
