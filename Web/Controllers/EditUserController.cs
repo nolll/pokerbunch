@@ -1,7 +1,7 @@
 using System.Web.Mvc;
-using Core.Urls;
+using Core.Exceptions;
+using Core.UseCases.EditUser;
 using Core.UseCases.EditUserForm;
-using Web.Commands.UserCommands;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Edit;
 
@@ -9,14 +9,6 @@ namespace Web.Controllers
 {
     public class EditUserController : PokerBunchController
     {
-        private readonly IUserCommandProvider _userCommandProvider;
-
-        public EditUserController(
-            IUserCommandProvider userCommandProvider)
-        {
-            _userCommandProvider = userCommandProvider;
-        }
-
         [Authorize]
         [Route("-/user/edit/{userName}")]
         public ActionResult EditUser(string userName)
@@ -29,12 +21,17 @@ namespace Web.Controllers
         [Route("-/user/edit/{userName}")]
         public ActionResult Post(string userName, EditUserPostModel postModel)
         {
-            var command = _userCommandProvider.GetEditCommand(userName, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new UserDetailsUrl(userName).Relative);
+                var request = new EditUserRequest(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
+                var result = UseCase.EditUser(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
             return ShowForm(userName, postModel);
         }
 

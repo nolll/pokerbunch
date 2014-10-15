@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using Core.Urls;
-using Web.Commands.UserCommands;
+using Core.Exceptions;
+using Core.UseCases.ChangePassword;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ChangePassword;
 
@@ -8,14 +8,6 @@ namespace Web.Controllers
 {
     public class ChangePasswordController : PokerBunchController
     {
-        private readonly IUserCommandProvider _userCommandProvider;
-
-        public ChangePasswordController(
-            IUserCommandProvider userCommandProvider)
-        {
-            _userCommandProvider = userCommandProvider;
-        }
-
         [Authorize]
         [Route("-/user/changepassword")]
         public ActionResult ChangePassword()
@@ -28,12 +20,17 @@ namespace Web.Controllers
         [Route("-/user/changepassword")]
         public ActionResult Post(ChangePasswordPostModel postModel)
         {
-            var command = _userCommandProvider.GetChangePasswordCommand(postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new ChangePasswordConfirmationUrl().Relative);
+                var request = new ChangePasswordRequest(postModel.Password, postModel.Repeat);
+                var result = UseCase.ChangePassword(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
             return ShowForm();
         }
 

@@ -21,11 +21,13 @@ using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
 using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
+using Core.UseCases.ChangePassword;
 using Core.UseCases.DeletePlayer;
 using Core.UseCases.EditBunchForm;
 using Core.UseCases.EditCashgame;
 using Core.UseCases.EditCashgameForm;
 using Core.UseCases.EditCheckpointForm;
+using Core.UseCases.EditUser;
 using Core.UseCases.EditUserForm;
 using Core.UseCases.EndCashgame;
 using Core.UseCases.ForgotPassword;
@@ -72,7 +74,9 @@ namespace Web.Plumbing
         public Func<UserDetailsRequest, UserDetailsResult> UserDetails { get { return request => UserDetailsInteractor.Execute(Auth, UserRepository, request); } }
         public Func<AddUserRequest, AddUserResult> AddUser { get { return request => AddUserInteractor.Execute(UserRepository, RandomService, MessageSender, request); } }
         public Func<EditUserFormRequest, EditUserFormResult> EditUserForm { get { return request => EditUserFormInteractor.Execute(UserRepository, request); } }
+        public Func<EditUserRequest, EditUserResult> EditUser { get { return request => EditUserInteractor.Execute(UserRepository, request); } } 
         public Func<ForgotPasswordRequest, ForgotPasswordResult> ForgotPassword { get { return request => ForgotPasswordInteractor.Execute(UserRepository, MessageSender, RandomService, request); } }
+        public Func<ChangePasswordRequest, ChangePasswordResult> ChangePassword { get { return request => ChangePasswordInteractor.Execute(Auth, UserRepository, RandomService, request); } } 
 
         // Bunch
         public Func<BunchListResult> BunchList { get { return () => BunchListInteractor.Execute(BunchRepository); } }

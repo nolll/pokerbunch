@@ -223,6 +223,9 @@
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\ChangePassword\ChangePasswordInteractor.cs" />
+    <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
+    <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerInteractor.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerRequest.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerResult.cs" />
@@ -241,6 +244,9 @@
     <Compile Include="UseCases\EditUserForm\EditUserFormInteractor.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />
+    <Compile Include="UseCases\EditUser\EditUserInteractor.cs" />
+    <Compile Include="UseCases\EditUser\EditUserRequest.cs" />
+    <Compile Include="UseCases\EditUser\EditUserResult.cs" />
     <Compile Include="UseCases\EndCashgame\EndCashgameInteractor.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordInteractor.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordMessage.cs" />

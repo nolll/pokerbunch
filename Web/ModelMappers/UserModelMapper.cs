@@ -17,18 +17,5 @@ namespace Web.ModelMappers
                 user.EncryptedPassword,
                 user.Salt);
         }
-
-        public static User GetUser(User user, string encryptedPassword, string salt)
-        {
-            return new User(
-                user.Id,
-                user.UserName,
-                user.DisplayName,
-                user.RealName,
-                user.Email,
-                user.GlobalRole,
-                encryptedPassword,
-                salt);
-        }
     }
 }

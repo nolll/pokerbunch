@@ -12,5 +12,10 @@ namespace Core.Exceptions
         {
             Messages = validator.Errors.ToList();
         }
+
+        public ValidationException(string message)
+        {
+            Messages = new List<string> {message};
+        }
     }
 }
