@@ -1,7 +1,7 @@
 using System.Web.Mvc;
-using Core.Urls;
+using Core.Exceptions;
 using Core.UseCases.BunchContext;
-using Web.Commands.CashgameCommands;
+using Core.UseCases.Cashout;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Cashout;
 using Web.Security.Attributes;
@@ -10,19 +10,11 @@ namespace Web.Controllers
 {
     public class CashgameCashoutController : PokerBunchController
     {
-        private readonly ICashgameCommandProvider _cashgameCommandProvider;
-
-        public CashgameCashoutController(ICashgameCommandProvider cashgameCommandProvider)
-        {
-            _cashgameCommandProvider = cashgameCommandProvider;
-        }
-
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/cashout/{playerId:int}")]
         public ActionResult Cashout(string slug, int playerId)
         {
-            var model = BuildCashoutModel(slug);
-            return View("~/Views/Pages/CashgameCashout/Cashout.cshtml", model);
+            return ShowForm(slug);
         }
 
         [HttpPost]
@@ -30,20 +22,25 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/cashout/{playerId:int}")]
         public ActionResult Cashout_Post(string slug, int playerId, CashoutPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetCashoutCommand(slug, playerId, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new RunningCashgameUrl(slug).Relative);
+                var request = new CashoutRequest(slug, playerId, postModel.StackAmount);
+                var result = UseCase.Cashout(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
-            var model = BuildCashoutModel(slug, postModel);
-            return View("~/Views/Pages/CashgameCashout/Cashout.cshtml", model);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            
+            return ShowForm(slug, postModel);
         }
 
-        private CashoutPageModel BuildCashoutModel(string slug, CashoutPostModel postModel = null)
+        private ActionResult ShowForm(string slug, CashoutPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            return new CashoutPageModel(contextResult, postModel);
+            var model = new CashoutPageModel(contextResult, postModel);
+            return View("~/Views/Pages/CashgameCashout/Cashout.cshtml", model);
         }
     }
 }

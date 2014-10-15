@@ -22,6 +22,7 @@ using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
 using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
+using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
 using Core.UseCases.DeletePlayer;
 using Core.UseCases.EditBunch;
@@ -112,7 +113,8 @@ namespace Web.Plumbing
         public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, TimeProvider, request); } }
         public Func<EditCashgameFormRequest, EditCashgameFormResult> EditCashgameForm { get { return request => EditCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); }}
         public Func<EditCashgameRequest, EditCashgameResult> EditCashgame { get { return request => EditCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<ReportRequest, ReportResult> Report { get { return request => ReportInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository, TimeProvider, request); } } 
+        public Func<ReportRequest, ReportResult> Report { get { return request => ReportInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository, TimeProvider, request); } }
+        public Func<CashoutRequest, CashoutResult> Cashout { get { return request => CashoutInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository, TimeProvider, request); } } 
 
         // Player
         public Func<PlayerListRequest, PlayerListResult> PlayerList { get { return request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request); } }

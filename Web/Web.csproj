@@ -123,7 +123,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
-    <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EditCheckpointCommand.cs" />

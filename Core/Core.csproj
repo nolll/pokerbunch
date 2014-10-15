@@ -228,6 +228,9 @@
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListResult.cs" />
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
+    <Compile Include="UseCases\Cashout\CashoutInteractor.cs" />
+    <Compile Include="UseCases\Cashout\CashoutRequest.cs" />
+    <Compile Include="UseCases\Cashout\CashoutResult.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordInteractor.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
