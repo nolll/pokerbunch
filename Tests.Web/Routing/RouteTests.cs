@@ -185,7 +185,7 @@ namespace Tests.Web.Routing
         public void EditCashgame()
         {
             _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<EditCashgameController>(x => x.Edit("a", "2000-01-01"));
-            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<EditCashgameController>(HttpMethod.Post, x => x.Edit_Post("a", "2000-01-01", new CashgameEditPostModel()));
+            _routes.ShouldMap("/a/cashgame/edit/2000-01-01").To<EditCashgameController>(HttpMethod.Post, x => x.Post("a", "2000-01-01", new EditCashgamePostModel()));
         }
 
         [Test]
@@ -262,7 +262,7 @@ namespace Tests.Web.Routing
         public void CashgameEnd()
         {
             _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(x => x.End("a"));
-            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(HttpMethod.Post, x => x.End_Post("a", new EndGamePostModel()));
+            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(HttpMethod.Post, x => x.Post("a", new EndGamePostModel()));
         }
 
         [Test]

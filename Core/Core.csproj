@@ -232,12 +232,16 @@
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormInteractor.cs" />
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormRequest.cs" />
     <Compile Include="UseCases\EditCashgameForm\EditCashgameFormResult.cs" />
+    <Compile Include="UseCases\EditCashgame\EditCashgameInteractor.cs" />
+    <Compile Include="UseCases\EditCashgame\EditCashgameRequest.cs" />
+    <Compile Include="UseCases\EditCashgame\EditCashgameResult.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormInteractor.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormRequest.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormResult.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormInteractor.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />
+    <Compile Include="UseCases\EndCashgame\EndCashgameInteractor.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordInteractor.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordMessage.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordRequest.cs" />
@@ -279,6 +283,9 @@
     <Compile Include="UseCases\PlayerList\PlayerListItem.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListRequest.cs" />
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
+    <Compile Include="UseCases\Report\ReportInteractor.cs" />
+    <Compile Include="UseCases\Report\ReportRequest.cs" />
+    <Compile Include="UseCases\Report\ReportResult.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameRequest.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameResult.cs" />

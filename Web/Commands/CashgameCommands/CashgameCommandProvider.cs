@@ -29,26 +29,6 @@ namespace Web.Commands.CashgameCommands
             _timeProvider = timeProvider;
         }
 
-        public Command GetEndGameCommand(string slug)
-        {
-            var bunch = _bunchRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetRunning(bunch);
-            return new EndGameCommand(_cashgameRepository, bunch, cashgame);
-        }
-
-        public Command GetEditCommand(string slug, string dateStr, CashgameEditPostModel postModel)
-        {
-            return new EditCashgameCommand(_bunchRepository, _cashgameRepository, slug, dateStr, postModel);
-        }
-
-        public Command GetReportCommand(string slug, int playerId, ReportPostModel postModel)
-        {
-            var bunch = _bunchRepository.GetBySlug(slug);
-            var cashgame = _cashgameRepository.GetRunning(bunch);
-            var player = _playerRepository.GetById(playerId);
-            return new ReportCommand(_checkpointRepository, _timeProvider, cashgame, player, postModel);
-        }
-
         public Command GetDeleteCheckpointCommand(string slug, string dateStr, int checkpointId)
         {
             var bunch = _bunchRepository.GetBySlug(slug);

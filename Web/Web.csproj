@@ -126,12 +126,9 @@
     <Compile Include="Commands\CashgameCommands\CashoutCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
     <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\EditCashgameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\EditCheckpointCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\EndGameCommand.cs" />
     <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
     <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
-    <Compile Include="Commands\CashgameCommands\ReportCommand.cs" />
     <Compile Include="Commands\HomegameCommands\EditBunchCommand.cs" />
     <Compile Include="Commands\HomegameCommands\IBunchCommandProvider.cs" />
     <Compile Include="Commands\HomegameCommands\JoinBunchCommand.cs" />
@@ -214,7 +211,7 @@
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />
-    <Compile Include="Models\CashgameModels\Edit\CashgameEditPostModel.cs" />
+    <Compile Include="Models\CashgameModels\Edit\EditCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixPageModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableCellModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />

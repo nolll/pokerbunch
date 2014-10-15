@@ -1,6 +1,8 @@
 using System.Web.Mvc;
+using Core.Exceptions;
 using Core.Urls;
 using Core.UseCases.BunchContext;
+using Core.UseCases.EditCashgame;
 using Core.UseCases.EditCashgameForm;
 using Web.Commands.CashgameCommands;
 using Web.Controllers.Base;
@@ -28,18 +30,23 @@ namespace Web.Controllers
         [HttpPost]
         [AuthorizeManager]
         [Route("{slug}/cashgame/edit/{dateStr}")]
-        public ActionResult Edit_Post(string slug, string dateStr, CashgameEditPostModel postModel)
+        public ActionResult Post(string slug, string dateStr, EditCashgamePostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetEditCommand(slug, dateStr, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new CashgameDetailsUrl(slug, dateStr).Relative);
+                var request = new EditCashgameRequest(slug, dateStr, postModel.Location);
+                var result = UseCase.EditCashgame(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
             return ShowForm(slug, dateStr, postModel);
         }
 
-        private ActionResult ShowForm(string slug, string dateStr, CashgameEditPostModel postModel = null)
+        private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var editCashgameFormResult = UseCase.EditCashgameForm(new EditCashgameFormRequest(slug, dateStr));

@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Core.Urls;
 using Core.UseCases.BunchContext;
-using Web.Commands.CashgameCommands;
+using Core.UseCases.EndCashgame;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.End;
 using Web.Security.Attributes;
@@ -10,13 +10,6 @@ namespace Web.Controllers
 {
     public class EndCashgameController : PokerBunchController
     {
-        private readonly ICashgameCommandProvider _cashgameCommandProvider;
-
-        public EndCashgameController(ICashgameCommandProvider cashgameCommandProvider)
-        {
-            _cashgameCommandProvider = cashgameCommandProvider;
-        }
-
         [AuthorizePlayer]
         [Route("{slug}/cashgame/end")]
         public ActionResult End(string slug)
@@ -29,11 +22,10 @@ namespace Web.Controllers
         [HttpPost]
         [AuthorizePlayer]
         [Route("{slug}/cashgame/end")]
-        public ActionResult End_Post(string slug, EndGamePostModel postModel)
+        public ActionResult Post(string slug, EndGamePostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetEndGameCommand(slug);
-            command.Execute();
-            return Redirect(new CashgameIndexUrl(slug).Relative);
+            var endGameResult = UseCase.EndCashgame(new EndCashgameRequest(slug));
+            return Redirect(endGameResult.ReturnUrl.Relative);
         }
     }
 }

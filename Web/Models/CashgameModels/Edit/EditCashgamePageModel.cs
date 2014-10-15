@@ -16,7 +16,7 @@ namespace Web.Models.CashgameModels.Edit
         public string TypedLocation { get; private set; }
         public string SelectedLocation { get; private set; }
 
-        public EditCashgamePageModel(BunchContextResult contextResult, EditCashgameFormResult editCashgameFormResult, CashgameEditPostModel postModel)
+        public EditCashgamePageModel(BunchContextResult contextResult, EditCashgameFormResult editCashgameFormResult, EditCashgamePostModel postModel)
             : base("Edit Cashgame", contextResult)
         {
             IsoDate = editCashgameFormResult.Date.IsoString;

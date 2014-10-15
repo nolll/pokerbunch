@@ -1,6 +1,8 @@
 using System.Web.Mvc;
+using Core.Exceptions;
 using Core.Urls;
 using Core.UseCases.BunchContext;
+using Core.UseCases.Report;
 using Web.Commands.CashgameCommands;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Report;
@@ -10,19 +12,11 @@ namespace Web.Controllers
 {
     public class CashgameReportController : PokerBunchController
     {
-        private readonly ICashgameCommandProvider _cashgameCommandProvider;
-
-        public CashgameReportController(ICashgameCommandProvider cashgameCommandProvider)
-        {
-            _cashgameCommandProvider = cashgameCommandProvider;
-        }
-
         [AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/report/{playerId:int}")]
         public ActionResult Report(string slug, int playerId)
         {
-            var model = BuildReportModel(slug);
-            return View("~/Views/Pages/CashgameReport/Report.cshtml", model);
+            return ShowForm(slug);
         }
 
         [HttpPost]
@@ -30,20 +24,24 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/report/{playerId:int}")]
         public ActionResult Report_Post(string slug, int playerId, ReportPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetReportCommand(slug, playerId, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new RunningCashgameUrl(slug).Relative);
+                var request = new ReportRequest(slug, playerId, postModel.StackAmount);
+                var result = UseCase.Report(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
-            var model = BuildReportModel(slug, postModel);
-            return View("~/Views/Pages/CashgameReport/Report.cshtml", model);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+            return ShowForm(slug, postModel);
         }
 
-        private ReportPageModel BuildReportModel(string slug, ReportPostModel postModel = null)
+        private ActionResult ShowForm(string slug, ReportPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            return new ReportPageModel(contextResult, postModel);
+            var model = new ReportPageModel(contextResult, postModel);
+            return View("~/Views/Pages/CashgameReport/Report.cshtml", model);
         }
     }
 }
