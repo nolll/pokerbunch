@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Core.Urls;
+using Core.Exceptions;
 using Core.UseCases.BunchContext;
+using Core.UseCases.EditCheckpoint;
 using Core.UseCases.EditCheckpointForm;
-using Web.Commands.CashgameCommands;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Security.Attributes;
@@ -11,19 +11,11 @@ namespace Web.Controllers
 {
     public class EditCheckpointController : PokerBunchController
     {
-        private readonly ICashgameCommandProvider _cashgameCommandProvider;
-
-        public EditCheckpointController(ICashgameCommandProvider cashgameCommandProvider)
-        {
-            _cashgameCommandProvider = cashgameCommandProvider;
-        }
-
         [AuthorizeManager]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var model = BuildEditCheckpointModel(slug, dateStr, playerId, checkpointId);
-            return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
+            return ShowForm(slug, dateStr, playerId, checkpointId);
         }
 
         [HttpPost]
@@ -31,21 +23,26 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var command = _cashgameCommandProvider.GetEditCheckpointCommand(slug, dateStr, checkpointId, postModel);
-            if (command.Execute())
+            try
             {
-                return Redirect(new CashgameActionUrl(slug, dateStr, playerId).Relative);
+                var request = new EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var result = UseCase.EditCheckpoint(request);
+                return Redirect(result.ReturnUrl.Relative);
             }
-            AddModelErrors(command.Errors);
-            var model = BuildEditCheckpointModel(slug, dateStr, playerId, checkpointId, postModel);
-            return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
+            catch (ValidationException ex)
+            {
+                AddModelErrors(ex.Messages);
+            }
+
+            return ShowForm(slug, dateStr, playerId, checkpointId, postModel);
         }
 
-        private EditCheckpointPageModel BuildEditCheckpointModel(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
+        private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var editCheckpointFormResult = UseCase.EditCheckpointForm(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
-            return new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
+            var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
+            return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
         }
     }
 }

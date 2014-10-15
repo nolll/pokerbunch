@@ -123,11 +123,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
-    <Compile Include="Commands\CashgameCommands\DeleteCheckpointCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\DeleteCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\EditCheckpointCommand.cs" />
-    <Compile Include="Commands\CashgameCommands\ICashgameCommandProvider.cs" />
-    <Compile Include="Commands\CashgameCommands\CashgameCommandProvider.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddPlayerController.cs" />
@@ -168,7 +163,6 @@
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
-    <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />

@@ -51,6 +51,7 @@
     <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\BunchExistsException.cs" />
+    <Compile Include="Exceptions\CashgameHasResultsException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
@@ -234,6 +235,12 @@
     <Compile Include="UseCases\ChangePassword\ChangePasswordInteractor.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
+    <Compile Include="UseCases\DeleteCashgame\DeleteCashgameInteractor.cs" />
+    <Compile Include="UseCases\DeleteCashgame\DeleteCashgameRequest.cs" />
+    <Compile Include="UseCases\DeleteCashgame\DeleteCashgameResult.cs" />
+    <Compile Include="UseCases\DeleteCheckpoint\DeleteCheckpointInteractor.cs" />
+    <Compile Include="UseCases\DeleteCheckpoint\DeleteCheckpointRequest.cs" />
+    <Compile Include="UseCases\DeleteCheckpoint\DeleteCheckpointResult.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerInteractor.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerRequest.cs" />
     <Compile Include="UseCases\DeletePlayer\DeletePlayerResult.cs" />
@@ -252,6 +259,9 @@
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormInteractor.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormRequest.cs" />
     <Compile Include="UseCases\EditCheckpointForm\EditCheckpointFormResult.cs" />
+    <Compile Include="UseCases\EditCheckpoint\EditCheckpointInteractor.cs" />
+    <Compile Include="UseCases\EditCheckpoint\EditCheckpointRequest.cs" />
+    <Compile Include="UseCases\EditCheckpoint\EditCheckpointResult.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormInteractor.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormRequest.cs" />
     <Compile Include="UseCases\EditUserForm\EditUserFormResult.cs" />

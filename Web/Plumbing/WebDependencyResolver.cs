@@ -1,7 +1,6 @@
 ﻿using Castle.Core;
 using Castle.Windsor;
 using Plumbing;
-using Web.Commands.CashgameCommands;
 
 namespace Web.Plumbing
 {
@@ -15,7 +14,6 @@ namespace Web.Plumbing
 
         private void RegisterTypes()
         {
-            RegisterComponent<ICashgameCommandProvider, CashgameCommandProvider>();
         }
     }
 }
