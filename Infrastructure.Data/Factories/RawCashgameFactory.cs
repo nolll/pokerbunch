@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Factories
                 BunchId = cashgame.BunchId,
                 Location = cashgame.Location,
                 Status = status.HasValue ? (int)status.Value : (int)cashgame.Status,
-                Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow(),
+                Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow,
             };
         }
     }

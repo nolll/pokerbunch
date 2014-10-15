@@ -5,9 +5,9 @@ namespace Infrastructure.System
 {
     public class TimeProvider : ITimeProvider
     {
-        public DateTime UtcNow()
+        public DateTime UtcNow
         {
-            return DateTime.UtcNow;
+            get { return DateTime.UtcNow; }
         }
-	}
+    }
 }

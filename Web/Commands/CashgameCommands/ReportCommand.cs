@@ -40,7 +40,7 @@ namespace Web.Commands.CashgameCommands
         private Checkpoint CreateCheckpoint(ReportPostModel postModel)
         {
             return CheckpointFactory.Create(
-                _timeProvider.UtcNow(),
+                _timeProvider.UtcNow,
                 CheckpointType.Report,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0);
         }

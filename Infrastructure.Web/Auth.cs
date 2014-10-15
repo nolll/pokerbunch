@@ -28,7 +28,7 @@ namespace Infrastructure.Web
         {
             var userData = JsonConvert.SerializeObject(user);
 
-            var currentTime = _timeProvider.UtcNow();
+            var currentTime = _timeProvider.UtcNow;
             var expires = currentTime.AddYears(100);
 
             var authTicket = new FormsAuthenticationTicket(

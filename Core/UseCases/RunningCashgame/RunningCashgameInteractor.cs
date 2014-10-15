@@ -35,7 +35,7 @@ namespace Core.UseCases.RunningCashgame
             var canReport = !canBeEnded;
             var isInGame = cashgame.IsInGame(player.Id);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
-            var now = timeProvider.UtcNow();
+            var now = timeProvider.UtcNow;
             
             var location = cashgame.Location;
             var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);

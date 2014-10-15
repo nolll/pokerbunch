@@ -18,7 +18,7 @@ namespace Core.UseCases.ActionsChart
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var result = cashgame.GetResult(request.PlayerId);
-            var now = timeProvider.UtcNow();
+            var now = timeProvider.UtcNow;
 
             var checkpointItems = GetCheckpointItems(bunch, cashgame, result, now);
 

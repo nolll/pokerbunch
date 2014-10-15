@@ -30,7 +30,7 @@ namespace Core.UseCases.Buyin
 
         private static Checkpoint CreateCheckpoint(ITimeProvider timeProvider, BuyinRequest request)
         {
-            var timeStamp = timeProvider.UtcNow();
+            var timeStamp = timeProvider.UtcNow;
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             return new BuyinCheckpoint(timeStamp, stackAfterBuyin, request.BuyinAmount);
         }

@@ -47,7 +47,7 @@ namespace Web.Commands.CashgameCommands
         private Checkpoint CreateCheckpoint(CashoutPostModel postModel, Checkpoint existingCashoutCheckpoint)
         {
             return CheckpointFactory.Create(
-                _timeProvider.UtcNow(),
+                _timeProvider.UtcNow,
                 CheckpointType.Cashout,
                 postModel.StackAmount.HasValue ? postModel.StackAmount.Value : 0,
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);

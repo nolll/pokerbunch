@@ -20,7 +20,7 @@ namespace Core.UseCases.CashgameDetailsChart
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var players = cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
-            var now = timeProvider.UtcNow();
+            var now = timeProvider.UtcNow;
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, now);
 

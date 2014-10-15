@@ -4,6 +4,6 @@ namespace Core.Services.Interfaces
 {
 	public interface ITimeProvider
     {
-	    DateTime UtcNow();
-	}
+	    DateTime UtcNow { get; }
+    }
 }

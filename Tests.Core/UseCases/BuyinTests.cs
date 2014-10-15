@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
             Checkpoint result = null;
             
             SetupCashgame();
-            GetMock<ITimeProvider>().Setup(o => o.UtcNow()).Returns(timestamp);
+            GetMock<ITimeProvider>().Setup(o => o.UtcNow).Returns(timestamp);
             GetMock<ICheckpointRepository>().
                 Setup(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<Checkpoint>())).
                 Callback((Cashgame cashgame, Player player, Checkpoint c) => result = c);
