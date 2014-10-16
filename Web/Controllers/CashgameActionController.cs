@@ -15,8 +15,8 @@ namespace Web.Controllers
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var actionsResult = UseCase.Actions(new ActionsInput(slug, dateStr, playerId));
-            var model = new ActionPageModel(contextResult, actionsResult);
+            var actionsOutput = UseCase.Actions(new ActionsInput(slug, dateStr, playerId));
+            var model = new ActionPageModel(contextResult, actionsOutput);
             return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
         }
 

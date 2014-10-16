@@ -51,6 +51,7 @@
     <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\BunchExistsException.cs" />
+    <Compile Include="Exceptions\BunchNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameHasResultsException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Exceptions\EmailExistsException.cs" />
     <Compile Include="Exceptions\InvalidJoinCodeException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Exceptions\PlayerExistsException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />

@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Mappers;
 
-namespace Infrastructure.Data.Repositories {
-
+namespace Infrastructure.Data.Repositories
+{
 	public class BunchRepository : IBunchRepository
 	{
 	    private readonly IBunchStorage _bunchStorage;
@@ -28,13 +29,18 @@ namespace Infrastructure.Data.Repositories {
         public Bunch GetBySlug(string slug)
         {
             var userId = GetIdBySlug(slug);
-            return userId.HasValue ? GetById(userId.Value) : null;
+            if (!userId.HasValue)
+                throw new BunchNotFoundException(slug);
+            return GetById(userId.Value);
         }
 
         public Bunch GetById(int id)
         {
             var cacheKey = CacheKeyProvider.BunchKey(id);
-            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var bunch = _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            if(bunch == null)
+                throw new BunchNotFoundException(id);
+            return bunch;
         }
 
         public IList<Bunch> GetByUser(User user)
@@ -101,7 +107,5 @@ namespace Infrastructure.Data.Repositories {
             var cacheKey = CacheKeyProvider.BunchIdsKey();
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
-
 	}
-
 }
