@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.Entities;
 using Infrastructure.Data.Classes;
 
-namespace Infrastructure.Data.Interfaces
+namespace Infrastructure.Data
 {
 	public interface ICashgameStorage
     {

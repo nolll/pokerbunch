@@ -4,28 +4,27 @@ using Core.Entities;
 using Core.Repositories;
 using System.Linq;
 using Infrastructure.Data.Cache;
-using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Mappers;
+using Infrastructure.Data.Classes;
 
-namespace Infrastructure.Data.Repositories {
-
+namespace Infrastructure.Data.Repositories
+{
 	public class PlayerRepository : IPlayerRepository
     {
 	    private readonly IPlayerStorage _playerStorage;
-	    private readonly IPlayerDataMapper _playerDataMapper;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheBuster _cacheBuster;
+	    private readonly IUserRepository _userRepository;
 
 	    public PlayerRepository(
             IPlayerStorage playerStorage,
-            IPlayerDataMapper playerDataMapper,
             ICacheContainer cacheContainer,
-            ICacheBuster cacheBuster)
+            ICacheBuster cacheBuster,
+            IUserRepository userRepository)
 	    {
 	        _playerStorage = playerStorage;
-	        _playerDataMapper = playerDataMapper;
 	        _cacheContainer = cacheContainer;
 	        _cacheBuster = cacheBuster;
+	        _userRepository = userRepository;
 	    }
 
         public IList<Player> GetList(Bunch bunch)
@@ -43,7 +42,7 @@ namespace Infrastructure.Data.Repositories {
         private IList<Player> GetListUncached(IList<int> ids)
         {
             var rawPlayers = _playerStorage.GetPlayerList(ids);
-            return rawPlayers.Select(_playerDataMapper.Create).ToList();
+            return rawPlayers.Select(CreatePlayer).ToList();
         }
 
         private IList<int> GetIds(Bunch bunch)
@@ -61,7 +60,7 @@ namespace Infrastructure.Data.Repositories {
         private Player GetByIdUncached(int id)
         {
             var rawUser = _playerStorage.GetPlayerById(id);
-            return rawUser != null ? _playerDataMapper.Create(rawUser) : null;
+            return rawUser != null ? CreatePlayer(rawUser) : null;
         }
 
         public Player GetByName(Bunch bunch, string name)
@@ -116,6 +115,23 @@ namespace Infrastructure.Data.Repositories {
             return success;
 		}
 
-	}
+	    private Player CreatePlayer(RawPlayer rawPlayer)
+        {
+            return new Player(
+                rawPlayer.Id,
+                rawPlayer.UserId,
+                GetDisplayName(rawPlayer),
+                (Role)rawPlayer.Role);
+        }
 
+        private string GetDisplayName(RawPlayer rawPlayer)
+        {
+            if (rawPlayer.IsUser && rawPlayer.DisplayName == null)
+            {
+                var user = _userRepository.GetById(rawPlayer.UserId);
+                return user.DisplayName;
+            }
+            return rawPlayer.DisplayName;
+        }
+	}
 }

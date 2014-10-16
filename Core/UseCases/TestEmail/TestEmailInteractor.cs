@@ -1,4 +1,4 @@
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.TestEmail
 {

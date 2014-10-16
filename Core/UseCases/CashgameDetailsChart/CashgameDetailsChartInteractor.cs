@@ -4,7 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.CashgameDetailsChart
 {

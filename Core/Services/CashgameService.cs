@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Entities;
 using Core.Factories;
 using Core.Repositories;
-using Core.Services.Interfaces;
 
 namespace Core.Services
 {

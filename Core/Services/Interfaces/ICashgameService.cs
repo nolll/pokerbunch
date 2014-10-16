@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Services.Interfaces
+namespace Core.Services
 {
     public interface ICashgameService
     {

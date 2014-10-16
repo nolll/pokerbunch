@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.CashgameTopList
 {

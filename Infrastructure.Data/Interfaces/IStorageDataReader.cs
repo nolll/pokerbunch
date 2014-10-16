@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Infrastructure.Data.Interfaces
+namespace Infrastructure.Data
 {
     public interface IStorageDataReader
     {

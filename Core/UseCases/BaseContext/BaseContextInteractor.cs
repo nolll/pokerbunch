@@ -1,5 +1,4 @@
 ﻿using Core.Services;
-using Core.Services.Interfaces;
 
 namespace Core.UseCases.BaseContext
 {

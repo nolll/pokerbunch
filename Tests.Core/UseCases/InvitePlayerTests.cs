@@ -2,7 +2,7 @@
 using Core;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 using Core.Urls;
 using Core.UseCases.InvitePlayer;
 using Moq;

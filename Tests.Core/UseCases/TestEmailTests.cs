@@ -1,5 +1,5 @@
 ﻿using Core;
-using Core.Services.Interfaces;
+using Core.Services;
 using Core.UseCases.TestEmail;
 using Moq;
 using NUnit.Framework;

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Core.Services.Interfaces;
+using Core.Services;
 using Infrastructure.Data.Classes;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer
 {

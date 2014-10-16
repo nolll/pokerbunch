@@ -1,6 +1,6 @@
 using Core.Entities;
 
-namespace Core.Services.Interfaces
+namespace Core.Services
 {
 	public interface ISocialService
     {

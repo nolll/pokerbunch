@@ -1,5 +1,5 @@
-﻿using Infrastructure.Data.Factories;
-using Infrastructure.Data.Interfaces;
+﻿using Infrastructure.Data;
+using Infrastructure.Data.Factories;
 using NUnit.Framework;
 using Tests.Common;
 

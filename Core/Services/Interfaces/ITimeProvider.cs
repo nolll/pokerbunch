@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Services.Interfaces
+namespace Core.Services
 {
 	public interface ITimeProvider
     {

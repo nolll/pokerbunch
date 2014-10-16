@@ -11,7 +11,7 @@ namespace Core.UseCases.AddUser
         public string DisplayName { get; private set; }
 
         [Required(ErrorMessage = "Email can't be empty")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "The email address is not valid")]
+        [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string Email { get; private set; }
 
         public AddUserRequest(string userName, string displayName, string email)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Classes;
 
-namespace Infrastructure.Data.Interfaces {
+namespace Infrastructure.Data {
 
 	public interface IUserStorage
     {

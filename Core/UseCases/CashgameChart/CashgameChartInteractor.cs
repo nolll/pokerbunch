@@ -2,7 +2,7 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.CashgameChart
 {

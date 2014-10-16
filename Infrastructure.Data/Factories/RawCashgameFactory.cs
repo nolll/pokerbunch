@@ -1,8 +1,7 @@
 using System;
 using Core.Entities;
-using Core.Services.Interfaces;
+using Core.Services;
 using Infrastructure.Data.Classes;
-using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.Factories
 {

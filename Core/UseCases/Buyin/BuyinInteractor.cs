@@ -1,7 +1,7 @@
 using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.Buyin
 {

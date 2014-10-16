@@ -1,4 +1,4 @@
-﻿using Core.Services.Interfaces;
+﻿using Core.Services;
 using Core.UseCases.BaseContext;
 using NUnit.Framework;
 using Tests.Common;

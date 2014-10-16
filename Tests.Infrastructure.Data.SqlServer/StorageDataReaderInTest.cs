@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Infrastructure.Data.Interfaces;
+using Infrastructure.Data;
 
 namespace Tests.Infrastructure.Data.SqlServer
 {

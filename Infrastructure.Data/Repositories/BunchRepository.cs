@@ -5,7 +5,6 @@ using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Mappers;
 
 namespace Infrastructure.Data.Repositories {

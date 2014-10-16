@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 
 namespace Core.UseCases.ActionsChart
 {

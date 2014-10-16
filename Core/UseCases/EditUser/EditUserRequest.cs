@@ -9,7 +9,7 @@ namespace Core.UseCases.EditUser
         public string DisplayName { get; private set; }
         public string RealName { get; private set; }
         [Required(ErrorMessage = "Email can't be empty")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "The email address is not valid")]
+        [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string Email { get; private set; }
 
         public EditUserRequest(string userName, string displayName, string realName, string email)

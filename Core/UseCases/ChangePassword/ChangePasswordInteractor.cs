@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Services.Interfaces;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 

@@ -2,7 +2,7 @@
 using Core.Entities.Checkpoints;
 using Core.Factories;
 using Core.Repositories;
-using Core.Services.Interfaces;
+using Core.Services;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 

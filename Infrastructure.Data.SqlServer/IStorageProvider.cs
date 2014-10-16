@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Infrastructure.Data.Interfaces;
 
 namespace Infrastructure.Data.SqlServer
 {
