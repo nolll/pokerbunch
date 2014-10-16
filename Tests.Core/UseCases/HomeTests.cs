@@ -20,6 +20,7 @@ namespace Tests.Core.UseCases
             Assert.IsInstanceOf<UserListUrl>(result.UserListUrl);
             Assert.IsInstanceOf<BunchListUrl>(result.BunchListUrl);
             Assert.IsInstanceOf<TestEmailUrl>(result.TestEmailUrl);
+            Assert.IsInstanceOf<ClearCacheUrl>(result.ClearCacheUrl);
         }
 
         [Test]

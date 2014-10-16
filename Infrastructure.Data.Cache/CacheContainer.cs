@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Entities;
+using Core.Services;
 
 namespace Infrastructure.Data.Cache
 {
@@ -15,6 +16,11 @@ namespace Infrastructure.Data.Cache
         public CacheContainer(ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
+        }
+
+        public int ClearAll()
+        {
+            return _cacheProvider.ClearAll();
         }
 
         public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue) where T : class

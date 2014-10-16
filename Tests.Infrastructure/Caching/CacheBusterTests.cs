@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data.Cache;
+﻿using Core.Services;
+using Infrastructure.Data.Cache;
 using NUnit.Framework;
 using Tests.Common;
 

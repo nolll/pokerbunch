@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Services;
 
 namespace Infrastructure.Data.Cache
 {

@@ -19,5 +19,16 @@ namespace Infrastructure.Data.Cache
         {
             HttpContext.Current.Cache.Remove(key);
         }
+
+        public int ClearAll()
+        {
+            var count = 0;
+            foreach (System.Collections.DictionaryEntry entry in HttpContext.Current.Cache)
+            {
+                HttpContext.Current.Cache.Remove((string)entry.Key);
+                count++;
+            }
+            return count;
+        }
     }
 }

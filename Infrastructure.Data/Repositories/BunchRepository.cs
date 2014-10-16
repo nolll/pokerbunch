@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
+using Core.Services;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
 using Infrastructure.Data.Mappers;

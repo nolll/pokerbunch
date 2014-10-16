@@ -3,7 +3,6 @@ using Core.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Cache;
 using Infrastructure.Data.Factories;
-using Infrastructure.Data.Mappers;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.SqlServer;
 using Infrastructure.System;
@@ -20,7 +19,7 @@ namespace Plumbing
 
         private static readonly IStorageProvider StorageProvider = new SqlServerStorageProvider();
         private static readonly ICacheProvider CacheProvider = new CacheProvider();
-        private static readonly ICacheContainer CacheContainer = new CacheContainer(CacheProvider);
+        protected static readonly ICacheContainer CacheContainer = new CacheContainer(CacheProvider);
         private static readonly ICacheBuster CacheBuster = new CacheBuster(CacheContainer);
         private static readonly IRawCashgameFactory RawCashgameFactory = new RawCashgameFactory(TimeProvider);
         

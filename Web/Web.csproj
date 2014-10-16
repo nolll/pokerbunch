@@ -559,6 +559,7 @@
     <Content Include="Views\Layouts\BunchPage.cshtml" />
     <Content Include="Views\Layouts\CashgamePage.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\StartButton.cshtml" />
+    <Content Include="Views\Admin\ClearCache.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

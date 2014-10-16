@@ -74,6 +74,7 @@
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IAuth.cs" />
+    <Compile Include="Services\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="UseCases\ChangePassword\ChangePasswordInteractor.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
+    <Compile Include="UseCases\ClearCache\ClearCacheInteractor.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameInteractor.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameRequest.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameResult.cs" />

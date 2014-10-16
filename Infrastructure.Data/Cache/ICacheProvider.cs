@@ -7,5 +7,6 @@ namespace Infrastructure.Data.Cache
         object Get(string key);
         void Put(string key, object obj, TimeSpan time);
         void Remove(string key);
+        int ClearAll();
     }
 }

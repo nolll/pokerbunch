@@ -23,7 +23,8 @@ namespace Web.Models.NavigationModels
                 {
                     new NavigationNode("Bunches", homeResult.BunchListUrl),
                     new NavigationNode("Users", homeResult.UserListUrl),
-                    new NavigationNode("Test Email", homeResult.TestEmailUrl)
+                    new NavigationNode("Test Email", homeResult.TestEmailUrl),
+                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl)
                 };
         }
     }

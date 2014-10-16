@@ -17,5 +17,16 @@ namespace Web.Controllers
 
             return View("Email", model);
         }
+
+        [AuthorizeAdmin]
+        [Route("-/admin/clearcache")]
+        public ActionResult ClearCache()
+        {
+            var result = UseCase.ClearCache();
+
+            var model = new ClearCacheModel(result);
+
+            return View("ClearCache", model);
+        }
     }
 }

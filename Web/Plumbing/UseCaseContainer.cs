@@ -24,6 +24,7 @@ using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
+using Core.UseCases.ClearCache;
 using Core.UseCases.DeleteCashgame;
 using Core.UseCases.DeleteCheckpoint;
 using Core.UseCases.DeletePlayer;
@@ -75,6 +76,7 @@ namespace Web.Plumbing
 
         // Admin
         public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }
+        public Func<ClearCacheOutput> ClearCache { get { return () => ClearCacheInteractor.Execute(CacheContainer); } } 
 
         // User
         public Func<UserListResult> UserList { get { return () => UserListInteractor.Execute(UserRepository); } }
