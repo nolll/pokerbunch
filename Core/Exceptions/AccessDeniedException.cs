@@ -1,8 +1,6 @@
-using System;
-
 namespace Core.Exceptions
 {
-    public class AccessDeniedException : Exception
+    public class AccessDeniedException : PokerBunchException
     {
     }
 }

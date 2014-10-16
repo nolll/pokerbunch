@@ -1,8 +1,6 @@
-using System;
-
 namespace Core.Exceptions
 {
-    public class EmailExistsException : Exception
+    public class EmailExistsException : PokerBunchException
     {
         public EmailExistsException()
             : base(("The Email Address is in use"))

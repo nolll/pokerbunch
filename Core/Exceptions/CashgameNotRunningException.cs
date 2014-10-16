@@ -1,8 +1,6 @@
-using System;
-
 namespace Core.Exceptions
 {
-    public class CashgameNotRunningException : Exception
+    public class CashgameNotRunningException : PokerBunchException
     {
         public CashgameNotRunningException()
             : base("Cashgame is not running")

@@ -63,18 +63,6 @@ namespace Web
             HttpContext.Current.User = new CustomPrincipal(customIdentity);
         }
 
-        //void Application_Error(object sender, EventArgs e)
-        //{
-        //    var ex = Server.GetLastError();
-
-        //    if (ex is NotFoundException)
-        //    {
-        //        Response.StatusCode = 404;
-        //    }
-
-        //    //Server.ClearError();
-        //}
-
         protected void Application_End()
         {
         }

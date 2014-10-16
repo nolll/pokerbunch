@@ -32,16 +32,16 @@ namespace Infrastructure.Data.Repositories
             var userId = GetIdBySlug(slug);
             if (!userId.HasValue)
                 throw new BunchNotFoundException(slug);
+            var bunch = GetById(userId.Value);
+            if (bunch == null)
+                throw new BunchNotFoundException(slug);
             return GetById(userId.Value);
         }
 
         public Bunch GetById(int id)
         {
             var cacheKey = CacheKeyProvider.BunchKey(id);
-            var bunch = _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
-            if(bunch == null)
-                throw new BunchNotFoundException(id);
-            return bunch;
+            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public IList<Bunch> GetByUser(User user)

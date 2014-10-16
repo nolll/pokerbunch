@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Data.Cache;
@@ -63,7 +64,13 @@ namespace Infrastructure.Data.Repositories
         public Cashgame GetByDateString(Bunch bunch, string dateString)
         {
             var id = GetIdByDateString(bunch.Id, dateString);
-            return id.HasValue ? GetById(id.Value) : null;
+            if(!id.HasValue)
+                throw new CashgameNotFoundException(bunch.Slug, dateString);
+            var cashgame = GetById(id.Value);
+            if (cashgame == null)
+                throw new CashgameNotFoundException(bunch.Slug, dateString);
+            
+            return cashgame;
         }
 
         private Cashgame GetById(int id)

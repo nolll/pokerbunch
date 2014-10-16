@@ -77,15 +77,6 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void AddCashgameOptions_WithRunningCashgame_ThrowsException()
-        {
-            const string slug = "a";
-            var request = new CashgameDetailsRequest(slug, "2000-01-01");
-
-            Assert.Throws<CashgameNotFoundException>(() => Execute(request));
-        }
-
-        [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
             const string dateStr = "2000-01-01";

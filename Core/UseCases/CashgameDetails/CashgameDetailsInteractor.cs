@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 
@@ -18,12 +17,6 @@ namespace Core.UseCases.CashgameDetails
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
-
-            if (cashgame == null)
-            {
-                throw new CashgameNotFoundException();
-            }
-            
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
             var players = GetPlayers(playerRepository, cashgame);
 

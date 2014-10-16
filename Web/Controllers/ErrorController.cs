@@ -11,18 +11,19 @@ namespace Web.Controllers
         public ActionResult NotFound()
         {
             var contextResult = UseCase.BaseContext();
-
-            var model = new Error404PageModel(contextResult);
-            return View("Error", model);
+            return ShowError(new Error404PageModel(contextResult));
         }
 
         [Route("-/error/servererror")]
         public ActionResult ServerError()
         {
             var contextResult = UseCase.BaseContext();
+            return ShowError(new Error500PageModel(contextResult));
+        }
 
-            var model = new Error500PageModel(contextResult);
-            return View("Error", model);
+        private ActionResult ShowError(ErrorPageModel model)
+        {
+            return View("~/Views/Error/Error.cshtml", model);
         }
     }
 }
