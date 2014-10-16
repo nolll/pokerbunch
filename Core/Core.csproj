@@ -239,6 +239,7 @@
     <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
     <Compile Include="UseCases\ClearCache\ClearCacheInteractor.cs" />
+    <Compile Include="UseCases\ClearCache\ClearCacheOutput.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameInteractor.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameRequest.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameResult.cs" />
