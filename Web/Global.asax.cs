@@ -9,6 +9,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Core;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Services;
 using Newtonsoft.Json;
 using Web.Plumbing;
@@ -61,7 +62,23 @@ namespace Web
             var customIdentity = new CustomIdentity(true, userIdentity);
             HttpContext.Current.User = new CustomPrincipal(customIdentity);
         }
-        
+
+        //void Application_Error(object sender, EventArgs e)
+        //{
+        //    var ex = Server.GetLastError();
+
+        //    if (ex is NotFoundException)
+        //    {
+        //        Response.StatusCode = 404;
+        //    }
+
+        //    //Server.ClearError();
+        //}
+
+        protected void Application_End()
+        {
+        }
+
         private void EnsureLowercaseUrl()
         {
             // Don't rewrite requests for content (.png, .css) or scripts (.js)
@@ -94,10 +111,6 @@ namespace Web
         {
             routes.MapMvcAttributeRoutes();
             RouteConfig.RegisterRoutes(routes);
-        }
-
-        protected void Application_End()
-        {
         }
     }
 }

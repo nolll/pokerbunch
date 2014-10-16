@@ -21,10 +21,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BaseContext();
 
-            var exception = Server.GetLastError();
-            var message = exception != null ? exception.Message : "Unknown error";
-
-            var model = new Error500PageModel(contextResult, message);
+            var model = new Error500PageModel(contextResult);
             return View("Error", model);
         }
     }
