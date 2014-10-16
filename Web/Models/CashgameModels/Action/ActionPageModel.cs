@@ -14,18 +14,18 @@ namespace Web.Models.CashgameModels.Action
         public Url ChartDataUrl { get; private set; }
         public string Heading { get; private set; }
 
-        public ActionPageModel(BunchContextResult contextResult, ActionsResult actionsResult)
+        public ActionPageModel(BunchContextResult contextResult, ActionsOutput actionsOutput)
             : base("Player Actions", contextResult)
         {
-            var date = Globalization.FormatShortDate(actionsResult.Date, true);
-            Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
-            Checkpoints = GetCheckpointModels(actionsResult);
-            ChartDataUrl = actionsResult.ChartDataUrl;
+            var date = Globalization.FormatShortDate(actionsOutput.Date, true);
+            Heading = string.Format("Cashgame {0}, {1}", date, actionsOutput.PlayerName);
+            Checkpoints = GetCheckpointModels(actionsOutput);
+            ChartDataUrl = actionsOutput.ChartDataUrl;
         }
 
-        private List<CheckpointModel> GetCheckpointModels(ActionsResult actionsResult)
+        private List<CheckpointModel> GetCheckpointModels(ActionsOutput actionsOutput)
         {
-            return actionsResult.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
+            return actionsOutput.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
         }
     }
 }

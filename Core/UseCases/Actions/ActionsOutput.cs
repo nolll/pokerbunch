@@ -6,14 +6,14 @@ using Core.Urls;
 
 namespace Core.UseCases.Actions
 {
-    public class ActionsResult
+    public class ActionsOutput
     {
         public DateTime Date { get; private set; }
         public string PlayerName { get; private set; }
         public Url ChartDataUrl { get; private set; }
         public IList<CheckpointItem> CheckpointItems { get; private set; }
 
-        public ActionsResult(Bunch bunch, Cashgame cashgame, Player player, bool isManager, CashgameResult playerResult)
+        public ActionsOutput(Bunch bunch, Cashgame cashgame, Player player, bool isManager, CashgameResult playerResult)
         {
             var chartDataUrl = new CashgameActionChartJsonUrl(bunch.Slug, cashgame.DateString, player.Id);
             var checkpointItems = playerResult.Checkpoints.Select(o => new CheckpointItem(bunch, cashgame, player, isManager, o)).ToList();

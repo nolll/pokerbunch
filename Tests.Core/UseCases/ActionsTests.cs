@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ActionsResultIsReturned()
         {
-            var request = new ActionsRequest(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Slug, DateStr, PlayerId);
 
             SetupGame();
             
@@ -47,7 +47,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ItemPropertiesAreSet()
         {
-            var request = new ActionsRequest(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Slug, DateStr, PlayerId);
 
             SetupGame();
 
@@ -63,7 +63,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_WithManager_CanEditIsTrueOnItem()
         {
-            var request = new ActionsRequest(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Slug, DateStr, PlayerId);
 
             SetupGame();
             SetupManager();
@@ -92,9 +92,9 @@ namespace Tests.Core.UseCases
             GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
         }
 
-        private ActionsResult Execute(ActionsRequest request)
+        private ActionsOutput Execute(ActionsInput input)
         {
-            return ActionsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IAuth>().Object, request);
+            return ActionsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IAuth>().Object, input);
         }
     }
 }

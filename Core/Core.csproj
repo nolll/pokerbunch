@@ -155,8 +155,8 @@
     <Compile Include="UseCases\ActionsChart\ActionsChartRequest.cs" />
     <Compile Include="UseCases\ActionsChart\ActionsChartResult.cs" />
     <Compile Include="UseCases\Actions\ActionsInteractor.cs" />
-    <Compile Include="UseCases\Actions\ActionsRequest.cs" />
-    <Compile Include="UseCases\Actions\ActionsResult.cs" />
+    <Compile Include="UseCases\Actions\ActionsInput.cs" />
+    <Compile Include="UseCases\Actions\ActionsOutput.cs" />
     <Compile Include="UseCases\Actions\CheckpointItem.cs" />
     <Compile Include="UseCases\AddBunchForm\AddBunchFormInteractor.cs" />
     <Compile Include="UseCases\AddBunchForm\AddBunchFormResult.cs" />
