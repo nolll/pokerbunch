@@ -43,6 +43,11 @@ namespace Web.Controllers.Base
                 filterContext.HttpContext.Response.StatusCode = 404;
                 filterContext.Result = Error404();
             }
+            else if(filterContext.Exception is AccessDeniedException)
+            {
+                filterContext.HttpContext.Response.StatusCode = 401;
+                filterContext.Result = Error401();
+            }
             else
             {
                 filterContext.HttpContext.Response.StatusCode = 500;
