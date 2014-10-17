@@ -14,6 +14,22 @@ namespace Web.Controllers
             return Error404();
         }
 
+        [Route("-/error/unauthorized")]
+        public ActionResult Unauthorized()
+        {
+            Response.StatusCode = 401;
+            Response.TrySkipIisCustomErrors = true;
+            return Error401();
+        }
+
+        [Route("-/error/forbidden")]
+        public ActionResult Forbidden()
+        {
+            Response.StatusCode = 403;
+            Response.TrySkipIisCustomErrors = true;
+            return Error403();
+        }
+
         [Route("-/error/servererror")]
         public ActionResult ServerError()
         {

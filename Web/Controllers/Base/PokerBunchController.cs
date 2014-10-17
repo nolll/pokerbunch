@@ -59,6 +59,18 @@ namespace Web.Controllers.Base
             return ShowError(new Error404PageModel(contextResult));
         }
 
+        protected ActionResult Error401()
+        {
+            var contextResult = UseCase.BaseContext();
+            return ShowError(new Error401PageModel(contextResult));
+        }
+
+        protected ActionResult Error403()
+        {
+            var contextResult = UseCase.BaseContext();
+            return ShowError(new Error403PageModel(contextResult));
+        }
+
         protected ActionResult Error500()
         {
             var contextResult = UseCase.BaseContext();
