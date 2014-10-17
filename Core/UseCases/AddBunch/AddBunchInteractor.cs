@@ -23,6 +23,7 @@ namespace Core.UseCases.AddBunch
             {
                 throw new BunchExistsException();
             }
+            //todo: test the following 4 lines
             var bunch = CreateBunch(request);
             bunch = bunchRepository.Add(bunch);
             var user = auth.CurrentUser;
