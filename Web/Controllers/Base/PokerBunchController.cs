@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
 using Core.Exceptions;
+using Web.Models.ErrorModels;
 using Web.Plumbing;
 
 namespace Web.Controllers.Base
@@ -40,28 +41,33 @@ namespace Web.Controllers.Base
             if (filterContext.Exception is NotFoundException)
             {
                 filterContext.HttpContext.Response.StatusCode = 404;
-                filterContext.Result = new ErrorController().NotFound();
+                filterContext.Result = Error404();
             }
             else
             {
                 filterContext.HttpContext.Response.StatusCode = 500;
-                filterContext.Result = new ErrorController().ServerError();
+                filterContext.Result = Error500();
             }
 
-            //var viewName = GetViewName(filterContext.Exception);
-            //filterContext.Result = new ViewResult(
-            //{
-            //    ViewName = "~/Views/Error/404.cshtml",
-            //};
-
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
             filterContext.ExceptionHandled = true;
         }
 
-        private string GetViewName(Exception ex)
+        protected ActionResult Error404()
         {
-            if (ex is NotFoundException)
-                return "~/Views/Error/404.cshtml";
-            return "~/Views/Error/500.cshtml";
+            var contextResult = UseCase.BaseContext();
+            return ShowError(new Error404PageModel(contextResult));
+        }
+
+        protected ActionResult Error500()
+        {
+            var contextResult = UseCase.BaseContext();
+            return ShowError(new Error500PageModel(contextResult));
+        }
+
+        private ActionResult ShowError(ErrorPageModel model)
+        {
+            return View("~/Views/Error/Error.cshtml", model);
         }
     }
 }

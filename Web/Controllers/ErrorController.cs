@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Web.Controllers.Base;
-using Web.Models.ErrorModels;
 
 namespace Web.Controllers
 {
@@ -10,20 +9,17 @@ namespace Web.Controllers
         [Route("-/error/notfound")]
         public ActionResult NotFound()
         {
-            var contextResult = UseCase.BaseContext();
-            return ShowError(new Error404PageModel(contextResult));
+            Response.StatusCode = 404;
+            Response.TrySkipIisCustomErrors = true;
+            return Error404();
         }
 
         [Route("-/error/servererror")]
         public ActionResult ServerError()
         {
-            var contextResult = UseCase.BaseContext();
-            return ShowError(new Error500PageModel(contextResult));
-        }
-
-        private ActionResult ShowError(ErrorPageModel model)
-        {
-            return View("~/Views/Error/Error.cshtml", model);
+            Response.StatusCode = 500;
+            Response.TrySkipIisCustomErrors = true;
+            return Error500();
         }
     }
 }
