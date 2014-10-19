@@ -6,7 +6,7 @@ namespace Core.UseCases.Report
     {
         public string Slug { get; private set; }
         public int PlayerId { get; private set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Stack needs to be positive")]
+        [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
         public int Stack { get; private set; }
 
         public ReportRequest(string slug, int playerId, int stack)
