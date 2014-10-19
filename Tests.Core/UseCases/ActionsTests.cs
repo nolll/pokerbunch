@@ -18,7 +18,9 @@ namespace Tests.Core.UseCases
         private const string DateStr = "2001-01-01";
         private const int PlayerId = 1;
         private const string PlayerName = "b";
-        private const string CheckPointType = "Report";
+        private const string ReportDescription = "Report";
+        private const string BuyinDescription = "Buyin";
+        private const string CashoutDescription = "Cashout";
         private DateTime _date;
         private DateTime _checkpointTime;
 
@@ -41,7 +43,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(_date, result.Date);
             Assert.AreEqual(PlayerName, result.PlayerName);
             Assert.IsInstanceOf<CashgameActionChartJsonUrl>(result.ChartDataUrl);
-            Assert.AreEqual(2, result.CheckpointItems.Count);
+            Assert.AreEqual(3, result.CheckpointItems.Count);
         }
 
         [Test]
@@ -53,11 +55,17 @@ namespace Tests.Core.UseCases
 
             var result = Execute(request);
 
-            Assert.AreEqual(CheckPointType, result.CheckpointItems[0].Type);
-            Assert.AreEqual(1, result.CheckpointItems[0].Stack.Amount);
+            Assert.AreEqual(ReportDescription, result.CheckpointItems[0].Type);
+            Assert.AreEqual(1, result.CheckpointItems[0].DisplayAmount.Amount);
             Assert.AreEqual(_checkpointTime, result.CheckpointItems[0].Time);
             Assert.IsFalse(result.CheckpointItems[0].CanEdit);
             Assert.IsInstanceOf<EditCheckpointUrl>(result.CheckpointItems[0].EditUrl);
+
+            Assert.AreEqual(BuyinDescription, result.CheckpointItems[1].Type);
+            Assert.AreEqual(2, result.CheckpointItems[1].DisplayAmount.Amount);
+        
+            Assert.AreEqual(CashoutDescription, result.CheckpointItems[2].Type);
+            Assert.AreEqual(1, result.CheckpointItems[2].DisplayAmount.Amount);
         }
 
         [Test]
@@ -77,8 +85,9 @@ namespace Tests.Core.UseCases
         {
             var bunch = A.Bunch.Build();
             var checkpoint1 = A.Checkpoint.WithStack(1).WithTimestamp(_checkpointTime).Build();
-            var checkpoint2 = A.Checkpoint.Build();
-            var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2 };
+            var checkpoint2 = A.Checkpoint.WithStack(1).WithAmount(2).OfType(CheckpointType.Buyin).Build();
+            var checkpoint3 = A.Checkpoint.WithStack(1).OfType(CheckpointType.Cashout).Build();
+            var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2, checkpoint3 };
             var cashgameResult = A.CashgameResult.WithCheckpoints(checkpoints).Build();
             var cashgame = A.Cashgame.WithStartTime(_date).WithResults(new List<CashgameResult> { cashgameResult }).Build();
             var player = A.Player.WithDisplayName(PlayerName).Build();

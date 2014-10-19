@@ -14,7 +14,7 @@ namespace Web.Models.CashgameModels.Action
         public CheckpointModel(CheckpointItem checkpointItem)
         {
             Description = checkpointItem.Type;
-            Stack = checkpointItem.Stack.ToString();
+            Stack = checkpointItem.DisplayAmount.ToString();
             Timestamp = Globalization.FormatTime(checkpointItem.Time);
             ShowLink = checkpointItem.CanEdit;
             EditUrl = checkpointItem.EditUrl.Relative;
