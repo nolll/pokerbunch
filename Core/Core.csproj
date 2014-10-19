@@ -74,8 +74,8 @@
     <Compile Include="Services\Env.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
-    <Compile Include="Services\IAuth.cs" />
-    <Compile Include="Services\ICacheContainer.cs" />
+    <Compile Include="Services\Interfaces\IAuth.cs" />
+    <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
