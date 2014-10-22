@@ -1,0 +1,21 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.EventModels.List.EventListPageModel
+
+@{
+    Layout = PageLayout.OneColumn;
+}
+
+<div class="block gutter">
+	<h1>Events</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="users simple list">
+        @foreach(var eventModel in Model.EventModels)
+        {
+            <li>
+                @Html.Partial("EventList/Item", eventModel)
+            </li>
+        }
+    </ul>
+</div>

@@ -37,6 +37,8 @@ using Core.UseCases.EditCheckpointForm;
 using Core.UseCases.EditUser;
 using Core.UseCases.EditUserForm;
 using Core.UseCases.EndCashgame;
+using Core.UseCases.EventDetails;
+using Core.UseCases.EventList;
 using Core.UseCases.ForgotPassword;
 using Core.UseCases.Home;
 using Core.UseCases.InvitePlayer;
@@ -97,6 +99,10 @@ namespace Web.Plumbing
         public Func<JoinBunchFormRequest, JoinBunchFormResult> JoinBunchForm { get { return request => JoinBunchFormInteractor.Execute(BunchRepository, request); } }
         public Func<JoinBunchRequest, JoinBunchResult> JoinBunch { get { return request => JoinBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } } 
         public Func<JoinBunchConfirmationRequest, JoinBunchConfirmationResult> JoinBunchConfirmation { get { return request => JoinBunchConfirmationInteractor.Execute(BunchRepository, request); } }
+
+        // Events
+        public Func<EventListInput, EventListOutput> EventList { get { return input => EventListInteractor.Execute(BunchRepository, EventRepository, input); } }
+        public Func<EventDetailsInput, EventDetailsOutput> EventDetails { get { return input => EventDetailsInteractor.Execute(EventRepository, input); } } 
 
         // Cashgame
         public Func<TopListRequest, TopListResult> TopList { get { return request => TopListInteractor.Execute(BunchRepository, CashgameService, request); } }

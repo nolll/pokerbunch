@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="AspNetCacheProvider.cs" />
     <Compile Include="Auth.cs" />
     <Compile Include="EmailMessageSender.cs" />
     <Compile Include="WebContext.cs" />

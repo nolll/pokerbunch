@@ -142,6 +142,7 @@
     <Compile Include="Controllers\EditUserController.cs" />
     <Compile Include="Controllers\EndCashgameController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Controllers\RunningCashgameController.cs" />
     <Compile Include="Controllers\TopListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
+    <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
@@ -172,6 +174,9 @@
     <Compile Include="Models\ErrorModels\Error404PageModel.cs" />
     <Compile Include="Models\ErrorModels\Error500PageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorPageModel.cs" />
+    <Compile Include="Models\EventModels\Details\EventDetailsPageModel.cs" />
+    <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
+    <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
@@ -565,6 +570,9 @@
     <Content Include="Views\Layouts\CashgamePage.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\StartButton.cshtml" />
     <Content Include="Views\Admin\ClearCache.cshtml" />
+    <Content Include="Views\Pages\EventDetails\EventDetails.cshtml" />
+    <Content Include="Views\Pages\EventList\EventList.cshtml" />
+    <Content Include="Views\Pages\EventList\Item.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

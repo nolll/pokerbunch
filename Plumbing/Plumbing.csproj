@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies.cs" />
@@ -42,21 +41,13 @@
       <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data.Cache\Infrastructure.Data.Cache.csproj">
-      <Project>{1FCE7B9A-4CE2-43FB-BB48-BCB478A77DDF}</Project>
-      <Name>Infrastructure.Data.Cache</Name>
+    <ProjectReference Include="..\Infrastructure.Cache\Infrastructure.Cache.csproj">
+      <Project>{75D945A7-20CB-4213-8A1A-432DCBD54BDF}</Project>
+      <Name>Infrastructure.Cache</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data.SqlServer\Infrastructure.Data.SqlServer.csproj">
-      <Project>{CA832C49-BF07-4253-AD3E-ADC41383B2B9}</Project>
-      <Name>Infrastructure.Data.SqlServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
-      <Name>Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Integration.Gravatar\Infrastructure.Integration.Gravatar.csproj">
-      <Project>{8E10B75F-B051-4158-87B7-D1F1D50B17C0}</Project>
-      <Name>Infrastructure.Integration.Gravatar</Name>
+    <ProjectReference Include="..\Infrastructure.SqlServer\Infrastructure.SqlServer.csproj">
+      <Project>{8E1B9BF3-4167-4BF5-80C7-1DED84F66DE2}</Project>
+      <Name>Infrastructure.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
       <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>

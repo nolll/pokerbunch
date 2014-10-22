@@ -41,6 +41,7 @@
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
+    <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Money.cs" />
     <Compile Include="Entities\MoneyResult.cs" />
     <Compile Include="Entities\MoneyWinRate.cs" />
@@ -69,13 +70,16 @@
     <Compile Include="Factories\CashgameSuiteFactory.cs" />
     <Compile Include="Factories\CheckpointFactory.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\Interfaces\IAuth.cs" />
+    <Compile Include="Services\Interfaces\ICacheBuster.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
+    <Compile Include="Services\Interfaces\ICacheProvider.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
@@ -131,6 +135,7 @@
     <Compile Include="Urls\EditUserUrl.cs" />
     <Compile Include="Urls\EmptyUrl.cs" />
     <Compile Include="Urls\EndCashgameUrl.cs" />
+    <Compile Include="Urls\EventDetailsUrl.cs" />
     <Compile Include="Urls\FactsUrl.cs" />
     <Compile Include="Urls\ForgotPasswordConfirmationUrl.cs" />
     <Compile Include="Urls\ForgotPasswordUrl.cs" />
@@ -144,6 +149,7 @@
     <Compile Include="Urls\LogoutUrl.cs" />
     <Compile Include="Urls\MatrixUrl.cs" />
     <Compile Include="Urls\PlayerDetailsUrl.cs" />
+    <Compile Include="Urls\EventListUrl.cs" />
     <Compile Include="Urls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\PlayerUrl.cs" />
     <Compile Include="Urls\RouteFormats.cs" />
@@ -275,6 +281,13 @@
     <Compile Include="UseCases\EditUser\EditUserRequest.cs" />
     <Compile Include="UseCases\EditUser\EditUserResult.cs" />
     <Compile Include="UseCases\EndCashgame\EndCashgameInteractor.cs" />
+    <Compile Include="UseCases\EventDetails\EventDetailsInput.cs" />
+    <Compile Include="UseCases\EventDetails\EventDetailsInteractor.cs" />
+    <Compile Include="UseCases\EventDetails\EventDetailsOutput.cs" />
+    <Compile Include="UseCases\EventList\EventItem.cs" />
+    <Compile Include="UseCases\EventList\EventListInput.cs" />
+    <Compile Include="UseCases\EventList\EventListInteractor.cs" />
+    <Compile Include="UseCases\EventList\EventListOutput.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordInteractor.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordMessage.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordRequest.cs" />

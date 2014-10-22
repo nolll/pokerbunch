@@ -49,7 +49,6 @@
     <Compile Include="Builders\CheckpointBuilder.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Builders\PlayerBuilder.cs" />
-    <Compile Include="Builders\RawUserBuilder.cs" />
     <Compile Include="Builders\TestService.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
@@ -67,10 +66,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
-      <Name>Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Web\Web.csproj">
       <Project>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</Project>

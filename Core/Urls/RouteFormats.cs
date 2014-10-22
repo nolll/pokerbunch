@@ -43,6 +43,9 @@ namespace Core.Urls
         public const string BunchJoinConfirmation = "/{0}/homegame/joined";
         public const string BunchList = "/-/homegame/list";
 
+        public const string EventList = "/{0}/event/list";
+        public const string EventDetails = "/{0}/event/details/{1}";
+
         public const string PlayerAdd = "/{0}/player/add";
         public const string PlayerAddConfirmation = "/{0}/player/created";
         public const string PlayerDelete = "/{0}/player/delete/{1}";

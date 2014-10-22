@@ -103,10 +103,6 @@
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{58B5961E-71DE-40D3-9531-BEAF710936C6}</Project>
-      <Name>Infrastructure.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Plumbing\Plumbing.csproj">
       <Project>{EA0817FD-9B9E-4C97-96B4-E62239619923}</Project>
       <Name>Plumbing</Name>
