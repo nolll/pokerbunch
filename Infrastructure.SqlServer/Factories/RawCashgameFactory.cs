@@ -1,9 +1,9 @@
 using System;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.SqlServer.Classes;
 using Infrastructure.SqlServer.Factories.Interfaces;
 using Infrastructure.SqlServer.Interfaces;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Factories
 {

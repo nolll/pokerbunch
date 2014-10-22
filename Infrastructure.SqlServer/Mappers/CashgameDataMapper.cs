@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Infrastructure.SqlServer.Classes;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Mappers
 {

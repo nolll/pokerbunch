@@ -1,5 +1,5 @@
-﻿using Infrastructure.SqlServer.Classes;
-using Infrastructure.SqlServer.Interfaces;
+﻿using Infrastructure.SqlServer.Interfaces;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Factories
 {

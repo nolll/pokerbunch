@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.SqlServer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.RavenDb", "Infrastructure.RavenDb\Infrastructure.RavenDb.csproj", "{0082672E-75B0-4EAD-AF52-67639976607F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Storage", "Infrastructure.Storage\Infrastructure.Storage.csproj", "{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{0082672E-75B0-4EAD-AF52-67639976607F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0082672E-75B0-4EAD-AF52-67639976607F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0082672E-75B0-4EAD-AF52-67639976607F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,5 +118,6 @@ Global
 		{75D945A7-20CB-4213-8A1A-432DCBD54BDF} = {7A92EE38-6F97-4828-80E7-6B7006BAD6AB}
 		{8E1B9BF3-4167-4BF5-80C7-1DED84F66DE2} = {7A92EE38-6F97-4828-80E7-6B7006BAD6AB}
 		{0082672E-75B0-4EAD-AF52-67639976607F} = {7A92EE38-6F97-4828-80E7-6B7006BAD6AB}
+		{AFD5A3DB-C630-469C-A802-F9BC5D555DD8} = {7A92EE38-6F97-4828-80E7-6B7006BAD6AB}
 	EndGlobalSection
 EndGlobal

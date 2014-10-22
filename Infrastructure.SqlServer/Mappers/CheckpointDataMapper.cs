@@ -1,6 +1,6 @@
 using Core.Entities.Checkpoints;
 using Core.Factories;
-using Infrastructure.SqlServer.Classes;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Mappers
 {

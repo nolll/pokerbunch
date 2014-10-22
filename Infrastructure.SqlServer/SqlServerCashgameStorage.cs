@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Infrastructure.SqlServer.Classes;
 using Infrastructure.SqlServer.Factories.Interfaces;
 using Infrastructure.SqlServer.Interfaces;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer
 {

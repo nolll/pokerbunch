@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using Core.Entities;
-using Infrastructure.SqlServer.Classes;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Mappers
 {

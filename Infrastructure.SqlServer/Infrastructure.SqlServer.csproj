@@ -44,12 +44,6 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CacheTime.cs" />
-    <Compile Include="Classes\RawBunch.cs" />
-    <Compile Include="Classes\RawCashgame.cs" />
-    <Compile Include="Classes\RawCheckpoint.cs" />
-    <Compile Include="Classes\RawEvent.cs" />
-    <Compile Include="Classes\RawPlayer.cs" />
-    <Compile Include="Classes\RawUser.cs" />
     <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Factories\RawBunchFactory.cs" />
     <Compile Include="Factories\RawCashgameFactory.cs" />
@@ -94,6 +88,10 @@
     <ProjectReference Include="..\Infrastructure.Cache\Infrastructure.Cache.csproj">
       <Project>{75D945A7-20CB-4213-8A1A-432DCBD54BDF}</Project>
       <Name>Infrastructure.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Storage\Infrastructure.Storage.csproj">
+      <Project>{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}</Project>
+      <Name>Infrastructure.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

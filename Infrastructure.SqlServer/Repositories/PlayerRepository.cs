@@ -5,8 +5,8 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Cache;
-using Infrastructure.SqlServer.Classes;
 using Infrastructure.SqlServer.Interfaces;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
