@@ -10,14 +10,14 @@ using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
-	public class PlayerRepository : IPlayerRepository
+	public class SqlPlayerRepository : IPlayerRepository
     {
 	    private readonly IPlayerStorage _playerStorage;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheBuster _cacheBuster;
 	    private readonly IUserRepository _userRepository;
 
-	    public PlayerRepository(
+	    public SqlPlayerRepository(
             IPlayerStorage playerStorage,
             ICacheContainer cacheContainer,
             ICacheBuster cacheBuster,

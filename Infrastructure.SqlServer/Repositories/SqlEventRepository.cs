@@ -10,13 +10,13 @@ using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
-    public class EventRepository : IEventRepository
+    public class SqlEventRepository : IEventRepository
     {
         private readonly IEventStorage _eventStorage;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheBuster _cacheBuster;
 
-        public EventRepository(
+        public SqlEventRepository(
             IEventStorage eventStorage,
             ICacheContainer cacheContainer,
             ICacheBuster cacheBuster)

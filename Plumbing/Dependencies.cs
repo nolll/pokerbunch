@@ -30,12 +30,12 @@ namespace Plumbing
         private static readonly ICashgameStorage CashgameStorage = new SqlServerCashgameStorage(RawCashgameFactory);
         private static readonly IEventStorage EventStorage = new SqlServerEventStorage();
         
-        protected static readonly IBunchRepository BunchRepository = new BunchRepository(BunchStorage, CacheContainer, CacheBuster);
-        protected static readonly IUserRepository UserRepository = new UserRepository(UserStorage, CacheContainer, CacheBuster);
-        protected static readonly IPlayerRepository PlayerRepository = new PlayerRepository(PlayerStorage, CacheContainer, CacheBuster, UserRepository);
-        protected static readonly ICashgameRepository CashgameRepository = new CashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster);
-        protected static readonly ICheckpointRepository CheckpointRepository = new CheckpointRepository(CheckpointStorage, CacheBuster);
-        protected static readonly IEventRepository EventRepository = new EventRepository(EventStorage, CacheContainer, CacheBuster);
+        protected static readonly IBunchRepository BunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer, CacheBuster);
+        protected static readonly IUserRepository UserRepository = new SqlUserRepository(UserStorage, CacheContainer, CacheBuster);
+        protected static readonly IPlayerRepository PlayerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, CacheBuster, UserRepository);
+        protected static readonly ICashgameRepository CashgameRepository = new SqlCashgameRepository(CashgameStorage, RawCashgameFactory, CacheContainer, CheckpointStorage, CacheBuster);
+        protected static readonly ICheckpointRepository CheckpointRepository = new SqlCheckpointRepository(CheckpointStorage, CacheBuster);
+        protected static readonly IEventRepository EventRepository = new SqlEventRepository(EventStorage, CacheContainer, CacheBuster);
         
         protected static readonly ICashgameService CashgameService = new CashgameService(PlayerRepository, CashgameRepository);
         protected static readonly IAuth Auth = new Auth(TimeProvider, UserRepository);

@@ -19,7 +19,7 @@ namespace Infrastructure.SqlServer.Repositories
         public int? Year { get; private set; }
     }
 
-	public class CashgameRepository : ICashgameRepository
+	public class SqlCashgameRepository : ICashgameRepository
     {
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly IRawCashgameFactory _rawCashgameFactory;
@@ -27,7 +27,7 @@ namespace Infrastructure.SqlServer.Repositories
 	    private readonly ICheckpointStorage _checkpointStorage;
 	    private readonly ICacheBuster _cacheBuster;
 
-	    public CashgameRepository(
+	    public SqlCashgameRepository(
             ICashgameStorage cashgameStorage,
             IRawCashgameFactory rawCashgameFactory,
             ICacheContainer cacheContainer,

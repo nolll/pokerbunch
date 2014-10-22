@@ -10,13 +10,13 @@ using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class SqlUserRepository : IUserRepository
     {
         private readonly IUserStorage _userStorage;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheBuster _cacheBuster;
 
-        public UserRepository(
+        public SqlUserRepository(
             IUserStorage userStorage,
             ICacheContainer cacheContainer,
             ICacheBuster cacheBuster)

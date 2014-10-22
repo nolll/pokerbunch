@@ -8,12 +8,12 @@ using Infrastructure.SqlServer.Mappers;
 
 namespace Infrastructure.SqlServer.Repositories
 {
-    public class CheckpointRepository : ICheckpointRepository
+    public class SqlCheckpointRepository : ICheckpointRepository
     {
         private readonly ICheckpointStorage _checkpointStorage;
         private readonly ICacheBuster _cacheBuster;
 
-        public CheckpointRepository(
+        public SqlCheckpointRepository(
             ICheckpointStorage checkpointStorage,
             ICacheBuster cacheBuster)
         {

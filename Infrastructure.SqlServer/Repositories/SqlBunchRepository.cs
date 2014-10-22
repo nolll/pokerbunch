@@ -12,13 +12,13 @@ using Infrastructure.SqlServer.Mappers;
 
 namespace Infrastructure.SqlServer.Repositories
 {
-	public class BunchRepository : IBunchRepository
+	public class SqlBunchRepository : IBunchRepository
 	{
 	    private readonly IBunchStorage _bunchStorage;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICacheBuster _cacheBuster;
 
-	    public BunchRepository(
+	    public SqlBunchRepository(
             IBunchStorage bunchStorage, 
             ICacheContainer cacheContainer, 
             ICacheBuster cacheBuster)
