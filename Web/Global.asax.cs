@@ -9,7 +9,6 @@ using System.Web.Routing;
 using System.Web.Security;
 using Core;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Services;
 using Newtonsoft.Json;
 using Web.Plumbing;
@@ -21,8 +20,6 @@ namespace Web
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : HttpApplication
     {
-        private static DependencyResolver _dependencyResolver;
-
         protected void Application_Start()
         {
             ModelBinders.Binders.DefaultBinder = new TrimModelBinder();
