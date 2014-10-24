@@ -45,6 +45,10 @@
       <Project>{75D945A7-20CB-4213-8A1A-432DCBD54BDF}</Project>
       <Name>Infrastructure.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.RavenDb\Infrastructure.RavenDb.csproj">
+      <Project>{0082672E-75B0-4EAD-AF52-67639976607F}</Project>
+      <Name>Infrastructure.RavenDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.SqlServer\Infrastructure.SqlServer.csproj">
       <Project>{8E1B9BF3-4167-4BF5-80C7-1DED84F66DE2}</Project>
       <Name>Infrastructure.SqlServer</Name>

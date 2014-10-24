@@ -11,4 +11,9 @@ namespace Core.Repositories
         bool Save(User user);
         int Add(User user);
     }
+
+    public interface IRavenUserRepository
+    {
+        void Save(IList<User> users);
+    }
 }

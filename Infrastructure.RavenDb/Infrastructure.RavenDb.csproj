@@ -74,7 +74,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Repositories\RavenRepository.cs" />
     <Compile Include="Repositories\RavenUserRepository.cs" />
+    <Compile Include="Repositories\TempRavenUserRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -84,6 +86,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Storage\Infrastructure.Storage.csproj">
+      <Project>{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}</Project>
+      <Name>Infrastructure.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

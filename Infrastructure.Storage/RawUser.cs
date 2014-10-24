@@ -1,3 +1,5 @@
+using Core.Entities;
+
 namespace Infrastructure.Storage
 {
 	public class RawUser
@@ -22,5 +24,31 @@ namespace Infrastructure.Storage
 	        EncryptedPassword = encryptedPassword;
 	        Salt = salt;
 	    }
+
+        public static RawUser Create(User user)
+        {
+            return new RawUser(
+                user.Id,
+                user.UserName,
+                user.DisplayName,
+                user.RealName,
+                user.Email,
+                (int)user.GlobalRole,
+                user.EncryptedPassword,
+                user.Salt);
+        }
+
+	    public static User CreateReal(RawUser rawUser)
+        {
+            return new User(
+                rawUser.Id,
+                rawUser.UserName,
+                rawUser.DisplayName,
+                rawUser.RealName,
+                rawUser.Email,
+                (Role)rawUser.GlobalRole,
+                rawUser.EncryptedPassword,
+                rawUser.Salt);
+        }
 	}
 }

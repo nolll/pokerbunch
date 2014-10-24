@@ -47,7 +47,7 @@ namespace Infrastructure.SqlServer.Repositories
 
         public bool Save(User user)
         {
-            var rawUser = CreateRawUser(user);
+            var rawUser = RawUser.Create(user);
             var updated = _userStorage.UpdateUser(rawUser);
             _cacheBuster.UserUpdated(user);
             return updated;
@@ -55,7 +55,7 @@ namespace Infrastructure.SqlServer.Repositories
 
         public int Add(User user)
         {
-            var rawUser = CreateRawUser(user);
+            var rawUser = RawUser.Create(user);
             var id = _userStorage.AddUser(rawUser);
             _cacheBuster.UserAdded();
             return id;
@@ -64,13 +64,13 @@ namespace Infrastructure.SqlServer.Repositories
         private User GetByIdUncached(int id)
         {
             var rawUser = _userStorage.GetUserById(id);
-            return rawUser != null ? CreateUser(rawUser) : null;
+            return rawUser != null ? RawUser.CreateReal(rawUser) : null;
         }
 
         private IList<User> GetListUncached(IList<int> ids)
         {
             var rawUsers = _userStorage.GetUserList(ids);
-            return rawUsers.Select(CreateUser).ToList();
+            return rawUsers.Select(RawUser.CreateReal).ToList();
         }
 
         private int? GetIdByNameOrEmail(string nameOrEmail)
@@ -83,32 +83,6 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var cacheKey = CacheKeyProvider.UserIdsKey();
             return _cacheContainer.GetAndStore(() => _userStorage.GetUserIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
-        }
-
-        private static User CreateUser(RawUser rawUser)
-        {
-            return new User(
-                rawUser.Id,
-                rawUser.UserName,
-                rawUser.DisplayName,
-                rawUser.RealName,
-                rawUser.Email,
-                (Role)rawUser.GlobalRole,
-                rawUser.EncryptedPassword,
-                rawUser.Salt);
-        }
-
-        private static RawUser CreateRawUser(User user)
-        {
-            return new RawUser(
-                user.Id,
-                user.UserName,
-                user.DisplayName,
-                user.RealName,
-                user.Email,
-                (int)user.GlobalRole,
-                user.EncryptedPassword,
-                user.Salt);
         }
     }
 }
