@@ -13,7 +13,7 @@ namespace Core.UseCases.PlayerList
             PlayerListRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch);
+            var players = playerRepository.GetList(bunch.Id);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
 
             return new PlayerListResult(bunch, players, isManager);

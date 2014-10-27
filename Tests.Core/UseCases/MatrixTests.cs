@@ -68,8 +68,8 @@ namespace Tests.Core.UseCases
             var players = new List<Player>();
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), It.IsAny<int?>())).Returns(cashgames);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Bunch>())).Returns(players);
+            GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(cashgames);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
         }
 
         private MatrixResult Execute(MatrixRequest request)

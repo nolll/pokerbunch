@@ -29,9 +29,9 @@ namespace Infrastructure.SqlServer.Repositories
 	        _userRepository = userRepository;
 	    }
 
-        public IList<Player> GetList(Bunch bunch)
+        public IList<Player> GetList(int bunchId)
         {
-            var ids = GetIds(bunch);
+            var ids = GetIds(bunchId);
             return GetList(ids);
         }
 
@@ -47,10 +47,10 @@ namespace Infrastructure.SqlServer.Repositories
             return rawPlayers.Select(CreatePlayer).ToList();
         }
 
-        private IList<int> GetIds(Bunch bunch)
+        private IList<int> GetIds(int bunchId)
         {
-            var cacheKey = CacheKeyProvider.PlayerIdsKey(bunch.Id);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(bunch.Id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.PlayerIdsKey(bunchId);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdList(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public Player GetById(int id)
@@ -65,16 +65,16 @@ namespace Infrastructure.SqlServer.Repositories
             return rawPlayer != null ? CreatePlayer(rawPlayer) : null;
         }
 
-        public Player GetByName(Bunch bunch, string name)
+        public Player GetByName(int bunchId, string name)
         {
-            var playerId = GetIdByName(bunch, name);
+            var playerId = GetIdByName(bunchId, name);
             return playerId.HasValue ? GetById(playerId.Value) : null;
         }
 
-        private int? GetIdByName(Bunch bunch, string name)
+        private int? GetIdByName(int bunchId, string name)
         {
-            var cacheKey = CacheKeyProvider.PlayerIdByNameKey(bunch.Id, name);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunch.Id, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.PlayerIdByNameKey(bunchId, name);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunchId, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public Player GetByUserName(Bunch bunch, string userName)
@@ -89,37 +89,38 @@ namespace Infrastructure.SqlServer.Repositories
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunch.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-		public int Add(Bunch bunch, string playerName)
+		public int Add(int bunchId, string playerName)
         {
-            var playerId = _playerStorage.AddPlayer(bunch.Id, playerName);
-            _cacheBuster.PlayerAdded(bunch);
+            var playerId = _playerStorage.AddPlayer(bunchId, playerName);
+            _cacheBuster.PlayerAdded(bunchId);
 		    return playerId;
 		}
 
 		public int Add(Bunch bunch, User user, Role role)
         {
             var playerId = _playerStorage.AddPlayerWithUser(bunch.Id, user.Id, (int)role);
-            _cacheBuster.PlayerAdded(bunch);
+            _cacheBuster.PlayerAdded(bunch.Id);
 		    return playerId;
 		}
 
 		public bool JoinHomegame(Player player, Bunch bunch, User user)
         {
             var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, user.Id);
-            _cacheBuster.PlayerUpdated(player);
+            _cacheBuster.PlayerUpdated(player.Id);
 		    return success;
 		}
 
-		public bool Delete(Bunch bunch, Player player)
+		public bool Delete(int playerId)
         {
-			var success = _playerStorage.DeletePlayer(player.Id);
-            _cacheBuster.PlayerDeleted(bunch, player);
+			var success = _playerStorage.DeletePlayer(playerId);
+            _cacheBuster.PlayerDeleted(playerId);
             return success;
 		}
 
 	    private Player CreatePlayer(RawPlayer rawPlayer)
         {
             return new Player(
+                rawPlayer.BunchId,
                 rawPlayer.Id,
                 rawPlayer.UserId,
                 GetDisplayName(rawPlayer),

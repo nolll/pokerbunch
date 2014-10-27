@@ -36,10 +36,10 @@ namespace Core.Services
             return years.Count > 1;                
         }
 
-        public CashgameSuite GetSuite(Bunch bunch, int? year = null)
+        public CashgameSuite GetSuite(int bunchId, int? year = null)
         {
-            var players = _playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.GetPublished(bunch, year);
+            var players = _playerRepository.GetList(bunchId).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.GetFinished(bunchId, year);
             return CashgameSuiteFactory.Create(cashgames, players);
         }
 

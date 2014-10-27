@@ -19,21 +19,19 @@ namespace Core.UseCases.EditCheckpoint
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var existingCheckpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
 
-            var postedCheckpoint = CreateCheckpoint(request, existingCheckpoint, bunch.Timezone);
-            checkpointRepository.UpdateCheckpoint(cashgame, postedCheckpoint);
-
-            var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
-            return new EditCheckpointResult(returnUrl);
-        }
-
-        private static Checkpoint CreateCheckpoint(EditCheckpointRequest request, Checkpoint existingCheckpoint, TimeZoneInfo timeZone)
-        {
-            return CheckpointFactory.Create(
-                TimeZoneInfo.ConvertTimeToUtc(request.Timestamp, timeZone),
+            var postedCheckpoint = CheckpointFactory.Create(
+                existingCheckpoint.CashgameId,
+                existingCheckpoint.PlayerId,
+                TimeZoneInfo.ConvertTimeToUtc(request.Timestamp, bunch.Timezone),
                 existingCheckpoint.Type,
                 request.Stack,
                 request.Amount,
                 existingCheckpoint.Id);
+
+            checkpointRepository.UpdateCheckpoint(cashgame, postedCheckpoint);
+
+            var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
+            return new EditCheckpointResult(returnUrl);
         }
     }
 }

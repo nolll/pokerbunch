@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.DeletePlayer;
 using Moq;
@@ -21,7 +20,7 @@ namespace Tests.Core.UseCases
             var result = Execute(request);
 
             Assert.IsInstanceOf<PlayerIndexUrl>(result.ReturnUrl);
-            GetMock<IPlayerRepository>().Verify(o => o.Delete(It.IsAny<Bunch>(), It.IsAny<Player>()));
+            GetMock<IPlayerRepository>().Verify(o => o.Delete(It.IsAny<int>()));
         }
 
         [Test]
@@ -39,7 +38,6 @@ namespace Tests.Core.UseCases
         private DeletePlayerResult Execute(DeletePlayerRequest request)
         {
             return DeletePlayerInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 request);

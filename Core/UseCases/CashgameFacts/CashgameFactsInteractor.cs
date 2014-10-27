@@ -13,8 +13,8 @@ namespace Core.UseCases.CashgameFacts
             CashgameFactsRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
+            var players = playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
             return GetFactsResult(playerRepository, bunch, factBuilder);

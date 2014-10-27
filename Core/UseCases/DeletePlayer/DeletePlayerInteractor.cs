@@ -6,7 +6,6 @@ namespace Core.UseCases.DeletePlayer
     public class DeletePlayerInteractor
     {
         public static DeletePlayerResult Execute(
-            IBunchRepository bunchRepository,
             IPlayerRepository playerRepository,
             ICashgameRepository cashgameRepository,
             DeletePlayerRequest request)
@@ -15,9 +14,7 @@ namespace Core.UseCases.DeletePlayer
 
             if (!hasPlayed)
             {
-                var bunch = bunchRepository.GetBySlug(request.Slug);
-                var player = playerRepository.GetById(request.PlayerId);
-                playerRepository.Delete(bunch, player);
+                playerRepository.Delete(request.PlayerId);
             }
 
             var returnUrl = CreateReturnUrl(request, hasPlayed);

@@ -16,6 +16,8 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_ZeroGames_AllBadgesAreFalse()
         {
+            SetupGames(0);
+
             var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.PlayedOneGame);
@@ -88,8 +90,11 @@ namespace Tests.Core.UseCases
 
         private void SetupGames(int gameCount)
         {
+            var bunch = A.Bunch.Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
+
             var games = CreateGameList(gameCount);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(It.IsAny<Bunch>(), It.IsAny<int?>())).Returns(games);
+            GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(games);
         }
 
         private IList<Cashgame> CreateGameList(int gameCount)

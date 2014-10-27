@@ -13,8 +13,8 @@ namespace Core.UseCases.Matrix
         public static MatrixResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, MatrixRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
-            var players = playerRepository.GetList(bunch);
+            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var players = playerRepository.GetList(bunch.Id);
             var suite = CashgameSuiteFactory.Create(cashgames, players);
             
             var gameItems = CreateGameItems(bunch.Slug, cashgames);

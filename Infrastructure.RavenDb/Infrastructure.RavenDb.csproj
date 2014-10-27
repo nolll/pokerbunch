@@ -76,7 +76,7 @@
     </Compile>
     <Compile Include="Repositories\RavenRepository.cs" />
     <Compile Include="Repositories\RavenUserRepository.cs" />
-    <Compile Include="Repositories\TempRavenUserRepository.cs" />
+    <Compile Include="Repositories\TempRavenRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

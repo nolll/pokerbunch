@@ -1,17 +1,15 @@
-﻿using Core.Entities;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
     public interface ICacheBuster
     {
         void UserAdded();
-        void UserUpdated(User user);
+        void UserUpdated(int userId);
         void BunchAdded();
-        void BunchUpdated(Bunch bunch);
-        void PlayerAdded(Bunch bunch);
-        void PlayerUpdated(Player player);
-        void PlayerDeleted(Bunch bunch, Player player);
-        void CashgameStarted(Bunch bunch);
-        void CashgameUpdated(Cashgame cashgame);
+        void BunchUpdated(int bunchId);
+        void PlayerAdded(int playerId);
+        void PlayerUpdated(int playerId);
+        void PlayerDeleted(int playerId);
+        void CashgameStarted(int cashgameId);
+        void CashgameUpdated(int cashgameId);
     }
 }

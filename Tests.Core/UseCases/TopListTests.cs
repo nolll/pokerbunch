@@ -175,7 +175,7 @@ namespace Tests.Core.UseCases
             var suite = BuildSuite(totalResult1, totalResult2);
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
-            GetMock<ICashgameService>().Setup(o => o.GetSuite(bunch, It.IsAny<int?>())).Returns(suite);
+            GetMock<ICashgameService>().Setup(o => o.GetSuite(bunch.Id, It.IsAny<int?>())).Returns(suite);
         }
 
         private CashgameSuite BuildSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)

@@ -1,10 +1,9 @@
-﻿using System;
-using Core.Entities.Checkpoints;
+﻿using Core.Entities.Checkpoints;
+using Core.Exceptions;
 using Core.Factories;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.Cashout
 {
@@ -28,7 +27,15 @@ namespace Core.UseCases.Cashout
             var result = cashgame.GetResult(player.Id);
             var now = timeProvider.UtcNow;
 
-            var postedCheckpoint = CreateCheckpoint(request, result.CashoutCheckpoint, now);
+            var existingCashoutCheckpoint = result.CashoutCheckpoint;
+            var postedCheckpoint = CheckpointFactory.Create(
+                cashgame.Id,
+                player.Id,
+                now,
+                CheckpointType.Cashout,
+                request.Stack,
+                existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
+
             if (result.CashoutCheckpoint != null)
                 checkpointRepository.UpdateCheckpoint(cashgame, postedCheckpoint);
             else
@@ -36,15 +43,6 @@ namespace Core.UseCases.Cashout
 
             var returnUrl = new RunningCashgameUrl(request.Slug);
             return new CashoutResult(returnUrl);
-        }
-
-        private static Checkpoint CreateCheckpoint(CashoutRequest request, Checkpoint existingCashoutCheckpoint, DateTime now)
-        {
-            return CheckpointFactory.Create(
-                now,
-                CheckpointType.Cashout,
-                request.Stack,
-                existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
         }
 
         // todo: display sharing options

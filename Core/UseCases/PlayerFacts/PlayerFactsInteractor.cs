@@ -10,7 +10,7 @@ namespace Core.UseCases.PlayerFacts
             PlayerFactsRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetPublished(bunch);
+            var cashgames = cashgameRepository.GetFinished(bunch.Id);
 
             return new PlayerFactsResult(cashgames, request.PlayerId, bunch.Currency);
         }

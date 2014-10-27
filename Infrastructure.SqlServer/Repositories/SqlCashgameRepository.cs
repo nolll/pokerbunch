@@ -14,7 +14,7 @@ namespace Infrastructure.SqlServer.Repositories
 {
     public class CashgameSearchCriteria
     {
-        public Bunch Bunch { get; private set; }
+        public int BunchId { get; private set; }
         public GameStatus? Status { get; private set; }
         public int? Year { get; private set; }
     }
@@ -43,13 +43,13 @@ namespace Infrastructure.SqlServer.Repositories
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
         {
-            var ids = GetIds(searchCriteria.Bunch.Id, searchCriteria.Status, searchCriteria.Year);
+            var ids = GetIds(searchCriteria.BunchId, searchCriteria.Status, searchCriteria.Year);
             return GetList(ids);
         }
 
-        public IList<Cashgame> GetPublished(Bunch bunch, int? year = null)
+        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            var ids = GetIds(bunch.Id, GameStatus.Finished, year);
+            var ids = GetIds(bunchId, GameStatus.Finished, year);
             return GetList(ids);
         }
 
@@ -88,16 +88,16 @@ namespace Infrastructure.SqlServer.Repositories
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private int? GetIdByDateString(int homegameId, string dateString)
+        private int? GetIdByDateString(int bunchId, string dateString)
         {
-            var cacheKey = CacheKeyProvider.CashgameIdByDateStringKey(homegameId, dateString);
-            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetCashgameId(homegameId, dateString), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.CashgameIdByDateStringKey(bunchId, dateString);
+            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetCashgameId(bunchId, dateString), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private int? GetIdByRunning(int homegameId)
+        private int? GetIdByRunning(int bunchId)
         {
-            var cacheKey = CacheKeyProvider.CashgameIdByRunningKey(homegameId);
-            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetRunningCashgameId(homegameId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
+            var cacheKey = CacheKeyProvider.CashgameIdByRunningKey(bunchId);
+            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetRunningCashgameId(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
         }
 
         public IList<int> GetYears(Bunch bunch)
@@ -131,10 +131,10 @@ namespace Infrastructure.SqlServer.Repositories
             return CashgameDataMapper.Map(rawGame, rawCheckpoints);
         }
 
-        private IList<int> GetIds(int homegameId, GameStatus? status = null, int? year = null)
+        private IList<int> GetIds(int bunchId, GameStatus? status = null, int? year = null)
         {
-            var cacheKey = CacheKeyProvider.CashgameIdsKey(homegameId, status, year);
-            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetGameIds(homegameId, (int?)status, year), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.CashgameIdsKey(bunchId, status, year);
+            return _cacheContainer.GetAndStore(() => _cashgameStorage.GetGameIds(bunchId, (int?)status, year), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private IList<int> GetIdsByEvent(int eventId)
@@ -156,7 +156,7 @@ namespace Infrastructure.SqlServer.Repositories
 		{
 		    var rawCashgame = _rawCashgameFactory.Create(cashgame);
             var id = _cashgameStorage.AddGame(bunch, rawCashgame);
-            _cacheBuster.CashgameStarted(bunch);
+            _cacheBuster.CashgameStarted(cashgame.Id);
 			return id;
 		}
 
@@ -164,7 +164,7 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var rawCashgame = _rawCashgameFactory.Create(cashgame);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
             return success;
 		}
 
@@ -172,7 +172,7 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var rawCashgame = _rawCashgameFactory.Create(cashgame);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
 		    return success;
 		}
 
@@ -180,7 +180,7 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Finished);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
 			return success;
 		}
 

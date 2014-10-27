@@ -6,24 +6,28 @@ namespace Tests.Common.Builders
 {
     public class CheckpointBuilder
     {
-        private int _amount;
-        private int _stack;
+        private int _cashgameId;
+        private int _playerId;
         private DateTime _timestamp;
         private CheckpointType _type;
+        private int _stack;
+        private int _amount;
         private int _id;
 
         public CheckpointBuilder()
         {
-            _amount = 0;
-            _stack = 0;
+            _cashgameId = 0;
+            _playerId = 0;
             _timestamp = DateTime.MinValue;
             _type = CheckpointType.Report;
+            _amount = 0;
+            _stack = 0;
             _id = 0;
         }
 
         public Checkpoint Build()
         {
-            return CheckpointFactory.Create(_timestamp, _type, _stack, _amount, _id);
+            return CheckpointFactory.Create(_cashgameId, _playerId, _timestamp, _type, _stack, _amount, _id);
         }
 
         public CheckpointBuilder WithAmount(int amount)

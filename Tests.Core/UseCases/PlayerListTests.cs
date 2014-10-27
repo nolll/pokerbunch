@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
             var request = new PlayerListRequest(slug);
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(bunch)).Returns(players);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
 
             var result = Execute(request);
 
@@ -49,7 +49,7 @@ namespace Tests.Core.UseCases
             var request = new PlayerListRequest(slug);
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<Bunch>())).Returns(players);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
 
             var result = Execute(request);
 
@@ -70,7 +70,7 @@ namespace Tests.Core.UseCases
             var request = new PlayerListRequest(slug);
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(bunch)).Returns(players);
+            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
             GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
 
             var result = Execute(request);

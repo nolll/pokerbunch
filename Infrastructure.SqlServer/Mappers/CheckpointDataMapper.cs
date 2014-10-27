@@ -9,6 +9,8 @@ namespace Infrastructure.SqlServer.Mappers
         public static Checkpoint Map(RawCheckpoint rawCheckpoint)
         {
             return CheckpointFactory.Create(
+                rawCheckpoint.CashgameId,
+                rawCheckpoint.PlayerId,
                 rawCheckpoint.Timestamp,
                 (CheckpointType)rawCheckpoint.Type,
                 rawCheckpoint.Stack,

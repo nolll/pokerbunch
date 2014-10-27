@@ -6,36 +6,12 @@ using Core.Services;
 
 namespace Core.UseCases.CashgameChart
 {
-    public class ChartPlayerItem
-    {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-
-        public ChartPlayerItem(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-    }
-
-    public class ChartGameItem
-    {
-        public Date Date { get; private set; }
-        public IDictionary<int, int> Winnings { get; private set; }
-
-        public ChartGameItem(Date date, IDictionary<int, int> winnings)
-        {
-            Date = date;
-            Winnings = winnings;
-        }
-    }
-
     public class CashgameChartInteractor
     {
         public static CashgameChartResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, CashgameChartRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var suite = cashgameService.GetSuite(bunch, request.Year);
+            var suite = cashgameService.GetSuite(bunch.Id, request.Year);
 
             var playerItems = GetPlayerItems(suite.TotalResults);
             var gameItems = GetGameItems(suite.Cashgames, suite.TotalResults);
@@ -83,30 +59,6 @@ namespace Core.UseCases.CashgameChart
                 playerSum.Add(result.Player.Id, 0);
             }
             return playerSum;
-        }
-    }
-
-    public class CashgameChartRequest
-    {
-        public string Slug { get; private set; }
-        public int? Year { get; private set; }
-
-        public CashgameChartRequest(string slug, int? year)
-        {
-            Slug = slug;
-            Year = year;
-        }
-    }
-
-    public class CashgameChartResult
-    {
-        public IList<ChartGameItem> GameItems { get; private set; }
-        public IList<ChartPlayerItem> PlayerItems { get; private set; }
-
-        public CashgameChartResult(IList<ChartGameItem> gameItems, IList<ChartPlayerItem> playerItems)
-        {
-            GameItems = gameItems;
-            PlayerItems = playerItems;
         }
     }
 }

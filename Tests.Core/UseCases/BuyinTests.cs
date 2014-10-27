@@ -50,6 +50,8 @@ namespace Tests.Core.UseCases
             Checkpoint result = null;
             
             SetupCashgame();
+            SetupPlayer(); 
+            
             GetMock<ITimeProvider>().Setup(o => o.UtcNow).Returns(timestamp);
             GetMock<ICheckpointRepository>().
                 Setup(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<Checkpoint>())).
@@ -68,6 +70,7 @@ namespace Tests.Core.UseCases
         public void Buyin_NotStartedCashgame_AddsCheckpointAndStartsGame()
         {
             SetupCashgameThatIsntStarted();
+            SetupPlayer();
 
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
             Execute(request);
@@ -80,6 +83,7 @@ namespace Tests.Core.UseCases
         public void Buyin_ReturnUrlIsSetToRunningCashgame()
         {
             SetupCashgame();
+            SetupPlayer();
 
             var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
             var result = Execute(request);
@@ -103,7 +107,13 @@ namespace Tests.Core.UseCases
         {
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(cashgame);
         }
-        
+
+        private void SetupPlayer()
+        {
+            var player = A.Player.Build();
+            GetMock<IPlayerRepository>().Setup(o => o.GetById(It.IsAny<int>())).Returns(player);
+        }
+
         private BuyinResult Execute(BuyinRequest request)
         {
             return BuyinInteractor.Execute(

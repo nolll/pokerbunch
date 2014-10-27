@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases.PlayerFacts;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;
@@ -23,7 +24,7 @@ namespace Tests.Core.UseCases
             var bunch = A.Bunch.Build();
 
             GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetPublished(bunch, null)).Returns(GetCashgames());
+            GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), null)).Returns(GetCashgames());
 
             var result = Execute(request);
 

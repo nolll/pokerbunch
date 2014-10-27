@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
@@ -19,8 +18,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ReturnUrlIsSet()
         {
+            SetupBunch();
+            
             var request = new AddPlayerRequest(Slug, Name);
-
             var result = Execute(request);
 
             Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
@@ -38,22 +38,30 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidName_AddsPlayer()
         {
+            SetupBunch();
+            
             var request = new AddPlayerRequest(Slug, Name);
-
             Execute(request);
 
-            GetMock<IPlayerRepository>().Verify(o => o.Add(It.IsAny<Bunch>(), Name));
+            GetMock<IPlayerRepository>().Verify(o => o.Add(It.IsAny<int>(), Name));
         }
 
         [Test]
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
+            SetupBunch();
             var player = A.Player.Build();
 
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(It.IsAny<Bunch>(), Name)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByName(It.IsAny<int>(), Name)).Returns(player);
             
             var request = new AddPlayerRequest(Slug, Name);
             Assert.Throws<PlayerExistsException>(() => Execute(request));
+        }
+
+        private void SetupBunch()
+        {
+            var bunch = A.Bunch.Build();
+            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
         }
 
         private AddPlayerResult Execute(AddPlayerRequest request)

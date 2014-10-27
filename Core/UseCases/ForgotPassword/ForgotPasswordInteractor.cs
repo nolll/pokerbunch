@@ -27,8 +27,9 @@ namespace Core.UseCases.ForgotPassword
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
 
             user.SetPassword(encryptedPassword, salt);
+            
             userRepository.Save(user);
-
+            
             var message = new ForgotPasswordMessage(password);
             messageSender.Send(request.Email, message);
 

@@ -20,9 +20,8 @@ namespace Core.UseCases.AddBunch
             var existingBunch = bunchRepository.GetBySlug(slug);
 
             if (existingBunch != null)
-            {
                 throw new BunchExistsException();
-            }
+
             //todo: test the following 4 lines
             var bunch = CreateBunch(request);
             bunch = bunchRepository.Add(bunch);

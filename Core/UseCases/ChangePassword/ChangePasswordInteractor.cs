@@ -1,8 +1,8 @@
 ﻿using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.ChangePassword
 {
@@ -20,6 +20,7 @@ namespace Core.UseCases.ChangePassword
             var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
             var user = GetUser(auth.CurrentUser, encryptedPassword, salt);
+            
             userRepository.Save(user);
 
             var returnUrl = new ChangePasswordConfirmationUrl();

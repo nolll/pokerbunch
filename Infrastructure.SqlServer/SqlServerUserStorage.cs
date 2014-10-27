@@ -94,7 +94,7 @@ namespace Infrastructure.SqlServer
         private static RawUser CreateRawUser(IStorageDataReader reader)
         {
             return new RawUser(
-                reader.GetIntValue("UserID"),
+                reader.GetStringValue("UserID"),
                 reader.GetStringValue("UserName"),
                 reader.GetStringValue("DisplayName"),
                 reader.GetStringValue("RealName"),

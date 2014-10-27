@@ -4,8 +4,6 @@ using Infrastructure.Cache;
 using Infrastructure.RavenDb.Repositories;
 using Infrastructure.SqlServer;
 using Infrastructure.SqlServer.Factories;
-using Infrastructure.SqlServer.Factories.Interfaces;
-using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.SqlServer.Repositories;
 using Infrastructure.System;
 using Infrastructure.Web;
@@ -32,20 +30,24 @@ namespace Plumbing
         protected Dependencies()
         {
             var cacheProvider = new AspNetCacheProvider();
-            var cacheBuster = new CacheBuster(CacheContainer);
+            TimeProvider = new TimeProvider();
+            RandomService = new RandomService();
+            MessageSender = new MessageSender();
+            WebContext = new WebContext();
+            
+            CacheContainer = new CacheContainer(cacheProvider);
+            
             var rawCashgameFactory = new RawCashgameFactory(TimeProvider);
+            var userStorage = new SqlServerUserStorage();
             var bunchStorage = new SqlServerBunchStorage();
             var playerStorage = new SqlServerPlayerStorage();
             var checkpointStorage = new SqlServerCheckpointStorage();
             var cashgameStorage = new SqlServerCashgameStorage(rawCashgameFactory);
             var eventStorage = new SqlServerEventStorage();
 
-            TimeProvider = new TimeProvider();
-            RandomService = new RandomService();
-            MessageSender = new MessageSender();
-            WebContext = new WebContext();
-            CacheContainer = new CacheContainer(cacheProvider);
-            RavenUserRepository = new TempRavenUserRepository();
+            var cacheBuster = new CacheBuster(CacheContainer, userStorage, bunchStorage, playerStorage, cashgameStorage, checkpointStorage);
+            
+            RavenUserRepository = new TempRavenRepository();
             BunchRepository = new SqlBunchRepository(bunchStorage, CacheContainer, cacheBuster);
             UserRepository = new RavenUserRepository();
             PlayerRepository = new SqlPlayerRepository(playerStorage, CacheContainer, cacheBuster, UserRepository);

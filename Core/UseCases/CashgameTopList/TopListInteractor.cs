@@ -10,7 +10,7 @@ namespace Core.UseCases.CashgameTopList
         public static TopListResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, TopListRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var suite = cashgameService.GetSuite(bunch, request.Year);
+            var suite = cashgameService.GetSuite(bunch.Id, request.Year);
 
             var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, bunch.Currency));
             items = SortItems(items, request.OrderBy);

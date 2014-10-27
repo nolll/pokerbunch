@@ -6,6 +6,8 @@ namespace Core.Factories
     public static class CheckpointFactory
     {
         public static Checkpoint Create(
+            int cashgameId,
+            int playerId,
             DateTime timestamp,
             CheckpointType type,
             int stack,
@@ -15,11 +17,11 @@ namespace Core.Factories
             switch (type)
             {
                 case CheckpointType.Cashout:
-                    return new CashoutCheckpoint(timestamp, stack, amount, id);
+                    return new CashoutCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
                 case CheckpointType.Buyin:
-                    return new BuyinCheckpoint(timestamp, stack, amount, id);
+                    return new BuyinCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
                 default:
-                    return new ReportCheckpoint(timestamp, stack, amount, id);
+                    return new ReportCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
             }
         }
     }

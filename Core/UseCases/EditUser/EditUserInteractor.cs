@@ -15,6 +15,7 @@ namespace Core.UseCases.EditUser
 
             var user = userRepository.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
+            
             userRepository.Save(userToSave);
 
             var returnUrl = new UserDetailsUrl(request.UserName);

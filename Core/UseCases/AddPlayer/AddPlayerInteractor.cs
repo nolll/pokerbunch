@@ -18,11 +18,11 @@ namespace Core.UseCases.AddPlayer
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
 
-            var player = playerRepository.GetByName(bunch, request.Name);
+            var player = playerRepository.GetByName(bunch.Id, request.Name);
             if(player != null)
                 throw new PlayerExistsException();
 
-            playerRepository.Add(bunch, request.Name);
+            playerRepository.Add(bunch.Id, request.Name);
 
             var returnUrl = new AddPlayerConfirmationUrl(request.Slug);
             return new AddPlayerResult(returnUrl);

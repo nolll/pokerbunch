@@ -43,12 +43,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CacheBuster.cs" />
     <Compile Include="CacheTime.cs" />
     <Compile Include="Factories\Interfaces\IRawCashgameFactory.cs" />
     <Compile Include="Factories\RawBunchFactory.cs" />
     <Compile Include="Factories\RawCashgameFactory.cs" />
-    <Compile Include="Factories\RawCheckpointFactory.cs" />
-    <Compile Include="Factories\RawPlayerFactory.cs" />
     <Compile Include="Interfaces\IBunchStorage.cs" />
     <Compile Include="Interfaces\ICashgameStorage.cs" />
     <Compile Include="Interfaces\ICheckpointStorage.cs" />

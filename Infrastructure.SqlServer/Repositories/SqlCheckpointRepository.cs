@@ -2,9 +2,9 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.SqlServer.Factories;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.SqlServer.Mappers;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
@@ -23,24 +23,24 @@ namespace Infrastructure.SqlServer.Repositories
 
         public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint)
         {
-            var rawCheckpoint = RawCheckpointFactory.Create(cashgame, checkpoint);
-            var id = _checkpointStorage.AddCheckpoint(cashgame.Id, player.Id, rawCheckpoint);
-            _cacheBuster.CashgameUpdated(cashgame);
+            var rawCheckpoint = RawCheckpoint.Create(checkpoint);
+            var id = _checkpointStorage.AddCheckpoint(rawCheckpoint);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
             return id;
         }
 
         public bool UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint)
         {
-            var rawCheckpoint = RawCheckpointFactory.Create(cashgame, checkpoint);
+            var rawCheckpoint = RawCheckpoint.Create(checkpoint);
             var success = _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
-            _cacheBuster.CashgameUpdated(cashgame);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
             return success;
         }
 
         public bool DeleteCheckpoint(Cashgame cashgame, int id)
         {
             var success = _checkpointStorage.DeleteCheckpoint(id);
-            _cacheBuster.CashgameUpdated(cashgame);
+            _cacheBuster.CashgameUpdated(cashgame.Id);
             return success;
         }
 

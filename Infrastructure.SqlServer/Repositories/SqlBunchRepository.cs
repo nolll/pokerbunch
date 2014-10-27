@@ -82,7 +82,7 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var rawHomegame = RawBunchFactory.Create(bunch);
             var success = _bunchStorage.UpdateBunch(rawHomegame);
-            _cacheBuster.BunchUpdated(bunch);
+            _cacheBuster.BunchUpdated(bunch.Id);
             return success;
         }
 

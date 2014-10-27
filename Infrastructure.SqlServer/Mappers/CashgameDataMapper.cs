@@ -62,10 +62,10 @@ namespace Infrastructure.SqlServer.Mappers
             foreach (var checkpoint in checkpoints)
             {
                 IList<RawCheckpoint> checkpointList;
-                if (!checkpointMap.TryGetValue(checkpoint.GameId, out checkpointList))
+                if (!checkpointMap.TryGetValue(checkpoint.CashgameId, out checkpointList))
                 {
                     checkpointList = new List<RawCheckpoint>();
-                    checkpointMap.Add(checkpoint.GameId, checkpointList);
+                    checkpointMap.Add(checkpoint.CashgameId, checkpointList);
                 }
                 checkpointList.Add(checkpoint);
             }

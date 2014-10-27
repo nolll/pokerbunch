@@ -4,6 +4,7 @@ namespace Tests.Common.Builders
 {
     public class PlayerBuilder
     {
+        private int _bunchId;
         private int _id;
         private int _userId;
         private string _displayName;
@@ -11,6 +12,7 @@ namespace Tests.Common.Builders
 
         public PlayerBuilder()
         {
+            _bunchId = 0;
             _id = 0;
             _userId = 0;
             _displayName = "";
@@ -19,7 +21,7 @@ namespace Tests.Common.Builders
 
         public Player Build()
         {
-            return new Player(_id, _userId, _displayName, _role);
+            return new Player(_bunchId, _id, _userId, _displayName, _role);
         }
 
         public PlayerBuilder WithId(int id)

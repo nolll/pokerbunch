@@ -14,7 +14,7 @@ namespace Core.UseCases.CashgameList
             CashgameListRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetPublished(bunch, request.Year);
+            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
             var list = cashgames.Select(o => new CashgameItem(bunch, o));

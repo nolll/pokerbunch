@@ -5,7 +5,7 @@ namespace Core.Services
 {
     public interface ICashgameService
     {
-        CashgameSuite GetSuite(Bunch bunch, int? year = null);
+        CashgameSuite GetSuite(int bunchId, int? year = null);
         IList<Player> GetPlayers(Cashgame cashgame);
     }
 }

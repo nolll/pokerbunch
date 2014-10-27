@@ -28,7 +28,9 @@ namespace Core.UseCases.AddUser
             var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var user = CreateUser(request, encryptedPassword, salt);
+
             userRepository.Add(user);
+            
             var message = new RegistrationMessage(password);
             messageSender.Send(request.Email, message);
 

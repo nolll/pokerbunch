@@ -49,7 +49,7 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var rawUser = RawUser.Create(user);
             var updated = _userStorage.UpdateUser(rawUser);
-            _cacheBuster.UserUpdated(user);
+            _cacheBuster.UserUpdated(user.Id);
             return updated;
         }
 

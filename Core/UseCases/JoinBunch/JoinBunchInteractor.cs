@@ -17,7 +17,7 @@ namespace Core.UseCases.JoinBunch
                 throw new ValidationException(validator);
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch);
+            var players = playerRepository.GetList(bunch.Id);
             var player = GetMatchedPlayer(bunch, players, request.Code);
             if (player != null && player.IsUser)
             {

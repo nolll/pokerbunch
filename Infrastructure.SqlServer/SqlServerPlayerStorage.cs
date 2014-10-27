@@ -23,7 +23,7 @@ namespace Infrastructure.SqlServer
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawPlayerFactory.Create);
+            return reader.ReadOne(CreateRawPlayer);
         }
 
         public IList<RawPlayer> GetPlayerList(IList<int> ids)
@@ -31,7 +31,7 @@ namespace Infrastructure.SqlServer
             const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID IN (@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(RawPlayerFactory.Create);
+            return reader.ReadList(CreateRawPlayer);
         }
 
         public int? GetPlayerIdByName(int homegameId, string name)
@@ -116,6 +116,16 @@ namespace Infrastructure.SqlServer
                 };
             var rowCount = _storageProvider.Execute(sql, parameters);
             return rowCount > 0;
+        }
+
+        private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
+        {
+            return new RawPlayer(
+                reader.GetIntValue("HomegameID"),
+                reader.GetIntValue("PlayerID"),
+                reader.GetIntValue("UserID"),
+                reader.GetStringValue("PlayerName"),
+                reader.GetIntValue("RoleID"));
         }
  	}
 }
