@@ -6,6 +6,9 @@ namespace Infrastructure.SqlServer
 {
     public class SqlServerUserStorage : IUserStorage 
     {
+        private const string UserDataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
+        private const string UserIdSql = "SELECT u.UserID FROM [User] u ";
+
 	    private readonly IStorageProvider _storageProvider;
 
         public SqlServerUserStorage()
@@ -15,7 +18,7 @@ namespace Infrastructure.SqlServer
 
         public RawUser GetUserById(int id)
         {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserId = @userId";
+            var sql = string.Concat(UserDataSql, "WHERE u.UserId = @userId");
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@userId", id)
@@ -24,9 +27,17 @@ namespace Infrastructure.SqlServer
             return reader.ReadOne(CreateRawUser);
         }
 
+        public IList<RawUser> GetUserList(IList<int> ids)
+        {
+            var sql = string.Concat(UserDataSql, "WHERE u.UserID IN(@ids)");
+            var parameter = new ListSqlParameter("@ids", ids);
+            var reader = _storageProvider.Query(sql, parameter);
+            return reader.ReadList(CreateRawUser);
+        }
+
         public int? GetUserIdByNameOrEmail(string userNameOrEmail)
         {
-            const string sql = "SELECT u.UserID FROM [User] u WHERE (u.UserName = @query OR u.Email = @query)";
+            var sql = string.Concat(UserIdSql, "WHERE (u.UserName = @query OR u.Email = @query)");
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@query", userNameOrEmail)
@@ -35,17 +46,9 @@ namespace Infrastructure.SqlServer
             return reader.ReadInt("UserID");
         }
 
-        public IList<RawUser> GetUserList(IList<int> ids)
-        {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u WHERE u.UserID IN(@ids)";
-            var parameter = new ListSqlParameter("@ids", ids);
-            var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(CreateRawUser);
-        }
-
         public IList<int> GetUserIdList()
         {
-            const string sql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ORDER BY u.DisplayName";
+            var sql = string.Concat(UserIdSql, "ORDER BY u.DisplayName");
             var reader = _storageProvider.Query(sql);
             return reader.ReadIntList("UserID");
         }
