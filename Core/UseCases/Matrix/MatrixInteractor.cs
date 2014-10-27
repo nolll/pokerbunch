@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Factories;
 using Core.Repositories;
 using Core.Urls;
 
@@ -15,7 +14,7 @@ namespace Core.UseCases.Matrix
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
             var players = playerRepository.GetList(bunch.Id);
-            var suite = CashgameSuiteFactory.Create(cashgames, players);
+            var suite = new CashgameSuite(cashgames, players);
             
             var gameItems = CreateGameItems(bunch.Slug, cashgames);
             var playerItems = CreatePlayerItems(bunch, suite);

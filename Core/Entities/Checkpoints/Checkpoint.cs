@@ -31,5 +31,14 @@ namespace Core.Entities.Checkpoints
 	    }
 
         public abstract string Description { get; }
+
+        public static Checkpoint Create(int cashgameId, int playerId, DateTime timestamp, CheckpointType type, int stack, int amount = 0, int id = 0)
+        {
+            if (type == CheckpointType.Cashout)
+                return new CashoutCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
+            if (type == CheckpointType.Buyin)
+                return new BuyinCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
+            return new ReportCheckpoint(cashgameId, playerId, timestamp, stack, amount, id);
+        }
 	}
 }

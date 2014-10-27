@@ -3,7 +3,6 @@ using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.SqlServer.Interfaces;
-using Infrastructure.SqlServer.Mappers;
 using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
@@ -47,7 +46,7 @@ namespace Infrastructure.SqlServer.Repositories
         public Checkpoint GetCheckpoint(int checkpointId)
         {
             var rawCheckpoint = _checkpointStorage.GetCheckpoint(checkpointId);
-            return rawCheckpoint != null ? CheckpointDataMapper.Map(rawCheckpoint) : null;
+            return rawCheckpoint != null ? RawCheckpoint.CreateReal(rawCheckpoint) : null;
         }
     }
 }

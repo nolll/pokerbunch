@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories {
-
-	public interface IPlayerRepository{
-
+namespace Core.Repositories
+{
+	public interface IPlayerRepository
+    {
 		IList<Player> GetList(int bunchId);
         IList<Player> GetList(IList<int> ids);
         Player GetById(int id);
@@ -14,5 +14,4 @@ namespace Core.Repositories {
 		bool JoinHomegame(Player player, Bunch bunch, User user);
 		bool Delete(int playerId);
 	}
-
 }

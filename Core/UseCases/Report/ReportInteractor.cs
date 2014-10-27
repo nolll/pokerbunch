@@ -1,5 +1,4 @@
 ﻿using Core.Entities.Checkpoints;
-using Core.Factories;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
@@ -26,7 +25,7 @@ namespace Core.UseCases.Report
             var player = playerRepository.GetById(request.PlayerId);
             var now = timeProvider.UtcNow;
 
-            var checkpoint = CheckpointFactory.Create(cashgame.Id, player.Id, now, CheckpointType.Report, request.Stack);
+            var checkpoint = Checkpoint.Create(cashgame.Id, player.Id, now, CheckpointType.Report, request.Stack);
             checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
             
             var returnUrl = new RunningCashgameUrl(request.Slug);

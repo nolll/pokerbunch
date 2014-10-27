@@ -35,5 +35,17 @@ namespace Infrastructure.Storage
                 checkpoint.Id,
                 (int)checkpoint.Type);
         }
+
+        public static Checkpoint CreateReal(RawCheckpoint rawCheckpoint)
+        {
+            return Checkpoint.Create(
+                rawCheckpoint.CashgameId,
+                rawCheckpoint.PlayerId,
+                rawCheckpoint.Timestamp,
+                (CheckpointType)rawCheckpoint.Type,
+                rawCheckpoint.Stack,
+                rawCheckpoint.Amount,
+                rawCheckpoint.Id);
+        }
     }
 }

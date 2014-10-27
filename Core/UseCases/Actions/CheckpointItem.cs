@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 using Core.Urls;
 
 namespace Core.UseCases.Actions

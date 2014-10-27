@@ -1,7 +1,6 @@
 ﻿using System;
 using Core.Entities.Checkpoints;
 using Core.Exceptions;
-using Core.Factories;
 using Core.Repositories;
 using Core.Urls;
 
@@ -19,7 +18,7 @@ namespace Core.UseCases.EditCheckpoint
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var existingCheckpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
 
-            var postedCheckpoint = CheckpointFactory.Create(
+            var postedCheckpoint = Checkpoint.Create(
                 existingCheckpoint.CashgameId,
                 existingCheckpoint.PlayerId,
                 TimeZoneInfo.ConvertTimeToUtc(request.Timestamp, bunch.Timezone),

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
@@ -7,7 +8,6 @@ using Core.Repositories;
 using Core.Services;
 using Infrastructure.Cache;
 using Infrastructure.SqlServer.Interfaces;
-using Infrastructure.SqlServer.Mappers;
 using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
@@ -55,7 +55,7 @@ namespace Infrastructure.SqlServer.Repositories
 	    private IList<Bunch> GetByUserId(int userId)
         {
             var rawHomegames = _bunchStorage.GetBunchesByUserId(userId);
-            return rawHomegames.Select(BunchDataMapper.Map).ToList();
+            return rawHomegames.Select(CreateBunch).ToList();
         }
 
         public IList<Bunch> GetList()
@@ -89,7 +89,7 @@ namespace Infrastructure.SqlServer.Repositories
         private Bunch GetByIdUncached(int id)
         {
             var rawHomegame = _bunchStorage.GetById(id);
-            return rawHomegame != null ? BunchDataMapper.Map(rawHomegame) : null;
+            return rawHomegame != null ? CreateBunch(rawHomegame) : null;
         }
 
         private int? GetIdBySlug(string slug)
@@ -101,13 +101,29 @@ namespace Infrastructure.SqlServer.Repositories
         private IList<Bunch> GetAllUncached(IList<int> ids)
         {
             var rawHomegames = _bunchStorage.GetBunches(ids);
-            return rawHomegames.Select(BunchDataMapper.Map).ToList();
+            return rawHomegames.Select(CreateBunch).ToList();
         }
 
         private IList<int> GetAllIds()
         {
             var cacheKey = CacheKeyProvider.BunchIdsKey();
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+        }
+
+        public static Bunch CreateBunch(RawBunch rawBunch)
+        {
+            var culture = CultureInfo.CreateSpecificCulture("sv-SE");
+            var currency = new Currency(rawBunch.CurrencySymbol, rawBunch.CurrencyLayout, culture);
+
+            return new Bunch(
+                rawBunch.Id,
+                rawBunch.Slug,
+                rawBunch.DisplayName,
+                rawBunch.Description,
+                rawBunch.HouseRules,
+                TimeZoneInfo.FindSystemTimeZoneById(rawBunch.TimezoneName),
+                rawBunch.DefaultBuyin,
+                currency);
         }
 	}
 }

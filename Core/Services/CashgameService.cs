@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Factories;
 using Core.Repositories;
 
 namespace Core.Services
@@ -40,7 +39,7 @@ namespace Core.Services
         {
             var players = _playerRepository.GetList(bunchId).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetFinished(bunchId, year);
-            return CashgameSuiteFactory.Create(cashgames, players);
+            return new CashgameSuite(cashgames, players);
         }
 
         public IList<Player> GetPlayers(Cashgame cashgame)

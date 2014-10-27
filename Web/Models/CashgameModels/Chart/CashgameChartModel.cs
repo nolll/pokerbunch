@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
 using Core.UseCases.CashgameChart;
-using Core.UseCases.Matrix;
 using Web.Models.ChartModels;
-using Web.Models.PlayerModels.List;
 
 namespace Web.Models.CashgameModels.Chart
 {

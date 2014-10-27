@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Checkpoints;
 using Core.Exceptions;
-using Core.Factories;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
@@ -28,7 +27,7 @@ namespace Core.UseCases.Cashout
             var now = timeProvider.UtcNow;
 
             var existingCashoutCheckpoint = result.CashoutCheckpoint;
-            var postedCheckpoint = CheckpointFactory.Create(
+            var postedCheckpoint = Checkpoint.Create(
                 cashgame.Id,
                 player.Id,
                 now,

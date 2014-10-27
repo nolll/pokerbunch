@@ -25,7 +25,6 @@ using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
 using Core.UseCases.ClearCache;
-using Core.UseCases.CopyToRaven;
 using Core.UseCases.DeleteCashgame;
 using Core.UseCases.DeleteCheckpoint;
 using Core.UseCases.DeletePlayer;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Entities.Checkpoints;
-using Core.Factories;
 
 namespace Tests.Common.Builders
 {
@@ -27,7 +26,7 @@ namespace Tests.Common.Builders
 
         public Checkpoint Build()
         {
-            return CheckpointFactory.Create(_cashgameId, _playerId, _timestamp, _type, _stack, _amount, _id);
+            return Checkpoint.Create(_cashgameId, _playerId, _timestamp, _type, _stack, _amount, _id);
         }
 
         public CheckpointBuilder WithAmount(int amount)
