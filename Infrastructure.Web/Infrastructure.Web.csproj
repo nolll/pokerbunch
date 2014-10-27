@@ -43,7 +43,6 @@
     <Compile Include="AspNetCacheProvider.cs" />
     <Compile Include="Auth.cs" />
     <Compile Include="EmailMessageSender.cs" />
-    <Compile Include="WebContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

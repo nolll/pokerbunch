@@ -4,7 +4,7 @@ namespace Infrastructure.Storage
 {
 	public class RawUser
     {
-	    public string Id { get; private set; }
+	    public int Id { get; private set; }
 	    public string UserName { get; private set; }
 	    public string DisplayName { get; private set; }
 	    public string RealName { get; private set; }
@@ -13,7 +13,7 @@ namespace Infrastructure.Storage
 	    public string EncryptedPassword { get; private set; }
 	    public string Salt { get; private set; }
 
-	    public RawUser(string id, string userName, string displayName, string realName, string email, int globalRole, string encryptedPassword, string salt)
+	    public RawUser(int id, string userName, string displayName, string realName, string email, int globalRole, string encryptedPassword, string salt)
 	    {
 	        Id = id;
 	        UserName = userName;
@@ -28,7 +28,7 @@ namespace Infrastructure.Storage
         public static RawUser Create(User user)
         {
             return new RawUser(
-                ToStringId(user.Id),
+                user.Id,
                 user.UserName,
                 user.DisplayName,
                 user.RealName,
@@ -41,7 +41,7 @@ namespace Infrastructure.Storage
 	    public static User CreateReal(RawUser rawUser)
         {
             return new User(
-                ToIntId(rawUser.Id),
+                rawUser.Id,
                 rawUser.UserName,
                 rawUser.DisplayName,
                 rawUser.RealName,
@@ -54,11 +54,6 @@ namespace Infrastructure.Storage
 	    public static string ToStringId(int id)
 	    {
 	        return string.Concat("RawUsers/", id);
-	    }
-
-	    private static int ToIntId(string id)
-	    {
-	        return int.Parse(id.Split('/')[1]);
 	    }
     }
 }

@@ -49,5 +49,19 @@ namespace Infrastructure.RavenDb.Repositories
                 session.SaveChanges();
             }
         }
+
+        public void Save(IList<Bunch> bunches)
+        {
+            using (var session = GetSession())
+            {
+                foreach (var bunch in bunches)
+                {
+                    var rawBunch = RawBunch.Create(bunch);
+                    session.Store(rawBunch);
+                }
+
+                session.SaveChanges();
+            }
+        }
     }
 }

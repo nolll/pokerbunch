@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Infrastructure.SqlServer.Factories.Interfaces;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.Storage;
 
@@ -10,13 +9,10 @@ namespace Infrastructure.SqlServer
     public class SqlServerCashgameStorage : ICashgameStorage
     {
 	    private readonly IStorageProvider _storageProvider;
-        private readonly IRawCashgameFactory _rawCashgameFactory;
 
-        public SqlServerCashgameStorage(
-            IRawCashgameFactory rawCashgameFactory)
+        public SqlServerCashgameStorage()
 	    {
             _storageProvider = new SqlServerStorageProvider();
-	        _rawCashgameFactory = rawCashgameFactory;
 	    }
 
         public int AddGame(Bunch bunch, RawCashgame cashgame)
@@ -52,7 +48,7 @@ namespace Infrastructure.SqlServer
                     new SimpleSqlParameter("@cashgameId", cashgameId)
 		        };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(_rawCashgameFactory.Create);
+            return reader.ReadOne(CreateRawCashgame);
         }
 
         public int? GetRunningCashgameId(int homegameId)
@@ -85,7 +81,7 @@ namespace Infrastructure.SqlServer
             const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
             var parameter = new ListSqlParameter("@idList", idList);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(_rawCashgameFactory.Create);
+            return reader.ReadList(CreateRawCashgame);
         }
 
         public IList<int> GetGameIds(int homegameId, int? status = null, int? year = null)
@@ -166,5 +162,23 @@ namespace Infrastructure.SqlServer
             var reader = _storageProvider.Query(sql, parameters);
 		    return reader.ReadStringList("Location");
 		}
+
+        public RawCashgame CreateRawCashgame(IStorageDataReader reader)
+        {
+            var location = reader.GetStringValue("Location");
+            if (location == "")
+            {
+                location = null;
+            }
+
+            return new RawCashgame
+            {
+                Id = reader.GetIntValue("GameID"),
+                BunchId = reader.GetIntValue("HomegameID"),
+                Location = location,
+                Status = reader.GetIntValue("Status"),
+                Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date")),
+            };
+        }
 	}
 }

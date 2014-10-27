@@ -66,7 +66,7 @@ namespace Web.Plumbing
     public class UseCaseContainer : Dependencies
     {
         // Contexts
-        public Func<BaseContextResult> BaseContext { get { return () => BaseContextInteractor.Execute(WebContext); } }
+        public Func<BaseContextResult> BaseContext { get { return BaseContextInteractor.Execute; } }
         public Func<AppContextResult> AppContext { get { return () => AppContextInteractor.Execute(BaseContext, Auth); } }
         public Func<BunchContextRequest, BunchContextResult> BunchContext { get { return request => BunchContextInteractor.Execute(AppContext, BunchRepository, Auth, request); } }
         public Func<CashgameContextRequest, CashgameContextResult> CashgameContext { get { return request => CashgameContextInteractor.Execute(BunchContext, CashgameRepository, request); } }
@@ -80,7 +80,7 @@ namespace Web.Plumbing
         // Admin
         public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }
         public Func<ClearCacheOutput> ClearCache { get { return () => ClearCacheInteractor.Execute(CacheContainer); } }
-        public Func<CopyToRavenOutput> CopyToRaven { get { return () => CopyToRavenInteractor.Execute(UserRepository, RavenUserRepository); } }
+        //public Func<CopyToRavenOutput> CopyToRaven { get { return () => CopyToRavenInteractor.Execute(UserRepository, RavenUserRepository); } }
 
         // User
         public Func<UserListResult> UserList { get { return () => UserListInteractor.Execute(UserRepository); } }

@@ -9,7 +9,7 @@ namespace Core.Repositories{
         Cashgame GetRunning(Bunch bunch);
         Cashgame GetRunning(int bunchId);
         Cashgame GetByDateString(Bunch bunch, string dateString);
-        IList<int> GetYears(Bunch bunch);
+        Cashgame GetById(int cashgameId);
         IList<int> GetYears(int bunchId);
 		IList<string> GetLocations(Bunch bunch);
 		bool DeleteGame(Cashgame cashgame);

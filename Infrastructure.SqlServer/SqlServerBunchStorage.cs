@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Infrastructure.SqlServer.Factories;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.Storage;
 
@@ -38,7 +37,7 @@ namespace Infrastructure.SqlServer {
             const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _storageProvider.Query(sql, parameter);
-            return reader.ReadList(RawBunchFactory.Create);
+            return reader.ReadList(CreateRawBunch);
         }
 
         public IList<RawBunch> GetBunchesByUserId(int userId)
@@ -49,7 +48,7 @@ namespace Infrastructure.SqlServer {
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadList(RawBunchFactory.Create);
+            return reader.ReadList(CreateRawBunch);
         }
 
 		public RawBunch GetBunchByName(string slug){
@@ -59,7 +58,7 @@ namespace Infrastructure.SqlServer {
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawBunchFactory.Create);
+            return reader.ReadOne(CreateRawBunch);
 		}
 
         public RawBunch GetById(int id)
@@ -70,7 +69,7 @@ namespace Infrastructure.SqlServer {
                     new SimpleSqlParameter("@id", id)
                 };
             var reader = _storageProvider.Query(sql, parameters);
-            return reader.ReadOne(RawBunchFactory.Create);
+            return reader.ReadOne(CreateRawBunch);
         }
         
         public int GetBunchRole(int bunchId, int userId)
@@ -86,7 +85,7 @@ namespace Infrastructure.SqlServer {
             return role.HasValue ? role.Value : (int)Role.Guest;
         }
 
-	    public RawBunch AddBunch(RawBunch bunch)
+	    public int AddBunch(RawBunch bunch)
         {
             const string sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES (@slug, @displayName, @description, @currencySymbol, @currencyLayout, @timeZone, 0, @cashgamesEnabled, @tournamentsEnabled, @videosEnabled, @houseRules) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
 	        var parameters = new List<SimpleSqlParameter>
@@ -102,9 +101,7 @@ namespace Infrastructure.SqlServer {
                     new SimpleSqlParameter("@videosEnabled", bunch.VideosEnabled),
                     new SimpleSqlParameter("@houseRules", bunch.HouseRules)
                 };
-            var id = _storageProvider.ExecuteInsert(sql, parameters);
-            bunch.Id = id;
-            return bunch;
+            return _storageProvider.ExecuteInsert(sql, parameters);
         }
 
         public bool UpdateBunch(RawBunch bunch)
@@ -140,6 +137,23 @@ namespace Infrastructure.SqlServer {
                 };
             var rowCount = _storageProvider.Execute(sql, parameters);
             return rowCount > 0;
+        }
+
+	    private static RawBunch CreateRawBunch(IStorageDataReader reader)
+        {
+            return new RawBunch(
+                reader.GetIntValue("HomegameID"),
+                reader.GetStringValue("Name"),
+                reader.GetStringValue("DisplayName"),
+                reader.GetStringValue("Description"),
+                reader.GetStringValue("HouseRules"),
+                reader.GetStringValue("Timezone"),
+                reader.GetIntValue("DefaultBuyin"),
+                reader.GetStringValue("CurrencyLayout"),
+                reader.GetStringValue("Currency"),
+                reader.GetBooleanValue("CashgamesEnabled"),
+                reader.GetBooleanValue("TournamentsEnabled"),
+                reader.GetBooleanValue("VideosEnabled"));
         }
 	}
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Infrastructure.SqlServer.Factories;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.Storage;
 
@@ -69,28 +68,30 @@ namespace Infrastructure.SqlServer
             return reader.ReadIntList("PlayerID");
         }
 
-        public int AddPlayer(int homegameId, string playerName)
+        public int AddPlayer(RawPlayer player)
         {
-            const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (@homegameId, @role, 1, @playerName) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            var parameters = new List<SimpleSqlParameter>
+            if (player.IsUser)
+            {
+                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES (@homegameId, @userId, @role, 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                var parameters = new List<SimpleSqlParameter>
                 {
-                    new SimpleSqlParameter("@homegameId", homegameId),
+                    new SimpleSqlParameter("@homegameId", player.BunchId),
+                    new SimpleSqlParameter("@userId", player.UserId),
+                    new SimpleSqlParameter("@role", player.Role)
+                };
+                return _storageProvider.ExecuteInsert(sql, parameters);
+            }
+            else
+            {
+                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (@homegameId, @role, 1, @playerName) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", player.BunchId),
                     new SimpleSqlParameter("@role", (int)Role.Player),
-                    new SimpleSqlParameter("@playerName", playerName)
+                    new SimpleSqlParameter("@playerName", player.DisplayName)
                 };
-            return _storageProvider.ExecuteInsert(sql, parameters);
-        }
-
-        public int AddPlayerWithUser(int homegameId, int userId, int role)
-        {
-            const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES (@homegameId, @userId, @role, 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@homegameId", homegameId),
-                    new SimpleSqlParameter("@userId", userId),
-                    new SimpleSqlParameter("@role", role)
-                };
-            return _storageProvider.ExecuteInsert(sql, parameters);
+                return _storageProvider.ExecuteInsert(sql, parameters);
+            }
         }
 
         public bool JoinHomegame(int playerId, int role, int homegameId, int userId)

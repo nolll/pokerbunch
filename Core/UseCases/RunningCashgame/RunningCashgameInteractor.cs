@@ -26,7 +26,7 @@ namespace Core.UseCases.RunningCashgame
                 throw new CashgameNotRunningException();
 
             var user = auth.CurrentUser;
-            var player = playerRepository.GetByUserName(bunch, user.UserName);
+            var player = playerRepository.GetByUserName(bunch.Id, user.UserName);
             var players = playerRepository.GetList(GetPlayerIds(cashgame));
 
             var isStarted = cashgame.IsStarted;

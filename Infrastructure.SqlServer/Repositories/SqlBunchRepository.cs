@@ -6,9 +6,9 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Cache;
-using Infrastructure.SqlServer.Factories;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.SqlServer.Mappers;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
@@ -65,22 +65,22 @@ namespace Infrastructure.SqlServer.Repositories
             return homegames.OrderBy(o => o.DisplayName).ToList();
         }
 
-        public Role GetRole(Bunch bunch, User user)
+        public Role GetRole(int bunchId, int userId)
         {
-            return (Role) _bunchStorage.GetBunchRole(bunch.Id, user.Id);
+            return (Role) _bunchStorage.GetBunchRole(bunchId, userId);
         }
 
-        public Bunch Add(Bunch bunch)
+        public int Add(Bunch bunch)
         {
-            var rawHomegame = RawBunchFactory.Create(bunch);
-            rawHomegame = _bunchStorage.AddBunch(rawHomegame);
+            var rawHomegame = RawBunch.Create(bunch);
+            var id = _bunchStorage.AddBunch(rawHomegame);
             _cacheBuster.BunchAdded();
-            return BunchDataMapper.Map(rawHomegame);
+            return id;
         }
 
         public bool Save(Bunch bunch)
         {
-            var rawHomegame = RawBunchFactory.Create(bunch);
+            var rawHomegame = RawBunch.Create(bunch);
             var success = _bunchStorage.UpdateBunch(rawHomegame);
             _cacheBuster.BunchUpdated(bunch.Id);
             return success;

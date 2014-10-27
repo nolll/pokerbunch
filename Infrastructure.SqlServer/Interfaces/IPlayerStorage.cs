@@ -10,8 +10,7 @@ namespace Infrastructure.SqlServer.Interfaces {
         int? GetPlayerIdByUserName(int homegameId, string userName);
         IList<RawPlayer> GetPlayerList(IList<int> playerIds);
         IList<int> GetPlayerIdList(int homegameId);
-        int AddPlayer(int homegameId, string playerName);
-        int AddPlayerWithUser(int homegameId, int userId, int role);
+        int AddPlayer(RawPlayer player);
         bool JoinHomegame(int playerId, int role, int homegameId, int userId);
         bool DeletePlayer(int playerId);
 

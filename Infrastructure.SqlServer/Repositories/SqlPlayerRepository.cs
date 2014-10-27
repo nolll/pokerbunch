@@ -77,31 +77,25 @@ namespace Infrastructure.SqlServer.Repositories
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunchId, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public Player GetByUserName(Bunch bunch, string userName)
+        public Player GetByUserName(int bunchId, string userName)
         {
-            var playerId = GetIdByUserName(bunch, userName);
+            var playerId = GetIdByUserName(bunchId, userName);
             return playerId.HasValue ? GetById(playerId.Value) : null;
         }
 
-        private int? GetIdByUserName(Bunch bunch, string userName)
+        private int? GetIdByUserName(int bunchId, string userName)
         {
-            var cacheKey = CacheKeyProvider.PlayerIdByUserNameKey(bunch.Id, userName);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunch.Id, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.PlayerIdByUserNameKey(bunchId, userName);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunchId, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-		public int Add(int bunchId, string playerName)
+        public int Add(Player player)
         {
-            var playerId = _playerStorage.AddPlayer(bunchId, playerName);
-            _cacheBuster.PlayerAdded(bunchId);
-		    return playerId;
-		}
-
-		public int Add(Bunch bunch, User user, Role role)
-        {
-            var playerId = _playerStorage.AddPlayerWithUser(bunch.Id, user.Id, (int)role);
-            _cacheBuster.PlayerAdded(bunch.Id);
-		    return playerId;
-		}
+            var rawPlayer = RawPlayer.Create(player);
+            var playerId = _playerStorage.AddPlayer(rawPlayer);
+            _cacheBuster.PlayerAdded(player.BunchId);
+            return playerId;
+        }
 
 		public bool JoinHomegame(Player player, Bunch bunch, User user)
         {

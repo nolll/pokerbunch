@@ -22,6 +22,16 @@ namespace Core.Entities
 	        Role = role;
 	    }
 
+        public Player(int bunchId, string displayName, Role role)
+            : this(bunchId, 0, 0, displayName, role)
+        {
+        }
+
+        public Player(int bunchId, int userId, Role role)
+            : this(bunchId, 0, userId, null, role)
+        {
+        }
+
         public bool IsUser {
             get { return UserId != default(int); }
         }

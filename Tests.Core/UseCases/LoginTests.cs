@@ -84,10 +84,10 @@ namespace Tests.Core.UseCases
             var homegameList = new List<Bunch> { bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
+            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<int>(), It.IsAny<int>())).Returns(Role.Player);
 
             var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<int>(), UserName)).Returns(player);
 
             UserIdentity result = null;
 
@@ -112,10 +112,10 @@ namespace Tests.Core.UseCases
             var homegameList = new List<Bunch> { bunch, bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<Bunch>(), It.IsAny<User>())).Returns(Role.Player);
+            GetMock<IBunchRepository>().Setup(o => o.GetRole(It.IsAny<int>(), It.IsAny<int>())).Returns(Role.Player);
 
             var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<Bunch>(), UserName)).Returns(player);
+            GetMock<IPlayerRepository>().Setup(o => o.GetByUserName(It.IsAny<int>(), UserName)).Returns(player);
 
             UserIdentity result = null;
 

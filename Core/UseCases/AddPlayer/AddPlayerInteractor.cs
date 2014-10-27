@@ -1,4 +1,5 @@
-﻿using Core.Exceptions;
+﻿using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
 
@@ -22,7 +23,8 @@ namespace Core.UseCases.AddPlayer
             if(player != null)
                 throw new PlayerExistsException();
 
-            playerRepository.Add(bunch.Id, request.Name);
+            player = new Player(bunch.Id, request.Name, Role.Player);
+            playerRepository.Add(player);
 
             var returnUrl = new AddPlayerConfirmationUrl(request.Slug);
             return new AddPlayerResult(returnUrl);

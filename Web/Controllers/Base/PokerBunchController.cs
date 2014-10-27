@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
+using Antlr.Runtime.Misc;
 using Core.Exceptions;
+using Core.Services;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
 
@@ -38,21 +40,17 @@ namespace Web.Controllers.Base
                 return;
 
             if (filterContext.Exception is NotFoundException)
-            {
-                filterContext.HttpContext.Response.StatusCode = 404;
-                filterContext.Result = Error404();
-            }
+                HandleError(filterContext, 404, Error404);
             else if(filterContext.Exception is AccessDeniedException)
-            {
-                filterContext.HttpContext.Response.StatusCode = 401;
-                filterContext.Result = Error401();
-            }
-            else
-            {
-                filterContext.HttpContext.Response.StatusCode = 500;
-                filterContext.Result = Error500();
-            }
+                HandleError(filterContext, 401, Error401);
+            else if(Env.IsInProduction)
+                HandleError(filterContext, 500, Error500);
+        }
 
+        private void HandleError(ExceptionContext filterContext, int errorCode, Func<ActionResult> errorHandler)
+        {
+            filterContext.HttpContext.Response.StatusCode = errorCode;
+            filterContext.Result = errorHandler();
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
             filterContext.ExceptionHandled = true;
         }

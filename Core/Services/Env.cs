@@ -1,10 +1,12 @@
-﻿namespace Core.Services
+﻿using System.Configuration;
+
+namespace Core.Services
 {
     public static class Env
     {
-        public static bool IsInProduction(string host)
+        public static bool IsInProduction
         {
-            return host.Contains("pokerbunch.com");
+            get { return bool.Parse(ConfigurationManager.AppSettings.Get("InProduction")); }
         }
     }
 }

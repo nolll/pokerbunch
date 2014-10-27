@@ -6,9 +6,9 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Cache;
-using Infrastructure.SqlServer.Factories.Interfaces;
 using Infrastructure.SqlServer.Interfaces;
 using Infrastructure.SqlServer.Mappers;
+using Infrastructure.Storage;
 
 namespace Infrastructure.SqlServer.Repositories
 {
@@ -22,22 +22,22 @@ namespace Infrastructure.SqlServer.Repositories
 	public class SqlCashgameRepository : ICashgameRepository
     {
 	    private readonly ICashgameStorage _cashgameStorage;
-	    private readonly IRawCashgameFactory _rawCashgameFactory;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
+	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICacheBuster _cacheBuster;
 
 	    public SqlCashgameRepository(
             ICashgameStorage cashgameStorage,
-            IRawCashgameFactory rawCashgameFactory,
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
+            ITimeProvider timeProvider,
             ICacheBuster cacheBuster)
 	    {
 	        _cashgameStorage = cashgameStorage;
-	        _rawCashgameFactory = rawCashgameFactory;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
+	        _timeProvider = timeProvider;
 	        _cacheBuster = cacheBuster;
 	    }
 
@@ -82,7 +82,7 @@ namespace Infrastructure.SqlServer.Repositories
             return cashgame;
         }
 
-        private Cashgame GetById(int id)
+        public Cashgame GetById(int id)
         {
             var cacheKey = CacheKeyProvider.CashgameKey(id);
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
@@ -98,11 +98,6 @@ namespace Infrastructure.SqlServer.Repositories
         {
             var cacheKey = CacheKeyProvider.CashgameIdByRunningKey(bunchId);
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetRunningCashgameId(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey, true);
-        }
-
-        public IList<int> GetYears(Bunch bunch)
-        {
-            return GetYears(bunch.Id);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -154,7 +149,7 @@ namespace Infrastructure.SqlServer.Repositories
 
 		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
-		    var rawCashgame = _rawCashgameFactory.Create(cashgame);
+		    var rawCashgame = CreateRawCashgame(cashgame);
             var id = _cashgameStorage.AddGame(bunch, rawCashgame);
             _cacheBuster.CashgameStarted(cashgame.Id);
 			return id;
@@ -162,7 +157,7 @@ namespace Infrastructure.SqlServer.Repositories
 
 		public bool UpdateGame(Cashgame cashgame)
         {
-            var rawCashgame = _rawCashgameFactory.Create(cashgame);
+            var rawCashgame = CreateRawCashgame(cashgame);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
             _cacheBuster.CashgameUpdated(cashgame.Id);
             return success;
@@ -170,7 +165,7 @@ namespace Infrastructure.SqlServer.Repositories
 
 		public bool StartGame(Cashgame cashgame)
         {
-            var rawCashgame = _rawCashgameFactory.Create(cashgame);
+            var rawCashgame = CreateRawCashgame(cashgame);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
             _cacheBuster.CashgameUpdated(cashgame.Id);
 		    return success;
@@ -178,7 +173,7 @@ namespace Infrastructure.SqlServer.Repositories
 
 		public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
-            var rawCashgame = _rawCashgameFactory.Create(cashgame, GameStatus.Finished);
+            var rawCashgame = CreateRawCashgame(cashgame, GameStatus.Finished);
             var success = _cashgameStorage.UpdateGame(rawCashgame);
             _cacheBuster.CashgameUpdated(cashgame.Id);
 			return success;
@@ -188,5 +183,17 @@ namespace Infrastructure.SqlServer.Repositories
         {
 			return _cashgameStorage.HasPlayed(playerId);
 		}
+
+	    private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
+        {
+            return new RawCashgame
+            {
+                Id = cashgame.Id,
+                BunchId = cashgame.BunchId,
+                Location = cashgame.Location,
+                Status = status.HasValue ? (int)status.Value : (int)cashgame.Status,
+                Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow,
+            };
+        }
 	}
 }

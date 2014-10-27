@@ -1,9 +1,7 @@
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Cache;
-using Infrastructure.RavenDb.Repositories;
 using Infrastructure.SqlServer;
-using Infrastructure.SqlServer.Factories;
 using Infrastructure.SqlServer.Repositories;
 using Infrastructure.System;
 using Infrastructure.Web;
@@ -15,9 +13,7 @@ namespace Plumbing
         protected readonly ITimeProvider TimeProvider;
         protected readonly IRandomService RandomService;
         protected readonly IMessageSender MessageSender;
-        protected readonly IWebContext WebContext;
         protected readonly ICacheContainer CacheContainer;
-        protected readonly IRavenUserRepository RavenUserRepository;
         protected readonly IBunchRepository BunchRepository;
         protected readonly IUserRepository UserRepository;
         protected readonly IPlayerRepository PlayerRepository;
@@ -33,25 +29,22 @@ namespace Plumbing
             TimeProvider = new TimeProvider();
             RandomService = new RandomService();
             MessageSender = new MessageSender();
-            WebContext = new WebContext();
             
             CacheContainer = new CacheContainer(cacheProvider);
             
-            var rawCashgameFactory = new RawCashgameFactory(TimeProvider);
             var userStorage = new SqlServerUserStorage();
             var bunchStorage = new SqlServerBunchStorage();
             var playerStorage = new SqlServerPlayerStorage();
             var checkpointStorage = new SqlServerCheckpointStorage();
-            var cashgameStorage = new SqlServerCashgameStorage(rawCashgameFactory);
+            var cashgameStorage = new SqlServerCashgameStorage();
             var eventStorage = new SqlServerEventStorage();
 
             var cacheBuster = new CacheBuster(CacheContainer, userStorage, bunchStorage, playerStorage, cashgameStorage, checkpointStorage);
             
-            RavenUserRepository = new TempRavenRepository();
             BunchRepository = new SqlBunchRepository(bunchStorage, CacheContainer, cacheBuster);
-            UserRepository = new RavenUserRepository();
+            UserRepository = new SqlUserRepository(userStorage, CacheContainer, cacheBuster);
             PlayerRepository = new SqlPlayerRepository(playerStorage, CacheContainer, cacheBuster, UserRepository);
-            CashgameRepository = new SqlCashgameRepository(cashgameStorage, rawCashgameFactory, CacheContainer, checkpointStorage, cacheBuster);
+            CashgameRepository = new SqlCashgameRepository(cashgameStorage, CacheContainer, checkpointStorage, TimeProvider, cacheBuster);
             CheckpointRepository = new SqlCheckpointRepository(checkpointStorage, cacheBuster);
             EventRepository = new SqlEventRepository(eventStorage, CacheContainer, cacheBuster);
             CashgameService = new CashgameService(PlayerRepository, CashgameRepository);

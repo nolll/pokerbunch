@@ -9,9 +9,8 @@ namespace Core.Repositories {
         IList<Player> GetList(IList<int> ids);
         Player GetById(int id);
 		Player GetByName(int bunchId, string name);
-        Player GetByUserName(Bunch bunch, string userName);
-		int Add(int bunchId, string playerName);
-		int Add(Bunch bunch, User user, Role role);
+        Player GetByUserName(int bunchId, string userName);
+        int Add(Player player);
 		bool JoinHomegame(Player player, Bunch bunch, User user);
 		bool Delete(int playerId);
 	}

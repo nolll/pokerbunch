@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
@@ -43,7 +44,7 @@ namespace Tests.Core.UseCases
             var request = new AddPlayerRequest(Slug, Name);
             Execute(request);
 
-            GetMock<IPlayerRepository>().Verify(o => o.Add(It.IsAny<int>(), Name));
+            GetMock<IPlayerRepository>().Verify(o => o.Add(It.IsAny<Player>()));
         }
 
         [Test]

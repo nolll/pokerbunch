@@ -87,8 +87,7 @@ namespace Web
             if(Context.Request.IsSecureConnection)
                 return;
 
-            var host = Context.Request.Url.Host;
-            if(Env.IsInProduction(host))
+            if(Env.IsInProduction)
                 Response.RedirectPermanent(Context.Request.Url.ToString().Replace("http:", "https:"));
         }
 

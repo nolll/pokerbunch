@@ -27,6 +27,8 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_ReturnUrlIsSetToConfirmationUrl()
         {
+            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(A.User.Build());
+
             var result = Execute(CreateRequest());
 
             Assert.AreEqual("/-/homegame/created", result.ReturnUrl.Relative);

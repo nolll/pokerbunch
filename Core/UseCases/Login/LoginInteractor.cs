@@ -51,11 +51,11 @@ namespace Core.UseCases.Login
 
             if (homegames == null) return userBunches;
 
-            foreach (var homegame in homegames)
+            foreach (var bunch in homegames)
             {
-                var role = bunchRepository.GetRole(homegame, user);
-                var player = playerRepository.GetByUserName(homegame, user.UserName);
-                var userBunch = new UserBunch(homegame.Slug, role, player.DisplayName, player.Id);
+                var role = bunchRepository.GetRole(bunch.Id, user.Id);
+                var player = playerRepository.GetByUserName(bunch.Id, user.UserName);
+                var userBunch = new UserBunch(bunch.Slug, role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);
             }
             return userBunches;
