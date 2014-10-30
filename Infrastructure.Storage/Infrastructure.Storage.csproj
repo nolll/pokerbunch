@@ -37,12 +37,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="RawBunch.cs" />
-    <Compile Include="RawCashgame.cs" />
-    <Compile Include="RawCheckpoint.cs" />
-    <Compile Include="RawEvent.cs" />
-    <Compile Include="RawPlayer.cs" />
-    <Compile Include="RawUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

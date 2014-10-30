@@ -43,44 +43,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CacheBuster.cs" />
-    <Compile Include="CacheTime.cs" />
-    <Compile Include="Interfaces\IBunchStorage.cs" />
-    <Compile Include="Interfaces\ICashgameStorage.cs" />
-    <Compile Include="Interfaces\ICheckpointStorage.cs" />
-    <Compile Include="Interfaces\IEventStorage.cs" />
-    <Compile Include="Interfaces\IPlayerStorage.cs" />
-    <Compile Include="Interfaces\IStorageDataReader.cs" />
-    <Compile Include="Interfaces\IUserStorage.cs" />
-    <Compile Include="IStorageProvider.cs" />
-    <Compile Include="ListSqlParameter.cs" />
-    <Compile Include="Repositories\SqlBunchRepository.cs" />
-    <Compile Include="Repositories\SqlCashgameRepository.cs" />
-    <Compile Include="Repositories\SqlCheckpointRepository.cs" />
-    <Compile Include="Repositories\SqlEventRepository.cs" />
-    <Compile Include="Repositories\SqlPlayerRepository.cs" />
-    <Compile Include="Repositories\SqlUserRepository.cs" />
-    <Compile Include="SimpleSqlParameter.cs" />
-    <Compile Include="SqlServerBunchStorage.cs" />
-    <Compile Include="SqlServerCashgameStorage.cs" />
-    <Compile Include="SqlServerCheckpointStorage.cs" />
-    <Compile Include="SqlServerEventStorage.cs" />
-    <Compile Include="SqlServerPlayerStorage.cs" />
-    <Compile Include="SqlServerStorageProvider.cs" />
-    <Compile Include="SqlServerUserStorage.cs" />
-    <Compile Include="StorageDataReader.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sql\Changes.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Cache\Infrastructure.Cache.csproj">
-      <Project>{75D945A7-20CB-4213-8A1A-432DCBD54BDF}</Project>
-      <Name>Infrastructure.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Storage\Infrastructure.Storage.csproj">
       <Project>{AFD5A3DB-C630-469C-A802-F9BC5D555DD8}</Project>

@@ -53,10 +53,6 @@
       <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
-      <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
-      <Name>Infrastructure.System</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tests.Common\Tests.Common.csproj">
       <Project>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</Project>
       <Name>Tests.Common</Name>

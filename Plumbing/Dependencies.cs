@@ -1,9 +1,9 @@
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Cache;
-using Infrastructure.SqlServer;
-using Infrastructure.SqlServer.Repositories;
-using Infrastructure.System;
+using Infrastructure.Environment;
+using Infrastructure.Storage;
+using Infrastructure.Storage.Cache;
+using Infrastructure.Storage.Repositories;
 using Infrastructure.Web;
 
 namespace Plumbing

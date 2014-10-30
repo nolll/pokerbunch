@@ -41,25 +41,9 @@
       <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Cache\Infrastructure.Cache.csproj">
-      <Project>{75D945A7-20CB-4213-8A1A-432DCBD54BDF}</Project>
-      <Name>Infrastructure.Cache</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.RavenDb\Infrastructure.RavenDb.csproj">
-      <Project>{0082672E-75B0-4EAD-AF52-67639976607F}</Project>
-      <Name>Infrastructure.RavenDb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.SqlServer\Infrastructure.SqlServer.csproj">
-      <Project>{8E1B9BF3-4167-4BF5-80C7-1DED84F66DE2}</Project>
-      <Name>Infrastructure.SqlServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.System\Infrastructure.System.csproj">
-      <Project>{E5016CC6-0288-4CC1-ACEA-377918E773EC}</Project>
-      <Name>Infrastructure.System</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Web\Infrastructure.Web.csproj">
-      <Project>{26420C7D-8487-4F7A-92CF-A8C2280CFEB5}</Project>
-      <Name>Infrastructure.Web</Name>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6f33f0bd-4cbb-4b6e-bdf0-eea841267c87}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
