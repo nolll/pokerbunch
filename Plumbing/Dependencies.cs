@@ -31,24 +31,39 @@ namespace Plumbing
             MessageSender = new MessageSender();
             
             CacheContainer = new CacheContainer(cacheProvider);
-            
-            var userStorage = new SqlServerUserStorage();
-            var bunchStorage = new SqlServerBunchStorage();
-            var playerStorage = new SqlServerPlayerStorage();
-            var checkpointStorage = new SqlServerCheckpointStorage();
-            var cashgameStorage = new SqlServerCashgameStorage();
-            var eventStorage = new SqlServerEventStorage();
 
-            var cacheBuster = new CacheBuster(CacheContainer, userStorage, bunchStorage, playerStorage, cashgameStorage, checkpointStorage);
+            var storage = new SqlStorage();
+
+            var cacheBuster = new CacheBuster(CacheContainer, storage.Users, storage.Bunches, storage.Players, storage.Cashgames, storage.Checkpoints);
             
-            BunchRepository = new SqlBunchRepository(bunchStorage, CacheContainer, cacheBuster);
-            UserRepository = new SqlUserRepository(userStorage, CacheContainer, cacheBuster);
-            PlayerRepository = new SqlPlayerRepository(playerStorage, CacheContainer, cacheBuster, UserRepository);
-            CashgameRepository = new SqlCashgameRepository(cashgameStorage, CacheContainer, checkpointStorage, TimeProvider, cacheBuster);
-            CheckpointRepository = new SqlCheckpointRepository(checkpointStorage, cacheBuster);
-            EventRepository = new SqlEventRepository(eventStorage, CacheContainer, cacheBuster);
+            BunchRepository = new SqlBunchRepository(storage.Bunches, CacheContainer, cacheBuster);
+            UserRepository = new SqlUserRepository(storage.Users, CacheContainer, cacheBuster);
+            PlayerRepository = new SqlPlayerRepository(storage.Players, CacheContainer, cacheBuster, UserRepository);
+            CashgameRepository = new SqlCashgameRepository(storage.Cashgames, CacheContainer, storage.Checkpoints, TimeProvider, cacheBuster);
+            CheckpointRepository = new SqlCheckpointRepository(storage.Checkpoints, cacheBuster);
+            EventRepository = new SqlEventRepository(storage.Events, CacheContainer, cacheBuster);
             CashgameService = new CashgameService(PlayerRepository, CashgameRepository);
             Auth = new Auth(TimeProvider, UserRepository);
+        }
+    }
+
+    public class SqlStorage
+    {
+        public readonly SqlServerUserStorage Users;
+        public readonly SqlServerBunchStorage Bunches;
+        public readonly SqlServerPlayerStorage Players;
+        public readonly SqlServerCheckpointStorage Checkpoints;
+        public readonly SqlServerCashgameStorage Cashgames;
+        public readonly SqlServerEventStorage Events;
+
+        public SqlStorage()
+        {
+            Users = new SqlServerUserStorage();
+            Bunches = new SqlServerBunchStorage();
+            Players = new SqlServerPlayerStorage();
+            Checkpoints = new SqlServerCheckpointStorage();
+            Cashgames = new SqlServerCashgameStorage();
+            Events = new SqlServerEventStorage();
         }
     }
 }
