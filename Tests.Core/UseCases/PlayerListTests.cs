@@ -14,21 +14,18 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_WithSlug_SlugAndPlayersAreSet()
         {
-            const string slug = "a";
             const string playerName = "b";
             const int playerId = 1;
 
-            var bunch = A.Bunch.WithSlug(slug).Build();
             var player = A.Player.WithId(playerId).WithDisplayName(playerName).Build();
             var players = new List<Player> { player };
-            var request = new PlayerListRequest(slug);
+            var request = new PlayerListRequest(Constants.SlugA);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
 
             var result = Execute(request);
 
-            Assert.AreEqual(slug, result.Slug);
+            Assert.AreEqual(Constants.SlugA, result.Slug);
             Assert.AreEqual(1, result.Players.Count);
             Assert.AreEqual(playerId, result.Players[0].Id);
             Assert.AreEqual(playerName, result.Players[0].Name);
@@ -38,17 +35,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayersAreSortedAlphabetically()
         {
-            const string slug = "c";
             const string playerName1 = "b";
             const string playerName2 = "a";
 
-            var bunch = A.Bunch.Build();
             var player1 = A.Player.WithDisplayName(playerName1).Build();
             var player2 = A.Player.WithDisplayName(playerName2).Build();
             var players = new List<Player> { player1, player2 };
-            var request = new PlayerListRequest(slug);
+            var request = new PlayerListRequest(Constants.SlugA);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
 
             var result = Execute(request);
@@ -60,18 +54,15 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayerIsManager_CanAddPlayerIsTrue()
         {
-            const string slug = "a";
             const string playerName = "b";
             const int playerId = 1;
 
-            var bunch = A.Bunch.WithSlug(slug).Build();
             var player = A.Player.WithId(playerId).WithDisplayName(playerName).Build();
             var players = new List<Player> { player };
-            var request = new PlayerListRequest(slug);
+            var request = new PlayerListRequest(Constants.SlugA);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
-            GetMock<IAuth>().Setup(o => o.IsInRole(slug, Role.Manager)).Returns(true);
+            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
 
             var result = Execute(request);
 
@@ -81,7 +72,7 @@ namespace Tests.Core.UseCases
         private PlayerListResult Execute(PlayerListRequest request)
         {
             return PlayerListInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<IAuth>().Object,
                 request);

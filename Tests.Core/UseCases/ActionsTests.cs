@@ -14,7 +14,6 @@ namespace Tests.Core.UseCases
 {
     class ActionsTests : TestBase
     {
-        private const string Slug = "a";
         private const string DateStr = "2001-01-01";
         private const int PlayerId = 1;
         private const string PlayerName = "b";
@@ -34,7 +33,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ActionsResultIsReturned()
         {
-            var request = new ActionsInput(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
 
             SetupGame();
             
@@ -49,7 +48,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ItemPropertiesAreSet()
         {
-            var request = new ActionsInput(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
 
             SetupGame();
 
@@ -71,7 +70,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_WithManager_CanEditIsTrueOnItem()
         {
-            var request = new ActionsInput(Slug, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
 
             SetupGame();
             SetupManager();
@@ -83,7 +82,6 @@ namespace Tests.Core.UseCases
 
         private void SetupGame()
         {
-            var bunch = A.Bunch.Build();
             var checkpoint1 = A.Checkpoint.WithStack(1).WithTimestamp(_checkpointTime).Build();
             var checkpoint2 = A.Checkpoint.WithStack(1).WithAmount(2).OfType(CheckpointType.Buyin).Build();
             var checkpoint3 = A.Checkpoint.WithStack(1).OfType(CheckpointType.Cashout).Build();
@@ -91,8 +89,7 @@ namespace Tests.Core.UseCases
             var cashgameResult = A.CashgameResult.WithCheckpoints(checkpoints).Build();
             var cashgame = A.Cashgame.WithStartTime(_date).WithResults(new List<CashgameResult> { cashgameResult }).Build();
             var player = A.Player.WithDisplayName(PlayerName).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(bunch, DateStr)).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), DateStr)).Returns(cashgame);
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
 
@@ -103,7 +100,12 @@ namespace Tests.Core.UseCases
 
         private ActionsOutput Execute(ActionsInput input)
         {
-            return ActionsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IAuth>().Object, input);
+            return ActionsInteractor.Execute(
+                Repo.Bunch,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
+                GetMock<IAuth>().Object,
+                input);
         }
     }
 }

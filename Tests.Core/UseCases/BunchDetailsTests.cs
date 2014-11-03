@@ -1,5 +1,4 @@
 ﻿using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.BunchDetails;
@@ -10,46 +9,33 @@ namespace Tests.Core.UseCases
 {
     class BunchDetailsTests : TestBase
     {
-        private const string Slug = "a";
-        private const string BunchName = "b";
-        private const string Description = "c";
-        private const string HouseRules = "d";
-
         [Test]
         public void BunchDetails_BunchNameIsSet()
         {
-            SetupBunch();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(BunchName, result.BunchName);
+            Assert.AreEqual(Constants.BunchNameA, result.BunchName);
         }
 
         [Test]
         public void BunchDetails_DescriptionIsSet()
         {
-            SetupBunch();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(Description, result.Description);
+            Assert.AreEqual(Constants.DescriptionA, result.Description);
         }
 
         [Test]
         public void BunchDetails_HouseRulesIsSet()
         {
-            SetupBunch();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(HouseRules, result.HouseRules);
+            Assert.AreEqual(Constants.HouseRulesA, result.HouseRules);
         }
 
         [Test]
         public void BunchDetails_EditBunchUrlIsSet()
         {
-            SetupBunch();
-
             var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<EditBunchUrl>(result.EditBunchUrl);
@@ -58,8 +44,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithPlayer_CanEditIsFalse()
         {
-            SetupBunch();
-
             var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanEdit);
@@ -68,7 +52,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithManager_CanEditIsTrue()
         {
-            SetupBunch();
             SetupManager();
 
             var result = Execute(CreateRequest());
@@ -78,24 +61,18 @@ namespace Tests.Core.UseCases
 
         private void SetupManager()
         {
-            GetMock<IAuth>().Setup(o => o.IsInRole(Slug, Role.Manager)).Returns(true);
-        }
-
-        private void SetupBunch()
-        {
-            var bunch = A.Bunch.WithSlug(Slug).WithDisplayName(BunchName).WithDescription(Description).WithHouseRules(HouseRules).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
         }
 
         private static BunchDetailsRequest CreateRequest()
         {
-            return new BunchDetailsRequest(Slug);
+            return new BunchDetailsRequest(Constants.SlugA);
         }
 
         private BunchDetailsResult Execute(BunchDetailsRequest request)
         {
             return BunchDetailsInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IAuth>().Object,
                 request);
         }

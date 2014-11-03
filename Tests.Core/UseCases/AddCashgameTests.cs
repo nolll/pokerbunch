@@ -12,14 +12,11 @@ namespace Tests.Core.UseCases
 {
     class AddCashgameTests : TestBase
     {
-        private const string Slug = "a";
         private const string Location = "b";
 
         [Test]
         public void AddCashgame_ReturnUrlIsSet()
         {
-            SetupBunch();
-
             var request = CreateRequest();
             var result = Execute(request);
 
@@ -29,8 +26,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_WithLocation_GameIsAdded()
         {
-            SetupBunch();
-
             var request = CreateRequest();
             Execute(request);
 
@@ -40,8 +35,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_WithoutLocation_ThrowsValidationException()
         {
-            SetupBunch();
-
             var request = CreateRequestWithoutLocation();
 
             var ex = Assert.Throws<ValidationException>(() => Execute(request));
@@ -55,18 +48,12 @@ namespace Tests.Core.UseCases
 
         private static AddCashgameRequest CreateRequest(string location = Location)
         {
-            return new AddCashgameRequest(Slug, location);
+            return new AddCashgameRequest(Constants.SlugA, location);
         }
 
-        private void SetupBunch()
-        {
-            var bunch = A.Bunch.Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-        }
-        
         private AddCashgameResult Execute(AddCashgameRequest request)
         {
-            return AddCashgameInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, request);
+            return AddCashgameInteractor.Execute(Repo.Bunch, GetMock<ICashgameRepository>().Object, request);
         }
     }
 }

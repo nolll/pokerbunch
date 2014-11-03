@@ -9,27 +9,22 @@ namespace Tests.Core.UseCases
 {
     class BuyinFormTests : TestBase
     {
-        private const string Slug = "a";
         private const int PlayerIdInGame = 1;
         private const int PlayerIdOther = 2;
-        private const int BunchId = 3;
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void BuyinForm_BuyinAmountIsSetFromBunchDefaultAmount(int defaultBuyin)
+        [Test]
+        public void BuyinForm_BuyinAmountIsSetFromBunchDefaultAmount()
         {
-            SetupBunch(defaultBuyin);
             SetupGameAndPlayer(PlayerIdInGame);
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(defaultBuyin, result.BuyinAmount);
+            Assert.AreEqual(Constants.DefaultBuyinA, result.BuyinAmount);
         }
 
         [Test]
         public void BuyinForm_PlayerIsNotInGame_CanEnterStackIsFalse()
         {
-            SetupBunch();
             SetupGameAndPlayer(PlayerIdOther);
 
             var result = Execute(CreateRequest());
@@ -40,7 +35,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void BuyinForm_PlayerIsInGame_CanEnterStackIsTrue()
         {
-            SetupBunch();
             SetupGameAndPlayer(PlayerIdInGame);
 
             var result = Execute(CreateRequest());
@@ -50,13 +44,7 @@ namespace Tests.Core.UseCases
 
         private BuyinFormRequest CreateRequest()
         {
-            return new BuyinFormRequest(Slug, PlayerIdInGame);
-        }
-
-        private void SetupBunch(int defaultBuyin = 0)
-        {
-            var bunch = A.Bunch.WithId(BunchId).WithDefaultBuyin(defaultBuyin).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+            return new BuyinFormRequest(Constants.SlugA, PlayerIdInGame);
         }
 
         private void SetupGameAndPlayer(int playerId)
@@ -64,13 +52,13 @@ namespace Tests.Core.UseCases
             var result = A.CashgameResult.WithPlayerId(playerId).Build();
             var results = new List<CashgameResult>{result};
             var game = A.Cashgame.WithResults(results).Build();
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(BunchId)).Returns(game);
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(Constants.BunchIdA)).Returns(game);
         }
 
         private BuyinFormResult Execute(BuyinFormRequest request)
         {
             return BuyinFormInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

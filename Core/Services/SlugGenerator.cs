@@ -6,7 +6,7 @@ namespace Core.Services
         {
             if (displayName == null)
                 return null;
-            return displayName.Replace(" ", "").ToLower();
+            return displayName.Replace(" ", "-").ToLower();
         }
     }
 }

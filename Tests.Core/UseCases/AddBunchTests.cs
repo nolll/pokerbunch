@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         private const string Description = "b";
         private const string CurrencySymbol = "c";
         private const string CurrencyLayout = "d";
-        private const string Slug = "adisplayname";
+        private const string ExistingDisplayName = Constants.BunchNameA;
 
         private string _timeZone;
 
@@ -61,9 +61,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_WithExistingSlug_ThrowsException()
         {
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(A.Bunch.Build());
-
-            Assert.Throws<BunchExistsException>(() => Execute(CreateRequest()));
+            Assert.Throws<BunchExistsException>(() => Execute(CreateRequest(ExistingDisplayName)));
         }
 
         private AddBunchRequest CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
@@ -75,7 +73,7 @@ namespace Tests.Core.UseCases
         {
             return AddBunchInteractor.Execute(
                 GetMock<IAuth>().Object,
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 request);
         }
