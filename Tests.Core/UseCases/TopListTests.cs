@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using Core.UseCases.CashgameTopList;
 using Moq;
@@ -16,7 +15,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_ReturnsTopListItems()
         {
-            var request = new TopListRequest("a", "winnings", 1);
+            var request = new TopListRequest(Constants.SlugA, "winnings", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().Build();
             SetupSuite(totalResult1);
@@ -26,7 +25,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, result.Items.Count);
             Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
             Assert.AreEqual(1, result.Year);
-            Assert.AreEqual("a", result.Slug);
+            Assert.AreEqual(Constants.SlugA, result.Slug);
         }
 
         [Test]
@@ -43,7 +42,7 @@ namespace Tests.Core.UseCases
                 .WithWinRate(7)
                 .Build();
 
-            var request = new TopListRequest("a", "winnings", 1);
+            var request = new TopListRequest(Constants.SlugA, "winnings", 1);
 
             SetupSuite(totalResult1);
 
@@ -67,7 +66,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", orderBy, 1);
+            var request = new TopListRequest(Constants.SlugA, orderBy, 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithWinnings(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithWinnings(high).Build();
@@ -85,7 +84,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "buyin", 1);
+            var request = new TopListRequest(Constants.SlugA, "buyin", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithBuyin(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithBuyin(high).Build();
@@ -103,7 +102,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "cashout", 1);
+            var request = new TopListRequest(Constants.SlugA, "cashout", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithCashout(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithCashout(high).Build();
@@ -121,7 +120,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "timeplayed", 1);
+            var request = new TopListRequest(Constants.SlugA, "timeplayed", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithMinutesPlayed(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithMinutesPlayed(high).Build();
@@ -139,7 +138,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "gamesplayed", 1);
+            var request = new TopListRequest(Constants.SlugA, "gamesplayed", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithGamesPlayed(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithGamesPlayed(high).Build();
@@ -157,7 +156,7 @@ namespace Tests.Core.UseCases
             const int low = 1;
             const int high = 2;
 
-            var request = new TopListRequest("a", "winrate", 1);
+            var request = new TopListRequest(Constants.SlugA, "winrate", 1);
 
             var totalResult1 = new CashgameTotalResultBuilder().WithWinRate(low).Build();
             var totalResult2 = new CashgameTotalResultBuilder().WithWinRate(high).Build();
@@ -171,11 +170,9 @@ namespace Tests.Core.UseCases
 
         private void SetupSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)
         {
-            var bunch = A.Bunch.WithSlug("a").Build();
             var suite = BuildSuite(totalResult1, totalResult2);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
-            GetMock<ICashgameService>().Setup(o => o.GetSuite(bunch.Id, It.IsAny<int?>())).Returns(suite);
+            GetMock<ICashgameService>().Setup(o => o.GetSuite(Constants.BunchIdA, It.IsAny<int?>())).Returns(suite);
         }
 
         private CashgameSuite BuildSuite(CashgameTotalResult totalResult1, CashgameTotalResult totalResult2 = null)
@@ -188,7 +185,10 @@ namespace Tests.Core.UseCases
 
         private TopListResult Execute(TopListRequest request)
         {
-            return TopListInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameService>().Object, request);
+            return TopListInteractor.Execute(
+                Repo.Bunch,
+                GetMock<ICashgameService>().Object,
+                request);
         }
     }
 }

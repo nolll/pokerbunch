@@ -9,19 +9,11 @@ namespace Tests.Core.UseCases
 {
     class EditCheckpointFormTests : TestBase
     {
-        private const string Slug = "a";
         private const string DateString = "any";
         private const int CheckpointId = 1;
         private const int PlayerId = 2;
         private const int Stack = 3;
         private const int Amount = 4;
-
-        [SetUp]
-        public virtual void SetUp()
-        {
-            var bunch = A.Bunch.WithLocalTimeZone().Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
-        }
 
         [Test]
         public void EditCheckpointForm_StackIsSet()
@@ -105,7 +97,7 @@ namespace Tests.Core.UseCases
 
         private static EditCheckpointFormRequest CreateRequest()
         {
-            return new EditCheckpointFormRequest(Slug, DateString, PlayerId, CheckpointId);
+            return new EditCheckpointFormRequest(Constants.SlugB, DateString, PlayerId, CheckpointId);
         }
 
         private void SetupCheckpoint(Checkpoint checkpoint)
@@ -116,7 +108,7 @@ namespace Tests.Core.UseCases
         private EditCheckpointFormResult Execute(EditCheckpointFormRequest request)
         {
             return EditCheckpointFormInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICheckpointRepository>().Object,
                 request);
         }

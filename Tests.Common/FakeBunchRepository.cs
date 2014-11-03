@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -65,6 +66,7 @@ namespace Tests.Common
                 .WithDescription(Constants.DescriptionA)
                 .WithHouseRules(Constants.HouseRulesA)
                 .WithDefaultBuyin(Constants.DefaultBuyinA)
+                .WithUtcTimeZone()
                 .Build(),
                 new BunchBuilder()
                 .WithId(2)
@@ -73,6 +75,7 @@ namespace Tests.Common
                 .WithDescription(Constants.DescriptionB)
                 .WithHouseRules(Constants.HouseRulesB)
                 .WithDefaultBuyin(Constants.DefaultBuyinB)
+                .WithLocalTimeZone()
                 .Build()
             };
         }

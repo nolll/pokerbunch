@@ -24,7 +24,6 @@ namespace Tests.Common.Builders
             _timeZone = TimeZoneInfo.Utc;
             _defaultBuyin = 0;
             _currency = Currency.Default;
-
         }
 
         public Bunch Build()

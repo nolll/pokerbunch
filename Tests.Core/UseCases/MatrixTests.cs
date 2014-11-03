@@ -12,8 +12,6 @@ namespace Tests.Core.UseCases
 {
     class MatrixTests : TestBase
     {
-        private const string Slug = "a";
-
         [Test]
         public void Matrix_WithTwoGames_GameItemsAreCorrectAndSortedByDateDescending()
         {
@@ -56,18 +54,16 @@ namespace Tests.Core.UseCases
 
         private static MatrixRequest CreateRequest(int? year = null)
         {
-            return new MatrixRequest(Slug, year);
+            return new MatrixRequest(Constants.SlugA, year);
         }
 
         private void SetupCashgamesAndPlayers(DateTime dt1, DateTime dt2)
         {
-            var bunch = A.Bunch.Build();
             var cashgame1 = A.Cashgame.WithStartTime(dt1).Build();
             var cashgame2 = A.Cashgame.WithStartTime(dt2).Build();
             var cashgames = new List<Cashgame> { cashgame1, cashgame2 };
             var players = new List<Player>();
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(cashgames);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
         }
@@ -75,7 +71,7 @@ namespace Tests.Core.UseCases
         private MatrixResult Execute(MatrixRequest request)
         {
             return MatrixInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 request);

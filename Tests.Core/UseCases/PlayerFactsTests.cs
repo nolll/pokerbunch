@@ -18,12 +18,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerFacts_ReturnsResultObject()
         {
-            const string slug = "a";
             const int playerId = 1;
-            var request = new PlayerFactsRequest(slug, playerId);
-            var bunch = A.Bunch.Build();
+            var request = new PlayerFactsRequest(Constants.SlugA, playerId);
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), null)).Returns(GetCashgames());
 
             var result = Execute(request);
@@ -81,7 +78,7 @@ namespace Tests.Core.UseCases
         private PlayerFactsResult Execute(PlayerFactsRequest request)
         {
             return PlayerFactsInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

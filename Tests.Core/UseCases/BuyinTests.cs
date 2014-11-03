@@ -15,7 +15,6 @@ namespace Tests.Core.UseCases
 {
     class BuyinTests : TestBase
     {
-        private const string Slug = "a";
         private const int PlayerId = 1;
         private const int ValidBuyin = 1;
         private const int InvalidBuyin = 0;
@@ -25,7 +24,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidBuyin_ReturnsError()
         {
-            var request = new BuyinRequest(Slug, PlayerId, InvalidBuyin, ValidStack);
+            var request = new BuyinRequest(Constants.SlugA, PlayerId, InvalidBuyin, ValidStack);
 
             var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -34,7 +33,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidStackSize_ReturnsError()
         {
-            var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, InvalidStack);
+            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, InvalidStack);
 
             var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -57,7 +56,7 @@ namespace Tests.Core.UseCases
                 Setup(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<Checkpoint>())).
                 Callback((Cashgame cashgame, Player player, Checkpoint c) => result = c);
 
-            var request = new BuyinRequest(Slug, PlayerId, buyin, stack);
+            var request = new BuyinRequest(Constants.SlugA, PlayerId, buyin, stack);
             Execute(request);
             
             Assert.AreEqual(timestamp, result.Timestamp);
@@ -72,7 +71,7 @@ namespace Tests.Core.UseCases
             SetupCashgameThatIsntStarted();
             SetupPlayer();
 
-            var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
+            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             Execute(request);
 
             GetMock<ICheckpointRepository>().Verify(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<BuyinCheckpoint>()));
@@ -85,7 +84,7 @@ namespace Tests.Core.UseCases
             SetupCashgame();
             SetupPlayer();
 
-            var request = new BuyinRequest(Slug, PlayerId, ValidBuyin, ValidStack);
+            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             var result = Execute(request);
 
             Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
@@ -117,7 +116,7 @@ namespace Tests.Core.UseCases
         private BuyinResult Execute(BuyinRequest request)
         {
             return BuyinInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<ICheckpointRepository>().Object,

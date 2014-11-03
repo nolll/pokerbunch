@@ -11,7 +11,6 @@ namespace Tests.Core.UseCases
 {
     class CashgameListTests : TestBase
     {
-        private const string Slug = "a";
         private const int Year = 1;
 
         [Test]
@@ -21,7 +20,7 @@ namespace Tests.Core.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(Slug, result.Slug);
+            Assert.AreEqual(Constants.SlugA, result.Slug);
         }
 
         [Test]
@@ -75,7 +74,7 @@ namespace Tests.Core.UseCases
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual("/a/cashgame/details/2001-01-01", result.List[0].Url.Relative);
+            Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.List[0].Url.Relative);
         }
 
         [Test]
@@ -264,25 +263,18 @@ namespace Tests.Core.UseCases
 
         private CashgameListRequest CreateRequest(string orderBy = null, int? year = null)
         {
-            return new CashgameListRequest(Slug, orderBy, year);
-        }
-
-        private void SetupBunch(Bunch bunch)
-        {
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+            return new CashgameListRequest(Constants.SlugA, orderBy, year);
         }
 
         private void SetupCashgames(IList<Cashgame> cashgames, int? year = null)
         {
-            var bunch = A.Bunch.WithSlug("a").Build();
-            SetupBunch(bunch);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), year)).Returns(cashgames);
         }
 
         private CashgameListResult Execute(CashgameListRequest request)
         {
             return CashgameListInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

@@ -24,9 +24,8 @@ namespace Tests.Core.UseCases
 
             var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).Build();
             
-            var request = new CashgameDetailsRequest("a", "2000-01-01");
+            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
 
-            SetupBunch();
             SetupCashgame(cashgame);
             
             var result = Execute(request);
@@ -45,9 +44,8 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetailsRequest("a", "2000-01-01");
+            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
 
-            SetupBunch();
             SetupCashgameWithResults();
 
             var result = Execute(request);
@@ -60,9 +58,8 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetailsRequest("a", "2000-01-01");
+            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
 
-            SetupBunch();
             SetupCashgameWithResults();
 
             var result = Execute(request);
@@ -80,9 +77,8 @@ namespace Tests.Core.UseCases
         {
             const string dateStr = "2000-01-01";
             var cashgame = A.Cashgame.WithDateString(dateStr).Build();
-            var request = new CashgameDetailsRequest("a", dateStr);
+            var request = new CashgameDetailsRequest(Constants.SlugA, dateStr);
 
-            SetupBunch();
             SetupCashgame(cashgame);
             SetupManager();
             
@@ -111,12 +107,6 @@ namespace Tests.Core.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
         }
 
-        private void SetupBunch()
-        {
-            var bunch = A.Bunch.WithTimeZone(TimeZoneInfo.Utc).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
-        }
-
         private void SetupCashgame(Cashgame cashgame)
         {
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), It.IsAny<string>())).Returns(cashgame);
@@ -130,7 +120,7 @@ namespace Tests.Core.UseCases
         private CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
             return CashgameDetailsInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IAuth>().Object,
                 GetMock<IPlayerRepository>().Object,

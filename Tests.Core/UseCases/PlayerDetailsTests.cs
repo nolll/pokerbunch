@@ -12,14 +12,12 @@ namespace Tests.Core.UseCases
     {
         private const int PlayerId = 1;
         private const int UserId = 2;
-        private const string Slug = "a";
         private const string DisplayName = "b";
         private const string Email = "c";
 
         [Test]
         public void PlayerDetails_DisplayNameIsSet()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -30,7 +28,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DeleteUrlIsSet()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -41,7 +38,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_InvitationUrlIsSet()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -52,7 +48,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -63,7 +58,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -75,7 +69,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -86,7 +79,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_UserUrlIsSet()
         {
-            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -97,7 +89,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(CreateRequest());
@@ -108,7 +99,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -119,7 +109,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithNormalUser_CanDeleteIsFalse()
         {
-            SetupBunch();
             SetupPlayerAndUser();
 
             var result = Execute(CreateRequest());
@@ -130,7 +119,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
-            SetupBunch();
             SetupPlayerAndUser();
             SetupManager();
 
@@ -142,7 +130,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
-            SetupBunch();
             SetupPlayerAndUser();
             SetupManager();
             SetupPlayedCashgames();
@@ -154,7 +141,7 @@ namespace Tests.Core.UseCases
 
         private static PlayerDetailsRequest CreateRequest()
         {
-            return new PlayerDetailsRequest(Slug, PlayerId);
+            return new PlayerDetailsRequest(Constants.SlugA, PlayerId);
         }
 
         private void SetupPlayer()
@@ -175,18 +162,12 @@ namespace Tests.Core.UseCases
 
         private void SetupManager()
         {
-            GetMock<IAuth>().Setup(o => o.IsInRole(Slug, Role.Manager)).Returns(true);
+            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
         }
 
         private void SetupPlayer(Player player)
         {
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
-        }
-
-        private void SetupBunch()
-        {
-            var bunch = A.Bunch.Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
         }
 
         private void SetupUser(Role role = Role.Player)
@@ -204,7 +185,7 @@ namespace Tests.Core.UseCases
         {
             return PlayerDetailsInteractor.Execute(
                 GetMock<IAuth>().Object,
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IUserRepository>().Object,

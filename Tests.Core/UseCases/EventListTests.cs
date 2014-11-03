@@ -9,9 +9,6 @@ namespace Tests.Core.UseCases
 {
     class EventListTests : TestBase
     {
-        private const string Slug = "a";
-        private const int BunchId = 1;
-
         [Test]
         public void EventList_ReturnsAllEvents()
         {
@@ -40,29 +37,27 @@ namespace Tests.Core.UseCases
 
             var result = Execute(CreateInput());
 
-            Assert.AreEqual("/a/event/details/1", result.Events[0].EventDetailsUrl.Relative);
-            Assert.AreEqual("/a/event/details/2", result.Events[1].EventDetailsUrl.Relative);
+            Assert.AreEqual("/bunch-a/event/details/1", result.Events[0].EventDetailsUrl.Relative);
+            Assert.AreEqual("/bunch-a/event/details/2", result.Events[1].EventDetailsUrl.Relative);
         }
 
         private void SetupEventList()
         {
-            var bunch = A.Bunch.WithId(BunchId).WithSlug(Slug).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
             var eventList = new List<Event> {new Event(1, "Event 1"), new Event(2, "Event 2")};
-            GetMock<IEventRepository>().Setup(o => o.Find(BunchId)).Returns(eventList);
+            GetMock<IEventRepository>().Setup(o => o.Find(Constants.BunchIdA)).Returns(eventList);
         }
 
         private EventListOutput Execute(EventListInput input)
         {
             return EventListInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<IEventRepository>().Object,
                 input);
         }
 
         private EventListInput CreateInput()
         {
-            return new EventListInput(Slug);
+            return new EventListInput(Constants.SlugA);
         }
     }
 }

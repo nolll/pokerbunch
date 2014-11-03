@@ -10,7 +10,6 @@ namespace Tests.Core.UseCases
 {
     class PlayerBadgesTests : TestBase
     {
-        private const string Slug = "a";
         private const int PlayerId = 1;
 
         [Test]
@@ -90,9 +89,6 @@ namespace Tests.Core.UseCases
 
         private void SetupGames(int gameCount)
         {
-            var bunch = A.Bunch.Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(It.IsAny<string>())).Returns(bunch);
-
             var games = CreateGameList(gameCount);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(games);
         }
@@ -114,13 +110,13 @@ namespace Tests.Core.UseCases
 
         private PlayerBadgesRequest CreateRequest()
         {
-            return new PlayerBadgesRequest(Slug, PlayerId);
+            return new PlayerBadgesRequest(Constants.SlugA, PlayerId);
         }
 
         private PlayerBadgesResult Execute(PlayerBadgesRequest request)
         {
             return PlayerBadgesInteractor.Execute(
-                GetMock<IBunchRepository>().Object,
+                Repo.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

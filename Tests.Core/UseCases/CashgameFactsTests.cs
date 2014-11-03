@@ -14,9 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_ReturnsCashgameFactResult()
         {
-            const string slug = "a";
             const int year = 1;
-            var bunch = A.Bunch.Build();
             var player1 = A.Player.Build();
             var player2 = A.Player.Build();
             var players = new List<Player>{player1, player2};
@@ -30,16 +28,16 @@ namespace Tests.Core.UseCases
             var cashgame2 = A.Cashgame.WithResults(cashgame2Results).Build();
             var cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), year)).Returns(cashgames);
 
-            var request = new CashgameFactsRequest(slug, year);
+            var request = new CashgameFactsRequest(Constants.SlugA, year);
             var result = Execute(request);
 
             Assert.IsNotNull(result);
         }
 
+        // todo: 
         [Test]
         public void GetFactsResult_AllPropertiesAreSet()
         {
@@ -70,14 +68,18 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(11, result.MostTimePlayed.Time.Minutes);
         }
 
-        private CashgameFactsResult GetFactsResult(Bunch homegame, FactBuilderInTest factBuilder)
+        private CashgameFactsResult GetFactsResult(Bunch bunch, FactBuilderInTest factBuilder)
         {
-            return CashgameFactsInteractor.GetFactsResult(GetMock<IPlayerRepository>().Object, homegame, factBuilder);
+            return CashgameFactsInteractor.GetFactsResult(GetMock<IPlayerRepository>().Object, bunch, factBuilder);
         }
         
         private CashgameFactsResult Execute(CashgameFactsRequest request)
         {
-            return CashgameFactsInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<ICashgameRepository>().Object, GetMock<IPlayerRepository>().Object, request);
+            return CashgameFactsInteractor.Execute(
+                Repo.Bunch,
+                GetMock<ICashgameRepository>().Object,
+                GetMock<IPlayerRepository>().Object,
+                request);
         }
     }
 }

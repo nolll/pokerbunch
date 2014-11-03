@@ -13,8 +13,6 @@ namespace Tests.Core.UseCases
 {
     class InvitePlayerTests : TestBase
     {
-        private const string Slug = "a";
-        private const string BunchName = "b";
         private const string PlayerName = "c";
         private const string ValidEmail = "a@b.com";
         private const int PlayerId = 1;
@@ -24,7 +22,6 @@ namespace Tests.Core.UseCases
         {
             var request = CreateRequest();
 
-            SetupBunch();
             SetupPlayer();
 
             var result = Execute(request);
@@ -45,15 +42,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void InvitePlayer_ValidEmail_SendsInvitationEmail()
         {
-            const string subject = "Invitation to Poker Bunch: b";
-            const string body = @"You have been invited to join the poker game: b.
+            const string subject = "Invitation to Poker Bunch: Bunch A";
+            const string body = @"You have been invited to join the poker game: Bunch A.
 
-To accept this invitation, go to http://pokerbunch.com/a/homegame/join and enter this verification code: efebc685cd6c0f3801f129748c5d74d6592d1bfe
+To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and enter this verification code: efebc685cd6c0f3801f129748c5d74d6592d1bfe
 
 If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
             var request = CreateRequest();
 
-            SetupBunch();
             SetupPlayer();
 
             string email = null;
@@ -75,18 +71,16 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
         private InvitePlayerResult Execute(InvitePlayerRequest request)
         {
-            return InvitePlayerInteractor.Execute(GetMock<IBunchRepository>().Object, GetMock<IPlayerRepository>().Object, GetMock<IMessageSender>().Object, request);
+            return InvitePlayerInteractor.Execute(
+                Repo.Bunch,
+                GetMock<IPlayerRepository>().Object,
+                GetMock<IMessageSender>().Object,
+                request);
         }
 
         private static InvitePlayerRequest CreateRequest(string email = ValidEmail)
         {
-            return new InvitePlayerRequest(Slug, PlayerId, email);
-        }
-
-        private void SetupBunch()
-        {
-            var bunch = A.Bunch.WithSlug(Slug).WithDisplayName(BunchName).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(Slug)).Returns(bunch);
+            return new InvitePlayerRequest(Constants.SlugA, PlayerId, email);
         }
 
         private void SetupPlayer()
