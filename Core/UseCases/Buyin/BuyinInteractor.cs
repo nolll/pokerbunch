@@ -21,7 +21,7 @@ namespace Core.UseCases.Buyin
             var timeStamp = timeProvider.UtcNow;
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, player.Id, timeStamp, stackAfterBuyin, request.BuyinAmount);
-            checkpointRepository.AddCheckpoint(game, player, checkpoint);
+            checkpointRepository.AddCheckpoint(checkpoint);
 
             if (!game.IsStarted)
             {

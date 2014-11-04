@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Core.Entities;
 
 namespace Core.UseCases.UserList
 {
@@ -8,9 +6,9 @@ namespace Core.UseCases.UserList
     {
         public IList<UserListItem> Users { get; private set; }
 
-        public UserListResult(IEnumerable<User> users)
+        public UserListResult(IList<UserListItem> userItems)
         {
-            Users = users.Select(o => new UserListItem(o.UserName, o.UserName)).ToList();
+            Users = userItems;
         }
     }
 }

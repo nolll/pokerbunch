@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
@@ -46,19 +45,17 @@ namespace Tests.Core.UseCases
             const int buyin = 1;
             const int stack = 2;
             const int savedStack = 3;
-            Checkpoint result = null;
             
             SetupCashgame();
             SetupPlayer(); 
             
             GetMock<ITimeProvider>().Setup(o => o.UtcNow).Returns(timestamp);
-            GetMock<ICheckpointRepository>().
-                Setup(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<Checkpoint>())).
-                Callback((Cashgame cashgame, Player player, Checkpoint c) => result = c);
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, buyin, stack);
             Execute(request);
-            
+
+            var result = Repo.Checkpoint.Added;
+
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
             Assert.AreEqual(savedStack, result.Stack);
@@ -74,7 +71,7 @@ namespace Tests.Core.UseCases
             var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             Execute(request);
 
-            GetMock<ICheckpointRepository>().Verify(o => o.AddCheckpoint(It.IsAny<Cashgame>(), It.IsAny<Player>(), It.IsAny<BuyinCheckpoint>()));
+            Assert.IsNotNull(Repo.Checkpoint.Added);
             GetMock<ICashgameRepository>().Verify(o => o.StartGame(It.IsAny<Cashgame>()));
         }
 
@@ -119,7 +116,7 @@ namespace Tests.Core.UseCases
                 Repo.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<ICheckpointRepository>().Object,
+                Repo.Checkpoint,
                 GetMock<ITimeProvider>().Object,
                 request);
         }

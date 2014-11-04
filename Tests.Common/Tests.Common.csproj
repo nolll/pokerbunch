@@ -55,6 +55,7 @@
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FakeBunchRepository.cs" />
+    <Compile Include="FakeCheckpointRepository.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />

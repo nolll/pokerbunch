@@ -2,7 +2,6 @@
 using Core;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.AddUser;
@@ -17,6 +16,8 @@ namespace Tests.Core.UseCases
         private const string ValidUserName = "a";
         private const string ValidDisplayName = "b";
         private const string ValidEmail = "a@b.com";
+        private const string ExistingUserName = Constants.UserNameA;
+        private const string ExistingEmail = Constants.UserEmailA;
 
         [Test]
         public void AddUser_ReturnUrlIsSet()
@@ -58,9 +59,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_UserNameAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
-
-            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(ValidUserName)).Returns(A.User.Build());
+            var request = new AddUserRequest(ExistingUserName, ValidDisplayName, ValidEmail);
 
             Assert.Throws<UserExistsException>(() => Execute(request));
         }
@@ -68,9 +67,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_EmailAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
-
-            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(ValidEmail)).Returns(A.User.Build());
+            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ExistingEmail);
 
             Assert.Throws<EmailExistsException>(() => Execute(request));
         }
@@ -82,11 +79,11 @@ namespace Tests.Core.UseCases
             const string expectedSalt = "aaaaaaaaaa";
 
             SetupRandomCharacters();
-            User user = null;
-            GetMock<IUserRepository>().Setup(o => o.Add(It.IsAny<User>())).Callback((User u) => user = u);
 
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
             Execute(request);
+
+            var user = Repo.User.Added;
 
             Assert.AreEqual(0, user.Id);
             Assert.AreEqual(ValidUserName, user.UserName);
@@ -136,7 +133,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         private AddUserResult Execute(AddUserRequest request)
         {
             return AddUserInteractor.Execute(
-                GetMock<IUserRepository>().Object,
+                Repo.User,
                 GetMock<IRandomService>().Object,
                 GetMock<IMessageSender>().Object,
                 request);

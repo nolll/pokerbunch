@@ -26,7 +26,7 @@ namespace Core.UseCases.Report
             var now = timeProvider.UtcNow;
 
             var checkpoint = Checkpoint.Create(cashgame.Id, player.Id, now, CheckpointType.Report, request.Stack);
-            checkpointRepository.AddCheckpoint(cashgame, player, checkpoint);
+            checkpointRepository.AddCheckpoint(checkpoint);
             
             var returnUrl = new RunningCashgameUrl(request.Slug);
 

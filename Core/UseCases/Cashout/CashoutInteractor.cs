@@ -36,9 +36,9 @@ namespace Core.UseCases.Cashout
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
             if (result.CashoutCheckpoint != null)
-                checkpointRepository.UpdateCheckpoint(cashgame, postedCheckpoint);
+                checkpointRepository.UpdateCheckpoint(postedCheckpoint);
             else
-                checkpointRepository.AddCheckpoint(cashgame, player, postedCheckpoint);
+                checkpointRepository.AddCheckpoint(postedCheckpoint);
 
             var returnUrl = new RunningCashgameUrl(request.Slug);
             return new CashoutResult(returnUrl);

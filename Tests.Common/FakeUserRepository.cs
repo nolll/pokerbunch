@@ -8,9 +8,9 @@ namespace Tests.Common
 {
     public class FakeUserRepository : IUserRepository
     {
-        private User _added;
-        private User _saved;
-        private readonly IList<User> _list; 
+        public User Added { get; private set; }
+        public User Saved { get; private set; }
+        private readonly IList<User> _list;
 
         public FakeUserRepository()
         {
@@ -32,32 +32,16 @@ namespace Tests.Common
             return _list;
         }
 
-        public int Add(User bunch)
+        public int Add(User user)
         {
-            _added = bunch;
+            Added = user;
             return 1;
         }
 
-        public bool Save(User bunch)
+        public bool Save(User user)
         {
-            _saved = bunch;
+            Saved = user;
             return true;
-        }
-
-        public User Added
-        {
-            get
-            {
-                return _added;
-            }
-        }
-
-        public User Saved
-        {
-            get
-            {
-                return _saved;
-            }
         }
 
         private IList<User> CreateList()
@@ -70,6 +54,7 @@ namespace Tests.Common
                     .WithEmail(Constants.UserEmailA)
                     .WithRealName(Constants.UserRealNameA)
                     .WithDisplayName(Constants.UserDisplayNameA)
+                    .WithEncryptedPassword(Constants.UserPasswordA)
                     .Build(),
                 new UserBuilder()
                     .WithId(Constants.UserIdB)
@@ -77,6 +62,7 @@ namespace Tests.Common
                     .WithEmail(Constants.UserEmailB)
                     .WithRealName(Constants.UserRealNameB)
                     .WithDisplayName(Constants.UserDisplayNameB)
+                    .WithEncryptedPassword(Constants.UserPasswordB)
                     .Build()
             };
         }

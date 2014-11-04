@@ -1,4 +1,3 @@
-using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
@@ -20,26 +19,26 @@ namespace Infrastructure.Storage.Repositories
             _cacheBuster = cacheBuster;
         }
 
-        public int AddCheckpoint(Cashgame cashgame, Player player, Checkpoint checkpoint)
+        public int AddCheckpoint(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
             var id = _checkpointStorage.AddCheckpoint(rawCheckpoint);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
+            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
             return id;
         }
 
-        public bool UpdateCheckpoint(Cashgame cashgame, Checkpoint checkpoint)
+        public bool UpdateCheckpoint(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
             var success = _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
+            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
             return success;
         }
 
-        public bool DeleteCheckpoint(Cashgame cashgame, int id)
+        public bool DeleteCheckpoint(Checkpoint checkpoint)
         {
-            var success = _checkpointStorage.DeleteCheckpoint(id);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
+            var success = _checkpointStorage.DeleteCheckpoint(checkpoint.Id);
+            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
             return success;
         }
 

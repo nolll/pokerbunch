@@ -8,8 +8,8 @@ namespace Tests.Common
 {
     public class FakeBunchRepository : IBunchRepository
     {
-        private Bunch _added;
-        private Bunch _saved;
+        public Bunch Added { get; private set; }
+        public Bunch Saved { get; private set; }
         private readonly IList<Bunch> _list; 
 
         public FakeBunchRepository()
@@ -44,13 +44,13 @@ namespace Tests.Common
 
         public int Add(Bunch bunch)
         {
-            _added = bunch;
+            Added = bunch;
             return 1;
         }
 
         public bool Save(Bunch bunch)
         {
-            _saved = bunch;
+            Saved = bunch;
             return true;
         }
 
@@ -77,22 +77,6 @@ namespace Tests.Common
                 .WithLocalTimeZone()
                 .Build()
             };
-        }
-
-        public Bunch Added
-        {
-            get
-            {
-                return _added;
-            }
-        }
-
-        public Bunch Saved
-        {
-            get
-            {
-                return _saved;
-            }
         }
     }
 }

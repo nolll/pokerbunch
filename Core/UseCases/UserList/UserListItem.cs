@@ -5,10 +5,10 @@
         public string DisplayName { get; private set; }
         public string UserName { get; private set; }
 
-        public UserListItem(string name, string identifier)
+        public UserListItem(string displayName, string userName)
         {
-            DisplayName = name;
-            UserName = identifier;
+            DisplayName = displayName;
+            UserName = userName;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using Core;
-using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.ForgotPassword;
@@ -14,13 +12,13 @@ namespace Tests.Core.UseCases
 {
     class ForgotPasswordTests : TestBase
     {
-        private const string ValidEmail = "a@b.com";
+        private const string ValidEmail = Constants.UserEmailA;
+        private const string InvalidEmail = "";
+        private const string NonExistingEmail = "a@b.com";
 
         [Test]
         public void ForgotPassword_WithValidEmail_ReturnUrlIsSet()
         {
-            SetupUser();
-
             var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<ForgotPasswordConfirmationUrl>(result.ReturnUrl);
@@ -29,8 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ForgotPassword_WithInvalidEmail_ValidationExceptionIsThrown()
         {
-            const string email = "";
-            var request = CreateRequest(email);
+            var request = CreateRequest(InvalidEmail);
 
             var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -39,7 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ForgotPassword_UserNotFound_ThrowsException()
         {
-            Assert.Throws<UserNotFoundException>(() => Execute(CreateRequest()));
+            Assert.Throws<UserNotFoundException>(() => Execute(CreateRequest(NonExistingEmail)));
         }
 
         [Test]
@@ -50,7 +47,6 @@ namespace Tests.Core.UseCases
 aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
-            SetupUser();
             SetupRandomCharacters();
 
             IMessage message = null;
@@ -73,14 +69,11 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         [Test]
         public void ForgotPassword_SavesUserWithNewPassword()
         {
-            SetupUser();
             SetupRandomCharacters();
-
-            User savedUser = null;
-            GetMock<IUserRepository>().Setup(o => o.Save(It.IsAny<User>())).Callback((User user) => savedUser = user);
 
             Execute(CreateRequest());
 
+            var savedUser = Repo.User.Saved;
             Assert.AreEqual("0478095c8ece0bbc11f94663ac2c4f10b29666de", savedUser.EncryptedPassword);
             Assert.AreEqual("aaaaaaaaaa", savedUser.Salt);
         }
@@ -94,17 +87,11 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         {
             return new ForgotPasswordRequest(email);
         }
-        
-        private void SetupUser()
-        {
-            var user = A.User.Build();
-            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(ValidEmail)).Returns(user);
-        }
 
         private ForgotPasswordResult Execute(ForgotPasswordRequest request)
         {
             return ForgotPasswordInteractor.Execute(
-                GetMock<IUserRepository>().Object,
+                Repo.User,
                 GetMock<IMessageSender>().Object,
                 GetMock<IRandomService>().Object,
                 request);

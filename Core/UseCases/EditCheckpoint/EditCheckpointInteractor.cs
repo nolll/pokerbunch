@@ -8,14 +8,13 @@ namespace Core.UseCases.EditCheckpoint
 {
     public static class EditCheckpointInteractor
     {
-        public static EditCheckpointResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, EditCheckpointRequest request)
+        public static EditCheckpointResult Execute(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, EditCheckpointRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
             var existingCheckpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
 
             var postedCheckpoint = Checkpoint.Create(
@@ -27,7 +26,7 @@ namespace Core.UseCases.EditCheckpoint
                 request.Amount,
                 existingCheckpoint.Id);
 
-            checkpointRepository.UpdateCheckpoint(cashgame, postedCheckpoint);
+            checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
             var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
             return new EditCheckpointResult(returnUrl);

@@ -14,7 +14,8 @@ namespace Core.UseCases.DeleteCheckpoint
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
-            checkpointRepository.DeleteCheckpoint(cashgame, request.CheckpointId);
+            var checkpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
+            checkpointRepository.DeleteCheckpoint(checkpoint);
 
             var returnUrl = GetReturnUrl(cashgame.Status, request);
             return new DeleteCheckpointResult(returnUrl);

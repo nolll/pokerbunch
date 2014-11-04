@@ -1,4 +1,7 @@
-﻿namespace Tests.Common
+﻿using System;
+using Tests.Common.Builders;
+
+namespace Tests.Common
 {
     public static class Constants
     {
@@ -25,5 +28,20 @@
         public const string UserRealNameB = "Real Name B";
         public const string UserDisplayNameA = "Display Name A";
         public const string UserDisplayNameB = "Display Name B";
+        public const string UserPasswordA = "PasswordA";
+        public const string UserPasswordB = "PasswordB";
+
+        public const int BuyinCheckpointId = 1;
+        public const int BuyinCheckpointStack = 100;
+        public const int BuyinCheckpointAmount = 200;
+        public static DateTime BuyinCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
+        public const int ReportCheckpointId = 2; 
+        public const int ReportCheckpointStack = 300;
+        public const int ReportCheckpointAmount = 400;
+        public static DateTime ReportCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
+        public const int CashoutCheckpointId = 3;
+        public const int CashoutCheckpointStack = 500;
+        public const int CashoutCheckpointAmount = 600;
+        public static DateTime CashoutCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
     }
 }
