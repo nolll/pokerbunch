@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -60,7 +59,7 @@ namespace Tests.Common
             return new List<Bunch>
             {
                 new BunchBuilder()
-                .WithId(1)
+                .WithId(Constants.BunchIdA)
                 .WithSlug(Constants.SlugA)
                 .WithDisplayName(Constants.BunchNameA)
                 .WithDescription(Constants.DescriptionA)
@@ -69,7 +68,7 @@ namespace Tests.Common
                 .WithUtcTimeZone()
                 .Build(),
                 new BunchBuilder()
-                .WithId(2)
+                .WithId(Constants.BunchIdB)
                 .WithSlug(Constants.SlugB)
                 .WithDisplayName(Constants.BunchNameB)
                 .WithDescription(Constants.DescriptionB)

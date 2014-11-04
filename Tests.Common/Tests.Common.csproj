@@ -61,6 +61,7 @@
     <Compile Include="FakeClasses\FactBuilderInTest.cs" />
     <Compile Include="FakeClasses\CashgameSuiteInTest.cs" />
     <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
+    <Compile Include="FakeUserRepository.cs" />
     <Compile Include="MockContainer.cs" />
     <Compile Include="RepositoryContainer.cs" />
     <Compile Include="TestBase.cs" />
