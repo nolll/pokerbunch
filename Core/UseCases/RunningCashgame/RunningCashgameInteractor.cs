@@ -133,7 +133,8 @@ namespace Core.UseCases.RunningCashgame
                     buyinUrl,
                     reportUrl,
                     cashoutUrl,
-                    hasCashedOut);
+                    hasCashedOut,
+                    isManager);
 
                 items.Add(item);
             }

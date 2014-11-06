@@ -18,11 +18,14 @@ namespace Core.Entities
             return Amount.CompareTo(other.Amount);
         }
 
-        public override string ToString()
+        public string String
         {
-            var numberFormatted = Amount.ToString("N0", _currency.Culture);
-            var amountFormatted = _currency.Layout.Replace("{AMOUNT}", numberFormatted);
-            return amountFormatted.Replace("{SYMBOL}", _currency.Symbol);
+            get
+            {
+                var numberFormatted = Amount.ToString("N0", _currency.Culture);
+                var amountFormatted = _currency.Layout.Replace("{AMOUNT}", numberFormatted);
+                return amountFormatted.Replace("{SYMBOL}", _currency.Symbol);
+            }
         }
     }
 }

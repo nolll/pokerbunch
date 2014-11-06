@@ -30,7 +30,7 @@ namespace Web.Models.CashgameModels.Details
             
             Heading = string.Format("Cashgame {0}", date);
             Location = detailsResult.Location;
-            Duration = detailsResult.Duration.ToString();
+            Duration = detailsResult.Duration.String;
 			DurationEnabled = showDuration;
             ShowStartTime = showStartTime;
             StartTime = showStartTime ? Globalization.FormatTime(detailsResult.StartTime.Value) : "";

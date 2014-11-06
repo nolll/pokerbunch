@@ -24,11 +24,11 @@ namespace Web.Models.CashgameModels.List
             PlayerCountSortClass = GetSortCssClass(sortOrder, ListSortOrder.PlayerCount);
             Location = item.Location;
             LocationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Location);
-            Duration = item.Duration.ToString();
+            Duration = item.Duration.String;
             DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Duration);
-            Turnover = item.Turnover.ToString();
+            Turnover = item.Turnover.String;
             TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.Turnover);
-            AvgBuyin = item.AverageBuyin.ToString();
+            AvgBuyin = item.AverageBuyin.String;
             AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.AverageBuyin);
             DetailsUrl = item.Url.Relative;
             DisplayDate = Globalization.FormatShortDate(item.Date, showYear);

@@ -13,8 +13,8 @@ namespace Web.Models.CashgameModels.Running
         public RunningCashgameTableModel(RunningCashgameResult result)
         {
             StatusModels = result.Items.Select(o => new RunningCashgameTableItemModel(o)).ToList();
-            TotalBuyin = result.TotalBuyin.ToString();
-            TotalStacks = result.TotalStacks.ToString();
+            TotalBuyin = result.TotalBuyin.String;
+            TotalStacks = result.TotalStacks.String;
         }
     }
 }

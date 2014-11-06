@@ -151,7 +151,7 @@ namespace Infrastructure.Storage.Repositories
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
             var id = _cashgameStorage.AddGame(bunch, rawCashgame);
-            _cacheBuster.CashgameStarted(cashgame.Id);
+            _cacheBuster.CashgameStarted(id);
 			return id;
 		}
 

@@ -28,13 +28,13 @@ namespace Web.Models.CashgameModels.Toplist
         public CashgameToplistTableItemModel(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
         {
             Rank = toplistItem.Rank;
-            TotalResult = toplistItem.Winnings.ToString();
-            Buyin = toplistItem.Buyin.ToString();
-            Cashout = toplistItem.Cashout.ToString();
+            TotalResult = toplistItem.Winnings.String;
+            Buyin = toplistItem.Buyin.String;
+            Cashout = toplistItem.Cashout.String;
             ResultClass = ResultFormatter.GetWinningsCssClass(toplistItem.Winnings);
-            GameTime = toplistItem.TimePlayed.ToString();
+            GameTime = toplistItem.TimePlayed.String;
             GameCount = toplistItem.GamesPlayed;
-            WinRate = toplistItem.WinRate.ToString();
+            WinRate = toplistItem.WinRate.String;
             Name = toplistItem.Name;
             UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name);
             PlayerUrl = new PlayerDetailsUrl(slug, toplistItem.PlayerId);

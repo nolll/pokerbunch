@@ -1,7 +1,7 @@
 using Core.UseCases.PlayerFacts;
 
-namespace Web.Models.PlayerModels.Facts{
-
+namespace Web.Models.PlayerModels.Facts
+{
 	public class PlayerFactsModel
     {
         public string Winnings { get; private set; }
@@ -15,11 +15,11 @@ namespace Web.Models.PlayerModels.Facts{
 
 	    public PlayerFactsModel(PlayerFactsResult factsResult)
 	    {
-	        Winnings = factsResult.Winnings.ToString();
-	        BestResult = factsResult.BestResult.ToString();
-	        WorstResult = factsResult.WorstResult.ToString();
+	        Winnings = factsResult.Winnings.String;
+	        BestResult = factsResult.BestResult.String;
+	        WorstResult = factsResult.WorstResult.String;
 	        GamesPlayed = factsResult.GamesPlayed;
-	        TimePlayed = factsResult.TimePlayed.ToString();
+	        TimePlayed = factsResult.TimePlayed.String;
 	        BestResultCount = factsResult.BestResultCount;
 	        WinningStreak = factsResult.WinningStreak;
 	        LosingStreak = factsResult.LosingStreak;

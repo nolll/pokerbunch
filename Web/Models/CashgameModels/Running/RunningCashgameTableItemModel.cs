@@ -26,12 +26,13 @@ namespace Web.Models.CashgameModels.Running
             BuyinUrl = item.BuyinUrl;
             ReportUrl = item.ReportUrl;
             CashoutUrl = item.CashoutUrl;
-            Buyin = item.Buyin.ToString();
-            Stack = item.Stack.ToString();
-            Winnings = item.Winnings.ToString();
-            Time = item.Time.ToString();
+            Buyin = item.Buyin.String;
+            Stack = item.Stack.String;
+            Winnings = item.Winnings.String;
+            Time = item.Time.RelativeString;
             WinningsClass = ResultFormatter.GetWinningsCssClass(item.Winnings);
             HasCashedOut = item.HasCashedOut;
+            ManagerButtonsEnabled = item.CanManage;
         }
     }
 }

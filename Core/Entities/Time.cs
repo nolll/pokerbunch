@@ -31,16 +31,32 @@ namespace Core.Entities
             return _timeSpan.CompareTo(other._timeSpan);
         }
 
-        public override string ToString()
+        public string String
         {
-            var minutes = Minutes;
-            var h = (int)Math.Floor((double)minutes / 60);
-            var m = minutes % 60;
-            if (h > 0 && m > 0)
-                return h + "h " + m + "m";
-            if (h > 0)
-                return h + "h";
-            return m + "m";
+            get
+            {
+                var minutes = Minutes;
+                var h = (int)Math.Floor((double)minutes / 60);
+                var m = minutes % 60;
+                if (h > 0 && m > 0)
+                    return h + "h " + m + "m";
+                if (h > 0)
+                    return h + "h";
+                return m + "m";
+            }
+        }
+
+        public string RelativeString
+        {
+            get
+            {
+                var minutes = Minutes;
+                if (minutes == 0)
+                    return "now";
+                if (minutes == 1)
+                    return "1 minute";
+                return minutes + " minutes";
+            }
         }
     }
 }

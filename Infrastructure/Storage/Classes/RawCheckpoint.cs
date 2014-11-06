@@ -27,8 +27,8 @@ namespace Infrastructure.Storage.Classes
         public static RawCheckpoint Create(Checkpoint checkpoint)
         {
             return new RawCheckpoint(
-                checkpoint.Id,
-                checkpoint.Id,
+                checkpoint.CashgameId,
+                checkpoint.PlayerId,
                 checkpoint.Amount,
                 checkpoint.Stack,
                 checkpoint.Timestamp,

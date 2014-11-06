@@ -32,29 +32,29 @@ namespace Web.Models.CashgameModels.Facts
             cashgameContextResult)
 	    {
 	        GameCount = factsResult.GameCount;
-            TotalGameTime = factsResult.TotalTimePlayed.ToString();
-            TotalTurnover = factsResult.Turnover.ToString();
+            TotalGameTime = factsResult.TotalTimePlayed.String;
+            TotalTurnover = factsResult.Turnover.String;
 
             BestResultName = factsResult.BestResult.PlayerName;
-            BestResultAmount = factsResult.BestResult.Amount.ToString();
+            BestResultAmount = factsResult.BestResult.Amount.String;
             
             WorstResultName = factsResult.WorstResult.PlayerName;
-            WorstResultAmount = factsResult.WorstResult.Amount.ToString();
+            WorstResultAmount = factsResult.WorstResult.Amount.String;
             
             BestTotalWinningsName = factsResult.BestTotalResult.PlayerName;
-            BestTotalWinningsAmount = factsResult.BestTotalResult.Amount.ToString();
+            BestTotalWinningsAmount = factsResult.BestTotalResult.Amount.String;
             
             WorstTotalWinningsName = factsResult.WorstTotalResult.PlayerName;
-            WorstTotalWinningsAmount = factsResult.WorstTotalResult.Amount.ToString();
+            WorstTotalWinningsAmount = factsResult.WorstTotalResult.Amount.String;
             
             MostTimeName = factsResult.MostTimePlayed.PlayerName;
-            MostTimeDuration = factsResult.MostTimePlayed.Time.ToString();
+            MostTimeDuration = factsResult.MostTimePlayed.Time.String;
             
             BiggestTotalBuyinName = factsResult.BiggestBuyin.PlayerName;
-            BiggestTotalBuyinAmount = factsResult.BiggestBuyin.Amount.ToString();
+            BiggestTotalBuyinAmount = factsResult.BiggestBuyin.Amount.String;
             
             BiggestTotalCashoutName = factsResult.BiggestCashout.PlayerName;
-            BiggestTotalCashoutAmount = factsResult.BiggestCashout.Amount.ToString();
+            BiggestTotalCashoutAmount = factsResult.BiggestCashout.Amount.String;
         }
 	}
 }

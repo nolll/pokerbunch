@@ -6,14 +6,15 @@
         {
         }
 
-        public override string ToString()
+        public string String
         {
-            var str = base.ToString();
-            if (Amount > 0)
+            get
             {
-                return "+" + str;
+                var str = base.ToString();
+                if (Amount > 0)
+                    return "+" + str;
+                return str;
             }
-            return str;
         }
     }
 }

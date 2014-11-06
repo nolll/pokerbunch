@@ -17,11 +17,11 @@ namespace Web.Models.CashgameModels.Details
         {
             Name = resultItem.Name;
             PlayerUrl = resultItem.PlayerUrl.Relative;
-            Buyin = resultItem.Buyin.ToString();
-            Cashout = resultItem.Cashout.ToString();
-            Winnings = resultItem.Winnings.ToString();
+            Buyin = resultItem.Buyin.String;
+            Cashout = resultItem.Cashout.String;
+            Winnings = resultItem.Winnings.String;
             WinningsClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings);
-            Winrate = resultItem.WinRate.ToString();
+            Winrate = resultItem.WinRate.String;
         }
     }
 }

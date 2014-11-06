@@ -15,8 +15,9 @@ namespace Core.UseCases.RunningCashgame
         public Url ReportUrl { get; private set; }
         public Url CashoutUrl { get; private set; }
         public bool HasCashedOut { get; private set; }
+        public bool CanManage { get; private set; }
 
-        public RunningCashgameTableItem(string name, Url playerUrl, Money buyin, Money stack, Money winnings, Time time, Url buyinUrl, Url reportUrl, Url cashoutUrl, bool hasCashedOut)
+        public RunningCashgameTableItem(string name, Url playerUrl, Money buyin, Money stack, Money winnings, Time time, Url buyinUrl, Url reportUrl, Url cashoutUrl, bool hasCashedOut, bool canManage)
         {
             Name = name;
             PlayerUrl = playerUrl;
@@ -28,6 +29,7 @@ namespace Core.UseCases.RunningCashgame
             ReportUrl = reportUrl;
             CashoutUrl = cashoutUrl;
             HasCashedOut = hasCashedOut;
+            CanManage = canManage;
         }
     }
 }
