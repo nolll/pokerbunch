@@ -14,7 +14,7 @@ namespace Core.Services
 
         public static string FormatWinnings(Money winnings)
         {
-            var str = winnings.ToString();
+            var str = winnings.String;
             if (winnings.Amount > 0)
                 return "+" + str;
             return str;

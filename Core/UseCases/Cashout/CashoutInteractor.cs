@@ -33,9 +33,10 @@ namespace Core.UseCases.Cashout
                 now,
                 CheckpointType.Cashout,
                 request.Stack,
+                0,
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
-            if (result.CashoutCheckpoint != null)
+            if (existingCashoutCheckpoint != null)
                 checkpointRepository.UpdateCheckpoint(postedCheckpoint);
             else
                 checkpointRepository.AddCheckpoint(postedCheckpoint);

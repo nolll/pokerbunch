@@ -6,11 +6,11 @@
         {
         }
 
-        public string String
+        public override string String
         {
             get
             {
-                var str = base.ToString();
+                var str = base.String;
                 if (Amount > 0)
                     return "+" + str;
                 return str;

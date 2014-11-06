@@ -12,7 +12,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + "/h";
+            return base.String + "/h";
         }
     }
 }

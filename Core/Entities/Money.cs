@@ -18,7 +18,7 @@ namespace Core.Entities
             return Amount.CompareTo(other.Amount);
         }
 
-        public string String
+        public virtual string String
         {
             get
             {
