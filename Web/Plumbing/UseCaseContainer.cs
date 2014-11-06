@@ -92,7 +92,7 @@ namespace Web.Plumbing
 
         // Bunch
         public Func<BunchListResult> BunchList { get { return () => BunchListInteractor.Execute(BunchRepository); } }
-        public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => BunchDetailsInteractor.Execute(BunchRepository, Auth, request); } }
+        public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => BunchDetailsInteractor.Execute(BunchRepository, PlayerRepository, Auth, request); } }
         public Func<AddBunchFormResult> AddBunchForm { get { return AddBunchFormInteractor.Execute; } }
         public Func<AddBunchRequest, AddBunchResult> AddBunch { get { return request => AddBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } }
         public Func<EditBunchFormRequest, EditBunchFormResult> EditBunchForm { get { return request => EditBunchFormInteractor.Execute(BunchRepository, request); } }

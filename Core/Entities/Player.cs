@@ -35,5 +35,10 @@ namespace Core.Entities
         public bool IsUser {
             get { return UserId != default(int); }
         }
+
+        public bool IsInRole(Role requiredRole)
+        {
+            return Role >= requiredRole;
+        }
 	}
 }

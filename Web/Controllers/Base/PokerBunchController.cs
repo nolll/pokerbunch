@@ -16,6 +16,11 @@ namespace Web.Controllers.Base
             get { return UseCaseContainer.Instance; }
         }
 
+        protected string UserName
+        {
+            get { return User.Identity.Name; }
+        }
+
         protected void AddModelErrors(IEnumerable<string> errors)
         {
             foreach (var error in errors)

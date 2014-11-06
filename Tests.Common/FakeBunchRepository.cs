@@ -37,11 +37,6 @@ namespace Tests.Common
             throw new System.NotImplementedException();
         }
 
-        public Role GetRole(int bunchId, int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public int Add(Bunch bunch)
         {
             Added = bunch;

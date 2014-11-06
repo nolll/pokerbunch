@@ -66,13 +66,14 @@ namespace Tests.Core.UseCases
 
         private static BunchDetailsRequest CreateRequest()
         {
-            return new BunchDetailsRequest(Constants.SlugA);
+            return new BunchDetailsRequest(Constants.SlugA, Constants.UserNameA);
         }
 
         private BunchDetailsResult Execute(BunchDetailsRequest request)
         {
             return BunchDetailsInteractor.Execute(
                 Repo.Bunch,
+                Repo.Player,
                 GetMock<IAuth>().Object,
                 request);
         }

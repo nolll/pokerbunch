@@ -38,12 +38,12 @@ namespace Infrastructure.Storage
             return reader.ReadInt("PlayerID");
         }
 
-        public int? GetPlayerIdByUserName(int homegameId, string userName)
+        public int? GetPlayerIdByUserName(int bunchId, string userName)
         {
             const string sql = "SELECT p.PlayerID FROM player p JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND u.UserName = @userName";
             var parameters = new List<SimpleSqlParameter>
                 {
-                    new SimpleSqlParameter("@homegameId", homegameId),
+                    new SimpleSqlParameter("@homegameId", bunchId),
                     new SimpleSqlParameter("@userName", userName)
                 };
             var reader = Query(sql, parameters);

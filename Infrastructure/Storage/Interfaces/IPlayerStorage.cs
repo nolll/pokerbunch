@@ -7,7 +7,7 @@ namespace Infrastructure.Storage.Interfaces
     {
         RawPlayer GetPlayerById(int id);
         int? GetPlayerIdByName(int homegameId, string name);
-        int? GetPlayerIdByUserName(int homegameId, string userName);
+        int? GetPlayerIdByUserName(int bunchId, string userName);
         IList<RawPlayer> GetPlayerList(IList<int> playerIds);
         IList<int> GetPlayerIdList(int homegameId);
         int AddPlayer(RawPlayer player);

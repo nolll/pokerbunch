@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
@@ -7,9 +8,12 @@ namespace Core.UseCases.BunchDetails
 {
     public static class BunchDetailsInteractor
     {
-        public static BunchDetailsResult Execute(IBunchRepository bunchRepository, IAuth auth, BunchDetailsRequest request)
+        public static BunchDetailsResult Execute(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IAuth auth, BunchDetailsRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
+            //var player = playerRepository.GetByUserName(bunch.Id, request.UserName);
+            //if(!player.IsInRole(Role.Player))
+            //    throw new AccessDeniedException();
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
