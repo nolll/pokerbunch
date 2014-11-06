@@ -53,9 +53,8 @@ namespace Core.UseCases.Login
 
             foreach (var bunch in homegames)
             {
-                var role = bunchRepository.GetRole(bunch.Id, user.Id);
                 var player = playerRepository.GetByUserName(bunch.Id, user.UserName);
-                var userBunch = new UserBunch(bunch.Slug, role, player.DisplayName, player.Id);
+                var userBunch = new UserBunch(bunch.Slug, player.Role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);
             }
             return userBunches;

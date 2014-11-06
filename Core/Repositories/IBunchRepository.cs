@@ -9,7 +9,6 @@ namespace Core.Repositories
         Bunch GetBySlug(string slug);
         IList<Bunch> GetList();
         IList<Bunch> GetByUser(User user);
-        Role GetRole(int bunchId, int userId);
         int Add(Bunch bunch);
         bool Save(Bunch bunch);
     }

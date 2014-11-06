@@ -65,11 +65,6 @@ namespace Infrastructure.Storage.Repositories
             return homegames.OrderBy(o => o.DisplayName).ToList();
         }
 
-        public Role GetRole(int bunchId, int userId)
-        {
-            return (Role) _bunchStorage.GetBunchRole(bunchId, userId);
-        }
-
         public int Add(Bunch bunch)
         {
             var rawHomegame = RawBunch.Create(bunch);
