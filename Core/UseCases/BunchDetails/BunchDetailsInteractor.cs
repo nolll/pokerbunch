@@ -6,19 +6,30 @@ using Core.Urls;
 
 namespace Core.UseCases.BunchDetails
 {
-    public static class BunchDetailsInteractor
+    public class BunchDetailsInteractor : BaseInteractor
     {
-        public static BunchDetailsResult Execute(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IAuth auth, BunchDetailsRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IAuth _auth;
+
+        public BunchDetailsInteractor(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository, IAuth auth)
+            : base(bunchRepository, userRepository, playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            //var player = playerRepository.GetByUserName(bunch.Id, request.UserName);
-            //if(!player.IsInRole(Role.Player))
-            //    throw new AccessDeniedException();
+            _bunchRepository = bunchRepository;
+            _auth = auth;
+        }
+
+        public BunchDetailsResult Execute(BunchDetailsRequest request)
+        {
+            if(!HasPlayerAccess(request.Slug, request.UserName))
+                throw new AccessDeniedException();
+
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var editBunchUrl = new EditBunchUrl(bunch.Slug);
-            var canEdit = auth.IsInRole(bunch.Slug, Role.Manager);
+            var canEdit = _auth.IsInRole(bunch.Slug, Role.Manager);
 
             return new BunchDetailsResult(bunchName, description, houseRules, editBunchUrl, canEdit);
         }

@@ -70,6 +70,7 @@
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Services\AccessHandler.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="UseCases\AppContext\AppContextResult.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextResult.cs" />
+    <Compile Include="UseCases\BaseInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />

@@ -8,6 +8,7 @@ namespace Tests.Common
 {
     public class FakePlayerRepository : IPlayerRepository
     {
+        public Player Added { get; private set; }
         private readonly IList<Player> _list;
 
         public FakePlayerRepository()
@@ -35,14 +36,15 @@ namespace Tests.Common
             return _list.FirstOrDefault(o => o.BunchId == bunchId && o.DisplayName == name);
         }
 
-        public Player GetByUserName(int bunchId, string userName)
+        public Player GetByUserId(int bunchId, int userId)
         {
-            throw new System.NotImplementedException();
+            return _list.FirstOrDefault(o => o.UserId == userId);
         }
 
         public int Add(Player player)
         {
-            throw new System.NotImplementedException();
+            Added = player;
+            return 1;
         }
 
         public bool JoinHomegame(Player player, Bunch bunch, User user)
@@ -61,9 +63,15 @@ namespace Tests.Common
             {
                 new PlayerBuilder()
                     .WithId(Constants.PlayerIdA)
+                    .WithUserId(Constants.UserIdA)
+                    .WithDisplayName(Constants.PlayerNameA)
+                    .WithRole(Role.Player)
                     .Build(),
                 new PlayerBuilder()
                     .WithId(Constants.PlayerIdB)
+                    .WithUserId(Constants.UserIdB)
+                    .WithDisplayName(Constants.PlayerNameB)
+                    .WithRole(Role.Player)
                     .Build()
             };
         }

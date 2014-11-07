@@ -3,13 +3,12 @@ using Core.UseCases.BunchContext;
 using Core.UseCases.BunchDetails;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Details;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class BunchDetailsController : PokerBunchController
     {
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/homegame/details")]
         public ActionResult Details(string slug)
         {

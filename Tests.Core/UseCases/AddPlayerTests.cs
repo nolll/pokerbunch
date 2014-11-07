@@ -1,10 +1,7 @@
 ﻿using System.Linq;
-using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.AddPlayer;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -12,13 +9,14 @@ namespace Tests.Core.UseCases
 {
     class AddPlayerTests : TestBase
     {
-        private const string InvalidName = "";
-        private const string Name = "b";
+        private const string EmptyName = "";
+        private const string UniqueName = "Unique Name";
+        private const string ExistingName = Constants.PlayerNameA;
 
         [Test]
         public void AddPlayer_ReturnUrlIsSet()
         {
-            var request = new AddPlayerRequest(Constants.SlugA, Name);
+            var request = new AddPlayerRequest(Constants.SlugA, UniqueName);
             var result = Execute(request);
 
             Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
@@ -27,7 +25,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_EmptyName_ThrowsException()
         {
-            var request = new AddPlayerRequest(Constants.SlugA, InvalidName);
+            var request = new AddPlayerRequest(Constants.SlugA, EmptyName);
 
             var ex = Assert.Throws<ValidationException>(() => Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -36,20 +34,16 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidName_AddsPlayer()
         {
-            var request = new AddPlayerRequest(Constants.SlugA, Name);
+            var request = new AddPlayerRequest(Constants.SlugA, UniqueName);
             Execute(request);
 
-            GetMock<IPlayerRepository>().Verify(o => o.Add(It.IsAny<Player>()));
+            Assert.IsNotNull(Repo.Player.Added);
         }
 
         [Test]
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
-            var player = A.Player.Build();
-
-            GetMock<IPlayerRepository>().Setup(o => o.GetByName(It.IsAny<int>(), Name)).Returns(player);
-
-            var request = new AddPlayerRequest(Constants.SlugA, Name);
+            var request = new AddPlayerRequest(Constants.SlugA, ExistingName);
             Assert.Throws<PlayerExistsException>(() => Execute(request));
         }
 
@@ -57,7 +51,7 @@ namespace Tests.Core.UseCases
         {
             return AddPlayerInteractor.Execute(
                 Repo.Bunch,
-                GetMock<IPlayerRepository>().Object,
+                Repo.Player,
                 request);
         }
     }

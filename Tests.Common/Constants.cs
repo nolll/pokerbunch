@@ -46,5 +46,7 @@ namespace Tests.Common
 
         public const int PlayerIdA = 1;
         public const int PlayerIdB = 1;
+        public const string PlayerNameA = "Player Name A";
+        public const string PlayerNameB = "Player Name B";
     }
 }

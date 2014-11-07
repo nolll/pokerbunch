@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_BunchNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.BunchNameA, result.BunchName);
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_DescriptionIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.DescriptionA, result.Description);
         }
@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_HouseRulesIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.HouseRulesA, result.HouseRules);
         }
@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_EditBunchUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<EditBunchUrl>(result.EditBunchUrl);
         }
@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithPlayer_CanEditIsFalse()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.CanEdit);
         }
@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases
         {
             SetupManager();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -69,13 +69,16 @@ namespace Tests.Core.UseCases
             return new BunchDetailsRequest(Constants.SlugA, Constants.UserNameA);
         }
 
-        private BunchDetailsResult Execute(BunchDetailsRequest request)
+        private BunchDetailsInteractor Sut
         {
-            return BunchDetailsInteractor.Execute(
-                Repo.Bunch,
-                Repo.Player,
-                GetMock<IAuth>().Object,
-                request);
+            get
+            {
+                return new BunchDetailsInteractor(
+                    Repo.Bunch,
+                    Repo.User,
+                    Repo.Player,
+                    GetMock<IAuth>().Object);
+            }
         }
     }
 }

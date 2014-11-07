@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using System;
+using System.Linq;
+using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
@@ -19,7 +21,8 @@ namespace Core.UseCases.AddPlayer
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
 
-            var player = playerRepository.GetByName(bunch.Id, request.Name);
+            var existingPlayers = playerRepository.GetList(bunch.Id);
+            var player = existingPlayers.FirstOrDefault(o => String.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)
                 throw new PlayerExistsException();
 

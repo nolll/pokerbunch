@@ -53,7 +53,7 @@ namespace Core.UseCases.Login
 
             foreach (var bunch in homegames)
             {
-                var player = playerRepository.GetByUserName(bunch.Id, user.UserName);
+                var player = playerRepository.GetByUserId(bunch.Id, user.Id);
                 var userBunch = new UserBunch(bunch.Slug, player.Role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);
             }

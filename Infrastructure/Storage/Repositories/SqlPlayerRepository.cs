@@ -77,16 +77,16 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByName(bunchId, name), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public Player GetByUserName(int bunchId, string userName)
-        {
-            var playerId = GetIdByUserName(bunchId, userName);
+	    public Player GetByUserId(int bunchId, int userId)
+	    {
+            var playerId = GetIdByUserId(bunchId, userId);
             return playerId.HasValue ? GetById(playerId.Value) : null;
-        }
+	    }
 
-        private int? GetIdByUserName(int bunchId, string userName)
+        private int? GetIdByUserId(int bunchId, int userId)
         {
-            var cacheKey = CacheKeyProvider.PlayerIdByUserNameKey(bunchId, userName);
-            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserName(bunchId, userName), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            var cacheKey = CacheKeyProvider.PlayerIdByUserIdKey(bunchId, userId);
+            return _cacheContainer.GetAndStore(() => _playerStorage.GetPlayerIdByUserId(bunchId, userId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         public int Add(Player player)

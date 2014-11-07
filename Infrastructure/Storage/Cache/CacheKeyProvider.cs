@@ -50,9 +50,9 @@ namespace Infrastructure.Storage.Cache
             return ConstructCacheKey("PlayerId", "name", bunchId, name);
         }
 
-        public static string PlayerIdByUserNameKey(int bunchId, string userName)
+        public static string PlayerIdByUserIdKey(int bunchId, int userId)
         {
-            return ConstructCacheKey("PlayerId", "user", bunchId, userName);
+            return ConstructCacheKey("PlayerId", "user", bunchId, userId);
         }
 
         public static string CashgameKey(int id)
