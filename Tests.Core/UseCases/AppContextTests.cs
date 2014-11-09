@@ -16,8 +16,10 @@ namespace Tests.Core.UseCases
             var result = Execute();
 
             Assert.IsFalse(result.IsLoggedIn);
-            Assert.IsEmpty(result.UserName);
             Assert.IsEmpty(result.UserDisplayName);
+            Assert.AreEqual("/-/auth/login", result.LoginUrl.Relative);
+            Assert.AreEqual("/-/user/add", result.AddUserUrl.Relative);
+            Assert.AreEqual("/-/user/forgotpassword", result.ForgotPasswordUrl.Relative);
         }
 
         [Test]
@@ -31,8 +33,9 @@ namespace Tests.Core.UseCases
             var result = Execute();
 
             Assert.IsTrue(result.IsLoggedIn);
-            Assert.AreEqual("a", result.UserName);
             Assert.AreEqual("b", result.UserDisplayName);
+            Assert.AreEqual("/-/auth/logout", result.LogoutUrl.Relative);
+            Assert.AreEqual("/-/user/details/a", result.UserDetailsUrl.Relative);
         }
 
         private AppContextResult Execute()

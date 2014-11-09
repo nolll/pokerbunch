@@ -1,23 +1,10 @@
 using System.Collections.Generic;
-using Core.Entities;
-using Core.Urls;
 using Core.UseCases.AppContext;
 
 namespace Web.Models.NavigationModels
 {
     public class UserNavigationModel : NavigationModel
     {
-        protected UserNavigationModel()
-        {
-        }
-
-        public UserNavigationModel(User user)
-        {
-            Heading = "Account";
-            CssClass = "user-nav";
-            Nodes = GetNodes(user);
-        }
-
         public UserNavigationModel(AppContextResult appContextResult)
         {
             Heading = "Account";
@@ -25,50 +12,28 @@ namespace Web.Models.NavigationModels
             Nodes = GetNodes(appContextResult);
         }
 
-        private IList<NavigationNode> GetNodes(User user)
-        {
-            return user != null ? GetLoggedInNodes(user.UserName, user.DisplayName) : GetAnonymousNodes();
-        }
-
         private IList<NavigationNode> GetNodes(AppContextResult appContextResult)
         {
-            return appContextResult.IsLoggedIn ? GetLoggedInNodes(appContextResult.UserName, appContextResult.UserDisplayName) : GetAnonymousNodes();
+            return appContextResult.IsLoggedIn ? GetLoggedInNodes(appContextResult) : GetAnonymousNodes(appContextResult);
         }
 
-        private IList<NavigationNode> GetAnonymousNodes()
+        private IList<NavigationNode> GetAnonymousNodes(AppContextResult appContextResult)
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Sign in", new LoginUrl()),
-                    new NavigationNode("Register", new AddUserUrl()),
-                    new NavigationNode("Forgot password", new ForgotPasswordUrl())
+                    new NavigationNode("Sign in", appContextResult.LoginUrl.Relative),
+                    new NavigationNode("Register", appContextResult.AddUserUrl.Relative),
+                    new NavigationNode("Forgot password", appContextResult.ForgotPasswordUrl.Relative)
                 };
         }
 
-        private IList<NavigationNode> GetLoggedInNodes(string userName, string userDisplayName)
+        private IList<NavigationNode> GetLoggedInNodes(AppContextResult appContextResult)
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode(userDisplayName, new UserDetailsUrl(userName)),
-                    //new NavigationNode("Sharing", new SharingSettingsUrlModel()),
-                    new NavigationNode("Sign Out", new LogoutUrl())
+                    new NavigationNode(appContextResult.UserDisplayName, appContextResult.UserDetailsUrl.Relative),
+                    new NavigationNode("Sign Out", appContextResult.LogoutUrl.Relative)
                 };
-        }
-
-        public static UserNavigationModel Empty
-        {
-            get
-            {
-                return new EmptyUserNavigationModel();
-            }
-        }
-        
-        private class EmptyUserNavigationModel : UserNavigationModel
-        {
-            public EmptyUserNavigationModel()
-            {
-                IsEmpty = true;
-            }
         }
     }
 }

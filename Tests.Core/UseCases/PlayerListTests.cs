@@ -25,9 +25,9 @@ namespace Tests.Core.UseCases
 
             var result = Execute(request);
 
-            Assert.AreEqual(Constants.SlugA, result.Slug);
+            Assert.AreEqual("/bunch-a/player/add", result.AddUrl.Relative);
             Assert.AreEqual(1, result.Players.Count);
-            Assert.AreEqual(playerId, result.Players[0].Id);
+            Assert.AreEqual("/bunch-a/player/details/1", result.Players[0].Url.Relative);
             Assert.AreEqual(playerName, result.Players[0].Name);
             Assert.IsFalse(result.CanAddPlayer);
         }

@@ -1,16 +1,17 @@
 ﻿using Core.Entities;
+using Core.Urls;
 
 namespace Core.UseCases.BunchList
 {
     public class BunchListItem
     {
         public string DisplayName { get; private set; }
-        public string Slug { get; private set; }
+        public Url Url { get; private set; }
 
         public BunchListItem(Bunch bunch)
         {
             DisplayName = bunch.DisplayName;
-            Slug = bunch.Slug;
+            Url = new BunchDetailsUrl(bunch.Slug);
         }
     }
 }

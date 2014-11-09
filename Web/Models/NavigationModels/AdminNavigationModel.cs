@@ -21,11 +21,11 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", homeResult.BunchListUrl),
-                    new NavigationNode("Users", homeResult.UserListUrl),
-                    new NavigationNode("Test Email", homeResult.TestEmailUrl),
-                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl)//,
-                    //new NavigationNode("Copy to Raven", homeResult.CopyToRavenUrl)
+                    new NavigationNode("Bunches", homeResult.BunchListUrl.Relative),
+                    new NavigationNode("Users", homeResult.UserListUrl.Relative),
+                    new NavigationNode("Test Email", homeResult.TestEmailUrl.Relative),
+                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)//,
+                    //new NavigationNode("Copy to Raven", homeResult.CopyToRavenUrl.Relative)
                 };
         }
     }
