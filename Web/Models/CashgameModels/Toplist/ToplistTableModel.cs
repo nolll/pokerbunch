@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Toplist
         public ToplistTableModel(TopListResult topListResult)
 	    {
             ColumnsModel = new TopListTableColumns(topListResult);
-            ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemModel(o, topListResult.Slug, topListResult.OrderBy)).ToList();
+            ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemModel(o, topListResult.OrderBy)).ToList();
 	    }
     }
 }

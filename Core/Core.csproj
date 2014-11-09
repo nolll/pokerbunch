@@ -229,6 +229,9 @@
     <Compile Include="UseCases\CashgameFacts\FactBuilder.cs" />
     <Compile Include="UseCases\CashgameFacts\MoneyFact.cs" />
     <Compile Include="UseCases\CashgameFacts\PlayerFact.cs" />
+    <Compile Include="UseCases\CashgameHome\CashgameHomeInteractor.cs" />
+    <Compile Include="UseCases\CashgameHome\CashgameHomeRequest.cs" />
+    <Compile Include="UseCases\CashgameHome\CashgameHomeResult.cs" />
     <Compile Include="UseCases\CashgameList\CashgameItem.cs" />
     <Compile Include="UseCases\CashgameList\CashgameListInteractor.cs" />
     <Compile Include="UseCases\CashgameList\CashgameListRequest.cs" />

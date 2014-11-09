@@ -19,6 +19,7 @@ using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameDetails;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
+using Core.UseCases.CashgameHome;
 using Core.UseCases.CashgameList;
 using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
@@ -105,6 +106,7 @@ namespace Web.Plumbing
         public Func<EventDetailsInput, EventDetailsOutput> EventDetails { get { return input => EventDetailsInteractor.Execute(EventRepository, input); } } 
 
         // Cashgame
+        public Func<CashgameHomeRequest, CashgameHomeResult> CashgameHome { get { return request => CashgameHomeInteractor.Execute(request, BunchRepository, CashgameRepository); } } 
         public Func<TopListRequest, TopListResult> TopList { get { return request => TopListInteractor.Execute(BunchRepository, CashgameService, request); } }
         public Func<CashgameDetailsRequest, CashgameDetailsResult> CashgameDetails { get { return request => CashgameDetailsInteractor.Execute(BunchRepository, CashgameRepository, Auth, PlayerRepository, request); } }
         public Func<CashgameDetailsChartRequest, CashgameDetailsChartResult> CashgameDetailsChart { get { return request => CashgameDetailsChartInteractor.Execute(TimeProvider, CashgameService, BunchRepository, CashgameRepository, request); } } 

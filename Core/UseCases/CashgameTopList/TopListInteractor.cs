@@ -12,7 +12,7 @@ namespace Core.UseCases.CashgameTopList
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var suite = cashgameService.GetSuite(bunch.Id, request.Year);
 
-            var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, bunch.Currency));
+            var items = suite.TotalResults.Select((o, index) => new TopListItem(bunch.Slug, o, index, bunch.Currency));
             items = SortItems(items, request.OrderBy);
 
             return new TopListResult(items, request.OrderBy, bunch.Slug, request.Year);

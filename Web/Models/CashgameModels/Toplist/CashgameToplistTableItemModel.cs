@@ -1,4 +1,3 @@
-using System.Web;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.CashgameTopList;
@@ -9,7 +8,6 @@ namespace Web.Models.CashgameModels.Toplist
     {
         public int Rank { get; private set; }
         public string Name { get; private set; }
-        public string UrlEncodedName { get; private set; }
         public string TotalResult { get; private set; }
         public string ResultSortClass { get; private set; }
         public string Buyin { get; private set; }
@@ -23,9 +21,9 @@ namespace Web.Models.CashgameModels.Toplist
         public string GameCountSortClass { get; private set; }
         public string WinRate { get; private set; }
         public string WinRateSortClass { get; private set; }
-        public Url PlayerUrl { get; private set; }
+        public string PlayerUrl { get; private set; }
 
-        public CashgameToplistTableItemModel(TopListItem toplistItem, string slug, ToplistSortOrder sortOrder)
+        public CashgameToplistTableItemModel(TopListItem toplistItem, ToplistSortOrder sortOrder)
         {
             Rank = toplistItem.Rank;
             TotalResult = toplistItem.Winnings.String;
@@ -36,8 +34,7 @@ namespace Web.Models.CashgameModels.Toplist
             GameCount = toplistItem.GamesPlayed;
             WinRate = toplistItem.WinRate.String;
             Name = toplistItem.Name;
-            UrlEncodedName = HttpUtility.UrlPathEncode(toplistItem.Name);
-            PlayerUrl = new PlayerDetailsUrl(slug, toplistItem.PlayerId);
+            PlayerUrl = toplistItem.PlayerUrl.Relative;
             ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
             BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
             CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);

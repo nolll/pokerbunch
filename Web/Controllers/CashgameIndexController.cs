@@ -1,6 +1,5 @@
 using System.Web.Mvc;
-using Core.Urls;
-using Core.UseCases.CashgameContext;
+using Core.UseCases.CashgameHome;
 using Web.Controllers.Base;
 using Web.Security.Attributes;
 
@@ -12,16 +11,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/index")]
         public ActionResult Index(string slug)
         {
-            var result = UseCase.CashgameContext(new CashgameContextRequest(slug));
-            var url = GetIndexUrl(result);
-            return Redirect(url.Relative);
-        }
-
-        private Url GetIndexUrl(CashgameContextResult result)
-        {
-            if (result.LatestYear.HasValue)
-                return new CashgameMatrixUrl(result.BunchContext.Slug, result.LatestYear);
-            return new AddCashgameUrl(result.BunchContext.Slug);
+            var indexResult = UseCase.CashgameHome(new CashgameHomeRequest(slug));
+            return Redirect(indexResult.StartUrl.Relative);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(4, result.Items[0].GamesPlayed);
             Assert.AreEqual(5, result.Items[0].TimePlayed.Minutes);
             Assert.AreEqual("a", result.Items[0].Name);
-            Assert.AreEqual(1, result.Items[0].PlayerId);
+            Assert.AreEqual("/bunch-a/player/details/1", result.Items[0].PlayerUrl.Relative);
             Assert.AreEqual(6, result.Items[0].Winnings.Amount);
             Assert.AreEqual(7, result.Items[0].WinRate.Amount);
         }

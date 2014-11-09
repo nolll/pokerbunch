@@ -100,36 +100,6 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.GameIsRunning);
         }
 
-        [Test]
-        public void Execute_WithoutYears_YearsAreEmptyAndLatestYearIsNull()
-        {
-            const string slug = "a";
-            var years = new List<int>();
-            var request = new CashgameContextRequest(slug);
-
-            GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
-
-            var result = Execute(request);
-
-            Assert.IsEmpty(result.Years);
-            Assert.IsNull(result.LatestYear);
-        }
-
-        [Test]
-        public void Execute_WithYears_YearsContainsThemAndLatestYearIsCorrect()
-        {
-            const string slug = "a";
-            var years = new List<int>{1, 2, 3};
-            var request = new CashgameContextRequest(slug);
-
-            GetMock<ICashgameRepository>().Setup(o => o.GetYears(It.IsAny<int>())).Returns(years);
-
-            var result = Execute(request);
-
-            Assert.AreEqual(3, result.Years.Count);
-            Assert.AreEqual(3, result.LatestYear);
-        }
-
         [TestCase(CashgamePage.Matrix)]
         [TestCase(CashgamePage.List)]
         public void Execute_SelectedPage_SelectedPageIsSet(CashgamePage selectedPage)
