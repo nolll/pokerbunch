@@ -58,7 +58,11 @@
 		
 	@if (Model.ShowChart)
 	{
-	    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl.Relative">Loading chart...</div>
+	    <div data-require="cashgame-game-chart">
+            <script type="application/json">
+                @Html.Raw(Model.ChartJson)
+            </script>
+	    </div>
 	}
 </div>
 

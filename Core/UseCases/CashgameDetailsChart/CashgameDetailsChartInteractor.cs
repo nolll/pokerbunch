@@ -18,13 +18,20 @@ namespace Core.UseCases.CashgameDetailsChart
             CashgameDetailsChartRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = GetCashgame(cashgameRepository, bunch, request.DateStr);
             var players = cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
             var now = timeProvider.UtcNow;
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, now);
 
             return new CashgameDetailsChartResult(playerItems);
+        }
+
+        private static Cashgame GetCashgame(ICashgameRepository cashgameRepository, Bunch bunch, string dateStr)
+        {
+            if (string.IsNullOrEmpty(dateStr))
+                return cashgameRepository.GetRunning(bunch.Id);
+            return cashgameRepository.GetByDateString(bunch, dateStr);
         }
 
         private static IList<DetailsChartPlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)

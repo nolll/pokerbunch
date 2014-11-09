@@ -425,29 +425,6 @@ namespace Tests.Web.ServiceTests
         }
 
         [Test]
-        public void GetCashgameActionChartJsonUrl()
-        {
-            const string slug = "a";
-            const string dateStr = "b";
-            const int playerId = 1;
-
-            var result = new CashgameActionChartJsonUrl(slug, dateStr, playerId);
-
-            Assert.AreEqual("/a/cashgame/actionchartjson/b/1", result.Relative);
-        }
-
-        [Test]
-        public void GetCashgameChartJsonUrl()
-        {
-            const string slug = "a";
-            const int year = 2010;
-
-            var result = new CashgameChartJsonUrl(slug, year);
-
-            Assert.AreEqual("/a/cashgame/chartjson/2010", result.Relative);
-        }
-
-        [Test]
         public void GetCashgameCheckpointDeleteUrl()
         {
             const string slug = "a";
@@ -471,17 +448,6 @@ namespace Tests.Web.ServiceTests
             var result = new EditCheckpointUrl(slug, dateStr, playerId, checkpointId);
 
             Assert.AreEqual("/a/cashgame/editcheckpoint/b/1/2", result.Relative);
-        }
-
-        [Test]
-        public void GetCashgameDetailsChartJsonUrl()
-        {
-            const string slug = "a";
-            const string dateStr = "b";
-
-            var result = new CashgameDetailsChartJsonUrl(slug, dateStr);
-
-            Assert.AreEqual("/a/cashgame/detailschartjson/b", result.Relative);
         }
 
         [Test]

@@ -41,7 +41,6 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(_date, result.Date);
             Assert.AreEqual(PlayerName, result.PlayerName);
-            Assert.IsInstanceOf<CashgameActionChartJsonUrl>(result.ChartDataUrl);
             Assert.AreEqual(3, result.CheckpointItems.Count);
         }
 

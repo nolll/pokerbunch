@@ -20,7 +20,6 @@ namespace Core.UseCases.RunningCashgame
         public bool EndGameButtonEnabled { get; private set; }
         public bool ShowTable { get; private set; }
         public bool ShowChart { get; private set; }
-        public Url ChartDataUrl { get; private set; }
         public IList<RunningCashgameTableItem> Items { get; private set; }
         public Money TotalBuyin { get; private set; }
         public Money TotalStacks { get; private set; }
@@ -40,7 +39,6 @@ namespace Core.UseCases.RunningCashgame
             bool endGameButtonEnabled,
             bool showTable,
             bool showChart,
-            Url chartDataUrl,
             IList<RunningCashgameTableItem> items,
             Money totalBuyin,
             Money totalStacks)
@@ -59,7 +57,6 @@ namespace Core.UseCases.RunningCashgame
             EndGameButtonEnabled = endGameButtonEnabled;
             ShowTable = showTable;
             ShowChart = showChart;
-            ChartDataUrl = chartDataUrl;
             Items = items;
             TotalBuyin = totalBuyin;
             TotalStacks = totalStacks;

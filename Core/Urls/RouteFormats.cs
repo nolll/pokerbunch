@@ -10,11 +10,8 @@ namespace Core.Urls
         public const string CashgameAdd = "/{0}/cashgame/add";
         public const string CashgameChart = "/{0}/cashgame/chart";
         public const string CashgameChartWithYear = "/{0}/cashgame/chart/{1}";
-        public const string CashgameChartJson = "/{0}/cashgame/chartjson";
-        public const string CashgameChartJsonWithYear = "/{0}/cashgame/chartjson/{1}";
         public const string CashgameDelete = "/{0}/cashgame/delete/{1}";
         public const string CashgameDetails = "/{0}/cashgame/details/{1}";
-        public const string CashgameDetailsChartJson = "/{0}/cashgame/detailschartjson/{1}";
         public const string CashgameEdit = "/{0}/cashgame/edit/{1}";
         public const string CashgameEnd = "/{0}/cashgame/end";
         public const string CashgameIndex = "/{0}/cashgame/index";
@@ -27,7 +24,6 @@ namespace Core.Urls
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
-        public const string CashgameActionChartJson = "/{0}/cashgame/actionchartjson/{1}/{2}";
         public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
         public const string CashgameReport = "/{0}/cashgame/report/{1}";
         public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";

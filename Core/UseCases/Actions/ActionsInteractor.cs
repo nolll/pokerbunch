@@ -25,10 +25,9 @@ namespace Core.UseCases.Actions
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;
-            var chartDataUrl = new CashgameActionChartJsonUrl(bunch.Slug, cashgame.DateString, player.Id);
             var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, cashgame, player, isManager, o)).ToList();
 
-            return new ActionsOutput(date, playerName, chartDataUrl, checkpointItems);
+            return new ActionsOutput(date, playerName, checkpointItems);
         }
 
         private static CheckpointItem CreateCheckpointItem(Bunch bunch, Cashgame cashgame, Player player, bool isManager, Checkpoint checkpoint)

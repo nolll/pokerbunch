@@ -45,20 +45,27 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
             return defaultConfig;
         }
 
-        LineChart.prototype.loadDataAndDraw = function(){
+        LineChart.prototype.loadDataAndDraw = function() {
             var me = this,
                 url = this.$el.data('url');
-            $.ajax({
-                dataType: 'json',
-                url: url,
-                success: function(data) {
-                    me.data = new google.visualization.DataTable(data);
-                    me.draw();
-                },
-                error: function(xhr, status, error){
-                    me.$el.html('failed to load chart data');
-                }
-            });
+
+            if (url != undefined) {
+                $.ajax({
+                    dataType: 'json',
+                    url: url,
+                    success: function(loadedData) {
+                        me.data = new google.visualization.DataTable(loadedData);
+                        me.draw();
+                    },
+                    error: function(xhr, status, error) {
+                        me.$el.html('failed to load chart data');
+                    }
+                });
+            } else {
+                var data = JSON.parse(me.$el.find('script').html());
+                me.data = new google.visualization.DataTable(data);
+                me.draw();
+            }
         }
 
         function init(el, config, data) {

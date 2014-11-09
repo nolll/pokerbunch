@@ -1,6 +1,9 @@
 using Core.Urls;
 using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.RunningCashgame;
+using Newtonsoft.Json;
+using Web.Models.CashgameModels.Details;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
@@ -20,10 +23,10 @@ namespace Web.Models.CashgameModels.Running
         public Url EndGameUrl { get; private set; }
         public RunningCashgameTableModel RunningCashgameTableModel { get; private set; }
         public bool ShowTable { get; private set; }
-        public Url ChartDataUrl { get; private set; }
+        public string ChartJson { get; private set; }
         public bool ShowChart { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContextResult contextResult, RunningCashgameResult runningCashgameResult)
+	    public RunningCashgamePageModel(BunchContextResult contextResult, RunningCashgameResult runningCashgameResult, CashgameDetailsChartResult cashgameDetailsChartResult)
             : base("Running Cashgame", contextResult)
 	    {
 	        Location = runningCashgameResult.Location;
@@ -40,7 +43,7 @@ namespace Web.Models.CashgameModels.Running
             RunningCashgameTableModel = runningCashgameResult.IsStarted ? new RunningCashgameTableModel(runningCashgameResult) : null;
             ShowTable = runningCashgameResult.ShowTable;
             ShowChart = runningCashgameResult.ShowChart;
-            ChartDataUrl = runningCashgameResult.ChartDataUrl;
+            ChartJson = JsonConvert.SerializeObject(new DetailsChartModel(cashgameDetailsChartResult));
 	    }
     }
 }

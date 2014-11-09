@@ -6,5 +6,9 @@
 }
 
 <div class="block gutter">
-	<div data-require="cashgame-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+    <div data-require="cashgame-chart">
+        <script type="application/json">
+            @Html.Raw(Model.ChartJson)
+        </script>
+    </div>
 </div>

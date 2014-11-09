@@ -49,7 +49,6 @@ namespace Core.UseCases.RunningCashgame
             var endGameButtonEnabled = canBeEnded;
             var showTable = cashgame.IsStarted;
             var showChart = cashgame.IsStarted;
-            var chartDataUrl = GetChartDataUrl(bunch, cashgame);
 
             var items = GetItems(bunch, cashgame, players, isManager, now);
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
@@ -70,7 +69,6 @@ namespace Core.UseCases.RunningCashgame
                 endGameButtonEnabled,
                 showTable,
                 showChart,
-                chartDataUrl,
                 items,
                 totalBuyin,
                 totalStacks);
@@ -79,13 +77,6 @@ namespace Core.UseCases.RunningCashgame
         private static IList<int> GetPlayerIds(Cashgame cashgame)
         {
             return cashgame.Results.Select(o => o.PlayerId).ToList();
-        }
-
-        private static Url GetChartDataUrl(Bunch bunch, Cashgame cashgame)
-        {
-            if (cashgame.IsStarted)
-                return new CashgameDetailsChartJsonUrl(bunch.Slug, cashgame.DateString);
-            return Url.Empty;
         }
 
         private static string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)

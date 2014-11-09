@@ -15,7 +15,6 @@ namespace Core.UseCases.CashgameDetails
         public string Location { get; private set; }
         public bool CanEdit { get; private set; }
         public Url EditUrl { get; private set; }
-        public Url ChartDataUrl { get; private set; }
         public IList<PlayerResultItem> PlayerItems { get; private set; }
 
         public CashgameDetailsResult(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, bool isManager)
@@ -29,7 +28,6 @@ namespace Core.UseCases.CashgameDetails
             EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);
             CanEdit = isManager;
             EditUrl = new EditCashgameUrl(bunch.Slug, cashgame.DateString);
-            ChartDataUrl = new CashgameDetailsChartJsonUrl(bunch.Slug, cashgame.DateString);
             PlayerItems = sortedResults.Select(o => new PlayerResultItem(bunch, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
         }
 

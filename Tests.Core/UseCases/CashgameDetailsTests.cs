@@ -37,7 +37,6 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(endTime, result.EndTime);
             Assert.IsFalse(result.CanEdit);
             Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
-            Assert.IsInstanceOf<CashgameDetailsChartJsonUrl>(result.ChartDataUrl);
             Assert.AreEqual(0, result.PlayerItems.Count);
         }
 

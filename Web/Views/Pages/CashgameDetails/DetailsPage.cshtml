@@ -45,6 +45,10 @@
 <div class="block gutter">
     @Html.Partial("CashgameDetails/ResultTable", Model.CashgameDetailsTableModel)
 
-    <div data-require="cashgame-game-chart" data-url="@Model.ChartDataUrl">Loading chart...</div>
+    <div data-require="cashgame-game-chart">
+        <script type="application/json">
+            @Html.Raw(Model.ChartJson)
+        </script>
+    </div>
 
 </div>

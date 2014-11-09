@@ -1,6 +1,8 @@
 using Core.Services;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetails;
+using Core.UseCases.CashgameDetailsChart;
+using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Details
@@ -17,10 +19,10 @@ namespace Web.Models.CashgameModels.Details
         public bool EnableEdit { get; private set; }
         public bool DurationEnabled { get; private set; }
         public string EditUrl { get; private set; }
-        public string ChartDataUrl { get; private set; }
+        public string ChartJson { get; private set; }
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
 
-        public CashgameDetailsPageModel(BunchContextResult contextResult, CashgameDetailsResult detailsResult)
+        public CashgameDetailsPageModel(BunchContextResult contextResult, CashgameDetailsResult detailsResult, CashgameDetailsChartResult cashgameDetailsChartResult)
             : base("Cashgame", contextResult)
         {
             var date = Globalization.FormatShortDate(detailsResult.Date, true);
@@ -38,8 +40,8 @@ namespace Web.Models.CashgameModels.Details
             EndTime = showEndTime ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
             EnableEdit = detailsResult.CanEdit;
             EditUrl = detailsResult.EditUrl.Relative;
-            ChartDataUrl = detailsResult.ChartDataUrl.Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
+            ChartJson = JsonConvert.SerializeObject(new DetailsChartModel(cashgameDetailsChartResult));
         }
     }
 }

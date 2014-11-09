@@ -231,13 +231,6 @@ namespace Tests.Web.Routing
         }
 
         [Test]
-        public void CashgameChartJson()
-        {
-            _routes.ShouldMap("/a/cashgame/chartjson").To<CashgameChartController>(x => x.ChartJson("a", null));
-            _routes.ShouldMap("/a/cashgame/chartjson/1").To<CashgameChartController>(x => x.ChartJson("a", 1));
-        }
-
-        [Test]
         public void CashgameBuyin()
         {
             _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameBuyinController>(x => x.Buyin("a", 1));
@@ -272,21 +265,9 @@ namespace Tests.Web.Routing
         }
 
         [Test]
-        public void CashgameDetailsChartJson()
-        {
-            _routes.ShouldMap("/a/cashgame/detailschartjson/2001-01-01").To<CashgameDetailsController>(x => x.DetailsChartJson("a", "2001-01-01"));
-        }
-
-        [Test]
         public void CashgameAction()
         {
             _routes.ShouldMap("/a/cashgame/action/2001-01-01/1").To<CashgameActionController>(x => x.Action("a", "2001-01-01", 1));
-        }
-
-        [Test]
-        public void CashgameActionChartJson()
-        {
-            _routes.ShouldMap("/a/cashgame/actionchartjson/2001-01-01/1").To<CashgameActionController>(x => x.ActionChartJson("a", "2001-01-01", 1));
         }
 
         [Test]

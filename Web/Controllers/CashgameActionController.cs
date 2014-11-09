@@ -16,17 +16,9 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var actionsOutput = UseCase.Actions(new ActionsInput(slug, dateStr, playerId));
-            var model = new ActionPageModel(contextResult, actionsOutput);
-            return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
-        }
-
-        [AuthorizePlayer]
-        [Route("{slug}/cashgame/actionchartjson/{dateStr}/{playerId:int}")]
-        public JsonResult ActionChartJson(string slug, string dateStr, int playerId)
-        {
             var actionsChartResult = UseCase.ActionsChart(new ActionsChartRequest(slug, dateStr, playerId));
-            var model = new ActionChartModel(actionsChartResult);
-            return Json(model, JsonRequestBehavior.AllowGet);
+            var model = new ActionPageModel(contextResult, actionsOutput, actionsChartResult);
+            return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
         }
     }
 }

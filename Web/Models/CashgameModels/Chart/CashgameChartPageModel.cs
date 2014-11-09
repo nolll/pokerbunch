@@ -1,17 +1,18 @@
-using Core.UseCases.CashgameChartContainer;
+using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameContext;
+using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Chart
 {
     public class CashgameChartPageModel : CashgamePageModel
     {
-        public string ChartDataUrl { get; private set; }
+        public string ChartJson { get; private set; }
 
-        public CashgameChartPageModel(CashgameContextResult cashgameContextResult, CashgameChartContainerResult cashgameChartContainerResult)
+        public CashgameChartPageModel(CashgameContextResult cashgameContextResult, CashgameChartResult cashgameChartResult)
             : base("Cashgame Chart", cashgameContextResult)
         {
-            ChartDataUrl = cashgameChartContainerResult.DataUrl.Relative;
+            ChartJson = JsonConvert.SerializeObject(new CashgameChartModel(cashgameChartResult));
         }
     }
 }
