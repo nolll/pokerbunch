@@ -13,9 +13,8 @@ namespace Web.Models.PageBaseModels
 
         protected CashgamePageModel(string browserTitle, CashgameContextResult cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
         {
-            var slug = cashgameContextResult.BunchContext.Slug;
-            BarModel = cashgameContextResult.GameIsRunning ? new RunningGameBarModel(slug) : new BarModel(slug);
-            StartButtonModel = cashgameContextResult.GameIsRunning ? new RunningGameStartButtonModel(slug) : new StartButtonModel(slug);
+            BarModel = cashgameContextResult.GameIsRunning ? new RunningGameBarModel(cashgameContextResult.RunningCashgameUrl.Relative) : new BarModel(cashgameContextResult.AddCashgameUrl.Relative);
+            StartButtonModel = cashgameContextResult.GameIsRunning ? new RunningGameStartButtonModel(cashgameContextResult.AddCashgameUrl.Relative) : new StartButtonModel(cashgameContextResult.AddCashgameUrl.Relative);
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult);
             YearNavModel = new CashgameYearNavigationModel(cashgameContextResult);
         }

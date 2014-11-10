@@ -1,14 +1,12 @@
-using Core.Urls;
-
 namespace Web.Models.CashgameModels.Running
 {
     public class StartButtonModel
     {
-        public Url Url { get; set; }
+        public string NewUrl { get; private set; }
 
-        public StartButtonModel(string slug)
+        public StartButtonModel(string newUrl)
         {
-            Url = new AddCashgameUrl(slug);
+            NewUrl = newUrl;
         }
 
         public virtual bool GameIsRunning
@@ -19,7 +17,7 @@ namespace Web.Models.CashgameModels.Running
 
     class RunningGameStartButtonModel : StartButtonModel
     {
-        public RunningGameStartButtonModel(string slug) : base(slug)
+        public RunningGameStartButtonModel(string newUrl) : base(newUrl)
         {
         }
 

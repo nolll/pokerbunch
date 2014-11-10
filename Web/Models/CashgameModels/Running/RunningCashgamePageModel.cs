@@ -1,4 +1,3 @@
-using Core.Urls;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.RunningCashgame;
@@ -17,10 +16,10 @@ namespace Web.Models.CashgameModels.Running
         public bool ReportButtonEnabled { get; private set; }
         public bool CashoutButtonEnabled { get; private set; }
         public bool EndGameButtonEnabled { get; private set; }
-        public Url BuyinUrl { get; private set; }
-        public Url ReportUrl { get; private set; }
-        public Url CashoutUrl { get; private set; }
-        public Url EndGameUrl { get; private set; }
+        public string BuyinUrl { get; private set; }
+        public string ReportUrl { get; private set; }
+        public string CashoutUrl { get; private set; }
+        public string EndGameUrl { get; private set; }
         public RunningCashgameTableModel RunningCashgameTableModel { get; private set; }
         public bool ShowTable { get; private set; }
         public string ChartJson { get; private set; }
@@ -30,10 +29,10 @@ namespace Web.Models.CashgameModels.Running
             : base("Running Cashgame", contextResult)
 	    {
 	        Location = runningCashgameResult.Location;
-	        BuyinUrl = runningCashgameResult.BuyinUrl;
-	        ReportUrl = runningCashgameResult.ReportUrl;
-	        CashoutUrl = runningCashgameResult.CashoutUrl;
-	        EndGameUrl = runningCashgameResult.EndGameUrl;
+	        BuyinUrl = runningCashgameResult.BuyinUrl.Relative;
+            ReportUrl = runningCashgameResult.ReportUrl.Relative;
+            CashoutUrl = runningCashgameResult.CashoutUrl.Relative;
+            EndGameUrl = runningCashgameResult.EndGameUrl.Relative;
 	        ShowStartTime = runningCashgameResult.ShowStartTime;
             StartTime = runningCashgameResult.StartTime;
             BuyinButtonEnabled = runningCashgameResult.BuyinButtonEnabled;

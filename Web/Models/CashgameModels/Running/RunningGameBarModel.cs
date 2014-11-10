@@ -1,21 +1,14 @@
-using Core.Urls;
-
 namespace Web.Models.CashgameModels.Running
 {
     public class RunningGameBarModel : BarModel
     {
-        public RunningGameBarModel(string slug) : base(slug)
+        public RunningGameBarModel(string url) : base(url)
         {
         }
 
         public override bool GameIsRunning
         {
             get { return true; }
-        }
-
-        public override Url Url
-        {
-            get { return new RunningCashgameUrl(Slug); }
         }
     }
 }

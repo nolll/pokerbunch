@@ -10,13 +10,14 @@ namespace Core.UseCases.CashgameContext
     {
         public bool GameIsRunning { get; private set; }
         public CashgamePage SelectedPage { get; private set; }
-        public IList<int> Years { get; private set; }
         public int? SelectedYear { get; private set; }
         public Url MatrixUrl { get; private set; }
         public Url ToplistUrl { get; private set; }
         public Url ChartUrl { get; private set; }
         public Url ListUrl { get; private set; }
         public Url FactsUrl { get; private set; }
+        public Url RunningCashgameUrl { get; private set; }
+        public Url AddCashgameUrl { get; private set; }
         public IList<YearItem> YearItems { get; private set; }
         public BunchContextResult BunchContext { get; private set; }
 
@@ -31,13 +32,14 @@ namespace Core.UseCases.CashgameContext
             BunchContext = bunchContextResult;
             GameIsRunning = gameIsRunning;
             SelectedPage = selectedPage;
-            Years = years;
             SelectedYear = selectedYear;
             MatrixUrl = new MatrixUrl(slug, selectedYear);
             ToplistUrl = new TopListUrl(slug, selectedYear);
             ChartUrl = new ChartUrl(slug, selectedYear);
             ListUrl = new ListUrl(slug, selectedYear);
             FactsUrl = new FactsUrl(slug, selectedYear);
+            RunningCashgameUrl = new RunningCashgameUrl(slug);
+            AddCashgameUrl = new AddCashgameUrl(slug);
             YearItems = CreateYearItems(slug, years, selectedPage);
         }
 
@@ -63,17 +65,5 @@ namespace Core.UseCases.CashgameContext
             return null;
         }
 
-    }
-
-    public class YearItem
-    {
-        public string Label { get; private set; }
-        public Url Url { get; private set; }
-
-        public YearItem(string label, Url url)
-        {
-            Label = label;
-            Url = url;
-        }
     }
 }

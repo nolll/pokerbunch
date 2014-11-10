@@ -14,38 +14,35 @@ namespace Tests.Core.UseCases
     class BunchContextTests : TestBase
     {
         [Test]
-        public void BunchContext_WithSlug_SlugIsSetFromSelectedBunch()
+        public void BunchContext_WithSlug_HasBunchIsTrue()
         {
             const string slug = "a";
             SetupHomegameBySlug(slug);
 
             var result = GetResult(slug);
 
-            Assert.AreEqual(slug, result.Slug);
             Assert.IsTrue(result.HasBunch);
         }
 
         [Test]
-        public void BunchContext_WithoutSlug_SlugIsSetFromFirstBunch()
+        public void BunchContext_WithoutSlug_HasBunchIsTrue()
         {
             var homegameList = A.BunchList.WithOneItem().Build();
             SetupHomegameListByUser(homegameList);
 
             var result = GetResult();
 
-            Assert.AreEqual("a", result.Slug);
             Assert.IsTrue(result.HasBunch);
         }
 
         [Test]
-        public void BunchContext_WithoutSlugAndBunches_SlugIsNull()
+        public void BunchContext_WithoutSlugAndBunches_HasBunchIsFalse()
         {
             var homegameList = A.BunchList.Build(); 
             SetupHomegameListByUser(homegameList);
 
             var result = GetResult();
 
-            Assert.IsNull(result.Slug);
             Assert.IsFalse(result.HasBunch);
         }
 
