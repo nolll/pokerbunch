@@ -20,7 +20,7 @@ namespace Core.UseCases.CashgameHome
         {
             if (years.Count == 0)
                 return new AddCashgameUrl(slug);
-            return new CashgameMatrixUrl(slug, years.Last());
+            return new CashgameMatrixUrl(slug, years.OrderBy(o => o).Last());
         }
     }
 }

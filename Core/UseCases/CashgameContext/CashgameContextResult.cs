@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Core.Urls;
 using Core.UseCases.BunchContext;
 
 namespace Core.UseCases.CashgameContext
@@ -9,10 +12,17 @@ namespace Core.UseCases.CashgameContext
         public CashgamePage SelectedPage { get; private set; }
         public IList<int> Years { get; private set; }
         public int? SelectedYear { get; private set; }
+        public Url MatrixUrl { get; private set; }
+        public Url ToplistUrl { get; private set; }
+        public Url ChartUrl { get; private set; }
+        public Url ListUrl { get; private set; }
+        public Url FactsUrl { get; private set; }
+        public IList<YearItem> YearItems { get; private set; }
         public BunchContextResult BunchContext { get; private set; }
 
         public CashgameContextResult(
             BunchContextResult bunchContextResult,
+            string slug,
             bool gameIsRunning,
             CashgamePage selectedPage,
             IList<int> years,
@@ -23,6 +33,47 @@ namespace Core.UseCases.CashgameContext
             SelectedPage = selectedPage;
             Years = years;
             SelectedYear = selectedYear;
+            MatrixUrl = new MatrixUrl(slug, selectedYear);
+            ToplistUrl = new TopListUrl(slug, selectedYear);
+            ChartUrl = new ChartUrl(slug, selectedYear);
+            ListUrl = new ListUrl(slug, selectedYear);
+            FactsUrl = new FactsUrl(slug, selectedYear);
+            YearItems = CreateYearItems(slug, years, selectedPage);
+        }
+
+        private IList<YearItem> CreateYearItems(string slug, IList<int> years, CashgamePage selectedPage)
+        {
+            var yearItems = years.Select(year => new YearItem(year.ToString(CultureInfo.InvariantCulture), GetYearUrl(slug, selectedPage, year))).ToList();
+            yearItems.Add(new YearItem("All Time", GetYearUrl(slug, selectedPage)));
+            return yearItems;
+        }
+
+        private Url GetYearUrl(string slug, CashgamePage cashgamePage, int? year = null)
+        {
+            if (cashgamePage.Equals(CashgamePage.Matrix))
+                return new MatrixUrl(slug, year);
+            if (cashgamePage.Equals(CashgamePage.Toplist))
+                return new TopListUrl(slug, year);
+            if (cashgamePage.Equals(CashgamePage.Chart))
+                return new ChartUrl(slug, year);
+            if (cashgamePage.Equals(CashgamePage.List))
+                return new ListUrl(slug, year);
+            if (cashgamePage.Equals(CashgamePage.Facts))
+                return new FactsUrl(slug, year);
+            return null;
+        }
+
+    }
+
+    public class YearItem
+    {
+        public string Label { get; private set; }
+        public Url Url { get; private set; }
+
+        public YearItem(string label, Url url)
+        {
+            Label = label;
+            Url = url;
         }
     }
 }

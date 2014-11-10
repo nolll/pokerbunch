@@ -1,4 +1,5 @@
-﻿using Core.UseCases.AppContext;
+﻿using Core.Urls;
+using Core.UseCases.AppContext;
 
 namespace Core.UseCases.BunchContext
 {
@@ -8,6 +9,10 @@ namespace Core.UseCases.BunchContext
         public string BunchName { get; private set; }
         public int BunchId { get; private set; }
         public bool HasBunch { get; private set; }
+        public Url BunchUrl { get; private set; }
+        public Url CashgameUrl { get; private set; }
+        public Url PlayerUrl { get; private set; }
+        public Url EventUrl { get; private set; }
         public AppContextResult AppContext { get; private set; }
 
         public BunchContextResult(AppContextResult appContextResult)
@@ -26,6 +31,10 @@ namespace Core.UseCases.BunchContext
             BunchId = bunchId;
             BunchName = bunchName;
             HasBunch = true;
+            BunchUrl = new BunchDetailsUrl(slug);
+            CashgameUrl = new CashgameIndexUrl(slug);
+            PlayerUrl = new PlayerIndexUrl(slug);
+            EventUrl = new EventListUrl(slug);
         }
     }
 }

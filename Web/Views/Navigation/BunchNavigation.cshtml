@@ -2,16 +2,16 @@
 @if (!Model.IsEmpty)
 {
     <nav class="game-nav">
-        <h2><a href="@Model.HeadingUrl.Relative">@Model.Heading</a></h2>
+        <h2><a href="@Model.HeadingUrl">@Model.Heading</a></h2>
         <ul>
             <li>
-                <a href="@Model.CashgameUrl.Relative"><span>Cashgames</span></a>
+                <a href="@Model.CashgameUrl"><span>Cashgames</span></a>
             </li>
             <li>
-                <a href="@Model.PlayerUrl.Relative"><span>Players</span></a>
+                <a href="@Model.PlayerUrl"><span>Players</span></a>
             </li>
             <li>
-                <a href="@Model.EventUrl.Relative"><span>Events</span></a>
+                <a href="@Model.EventUrl"><span>Events</span></a>
             </li>
         </ul>
     </nav>

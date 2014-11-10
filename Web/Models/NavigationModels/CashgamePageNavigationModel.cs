@@ -5,61 +5,36 @@ namespace Web.Models.NavigationModels
 {
 	public class CashgamePageNavigationModel
     {
-	    public Url MatrixUrl { get; private set; }
+	    public string MatrixUrl { get; private set; }
         public string MatrixSelectedClass { get; private set; }
-        public Url ToplistUrl { get; private set; }
+        public string ToplistUrl { get; private set; }
         public string ToplistSelectedClass { get; private set; }
-        public Url ChartUrl { get; private set; }
+        public string ChartUrl { get; private set; }
         public string ChartSelectedClass { get; private set; }
-        public Url ListUrl { get; private set; }
+        public string ListUrl { get; private set; }
         public string ListSelectedClass { get; private set; }
-        public Url FactsUrl { get; private set; }
+        public string FactsUrl { get; private set; }
         public string FactsSelectedClass { get; private set; }
-	    public bool IsEmpty { get; protected set; }
-
-	    protected CashgamePageNavigationModel()
-            : this("", null, CashgamePage.Unknown)
-	    {
-	    }
 
 	    public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult)
-            : this(cashgameContextResult.BunchContext.Slug, cashgameContextResult.SelectedYear, cashgameContextResult.SelectedPage)
 	    {
-	    }
+	        var selectedPage = cashgameContextResult.SelectedPage;
 
-	    private CashgamePageNavigationModel(string slug, int? latestYear, CashgamePage cashgamePage)
-	    {
-            MatrixUrl = new MatrixUrl(slug, latestYear);
-            MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, cashgamePage);
-            ToplistUrl = new TopListUrl(slug, latestYear);
-            ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, cashgamePage);
-            ChartUrl = new ChartUrl(slug, latestYear);
-            ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, cashgamePage);
-            ListUrl = new ListUrl(slug, latestYear);
-            ListSelectedClass = GetSelectedClass(CashgamePage.List, cashgamePage);
-            FactsUrl = new FactsUrl(slug, latestYear);
-            FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, cashgamePage);
+            MatrixUrl = cashgameContextResult.MatrixUrl.Relative;
+            MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, selectedPage);
+            ToplistUrl = cashgameContextResult.ToplistUrl.Relative;
+            ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, selectedPage);
+            ChartUrl = cashgameContextResult.ChartUrl.Relative;
+            ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, selectedPage);
+            ListUrl = cashgameContextResult.ListUrl.Relative;
+            ListSelectedClass = GetSelectedClass(CashgamePage.List, selectedPage);
+            FactsUrl = cashgameContextResult.FactsUrl.Relative;
+            FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, selectedPage);
 	    }
 
         private string GetSelectedClass(CashgamePage current, CashgamePage selected)
         {
             return current.Equals(selected) ? "selected" : null;
-        }
-
-        public static CashgamePageNavigationModel Empty
-        {
-            get
-            {
-                return new EmptyCashgamePageNavigationModel();
-            }
-        }
-
-        private class EmptyCashgamePageNavigationModel : CashgamePageNavigationModel
-        {
-            public EmptyCashgamePageNavigationModel()
-            {
-                IsEmpty = true;
-            }
         }
     }
 }

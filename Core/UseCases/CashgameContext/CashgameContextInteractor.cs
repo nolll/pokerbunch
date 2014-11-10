@@ -17,6 +17,7 @@ namespace Core.UseCases.CashgameContext
 
             return new CashgameContextResult(
                 bunchContextResult,
+                request.Slug,
                 gameIsRunning,
                 request.SelectedPage,
                 years,

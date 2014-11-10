@@ -1,16 +1,16 @@
-using Core.Urls;
+using Core.UseCases.CashgameContext;
 
 namespace Web.Models.NavigationModels
 {
     public class NavigationYearModel
     {
-        public Url Url { get; private set; }
         public string Text { get; private set; }
+        public string Url { get; private set; }
 
-        public NavigationYearModel(Url link, string text)
+        public NavigationYearModel(YearItem yearItem)
         {
-            Url = link;
-            Text = text;
+            Text = yearItem.Label;
+            Url = yearItem.Url.Relative;
         }
     }
 }

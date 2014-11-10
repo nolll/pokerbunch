@@ -15,17 +15,7 @@ namespace Web.Models.CashgameModels.Matrix
             var headerModels = matrixResult.GameItems.Select(o => new CashgameMatrixTableColumnHeaderModel(o, showYear)).ToList();
 
             ColumnHeaderModels = headerModels;
-            RowModels = CreateRows(matrixResult);
-        }
-
-	    private static List<CashgameMatrixTableRowModel> CreateRows(MatrixResult matrixResult)
-        {
-            var models = new List<CashgameMatrixTableRowModel>();
-            foreach (var playerItem in matrixResult.PlayerItems)
-            {
-                models.Add(new CashgameMatrixTableRowModel(matrixResult.GameItems, playerItem));
-            }
-            return models;
+            RowModels = matrixResult.PlayerItems.Select(playerItem => new CashgameMatrixTableRowModel(matrixResult.GameItems, playerItem)).ToList();
         }
     }
 }

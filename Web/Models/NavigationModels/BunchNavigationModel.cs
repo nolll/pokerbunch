@@ -1,4 +1,3 @@
-using Core.Urls;
 using Core.UseCases.BunchContext;
 
 namespace Web.Models.NavigationModels
@@ -6,10 +5,10 @@ namespace Web.Models.NavigationModels
     public class BunchNavigationModel
     {
         public string Heading { get; private set; }
-        public Url HeadingUrl { get; private set; }
-        public Url CashgameUrl { get; private set; }
-        public Url PlayerUrl { get; private set; }
-        public Url EventUrl { get; private set; }
+        public string HeadingUrl { get; private set; }
+        public string CashgameUrl { get; private set; }
+        public string PlayerUrl { get; private set; }
+        public string EventUrl { get; private set; }
         public bool IsEmpty { get; private set; }
 
         protected BunchNavigationModel()
@@ -21,10 +20,10 @@ namespace Web.Models.NavigationModels
             : this()
         {
             Heading = bunchContextResult.BunchName;
-            HeadingUrl = new BunchDetailsUrl(bunchContextResult.Slug);
-            CashgameUrl = new CashgameIndexUrl(bunchContextResult.Slug);
-            PlayerUrl = new PlayerIndexUrl(bunchContextResult.Slug);
-            EventUrl = new EventListUrl(bunchContextResult.Slug);
+            HeadingUrl = bunchContextResult.BunchUrl.Relative;
+            CashgameUrl = bunchContextResult.CashgameUrl.Relative;
+            PlayerUrl = bunchContextResult.PlayerUrl.Relative;
+            EventUrl = bunchContextResult.EventUrl.Relative;
         }
 
         public static BunchNavigationModel Empty
@@ -40,11 +39,6 @@ namespace Web.Models.NavigationModels
             public EmptyBunchNavigationModel()
             {
                 IsEmpty = true;
-                Heading = "";
-                HeadingUrl = new EmptyUrl();
-                CashgameUrl = new EmptyUrl();
-                PlayerUrl = new EmptyUrl();
-                EventUrl = new EmptyUrl();
             }
         }
     }
