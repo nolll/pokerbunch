@@ -3,7 +3,7 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.ErrorModels
 {
-    public class ErrorPageModel : PageModel
+    public class ErrorPageModel : WrappedPageModel
     {
         public string Title { get; private set; }
         public string Message { get; private set; }

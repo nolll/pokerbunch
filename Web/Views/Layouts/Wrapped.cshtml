@@ -1,0 +1,24 @@
+﻿@using Web.Models.PageBaseModels
+@model PageModel
+           
+@{
+    Layout = ContextLayout.Base;
+}
+
+<div class="wrap">
+
+    <header class="page-header">
+        <div class="content">
+            <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
+            @RenderSection("TopNav", false)
+        </div>
+    </header>
+
+    <div class="main container">
+        @RenderSection("ContentNav", false)
+        @RenderBody()
+    </div>
+
+    @RenderSection("BottomNav", false)
+
+</div>

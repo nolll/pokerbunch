@@ -39,7 +39,7 @@
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 0.5cm;
   }
   p,
@@ -53,3 +53,4 @@
     page-break-after: avoid;
   }
 }
+/*# sourceMappingURL=print.css.map */

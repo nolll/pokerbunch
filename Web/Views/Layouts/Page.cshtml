@@ -16,35 +16,19 @@
         <title>@Model.BrowserTitle</title>
     </head>
 
-    <body>
+<body class="@Model.BodyCssClass">
 
-        <div class="wrap">
+    @RenderBody()
 
-            <header class="page-header">
-                <div class="content">
-                    <div class="logo"><a href="/"><span class="logo-top">Poker</span> <span class="logo-bottom">Bunch</span></a></div>
-                    @RenderSection("TopNav", false)
-                </div>
-            </header>
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="/FrontEnd/js/lib/respond.min.js"></script>
+    <![endif]-->
+    <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require-2.1.2-jquery-1.8.2.min.js"></script>
 
-            <div class="main container">
-                @RenderSection("ContentNav", false)
-                @RenderBody()
-            </div>
+    @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
 
-            @RenderSection("BottomNav", false)
-
-        </div>
-        
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-            <script src="/FrontEnd/js/lib/respond.min.js"></script>
-        <![endif]-->
-        <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require-2.1.2-jquery-1.8.2.min.js"></script>
-        
-        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
-
-    </body>
+</body>
 
 </html>
 
