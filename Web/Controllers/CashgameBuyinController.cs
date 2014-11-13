@@ -15,8 +15,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/buyin/{playerId:int}")]
         public ActionResult Buyin(string slug, int playerId)
         {
-            var model = BuildBuyinModel(slug, playerId);
-            return View("~/Views/Pages/CashgameBuyin/Buyin.cshtml", model);
+            return ShowForm(slug, playerId);
         }
 
         [HttpPost]
@@ -36,15 +35,15 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            var model = BuildBuyinModel(slug, playerId, postModel);
-            return View("~/Views/Pages/CashgameBuyin/Buyin.cshtml", model);
+            return ShowForm(slug, playerId, postModel);
         }
 
-        private BuyinPageModel BuildBuyinModel(string slug, int playerId, BuyinPostModel postModel = null)
+        private ActionResult ShowForm(string slug, int playerId, BuyinPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var buyinFormResult = UseCase.BuyinForm(new BuyinFormRequest(slug, playerId));
-            return new BuyinPageModel(contextResult, buyinFormResult, postModel);
+            var model = new BuyinPageModel(contextResult, buyinFormResult, postModel);
+            return View("~/Views/Pages/CashgameBuyin/Buyin.cshtml", model);
         }
     }
 }
