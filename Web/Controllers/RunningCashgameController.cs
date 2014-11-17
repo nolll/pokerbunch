@@ -30,6 +30,15 @@ namespace Web.Controllers
                 return Redirect(new CashgameIndexUrl(slug).Relative);
             }
         }
+        
+        [AuthorizePlayer]
+        [Route("{slug}/cashgame/runningtable")]
+        public ActionResult RunningTable(string slug)
+        {
+            var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
+            var model = new RunningCashgameTableModel(runningCashgameResult);
+            return View("~/Views/Pages/RunningCashgame/StatusTable.cshtml", model);
+        }
 
         [AuthorizePlayer]
         [Route("{slug}/cashgame/board")]
