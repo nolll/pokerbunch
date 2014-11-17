@@ -38,6 +38,24 @@ namespace Web.Controllers
             return ShowForm(slug, playerId, postModel);
         }
 
+        [HttpPost]
+        [AuthorizeOwnPlayer]
+        [Route("{slug}/cashgame/buyinajax/{playerId:int}")]
+        public ActionResult Buyin_AjaxPost(string slug, int playerId, BuyinPostModel postModel)
+        {
+            var request = new BuyinRequest(slug, playerId, postModel.BuyinAmount, postModel.StackAmount);
+
+            try
+            {
+                UseCase.Buyin(request);
+                return Json(new JsonViewModelOk(), JsonRequestBehavior.AllowGet);
+            }
+            catch (ValidationException ex)
+            {
+                return Json(new JsonViewModelError(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private ActionResult ShowForm(string slug, int playerId, BuyinPostModel postModel = null)
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
@@ -45,5 +63,25 @@ namespace Web.Controllers
             var model = new BuyinPageModel(contextResult, buyinFormResult, postModel);
             return View("~/Views/Pages/CashgameBuyin/Buyin.cshtml", model);
         }
+    }
+
+    public abstract class JsonViewModel
+    {
+        public virtual bool Success
+        {
+            get { return false; }
+        }
+    }
+
+    public class JsonViewModelOk : JsonViewModel
+    {
+        public override bool Success
+        {
+            get { return true; }
+        }
+    }
+
+    public class JsonViewModelError : JsonViewModel
+    {
     }
 }
