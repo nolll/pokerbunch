@@ -22,5 +22,10 @@ namespace Web.Models.PageBaseModels
         {
             get { return ContextLayout.Base; }
         }
+
+        public virtual string BodyCssClass
+        {
+            get { return "body-wide"; }
+        }
     }
 }

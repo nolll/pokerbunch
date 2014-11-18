@@ -4,6 +4,7 @@ define(['linechart'],
 
         function init() {
             var config = {
+                pointSize: 0,
                 legend: {
                     position: 'none'
                 }

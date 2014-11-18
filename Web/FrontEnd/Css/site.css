@@ -1,4 +1,4 @@
-html {
+﻿html {
   overflow-y: auto;
 }
 body {
@@ -65,6 +65,12 @@ dl {
 p {
   margin: 15px 0 0 0;
 }
+.body-wide {
+  background: #fff;
+}
+.wide-wrap {
+  margin: 10px auto;
+}
 @media only screen and (min-width : 480px) {
   .logo a {
     font-size: 1.5em;
@@ -95,3 +101,4 @@ p {
     margin-left: 0px;
   }
 }
+/*# sourceMappingURL=site.css.map */

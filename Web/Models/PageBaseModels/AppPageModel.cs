@@ -3,7 +3,7 @@ using Web.Models.NavigationModels;
 
 namespace Web.Models.PageBaseModels
 {
-    public abstract class AppPageModel : PageModel
+    public abstract class AppPageModel : WrappedPageModel
     {
         public NavigationModel UserNavModel { get; private set; }
 

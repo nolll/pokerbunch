@@ -6,7 +6,9 @@ requirejs.config({
         goog: "lib/goog",
         pubsub: "lib/jquery.pubsub",
         metadata: "lib/jquery.metadata",
-        debouncedresize: "lib/jquery.debouncedresize"
+        debouncedresize: "lib/jquery.debouncedresize",
+        jquery: "lib/jquery-1.11.1.min",
+        knockout: "lib/knockout-3.2.0"
     },
     shim: {
         "pubsub": {

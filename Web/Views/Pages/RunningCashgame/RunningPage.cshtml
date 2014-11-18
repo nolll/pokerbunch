@@ -55,8 +55,40 @@
 	{
 	    @:No one has joined the game yet.
 	}
+    
+    
+    <div class="standings" data-require="running-cashgame">
+        <div>
+            <div class="standings-item" data-bind="foreach: players">
+                <div class="name">
+                    <a href="#PlayerUrl" data-bind="text: name"></a>
+                    <i title="Cashed out" class="icon-ok-sign"></i>
+                </div>
+                <div class="amounts">
+                    <div><i title="Buy in" class="icon-signin"></i> Buyin</div>
+                    <div><i title="Stack" class="icon-reorder"></i> Stack</div>
+                    <div class="WinningsClass">Winnings</div>
+                </div>
+                <div class="time"><i title="Last report" class="icon-time"></i> Time</div>
+                <div class="controls">
+                    <div class="control"><a href="#ReportUrl"><i title="Report Stack" class="icon-pushpin"></i></a></div>
+                    <div class="control"><a href="#BuyinUrl"><i title="Buy In" class="icon-money"></i></a></div>
+                    <div class="control"><a href="#CashoutUrl"><i title="Cash Out" class="icon-signout"></i></a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="totals">
+            <div class="title">Totals: </div>
+            <div class="amounts">
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: totalBuyin"></span></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: totalStacks"></span></div>
+            </div>
+        </div>
+
+    </div>
 		
-	@if (Model.ShowChart)
+    @if (Model.ShowChart)
 	{
 	    <div data-require="cashgame-game-chart">
             <script type="application/json">

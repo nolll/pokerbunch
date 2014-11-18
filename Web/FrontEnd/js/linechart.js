@@ -62,7 +62,7 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
                     }
                 });
             } else {
-                var data = JSON.parse(me.$el.find('script').html());
+                var data = JSON.parse(me.$el.find('[type="application/json"]').html());
                 me.data = new google.visualization.DataTable(data);
                 me.draw();
             }

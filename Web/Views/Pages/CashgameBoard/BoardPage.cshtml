@@ -1,0 +1,51 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.CashgameModels.Board.CashgameBoardPageModel
+
+@{
+    Layout = PageLayout.TwoColumns;
+}
+
+<div class="wide-wrap">
+    <div class="main container">
+        <div class="block gutter">
+            <h1>Running Cashgame</h1>
+        </div>
+
+        <div class="block gutter">
+            @if (!Model.ShowTable)
+            {
+                @:No one has joined the game yet.
+            }
+		
+            @if (Model.ShowChart)
+            {
+                <div data-require="cashgame-game-chart">
+                    <script type="application/json">
+                        @Html.Raw(Model.ChartJson)
+                    </script>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Aside2{
+    <div class="block gutter">
+        <dl class="value-list">
+            @if (Model.ShowStartTime)
+            {
+                <dt class="label">Start Time</dt>
+                <dd>@Model.StartTime</dd>
+            }
+            <dt class="label">Location</dt>
+            <dd>@Model.Location</dd>
+        </dl>
+        @if (Model.ShowTable)
+        {
+            if (Model.TableModel != null)
+            {
+                @Html.Partial("CashgameBoard/StatusTable", Model.TableModel)
+            }
+        }
+	</div>
+}
