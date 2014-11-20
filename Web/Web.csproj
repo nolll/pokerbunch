@@ -443,6 +443,7 @@
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />
     <Content Include="FrontEnd\js\lib\knockout-3.2.0.js" />
+    <Content Include="FrontEnd\js\lib\moment.min.js" />
     <Content Include="FrontEnd\js\lib\require.js" />
     <Content Include="FrontEnd\js\running-cashgame.js" />
     <Content Include="FrontEnd\js\sortable-table.js" />
