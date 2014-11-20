@@ -65,11 +65,11 @@
                     <i title="Cashed out" class="icon-ok-sign"></i>
                 </div>
                 <div class="amounts">
-                    <div><i title="Buy in" class="icon-signin"></i> Buyin</div>
-                    <div><i title="Stack" class="icon-reorder"></i> Stack</div>
-                    <div class="WinningsClass">Winnings</div>
+                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: buyin"></span></div>
+                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: stack"></span></div>
+                    <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
                 </div>
-                <div class="time"><i title="Last report" class="icon-time"></i> Time</div>
+                <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
                 <div class="controls">
                     <div class="control"><a href="#ReportUrl"><i title="Report Stack" class="icon-pushpin"></i></a></div>
                     <div class="control"><a href="#BuyinUrl"><i title="Buy In" class="icon-money"></i></a></div>
