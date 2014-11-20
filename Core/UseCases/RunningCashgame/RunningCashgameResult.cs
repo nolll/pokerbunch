@@ -21,6 +21,7 @@ namespace Core.UseCases.RunningCashgame
         public bool ShowTable { get; private set; }
         public bool ShowChart { get; private set; }
         public IList<RunningCashgameTableItem> Items { get; private set; }
+        public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
         public Money TotalBuyin { get; private set; }
         public Money TotalStacks { get; private set; }
 
@@ -40,6 +41,7 @@ namespace Core.UseCases.RunningCashgame
             bool showTable,
             bool showChart,
             IList<RunningCashgameTableItem> items,
+            IList<RunningCashgamePlayerItem> playerItems,
             Money totalBuyin,
             Money totalStacks)
         {
@@ -58,6 +60,7 @@ namespace Core.UseCases.RunningCashgame
             ShowTable = showTable;
             ShowChart = showChart;
             Items = items;
+            PlayerItems = playerItems;
             TotalBuyin = totalBuyin;
             TotalStacks = totalStacks;
         }

@@ -8,8 +8,13 @@ requirejs.config({
         metadata: "lib/jquery.metadata",
         debouncedresize: "lib/jquery.debouncedresize",
         jquery: "lib/jquery-1.11.1.min",
-        knockout: "lib/knockout-3.2.0",
+        "knockout-raw": "lib/knockout-3.2.0",
         moment: "lib/moment.min"
+    },
+    map: {
+        '*': {
+            'knockout': 'knockout-extended'
+        }
     },
     shim: {
         "pubsub": {

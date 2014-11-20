@@ -9,7 +9,7 @@ namespace Web.Controllers.Base
     /*
      * http://wingkaiwan.com/2012/12/28/replacing-mvc-javascriptserializer-with-json-net-jsonserializer/
      */
-    public class JsonNetResult : JsonResult
+    public class JsonNetResult : System.Web.Mvc.JsonResult
     {
         public JsonNetResult(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {

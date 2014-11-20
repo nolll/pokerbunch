@@ -6,67 +6,79 @@
 }
 
 <div class="block gutter">
-	<h1>Running Cashgame</h1>
+    <h1>Running Cashgame</h1>
 </div>
 
 <div class="button-list">
-	@if (Model.ReportButtonEnabled)
-	{
+    @if (Model.ReportButtonEnabled)
+    {
         <a href="@Model.ReportUrl" class="icon-button">
-			<i class="icon-reorder"></i>
-			Report
-		</a>
-	}
+            <i class="icon-reorder"></i>
+            Report
+        </a>
+    }
 
-	@if (Model.BuyinButtonEnabled)
-	{
-	    <a href="@Model.BuyinUrl" class="icon-button">
-			<i class="icon-money"></i>
-			Buy In
-		</a>
-	}
+    @if (Model.BuyinButtonEnabled)
+    {
+        <a href="@Model.BuyinUrl" class="icon-button">
+            <i class="icon-money"></i>
+            Buy In
+        </a>
+    }
 
-	@if (Model.CashoutButtonEnabled)
-	{
+    @if (Model.CashoutButtonEnabled)
+    {
         <a href="@Model.CashoutUrl" class="icon-button">
-			<i class="icon-signout"></i>
-			Cash Out
-		</a>
-	}
-	
-	@if (@Model.EndGameButtonEnabled)
-	{
-	    <a href="@Model.EndGameUrl" class="icon-button">
-			<i class="icon-signout"></i>
-			End Game
-		</a>
-	}
+            <i class="icon-signout"></i>
+            Cash Out
+        </a>
+    }
+
+    @if (@Model.EndGameButtonEnabled)
+    {
+        <a href="@Model.EndGameUrl" class="icon-button">
+            <i class="icon-signout"></i>
+            End Game
+        </a>
+    }
 </div>
 
 <div class="block gutter">
-	@if (Model.ShowTable)
-	{
+    @if (Model.ShowTable)
+    {
         if (Model.RunningCashgameTableModel != null)
         {
             @Html.Partial("RunningCashgame/StatusTable", Model.RunningCashgameTableModel)
         }
+    }
+    else
+    {
+        @:No one has joined the game yet.
 	}
-	else
-	{
-	    @:No one has joined the game yet.
-	}
-    
-    
+
+    <div data-require="running-cashgame" data-bind="template: { name: 'running-cashgame-template' }"></div>
+
+    @if (Model.ShowChart)
+    {
+        <div data-require="cashgame-game-chart">
+            <script type="application/json">
+                @Html.Raw(Model.ChartJson)
+            </script>
+        </div>
+    }
+</div>
+
+<script type="text/html" id="running-cashgame-template">
     <div class="standings" data-require="running-cashgame">
         <div>
             <div class="standings-item" data-bind="foreach: players">
                 <div class="name">
                     <a href="#PlayerUrl" data-bind="text: name"></a>
-                    <i title="Cashed out" class="icon-ok-sign"></i>
+                    <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
                 </div>
                 <div class="amounts">
-                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: buyin"></span></div>
-                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: stack"></span></div>
+                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
+                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
                     <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
                 </div>
                 <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
@@ -77,37 +89,26 @@
                 </div>
             </div>
         </div>
-
         <div class="totals">
             <div class="title">Totals: </div>
             <div class="amounts">
-                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: totalBuyin"></span></div>
-                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: totalStacks"></span></div>
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
             </div>
         </div>
-
     </div>
-		
-    @if (Model.ShowChart)
-	{
-	    <div data-require="cashgame-game-chart">
-            <script type="application/json">
-                @Html.Raw(Model.ChartJson)
-            </script>
-	    </div>
-	}
-</div>
+</script>
 
 @section Aside2{
     <div class="block gutter">
-		<dl class="value-list">
-			@if (Model.ShowStartTime)
-			{
-				<dt class="label">Start Time</dt>
-				<dd>@Model.StartTime</dd>
-			}
-			<dt class="label">Location</dt>
-			<dd>@Model.Location</dd>
-		</dl>
-	</div>
+        <dl class="value-list">
+            @if (Model.ShowStartTime)
+            {
+                <dt class="label">Start Time</dt>
+                <dd>@Model.StartTime</dd>
+            }
+            <dt class="label">Location</dt>
+            <dd>@Model.Location</dd>
+        </dl>
+    </div>
 }

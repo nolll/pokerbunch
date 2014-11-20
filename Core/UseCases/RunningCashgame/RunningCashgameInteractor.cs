@@ -51,6 +51,7 @@ namespace Core.UseCases.RunningCashgame
             var showChart = cashgame.IsStarted;
 
             var items = GetItems(bunch, cashgame, players, isManager, now);
+            var playerItems = GetPlayerItems(cashgame, players);
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
 
@@ -70,6 +71,7 @@ namespace Core.UseCases.RunningCashgame
                 showTable,
                 showChart,
                 items,
+                playerItems,
                 totalBuyin,
                 totalStacks);
         }
@@ -127,6 +129,22 @@ namespace Core.UseCases.RunningCashgame
                     hasCashedOut,
                     isManager);
 
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        private static IList<RunningCashgamePlayerItem> GetPlayerItems(Cashgame cashgame, IList<Player> players)
+        {
+            var results = GetSortedResults(cashgame);
+            var items = new List<RunningCashgamePlayerItem>();
+            foreach (var result in results)
+            {
+                var playerId = result.PlayerId;
+                var player = players.First(o => o.Id == playerId);
+                var hasCheckedOut = result.CashoutCheckpoint != null;
+                var item = new RunningCashgamePlayerItem(player.DisplayName, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 

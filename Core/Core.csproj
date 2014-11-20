@@ -343,6 +343,7 @@
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameRequest.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameResult.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgamePlayerItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameTableItem.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
