@@ -38,7 +38,7 @@ namespace Core.UseCases.RunningCashgame
             
             var location = cashgame.Location;
             var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
-            var reportUrl = new CashgameReportUrl(bunch.Slug, player.Id);
+            var reportUrl = new CashgameReportUrl(bunch.Slug);
             var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
             var endGameUrl = new EndCashgameUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
@@ -56,6 +56,7 @@ namespace Core.UseCases.RunningCashgame
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
 
             return new RunningCashgameResult(
+                player.Id,
                 location,
                 buyinUrl,
                 reportUrl,
@@ -108,7 +109,7 @@ namespace Core.UseCases.RunningCashgame
                 var name = player.DisplayName;
                 var playerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
                 var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
-                var reportUrl = new CashgameReportUrl(bunch.Slug, player.Id);
+                var reportUrl = new CashgameReportUrl(bunch.Slug);
                 var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
@@ -144,7 +145,7 @@ namespace Core.UseCases.RunningCashgame
                 var playerId = result.PlayerId;
                 var player = players.First(o => o.Id == playerId);
                 var hasCheckedOut = result.CashoutCheckpoint != null;
-                var item = new RunningCashgamePlayerItem(player.DisplayName, hasCheckedOut, result.Checkpoints);
+                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 

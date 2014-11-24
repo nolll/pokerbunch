@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AddPlayerController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Base\JsonResult.cs" />
     <Compile Include="Controllers\Base\PokerBunchController.cs" />
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\BunchDetailsController.cs" />

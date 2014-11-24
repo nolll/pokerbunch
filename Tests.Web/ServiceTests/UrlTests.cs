@@ -203,11 +203,10 @@ namespace Tests.Web.ServiceTests
         public void CashgameReportUrlModel_ReturnsCorrectUrl()
         {
             const string slug = "a";
-            const int playerId = 1;
 
-            var result = new CashgameReportUrl(slug, playerId);
+            var result = new CashgameReportUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/report/1", result.Relative);
+            Assert.AreEqual("/a/cashgame/report", result.Relative);
         }
 
         [Test]

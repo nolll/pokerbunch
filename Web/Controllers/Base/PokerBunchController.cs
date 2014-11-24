@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text;
 using System.Web.Mvc;
 using Antlr.Runtime.Misc;
 using Core.Exceptions;
@@ -82,6 +81,11 @@ namespace Web.Controllers.Base
         private ActionResult ShowError(ErrorPageModel model)
         {
             return View("~/Views/Error/Error.cshtml", model);
+        }
+
+        protected ActionResult JsonView(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.AllowGet)
+        {
+            return new JsonResult(data, jsonRequestBehavior);
         }
     }
 }

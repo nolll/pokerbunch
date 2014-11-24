@@ -240,8 +240,7 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameReport()
         {
-            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameReportController>(x => x.Report("a", 1));
-            _routes.ShouldMap("/a/cashgame/report/1").To<CashgameReportController>(HttpMethod.Post, x => x.Report_Post("a", 1, new ReportPostModel()));
+            _routes.ShouldMap("/a/cashgame/report").To<CashgameReportController>(HttpMethod.Post, x => x.Report_Post("a", new ReportPostModel()));
         }
 
         [Test]
