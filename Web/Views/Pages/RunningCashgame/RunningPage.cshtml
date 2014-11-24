@@ -45,7 +45,7 @@
         <div data-bind="visible: reportFormVisible">
             <div>
                 <label class="label" for="StackAmount">Stack Size</label>
-                <input class="numberfield" data-bind="value: reportStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+                <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
             </div>
             <div class="buttons">
                 <button data-bind="click: report" class="action">Report Stack</button>
@@ -55,10 +55,11 @@
         <div data-bind="visible: buyInFormVisible">
             <p>
                 <label class="label" for="BuyinAmount">Amount</label>
-                <input class="numberfield" data-require="focus-text-selector" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
+                <input class="numberfield" data-bind="value: buyInAmount" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
             </p>
             <p>
-                <label class="label" for="StackAmount">Stack Size</label><input class="numberfield" data-require="focus-text-selector" data-val="true" data-val-number="The field StackAmount must be a number." data-val-required="The StackAmount field is required." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="True" type="text" value="0">
+                <label class="label" for="StackAmount">Stack Size</label>
+                <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field StackAmount must be a number." data-val-required="The StackAmount field is required." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="True" type="text" value="0">
             </p>
             <div class="buttons">
                 <button data-bind="click: buyIn" class="action">Buy In</button>
@@ -68,7 +69,7 @@
         <div data-bind="visible: cashOutFormVisible">
             <div>
                 <label class="label" for="StackAmount">Stack Size</label>
-                <input class="numberfield" data-require="focus-text-selector" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+                <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
             </div>
             <div class="buttons">
                 <button data-bind="click: cashOut" class="action">Cash Out</button>

@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Cashout
             : base("Cash Out", contextResult)
         {
             if (postModel == null) return;
-            StackAmount = postModel.StackAmount;
+            StackAmount = postModel.Stack;
         }
     }
 }

@@ -233,8 +233,7 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameBuyin()
         {
-            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameBuyinController>(x => x.Buyin("a", 1));
-            _routes.ShouldMap("/a/cashgame/buyin/1").To<CashgameBuyinController>(HttpMethod.Post, x => x.Buyin_Post("a", 1, new BuyinPostModel()));
+            _routes.ShouldMap("/a/cashgame/buyin").To<CashgameBuyinController>(HttpMethod.Post, x => x.Buyin_Post("a", new BuyinPostModel()));
         }
 
         [Test]
@@ -246,15 +245,13 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameCashout()
         {
-            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameCashoutController>(x => x.Cashout("a", 1));
-            _routes.ShouldMap("/a/cashgame/cashout/1").To<CashgameCashoutController>(HttpMethod.Post, x => x.Cashout_Post("a", 1, new CashoutPostModel()));
+            _routes.ShouldMap("/a/cashgame/cashout").To<CashgameCashoutController>(HttpMethod.Post, x => x.Cashout_Post("a", new CashoutPostModel()));
         }
 
         [Test]
         public void CashgameEnd()
         {
-            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(x => x.End("a"));
-            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(HttpMethod.Post, x => x.Post("a", new EndGamePostModel()));
+            _routes.ShouldMap("/a/cashgame/end").To<EndCashgameController>(HttpMethod.Post, x => x.Post("a"));
         }
 
         [Test]

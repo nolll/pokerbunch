@@ -37,9 +37,9 @@ namespace Core.UseCases.RunningCashgame
             var now = timeProvider.UtcNow;
             
             var location = cashgame.Location;
-            var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
+            var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
             var reportUrl = new CashgameReportUrl(bunch.Slug);
-            var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
+            var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
             var endGameUrl = new EndCashgameUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
@@ -54,6 +54,8 @@ namespace Core.UseCases.RunningCashgame
             var playerItems = GetPlayerItems(cashgame, players);
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
+
+            var defaultBuyin = bunch.DefaultBuyin;
 
             return new RunningCashgameResult(
                 player.Id,
@@ -74,7 +76,8 @@ namespace Core.UseCases.RunningCashgame
                 items,
                 playerItems,
                 totalBuyin,
-                totalStacks);
+                totalStacks,
+                defaultBuyin);
         }
 
         private static IList<int> GetPlayerIds(Cashgame cashgame)
@@ -108,9 +111,9 @@ namespace Core.UseCases.RunningCashgame
 
                 var name = player.DisplayName;
                 var playerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
-                var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
+                var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
                 var reportUrl = new CashgameReportUrl(bunch.Slug);
-                var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
+                var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
                 var winnings = new Money(result.Winnings, bunch.Currency);

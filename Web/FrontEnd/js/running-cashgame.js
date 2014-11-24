@@ -25,28 +25,74 @@ define(["jquery", "knockout", "moment"],
             me.players = getPlayers(data);
             me.playerId = data.playerId;
             me.reportUrl = data.reportUrl;
+            me.buyInUrl = data.buyinUrl;
+            me.cashOutUrl = data.cashoutUrl;
+            me.defaultBuyIn = data.defaultBuyin;
             me.hasPlayers = me.players.length > 0;
             me.noPlayers = !me.hasPlayers;
             me.canReport = ko.observable(true);
             me.canBuyIn = ko.observable(true);
             me.canCashOut = ko.observable(true);
-            me.canEndGame = ko.observable(false);
             me.areButtonsVisible = ko.observable(true);
             me.reportFormVisible = ko.observable(false);
             me.buyInFormVisible = ko.observable(false);
             me.cashOutFormVisible = ko.observable(false);
             me.endGameFormVisible = ko.observable(false);
-            me.reportStack = ko.observable(0);
+            me.currentStack = ko.observable(0);
+            me.beforeBuyInStack = ko.observable(0);
+            me.buyInAmount = ko.observable(me.defaultBuyIn);
 
             this.report = function () {
-                var reportUrl = "/pokerpoker/cashgame/report";
-                var reportData = { playerId: this.playerId, stack: parseInt(me.reportStack()) };
-                postData(reportUrl, reportData);
-                this.addCheckpoint(this.playerId, reportData.stack, 0);
+                var reportData = { playerId: this.playerId, stack: parseInt(me.currentStack()) };
+                var player = this.getPlayer(this.playerId);
+                player.addCheckpoint(reportData.stack, 0);
                 this.hideForms();
+                postData(this.reportUrl, reportData);
             };
 
-            this.addCheckpoint = function(playerId, stack, addedMoney) {
+            this.buyIn = function () {
+                var buyInData = { playerId: this.playerId, stack: parseInt(me.beforeBuyInStack()), addedMoney: parseInt(me.buyInAmount()) };
+                var player = this.getPlayer(this.playerId);
+                player.addCheckpoint(buyInData.stack, buyInData.addedMoney);
+                this.hideForms();
+                postData(this.buyInUrl, buyInData);
+            };
+
+            this.cashOut = function () {
+                var cashOutData = { playerId: this.playerId, stack: parseInt(me.currentStack()) };
+                var player = this.getPlayer(this.playerId);
+                player.addCheckpoint(cashOutData.stack, 0);
+                player.hasCashedOut(true);
+                this.hideForms();
+                postData(this.cashOutUrl, cashOutData);
+            };
+
+            this.endGame = function () {
+                this.hideForms();
+                postData(this.endGameUrl);
+            };
+
+            this.canEndGame = ko.computed(function () {
+                var i;
+                for (i = 0; i < this.players.length; i++) {
+                    if (!this.players[i].hasCashedOut) {
+                        return false;
+                    }
+                }
+                return true;
+            }, this);
+
+            this.getPlayer = function (playerId) {
+                var i;
+                for (i = 0; i < this.players.length; i++) {
+                    if (this.players[i].id == playerId) {
+                        return this.players[i];
+                    }
+                }
+                return null;
+            }
+
+            this.addCheckpoint = function (playerId, stack, addedMoney) {
                 var i;
                 for (i = 0; i < this.players.length; i++) {
                     if (this.players[i].id == playerId) {
@@ -54,18 +100,6 @@ define(["jquery", "knockout", "moment"],
                     }
                 }
             }
-
-            this.buyIn = function () {
-                alert("buy in");
-            };
-
-            this.cashOut = function () {
-                alert("cash out");
-            };
-
-            this.endGame = function () {
-                alert("end game");
-            };
 
             this.showReportForm = function () {
                 this.reportFormVisible(true);
@@ -146,7 +180,8 @@ define(["jquery", "knockout", "moment"],
             me.hasCashedOut = ko.observable(hasCashedOut);
             me.checkpoints = ko.observableArray(checkpoints);
 
-            this.addCheckpoint = function(checkpoint) {
+            this.addCheckpoint = function (stack, addedMoney) {
+                var checkpoint = { time: moment().utc(), stack: stack, addedMoney: addedMoney };
                 this.checkpoints.push(checkpoint);
             }
 
