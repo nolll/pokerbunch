@@ -59,6 +59,7 @@ namespace Core.UseCases.RunningCashgame
 
             return new RunningCashgameResult(
                 player.Id,
+                player.DisplayName,
                 location,
                 buyinUrl,
                 reportUrl,

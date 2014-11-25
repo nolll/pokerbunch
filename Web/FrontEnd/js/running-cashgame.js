@@ -21,12 +21,14 @@ define(["jquery", "knockout", "moment"],
 
         function StandingsViewModel(data) {
             var me = this;
-            
-            me.players = getPlayers(data);
+
+            me.players = ko.observableArray(createPlayers(data));
             me.playerId = data.playerId;
+            me.playerName = data.playerName;
             me.reportUrl = data.reportUrl;
             me.buyInUrl = data.buyinUrl;
             me.cashOutUrl = data.cashoutUrl;
+            me.endGameUrl = data.endGameUrl;
             me.defaultBuyIn = data.defaultBuyin;
             me.hasPlayers = me.players.length > 0;
             me.noPlayers = !me.hasPlayers;
@@ -42,122 +44,143 @@ define(["jquery", "knockout", "moment"],
             me.beforeBuyInStack = ko.observable(0);
             me.buyInAmount = ko.observable(me.defaultBuyIn);
 
-            this.report = function () {
-                var reportData = { playerId: this.playerId, stack: parseInt(me.currentStack()) };
-                var player = this.getPlayer(this.playerId);
+            me.report = function () {
+                var reportData = { playerId: me.playerId, stack: parseInt(me.currentStack()) };
+                var player = me.getPlayer(me.playerId);
                 player.addCheckpoint(reportData.stack, 0);
-                this.hideForms();
-                postData(this.reportUrl, reportData);
+                me.hideForms();
+                postData(me.reportUrl, reportData);
             };
 
-            this.buyIn = function () {
-                var buyInData = { playerId: this.playerId, stack: parseInt(me.beforeBuyInStack()), addedMoney: parseInt(me.buyInAmount()) };
-                var player = this.getPlayer(this.playerId);
+            me.buyIn = function () {
+                var buyInData = { playerId: me.playerId, stack: parseInt(me.beforeBuyInStack()), addedMoney: parseInt(me.buyInAmount()) };
+                var player = me.getPlayer(me.playerId);
+                if (player === null) {
+                    player = new PlayerViewModel(me.playerId, me.playerName, false, []);
+                    me.players.push(player);
+                }
                 player.addCheckpoint(buyInData.stack, buyInData.addedMoney);
-                this.hideForms();
-                postData(this.buyInUrl, buyInData);
+                me.hideForms();
+                postData(me.buyInUrl, buyInData);
             };
 
-            this.cashOut = function () {
-                var cashOutData = { playerId: this.playerId, stack: parseInt(me.currentStack()) };
-                var player = this.getPlayer(this.playerId);
+            me.cashOut = function () {
+                var cashOutData = { playerId: me.playerId, stack: parseInt(me.currentStack()) };
+                var player = me.getPlayer(me.playerId);
                 player.addCheckpoint(cashOutData.stack, 0);
                 player.hasCashedOut(true);
-                this.hideForms();
-                postData(this.cashOutUrl, cashOutData);
+                me.hideForms();
+                postData(me.cashOutUrl, cashOutData);
             };
 
-            this.endGame = function () {
-                this.hideForms();
-                postData(this.endGameUrl);
+            me.endGame = function () {
+                me.hideForms();
+                postData(me.endGameUrl);
             };
 
-            this.canEndGame = ko.computed(function () {
+            me.getPlayer = function (playerId) {
                 var i;
-                for (i = 0; i < this.players.length; i++) {
-                    if (!this.players[i].hasCashedOut) {
-                        return false;
-                    }
-                }
-                return true;
-            }, this);
-
-            this.getPlayer = function (playerId) {
-                var i;
-                for (i = 0; i < this.players.length; i++) {
-                    if (this.players[i].id == playerId) {
-                        return this.players[i];
+                for (i = 0; i < me.players.length; i++) {
+                    if (me.players[i].id == playerId) {
+                        return me.players[i];
                     }
                 }
                 return null;
             }
 
-            this.addCheckpoint = function (playerId, stack, addedMoney) {
+            me.isInGame = ko.computed(function () {
+                return me.getPlayer(me.playerId) !== null;
+            });
+
+            me.canCashOut = ko.computed(function () {
+                return me.isInGame();
+            });
+
+            me.canEndGame = ko.computed(function () {
+                //var i;
+                //for (i = 0; i < me.players.length; i++) {
+                //    if (!me.players[i].hasCashedOut) {
+                //        return false;
+                //    }
+                //}
+                //return true;
+                return false;
+            });
+
+            me.canReport = ko.computed(function () {
+                return me.isInGame() && !me.canEndGame();
+            });
+
+            me.canBuyIn = ko.computed(function () {
+                return !me.canEndGame();
+            });
+
+            me.addCheckpoint = function (playerId, stack, addedMoney) {
                 var i;
-                for (i = 0; i < this.players.length; i++) {
-                    if (this.players[i].id == playerId) {
-                        this.players[i].addCheckpoint({ time: moment().utc(), stack: stack, addedMoney: addedMoney });
+                for (i = 0; i < me.players.length; i++) {
+                    if (me.players[i].id == playerId) {
+                        me.players[i].addCheckpoint({ time: moment().utc(), stack: stack, addedMoney: addedMoney });
                     }
                 }
             }
 
-            this.showReportForm = function () {
-                this.reportFormVisible(true);
-                this.hideButtons();
+            me.showReportForm = function () {
+                me.reportFormVisible(true);
+                me.hideButtons();
             };
 
-            this.showBuyInForm = function () {
-                this.buyInFormVisible(true);
-                this.hideButtons();
+            me.showBuyInForm = function () {
+                me.buyInFormVisible(true);
+                me.hideButtons();
             };
 
-            this.showCashOutForm = function () {
-                this.cashOutFormVisible(true);
-                this.hideButtons();
+            me.showCashOutForm = function () {
+                me.cashOutFormVisible(true);
+                me.hideButtons();
             };
 
-            this.showEndGameForm = function () {
-                this.endGameFormVisible(true);
-                this.hideButtons();
+            me.showEndGameForm = function () {
+                me.endGameFormVisible(true);
+                me.hideButtons();
             };
 
-            this.hideButtons = function() {
-                this.areButtonsVisible(false);
+            me.hideButtons = function() {
+                me.areButtonsVisible(false);
             }
 
-            this.hideForms = function() {
-                this.reportFormVisible(false);
-                this.buyInFormVisible(false);
-                this.cashOutFormVisible(false);
-                this.endGameFormVisible(false);
-                this.areButtonsVisible(true);
+            me.hideForms = function() {
+                me.reportFormVisible(false);
+                me.buyInFormVisible(false);
+                me.cashOutFormVisible(false);
+                me.endGameFormVisible(false);
+                me.areButtonsVisible(true);
             };
 
-            this.totalBuyin = ko.computed(function () {
+            me.totalBuyin = ko.computed(function () {
                 var sum = 0;
                 for (var i = 0; i < me.players.length; i++) {
                     sum += me.players[i].buyin();
                 }
                 return sum;
-            }, this);
+            });
 
-            this.formattedTotalBuyin = ko.computed(function () {
+            me.formattedTotalBuyin = ko.computed(function () {
                 return formatCurrency(me.totalBuyin());
-            }, this);
+            });
 
-            this.totalStacks = ko.computed(function () {
+            me.totalStacks = ko.computed(function () {
                 var sum = 0;
                 for (var i = 0; i < me.players.length; i++) {
                     sum += me.players[i].stack();
                 }
                 return sum;
-            }, this);
+            });
 
-            this.formattedTotalStacks = ko.computed(function () {
+            me.formattedTotalStacks = ko.computed(function () {
                 return formatCurrency(me.totalStacks());
-            }, this);
+            });
 
-            function getPlayers(loadedData) {
+            function createPlayers(loadedData) {
                 var i, j, player, players, checkpoint, checkpoints;
                 players = [];
                 for (i = 0; i < loadedData.players.length; i++) {
@@ -167,7 +190,7 @@ define(["jquery", "knockout", "moment"],
                         checkpoint = player.checkpoints[j];
                         checkpoints[checkpoints.length] = new CheckpointViewModel(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney);
                     }
-                    players[i] = new PlayerViewModel(player.id, player.name, player.hasCashedOut, checkpoints);;
+                    players.push(new PlayerViewModel(player.id, player.name, player.hasCashedOut, checkpoints));
                 }
                 return players;
             }
@@ -180,49 +203,55 @@ define(["jquery", "knockout", "moment"],
             me.hasCashedOut = ko.observable(hasCashedOut);
             me.checkpoints = ko.observableArray(checkpoints);
 
-            this.addCheckpoint = function (stack, addedMoney) {
+            me.addCheckpoint = function (stack, addedMoney) {
                 var checkpoint = { time: moment().utc(), stack: stack, addedMoney: addedMoney };
-                this.checkpoints.push(checkpoint);
+                me.checkpoints.push(checkpoint);
             }
 
-            this.lastReportTime = ko.computed(function () {
+            me.lastReportTime = ko.computed(function () {
+                if (checkpoints.length === 0)
+                    return moment().fromNow();
                 return me.checkpoints()[me.checkpoints().length - 1].time.fromNow();
-            }, this);
+            });
 
-            this.buyin = ko.computed(function () {
+            me.buyin = ko.computed(function () {
+                if (checkpoints.length === 0)
+                    return 0;
                 var sum = 0;
                 for (var i = 0; i < me.checkpoints().length; i++) {
                     sum += me.checkpoints()[i].addedMoney;
                 }
                 return sum;
-            }, this);
+            });
 
-            this.formattedBuyin = ko.computed(function () {
+            me.formattedBuyin = ko.computed(function () {
                 return formatCurrency(me.buyin());
-            }, this);
+            });
 
-            this.stack = ko.computed(function () {
+            me.stack = ko.computed(function () {
+                if (checkpoints.length === 0)
+                    return 0;
                 return me.checkpoints()[me.checkpoints().length - 1].stack;
-            }, this);
+            });
 
-            this.formattedStack = ko.computed(function () {
+            me.formattedStack = ko.computed(function () {
                 return formatCurrency(me.stack());
-            }, this);
+            });
 
-            this.winnings = ko.computed(function () {
+            me.winnings = ko.computed(function () {
                 return me.stack() - me.buyin();
-            }, this);
+            });
 
-            this.formattedWinnings = ko.computed(function () {
+            me.formattedWinnings = ko.computed(function () {
                 return formatResult(me.winnings());
-            }, this);
+            });
 
-            this.winningsCssClass = ko.computed(function () {
+            me.winningsCssClass = ko.computed(function () {
                 var winnings = me.winnings();
                 if (winnings === 0)
                     return "";
                 return winnings > 0 ? "pos-result" : "neg-result";
-            }, this);
+            });
         }
 
         function CheckpointViewModel(time, stack, addedMoney) {

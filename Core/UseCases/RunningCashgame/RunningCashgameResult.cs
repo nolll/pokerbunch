@@ -7,6 +7,7 @@ namespace Core.UseCases.RunningCashgame
     public class RunningCashgameResult
     {
         public int PlayerId { get; private set; }
+        public string PlayerName { get; private set; }
         public string Location { get; private set; }
         public Url BuyinUrl { get; private set; }
         public Url ReportUrl { get; private set; }
@@ -27,9 +28,10 @@ namespace Core.UseCases.RunningCashgame
         public Money TotalStacks { get; private set; }
         public int DefaultBuyin { get; private set; }
 
-        public RunningCashgameResult(int playerId, string location, Url buyinUrl, Url reportUrl, Url cashoutUrl, Url endGameUrl, bool showStartTime, string startTime, bool isStarted, bool buyinButtonEnabled, bool reportButtonEnabled, bool cashoutButtonEnabled, bool endGameButtonEnabled, bool showTable, bool showChart, IList<RunningCashgameTableItem> items, IList<RunningCashgamePlayerItem> playerItems, Money totalBuyin, Money totalStacks, int defaultBuyin)
+        public RunningCashgameResult(int playerId, string playerName, string location, Url buyinUrl, Url reportUrl, Url cashoutUrl, Url endGameUrl, bool showStartTime, string startTime, bool isStarted, bool buyinButtonEnabled, bool reportButtonEnabled, bool cashoutButtonEnabled, bool endGameButtonEnabled, bool showTable, bool showChart, IList<RunningCashgameTableItem> items, IList<RunningCashgamePlayerItem> playerItems, Money totalBuyin, Money totalStacks, int defaultBuyin)
         {
             PlayerId = playerId;
+            PlayerName = playerName;
             Location = location;
             BuyinUrl = buyinUrl;
             ReportUrl = reportUrl;
