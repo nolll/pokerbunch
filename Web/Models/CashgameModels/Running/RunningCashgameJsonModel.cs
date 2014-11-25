@@ -26,8 +26,11 @@ namespace Web.Models.CashgameModels.Running
         public string EndGameUrl { get; private set; }
 
         [UsedImplicitly]
+        public string CashgameIndexUrl { get; private set; }
+
+        [UsedImplicitly]
         public int DefaultBuyin { get; private set; }
-        
+
         [UsedImplicitly]
 	    public List<RunningCashgamePlayerJsonModel> Players { get; private set; }
         
@@ -38,8 +41,9 @@ namespace Web.Models.CashgameModels.Running
             ReportUrl = result.ReportUrl.Relative;
             BuyinUrl = result.BuyinUrl.Relative;
             CashoutUrl = result.CashoutUrl.Relative;
-            DefaultBuyin = result.DefaultBuyin;
             EndGameUrl = result.EndGameUrl.Relative;
+            CashgameIndexUrl = result.CashgameIndexUrl.Relative;
+            DefaultBuyin = result.DefaultBuyin;
             Players = result.PlayerItems.Select(o => new RunningCashgamePlayerJsonModel(o)).ToList();
         }
     }

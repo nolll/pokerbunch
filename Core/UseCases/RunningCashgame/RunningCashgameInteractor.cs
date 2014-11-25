@@ -41,6 +41,7 @@ namespace Core.UseCases.RunningCashgame
             var reportUrl = new CashgameReportUrl(bunch.Slug);
             var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
             var endGameUrl = new EndCashgameUrl(bunch.Slug);
+            var cashgameIndexUrl = new CashgameIndexUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
             var buyinButtonEnabled = canReport;
@@ -65,6 +66,7 @@ namespace Core.UseCases.RunningCashgame
                 reportUrl,
                 cashoutUrl,
                 endGameUrl,
+                cashgameIndexUrl,
                 showStartTime,
                 startTime,
                 isStarted,

@@ -29,9 +29,8 @@ define(["jquery", "knockout", "moment"],
             me.buyInUrl = data.buyinUrl;
             me.cashOutUrl = data.cashoutUrl;
             me.endGameUrl = data.endGameUrl;
+            me.cashgameIndexUrl = data.cashgameIndexUrl;
             me.defaultBuyIn = data.defaultBuyin;
-            me.hasPlayers = me.players().length > 0;
-            me.noPlayers = !me.hasPlayers;
             me.areButtonsVisible = ko.observable(true);
             me.reportFormVisible = ko.observable(false);
             me.buyInFormVisible = ko.observable(false);
@@ -40,6 +39,12 @@ define(["jquery", "knockout", "moment"],
             me.currentStack = ko.observable(0);
             me.beforeBuyInStack = ko.observable(0);
             me.buyInAmount = ko.observable(me.defaultBuyIn);
+
+            me.sortedPlayers = ko.computed(function () {
+                return me.players().sort(function (left, right) {
+                    return left.winnings() - right.winnings();
+                });
+            });
 
             me.report = function () {
                 var reportData = { playerId: me.playerId, stack: parseInt(me.currentStack()) };
@@ -52,12 +57,13 @@ define(["jquery", "knockout", "moment"],
             me.buyIn = function () {
                 var buyInData = { playerId: me.playerId, stack: parseInt(me.beforeBuyInStack()), addedMoney: parseInt(me.buyInAmount()) };
                 var player = me.getPlayer(me.playerId);
-                if (player === null) {
+                if (!player) {
                     player = new PlayerViewModel(me.playerId, me.playerName, false, []);
-                    me.players().push(player);
+                    me.players.push(player);
                 }
                 player.addCheckpoint(buyInData.stack, buyInData.addedMoney);
                 me.hideForms();
+                me.currentStack(me.defaultBuyIn);
                 postData(me.buyInUrl, buyInData);
             };
 
@@ -71,8 +77,8 @@ define(["jquery", "knockout", "moment"],
             };
 
             me.endGame = function () {
-                me.hideForms();
                 postData(me.endGameUrl);
+                location.href = me.cashgameIndexUrl;
             };
 
             me.getPlayer = function (playerId) {
@@ -85,6 +91,14 @@ define(["jquery", "knockout", "moment"],
                 return null;
             }
 
+            me.hasPlayers = ko.computed(function () {
+                return me.players().length > 0;
+            });
+
+            me.noPlayers = ko.computed(function () {
+                return !me.hasPlayers();
+            });
+
             me.isInGame = ko.computed(function () {
                 return me.getPlayer(me.playerId) !== null;
             });
@@ -94,14 +108,15 @@ define(["jquery", "knockout", "moment"],
             });
 
             me.canEndGame = ko.computed(function () {
-                //var i;
-                //for (i = 0; i < me.players().length; i++) {
-                //    if (!me.players()[i].hasCashedOut) {
-                //        return false;
-                //    }
-                //}
-                //return true;
-                return false;
+                var i;
+                if (me.players().length === 0)
+                    return false;
+                for (i = 0; i < me.players().length; i++) {
+                    if (!me.players()[i].hasCashedOut()) {
+                        return false;
+                    }
+                }
+                return true;
             });
 
             me.canReport = ko.computed(function () {
@@ -185,7 +200,7 @@ define(["jquery", "knockout", "moment"],
                     checkpoints = [];
                     for (j = 0; j < player.checkpoints.length; j++) {
                         checkpoint = player.checkpoints[j];
-                        checkpoints[checkpoints.length] = new CheckpointViewModel(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney);
+                        checkpoints.push(new CheckpointViewModel(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney));
                     }
                     players.push(new PlayerViewModel(player.id, player.name, player.hasCashedOut, checkpoints));
                 }
@@ -206,13 +221,13 @@ define(["jquery", "knockout", "moment"],
             }
 
             me.lastReportTime = ko.computed(function () {
-                if (checkpoints.length === 0)
+                if (me.checkpoints().length === 0)
                     return moment().fromNow();
                 return me.checkpoints()[me.checkpoints().length - 1].time.fromNow();
             });
 
             me.buyin = ko.computed(function () {
-                if (checkpoints.length === 0)
+                if (me.checkpoints().length === 0)
                     return 0;
                 var sum = 0;
                 for (var i = 0; i < me.checkpoints().length; i++) {
@@ -226,7 +241,7 @@ define(["jquery", "knockout", "moment"],
             });
 
             me.stack = ko.computed(function () {
-                if (checkpoints.length === 0)
+                if (me.checkpoints().length === 0)
                     return 0;
                 return me.checkpoints()[me.checkpoints().length - 1].stack;
             });

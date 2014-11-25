@@ -13,6 +13,7 @@ namespace Core.UseCases.RunningCashgame
         public Url ReportUrl { get; private set; }
         public Url CashoutUrl { get; private set; }
         public Url EndGameUrl { get; private set; }
+        public Url CashgameIndexUrl { get; set; }
         public bool ShowStartTime { get; private set; }
         public string StartTime { get; private set; }
         public bool IsStarted { get; private set; }
@@ -28,7 +29,7 @@ namespace Core.UseCases.RunningCashgame
         public Money TotalStacks { get; private set; }
         public int DefaultBuyin { get; private set; }
 
-        public RunningCashgameResult(int playerId, string playerName, string location, Url buyinUrl, Url reportUrl, Url cashoutUrl, Url endGameUrl, bool showStartTime, string startTime, bool isStarted, bool buyinButtonEnabled, bool reportButtonEnabled, bool cashoutButtonEnabled, bool endGameButtonEnabled, bool showTable, bool showChart, IList<RunningCashgameTableItem> items, IList<RunningCashgamePlayerItem> playerItems, Money totalBuyin, Money totalStacks, int defaultBuyin)
+        public RunningCashgameResult(int playerId, string playerName, string location, Url buyinUrl, Url reportUrl, Url cashoutUrl, Url endGameUrl, Url cashgameIndexUrl, bool showStartTime, string startTime, bool isStarted, bool buyinButtonEnabled, bool reportButtonEnabled, bool cashoutButtonEnabled, bool endGameButtonEnabled, bool showTable, bool showChart, IList<RunningCashgameTableItem> items, IList<RunningCashgamePlayerItem> playerItems, Money totalBuyin, Money totalStacks, int defaultBuyin)
         {
             PlayerId = playerId;
             PlayerName = playerName;
@@ -37,6 +38,7 @@ namespace Core.UseCases.RunningCashgame
             ReportUrl = reportUrl;
             CashoutUrl = cashoutUrl;
             EndGameUrl = endGameUrl;
+            CashgameIndexUrl = cashgameIndexUrl;
             ShowStartTime = showStartTime;
             StartTime = startTime;
             IsStarted = isStarted;
