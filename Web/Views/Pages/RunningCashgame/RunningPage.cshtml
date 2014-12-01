@@ -2,131 +2,129 @@
 @model Web.Models.CashgameModels.Running.RunningCashgamePageModel
 
 @{
-    Layout = PageLayout.TwoColumns;
+    Layout = PageLayout.OneColumn;
 }
-
-<div class="block gutter">
-    <h1>Running Cashgame</h1>
-</div>
 
 <div data-require="running-cashgame" data-bind="template: { name: 'running-cashgame-template' }"></div>
 
-<div class="block gutter">
-    @if (Model.ShowChart)
-    {
-        <div data-require="cashgame-game-chart">
-            <script type="application/json">
-                @Html.Raw(Model.ChartJson)
-            </script>
-        </div>
-    }
-</div>
-
 <script type="text/html" id="running-cashgame-template">
-    <div class="button-list" data-bind="visible: areButtonsVisible">
-        <a href="@Model.ReportUrl" class="icon-button" data-bind="visible: canReport, click: showReportForm">
-            <i class="icon-reorder"></i>
-            Report
-        </a>
-        <a href="@Model.BuyinUrl" class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
-            <i class="icon-money"></i>
-            Buy In
-        </a>
-        <a href="@Model.CashoutUrl" class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
-            <i class="icon-signout"></i>
-            Cash Out
-        </a>
-        <a href="@Model.EndGameUrl" class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
-            <i class="icon-signout"></i>
-            End Game
-        </a>
-    </div>
-    <div class="block gutter">
-        <div data-bind="visible: reportFormVisible">
-            <div>
-                <label class="label" for="StackAmount">Stack Size</label>
-                <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
-            </div>
-            <div class="buttons">
-                <button data-bind="click: report" class="action">Report Stack</button>
-                <button data-bind="click: hideForms">Cancel</button>
-            </div>
+    <div class="region width2">
+        <div class="block gutter">
+            <h1>Running Cashgame</h1>
         </div>
-        <div data-bind="visible: buyInFormVisible">
-            <p>
-                <label class="label" for="BuyinAmount">Amount</label>
-                <input class="numberfield" data-bind="value: buyInAmount" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
-            </p>
-            <p data-bind="visible: isInGame">
-                <label class="label" for="StackAmount">Stack Size</label>
-                <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field StackAmount must be a number." data-val-required="The StackAmount field is required." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="True" type="text" value="0">
-            </p>
-            <div class="buttons">
-                <button data-bind="click: buyIn" class="action">Buy In</button>
-                <button data-bind="click: hideForms">Cancel</button>
-            </div>
+
+        <div class="button-list" data-bind="visible: areButtonsVisible">
+            <a href="@Model.ReportUrl" class="icon-button" data-bind="visible: canReport, click: showReportForm">
+                <i class="icon-reorder"></i>
+                Report
+            </a>
+            <a href="@Model.BuyinUrl" class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
+                <i class="icon-money"></i>
+                Buy In
+            </a>
+            <a href="@Model.CashoutUrl" class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
+                <i class="icon-signout"></i>
+                Cash Out
+            </a>
+            <a href="@Model.EndGameUrl" class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
+                <i class="icon-signout"></i>
+                End Game
+            </a>
         </div>
-        <div data-bind="visible: cashOutFormVisible">
-            <div>
-                <label class="label" for="StackAmount">Stack Size</label>
-                <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
-            </div>
-            <div class="buttons">
-                <button data-bind="click: cashOut" class="action">Cash Out</button>
-                <button data-bind="click: hideForms">Cancel</button>
-            </div>
-        </div>
-        <div data-bind="visible: endGameFormVisible">
-            <h2>All done?</h2>
-            <div class="buttons">
-                <button data-bind="click: endGame" class="action">Yes</button>
-                <button data-bind="click: hideForms">Cancel</button>
-            </div>
-        </div>
-    </div>
-    <div class="standings block gutter" data-bind="visible: hasPlayers">
-        <div>
-            <div class="standings-item" data-bind="foreach: sortedPlayers">
-                <div class="name">
-                    <a href="#PlayerUrl" data-bind="text: name"></a>
-                    <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
+        <div class="block gutter">
+            <div data-bind="visible: reportFormVisible">
+                <div>
+                    <label class="label" for="StackAmount">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
+                <div class="buttons">
+                    <button data-bind="click: report" class="action">Report Stack</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div data-bind="visible: buyInFormVisible">
+                <p>
+                    <label class="label" for="BuyinAmount">Amount</label>
+                    <input class="numberfield" data-bind="value: buyInAmount" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
+                </p>
+                <p data-bind="visible: isInGame">
+                    <label class="label" for="StackAmount">Stack Size</label>
+                    <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field StackAmount must be a number." data-val-required="The StackAmount field is required." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="True" type="text" value="0">
+                </p>
+                <div class="buttons">
+                    <button data-bind="click: buyIn" class="action">Buy In</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div data-bind="visible: cashOutFormVisible">
+                <div>
+                    <label class="label" for="StackAmount">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+                </div>
+                <div class="buttons">
+                    <button data-bind="click: cashOut" class="action">Cash Out</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div data-bind="visible: endGameFormVisible">
+                <h2>All done?</h2>
+                <div class="buttons">
+                    <button data-bind="click: endGame" class="action">Yes</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="standings block gutter" data-bind="visible: hasPlayers">
+            <div>
+                <div class="standings-item" data-bind="foreach: sortedPlayers">
+                    <div class="name">
+                        <a href="#PlayerUrl" data-bind="text: name"></a>
+                        <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
+                    </div>
+                    <div class="amounts">
+                        <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
+                        <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
+                        <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
+                    </div>
+                    <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
+                    <div class="controls">
+                        <div class="control"><a href="#ReportUrl"><i title="Report Stack" class="icon-pushpin"></i></a></div>
+                        <div class="control"><a href="#BuyinUrl"><i title="Buy In" class="icon-money"></i></a></div>
+                        <div class="control"><a href="#CashoutUrl"><i title="Cash Out" class="icon-signout"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="totals">
+                <div class="title">Totals: </div>
                 <div class="amounts">
-                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
-                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
-                    <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
-                </div>
-                <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
-                <div class="controls">
-                    <div class="control"><a href="#ReportUrl"><i title="Report Stack" class="icon-pushpin"></i></a></div>
-                    <div class="control"><a href="#BuyinUrl"><i title="Buy In" class="icon-money"></i></a></div>
-                    <div class="control"><a href="#CashoutUrl"><i title="Cash Out" class="icon-signout"></i></a></div>
+                    <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
+                    <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
                 </div>
             </div>
         </div>
-        <div class="totals">
-            <div class="title">Totals: </div>
-            <div class="amounts">
-                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
-                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
-            </div>
+
+        <div class="block gutter" data-bind="visible: noPlayers">
+            No one has joined the game yet.
+        </div>
+
+        <div class="block gutter" data-bind="visible: hasPlayers">
+            chart
+            @*<div data-require="cashgame-game-chart">
+                    <script type="application/json">
+                        @Html.Raw(Model.ChartJson)
+                    </script>
+                </div>*@
         </div>
     </div>
-    <div class="block gutter" data-bind="visible: noPlayers">
-        No one has joined the game yet.
+
+    <div class="region width1 aside2">
+        <div class="block gutter">
+            <dl class="value-list">
+                <dt class="label" data-bind="visible: hasPlayers">Start Time</dt>
+                <dd data-bind="visible: hasPlayers, text: startTime"></dd>
+                <dt class="label">Location</dt>
+                <dd data-bind="text: location"></dd>
+            </dl>
+        </div>
     </div>
 </script>
-
-@section Aside2{
-    <div class="block gutter">
-        <dl class="value-list">
-            @if (Model.ShowStartTime)
-            {
-                <dt class="label">Start Time</dt>
-                <dd>@Model.StartTime</dd>
-            }
-            <dt class="label">Location</dt>
-            <dd>@Model.Location</dd>
-        </dl>
-    </div>
-}

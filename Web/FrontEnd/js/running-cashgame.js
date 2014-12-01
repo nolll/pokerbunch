@@ -31,6 +31,7 @@ define(["jquery", "knockout", "moment"],
             me.endGameUrl = data.endGameUrl;
             me.cashgameIndexUrl = data.cashgameIndexUrl;
             me.defaultBuyIn = data.defaultBuyin;
+            me.location = data.location;
             me.areButtonsVisible = ko.observable(true);
             me.reportFormVisible = ko.observable(false);
             me.buyInFormVisible = ko.observable(false);
@@ -55,13 +56,16 @@ define(["jquery", "knockout", "moment"],
             };
 
             me.buyIn = function () {
-                var buyInData = { playerId: me.playerId, stack: parseInt(me.beforeBuyInStack()), addedMoney: parseInt(me.buyInAmount()) };
+                var buyinAmount = parseInt(me.buyInAmount());
+                var beforeStack = parseInt(me.beforeBuyInStack());
+                var afterStack = beforeStack + buyinAmount;
+                var buyInData = { playerId: me.playerId, stack: beforeStack, addedMoney: buyinAmount };
                 var player = me.getPlayer(me.playerId);
                 if (!player) {
                     player = new PlayerViewModel(me.playerId, me.playerName, false, []);
                     me.players.push(player);
                 }
-                player.addCheckpoint(buyInData.stack, buyInData.addedMoney);
+                player.addCheckpoint(afterStack, buyInData.addedMoney);
                 me.hideForms();
                 me.currentStack(me.defaultBuyIn);
                 postData(me.buyInUrl, buyInData);
@@ -188,6 +192,21 @@ define(["jquery", "knockout", "moment"],
                 return sum;
             });
 
+            me.startTime = ko.computed(function () {
+                var i, first,
+                    t = moment().utc(),
+                    p = me.players();
+                if (p.length === 0)
+                    return '';
+                for (i = 0; i < p.length; i++) {
+                    first = p[i].checkpoints()[0];
+                    if (first !== undefined && first.time.isBefore(t)) {
+                        t = first.time;
+                    }
+                }
+                return t.format('HH:mm');
+            });
+
             me.formattedTotalStacks = ko.computed(function () {
                 return formatCurrency(me.totalStacks());
             });
@@ -241,9 +260,10 @@ define(["jquery", "knockout", "moment"],
             });
 
             me.stack = ko.computed(function () {
-                if (me.checkpoints().length === 0)
+                var c = me.checkpoints();
+                if (c.length === 0)
                     return 0;
-                return me.checkpoints()[me.checkpoints().length - 1].stack;
+                return c[c.length - 1].stack;
             });
 
             me.formattedStack = ko.computed(function () {

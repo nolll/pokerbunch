@@ -32,6 +32,9 @@ namespace Web.Models.CashgameModels.Running
         public int DefaultBuyin { get; private set; }
 
         [UsedImplicitly]
+        public string Location { get; private set; }
+
+        [UsedImplicitly]
 	    public List<RunningCashgamePlayerJsonModel> Players { get; private set; }
         
         public RunningCashgameJsonModel(RunningCashgameResult result)
@@ -44,6 +47,7 @@ namespace Web.Models.CashgameModels.Running
             EndGameUrl = result.EndGameUrl.Relative;
             CashgameIndexUrl = result.CashgameIndexUrl.Relative;
             DefaultBuyin = result.DefaultBuyin;
+            Location = result.Location;
             Players = result.PlayerItems.Select(o => new RunningCashgamePlayerJsonModel(o)).ToList();
         }
     }
