@@ -28,6 +28,7 @@ namespace Core.UseCases.RunningCashgame
             var user = auth.CurrentUser;
             var player = playerRepository.GetByUserId(bunch.Id, user.Id);
             var players = playerRepository.GetList(GetPlayerIds(cashgame));
+            var bunchPlayers = playerRepository.GetList(bunch.Id);
 
             var isStarted = cashgame.IsStarted;
             var canBeEnded = CanBeEnded(cashgame);
@@ -53,6 +54,7 @@ namespace Core.UseCases.RunningCashgame
 
             var items = GetItems(bunch, cashgame, players, isManager, now);
             var playerItems = GetPlayerItems(cashgame, players);
+            var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
 
@@ -60,7 +62,6 @@ namespace Core.UseCases.RunningCashgame
 
             return new RunningCashgameResult(
                 player.Id,
-                player.DisplayName,
                 location,
                 buyinUrl,
                 reportUrl,
@@ -78,9 +79,11 @@ namespace Core.UseCases.RunningCashgame
                 showChart,
                 items,
                 playerItems,
+                bunchPlayerItems,
                 totalBuyin,
                 totalStacks,
-                defaultBuyin);
+                defaultBuyin,
+                isManager);
         }
 
         private static IList<int> GetPlayerIds(Cashgame cashgame)

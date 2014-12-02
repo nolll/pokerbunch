@@ -30,10 +30,10 @@ define([
 
     function getColumns(players) {
         var i, p,
-            cols = [{ "type": "datetime", "label": "Time", "pattern": "HH:mm" }];
+            cols = [{ type: "datetime", label: "Time", pattern: "HH:mm" }];
         for(i = 0; i < players.length; i++) {
             p = players[i];
-            cols.push({ "type": "number", "label": p.name, "pattern": null });
+            cols.push({ type: "number", label: p.name, pattern: null });
         }
         return cols;
     }
@@ -66,42 +66,17 @@ define([
     }
 
     function getRow(players, result, playerId) {
-        var values = [{ 'v': result.time.toDate(), "f": null }];
+        var values = [{ v: result.time.toDate(), f: null }];
         for(var i = 0; i < players.length; i++) {
             var val = null;
             if (players[i].id == playerId)
             {
-                val = result.winnings + "";
+                val = result.winnings + '';
             }
-            values.push({ 'v': val, "f": null });
+            values.push({ v: val, f: null });
         }
-        return { 'c': values };
+        return { c: values };
     }
 
     return ko;
 });
-
-
-//"cols":
-//    [
-//        { "type": "datetime", "label": "Time", "pattern": "HH:mm" },
-//        { "type": "number", "label": "Henrik S", "pattern": null }
-//    ],
-//"rows":
-//    [
-//        {
-//            "c":
-//              [
-//                  { "v": "Date(2014, 12, 1, 21, 58, 5)", "f": null },
-//                  { "v": "0", "f": null }
-//              ]
-//        },
-//        {
-//            "c":
-//              [
-//                  { "v": "Date(2014, 12, 1, 22, 9, 44)", "f": null },
-//                  { "v": "0", "f": null }
-//              ]
-//        }
-//    ]
-//, "p": null

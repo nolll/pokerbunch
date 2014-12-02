@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class CashgameBuyinController : PokerBunchController
     {
         [HttpPost]
-        [AuthorizeOwnPlayer]
+        //[AuthorizeOwnPlayer]
         [Route("{slug}/cashgame/buyin")]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {

@@ -233,6 +233,7 @@
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StartButtonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />

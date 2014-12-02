@@ -11,9 +11,6 @@ namespace Web.Models.CashgameModels.Running
         public int PlayerId { get; private set; }
 
         [UsedImplicitly]
-        public string PlayerName { get; private set; }
-
-        [UsedImplicitly]
         public string ReportUrl { get; private set; }
 
         [UsedImplicitly]
@@ -35,12 +32,17 @@ namespace Web.Models.CashgameModels.Running
         public string Location { get; private set; }
 
         [UsedImplicitly]
-	    public List<RunningCashgamePlayerJsonModel> Players { get; private set; }
+        public bool IsManager { get; private set; }
+
+        [UsedImplicitly]
+        public List<RunningCashgamePlayerJsonModel> Players { get; private set; }
+
+        [UsedImplicitly]
+        public List<BunchPlayerJsonModel> BunchPlayers { get; private set; }
         
         public RunningCashgameJsonModel(RunningCashgameResult result)
         {
             PlayerId = result.PlayerId;
-            PlayerName = result.PlayerName;
             ReportUrl = result.ReportUrl.Relative;
             BuyinUrl = result.BuyinUrl.Relative;
             CashoutUrl = result.CashoutUrl.Relative;
@@ -48,7 +50,9 @@ namespace Web.Models.CashgameModels.Running
             CashgameIndexUrl = result.CashgameIndexUrl.Relative;
             DefaultBuyin = result.DefaultBuyin;
             Location = result.Location;
+            IsManager = result.IsManager;
             Players = result.PlayerItems.Select(o => new RunningCashgamePlayerJsonModel(o)).ToList();
+            BunchPlayers = result.BunchPlayerItems.Select(o => new BunchPlayerJsonModel(o)).ToList();
         }
     }
 }

@@ -35,7 +35,7 @@
             <div data-bind="visible: reportFormVisible">
                 <div>
                     <label class="label" for="StackAmount">Stack Size</label>
-                    <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
                     <button data-bind="click: report" class="action">Report Stack</button>
@@ -45,7 +45,7 @@
             <div data-bind="visible: buyInFormVisible">
                 <p>
                     <label class="label" for="BuyinAmount">Amount</label>
-                    <input class="numberfield" data-bind="value: buyInAmount" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
+                    <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
                 </p>
                 <p data-bind="visible: isInGame">
                     <label class="label" for="StackAmount">Stack Size</label>
@@ -59,7 +59,7 @@
             <div data-bind="visible: cashOutFormVisible">
                 <div>
                     <label class="label" for="StackAmount">Stack Size</label>
-                    <input class="numberfield" data-bind="value: currentStack" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
                     <button data-bind="click: cashOut" class="action">Cash Out</button>
@@ -75,8 +75,8 @@
             </div>
         </div>
         <div class="standings block gutter" data-bind="visible: hasPlayers">
-            <div>
-                <div class="standings-item" data-bind="foreach: sortedPlayers">
+            <div data-bind="foreach: sortedPlayers">
+                <div class="standings-item">
                     <div class="name">
                         <a href="#PlayerUrl" data-bind="text: name"></a>
                         <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
@@ -87,11 +87,6 @@
                         <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
                     </div>
                     <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
-                    <div class="controls">
-                        <div class="control"><a href="#ReportUrl"><i title="Report Stack" class="icon-pushpin"></i></a></div>
-                        <div class="control"><a href="#BuyinUrl"><i title="Buy In" class="icon-money"></i></a></div>
-                        <div class="control"><a href="#CashoutUrl"><i title="Cash Out" class="icon-signout"></i></a></div>
-                    </div>
                 </div>
             </div>
             <div class="totals">
@@ -119,6 +114,8 @@
                 <dd data-bind="visible: hasPlayers, text: startTime"></dd>
                 <dt class="label">Location</dt>
                 <dd data-bind="text: location"></dd>
+                <dt class="label" data-bind="visible: isManager">Player</dt>
+                <dd data-bind="visible: isManager"><select data-bind="options: bunchPlayers, optionsText: 'name', optionsValue: 'id', value: playerId"></select></dd>
             </dl>
         </div>
     </div>
