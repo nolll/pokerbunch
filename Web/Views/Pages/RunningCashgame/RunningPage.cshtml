@@ -108,12 +108,7 @@
         </div>
 
         <div class="block gutter" data-bind="visible: hasPlayers">
-            chart
-            @*<div data-require="cashgame-game-chart">
-                    <script type="application/json">
-                        @Html.Raw(Model.ChartJson)
-                    </script>
-                </div>*@
+            <div data-bind="gameChart: players"></div>
         </div>
     </div>
 
