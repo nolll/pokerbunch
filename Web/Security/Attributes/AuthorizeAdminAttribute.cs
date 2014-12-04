@@ -1,5 +1,4 @@
 using System.Web;
-using Core.Entities;
 
 namespace Web.Security.Attributes
 {
@@ -7,7 +6,10 @@ namespace Web.Security.Attributes
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return AuthorizeCore(httpContext, Role.Admin);
+            var authorized = base.AuthorizeCore(httpContext);
+            if (!authorized)
+                return false;
+            return Authorize.Admin(httpContext.User);
         }
     }
 }

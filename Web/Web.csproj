@@ -528,6 +528,7 @@
     <Compile Include="Security\Attributes\AuthorizeOwnUserAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizePlayerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
+    <Compile Include="Security\Authorize.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>

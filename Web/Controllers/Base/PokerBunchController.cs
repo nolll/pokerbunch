@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Antlr.Runtime.Misc;
+using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
+using Web.Security;
 
 namespace Web.Controllers.Base
 {
@@ -86,6 +88,16 @@ namespace Web.Controllers.Base
         protected ActionResult JsonView(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.AllowGet)
         {
             return new JsonResult(data, jsonRequestBehavior);
+        }
+
+        protected bool IsPlayer(string slug)
+        {
+            return Authorize.Bunch(User, slug, Role.Player);
+        }
+
+        protected bool IsManager(string slug)
+        {
+            return Authorize.Bunch(User, slug, Role.Manager);
         }
     }
 }

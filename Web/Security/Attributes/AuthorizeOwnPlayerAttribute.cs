@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Linq;
 using System.Web;
 
 namespace Web.Security.Attributes
@@ -10,19 +8,16 @@ namespace Web.Security.Attributes
         {
             var authorized = base.AuthorizeCore(httpContext);
             if (!authorized)
-            {
                 return false;
-            }
-
-            var identity = GetIdentity(httpContext);
             var slug = GetSlug(httpContext);
-            var playerName = GetPlayerId(httpContext);
-            return identity.IsAdmin || identity.Bunches.Any(userBunch => userBunch.Slug == slug && userBunch.Id.ToString(CultureInfo.InvariantCulture) == playerName);
+            var playerId = GetPlayerId(httpContext);
+            return Authorize.SpecificPlayer(httpContext.User, slug, playerId);
         }
 
-        private string GetPlayerId(HttpContextBase httpContext)
+        private int GetPlayerId(HttpContextBase httpContext)
         {
-            return httpContext.Request.RequestContext.RouteData.Values["playerId"] as string;
+            var str = httpContext.Request.RequestContext.RouteData.Values["playerId"] as string;
+            return str != null ? int.Parse(str) : 0;
         }
     }
 }

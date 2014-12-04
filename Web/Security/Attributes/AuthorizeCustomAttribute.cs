@@ -1,17 +1,10 @@
-using System.Web;
 using System.Web.Mvc;
-using Core;
 using Core.Exceptions;
 
 namespace Web.Security.Attributes
 {
     public abstract class AuthorizeCustomAttribute : AuthorizeAttribute
     {
-        protected CustomIdentity GetIdentity(HttpContextBase httpContext)
-        {
-            return httpContext.User.Identity as CustomIdentity;
-        }
-
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);

@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Web;
-using Core;
 using Core.Entities;
 
 namespace Web.Security.Attributes
@@ -11,23 +9,8 @@ namespace Web.Security.Attributes
         {
             var authorized = base.AuthorizeCore(httpContext);
             if (!authorized)
-            {
                 return false;
-            }
-
-            var identity = httpContext.User.Identity as CustomIdentity;
-            if (identity == null)
-            {
-                return false;
-            }
-
-            if (role == Role.Admin && identity.IsAdmin)
-            {
-                return true;
-            }
-
-            var slug = GetSlug(httpContext);
-            return identity.Bunches.Any(userBunch => userBunch.Slug == slug && userBunch.Role >= role);
+            return Authorize.Bunch(httpContext.User, GetSlug(httpContext), role);
         }
 
         protected string GetSlug(HttpContextBase httpContext)
