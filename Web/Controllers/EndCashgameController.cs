@@ -1,17 +1,19 @@
 using System.Web.Mvc;
+using Core.Exceptions;
 using Core.UseCases.EndCashgame;
 using Web.Controllers.Base;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class EndCashgameController : PokerBunchController
     {
         [HttpPost]
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/end")]
         public ActionResult Post(string slug)
         {
+            if (!IsPlayer(slug))
+                throw new AccessDeniedException();
             UseCase.EndCashgame(new EndCashgameRequest(slug));
             return JsonView(new JsonViewModelOk());
         }

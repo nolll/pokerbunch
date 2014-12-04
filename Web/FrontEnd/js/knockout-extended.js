@@ -54,13 +54,15 @@ define([
     function getPlayerResults(player) {
         var i,
             c,
-            current = 0,
+            winnings = 0,
+            addedMoney = 0,
             results = [],
             checkpoints = player.checkpoints();
         for (i = 0; i < checkpoints.length; i++) {
             c = checkpoints[i];
-            current = c.stack - c.addedMoney;
-            results.push({time: c.time, winnings: current});
+            addedMoney += c.addedMoney;
+            winnings = c.stack - addedMoney;
+            results.push({time: c.time, winnings: winnings});
         }
         return results;
     }

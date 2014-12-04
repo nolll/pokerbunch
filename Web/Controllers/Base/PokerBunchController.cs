@@ -95,6 +95,11 @@ namespace Web.Controllers.Base
             return Authorize.Bunch(User, slug, Role.Player);
         }
 
+        protected bool IsPlayer(string slug, int playerId)
+        {
+            return Authorize.SpecificPlayer(User, slug, playerId);
+        }
+
         protected bool IsManager(string slug)
         {
             return Authorize.Bunch(User, slug, Role.Manager);

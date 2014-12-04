@@ -32,34 +32,34 @@
             </a>
         </div>
         <div class="block gutter">
-            <div data-bind="visible: reportFormVisible">
-                <div>
-                    <label class="label" for="StackAmount">Stack Size</label>
-                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+            <div class="form" data-bind="visible: reportFormVisible">
+                <div class="field">
+                    <label class="label" for="report-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field stack must be a number." min="0" name="report-stack" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
-                    <button data-bind="click: report" class="action">Report Stack</button>
+                    <button data-bind="click: report" class="action">Report</button>
                     <button data-bind="click: hideForms">Cancel</button>
                 </div>
             </div>
-            <div data-bind="visible: buyInFormVisible">
-                <p>
-                    <label class="label" for="BuyinAmount">Amount</label>
-                    <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true" data-val="true" data-val-number="The field BuyinAmount must be a number." data-val-required="The BuyinAmount field is required." id="BuyinAmount" min="0" name="BuyinAmount" pattern="[0-9]*" required="required" type="text" value="200">
-                </p>
-                <p data-bind="visible: isInGame">
-                    <label class="label" for="StackAmount">Stack Size</label>
-                    <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field StackAmount must be a number." data-val-required="The StackAmount field is required." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="True" type="text" value="0">
-                </p>
+            <div class="form" data-bind="visible: buyInFormVisible">
+                <div class="field">
+                    <label class="label" for="buyin-amount">Amount</label>
+                    <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true" data-val="true" data-val-number="The field buyin must be a number." data-val-required="The BuyinAmount field is required." min="0" name="buyin-stack" pattern="[0-9]*" required="required" type="text" value="200">
+                </div>
+                <div class="field" data-bind="visible: isInGame">
+                    <label class="label" for="buyin-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field stack must be a number." data-val-required="The StackAmount field is required." min="0" name="buyin-stack" pattern="[0-9]*" required="True" type="text" value="0">
+                </div>
                 <div class="buttons">
                     <button data-bind="click: buyIn" class="action">Buy In</button>
                     <button data-bind="click: hideForms">Cancel</button>
                 </div>
             </div>
-            <div data-bind="visible: cashOutFormVisible">
-                <div>
-                    <label class="label" for="StackAmount">Stack Size</label>
-                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field StackAmount must be a number." id="StackAmount" min="0" name="StackAmount" pattern="[0-9]*" required="required" type="text" value="">
+            <div class="form" data-bind="visible: cashOutFormVisible">
+                <div class="field">
+                    <label class="label" for="cashout-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field stack must be a number." min="0" name="cashout-stack" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
                     <button data-bind="click: cashOut" class="action">Cash Out</button>

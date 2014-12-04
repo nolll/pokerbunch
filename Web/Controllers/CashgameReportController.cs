@@ -1,18 +1,20 @@
 using System.Web.Mvc;
+using Core.Exceptions;
 using Core.UseCases.Report;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Report;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class CashgameReportController : PokerBunchController
     {
         [HttpPost]
-        //[AuthorizeOwnPlayer]
+        [Authorize]
         [Route("{slug}/cashgame/report")]
         public ActionResult Report_Post(string slug, ReportPostModel postModel)
         {
+            if (!IsPlayer(slug, postModel.PlayerId))
+                throw new AccessDeniedException();
             var request = new ReportRequest(slug, postModel.PlayerId, postModel.Stack);
             UseCase.Report(request);
             return JsonView(new JsonViewModelOk());

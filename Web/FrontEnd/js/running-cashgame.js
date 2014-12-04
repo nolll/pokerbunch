@@ -117,6 +117,13 @@ define(["jquery", "knockout", "moment"],
                 return me.isInGame();
             });
 
+            me.hasCashedOut = ko.computed(function() {
+                var player = me.getPlayer(me.playerId());
+                if (!player)
+                    return false;
+                return player.hasCashedOut();
+            });
+
             me.canEndGame = ko.computed(function () {
                 var i;
                 if (me.players().length === 0)
@@ -130,11 +137,11 @@ define(["jquery", "knockout", "moment"],
             });
 
             me.canReport = ko.computed(function () {
-                return me.isInGame() && !me.canEndGame();
+                return me.isInGame() && !me.hasCashedOut();
             });
 
             me.canBuyIn = ko.computed(function () {
-                return !me.canEndGame();
+                return !me.hasCashedOut();
             });
 
             me.addCheckpoint = function (playerId, stack, addedMoney) {
