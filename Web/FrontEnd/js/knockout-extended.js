@@ -1,6 +1,6 @@
 define([
-    'knockout-raw', 'linechart2'
-], function (ko, lineChart) {
+    'knockout-raw', 'linechart2', 'moment'
+], function (ko, lineChart, moment) {
     ko.bindingHandlers.gameChart = {
         init: function(element) {
             var config = {
@@ -47,6 +47,10 @@ define([
             for(j = 0; j < r.length; j++) {
                 rows.push(getRow(players, r[j], p.id));
             }
+            if (!p.hasCashedOut()) {
+                var currentResult = createPlayerResult(moment().utc(), r[r.length - 1].winnings);
+                rows.push(getRow(players, currentResult, p.id));
+            }
         }
         return rows;
     }
@@ -62,9 +66,13 @@ define([
             c = checkpoints[i];
             addedMoney += c.addedMoney;
             winnings = c.stack - addedMoney;
-            results.push({time: c.time, winnings: winnings});
+            results.push(createPlayerResult(c.time, winnings));
         }
         return results;
+    }
+
+    function createPlayerResult(time, winnings) {
+        return { time: time, winnings: winnings };
     }
 
     function getRow(players, result, playerId) {
