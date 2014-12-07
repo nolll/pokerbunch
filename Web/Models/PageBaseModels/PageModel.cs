@@ -9,6 +9,8 @@ namespace Web.Models.PageBaseModels
         public string CssUrl { get; private set; }
         public string Version { get; private set; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
+        public string JsPath { get; private set; }
+        public string JsLoaderPath { get; private set; }
 
         protected PageModel(string browserTitle, BaseContextResult contextResult)
         {
@@ -16,6 +18,8 @@ namespace Web.Models.PageBaseModels
             CssUrl = BundleConfig.BundleUrl;
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
+            JsPath = contextResult.IsInProduction ? "/_build/main.js" : "/Scripts/require.js";
+            JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader.dev";
         }
 
         public virtual string Layout

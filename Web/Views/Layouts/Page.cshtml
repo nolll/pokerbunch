@@ -24,7 +24,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="/FrontEnd/js/lib/respond.min.js"></script>
     <![endif]-->
-    <script data-main="/FrontEnd/js/require.config.loader" src="/FrontEnd/js/lib/require.js"></script>
+    <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
 
     @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
 

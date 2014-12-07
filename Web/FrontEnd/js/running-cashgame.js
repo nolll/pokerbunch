@@ -67,9 +67,11 @@ define(["jquery", "knockout", "moment"],
                 if (!player) {
                     var playerName = me.getPlayerName();
                     player = new PlayerViewModel(me.playerId(), playerName, false, []);
+                    player.addCheckpoint(afterStack, buyInData.addedMoney);
                     me.players.push(player);
+                } else {
+                    player.addCheckpoint(afterStack, buyInData.addedMoney);
                 }
-                player.addCheckpoint(afterStack, buyInData.addedMoney);
                 me.hideForms();
                 me.currentStack(me.defaultBuyIn);
                 postData(me.buyInUrl, buyInData);

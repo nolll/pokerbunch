@@ -1,0 +1,27 @@
+{
+    "baseUrl": "../Frontend/js/",
+    "mainConfigFile": "../Frontend/js/require.config.js",
+    "name": "require.loader.prod",
+    "exclude": [ ],
+    "optimize": "none",//"uglify2",
+    "out": "main.js",
+    "findNestedDependencies" : true,
+    "insertRequire": [
+        "require.loader.prod"
+    ],
+    "include": [
+        "../../Scripts/require.js",
+        "cancel-button",
+        "cashgame-action-chart",
+        "cashgame-chart",
+        "cashgame-game-chart",
+        "currency-form",
+        "delete-confirmation",
+        "focus-text-selector",
+        "heading-nav",
+        "linechart",
+        "linechart2",
+        "running-cashgame",
+        "sortable-table"
+    ]
+}

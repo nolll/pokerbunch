@@ -9,12 +9,8 @@ requirejs.config({
         debouncedresize: "lib/jquery.debouncedresize",
         jquery: "lib/jquery-1.11.1.min",
         "knockout-raw": "lib/knockout-3.2.0",
+        knockout: "knockout-extended",
         moment: "lib/moment.min"
-    },
-    map: {
-        '*': {
-            'knockout': 'knockout-extended'
-        }
     },
     shim: {
         "pubsub": {
