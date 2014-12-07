@@ -340,9 +340,12 @@
     <Compile Include="UseCases\Report\ReportInteractor.cs" />
     <Compile Include="UseCases\Report\ReportRequest.cs" />
     <Compile Include="UseCases\Report\ReportResult.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgameCheckpointItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
+    <Compile Include="UseCases\RunningCashgame\BunchPlayerItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameRequest.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameResult.cs" />
+    <Compile Include="UseCases\RunningCashgame\RunningCashgamePlayerItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameTableItem.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />

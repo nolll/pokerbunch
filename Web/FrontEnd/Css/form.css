@@ -18,6 +18,19 @@ input[type=email] {
   font-family: arial, verdana;
   padding: 4px 9px;
 }
+.form {
+  overflow: hidden;
+}
+.form .field {
+  float: left;
+}
+.form .field + .field {
+  margin-left: 4px;
+}
+.form .buttons {
+  float: left;
+  margin: 14px 0 0 4px;
+}
 button,
 .button {
   border: 1px solid #ccc;

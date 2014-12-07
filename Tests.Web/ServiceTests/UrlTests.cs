@@ -192,33 +192,30 @@ namespace Tests.Web.ServiceTests
         public void CashgameBuyinUrlModel_ReturnsCorrectUrl()
         {
             const string slug = "a";
-            const int playerId = 1;
 
-            var result = new CashgameBuyinUrl(slug, playerId);
+            var result = new CashgameBuyinUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/buyin/1", result.Relative);
+            Assert.AreEqual("/a/cashgame/buyin", result.Relative);
         }
 
         [Test]
         public void CashgameReportUrlModel_ReturnsCorrectUrl()
         {
             const string slug = "a";
-            const int playerId = 1;
 
-            var result = new CashgameReportUrl(slug, playerId);
+            var result = new CashgameReportUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/report/1", result.Relative);
+            Assert.AreEqual("/a/cashgame/report", result.Relative);
         }
 
         [Test]
         public void CashgameCashoutUrlModel_ReturnsCorrectUrl()
         {
             const string slug = "a";
-            const int playerId = 1;
 
-            var result = new CashgameCashoutUrl(slug, playerId);
+            var result = new CashgameCashoutUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/cashout/1", result.Relative);
+            Assert.AreEqual("/a/cashgame/cashout", result.Relative);
         }
 
         [Test]

@@ -8,13 +8,10 @@ namespace Web.Security.Attributes
         {
             var authorized = base.AuthorizeCore(httpContext);
             if (!authorized)
-            {
                 return false;
-            }
 
-            var identity = GetIdentity(httpContext);
             var userName = GetUserName(httpContext);
-            return identity.IsAdmin || identity.UserName.ToLower() == userName;
+            return Authorize.SpecificUser(httpContext.User, userName);
         }
 
         private string GetUserName(HttpContextBase httpContext)

@@ -16,8 +16,8 @@ namespace Web.Models.CashgameModels.Buyin
             StackFieldEnabled = buyinFormResult.CanEnterStack;
             BuyinAmount = buyinFormResult.BuyinAmount;
             if (postModel == null) return;
-            BuyinAmount = postModel.BuyinAmount;
-            StackAmount = postModel.StackAmount;
+            BuyinAmount = postModel.AddedMoney;
+            StackAmount = postModel.Stack;
         }
     }
 }

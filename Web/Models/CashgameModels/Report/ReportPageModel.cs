@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Report
             : base("Report Stack", contextResult)
         {
             if (postModel == null) return;
-            StackAmount = postModel.StackAmount;
+            StackAmount = postModel.Stack;
         }
     }
 }

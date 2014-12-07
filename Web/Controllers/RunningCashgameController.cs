@@ -32,12 +32,12 @@ namespace Web.Controllers
         }
         
         [AuthorizePlayer]
-        [Route("{slug}/cashgame/runningtable")]
-        public ActionResult RunningTable(string slug)
+        [Route("{slug}/cashgame/runningjson")]
+        public ActionResult RunningJson(string slug)
         {
             var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
-            var model = new RunningCashgameTableModel(runningCashgameResult);
-            return View("~/Views/Pages/RunningCashgame/StatusTable.cshtml", model);
+            var model = new RunningCashgameJsonModel(runningCashgameResult);
+            return JsonView(model);
         }
 
         [AuthorizePlayer]

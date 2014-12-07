@@ -180,6 +180,10 @@
     <Compile Include="Controllers\AddPlayerController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Base\JsonResult.cs" />
+    <Compile Include="Controllers\Base\JsonViewModel.cs" />
+    <Compile Include="Controllers\Base\JsonViewModelError.cs" />
+    <Compile Include="Controllers\Base\JsonViewModelOk.cs" />
     <Compile Include="Controllers\Base\PokerBunchController.cs" />
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\BunchDetailsController.cs" />
@@ -227,6 +231,10 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\End\EndGamePostModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\RunningCashgameJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StartButtonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
@@ -442,7 +450,12 @@
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />
+    <Content Include="FrontEnd\js\lib\knockout-3.2.0.js" />
+    <Content Include="FrontEnd\js\lib\moment.min.js" />
     <Content Include="FrontEnd\js\lib\require.js" />
+    <Content Include="FrontEnd\js\knockout-extended.js" />
+    <Content Include="FrontEnd\js\linechart2.js" />
+    <Content Include="FrontEnd\js\running-cashgame.js" />
     <Content Include="FrontEnd\js\sortable-table.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
@@ -511,10 +524,10 @@
     <Compile Include="Security\Attributes\AuthorizeAdminAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeCustomAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeManagerAttribute.cs" />
-    <Compile Include="Security\Attributes\AuthorizeOwnPlayerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeOwnUserAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizePlayerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
+    <Compile Include="Security\Authorize.cs" />
     <Compile Include="Security\CustomPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>

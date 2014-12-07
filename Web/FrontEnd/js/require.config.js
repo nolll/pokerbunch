@@ -7,7 +7,14 @@ requirejs.config({
         pubsub: "lib/jquery.pubsub",
         metadata: "lib/jquery.metadata",
         debouncedresize: "lib/jquery.debouncedresize",
-        jquery: "lib/jquery-1.11.1.min"
+        jquery: "lib/jquery-1.11.1.min",
+        "knockout-raw": "lib/knockout-3.2.0",
+        moment: "lib/moment.min"
+    },
+    map: {
+        '*': {
+            'knockout': 'knockout-extended'
+        }
     },
     shim: {
         "pubsub": {
@@ -18,6 +25,11 @@ requirejs.config({
         },
         "debouncedresize": {
             deps: ["jquery"]
+        }
+    },
+    config: {
+        moment: {
+            noGlobal: true
         }
     },
     waitSeconds: 60

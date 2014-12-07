@@ -28,6 +28,7 @@ namespace Core.UseCases.RunningCashgame
             var user = auth.CurrentUser;
             var player = playerRepository.GetByUserId(bunch.Id, user.Id);
             var players = playerRepository.GetList(GetPlayerIds(cashgame));
+            var bunchPlayers = playerRepository.GetList(bunch.Id);
 
             var isStarted = cashgame.IsStarted;
             var canBeEnded = CanBeEnded(cashgame);
@@ -37,10 +38,11 @@ namespace Core.UseCases.RunningCashgame
             var now = timeProvider.UtcNow;
             
             var location = cashgame.Location;
-            var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
-            var reportUrl = new CashgameReportUrl(bunch.Slug, player.Id);
-            var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
+            var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
+            var reportUrl = new CashgameReportUrl(bunch.Slug);
+            var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
             var endGameUrl = new EndCashgameUrl(bunch.Slug);
+            var cashgameIndexUrl = new CashgameIndexUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
             var buyinButtonEnabled = canReport;
@@ -51,15 +53,21 @@ namespace Core.UseCases.RunningCashgame
             var showChart = cashgame.IsStarted;
 
             var items = GetItems(bunch, cashgame, players, isManager, now);
+            var playerItems = GetPlayerItems(cashgame, players);
+            var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
 
+            var defaultBuyin = bunch.DefaultBuyin;
+
             return new RunningCashgameResult(
+                player.Id,
                 location,
                 buyinUrl,
                 reportUrl,
                 cashoutUrl,
                 endGameUrl,
+                cashgameIndexUrl,
                 showStartTime,
                 startTime,
                 isStarted,
@@ -70,8 +78,12 @@ namespace Core.UseCases.RunningCashgame
                 showTable,
                 showChart,
                 items,
+                playerItems,
+                bunchPlayerItems,
                 totalBuyin,
-                totalStacks);
+                totalStacks,
+                defaultBuyin,
+                isManager);
         }
 
         private static IList<int> GetPlayerIds(Cashgame cashgame)
@@ -105,9 +117,9 @@ namespace Core.UseCases.RunningCashgame
 
                 var name = player.DisplayName;
                 var playerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
-                var buyinUrl = new CashgameBuyinUrl(bunch.Slug, player.Id);
-                var reportUrl = new CashgameReportUrl(bunch.Slug, player.Id);
-                var cashoutUrl = new CashgameCashoutUrl(bunch.Slug, player.Id);
+                var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
+                var reportUrl = new CashgameReportUrl(bunch.Slug);
+                var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
                 var winnings = new Money(result.Winnings, bunch.Currency);
@@ -127,6 +139,22 @@ namespace Core.UseCases.RunningCashgame
                     hasCashedOut,
                     isManager);
 
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        private static IList<RunningCashgamePlayerItem> GetPlayerItems(Cashgame cashgame, IList<Player> players)
+        {
+            var results = GetSortedResults(cashgame);
+            var items = new List<RunningCashgamePlayerItem>();
+            foreach (var result in results)
+            {
+                var playerId = result.PlayerId;
+                var player = players.First(o => o.Id == playerId);
+                var hasCheckedOut = result.CashoutCheckpoint != null;
+                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 

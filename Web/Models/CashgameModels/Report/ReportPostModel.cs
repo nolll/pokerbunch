@@ -4,6 +4,7 @@ namespace Web.Models.CashgameModels.Report
 {
     public class ReportPostModel
     {
-        public int StackAmount { get; [UsedImplicitly] set; }
+        public int PlayerId { get; [UsedImplicitly] set; }
+        public int Stack { get; [UsedImplicitly] set; }
     }
 }

@@ -24,9 +24,9 @@ namespace Core.Urls
         public const string CashgameFacts = "/{0}/cashgame/facts";
         public const string CashgameFactsWithYear = "/{0}/cashgame/facts/{1}";
         public const string CashgameAction = "/{0}/cashgame/action/{1}/{2}";
-        public const string CashgameBuyin = "/{0}/cashgame/buyin/{1}";
-        public const string CashgameReport = "/{0}/cashgame/report/{1}";
-        public const string CashgameCashout = "/{0}/cashgame/cashout/{1}";
+        public const string CashgameBuyin = "/{0}/cashgame/buyin";
+        public const string CashgameReport = "/{0}/cashgame/report";
+        public const string CashgameCashout = "/{0}/cashgame/cashout";
         public const string RunningCashgame = "/{0}/cashgame/running";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
         public const string CashgameCheckpointEdit = "/{0}/cashgame/editcheckpoint/{1}/{2}/{3}";

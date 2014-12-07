@@ -2,80 +2,121 @@
 @model Web.Models.CashgameModels.Running.RunningCashgamePageModel
 
 @{
-    Layout = PageLayout.TwoColumns;
+    Layout = PageLayout.OneColumn;
 }
 
-<div class="block gutter">
-	<h1>Running Cashgame</h1>
-</div>
+<div data-require="running-cashgame" data-bind="template: { name: 'running-cashgame-template' }"></div>
 
-<div class="button-list">
-	@if (Model.ReportButtonEnabled)
-	{
-        <a href="@Model.ReportUrl" class="icon-button">
-			<i class="icon-reorder"></i>
-			Report
-		</a>
-	}
+<script type="text/html" id="running-cashgame-template">
+    <div class="region width2">
+        <div class="block gutter">
+            <h1>Running Cashgame</h1>
+        </div>
 
-	@if (Model.BuyinButtonEnabled)
-	{
-	    <a href="@Model.BuyinUrl" class="icon-button">
-			<i class="icon-money"></i>
-			Buy In
-		</a>
-	}
+        <div class="button-list" data-bind="visible: areButtonsVisible">
+            <a href="@Model.ReportUrl" class="icon-button" data-bind="visible: canReport, click: showReportForm">
+                <i class="icon-reorder"></i>
+                Report
+            </a>
+            <a href="@Model.BuyinUrl" class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
+                <i class="icon-money"></i>
+                Buy In
+            </a>
+            <a href="@Model.CashoutUrl" class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
+                <i class="icon-signout"></i>
+                Cash Out
+            </a>
+            <a href="@Model.EndGameUrl" class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
+                <i class="icon-signout"></i>
+                End Game
+            </a>
+        </div>
+        <div class="block gutter">
+            <div class="form" data-bind="visible: reportFormVisible">
+                <div class="field">
+                    <label class="label" for="report-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field stack must be a number." min="0" name="report-stack" pattern="[0-9]*" required="required" type="text" value="">
+                </div>
+                <div class="buttons">
+                    <button data-bind="click: report" class="action">Report</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div class="form" data-bind="visible: buyInFormVisible">
+                <div class="field">
+                    <label class="label" for="buyin-amount">Amount</label>
+                    <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true" data-val="true" data-val-number="The field buyin must be a number." data-val-required="The BuyinAmount field is required." min="0" name="buyin-stack" pattern="[0-9]*" required="required" type="text" value="200">
+                </div>
+                <div class="field" data-bind="visible: isInGame">
+                    <label class="label" for="buyin-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: beforeBuyInStack" data-val="true" data-val-number="The field stack must be a number." data-val-required="The StackAmount field is required." min="0" name="buyin-stack" pattern="[0-9]*" required="True" type="text" value="0">
+                </div>
+                <div class="buttons">
+                    <button data-bind="click: buyIn" class="action">Buy In</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div class="form" data-bind="visible: cashOutFormVisible">
+                <div class="field">
+                    <label class="label" for="cashout-stack">Stack Size</label>
+                    <input class="numberfield" data-bind="value: currentStack, hasFocus: true" data-val="true" data-val-number="The field stack must be a number." min="0" name="cashout-stack" pattern="[0-9]*" required="required" type="text" value="">
+                </div>
+                <div class="buttons">
+                    <button data-bind="click: cashOut" class="action">Cash Out</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+            <div data-bind="visible: endGameFormVisible">
+                <h2>All done?</h2>
+                <div class="buttons">
+                    <button data-bind="click: endGame" class="action">Yes</button>
+                    <button data-bind="click: hideForms">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="standings block gutter" data-bind="visible: hasPlayers">
+            <div data-bind="foreach: sortedPlayers">
+                <div class="standings-item">
+                    <div class="name">
+                        <a href="#PlayerUrl" data-bind="text: name"></a>
+                        <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
+                    </div>
+                    <div class="amounts">
+                        <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
+                        <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
+                        <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
+                    </div>
+                    <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
+                </div>
+            </div>
+            <div class="totals">
+                <div class="title">Totals: </div>
+                <div class="amounts">
+                    <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
+                    <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
+                </div>
+            </div>
+        </div>
 
-	@if (Model.CashoutButtonEnabled)
-	{
-        <a href="@Model.CashoutUrl" class="icon-button">
-			<i class="icon-signout"></i>
-			Cash Out
-		</a>
-	}
-	
-	@if (@Model.EndGameButtonEnabled)
-	{
-	    <a href="@Model.EndGameUrl" class="icon-button">
-			<i class="icon-signout"></i>
-			End Game
-		</a>
-	}
-</div>
+        <div class="block gutter" data-bind="visible: noPlayers">
+            No one has joined the game yet.
+        </div>
 
-<div class="block gutter">
-	@if (Model.ShowTable)
-	{
-        if (Model.RunningCashgameTableModel != null)
-        {
-            @Html.Partial("RunningCashgame/StatusTable", Model.RunningCashgameTableModel)
-        }
-	}
-	else
-	{
-	    @:No one has joined the game yet.
-	}
-		
-	@if (Model.ShowChart)
-	{
-	    <div data-require="cashgame-game-chart">
-            <script type="application/json">
-                @Html.Raw(Model.ChartJson)
-            </script>
-	    </div>
-	}
-</div>
+        <div class="block gutter" data-bind="visible: hasPlayers">
+            <div data-bind="gameChart: players"></div>
+        </div>
+    </div>
 
-@section Aside2{
-    <div class="block gutter">
-		<dl class="value-list">
-			@if (Model.ShowStartTime)
-			{
-				<dt class="label">Start Time</dt>
-				<dd>@Model.StartTime</dd>
-			}
-			<dt class="label">Location</dt>
-			<dd>@Model.Location</dd>
-		</dl>
-	</div>
-}
+    <div class="region width1 aside2">
+        <div class="block gutter">
+            <dl class="value-list">
+                <dt class="label" data-bind="visible: hasPlayers">Start Time</dt>
+                <dd data-bind="visible: hasPlayers, text: startTime"></dd>
+                <dt class="label">Location</dt>
+                <dd data-bind="text: location"></dd>
+                <dt class="label" data-bind="visible: isManager">Player</dt>
+                <dd data-bind="visible: isManager"><select data-bind="options: bunchPlayers, optionsText: 'name', optionsValue: 'id', value: playerId"></select></dd>
+            </dl>
+        </div>
+    </div>
+</script>

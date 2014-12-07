@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using System.Text;
 using System.Web.Mvc;
 using Antlr.Runtime.Misc;
+using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
+using Web.Security;
 
 namespace Web.Controllers.Base
 {
@@ -82,6 +83,26 @@ namespace Web.Controllers.Base
         private ActionResult ShowError(ErrorPageModel model)
         {
             return View("~/Views/Error/Error.cshtml", model);
+        }
+
+        protected ActionResult JsonView(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.AllowGet)
+        {
+            return new JsonResult(data, jsonRequestBehavior);
+        }
+
+        protected bool IsPlayer(string slug)
+        {
+            return Authorize.Bunch(User, slug, Role.Player);
+        }
+
+        protected bool IsPlayer(string slug, int playerId)
+        {
+            return Authorize.SpecificPlayer(User, slug, playerId);
+        }
+
+        protected bool IsManager(string slug)
+        {
+            return Authorize.Bunch(User, slug, Role.Manager);
         }
     }
 }

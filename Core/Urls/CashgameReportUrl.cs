@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class CashgameReportUrl : PlayerUrl
+    public class CashgameReportUrl : BunchUrl
     {
-        public CashgameReportUrl(string slug, int playerId)
-            : base(RouteFormats.CashgameReport, slug, playerId)
+        public CashgameReportUrl(string slug)
+            : base(RouteFormats.CashgameReport, slug)
         {
         }
     }
