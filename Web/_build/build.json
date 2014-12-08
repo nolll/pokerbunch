@@ -3,7 +3,7 @@
     "mainConfigFile": "../Frontend/js/require.config.js",
     "name": "require.loader.prod",
     "exclude": [ ],
-    "optimize": "none",//"uglify2",
+    "optimize": "uglify2",
     "out": "main.js",
     "findNestedDependencies" : true,
     "insertRequire": [
