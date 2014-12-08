@@ -18,7 +18,7 @@ namespace Web.Models.PageBaseModels
             CssUrl = BundleConfig.BundleUrl;
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
-            JsPath = contextResult.IsInProduction ? "/_build/main.js" : "/Scripts/require.js";
+            JsPath = contextResult.IsInProduction ? string.Format("/_build/main.js?v={0}", contextResult.Version) : "/Scripts/require.js";
             JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader.dev";
         }
 
