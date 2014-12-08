@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Tests.Common.Builders;
 
-namespace Tests.Common
+namespace Tests.Common.FakeRepositories
 {
     public class FakeUserRepository : IUserRepository
     {

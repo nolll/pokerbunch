@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
         private CashgameFactsResult Execute(CashgameFactsRequest request)
         {
             return CashgameFactsInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 request);

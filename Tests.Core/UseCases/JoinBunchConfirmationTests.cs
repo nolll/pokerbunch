@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         private JoinBunchConfirmationResult Execute(JoinBunchConfirmationRequest request)
         {
             return JoinBunchConfirmationInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 request);
         }
     }

@@ -116,7 +116,7 @@ namespace Tests.Core.UseCases
         private PlayerBadgesResult Execute(PlayerBadgesRequest request)
         {
             return PlayerBadgesInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

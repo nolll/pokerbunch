@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
         {
             return CashgameHomeInteractor.Execute(
                 request,
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object);
         }
     }

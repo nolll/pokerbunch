@@ -274,7 +274,7 @@ namespace Tests.Core.UseCases
         private CashgameListResult Execute(CashgameListRequest request)
         {
             return CashgameListInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

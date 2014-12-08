@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         private JoinBunchFormResult Execute(JoinBunchFormRequest request)
         {
             return JoinBunchFormInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 request);
         }
     }

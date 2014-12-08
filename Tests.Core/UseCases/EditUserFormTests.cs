@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
         private EditUserFormResult Execute(EditUserFormRequest request)
         {
             return EditUserFormInteractor.Execute(
-                Repo.User, request);
+                Repos.User, request);
         }
     }
 }

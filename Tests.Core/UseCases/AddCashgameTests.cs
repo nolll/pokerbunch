@@ -53,7 +53,7 @@ namespace Tests.Core.UseCases
 
         private AddCashgameResult Execute(AddCashgameRequest request)
         {
-            return AddCashgameInteractor.Execute(Repo.Bunch, GetMock<ICashgameRepository>().Object, request);
+            return AddCashgameInteractor.Execute(Repos.Bunch, GetMock<ICashgameRepository>().Object, request);
         }
     }
 }

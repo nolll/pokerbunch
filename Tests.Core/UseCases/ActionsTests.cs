@@ -100,7 +100,7 @@ namespace Tests.Core.UseCases
         private ActionsOutput Execute(ActionsInput input)
         {
             return ActionsInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<IAuth>().Object,

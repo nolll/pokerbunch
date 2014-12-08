@@ -103,7 +103,7 @@ namespace Tests.Core.UseCases
         private EditBunchFormResult Execute(EditBunchFormRequest request)
         {
             return EditBunchFormInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 request);
         }
     }

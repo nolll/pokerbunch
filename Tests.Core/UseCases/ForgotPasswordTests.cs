@@ -73,7 +73,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
 
             Execute(CreateRequest());
 
-            var savedUser = Repo.User.Saved;
+            var savedUser = Repos.User.Saved;
             Assert.AreEqual("0478095c8ece0bbc11f94663ac2c4f10b29666de", savedUser.EncryptedPassword);
             Assert.AreEqual("aaaaaaaaaa", savedUser.Salt);
         }
@@ -91,7 +91,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         private ForgotPasswordResult Execute(ForgotPasswordRequest request)
         {
             return ForgotPasswordInteractor.Execute(
-                Repo.User,
+                Repos.User,
                 GetMock<IMessageSender>().Object,
                 GetMock<IRandomService>().Object,
                 request);

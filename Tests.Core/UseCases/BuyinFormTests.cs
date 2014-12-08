@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
         private BuyinFormResult Execute(BuyinFormRequest request)
         {
             return BuyinFormInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

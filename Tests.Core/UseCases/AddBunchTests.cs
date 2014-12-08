@@ -73,7 +73,7 @@ namespace Tests.Core.UseCases
         {
             return AddBunchInteractor.Execute(
                 GetMock<IAuth>().Object,
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 request);
         }

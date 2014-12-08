@@ -186,7 +186,7 @@ namespace Tests.Core.UseCases
         private TopListResult Execute(TopListRequest request)
         {
             return TopListInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameService>().Object,
                 request);
         }

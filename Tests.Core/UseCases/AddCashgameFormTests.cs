@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         private AddCashgameFormResult Execute(AddCashgameFormRequest request)
         {
             return AddCashgameFormInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

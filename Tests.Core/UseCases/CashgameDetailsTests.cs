@@ -119,7 +119,7 @@ namespace Tests.Core.UseCases
         private CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
             return CashgameDetailsInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IAuth>().Object,
                 GetMock<IPlayerRepository>().Object,

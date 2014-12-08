@@ -7,13 +7,15 @@ namespace Tests.Common
     {
         private MockContainer Mock { get; set; }
         protected BuilderContainer A { get; private set; }
-        protected RepositoryContainer Repo { get; private set; }
+        protected RepositoryContainer Repos { get; private set; }
+        protected ServiceContainer Services { get; private set; }
         
         public TestBase()
         {
             Mock = new MockContainer();
             A = new BuilderContainer();
-            Repo = new RepositoryContainer();
+            Repos = new RepositoryContainer();
+            Services = new ServiceContainer();
         }
 
         [SetUp]

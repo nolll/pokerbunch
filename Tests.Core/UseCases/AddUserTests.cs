@@ -83,7 +83,7 @@ namespace Tests.Core.UseCases
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
             Execute(request);
 
-            var user = Repo.User.Added;
+            var user = Repos.User.Added;
 
             Assert.AreEqual(0, user.Id);
             Assert.AreEqual(ValidUserName, user.UserName);
@@ -133,7 +133,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         private AddUserResult Execute(AddUserRequest request)
         {
             return AddUserInteractor.Execute(
-                Repo.User,
+                Repos.User,
                 GetMock<IRandomService>().Object,
                 GetMock<IMessageSender>().Object,
                 request);

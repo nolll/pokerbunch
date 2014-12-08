@@ -63,8 +63,8 @@ namespace Tests.Core.UseCases
         private EditCheckpointFormResult Execute(EditCheckpointFormRequest request)
         {
             return EditCheckpointFormInteractor.Execute(
-                Repo.Bunch,
-                Repo.Checkpoint,
+                Repos.Bunch,
+                Repos.Checkpoint,
                 request);
         }
     }

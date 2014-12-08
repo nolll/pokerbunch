@@ -37,7 +37,7 @@ namespace Tests.Core.UseCases
             var request = new AddPlayerRequest(Constants.SlugA, UniqueName);
             Execute(request);
 
-            Assert.IsNotNull(Repo.Player.Added);
+            Assert.IsNotNull(Repos.Player.Added);
         }
 
         [Test]
@@ -50,8 +50,8 @@ namespace Tests.Core.UseCases
         private AddPlayerResult Execute(AddPlayerRequest request)
         {
             return AddPlayerInteractor.Execute(
-                Repo.Bunch,
-                Repo.Player,
+                Repos.Bunch,
+                Repos.Player,
                 request);
         }
     }

@@ -71,7 +71,7 @@ namespace Tests.Core.UseCases
         private MatrixResult Execute(MatrixRequest request)
         {
             return MatrixInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 request);

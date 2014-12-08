@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
 
         private UserListResult Execute()
         {
-            return UserListInteractor.Execute(Repo.User);
+            return UserListInteractor.Execute(Repos.User);
         }
     }
 }

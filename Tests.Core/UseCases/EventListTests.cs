@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         private EventListOutput Execute(EventListInput input)
         {
             return EventListInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<IEventRepository>().Object,
                 input);
         }

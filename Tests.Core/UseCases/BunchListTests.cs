@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
 
         private BunchListResult Execute()
         {
-            return BunchListInteractor.Execute(Repo.Bunch);
+            return BunchListInteractor.Execute(Repos.Bunch);
         }
     }
 }

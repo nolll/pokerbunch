@@ -185,7 +185,7 @@ namespace Tests.Core.UseCases
         {
             return PlayerDetailsInteractor.Execute(
                 GetMock<IAuth>().Object,
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IUserRepository>().Object,

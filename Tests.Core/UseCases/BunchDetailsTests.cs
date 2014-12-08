@@ -74,9 +74,9 @@ namespace Tests.Core.UseCases
             get
             {
                 return new BunchDetailsInteractor(
-                    Repo.Bunch,
-                    Repo.User,
-                    Repo.Player,
+                    Repos.Bunch,
+                    Repos.User,
+                    Repos.Player,
                     GetMock<IAuth>().Object);
             }
         }

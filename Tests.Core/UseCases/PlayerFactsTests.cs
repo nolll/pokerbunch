@@ -78,7 +78,7 @@ namespace Tests.Core.UseCases
         private PlayerFactsResult Execute(PlayerFactsRequest request)
         {
             return PlayerFactsInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 request);
         }

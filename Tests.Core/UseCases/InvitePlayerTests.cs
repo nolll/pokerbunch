@@ -72,7 +72,7 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
         private InvitePlayerResult Execute(InvitePlayerRequest request)
         {
             return InvitePlayerInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<IMessageSender>().Object,
                 request);

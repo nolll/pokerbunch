@@ -72,7 +72,7 @@ namespace Tests.Core.UseCases
         private PlayerListResult Execute(PlayerListRequest request)
         {
             return PlayerListInteractor.Execute(
-                Repo.Bunch,
+                Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<IAuth>().Object,
                 request);
