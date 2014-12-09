@@ -14,7 +14,7 @@ namespace Web.Controllers.Base
     {
         protected UseCaseContainer UseCase
         {
-            get { return UseCaseContainer.Instance; }
+            get { return new UseCaseContainer(); }
         }
 
         protected string UserName

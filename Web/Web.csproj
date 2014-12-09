@@ -265,7 +265,6 @@
     </Compile>
     <Compile Include="Models\AuthModels\LoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
-    <Compile Include="Models\CashgameModels\Cashout\CashoutPageModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixPageModel.cs" />
@@ -655,9 +654,6 @@
     <Compile Include="Models\HomegameModels\Add\AddBunchPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointModel.cs" />
-    <Compile Include="Models\CashgameModels\Buyin\BuyinPageModel.cs" />
-    <Compile Include="Models\CashgameModels\Report\ReportPageModel.cs" />
-    <Compile Include="Models\CashgameModels\End\EndGamePageModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePageModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\EditBunchPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BarModel.cs" />
@@ -673,11 +669,7 @@
     <Content Include="Views\Pages\CashgameAction\Action.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointItem.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointList.cshtml" />
-    <Content Include="Views\Pages\CashgameBuyin\Buyin.cshtml" />
-    <Content Include="Views\Pages\CashgameCashout\Cashout.cshtml" />
     <Content Include="Views\Pages\EditCashgame\Edit.cshtml" />
-    <Content Include="Views\Pages\EndCashgame\End.cshtml" />
-    <Content Include="Views\Pages\CashgameReport\Report.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\Bar.cshtml" />
     <Content Include="Views\Forms\SelectField.cshtml" />
     <Content Include="Views\Pages\AddBunch\AddBunch.cshtml" />

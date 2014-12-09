@@ -198,9 +198,6 @@
     <Compile Include="UseCases\BunchList\BunchListInteractor.cs" />
     <Compile Include="UseCases\BunchList\BunchListItem.cs" />
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
-    <Compile Include="UseCases\BuyinForm\BuyinFormInteractor.cs" />
-    <Compile Include="UseCases\BuyinForm\BuyinFormRequest.cs" />
-    <Compile Include="UseCases\BuyinForm\BuyinFormResult.cs" />
     <Compile Include="UseCases\Buyin\BuyinInteractor.cs" />
     <Compile Include="UseCases\Buyin\BuyinRequest.cs" />
     <Compile Include="UseCases\Buyin\BuyinResult.cs" />

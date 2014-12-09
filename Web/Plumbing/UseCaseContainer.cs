@@ -13,7 +13,6 @@ using Core.UseCases.BunchContext;
 using Core.UseCases.BunchDetails;
 using Core.UseCases.BunchList;
 using Core.UseCases.Buyin;
-using Core.UseCases.BuyinForm;
 using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameDetails;
@@ -116,7 +115,6 @@ namespace Web.Plumbing
         public Func<AddCashgameRequest, AddCashgameResult> AddCashgame { get { return request => AddCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
         public Func<ActionsInput, ActionsOutput> Actions { get { return input => ActionsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, Auth, input); } }
         public Func<ActionsChartRequest, ActionsChartResult> ActionsChart { get { return request => ActionsChartInteractor.Execute(TimeProvider, BunchRepository, CashgameRepository, request); } } 
-        public Func<BuyinFormRequest, BuyinFormResult> BuyinForm { get { return request => BuyinFormInteractor.Execute(BunchRepository, CashgameRepository, request); } }
         public Func<BuyinRequest, BuyinResult> Buyin { get { return request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, TimeProvider, request); } }
         public Func<EndCashgameRequest, EndCashgameResult> EndCashgame { get { return request => EndCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } } 
         public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get { return request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request); } }
@@ -139,23 +137,5 @@ namespace Web.Plumbing
         public Func<InvitePlayerRequest, InvitePlayerResult> InvitePlayer { get { return request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request); } }
         public Func<AddPlayerRequest, AddPlayerResult> AddPlayer { get { return request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request); } }
         public Func<DeletePlayerRequest, DeletePlayerResult> DeletePlayer { get { return request => DeletePlayerInteractor.Execute(PlayerRepository, CashgameRepository, request); } }
-
-        private static UseCaseContainer _instance;
-        private static readonly object Padlock = new object();
-
-        public static UseCaseContainer Instance
-        {
-            get
-            {
-                lock (Padlock)
-                {
-                    return _instance ?? (_instance = new UseCaseContainer());
-                }
-            }
-        }
-
-        private UseCaseContainer()
-        {
-        }
     }
 }
