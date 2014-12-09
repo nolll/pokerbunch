@@ -11,87 +11,122 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private ICacheProvider _cacheProvider;
-        private ICacheContainer _cacheContainer;
-
-        protected readonly ITimeProvider TimeProvider;
-        protected readonly IRandomService RandomService;
-        protected readonly IMessageSender MessageSender;
-        protected readonly IBunchRepository BunchRepository;
-        protected readonly IUserRepository UserRepository;
-        protected readonly IPlayerRepository PlayerRepository;
-        protected readonly ICashgameRepository CashgameRepository;
-        protected readonly ICheckpointRepository CheckpointRepository;
-        protected readonly IEventRepository EventRepository;
-        protected readonly ICashgameService CashgameService;
-        protected readonly IAuth Auth;
-
-        protected Dependencies()
+        private ITimeProvider _timeProvider;
+        protected ITimeProvider TimeProvider
         {
-            TimeProvider = new TimeProvider();
-            RandomService = new RandomService();
-            MessageSender = new MessageSender();
-            
-            var storage = new SqlStorage();
-
-            var cacheBuster = new CacheBuster(CacheContainer, storage.Users, storage.Bunches, storage.Players, storage.Cashgames, storage.Checkpoints);
-            
-            BunchRepository = new SqlBunchRepository(storage.Bunches, CacheContainer, cacheBuster);
-            UserRepository = new SqlUserRepository(storage.Users, CacheContainer, cacheBuster);
-            PlayerRepository = new SqlPlayerRepository(storage.Players, CacheContainer, cacheBuster, UserRepository);
-            CashgameRepository = new SqlCashgameRepository(storage.Cashgames, CacheContainer, storage.Checkpoints, TimeProvider, cacheBuster);
-            CheckpointRepository = new SqlCheckpointRepository(storage.Checkpoints, cacheBuster);
-            EventRepository = new SqlEventRepository(storage.Events, CacheContainer, cacheBuster);
-            CashgameService = new CashgameService(PlayerRepository, CashgameRepository);
-            Auth = new Auth(TimeProvider, UserRepository);
+            get { return _timeProvider ?? (_timeProvider = new TimeProvider()); }
         }
 
+        private IRandomService _randomService;
+        protected IRandomService RandomService
+        {
+            get { return _randomService ?? (_randomService = new RandomService()); }
+        }
+
+        private IMessageSender _messageSender;
+        protected IMessageSender MessageSender
+        {
+            get { return _messageSender ?? (_messageSender = new MessageSender()); }
+        }
+
+        private IAuth _auth;
+        protected IAuth Auth
+        {
+            get { return _auth ?? (_auth = new Auth(TimeProvider, UserRepository)); }
+        }
+
+        private ICashgameService _cashgamService;
+        protected ICashgameService CashgameService
+        {
+            get { return _cashgamService ?? (_cashgamService = new CashgameService(PlayerRepository, CashgameRepository)); }
+        }
+
+        private ICacheContainer _cacheContainer;
         protected ICacheContainer CacheContainer
         {
             get { return _cacheContainer ?? (_cacheContainer = new CacheContainer(CacheProvider)); }
         }
 
+        private ICacheProvider _cacheProvider;
         private ICacheProvider CacheProvider
         {
             get { return _cacheProvider ?? (_cacheProvider = new AspNetCacheProvider()); }
         }
-    }
 
-    public class SqlStorage
-    {
+        private ICacheBuster _cacheBuster;
+        private ICacheBuster CacheBuster
+        {
+            get { return _cacheBuster ?? (_cacheBuster = new CacheBuster(CacheContainer, UserStorage, BunchStorage, PlayerStorage, CashgameStorage, CheckpointStorage)); }
+        }
+
+        private IBunchRepository _bunchRepository;
+        protected IBunchRepository BunchRepository
+        {
+            get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer, CacheBuster)); }
+        }
+
+        private IUserRepository _userRepository;
+        protected IUserRepository UserRepository
+        {
+            get { return _userRepository ?? (_userRepository = new SqlUserRepository(UserStorage, CacheContainer, CacheBuster)); }
+        }
+
+        private IPlayerRepository _playerRepository;
+        protected IPlayerRepository PlayerRepository
+        {
+            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, CacheBuster, UserRepository)); }
+        }
+
+        private ICashgameRepository _cashgameRepository;
+        protected ICashgameRepository CashgameRepository
+        {
+            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage, TimeProvider, CacheBuster)); }
+        }
+
+        private ICheckpointRepository _checkpointRepository;
+        protected ICheckpointRepository CheckpointRepository
+        {
+            get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage, CacheBuster)); }
+        }
+
+        private IEventRepository _eventRepository;
+        protected IEventRepository EventRepository
+        {
+            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer, CacheBuster)); }
+        }
+
         private IUserStorage _userStorage;
-        private IBunchStorage _bunchStorage;
-        private IPlayerStorage _playerStorage;
-        private ICheckpointStorage _checkpointStorage;
-        private ICashgameStorage _cashgameStorage;
-        private IEventStorage _eventStorage;
-        
-        public IUserStorage Users
+        private IUserStorage UserStorage
         {
             get { return _userStorage ?? (_userStorage = new SqlServerUserStorage()); }
         }
 
-        public IBunchStorage Bunches
+        private IBunchStorage _bunchStorage;
+        private IBunchStorage BunchStorage
         {
             get { return _bunchStorage ?? (_bunchStorage = new SqlServerBunchStorage()); }
         }
 
-        public IPlayerStorage Players
+        private IPlayerStorage _playerStorage;
+        private IPlayerStorage PlayerStorage
         {
             get { return _playerStorage ?? (_playerStorage = new SqlServerPlayerStorage()); }
         }
 
-        public ICheckpointStorage Checkpoints
+        private ICheckpointStorage _checkpointStorage;
+        private ICheckpointStorage CheckpointStorage
         {
             get { return _checkpointStorage ?? (_checkpointStorage = new SqlServerCheckpointStorage()); }
         }
 
-        public ICashgameStorage Cashgames
+        private ICashgameStorage _cashgameStorage;
+        private ICashgameStorage CashgameStorage
         {
             get { return _cashgameStorage ?? (_cashgameStorage = new SqlServerCashgameStorage()); }
         }
 
-        public IEventStorage Events
+        private IEventStorage _eventStorage;
+        private IEventStorage EventStorage
         {
             get { return _eventStorage ?? (_eventStorage = new SqlServerEventStorage()); }
         }
