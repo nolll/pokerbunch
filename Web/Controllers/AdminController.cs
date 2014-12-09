@@ -28,16 +28,5 @@ namespace Web.Controllers
 
             return View("ClearCache", model);
         }
-
-        //[AuthorizeAdmin]
-        //[Route("-/admin/copytoraven")]
-        //public ActionResult CopyToRaven()
-        //{
-        //    var output = UseCase.CopyToRaven();
-
-        //    var model = new CopyToRavenModel(output);
-
-        //    return View("CopyToRaven", model);
-        //}
     }
 }

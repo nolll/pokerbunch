@@ -123,7 +123,6 @@
     <Compile Include="Urls\ChartUrl.cs" />
     <Compile Include="Urls\CheckpointUrl.cs" />
     <Compile Include="Urls\ClearCacheUrl.cs" />
-    <Compile Include="Urls\CopyToRavenUrl.cs" />
     <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\DeleteCheckpointUrl.cs" />
     <Compile Include="Urls\DeletePlayerUrl.cs" />
@@ -248,7 +247,6 @@
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
     <Compile Include="UseCases\ClearCache\ClearCacheInteractor.cs" />
     <Compile Include="UseCases\ClearCache\ClearCacheOutput.cs" />
-    <Compile Include="UseCases\CopyToRaven\CopyToRavenInteractor.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameInteractor.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameRequest.cs" />
     <Compile Include="UseCases\DeleteCashgame\DeleteCashgameResult.cs" />

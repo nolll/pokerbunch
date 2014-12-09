@@ -78,7 +78,6 @@ namespace Web.Plumbing
         // Admin
         public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }
         public Func<ClearCacheOutput> ClearCache { get { return () => ClearCacheInteractor.Execute(CacheContainer); } }
-        //public Func<CopyToRavenOutput> CopyToRaven { get { return () => CopyToRavenInteractor.Execute(UserRepository, RavenUserRepository); } }
 
         // User
         public Func<UserListResult> UserList { get { return () => UserListInteractor.Execute(UserRepository); } }

@@ -25,7 +25,6 @@ namespace Web.Models.NavigationModels
                     new NavigationNode("Users", homeResult.UserListUrl.Relative),
                     new NavigationNode("Test Email", homeResult.TestEmailUrl.Relative),
                     new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)//,
-                    //new NavigationNode("Copy to Raven", homeResult.CopyToRavenUrl.Relative)
                 };
         }
     }

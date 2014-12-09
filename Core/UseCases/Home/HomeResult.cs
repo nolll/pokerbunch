@@ -13,7 +13,6 @@ namespace Core.UseCases.Home
         public Url BunchListUrl { get; private set; }
         public Url TestEmailUrl { get; private set; }
         public Url ClearCacheUrl { get; private set; }
-        public Url CopyToRavenUrl { get; private set; }
 
         public HomeResult(bool isLoggedIn, bool isAdmin)
         {
@@ -26,7 +25,6 @@ namespace Core.UseCases.Home
             BunchListUrl = new BunchListUrl();
             TestEmailUrl = new TestEmailUrl();
             ClearCacheUrl = new ClearCacheUrl();
-            CopyToRavenUrl = new CopyToRavenUrl();
         }
     }
 }
