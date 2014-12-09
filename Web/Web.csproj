@@ -329,9 +329,6 @@
     <Content Include="FrontEnd\Css\checkpoint-list.css">
       <DependentUpon>checkpoint-list.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\checkpoint-list.min.css">
-      <DependentUpon>checkpoint-list.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\clearfix.css">
       <DependentUpon>clearfix.less</DependentUpon>
     </Content>
@@ -344,92 +341,47 @@
     <Content Include="FrontEnd\Css\form.css">
       <DependentUpon>form.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\form.min.css">
-      <DependentUpon>form.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\grid.css">
       <DependentUpon>grid.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\grid.min.css">
-      <DependentUpon>grid.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\icon.css">
       <DependentUpon>icon.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\icon.min.css">
-      <DependentUpon>icon.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\label.css">
       <DependentUpon>label.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\label.min.css">
-      <DependentUpon>label.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\list.css">
       <DependentUpon>list.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\list.min.css">
-      <DependentUpon>list.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\mediaqueries.css">
       <DependentUpon>mediaqueries.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\mediaqueries.min.css">
-      <DependentUpon>mediaqueries.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\mixins.css">
       <DependentUpon>mixins.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\mixins.min.css">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\nav.css">
       <DependentUpon>nav.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\nav.min.css">
-      <DependentUpon>nav.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\normalize.css">
       <DependentUpon>normalize.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\normalize.min.css">
-      <DependentUpon>normalize.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\player.css">
       <DependentUpon>player.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\player.min.css">
-      <DependentUpon>player.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\print.css">
       <DependentUpon>print.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\print.min.css">
-      <DependentUpon>print.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\running-game.css">
       <DependentUpon>running-game.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\running-game.min.css">
-      <DependentUpon>running-game.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\sortable-table.css">
       <DependentUpon>sortable-table.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\sortable-table.min.css">
-      <DependentUpon>sortable-table.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\standings.css">
       <DependentUpon>standings.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\standings.min.css">
-      <DependentUpon>standings.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
     <Content Include="FrontEnd\Images\black_leather.png" />
@@ -537,51 +489,6 @@
     <Compile Include="Controllers\DeleteCashgameController.cs" />
     <Content Include="FrontEnd\Css\label.less" />
     <Content Include="FrontEnd\Css\achievements.less" />
-    <Content Include="FrontEnd\Css\checkpoint-list.css.map">
-      <DependentUpon>checkpoint-list.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\form.css.map">
-      <DependentUpon>form.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\grid.css.map">
-      <DependentUpon>grid.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\icon.css.map">
-      <DependentUpon>icon.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\label.css.map">
-      <DependentUpon>label.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\list.css.map">
-      <DependentUpon>list.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\mediaqueries.css.map">
-      <DependentUpon>mediaqueries.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\nav.css.map">
-      <DependentUpon>nav.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\normalize.css.map">
-      <DependentUpon>normalize.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\player.css.map">
-      <DependentUpon>player.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\print.css.map">
-      <DependentUpon>print.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\running-game.css.map">
-      <DependentUpon>running-game.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\site.css.map">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\sortable-table.css.map">
-      <DependentUpon>sortable-table.css</DependentUpon>
-    </Content>
     <None Include="FrontEnd\Css\sortable-table.less" />
     <None Include="FrontEnd\Css\cashgame-matrix.less" />
     <None Include="FrontEnd\Css\cashgame-results-form.less" />
@@ -599,9 +506,6 @@
     <None Include="FrontEnd\Css\print.less" />
     <None Include="FrontEnd\Css\running-game.less" />
     <None Include="FrontEnd\Css\site.less" />
-    <Content Include="FrontEnd\Css\standings.css.map">
-      <DependentUpon>standings.css</DependentUpon>
-    </Content>
     <None Include="FrontEnd\Css\standings.less" />
     <Content Include="FrontEnd\Font\fontawesome-webfont.eot" />
     <Content Include="FrontEnd\Font\fontawesome-webfont.ttf" />
