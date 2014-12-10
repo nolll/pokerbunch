@@ -47,9 +47,9 @@ namespace Tests.Core.UseCases
             const int savedStack = 3;
             
             SetupCashgame();
-            SetupPlayer(); 
-            
-            GetMock<ITimeProvider>().Setup(o => o.UtcNow).Returns(timestamp);
+            SetupPlayer();
+
+            Services.Time.UtcNow = timestamp;
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, buyin, stack);
             Execute(request);
@@ -117,7 +117,7 @@ namespace Tests.Core.UseCases
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,
                 Repos.Checkpoint,
-                GetMock<ITimeProvider>().Object,
+                Services.Time,
                 request);
         }
     }

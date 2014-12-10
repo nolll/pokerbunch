@@ -5,9 +5,11 @@ namespace Tests.Common.FakeServices
 {
     public class FakeTimeProvider : ITimeProvider
     {
-        public DateTime UtcNow
+        public DateTime UtcNow { get; set; }
+
+        public FakeTimeProvider()
         {
-            get { throw new NotImplementedException(); }
+            UtcNow = DateTime.Now;
         }
     }
 }
