@@ -14,22 +14,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void TestEmail_MessageIsSent()
         {
-            string email = null;
-            IMessage message = null;
-
-            GetMock<IMessageSender>()
-                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
-                .Callback((string e, IMessage m) =>
-                {
-                    email = e;
-                    message = m;
-                });
-            
             Execute();
 
-            Assert.AreEqual(Email, email);
-            Assert.AreEqual("Test Email", message.Subject);
-            Assert.AreEqual("This is a test email from pokerbunch.com", message.Body);
+            Assert.AreEqual(Email, Services.MessageSender.To);
+            Assert.AreEqual("Test Email", Services.MessageSender.Message.Subject);
+            Assert.AreEqual("This is a test email from pokerbunch.com", Services.MessageSender.Message.Body);
         }
 
         [Test]
@@ -42,7 +31,7 @@ namespace Tests.Core.UseCases
 
         private TestEmailResult Execute()
         {
-            return TestEmailInteractor.Execute(GetMock<IMessageSender>().Object);
+            return TestEmailInteractor.Execute(Services.MessageSender);
         }
     }
 }

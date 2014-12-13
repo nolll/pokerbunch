@@ -52,21 +52,11 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
             SetupPlayer();
 
-            string email = null;
-            IMessage message = null;
-            GetMock<IMessageSender>()
-                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
-                .Callback((string e, IMessage m) =>
-                {
-                    email = e;
-                    message = m;
-                });
-
             Execute(request);
 
-            Assert.AreEqual(ValidEmail, email);
-            Assert.AreEqual(subject, message.Subject);
-            Assert.AreEqual(body, message.Body);
+            Assert.AreEqual(ValidEmail, Services.MessageSender.To);
+            Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
+            Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
         private InvitePlayerResult Execute(InvitePlayerRequest request)
@@ -74,7 +64,7 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
             return InvitePlayerInteractor.Execute(
                 Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
-                GetMock<IMessageSender>().Object,
+                Services.MessageSender,
                 request);
         }
 

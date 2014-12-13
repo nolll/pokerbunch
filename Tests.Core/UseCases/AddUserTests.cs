@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.Remoting.Channels;
 using Core;
 using Core.Entities;
 using Core.Exceptions;
@@ -107,22 +108,13 @@ aaaaaaaa
 Please sign in here: http://pokerbunch.com/-/auth/login";
 
             SetupRandomCharacters();
-            string email = null;
-            IMessage message = null;
-            GetMock<IMessageSender>()
-                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
-                .Callback((string e, IMessage m) =>
-                {
-                    email = e;
-                    message = m;
-                });
 
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
             Execute(request);
 
-            Assert.AreEqual(ValidEmail, email);
-            Assert.AreEqual(subject, message.Subject);
-            Assert.AreEqual(body, message.Body);
+            Assert.AreEqual(ValidEmail, Services.MessageSender.To);
+            Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
+            Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
         private void SetupRandomCharacters()
@@ -135,7 +127,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             return AddUserInteractor.Execute(
                 Repos.User,
                 GetMock<IRandomService>().Object,
-                GetMock<IMessageSender>().Object,
+                Services.MessageSender,
                 request);
         }
     }

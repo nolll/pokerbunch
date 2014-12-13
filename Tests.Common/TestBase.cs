@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 
 namespace Tests.Common
@@ -11,19 +10,13 @@ namespace Tests.Common
         protected RepositoryContainer Repos { get; private set; }
         protected ServiceContainer Services { get; private set; }
         
-        public TestBase()
+        [SetUp]
+        public void ClearFakes()
         {
             Mock = new MockContainer();
             A = new BuilderContainer();
             Repos = new RepositoryContainer();
             Services = new ServiceContainer();
-        }
-
-        [SetUp]
-        public void ClearFakes()
-        {
-            Mock.Clear();
-            Services.Clear();
         }
 
         protected Mock<T> GetMock<T>() where T : class

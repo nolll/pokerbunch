@@ -11,5 +11,10 @@ namespace Tests.Common.FakeServices
         {
             UtcNow = DateTime.Now;
         }
+
+        public void Reset()
+        {
+            UtcNow = DateTime.MinValue;
+        }
     }
 }

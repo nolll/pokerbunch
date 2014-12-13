@@ -49,21 +49,11 @@ aaaaaaaa
 Please sign in here: http://pokerbunch.com/-/auth/login";
             SetupRandomCharacters();
 
-            IMessage message = null;
-            string email = null;
-            GetMock<IMessageSender>()
-                .Setup(o => o.Send(It.IsAny<string>(), It.IsAny<IMessage>()))
-                .Callback((string e, IMessage m) =>
-                {
-                    email = e;
-                    message = m;
-                });
-
             Execute(CreateRequest());
 
-            Assert.AreEqual(ValidEmail, email);
-            Assert.AreEqual(subject, message.Subject);
-            Assert.AreEqual(body, message.Body);
+            Assert.AreEqual(ValidEmail, Services.MessageSender.To);
+            Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
+            Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
         [Test]
@@ -92,7 +82,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         {
             return ForgotPasswordInteractor.Execute(
                 Repos.User,
-                GetMock<IMessageSender>().Object,
+                Services.MessageSender,
                 GetMock<IRandomService>().Object,
                 request);
         }
