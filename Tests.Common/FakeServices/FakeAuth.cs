@@ -5,24 +5,39 @@ namespace Tests.Common.FakeServices
 {
     public class FakeAuth : IAuth
     {
+        private Role _currentRole;
+        public UserIdentity UserIdentity { get; private set; }
+        public bool StayLoggedIn { get; private set; }
+        public bool SignedOut { get; private set; }
+        public User CurrentUser { get; set; }
+
         public void SignIn(UserIdentity user, bool createPersistentCookie)
         {
-            throw new System.NotImplementedException();
+            UserIdentity = user;
+            StayLoggedIn = createPersistentCookie;
         }
 
         public void SignOut()
         {
-            throw new System.NotImplementedException();
+            SignedOut = true;
         }
 
-        public User CurrentUser
+        public bool IsInRole(string slug, Role role)
         {
-            get { throw new System.NotImplementedException(); }
+            return role <= _currentRole;
         }
 
-        public bool IsInRole(string slug, Role manager)
+        public void SetCurrentRole(Role role)
         {
-            throw new System.NotImplementedException();
+            _currentRole = role;
+        }
+
+        public void Reset()
+        {
+            _currentRole = Role.None;
+            UserIdentity = null;
+            StayLoggedIn = false;
+            SignedOut = false;
         }
     }
 }

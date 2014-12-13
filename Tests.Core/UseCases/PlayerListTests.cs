@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases.PlayerList;
 using Moq;
 using NUnit.Framework;
@@ -62,7 +61,7 @@ namespace Tests.Core.UseCases
             var request = new PlayerListRequest(Constants.SlugA);
 
             GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
-            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
+            Services.Auth.SetCurrentRole(Role.Manager);
 
             var result = Execute(request);
 
@@ -74,7 +73,7 @@ namespace Tests.Core.UseCases
             return PlayerListInteractor.Execute(
                 Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 request);
         }
     }

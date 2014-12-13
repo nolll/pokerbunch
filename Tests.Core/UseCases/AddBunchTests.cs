@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_ReturnUrlIsSetToConfirmationUrl()
         {
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(A.User.Build());
+            Services.Auth.CurrentUser = A.User.Build();
 
             var result = Execute(CreateRequest());
 
@@ -72,7 +72,7 @@ namespace Tests.Core.UseCases
         private AddBunchResult Execute(AddBunchRequest request)
         {
             return AddBunchInteractor.Execute(
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 request);

@@ -59,7 +59,11 @@ namespace Tests.Core.UseCases
 
         private BunchContextResult Execute(BunchContextRequest request)
         {
-            return BunchContextInteractor.Execute(AppContextFunc, GetMock<IBunchRepository>().Object, GetMock<IAuth>().Object, request);
+            return BunchContextInteractor.Execute(
+                AppContextFunc,
+                GetMock<IBunchRepository>().Object,
+                Services.Auth,
+                request);
         }
 
         private AppContextResult AppContextFunc()

@@ -170,29 +170,23 @@ namespace Tests.Core.UseCases
 
         private void SetupCurrentUser()
         {
-            SetupCurrentUser(Role.Player);
+            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Player).Build();
         }
 
         private void SetupCurrentUserAsAdmin()
         {
-            SetupCurrentUser(Role.Admin);
+            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Admin).Build();
         }
 
         private void SetupCurrentUserAsDisplayUser()
         {
-            SetupCurrentUser(Role.Admin, CreateDisplayUser());
+            Services.Auth.CurrentUser = CreateDisplayUser();
         }
-
-        private void SetupCurrentUser(Role role, User displayUser = null)
-        {
-            var currentUser = displayUser ?? A.User.WithGlobalRole(role).Build();
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(currentUser);
-        }
-
+        
         private UserDetailsResult Execute(UserDetailsRequest request)
         {
             return UserDetailsInteractor.Execute(
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 GetMock<IUserRepository>().Object,
                 request);
         }

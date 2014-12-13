@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.CashgameDetails;
 using Moq;
@@ -79,7 +78,7 @@ namespace Tests.Core.UseCases
             var request = new CashgameDetailsRequest(Constants.SlugA, dateStr);
 
             SetupCashgame(cashgame);
-            SetupManager();
+            Services.Auth.SetCurrentRole(Role.Manager);
             
             var result = Execute(request);
 
@@ -111,17 +110,12 @@ namespace Tests.Core.UseCases
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), It.IsAny<string>())).Returns(cashgame);
         }
 
-        private void SetupManager()
-        {
-            GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
-        }
-
         private CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
             return CashgameDetailsInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 GetMock<IPlayerRepository>().Object,
                 request);
         }

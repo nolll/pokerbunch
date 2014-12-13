@@ -27,8 +27,7 @@ namespace Tests.Core.UseCases
         {
             const string userName = "a";
             const string displayName = "b";
-            var user = A.User.WithUserName(userName).WithDisplayName(displayName).Build();
-            SetupUser(user);
+            Services.Auth.CurrentUser = A.User.WithUserName(userName).WithDisplayName(displayName).Build();
 
             var result = Execute();
 
@@ -40,17 +39,14 @@ namespace Tests.Core.UseCases
 
         private AppContextResult Execute()
         {
-            return AppContextInteractor.Execute(BaseContextFunc, GetMock<IAuth>().Object);
+            return AppContextInteractor.Execute(
+                BaseContextFunc,
+                Services.Auth);
         }
 
         private BaseContextResult BaseContextFunc()
         {
             return new BaseContextResultInTest();
         }  
-
-        private void SetupUser(User user)
-        {
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
-        }
     }
 }

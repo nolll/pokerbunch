@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             Execute();
 
-            GetMock<IAuth>().Verify(o => o.SignOut());
+            Assert.IsTrue(Services.Auth.SignedOut);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
 
         private LogoutResult Execute()
         {
-            return LogoutInteractor.Execute(GetMock<IAuth>().Object);
+            return LogoutInteractor.Execute(Services.Auth);
         }
     }
 }

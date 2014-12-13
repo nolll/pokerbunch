@@ -1,6 +1,5 @@
 ﻿using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.PlayerDetails;
 using NUnit.Framework;
@@ -120,7 +119,7 @@ namespace Tests.Core.UseCases
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
             SetupPlayerAndUser();
-            SetupManager();
+            Services.Auth.SetCurrentRole(Role.Manager);
 
             var result = Execute(CreateRequest());
 
@@ -131,7 +130,7 @@ namespace Tests.Core.UseCases
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
             SetupPlayerAndUser();
-            SetupManager();
+            Services.Auth.SetCurrentRole(Role.Manager);
             SetupPlayedCashgames();
 
             var result = Execute(CreateRequest());
@@ -160,11 +159,6 @@ namespace Tests.Core.UseCases
             return A.Player.WithDisplayName(DisplayName).WithUserId(userId).Build();
         }
 
-        private void SetupManager()
-        {
-            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
-        }
-
         private void SetupPlayer(Player player)
         {
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
@@ -184,7 +178,7 @@ namespace Tests.Core.UseCases
         private PlayerDetailsResult Execute(PlayerDetailsRequest request)
         {
             return PlayerDetailsInteractor.Execute(
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 Repos.Bunch,
                 GetMock<IPlayerRepository>().Object,
                 GetMock<ICashgameRepository>().Object,

@@ -1,5 +1,4 @@
 ﻿using Core.Entities;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.BunchDetails;
 using NUnit.Framework;
@@ -52,16 +51,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithManager_CanEditIsTrue()
         {
-            SetupManager();
+            Services.Auth.SetCurrentRole(Role.Manager);
 
             var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
-        }
-
-        private void SetupManager()
-        {
-            GetMock<IAuth>().Setup(o => o.IsInRole(Constants.SlugA, Role.Manager)).Returns(true);
         }
 
         private static BunchDetailsRequest CreateRequest()
@@ -77,7 +71,7 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.User,
                     Repos.Player,
-                    GetMock<IAuth>().Object);
+                    Services.Auth);
             }
         }
     }

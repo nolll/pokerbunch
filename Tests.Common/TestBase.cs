@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Core.Entities;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests.Common
@@ -19,9 +20,10 @@ namespace Tests.Common
         }
 
         [SetUp]
-        public void SetUpMocks()
+        public void ClearFakes()
         {
             Mock.Clear();
+            Services.Clear();
         }
 
         protected Mock<T> GetMock<T>() where T : class

@@ -12,5 +12,10 @@ namespace Tests.Common
             Time = new FakeTimeProvider();
             Auth = new FakeAuth();
         }
+
+        public void Clear()
+        {
+            Auth.Reset();
+        }
     }
 }

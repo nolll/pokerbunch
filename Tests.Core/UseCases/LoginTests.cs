@@ -51,29 +51,24 @@ namespace Tests.Core.UseCases
         public void Login_UserFoundAndPasswordIsCorrect_UserIsSignedIn()
         {
             SetupUserWithCorrectPassword();
-
+            
             Execute(CreateRequest());
 
-            GetMock<IAuth>().Verify(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>()));
+            Assert.IsNotNull(Services.Auth.UserIdentity);
         }
 
         [Test]
         public void Login_UserFoundAndPasswordIsCorrect_UserIdentityHasUserProperties()
         {
             SetupUserWithCorrectPassword();
-            UserIdentity result = null;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
             Execute(CreateRequest());
 
-            Assert.AreEqual(UserId, result.UserId);
-            Assert.AreEqual(UserName, result.UserName);
-            Assert.AreEqual(UserDisplayName, result.DisplayName);
-            Assert.IsFalse(result.IsAdmin);
-            Assert.AreEqual(0, result.Bunches.Count);
+            Assert.AreEqual(UserId, Services.Auth.UserIdentity.UserId);
+            Assert.AreEqual(UserName, Services.Auth.UserIdentity.UserName);
+            Assert.AreEqual(UserDisplayName, Services.Auth.UserIdentity.DisplayName);
+            Assert.IsFalse(Services.Auth.UserIdentity.IsAdmin);
+            Assert.AreEqual(0, Services.Auth.UserIdentity.Bunches.Count);
         }
 
         [Test]
@@ -87,19 +82,13 @@ namespace Tests.Core.UseCases
             var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).WithRole(Role.Player).Build();
             GetMock<IPlayerRepository>().Setup(o => o.GetByUserId(It.IsAny<int>(), UserId)).Returns(player);
 
-            UserIdentity result = null;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
-
             Execute(CreateRequest());
 
-            Assert.AreEqual(1, result.Bunches.Count);
-            Assert.AreEqual(Slug, result.Bunches[0].Slug);
-            Assert.AreEqual(Role.Player, result.Bunches[0].Role);
-            Assert.AreEqual(PlayerDisplayName, result.Bunches[0].Name);
-            Assert.AreEqual(PlayerId, result.Bunches[0].Id);
+            Assert.AreEqual(1, Services.Auth.UserIdentity.Bunches.Count);
+            Assert.AreEqual(Slug, Services.Auth.UserIdentity.Bunches[0].Slug);
+            Assert.AreEqual(Role.Player, Services.Auth.UserIdentity.Bunches[0].Role);
+            Assert.AreEqual(PlayerDisplayName, Services.Auth.UserIdentity.Bunches[0].Name);
+            Assert.AreEqual(PlayerId, Services.Auth.UserIdentity.Bunches[0].Id);
         }
 
         [Test]
@@ -113,67 +102,46 @@ namespace Tests.Core.UseCases
             var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
             GetMock<IPlayerRepository>().Setup(o => o.GetByUserId(It.IsAny<int>(), UserId)).Returns(player);
 
-            UserIdentity result = null;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
-
             Execute(CreateRequest());
 
-            Assert.AreEqual(2, result.Bunches.Count);
+            Assert.AreEqual(2, Services.Auth.UserIdentity.Bunches.Count);
         }
 
         [Test]
         public void Login_AdminUser_UserIdentityIsAdminIsTrue()
         {
             SetupAdminUserWithCorrectPassword();
-            UserIdentity result = null;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = identity);
 
             Execute(CreateRequest());
 
-            Assert.IsTrue(result.IsAdmin);
+            Assert.IsTrue(Services.Auth.UserIdentity.IsAdmin);
         }
 
         [Test]
         public void Login_RememberMeIsFalse_SignInDoesntSavePersistentCookie()
         {
             SetupUserWithCorrectPassword();
-            var result = false;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
 
             Execute(CreateRequest());
 
-            Assert.IsFalse(result);
+            Assert.IsFalse(Services.Auth.StayLoggedIn);
         }
 
         [Test]
         public void Login_RememberMeIsTrue_SignInSavesPersistentCookie()
         {
             SetupUserWithCorrectPassword();
-            var result = false;
-
-            GetMock<IAuth>().
-                Setup(o => o.SignIn(It.IsAny<UserIdentity>(), It.IsAny<bool>())).
-                Callback((UserIdentity identity, bool createPersistentCookie) => result = createPersistentCookie);
 
             Execute(CreateRequest(true));
 
-            Assert.IsTrue(result);
+            Assert.IsTrue(Services.Auth.StayLoggedIn);
         }
 
         private LoginResult Execute(LoginRequest request)
         {
             return LoginInteractor.Execute(
                 GetMock<IUserRepository>().Object,
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 GetMock<IBunchRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
                 request);

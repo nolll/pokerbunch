@@ -35,8 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedIn_IsLoggedInIsTrue()
         {
-            var user = A.User.Build();
-            SetupUser(user);
+            Services.Auth.CurrentUser = A.User.Build();
 
             var result = Execute();
 
@@ -47,22 +46,16 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedInAsAdmin_IsAdminIsTrue()
         {
-            var user = A.User.WithGlobalRole(Role.Admin).Build();
-            SetupUser(user);
+            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Admin).Build();
 
             var result = Execute();
 
             Assert.IsTrue(result.IsAdmin);
         }
 
-        private void SetupUser(User user)
-        {
-            GetMock<IAuth>().Setup(o => o.CurrentUser).Returns(user);
-        }
-
         private HomeResult Execute()
         {
-            return HomeInteractor.Execute(GetMock<IAuth>().Object);
+            return HomeInteractor.Execute(Services.Auth);
         }
     }
 }

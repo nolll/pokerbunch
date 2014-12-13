@@ -72,8 +72,8 @@ namespace Tests.Core.UseCases
             var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
 
             SetupGame();
-            SetupManager();
-
+            Services.Auth.SetCurrentRole(Role.Manager);
+            
             var result = Execute(request);
 
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
@@ -92,18 +92,13 @@ namespace Tests.Core.UseCases
             GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
 
-        private void SetupManager()
-        {
-            GetMock<IAuth>().Setup(o => o.IsInRole(It.IsAny<string>(), It.IsAny<Role>())).Returns(true);
-        }
-
         private ActionsOutput Execute(ActionsInput input)
         {
             return ActionsInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 GetMock<IPlayerRepository>().Object,
-                GetMock<IAuth>().Object,
+                Services.Auth,
                 input);
         }
     }
