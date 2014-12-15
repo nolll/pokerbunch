@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.Actions;
 using Moq;
@@ -15,8 +14,6 @@ namespace Tests.Core.UseCases
     class ActionsTests : TestBase
     {
         private const string DateStr = "2001-01-01";
-        private const int PlayerId = 1;
-        private const string PlayerName = "b";
         private const string ReportDescription = "Report";
         private const string BuyinDescription = "Buyin";
         private const string CashoutDescription = "Cashout";
@@ -33,21 +30,21 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ActionsResultIsReturned()
         {
-            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, Constants.PlayerIdA);
 
             SetupGame();
             
             var result = Execute(request);
 
             Assert.AreEqual(_date, result.Date);
-            Assert.AreEqual(PlayerName, result.PlayerName);
+            Assert.AreEqual(Constants.PlayerNameA, result.PlayerName);
             Assert.AreEqual(3, result.CheckpointItems.Count);
         }
 
         [Test]
         public void Actions_ItemPropertiesAreSet()
         {
-            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, Constants.PlayerIdA);
 
             SetupGame();
 
@@ -69,7 +66,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_WithManager_CanEditIsTrueOnItem()
         {
-            var request = new ActionsInput(Constants.SlugA, DateStr, PlayerId);
+            var request = new ActionsInput(Constants.SlugA, DateStr, Constants.PlayerIdA);
 
             SetupGame();
             Services.Auth.SetCurrentRole(Role.Manager);
@@ -85,11 +82,9 @@ namespace Tests.Core.UseCases
             var checkpoint2 = A.Checkpoint.WithStack(1).WithAmount(2).OfType(CheckpointType.Buyin).Build();
             var checkpoint3 = A.Checkpoint.WithStack(1).OfType(CheckpointType.Cashout).Build();
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2, checkpoint3 };
-            var cashgameResult = A.CashgameResult.WithCheckpoints(checkpoints).Build();
+            var cashgameResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdA).WithCheckpoints(checkpoints).Build();
             var cashgame = A.Cashgame.WithStartTime(_date).WithResults(new List<CashgameResult> { cashgameResult }).Build();
-            var player = A.Player.WithDisplayName(PlayerName).Build();
             GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), DateStr)).Returns(cashgame);
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
 
         private ActionsOutput Execute(ActionsInput input)
@@ -97,7 +92,7 @@ namespace Tests.Core.UseCases
             return ActionsInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 Services.Auth,
                 input);
         }

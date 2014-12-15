@@ -9,26 +9,17 @@ namespace Tests.Core.UseCases
 {
     class PlayerDetailsTests : TestBase
     {
-        private const int PlayerId = 1;
-        private const int UserId = 2;
-        private const string DisplayName = "b";
-        private const string Email = "c";
-
         [Test]
         public void PlayerDetails_DisplayNameIsSet()
         {
-            SetupPlayer();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual("b", result.DisplayName);
+            Assert.AreEqual(Constants.PlayerNameA, result.DisplayName);
         }
 
         [Test]
         public void PlayerDetails_DeleteUrlIsSet()
         {
-            SetupPlayer();
-
             var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<DeletePlayerUrl>(result.DeleteUrl);
@@ -37,8 +28,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_InvitationUrlIsSet()
         {
-            SetupPlayer();
-
             var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<InvitePlayerUrl>(result.InvitationUrl);
@@ -47,9 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            SetupPlayer();
-
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.PlayerIdB));
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -57,20 +44,16 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            SetupPlayerAndUser();
-
             var result = Execute(CreateRequest());
 
-            const string expected = "http://www.gravatar.com/avatar/4a8a08f09d37b73795649038408b5f33?s=100";
+            const string expected = "http://www.gravatar.com/avatar/0796c9df772de3f82c0c89377330471b?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
         }
 
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            SetupPlayer();
-
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.PlayerIdB));
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -78,8 +61,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_UserUrlIsSet()
         {
-            SetupPlayerAndUser();
-
             var result = Execute(CreateRequest());
 
             Assert.IsInstanceOf<UserUrl>(result.UserUrl);
@@ -88,9 +69,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            SetupPlayer();
-
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.PlayerIdB));
 
             Assert.IsFalse(result.IsUser);
         }
@@ -98,8 +77,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            SetupPlayerAndUser();
-
             var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.IsUser);
@@ -108,8 +85,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithNormalUser_CanDeleteIsFalse()
         {
-            SetupPlayerAndUser();
-
             var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.CanDelete);
@@ -118,7 +93,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
-            SetupPlayerAndUser();
             Services.Auth.SetCurrentRole(Role.Manager);
 
             var result = Execute(CreateRequest());
@@ -129,7 +103,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
-            SetupPlayerAndUser();
             Services.Auth.SetCurrentRole(Role.Manager);
             SetupPlayedCashgames();
 
@@ -138,41 +111,14 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.CanDelete);
         }
 
-        private static PlayerDetailsRequest CreateRequest()
+        private static PlayerDetailsRequest CreateRequest(int playerId = Constants.PlayerIdA)
         {
-            return new PlayerDetailsRequest(Constants.SlugA, PlayerId);
-        }
-
-        private void SetupPlayer()
-        {
-            SetupPlayer(CreatePlayer());
-        }
-
-        private void SetupPlayerAndUser()
-        {
-            SetupUser();
-            SetupPlayer(CreatePlayer(UserId));
-        }
-
-        private Player CreatePlayer(int userId = 0)
-        {
-            return A.Player.WithDisplayName(DisplayName).WithUserId(userId).Build();
-        }
-
-        private void SetupPlayer(Player player)
-        {
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
-        }
-
-        private void SetupUser(Role role = Role.Player)
-        {
-            var user = A.User.WithEmail(Email).WithGlobalRole(role).Build();
-            GetMock<IUserRepository>().Setup(o => o.GetById(UserId)).Returns(user);
+            return new PlayerDetailsRequest(Constants.SlugA, playerId);
         }
 
         private void SetupPlayedCashgames()
         {
-            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(PlayerId)).Returns(true);
+            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(Constants.PlayerIdA)).Returns(true);
         }
         
         private PlayerDetailsResult Execute(PlayerDetailsRequest request)
@@ -180,9 +126,9 @@ namespace Tests.Core.UseCases
             return PlayerDetailsInteractor.Execute(
                 Services.Auth,
                 Repos.Bunch,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IUserRepository>().Object,
+                Repos.User,
                 request);
         }
     }

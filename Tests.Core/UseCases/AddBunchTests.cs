@@ -1,6 +1,4 @@
 ﻿using Core.Exceptions;
-using Core.Repositories;
-using Core.Services;
 using Core.UseCases.AddBunch;
 using NUnit.Framework;
 using Tests.Common;
@@ -74,7 +72,7 @@ namespace Tests.Core.UseCases
             return AddBunchInteractor.Execute(
                 Services.Auth,
                 Repos.Bunch,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 request);
         }
     }

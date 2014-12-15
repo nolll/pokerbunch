@@ -9,6 +9,7 @@ namespace Tests.Common.FakeRepositories
     public class FakePlayerRepository : IPlayerRepository
     {
         public Player Added { get; private set; }
+        public int Deleted { get; private set; }
         private readonly IList<Player> _list;
 
         public FakePlayerRepository()
@@ -23,7 +24,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<Player> GetList(IList<int> ids)
         {
-            throw new System.NotImplementedException();
+            return _list;
         }
 
         public Player GetById(int id)
@@ -54,7 +55,8 @@ namespace Tests.Common.FakeRepositories
 
         public bool Delete(int playerId)
         {
-            throw new System.NotImplementedException();
+            Deleted = playerId;
+            return true;
         }
 
         private IList<Player> CreateList()
@@ -69,7 +71,6 @@ namespace Tests.Common.FakeRepositories
                     .Build(),
                 new PlayerBuilder()
                     .WithId(Constants.PlayerIdB)
-                    .WithUserId(Constants.UserIdB)
                     .WithDisplayName(Constants.PlayerNameB)
                     .WithRole(Role.Player)
                     .Build()

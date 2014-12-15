@@ -62,7 +62,7 @@ namespace Tests.Core.UseCases
 
             var result = Execute(request);
 
-            Assert.AreEqual("c", result.PlayerItems[0].Name);
+            Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[0].Name);
             Assert.IsInstanceOf<CashgameActionUrl>(result.PlayerItems[0].PlayerUrl);
             Assert.AreEqual(2, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(3, result.PlayerItems[0].Cashout.Amount);
@@ -89,20 +89,14 @@ namespace Tests.Core.UseCases
         {
             const string dateStr = "2000-01-01";
             const string location = "a";
-            const int playerId1 = 1;
-            const int playerId2 = 2;
             var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
             var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
             
-            var cashgameResult1 = new CashgameResultInTest(playerId1, winnings: -1);
-            var cashgameResult2 = new CashgameResultInTest(playerId2, winnings: 1, buyin: 2, stack: 3, winRate: 4);
+            var cashgameResult1 = new CashgameResultInTest(Constants.PlayerIdA, winnings: -1);
+            var cashgameResult2 = new CashgameResultInTest(Constants.PlayerIdB, winnings: 1, buyin: 2, stack: 3, winRate: 4);
             var cashgameResults = new List<CashgameResult> { cashgameResult1, cashgameResult2 };
             var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).WithResults(cashgameResults).Build();
             SetupCashgame(cashgame);
-            var player1 = A.Player.WithId(playerId1).WithDisplayName("b").Build();
-            var player2 = A.Player.WithId(playerId2).WithDisplayName("c").Build();
-            var players = new List<Player> { player1, player2 };
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<IList<int>>())).Returns(players);
         }
 
         private void SetupCashgame(Cashgame cashgame)
@@ -116,7 +110,7 @@ namespace Tests.Core.UseCases
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
                 Services.Auth,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 request);
         }
     }

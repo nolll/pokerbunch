@@ -2,9 +2,7 @@
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases.Login;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -17,11 +15,9 @@ namespace Tests.Core.UseCases
         private const string UserName = "c";
         private const string UserDisplayName = "d";
         private const string Slug = "e";
-        private const string PlayerDisplayName = "f";
         private const string ReturnUrl = "g";
         private const string EncryptedPassword = "e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98";
         private const int UserId = 1;
-        private const int PlayerId = 2;
 
         [Test]
         public void Login_ReturnUrlIsSet()
@@ -79,16 +75,13 @@ namespace Tests.Core.UseCases
             var homegameList = new List<Bunch> { bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
 
-            var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).WithRole(Role.Player).Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserId(It.IsAny<int>(), UserId)).Returns(player);
-
             Execute(CreateRequest());
 
             Assert.AreEqual(1, Services.Auth.UserIdentity.Bunches.Count);
             Assert.AreEqual(Slug, Services.Auth.UserIdentity.Bunches[0].Slug);
             Assert.AreEqual(Role.Player, Services.Auth.UserIdentity.Bunches[0].Role);
-            Assert.AreEqual(PlayerDisplayName, Services.Auth.UserIdentity.Bunches[0].Name);
-            Assert.AreEqual(PlayerId, Services.Auth.UserIdentity.Bunches[0].Id);
+            Assert.AreEqual(Constants.PlayerNameA, Services.Auth.UserIdentity.Bunches[0].Name);
+            Assert.AreEqual(Constants.PlayerIdA, Services.Auth.UserIdentity.Bunches[0].Id);
         }
 
         [Test]
@@ -98,9 +91,6 @@ namespace Tests.Core.UseCases
             var bunch = A.Bunch.WithSlug(Slug).Build();
             var homegameList = new List<Bunch> { bunch, bunch };
             GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
-
-            var player = A.Player.WithId(PlayerId).WithDisplayName(PlayerDisplayName).Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetByUserId(It.IsAny<int>(), UserId)).Returns(player);
 
             Execute(CreateRequest());
 
@@ -143,7 +133,7 @@ namespace Tests.Core.UseCases
                 GetMock<IUserRepository>().Object,
                 Services.Auth,
                 GetMock<IBunchRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 request);
         }
 

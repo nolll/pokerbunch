@@ -15,20 +15,16 @@ namespace Tests.Core.UseCases
         public void Execute_ReturnsCashgameFactResult()
         {
             const int year = 1;
-            var player1 = A.Player.Build();
-            var player2 = A.Player.Build();
-            var players = new List<Player>{player1, player2};
-            var cashgame1BestResult = A.CashgameResult.Build();
-            var cashgame1WorstResult = A.CashgameResult.Build();
+            var cashgame1BestResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdA).Build();
+            var cashgame1WorstResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdB).Build();
             var cashgame1Results = new List<CashgameResult> {cashgame1BestResult, cashgame1WorstResult};
             var cashgame1 = A.Cashgame.WithResults(cashgame1Results).Build();
-            var cashgame2BestResult = A.CashgameResult.Build();
-            var cashgame2WorstResult = A.CashgameResult.Build();
+            var cashgame2BestResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdA).Build();
+            var cashgame2WorstResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdB).Build();
             var cashgame2Results = new List<CashgameResult> { cashgame2BestResult, cashgame2WorstResult };
             var cashgame2 = A.Cashgame.WithResults(cashgame2Results).Build();
             var cashgames = new List<Cashgame>{cashgame1, cashgame2};
 
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), year)).Returns(cashgames);
 
             var request = new CashgameFactsRequest(Constants.SlugA, year);
@@ -78,7 +74,7 @@ namespace Tests.Core.UseCases
             return CashgameFactsInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 request);
         }
     }

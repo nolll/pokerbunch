@@ -62,10 +62,8 @@ namespace Tests.Core.UseCases
             var cashgame1 = A.Cashgame.WithStartTime(dt1).Build();
             var cashgame2 = A.Cashgame.WithStartTime(dt2).Build();
             var cashgames = new List<Cashgame> { cashgame1, cashgame2 };
-            var players = new List<Player>();
 
             GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(cashgames);
-            GetMock<IPlayerRepository>().Setup(o => o.GetList(It.IsAny<int>())).Returns(players);
         }
 
         private MatrixResult Execute(MatrixRequest request)
@@ -73,7 +71,7 @@ namespace Tests.Core.UseCases
             return MatrixInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 request);
         }
     }

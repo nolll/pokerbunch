@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.Buyin;
 using Moq;
@@ -47,7 +46,6 @@ namespace Tests.Core.UseCases
             const int savedStack = 3;
             
             SetupCashgame();
-            SetupPlayer();
 
             Services.Time.UtcNow = timestamp;
 
@@ -66,7 +64,6 @@ namespace Tests.Core.UseCases
         public void Buyin_NotStartedCashgame_AddsCheckpointAndStartsGame()
         {
             SetupCashgameThatIsntStarted();
-            SetupPlayer();
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             Execute(request);
@@ -79,7 +76,6 @@ namespace Tests.Core.UseCases
         public void Buyin_ReturnUrlIsSetToRunningCashgame()
         {
             SetupCashgame();
-            SetupPlayer();
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             var result = Execute(request);
@@ -103,18 +99,12 @@ namespace Tests.Core.UseCases
         {
             GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(cashgame);
         }
-
-        private void SetupPlayer()
-        {
-            var player = A.Player.Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(It.IsAny<int>())).Returns(player);
-        }
-
+        
         private BuyinResult Execute(BuyinRequest request)
         {
             return BuyinInteractor.Execute(
                 Repos.Bunch,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 GetMock<ICashgameRepository>().Object,
                 Repos.Checkpoint,
                 Services.Time,
