@@ -48,5 +48,8 @@ namespace Tests.Common
         public const int PlayerIdB = 2;
         public const string PlayerNameA = "Player Name A";
         public const string PlayerNameB = "Player Name B";
+
+        public const string LocationA = "Location A";
+        public const string LocationB = "Location B";
     }
 }
