@@ -101,7 +101,7 @@ namespace Tests.Core.UseCases
 
         private void SetupCashgame(Cashgame cashgame)
         {
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), It.IsAny<string>())).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<int>(), It.IsAny<string>())).Returns(cashgame);
         }
 
         private CashgameDetailsResult Execute(CashgameDetailsRequest request)

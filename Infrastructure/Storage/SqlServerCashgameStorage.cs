@@ -145,12 +145,12 @@ namespace Infrastructure.Storage
 			return reader.HasRows();
 		}
 
-		public IList<string> GetLocations(string slug)
+		public IList<string> GetLocations(int bunchId)
         {
-			const string sql = "SELECT DISTINCT g.Location FROM game g LEFT JOIN homegame h ON g.HomegameID = h.HomegameID WHERE Name = @slug AND g.Location <> '' ORDER BY g.Location";
+			const string sql = "SELECT DISTINCT g.Location FROM game g WHERE g.HomegameID = @id AND g.Location <> '' ORDER BY g.Location";
             var parameters = new List<SimpleSqlParameter>
 		        {
-                    new SimpleSqlParameter("@slug", slug)
+                    new SimpleSqlParameter("@id", bunchId)
 		        };
             var reader = Query(sql, parameters);
 		    return reader.ReadStringList("Location");

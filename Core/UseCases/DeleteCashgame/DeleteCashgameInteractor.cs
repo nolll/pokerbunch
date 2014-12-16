@@ -9,7 +9,7 @@ namespace Core.UseCases.DeleteCashgame
         public static DeleteCashgameResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, DeleteCashgameRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();

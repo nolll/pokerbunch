@@ -16,7 +16,7 @@ namespace Core.UseCases.CashgameDetails
             CashgameDetailsRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
             var players = GetPlayers(playerRepository, cashgame);
 

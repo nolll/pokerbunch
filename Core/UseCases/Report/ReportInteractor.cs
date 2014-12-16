@@ -21,7 +21,7 @@ namespace Core.UseCases.Report
                 throw new ValidationException(validator);
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetRunning(bunch);
+            var cashgame = cashgameRepository.GetRunning(bunch.Id);
             var player = playerRepository.GetById(request.PlayerId);
             var now = timeProvider.UtcNow;
 

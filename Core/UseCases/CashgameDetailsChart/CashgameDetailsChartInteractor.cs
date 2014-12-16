@@ -31,7 +31,7 @@ namespace Core.UseCases.CashgameDetailsChart
         {
             if (string.IsNullOrEmpty(dateStr))
                 return cashgameRepository.GetRunning(bunch.Id);
-            return cashgameRepository.GetByDateString(bunch, dateStr);
+            return cashgameRepository.GetByDateString(bunch.Id, dateStr);
         }
 
         private static IList<DetailsChartPlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)

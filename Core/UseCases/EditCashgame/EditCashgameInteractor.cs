@@ -14,7 +14,7 @@ namespace Core.UseCases.EditCashgame
                 throw new ValidationException(validator);
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id, cashgame.Results);
             cashgameRepository.UpdateGame(cashgame);
             

@@ -16,7 +16,7 @@ namespace Core.UseCases.ActionsChart
             ActionsChartRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var result = cashgame.GetResult(request.PlayerId);
             var now = timeProvider.UtcNow;
 

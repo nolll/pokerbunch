@@ -17,6 +17,6 @@ namespace Infrastructure.Storage.Interfaces
 		IList<int> GetYears(int homegameId);
         bool UpdateGame(RawCashgame cashgame);
 		bool HasPlayed(int playerId);
-        IList<string> GetLocations(string slug);
+        IList<string> GetLocations(int bunchId);
 	}
 }

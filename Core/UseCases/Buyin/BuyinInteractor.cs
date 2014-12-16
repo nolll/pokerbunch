@@ -16,7 +16,7 @@ namespace Core.UseCases.Buyin
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
-            var game = cashgameRepository.GetRunning(bunch);
+            var game = cashgameRepository.GetRunning(bunch.Id);
 
             var timeStamp = timeProvider.UtcNow;
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;

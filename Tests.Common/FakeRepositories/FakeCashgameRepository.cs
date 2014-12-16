@@ -6,22 +6,19 @@ namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
-        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Cashgame Running { get; set; }
 
-        public Cashgame GetRunning(Bunch bunch)
+        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
             throw new System.NotImplementedException();
         }
 
         public Cashgame GetRunning(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return Running;
         }
 
-        public Cashgame GetByDateString(Bunch bunch, string dateString)
+        public Cashgame GetByDateString(int bunchId, string dateString)
         {
             throw new System.NotImplementedException();
         }
@@ -36,9 +33,9 @@ namespace Tests.Common.FakeRepositories
             throw new System.NotImplementedException();
         }
 
-        public IList<string> GetLocations(Bunch bunch)
+        public IList<string> GetLocations(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return new[] {Constants.LocationA, Constants.LocationB};
         }
 
         public bool DeleteGame(Cashgame cashgame)

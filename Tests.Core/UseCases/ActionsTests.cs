@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
             var checkpoints = new List<Checkpoint> { checkpoint1, checkpoint2, checkpoint3 };
             var cashgameResult = A.CashgameResult.WithPlayerId(Constants.PlayerIdA).WithCheckpoints(checkpoints).Build();
             var cashgame = A.Cashgame.WithStartTime(_date).WithResults(new List<CashgameResult> { cashgameResult }).Build();
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<Bunch>(), DateStr)).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<int>(), DateStr)).Returns(cashgame);
         }
 
         private ActionsOutput Execute(ActionsInput input)

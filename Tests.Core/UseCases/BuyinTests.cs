@@ -97,7 +97,7 @@ namespace Tests.Core.UseCases
 
         private void SetupCashgame(Cashgame cashgame)
         {
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<Bunch>())).Returns(cashgame);
+            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);
         }
         
         private BuyinResult Execute(BuyinRequest request)

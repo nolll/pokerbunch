@@ -20,7 +20,7 @@ namespace Core.UseCases.RunningCashgame
             RunningCashgameRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetRunning(bunch);
+            var cashgame = cashgameRepository.GetRunning(bunch.Id);
 
             if(cashgame == null)
                 throw new CashgameNotRunningException();

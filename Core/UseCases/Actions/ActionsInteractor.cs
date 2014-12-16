@@ -18,7 +18,7 @@ namespace Core.UseCases.Actions
             ActionsInput input)
         {
             var bunch = bunchRepository.GetBySlug(input.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, input.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
             var player = playerRepository.GetById(input.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
             var isManager = auth.IsInRole(bunch.Slug, Role.Manager);

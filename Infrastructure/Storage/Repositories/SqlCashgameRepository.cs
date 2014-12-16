@@ -59,25 +59,20 @@ namespace Infrastructure.Storage.Repositories
             return GetList(ids);
 	    } 
 
-        public Cashgame GetRunning(Bunch bunch)
-        {
-            return GetRunning(bunch.Id);
-        }
-
         public Cashgame GetRunning(int bunchId)
         {
             var id = GetIdByRunning(bunchId);
             return id.HasValue ? GetById(id.Value) : null;
         }
 
-        public Cashgame GetByDateString(Bunch bunch, string dateString)
+        public Cashgame GetByDateString(int bunchId, string dateString)
         {
-            var id = GetIdByDateString(bunch.Id, dateString);
+            var id = GetIdByDateString(bunchId, dateString);
             if(!id.HasValue)
-                throw new CashgameNotFoundException(bunch.Slug, dateString);
+                throw new CashgameNotFoundException(bunchId, dateString);
             var cashgame = GetById(id.Value);
             if (cashgame == null)
-                throw new CashgameNotFoundException(bunch.Slug, dateString);
+                throw new CashgameNotFoundException(bunchId, dateString);
             
             return cashgame;
         }
@@ -138,9 +133,9 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(() => _cashgameStorage.GetGameIdsByEvent(eventId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public IList<string> GetLocations(Bunch bunch)
+        public IList<string> GetLocations(int bunchId)
         {
-			return _cashgameStorage.GetLocations(bunch.Slug);
+			return _cashgameStorage.GetLocations(bunchId);
 		}
 
 		public bool DeleteGame(Cashgame cashgame){

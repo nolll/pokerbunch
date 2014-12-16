@@ -22,7 +22,7 @@ namespace Core.UseCases.Cashout
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var player = playerRepository.GetById(request.PlayerId);
-            var cashgame = cashgameRepository.GetRunning(bunch);
+            var cashgame = cashgameRepository.GetRunning(bunch.Id);
             var result = cashgame.GetResult(player.Id);
             var now = timeProvider.UtcNow;
 

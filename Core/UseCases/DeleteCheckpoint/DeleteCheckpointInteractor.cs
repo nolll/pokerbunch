@@ -13,7 +13,7 @@ namespace Core.UseCases.DeleteCheckpoint
             DeleteCheckpointRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch, request.DateStr);
+            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var checkpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
             checkpointRepository.DeleteCheckpoint(checkpoint);
 

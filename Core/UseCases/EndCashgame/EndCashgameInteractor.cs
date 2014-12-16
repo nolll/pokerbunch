@@ -8,7 +8,7 @@ namespace Core.UseCases.EndCashgame
         public static EndCashgameResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, EndCashgameRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetRunning(bunch);
+            var cashgame = cashgameRepository.GetRunning(bunch.Id);
 
             if(cashgame != null)
                 cashgameRepository.EndGame(bunch, cashgame);
