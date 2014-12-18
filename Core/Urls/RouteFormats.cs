@@ -28,6 +28,8 @@ namespace Core.Urls
         public const string CashgameReport = "/{0}/cashgame/report";
         public const string CashgameCashout = "/{0}/cashgame/cashout";
         public const string RunningCashgame = "/{0}/cashgame/running";
+        public const string RunningCashgameGameJson = "/{0}/cashgame/runninggamejson";
+        public const string RunningCashgamePlayersJson = "/{0}/cashgame/runningplayersjson";
         public const string CashgameCheckpointDelete = "/{0}/cashgame/deletecheckpoint/{1}/{2}/{3}";
         public const string CashgameCheckpointEdit = "/{0}/cashgame/editcheckpoint/{1}/{2}/{3}";
 

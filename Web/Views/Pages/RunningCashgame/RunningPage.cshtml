@@ -5,7 +5,7 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div data-require="running-cashgame" data-bind="template: { name: 'running-cashgame-template' }"></div>
+<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }"></div>
 
 <script type="text/html" id="running-cashgame-template">
     <div class="region width2">
@@ -14,22 +14,22 @@
         </div>
 
         <div class="button-list" data-bind="visible: areButtonsVisible">
-            <a href="@Model.ReportUrl" class="icon-button" data-bind="visible: canReport, click: showReportForm">
+            <button class="icon-button" data-bind="visible: canReport, click: showReportForm">
                 <i class="icon-reorder"></i>
                 Report
-            </a>
-            <a href="@Model.BuyinUrl" class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
+            </button>
+            <button class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
                 <i class="icon-money"></i>
                 Buy In
-            </a>
-            <a href="@Model.CashoutUrl" class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
+            </button>
+            <button class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
                 <i class="icon-signout"></i>
                 Cash Out
-            </a>
-            <a href="@Model.EndGameUrl" class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
+            </button>
+            <button class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
                 <i class="icon-signout"></i>
                 End Game
-            </a>
+            </button>
         </div>
         <div class="block gutter">
             <div class="form" data-bind="visible: reportFormVisible">

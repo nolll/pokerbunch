@@ -150,6 +150,8 @@
     <Compile Include="Urls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\PlayerUrl.cs" />
     <Compile Include="Urls\RouteFormats.cs" />
+    <Compile Include="Urls\RunningCashgameGameJsonUrl.cs" />
+    <Compile Include="Urls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />

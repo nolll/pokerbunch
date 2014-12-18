@@ -31,13 +31,12 @@ namespace Core.UseCases.RunningCashgame
             var bunchPlayers = playerRepository.GetList(bunch.Id);
 
             var isStarted = cashgame.IsStarted;
-            var canBeEnded = CanBeEnded(cashgame);
-            var canReport = !canBeEnded;
-            var isInGame = cashgame.IsInGame(player.Id);
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
             var now = timeProvider.UtcNow;
             
             var location = cashgame.Location;
+            var gameDataUrl = new RunningCashgameGameJsonUrl(bunch.Slug);
+            var playerDataUrl = new RunningCashgamePlayersJsonUrl(bunch.Slug);
             var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
             var reportUrl = new CashgameReportUrl(bunch.Slug);
             var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
@@ -45,10 +44,6 @@ namespace Core.UseCases.RunningCashgame
             var cashgameIndexUrl = new CashgameIndexUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
-            var buyinButtonEnabled = canReport;
-            var reportButtonEnabled = canReport && isInGame;
-            var cashoutButtonEnabled = isInGame;
-            var endGameButtonEnabled = canBeEnded;
             var showTable = cashgame.IsStarted;
             var showChart = cashgame.IsStarted;
 
@@ -63,6 +58,8 @@ namespace Core.UseCases.RunningCashgame
             return new RunningCashgameResult(
                 player.Id,
                 location,
+                gameDataUrl,
+                playerDataUrl,
                 buyinUrl,
                 reportUrl,
                 cashoutUrl,
@@ -71,10 +68,6 @@ namespace Core.UseCases.RunningCashgame
                 showStartTime,
                 startTime,
                 isStarted,
-                buyinButtonEnabled,
-                reportButtonEnabled,
-                cashoutButtonEnabled,
-                endGameButtonEnabled,
                 showTable,
                 showChart,
                 items,

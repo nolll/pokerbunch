@@ -21,8 +21,7 @@ namespace Web.Controllers
             {
                 var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
                 var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
-                var cashgameDetailsChartResult = UseCase.CashgameDetailsChart(new CashgameDetailsChartRequest(slug));
-                var model = new RunningCashgamePageModel(contextResult, runningCashgameResult, cashgameDetailsChartResult);
+                var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
             catch (CashgameNotRunningException)
@@ -30,13 +29,22 @@ namespace Web.Controllers
                 return Redirect(new CashgameIndexUrl(slug).Relative);
             }
         }
-        
+
         [AuthorizePlayer]
-        [Route("{slug}/cashgame/runningjson")]
-        public ActionResult RunningJson(string slug)
+        [Route("{slug}/cashgame/runninggamejson")]
+        public ActionResult RunningGameJson(string slug)
         {
             var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
+            return JsonView(model);
+        }
+
+        [AuthorizePlayer]
+        [Route("{slug}/cashgame/runningplayersjson")]
+        public ActionResult RunningPlayersJson(string slug)
+        {
+            var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug));
+            var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }
 

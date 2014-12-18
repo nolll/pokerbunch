@@ -8,6 +8,8 @@ namespace Core.UseCases.RunningCashgame
     {
         public int PlayerId { get; private set; }
         public string Location { get; private set; }
+        public Url GameDataUrl { get; private set; }
+        public Url PlayersDataUrl { get; private set; }
         public Url BuyinUrl { get; private set; }
         public Url ReportUrl { get; private set; }
         public Url CashoutUrl { get; private set; }
@@ -16,10 +18,6 @@ namespace Core.UseCases.RunningCashgame
         public bool ShowStartTime { get; private set; }
         public string StartTime { get; private set; }
         public bool IsStarted { get; private set; }
-        public bool BuyinButtonEnabled { get; private set; }
-        public bool ReportButtonEnabled { get; private set; }
-        public bool CashoutButtonEnabled { get; private set; }
-        public bool EndGameButtonEnabled { get; private set; }
         public bool ShowTable { get; private set; }
         public bool ShowChart { get; private set; }
         public IList<RunningCashgameTableItem> Items { get; private set; }
@@ -33,6 +31,8 @@ namespace Core.UseCases.RunningCashgame
         public RunningCashgameResult(
             int playerId, 
             string location, 
+            Url gameDataUrl,
+            Url playersDataUrl,
             Url buyinUrl, 
             Url reportUrl, 
             Url cashoutUrl, 
@@ -41,10 +41,6 @@ namespace Core.UseCases.RunningCashgame
             bool showStartTime, 
             string startTime, 
             bool isStarted, 
-            bool buyinButtonEnabled, 
-            bool reportButtonEnabled, 
-            bool cashoutButtonEnabled, 
-            bool endGameButtonEnabled, 
             bool showTable, 
             bool showChart, 
             IList<RunningCashgameTableItem> items, 
@@ -57,6 +53,8 @@ namespace Core.UseCases.RunningCashgame
         {
             PlayerId = playerId;
             Location = location;
+            PlayersDataUrl = playersDataUrl;
+            GameDataUrl = gameDataUrl;
             BuyinUrl = buyinUrl;
             ReportUrl = reportUrl;
             CashoutUrl = cashoutUrl;
@@ -65,10 +63,6 @@ namespace Core.UseCases.RunningCashgame
             ShowStartTime = showStartTime;
             StartTime = startTime;
             IsStarted = isStarted;
-            BuyinButtonEnabled = buyinButtonEnabled;
-            ReportButtonEnabled = reportButtonEnabled;
-            CashoutButtonEnabled = cashoutButtonEnabled;
-            EndGameButtonEnabled = endGameButtonEnabled;
             ShowTable = showTable;
             ShowChart = showChart;
             Items = items;

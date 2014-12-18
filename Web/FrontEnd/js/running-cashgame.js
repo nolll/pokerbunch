@@ -3,8 +3,9 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
         "use strict";
 
         function init() {
-            var url = "/pokerpoker/cashgame/runningjson";
-            loadData(url, function(data) {
+            var $el = $(this);
+            var url = $el.data('url');
+            loadData(url, function (data) {
                 ko.applyBindings(new StandingsViewModel(data));
             });
         }
@@ -33,6 +34,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             me.cashgameIndexUrl = data.cashgameIndexUrl;
             me.defaultBuyIn = data.defaultBuyin;
             me.location = data.location;
+            me.refreshUrl = data.refreshUrl;
             me.isManager = ko.observable(data.isManager);
             me.areButtonsVisible = ko.observable(true);
             me.reportFormVisible = ko.observable(false);
@@ -42,6 +44,16 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             me.currentStack = ko.observable(0);
             me.beforeBuyInStack = ko.observable(0);
             me.buyInAmount = ko.observable(me.defaultBuyIn);
+
+            me.refresh = function(callback) {
+                loadData(me.refreshUrl, function (playerData) {
+                    callback(playerData);
+                });
+            };
+
+            me.setPlayers = function(playerData) {
+                me.players(createPlayers(playerData));
+            };
 
             me.sortedPlayers = ko.computed(function () {
                 return me.players().sort(function (left, right) {
@@ -146,33 +158,37 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 return !me.hasCashedOut();
             });
 
-            me.addCheckpoint = function (playerId, stack, addedMoney) {
+            me.addCheckpoint = function(playerId, stack, addedMoney) {
                 var i;
                 for (i = 0; i < me.players().length; i++) {
                     if (me.players()[i].id == playerId) {
                         me.players()[i].addCheckpoint({ time: moment().utc(), stack: stack, addedMoney: addedMoney });
                     }
                 }
-            }
+            };
 
             me.showReportForm = function () {
                 me.reportFormVisible(true);
                 me.hideButtons();
+                me.refresh(me.setPlayers);
             };
 
             me.showBuyInForm = function () {
                 me.buyInFormVisible(true);
                 me.hideButtons();
+                me.refresh(me.setPlayers);
             };
 
             me.showCashOutForm = function () {
                 me.cashOutFormVisible(true);
                 me.hideButtons();
+                me.refresh(me.setPlayers);
             };
 
             me.showEndGameForm = function () {
                 me.endGameFormVisible(true);
                 me.hideButtons();
+                me.refresh(me.setPlayers);
             };
 
             me.hideButtons = function() {
