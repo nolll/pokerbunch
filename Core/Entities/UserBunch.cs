@@ -7,12 +7,12 @@ namespace Core.Entities
         public string Name { get; private set; }
         public int Id { get; private set; }
 
-        public UserBunch(string slug, Role role, string name, int playerId)
+        public UserBunch(string slug, Role role, string name, int id)
         {
             Slug = slug;
             Role = role;
             Name = name;
-            Id = playerId;
+            Id = id;
         }
     }
 }

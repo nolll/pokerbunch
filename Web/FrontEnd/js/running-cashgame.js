@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "moment"],
+define(["jquery", "knockout", "moment", "select-on-focus"],
     function ($, ko, moment) {
         "use strict";
 

@@ -10,6 +10,7 @@ requirejs.config({
         jquery: "lib/jquery-1.11.1.min",
         "knockout-raw": "lib/knockout-3.2.0",
         knockout: "knockout-extended",
+        "select-on-focus": "lib/knockout.selectOnFocus",
         moment: "lib/moment.min"
     },
     shim: {
@@ -21,6 +22,9 @@ requirejs.config({
         },
         "debouncedresize": {
             deps: ["jquery"]
+        },
+        "select-on-focus": {
+            deps: ["knockout"]
         }
     },
     config: {

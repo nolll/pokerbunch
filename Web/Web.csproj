@@ -361,6 +361,7 @@
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />
     <Content Include="FrontEnd\js\lib\knockout-3.2.0.js" />
+    <Content Include="FrontEnd\js\lib\knockout.selectOnFocus.js" />
     <Content Include="FrontEnd\js\lib\moment.min.js" />
     <Content Include="FrontEnd\js\lib\require.js" />
     <Content Include="FrontEnd\js\knockout-extended.js" />
@@ -405,6 +406,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="_build\build.bat" />
+    <Content Include="_build\main.js" />
     <None Include="_build\build.json" />
   </ItemGroup>
   <ItemGroup>
