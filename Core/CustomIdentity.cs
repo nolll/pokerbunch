@@ -63,7 +63,7 @@ namespace Core
             get { return _user.Bunches; }
         }
 
-        public Role GetRole(string slug)
+        private Role GetRole(string slug)
         {
             foreach (var userBunch in _user.Bunches)
             {
@@ -78,9 +78,8 @@ namespace Core
         public bool IsInRole(string slug, Role roleToCheck)
         {
             if (IsAdmin)
-            {
                 return true;
-            }
+
             var role = GetRole(slug);
             return (int)role >= (int)roleToCheck;
         }

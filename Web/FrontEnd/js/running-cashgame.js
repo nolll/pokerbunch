@@ -358,6 +358,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 dataType: 'json',
                 url: url,
                 success: callback,
+                cache: false,
                 error: function () {
                     alert('load error');
                 }
