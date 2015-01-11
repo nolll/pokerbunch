@@ -268,6 +268,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <None Include="Web.wpp.targets" />
     <Content Include="favicon.ico" />
     <Content Include="FrontEnd\Css\achievements.css">
       <DependentUpon>achievements.less</DependentUpon>
@@ -406,7 +407,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="_build\build.bat" />
-    <Content Include="_build\main.js" />
     <None Include="_build\build.json" />
   </ItemGroup>
   <ItemGroup>
