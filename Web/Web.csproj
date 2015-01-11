@@ -268,7 +268,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <None Include="Web.wpp.targets" />
+    <None Include="Web.wpp.targets">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="favicon.ico" />
     <Content Include="FrontEnd\Css\achievements.css">
       <DependentUpon>achievements.less</DependentUpon>

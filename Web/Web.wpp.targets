@@ -5,24 +5,23 @@
     <BuildDir Condition="'$(BuildDir)' == '' ">$(MSBuildProjectDirectory)\_build</BuildDir>
     <NodeExePath Condition="'$(NodeExePath)' == '' ">$(MSBuildProjectDirectory)\.bin\node.cmd</NodeExePath>
     <BuildRequireJSCommand>$(NodeExePath) $(RequireJsDir)\r.js -o $(BuildDir)\build.json</BuildRequireJSCommand>
-    <!--<OnAfterPipelineCollectFilesPhase>
-      ReplaceJs;
+    <OnAfterPipelineCollectFilesPhase>
+      IncludeJs;
       $(OnAfterPipelineCollectFilesPhase);
-    </OnAfterPipelineCollectFilesPhase>-->
+    </OnAfterPipelineCollectFilesPhase>
   </PropertyGroup>
 
   <Target Name="AfterBuild">
     <Message Text="Building requirejs javascript..." Importance="high"></Message>
     <Exec Command="$(BuildRequireJSCommand)" ContinueOnError="false" WorkingDirectory="$(BuildDir)" Condition="'$(Configuration)' == 'Release'"/>
   </Target>
-  <!--<Target Name="ReplaceJs">
+  <Target Name="IncludeJs">
     <Message Text="Replacing javascript with built version..." Importance="high"/>
     <ItemGroup>
-      <_BuiltJavascript Include="$(MSBuildThisFileDirectory)[PATH TO FOLDER]\**\*" />
-      <FilesForPackagingFromProject Remove="js\**\*" ></FilesForPackagingFromProject>
+      <_BuiltJavascript Include="$(MSBuildThisFileDirectory)\_build\main.js" />
       <FilesForPackagingFromProject Include="%(_BuiltJavascript.Identity)" >
-        <DestinationRelativePath>js\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+        <DestinationRelativePath>Scripts\%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
     </ItemGroup>
-  </Target>-->
+  </Target>
 </Project>
