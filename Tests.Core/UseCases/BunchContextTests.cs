@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BunchContext;
 using Moq;
@@ -16,10 +15,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchContext_WithSlug_HasBunchIsTrue()
         {
-            const string slug = "a";
-            SetupHomegameBySlug(slug);
+            const string slug = Constants.SlugA;
 
-            var result = GetResult(slug);
+            var result = GetResult2(slug);
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -66,6 +64,15 @@ namespace Tests.Core.UseCases
                 request);
         }
 
+        private BunchContextResult Execute2(BunchContextRequest request)
+        {
+            return BunchContextInteractor.Execute(
+                AppContextFunc,
+                Repos.Bunch,
+                Services.Auth,
+                request);
+        }
+
         private AppContextResult AppContextFunc()
         {
             return new AppContextResultInTest();
@@ -77,10 +84,10 @@ namespace Tests.Core.UseCases
             return Execute(request);
         }
 
-        private void SetupHomegameBySlug(string slug)
+        private BunchContextResult GetResult2(string slug = null)
         {
-            var bunch = A.Bunch.WithSlug(slug).Build();
-            GetMock<IBunchRepository>().Setup(o => o.GetBySlug(slug)).Returns(bunch);
+            var request = new BunchContextRequest(slug);
+            return Execute2(request);
         }
 
         private void SetupHomegameListByUser(IList<Bunch> homegameList)
