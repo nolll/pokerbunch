@@ -1,4 +1,5 @@
-﻿using Core.Exceptions;
+﻿using Core;
+using Core.Exceptions;
 using Core.UseCases.AddBunch;
 using NUnit.Framework;
 using Tests.Common;
@@ -25,8 +26,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_ReturnUrlIsSetToConfirmationUrl()
         {
-            Services.Auth.CurrentUser = A.User.Build();
-
             var result = Execute(CreateRequest());
 
             Assert.AreEqual("/-/homegame/created", result.ReturnUrl.Relative);

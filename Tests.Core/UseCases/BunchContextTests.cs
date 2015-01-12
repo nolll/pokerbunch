@@ -92,7 +92,7 @@ namespace Tests.Core.UseCases
 
         private void SetupHomegameListByUser(IList<Bunch> homegameList)
         {
-            GetMock<IBunchRepository>().Setup(o => o.GetByUser(It.IsAny<User>())).Returns(homegameList);
+            GetMock<IBunchRepository>().Setup(o => o.GetByUserId(It.IsAny<int>())).Returns(homegameList);
         }
     }
 }

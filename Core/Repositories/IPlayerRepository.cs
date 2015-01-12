@@ -11,7 +11,7 @@ namespace Core.Repositories
 		Player GetByName(int bunchId, string name);
         Player GetByUserId(int bunchId, int userId);
         int Add(Player player);
-		bool JoinHomegame(Player player, Bunch bunch, User user);
+		bool JoinHomegame(Player player, Bunch bunch, int userId);
 		bool Delete(int playerId);
 	}
 }

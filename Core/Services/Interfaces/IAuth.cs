@@ -6,7 +6,7 @@ namespace Core.Services
     {
         void SignIn(UserIdentity user, bool createPersistentCookie);
         void SignOut();
-        User CurrentUser { get; }
+        CustomIdentity CurrentIdentity { get; }
         bool IsInRole(string slug, Role manager);
     }
 }

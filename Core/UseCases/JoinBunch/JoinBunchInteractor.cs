@@ -18,11 +18,10 @@ namespace Core.UseCases.JoinBunch
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var players = playerRepository.GetList(bunch.Id);
-            var player = GetMatchedPlayer(bunch, players, request.Code);
+            var player = GetMatchedPlayer(players, request.Code);
             if (player != null && player.IsUser)
             {
-                var user = auth.CurrentUser;
-                playerRepository.JoinHomegame(player, bunch, user);
+                playerRepository.JoinHomegame(player, bunch, auth.CurrentIdentity.UserId);
             }
             else
             {
@@ -33,15 +32,13 @@ namespace Core.UseCases.JoinBunch
             return new JoinBunchResult(returnUrl);
         }
         
-        private static Player GetMatchedPlayer(Bunch bunch, IList<Player> players, string postedCode)
+        private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
         {
             foreach (var player in players)
             {
                 var code = InvitationCodeCreator.GetCode(player);
                 if (code == postedCode)
-                {
                     return player;
-                }
             }
             return null;
         }

@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Security;
 using Core;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using Newtonsoft.Json;
 
@@ -12,15 +11,11 @@ namespace Infrastructure.Web
     public class Auth : IAuth
     {
         private readonly ITimeProvider _timeProvider;
-        private readonly IUserRepository _userRepository;
         private const int Version = 1;
 
-        public Auth(
-            ITimeProvider timeProvider,
-            IUserRepository userRepository)
+        public Auth(ITimeProvider timeProvider)
         {
             _timeProvider = timeProvider;
-            _userRepository = userRepository;
         }
 
         public void SignIn(UserIdentity user, bool createPersistentCookie)
@@ -56,25 +51,18 @@ namespace Infrastructure.Web
             FormsAuthentication.SignOut();
         }
 
-        private CustomIdentity GetIdentity()
-        {
-            var identity = HttpContext.Current.User.Identity as CustomIdentity;
-            return identity ?? new CustomIdentity();
-        }
-
-        public User CurrentUser
+        public CustomIdentity CurrentIdentity
         {
             get
             {
-                var identity = GetIdentity();
-                return identity.IsAuthenticated ? _userRepository.GetById(identity.UserId) : null;
+                var identity = HttpContext.Current.User.Identity as CustomIdentity;
+                return identity ?? new CustomIdentity();
             }
         }
 
         public bool IsInRole(string slug, Role role)
         {
-            var identity = GetIdentity();
-            return identity.IsInRole(slug, role);
+            return CurrentIdentity.IsInRole(slug, role);
         }
     }
 }

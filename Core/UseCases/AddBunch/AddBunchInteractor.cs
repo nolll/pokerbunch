@@ -25,8 +25,8 @@ namespace Core.UseCases.AddBunch
             //todo: test the following 4 lines
             var bunch = CreateBunch(request);
             var id = bunchRepository.Add(bunch);
-            var user = auth.CurrentUser;
-            var player = new Player(id, user.Id, Role.Manager);
+            var identity = auth.CurrentIdentity;
+            var player = new Player(id, identity.UserId, Role.Manager);
             playerRepository.Add(player);
 
             var returnUrl = new AddBunchConfirmationUrl();

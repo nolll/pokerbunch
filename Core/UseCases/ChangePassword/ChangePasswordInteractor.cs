@@ -19,7 +19,8 @@ namespace Core.UseCases.ChangePassword
 
             var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = GetUser(auth.CurrentUser, encryptedPassword, salt);
+            var user = userRepository.GetById(auth.CurrentIdentity.UserId);
+            user = CreateUser(user, encryptedPassword, salt);
             
             userRepository.Save(user);
 
@@ -27,7 +28,7 @@ namespace Core.UseCases.ChangePassword
             return new ChangePasswordResult(returnUrl);
         }
 
-        private static User GetUser(User user, string encryptedPassword, string salt)
+        private static User CreateUser(User user, string encryptedPassword, string salt)
         {
             return new User(
                 user.Id,

@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core;
+using Core.Entities;
 using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
@@ -27,7 +28,8 @@ namespace Tests.Core.UseCases
         {
             const string userName = "a";
             const string displayName = "b";
-            Services.Auth.CurrentUser = A.User.WithUserName(userName).WithDisplayName(displayName).Build();
+            //Services.Auth.CurrentUser = A.User.WithUserName(userName).WithDisplayName(displayName).Build();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity{DisplayName = displayName, UserName = userName});
 
             var result = Execute();
 

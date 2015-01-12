@@ -73,7 +73,7 @@ namespace Tests.Core.UseCases
             var user = SetupUserWithCorrectPassword();
             var bunch = A.Bunch.WithSlug(Slug).Build();
             var homegameList = new List<Bunch> { bunch };
-            GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+            GetMock<IBunchRepository>().Setup(o => o.GetByUserId(user.Id)).Returns(homegameList);
 
             Execute(CreateRequest());
 
@@ -90,7 +90,7 @@ namespace Tests.Core.UseCases
             var user = SetupUserWithCorrectPassword();
             var bunch = A.Bunch.WithSlug(Slug).Build();
             var homegameList = new List<Bunch> { bunch, bunch };
-            GetMock<IBunchRepository>().Setup(o => o.GetByUser(user)).Returns(homegameList);
+            GetMock<IBunchRepository>().Setup(o => o.GetByUserId(user.Id)).Returns(homegameList);
 
             Execute(CreateRequest());
 

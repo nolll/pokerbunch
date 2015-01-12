@@ -8,7 +8,7 @@ namespace Core.Repositories
         Bunch GetById(int id);
         Bunch GetBySlug(string slug);
         IList<Bunch> GetList();
-        IList<Bunch> GetByUser(User user);
+        IList<Bunch> GetByUserId(int userId);
         int Add(Bunch bunch);
         bool Save(Bunch bunch);
     }

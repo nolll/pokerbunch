@@ -97,9 +97,9 @@ namespace Infrastructure.Storage.Repositories
             return playerId;
         }
 
-		public bool JoinHomegame(Player player, Bunch bunch, User user)
+		public bool JoinHomegame(Player player, Bunch bunch, int userId)
         {
-            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, user.Id);
+            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, userId);
             _cacheBuster.PlayerUpdated(player.Id);
 		    return success;
 		}

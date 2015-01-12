@@ -10,14 +10,13 @@ namespace Core.UseCases.AppContext
         {
             var contextResult = baseContext();
 
-            var user = auth.CurrentUser;
-            var isLoggedIn = user != null;
-            var userName = isLoggedIn ? user.UserName : string.Empty;
-            var userDisplayName = isLoggedIn ? user.DisplayName : string.Empty;
+            var identity = auth.CurrentIdentity;
+            var userName = identity.IsAuthenticated ? identity.UserName : string.Empty;
+            var userDisplayName = identity.IsAuthenticated ? identity.DisplayName : string.Empty;
 
             return new AppContextResult(
                 contextResult,
-                isLoggedIn,
+                identity.IsAuthenticated,
                 userName,
                 userDisplayName);
         }

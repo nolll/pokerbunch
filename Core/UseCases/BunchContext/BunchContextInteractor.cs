@@ -23,7 +23,7 @@ namespace Core.UseCases.BunchContext
         {
             if (request.HasSlug)
                 return bunchRepository.GetBySlug(request.Slug);
-            var bunches = bunchRepository.GetByUser(auth.CurrentUser);
+            var bunches = bunchRepository.GetByUserId(auth.CurrentIdentity.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }
     }

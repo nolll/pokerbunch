@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core;
+using Core.Entities;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.Home;
@@ -35,7 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedIn_IsLoggedInIsTrue()
         {
-            Services.Auth.CurrentUser = A.User.Build();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity());
 
             var result = Execute();
 
@@ -46,7 +47,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedInAsAdmin_IsAdminIsTrue()
         {
-            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Admin).Build();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity{IsAdmin = true});
 
             var result = Execute();
 

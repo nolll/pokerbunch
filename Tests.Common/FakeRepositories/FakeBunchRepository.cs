@@ -32,7 +32,7 @@ namespace Tests.Common.FakeRepositories
             return _list;
         }
 
-        public IList<Bunch> GetByUser(User user)
+        public IList<Bunch> GetByUserId(int userId)
         {
             throw new System.NotImplementedException();
         }

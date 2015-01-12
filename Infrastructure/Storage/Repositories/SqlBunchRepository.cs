@@ -45,14 +45,7 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public IList<Bunch> GetByUser(User user)
-        {
-            if (user == null)
-                return new List<Bunch>();
-            return GetByUserId(user.Id);
-        }
-
-	    private IList<Bunch> GetByUserId(int userId)
+        public IList<Bunch> GetByUserId(int userId)
         {
             var rawHomegames = _bunchStorage.GetBunchesByUserId(userId);
             return rawHomegames.Select(CreateBunch).ToList();

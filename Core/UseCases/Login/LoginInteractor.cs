@@ -36,7 +36,7 @@ namespace Core.UseCases.Login
         {
             return new UserIdentity
             {
-                Bunches = GetUserBunches(bunchRepository, playerRepository, user),
+                Bunches = GetUserBunches(bunchRepository, playerRepository, user.Id),
                 DisplayName = user.DisplayName,
                 IsAdmin = user.IsAdmin,
                 UserId = user.Id,
@@ -44,16 +44,16 @@ namespace Core.UseCases.Login
             };
         }
 
-        private static List<UserBunch> GetUserBunches(IBunchRepository bunchRepository, IPlayerRepository playerRepository, User user)
+        private static List<UserBunch> GetUserBunches(IBunchRepository bunchRepository, IPlayerRepository playerRepository, int userId)
         {
-            var homegames = bunchRepository.GetByUser(user);
+            var homegames = bunchRepository.GetByUserId(userId);
             var userBunches = new List<UserBunch>();
 
             if (homegames == null) return userBunches;
 
             foreach (var bunch in homegames)
             {
-                var player = playerRepository.GetByUserId(bunch.Id, user.Id);
+                var player = playerRepository.GetByUserId(bunch.Id, userId);
                 var userBunch = new UserBunch(bunch.Slug, player.Role, player.DisplayName, player.Id);
                 userBunches.Add(userBunch);
             }

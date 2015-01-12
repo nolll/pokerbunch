@@ -1,6 +1,5 @@
-﻿using Core.Entities;
-using Core.Repositories;
-using Core.Services;
+﻿using Core;
+using Core.Entities;
 using Core.Urls;
 using Core.UseCases.UserDetails;
 using NUnit.Framework;
@@ -10,62 +9,52 @@ namespace Tests.Core.UseCases
 {
     class UserDetailsTests : TestBase
     {
-        private const string UserName = "a";
-        private const string DisplayName = "b";
-        private const string RealName = "c";
-        private const string Email = "d";
-
         [Test]
         public void UserDetails_UserNameIsSet()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(UserName, result.UserName);
+            Assert.AreEqual(Constants.UserNameA, result.UserName);
         }
 
         [Test]
         public void UserDetails_DisplayNameIsSet()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(DisplayName, result.DisplayName);
+            Assert.AreEqual(Constants.UserDisplayNameA, result.DisplayName);
         }
 
         [Test]
         public void UserDetails_RealNameIsSet()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(RealName, result.RealName);
+            Assert.AreEqual(Constants.UserRealNameA, result.RealName);
         }
 
         [Test]
         public void UserDetails_EmailIsSet()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(Email, result.Email);
+            Assert.AreEqual(Constants.UserEmailA, result.Email);
         }
 
         [Test]
-        public void UserDetails_NormalUser_CanEditIsFalse()
+        public void UserDetails_ViewingOtherUser_CanEditIsFalse()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.UserNameB));
 
             Assert.IsFalse(result.CanEdit);
         }
@@ -73,7 +62,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_AdminUser_CanEditIsTrue()
         {
-            SetupDisplayUser();
             SetupCurrentUserAsAdmin();
 
             var result = Execute(CreateRequest());
@@ -84,7 +72,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_ViewingOwnUser_CanEditIsTrue()
         {
-            SetupDisplayUser();
             SetupCurrentUserAsDisplayUser();
 
             var result = Execute(CreateRequest());
@@ -95,10 +82,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_ViewingOtherUser_CanChangePasswordIsFalse()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.UserNameB));
 
             Assert.IsFalse(result.CanChangePassword);
         }
@@ -106,7 +92,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_ViewingOwnUser_CanChangePasswordIsTrue()
         {
-            SetupDisplayUser();
             SetupCurrentUserAsDisplayUser();
 
             var result = Execute(CreateRequest());
@@ -117,7 +102,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_EditUrlIsCorrectType()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
@@ -128,7 +112,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_ChangePasswordUrlIsCorrectType()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
@@ -139,55 +122,39 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_AvatarUrlIsSet()
         {
-            SetupDisplayUser();
             SetupCurrentUser();
 
             var result = Execute(CreateRequest());
 
-            const string expected = "http://www.gravatar.com/avatar/8277e0910d750195b448797616e091ad?s=100";
+            const string expected = "http://www.gravatar.com/avatar/0796c9df772de3f82c0c89377330471b?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
         }
 
-        private static UserDetailsRequest CreateRequest()
+        private static UserDetailsRequest CreateRequest(string userName = Constants.UserNameA)
         {
-            return new UserDetailsRequest(UserName);
-        }
-
-        private void SetupDisplayUser()
-        {
-            GetMock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(CreateDisplayUser);
-        }
-
-        private User CreateDisplayUser()
-        {
-            return A.User
-                    .WithUserName(UserName)
-                    .WithDisplayName(DisplayName)
-                    .WithRealName(RealName)
-                    .WithEmail(Email)
-                    .Build();
+            return new UserDetailsRequest(userName);
         }
 
         private void SetupCurrentUser()
         {
-            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Player).Build();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
         }
 
         private void SetupCurrentUserAsAdmin()
         {
-            Services.Auth.CurrentUser = A.User.WithGlobalRole(Role.Admin).Build();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdB, UserName = Constants.UserNameB, IsAdmin = true });
         }
 
         private void SetupCurrentUserAsDisplayUser()
         {
-            Services.Auth.CurrentUser = CreateDisplayUser();
+            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
         }
         
         private UserDetailsResult Execute(UserDetailsRequest request)
         {
             return UserDetailsInteractor.Execute(
                 Services.Auth,
-                GetMock<IUserRepository>().Object,
+                Repos.User,
                 request);
         }
     }

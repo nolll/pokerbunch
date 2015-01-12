@@ -6,11 +6,10 @@ namespace Core.UseCases.Home
     {
         public static HomeResult Execute(IAuth auth)
         {
-            var user = auth.CurrentUser;
-            var isLoggedIn = user != null;
-            var isAdmin = isLoggedIn && user.IsAdmin;
+            var identity = auth.CurrentIdentity;
+            var isAdmin = identity.IsAdmin;
 
-            return new HomeResult(isLoggedIn, isAdmin);
+            return new HomeResult(identity.IsAuthenticated, isAdmin);
         }
     }
 }

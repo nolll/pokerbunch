@@ -1,5 +1,6 @@
 ﻿using Core.Repositories;
 using Core.Services;
+using Core.Urls;
 
 namespace Core.UseCases.UserDetails
 {
@@ -7,10 +8,21 @@ namespace Core.UseCases.UserDetails
     {
         public static UserDetailsResult Execute(IAuth auth, IUserRepository userRepository, UserDetailsRequest request)
         {
-            var currentUser = auth.CurrentUser;
             var displayUser = userRepository.GetByNameOrEmail(request.UserName);
 
-            return new UserDetailsResult(currentUser, displayUser);
+            var isViewingCurrentUser = displayUser.UserName == auth.CurrentIdentity.UserName;
+
+            var userName = displayUser.UserName;
+            var displayName = displayUser.DisplayName;
+            var realName = displayUser.RealName;
+            var email = displayUser.Email;
+            var avatarUrl = GravatarService.GetAvatarUrl(displayUser.Email);
+            var canEdit = auth.CurrentIdentity.IsAdmin || isViewingCurrentUser;
+            var canChangePassword = isViewingCurrentUser;
+            var editUrl = new EditUserUrl(displayUser.UserName);
+            var changePasswordUrl = new ChangePasswordUrl();
+
+            return new UserDetailsResult(userName, displayName, realName, email, avatarUrl, canEdit, canChangePassword, editUrl, changePasswordUrl);
         }
     }
 }

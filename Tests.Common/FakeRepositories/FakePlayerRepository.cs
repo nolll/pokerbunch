@@ -48,7 +48,7 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool JoinHomegame(Player player, Bunch bunch, User user)
+        public bool JoinHomegame(Player player, Bunch bunch, int userId)
         {
             throw new System.NotImplementedException();
         }

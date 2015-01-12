@@ -32,7 +32,7 @@ namespace Plumbing
         private IAuth _auth;
         protected IAuth Auth
         {
-            get { return _auth ?? (_auth = new Auth(TimeProvider, UserRepository)); }
+            get { return _auth ?? (_auth = new Auth(TimeProvider)); }
         }
 
         private ICashgameService _cashgamService;

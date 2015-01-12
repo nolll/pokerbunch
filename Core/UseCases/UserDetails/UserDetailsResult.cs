@@ -1,6 +1,4 @@
-﻿using Core.Entities;
-using Core.Services;
-using Core.Urls;
+﻿using Core.Urls;
 
 namespace Core.UseCases.UserDetails
 {
@@ -16,20 +14,17 @@ namespace Core.UseCases.UserDetails
         public Url EditUrl { get; private set; }
         public Url ChangePasswordUrl { get; private set; }
 
-        public UserDetailsResult(User currentUser, User displayUser)
+        public UserDetailsResult(string userName, string displayName, string realName, string email, string avatarUrl, bool canEdit, bool canChangePassword, Url editUrl, Url changePasswordUrl)
         {
-            var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
-            var avatarUrl = GravatarService.GetAvatarUrl(displayUser.Email);
-
-            UserName = displayUser.UserName;
-            DisplayName = displayUser.DisplayName;
-            RealName = displayUser.RealName;
-            Email = displayUser.Email;
+            UserName = userName;
+            DisplayName = displayName;
+            RealName = realName;
+            Email = email;
             AvatarUrl = avatarUrl;
-            CanEdit = currentUser.IsAdmin || isViewingCurrentUser;
-            CanChangePassword = isViewingCurrentUser;
-            EditUrl = new EditUserUrl(displayUser.UserName);
-            ChangePasswordUrl = new ChangePasswordUrl();
+            CanEdit = canEdit;
+            CanChangePassword = canChangePassword;
+            EditUrl = editUrl;
+            ChangePasswordUrl = changePasswordUrl;
         }
     }
 }

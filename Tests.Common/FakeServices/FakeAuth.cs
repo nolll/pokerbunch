@@ -1,3 +1,4 @@
+using Core;
 using Core.Entities;
 using Core.Services;
 
@@ -9,7 +10,12 @@ namespace Tests.Common.FakeServices
         public UserIdentity UserIdentity { get; private set; }
         public bool StayLoggedIn { get; private set; }
         public bool SignedOut { get; private set; }
-        public User CurrentUser { get; set; }
+        public CustomIdentity CurrentIdentity { get; set; }
+
+        public FakeAuth()
+        {
+            CurrentIdentity = new CustomIdentity();
+        }
 
         public void SignIn(UserIdentity user, bool createPersistentCookie)
         {
