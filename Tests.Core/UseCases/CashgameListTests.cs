@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Core.Entities;
-using Core.Repositories;
+﻿using Core.Entities;
 using Core.UseCases.CashgameList;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -11,13 +7,11 @@ namespace Tests.Core.UseCases
 {
     class CashgameListTests : TestBase
     {
-        private const int Year = 1;
+        private const int Year = 2001;
 
         [Test]
         public void CashgameList_SlugIsSet()
         {
-            SetupEmptyGameList();
-
             var result = Execute(CreateRequest());
 
             Assert.AreEqual(Constants.SlugA, result.Slug);
@@ -26,8 +20,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameList_WithoutYear_YearIsNull()
         {
-            SetupEmptyGameList();
-
             var result = Execute(CreateRequest());
 
             Assert.IsFalse(result.ShowYear);
@@ -35,9 +27,9 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void CashgameList_HasEmptyListOfGames()
+        public void CashgameList_WithoutGames_HasEmptyListOfGames()
         {
-            SetupEmptyGameList();
+            Repos.Cashgame.ClearList();
 
             var result = Execute(CreateRequest());
 
@@ -47,10 +39,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameList_WithYear_YearIsSet()
         {
-            var cashgame = A.Cashgame.Build();
-            var cashgameList = new List<Cashgame> {cashgame};
-            SetupCashgames(cashgameList, Year);
-
             var result = Execute(CreateRequest(year: Year));
 
             Assert.IsTrue(result.ShowYear);
@@ -58,207 +46,121 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void CashgameList_WithOneGame_LocationIsSet()
+        public void CashgameList_DefaultSort_FirstItemLocationIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual("Location", result.List[0].Location);
+            Assert.AreEqual(Constants.LocationB, result.List[0].Location);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_UrlIsSet()
+        public void CashgameList_DefaultSort_FirstItemUrlIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.List[0].Url.Relative);
+            Assert.AreEqual("/bunch-a/cashgame/details/2002-03-04", result.List[0].Url.Relative);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_DurationIsSet()
+        public void CashgameList_DefaultSort_FirstItemDurationIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(1, result.List[0].Duration.Minutes);
+            Assert.AreEqual(122, result.List[0].Duration.Minutes);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_DateIsSet()
+        public void CashgameList_DefaultSort_FirstItemDateIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            var expected = new Date(2001, 1, 1);
+            var expected = new Date(2002, 3, 4);
             Assert.AreEqual(expected, result.List[0].Date);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_PlayerCountIsSet()
+        public void CashgameList_DefaultSort_FirstItemPlayerCountIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
             Assert.AreEqual(4, result.List[0].PlayerCount);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_TurnoverIsSet()
+        public void CashgameList_DefaultSort_FirstItemTurnoverIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(2, result.List[0].Turnover.Amount);
+            Assert.AreEqual(2000, result.List[0].Turnover.Amount);
         }
 
         [Test]
-        public void CashgameList_WithOneGame_AverageBuyinIsSet()
+        public void CashgameList_DefaultSort_FirstItemAverageBuyinIsSet()
         {
-            SetupSingleGame();
-
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(3, result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(400, result.List[0].AverageBuyin.Amount);
         }
 
         [TestCase("date")]
         [TestCase(null)]
         public void TopList_SortByWinnings_HighestWinningsIsFirst(string orderBy)
         {
-            var low = new DateTime(2001, 1, 1, 1, 1, 1);
-            var high = new DateTime(2001, 1, 2, 1, 1, 1);
-
-            var cashgame1 = A.Cashgame.WithStartTime(low).Build();
-            var cashgame2 = A.Cashgame.WithStartTime(high).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest(orderBy));
 
             Assert.AreEqual(ListSortOrder.Date, result.SortOrder);
-            Assert.AreEqual(new Date(2001, 1, 2), result.List[0].Date);
-            Assert.AreEqual(new Date(2001, 1, 1), result.List[1].Date);
+            Assert.AreEqual(new Date(2002, 3, 4), result.List[0].Date);
+            Assert.AreEqual(new Date(2001, 2, 3), result.List[1].Date);
         }
 
         [Test]
         public void TopList_SortByPlayerCount_HighestPlayerCountIsFirst()
         {
-            const int low = 1;
-            const int high = 2;
-
-            var cashgame1 = A.Cashgame.WithPlayerCount(low).Build();
-            var cashgame2 = A.Cashgame.WithPlayerCount(high).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest("playercount"));
 
             Assert.AreEqual(ListSortOrder.PlayerCount, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].PlayerCount);
-            Assert.AreEqual(low, result.List[1].PlayerCount);
+            Assert.AreEqual(Constants.PlayerCountB, result.List[0].PlayerCount);
+            Assert.AreEqual(Constants.PlayerCountA, result.List[1].PlayerCount);
         }
 
         [Test]
         public void TopList_SortByLocation_HighestLocationIsFirst()
         {
-            const string low = "a";
-            const string high = "b";
-
-            var cashgame1 = A.Cashgame.WithLocation(low).Build();
-            var cashgame2 = A.Cashgame.WithLocation(high).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest("location"));
 
             Assert.AreEqual(ListSortOrder.Location, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].Location);
-            Assert.AreEqual(low, result.List[1].Location);
+            Assert.AreEqual(Constants.LocationB, result.List[0].Location);
+            Assert.AreEqual(Constants.LocationA, result.List[1].Location);
         }
 
         [Test]
         public void TopList_SortByDuration_HighestDurationIsFirst()
         {
-            var lowStartTime = new DateTime(2001, 1, 1, 1, 1, 1);
-            var lowEndTime = new DateTime(2001, 1, 1, 1, 2, 1);
-            var highStartTime = new DateTime(2001, 1, 2, 1, 1, 1);
-            var highEndTime = new DateTime(2001, 1, 2, 1, 3, 1);
-            
-            var cashgame1 = A.Cashgame.WithStartTime(lowStartTime).WithEndTime(lowEndTime).Build();
-            var cashgame2 = A.Cashgame.WithStartTime(highStartTime).WithEndTime(highEndTime).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest("duration"));
 
             Assert.AreEqual(ListSortOrder.Duration, result.SortOrder);
-            Assert.AreEqual(2, result.List[0].Duration.Minutes);
-            Assert.AreEqual(1, result.List[1].Duration.Minutes);
+            Assert.AreEqual(122, result.List[0].Duration.Minutes);
+            Assert.AreEqual(61, result.List[1].Duration.Minutes);
         }
 
         [Test]
         public void TopList_SortByTurnover_HighestTurnoverIsFirst()
         {
-            const int low = 1;
-            const int high = 2;
-
-            var cashgame1 = A.Cashgame.WithTurnover(low).Build();
-            var cashgame2 = A.Cashgame.WithTurnover(high).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest("turnover"));
 
             Assert.AreEqual(ListSortOrder.Turnover, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].Turnover.Amount);
-            Assert.AreEqual(low, result.List[1].Turnover.Amount);
+            Assert.AreEqual(Constants.TurnoverB, result.List[0].Turnover.Amount);
+            Assert.AreEqual(Constants.TurnoverA, result.List[1].Turnover.Amount);
         }
 
         [Test]
         public void TopList_SortByAverageBuyin_HighestAverageBuyinIsFirst()
         {
-            const int low = 1;
-            const int high = 2;
-
-            var cashgame1 = A.Cashgame.WithAverageBuyin(low).Build();
-            var cashgame2 = A.Cashgame.WithAverageBuyin(high).Build();
-            SetupTwoGames(cashgame1, cashgame2);
-
             var result = Execute(CreateRequest("averagebuyin"));
 
             Assert.AreEqual(ListSortOrder.AverageBuyin, result.SortOrder);
-            Assert.AreEqual(high, result.List[0].AverageBuyin.Amount);
-            Assert.AreEqual(low, result.List[1].AverageBuyin.Amount);
-        }
-
-        private void SetupTwoGames(Cashgame cashgame1, Cashgame cashgame2)
-        {
-            var cashgames = new List<Cashgame>{cashgame1, cashgame2};
-            SetupCashgames(cashgames);
-        }
-
-        private void SetupEmptyGameList()
-        {
-            var cashgames = new List<Cashgame>();
-            SetupCashgames(cashgames);
-        }
-
-        private void SetupSingleGame()
-        {
-            var cashgame = A.Cashgame
-                .WithTurnover(2)
-                .WithAverageBuyin(3)
-                .WithPlayerCount(4)
-                .WithDateString("2001-01-01")
-                .WithLocation("Location")
-                .WithStartTime(new DateTime(2001, 1, 1, 1, 1, 1))
-                .WithEndTime(new DateTime(2001, 1, 1, 1, 2, 1))
-                .Build();
-
-            var cashgames = new List<Cashgame> { cashgame };
-            SetupCashgames(cashgames);
+            Assert.AreEqual(Constants.AvarageBuyinB, result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(Constants.AvarageBuyinA, result.List[1].AverageBuyin.Amount);
         }
 
         private CashgameListRequest CreateRequest(string orderBy = null, int? year = null)
@@ -266,16 +168,11 @@ namespace Tests.Core.UseCases
             return new CashgameListRequest(Constants.SlugA, orderBy, year);
         }
 
-        private void SetupCashgames(IList<Cashgame> cashgames, int? year = null)
-        {
-            GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), year)).Returns(cashgames);
-        }
-
         private CashgameListResult Execute(CashgameListRequest request)
         {
             return CashgameListInteractor.Execute(
                 Repos.Bunch,
-                GetMock<ICashgameRepository>().Object,
+                Repos.Cashgame,
                 request);
         }
     }

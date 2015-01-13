@@ -44,15 +44,26 @@ namespace Tests.Common
         public const int CashoutCheckpointAmount = 600;
         public static DateTime CashoutCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
 
-        public const int CashgameIdA = 1;
-        public const int CashgameIdB = 2;
-
         public const int PlayerIdA = 1;
         public const int PlayerIdB = 2;
         public const string PlayerNameA = "Player Name A";
         public const string PlayerNameB = "Player Name B";
 
+        public const int CashgameIdA = 1;
+        public const int CashgameIdB = 2;
         public const string LocationA = "Location A";
         public const string LocationB = "Location B";
+        public const string DateStringA = "2001-02-03";
+        public const string DateStringB = "2002-03-04";
+        public static DateTime StartTimeA = DateTime.Parse("2001-02-03 04:05:06");
+        public static DateTime StartTimeB = DateTime.Parse("2002-03-04 05:06:07");
+        public static DateTime EndTimeA = DateTime.Parse("2001-02-03 05:06:07");
+        public static DateTime EndTimeB = DateTime.Parse("2002-03-04 07:08:09");
+        public const int PlayerCountA = 3;
+        public const int PlayerCountB = 4;
+        public const int TurnoverA = 1000;
+        public const int TurnoverB = 2000;
+        public const int AvarageBuyinA = 200;
+        public const int AvarageBuyinB = 400;
     }
 }
