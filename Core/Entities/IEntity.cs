@@ -1,6 +1,6 @@
 ﻿namespace Core.Entities
 {
-    public interface ICacheable
+    public interface IEntity
     {
         int Id { get; }
     }

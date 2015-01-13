@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Entities
 {
-    public class Bunch : ICacheable
+    public class Bunch : IEntity
     {
 	    public int Id { get; private set; }
 	    public string Slug { get; private set; }

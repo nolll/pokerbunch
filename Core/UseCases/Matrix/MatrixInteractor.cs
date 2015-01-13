@@ -7,7 +7,7 @@ using Core.Urls;
 
 namespace Core.UseCases.Matrix
 {
-    public class MatrixInteractor
+    public static class MatrixInteractor
     {
         public static MatrixResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, MatrixRequest request)
         {
@@ -41,7 +41,7 @@ namespace Core.UseCases.Matrix
             return playerItems;
         }
 
-        private static IDictionary<int, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IList<Cashgame> cashgames, Player player)
+        private static IDictionary<int, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
         {
             var items = new Dictionary<int, MatrixResultItem>();
             foreach (var cashgame in cashgames)
@@ -61,7 +61,7 @@ namespace Core.UseCases.Matrix
             return items;
         }
 
-        private static List<GameItem> CreateGameItems(string slug, IList<Cashgame> cashgames)
+        private static List<GameItem> CreateGameItems(string slug, IEnumerable<Cashgame> cashgames)
         {
             return cashgames
                 .Where(o => o.StartTime.HasValue)

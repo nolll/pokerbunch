@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public class Player : ICacheable
+    public class Player : IEntity
     {
         public int BunchId { get; private set; }
 	    public int Id { get; private set; }

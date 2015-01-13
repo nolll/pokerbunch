@@ -7,12 +7,10 @@ namespace Tests.Common.FakeClasses
     {
         public CashgameSuiteInTest(
             IList<Cashgame> cashgames = default(IList<Cashgame>),
-            IList<CashgameTotalResult> totalResults = default(IList<CashgameTotalResult>),
-            IList<Player> players = default(IList<Player>))
+            IList<CashgameTotalResult> totalResults = default(IList<CashgameTotalResult>))
             : base(
             cashgames ?? new List<Cashgame>(),
-            totalResults ?? new List<CashgameTotalResult>(),
-            players ?? new List<Player>())
+            totalResults ?? new List<CashgameTotalResult>())
         {
         }
     }

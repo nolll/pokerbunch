@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public class User : ICacheable
+    public class User : IEntity
     {
 	    public int Id { get; private set; }
         public string UserName { get; private set; }

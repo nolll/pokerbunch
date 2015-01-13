@@ -57,7 +57,7 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
                         me.data = new google.visualization.DataTable(loadedData);
                         me.draw();
                     },
-                    error: function(xhr, status, error) {
+                    error: function() {
                         me.$el.html('failed to load chart data');
                     }
                 });

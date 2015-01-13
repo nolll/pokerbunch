@@ -8,26 +8,23 @@ namespace Core.Entities
     {
 	    public IList<Cashgame> Cashgames { get; private set; }
         public IList<CashgameTotalResult> TotalResults { get; private set; }
-        public IList<Player> Players { get; private set; }
 
-        public CashgameSuite(IList<Cashgame> cashgames, IList<CashgameTotalResult> totalResults, IList<Player> players)
+        protected CashgameSuite(IList<Cashgame> cashgames, IList<CashgameTotalResult> totalResults)
         {
             Cashgames = cashgames;
             TotalResults = totalResults;
-            Players = players;
         }
 
-        public CashgameSuite(IList<Cashgame> cashgames, IList<Player> players)
+        public CashgameSuite(IList<Cashgame> cashgames, IEnumerable<Player> players)
         {
             var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();
             var totalResults = CreateTotalResults(players, cashgames);
 
             Cashgames = sortedCashgames;
             TotalResults = totalResults;
-            Players = players;
         }
 
-        private static IList<CashgameTotalResult> CreateTotalResults(IList<Player> players, IList<Cashgame> cashgames)
+        private static IList<CashgameTotalResult> CreateTotalResults(IEnumerable<Player> players, IEnumerable<Cashgame> cashgames)
         {
             return players.Select(player => new CashgameTotalResult(player, cashgames)).Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
         }

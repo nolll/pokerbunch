@@ -14,7 +14,7 @@ namespace Web.Models.CashgameModels.Action
         {
         }
 
-        private static IList<ChartRowModel> GetRowsNew(IList<ActionsChartCheckpointItem> checkpointItems)
+        private static IList<ChartRowModel> GetRowsNew(IEnumerable<ActionsChartCheckpointItem> checkpointItems)
         {
             var rowModels = new List<ChartRowModel>();
             foreach (var item in checkpointItems)

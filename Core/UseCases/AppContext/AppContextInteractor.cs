@@ -4,7 +4,7 @@ using Core.UseCases.BaseContext;
 
 namespace Core.UseCases.AppContext
 {
-    public class AppContextInteractor
+    public static class AppContextInteractor
     {
         public static AppContextResult Execute(Func<BaseContextResult> baseContext, IAuth auth)
         {

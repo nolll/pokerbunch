@@ -5,7 +5,7 @@ using Core.Urls;
 
 namespace Core.UseCases.EventList
 {
-    public class EventListInteractor
+    public static class EventListInteractor
     {
         public static EventListOutput Execute(IBunchRepository bunchRepository, IEventRepository eventRepository, EventListInput input)
         {

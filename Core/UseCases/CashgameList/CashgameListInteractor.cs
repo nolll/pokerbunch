@@ -6,7 +6,7 @@ using Core.Services;
 
 namespace Core.UseCases.CashgameList
 {
-    public class CashgameListInteractor
+    public static class CashgameListInteractor
     {
         public static CashgameListResult Execute(
             IBunchRepository bunchRepository,

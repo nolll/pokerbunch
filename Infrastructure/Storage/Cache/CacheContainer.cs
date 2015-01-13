@@ -69,7 +69,7 @@ namespace Infrastructure.Storage.Cache
             return cachedInt;
         }
 
-        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, ICacheable
+        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
         {
             var list = new List<T>();
             var notInCache = new List<int>();
@@ -104,7 +104,7 @@ namespace Infrastructure.Storage.Cache
             return list;
         }
 
-        private static IList<T> OrderItemsByIdList<T>(IList<int> ids, IList<T> list) where T : class, ICacheable
+        private static IList<T> OrderItemsByIdList<T>(IEnumerable<int> ids, IEnumerable<T> list) where T : class, IEntity
         {
             var result = ids.Select(id => list.FirstOrDefault(i => i.Id == id)).ToList();
             return result.Where(r => r != null).ToList();

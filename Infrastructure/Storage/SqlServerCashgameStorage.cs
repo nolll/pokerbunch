@@ -156,7 +156,7 @@ namespace Infrastructure.Storage
 		    return reader.ReadStringList("Location");
 		}
 
-        public RawCashgame CreateRawCashgame(IStorageDataReader reader)
+        private RawCashgame CreateRawCashgame(IStorageDataReader reader)
         {
             var location = reader.GetStringValue("Location");
             if (location == "")

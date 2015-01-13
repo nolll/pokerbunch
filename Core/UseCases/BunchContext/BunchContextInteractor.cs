@@ -6,7 +6,7 @@ using Core.UseCases.AppContext;
 
 namespace Core.UseCases.BunchContext
 {
-    public class BunchContextInteractor
+    public static class BunchContextInteractor
     {
         public static BunchContextResult Execute(Func<AppContextResult> appContext, IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
         {

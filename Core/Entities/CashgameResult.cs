@@ -19,7 +19,7 @@ namespace Core.Entities
         public Checkpoint CashoutCheckpoint { get; private set; }
         public int WinRate { get; private set; }
 
-	    public CashgameResult(
+        protected CashgameResult(
             int playerId,
             int buyin, 
             int winnings, 

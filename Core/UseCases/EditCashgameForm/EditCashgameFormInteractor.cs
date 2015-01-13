@@ -5,7 +5,7 @@ using Core.Urls;
 
 namespace Core.UseCases.EditCashgameForm
 {
-    public class EditCashgameFormInteractor
+    public static class EditCashgameFormInteractor
     {
         public static EditCashgameFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, EditCashgameFormRequest request)
         {

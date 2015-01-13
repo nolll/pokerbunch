@@ -1,14 +1,13 @@
 ﻿using Core.Entities.Checkpoints;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.Report
 {
     public static class ReportInteractor
     {
-        public static ReportResult Execute(
+        public static void Execute(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
@@ -27,10 +26,6 @@ namespace Core.UseCases.Report
 
             var checkpoint = Checkpoint.Create(cashgame.Id, player.Id, now, CheckpointType.Report, request.Stack);
             checkpointRepository.AddCheckpoint(checkpoint);
-            
-            var returnUrl = new RunningCashgameUrl(request.Slug);
-
-            return new ReportResult(returnUrl);
         }
     }
 }

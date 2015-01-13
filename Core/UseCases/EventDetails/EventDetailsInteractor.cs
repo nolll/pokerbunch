@@ -2,7 +2,7 @@ using Core.Repositories;
 
 namespace Core.UseCases.EventDetails
 {
-    public class EventDetailsInteractor
+    public static class EventDetailsInteractor
     {
         public static EventDetailsOutput Execute(IEventRepository eventRepository, EventDetailsInput input)
         {

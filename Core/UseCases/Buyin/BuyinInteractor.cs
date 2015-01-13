@@ -7,7 +7,7 @@ namespace Core.UseCases.Buyin
 {
     public static class BuyinInteractor
     {
-        public static BuyinResult Execute(IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, ITimeProvider timeProvider, BuyinRequest request)
+        public static void Execute(IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, ITimeProvider timeProvider, BuyinRequest request)
         {
             var validator = new Validator(request);
 
@@ -22,8 +22,6 @@ namespace Core.UseCases.Buyin
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, player.Id, timeStamp, stackAfterBuyin, request.BuyinAmount);
             checkpointRepository.AddCheckpoint(checkpoint);
-
-            return new BuyinResult(request.Slug);
         }
     }
 }

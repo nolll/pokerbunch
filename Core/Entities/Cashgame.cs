@@ -5,7 +5,7 @@ using Core.Services;
 
 namespace Core.Entities
 {
-    public class Cashgame : ICacheable
+    public class Cashgame : IEntity
     {
 	    public int Id { get; private set; }
         public int BunchId { get; private set; }
@@ -70,7 +70,7 @@ namespace Core.Entities
             EndTime = GetEndTime(Results);
             PlayerCount = Results.Count;
             Turnover = GetBuyinSum(Results); 
-            Diff = Turnover - GetCashoutSum(Results); ;
+            Diff = Turnover - GetCashoutSum(Results);
             HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
             TotalStacks = Results.Sum(result => result.Stack);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);

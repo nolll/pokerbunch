@@ -58,7 +58,7 @@ define([
     function getPlayerResults(player) {
         var i,
             c,
-            winnings = 0,
+            winnings,
             addedMoney = 0,
             results = [],
             checkpoints = player.checkpoints();

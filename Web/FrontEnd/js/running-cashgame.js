@@ -17,7 +17,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
         }
 
         function formatCurrency(n) {
-            return n += " kr";
+            return n + " kr";
         }
 
         function StandingsViewModel(data) {

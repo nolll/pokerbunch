@@ -17,7 +17,7 @@ namespace Core.UseCases.CashgameFacts
         public int TotalGameTime { get; private set; }
         public int TotalTurnover { get; private set; }
 
-        public FactBuilder(IList<Cashgame> cashgames, IList<Player> players)
+        public FactBuilder(IList<Cashgame> cashgames, IEnumerable<Player> players)
         {
             var gameData = GetGameData(cashgames);
             var totalResults = GetTotalResults(players, cashgames);

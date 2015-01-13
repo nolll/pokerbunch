@@ -13,7 +13,7 @@ namespace Web.Models.CashgameModels.Matrix
 	    public string PlayerUrl { get; private set; }
         public IList<CashgameMatrixTableCellModel> CellModels { get; private set; }
 
-        public CashgameMatrixTableRowModel(IList<GameItem> gameItems, MatrixPlayerItem playerItem)
+        public CashgameMatrixTableRowModel(IEnumerable<GameItem> gameItems, MatrixPlayerItem playerItem)
         {
             Rank = playerItem.Rank;
             Name = playerItem.Name;
@@ -23,7 +23,7 @@ namespace Web.Models.CashgameModels.Matrix
             ResultClass = ResultFormatter.GetWinningsCssClass(playerItem.TotalResult);
         }
 
-        private static IList<CashgameMatrixTableCellModel> CreateCells(IList<GameItem> gameItems, MatrixPlayerItem playerItem)
+        private static IList<CashgameMatrixTableCellModel> CreateCells(IEnumerable<GameItem> gameItems, MatrixPlayerItem playerItem)
         {
             var models = new List<CashgameMatrixTableCellModel>();
             foreach (var gameItem in gameItems)

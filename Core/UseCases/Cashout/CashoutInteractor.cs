@@ -2,13 +2,12 @@
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases.Cashout
 {
     public static class CashoutInteractor
     {
-        public static CashoutResult Execute(
+        public static void Execute(
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
@@ -40,9 +39,6 @@ namespace Core.UseCases.Cashout
                 checkpointRepository.UpdateCheckpoint(postedCheckpoint);
             else
                 checkpointRepository.AddCheckpoint(postedCheckpoint);
-
-            var returnUrl = new RunningCashgameUrl(request.Slug);
-            return new CashoutResult(returnUrl);
         }
 
         // todo: display sharing options

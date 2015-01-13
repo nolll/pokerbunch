@@ -8,7 +8,7 @@ using Core.Services;
 
 namespace Core.UseCases.CashgameDetailsChart
 {
-    public class CashgameDetailsChartInteractor
+    public static class CashgameDetailsChartInteractor
     {
         public static CashgameDetailsChartResult Execute(
             ITimeProvider timeProvider,
@@ -34,7 +34,7 @@ namespace Core.UseCases.CashgameDetailsChart
             return cashgameRepository.GetByDateString(bunch.Id, dateStr);
         }
 
-        private static IList<DetailsChartPlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)
+        private static IList<DetailsChartPlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, DateTime now)
         {
             var playerItems = new List<DetailsChartPlayerItem>();
             foreach (var player in players)

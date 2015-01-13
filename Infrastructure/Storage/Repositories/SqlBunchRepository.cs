@@ -99,7 +99,7 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public static Bunch CreateBunch(RawBunch rawBunch)
+	    private static Bunch CreateBunch(RawBunch rawBunch)
         {
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
             var currency = new Currency(rawBunch.CurrencySymbol, rawBunch.CurrencyLayout, culture);

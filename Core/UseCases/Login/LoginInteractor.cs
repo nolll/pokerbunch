@@ -7,7 +7,7 @@ using Core.Urls;
 
 namespace Core.UseCases.Login
 {
-    public class LoginInteractor
+    public static class LoginInteractor
     {
         public static LoginResult Execute(
             IUserRepository userRepository,

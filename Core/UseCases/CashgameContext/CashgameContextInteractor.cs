@@ -4,7 +4,7 @@ using Core.UseCases.BunchContext;
 
 namespace Core.UseCases.CashgameContext
 {
-    public class CashgameContextInteractor
+    public static class CashgameContextInteractor
     {
         public static CashgameContextResult Execute(Func<BunchContextRequest, BunchContextResult> bunchContext, ICashgameRepository cashgameRepository, CashgameContextRequest request)
         {

@@ -26,7 +26,7 @@ namespace Core.UseCases.CashgameContext
             string slug,
             bool gameIsRunning,
             CashgamePage selectedPage,
-            IList<int> years,
+            IEnumerable<int> years,
             int? selectedYear)
         {
             BunchContext = bunchContextResult;
@@ -43,7 +43,7 @@ namespace Core.UseCases.CashgameContext
             YearItems = CreateYearItems(slug, years, selectedPage);
         }
 
-        private IList<YearItem> CreateYearItems(string slug, IList<int> years, CashgamePage selectedPage)
+        private IList<YearItem> CreateYearItems(string slug, IEnumerable<int> years, CashgamePage selectedPage)
         {
             var yearItems = years.Select(year => new YearItem(year.ToString(CultureInfo.InvariantCulture), GetYearUrl(slug, selectedPage, year))).ToList();
             yearItems.Add(new YearItem("All Time", GetYearUrl(slug, selectedPage)));

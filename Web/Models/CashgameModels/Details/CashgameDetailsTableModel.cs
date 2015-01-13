@@ -6,9 +6,9 @@ namespace Web.Models.CashgameModels.Details
 {
     public class CashgameDetailsTableModel
     {
-        public IList<CashgameDetailsTableItemModel> ResultModels { get; set; }
+        public IList<CashgameDetailsTableItemModel> ResultModels { get; private set; }
 
-        public CashgameDetailsTableModel(IList<PlayerResultItem> playerItems)
+        public CashgameDetailsTableModel(IEnumerable<PlayerResultItem> playerItems)
         {
             ResultModels = playerItems.Select(o => new CashgameDetailsTableItemModel(o)).ToList();
         }

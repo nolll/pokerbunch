@@ -6,7 +6,7 @@ using Core.Services;
 
 namespace Core.UseCases.CashgameChart
 {
-    public class CashgameChartInteractor
+    public static class CashgameChartInteractor
     {
         public static CashgameChartResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, CashgameChartRequest request)
         {

@@ -13,7 +13,7 @@ namespace Core.UseCases.PlayerBadges
         public bool Played200Games { get; private set; }
         public bool Played500Games { get; private set; }
 
-        public PlayerBadgesResult(int playerId, IList<Cashgame> cashgames)
+        public PlayerBadgesResult(int playerId, IEnumerable<Cashgame> cashgames)
         {
             var gameCount = GetNumberOfPlayedGames(playerId, cashgames);
 
@@ -25,7 +25,7 @@ namespace Core.UseCases.PlayerBadges
             Played500Games = PlayedEnoughGames(gameCount, 500);
         }
 
-        private int GetNumberOfPlayedGames(int playerId, IList<Cashgame> cashgames)
+        private int GetNumberOfPlayedGames(int playerId, IEnumerable<Cashgame> cashgames)
         {
             if (cashgames == null)
                 return 0;

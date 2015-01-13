@@ -21,7 +21,7 @@ namespace Infrastructure.Storage
 	        get { return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString; }
 	    }
 
-	    protected IStorageDataReader Query(string sql, IList<SimpleSqlParameter> parameters = null)
+	    protected IStorageDataReader Query(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
 	    {
             using (var connection = GetConnection())
             {
@@ -46,7 +46,7 @@ namespace Infrastructure.Storage
 	        return Query(sqlWithIdList, parameter.ParameterList);
 	    }
 
-        protected int Execute(string sql, IList<SimpleSqlParameter> parameters = null)
+        protected int Execute(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
         {
             using (var connection = GetConnection())
             {
@@ -62,7 +62,7 @@ namespace Infrastructure.Storage
             }
         }
 
-        protected int ExecuteInsert(string sql, IList<SimpleSqlParameter> parameters = null)
+        protected int ExecuteInsert(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
         {
             using (var connection = GetConnection())
             {

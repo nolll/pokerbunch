@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases.Buyin;
 using NUnit.Framework;
 using Tests.Common;
@@ -56,20 +55,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(savedStack, result.Stack);
         }
 
-        [Test]
-        public void Buyin_ReturnUrlIsSetToRunningCashgame()
+        private void Execute(BuyinRequest request)
         {
-            Repos.Cashgame.SetupRunningGame();
-
-            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
-            var result = Execute(request);
-
-            Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
-        }
-
-        private BuyinResult Execute(BuyinRequest request)
-        {
-            return BuyinInteractor.Execute(
+            BuyinInteractor.Execute(
                 Repos.Bunch,
                 Repos.Player,
                 Repos.Cashgame,

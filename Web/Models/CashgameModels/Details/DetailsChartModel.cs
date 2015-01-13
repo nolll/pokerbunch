@@ -28,14 +28,14 @@ namespace Web.Models.CashgameModels.Details
             return rowModels;
         }
 
-        private static IList<ChartColumnModel> GetColumns(IList<DetailsChartPlayerItem> playerItems)
+        private static IList<ChartColumnModel> GetColumns(IEnumerable<DetailsChartPlayerItem> playerItems)
         {
             var columnModels = new List<ChartColumnModel> { new ChartDateTimeColumnModel("Time", "HH:mm") };
             columnModels.AddRange(playerItems.Select(item => new ChartNumberColumnModel(item.Name)));
             return columnModels;
         }
 
-        private static ChartRowModel GetRow(IList<DetailsChartPlayerItem> playerItems, DetailsChartResultItem resultItem, int playerId)
+        private static ChartRowModel GetRow(IEnumerable<DetailsChartPlayerItem> playerItems, DetailsChartResultItem resultItem, int playerId)
         {
             var values = new List<ChartValueModel> { new ChartDateTimeValueModel(resultItem.Timestamp) };
             foreach (var item in playerItems)

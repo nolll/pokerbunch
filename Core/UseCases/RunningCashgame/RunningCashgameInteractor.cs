@@ -9,7 +9,7 @@ using Core.Urls;
 
 namespace Core.UseCases.RunningCashgame
 {
-    public class RunningCashgameInteractor
+    public static class RunningCashgameInteractor
     {
         public static RunningCashgameResult Execute(
             IAuth auth,

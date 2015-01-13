@@ -2,7 +2,7 @@
 
 namespace Core.UseCases.BaseContext
 {
-    public class BaseContextInteractor
+    public static class BaseContextInteractor
     {
         public static BaseContextResult Execute()
         {

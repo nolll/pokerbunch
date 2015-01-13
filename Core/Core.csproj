@@ -47,7 +47,7 @@
     <Compile Include="Entities\MoneyResult.cs" />
     <Compile Include="Entities\MoneyWinRate.cs" />
     <Compile Include="Entities\Time.cs" />
-    <Compile Include="Entities\ICacheable.cs" />
+    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="Entities\UserBunch.cs" />
     <Compile Include="Entities\UserIdentity.cs" />
@@ -201,7 +201,6 @@
     <Compile Include="UseCases\BunchList\BunchListResult.cs" />
     <Compile Include="UseCases\Buyin\BuyinInteractor.cs" />
     <Compile Include="UseCases\Buyin\BuyinRequest.cs" />
-    <Compile Include="UseCases\Buyin\BuyinResult.cs" />
     <Compile Include="UseCases\CashgameChart\CashgameChartInteractor.cs" />
     <Compile Include="UseCases\CashgameChart\CashgameChartRequest.cs" />
     <Compile Include="UseCases\CashgameChart\CashgameChartResult.cs" />
@@ -243,7 +242,6 @@
     <Compile Include="UseCases\CashgameTopList\ToplistSortOrder.cs" />
     <Compile Include="UseCases\Cashout\CashoutInteractor.cs" />
     <Compile Include="UseCases\Cashout\CashoutRequest.cs" />
-    <Compile Include="UseCases\Cashout\CashoutResult.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordInteractor.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordRequest.cs" />
     <Compile Include="UseCases\ChangePassword\ChangePasswordResult.cs" />
@@ -283,6 +281,7 @@
     <Compile Include="UseCases\EditUser\EditUserRequest.cs" />
     <Compile Include="UseCases\EditUser\EditUserResult.cs" />
     <Compile Include="UseCases\EndCashgame\EndCashgameInteractor.cs" />
+    <Compile Include="UseCases\EndCashgame\EndCashgameRequest.cs" />
     <Compile Include="UseCases\EventDetails\EventDetailsInput.cs" />
     <Compile Include="UseCases\EventDetails\EventDetailsInteractor.cs" />
     <Compile Include="UseCases\EventDetails\EventDetailsOutput.cs" />
@@ -336,7 +335,6 @@
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\Report\ReportInteractor.cs" />
     <Compile Include="UseCases\Report\ReportRequest.cs" />
-    <Compile Include="UseCases\Report\ReportResult.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameCheckpointItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
     <Compile Include="UseCases\RunningCashgame\BunchPlayerItem.cs" />

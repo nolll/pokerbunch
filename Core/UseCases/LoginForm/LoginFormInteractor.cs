@@ -1,6 +1,6 @@
 namespace Core.UseCases.LoginForm
 {
-    public class LoginFormInteractor
+    public static class LoginFormInteractor
     {
         public static LoginFormResult Execute(LoginFormRequest request)
         {

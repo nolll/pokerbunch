@@ -3,7 +3,7 @@ using Core.Urls;
 
 namespace Core.UseCases.DeletePlayer
 {
-    public class DeletePlayerInteractor
+    public static class DeletePlayerInteractor
     {
         public static DeletePlayerResult Execute(
             IPlayerRepository playerRepository,

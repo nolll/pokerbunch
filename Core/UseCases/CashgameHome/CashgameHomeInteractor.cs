@@ -5,7 +5,7 @@ using Core.Urls;
 
 namespace Core.UseCases.CashgameHome
 {
-    public class CashgameHomeInteractor
+    public static class CashgameHomeInteractor
     {
         public static CashgameHomeResult Execute(CashgameHomeRequest request, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
