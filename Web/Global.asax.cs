@@ -56,7 +56,7 @@ namespace Web
                 return;
 
             var userIdentity = JsonConvert.DeserializeObject<UserIdentity>(authTicket.UserData);
-            var customIdentity = new CustomIdentity(true, userIdentity);
+            var customIdentity = new CustomIdentity(userIdentity);
             HttpContext.Current.User = new CustomPrincipal(customIdentity);
         }
 

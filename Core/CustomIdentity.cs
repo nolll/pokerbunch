@@ -17,9 +17,9 @@ namespace Core
             _user = new UserIdentity();
         }
 
-        public CustomIdentity(bool isAuthenticated, UserIdentity userIdentity)
+        public CustomIdentity(UserIdentity userIdentity)
         {
-            _isAuthenticated = isAuthenticated;
+            _isAuthenticated = true;
             _user = userIdentity;
         }
 

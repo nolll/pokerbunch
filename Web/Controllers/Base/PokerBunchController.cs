@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Antlr.Runtime.Misc;
+using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
@@ -17,9 +18,13 @@ namespace Web.Controllers.Base
             get { return new UseCaseContainer(); }
         }
 
-        protected string UserName
+        protected CustomIdentity Identity
         {
-            get { return User.Identity.Name; }
+            get
+            {
+                var identity = User.Identity as CustomIdentity;
+                return identity ?? new CustomIdentity();
+            }
         }
 
         protected void AddModelErrors(IEnumerable<string> errors)

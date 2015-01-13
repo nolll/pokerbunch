@@ -137,17 +137,17 @@ namespace Tests.Core.UseCases
 
         private void SetupCurrentUser()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
+            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
         }
 
         private void SetupCurrentUserAsAdmin()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdB, UserName = Constants.UserNameB, IsAdmin = true });
+            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity { UserId = Constants.UserIdB, UserName = Constants.UserNameB, IsAdmin = true });
         }
 
         private void SetupCurrentUserAsDisplayUser()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
+            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
         }
         
         private UserDetailsResult Execute(UserDetailsRequest request)

@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedIn_IsLoggedInIsTrue()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity());
+            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity());
 
             var result = Execute();
 
@@ -47,7 +47,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_LoggedInAsAdmin_IsAdminIsTrue()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(true, new UserIdentity{IsAdmin = true});
+            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{IsAdmin = true});
 
             var result = Execute();
 
