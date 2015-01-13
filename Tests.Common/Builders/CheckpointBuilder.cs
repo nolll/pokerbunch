@@ -29,6 +29,18 @@ namespace Tests.Common.Builders
             return Checkpoint.Create(_cashgameId, _playerId, _timestamp, _type, _stack, _amount, _id);
         }
 
+        public CheckpointBuilder WithCashgameId(int cashgameId)
+        {
+            _cashgameId = cashgameId;
+            return this;
+        }
+
+        public CheckpointBuilder WithPlayerId(int playerId)
+        {
+            _playerId = playerId;
+            return this;
+        }
+
         public CheckpointBuilder WithAmount(int amount)
         {
             _amount = amount;

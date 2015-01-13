@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.AddUser;
 using NUnit.Framework;
@@ -76,8 +75,6 @@ namespace Tests.Core.UseCases
             const string expectedEncryptedPassword = "0478095c8ece0bbc11f94663ac2c4f10b29666de";
             const string expectedSalt = "aaaaaaaaaa";
 
-            SetupRandomCharacters();
-
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
             Execute(request);
 
@@ -104,8 +101,6 @@ aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
 
-            SetupRandomCharacters();
-
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
             Execute(request);
 
@@ -114,16 +109,11 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
-        private void SetupRandomCharacters()
-        {
-            GetMock<IRandomService>().Setup(o => o.GetAllowedChars()).Returns("a");
-        }
-
         private AddUserResult Execute(AddUserRequest request)
         {
             return AddUserInteractor.Execute(
                 Repos.User,
-                GetMock<IRandomService>().Object,
+                Services.RandomService,
                 Services.MessageSender,
                 request);
         }

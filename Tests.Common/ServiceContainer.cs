@@ -7,12 +7,14 @@ namespace Tests.Common
         public FakeTimeProvider Time { get; private set; }
         public FakeAuth Auth { get; private set; }
         public FakeMessageSender MessageSender { get; private set; }
+        public FakeRandomService RandomService { get; private set; }
 
         public ServiceContainer()
         {
             Time = new FakeTimeProvider();
             Auth = new FakeAuth();
             MessageSender = new FakeMessageSender();
+            RandomService = new FakeRandomService();
         }
 
         public void Clear()

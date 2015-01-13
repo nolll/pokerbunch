@@ -8,8 +8,8 @@ namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
-        public Cashgame Running { get; set; }
         private readonly IList<Cashgame> _list;
+        private Cashgame _running;
 
         public FakeCashgameRepository()
         {
@@ -23,7 +23,7 @@ namespace Tests.Common.FakeRepositories
 
         public Cashgame GetRunning(int bunchId)
         {
-            return Running;
+            return _running;
         }
 
         public Cashgame GetByDateString(int bunchId, string dateString)
@@ -96,6 +96,13 @@ namespace Tests.Common.FakeRepositories
                     .WithAverageBuyin(Constants.AvarageBuyinB)
                     .Build()
             };
+        }
+
+        public void SetupRunningGame()
+        {
+            _running = new CashgameBuilder()
+                .ThatIsRunning()
+                .Build();
         }
 
         public void ClearList()

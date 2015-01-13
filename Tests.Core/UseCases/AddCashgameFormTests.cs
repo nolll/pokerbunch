@@ -19,9 +19,9 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgameOptions_WithRunningCashgame_ThrowsException()
         {
-            const string slug = Constants.SlugA;
+            Repos.Cashgame.SetupRunningGame();
 
-            Repos.Cashgame.Running = A.Cashgame.Build();
+            const string slug = Constants.SlugA;
 
             Assert.Throws<CashgameRunningException>(() => Execute(new AddCashgameFormRequest(slug)));
         }

@@ -57,10 +57,20 @@ namespace Tests.Common.Builders
             return this;
         }
 
-        public CashgameBuilder WithOnePlayerThatHasBoughtIn()
+        public CashgameBuilder ThatIsRunning()
         {
-            var checkpoint = new CheckpointBuilder().OfType(CheckpointType.Buyin).Build();
-            _checkpoints.Add(checkpoint);
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Buyin).WithPlayerId(Constants.PlayerIdA).WithAmount(200).WithStack(200).Build());
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Buyin).WithPlayerId(Constants.PlayerIdB).WithAmount(200).WithStack(200).Build());
+            return this;
+        }
+
+        public CashgameBuilder ThatIsFinished()
+        {
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Buyin).WithPlayerId(Constants.PlayerIdA).WithAmount(200).WithStack(200).Build());
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Buyin).WithPlayerId(Constants.PlayerIdB).WithAmount(200).WithStack(200).Build());
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Report).WithPlayerId(Constants.PlayerIdB).WithStack(250).Build());
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Cashout).WithPlayerId(Constants.PlayerIdA).WithStack(50).Build());
+            _checkpoints.Add(new CheckpointBuilder().OfType(CheckpointType.Cashout).WithPlayerId(Constants.PlayerIdB).WithStack(350).Build());
             return this;
         }
 

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.Buyin;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -44,8 +41,8 @@ namespace Tests.Core.UseCases
             const int buyin = 1;
             const int stack = 2;
             const int savedStack = 3;
-            
-            SetupCashgame();
+
+            Repos.Cashgame.SetupRunningGame();
 
             Services.Time.UtcNow = timestamp;
 
@@ -60,20 +57,9 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void Buyin_NotStartedCashgame_AddsCheckpointAndStartsGame()
-        {
-            SetupCashgameThatIsntStarted();
-
-            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
-            Execute(request);
-
-            Assert.IsNotNull(Repos.Checkpoint.Added);
-        }
-
-        [Test]
         public void Buyin_ReturnUrlIsSetToRunningCashgame()
         {
-            SetupCashgame();
+            Repos.Cashgame.SetupRunningGame();
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, ValidStack);
             var result = Execute(request);
@@ -81,29 +67,12 @@ namespace Tests.Core.UseCases
             Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
         }
 
-        private void SetupCashgame()
-        {
-            var cashgame = A.Cashgame.ThatIsStarted().Build();
-            SetupCashgame(cashgame);
-        }
-
-        private void SetupCashgameThatIsntStarted()
-        {
-            var cashgame = A.Cashgame.Build();
-            SetupCashgame(cashgame);
-        }
-
-        private void SetupCashgame(Cashgame cashgame)
-        {
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);
-        }
-        
         private BuyinResult Execute(BuyinRequest request)
         {
             return BuyinInteractor.Execute(
                 Repos.Bunch,
                 Repos.Player,
-                GetMock<ICashgameRepository>().Object,
+                Repos.Cashgame,
                 Repos.Checkpoint,
                 Services.Time,
                 request);
