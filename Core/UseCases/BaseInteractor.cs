@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.UseCases.BunchDetails;
 
 namespace Core.UseCases
 {

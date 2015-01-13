@@ -1,5 +1,4 @@
-﻿using Core.Services;
-using Core.Urls;
+﻿using Core.Urls;
 using Core.UseCases.Logout;
 using NUnit.Framework;
 using Tests.Common;

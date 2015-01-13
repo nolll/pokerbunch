@@ -1,6 +1,5 @@
 ﻿using Core;
 using Core.Entities;
-using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
 using NUnit.Framework;

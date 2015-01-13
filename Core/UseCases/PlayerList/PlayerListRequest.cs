@@ -2,7 +2,7 @@
 {
     public class PlayerListRequest
     {
-        public string Slug;
+        public string Slug { get; private set; }
 
         public PlayerListRequest(string slug)
         {

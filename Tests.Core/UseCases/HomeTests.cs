@@ -1,6 +1,5 @@
 ﻿using Core;
 using Core.Entities;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.Home;
 using NUnit.Framework;

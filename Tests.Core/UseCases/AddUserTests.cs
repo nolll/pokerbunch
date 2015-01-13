@@ -1,12 +1,9 @@
 ﻿using System.Linq;
-using System.Runtime.Remoting.Channels;
-using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.AddUser;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 

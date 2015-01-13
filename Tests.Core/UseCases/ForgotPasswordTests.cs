@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using Core;
 using Core.Exceptions;
 using Core.Services;
 using Core.Urls;
 using Core.UseCases.ForgotPassword;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
