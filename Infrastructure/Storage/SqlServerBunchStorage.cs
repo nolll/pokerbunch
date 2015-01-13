@@ -33,15 +33,15 @@ namespace Infrastructure.Storage
             return reader.ReadList(CreateRawBunch);
         }
 
-        public IList<RawBunch> GetBunchesByUserId(int userId)
+        public IList<int> GetBunchIdsByUserId(int userId)
         {
-            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name";
+            const string sql = "SELECT h.HomegameID FROM homegame h INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = Query(sql, parameters);
-            return reader.ReadList(CreateRawBunch);
+            return reader.ReadIntList("HomegameID");
         }
 
 		public RawBunch GetBunchByName(string slug){

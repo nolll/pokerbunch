@@ -14,7 +14,6 @@ namespace Core.Repositories
 		bool DeleteGame(Cashgame cashgame);
 		int AddGame(Bunch bunch, Cashgame cashgame);
 		bool UpdateGame(Cashgame cashgame);
-        bool StartGame(Cashgame cashgame);
         bool EndGame(Bunch bunch, Cashgame cashgame);
 		bool HasPlayed(int playerId);
 	}

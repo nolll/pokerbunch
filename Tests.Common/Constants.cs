@@ -44,6 +44,9 @@ namespace Tests.Common
         public const int CashoutCheckpointAmount = 600;
         public static DateTime CashoutCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
 
+        public const int CashgameIdA = 1;
+        public const int CashgameIdB = 2;
+
         public const int PlayerIdA = 1;
         public const int PlayerIdB = 2;
         public const string PlayerNameA = "Player Name A";

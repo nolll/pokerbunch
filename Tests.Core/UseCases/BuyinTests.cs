@@ -57,7 +57,6 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
             Assert.AreEqual(savedStack, result.Stack);
-            GetMock<ICashgameRepository>().Verify(o => o.StartGame(It.IsAny<Cashgame>()), Times.Never);
         }
 
         [Test]
@@ -69,7 +68,6 @@ namespace Tests.Core.UseCases
             Execute(request);
 
             Assert.IsNotNull(Repos.Checkpoint.Added);
-            GetMock<ICashgameRepository>().Verify(o => o.StartGame(It.IsAny<Cashgame>()));
         }
 
         [Test]

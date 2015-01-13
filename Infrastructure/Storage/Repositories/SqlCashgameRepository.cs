@@ -158,14 +158,6 @@ namespace Infrastructure.Storage.Repositories
             return success;
 		}
 
-		public bool StartGame(Cashgame cashgame)
-        {
-            var rawCashgame = CreateRawCashgame(cashgame);
-            var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
-		    return success;
-		}
-
 		public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame, GameStatus.Finished);

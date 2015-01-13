@@ -23,11 +23,6 @@ namespace Core.UseCases.Buyin
             var checkpoint = new BuyinCheckpoint(game.Id, player.Id, timeStamp, stackAfterBuyin, request.BuyinAmount);
             checkpointRepository.AddCheckpoint(checkpoint);
 
-            if (!game.IsStarted)
-            {
-                cashgameRepository.StartGame(game);
-            }
-
             return new BuyinResult(request.Slug);
         }
     }

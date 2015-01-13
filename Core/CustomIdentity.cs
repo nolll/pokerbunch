@@ -68,9 +68,7 @@ namespace Core
             foreach (var userBunch in _user.Bunches)
             {
                 if (userBunch.Slug == slug)
-                {
                     return userBunch.Role;
-                }
             }
             return Role.None;
         }

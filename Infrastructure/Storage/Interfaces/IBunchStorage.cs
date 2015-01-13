@@ -5,7 +5,7 @@ namespace Infrastructure.Storage.Interfaces
 {
 	public interface IBunchStorage
     {
-        IList<RawBunch> GetBunchesByUserId(int userId);
+        IList<int> GetBunchIdsByUserId(int userId);
         int GetBunchRole(int bunchId, int userId);
         RawBunch GetBunchByName(string name);
         int AddBunch(RawBunch bunch);

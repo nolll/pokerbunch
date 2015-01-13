@@ -1,16 +1,23 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
+using Tests.Common.Builders;
 
 namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
         public Cashgame Running { get; set; }
+        private readonly IList<Cashgame> _list;
+
+        public FakeCashgameRepository()
+        {
+            _list = CreateList();
+        }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            throw new System.NotImplementedException();
+            return _list;
         }
 
         public Cashgame GetRunning(int bunchId)
@@ -53,11 +60,6 @@ namespace Tests.Common.FakeRepositories
             throw new System.NotImplementedException();
         }
 
-        public bool StartGame(Cashgame cashgame)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
             throw new System.NotImplementedException();
@@ -66,6 +68,19 @@ namespace Tests.Common.FakeRepositories
         public bool HasPlayed(int playerId)
         {
             throw new System.NotImplementedException();
+        }
+
+        private IList<Cashgame> CreateList()
+        {
+            return new List<Cashgame>
+            {
+                new CashgameBuilder()
+                    .WithId(Constants.CashgameIdA)
+                    .Build(),
+                new CashgameBuilder()
+                    .WithId(Constants.CashgameIdB)    
+                    .Build()
+            };
         }
     }
 }

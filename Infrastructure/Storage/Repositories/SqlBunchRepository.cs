@@ -47,14 +47,15 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<Bunch> GetByUserId(int userId)
         {
-            var rawHomegames = _bunchStorage.GetBunchesByUserId(userId);
-            return rawHomegames.Select(CreateBunch).ToList();
+            var ids = _bunchStorage.GetBunchIdsByUserId(userId);
+            var homegames = _cacheContainer.GetEachAndStore(GetByIdsUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            return homegames.OrderBy(o => o.DisplayName).ToList();
         }
 
         public IList<Bunch> GetList()
         {
             var ids = GetAllIds();
-            var homegames = _cacheContainer.GetEachAndStore(GetAllUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            var homegames = _cacheContainer.GetEachAndStore(GetByIdsUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return homegames.OrderBy(o => o.DisplayName).ToList();
         }
 
@@ -86,7 +87,7 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(() => _bunchStorage.GetIdBySlug(slug), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        private IList<Bunch> GetAllUncached(IList<int> ids)
+        private IList<Bunch> GetByIdsUncached(IList<int> ids)
         {
             var rawHomegames = _bunchStorage.GetBunches(ids);
             return rawHomegames.Select(CreateBunch).ToList();

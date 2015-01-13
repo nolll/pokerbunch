@@ -36,14 +36,14 @@ namespace Core.UseCases.AddBunch
         private static Bunch CreateBunch(AddBunchRequest request)
         {
             return new Bunch(
-                    0,
-                    SlugGenerator.GetSlug(request.DisplayName),
-                    request.DisplayName,
-                    request.Description,
-                    string.Empty,
-                    TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
-                    200,
-                    new Currency(request.CurrencySymbol, request.CurrencyLayout));
+                0,
+                SlugGenerator.GetSlug(request.DisplayName),
+                request.DisplayName,
+                request.Description,
+                string.Empty,
+                TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
+                200,
+                new Currency(request.CurrencySymbol, request.CurrencyLayout));
         }
     }
 }
