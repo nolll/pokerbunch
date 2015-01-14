@@ -54,7 +54,6 @@
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
-    <Compile Include="FakeClasses\FactBuilderInTest.cs" />
     <Compile Include="FakeClasses\CashgameSuiteInTest.cs" />
     <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
     <Compile Include="FakeRepositories\FakeBunchRepository.cs" />

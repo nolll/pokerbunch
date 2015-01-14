@@ -35,12 +35,6 @@ namespace Plumbing
             get { return _auth ?? (_auth = new Auth(TimeProvider)); }
         }
 
-        private ICashgameService _cashgamService;
-        protected ICashgameService CashgameService
-        {
-            get { return _cashgamService ?? (_cashgamService = new CashgameService(PlayerRepository, CashgameRepository)); }
-        }
-
         private ICacheContainer _cacheContainer;
         protected ICacheContainer CacheContainer
         {

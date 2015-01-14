@@ -18,18 +18,15 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/bunch-a/cashgame/details/2001-02-03", result.GameItems[1].Url.Relative);
         }
 
-        //todo: find a way to change the data in the repo
-        //[Test]
-        //public void Matrix_WithTwoGamesOnTheSameYear_SpansMultipleYearsIsFalse()
-        //{
-        //    var startTime1 = A.DateTime.WithDay(1).Build();
-        //    var startTime2 = A.DateTime.WithDay(2).Build();
-        //    SetupCashgamesAndPlayers(startTime1, startTime2);
+        [Test]
+        public void Matrix_WithTwoGamesOnTheSameYear_SpansMultipleYearsIsFalse()
+        {
+            Repos.Cashgame.SetupSingleYear();
 
-        //    var result = Execute2(CreateRequest());
+            var result = Execute(CreateRequest());
 
-        //    Assert.IsFalse(result.SpansMultipleYears);
-        //}
+            Assert.IsFalse(result.SpansMultipleYears);
+        }
 
         [Test]
         public void Matrix_WithTwoGamesOnDifferentYears_SpansMultipleYearsIsTrue()

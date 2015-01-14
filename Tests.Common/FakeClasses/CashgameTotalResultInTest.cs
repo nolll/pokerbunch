@@ -3,7 +3,7 @@ using Tests.Common.Builders;
 
 namespace Tests.Common.FakeClasses
 {
-    public class CashgameTotalResultInTest : CashgameTotalResult
+    public class  CashgameTotalResultInTest : CashgameTotalResult
     {
         public CashgameTotalResultInTest(
             int winnings = 0,

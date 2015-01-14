@@ -8,7 +8,11 @@ namespace Tests.Common.FakeRepositories
     {
         public IList<Event> Find(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return new List<Event>
+            {
+                new Event(Constants.EventIdA, Constants.EventNameA),
+                new Event(Constants.EventIdB, Constants.EventNameB)
+            };
         }
 
         public Event GetById(int eventId)

@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases.CashgameTopList
 {
     public static class TopListInteractor
     {
-        public static TopListResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, TopListRequest request)
+        public static TopListResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, TopListRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var suite = cashgameService.GetSuite(bunch.Id, request.Year);
+            var players = playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new TopListItem(bunch.Slug, o, index, bunch.Currency));
             items = SortItems(items, request.OrderBy);

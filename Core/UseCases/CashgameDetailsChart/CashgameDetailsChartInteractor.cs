@@ -12,14 +12,15 @@ namespace Core.UseCases.CashgameDetailsChart
     {
         public static CashgameDetailsChartResult Execute(
             ITimeProvider timeProvider,
-            ICashgameService cashgameService,
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
+            IPlayerRepository playerRepository,
             CashgameDetailsChartRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = GetCashgame(cashgameRepository, bunch, request.DateStr);
-            var players = cashgameService.GetPlayers(cashgame).OrderBy(o => o.Id).ToList();
+            var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
+            var players = playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
             var now = timeProvider.UtcNow;
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, now);

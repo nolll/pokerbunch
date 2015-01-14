@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.Services;
 using Core.Urls;
 using Core.UseCases.ForgotPassword;
 using NUnit.Framework;
@@ -45,8 +44,6 @@ namespace Tests.Core.UseCases
 aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
-            SetupRandomCharacters();
-
             Execute(CreateRequest());
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);
@@ -57,8 +54,6 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         [Test]
         public void ForgotPassword_SavesUserWithNewPassword()
         {
-            SetupRandomCharacters();
-
             Execute(CreateRequest());
 
             var savedUser = Repos.User.Saved;
@@ -66,11 +61,6 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             Assert.AreEqual("aaaaaaaaaa", savedUser.Salt);
         }
 
-        private void SetupRandomCharacters()
-        {
-            GetMock<IRandomService>().Setup(o => o.GetAllowedChars()).Returns("a");
-        }
-        
         private ForgotPasswordRequest CreateRequest(string email = ValidEmail)
         {
             return new ForgotPasswordRequest(email);
@@ -81,7 +71,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             return ForgotPasswordInteractor.Execute(
                 Repos.User,
                 Services.MessageSender,
-                GetMock<IRandomService>().Object,
+                Services.RandomService,
                 request);
         }
     }

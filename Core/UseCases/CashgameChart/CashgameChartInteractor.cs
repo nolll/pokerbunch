@@ -2,16 +2,17 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases.CashgameChart
 {
     public static class CashgameChartInteractor
     {
-        public static CashgameChartResult Execute(IBunchRepository bunchRepository, ICashgameService cashgameService, CashgameChartRequest request)
+        public static CashgameChartResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, CashgameChartRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
-            var suite = cashgameService.GetSuite(bunch.Id, request.Year);
+            var players = playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var suite = new CashgameSuite(cashgames, players);
 
             var playerItems = GetPlayerItems(suite.TotalResults);
             var gameItems = GetGameItems(suite.Cashgames, suite.TotalResults);

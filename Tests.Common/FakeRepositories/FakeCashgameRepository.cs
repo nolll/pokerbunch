@@ -1,20 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Tests.Common.Builders;
 
 namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
-        private readonly IList<Cashgame> _list;
+        private IList<Cashgame> _list;
         private Cashgame _running;
 
         public FakeCashgameRepository()
         {
-            _list = CreateList();
+            SetupMultiYear();
         }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
@@ -71,10 +71,25 @@ namespace Tests.Common.FakeRepositories
 
         public bool HasPlayed(int playerId)
         {
-            throw new System.NotImplementedException();
+            foreach (var game in _list)
+            {
+                if (game.GetResult(playerId) != null)
+                    return true;
+            }
+            return false;
         }
 
-        private IList<Cashgame> CreateList()
+        public void SetupMultiYear()
+        {
+            _list = GetGames();
+        }
+
+        public void SetupSingleYear()
+        {
+            _list = GetGames(Constants.StartTimeA.AddDays(7));
+        }
+
+        private IList<Cashgame> GetGames(DateTime? secondGameStartTime = null)
         {
             var checkpoints1 = new List<Checkpoint>
             {
@@ -85,14 +100,16 @@ namespace Tests.Common.FakeRepositories
                 Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeA.AddMinutes(62), CheckpointType.Cashout, 350, 0, 5)
             };
 
+            var startTime2 = secondGameStartTime ?? Constants.StartTimeB;
+
             var checkpoints2 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeB, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeB.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeB.AddMinutes(2), CheckpointType.Buyin, 200, 200, 3),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeB.AddMinutes(30), CheckpointType.Report, 450, 45, 4),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeB.AddMinutes(91), CheckpointType.Cashout, 550, 0, 5),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeB.AddMinutes(92), CheckpointType.Cashout, 50, 0, 6)
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(2), CheckpointType.Buyin, 200, 200, 3),
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2.AddMinutes(30), CheckpointType.Report, 450, 45, 4),
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2.AddMinutes(91), CheckpointType.Cashout, 550, 0, 5),
+                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(92), CheckpointType.Cashout, 50, 0, 6)
             };
 
             return new List<Cashgame>
