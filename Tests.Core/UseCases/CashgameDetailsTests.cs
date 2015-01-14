@@ -18,57 +18,50 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            var result = Execute2(request);
+            var result = Execute(request);
 
             Assert.AreEqual(Constants.DateStringA, result.Date.IsoString);
             Assert.AreEqual(Constants.LocationA, result.Location);
-            Assert.AreEqual(61, result.Duration.Minutes);
+            Assert.AreEqual(62, result.Duration.Minutes);
             Assert.AreEqual(DateTime.Parse("2001-02-03 03:05:06"), result.StartTime);
-            Assert.AreEqual(DateTime.Parse("2001-02-03 04:06:07"), result.EndTime);
+            Assert.AreEqual(DateTime.Parse("2001-02-03 04:07:06"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
             Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
-            Assert.AreEqual(0, result.PlayerItems.Count);
+            Assert.AreEqual(2, result.PlayerItems.Count);
         }
 
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
-
-            SetupCashgameWithResults();
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
             var result = Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
-            Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
-            Assert.AreEqual(-1, result.PlayerItems[1].Winnings.Amount);
+            Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);
+            Assert.AreEqual(-150, result.PlayerItems[1].Winnings.Amount);
         }
 
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
-
-            SetupCashgameWithResults();
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
             var result = Execute(request);
 
             Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[0].Name);
-            Assert.IsInstanceOf<CashgameActionUrl>(result.PlayerItems[0].PlayerUrl);
-            Assert.AreEqual(2, result.PlayerItems[0].Buyin.Amount);
-            Assert.AreEqual(3, result.PlayerItems[0].Cashout.Amount);
-            Assert.AreEqual(1, result.PlayerItems[0].Winnings.Amount);
-            Assert.AreEqual(4, result.PlayerItems[0].WinRate.Amount);
+            Assert.AreEqual("/bunch-a/cashgame/action/2001-02-03/2", result.PlayerItems[0].PlayerUrl.Relative);
+            Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
+            Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
+            Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);
+            Assert.AreEqual(148, result.PlayerItems[0].WinRate.Amount);
         }
 
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
-            const string dateStr = "2000-01-01";
-            var cashgame = A.Cashgame.WithDateString(dateStr).Build();
-            var request = new CashgameDetailsRequest(Constants.SlugA, dateStr);
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            SetupCashgame(cashgame);
             Services.Auth.SetCurrentRole(Role.Manager);
             
             var result = Execute(request);
@@ -76,36 +69,7 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEdit);
         }
 
-        private void SetupCashgameWithResults()
-        {
-            const string dateStr = "2000-01-01";
-            const string location = "a";
-            var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
-            var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
-            
-            var cashgameResult1 = new CashgameResultInTest(Constants.PlayerIdA, winnings: -1);
-            var cashgameResult2 = new CashgameResultInTest(Constants.PlayerIdB, winnings: 1, buyin: 2, stack: 3, winRate: 4);
-            var cashgameResults = new List<CashgameResult> { cashgameResult1, cashgameResult2 };
-            var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).WithResults(cashgameResults).Build();
-            SetupCashgame(cashgame);
-        }
-
-        private void SetupCashgame(Cashgame cashgame)
-        {
-            GetMock<ICashgameRepository>().Setup(o => o.GetByDateString(It.IsAny<int>(), It.IsAny<string>())).Returns(cashgame);
-        }
-
         private CashgameDetailsResult Execute(CashgameDetailsRequest request)
-        {
-            return CashgameDetailsInteractor.Execute(
-                Repos.Bunch,
-                GetMock<ICashgameRepository>().Object,
-                Services.Auth,
-                Repos.Player,
-                request);
-        }
-        
-        private CashgameDetailsResult Execute2(CashgameDetailsRequest request)
         {
             return CashgameDetailsInteractor.Execute(
                 Repos.Bunch,

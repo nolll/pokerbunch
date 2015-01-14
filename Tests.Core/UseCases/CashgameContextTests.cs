@@ -74,11 +74,8 @@ namespace Tests.Core.UseCases
             Repos.Cashgame.SetupRunningGame();
 
             const string slug = "a";
-            var cashgame = A.Cashgame.Build();
             var request = new CashgameContextRequest(slug);
 
-            GetMock<ICashgameRepository>().Setup(o => o.GetRunning(It.IsAny<int>())).Returns(cashgame);
-            
             var result = Execute(request);
 
             Assert.IsTrue(result.GameIsRunning);

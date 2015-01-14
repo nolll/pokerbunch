@@ -66,7 +66,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(122, result.List[0].Duration.Minutes);
+            Assert.AreEqual(92, result.List[0].Duration.Minutes);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(4, result.List[0].PlayerCount);
+            Assert.AreEqual(2, result.List[0].PlayerCount);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(2000, result.List[0].Turnover.Amount);
+            Assert.AreEqual(600, result.List[0].Turnover.Amount);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual(400, result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
         }
 
         [TestCase("date")]
@@ -119,8 +119,8 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest("playercount"));
 
             Assert.AreEqual(ListSortOrder.PlayerCount, result.SortOrder);
-            Assert.AreEqual(Constants.PlayerCountB, result.List[0].PlayerCount);
-            Assert.AreEqual(Constants.PlayerCountA, result.List[1].PlayerCount);
+            Assert.AreEqual(2, result.List[0].PlayerCount);
+            Assert.AreEqual(2, result.List[1].PlayerCount);
         }
 
         [Test]
@@ -139,8 +139,8 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest("duration"));
 
             Assert.AreEqual(ListSortOrder.Duration, result.SortOrder);
-            Assert.AreEqual(122, result.List[0].Duration.Minutes);
-            Assert.AreEqual(61, result.List[1].Duration.Minutes);
+            Assert.AreEqual(92, result.List[0].Duration.Minutes);
+            Assert.AreEqual(62, result.List[1].Duration.Minutes);
         }
 
         [Test]
@@ -149,8 +149,8 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest("turnover"));
 
             Assert.AreEqual(ListSortOrder.Turnover, result.SortOrder);
-            Assert.AreEqual(Constants.TurnoverB, result.List[0].Turnover.Amount);
-            Assert.AreEqual(Constants.TurnoverA, result.List[1].Turnover.Amount);
+            Assert.AreEqual(600, result.List[0].Turnover.Amount);
+            Assert.AreEqual(400, result.List[1].Turnover.Amount);
         }
 
         [Test]
@@ -159,8 +159,8 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest("averagebuyin"));
 
             Assert.AreEqual(ListSortOrder.AverageBuyin, result.SortOrder);
-            Assert.AreEqual(Constants.AvarageBuyinB, result.List[0].AverageBuyin.Amount);
-            Assert.AreEqual(Constants.AvarageBuyinA, result.List[1].AverageBuyin.Amount);
+            Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(200, result.List[1].AverageBuyin.Amount);
         }
 
         private CashgameListRequest CreateRequest(string orderBy = null, int? year = null)

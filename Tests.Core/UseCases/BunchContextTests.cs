@@ -80,14 +80,12 @@ namespace Tests.Core.UseCases
 
         private BunchContextResult GetResult(string slug = null)
         {
-            var request = new BunchContextRequest(slug);
-            return Execute(request);
+            return Execute(new BunchContextRequest(slug));
         }
 
         private BunchContextResult GetResult2(string slug = null)
         {
-            var request = new BunchContextRequest(slug);
-            return Execute2(request);
+            return Execute2(new BunchContextRequest(slug));
         }
 
         private void SetupHomegameListByUser(IList<Bunch> homegameList)
