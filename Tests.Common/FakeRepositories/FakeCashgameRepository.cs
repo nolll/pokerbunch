@@ -28,7 +28,7 @@ namespace Tests.Common.FakeRepositories
 
         public Cashgame GetByDateString(int bunchId, string dateString)
         {
-            throw new System.NotImplementedException();
+            throw _list.FirstOrDefault(o => o.DateString == dateString);
         }
 
         public Cashgame GetById(int cashgameId)

@@ -16,24 +16,15 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()
         {
-            const string dateStr = "2000-01-01";
-            const string location = "b";
-            var startTime = DateTime.Parse("2000-01-01 01:01:01").ToUniversalTime();
-            var endTime = DateTime.Parse("2000-01-01 02:01:01").ToUniversalTime();
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            var cashgame = A.Cashgame.WithDateString(dateStr).WithLocation(location).WithStartTime(startTime).WithEndTime(endTime).Build();
-            
-            var request = new CashgameDetailsRequest(Constants.SlugA, "2000-01-01");
+            var result = Execute2(request);
 
-            SetupCashgame(cashgame);
-            
-            var result = Execute(request);
-
-            Assert.AreEqual(dateStr, result.Date.IsoString);
-            Assert.AreEqual(location, result.Location);
-            Assert.AreEqual(60, result.Duration.Minutes);
-            Assert.AreEqual(startTime, result.StartTime);
-            Assert.AreEqual(endTime, result.EndTime);
+            Assert.AreEqual(Constants.DateStringA, result.Date.IsoString);
+            Assert.AreEqual(Constants.LocationA, result.Location);
+            Assert.AreEqual(61, result.Duration.Minutes);
+            Assert.AreEqual(DateTime.Parse("2001-02-03 03:05:06"), result.StartTime);
+            Assert.AreEqual(DateTime.Parse("2001-02-03 04:06:07"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
             Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
             Assert.AreEqual(0, result.PlayerItems.Count);
@@ -109,6 +100,16 @@ namespace Tests.Core.UseCases
             return CashgameDetailsInteractor.Execute(
                 Repos.Bunch,
                 GetMock<ICashgameRepository>().Object,
+                Services.Auth,
+                Repos.Player,
+                request);
+        }
+        
+        private CashgameDetailsResult Execute2(CashgameDetailsRequest request)
+        {
+            return CashgameDetailsInteractor.Execute(
+                Repos.Bunch,
+                Repos.Cashgame,
                 Services.Auth,
                 Repos.Player,
                 request);
