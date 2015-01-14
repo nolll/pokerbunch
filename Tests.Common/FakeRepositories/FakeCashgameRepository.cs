@@ -28,7 +28,7 @@ namespace Tests.Common.FakeRepositories
 
         public Cashgame GetByDateString(int bunchId, string dateString)
         {
-            throw _list.FirstOrDefault(o => o.DateString == dateString);
+            return _list.FirstOrDefault(o => o.DateString == dateString);
         }
 
         public Cashgame GetById(int cashgameId)
