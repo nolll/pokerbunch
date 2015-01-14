@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Entities.Checkpoints;
 using Core.Services;
 
 namespace Core.Entities
@@ -58,9 +59,9 @@ namespace Core.Entities
             DateString = dateString;
         }
 
-        public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IList<CashgameResult> results = null)
+        public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IEnumerable<Checkpoint> checkpoints = null)
         {
-            Results = results ?? new List<CashgameResult>();
+            Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();
             Id = id ?? 0;
             BunchId = bunchId;
             Location = location;
@@ -69,7 +70,7 @@ namespace Core.Entities
             IsStarted = StartTime.HasValue;
             EndTime = GetEndTime(Results);
             PlayerCount = Results.Count;
-            Turnover = GetBuyinSum(Results); 
+            Turnover = GetBuyinSum(Results);
             Diff = Turnover - GetCashoutSum(Results);
             HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
             TotalStacks = Results.Sum(result => result.Stack);
@@ -77,6 +78,30 @@ namespace Core.Entities
             var startTime = GetStartTime(Results);
             var dateString = startTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
             DateString = dateString;
+        }
+
+        private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)
+        {
+            var map = new Dictionary<int, IList<Checkpoint>>();
+            foreach (var checkpoint in checkpoints)
+            {
+                IList<Checkpoint> list;
+                if (!map.TryGetValue(checkpoint.PlayerId, out list))
+                {
+                    list = new List<Checkpoint>();
+                    map.Add(checkpoint.PlayerId, list);
+                }
+                list.Add(checkpoint);
+            }
+
+            var results = new List<CashgameResult>();
+            foreach (var playerKey in map.Keys)
+            {
+                var playerCheckpoints = map[playerKey].OrderBy(o => o.Timestamp).ToList();
+                var playerResults = new CashgameResult(playerKey, playerCheckpoints);
+                results.Add(playerResults);
+            }
+            return results;
         }
 
         private static DateTime? GetStartTime(IEnumerable<CashgameResult> results)

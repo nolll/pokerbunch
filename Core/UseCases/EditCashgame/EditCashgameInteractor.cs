@@ -15,7 +15,7 @@ namespace Core.UseCases.EditCashgame
 
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
-            cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id, cashgame.Results);
+            cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
             cashgameRepository.UpdateGame(cashgame);
             
             var returnUrl = new CashgameDetailsUrl(request.Slug, request.DateStr);

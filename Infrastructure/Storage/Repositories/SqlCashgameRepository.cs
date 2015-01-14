@@ -183,35 +183,16 @@ namespace Infrastructure.Storage.Repositories
             };
         }
 
-	    private static Cashgame CreateCashgame(RawCashgame rawGame, IEnumerable<RawCheckpoint> checkpoints)
-        {
-            var playerCheckpointMap = new Dictionary<int, IList<RawCheckpoint>>();
-            foreach (var checkpoint in checkpoints)
-            {
-                IList<RawCheckpoint> checkpointList;
-                if (!playerCheckpointMap.TryGetValue(checkpoint.PlayerId, out checkpointList))
-                {
-                    checkpointList = new List<RawCheckpoint>();
-                    playerCheckpointMap.Add(checkpoint.PlayerId, checkpointList);
-                }
-                checkpointList.Add(checkpoint);
-            }
-
-            var results = new List<CashgameResult>();
-            foreach (var playerKey in playerCheckpointMap.Keys)
-            {
-                var playerCheckpoints = playerCheckpointMap[playerKey].OrderBy(o => o.Timestamp);
-                var realCheckpoints = new List<Checkpoint>();
-                foreach (var playerCheckpoint in playerCheckpoints)
-                {
-                    realCheckpoints.Add(RawCheckpoint.CreateReal(playerCheckpoint));
-                }
-                var playerResults = new CashgameResult(playerKey, realCheckpoints);
-                results.Add(playerResults);
-            }
-
-            return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id, results);
+	    private static Cashgame CreateCashgame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints)
+	    {
+            var checkpoints = CreateCheckpoints(rawCheckpoints);
+            return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id, checkpoints);
         }
+
+        private static IList<Checkpoint> CreateCheckpoints(IEnumerable<RawCheckpoint> checkpoints)
+	    {
+            return checkpoints.Select(RawCheckpoint.CreateReal).ToList();
+	    } 
 
 	    private static IList<Cashgame> CreateCashgameList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
         {
