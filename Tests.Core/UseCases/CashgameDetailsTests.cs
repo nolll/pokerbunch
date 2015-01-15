@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.CashgameDetails;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {

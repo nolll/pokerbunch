@@ -1,10 +1,7 @@
 ﻿using System.Linq;
-using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.AddCashgame;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -12,8 +9,6 @@ namespace Tests.Core.UseCases
 {
     class AddCashgameTests : TestBase
     {
-        private const string Location = "b";
-
         [Test]
         public void AddCashgame_ReturnUrlIsSet()
         {
@@ -29,7 +24,7 @@ namespace Tests.Core.UseCases
             var request = CreateRequest();
             Execute(request);
 
-            GetMock<ICashgameRepository>().Verify(o => o.AddGame(It.IsAny<Bunch>(), It.IsAny<Cashgame>()));
+            Assert.IsNotNull(Repos.Cashgame.Added);
         }
 
         [Test]
@@ -46,14 +41,17 @@ namespace Tests.Core.UseCases
             return CreateRequest(null);
         }
 
-        private static AddCashgameRequest CreateRequest(string location = Location)
+        private static AddCashgameRequest CreateRequest(string location = Constants.LocationA)
         {
             return new AddCashgameRequest(Constants.SlugA, location);
         }
 
         private AddCashgameResult Execute(AddCashgameRequest request)
         {
-            return AddCashgameInteractor.Execute(Repos.Bunch, GetMock<ICashgameRepository>().Object, request);
+            return AddCashgameInteractor.Execute(
+                Repos.Bunch, 
+                Repos.Cashgame,
+                request);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Core.Repositories;
-using Core.UseCases.BunchContext;
+﻿using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameContext;
-using Moq;
 using NUnit.Framework;
 using Tests.Common;
 using Tests.Common.FakeClasses;

@@ -1,5 +1,4 @@
 ﻿using Core.Entities;
-using Core.Repositories;
 using Core.Urls;
 using Core.UseCases.PlayerDetails;
 using NUnit.Framework;
@@ -95,7 +94,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.SetCurrentRole(Role.Manager);
 
-            var result = Execute(CreateRequest());
+            var result = Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsTrue(result.CanDelete);
         }
@@ -104,7 +103,6 @@ namespace Tests.Core.UseCases
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
             Services.Auth.SetCurrentRole(Role.Manager);
-            SetupPlayedCashgames();
 
             var result = Execute(CreateRequest());
 
@@ -116,18 +114,13 @@ namespace Tests.Core.UseCases
             return new PlayerDetailsRequest(Constants.SlugA, playerId);
         }
 
-        private void SetupPlayedCashgames()
-        {
-            GetMock<ICashgameRepository>().Setup(o => o.HasPlayed(Constants.PlayerIdA)).Returns(true);
-        }
-        
         private PlayerDetailsResult Execute(PlayerDetailsRequest request)
         {
             return PlayerDetailsInteractor.Execute(
                 Services.Auth,
                 Repos.Bunch,
                 Repos.Player,
-                GetMock<ICashgameRepository>().Object,
+                Repos.Cashgame,
                 Repos.User,
                 request);
         }

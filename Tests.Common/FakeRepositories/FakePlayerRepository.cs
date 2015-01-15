@@ -73,6 +73,11 @@ namespace Tests.Common.FakeRepositories
                     .WithId(Constants.PlayerIdB)
                     .WithDisplayName(Constants.PlayerNameB)
                     .WithRole(Role.Player)
+                    .Build(),
+                new PlayerBuilder()
+                    .WithId(Constants.PlayerIdC)
+                    .WithDisplayName(Constants.PlayerNameC)
+                    .WithRole(Role.Player)
                     .Build()
             };
         }

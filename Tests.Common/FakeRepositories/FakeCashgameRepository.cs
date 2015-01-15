@@ -11,6 +11,7 @@ namespace Tests.Common.FakeRepositories
     {
         private IList<Cashgame> _list;
         private Cashgame _running;
+        public Cashgame Added { get; set; }
 
         public FakeCashgameRepository()
         {
@@ -56,7 +57,8 @@ namespace Tests.Common.FakeRepositories
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            Added = cashgame;
+            return 1;
         }
 
         public bool UpdateGame(Cashgame cashgame)

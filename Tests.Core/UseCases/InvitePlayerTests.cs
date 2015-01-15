@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.Repositories;
-using Core.Urls;
 using Core.UseCases.InvitePlayer;
 using NUnit.Framework;
 using Tests.Common;
@@ -10,20 +8,13 @@ namespace Tests.Core.UseCases
 {
     class InvitePlayerTests : TestBase
     {
-        private const string PlayerName = "c";
-        private const string ValidEmail = "a@b.com";
-        private const int PlayerId = 1;
-
         [Test]
         public void InvitePlayer_ReturnUrlIsSet()
         {
             var request = CreateRequest();
-
-            SetupPlayer();
-
             var result = Execute(request);
 
-            Assert.IsInstanceOf<InvitePlayerConfirmationUrl>(result.ReturnUrl);
+            Assert.AreEqual("/bunch-a/player/invited/1", result.ReturnUrl.Relative);
         }
 
         [TestCase("")]
@@ -42,38 +33,30 @@ namespace Tests.Core.UseCases
             const string subject = "Invitation to Poker Bunch: Bunch A";
             const string body = @"You have been invited to join the poker game: Bunch A.
 
-To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and enter this verification code: efebc685cd6c0f3801f129748c5d74d6592d1bfe
+To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
 
 If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
             var request = CreateRequest();
 
-            SetupPlayer();
-
             Execute(request);
 
-            Assert.AreEqual(ValidEmail, Services.MessageSender.To);
+            Assert.AreEqual(Constants.UserEmailA, Services.MessageSender.To);
             Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
+        }
+
+        private static InvitePlayerRequest CreateRequest(string email = Constants.UserEmailA)
+        {
+            return new InvitePlayerRequest(Constants.SlugA, Constants.PlayerIdA, email);
         }
 
         private InvitePlayerResult Execute(InvitePlayerRequest request)
         {
             return InvitePlayerInteractor.Execute(
                 Repos.Bunch,
-                GetMock<IPlayerRepository>().Object,
+                Repos.Player,
                 Services.MessageSender,
                 request);
-        }
-
-        private static InvitePlayerRequest CreateRequest(string email = ValidEmail)
-        {
-            return new InvitePlayerRequest(Constants.SlugA, PlayerId, email);
-        }
-
-        private void SetupPlayer()
-        {
-            var player = A.Player.WithDisplayName(PlayerName).Build();
-            GetMock<IPlayerRepository>().Setup(o => o.GetById(PlayerId)).Returns(player);
         }
     }
 }

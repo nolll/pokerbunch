@@ -46,8 +46,10 @@ namespace Tests.Common
 
         public const int PlayerIdA = 1;
         public const int PlayerIdB = 2;
+        public const int PlayerIdC = 3;
         public const string PlayerNameA = "Player Name A";
         public const string PlayerNameB = "Player Name B";
+        public const string PlayerNameC = "Player Name C";
 
         public const int CashgameIdA = 1;
         public const int CashgameIdB = 2;
@@ -58,9 +60,9 @@ namespace Tests.Common
         public static DateTime StartTimeA = DateTime.Parse("2001-02-03 04:05:06");
         public static DateTime StartTimeB = DateTime.Parse("2002-03-04 05:06:07");
 
-        public static int EventIdA = 1;
-        public static int EventIdB = 2;
-        public static string EventNameA = "Event A";
-        public static string EventNameB = "Event B";
+        public const int EventIdA = 1;
+        public const int EventIdB = 2;
+        public const string EventNameA = "Event A";
+        public const string EventNameB = "Event B";
     }
 }
