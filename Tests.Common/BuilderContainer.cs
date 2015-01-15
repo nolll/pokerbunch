@@ -19,29 +19,14 @@ namespace Tests.Common
             get { return new UserBuilder(); }
         }
 
-        public CashgameBuilder Cashgame
-        {
-            get { return new CashgameBuilder(); }
-        }
-
         public CheckpointBuilder Checkpoint
         {
             get { return new CheckpointBuilder(); }
         }
 
-        public CashgameResultBuilder CashgameResult
-        {
-            get { return new CashgameResultBuilder(); }
-        }
-
         public DateTimeBuilder DateTime
         {
             get { return new DateTimeBuilder(); }
-        }
-
-        public PlayerBuilder Player
-        {
-            get { return new PlayerBuilder(); }
         }
     }
 }

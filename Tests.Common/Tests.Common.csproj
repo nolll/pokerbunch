@@ -40,8 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuilderContainer.cs" />
-    <Compile Include="Builders\CashgameBuilder.cs" />
-    <Compile Include="Builders\CashgameResultBuilder.cs" />
     <Compile Include="Builders\CashgameTotalResultBuilder.cs" />
     <Compile Include="Builders\BunchBuilder.cs" />
     <Compile Include="Builders\BunchListBuilder.cs" />

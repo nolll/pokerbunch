@@ -91,6 +91,11 @@ namespace Tests.Common.FakeRepositories
             _list = GetGames(Constants.StartTimeA.AddDays(7));
         }
 
+        public void SetupManyGames(int gameCount)
+        {
+            _list = GetGames(gameCount);
+        }
+
         private IList<Cashgame> GetGames(DateTime? secondGameStartTime = null)
         {
             var checkpoints1 = new List<Checkpoint>
@@ -119,6 +124,23 @@ namespace Tests.Common.FakeRepositories
                 new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Finished, Constants.CashgameIdA, checkpoints1),
                 new Cashgame(Constants.BunchIdA, Constants.LocationB, GameStatus.Finished, Constants.CashgameIdB, checkpoints2)
             };
+        }
+
+        private IList<Cashgame> GetGames(int gameCount)
+        {
+            var games = new List<Cashgame>();
+            var startTime = Constants.StartTimeA;
+            for (var i = 0; i < gameCount; i++)
+            {
+                var checkpoints = new List<Checkpoint>
+                {
+                    Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime, CheckpointType.Buyin, 200, 200, 1),
+                    Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime.AddMinutes(61), CheckpointType.Cashout, 200, 0, 2),
+                };
+                games.Add(new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Finished, Constants.CashgameIdA, checkpoints));
+                startTime = startTime.AddDays(1);
+            }
+            return games;
         }
 
         public void SetupRunningGame()

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Entities;
-using Core.Repositories;
-using Core.UseCases.PlayerBadges;
-using Moq;
+﻿using Core.UseCases.PlayerBadges;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -10,12 +6,10 @@ namespace Tests.Core.UseCases
 {
     class PlayerBadgesTests : TestBase
     {
-        private const int PlayerId = 1;
-
         [Test]
         public void PlayerBadges_ZeroGames_AllBadgesAreFalse()
         {
-            SetupGames(0);
+            Repos.Cashgame.ClearList();
 
             var result = Execute(CreateRequest());
 
@@ -30,8 +24,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_OneGame_PlayedOneGameIsTrue()
         {
-            SetupGames(1);
-
             var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.PlayedOneGame);
@@ -40,7 +32,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_TenGames_PlayedTenGamesIsTrue()
         {
-            SetupGames(10);
+            Repos.Cashgame.SetupManyGames(10);
 
             var result = Execute(CreateRequest());
 
@@ -50,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_50Games_Played50GamesIsTrue()
         {
-            SetupGames(50);
+            Repos.Cashgame.SetupManyGames(50);
 
             var result = Execute(CreateRequest());
 
@@ -60,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_100Games_Played100GamesIsTrue()
         {
-            SetupGames(100);
+            Repos.Cashgame.SetupManyGames(100);
 
             var result = Execute(CreateRequest());
 
@@ -70,7 +62,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_200Games_Played200GamesIsTrue()
         {
-            SetupGames(200);
+            Repos.Cashgame.SetupManyGames(200);
 
             var result = Execute(CreateRequest());
 
@@ -80,44 +72,23 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_500Games_Played500GamesIsTrue()
         {
-            SetupGames(500);
+            Repos.Cashgame.SetupManyGames(500);
 
             var result = Execute(CreateRequest());
 
             Assert.IsTrue(result.Played500Games);
         }
 
-        private void SetupGames(int gameCount)
-        {
-            var games = CreateGameList(gameCount);
-            GetMock<ICashgameRepository>().Setup(o => o.GetFinished(It.IsAny<int>(), It.IsAny<int?>())).Returns(games);
-        }
-
-        private IList<Cashgame> CreateGameList(int gameCount)
-        {
-            var list = new List<Cashgame>(gameCount);
-            for (var i = 0; i < gameCount; i++)
-                list.Add(CreateGame());
-            return list;
-        }
-
-        private Cashgame CreateGame()
-        {
-            var result = A.CashgameResult.WithPlayerId(PlayerId).Build();
-            var results = new List<CashgameResult> {result};
-            return A.Cashgame.WithResults(results).Build();
-        }
-
         private PlayerBadgesRequest CreateRequest()
         {
-            return new PlayerBadgesRequest(Constants.SlugA, PlayerId);
+            return new PlayerBadgesRequest(Constants.SlugA, Constants.PlayerIdA);
         }
 
         private PlayerBadgesResult Execute(PlayerBadgesRequest request)
         {
             return PlayerBadgesInteractor.Execute(
                 Repos.Bunch,
-                GetMock<ICashgameRepository>().Object,
+                Repos.Cashgame,
                 request);
         }
     }
