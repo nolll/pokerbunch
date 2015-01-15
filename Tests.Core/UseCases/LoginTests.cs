@@ -127,16 +127,6 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(Services.Auth.StayLoggedIn);
         }
 
-        private LoginResult Execute(LoginRequest request)
-        {
-            return LoginInteractor.Execute(
-                GetMock<IUserRepository>().Object,
-                Services.Auth,
-                GetMock<IBunchRepository>().Object,
-                Repos.Player,
-                request);
-        }
-
         private void SetupUserWithWrongPassword()
         {
             SetupUser(A.User.Build());
@@ -162,6 +152,16 @@ namespace Tests.Core.UseCases
         private static LoginRequest CreateRequest(bool rememberMe = false)
         {
             return new LoginRequest(LoginName, Password, rememberMe, ReturnUrl);
+        }
+
+        private LoginResult Execute(LoginRequest request)
+        {
+            return LoginInteractor.Execute(
+                GetMock<IUserRepository>().Object,
+                Services.Auth,
+                GetMock<IBunchRepository>().Object,
+                Repos.Player,
+                request);
         }
     }
 }
