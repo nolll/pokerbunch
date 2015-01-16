@@ -61,7 +61,10 @@ namespace Infrastructure.Storage.Repositories
         {
             return new Event(
                 rawEvent.Id,
-                rawEvent.Name);
+                rawEvent.Name,
+                rawEvent.Location,
+                new Date(rawEvent.StartDate),
+                new Date(rawEvent.EndDate));
         }
     }
 }

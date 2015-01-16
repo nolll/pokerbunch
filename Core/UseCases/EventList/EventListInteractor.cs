@@ -21,7 +21,7 @@ namespace Core.UseCases.EventList
         {
             var eventDetailsUrl = new EventDetailsUrl(slug, e.Id);
 
-            return new EventItem(e.Name, eventDetailsUrl);
+            return new EventItem(e.Name, eventDetailsUrl, e.Location, e.StartDate, e.EndDate);
         }
     }
 }

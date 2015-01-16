@@ -56,6 +56,7 @@
     <Compile Include="Storage\Classes\RawCashgame.cs" />
     <Compile Include="Storage\Classes\RawCheckpoint.cs" />
     <Compile Include="Storage\Classes\RawEvent.cs" />
+    <Compile Include="Storage\Classes\RawEventDay.cs" />
     <Compile Include="Storage\Classes\RawPlayer.cs" />
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\IBunchStorage.cs" />

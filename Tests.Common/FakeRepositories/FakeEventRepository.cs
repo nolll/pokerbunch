@@ -28,8 +28,8 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Event>
             {
-                new Event(Constants.EventIdA, Constants.EventNameA),
-                new Event(Constants.EventIdB, Constants.EventNameB)
+                new Event(Constants.EventIdA, Constants.EventNameA, Constants.LocationA, new Date(Constants.StartTimeA), new Date(Constants.StartTimeA.AddDays(1))),
+                new Event(Constants.EventIdB, Constants.EventNameB, Constants.LocationB, new Date(Constants.StartTimeB), new Date(Constants.StartTimeB.AddDays(1)))
             };
         }
     }
