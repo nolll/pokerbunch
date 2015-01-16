@@ -37,9 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuilderContainer.cs" />
-    <Compile Include="Builders\CashgameTotalResultBuilder.cs" />
     <Compile Include="Builders\BunchBuilder.cs" />
-    <Compile Include="Builders\BunchListBuilder.cs" />
     <Compile Include="Builders\CheckpointBuilder.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Builders\PlayerBuilder.cs" />
@@ -49,8 +47,6 @@
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
-    <Compile Include="FakeClasses\CashgameSuiteInTest.cs" />
-    <Compile Include="FakeClasses\CashgameTotalResultInTest.cs" />
     <Compile Include="FakeRepositories\FakeBunchRepository.cs" />
     <Compile Include="FakeRepositories\FakeCashgameRepository.cs" />
     <Compile Include="FakeRepositories\FakeCheckpointRepository.cs" />
@@ -64,7 +60,6 @@
     <Compile Include="RepositoryContainer.cs" />
     <Compile Include="ServiceContainer.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="FakeClasses\CashgameResultInTest.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
