@@ -64,7 +64,6 @@
     <Compile Include="FakeServices\FakeMessageSender.cs" />
     <Compile Include="FakeServices\FakeRandomService.cs" />
     <Compile Include="FakeServices\FakeTimeProvider.cs" />
-    <Compile Include="MockContainer.cs" />
     <Compile Include="RepositoryContainer.cs" />
     <Compile Include="ServiceContainer.cs" />
     <Compile Include="TestBase.cs" />

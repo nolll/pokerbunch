@@ -54,7 +54,8 @@ namespace Tests.Common.FakeRepositories
                     .WithEmail(Constants.UserEmailA)
                     .WithRealName(Constants.UserRealNameA)
                     .WithDisplayName(Constants.UserDisplayNameA)
-                    .WithEncryptedPassword(Constants.UserPasswordA)
+                    .WithEncryptedPassword(Constants.UserEncryptedPasswordA)
+                    .WithSalt(Constants.UserSaltA)
                     .Build(),
                 new UserBuilder()
                     .WithId(Constants.UserIdB)
@@ -62,7 +63,8 @@ namespace Tests.Common.FakeRepositories
                     .WithEmail(Constants.UserEmailB)
                     .WithRealName(Constants.UserRealNameB)
                     .WithDisplayName(Constants.UserDisplayNameB)
-                    .WithEncryptedPassword(Constants.UserPasswordB)
+                    .WithEncryptedPassword(Constants.UserEncryptedPasswordB)
+                    .WithSalt(Constants.UserSaltB)
                     .WithGlobalRole(Role.Admin)
                     .Build()
             };

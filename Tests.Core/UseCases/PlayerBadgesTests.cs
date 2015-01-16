@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_TenGames_PlayedTenGamesIsTrue()
         {
-            Repos.Cashgame.SetupManyGames(10);
+            Repos.Cashgame.SetupGameCount(10);
 
             var result = Execute(CreateRequest());
 
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_50Games_Played50GamesIsTrue()
         {
-            Repos.Cashgame.SetupManyGames(50);
+            Repos.Cashgame.SetupGameCount(50);
 
             var result = Execute(CreateRequest());
 
@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_100Games_Played100GamesIsTrue()
         {
-            Repos.Cashgame.SetupManyGames(100);
+            Repos.Cashgame.SetupGameCount(100);
 
             var result = Execute(CreateRequest());
 
@@ -62,7 +62,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_200Games_Played200GamesIsTrue()
         {
-            Repos.Cashgame.SetupManyGames(200);
+            Repos.Cashgame.SetupGameCount(200);
 
             var result = Execute(CreateRequest());
 
@@ -72,7 +72,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_500Games_Played500GamesIsTrue()
         {
-            Repos.Cashgame.SetupManyGames(500);
+            Repos.Cashgame.SetupGameCount(500);
 
             var result = Execute(CreateRequest());
 

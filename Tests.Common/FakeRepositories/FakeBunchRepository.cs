@@ -10,11 +10,11 @@ namespace Tests.Common.FakeRepositories
     {
         public Bunch Added { get; private set; }
         public Bunch Saved { get; private set; }
-        private readonly IList<Bunch> _list; 
+        private IList<Bunch> _list; 
 
         public FakeBunchRepository()
         {
-            _list = CreateList();
+            SetupDefaultList();
         }
 
         public Bunch GetById(int id)
@@ -34,7 +34,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<Bunch> GetByUserId(int userId)
         {
-            throw new System.NotImplementedException();
+            return _list;
         }
 
         public int Add(Bunch bunch)
@@ -49,11 +49,26 @@ namespace Tests.Common.FakeRepositories
             return true;
         }
 
-        private IList<Bunch> CreateList()
+        public void SetupDefaultList()
         {
-            return new List<Bunch>
+            _list = new List<Bunch>
             {
-                new BunchBuilder()
+                CreateFirstBunch(),
+                CreateSecondBunch()
+            };
+        }
+
+        public void SetupOneBunchList()
+        {
+            _list = new List<Bunch>
+            {
+                CreateFirstBunch()
+            };
+        }
+
+        private Bunch CreateFirstBunch()
+        {
+            return new BunchBuilder()
                 .WithId(Constants.BunchIdA)
                 .WithSlug(Constants.SlugA)
                 .WithDisplayName(Constants.BunchNameA)
@@ -61,8 +76,12 @@ namespace Tests.Common.FakeRepositories
                 .WithHouseRules(Constants.HouseRulesA)
                 .WithDefaultBuyin(Constants.DefaultBuyinA)
                 .WithUtcTimeZone()
-                .Build(),
-                new BunchBuilder()
+                .Build();
+        }
+
+        private Bunch CreateSecondBunch()
+        {
+            return new BunchBuilder()
                 .WithId(Constants.BunchIdB)
                 .WithSlug(Constants.SlugB)
                 .WithDisplayName(Constants.BunchNameB)
@@ -70,8 +89,12 @@ namespace Tests.Common.FakeRepositories
                 .WithHouseRules(Constants.HouseRulesB)
                 .WithDefaultBuyin(Constants.DefaultBuyinB)
                 .WithLocalTimeZone()
-                .Build()
-            };
+                .Build();
+        }
+
+        public void ClearList()
+        {
+            _list.Clear();
         }
     }
 }

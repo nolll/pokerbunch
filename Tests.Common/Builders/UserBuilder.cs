@@ -71,5 +71,11 @@ namespace Tests.Common.Builders
             _encryptedPassword = encryptetPassword;
             return this;
         }
+
+        public UserBuilder WithSalt(string salt)
+        {
+            _salt = salt;
+            return this;
+        }
     }
 }

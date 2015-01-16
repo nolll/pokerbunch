@@ -30,6 +30,10 @@ namespace Tests.Common
         public const string UserDisplayNameB = "Display Name B";
         public const string UserPasswordA = "PasswordA";
         public const string UserPasswordB = "PasswordB";
+        public const string UserEncryptedPasswordA = "5a99a164773c45966e5fcdd1c3110937861094aa";
+        public const string UserEncryptedPasswordB = "6873088c1117d25d1abf4b75272d463b0ec6a504";
+        public const string UserSaltA = "SaltA";
+        public const string UserSaltB = "SaltB";
 
         public const int BuyinCheckpointId = 1;
         public const int BuyinCheckpointStack = 100;

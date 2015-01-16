@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdB));
+            var result = Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdB));
+            var result = Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -68,7 +68,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdB));
+            var result = Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsFalse(result.IsUser);
         }

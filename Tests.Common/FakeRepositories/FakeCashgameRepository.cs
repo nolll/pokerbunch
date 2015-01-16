@@ -91,7 +91,7 @@ namespace Tests.Common.FakeRepositories
             _list = GetGames(Constants.StartTimeA.AddDays(7));
         }
 
-        public void SetupManyGames(int gameCount)
+        public void SetupGameCount(int gameCount)
         {
             _list = GetGames(gameCount);
         }
