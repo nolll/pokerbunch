@@ -59,9 +59,6 @@
     <Reference Include="Jint">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Jint.1.2.1\lib\net40\Jint.dll</HintPath>
     </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1408.0717\lib\net40\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="MsieJavaScriptEngine">
       <HintPath>..\packages\MsieJavaScriptEngine.1.5.0\lib\net40\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
