@@ -12,10 +12,10 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest());
 
             Assert.AreEqual(2, result.GameItems.Count);
-            Assert.AreEqual("2002-03-04", result.GameItems[0].Date.IsoString);
-            Assert.AreEqual("/bunch-a/cashgame/details/2002-03-04", result.GameItems[0].Url.Relative);
-            Assert.AreEqual("2001-02-03", result.GameItems[1].Date.IsoString);
-            Assert.AreEqual("/bunch-a/cashgame/details/2001-02-03", result.GameItems[1].Url.Relative);
+            Assert.AreEqual("2002-02-02", result.GameItems[0].Date.IsoString);
+            Assert.AreEqual("/bunch-a/cashgame/details/2002-02-02", result.GameItems[0].Url.Relative);
+            Assert.AreEqual("2001-01-01", result.GameItems[1].Date.IsoString);
+            Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.GameItems[1].Url.Relative);
         }
 
         [Test]

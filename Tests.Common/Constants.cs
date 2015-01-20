@@ -57,12 +57,16 @@ namespace Tests.Common
 
         public const int CashgameIdA = 1;
         public const int CashgameIdB = 2;
+        public const int CashgameIdC = 3;
         public const string LocationA = "Location A";
         public const string LocationB = "Location B";
-        public const string DateStringA = "2001-02-03";
-        public const string DateStringB = "2002-03-04";
-        public static DateTime StartTimeA = DateTime.Parse("2001-02-03 04:05:06");
-        public static DateTime StartTimeB = DateTime.Parse("2002-03-04 05:06:07");
+        public const string LocationC = "Location C";
+        public const string DateStringA = "2001-01-01";
+        public const string DateStringB = "2002-02-02";
+        public const string DateStringC = "2003-03-03";
+        public static DateTime StartTimeA = DateTime.Parse("2001-01-01 12:00:00");
+        public static DateTime StartTimeB = DateTime.Parse("2002-02-02 12:00:00");
+        public static DateTime StartTimeC = DateTime.Parse("2003-03-03 12:00:00");
 
         public const int EventIdA = 1;
         public const int EventIdB = 2;

@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            Assert.AreEqual("/bunch-a/cashgame/details/2002-03-04", result.List[0].Url.Relative);
+            Assert.AreEqual("/bunch-a/cashgame/details/2002-02-02", result.List[0].Url.Relative);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateRequest());
 
-            var expected = new Date(2002, 3, 4);
+            var expected = new Date(2002, 2, 2);
             Assert.AreEqual(expected, result.List[0].Date);
         }
 
@@ -109,8 +109,8 @@ namespace Tests.Core.UseCases
             var result = Execute(CreateRequest(orderBy));
 
             Assert.AreEqual(ListSortOrder.Date, result.SortOrder);
-            Assert.AreEqual(new Date(2002, 3, 4), result.List[0].Date);
-            Assert.AreEqual(new Date(2001, 2, 3), result.List[1].Date);
+            Assert.AreEqual(new Date(2002, 2, 2), result.List[0].Date);
+            Assert.AreEqual(new Date(2001, 1, 1), result.List[1].Date);
         }
 
         [Test]

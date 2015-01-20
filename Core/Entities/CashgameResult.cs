@@ -19,32 +19,6 @@ namespace Core.Entities
         public Checkpoint CashoutCheckpoint { get; private set; }
         public int WinRate { get; private set; }
 
-        protected CashgameResult(
-            int playerId,
-            int buyin, 
-            int winnings, 
-            IList<Checkpoint> checkpoints, 
-            DateTime? buyinTime, 
-            DateTime? cashoutTime, 
-            int playedTime, 
-            int stack, 
-            DateTime? lastReportTime, 
-            Checkpoint cashoutCheckpoint,
-            int winRate)
-	    {
-	        PlayerId = playerId;
-	        Buyin = buyin;
-	        Winnings = winnings;
-	        Checkpoints = checkpoints;
-	        BuyinTime = buyinTime;
-	        CashoutTime = cashoutTime;
-	        PlayedTime = playedTime;
-	        Stack = stack;
-	        LastReportTime = lastReportTime;
-	        CashoutCheckpoint = cashoutCheckpoint;
-	        WinRate = winRate;
-	    }
-
         public CashgameResult(int playerId, IList<Checkpoint> checkpoints)
         {
             PlayerId = playerId;

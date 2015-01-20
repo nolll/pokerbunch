@@ -23,42 +23,7 @@ namespace Core.Entities
         public int TotalStacks { get; private set; }
         public int AverageBuyin { get; private set; }
         public string DateString { get; private set; }
-
-        public Cashgame(
-                int id,
-                int bunchId,
-	            string location,
-	            GameStatus status,
-	            bool isStarted,
-	            DateTime? startTime,
-	            DateTime? endTime,
-	            IList<CashgameResult> results,
-	            int playerCount,
-	            int diff,
-	            int turnover,
-	            bool hasActivePlayers,
-                int totalStacks,
-	            int averageBuyin,
-                string dateString
-            )
-        {
-            Id = id;
-            BunchId = bunchId;
-            Location = location;
-            Status = status;
-            IsStarted = isStarted;
-            StartTime = startTime;
-            EndTime = endTime;
-            Results = results ?? new List<CashgameResult>();
-            PlayerCount = playerCount;
-            Diff = diff;
-            Turnover = turnover;
-            HasActivePlayers = hasActivePlayers;
-            TotalStacks = totalStacks;
-            AverageBuyin = averageBuyin;
-            DateString = dateString;
-        }
-
+        
         public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IEnumerable<Checkpoint> checkpoints = null)
         {
             Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();

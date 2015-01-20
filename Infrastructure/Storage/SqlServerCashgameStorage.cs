@@ -158,20 +158,19 @@ namespace Infrastructure.Storage
 
         private RawCashgame CreateRawCashgame(IStorageDataReader reader)
         {
-            var location = reader.GetStringValue("Location");
-            if (location == "")
-            {
-                location = null;
-            }
+            var id = reader.GetIntValue("GameID");
+            var bunchId = reader.GetIntValue("HomegameID");
+            var location = ReadLocation(reader);
+            var status = reader.GetIntValue("Status");
+            var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
 
-            return new RawCashgame
-            {
-                Id = reader.GetIntValue("GameID"),
-                BunchId = reader.GetIntValue("HomegameID"),
-                Location = location,
-                Status = reader.GetIntValue("Status"),
-                Date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date")),
-            };
+            return new RawCashgame(id, bunchId, location, status, date);
+        }
+
+        private static string ReadLocation(IStorageDataReader reader)
+        {
+            var location = reader.GetStringValue("Location");
+            return location == "" ? null : location;
         }
 	}
 }

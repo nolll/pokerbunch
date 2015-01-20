@@ -30,8 +30,8 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateInput());
 
-            Assert.AreEqual(new Date(2001, 2, 3), result.Events[0].StartDate);
-            Assert.AreEqual(new Date(2002, 3, 4), result.Events[1].StartDate);
+            Assert.AreEqual(new Date(2001, 1, 1), result.Events[0].StartDate);
+            Assert.AreEqual(new Date(2002, 2, 2), result.Events[1].StartDate);
         }
 
         [Test]
@@ -39,8 +39,8 @@ namespace Tests.Core.UseCases
         {
             var result = Execute(CreateInput());
 
-            Assert.AreEqual(new Date(2001, 2, 4), result.Events[0].EndDate);
-            Assert.AreEqual(new Date(2002, 3, 5), result.Events[1].EndDate);
+            Assert.AreEqual(new Date(2001, 1, 2), result.Events[0].EndDate);
+            Assert.AreEqual(new Date(2002, 2, 3), result.Events[1].EndDate);
         }
 
         [Test]

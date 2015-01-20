@@ -10,7 +10,6 @@ namespace Tests.Common.FakeRepositories
     public class FakeCashgameRepository : ICashgameRepository
     {
         private IList<Cashgame> _list;
-        private Cashgame _running;
         public Cashgame Added { get; set; }
 
         public FakeCashgameRepository()
@@ -21,13 +20,13 @@ namespace Tests.Common.FakeRepositories
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
             if(year.HasValue)
-                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year).ToList();
+                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).ToList();
             return _list;
         }
 
         public Cashgame GetRunning(int bunchId)
         {
-            return _running;
+            return _list.FirstOrDefault(o => o.Status == GameStatus.Running);
         }
 
         public Cashgame GetByDateString(int bunchId, string dateString)
@@ -42,7 +41,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<int> GetYears(int bunchId)
         {
-            return _list.Where(o => o.StartTime.HasValue).Select(o => o.StartTime.Value.Year).ToList();
+            return _list.Where(o => o.StartTime.HasValue && o.Status == GameStatus.Finished).Select(o => o.StartTime.Value.Year).ToList();
         }
 
         public IList<string> GetLocations(int bunchId)
@@ -147,11 +146,11 @@ namespace Tests.Common.FakeRepositories
         {
             var checkpoints1 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeB.AddDays(7), CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeB.AddDays(7), CheckpointType.Buyin, 200, 200, 2)
+                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdB, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 2)
             };
 
-            _running = new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Finished, Constants.CashgameIdA, checkpoints1);
+            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
         }
 
         public void ClearList()

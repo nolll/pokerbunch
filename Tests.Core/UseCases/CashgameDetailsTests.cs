@@ -19,8 +19,8 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(Constants.DateStringA, result.Date.IsoString);
             Assert.AreEqual(Constants.LocationA, result.Location);
             Assert.AreEqual(62, result.Duration.Minutes);
-            Assert.AreEqual(DateTime.Parse("2001-02-03 03:05:06"), result.StartTime);
-            Assert.AreEqual(DateTime.Parse("2001-02-03 04:07:06"), result.EndTime);
+            Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
+            Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
             Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
             var result = Execute(request);
 
             Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[0].Name);
-            Assert.AreEqual("/bunch-a/cashgame/action/2001-02-03/2", result.PlayerItems[0].PlayerUrl.Relative);
+            Assert.AreEqual("/bunch-a/cashgame/action/2001-01-01/2", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);

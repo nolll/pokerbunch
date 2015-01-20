@@ -172,15 +172,11 @@ namespace Infrastructure.Storage.Repositories
 		}
 
 	    private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
-        {
-            return new RawCashgame
-            {
-                Id = cashgame.Id,
-                BunchId = cashgame.BunchId,
-                Location = cashgame.Location,
-                Status = status.HasValue ? (int)status.Value : (int)cashgame.Status,
-                Date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow,
-            };
+	    {
+	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
+	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow;
+
+            return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.Location, rawStatus, date);
         }
 
 	    private static Cashgame CreateCashgame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints)

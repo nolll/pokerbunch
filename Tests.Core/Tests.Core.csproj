@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="DateTests.cs" />
+    <Compile Include="UseCases\ActionsChartTests.cs" />
     <Compile Include="UseCases\ActionsTests.cs" />
     <Compile Include="UseCases\AddBunchFormTests.cs" />
     <Compile Include="UseCases\AddBunchTests.cs" />
