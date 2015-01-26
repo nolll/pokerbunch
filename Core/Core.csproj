@@ -187,7 +187,6 @@
     <Compile Include="UseCases\AppContext\AppContextResult.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextInteractor.cs" />
     <Compile Include="UseCases\BaseContext\BaseContextResult.cs" />
-    <Compile Include="UseCases\BaseInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />
@@ -333,6 +332,8 @@
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\Report\ReportInteractor.cs" />
     <Compile Include="UseCases\Report\ReportRequest.cs" />
+    <Compile Include="UseCases\RequirePlayer\RequirePlayerInteractor.cs" />
+    <Compile Include="UseCases\RequirePlayer\RequirePlayerRequest.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameCheckpointItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameInteractor.cs" />
     <Compile Include="UseCases\RunningCashgame\BunchPlayerItem.cs" />

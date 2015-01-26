@@ -5,6 +5,7 @@ using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
+using Core.UseCases.RequirePlayer;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
 using Web.Security;
@@ -108,6 +109,11 @@ namespace Web.Controllers.Base
         protected bool IsManager(string slug)
         {
             return Authorize.Bunch(User, slug, Role.Manager);
+        }
+
+        protected void RequirePlayer(string slug)
+        {
+            UseCase.RequirePlayer(new RequirePlayerRequest(slug, Identity.UserName));
         }
     }
 }

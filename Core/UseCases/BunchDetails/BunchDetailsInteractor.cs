@@ -1,18 +1,16 @@
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 
 namespace Core.UseCases.BunchDetails
 {
-    public class BunchDetailsInteractor : BaseInteractor
+    public class BunchDetailsInteractor
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IAuth _auth;
 
-        public BunchDetailsInteractor(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository, IAuth auth)
-            : base(bunchRepository, userRepository, playerRepository)
+        public BunchDetailsInteractor(IBunchRepository bunchRepository, IAuth auth)
         {
             _bunchRepository = bunchRepository;
             _auth = auth;
@@ -20,9 +18,6 @@ namespace Core.UseCases.BunchDetails
 
         public BunchDetailsResult Execute(BunchDetailsRequest request)
         {
-            if(!HasPlayerAccess(request.Slug, request.UserName))
-                throw new AccessDeniedException();
-
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             
             var bunchName = bunch.DisplayName;

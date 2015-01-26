@@ -53,6 +53,7 @@ using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
+using Core.UseCases.RequirePlayer;
 using Core.UseCases.RunningCashgame;
 using Core.UseCases.TestEmail;
 using Core.UseCases.UserDetails;
@@ -74,6 +75,7 @@ namespace Web.Plumbing
         public Func<LoginFormRequest, LoginFormResult> LoginForm { get { return LoginFormInteractor.Execute; } }
         public Func<LoginRequest, LoginResult> Login { get { return request => LoginInteractor.Execute(UserRepository, Auth, BunchRepository, PlayerRepository, request); } }
         public Func<LogoutResult> Logout { get { return () => LogoutInteractor.Execute(Auth); } }
+        public Action<RequirePlayerRequest> RequirePlayer { get { return request => new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
 
         // Admin
         public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }
@@ -90,7 +92,7 @@ namespace Web.Plumbing
 
         // Bunch
         public Func<BunchListResult> BunchList { get { return () => BunchListInteractor.Execute(BunchRepository); } }
-        public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => new BunchDetailsInteractor(BunchRepository, UserRepository, PlayerRepository, Auth).Execute(request); } }
+        public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => new BunchDetailsInteractor(BunchRepository, Auth).Execute(request); } }
         public Func<AddBunchFormResult> AddBunchForm { get { return AddBunchFormInteractor.Execute; } }
         public Func<AddBunchRequest, AddBunchResult> AddBunch { get { return request => AddBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } }
         public Func<EditBunchFormRequest, EditBunchFormResult> EditBunchForm { get { return request => EditBunchFormInteractor.Execute(BunchRepository, request); } }

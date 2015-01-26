@@ -1,5 +1,4 @@
 ﻿using Core.Entities;
-using Core.Exceptions;
 using Core.Urls;
 using Core.UseCases.BunchDetails;
 using NUnit.Framework;
@@ -50,12 +49,6 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void BunchDetails_WithGuest_AccessIsDenied()
-        {
-            Assert.Throws<AccessDeniedException>(() => Sut.Execute(CreateRequest(Constants.UserNameC)));
-        }
-
-        [Test]
         public void BunchDetails_WithManager_CanEditIsTrue()
         {
             Services.Auth.SetCurrentRole(Role.Manager);
@@ -65,9 +58,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEdit);
         }
 
-        private static BunchDetailsRequest CreateRequest(string userName = Constants.UserNameA)
+        private static BunchDetailsRequest CreateRequest()
         {
-            return new BunchDetailsRequest(Constants.SlugA, userName);
+            return new BunchDetailsRequest(Constants.SlugA);
         }
 
         private BunchDetailsInteractor Sut
@@ -76,8 +69,6 @@ namespace Tests.Core.UseCases
             {
                 return new BunchDetailsInteractor(
                     Repos.Bunch,
-                    Repos.User,
-                    Repos.Player,
                     Services.Auth);
             }
         }
