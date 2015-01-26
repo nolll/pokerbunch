@@ -66,6 +66,15 @@ namespace Tests.Common.FakeRepositories
                     .WithEncryptedPassword(Constants.UserEncryptedPasswordB)
                     .WithSalt(Constants.UserSaltB)
                     .WithGlobalRole(Role.Admin)
+                    .Build(),
+                new UserBuilder()
+                    .WithId(Constants.UserIdC)
+                    .WithUserName(Constants.UserNameC)
+                    .WithEmail(Constants.UserEmailC)
+                    .WithRealName(Constants.UserRealNameC)
+                    .WithDisplayName(Constants.UserDisplayNameC)
+                    .WithEncryptedPassword(Constants.UserEncryptedPasswordC)
+                    .WithSalt(Constants.UserSaltC)
                     .Build()
             };
         }
