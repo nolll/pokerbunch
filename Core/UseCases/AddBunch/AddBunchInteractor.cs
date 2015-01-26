@@ -22,7 +22,6 @@ namespace Core.UseCases.AddBunch
             if (existingBunch != null)
                 throw new BunchExistsException();
 
-            //todo: test the following 4 lines
             var bunch = CreateBunch(request);
             var id = bunchRepository.Add(bunch);
             var identity = auth.CurrentIdentity;
