@@ -20,8 +20,7 @@ namespace Core.UseCases.CashgameFacts
             return GetFactsResult(playerRepository, bunch, factBuilder);
         }
 
-        // todo: make this method private and test throught the Execute-method
-        public static CashgameFactsResult GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)
+        private static CashgameFactsResult GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)
         {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.Services;
+using Core.UseCases.AddBunchForm;
 using Core.UseCases.BunchContext;
 using Core.UseCases.EditBunchForm;
 using Web.Models.PageBaseModels;
@@ -30,10 +31,10 @@ namespace Web.Models.HomegameModels.Edit
             HouseRules = editBunchFormResult.HouseRules;
             DefaultBuyin = editBunchFormResult.DefaultBuyin;
             TimeZone = editBunchFormResult.TimeZoneId;
-            TimezoneSelectItems = GetTimezoneSelectModel();
+            TimezoneSelectItems = editBunchFormResult.TimeZones.Select(CreateTimezoneSelectListItem).ToList();
             CurrencySymbol = editBunchFormResult.CurrencySymbol;
             CurrencyLayout = editBunchFormResult.CurrencyLayout;
-            CurrencyLayoutSelectItems = GetCurrencyLayoutSelectModel();
+            CurrencyLayoutSelectItems = editBunchFormResult.CurrencyLayouts.Select(CreateCurrencyLayoutSelectListItem).ToList();
             //CashgamesEnabled = homegame.CashgamesEnabled,
             //TournamentsEnabled = homegame.TournamentsEnabled,
             //VideosEnabled = homegame.VideosEnabled
@@ -44,23 +45,23 @@ namespace Web.Models.HomegameModels.Edit
             CurrencyLayout = postModel.CurrencyLayout;
         }
 
-        // todo: remove this and put the data in the result
-        private List<SelectListItem> GetTimezoneSelectModel()
+        private SelectListItem CreateTimezoneSelectListItem(TimeZoneItem item)
         {
-            var timezones = Globalization.GetTimezones();
-            return timezones.Select(t => new SelectListItem { Text = t.DisplayName, Value = t.Id }).ToList();
+            return CreateSelectListItem(item.Name, item.Id);
         }
 
-        // todo: remove this and put the data in the result
-        private List<SelectListItem> GetCurrencyLayoutSelectModel()
+        private SelectListItem CreateCurrencyLayoutSelectListItem(string item)
         {
-            var layouts = Globalization.GetCurrencyLayouts();
-            var items = new List<SelectListItem>();
-            if (layouts != null)
+            return CreateSelectListItem(item, item);
+        }
+
+        private SelectListItem CreateSelectListItem(string text, string val)
+        {
+            return new SelectListItem
             {
-                items.AddRange(layouts.Select(l => new SelectListItem { Text = l, Value = l }));
-            }
-            return items;
+                Text = text,
+                Value = val
+            };
         }
     }
 }
