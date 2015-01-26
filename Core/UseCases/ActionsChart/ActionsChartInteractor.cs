@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases.ActionsChart
 {
     public static class ActionsChartInteractor
     {
         public static ActionsChartResult Execute(
-            ITimeProvider timeProvider,
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             ActionsChartRequest request)
@@ -18,9 +16,8 @@ namespace Core.UseCases.ActionsChart
             var bunch = bunchRepository.GetBySlug(request.Slug);
             var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var result = cashgame.GetResult(request.PlayerId);
-            var now = timeProvider.UtcNow;
 
-            var checkpointItems = GetCheckpointItems(bunch, cashgame, result, now);
+            var checkpointItems = GetCheckpointItems(bunch, cashgame, result, request.CurrentTime);
 
             return new ActionsChartResult(checkpointItems);
         }

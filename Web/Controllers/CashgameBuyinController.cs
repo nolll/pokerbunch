@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.Buyin;
@@ -15,7 +16,7 @@ namespace Web.Controllers
         {
             if(!IsPlayer(slug, postModel.PlayerId))
                 throw new AccessDeniedException();
-            var request = new BuyinRequest(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack);
+            var request = new BuyinRequest(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);
             UseCase.Buyin(request);
             return JsonView(new JsonViewModelOk());
         }

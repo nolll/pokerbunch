@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.UseCases.Buyin
@@ -10,13 +11,15 @@ namespace Core.UseCases.Buyin
         public int BuyinAmount { get; private set; }
         [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
         public int StackAmount { get; private set; }
+        public DateTime CurrentTime { get; private set; }
 
-        public BuyinRequest(string slug, int playerId, int buyinAmount, int stackAmount)
+        public BuyinRequest(string slug, int playerId, int buyinAmount, int stackAmount, DateTime currentTime)
         {
             Slug = slug;
             PlayerId = playerId;
             BuyinAmount = buyinAmount;
             StackAmount = stackAmount;
+            CurrentTime = currentTime;
         }
     }
 }

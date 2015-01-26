@@ -24,20 +24,17 @@ namespace Infrastructure.Storage.Repositories
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
-	    private readonly ITimeProvider _timeProvider;
 	    private readonly ICacheBuster _cacheBuster;
 
 	    public SqlCashgameRepository(
             ICashgameStorage cashgameStorage,
             ICacheContainer cacheContainer,
             ICheckpointStorage checkpointStorage,
-            ITimeProvider timeProvider,
             ICacheBuster cacheBuster)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
-	        _timeProvider = timeProvider;
 	        _cacheBuster = cacheBuster;
 	    }
 
@@ -174,8 +171,8 @@ namespace Infrastructure.Storage.Repositories
 	    private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
 	    {
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
-	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : _timeProvider.UtcNow;
-
+	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.UtcNow;
+            
             return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.Location, rawStatus, date);
         }
 

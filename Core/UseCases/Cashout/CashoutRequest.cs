@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.UseCases.Cashout
 {
@@ -8,12 +9,14 @@ namespace Core.UseCases.Cashout
         public int PlayerId { get; private set; }
         [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
         public int Stack { get; private set; }
+        public DateTime CurrentTime { get; private set; }
 
-        public CashoutRequest(string slug, int playerId, int stack)
+        public CashoutRequest(string slug, int playerId, int stack, DateTime currentTime)
         {
             Slug = slug;
             PlayerId = playerId;
             Stack = stack;
+            CurrentTime = currentTime;
         }
     }
 }

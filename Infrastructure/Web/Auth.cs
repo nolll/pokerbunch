@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Web;
 using System.Web.Security;
@@ -10,19 +11,13 @@ namespace Infrastructure.Web
 {
     public class Auth : IAuth
     {
-        private readonly ITimeProvider _timeProvider;
         private const int Version = 1;
-
-        public Auth(ITimeProvider timeProvider)
-        {
-            _timeProvider = timeProvider;
-        }
 
         public void SignIn(UserIdentity user, bool createPersistentCookie)
         {
             var userData = JsonConvert.SerializeObject(user);
 
-            var currentTime = _timeProvider.UtcNow;
+            var currentTime = DateTime.UtcNow;
             var expires = currentTime.AddYears(100);
 
             var authTicket = new FormsAuthenticationTicket(

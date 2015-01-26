@@ -82,7 +82,6 @@
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\SqlServerUserStorage.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />
-    <Compile Include="Environment\TimeProvider.cs" />
     <Compile Include="Web\AspNetCacheProvider.cs" />
     <Compile Include="Web\Auth.cs" />
     <Compile Include="Web\EmailMessageSender.cs" />

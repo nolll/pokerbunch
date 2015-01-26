@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.UseCases.Report
@@ -8,12 +9,14 @@ namespace Core.UseCases.Report
         public int PlayerId { get; private set; }
         [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
         public int Stack { get; private set; }
+        public DateTime CurrentTime { get; private set; }
 
-        public ReportRequest(string slug, int playerId, int stack)
+        public ReportRequest(string slug, int playerId, int stack, DateTime currentTime)
         {
             Slug = slug;
             PlayerId = playerId;
             Stack = stack;
+            CurrentTime = currentTime;
         }
     }
 }

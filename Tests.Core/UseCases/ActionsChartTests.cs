@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameAPlayerA_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
+            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, DateTime.UtcNow);
 
             var result = Execute(request);
 
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameAPlayerB_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdB);
+            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdB, DateTime.UtcNow);
 
             var result = Execute(request);
 
@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameBPlayerA_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdA);
+            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdA, DateTime.UtcNow);
 
             var result = Execute(request);
 
@@ -80,7 +80,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameBPlayerB_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdB);
+            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdB, DateTime.UtcNow);
 
             var result = Execute(request);
 
@@ -106,9 +106,8 @@ namespace Tests.Core.UseCases
         public void ActionsChart_RunningGame_CheckpointItemsAreCorrect()
         {
             Repos.Cashgame.SetupRunningGame();
-            Services.Time.UtcNow = Constants.StartTimeC.AddHours(1);
 
-            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringC, Constants.PlayerIdA);
+            var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringC, Constants.PlayerIdA, Constants.StartTimeC.AddHours(1));
 
             var result = Execute(request);
 
@@ -128,7 +127,6 @@ namespace Tests.Core.UseCases
         private ActionsChartResult Execute(ActionsChartRequest request)
         {
             return ActionsChartInteractor.Execute(
-                Services.Time,
                 Repos.Bunch,
                 Repos.Cashgame,
                 request);

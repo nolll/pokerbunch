@@ -40,13 +40,8 @@ namespace Tests.Core.UseCases
         private AppContextResult Execute()
         {
             return AppContextInteractor.Execute(
-                BaseContextFunc,
+                new BaseContextResultInTest(), 
                 Services.Auth);
         }
-
-        private BaseContextResult BaseContextFunc()
-        {
-            return new BaseContextResultInTest();
-        }  
     }
 }

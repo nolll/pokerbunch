@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.Report;
@@ -15,7 +16,7 @@ namespace Web.Controllers
         {
             if (!IsPlayer(slug, postModel.PlayerId))
                 throw new AccessDeniedException();
-            var request = new ReportRequest(slug, postModel.PlayerId, postModel.Stack);
+            var request = new ReportRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             UseCase.Report(request);
             return JsonView(new JsonViewModelOk());
         }

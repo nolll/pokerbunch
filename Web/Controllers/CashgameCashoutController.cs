@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases.Cashout;
@@ -15,7 +16,7 @@ namespace Web.Controllers
         {
             if (!IsPlayer(slug, postModel.PlayerId))
                 throw new AccessDeniedException();
-            var request = new CashoutRequest(slug, postModel.PlayerId, postModel.Stack);
+            var request = new CashoutRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             UseCase.Cashout(request);
             return JsonView(new JsonViewModelOk());
         }

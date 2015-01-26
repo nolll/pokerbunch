@@ -1,7 +1,6 @@
 ﻿using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases.Cashout
 {
@@ -12,7 +11,6 @@ namespace Core.UseCases.Cashout
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
             ICheckpointRepository checkpointRepository,
-            ITimeProvider timeProvider,
             CashoutRequest request)
         {
             var validator = new Validator(request);
@@ -23,13 +21,12 @@ namespace Core.UseCases.Cashout
             var player = playerRepository.GetById(request.PlayerId);
             var cashgame = cashgameRepository.GetRunning(bunch.Id);
             var result = cashgame.GetResult(player.Id);
-            var now = timeProvider.UtcNow;
 
             var existingCashoutCheckpoint = result.CashoutCheckpoint;
             var postedCheckpoint = Checkpoint.Create(
                 cashgame.Id,
                 player.Id,
-                now,
+                request.CurrentTime,
                 CheckpointType.Cashout,
                 request.Stack,
                 0,

@@ -1,6 +1,5 @@
 using Core.Repositories;
 using Core.Services;
-using Infrastructure.Environment;
 using Infrastructure.Storage;
 using Infrastructure.Storage.Cache;
 using Infrastructure.Storage.Interfaces;
@@ -11,12 +10,6 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private ITimeProvider _timeProvider;
-        protected ITimeProvider TimeProvider
-        {
-            get { return _timeProvider ?? (_timeProvider = new TimeProvider()); }
-        }
-
         private IRandomService _randomService;
         protected IRandomService RandomService
         {
@@ -32,7 +25,7 @@ namespace Plumbing
         private IAuth _auth;
         protected IAuth Auth
         {
-            get { return _auth ?? (_auth = new Auth(TimeProvider)); }
+            get { return _auth ?? (_auth = new Auth()); }
         }
 
         private ICacheContainer _cacheContainer;
@@ -74,7 +67,7 @@ namespace Plumbing
         private ICashgameRepository _cashgameRepository;
         protected ICashgameRepository CashgameRepository
         {
-            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage, TimeProvider, CacheBuster)); }
+            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage, CacheBuster)); }
         }
 
         private ICheckpointRepository _checkpointRepository;

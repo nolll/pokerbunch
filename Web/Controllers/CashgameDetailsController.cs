@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetails;
@@ -16,7 +17,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var cashgameDetailsResult = UseCase.CashgameDetails(new CashgameDetailsRequest(slug, dateStr));
-            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart(new CashgameDetailsChartRequest(slug, dateStr));
+            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart(new CashgameDetailsChartRequest(slug, DateTime.UtcNow, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
         }

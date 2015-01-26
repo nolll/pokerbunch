@@ -4,14 +4,12 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases.CashgameDetailsChart
 {
     public static class CashgameDetailsChartInteractor
     {
         public static CashgameDetailsChartResult Execute(
-            ITimeProvider timeProvider,
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
@@ -21,9 +19,8 @@ namespace Core.UseCases.CashgameDetailsChart
             var cashgame = GetCashgame(cashgameRepository, bunch, request.DateStr);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             var players = playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
-            var now = timeProvider.UtcNow;
 
-            var playerItems = GetPlayerItems(bunch, cashgame, players, now);
+            var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
 
             return new CashgameDetailsChartResult(playerItems);
         }

@@ -49,15 +49,10 @@ namespace Tests.Core.UseCases
         private BunchContextResult Execute(BunchContextRequest request)
         {
             return BunchContextInteractor.Execute(
-                AppContextFunc,
+                new AppContextResultInTest(), 
                 Repos.Bunch,
                 Services.Auth,
                 request);
-        }
-
-        private AppContextResult AppContextFunc()
-        {
-            return new AppContextResultInTest();
         }
     }
 }

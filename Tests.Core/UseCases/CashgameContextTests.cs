@@ -95,14 +95,9 @@ namespace Tests.Core.UseCases
         private CashgameContextResult Execute(CashgameContextRequest request)
         {
             return CashgameContextInteractor.Execute(
-                BunchContextFunc,
+                new BunchContextResultInTest(), 
                 Repos.Cashgame,
                 request);
-        }
-
-        private BunchContextResult BunchContextFunc(BunchContextRequest request)
-        {
-            return new BunchContextResultInTest();
         }
     }
 }

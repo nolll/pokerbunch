@@ -16,7 +16,6 @@ namespace Core.UseCases.RunningCashgame
             IBunchRepository bunchRepository,
             ICashgameRepository cashgameRepository,
             IPlayerRepository playerRepository,
-            ITimeProvider timeProvider,
             RunningCashgameRequest request)
         {
             var bunch = bunchRepository.GetBySlug(request.Slug);
@@ -31,7 +30,6 @@ namespace Core.UseCases.RunningCashgame
 
             var isStarted = cashgame.IsStarted;
             var isManager = auth.IsInRole(request.Slug, Role.Manager);
-            var now = timeProvider.UtcNow;
             
             var location = cashgame.Location;
             var gameDataUrl = new RunningCashgameGameJsonUrl(bunch.Slug);
@@ -46,7 +44,7 @@ namespace Core.UseCases.RunningCashgame
             var showTable = cashgame.IsStarted;
             var showChart = cashgame.IsStarted;
 
-            var items = GetItems(bunch, cashgame, players, isManager, now);
+            var items = GetItems(bunch, cashgame, players, isManager, request.CurrentTime);
             var playerItems = GetPlayerItems(cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);

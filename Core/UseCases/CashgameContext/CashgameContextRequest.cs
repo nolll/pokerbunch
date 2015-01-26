@@ -1,16 +1,17 @@
-﻿namespace Core.UseCases.CashgameContext
+﻿using Core.UseCases.BunchContext;
+
+namespace Core.UseCases.CashgameContext
 {
-    public class CashgameContextRequest
+    public class CashgameContextRequest : BunchContextRequest
     {
-        public string Slug { get; private set; }
         public int? Year { get; private set; }
         public CashgamePage SelectedPage { get; private set; }
 
         public CashgameContextRequest(string slug, int? year = null, CashgamePage selectedPage = CashgamePage.Unknown)
+            : base(slug)
         {
-            SelectedPage = selectedPage;
-            Slug = slug;
             Year = year;
+            SelectedPage = selectedPage;
         }
     }
 }

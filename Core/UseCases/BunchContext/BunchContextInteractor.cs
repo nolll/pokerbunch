@@ -8,10 +8,8 @@ namespace Core.UseCases.BunchContext
 {
     public static class BunchContextInteractor
     {
-        public static BunchContextResult Execute(Func<AppContextResult> appContext, IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
+        public static BunchContextResult Execute(AppContextResult appContextResult, IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
         {
-            var appContextResult = appContext();
-
             var bunch = GetBunch(bunchRepository, auth, request);
 
             if (bunch == null)
