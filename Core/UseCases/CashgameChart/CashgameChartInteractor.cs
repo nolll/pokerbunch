@@ -54,12 +54,7 @@ namespace Core.UseCases.CashgameChart
 
         private static IDictionary<int, int?> GetEmptyPlayerSumArray(IEnumerable<CashgameTotalResult> results)
         {
-            var playerSum = new Dictionary<int, int?>();
-            foreach (var result in results)
-            {
-                playerSum.Add(result.Player.Id, 0);
-            }
-            return playerSum;
+            return results.ToDictionary<CashgameTotalResult, int, int?>(result => result.Player.Id, result => 0);
         }
     }
 }
