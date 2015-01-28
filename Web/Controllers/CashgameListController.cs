@@ -3,16 +3,16 @@ using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameList;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.List;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class CashgameListController : PokerBunchController
     {
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/list/{year?}")]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
+            RequirePlayer(slug);
             var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.List));
             var listResult = UseCase.CashgameList(new CashgameListRequest(slug, orderBy, year));
 

@@ -5,6 +5,7 @@ using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
+using Core.UseCases.RequireManager;
 using Core.UseCases.RequirePlayer;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
@@ -114,6 +115,11 @@ namespace Web.Controllers.Base
         protected void RequirePlayer(string slug)
         {
             UseCase.RequirePlayer(new RequirePlayerRequest(slug, Identity.UserName));
+        }
+
+        protected void RequireManager(string slug)
+        {
+            UseCase.RequireManager(new RequireManagerRequest(slug, Identity.UserName));
         }
     }
 }

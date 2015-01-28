@@ -4,24 +4,25 @@ using Core.UseCases.BunchContext;
 using Core.UseCases.InvitePlayer;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class InvitePlayerController : PokerBunchController
     {
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite(string slug, int playerId)
         {
+            RequireManager(slug);
             return ShowForm(slug);
         }
 
         [HttpPost]
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
+            RequireManager(slug);
             var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
 
             try

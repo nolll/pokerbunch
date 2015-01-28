@@ -4,24 +4,25 @@ using Core.UseCases.AddPlayer;
 using Core.UseCases.BunchContext;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Add;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class AddPlayerController : PokerBunchController
     {
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/player/add")]
         public ActionResult Add(string slug)
         {
+            RequireManager(slug);
             return ShowForm(slug);
         }
 
         [HttpPost]
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/player/add")]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
+            RequireManager(slug);
             var request = new AddPlayerRequest(slug, postModel.Name);
 
             try

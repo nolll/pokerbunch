@@ -5,24 +5,25 @@ using Core.UseCases.EditCheckpoint;
 using Core.UseCases.EditCheckpointForm;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class EditCheckpointController : PokerBunchController
     {
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
+            RequireManager(slug);
             return ShowForm(slug, dateStr, playerId, checkpointId);
         }
 
         [HttpPost]
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
+            RequireManager(slug);
             try
             {
                 var request = new EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);

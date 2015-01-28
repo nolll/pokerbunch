@@ -8,16 +8,16 @@ using Core.UseCases.RunningCashgame;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Board;
 using Web.Models.CashgameModels.Running;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class RunningCashgameController : PokerBunchController
     {
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/running")]
         public ActionResult Running(string slug)
         {
+            RequirePlayer(slug);
             try
             {
                 var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
@@ -31,28 +31,31 @@ namespace Web.Controllers
             }
         }
 
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/runninggamejson")]
         public ActionResult RunningGameJson(string slug)
         {
+            RequirePlayer(slug);
             var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
         }
 
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/runningplayersjson")]
         public ActionResult RunningPlayersJson(string slug)
         {
+            RequirePlayer(slug);
             var runningCashgameResult = UseCase.RunningCashgame(new RunningCashgameRequest(slug, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }
 
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/board")]
         public ActionResult Board(string slug)
         {
+            RequirePlayer(slug);
             try
             {
                 var contextResult = UseCase.BaseContext();

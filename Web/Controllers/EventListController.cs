@@ -9,10 +9,11 @@ namespace Web.Controllers
 {
     public class EventListController : PokerBunchController
     {
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/event/list")]
         public ActionResult List(string slug)
         {
+            RequirePlayer(slug);
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var eventListOutput = UseCase.EventList(new EventListInput(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);

@@ -53,6 +53,7 @@ using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
+using Core.UseCases.RequireManager;
 using Core.UseCases.RequirePlayer;
 using Core.UseCases.RunningCashgame;
 using Core.UseCases.TestEmail;
@@ -76,6 +77,7 @@ namespace Web.Plumbing
         public Func<LoginRequest, LoginResult> Login { get { return request => LoginInteractor.Execute(UserRepository, Auth, BunchRepository, PlayerRepository, request); } }
         public Func<LogoutResult> Logout { get { return () => LogoutInteractor.Execute(Auth); } }
         public Action<RequirePlayerRequest> RequirePlayer { get { return request => new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
+        public Action<RequireManagerRequest> RequireManager { get { return request => new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
 
         // Admin
         public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }

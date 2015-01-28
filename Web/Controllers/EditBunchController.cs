@@ -5,24 +5,25 @@ using Core.UseCases.EditBunch;
 using Core.UseCases.EditBunchForm;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class EditBunchController : PokerBunchController
     {
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/homegame/edit")]
         public ActionResult Edit(string slug)
         {
+            RequireManager(slug);
             return ShowForm(slug);
         }
 
         [HttpPost]
-        [AuthorizeManager]
+        [Authorize]
         [Route("{slug}/homegame/edit")]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
+            RequireManager(slug);
             try
             {
                 var request = new EditBunchRequest(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);

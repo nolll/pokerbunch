@@ -5,21 +5,21 @@ using Core.UseCases.AddCashgameForm;
 using Core.UseCases.BunchContext;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class AddCashgameController : PokerBunchController
     {
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/add")]
         public ActionResult AddCashgame(string slug)
         {
+            RequirePlayer(slug);
             return ShowForm(slug);
         }
 
         [HttpPost]
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/cashgame/add")]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {

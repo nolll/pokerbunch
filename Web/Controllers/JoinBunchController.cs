@@ -41,10 +41,11 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [AuthorizePlayer]
+        [Authorize]
         [Route("{slug}/homegame/joined")]
         public ActionResult Joined(string slug)
         {
+            RequirePlayer(slug);
             var contextResult = UseCase.AppContext();
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation(new JoinBunchConfirmationRequest(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);

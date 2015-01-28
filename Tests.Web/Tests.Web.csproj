@@ -80,12 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="ControllerTests\CashgameActionControllerTests.cs" />
-    <Compile Include="ControllerTests\UserListControllerTests.cs" />
-    <Compile Include="ControllerTests\BunchListControllerTests.cs" />
-    <Compile Include="ControllerTests\PlayerControllerTests.cs" />
     <Compile Include="Routing\RouteTests.cs" />
-    <Compile Include="SecurityTestHelper.cs" />
     <Compile Include="ServiceTests\ResultFormatterTests.cs" />
     <Compile Include="ServiceTests\UrlTests.cs" />
   </ItemGroup>

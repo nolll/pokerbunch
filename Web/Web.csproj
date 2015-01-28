@@ -429,7 +429,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Security\Attributes\AuthorizeAdminAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeCustomAttribute.cs" />
-    <Compile Include="Security\Attributes\AuthorizeManagerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeOwnUserAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizePlayerAttribute.cs" />
     <Compile Include="Security\Attributes\AuthorizeRoleAttribute.cs" />
