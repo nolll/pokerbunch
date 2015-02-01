@@ -6,7 +6,9 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             var $el = $(this);
             var url = $el.data('url');
             loadData(url, function (data) {
-                ko.applyBindings(new StandingsViewModel(data));
+                var standings = new StandingsViewModel(data);
+                ko.applyBindings(standings);
+                standings.startAutoRefresh();
             });
         }
 
@@ -23,6 +25,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
         function StandingsViewModel(data) {
             var me = this;
 
+            me.refreshTimeout = 30000;
             me.players = ko.observableArray(createPlayers(data));
             me.bunchPlayers = ko.observableArray(createBunchPlayers(data));
             me.loadedPlayerId = data.playerId;
@@ -50,6 +53,15 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                     callback(playerData);
                 });
             };
+
+            me.startAutoRefresh = function() {
+                window.setTimeout(me.autoRefresh, me.refreshTimeout);
+            }
+
+            me.autoRefresh = function() {
+                me.refresh(me.setPlayers);
+                window.setTimeout(me.autoRefresh, me.refreshTimeout);
+            }
 
             me.setPlayers = function(playerData) {
                 me.players(createPlayers(playerData));
@@ -170,25 +182,21 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             me.showReportForm = function () {
                 me.reportFormVisible(true);
                 me.hideButtons();
-                me.refresh(me.setPlayers);
             };
 
             me.showBuyInForm = function () {
                 me.buyInFormVisible(true);
                 me.hideButtons();
-                me.refresh(me.setPlayers);
             };
 
             me.showCashOutForm = function () {
                 me.cashOutFormVisible(true);
                 me.hideButtons();
-                me.refresh(me.setPlayers);
             };
 
             me.showEndGameForm = function () {
                 me.endGameFormVisible(true);
                 me.hideButtons();
-                me.refresh(me.setPlayers);
             };
 
             me.hideButtons = function() {
@@ -358,10 +366,10 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 dataType: 'json',
                 url: url,
                 success: callback,
-                cache: false,
-                error: function () {
-                    alert('load error');
-                }
+                cache: false
+                //,error: function () {
+                //    alert('load error');
+                //}
             });
         }
 
@@ -371,10 +379,10 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 url: url,
                 type: "POST",
                 data: data,
-                success: callback,
-                error: function () {
-                    alert('post error');
-                }
+                success: callback
+                //,error: function () {
+                //    alert('post error');
+                //}
             });
         }
 
