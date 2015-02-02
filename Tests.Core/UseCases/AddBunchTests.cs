@@ -1,5 +1,4 @@
-﻿using Core;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Exceptions;
 using Core.UseCases.AddBunch;
 using NUnit.Framework;
@@ -19,7 +18,7 @@ namespace Tests.Core.UseCases
         private string _timeZone;
 
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _timeZone = TestService.LocalTimeZoneName;
         }

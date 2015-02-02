@@ -10,7 +10,7 @@ namespace Tests.Common.FakeRepositories
     public class FakeCashgameRepository : ICashgameRepository
     {
         private IList<Cashgame> _list;
-        public Cashgame Added { get; set; }
+        public Cashgame Added { get; private set; }
 
         public FakeCashgameRepository()
         {
@@ -36,7 +36,7 @@ namespace Tests.Common.FakeRepositories
 
         public Cashgame GetById(int cashgameId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IList<int> GetYears(int bunchId)
@@ -51,7 +51,7 @@ namespace Tests.Common.FakeRepositories
 
         public bool DeleteGame(Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -62,12 +62,12 @@ namespace Tests.Common.FakeRepositories
 
         public bool UpdateGame(Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool HasPlayed(int playerId)

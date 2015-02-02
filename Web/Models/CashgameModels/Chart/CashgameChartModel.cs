@@ -42,8 +42,7 @@ namespace Web.Models.CashgameModels.Chart
 
         private static ChartRowModel GetRowModel(ChartGameItem gameItem, IEnumerable<ChartPlayerItem> playerItems)
         {
-            var values = new List<ChartValueModel>();
-            values.Add(new ChartValueModel(Globalization.FormatShortDate(gameItem.Date)));
+            var values = new List<ChartValueModel> { new ChartValueModel(Globalization.FormatShortDate(gameItem.Date)) };
             foreach (var playerItem in playerItems)
             {
                 values.Add(GetValueModel(gameItem, playerItem));

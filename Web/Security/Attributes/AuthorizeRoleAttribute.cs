@@ -13,7 +13,7 @@ namespace Web.Security.Attributes
             return Authorize.Bunch(httpContext.User, GetSlug(httpContext), role);
         }
 
-        protected string GetSlug(HttpContextBase httpContext)
+        private static string GetSlug(HttpContextBase httpContext)
         {
             return httpContext.Request.RequestContext.RouteData.Values["slug"] as string;
         }

@@ -1,5 +1,4 @@
-﻿using Core.UseCases.EditUser;
-using Core.UseCases.EditUserForm;
+﻿using Core.UseCases.EditUserForm;
 using NUnit.Framework;
 using Tests.Common;
 

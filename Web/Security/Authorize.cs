@@ -17,14 +17,6 @@ namespace Web.Security
             return identity.Bunches.Any(userBunch => userBunch.Slug == slug && userBunch.Role >= role);
         }
 
-        public static bool SpecificUser(IPrincipal user, string userName)
-        {
-            var identity = user.Identity as CustomIdentity;
-            if (identity == null)
-                return false;
-            return identity.IsAdmin || identity.UserName.ToLower() == userName;
-        }
-
         public static bool SpecificPlayer(IPrincipal user, string slug, int playerId)
         {
             var identity = user.Identity as CustomIdentity;
