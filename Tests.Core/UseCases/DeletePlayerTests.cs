@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
             const int playerIdThatHasNotPlayed = 3;
 
             var request = new DeletePlayerRequest(Constants.SlugA, playerIdThatHasNotPlayed);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<PlayerIndexUrl>(result.ReturnUrl);
             Assert.AreEqual(playerIdThatHasNotPlayed, Repos.Player.Deleted);
@@ -23,17 +23,19 @@ namespace Tests.Core.UseCases
         public void DeletePlayer_PlayerHasPlayed_ReturnUrlIsPlayerDetails()
         {
             var request = new DeletePlayerRequest(Constants.SlugA, Constants.PlayerIdA);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<PlayerDetailsUrl>(result.ReturnUrl);
         }
 
-        private DeletePlayerResult Execute(DeletePlayerRequest request)
+        private DeletePlayerInteractor Sut
         {
-            return DeletePlayerInteractor.Execute(
-                Repos.Player,
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new DeletePlayerInteractor(
+                    Repos.Player,
+                    Repos.Cashgame);
+            }
         }
     }
 }

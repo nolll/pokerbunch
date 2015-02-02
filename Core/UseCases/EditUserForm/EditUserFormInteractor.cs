@@ -2,11 +2,18 @@ using Core.Repositories;
 
 namespace Core.UseCases.EditUserForm
 {
-    public static class EditUserFormInteractor
+    public class EditUserFormInteractor
     {
-        public static EditUserFormResult Execute(IUserRepository userRepository, EditUserFormRequest request)
+        private readonly IUserRepository _userRepository;
+
+        public EditUserFormInteractor(IUserRepository userRepository)
         {
-            var user = userRepository.GetByNameOrEmail(request.UserName);
+            _userRepository = userRepository;
+        }
+
+        public EditUserFormResult Execute(EditUserFormRequest request)
+        {
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var userName = user.UserName;
             var realName = user.RealName;
             var displayName = user.DisplayName;

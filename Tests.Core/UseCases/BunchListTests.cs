@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchList_ReturnsListOfBunchItems()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(2, result.Bunches.Count);
             Assert.AreEqual("/bunch-a/homegame/details", result.Bunches[0].Url.Relative);
@@ -18,9 +18,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(Constants.BunchNameB, result.Bunches[1].DisplayName);
         }
 
-        private BunchListResult Execute()
+        private BunchListInteractor Sut
         {
-            return BunchListInteractor.Execute(Repos.Bunch);
+            get { return new BunchListInteractor(Repos.Bunch); }
         }
     }
 }

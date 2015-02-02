@@ -2,11 +2,18 @@ using Core.Repositories;
 
 namespace Core.UseCases.EventDetails
 {
-    public static class EventDetailsInteractor
+    public class EventDetailsInteractor
     {
-        public static EventDetailsOutput Execute(IEventRepository eventRepository, EventDetailsInput input)
+        private readonly IEventRepository _eventRepository;
+
+        public EventDetailsInteractor(IEventRepository eventRepository)
         {
-            var e = eventRepository.GetById(input.EventId);
+            _eventRepository = eventRepository;
+        }
+
+        public EventDetailsOutput Execute(EventDetailsInput input)
+        {
+            var e = _eventRepository.GetById(input.EventId);
 
             return new EventDetailsOutput(e.Name);
         }

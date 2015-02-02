@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserNameA, result.UserName);
         }
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserDisplayNameA, result.DisplayName);
         }
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserRealNameA, result.RealName);
         }
@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserEmailA, result.Email);
         }
@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest(Constants.UserNameB));
+            var result = Sut.Execute(CreateRequest(Constants.UserNameB));
 
             Assert.IsFalse(result.CanEdit);
         }
@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUserAsAdmin();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -74,7 +74,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUserAsDisplayUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.CanEdit);
         }
@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest(Constants.UserNameB));
+            var result = Sut.Execute(CreateRequest(Constants.UserNameB));
 
             Assert.IsFalse(result.CanChangePassword);
         }
@@ -94,7 +94,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUserAsDisplayUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.CanChangePassword);
         }
@@ -104,7 +104,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<EditUserUrl>(result.EditUrl);
         }
@@ -114,7 +114,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<ChangePasswordUrl>(result.ChangePasswordUrl);
         }
@@ -124,7 +124,7 @@ namespace Tests.Core.UseCases
         {
             SetupCurrentUser();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             const string expected = "http://www.gravatar.com/avatar/0796c9df772de3f82c0c89377330471b?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
@@ -149,13 +149,15 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity { UserId = Constants.UserIdA, UserName = Constants.UserNameA, IsAdmin = false });
         }
-        
-        private UserDetailsResult Execute(UserDetailsRequest request)
+
+        private UserDetailsInteractor Sut
         {
-            return UserDetailsInteractor.Execute(
-                Services.Auth,
-                Repos.User,
-                request);
+            get
+            {
+                return new UserDetailsInteractor(
+                    Services.Auth,
+                    Repos.User);
+            }
         }
     }
 }

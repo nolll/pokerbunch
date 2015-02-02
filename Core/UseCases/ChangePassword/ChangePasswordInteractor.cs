@@ -6,9 +6,20 @@ using Core.Urls;
 
 namespace Core.UseCases.ChangePassword
 {
-    public static class ChangePasswordInteractor
+    public class ChangePasswordInteractor
     {
-        public static ChangePasswordResult Execute(IAuth auth, IUserRepository userRepository, IRandomService randomService, ChangePasswordRequest request)
+        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
+        private readonly IRandomService _randomService;
+
+        public ChangePasswordInteractor(IAuth auth, IUserRepository userRepository, IRandomService randomService)
+        {
+            _auth = auth;
+            _userRepository = userRepository;
+            _randomService = randomService;
+        }
+
+        public ChangePasswordResult Execute(ChangePasswordRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -17,12 +28,12 @@ namespace Core.UseCases.ChangePassword
             if (request.Password != request.Repeat)
                 throw new ValidationException("The passwords dos not match");
 
-            var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
+            var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = userRepository.GetById(auth.CurrentIdentity.UserId);
+            var user = _userRepository.GetById(_auth.CurrentIdentity.UserId);
             user = CreateUser(user, encryptedPassword, salt);
             
-            userRepository.Save(user);
+            _userRepository.Save(user);
 
             var returnUrl = new ChangePasswordConfirmationUrl();
             return new ChangePasswordResult(returnUrl);

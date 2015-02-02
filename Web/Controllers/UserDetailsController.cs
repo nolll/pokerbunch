@@ -12,7 +12,7 @@ namespace Web.Controllers
         public ActionResult UserDetails(string userName)
         {
             var contextResult = UseCase.AppContext();
-            var userDetailsResult = UseCase.UserDetails(new UserDetailsRequest(userName));
+            var userDetailsResult = UseCase.UserDetails.Execute(new UserDetailsRequest(userName));
             var model = new UserDetailsPageModel(contextResult, userDetailsResult);
             return View("~/Views/Pages/UserDetails/UserDetails.cshtml", model);
         }

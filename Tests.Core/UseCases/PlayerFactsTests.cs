@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         public void PlayerFacts_ReturnsResultObject()
         {
             var request = new PlayerFactsRequest(Constants.SlugA, Constants.PlayerIdA);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GamesPlayed);
             Assert.AreEqual(152, result.TimePlayed.Minutes);
@@ -22,12 +22,14 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, result.LosingStreak);
         }
 
-        private PlayerFactsResult Execute(PlayerFactsRequest request)
+        private PlayerFactsInteractor Sut
         {
-            return PlayerFactsInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new PlayerFactsInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

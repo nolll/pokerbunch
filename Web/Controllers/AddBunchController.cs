@@ -23,7 +23,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddBunchRequest(postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
-                var result = UseCase.AddBunch(request);
+                var result = UseCase.AddBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -49,7 +49,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(AddBunchPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
-            var bunchFormResult = UseCase.AddBunchForm();
+            var bunchFormResult = UseCase.AddBunchForm.Execute();
             var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel);
             return View("~/Views/Pages/AddBunch/AddBunch.cshtml", model);
         }

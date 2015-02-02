@@ -2,13 +2,20 @@ using Core.Services;
 
 namespace Core.UseCases.TestEmail
 {
-    public static class TestEmailInteractor
+    public class TestEmailInteractor
     {
-        public static TestEmailResult Execute(IMessageSender messageSender)
+        private readonly IMessageSender _messageSender;
+
+        public TestEmailInteractor(IMessageSender messageSender)
+        {
+            _messageSender = messageSender;
+        }
+
+        public TestEmailResult Execute()
         {
             const string email = "henriks@gmail.com";
             var message = new TestMessage();
-            messageSender.Send(email, message);
+            _messageSender.Send(email, message);
 
             return new TestEmailResult(email);
         }

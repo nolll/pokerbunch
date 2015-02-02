@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunchForm_TimeZonesContainsAllTimezones()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual("Dateline Standard Time", result.TimeZones.First().Id);
             Assert.AreEqual("Line Islands Standard Time", result.TimeZones.Last().Id);
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunchForm_CurrencyLayoutsAreSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(4, result.CurrencyLayouts.Count);
             Assert.AreEqual("{SYMBOL} {AMOUNT}", result.CurrencyLayouts[0]);
@@ -27,9 +27,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("{AMOUNT} {SYMBOL}", result.CurrencyLayouts[3]);
         }
 
-        private AddBunchFormResult Execute()
+        private AddBunchFormInteractor Sut
         {
-            return AddBunchFormInteractor.Execute();
+            get { return new AddBunchFormInteractor(); }
         }
     }
 }

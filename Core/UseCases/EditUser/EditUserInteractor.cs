@@ -5,18 +5,25 @@ using Core.Urls;
 
 namespace Core.UseCases.EditUser
 {
-    public static class EditUserInteractor
+    public class EditUserInteractor
     {
-        public static EditUserResult Execute(IUserRepository userRepository, EditUserRequest request)
+        private readonly IUserRepository _userRepository;
+
+        public EditUserInteractor(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public EditUserResult Execute(EditUserRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
             
-            userRepository.Save(userToSave);
+            _userRepository.Save(userToSave);
 
             var returnUrl = new UserDetailsUrl(request.UserName);
             return new EditUserResult(returnUrl);

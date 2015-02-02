@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases
         public void AddPlayer_ReturnUrlIsSet()
         {
             var request = new AddPlayerRequest(Constants.SlugA, UniqueName);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
         }
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddPlayerRequest(Constants.SlugA, EmptyName);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         public void AddPlayer_ValidName_AddsPlayer()
         {
             var request = new AddPlayerRequest(Constants.SlugA, UniqueName);
-            Execute(request);
+            Sut.Execute(request);
 
             Assert.IsNotNull(Repos.Player.Added);
         }
@@ -44,15 +44,17 @@ namespace Tests.Core.UseCases
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
             var request = new AddPlayerRequest(Constants.SlugA, ExistingName);
-            Assert.Throws<PlayerExistsException>(() => Execute(request));
+            Assert.Throws<PlayerExistsException>(() => Sut.Execute(request));
         }
 
-        private AddPlayerResult Execute(AddPlayerRequest request)
+        private AddPlayerInteractor Sut
         {
-            return AddPlayerInteractor.Execute(
-                Repos.Bunch,
-                Repos.Player,
-                request);
+            get
+            {
+                return new AddPlayerInteractor(
+                    Repos.Bunch,
+                    Repos.Player);
+            }
         }
     }
 }

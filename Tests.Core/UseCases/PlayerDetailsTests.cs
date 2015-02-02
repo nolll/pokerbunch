@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DisplayNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.PlayerNameA, result.DisplayName);
         }
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DeleteUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<DeletePlayerUrl>(result.DeleteUrl);
         }
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_InvitationUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<InvitePlayerUrl>(result.InvitationUrl);
         }
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             const string expected = "http://www.gravatar.com/avatar/0796c9df772de3f82c0c89377330471b?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -60,7 +60,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_UserUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<UserUrl>(result.UserUrl);
         }
@@ -68,7 +68,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            var result = Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsFalse(result.IsUser);
         }
@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.IsUser);
         }
@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithNormalUser_CanDeleteIsFalse()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.CanDelete);
         }
@@ -94,7 +94,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.SetCurrentRole(Role.Manager);
 
-            var result = Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
 
             Assert.IsTrue(result.CanDelete);
         }
@@ -104,7 +104,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.SetCurrentRole(Role.Manager);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.CanDelete);
         }
@@ -114,15 +114,17 @@ namespace Tests.Core.UseCases
             return new PlayerDetailsRequest(Constants.SlugA, playerId);
         }
 
-        private PlayerDetailsResult Execute(PlayerDetailsRequest request)
+        private PlayerDetailsInteractor Sut
         {
-            return PlayerDetailsInteractor.Execute(
-                Services.Auth,
-                Repos.Bunch,
-                Repos.Player,
-                Repos.Cashgame,
-                Repos.User,
-                request);
+            get
+            {
+                return new PlayerDetailsInteractor(
+                    Services.Auth,
+                    Repos.Bunch,
+                    Repos.Player,
+                    Repos.Cashgame,
+                    Repos.User);
+            }
         }
     }
 }

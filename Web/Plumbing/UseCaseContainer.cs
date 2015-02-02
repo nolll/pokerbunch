@@ -80,32 +80,32 @@ namespace Web.Plumbing
         public Action<RequireManagerRequest> RequireManager { get { return request => new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
 
         // Admin
-        public Func<TestEmailResult> TestEmail { get { return () => TestEmailInteractor.Execute(MessageSender); } }
-        public Func<ClearCacheOutput> ClearCache { get { return () => ClearCacheInteractor.Execute(CacheContainer); } }
+        public TestEmailInteractor TestEmail { get { return new TestEmailInteractor(MessageSender); } }
+        public ClearCacheInteractor ClearCache { get { return new ClearCacheInteractor(CacheContainer); } }
 
         // User
-        public Func<UserListResult> UserList { get { return () => UserListInteractor.Execute(UserRepository); } }
-        public Func<UserDetailsRequest, UserDetailsResult> UserDetails { get { return request => UserDetailsInteractor.Execute(Auth, UserRepository, request); } }
-        public Func<AddUserRequest, AddUserResult> AddUser { get { return request => AddUserInteractor.Execute(UserRepository, RandomService, MessageSender, request); } }
-        public Func<EditUserFormRequest, EditUserFormResult> EditUserForm { get { return request => EditUserFormInteractor.Execute(UserRepository, request); } }
-        public Func<EditUserRequest, EditUserResult> EditUser { get { return request => EditUserInteractor.Execute(UserRepository, request); } } 
-        public Func<ForgotPasswordRequest, ForgotPasswordResult> ForgotPassword { get { return request => ForgotPasswordInteractor.Execute(UserRepository, MessageSender, RandomService, request); } }
-        public Func<ChangePasswordRequest, ChangePasswordResult> ChangePassword { get { return request => ChangePasswordInteractor.Execute(Auth, UserRepository, RandomService, request); } } 
+        public UserListInteractor UserList { get { return new UserListInteractor(UserRepository); } }
+        public UserDetailsInteractor UserDetails { get { return new UserDetailsInteractor(Auth, UserRepository); } }
+        public AddUserInteractor AddUser { get { return new AddUserInteractor(UserRepository, RandomService, MessageSender); } }
+        public EditUserFormInteractor EditUserForm { get { return new EditUserFormInteractor(UserRepository); } }
+        public EditUserInteractor EditUser { get { return new EditUserInteractor(UserRepository); } }
+        public ForgotPasswordInteractor ForgotPassword { get { return new ForgotPasswordInteractor(UserRepository, MessageSender, RandomService); } }
+        public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(Auth, UserRepository, RandomService); } } 
 
         // Bunch
-        public Func<BunchListResult> BunchList { get { return () => BunchListInteractor.Execute(BunchRepository); } }
-        public Func<BunchDetailsRequest, BunchDetailsResult> BunchDetails { get { return request => new BunchDetailsInteractor(BunchRepository, Auth).Execute(request); } }
-        public Func<AddBunchFormResult> AddBunchForm { get { return AddBunchFormInteractor.Execute; } }
-        public Func<AddBunchRequest, AddBunchResult> AddBunch { get { return request => AddBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } }
-        public Func<EditBunchFormRequest, EditBunchFormResult> EditBunchForm { get { return request => EditBunchFormInteractor.Execute(BunchRepository, request); } }
-        public Func<EditBunchRequest, EditBunchResult> EditBunch { get { return request => EditBunchInteractor.Execute(BunchRepository, request); } }
-        public Func<JoinBunchFormRequest, JoinBunchFormResult> JoinBunchForm { get { return request => JoinBunchFormInteractor.Execute(BunchRepository, request); } }
-        public Func<JoinBunchRequest, JoinBunchResult> JoinBunch { get { return request => JoinBunchInteractor.Execute(Auth, BunchRepository, PlayerRepository, request); } } 
-        public Func<JoinBunchConfirmationRequest, JoinBunchConfirmationResult> JoinBunchConfirmation { get { return request => JoinBunchConfirmationInteractor.Execute(BunchRepository, request); } }
+        public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository); } }
+        public BunchDetailsInteractor BunchDetails { get { return new BunchDetailsInteractor(BunchRepository, Auth); } }
+        public AddBunchFormInteractor AddBunchForm { get { return new AddBunchFormInteractor(); } }
+        public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(Auth, BunchRepository, PlayerRepository); } }
+        public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(BunchRepository); } }
+        public EditBunchInteractor EditBunch { get { return new EditBunchInteractor(BunchRepository); } }
+        public JoinBunchFormInteractor JoinBunchForm { get { return new JoinBunchFormInteractor(BunchRepository); } }
+        public JoinBunchInteractor JoinBunch { get { return new JoinBunchInteractor(Auth, BunchRepository, PlayerRepository); } } 
+        public JoinBunchConfirmationInteractor JoinBunchConfirmation { get { return new JoinBunchConfirmationInteractor(BunchRepository); } }
 
         // Events
-        public Func<EventListInput, EventListOutput> EventList { get { return input => EventListInteractor.Execute(BunchRepository, EventRepository, input); } }
-        public Func<EventDetailsInput, EventDetailsOutput> EventDetails { get { return input => EventDetailsInteractor.Execute(EventRepository, input); } } 
+        public EventListInteractor EventList { get { return new EventListInteractor(BunchRepository, EventRepository); } }
+        public EventDetailsInteractor EventDetails { get { return new EventDetailsInteractor(EventRepository); } } 
 
         // Cashgame
         public Func<CashgameHomeRequest, CashgameHomeResult> CashgameHome { get { return request => CashgameHomeInteractor.Execute(request, BunchRepository, CashgameRepository); } } 
@@ -133,12 +133,12 @@ namespace Web.Plumbing
         public Action<EndCashgameRequest> EndCashgame { get { return request => EndCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
         
         // Player
-        public Func<PlayerListRequest, PlayerListResult> PlayerList { get { return request => PlayerListInteractor.Execute(BunchRepository, PlayerRepository, Auth, request); } }
-        public Func<PlayerDetailsRequest, PlayerDetailsResult> PlayerDetails { get { return request => PlayerDetailsInteractor.Execute(Auth, BunchRepository, PlayerRepository, CashgameRepository, UserRepository, request); } }
-        public Func<PlayerFactsRequest, PlayerFactsResult> PlayerFacts { get { return request => PlayerFactsInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<PlayerBadgesRequest, PlayerBadgesResult> PlayerBadges { get { return request => PlayerBadgesInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<InvitePlayerRequest, InvitePlayerResult> InvitePlayer { get { return request => InvitePlayerInteractor.Execute(BunchRepository, PlayerRepository, MessageSender, request); } }
-        public Func<AddPlayerRequest, AddPlayerResult> AddPlayer { get { return request => AddPlayerInteractor.Execute(BunchRepository, PlayerRepository, request); } }
-        public Func<DeletePlayerRequest, DeletePlayerResult> DeletePlayer { get { return request => DeletePlayerInteractor.Execute(PlayerRepository, CashgameRepository, request); } }
+        public PlayerListInteractor PlayerList { get { return new PlayerListInteractor(BunchRepository, PlayerRepository, Auth); } }
+        public PlayerDetailsInteractor PlayerDetails { get { return new PlayerDetailsInteractor(Auth, BunchRepository, PlayerRepository, CashgameRepository, UserRepository); } }
+        public PlayerFactsInteractor PlayerFacts { get { return new PlayerFactsInteractor(BunchRepository, CashgameRepository); } }
+        public PlayerBadgesInteractor PlayerBadges { get { return new PlayerBadgesInteractor(BunchRepository, CashgameRepository); } }
+        public InvitePlayerInteractor InvitePlayer { get { return new InvitePlayerInteractor(BunchRepository, PlayerRepository, MessageSender); } }
+        public AddPlayerInteractor AddPlayer { get { return new AddPlayerInteractor(BunchRepository, PlayerRepository); } }
+        public DeletePlayerInteractor DeletePlayer { get { return new DeletePlayerInteractor(PlayerRepository, CashgameRepository); } }
     }
 }

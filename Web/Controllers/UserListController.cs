@@ -12,7 +12,7 @@ namespace Web.Controllers
         public ActionResult List()
         {
             var contextResult = UseCase.AppContext();
-            var showUserListResult = UseCase.UserList();
+            var showUserListResult = UseCase.UserList.Execute();
             var model = new UserListPageModel(contextResult, showUserListResult);
             return View("~/Views/Pages/UserList/UserList.cshtml", model);
         }

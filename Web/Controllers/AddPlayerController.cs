@@ -27,7 +27,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = UseCase.AddPlayer(request);
+                var result = UseCase.AddPlayer.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)

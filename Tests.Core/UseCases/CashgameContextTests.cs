@@ -1,4 +1,5 @@
-﻿using Core.UseCases.BunchContext;
+﻿using System.Linq;
+using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameContext;
 using NUnit.Framework;
 using Tests.Common;
@@ -79,9 +80,12 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.GameIsRunning);
         }
 
-        [TestCase(CashgamePage.Matrix)]
-        [TestCase(CashgamePage.List)]
-        public void Execute_SelectedPage_SelectedPageIsSet(CashgamePage selectedPage)
+        [TestCase(CashgamePage.Matrix, "/a/cashgame/matrix")]
+        [TestCase(CashgamePage.Toplist, "/a/cashgame/toplist")]
+        [TestCase(CashgamePage.Chart, "/a/cashgame/chart")]
+        [TestCase(CashgamePage.List, "/a/cashgame/list")]
+        [TestCase(CashgamePage.Facts, "/a/cashgame/facts")]
+        public void Execute_SelectedPage_SelectedPageAndLastYearUrlIsCorrect(CashgamePage selectedPage, string url)
         {
             const string slug = "a";
             const int year = 1;
@@ -90,6 +94,7 @@ namespace Tests.Core.UseCases
             var result = Execute(request);
 
             Assert.AreEqual(selectedPage, result.SelectedPage);
+            Assert.AreEqual(url, result.YearItems.Last().Url.Relative);
         }
 
         private CashgameContextResult Execute(CashgameContextRequest request)

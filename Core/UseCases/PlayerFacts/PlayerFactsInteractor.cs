@@ -2,15 +2,21 @@
 
 namespace Core.UseCases.PlayerFacts
 {
-    public static class PlayerFactsInteractor
+    public class PlayerFactsInteractor
     {
-        public static PlayerFactsResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            PlayerFactsRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public PlayerFactsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetFinished(bunch.Id);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public PlayerFactsResult Execute(PlayerFactsRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id);
 
             return new PlayerFactsResult(cashgames, request.PlayerId, bunch.Currency);
         }

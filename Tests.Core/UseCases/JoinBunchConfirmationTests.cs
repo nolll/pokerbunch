@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchConfirmation_BunchNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.BunchNameA, result.BunchName);
         }
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchConfirmation_BunchDetailsUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<BunchDetailsUrl>(result.BunchDetailsUrl);
         }
@@ -28,11 +28,13 @@ namespace Tests.Core.UseCases
             return new JoinBunchConfirmationRequest(Constants.SlugA);
         }
 
-        private JoinBunchConfirmationResult Execute(JoinBunchConfirmationRequest request)
+        private JoinBunchConfirmationInteractor Sut
         {
-            return JoinBunchConfirmationInteractor.Execute(
-                Repos.Bunch,
-                request);
+            get
+            {
+                return new JoinBunchConfirmationInteractor(
+                    Repos.Bunch);
+            }
         }
     }
 }

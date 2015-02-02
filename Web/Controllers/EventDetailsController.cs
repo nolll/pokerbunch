@@ -14,7 +14,7 @@ namespace Web.Controllers
         {
             RequirePlayer(slug);
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var eventDetailsOutput = UseCase.EventDetails(new EventDetailsInput(id));
+            var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetailsInput(id));
             var model = new EventDetailsPageModel(contextResult, eventDetailsOutput);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
         }

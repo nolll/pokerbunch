@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_ReturnUrlIsSetToConfirmationUrl()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual("/-/homegame/created", result.ReturnUrl.Relative);
         }
@@ -35,37 +35,37 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_WithEmptyDisplayName_ThrowsValidationException()
         {
-            Assert.Throws<ValidationException>(() => Execute(CreateRequest("")));
+            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest("")));
         }
 
         [Test]
         public void AddBunch_WithEmptyCurrencySymbol_ThrowsValidationException()
         {
-            Assert.Throws<ValidationException>(() => Execute(CreateRequest(currencySymbol: "")));
+            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(currencySymbol: "")));
         }
 
         [Test]
         public void AddBunch_WithEmptyCurrencyLayout_ThrowsValidationException()
         {
-            Assert.Throws<ValidationException>(() => Execute(CreateRequest(currencyLayout: "")));
+            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(currencyLayout: "")));
         }
 
         [Test]
         public void AddBunch_WithEmptyTimeZone_ThrowsValidationException()
         {
-            Assert.Throws<ValidationException>(() => Execute(CreateRequest(timeZone: "")));
+            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(timeZone: "")));
         }
 
         [Test]
         public void AddBunch_WithExistingSlug_ThrowsException()
         {
-            Assert.Throws<BunchExistsException>(() => Execute(CreateRequest(ExistingDisplayName)));
+            Assert.Throws<BunchExistsException>(() => Sut.Execute(CreateRequest(ExistingDisplayName)));
         }
 
         [Test]
         public void AddBunch_WithGoodInput_CreatesBunch()
         {
-            Execute(CreateRequest());
+            Sut.Execute(CreateRequest());
 
             Assert.AreEqual(0, Repos.Bunch.Added.Id);
             Assert.AreEqual("a-display-name", Repos.Bunch.Added.Slug);
@@ -83,7 +83,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{UserId = 3});
 
-            Execute(CreateRequest());
+            Sut.Execute(CreateRequest());
 
             Assert.AreEqual(1, Repos.Player.Added.BunchId);
             Assert.AreEqual(3, Repos.Player.Added.UserId);
@@ -95,13 +95,15 @@ namespace Tests.Core.UseCases
             return new AddBunchRequest(displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
-        private AddBunchResult Execute(AddBunchRequest request)
+        private AddBunchInteractor Sut
         {
-            return AddBunchInteractor.Execute(
-                Services.Auth,
-                Repos.Bunch,
-                Repos.Player,
-                request);
+            get
+            {
+                return new AddBunchInteractor(
+                    Services.Auth,
+                    Repos.Bunch,
+                    Repos.Player);
+            }
         }
     }
 }

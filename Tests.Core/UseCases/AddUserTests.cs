@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<AddUserConfirmationUrl>(result.ReturnUrl);
         }
@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest("", ValidDisplayName, ValidEmail);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest(ValidUserName, "", ValidEmail);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -49,7 +49,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, "");
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest(ExistingUserName, ValidDisplayName, ValidEmail);
 
-            Assert.Throws<UserExistsException>(() => Execute(request));
+            Assert.Throws<UserExistsException>(() => Sut.Execute(request));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Tests.Core.UseCases
         {
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ExistingEmail);
 
-            Assert.Throws<EmailExistsException>(() => Execute(request));
+            Assert.Throws<EmailExistsException>(() => Sut.Execute(request));
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
             const string expectedSalt = "aaaaaaaaaa";
 
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
-            Execute(request);
+            Sut.Execute(request);
 
             var user = Repos.User.Added;
 
@@ -102,20 +102,22 @@ aaaaaaaa
 Please sign in here: http://pokerbunch.com/-/auth/login";
 
             var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
-            Execute(request);
+            Sut.Execute(request);
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);
             Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
-        private AddUserResult Execute(AddUserRequest request)
+        private AddUserInteractor Sut
         {
-            return AddUserInteractor.Execute(
-                Repos.User,
-                Services.RandomService,
-                Services.MessageSender,
-                request);
+            get
+            {
+                return new AddUserInteractor(
+                    Repos.User,
+                    Services.RandomService,
+                    Services.MessageSender);
+            }
         }
     }
 }

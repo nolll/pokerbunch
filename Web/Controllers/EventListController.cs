@@ -15,7 +15,7 @@ namespace Web.Controllers
         {
             RequirePlayer(slug);
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var eventListOutput = UseCase.EventList(new EventListInput(slug));
+            var eventListOutput = UseCase.EventList.Execute(new EventListInput(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);
             return View("~/Views/Pages/EventList/EventList.cshtml", model);
         }

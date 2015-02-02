@@ -14,7 +14,7 @@ namespace Web.Controllers
         {
             RequirePlayer(slug);
             var bunchContextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var bunchDetailsResult = UseCase.BunchDetails(new BunchDetailsRequest(slug));
+            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetailsRequest(slug));
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
             return View("~/Views/Pages/BunchDetails/BunchDetails.cshtml", model);

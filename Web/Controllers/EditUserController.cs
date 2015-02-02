@@ -24,7 +24,7 @@ namespace Web.Controllers
             try
             {
                 var request = new EditUserRequest(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
-                var result = UseCase.EditUser(request);
+                var result = UseCase.EditUser.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -38,7 +38,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
-            var editUserFormResult = UseCase.EditUserForm(new EditUserFormRequest(userName));
+            var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserFormRequest(userName));
             var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
             return View("~/Views/Pages/EditUser/EditUser.cshtml", model);
         }

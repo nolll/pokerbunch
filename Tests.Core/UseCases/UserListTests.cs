@@ -10,16 +10,19 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserList_ReturnsListOfUserItems()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(3, result.Users.Count);
             Assert.AreEqual(Constants.UserDisplayNameA, result.Users.First().DisplayName);
             Assert.AreEqual("/-/user/details/user-name-a", result.Users.First().Url.Relative);
         }
 
-        private UserListResult Execute()
+        private UserListInteractor Sut
         {
-            return UserListInteractor.Execute(Repos.User);
+            get
+            {
+                return new UserListInteractor(Repos.User);
+            }
         }
     }
 }

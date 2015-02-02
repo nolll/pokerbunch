@@ -37,13 +37,5 @@ namespace Core.UseCases.Cashout
             else
                 checkpointRepository.AddCheckpoint(postedCheckpoint);
         }
-
-        // todo: display sharing options
-        //private string GetMessage(int amount)
-        //{
-        //    var formattedAmount = Math.Abs(amount) + " kr";
-        //    var wonOrLost = amount < 0 ? "lost" : "won";
-        //    return string.Format("I just {0} {1} playing poker. #pokerbunch", wonOrLost, formattedAmount);
-        //}
     }
 }

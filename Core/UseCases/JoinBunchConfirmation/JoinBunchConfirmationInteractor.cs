@@ -3,11 +3,18 @@ using Core.Urls;
 
 namespace Core.UseCases.JoinBunchConfirmation
 {
-    public static class JoinBunchConfirmationInteractor
+    public class JoinBunchConfirmationInteractor
     {
-        public static JoinBunchConfirmationResult Execute(IBunchRepository bunchRepository, JoinBunchConfirmationRequest request)
+        private readonly IBunchRepository _bunchRepository;
+
+        public JoinBunchConfirmationInteractor(IBunchRepository bunchRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
+            _bunchRepository = bunchRepository;
+        }
+
+        public JoinBunchConfirmationResult Execute(JoinBunchConfirmationRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
             var bunchName = bunch.DisplayName;
 
             var detailsUrl = new BunchDetailsUrl(request.Slug);

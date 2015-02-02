@@ -26,7 +26,7 @@ namespace Web.Controllers
             try
             {
                 var request = new JoinBunchRequest(slug, postModel.Code);
-                var result = UseCase.JoinBunch(request);
+                var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -47,7 +47,7 @@ namespace Web.Controllers
         {
             RequirePlayer(slug);
             var contextResult = UseCase.AppContext();
-            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation(new JoinBunchConfirmationRequest(slug));
+            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmationRequest(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
         }
@@ -55,7 +55,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, JoinBunchPostModel postModel = null)
         {
             var contextResult = UseCase.AppContext();
-            var joinBunchFormResult = UseCase.JoinBunchForm(new JoinBunchFormRequest(slug));
+            var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchFormRequest(slug));
             var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
             return View("~/Views/Pages/JoinBunch/Join.cshtml", model);
         }

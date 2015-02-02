@@ -8,25 +8,36 @@ using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.AddBunch
 {
-    public static class AddBunchInteractor
+    public class AddBunchInteractor
     {
-        public static AddBunchResult Execute(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository, AddBunchRequest request)
+        private readonly IAuth _auth;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public AddBunchInteractor(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        {
+            _auth = auth;
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public AddBunchResult Execute(AddBunchRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
             var slug = SlugGenerator.GetSlug(request.DisplayName);
-            var existingBunch = bunchRepository.GetBySlug(slug);
+            var existingBunch = _bunchRepository.GetBySlug(slug);
 
             if (existingBunch != null)
                 throw new BunchExistsException();
 
             var bunch = CreateBunch(request);
-            var id = bunchRepository.Add(bunch);
-            var identity = auth.CurrentIdentity;
+            var id = _bunchRepository.Add(bunch);
+            var identity = _auth.CurrentIdentity;
             var player = new Player(id, identity.UserId, Role.Manager);
-            playerRepository.Add(player);
+            _playerRepository.Add(player);
 
             var returnUrl = new AddBunchConfirmationUrl();
             return new AddBunchResult(returnUrl);

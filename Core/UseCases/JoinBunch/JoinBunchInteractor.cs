@@ -8,20 +8,31 @@ using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.JoinBunch
 {
-    public static class JoinBunchInteractor
+    public class JoinBunchInteractor
     {
-        public static JoinBunchResult Execute(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository, JoinBunchRequest request)
+        private readonly IAuth _auth;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public JoinBunchInteractor(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        {
+            _auth = auth;
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public JoinBunchResult Execute(JoinBunchRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch.Id);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var players = _playerRepository.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
             if (player != null && player.IsUser)
             {
-                playerRepository.JoinHomegame(player, bunch, auth.CurrentIdentity.UserId);
+                _playerRepository.JoinHomegame(player, bunch, _auth.CurrentIdentity.UserId);
             }
             else
             {

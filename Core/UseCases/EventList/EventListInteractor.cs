@@ -5,12 +5,21 @@ using Core.Urls;
 
 namespace Core.UseCases.EventList
 {
-    public static class EventListInteractor
+    public class EventListInteractor
     {
-        public static EventListOutput Execute(IBunchRepository bunchRepository, IEventRepository eventRepository, EventListInput input)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IEventRepository _eventRepository;
+
+        public EventListInteractor(IBunchRepository bunchRepository, IEventRepository eventRepository)
         {
-            var bunch = bunchRepository.GetBySlug(input.Slug);
-            var events = eventRepository.Find(bunch.Id);
+            _bunchRepository = bunchRepository;
+            _eventRepository = eventRepository;
+        }
+
+        public EventListOutput Execute(EventListInput input)
+        {
+            var bunch = _bunchRepository.GetBySlug(input.Slug);
+            var events = _eventRepository.Find(bunch.Id);
 
             var eventItems = events.Select(o => CreateEventItem(input.Slug, o)).ToList();
 

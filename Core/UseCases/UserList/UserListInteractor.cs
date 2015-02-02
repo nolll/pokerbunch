@@ -3,11 +3,18 @@ using Core.Repositories;
 
 namespace Core.UseCases.UserList
 {
-    public static  class UserListInteractor
+    public class UserListInteractor
     {
-        public static UserListResult Execute(IUserRepository userRepository)
+        private readonly IUserRepository _userRepository;
+
+        public UserListInteractor(IUserRepository userRepository)
         {
-            var users = userRepository.GetList();
+            _userRepository = userRepository;
+        }
+
+        public UserListResult Execute()
+        {
+            var users = _userRepository.GetList();
             var userItems = users.Select(o => new UserListItem(o.DisplayName, o.UserName)).ToList();
 
             return new UserListResult(userItems);

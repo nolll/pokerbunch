@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         public void InvitePlayer_ReturnUrlIsSet()
         {
             var request = CreateRequest();
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual("/bunch-a/player/invited/1", result.ReturnUrl.Relative);
         }
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         {
             var request = CreateRequest(email);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -38,7 +38,7 @@ To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and
 If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
             var request = CreateRequest();
 
-            Execute(request);
+            Sut.Execute(request);
 
             Assert.AreEqual(Constants.UserEmailA, Services.MessageSender.To);
             Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
@@ -50,13 +50,15 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
             return new InvitePlayerRequest(Constants.SlugA, Constants.PlayerIdA, email);
         }
 
-        private InvitePlayerResult Execute(InvitePlayerRequest request)
+        private InvitePlayerInteractor Sut
         {
-            return InvitePlayerInteractor.Execute(
-                Repos.Bunch,
-                Repos.Player,
-                Services.MessageSender,
-                request);
+            get
+            {
+                return new InvitePlayerInteractor(
+                    Repos.Bunch,
+                    Repos.Player,
+                    Services.MessageSender);
+            }
         }
     }
 }

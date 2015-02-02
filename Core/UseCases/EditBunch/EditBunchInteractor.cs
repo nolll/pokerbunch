@@ -6,17 +6,24 @@ using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.EditBunch
 {
-    public static class EditBunchInteractor
+    public class EditBunchInteractor
     {
-        public static EditBunchResult Execute(IBunchRepository bunchRepository, EditBunchRequest request)
+        private readonly IBunchRepository _bunchRepository;
+
+        public EditBunchInteractor(IBunchRepository bunchRepository)
+        {
+            _bunchRepository = bunchRepository;
+        }
+
+        public EditBunchResult Execute(EditBunchRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = bunchRepository.GetBySlug(request.Slug);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
             var postedHomegame = CreateBunch(bunch, request);
-            bunchRepository.Save(postedHomegame);
+            _bunchRepository.Save(postedHomegame);
 
             var returnUrl = new BunchDetailsUrl(request.Slug);
             return new EditBunchResult(returnUrl);

@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var request = new PlayerListRequest(Constants.SlugA);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual("/bunch-a/player/add", result.AddUrl.Relative);
             Assert.AreEqual(3, result.Players.Count);
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         {
             var request = new PlayerListRequest(Constants.SlugA);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(Constants.PlayerNameA, result.Players[0].Name);
             Assert.AreEqual(Constants.PlayerNameB, result.Players[1].Name);
@@ -39,18 +39,20 @@ namespace Tests.Core.UseCases
 
             Services.Auth.SetCurrentRole(Role.Manager);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanAddPlayer);
         }
 
-        private PlayerListResult Execute(PlayerListRequest request)
+        private PlayerListInteractor Sut
         {
-            return PlayerListInteractor.Execute(
-                Repos.Bunch,
-                Repos.Player,
-                Services.Auth,
-                request);
+            get
+            {
+                return new PlayerListInteractor(
+                    Repos.Bunch,
+                    Repos.Player,
+                    Services.Auth);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TestEmail_MessageIsSent()
         {
-            Execute();
+            Sut.Execute();
 
             Assert.AreEqual(Email, Services.MessageSender.To);
             Assert.AreEqual("Test Email", Services.MessageSender.Message.Subject);
@@ -21,14 +21,17 @@ namespace Tests.Core.UseCases
         [Test]
         public void TestEmail_EmailIsSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(Email, result.Email);
         }
 
-        private TestEmailResult Execute()
+        private TestEmailInteractor Sut
         {
-            return TestEmailInteractor.Execute(Services.MessageSender);
+            get
+            {
+                return new TestEmailInteractor(Services.MessageSender);
+            }
         }
     }
 }

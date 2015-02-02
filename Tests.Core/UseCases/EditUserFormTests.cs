@@ -1,4 +1,5 @@
-﻿using Core.UseCases.EditUserForm;
+﻿using Core.UseCases.EditUser;
+using Core.UseCases.EditUserForm;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUserForm_UserNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserNameA, result.UserName);
         }
@@ -17,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUserForm_RealNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserRealNameA, result.RealName);
         }
@@ -25,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUserForm_DisplayNameIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserDisplayNameA, result.DisplayName);
         }
@@ -33,7 +34,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUserForm_EmailIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(Constants.UserEmailA, result.Email);
         }
@@ -43,10 +44,12 @@ namespace Tests.Core.UseCases
             return new EditUserFormRequest(Constants.UserNameA);
         }
 
-        private EditUserFormResult Execute(EditUserFormRequest request)
+        private EditUserFormInteractor Sut
         {
-            return EditUserFormInteractor.Execute(
-                Repos.User, request);
+            get
+            {
+                return new EditUserFormInteractor(Repos.User);
+            }
         }
     }
 }

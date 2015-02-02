@@ -5,19 +5,30 @@ using Core.Urls;
 
 namespace Core.UseCases.InvitePlayer
 {
-    public static class InvitePlayerInteractor
+    public class InvitePlayerInteractor
     {
-        public static InvitePlayerResult Execute(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IMessageSender messageSender, InvitePlayerRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IMessageSender _messageSender;
+
+        public InvitePlayerInteractor(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IMessageSender messageSender)
+        {
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+            _messageSender = messageSender;
+        }
+
+        public InvitePlayerResult Execute(InvitePlayerRequest request)
         {
             var validator = new Validator(request);
 
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var player = playerRepository.GetById(request.PlayerId);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var player = _playerRepository.GetById(request.PlayerId);
             var message = new InvitationMessage(bunch, player);
-            messageSender.Send(request.Email, message);
+            _messageSender.Send(request.Email, message);
 
             var url = new InvitePlayerConfirmationUrl(request.Slug, request.PlayerId);
             return new InvitePlayerResult(url);

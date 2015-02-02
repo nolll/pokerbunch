@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             RequireManager(slug);
             var request = new DeletePlayerRequest(slug, playerId);
-            var result = UseCase.DeletePlayer(request);
+            var result = UseCase.DeletePlayer.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
         }
     }

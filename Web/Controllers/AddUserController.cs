@@ -21,7 +21,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddUserRequest(postModel.UserName, postModel.DisplayName, postModel.Email);
-                var result = UseCase.AddUser(request);
+                var result = UseCase.AddUser.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)

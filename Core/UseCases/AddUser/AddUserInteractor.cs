@@ -5,34 +5,44 @@ using Core.Services;
 
 namespace Core.UseCases.AddUser
 {
-    public static class AddUserInteractor
+    public class AddUserInteractor
     {
-        public static AddUserResult Execute(
+        private readonly IUserRepository _userRepository;
+        private readonly IRandomService _randomService;
+        private readonly IMessageSender _messageSender;
+
+        public AddUserInteractor(
             IUserRepository userRepository,
             IRandomService randomService,
-            IMessageSender messageSender,
-            AddUserRequest request)
+            IMessageSender messageSender)
+        {
+            _userRepository = userRepository;
+            _randomService = randomService;
+            _messageSender = messageSender;
+        }
+
+        public AddUserResult Execute(AddUserRequest request)
         {
             var validator = new Validator(request);
 
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            if (userRepository.GetByNameOrEmail(request.UserName) != null)
+            if (_userRepository.GetByNameOrEmail(request.UserName) != null)
                 throw new UserExistsException();
 
-            if (userRepository.GetByNameOrEmail(request.Email) != null)
+            if (_userRepository.GetByNameOrEmail(request.Email) != null)
                 throw new EmailExistsException();
 
-            var password = PasswordGenerator.CreatePassword(randomService.GetAllowedChars());
-            var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
+            var password = PasswordGenerator.CreatePassword(_randomService.GetAllowedChars());
+            var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var user = CreateUser(request, encryptedPassword, salt);
 
-            userRepository.Add(user);
+            _userRepository.Add(user);
             
             var message = new RegistrationMessage(password);
-            messageSender.Send(request.Email, message);
+            _messageSender.Send(request.Email, message);
 
             return new AddUserResult();
         }

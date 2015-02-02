@@ -5,33 +5,40 @@ using Core.Urls;
 
 namespace Core.UseCases.ForgotPassword
 {
-    public static class ForgotPasswordInteractor
+    public class ForgotPasswordInteractor
     {
-        public static ForgotPasswordResult Execute(
-            IUserRepository userRepository,
-            IMessageSender messageSender,
-            IRandomService randomService,
-            ForgotPasswordRequest request)
+        private readonly IUserRepository _userRepository;
+        private readonly IMessageSender _messageSender;
+        private readonly IRandomService _randomService;
+
+        public ForgotPasswordInteractor(IUserRepository userRepository, IMessageSender messageSender, IRandomService randomService)
+        {
+            _userRepository = userRepository;
+            _messageSender = messageSender;
+            _randomService = randomService;
+        }
+
+        public ForgotPasswordResult Execute(ForgotPasswordRequest request)
         {
             var validator = new Validator(request);
 
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = userRepository.GetByNameOrEmail(request.Email);
+            var user = _userRepository.GetByNameOrEmail(request.Email);
             if(user == null)
                 throw new UserNotFoundException();
 
-            var password = PasswordGenerator.CreatePassword(randomService.GetAllowedChars());
-            var salt = SaltGenerator.CreateSalt(randomService.GetAllowedChars());
+            var password = PasswordGenerator.CreatePassword(_randomService.GetAllowedChars());
+            var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
 
             user.SetPassword(encryptedPassword, salt);
             
-            userRepository.Save(user);
+            _userRepository.Save(user);
             
             var message = new ForgotPasswordMessage(password);
-            messageSender.Send(request.Email, message);
+            _messageSender.Send(request.Email, message);
 
             var returnUrl = new ForgotPasswordConfirmationUrl();
 

@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.ClearList();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.PlayedOneGame);
             Assert.IsFalse(result.PlayedTenGames);
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerBadges_OneGame_PlayedOneGameIsTrue()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.PlayedOneGame);
         }
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupGameCount(10);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.PlayedTenGames);
         }
@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupGameCount(50);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.Played50Games);
         }
@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupGameCount(100);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.Played100Games);
         }
@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupGameCount(200);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.Played200Games);
         }
@@ -74,7 +74,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupGameCount(500);
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.Played500Games);
         }
@@ -84,12 +84,14 @@ namespace Tests.Core.UseCases
             return new PlayerBadgesRequest(Constants.SlugA, Constants.PlayerIdA);
         }
 
-        private PlayerBadgesResult Execute(PlayerBadgesRequest request)
+        private PlayerBadgesInteractor Sut
         {
-            return PlayerBadgesInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new PlayerBadgesInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

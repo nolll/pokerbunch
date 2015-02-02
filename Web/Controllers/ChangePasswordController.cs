@@ -23,7 +23,7 @@ namespace Web.Controllers
             try
             {
                 var request = new ChangePasswordRequest(postModel.Password, postModel.Repeat);
-                var result = UseCase.ChangePassword(request);
+                var result = UseCase.ChangePassword.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)

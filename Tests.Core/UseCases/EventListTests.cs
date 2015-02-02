@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.UseCases.EventList;
 using NUnit.Framework;
 using Tests.Common;
@@ -11,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventList_ReturnsAllEvents()
         {
-            var result = Execute(CreateInput());
+            var result = Sut.Execute(CreateInput());
 
             Assert.AreEqual(2, result.Events.Count);
         }
@@ -19,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventList_EachItem_NameIsSet()
         {
-            var result = Execute(CreateInput());
+            var result = Sut.Execute(CreateInput());
 
             Assert.AreEqual(Constants.EventNameA, result.Events[0].Name);
             Assert.AreEqual(Constants.EventNameB, result.Events[1].Name);
@@ -28,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventList_EachItem_StartDateIsSet()
         {
-            var result = Execute(CreateInput());
+            var result = Sut.Execute(CreateInput());
 
             Assert.AreEqual(new Date(2001, 1, 1), result.Events[0].StartDate);
             Assert.AreEqual(new Date(2002, 2, 2), result.Events[1].StartDate);
@@ -37,7 +36,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventList_EachItem_EndDateIsSet()
         {
-            var result = Execute(CreateInput());
+            var result = Sut.Execute(CreateInput());
 
             Assert.AreEqual(new Date(2001, 1, 2), result.Events[0].EndDate);
             Assert.AreEqual(new Date(2002, 2, 3), result.Events[1].EndDate);
@@ -46,20 +45,22 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventList_EachItem_UrlIsSet()
         {
-            var result = Execute(CreateInput());
+            var result = Sut.Execute(CreateInput());
 
             Assert.AreEqual("/bunch-a/event/details/1", result.Events[0].EventDetailsUrl.Relative);
             Assert.AreEqual("/bunch-a/event/details/2", result.Events[1].EventDetailsUrl.Relative);
         }
-        
-        private EventListOutput Execute(EventListInput input)
-        {
-            return EventListInteractor.Execute(
-                Repos.Bunch,
-                Repos.Event,
-                input);
-        }
 
+        private EventListInteractor Sut
+        {
+            get
+            {
+                return new EventListInteractor(
+                    Repos.Bunch,
+                    Repos.Event);
+            }
+        }
+        
         private EventListInput CreateInput()
         {
             return new EventListInput(Constants.SlugA);

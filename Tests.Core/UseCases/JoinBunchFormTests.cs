@@ -10,17 +10,19 @@ namespace Tests.Core.UseCases
         public void JoinBunchForm_BunchNameIsSet()
         {
             var request = new JoinBunchFormRequest(Constants.SlugA);
-            
-            var result = Execute(request);
+
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(Constants.BunchNameA, result.BunchName);
         }
 
-        private JoinBunchFormResult Execute(JoinBunchFormRequest request)
+        private JoinBunchFormInteractor Sut
         {
-            return JoinBunchFormInteractor.Execute(
-                Repos.Bunch,
-                request);
+            get
+            {
+                return new JoinBunchFormInteractor(
+                    Repos.Bunch);
+            }
         }
     }
 }

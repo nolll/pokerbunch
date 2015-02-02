@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ForgotPassword_WithValidEmail_ReturnUrlIsSet()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsInstanceOf<ForgotPasswordConfirmationUrl>(result.ReturnUrl);
         }
@@ -26,14 +26,14 @@ namespace Tests.Core.UseCases
         {
             var request = CreateRequest(InvalidEmail);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
         [Test]
         public void ForgotPassword_UserNotFound_ThrowsException()
         {
-            Assert.Throws<UserNotFoundException>(() => Execute(CreateRequest(NonExistingEmail)));
+            Assert.Throws<UserNotFoundException>(() => Sut.Execute(CreateRequest(NonExistingEmail)));
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
 aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
-            Execute(CreateRequest());
+            Sut.Execute(CreateRequest());
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);
             Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
@@ -54,7 +54,7 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
         [Test]
         public void ForgotPassword_SavesUserWithNewPassword()
         {
-            Execute(CreateRequest());
+            Sut.Execute(CreateRequest());
 
             var savedUser = Repos.User.Saved;
             Assert.AreEqual("0478095c8ece0bbc11f94663ac2c4f10b29666de", savedUser.EncryptedPassword);
@@ -66,13 +66,15 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             return new ForgotPasswordRequest(email);
         }
 
-        private ForgotPasswordResult Execute(ForgotPasswordRequest request)
+        private ForgotPasswordInteractor Sut
         {
-            return ForgotPasswordInteractor.Execute(
-                Repos.User,
-                Services.MessageSender,
-                Services.RandomService,
-                request);
+            get
+            {
+                return new ForgotPasswordInteractor(
+                    Repos.User,
+                    Services.MessageSender,
+                    Services.RandomService);
+            }
         }
     }
 }

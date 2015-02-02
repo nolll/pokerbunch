@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route("-/admin/sendemail")]
         public ActionResult SendEmail()
         {
-            var result = UseCase.TestEmail();
+            var result = UseCase.TestEmail.Execute();
 
             var model = new EmailModel(result);
 
@@ -22,7 +22,7 @@ namespace Web.Controllers
         [Route("-/admin/clearcache")]
         public ActionResult ClearCache()
         {
-            var result = UseCase.ClearCache();
+            var result = UseCase.ClearCache.Execute();
 
             var model = new ClearCacheModel(result);
 

@@ -21,7 +21,7 @@ namespace Web.Controllers
             try
             {
                 var request = new ForgotPasswordRequest(postModel.Email);
-                var result = UseCase.ForgotPassword(request);
+                var result = UseCase.ForgotPassword.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)

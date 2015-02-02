@@ -3,18 +3,24 @@ using Core.Urls;
 
 namespace Core.UseCases.DeletePlayer
 {
-    public static class DeletePlayerInteractor
+    public class DeletePlayerInteractor
     {
-        public static DeletePlayerResult Execute(
-            IPlayerRepository playerRepository,
-            ICashgameRepository cashgameRepository,
-            DeletePlayerRequest request)
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public DeletePlayerInteractor(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
-            var hasPlayed = cashgameRepository.HasPlayed(request.PlayerId);
+            _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public DeletePlayerResult Execute(DeletePlayerRequest request)
+        {
+            var hasPlayed = _cashgameRepository.HasPlayed(request.PlayerId);
 
             if (!hasPlayed)
             {
-                playerRepository.Delete(request.PlayerId);
+                _playerRepository.Delete(request.PlayerId);
             }
 
             var returnUrl = CreateReturnUrl(request, hasPlayed);

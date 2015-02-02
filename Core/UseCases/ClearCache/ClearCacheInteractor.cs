@@ -2,11 +2,18 @@
 
 namespace Core.UseCases.ClearCache
 {
-    public static class ClearCacheInteractor
+    public class ClearCacheInteractor
     {
-        public static ClearCacheOutput Execute(ICacheContainer cacheContainer)
+        private readonly ICacheContainer _cacheContainer;
+
+        public ClearCacheInteractor(ICacheContainer cacheContainer)
         {
-            var objectCount = cacheContainer.ClearAll();
+            _cacheContainer = cacheContainer;
+        }
+
+        public ClearCacheOutput Execute()
+        {
+            var objectCount = _cacheContainer.ClearAll();
 
             return new ClearCacheOutput(objectCount);
         }

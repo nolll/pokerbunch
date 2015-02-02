@@ -27,7 +27,7 @@ namespace Web.Controllers
             try
             {
                 var request = new EditBunchRequest(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
-                var result = UseCase.EditBunch(request);
+                var result = UseCase.EditBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -42,7 +42,7 @@ namespace Web.Controllers
         {
             var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
             var editBunchFormRequest = new EditBunchFormRequest(slug);
-            var editBunchFormResult = UseCase.EditBunchForm(editBunchFormRequest);
+            var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
             return View("~/Views/Pages/EditBunch/Edit.cshtml", model);
         }
