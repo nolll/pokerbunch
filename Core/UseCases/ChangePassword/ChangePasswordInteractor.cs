@@ -8,13 +8,11 @@ namespace Core.UseCases.ChangePassword
 {
     public class ChangePasswordInteractor
     {
-        private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
         private readonly IRandomService _randomService;
 
-        public ChangePasswordInteractor(IAuth auth, IUserRepository userRepository, IRandomService randomService)
+        public ChangePasswordInteractor(IUserRepository userRepository, IRandomService randomService)
         {
-            _auth = auth;
             _userRepository = userRepository;
             _randomService = randomService;
         }
@@ -30,7 +28,7 @@ namespace Core.UseCases.ChangePassword
 
             var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = _userRepository.GetById(_auth.CurrentIdentity.UserId);
+            var user = _userRepository.GetById(request.UserId);
             user = CreateUser(user, encryptedPassword, salt);
             
             _userRepository.Save(user);

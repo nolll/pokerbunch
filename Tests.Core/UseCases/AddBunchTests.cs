@@ -81,8 +81,6 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_WithGoodInput_CreatesPlayer()
         {
-            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{UserId = 3});
-
             Sut.Execute(CreateRequest());
 
             Assert.AreEqual(1, Repos.Player.Added.BunchId);
@@ -92,7 +90,7 @@ namespace Tests.Core.UseCases
 
         private AddBunchRequest CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
         {
-            return new AddBunchRequest(displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
+            return new AddBunchRequest(3, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
         private AddBunchInteractor Sut
@@ -100,7 +98,6 @@ namespace Tests.Core.UseCases
             get
             {
                 return new AddBunchInteractor(
-                    Services.Auth,
                     Repos.Bunch,
                     Repos.Player);
             }

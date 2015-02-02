@@ -10,13 +10,11 @@ namespace Core.UseCases.AddBunch
 {
     public class AddBunchInteractor
     {
-        private readonly IAuth _auth;
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public AddBunchInteractor(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public AddBunchInteractor(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
         {
-            _auth = auth;
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
         }
@@ -35,8 +33,7 @@ namespace Core.UseCases.AddBunch
 
             var bunch = CreateBunch(request);
             var id = _bunchRepository.Add(bunch);
-            var identity = _auth.CurrentIdentity;
-            var player = new Player(id, identity.UserId, Role.Manager);
+            var player = new Player(id, request.UserId, Role.Manager);
             _playerRepository.Add(player);
 
             var returnUrl = new AddBunchConfirmationUrl();

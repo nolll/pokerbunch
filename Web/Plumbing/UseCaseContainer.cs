@@ -90,13 +90,13 @@ namespace Web.Plumbing
         public EditUserFormInteractor EditUserForm { get { return new EditUserFormInteractor(UserRepository); } }
         public EditUserInteractor EditUser { get { return new EditUserInteractor(UserRepository); } }
         public ForgotPasswordInteractor ForgotPassword { get { return new ForgotPasswordInteractor(UserRepository, MessageSender, RandomService); } }
-        public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(Auth, UserRepository, RandomService); } } 
+        public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(UserRepository, RandomService); } } 
 
         // Bunch
         public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository); } }
         public BunchDetailsInteractor BunchDetails { get { return new BunchDetailsInteractor(BunchRepository, Auth); } }
         public AddBunchFormInteractor AddBunchForm { get { return new AddBunchFormInteractor(); } }
-        public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(Auth, BunchRepository, PlayerRepository); } }
+        public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(BunchRepository, PlayerRepository); } }
         public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(BunchRepository); } }
         public EditBunchInteractor EditBunch { get { return new EditBunchInteractor(BunchRepository); } }
         public JoinBunchFormInteractor JoinBunchForm { get { return new JoinBunchFormInteractor(BunchRepository); } }

@@ -27,8 +27,6 @@ namespace Core.UseCases.PlayerBadges
 
         private int GetNumberOfPlayedGames(int playerId, IEnumerable<Cashgame> cashgames)
         {
-            if (cashgames == null)
-                return 0;
             return cashgames.Count(cashgame => cashgame.IsInGame(playerId));
         }
 

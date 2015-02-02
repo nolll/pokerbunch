@@ -2,7 +2,6 @@ using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.UseCases.RequirePlayer;
 
 namespace Core.UseCases.RequireManager
 {
