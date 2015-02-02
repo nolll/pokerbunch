@@ -10,13 +10,11 @@ namespace Core.UseCases.JoinBunch
 {
     public class JoinBunchInteractor
     {
-        private readonly IAuth _auth;
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public JoinBunchInteractor(IAuth auth, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public JoinBunchInteractor(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
         {
-            _auth = auth;
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
         }
@@ -32,7 +30,7 @@ namespace Core.UseCases.JoinBunch
             var player = GetMatchedPlayer(players, request.Code);
             if (player != null && player.IsUser)
             {
-                _playerRepository.JoinHomegame(player, bunch, _auth.CurrentIdentity.UserId);
+                _playerRepository.JoinHomegame(player, bunch, request.UserId);
             }
             else
             {

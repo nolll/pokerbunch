@@ -100,7 +100,7 @@ namespace Web.Plumbing
         public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(BunchRepository); } }
         public EditBunchInteractor EditBunch { get { return new EditBunchInteractor(BunchRepository); } }
         public JoinBunchFormInteractor JoinBunchForm { get { return new JoinBunchFormInteractor(BunchRepository); } }
-        public JoinBunchInteractor JoinBunch { get { return new JoinBunchInteractor(Auth, BunchRepository, PlayerRepository); } } 
+        public JoinBunchInteractor JoinBunch { get { return new JoinBunchInteractor(BunchRepository, PlayerRepository); } } 
         public JoinBunchConfirmationInteractor JoinBunchConfirmation { get { return new JoinBunchConfirmationInteractor(BunchRepository); } }
 
         // Events
