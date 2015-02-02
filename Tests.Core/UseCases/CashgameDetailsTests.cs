@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(Constants.DateStringA, result.Date.IsoString);
             Assert.AreEqual(Constants.LocationA, result.Location);
@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
         {
             var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[0].Name);
             Assert.AreEqual("/bunch-a/cashgame/action/2001-01-01/2", result.PlayerItems[0].PlayerUrl.Relative);
@@ -59,20 +59,22 @@ namespace Tests.Core.UseCases
             var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
 
             Services.Auth.SetCurrentRole(Role.Manager);
-            
-            var result = Execute(request);
+
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanEdit);
         }
 
-        private CashgameDetailsResult Execute(CashgameDetailsRequest request)
+        private CashgameDetailsInteractor Sut
         {
-            return CashgameDetailsInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Services.Auth,
-                Repos.Player,
-                request);
+            get
+            {
+                return new CashgameDetailsInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Services.Auth,
+                    Repos.Player);
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Web.Controllers
             try
             {
                 var request = new EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
-                var result = UseCase.EditCheckpoint(request);
+                var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -40,8 +40,8 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var editCheckpointFormResult = UseCase.EditCheckpointForm(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
         }

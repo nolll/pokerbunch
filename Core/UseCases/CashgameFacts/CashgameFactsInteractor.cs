@@ -4,20 +4,27 @@ using Core.Repositories;
 
 namespace Core.UseCases.CashgameFacts
 {
-    public static class CashgameFactsInteractor
+    public class CashgameFactsInteractor
     {
-        public static CashgameFactsResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository,
-            CashgameFactsRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public CashgameFactsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public CashgameFactsResult Execute(CashgameFactsRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var players = _playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
-            return GetFactsResult(playerRepository, bunch, factBuilder);
+            return GetFactsResult(_playerRepository, bunch, factBuilder);
         }
 
         private static CashgameFactsResult GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)

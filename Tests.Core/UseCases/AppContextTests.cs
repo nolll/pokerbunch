@@ -1,10 +1,8 @@
 ﻿using Core;
 using Core.Entities;
 using Core.UseCases.AppContext;
-using Core.UseCases.BaseContext;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -13,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithoutUser_AllPropertiesAreSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsEmpty(result.UserDisplayName);
@@ -29,7 +27,7 @@ namespace Tests.Core.UseCases
             const string displayName = "b";
             Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{DisplayName = displayName, UserName = userName});
 
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.AreEqual("b", result.UserDisplayName);
@@ -37,11 +35,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/-/user/details/a", result.UserDetailsUrl.Relative);
         }
 
-        private AppContextResult Execute()
+        private AppContextInteractor Sut
         {
-            return AppContextInteractor.Execute(
-                new BaseContextResultInTest(), 
-                Services.Auth);
+            get { return new AppContextInteractor(Services.Auth); }
         }
     }
 }

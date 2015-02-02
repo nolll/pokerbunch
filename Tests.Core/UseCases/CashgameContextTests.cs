@@ -3,7 +3,6 @@ using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameContext;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -16,7 +15,7 @@ namespace Tests.Core.UseCases
             const int year = 1;
             var request = new CashgameContextRequest(slug, year);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -27,7 +26,7 @@ namespace Tests.Core.UseCases
             const string slug = "a";
             var cashgameContextRequest = new CashgameContextRequest(slug);
 
-            var result = Execute(cashgameContextRequest);
+            var result = Sut.Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<BunchContextResult>(result.BunchContext);
         }
@@ -39,7 +38,7 @@ namespace Tests.Core.UseCases
             const int year = 1;
             var request = new CashgameContextRequest(slug, year);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(year, result.SelectedYear);
         }
@@ -50,7 +49,7 @@ namespace Tests.Core.UseCases
             const string slug = "a";
             var request = new CashgameContextRequest(slug);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsNull(result.SelectedYear);
         }
@@ -62,7 +61,7 @@ namespace Tests.Core.UseCases
             const int year = 1;
             var request = new CashgameContextRequest(slug, year);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsFalse(result.GameIsRunning);
         }
@@ -75,7 +74,7 @@ namespace Tests.Core.UseCases
             const string slug = "a";
             var request = new CashgameContextRequest(slug);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.GameIsRunning);
         }
@@ -91,18 +90,21 @@ namespace Tests.Core.UseCases
             const int year = 1;
             var request = new CashgameContextRequest(slug, year, selectedPage);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(selectedPage, result.SelectedPage);
             Assert.AreEqual(url, result.YearItems.Last().Url.Relative);
         }
 
-        private CashgameContextResult Execute(CashgameContextRequest request)
+        private CashgameContextInteractor Sut
         {
-            return CashgameContextInteractor.Execute(
-                new BunchContextResultInTest(), 
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new CashgameContextInteractor(
+                    Services.Auth,
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

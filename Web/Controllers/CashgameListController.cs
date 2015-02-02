@@ -13,8 +13,8 @@ namespace Web.Controllers
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.List));
-            var listResult = UseCase.CashgameList(new CashgameListRequest(slug, orderBy, year));
+            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, year, CashgamePage.List));
+            var listResult = UseCase.CashgameList.Execute(new CashgameListRequest(slug, orderBy, year));
 
             var model = new CashgameListPageModel(contextResult, listResult);
             return View("~/Views/Pages/CashgameList/List.cshtml", model);

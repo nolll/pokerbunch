@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_UrlsAreSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsInstanceOf<AddBunchUrl>(result.AddBunchUrl);
             Assert.IsInstanceOf<LoginUrl>(result.LoginUrl);
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Home_NotLoggedIn_IsLoggedInAndIsAdminIsFalse()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsFalse(result.IsAdmin);
@@ -37,7 +37,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity());
 
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.IsFalse(result.IsAdmin);
@@ -48,14 +48,14 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{IsAdmin = true});
 
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsTrue(result.IsAdmin);
         }
 
-        private HomeResult Execute()
+        private HomeInteractor Sut
         {
-            return HomeInteractor.Execute(Services.Auth);
+            get { return new HomeInteractor(Services.Auth); }
         }
     }
 }

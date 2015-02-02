@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, DateTime.UtcNow);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.CheckpointItems.Count);
 
@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         {
             var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdB, DateTime.UtcNow);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(3, result.CheckpointItems.Count);
 
@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
         {
             var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdA, DateTime.UtcNow);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(3, result.CheckpointItems.Count);
 
@@ -82,7 +82,7 @@ namespace Tests.Core.UseCases
         {
             var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringB, Constants.PlayerIdB, DateTime.UtcNow);
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(3, result.CheckpointItems.Count);
 
@@ -109,7 +109,7 @@ namespace Tests.Core.UseCases
 
             var request = new ActionsChartRequest(Constants.SlugA, Constants.DateStringC, Constants.PlayerIdA, Constants.StartTimeC.AddHours(1));
 
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.CheckpointItems.Count);
 
@@ -124,12 +124,14 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(200, result.CheckpointItems[1].TotalBuyin);
         }
 
-        private ActionsChartResult Execute(ActionsChartRequest request)
+        private ActionsChartInteractor Sut
         {
-            return ActionsChartInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new ActionsChartInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

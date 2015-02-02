@@ -15,9 +15,9 @@ namespace Web.Controllers
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var actionsOutput = UseCase.Actions(new ActionsInput(slug, dateStr, playerId));
-            var actionsChartResult = UseCase.ActionsChart(new ActionsChartRequest(slug, dateStr, playerId, DateTime.UtcNow));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var actionsOutput = UseCase.Actions.Execute(new ActionsInput(slug, dateStr, playerId));
+            var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChartRequest(slug, dateStr, playerId, DateTime.UtcNow));
             var model = new ActionPageModel(contextResult, actionsOutput, actionsChartResult);
             return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
         }

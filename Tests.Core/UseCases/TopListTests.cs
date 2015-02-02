@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         public void TopList_ReturnsTopListItems()
         {
             var request = new TopListRequest(Constants.SlugA, "winnings", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.Items.Count);
             Assert.AreEqual(ToplistSortOrder.Winnings, result.OrderBy);
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         public void TopList_ItemHasCorrectValues()
         {
             var request = new TopListRequest(Constants.SlugA, "winnings", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(1, result.Items[0].Rank);
             Assert.AreEqual(400, result.Items[0].Buyin.Amount);
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         public void TopList_SortByWinnings_HighestWinningsIsFirst(string orderBy)
         {
             var request = new TopListRequest(Constants.SlugA, orderBy, null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(200, result.Items[0].Winnings.Amount);
             Assert.AreEqual(-200, result.Items[1].Winnings.Amount);
@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         public void TopList_SortByBuyin_HighestBuyinIsFirst()
         {
             var request = new TopListRequest(Constants.SlugA, "buyin", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(600, result.Items[0].Buyin.Amount);
             Assert.AreEqual(400, result.Items[1].Buyin.Amount);
@@ -60,7 +60,7 @@ namespace Tests.Core.UseCases
         public void TopList_SortByCashout_HighestCashoutIsFirst()
         {
             var request = new TopListRequest(Constants.SlugA, "cashout", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(600, result.Items[0].Cashout.Amount);
             Assert.AreEqual(400, result.Items[1].Cashout.Amount);
@@ -70,7 +70,7 @@ namespace Tests.Core.UseCases
         public void TopList_SortByTimePlayed_HighestTotalMinutesIsFirst()
         {
             var request = new TopListRequest(Constants.SlugA, "timeplayed", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(152, result.Items[0].TimePlayed.Minutes);
             Assert.AreEqual(152, result.Items[1].TimePlayed.Minutes);
@@ -80,7 +80,7 @@ namespace Tests.Core.UseCases
         public void TopList_SortByGamesPlayed_HighestGameCountIsFirst()
         {
             var request = new TopListRequest(Constants.SlugA, "gamesplayed", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.Items[0].GamesPlayed);
             Assert.AreEqual(2, result.Items[1].GamesPlayed);
@@ -90,19 +90,21 @@ namespace Tests.Core.UseCases
         public void TopList_SortByWinRate_HighestWinRateIsFirst()
         {
             var request = new TopListRequest(Constants.SlugA, "winrate", null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(79, result.Items[0].WinRate.Amount);
             Assert.AreEqual(-79, result.Items[1].WinRate.Amount);
         }
 
-        private TopListResult Execute(TopListRequest request)
+        private TopListInteractor Sut
         {
-            return TopListInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Repos.Player,
-                request);
+            get
+            {
+                return new TopListInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Repos.Player);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases
         public void Actions_ActionsResultIsReturned()
         {
             var request = new ActionsInput(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:00:00"), result.Date);
             Assert.AreEqual(Constants.PlayerNameA, result.PlayerName);
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         public void Actions_ItemPropertiesAreSet()
         {
             var request = new ActionsInput(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(BuyinDescription, result.CheckpointItems[0].Type);
             Assert.AreEqual(200, result.CheckpointItems[0].DisplayAmount.Amount);
@@ -45,20 +45,22 @@ namespace Tests.Core.UseCases
             var request = new ActionsInput(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
 
             Services.Auth.SetCurrentRole(Role.Manager);
-            
-            var result = Execute(request);
+
+            var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
         }
 
-        private ActionsOutput Execute(ActionsInput input)
+        private ActionsInteractor Sut
         {
-            return ActionsInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Repos.Player,
-                Services.Auth,
-                input);
+            get
+            {
+                return new ActionsInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Repos.Player,
+                    Services.Auth);
+            }
         }
     }
 }

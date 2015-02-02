@@ -2,7 +2,6 @@
 using Core.UseCases.BunchContext;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.FakeClasses;
 
 namespace Tests.Core.UseCases
 {
@@ -11,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchContext_WithSlug_HasBunchIsTrue()
         {
-            var result = Execute(new BunchContextRequest(Constants.SlugA));
+            var result = Sut.Execute(new BunchContextRequest(Constants.SlugA));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -21,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.SetupOneBunchList();
 
-            var result = Execute(new BunchContextRequest());
+            var result = Sut.Execute(new BunchContextRequest());
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -31,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.ClearList();
 
-            var result = Execute(new BunchContextRequest(Constants.SlugA));
+            var result = Sut.Execute(new BunchContextRequest(Constants.SlugA));
 
             Assert.IsFalse(result.HasBunch);
         }
@@ -41,18 +40,19 @@ namespace Tests.Core.UseCases
         {
             var cashgameContextRequest = new BunchContextRequest(Constants.SlugA);
 
-            var result = Execute(cashgameContextRequest);
+            var result = Sut.Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<AppContextResult>(result.AppContext);
         }
 
-        private BunchContextResult Execute(BunchContextRequest request)
+        private BunchContextInteractor Sut
         {
-            return BunchContextInteractor.Execute(
-                new AppContextResultInTest(), 
-                Repos.Bunch,
-                Services.Auth,
-                request);
+            get
+            {
+                return new BunchContextInteractor(
+                    Services.Auth,
+                    Repos.Bunch);
+            }
         }
     }
 }

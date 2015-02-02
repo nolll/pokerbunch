@@ -17,7 +17,7 @@ namespace Web.Controllers
             if (!IsPlayer(slug, postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new CashoutRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
-            UseCase.Cashout(request);
+            UseCase.Cashout.Execute(request);
             return JsonView(new JsonViewModelOk());
         }
     }

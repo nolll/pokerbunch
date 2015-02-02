@@ -5,19 +5,28 @@ using Core.Urls;
 
 namespace Core.UseCases.EditCashgameForm
 {
-    public static class EditCashgameFormInteractor
+    public class EditCashgameFormInteractor
     {
-        public static EditCashgameFormResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, EditCashgameFormRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public EditCashgameFormInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public EditCashgameFormResult Execute(EditCashgameFormRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var startTime = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             
             var date = new Date(startTime);
             var cancelUrl = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString);
             var deleteUrl = new DeleteCashgameUrl(bunch.Slug, cashgame.DateString);
             var location = cashgame.Location;
-            var locations = cashgameRepository.GetLocations(bunch.Id);
+            var locations = _cashgameRepository.GetLocations(bunch.Id);
 
             return new EditCashgameFormResult(date, cancelUrl, deleteUrl, location, locations);
         }

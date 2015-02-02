@@ -13,8 +13,8 @@ namespace Web.Controllers
         public ActionResult Facts(string slug, int? year = null)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.CashgameContext(new CashgameContextRequest(slug, year, CashgamePage.Facts));
-            var factsResult = UseCase.CashgameFacts(new CashgameFactsRequest(slug, year));
+            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, year, CashgamePage.Facts));
+            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFactsRequest(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
             return View("~/Views/Pages/CashgameFacts/FactsPage.cshtml", model);

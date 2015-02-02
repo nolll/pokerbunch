@@ -2,11 +2,18 @@ using Core.Services;
 
 namespace Core.UseCases.Home
 {
-    public static class HomeInteractor
+    public class HomeInteractor
     {
-        public static HomeResult Execute(IAuth auth)
+        private readonly IAuth _auth;
+
+        public HomeInteractor(IAuth auth)
         {
-            var identity = auth.CurrentIdentity;
+            _auth = auth;
+        }
+
+        public HomeResult Execute()
+        {
+            var identity = _auth.CurrentIdentity;
             var isAdmin = identity.IsAdmin;
 
             return new HomeResult(identity.IsAuthenticated, isAdmin);

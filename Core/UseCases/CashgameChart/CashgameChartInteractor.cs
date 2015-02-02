@@ -5,13 +5,24 @@ using Core.Repositories;
 
 namespace Core.UseCases.CashgameChart
 {
-    public static class CashgameChartInteractor
+    public class CashgameChartInteractor
     {
-        public static CashgameChartResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, CashgameChartRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public CashgameChartInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var players = playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public CashgameChartResult Execute(CashgameChartRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var players = _playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             var suite = new CashgameSuite(cashgames, players);
 
             var playerItems = GetPlayerItems(suite.TotalResults);

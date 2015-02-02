@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
         {
             var expected = A.DateTime.AsLocal().Build();
 
-            var result = Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
 
             Assert.AreEqual(Constants.ReportCheckpointStack, result.Stack);
             Assert.AreEqual(Constants.ReportCheckpointAmount, result.Amount);
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_DeleteUrlIsSet()
         {
-            var result = Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
 
             Assert.IsInstanceOf<DeleteCheckpointUrl>(result.DeleteUrl);
         }
@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_CancelUrlIsSet()
         {
-            var result = Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
 
             Assert.IsInstanceOf<CashgameActionUrl>(result.CancelUrl);
         }
@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_WithBuyinCheckpoint_CanEditAmountIsTrue()
         {
-            var result = Execute(CreateRequest(Constants.BuyinCheckpointId));
+            var result = Sut.Execute(CreateRequest(Constants.BuyinCheckpointId));
 
             Assert.IsTrue(result.CanEditAmount);
         }
@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         [TestCase(Constants.CashoutCheckpointId)]
         public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(int id)
         {
-            var result = Execute(CreateRequest(id));
+            var result = Sut.Execute(CreateRequest(id));
 
             Assert.IsFalse(result.CanEditAmount);
         }
@@ -59,13 +59,15 @@ namespace Tests.Core.UseCases
         {
             return new EditCheckpointFormRequest(Constants.SlugB, DateString, PlayerId, id);
         }
-        
-        private EditCheckpointFormResult Execute(EditCheckpointFormRequest request)
+
+        private EditCheckpointFormInteractor Sut
         {
-            return EditCheckpointFormInteractor.Execute(
-                Repos.Bunch,
-                Repos.Checkpoint,
-                request);
+            get
+            {
+                return new EditCheckpointFormInteractor(
+                    Repos.Bunch,
+                    Repos.Checkpoint);
+            }
         }
     }
 }

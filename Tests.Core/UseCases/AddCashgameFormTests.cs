@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         public void AddCashgameOptions_ReturnsResultObject()
         {
             const string slug = Constants.SlugA;
-            var result = Execute(new AddCashgameFormRequest(slug));
+            var result = Sut.Execute(new AddCashgameFormRequest(slug));
 
             Assert.IsInstanceOf<AddCashgameFormResult>(result);
         }
@@ -23,26 +23,28 @@ namespace Tests.Core.UseCases
 
             const string slug = Constants.SlugA;
 
-            Assert.Throws<CashgameRunningException>(() => Execute(new AddCashgameFormRequest(slug)));
+            Assert.Throws<CashgameRunningException>(() => Sut.Execute(new AddCashgameFormRequest(slug)));
         }
 
         [Test]
         public void AddCashgameOptions_LocationsAreSet()
         {
             const string slug = Constants.SlugA;
-            var result = Execute(new AddCashgameFormRequest(slug));
+            var result = Sut.Execute(new AddCashgameFormRequest(slug));
 
             Assert.AreEqual(2, result.Locations.Count);
             Assert.AreEqual(Constants.LocationA, result.Locations[0]);
             Assert.AreEqual(Constants.LocationB, result.Locations[1]);
         }
 
-        private AddCashgameFormResult Execute(AddCashgameFormRequest request)
+        private AddCashgameFormInteractor Sut
         {
-            return AddCashgameFormInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new AddCashgameFormInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

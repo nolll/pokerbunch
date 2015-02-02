@@ -4,18 +4,25 @@ using Core.Urls;
 
 namespace Core.UseCases.DeleteCheckpoint
 {
-    public static class DeleteCheckpointInteractor
+    public class DeleteCheckpointInteractor
     {
-        public static DeleteCheckpointResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            ICheckpointRepository checkpointRepository,
-            DeleteCheckpointRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
+
+        public DeleteCheckpointInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
-            var checkpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
-            checkpointRepository.DeleteCheckpoint(checkpoint);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _checkpointRepository = checkpointRepository;
+        }
+
+        public DeleteCheckpointResult Execute(DeleteCheckpointRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
+            _checkpointRepository.DeleteCheckpoint(checkpoint);
 
             var returnUrl = GetReturnUrl(cashgame.Status, request);
             return new DeleteCheckpointResult(returnUrl);

@@ -3,16 +3,24 @@ using Core.UseCases.BaseContext;
 
 namespace Core.UseCases.AppContext
 {
-    public static class AppContextInteractor
+    public class AppContextInteractor
     {
-        public static AppContextResult Execute(BaseContextResult contextResult, IAuth auth)
+        private readonly IAuth _auth;
+
+        public AppContextInteractor(IAuth auth)
         {
-            var identity = auth.CurrentIdentity;
+            _auth = auth;
+        }
+
+        public AppContextResult Execute()
+        {
+            var identity = _auth.CurrentIdentity;
             var userName = identity.IsAuthenticated ? identity.UserName : string.Empty;
             var userDisplayName = identity.IsAuthenticated ? identity.DisplayName : string.Empty;
+            var baseContextResult = new BaseContextInteractor().Execute();
 
             return new AppContextResult(
-                contextResult,
+                baseContextResult,
                 identity.IsAuthenticated,
                 userName,
                 userDisplayName);

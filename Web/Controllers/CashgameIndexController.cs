@@ -11,7 +11,7 @@ namespace Web.Controllers
         public ActionResult Index(string slug)
         {
             RequirePlayer(slug);
-            var indexResult = UseCase.CashgameHome(new CashgameHomeRequest(slug));
+            var indexResult = UseCase.CashgameHome.Execute(new CashgameHomeRequest(slug));
             return Redirect(indexResult.StartUrl.Relative);
         }
     }

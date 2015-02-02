@@ -6,16 +6,25 @@ using Core.Urls;
 
 namespace Core.UseCases.EditCheckpoint
 {
-    public static class EditCheckpointInteractor
+    public class EditCheckpointInteractor
     {
-        public static EditCheckpointResult Execute(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, EditCheckpointRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
+
+        public EditCheckpointInteractor(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
+        {
+            _bunchRepository = bunchRepository;
+            _checkpointRepository = checkpointRepository;
+        }
+
+        public EditCheckpointResult Execute(EditCheckpointRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var existingCheckpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
 
             var postedCheckpoint = Checkpoint.Create(
                 existingCheckpoint.CashgameId,
@@ -26,7 +35,7 @@ namespace Core.UseCases.EditCheckpoint
                 request.Amount,
                 existingCheckpoint.Id);
 
-            checkpointRepository.UpdateCheckpoint(postedCheckpoint);
+            _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
             var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
             return new EditCheckpointResult(returnUrl);

@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         public void CashgameChart_GameDataIsCorrect()
         {
             var request = new CashgameChartRequest(Constants.SlugA, null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GameItems.Count);
 
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         public void CashgameChart_PlayerDataIsCorrect()
         {
             var request = new CashgameChartRequest(Constants.SlugA, null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(Constants.PlayerIdA, result.PlayerItems[0].Id);
@@ -36,13 +36,15 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[1].Name);
         }
 
-        private CashgameChartResult Execute(CashgameChartRequest request)
+        private CashgameChartInteractor Sut
         {
-            return CashgameChartInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Repos.Player,
-                request);
+            get
+            {
+                return new CashgameChartInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Repos.Player);
+            }
         }
     }
 }

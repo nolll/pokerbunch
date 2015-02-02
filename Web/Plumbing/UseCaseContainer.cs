@@ -66,18 +66,18 @@ namespace Web.Plumbing
     public class UseCaseContainer : Dependencies
     {
         // Contexts
-        public Func<BaseContextResult> BaseContext { get { return BaseContextInteractor.Execute; } }
-        public Func<AppContextResult> AppContext { get { return () => AppContextInteractor.Execute(BaseContext(), Auth); } }
-        public Func<BunchContextRequest, BunchContextResult> BunchContext { get { return request => BunchContextInteractor.Execute(AppContext(), BunchRepository, Auth, request); } }
-        public Func<CashgameContextRequest, CashgameContextResult> CashgameContext { get { return request => CashgameContextInteractor.Execute(BunchContext(request), CashgameRepository, request); } }
+        public BaseContextInteractor BaseContext { get { return new BaseContextInteractor(); } }
+        public AppContextInteractor AppContext { get { return new AppContextInteractor(Auth); } }
+        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(Auth, BunchRepository); } }
+        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(Auth, BunchRepository, CashgameRepository); } }
 
         // Auth and Home
-        public Func<HomeResult> Home { get { return () => HomeInteractor.Execute(Auth); } }
-        public Func<LoginFormRequest, LoginFormResult> LoginForm { get { return LoginFormInteractor.Execute; } }
-        public Func<LoginRequest, LoginResult> Login { get { return request => LoginInteractor.Execute(UserRepository, Auth, BunchRepository, PlayerRepository, request); } }
-        public Func<LogoutResult> Logout { get { return () => LogoutInteractor.Execute(Auth); } }
-        public Action<RequirePlayerRequest> RequirePlayer { get { return request => new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
-        public Action<RequireManagerRequest> RequireManager { get { return request => new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository).Execute(request); } }
+        public HomeInteractor Home { get { return new HomeInteractor(Auth); } }
+        public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
+        public LoginInteractor Login { get { return new LoginInteractor(UserRepository, Auth, BunchRepository, PlayerRepository); } }
+        public LogoutInteractor Logout { get { return new LogoutInteractor(Auth); } }
+        public RequirePlayerInteractor RequirePlayer { get { return new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
+        public RequireManagerInteractor RequireManager { get { return new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
 
         // Admin
         public TestEmailInteractor TestEmail { get { return new TestEmailInteractor(MessageSender); } }
@@ -108,29 +108,29 @@ namespace Web.Plumbing
         public EventDetailsInteractor EventDetails { get { return new EventDetailsInteractor(EventRepository); } } 
 
         // Cashgame
-        public Func<CashgameHomeRequest, CashgameHomeResult> CashgameHome { get { return request => CashgameHomeInteractor.Execute(request, BunchRepository, CashgameRepository); } } 
-        public Func<TopListRequest, TopListResult> TopList { get { return request => TopListInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
-        public Func<CashgameDetailsRequest, CashgameDetailsResult> CashgameDetails { get { return request => CashgameDetailsInteractor.Execute(BunchRepository, CashgameRepository, Auth, PlayerRepository, request); } }
-        public Func<CashgameDetailsChartRequest, CashgameDetailsChartResult> CashgameDetailsChart { get { return request => CashgameDetailsChartInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } } 
-        public Func<CashgameFactsRequest, CashgameFactsResult> CashgameFacts { get { return request => CashgameFactsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
-        public Func<CashgameListRequest, CashgameListResult> CashgameList { get { return request => CashgameListInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<AddCashgameFormRequest, AddCashgameFormResult> AddCashgameForm { get { return request => AddCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<AddCashgameRequest, AddCashgameResult> AddCashgame { get { return request => AddCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<ActionsInput, ActionsOutput> Actions { get { return input => ActionsInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, Auth, input); } }
-        public Func<ActionsChartRequest, ActionsChartResult> ActionsChart { get { return request => ActionsChartInteractor.Execute(BunchRepository, CashgameRepository, request); } } 
-        public Func<EditCheckpointFormRequest, EditCheckpointFormResult> EditCheckpointForm { get { return request => EditCheckpointFormInteractor.Execute(BunchRepository, CheckpointRepository, request); } }
-        public Func<EditCheckpointRequest, EditCheckpointResult> EditCheckpoint { get { return request => EditCheckpointInteractor.Execute(BunchRepository, CheckpointRepository, request); } } 
-        public Func<CashgameChartRequest, CashgameChartResult> CashgameChart { get { return request => CashgameChartInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } } 
-        public Func<MatrixRequest, MatrixResult> Matrix { get { return request => MatrixInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, request); } }
-        public Func<RunningCashgameRequest, RunningCashgameResult> RunningCashgame { get { return request => RunningCashgameInteractor.Execute(Auth, BunchRepository, CashgameRepository, PlayerRepository, request); } }
-        public Func<EditCashgameFormRequest, EditCashgameFormResult> EditCashgameForm { get { return request => EditCashgameFormInteractor.Execute(BunchRepository, CashgameRepository, request); }}
-        public Func<EditCashgameRequest, EditCashgameResult> EditCashgame { get { return request => EditCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<DeleteCashgameRequest, DeleteCashgameResult> DeleteCashgame { get { return request => DeleteCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
-        public Func<DeleteCheckpointRequest, DeleteCheckpointResult> DeleteCheckpoint { get { return request => DeleteCheckpointInteractor.Execute(BunchRepository, CashgameRepository, CheckpointRepository, request); } }
-        public Action<BuyinRequest> Buyin { get { return request => BuyinInteractor.Execute(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository, request); } }
-        public Action<ReportRequest> Report { get { return request => ReportInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository, request); } }
-        public Action<CashoutRequest> Cashout { get { return request => CashoutInteractor.Execute(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository, request); } }
-        public Action<EndCashgameRequest> EndCashgame { get { return request => EndCashgameInteractor.Execute(BunchRepository, CashgameRepository, request); } }
+        public CashgameHomeInteractor CashgameHome { get { return new CashgameHomeInteractor(BunchRepository, CashgameRepository); } }
+        public TopListInteractor TopList { get { return new TopListInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public CashgameDetailsInteractor CashgameDetails { get { return new CashgameDetailsInteractor(BunchRepository, CashgameRepository, Auth, PlayerRepository); } }
+        public CashgameDetailsChartInteractor CashgameDetailsChart { get { return new CashgameDetailsChartInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public CashgameFactsInteractor CashgameFacts { get { return new CashgameFactsInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public CashgameListInteractor CashgameList { get { return new CashgameListInteractor(BunchRepository, CashgameRepository); } }
+        public AddCashgameFormInteractor AddCashgameForm { get { return new AddCashgameFormInteractor(BunchRepository, CashgameRepository); } }
+        public AddCashgameInteractor AddCashgame { get { return new AddCashgameInteractor(BunchRepository, CashgameRepository); } }
+        public ActionsInteractor Actions { get { return new ActionsInteractor(BunchRepository, CashgameRepository, PlayerRepository, Auth); } }
+        public ActionsChartInteractor ActionsChart { get { return new ActionsChartInteractor(BunchRepository, CashgameRepository); } }
+        public EditCheckpointFormInteractor EditCheckpointForm { get { return new EditCheckpointFormInteractor(BunchRepository, CheckpointRepository); } }
+        public EditCheckpointInteractor EditCheckpoint { get { return new EditCheckpointInteractor(BunchRepository, CheckpointRepository); } }
+        public CashgameChartInteractor CashgameChart { get { return new CashgameChartInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public MatrixInteractor Matrix { get { return new MatrixInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public RunningCashgameInteractor RunningCashgame { get { return new RunningCashgameInteractor(Auth, BunchRepository, CashgameRepository, PlayerRepository); } }
+        public EditCashgameFormInteractor EditCashgameForm { get { return new EditCashgameFormInteractor(BunchRepository, CashgameRepository); } }
+        public EditCashgameInteractor EditCashgame { get { return new EditCashgameInteractor(BunchRepository, CashgameRepository); } }
+        public DeleteCashgameInteractor DeleteCashgame { get { return new DeleteCashgameInteractor(BunchRepository, CashgameRepository); } }
+        public DeleteCheckpointInteractor DeleteCheckpoint { get { return new DeleteCheckpointInteractor(BunchRepository, CashgameRepository, CheckpointRepository); } }
+        public BuyinInteractor Buyin { get { return new BuyinInteractor(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository); } }
+        public ReportInteractor Report { get { return new ReportInteractor(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository); } }
+        public CashoutInteractor Cashout { get { return new CashoutInteractor(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository); } }
+        public EndCashgameInteractor EndCashgame { get { return new EndCashgameInteractor(BunchRepository, CashgameRepository); } }
         
         // Player
         public PlayerListInteractor PlayerList { get { return new PlayerListInteractor(BunchRepository, PlayerRepository, Auth); } }

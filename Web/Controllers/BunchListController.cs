@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route("-/homegame/list")]
         public ActionResult List()
         {
-            var contextResult = UseCase.AppContext();
+            var contextResult = UseCase.AppContext.Execute();
             var bunchListResult = UseCase.BunchList.Execute();
             var model = new BunchListPageModel(contextResult, bunchListResult);
             return View("~/Views/Pages/BunchList/BunchList.cshtml", model);

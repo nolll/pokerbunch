@@ -8,7 +8,7 @@ namespace Web.Controllers
         [Route("-/auth/logout")]
         public ActionResult Logout()
         {
-            var result = UseCase.Logout();
+            var result = UseCase.Logout.Execute();
             return Redirect(result.ReturnUrl.Relative);
         }
     }

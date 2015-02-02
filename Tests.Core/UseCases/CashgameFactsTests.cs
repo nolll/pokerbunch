@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         public void Execute_ReturnsCashgameFactResult()
         {
             var request = new CashgameFactsRequest(Constants.SlugA, null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsNotNull(result);
         }
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         public void GetFactsResult_AllPropertiesAreSet()
         {
             var request = new CashgameFactsRequest(Constants.SlugA, null);
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GameCount);
             Assert.AreEqual(154, result.TotalTimePlayed.Minutes);
@@ -33,13 +33,15 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(152, result.MostTimePlayed.Time.Minutes);
         }
 
-        private CashgameFactsResult Execute(CashgameFactsRequest request)
+        private CashgameFactsInteractor Sut
         {
-            return CashgameFactsInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Repos.Player,
-                request);
+            get
+            {
+                return new CashgameFactsInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Repos.Player);
+            }
         }
     }
 }

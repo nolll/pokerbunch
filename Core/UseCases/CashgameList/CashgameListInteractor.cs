@@ -6,15 +6,21 @@ using Core.Services;
 
 namespace Core.UseCases.CashgameList
 {
-    public static class CashgameListInteractor
+    public class CashgameListInteractor
     {
-        public static CashgameListResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            CashgameListRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public CashgameListInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public CashgameListResult Execute(CashgameListRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
             var list = cashgames.Select(o => new CashgameItem(bunch, o));

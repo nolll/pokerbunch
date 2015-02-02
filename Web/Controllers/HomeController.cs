@@ -10,8 +10,8 @@ namespace Web.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            var contextResult = UseCase.BunchContext(new BunchContextRequest());
-            var homeResult = UseCase.Home();
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest());
+            var homeResult = UseCase.Home.Execute();
             var model = new HomePageModel(contextResult, homeResult);
             return View("~/Views/Pages/Home/Index.cshtml", model);
         }

@@ -5,15 +5,21 @@ using Core.Urls;
 
 namespace Core.UseCases.EditCheckpointForm
 {
-    public static class EditCheckpointFormInteractor
+    public class EditCheckpointFormInteractor
     {
-        public static EditCheckpointFormResult Execute(
-            IBunchRepository bunchRepository,
-            ICheckpointRepository checkpointRepository,
-            EditCheckpointFormRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
+
+        public EditCheckpointFormInteractor(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var checkpoint = checkpointRepository.GetCheckpoint(request.CheckpointId);
+            _bunchRepository = bunchRepository;
+            _checkpointRepository = checkpointRepository;
+        }
+
+        public EditCheckpointFormResult Execute(EditCheckpointFormRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
             var stack = checkpoint.Stack;
             var amount = checkpoint.Amount;
             var timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);

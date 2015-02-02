@@ -65,25 +65,25 @@ namespace Web.Controllers.Base
 
         protected ActionResult Error404()
         {
-            var contextResult = UseCase.BaseContext();
+            var contextResult = UseCase.BaseContext.Execute();
             return ShowError(new Error404PageModel(contextResult));
         }
 
         protected ActionResult Error401()
         {
-            var contextResult = UseCase.BaseContext();
+            var contextResult = UseCase.BaseContext.Execute();
             return ShowError(new Error401PageModel(contextResult));
         }
 
         protected ActionResult Error403()
         {
-            var contextResult = UseCase.BaseContext();
+            var contextResult = UseCase.BaseContext.Execute();
             return ShowError(new Error403PageModel(contextResult));
         }
 
         protected ActionResult Error500()
         {
-            var contextResult = UseCase.BaseContext();
+            var contextResult = UseCase.BaseContext.Execute();
             return ShowError(new Error500PageModel(contextResult));
         }
 
@@ -114,12 +114,12 @@ namespace Web.Controllers.Base
 
         protected void RequirePlayer(string slug)
         {
-            UseCase.RequirePlayer(new RequirePlayerRequest(slug, Identity.UserName));
+            UseCase.RequirePlayer.Execute(new RequirePlayerRequest(slug, Identity.UserName));
         }
 
         protected void RequireManager(string slug)
         {
-            UseCase.RequireManager(new RequireManagerRequest(slug, Identity.UserName));
+            UseCase.RequireManager.Execute(new RequireManagerRequest(slug, Identity.UserName));
         }
     }
 }

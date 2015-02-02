@@ -42,7 +42,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(AddUserPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext();
+            var contextResult = UseCase.AppContext.Execute();
             var model = new AddUserPageModel(contextResult, postModel);
             return View("~/Views/Pages/AddUser/AddUser.cshtml", model);
         }
@@ -50,7 +50,7 @@ namespace Web.Controllers
         [Route("-/user/created")]
         public ActionResult Done()
         {
-            var contextResult = UseCase.AppContext();
+            var contextResult = UseCase.AppContext.Execute();
             var model = new AddUserConfirmationPageModel(contextResult);
             return View("~/Views/Pages/AddUser/AddUserDone.cshtml", model);
         }

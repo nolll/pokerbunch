@@ -7,18 +7,25 @@ using Core.Repositories;
 
 namespace Core.UseCases.CashgameDetailsChart
 {
-    public static class CashgameDetailsChartInteractor
+    public class CashgameDetailsChartInteractor
     {
-        public static CashgameDetailsChartResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository,
-            CashgameDetailsChartRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public CashgameDetailsChartInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = GetCashgame(cashgameRepository, bunch, request.DateStr);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public CashgameDetailsChartResult Execute(CashgameDetailsChartRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = GetCashgame(_cashgameRepository, bunch, request.DateStr);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
-            var players = playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
+            var players = _playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
 

@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             RequireManager(slug);
             var request = new DeleteCashgameRequest(slug, dateStr);
-            var result = UseCase.DeleteCashgame(request);
+            var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
 		}
     }

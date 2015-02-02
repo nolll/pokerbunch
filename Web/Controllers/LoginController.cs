@@ -23,7 +23,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = UseCase.Login(request);
+                var result = UseCase.Login.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -36,8 +36,8 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext();
-            var loginFormResult = UseCase.LoginForm(new LoginFormRequest(returnUrl));
+            var contextResult = UseCase.AppContext.Execute();
+            var loginFormResult = UseCase.LoginForm.Execute(new LoginFormRequest(returnUrl));
             var model = new LoginPageModel(contextResult, loginFormResult, postModel);
             return View("~/Views/Login/Login.cshtml", model);
         }

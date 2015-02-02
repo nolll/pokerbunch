@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             RequireManager(slug);
             var request = new DeleteCheckpointRequest(slug, dateStr, checkpointId);
-            var result = UseCase.DeleteCheckpoint(request);
+            var result = UseCase.DeleteCheckpoint.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
         }
     }

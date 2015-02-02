@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BaseContext_VersionIsSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsNotEmpty(result.Version);
         }
@@ -17,14 +17,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void BaseContext_AnyServerName_IsInProductionIsFalse()
         {
-            var result = Execute();
+            var result = Sut.Execute();
             
             Assert.IsFalse(result.IsInProduction);
         }
 
-        private BaseContextResult Execute()
+        private BaseContextInteractor Sut
         {
-            return BaseContextInteractor.Execute();
+            get { return new BaseContextInteractor(); }
         }
     }
 }

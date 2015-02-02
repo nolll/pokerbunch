@@ -2,11 +2,18 @@ using Core.Services;
 
 namespace Core.UseCases.Logout
 {
-    public static class LogoutInteractor
+    public class LogoutInteractor
     {
-        public static LogoutResult Execute(IAuth auth)
+        private readonly IAuth _auth;
+
+        public LogoutInteractor(IAuth auth)
         {
-            auth.SignOut();
+            _auth = auth;
+        }
+
+        public LogoutResult Execute()
+        {
+            _auth.SignOut();
 
             return new LogoutResult();
         }

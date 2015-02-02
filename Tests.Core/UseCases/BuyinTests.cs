@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             var request = new BuyinRequest(Constants.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         {
             var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
             Repos.Cashgame.SetupRunningGame();
 
             var request = new BuyinRequest(Constants.SlugA, PlayerId, buyin, stack, timestamp);
-            Execute(request);
+            Sut.Execute(request);
 
             var result = Repos.Checkpoint.Added;
 
@@ -53,14 +53,16 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(savedStack, result.Stack);
         }
 
-        private void Execute(BuyinRequest request)
+        private BuyinInteractor Sut
         {
-            BuyinInteractor.Execute(
-                Repos.Bunch,
-                Repos.Player,
-                Repos.Cashgame,
-                Repos.Checkpoint,
-                request);
+            get
+            {
+                return new BuyinInteractor(
+                    Repos.Bunch,
+                    Repos.Player,
+                    Repos.Cashgame,
+                    Repos.Checkpoint);
+            }
         }
     }
 }

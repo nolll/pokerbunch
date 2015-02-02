@@ -15,7 +15,7 @@ namespace Web.Controllers
         public ActionResult Details(string slug, int playerId)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetailsRequest(slug, playerId));
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(slug, playerId));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(slug, playerId));

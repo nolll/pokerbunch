@@ -27,7 +27,7 @@ namespace Web.Controllers
             try
             {
                 var request = new EditCashgameRequest(slug, dateStr, postModel.Location);
-                var result = UseCase.EditCashgame(request);
+                var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -40,8 +40,8 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var editCashgameFormResult = UseCase.EditCashgameForm(new EditCashgameFormRequest(slug, dateStr));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameFormRequest(slug, dateStr));
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
         }

@@ -6,15 +6,21 @@ using Core.Repositories;
 
 namespace Core.UseCases.ActionsChart
 {
-    public static class ActionsChartInteractor
+    public class ActionsChartInteractor
     {
-        public static ActionsChartResult Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            ActionsChartRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public ActionsChartInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public ActionsChartResult Execute(ActionsChartRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var result = cashgame.GetResult(request.PlayerId);
 
             var checkpointItems = GetCheckpointItems(bunch, cashgame, result, request.CurrentTime);

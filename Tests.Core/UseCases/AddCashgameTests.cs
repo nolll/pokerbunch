@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         public void AddCashgame_ReturnUrlIsSet()
         {
             var request = CreateRequest();
-            var result = Execute(request);
+            var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         public void AddCashgame_WithLocation_GameIsAdded()
         {
             var request = CreateRequest();
-            Execute(request);
+            Sut.Execute(request);
 
             Assert.IsNotNull(Repos.Cashgame.Added);
         }
@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         {
             var request = CreateRequestWithoutLocation();
 
-            var ex = Assert.Throws<ValidationException>(() => Execute(request));
+            var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
@@ -46,12 +46,14 @@ namespace Tests.Core.UseCases
             return new AddCashgameRequest(Constants.SlugA, location);
         }
 
-        private AddCashgameResult Execute(AddCashgameRequest request)
+        private AddCashgameInteractor Sut
         {
-            return AddCashgameInteractor.Execute(
-                Repos.Bunch, 
-                Repos.Cashgame,
-                request);
+            get
+            {
+                return new AddCashgameInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame);
+            }
         }
     }
 }

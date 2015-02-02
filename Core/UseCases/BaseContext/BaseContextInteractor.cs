@@ -2,9 +2,9 @@
 
 namespace Core.UseCases.BaseContext
 {
-    public static class BaseContextInteractor
+    public class BaseContextInteractor
     {
-        public static BaseContextResult Execute()
+        public BaseContextResult Execute()
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 

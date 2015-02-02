@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Matrix_WithTwoGames_GameItemsAreCorrectAndSortedByDateDescending()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(2, result.GameItems.Count);
             Assert.AreEqual("2002-02-02", result.GameItems[0].Date.IsoString);
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupSingleYear();
 
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsFalse(result.SpansMultipleYears);
         }
@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Matrix_WithTwoGamesOnDifferentYears_SpansMultipleYearsIsTrue()
         {
-            var result = Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest());
 
             Assert.IsTrue(result.SpansMultipleYears);
         }
@@ -41,13 +41,15 @@ namespace Tests.Core.UseCases
             return new MatrixRequest(Constants.SlugA, year);
         }
 
-        private MatrixResult Execute(MatrixRequest request)
+        private MatrixInteractor Sut
         {
-            return MatrixInteractor.Execute(
-                Repos.Bunch,
-                Repos.Cashgame,
-                Repos.Player,
-                request);
+            get
+            {
+                return new MatrixInteractor(
+                    Repos.Bunch,
+                    Repos.Cashgame,
+                    Repos.Player);
+            }
         }
     }
 }

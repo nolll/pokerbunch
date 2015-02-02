@@ -9,27 +9,35 @@ using Core.Urls;
 
 namespace Core.UseCases.RunningCashgame
 {
-    public static class RunningCashgameInteractor
+    public class RunningCashgameInteractor
     {
-        public static RunningCashgameResult Execute(
-            IAuth auth,
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository,
-            RunningCashgameRequest request)
+        private readonly IAuth _auth;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public RunningCashgameInteractor(IAuth auth, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetRunning(bunch.Id);
+            _auth = auth;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public RunningCashgameResult Execute(RunningCashgameRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
 
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var player = playerRepository.GetByUserId(bunch.Id, auth.CurrentIdentity.UserId);
-            var players = playerRepository.GetList(GetPlayerIds(cashgame));
-            var bunchPlayers = playerRepository.GetList(bunch.Id);
+            var player = _playerRepository.GetByUserId(bunch.Id, _auth.CurrentIdentity.UserId);
+            var players = _playerRepository.GetList(GetPlayerIds(cashgame));
+            var bunchPlayers = _playerRepository.GetList(bunch.Id);
 
             var isStarted = cashgame.IsStarted;
-            var isManager = auth.IsInRole(request.Slug, Role.Manager);
+            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
             
             var location = cashgame.Location;
             var gameDataUrl = new RunningCashgameGameJsonUrl(bunch.Slug);

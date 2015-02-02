@@ -17,7 +17,7 @@ namespace Web.Controllers
             if (!IsPlayer(slug, postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new ReportRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
-            UseCase.Report(request);
+            UseCase.Report.Execute(request);
             return JsonView(new JsonViewModelOk());
         }
     }

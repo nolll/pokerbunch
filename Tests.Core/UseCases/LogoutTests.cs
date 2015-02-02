@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Logout_SignsOut()
         {
-            Execute();
+            Sut.Execute();
 
             Assert.IsTrue(Services.Auth.SignedOut);
         }
@@ -18,14 +18,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void Logout_ReturnUrlIsSet()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.IsInstanceOf<HomeUrl>(result.ReturnUrl);
         }
 
-        private LogoutResult Execute()
+        private LogoutInteractor Sut
         {
-            return LogoutInteractor.Execute(Services.Auth);
+            get { return new LogoutInteractor(Services.Auth); }
         }
     }
 }

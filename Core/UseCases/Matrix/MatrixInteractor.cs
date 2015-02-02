@@ -7,13 +7,24 @@ using Core.Urls;
 
 namespace Core.UseCases.Matrix
 {
-    public static class MatrixInteractor
+    public class MatrixInteractor
     {
-        public static MatrixResult Execute(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, MatrixRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+
+        public MatrixInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgames = cashgameRepository.GetFinished(bunch.Id, request.Year);
-            var players = playerRepository.GetList(bunch.Id);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+        }
+
+        public MatrixResult Execute(MatrixRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var players = _playerRepository.GetList(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
             
             var gameItems = CreateGameItems(bunch.Slug, cashgames);

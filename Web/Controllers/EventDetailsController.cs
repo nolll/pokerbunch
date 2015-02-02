@@ -13,7 +13,7 @@ namespace Web.Controllers
         public ActionResult List(string slug, int id)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
             var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetailsInput(id));
             var model = new EventDetailsPageModel(contextResult, eventDetailsOutput);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);

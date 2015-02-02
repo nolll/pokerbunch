@@ -27,7 +27,7 @@ namespace Web.Controllers
 
             try
             {
-                var result = UseCase.AddCashgame(request);
+                var result = UseCase.AddCashgame.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
             catch (ValidationException ex)
@@ -40,8 +40,8 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext(new BunchContextRequest(slug));
-            var optionsResult = UseCase.AddCashgameForm(new AddCashgameFormRequest(slug));
+            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameFormRequest(slug));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
             return View("~/Views/Pages/AddCashgame/Add.cshtml", model);
         }

@@ -4,25 +4,33 @@ using Core.Repositories;
 
 namespace Core.UseCases.Report
 {
-    public static class ReportInteractor
+    public class ReportInteractor
     {
-        public static void Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository,
-            ICheckpointRepository checkpointRepository,
-            ReportRequest request)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
+
+        public ReportInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, ICheckpointRepository checkpointRepository)
+        {
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _checkpointRepository = checkpointRepository;
+        }
+
+        public void Execute(ReportRequest request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var cashgame = cashgameRepository.GetRunning(bunch.Id);
-            var player = playerRepository.GetById(request.PlayerId);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
+            var player = _playerRepository.GetById(request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, player.Id, request.CurrentTime, CheckpointType.Report, request.Stack);
-            checkpointRepository.AddCheckpoint(checkpoint);
+            _checkpointRepository.AddCheckpoint(checkpoint);
         }
     }
 }

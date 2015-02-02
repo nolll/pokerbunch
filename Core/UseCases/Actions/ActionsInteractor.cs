@@ -8,20 +8,28 @@ using Core.Urls;
 
 namespace Core.UseCases.Actions
 {
-    public static class ActionsInteractor
+    public class ActionsInteractor
     {
-        public static ActionsOutput Execute(
-            IBunchRepository bunchRepository,
-            ICashgameRepository cashgameRepository,
-            IPlayerRepository playerRepository,
-            IAuth auth,
-            ActionsInput input)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IAuth _auth;
+
+        public ActionsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IAuth auth)
         {
-            var bunch = bunchRepository.GetBySlug(input.Slug);
-            var cashgame = cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
-            var player = playerRepository.GetById(input.PlayerId);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _auth = auth;
+        }
+
+        public ActionsOutput Execute(ActionsInput input)
+        {
+            var bunch = _bunchRepository.GetBySlug(input.Slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
+            var player = _playerRepository.GetById(input.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
-            var isManager = auth.IsInRole(bunch.Slug, Role.Manager);
+            var isManager = _auth.IsInRole(bunch.Slug, Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;

@@ -5,12 +5,21 @@ using Core.Urls;
 
 namespace Core.UseCases.CashgameHome
 {
-    public static class CashgameHomeInteractor
+    public class CashgameHomeInteractor
     {
-        public static CashgameHomeResult Execute(CashgameHomeRequest request, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+
+        public CashgameHomeInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            var bunch = bunchRepository.GetBySlug(request.Slug);
-            var years = cashgameRepository.GetYears(bunch.Id);
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+        }
+
+        public CashgameHomeResult Execute(CashgameHomeRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var years = _cashgameRepository.GetYears(bunch.Id);
             var startUrl = GetStartUrl(bunch.Slug, years);
 
             return new CashgameHomeResult(startUrl);

@@ -14,7 +14,7 @@ namespace Web.Controllers
         {
             if (!IsPlayer(slug))
                 throw new AccessDeniedException();
-            UseCase.EndCashgame(new EndCashgameRequest(slug));
+            UseCase.EndCashgame.Execute(new EndCashgameRequest(slug));
             return JsonView(new JsonViewModelOk());
         }
     }

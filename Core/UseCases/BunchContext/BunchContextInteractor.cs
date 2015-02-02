@@ -5,22 +5,32 @@ using Core.UseCases.AppContext;
 
 namespace Core.UseCases.BunchContext
 {
-    public static class BunchContextInteractor
+    public class BunchContextInteractor
     {
-        public static BunchContextResult Execute(AppContextResult appContextResult, IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
+        private readonly IAuth _auth;
+        private readonly IBunchRepository _bunchRepository;
+
+        public BunchContextInteractor(IAuth auth, IBunchRepository bunchRepository)
         {
-            var bunch = GetBunch(bunchRepository, auth, request);
+            _auth = auth;
+            _bunchRepository = bunchRepository;
+        }
+
+        public BunchContextResult Execute(BunchContextRequest request)
+        {
+            var bunch = GetBunch(request);
+            var appContextResult = new AppContextInteractor(_auth).Execute();
 
             if (bunch == null)
                 return new BunchContextResult(appContextResult);
             return new BunchContextResult(appContextResult, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
-        private static Bunch GetBunch(IBunchRepository bunchRepository, IAuth auth, BunchContextRequest request)
+        private Bunch GetBunch(BunchContextRequest request)
         {
             if (request.HasSlug)
-                return bunchRepository.GetBySlug(request.Slug);
-            var bunches = bunchRepository.GetByUserId(auth.CurrentIdentity.UserId);
+                return _bunchRepository.GetBySlug(request.Slug);
+            var bunches = _bunchRepository.GetByUserId(_auth.CurrentIdentity.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }
     }
