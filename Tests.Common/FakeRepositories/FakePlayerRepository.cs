@@ -10,6 +10,7 @@ namespace Tests.Common.FakeRepositories
     {
         public Player Added { get; private set; }
         public int Deleted { get; private set; }
+        public JoinedData Joined { get; private set; }
         private readonly IList<Player> _list;
 
         public FakePlayerRepository()
@@ -50,7 +51,8 @@ namespace Tests.Common.FakeRepositories
 
         public bool JoinHomegame(Player player, Bunch bunch, int userId)
         {
-            throw new System.NotImplementedException();
+            Joined = new JoinedData(player.Id, bunch.Id, userId);
+            return true;
         }
 
         public bool Delete(int playerId)
@@ -81,6 +83,20 @@ namespace Tests.Common.FakeRepositories
                     .WithRole(Role.Player)
                     .Build()
             };
+        }
+
+        public class JoinedData
+        {
+            public JoinedData(int playerId, int bunchId, int userId)
+            {
+                PlayerId = playerId;
+                BunchId = bunchId;
+                UserId = userId;
+            }
+
+            public int PlayerId { get; set; }
+            public int BunchId { get; set; }
+            public int UserId { get; set; }
         }
     }
 }
