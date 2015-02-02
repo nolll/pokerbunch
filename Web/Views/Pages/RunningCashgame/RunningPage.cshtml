@@ -5,7 +5,9 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }"></div>
+<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }">
+    @Html.Partial("~/Views/Misc/Spinner.cshtml")
+</div>
 
 <script type="text/html" id="running-cashgame-template">
     <div class="region width2">

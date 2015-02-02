@@ -264,6 +264,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="FrontEnd\Css\spinner.css">
+      <DependentUpon>spinner.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\spinner.less" />
+    <Content Include="FrontEnd\Css\spinner.css.map">
+      <DependentUpon>spinner.css</DependentUpon>
+    </Content>
+    <Content Include="Views\Misc\Spinner.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>
@@ -339,6 +347,9 @@
     </Content>
     <Content Include="FrontEnd\Css\sortable-table.css">
       <DependentUpon>sortable-table.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\spinner.min.css">
+      <DependentUpon>spinner.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\standings.css">
       <DependentUpon>standings.less</DependentUpon>
