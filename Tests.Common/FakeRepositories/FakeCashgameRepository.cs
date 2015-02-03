@@ -153,6 +153,18 @@ namespace Tests.Common.FakeRepositories
             _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
         }
 
+        public void SetupRunningGameWithCashoutCheckpoint()
+        {
+            var checkpoints1 = new List<Checkpoint>
+            {
+                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdB, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 2),
+                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC.AddMinutes(1), CheckpointType.Cashout, 200, 0, 3),
+            };
+
+            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
+        }
+
         public void ClearList()
         {
             _list.Clear();
