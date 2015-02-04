@@ -122,29 +122,5 @@ namespace Core.UseCases.CashgameFacts
             }
             return biggestTotalCashoutResult;
         }
-
-        protected FactBuilder(
-            int gameCount,
-            CashgameResult bestResult,
-            CashgameResult worstResult,
-            CashgameTotalResult bestTotalResult,
-            CashgameTotalResult worstTotalResult,
-            CashgameTotalResult mostTimeResult,
-            CashgameTotalResult biggestBuyinTotalResult,
-            CashgameTotalResult biggestCashoutTotalResult,
-            int totalGameTime,
-            int totalTurnover)
-        {
-            GameCount = gameCount;
-            BestResult = bestResult;
-            WorstResult = worstResult;
-            BestTotalResult = bestTotalResult;
-            WorstTotalResult = worstTotalResult;
-            MostTimeResult = mostTimeResult;
-            BiggestBuyinTotalResult = biggestBuyinTotalResult;
-            BiggestCashoutTotalResult = biggestCashoutTotalResult;
-            TotalGameTime = totalGameTime;
-            TotalTurnover = totalTurnover;
-        }
-	}
+    }
 }
