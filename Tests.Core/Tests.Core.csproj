@@ -55,6 +55,7 @@
     <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameChartTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
+    <Compile Include="UseCases\CashgameDetailsChartTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameHomeTests.cs" />

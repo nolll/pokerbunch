@@ -25,7 +25,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<Player> GetList(IList<int> ids)
         {
-            return _list;
+            return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
         public Player GetById(int id)

@@ -23,7 +23,7 @@ namespace Core.UseCases.CashgameDetailsChart
         public CashgameDetailsChartResult Execute(CashgameDetailsChartRequest request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var cashgame = GetCashgame(_cashgameRepository, bunch, request.DateStr);
+            var cashgame = GetCashgame(bunch, request.DateStr);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             var players = _playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
 
@@ -32,11 +32,11 @@ namespace Core.UseCases.CashgameDetailsChart
             return new CashgameDetailsChartResult(playerItems);
         }
 
-        private static Cashgame GetCashgame(ICashgameRepository cashgameRepository, Bunch bunch, string dateStr)
+        private Cashgame GetCashgame(Bunch bunch, string dateStr)
         {
             if (string.IsNullOrEmpty(dateStr))
-                return cashgameRepository.GetRunning(bunch.Id);
-            return cashgameRepository.GetByDateString(bunch.Id, dateStr);
+                return _cashgameRepository.GetRunning(bunch.Id);
+            return _cashgameRepository.GetByDateString(bunch.Id, dateStr);
         }
 
         private static IList<DetailsChartPlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, DateTime now)
