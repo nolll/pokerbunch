@@ -6,19 +6,16 @@ namespace Core.UseCases.DeleteCashgame
 {
     public class DeleteCashgameInteractor
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public DeleteCashgameInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public DeleteCashgameInteractor(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public DeleteCashgameResult Execute(DeleteCashgameRequest request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
             
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();

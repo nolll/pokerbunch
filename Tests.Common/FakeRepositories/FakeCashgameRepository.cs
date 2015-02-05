@@ -11,6 +11,7 @@ namespace Tests.Common.FakeRepositories
     {
         private IList<Cashgame> _list;
         public Cashgame Added { get; private set; }
+        public Cashgame Deleted { get; private set; }
 
         public FakeCashgameRepository()
         {
@@ -36,7 +37,7 @@ namespace Tests.Common.FakeRepositories
 
         public Cashgame GetById(int cashgameId)
         {
-            throw new NotImplementedException();
+            return _list.FirstOrDefault(o => o.Id == cashgameId);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -51,7 +52,8 @@ namespace Tests.Common.FakeRepositories
 
         public bool DeleteGame(Cashgame cashgame)
         {
-            throw new NotImplementedException();
+            Deleted = cashgame;
+            return true;
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -163,6 +165,13 @@ namespace Tests.Common.FakeRepositories
             };
 
             _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
+        }
+
+        public void SetupEmptyGame()
+        {
+            var checkpoints1 = new List<Checkpoint>();
+            _list.Clear();
+            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Running, Constants.CashgameIdA, checkpoints1));
         }
 
         public void ClearList()

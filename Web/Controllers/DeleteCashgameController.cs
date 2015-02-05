@@ -7,11 +7,11 @@ namespace Web.Controllers
     public class DeleteCashgameController : PokerBunchController
     {
         [Authorize]
-        [Route("{slug}/cashgame/delete/{dateStr}")]
-        public ActionResult Delete(string slug, string dateStr)
+        [Route("{slug}/cashgame/delete/{id}")]
+        public ActionResult Delete(string slug, int id)
         {
             RequireManager(slug);
-            var request = new DeleteCashgameRequest(slug, dateStr);
+            var request = new DeleteCashgameRequest(slug, id);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
 		}

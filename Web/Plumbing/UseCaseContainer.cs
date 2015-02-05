@@ -124,7 +124,7 @@ namespace Web.Plumbing
         public RunningCashgameInteractor RunningCashgame { get { return new RunningCashgameInteractor(Auth, BunchRepository, CashgameRepository, PlayerRepository); } }
         public EditCashgameFormInteractor EditCashgameForm { get { return new EditCashgameFormInteractor(BunchRepository, CashgameRepository); } }
         public EditCashgameInteractor EditCashgame { get { return new EditCashgameInteractor(BunchRepository, CashgameRepository); } }
-        public DeleteCashgameInteractor DeleteCashgame { get { return new DeleteCashgameInteractor(BunchRepository, CashgameRepository); } }
+        public DeleteCashgameInteractor DeleteCashgame { get { return new DeleteCashgameInteractor(CashgameRepository); } }
         public DeleteCheckpointInteractor DeleteCheckpoint { get { return new DeleteCheckpointInteractor(BunchRepository, CashgameRepository, CheckpointRepository); } }
         public BuyinInteractor Buyin { get { return new BuyinInteractor(BunchRepository, PlayerRepository, CashgameRepository, CheckpointRepository); } }
         public ReportInteractor Report { get { return new ReportInteractor(BunchRepository, CashgameRepository, PlayerRepository, CheckpointRepository); } }
