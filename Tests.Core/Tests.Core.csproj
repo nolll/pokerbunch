@@ -60,6 +60,7 @@
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameHomeTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
+    <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\ClearCacheTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
