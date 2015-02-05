@@ -8,14 +8,14 @@ namespace Tests.Core.UseCases
     class RequireManagerTests : TestBase
     {
         [Test]
-        public void RequireManager_WithGuest_AccessIsDenied()
+        public void RequireManager_WithGuest_AccessDenied()
         {
             var request = new RequireManagerRequest(Constants.SlugA, Constants.UserNameD);
             Assert.Throws<AccessDeniedException>(() => Sut.Execute(request));
         }
 
         [Test]
-        public void RequireManager_WithPlayer_AccessGranted()
+        public void RequireManager_WithPlayer_AccessDenied()
         {
             var request = new RequireManagerRequest(Constants.SlugA, Constants.UserNameA);
             Assert.Throws<AccessDeniedException>(() => Sut.Execute(request));

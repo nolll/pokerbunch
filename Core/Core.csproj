@@ -332,6 +332,8 @@
     <Compile Include="UseCases\PlayerList\PlayerListResult.cs" />
     <Compile Include="UseCases\Report\ReportInteractor.cs" />
     <Compile Include="UseCases\Report\ReportRequest.cs" />
+    <Compile Include="UseCases\RequireManager\RequireAdminInteractor.cs" />
+    <Compile Include="UseCases\RequireManager\RequireAdminRequest.cs" />
     <Compile Include="UseCases\RequireManager\RequireManagerInteractor.cs" />
     <Compile Include="UseCases\RequireManager\RequireManagerRequest.cs" />
     <Compile Include="UseCases\RequirePlayer\RequirePlayerInteractor.cs" />

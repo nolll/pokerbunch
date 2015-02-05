@@ -121,5 +121,10 @@ namespace Web.Controllers.Base
         {
             UseCase.RequireManager.Execute(new RequireManagerRequest(slug, Identity.UserName));
         }
+
+        protected void RequireAdmin()
+        {
+            UseCase.RequireAdmin.Execute(new RequireAdminRequest(Identity.UserName));
+        }
     }
 }

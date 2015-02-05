@@ -1,16 +1,15 @@
 ﻿using System.Web.Mvc;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class AdminController : PokerBunchController
     {
-        [AuthorizeAdmin]
         [Route("-/admin/sendemail")]
         public ActionResult SendEmail()
         {
+            RequireAdmin();
             var result = UseCase.TestEmail.Execute();
 
             var model = new EmailModel(result);
@@ -18,10 +17,10 @@ namespace Web.Controllers
             return View("Email", model);
         }
 
-        [AuthorizeAdmin]
         [Route("-/admin/clearcache")]
         public ActionResult ClearCache()
         {
+            RequireAdmin();
             var result = UseCase.ClearCache.Execute();
 
             var model = new ClearCacheModel(result);

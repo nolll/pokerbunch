@@ -77,6 +77,7 @@ namespace Web.Plumbing
         public LogoutInteractor Logout { get { return new LogoutInteractor(Auth); } }
         public RequirePlayerInteractor RequirePlayer { get { return new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
         public RequireManagerInteractor RequireManager { get { return new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
+        public RequireAdminInteractor RequireAdmin { get { return new RequireAdminInteractor(UserRepository); } }
 
         // Admin
         public TestEmailInteractor TestEmail { get { return new TestEmailInteractor(MessageSender); } }

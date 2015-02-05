@@ -8,7 +8,7 @@ namespace Tests.Core.UseCases
     class RequirePlayerTests : TestBase
     {
         [Test]
-        public void RequirePlayer_WithGuest_AccessIsDenied()
+        public void RequirePlayer_WithGuest_AccessDenied()
         {
             var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameD);
             Assert.Throws<AccessDeniedException>(() => Sut.Execute(request));

@@ -1,16 +1,15 @@
 using System.Web.Mvc;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.List;
-using Web.Security.Attributes;
 
 namespace Web.Controllers
 {
     public class BunchListController : PokerBunchController
     {
-        [AuthorizeAdmin]
         [Route("-/homegame/list")]
         public ActionResult List()
         {
+            RequireAdmin();
             var contextResult = UseCase.AppContext.Execute();
             var bunchListResult = UseCase.BunchList.Execute();
             var model = new BunchListPageModel(contextResult, bunchListResult);
