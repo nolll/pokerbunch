@@ -52,6 +52,7 @@ using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
+using Core.UseCases.RequireAdmin;
 using Core.UseCases.RequireManager;
 using Core.UseCases.RequirePlayer;
 using Core.UseCases.RunningCashgame;

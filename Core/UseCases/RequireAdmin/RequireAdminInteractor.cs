@@ -1,7 +1,7 @@
 using Core.Exceptions;
 using Core.Repositories;
 
-namespace Core.UseCases.RequireManager
+namespace Core.UseCases.RequireAdmin
 {
     public class RequireAdminInteractor
     {

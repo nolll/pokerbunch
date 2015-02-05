@@ -1,4 +1,4 @@
-namespace Core.UseCases.RequireManager
+namespace Core.UseCases.RequireAdmin
 {
     public class RequireAdminRequest
     {

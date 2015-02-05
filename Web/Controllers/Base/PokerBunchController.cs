@@ -5,6 +5,7 @@ using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
+using Core.UseCases.RequireAdmin;
 using Core.UseCases.RequireManager;
 using Core.UseCases.RequirePlayer;
 using Web.Models.ErrorModels;

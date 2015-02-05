@@ -1,5 +1,5 @@
 ﻿using Core.Exceptions;
-using Core.UseCases.RequireManager;
+using Core.UseCases.RequireAdmin;
 using NUnit.Framework;
 using Tests.Common;
 
