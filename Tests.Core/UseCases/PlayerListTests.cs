@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual("/bunch-a/player/add", result.AddUrl.Relative);
-            Assert.AreEqual(3, result.Players.Count);
+            Assert.AreEqual(4, result.Players.Count);
             Assert.AreEqual("/bunch-a/player/details/1", result.Players[0].Url.Relative);
             Assert.AreEqual(Constants.PlayerNameA, result.Players[0].Name);
             Assert.IsFalse(result.CanAddPlayer);

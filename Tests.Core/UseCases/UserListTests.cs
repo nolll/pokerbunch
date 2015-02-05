@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute();
 
-            Assert.AreEqual(3, result.Users.Count);
+            Assert.AreEqual(4, result.Users.Count);
             Assert.AreEqual(Constants.UserDisplayNameA, result.Users.First().DisplayName);
             Assert.AreEqual("/-/user/details/user-name-a", result.Users.First().Url.Relative);
         }

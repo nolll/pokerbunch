@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -68,7 +68,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
 
             Assert.IsFalse(result.IsUser);
         }
@@ -94,7 +94,7 @@ namespace Tests.Core.UseCases
         {
             Services.Auth.SetCurrentRole(Role.Manager);
 
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdC));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
 
             Assert.IsTrue(result.CanDelete);
         }

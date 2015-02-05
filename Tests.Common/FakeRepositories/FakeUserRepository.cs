@@ -75,6 +75,15 @@ namespace Tests.Common.FakeRepositories
                     .WithDisplayName(Constants.UserDisplayNameC)
                     .WithEncryptedPassword(Constants.UserEncryptedPasswordC)
                     .WithSalt(Constants.UserSaltC)
+                    .Build(),
+                new UserBuilder()
+                    .WithId(Constants.UserIdD)
+                    .WithUserName(Constants.UserNameD)
+                    .WithEmail(Constants.UserEmailD)
+                    .WithRealName(Constants.UserRealNameD)
+                    .WithDisplayName(Constants.UserDisplayNameD)
+                    .WithEncryptedPassword(Constants.UserEncryptedPasswordD)
+                    .WithSalt(Constants.UserSaltD)
                     .Build()
             };
         }

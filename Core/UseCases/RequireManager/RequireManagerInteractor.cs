@@ -24,7 +24,7 @@ namespace Core.UseCases.RequireManager
         public void Execute(RequireManagerRequest request)
         {
             var accessHandler = new AccessHandler(_bunchRepository, _userRepository, _playerRepository);
-            if (!accessHandler.HasAccess(request.Slug, request.UserName, Role.Player))
+            if (!accessHandler.HasAccess(request.Slug, request.UserName, Role.Manager))
                 throw new AccessDeniedException();
         }
     }

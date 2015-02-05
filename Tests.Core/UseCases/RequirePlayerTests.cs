@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void RequirePlayer_WithGuest_AccessIsDenied()
         {
-            var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameC);
+            var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameD);
             Assert.Throws<AccessDeniedException>(() => Sut.Execute(request));
         }
 
@@ -22,9 +22,16 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
+        public void RequirePlayer_WithManager_AccessGranted()
+        {
+            var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameC);
+            Assert.DoesNotThrow(() => Sut.Execute(request));
+        }
+
+        [Test]
         public void RequirePlayer_WithAdmin_AccessGranted()
         {
-            var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameA);
+            var request = new RequirePlayerRequest(Constants.SlugA, Constants.UserNameB);
             Assert.DoesNotThrow(() => Sut.Execute(request));
         }
 
