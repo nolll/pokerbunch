@@ -3,7 +3,6 @@ using Core.Exceptions;
 using Core.UseCases.AddBunch;
 using NUnit.Framework;
 using Tests.Common;
-using Tests.Common.Builders;
 
 namespace Tests.Core.UseCases
 {
@@ -20,7 +19,7 @@ namespace Tests.Core.UseCases
         [SetUp]
         public void SetUp()
         {
-            _timeZone = TestService.LocalTimeZoneName;
+            _timeZone = Constants.LocalTimeZoneName;
         }
 
         [Test]
@@ -71,7 +70,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
             Assert.AreEqual(Description, Repos.Bunch.Added.Description);
             Assert.AreEqual("", Repos.Bunch.Added.HouseRules);
-            Assert.AreEqual(TestService.LocalTimeZone.Id, Repos.Bunch.Added.Timezone.Id);
+            Assert.AreEqual(Constants.LocalTimeZone.Id, Repos.Bunch.Added.Timezone.Id);
             Assert.AreEqual(200, Repos.Bunch.Added.DefaultBuyin);
             Assert.AreEqual(CurrencySymbol, Repos.Bunch.Added.Currency.Symbol);
             Assert.AreEqual(CurrencyLayout, Repos.Bunch.Added.Currency.Layout);

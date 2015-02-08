@@ -87,7 +87,7 @@ namespace Tests.Common.Builders
 
         public BunchBuilder WithLocalTimeZone()
         {
-            _timeZone = TestService.LocalTimeZone;
+            _timeZone = Constants.LocalTimeZone;
             return this;
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases.EditBunch
 {

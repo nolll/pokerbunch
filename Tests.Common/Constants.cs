@@ -88,5 +88,8 @@ namespace Tests.Common
         public const int EventIdB = 2;
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
+
+        public const string LocalTimeZoneName = "W. Europe Standard Time";
+        public static readonly TimeZoneInfo LocalTimeZone = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
     }
 }

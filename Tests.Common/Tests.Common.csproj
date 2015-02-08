@@ -41,7 +41,6 @@
     <Compile Include="Builders\CheckpointBuilder.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Builders\PlayerBuilder.cs" />
-    <Compile Include="Builders\TestService.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
