@@ -40,8 +40,7 @@ namespace Core.Entities
             HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
             TotalStacks = Results.Sum(result => result.Stack);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
-            var startTime = GetStartTime(Results);
-            var dateString = startTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
+            var dateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
             DateString = dateString;
         }
 
