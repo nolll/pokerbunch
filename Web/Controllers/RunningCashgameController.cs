@@ -21,7 +21,7 @@ namespace Web.Controllers
             try
             {
                 var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, DateTime.UtcNow));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
@@ -36,7 +36,7 @@ namespace Web.Controllers
         public ActionResult RunningGameJson(string slug)
         {
             RequirePlayer(slug);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
         }
@@ -46,7 +46,7 @@ namespace Web.Controllers
         public ActionResult RunningPlayersJson(string slug)
         {
             RequirePlayer(slug);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }
@@ -59,7 +59,7 @@ namespace Web.Controllers
             try
             {
                 var contextResult = UseCase.BaseContext.Execute();
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, DateTime.UtcNow));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
                 var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChartRequest(slug, DateTime.UtcNow));
                 var model = new CashgameBoardPageModel(contextResult, runningCashgameResult, cashgameDetailsChartResult);
                 return View("~/Views/Pages/CashgameBoard/BoardPage.cshtml", model);

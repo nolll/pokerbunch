@@ -32,7 +32,7 @@ namespace Core.UseCases.RunningCashgame
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var player = _playerRepository.GetByUserId(bunch.Id, _auth.CurrentIdentity.UserId);
+            var player = _playerRepository.GetByUserId(bunch.Id, request.UserId);
             var players = _playerRepository.GetList(GetPlayerIds(cashgame));
             var bunchPlayers = _playerRepository.GetList(bunch.Id);
 
@@ -52,7 +52,7 @@ namespace Core.UseCases.RunningCashgame
             var showTable = cashgame.IsStarted;
             var showChart = cashgame.IsStarted;
 
-            var items = GetItems(bunch, cashgame, players, isManager, request.CurrentTime);
+            var items = GetItems(bunch, cashgame, players, request.CurrentTime);
             var playerItems = GetPlayerItems(cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
@@ -104,7 +104,7 @@ namespace Core.UseCases.RunningCashgame
             return cashgame.IsStarted && !cashgame.HasActivePlayers;
         }
 
-        private static IList<RunningCashgameTableItem> GetItems(Bunch bunch, Cashgame cashgame, IList<Player> players, bool isManager, DateTime now)
+        private static IList<RunningCashgameTableItem> GetItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)
         {
             var results = GetSortedResults(cashgame);
             var items = new List<RunningCashgameTableItem>();
@@ -115,9 +115,6 @@ namespace Core.UseCases.RunningCashgame
 
                 var name = player.DisplayName;
                 var playerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
-                var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
-                var reportUrl = new CashgameReportUrl(bunch.Slug);
-                var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
                 var winnings = new Money(result.Winnings, bunch.Currency);
@@ -131,11 +128,7 @@ namespace Core.UseCases.RunningCashgame
                     stack,
                     winnings,
                     time,
-                    buyinUrl,
-                    reportUrl,
-                    cashoutUrl,
-                    hasCashedOut,
-                    isManager);
+                    hasCashedOut);
 
                 items.Add(item);
             }

@@ -91,6 +91,7 @@
     <Compile Include="UseCases\RequireAdminTests.cs" />
     <Compile Include="UseCases\RequireManagerTests.cs" />
     <Compile Include="UseCases\RequirePlayerTests.cs" />
+    <Compile Include="UseCases\RunningCashgameTests.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
     <Compile Include="UseCases\UserDetailsTests.cs" />
