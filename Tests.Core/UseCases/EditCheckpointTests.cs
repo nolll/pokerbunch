@@ -1,7 +1,63 @@
-﻿namespace Tests.Core.UseCases
+﻿using Core.Entities.Checkpoints;
+using Core.Exceptions;
+using Core.UseCases.EditCheckpoint;
+using NUnit.Framework;
+using Tests.Common;
+
+namespace Tests.Core.UseCases
 {
-    public class EditCheckpointTests
+    public class EditCheckpointTests : TestBase
     {
+        private const int ChangedStack = 1;
+        private const int ChangedAmount = 2;
+
+        [Test]
+        public void EditCheckpoint_InvalidStack_ThrowsException()
+        {
+            var request = new EditCheckpointRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, Constants.BuyinCheckpointId, Constants.StartTimeA, -1, ChangedAmount);
+
+            Assert.Throws<ValidationException>(() => Sut.Execute(request));
+        }
+
+        [Test]
+        public void EditCheckpoint_InvalidAmount_ThrowsException()
+        {
+            var request = new EditCheckpointRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, Constants.BuyinCheckpointId, Constants.StartTimeA, ChangedStack, -1);
+
+            Assert.Throws<ValidationException>(() => Sut.Execute(request));
+        }
+
+        [Test]
+        public void EditCheckpoint_ValidInput_ReturnUrlIsSet()
+        {
+            var request = new EditCheckpointRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, Constants.BuyinCheckpointId, Constants.StartTimeA, ChangedStack, ChangedAmount);
+
+            var result = Sut.Execute(request);
+
+            Assert.AreEqual("/bunch-a/cashgame/action/2001-01-01/1", result.ReturnUrl.Relative);
+        }
         
+        [Test]
+        public void EditCheckpoint_ValidInput_CheckpointIsSaved()
+        {
+            var request = new EditCheckpointRequest(Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA, Constants.BuyinCheckpointId, Constants.StartTimeA, ChangedStack, ChangedAmount);
+
+            Sut.Execute(request);
+
+            Assert.AreEqual(CheckpointType.Buyin, Repos.Checkpoint.Saved.Type);
+            Assert.AreEqual(Constants.BuyinCheckpointId, Repos.Checkpoint.Saved.Id);
+            Assert.AreEqual(ChangedStack, Repos.Checkpoint.Saved.Stack);
+            Assert.AreEqual(ChangedAmount, Repos.Checkpoint.Saved.Amount);
+        }
+
+        private EditCheckpointInteractor Sut
+        {
+            get
+            {
+                return new EditCheckpointInteractor(
+                    Repos.Bunch,
+                    Repos.Checkpoint);
+            }
+        }
     }
 }
