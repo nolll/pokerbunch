@@ -40,8 +40,7 @@ namespace Core.Entities
             HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
             TotalStacks = Results.Sum(result => result.Stack);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
-            var dateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
-            DateString = dateString;
+            DateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
         }
 
         private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)

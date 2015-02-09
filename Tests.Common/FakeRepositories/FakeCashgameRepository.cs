@@ -13,6 +13,7 @@ namespace Tests.Common.FakeRepositories
         public Cashgame Added { get; private set; }
         public Cashgame Deleted { get; private set; }
         public Cashgame Ended { get; private set; }
+        public Cashgame Updated { get; private set; }
 
         public FakeCashgameRepository()
         {
@@ -65,7 +66,8 @@ namespace Tests.Common.FakeRepositories
 
         public bool UpdateGame(Cashgame cashgame)
         {
-            throw new NotImplementedException();
+            Updated = cashgame;
+            return true;
         }
 
         public bool EndGame(Bunch bunch, Cashgame cashgame)

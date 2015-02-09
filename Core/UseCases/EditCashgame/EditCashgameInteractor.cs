@@ -28,7 +28,6 @@ namespace Core.UseCases.EditCashgame
             _cashgameRepository.UpdateGame(cashgame);
             
             var returnUrl = new CashgameDetailsUrl(request.Slug, request.DateStr);
-
             return new EditCashgameResult(returnUrl);
         }
     }
