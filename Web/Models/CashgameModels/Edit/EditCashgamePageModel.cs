@@ -19,7 +19,7 @@ namespace Web.Models.CashgameModels.Edit
         public EditCashgamePageModel(BunchContextResult contextResult, EditCashgameFormResult editCashgameFormResult, EditCashgamePostModel postModel)
             : base("Edit Cashgame", contextResult)
         {
-            IsoDate = editCashgameFormResult.Date.IsoString;
+            IsoDate = editCashgameFormResult.Date;
             CancelUrl = editCashgameFormResult.CancelUrl.Relative;
             DeleteUrl = editCashgameFormResult.DeleteUrl.Relative;
             TypedLocation = editCashgameFormResult.Location;
