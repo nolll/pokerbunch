@@ -27,6 +27,11 @@ namespace Tests.Common.FakeRepositories
             return _list;
         }
 
+        public IList<Cashgame> GetByEvent(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Cashgame GetRunning(int bunchId)
         {
             return _list.FirstOrDefault(o => o.Status == GameStatus.Running);

@@ -52,7 +52,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<Cashgame> GetByEvent(int eventId)
 	    {
-            var ids = GetIds(eventId);
+            var ids = GetIdsByEvent(eventId);
             return GetList(ids);
 	    } 
 

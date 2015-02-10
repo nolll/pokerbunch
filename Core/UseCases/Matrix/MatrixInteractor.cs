@@ -24,9 +24,21 @@ namespace Core.UseCases.Matrix
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
+            return Execute(bunch, cashgames);
+        }
+
+        public MatrixResult Execute(EventMatrixRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgames = _cashgameRepository.GetByEvent(request.EventId);
+            return Execute(bunch, cashgames);
+        }
+
+        private MatrixResult Execute(Bunch bunch, IList<Cashgame> cashgames)
+        {
             var players = _playerRepository.GetList(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
-            
+
             var gameItems = CreateGameItems(bunch.Slug, cashgames);
             var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;

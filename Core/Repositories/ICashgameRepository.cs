@@ -6,6 +6,7 @@ namespace Core.Repositories
 	public interface ICashgameRepository
     {
         IList<Cashgame> GetFinished(int bunchId, int? year = null);
+        IList<Cashgame> GetByEvent(int eventId);
         Cashgame GetRunning(int bunchId);
         Cashgame GetByDateString(int bunchId, string dateString);
         Cashgame GetById(int cashgameId);
