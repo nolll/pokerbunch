@@ -21,7 +21,7 @@ namespace Core.UseCases.EventList
             var bunch = _bunchRepository.GetBySlug(input.Slug);
             var events = _eventRepository.Find(bunch.Id);
 
-            var eventItems = events.Select(o => CreateEventItem(input.Slug, o)).ToList();
+            var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(input.Slug, o)).ToList();
 
             return new EventListOutput(eventItems);
         }

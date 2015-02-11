@@ -2,7 +2,7 @@
 
 namespace Core.Entities
 {
-    public class Date
+    public class Date : IComparable<Date>
     {
         public int Month { get; private set; }
         public int Day { get; private set; }
@@ -36,10 +36,16 @@ namespace Core.Entities
             return new Date(d.Year, d.Month, d.Day);
         }
 
+        //todo: override gethashcode
         public override bool Equals(object obj)
         {
             var other = obj as Date;
             return other != null && Year == other.Year && Month == other.Month && Day == other.Day;
+        }
+
+        public int CompareTo(Date that)
+        {
+            return UtcMidninght.CompareTo(that.UtcMidninght);
         }
     }
 }

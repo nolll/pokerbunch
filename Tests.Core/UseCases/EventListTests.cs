@@ -20,8 +20,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual(Constants.EventNameA, result.Events[0].Name);
-            Assert.AreEqual(Constants.EventNameB, result.Events[1].Name);
+            Assert.AreEqual(Constants.EventNameB, result.Events[0].Name);
+            Assert.AreEqual(Constants.EventNameA, result.Events[1].Name);
         }
 
         [Test]
@@ -29,8 +29,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual(new Date(2001, 1, 1), result.Events[0].StartDate);
-            Assert.AreEqual(new Date(2002, 2, 2), result.Events[1].StartDate);
+            Assert.AreEqual(new Date(2002, 2, 2), result.Events[0].StartDate);
+            Assert.AreEqual(new Date(2001, 1, 1), result.Events[1].StartDate);
         }
 
         [Test]
@@ -38,8 +38,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual(new Date(2001, 1, 2), result.Events[0].EndDate);
-            Assert.AreEqual(new Date(2002, 2, 3), result.Events[1].EndDate);
+            Assert.AreEqual(new Date(2002, 2, 3), result.Events[0].EndDate);
+            Assert.AreEqual(new Date(2001, 1, 2), result.Events[1].EndDate);
         }
 
         [Test]
@@ -47,8 +47,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual("/bunch-a/event/details/1", result.Events[0].EventDetailsUrl.Relative);
-            Assert.AreEqual("/bunch-a/event/details/2", result.Events[1].EventDetailsUrl.Relative);
+            Assert.AreEqual("/bunch-a/event/details/2", result.Events[0].EventDetailsUrl.Relative);
+            Assert.AreEqual("/bunch-a/event/details/1", result.Events[1].EventDetailsUrl.Relative);
         }
 
         private EventListInteractor Sut
