@@ -186,6 +186,7 @@
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
+    <Compile Include="Models\CashgameModels\Index\CashgameIndexPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
@@ -272,6 +273,7 @@
       <DependentUpon>spinner.css</DependentUpon>
     </Content>
     <Content Include="Views\Misc\Spinner.cshtml" />
+    <Content Include="Views\Pages\CashgameIndex\CashgameIndex.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

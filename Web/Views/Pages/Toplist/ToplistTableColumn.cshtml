@@ -1,2 +1,9 @@
 @model Web.Models.CashgameModels.Toplist.TopListTableColumn
-<th class="@Model.CssClass"><a href="@Model.Url">@Model.Text</a></th>
+@if (Model.SortingEnabled)
+{
+    <th class="@Model.CssClass"><a href="@Model.Url">@Model.Text</a></th>
+}
+else
+{
+    <th><span>@Model.Text</span></th>
+}

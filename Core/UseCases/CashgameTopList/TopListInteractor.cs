@@ -21,14 +21,27 @@ namespace Core.UseCases.CashgameTopList
         public TopListResult Execute(TopListRequest request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var players = _playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
+            return Execute(bunch, request.OrderBy, request.Year);
+        }
+
+        public TopListResult Execute(LatestTopListRequest request)
+        {
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var years = _cashgameRepository.GetYears(bunch.Id);
+            var latestYear = years.OrderBy(o => o).Last();
+            return Execute(bunch, ToplistSortOrder.Disabled, latestYear);
+        }
+
+        private TopListResult Execute(Bunch bunch, ToplistSortOrder orderBy, int? year)
+        {
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, year);
+            var players = _playerRepository.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new TopListItem(bunch.Slug, o, index, bunch.Currency));
-            items = SortItems(items, request.OrderBy);
+            items = SortItems(items, orderBy);
 
-            return new TopListResult(items, request.OrderBy, bunch.Slug, request.Year);
+            return new TopListResult(items, orderBy, bunch.Slug, year);
         }
 
         private static IEnumerable<TopListItem> SortItems(IEnumerable<TopListItem> items, ToplistSortOrder orderBy)

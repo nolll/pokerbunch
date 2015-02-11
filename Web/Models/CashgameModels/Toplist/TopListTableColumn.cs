@@ -8,12 +8,14 @@ namespace Web.Models.CashgameModels.Toplist
         public string Text { get; private set; }
         public string Url { get; private set; }
         public string CssClass { get; private set; }
+        public bool SortingEnabled { get; private set; }
 
         public TopListTableColumn(TopListResult topListResult, ToplistSortOrder sortOrder, string text)
         {
             Url = GetSortUrl(topListResult, sortOrder);
             CssClass = GetSortCssClass(topListResult.OrderBy, sortOrder);
             Text = text;
+            SortingEnabled = topListResult.OrderBy != ToplistSortOrder.Disabled;
         }
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)

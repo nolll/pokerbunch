@@ -111,10 +111,11 @@ namespace Infrastructure.Storage
 
         public IList<int> GetYears(int homegameId)
         {
-			const string sql = "SELECT DISTINCT YEAR(ccp.Timestamp) as 'Year' FROM cashgamecheckpoint ccp LEFT JOIN game g ON ccp.GameID = g.GameID WHERE g.HomegameID = @homegameId ORDER BY 'Year' DESC";
+            const string sql = "SELECT DISTINCT YEAR(g.[Date]) as 'Year' FROM Game g WHERE g.HomegameID = @homegameId AND g.Status = @status ORDER BY 'Year' DESC";
 		    var parameters = new List<SimpleSqlParameter>
 		        {
-                    new SimpleSqlParameter("@homegameId", homegameId)
+                    new SimpleSqlParameter("@homegameId", homegameId),
+                    new SimpleSqlParameter("@status", (int)GameStatus.Finished)
 		        };
 			var reader = Query(sql, parameters);
 		    return reader.ReadIntList("Year");

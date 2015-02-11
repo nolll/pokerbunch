@@ -1,0 +1,11 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.CashgameModels.Index.CashgameIndexPageModel
+
+@{
+    Layout = PageLayout.OneColumn;
+}
+
+<div class="block gutter">
+    <h1>@Model.TopListHeading</h1>
+    @Html.Partial("Toplist/ToplistTable", Model.TopListModel)
+</div>

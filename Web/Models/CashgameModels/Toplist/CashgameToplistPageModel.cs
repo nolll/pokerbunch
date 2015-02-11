@@ -6,7 +6,7 @@ namespace Web.Models.CashgameModels.Toplist
 {
     public class CashgameToplistPageModel : CashgamePageModel
     {
-	    public ToplistTableModel TableModel { get; private set; }
+        public ToplistTableModel TableModel { get; private set; }
 
         public CashgameToplistPageModel(
             CashgameContextResult cashgameContextResult,

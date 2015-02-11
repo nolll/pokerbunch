@@ -232,6 +232,7 @@
     <Compile Include="UseCases\CashgameList\CashgameListRequest.cs" />
     <Compile Include="UseCases\CashgameList\CashgameListResult.cs" />
     <Compile Include="UseCases\CashgameList\ListSortOrder.cs" />
+    <Compile Include="UseCases\CashgameTopList\LatestTopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="UseCases\Login\LoginResult.cs" />
     <Compile Include="UseCases\Logout\LogoutInteractor.cs" />
     <Compile Include="UseCases\Logout\LogoutResult.cs" />
+    <Compile Include="UseCases\Matrix\EventMatrixRequest.cs" />
     <Compile Include="UseCases\Matrix\GameItem.cs" />
     <Compile Include="UseCases\Matrix\MatrixInteractor.cs" />
     <Compile Include="UseCases\Matrix\MatrixRequest.cs" />
