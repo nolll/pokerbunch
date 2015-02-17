@@ -1,4 +1,5 @@
-﻿using Core.Repositories;
+﻿using System.Linq;
+using Core.Repositories;
 using Core.Services;
 using Core.UseCases.BunchContext;
 
@@ -25,13 +26,19 @@ namespace Core.UseCases.CashgameContext
             var gameIsRunning = runningGame != null;
             var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
 
+            var selectedYear = request.Year;
+            if (request.SelectedPage == CashgamePage.Start)
+            {
+                selectedYear = years.Max(o => o);
+            }
+
             return new CashgameContextResult(
                 bunchContextResult,
                 request.Slug,
                 gameIsRunning,
                 request.SelectedPage,
                 years,
-                request.Year);
+                selectedYear);
         }
     }
 }

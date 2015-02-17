@@ -75,37 +75,44 @@ nav .selected {
 }
 .heading-nav-container {
   position: relative;
-  min-height: 19px;
+  min-height: 32px;
 }
 .heading-nav {
   position: absolute;
-  right: 0;
   top: 0;
   background-color: #e7ede7;
-  padding: 5px 10px;
-  cursor: pointer;
   overflow: visible;
+  z-index: 10;
 }
 .heading-nav > ul {
-  display: none;
-  position: absolute;
-  right: 0;
-  z-index: 10;
   font-size: 1em;
   background: #e7ede7;
 }
 .heading-nav > ul > li {
-  padding: 7px 12px;
+  display: none;
 }
 .heading-nav > ul > li > a {
   display: block;
+  padding: 7px 12px;
   white-space: nowrap;
 }
+.heading-nav > ul > li.selected {
+  display: block;
+  font-weight: bold;
+}
+.heading-nav > ul.expanded > li {
+  display: block;
+}
+.year-nav {
+  right: 0;
+}
+.year-nav > ul > li {
+  text-align: right;
+}
 .cashgame-nav {
-  background: #e7ede7;
+  left: 0;
 }
 .cashgame-nav li {
-  float: left;
   margin-right: 5px;
 }
 .cashgame-nav li a {

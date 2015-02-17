@@ -6,11 +6,16 @@ define(["jquery"],
             var me = this;
             me.el = el;
             me.$el = $(me.el);
-            me.$btn = me.$el.find('span');
+            me.$btn = me.$el.find('a');
             me.$content = me.$el.find('ul');
+            me.isExpanded = false;
 
-            me.$btn.click(function(){
-                me.$content.toggle();
+            me.$btn.click(function (event) {
+                if (!me.isExpanded) {
+                    event.preventDefault();
+                    me.isExpanded = true;
+                    me.$content.toggleClass("expanded");
+                }
             });
         }
 

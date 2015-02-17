@@ -4,7 +4,9 @@ namespace Web.Models.NavigationModels
 {
 	public class CashgamePageNavigationModel
     {
-	    public string MatrixUrl { get; private set; }
+        public string StartPageUrl { get; private set; }
+        public string StartPageSelectedClass { get; private set; }
+        public string MatrixUrl { get; private set; }
         public string MatrixSelectedClass { get; private set; }
         public string ToplistUrl { get; private set; }
         public string ToplistSelectedClass { get; private set; }
@@ -19,6 +21,8 @@ namespace Web.Models.NavigationModels
 	    {
 	        var selectedPage = cashgameContextResult.SelectedPage;
 
+            StartPageUrl = cashgameContextResult.StartPageUrl.Relative;
+            StartPageSelectedClass = GetSelectedClass(CashgamePage.Start, selectedPage);
             MatrixUrl = cashgameContextResult.MatrixUrl.Relative;
             MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, selectedPage);
             ToplistUrl = cashgameContextResult.ToplistUrl.Relative;

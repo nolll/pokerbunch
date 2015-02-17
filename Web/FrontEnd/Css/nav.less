@@ -97,52 +97,64 @@ nav{
 
 .heading-nav-container{
 	position: relative;
-	min-height: 19px;
+	min-height: 32px;
 }
 
 .heading-nav{
-	position: absolute;
-	right: 0;
+    position: absolute;
 	top: 0;
 	background-color: #e7ede7;
-	padding: 5px 10px;
-	cursor: pointer;
 	overflow: visible;
+    z-index: 10;
 
 	> ul{
-		display: none;
-		position: absolute;
-		right: 0;
-		z-index: 10;
 		.fontsize(16);
 		background: #e7ede7;
 
 		> li{
-			padding: 7px 12px;
+            display: none;
 
 			> a{
 				display: block;
+                padding: 7px 12px;
 				white-space: nowrap;
 			}
+		}
+
+        > li.selected{
+			display: block;
+            font-weight: bold;
+		}
+	}
+
+    > ul.expanded{
+
+		> li{
+            display: block;
 		}
 	}
 }
 
+.year-nav{
+	right: 0;
+
+	> ul{
+		> li{
+			text-align: right;
+        }
+    }
+}
+
 .cashgame-nav{
-    background: #e7ede7;
-	
+	left: 0;
+
     li{
-		float: left;
 		margin-right: 5px;
 
         a{
             color: #000;
         }
 	}
-}
-
-.year-nav{
-
 }
 
 .admin-nav{

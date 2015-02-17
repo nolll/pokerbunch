@@ -11,13 +11,12 @@ namespace Core.UseCases.CashgameContext
         public bool GameIsRunning { get; private set; }
         public CashgamePage SelectedPage { get; private set; }
         public int? SelectedYear { get; private set; }
+        public Url StartPageUrl { get; private set; }
         public Url MatrixUrl { get; private set; }
         public Url ToplistUrl { get; private set; }
         public Url ChartUrl { get; private set; }
         public Url ListUrl { get; private set; }
         public Url FactsUrl { get; private set; }
-        public Url RunningCashgameUrl { get; private set; }
-        public Url AddCashgameUrl { get; private set; }
         public IList<YearItem> YearItems { get; private set; }
         public BunchContextResult BunchContext { get; private set; }
 
@@ -33,25 +32,26 @@ namespace Core.UseCases.CashgameContext
             GameIsRunning = gameIsRunning;
             SelectedPage = selectedPage;
             SelectedYear = selectedYear;
+            StartPageUrl = new CashgameIndexUrl(slug);
             MatrixUrl = new MatrixUrl(slug, selectedYear);
             ToplistUrl = new TopListUrl(slug, selectedYear);
             ChartUrl = new ChartUrl(slug, selectedYear);
             ListUrl = new ListUrl(slug, selectedYear);
             FactsUrl = new FactsUrl(slug, selectedYear);
-            RunningCashgameUrl = new RunningCashgameUrl(slug);
-            AddCashgameUrl = new AddCashgameUrl(slug);
-            YearItems = CreateYearItems(slug, years, selectedPage);
+            YearItems = CreateYearItems(slug, years, selectedPage, selectedYear);
         }
 
-        private IList<YearItem> CreateYearItems(string slug, IEnumerable<int> years, CashgamePage selectedPage)
+        private IList<YearItem> CreateYearItems(string slug, IEnumerable<int> years, CashgamePage selectedPage, int? selectedYear)
         {
-            var yearItems = years.Select(year => new YearItem(year.ToString(CultureInfo.InvariantCulture), GetYearUrl(slug, selectedPage, year))).ToList();
-            yearItems.Add(new YearItem("All Time", GetYearUrl(slug, selectedPage)));
+            var yearItems = years.Select(year => new YearItem(year.ToString(CultureInfo.InvariantCulture), GetYearUrl(slug, selectedPage, year), selectedYear == year)).ToList();
+            yearItems.Add(new YearItem("All Time", GetYearUrl(slug, selectedPage), !selectedYear.HasValue));
             return yearItems;
         }
 
         private Url GetYearUrl(string slug, CashgamePage cashgamePage, int? year = null)
         {
+            if (cashgamePage.Equals(CashgamePage.Start))
+                return new CashgameIndexUrl(slug);
             if (cashgamePage.Equals(CashgamePage.Matrix))
                 return new MatrixUrl(slug, year);
             if (cashgamePage.Equals(CashgamePage.Toplist))
@@ -64,6 +64,5 @@ namespace Core.UseCases.CashgameContext
                 return new FactsUrl(slug, year);
             return null;
         }
-
     }
 }

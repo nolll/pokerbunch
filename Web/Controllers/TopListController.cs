@@ -13,7 +13,7 @@ namespace Web.Controllers
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, year, CashgamePage.Toplist));
+            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, CashgamePage.Toplist, year));
             var topListResult = UseCase.TopList.Execute(new TopListRequest(slug, orderBy, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("~/Views/Pages/Toplist/ToplistPage.cshtml", model);

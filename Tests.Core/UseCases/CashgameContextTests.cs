@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(slug, year);
+            var request = new CashgameContextRequest(slug, CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(slug, year);
+            var request = new CashgameContextRequest(slug, CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -59,7 +59,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(slug, year);
+            var request = new CashgameContextRequest(slug, CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -88,7 +88,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(slug, year, selectedPage);
+            var request = new CashgameContextRequest(slug, selectedPage, year);
 
             var result = Sut.Execute(request);
 

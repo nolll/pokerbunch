@@ -8,8 +8,11 @@
 @RenderBody()
 
 @section ContentNav{
-    @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
-    <div class="block gutter heading-nav-container" id="sort-control-container">
-        @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
+    <div class="heading-nav-container">
+        @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
+        @if (Model.YearNavModel != null)
+        {
+            @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
+        }
     </div>
 }

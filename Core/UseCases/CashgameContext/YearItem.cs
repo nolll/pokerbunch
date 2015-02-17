@@ -6,11 +6,13 @@ namespace Core.UseCases.CashgameContext
     {
         public string Label { get; private set; }
         public Url Url { get; private set; }
+        public bool IsSelected { get; private set; }
 
-        public YearItem(string label, Url url)
+        public YearItem(string label, Url url, bool isSelected)
         {
             Label = label;
             Url = url;
+            IsSelected = isSelected;
         }
     }
 }

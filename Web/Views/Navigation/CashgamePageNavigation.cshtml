@@ -1,6 +1,7 @@
 @model Web.Models.NavigationModels.CashgamePageNavigationModel
-<nav class="cashgame-nav bar">
+<nav class="cashgame-nav heading-nav" data-require="heading-nav">
     <ul>
+        <li class="@Model.StartPageSelectedClass"><a href="@Model.StartPageUrl">Start</a></li>
         <li class="@Model.MatrixSelectedClass"><a href="@Model.MatrixUrl">Matrix</a></li>
         <li class="@Model.ToplistSelectedClass"><a href="@Model.ToplistUrl">Toplist</a></li>
         <li class="@Model.ChartSelectedClass"><a href="@Model.ChartUrl">Chart</a></li>

@@ -13,7 +13,7 @@ namespace Web.Controllers
         public ActionResult Chart(string slug, int? year = null)
         {
             RequirePlayer(slug);
-            var cashgameContextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, year, CashgamePage.Chart));
+            var cashgameContextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, CashgamePage.Chart, year));
             var cashgameChartResult = UseCase.CashgameChart.Execute(new CashgameChartRequest(slug, year));
             var model = new CashgameChartPageModel(cashgameContextResult, cashgameChartResult);
             return View("~/Views/Pages/CashgameChart/Chart.cshtml", model);

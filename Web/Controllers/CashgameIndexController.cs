@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameStatus;
 using Core.UseCases.CashgameTopList;
 using Web.Controllers.Base;
@@ -15,7 +15,7 @@ namespace Web.Controllers
         public ActionResult Index(string slug)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, CashgamePage.Start));
             var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatusRequest(slug));
             var topListResult = UseCase.TopList.Execute(new LatestTopListRequest(slug));
             var model = new CashgameIndexPageModel(contextResult, statusResult, topListResult);
