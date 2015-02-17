@@ -9,9 +9,7 @@
 
 @section ContentNav{
     @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
-    @Html.Partial("~/Views/Pages/RunningCashgame/Bar.cshtml", Model.BarModel)
     <div class="block gutter heading-nav-container" id="sort-control-container">
-        @Html.Partial("~/Views/Pages/RunningCashgame/StartButton.cshtml", Model.StartButtonModel)
         @Html.Partial("~/Views/Navigation/CashgameYearNavigation.cshtml", Model.YearNavModel)
     </div>
 }
