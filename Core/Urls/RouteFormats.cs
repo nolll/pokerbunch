@@ -14,7 +14,7 @@ namespace Core.Urls
         public const string CashgameDetails = "/{0}/cashgame/details/{1}";
         public const string CashgameEdit = "/{0}/cashgame/edit/{1}";
         public const string CashgameEnd = "/{0}/cashgame/end";
-        public const string CashgameIndex = "/{0}/cashgame/index";
+        public const string CashgameIndex = "/{0}/cashgame";
         public const string CashgameToplist = "/{0}/cashgame/toplist";
         public const string CashgameToplistWithYear = "/{0}/cashgame/toplist/{1}";
         public const string CashgameMatrix = "/{0}/cashgame/matrix";

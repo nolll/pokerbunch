@@ -193,6 +193,7 @@
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\StartButtonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningGameBarModel.cs" />
+    <Compile Include="Models\CashgameModels\Status\CashgameStatusModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
     <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
@@ -274,6 +275,9 @@
     </Content>
     <Content Include="Views\Misc\Spinner.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\CashgameIndex.cshtml" />
+    <Content Include="Views\Pages\Toplist\SimpleToplistTable.cshtml" />
+    <Content Include="Views\Pages\Toplist\SimpleToplistTableItem.cshtml" />
+    <Content Include="Views\Pages\CashgameIndex\Status.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

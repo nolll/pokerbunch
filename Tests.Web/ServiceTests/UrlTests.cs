@@ -110,7 +110,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameIndexUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/index", result.Relative);
+            Assert.AreEqual("/a/cashgame", result.Relative);
         }
 
         [Test]

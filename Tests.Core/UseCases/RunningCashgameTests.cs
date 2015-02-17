@@ -51,7 +51,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/bunch-a/cashgame/report", result.ReportUrl.Relative);
             Assert.AreEqual("/bunch-a/cashgame/cashout", result.CashoutUrl.Relative);
             Assert.AreEqual("/bunch-a/cashgame/end", result.EndGameUrl.Relative);
-            Assert.AreEqual("/bunch-a/cashgame/index", result.CashgameIndexUrl.Relative);
+            Assert.AreEqual("/bunch-a/cashgame", result.CashgameIndexUrl.Relative);
         }
 
         [Test]

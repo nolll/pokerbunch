@@ -2,10 +2,17 @@
 @model Web.Models.CashgameModels.Index.CashgameIndexPageModel
 
 @{
-    Layout = PageLayout.OneColumn;
+    Layout = PageLayout.TwoColumns;
 }
 
 <div class="block gutter">
-    <h1>@Model.TopListHeading</h1>
-    @Html.Partial("Toplist/ToplistTable", Model.TopListModel)
+    <h1>Current Rankings</h1>
+    @Html.Partial("Toplist/SimpleToplistTable", Model.TopListModel)
 </div>
+
+@section Aside1
+{
+<div class="gutter">
+    @Html.Partial("CashgameIndex/Status", Model.StatusModel)
+</div>
+}

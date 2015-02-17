@@ -59,7 +59,6 @@
     <Compile Include="UseCases\CashgameDetailsChartTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
-    <Compile Include="UseCases\CashgameHomeTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\ClearCacheTests.cs" />

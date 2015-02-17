@@ -1,0 +1,9 @@
+@model Web.Models.CashgameModels.Toplist.CashgameToplistTableItemModel
+
+<tr>
+    <td class="rank base-column">@Model.Rank.</td>
+    <td class="name base-column">
+        <a href="@Model.PlayerUrl">@Model.Name</a>
+    </td>
+    <td class="numeric result @Model.ResultClass @Model.ResultSortClass">@Model.TotalResult</td>
+</tr>

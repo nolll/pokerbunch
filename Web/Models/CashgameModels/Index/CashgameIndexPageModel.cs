@@ -1,5 +1,7 @@
 using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameStatus;
 using Core.UseCases.CashgameTopList;
+using Web.Models.CashgameModels.Status;
 using Web.Models.CashgameModels.Toplist;
 using Web.Models.PageBaseModels;
 
@@ -7,17 +9,15 @@ namespace Web.Models.CashgameModels.Index
 {
     public class CashgameIndexPageModel : BunchPageModel
     {
-        public string TopListHeading { get; private set; }
+        public CashgameStatusModel StatusModel { get; private set; }
         public ToplistTableModel TopListModel { get; private set; }
 
-        public CashgameIndexPageModel(
-            BunchContextResult bunchContextResult,
-            TopListResult topListResult)
+        public CashgameIndexPageModel(BunchContextResult bunchContextResult, CashgameStatusResult statusResult, TopListResult topListResult)
             : base(
                 "Cashgames",
                 bunchContextResult)
         {
-            TopListHeading = string.Format("Cashgame Rankings {0}", topListResult.Year);
+            StatusModel = new CashgameStatusModel(statusResult);
             TopListModel = new ToplistTableModel(topListResult);
         }
     }

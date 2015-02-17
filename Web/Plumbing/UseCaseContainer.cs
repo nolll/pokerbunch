@@ -17,8 +17,8 @@ using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameDetails;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
-using Core.UseCases.CashgameHome;
 using Core.UseCases.CashgameList;
+using Core.UseCases.CashgameStatus;
 using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
@@ -109,7 +109,7 @@ namespace Web.Plumbing
         public EventDetailsInteractor EventDetails { get { return new EventDetailsInteractor(EventRepository); } } 
 
         // Cashgame
-        public CashgameHomeInteractor CashgameHome { get { return new CashgameHomeInteractor(BunchRepository, CashgameRepository); } }
+        public CashgameStatusInteractor CashgameStatus { get { return new CashgameStatusInteractor(BunchRepository, CashgameRepository); } }
         public TopListInteractor TopList { get { return new TopListInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CashgameDetailsInteractor CashgameDetails { get { return new CashgameDetailsInteractor(BunchRepository, CashgameRepository, Auth, PlayerRepository); } }
         public CashgameDetailsChartInteractor CashgameDetailsChart { get { return new CashgameDetailsChartInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }

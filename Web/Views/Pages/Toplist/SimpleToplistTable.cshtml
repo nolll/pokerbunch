@@ -1,0 +1,17 @@
+@model Web.Models.CashgameModels.Toplist.ToplistTableModel
+
+<table class="table-list">
+    <thead>
+        <tr>
+            <th></th>
+            <th><span>Player</span></th>
+            @Html.Partial("Toplist/ToplistTableColumn", Model.ColumnsModel.ResultColumn)
+        </tr>
+    </thead>
+    <tbody class="list">
+        @foreach(var itemModel in Model.ItemModels)
+        {
+            @Html.Partial("Toplist/SimpleToplistTableItem", itemModel)
+        }
+    </tbody>
+</table>
