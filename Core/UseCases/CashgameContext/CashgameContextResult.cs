@@ -50,7 +50,7 @@ namespace Core.UseCases.CashgameContext
 
         private Url GetYearUrl(string slug, CashgamePage cashgamePage, int? year = null)
         {
-            if (cashgamePage.Equals(CashgamePage.Start))
+            if (cashgamePage.Equals(CashgamePage.Overview))
                 return new CashgameIndexUrl(slug);
             if (cashgamePage.Equals(CashgamePage.Matrix))
                 return new MatrixUrl(slug, year);

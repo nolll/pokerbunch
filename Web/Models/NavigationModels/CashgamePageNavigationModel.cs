@@ -22,7 +22,7 @@ namespace Web.Models.NavigationModels
 	        var selectedPage = cashgameContextResult.SelectedPage;
 
             StartPageUrl = cashgameContextResult.StartPageUrl.Relative;
-            StartPageSelectedClass = GetSelectedClass(CashgamePage.Start, selectedPage);
+            StartPageSelectedClass = GetSelectedClass(CashgamePage.Overview, selectedPage);
             MatrixUrl = cashgameContextResult.MatrixUrl.Relative;
             MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, selectedPage);
             ToplistUrl = cashgameContextResult.ToplistUrl.Relative;

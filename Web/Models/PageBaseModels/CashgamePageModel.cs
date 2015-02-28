@@ -11,7 +11,7 @@ namespace Web.Models.PageBaseModels
         protected CashgamePageModel(string browserTitle, CashgameContextResult cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
         {
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult);
-            YearNavModel = cashgameContextResult.SelectedPage != CashgamePage.Start ? new CashgameYearNavigationModel(cashgameContextResult) : null;
+            YearNavModel = cashgameContextResult.SelectedPage != CashgamePage.Overview ? new CashgameYearNavigationModel(cashgameContextResult) : null;
         }
 
         public override string Layout

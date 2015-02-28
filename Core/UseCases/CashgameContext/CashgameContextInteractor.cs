@@ -27,7 +27,7 @@ namespace Core.UseCases.CashgameContext
             var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
 
             var selectedYear = request.Year;
-            if (request.SelectedPage == CashgamePage.Start)
+            if (request.SelectedPage == CashgamePage.Overview)
             {
                 selectedYear = years.Max(o => o);
             }

@@ -3,7 +3,7 @@ namespace Core.UseCases.CashgameContext
     public enum CashgamePage
     {
         Unknown,
-        Start,
+        Overview,
         Matrix,
         Toplist,
         Chart,

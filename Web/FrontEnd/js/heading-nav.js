@@ -14,8 +14,19 @@ define(["jquery"],
                 if (!me.isExpanded) {
                     event.preventDefault();
                     me.isExpanded = true;
-                    me.$content.toggleClass("expanded");
+                    me.$content.addClass("expanded");
                 }
+            });
+
+            $('html').click(function () {
+                if (me.isExpanded) {
+                    me.isExpanded = false;
+                    me.$content.removeClass("expanded");
+                }
+            });
+
+            me.$el.click(function (event) {
+                event.stopPropagation();
             });
         }
 
