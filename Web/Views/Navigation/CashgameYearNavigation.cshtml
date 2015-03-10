@@ -1,7 +1,10 @@
 @model Web.Models.NavigationModels.CashgameYearNavigationModel
-<nav class="year-nav heading-nav" data-require="heading-nav"><ul>
-    @foreach (var yearModel in Model.YearModels)
-    {
-        <li class="@yearModel.SelectedCssClass"><a href="@yearModel.Url">@yearModel.Text</a></li>
-    }                                                                                          
-</ul></nav>
+<nav class="year-nav heading-nav" data-require="heading-nav">
+    <i class="nav-arrow"></i>
+    <ul>
+        @foreach (var yearModel in Model.YearModels)
+        {
+            <li class="@yearModel.SelectedCssClass"><a href="@yearModel.Url">@yearModel.Text</a></li>
+        }                                                                                          
+    </ul>
+</nav>

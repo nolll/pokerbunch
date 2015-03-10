@@ -103,58 +103,80 @@ nav{
 .heading-nav{
     position: absolute;
 	top: 0;
-	background-color: #e7ede7;
 	overflow: visible;
     z-index: 10;
+    background: #e7ede7;
 
-	> ul{
+	ul{
 		.fontsize(16);
-		background: #e7ede7;
-
-		> li{
-            display: none;
-
-			> a{
-				display: block;
-                padding: 7px 12px;
-				white-space: nowrap;
-			}
-		}
-
-        > li.selected{
-			display: block;
-            font-weight: bold;
-		}
+        z-index: 12;
 	}
 
-    > ul.expanded{
+    li{
+        display: none;
+	}
 
-		> li{
+    li.selected{
+		display: block;
+        font-weight: bold;
+	}
+
+    a{
+		display: block;
+        padding: 7px 12px;
+		white-space: nowrap;
+	}
+
+    > .nav-arrow{
+        display: block;
+        border-style: solid;
+        border-color: transparent;
+        border-top-color: #000;
+        border-width: 8px 6px 6px 6px;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 11px;
+        z-index: 11;
+    }
+
+    &.is-expanded{
+		li{
             display: block;
 		}
+        
+        > .nav-arrow{
+            border-width: 6px 6px 8px 6px;
+            border-top-color: transparent;
+            border-bottom-color: #000;
+            top: 5px;
+        }
 	}
 }
 
-.year-nav{
-	right: 0;
+.heading-nav.cashgame-nav{
+    left: 0;
 
-	> ul{
-		> li{
-			text-align: right;
-        }
+    a{
+	    padding-left: 32px;
+    }
+
+    > .nav-arrow{
+        left: 12px;
     }
 }
 
-.cashgame-nav{
-	left: 0;
+.heading-nav.year-nav{
+	right: 0;
+    
+	a{
+		text-align: right;
+        padding-right: 32px;
+    }
 
-    li{
-		margin-right: 5px;
-
-        a{
-            color: #000;
-        }
-	}
+    > .nav-arrow{
+        right: 12px;
+    }
 }
 
 .admin-nav{

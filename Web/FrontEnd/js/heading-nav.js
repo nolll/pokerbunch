@@ -10,18 +10,18 @@ define(["jquery"],
             me.$content = me.$el.find('ul');
             me.isExpanded = false;
 
-            me.$btn.click(function (event) {
+            me.$el.click(function (event) {
                 if (!me.isExpanded) {
                     event.preventDefault();
                     me.isExpanded = true;
-                    me.$content.addClass("expanded");
+                    me.$el.addClass("is-expanded");
                 }
             });
 
             $('html').click(function () {
                 if (me.isExpanded) {
                     me.isExpanded = false;
-                    me.$content.removeClass("expanded");
+                    me.$el.removeClass("is-expanded");
                 }
             });
 
