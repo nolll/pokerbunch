@@ -1,23 +1,22 @@
 ﻿html {
   overflow-y: auto;
+  background: #f6f4ef;
 }
 body {
-  background: #bcb;
   color: #444444;
   font-family: arial, verdana;
 }
 .page-header {
-  padding: 15px 15px 0 15px;
-}
-.logo {
-  display: none;
+  padding: 5px 15px 0 15px;
+  border-bottom: 3px solid #bcb;
 }
 .logo a {
   color: #000;
   display: inline-block;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 1.5em;
   text-transform: lowercase;
+  font-family: 'Amatic SC', cursive;
 }
 .main {
   position: relative;
@@ -72,8 +71,11 @@ p {
   margin: 10px auto;
 }
 @media only screen and (min-width : 480px) {
+  .page-header {
+    padding-top: 15px;
+  }
   .logo a {
-    font-size: 1.5em;
+    font-size: 2em;
   }
   h1 {
     font-size: 1.375em;
@@ -98,7 +100,7 @@ p {
     position: relative;
   }
   .logo {
-    margin-left: 0;
+    margin-left: 0px;
   }
 }
 /*# sourceMappingURL=site.css.map */

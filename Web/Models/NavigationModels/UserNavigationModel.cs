@@ -31,7 +31,7 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode(appContextResult.UserDisplayName, appContextResult.UserDetailsUrl.Relative),
+                    new NavigationNode(string.Format("Signed in as {0}", appContextResult.UserDisplayName), appContextResult.UserDetailsUrl.Relative),
                     new NavigationNode("Sign Out", appContextResult.LogoutUrl.Relative)
                 };
         }

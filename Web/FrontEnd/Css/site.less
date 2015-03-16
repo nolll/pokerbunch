@@ -4,28 +4,31 @@
 
 html{
     overflow-y: auto;
+    background: #f6f4ef;
 }
 
 body{
-	background: #bcb;
+	//background: #bcb;
     color: @textColor;
     .default-font();
 }
 
 .page-header{
 	//background: @greenBg;
-	padding: 15px 15px 0 15px;
+	padding: 5px 15px 0 15px;
+    border-bottom: 3px solid #bcb;
 }
 
 .logo{
-	display: none;
+	//display: none;
 	
 	a{
 		color:#000;
 		display:inline-block;
 		text-decoration:none;
-		.fontsize(16);
+		.fontsize(24);
 		text-transform: lowercase;
+        font-family: 'Amatic SC', cursive;
 	}
 }
 
@@ -96,8 +99,12 @@ p{
 }
 
 @media @widthXSmall {
+    .page-header{
+        padding-top: 15px;
+    }
+    
     .logo a{
-        .fontsize(24);
+        .fontsize(32);
     }
 
     h1 {

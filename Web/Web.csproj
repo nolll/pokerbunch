@@ -282,6 +282,9 @@
     <Content Include="FrontEnd\Css\nav.css.map">
       <DependentUpon>nav.css</DependentUpon>
     </Content>
+    <Content Include="FrontEnd\Css\site.css.map">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

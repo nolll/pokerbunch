@@ -25,9 +25,8 @@ nav{
 }
 
 .user-nav{
-	background-color: #414141;
 	padding: 15px 0;
-	border-top: 10px solid #818181;
+	border-top: 3px solid #bcb;
 	
 	ul{
 		padding: 0;
@@ -40,10 +39,6 @@ nav{
 
 	h2{
 		display: none;
-	}
-
-	a{
-		color: #fff;
 	}
 }
 
@@ -105,7 +100,7 @@ nav{
 	top: 0;
 	overflow: visible;
     z-index: 10;
-    background: #e7ede7;
+    background: #fff;
 
 	ul{
 		.fontsize(16);
@@ -118,7 +113,7 @@ nav{
 
     li.selected{
 		display: block;
-        font-weight: bold;
+        font-weight: normal;
 	}
 
     a{
@@ -141,9 +136,15 @@ nav{
     }
 
     &.is-expanded{
-		li{
+		background: #bcb;
+
+        li{
             display: block;
 		}
+
+        li.selected{
+            font-weight: bold;
+	    }
         
         > .nav-arrow{
             border-width: 6px 6px 8px 6px;
@@ -193,20 +194,4 @@ nav{
 	a{
 		color: red;
 	}
-}
-
-@media @widthSmall {
-    .user-nav {
-        background-color: transparent;
-        border-top: none;
-        padding: 0 15px;
-        position: absolute;
-        left: auto;
-        right: 0;
-        top: 1em;
-
-		a{
-			color: #000;
-		}
-    }
 }

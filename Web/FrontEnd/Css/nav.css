@@ -17,9 +17,8 @@ nav .selected {
   font-weight: bold;
 }
 .user-nav {
-  background-color: #414141;
   padding: 15px 0;
-  border-top: 10px solid #818181;
+  border-top: 3px solid #bcb;
 }
 .user-nav ul {
   padding: 0;
@@ -30,9 +29,6 @@ nav .selected {
 }
 .user-nav h2 {
   display: none;
-}
-.user-nav a {
-  color: #fff;
 }
 .game-nav {
   padding: 0 0 15px 0;
@@ -82,7 +78,7 @@ nav .selected {
   top: 0;
   overflow: visible;
   z-index: 10;
-  background: #e7ede7;
+  background: #fff;
 }
 .heading-nav ul {
   font-size: 1em;
@@ -93,7 +89,7 @@ nav .selected {
 }
 .heading-nav li.selected {
   display: block;
-  font-weight: bold;
+  font-weight: normal;
 }
 .heading-nav a {
   display: block;
@@ -112,8 +108,14 @@ nav .selected {
   top: 11px;
   z-index: 11;
 }
+.heading-nav.is-expanded {
+  background: #bcb;
+}
 .heading-nav.is-expanded li {
   display: block;
+}
+.heading-nav.is-expanded li.selected {
+  font-weight: bold;
 }
 .heading-nav.is-expanded > .nav-arrow {
   border-width: 6px 6px 8px 6px;
@@ -152,19 +154,5 @@ nav .selected {
 }
 .admin-nav a {
   color: red;
-}
-@media only screen and (min-width : 600px) {
-  .user-nav {
-    background-color: transparent;
-    border-top: none;
-    padding: 0 15px;
-    position: absolute;
-    left: auto;
-    right: 0;
-    top: 1em;
-  }
-  .user-nav a {
-    color: #000;
-  }
 }
 /*# sourceMappingURL=nav.css.map */
