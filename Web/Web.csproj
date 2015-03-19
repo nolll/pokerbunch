@@ -264,6 +264,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="FrontEnd\Css\clearfix.min.css">
+      <DependentUpon>clearfix.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\form.min.css">
+      <DependentUpon>form.css</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\nav.min.css">
       <DependentUpon>nav.css</DependentUpon>
     </Content>
@@ -284,6 +290,12 @@
     </Content>
     <Content Include="FrontEnd\Css\site.css.map">
       <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\clearfix.css.map">
+      <DependentUpon>clearfix.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\form.css.map">
+      <DependentUpon>form.css</DependentUpon>
     </Content>
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>

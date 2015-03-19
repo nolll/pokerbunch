@@ -26,7 +26,6 @@ nav{
 
 .user-nav{
 	padding: 15px 0;
-	border-top: 3px solid #bcb;
 	
 	ul{
 		padding: 0;
@@ -96,11 +95,10 @@ nav{
 }
 
 .heading-nav{
-    position: absolute;
-	top: 0;
+    float: left;
+    position: relative;
 	overflow: visible;
-    z-index: 10;
-    background: #fff;
+    width: 125px;
 
 	ul{
 		.fontsize(16);
@@ -111,16 +109,20 @@ nav{
         display: none;
 	}
 
-    li.selected{
-		display: block;
-        font-weight: normal;
-	}
-
+    span,
     a{
 		display: block;
         padding: 7px 12px;
 		white-space: nowrap;
+        padding-right: 32px;
 	}
+
+    span{
+        background: #f6f4ef;
+        border: 1px solid #bcb;
+        cursor: pointer;
+        display: block;
+    }
 
     > .nav-arrow{
         display: block;
@@ -132,11 +134,24 @@ nav{
         height: 0;
         position: absolute;
         top: 11px;
+        right: 12px;
         z-index: 11;
     }
 
     &.is-expanded{
-		background: #bcb;
+        border-bottom: none;
+
+        ul{
+            position: absolute;
+            background: #f6f4ef;
+            border: 1px solid #bcb;
+            border-top: none;
+            width: 123px;
+        }
+
+        span{
+            border-bottom: none;
+        }
 
         li{
             display: block;
@@ -155,29 +170,8 @@ nav{
 	}
 }
 
-.heading-nav.cashgame-nav{
-    left: 0;
-
-    a{
-	    padding-left: 32px;
-    }
-
-    > .nav-arrow{
-        left: 12px;
-    }
-}
-
-.heading-nav.year-nav{
-	right: 0;
-    
-	a{
-		text-align: right;
-        padding-right: 32px;
-    }
-
-    > .nav-arrow{
-        right: 12px;
-    }
+.heading-nav + .heading-nav{
+    margin-left: 15px;
 }
 
 .admin-nav{

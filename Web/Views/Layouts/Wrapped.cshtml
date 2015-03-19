@@ -5,20 +5,20 @@
     Layout = ContextLayout.Base;
 }
 
-<div class="wrap">
+<header class="page-section">
+    <div class="page-header">
+        <div class="logo"><a href="/">Poker Bunch</a></div>
+        @RenderSection("TopNav", false)
+    </div>
+</header>
 
-    <header class="page-header">
-        <div class="content">
-            <div class="logo"><a href="/">Poker Bunch</a></div>
-            @RenderSection("TopNav", false)
-        </div>
-    </header>
-
-    <div class="main container">
+<div class="main clearfix">
+    <div class="page-section">
         @RenderSection("ContentNav", false)
         @RenderBody()
     </div>
-
+</div>
+    
+<div class="page-section">
     @RenderSection("BottomNav", false)
-
 </div>

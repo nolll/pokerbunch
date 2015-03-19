@@ -8,7 +8,10 @@ body {
 }
 .page-header {
   padding: 5px 15px 0 15px;
-  border-bottom: 3px solid #bcb;
+}
+.page-section {
+  max-width: 981px;
+  margin: 0 auto;
 }
 .logo a {
   color: #000;
@@ -22,6 +25,8 @@ body {
   position: relative;
   background: #fff;
   padding-bottom: 15px;
+  border: 3px solid #bcb;
+  border-width: 1px 0;
 }
 .main .has-nav {
   padding-top: 40px;
@@ -94,11 +99,6 @@ p {
   }
 }
 @media only screen and (min-width : 960px) {
-  .wrap {
-    max-width: 981px;
-    margin: 0 auto;
-    position: relative;
-  }
   .logo {
     margin-left: 0px;
   }

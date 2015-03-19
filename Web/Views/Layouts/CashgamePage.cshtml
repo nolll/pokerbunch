@@ -8,7 +8,7 @@
 @RenderBody()
 
 @section ContentNav{
-    <div class="heading-nav-container">
+    <div class="heading-nav-container block gutter">
         @Html.Partial("~/Views/Navigation/CashgamePageNavigation.cshtml", Model.PageNavModel)
         @if (Model.YearNavModel != null)
         {
