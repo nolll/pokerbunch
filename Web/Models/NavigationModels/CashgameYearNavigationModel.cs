@@ -12,7 +12,7 @@ namespace Web.Models.NavigationModels
         public CashgameYearNavigationModel(CashgameContextResult cashgameContextResult)
         {
             YearModels = cashgameContextResult.YearItems.Select(o => new NavigationYearModel(o)).ToList();
-            SelectedYear = cashgameContextResult.SelectedYear.ToString();
+            SelectedYear = cashgameContextResult.SelectedYear.HasValue ? cashgameContextResult.SelectedYear.ToString() : cashgameContextResult.YearItems.Last().Label;
         }
     }
 }

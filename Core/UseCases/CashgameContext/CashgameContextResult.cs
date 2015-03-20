@@ -44,7 +44,7 @@ namespace Core.UseCases.CashgameContext
         private IList<YearItem> CreateYearItems(string slug, IEnumerable<int> years, CashgamePage selectedPage, int? selectedYear)
         {
             var yearItems = years.Select(year => new YearItem(year.ToString(CultureInfo.InvariantCulture), GetYearUrl(slug, selectedPage, year), selectedYear == year)).ToList();
-            yearItems.Add(new YearItem("All Time", GetYearUrl(slug, selectedPage), !selectedYear.HasValue));
+            yearItems.Add(new YearItem("All", GetYearUrl(slug, selectedPage), !selectedYear.HasValue));
             return yearItems;
         }
 

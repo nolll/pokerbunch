@@ -20,6 +20,7 @@
             @if (Model.ShowChart)
             {
                 <div data-require="cashgame-game-chart">
+                    @Html.Partial("~/Views/Misc/Spinner.cshtml")
                     <script type="application/json">
                         @Html.Raw(Model.ChartJson)
                     </script>

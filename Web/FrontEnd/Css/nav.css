@@ -96,7 +96,6 @@ nav .selected {
   background: #f6f4ef;
   border: 1px solid #bcb;
   cursor: pointer;
-  display: block;
 }
 .heading-nav > .nav-arrow {
   display: block;
