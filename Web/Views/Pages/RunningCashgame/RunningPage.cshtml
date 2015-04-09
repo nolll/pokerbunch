@@ -80,7 +80,7 @@
             <div data-bind="foreach: sortedPlayers">
                 <div class="standings-item">
                     <div class="name">
-                        <a href="#PlayerUrl" data-bind="text: name"></a>
+                        <a data-bind="text: name, attr: {href: url}"></a>
                         <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
                     </div>
                     <div class="amounts">

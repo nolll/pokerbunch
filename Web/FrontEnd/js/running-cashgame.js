@@ -90,7 +90,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 var player = me.getPlayer(me.playerId());
                 if (!player) {
                     var playerName = me.getPlayerName();
-                    player = new PlayerViewModel(me.playerId(), playerName, false, []);
+                    player = new PlayerViewModel(me.playerId(), playerName, null, false, []);
                     player.addCheckpoint(afterStack, buyInData.addedMoney);
                     me.players.push(player);
                 } else {
@@ -275,7 +275,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                         checkpoint = player.checkpoints[j];
                         checkpoints.push(new CheckpointViewModel(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney));
                     }
-                    players.push(new PlayerViewModel(player.id, player.name, player.hasCashedOut, checkpoints));
+                    players.push(new PlayerViewModel(player.id, player.name, player.url, player.hasCashedOut, checkpoints));
                 }
                 return players;
             }
@@ -291,10 +291,11 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             }
         }
 
-        function PlayerViewModel(id, name, hasCashedOut, checkpoints) {
+        function PlayerViewModel(id, name, url, hasCashedOut, checkpoints) {
             var me = this;
             me.id = id;
             me.name = name;
+            me.url = url;
             me.hasCashedOut = ko.observable(hasCashedOut);
             me.checkpoints = ko.observableArray(checkpoints);
 

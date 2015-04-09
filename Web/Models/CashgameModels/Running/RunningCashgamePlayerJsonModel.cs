@@ -9,9 +9,12 @@ namespace Web.Models.CashgameModels.Running
     {
         [UsedImplicitly]
         public int Id { get; private set; }
-        
+
         [UsedImplicitly]
         public string Name { get; private set; }
+
+        [UsedImplicitly]
+        public string Url { get; private set; }
 
         [UsedImplicitly]
         public bool HasCashedOut { get; private set; }
@@ -23,6 +26,7 @@ namespace Web.Models.CashgameModels.Running
         {
             Id = item.PlayerId;
             Name = item.Name;
+            Url = item.PlayerUrl.Relative;
             HasCashedOut = item.HasCashedOut;
             Checkpoints = item.Checkpoints.Select(o => new RunningCashgameCheckpointJsonModel(o)).ToList();
         }

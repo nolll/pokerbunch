@@ -53,7 +53,7 @@ namespace Core.UseCases.RunningCashgame
             var showChart = cashgame.IsStarted;
 
             var items = GetItems(bunch, cashgame, players, request.CurrentTime);
-            var playerItems = GetPlayerItems(cashgame, players);
+            var playerItems = GetPlayerItems(bunch.Slug, cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
             var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
             var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
@@ -136,7 +136,7 @@ namespace Core.UseCases.RunningCashgame
             return items;
         }
 
-        private static IList<RunningCashgamePlayerItem> GetPlayerItems(Cashgame cashgame, IList<Player> players)
+        private static IList<RunningCashgamePlayerItem> GetPlayerItems(string slug, Cashgame cashgame, IList<Player> players)
         {
             var results = GetSortedResults(cashgame);
             var items = new List<RunningCashgamePlayerItem>();
@@ -144,8 +144,9 @@ namespace Core.UseCases.RunningCashgame
             {
                 var playerId = result.PlayerId;
                 var player = players.First(o => o.Id == playerId);
+                var playerUrl = new CashgameActionUrl(slug, cashgame.DateString, playerId);
                 var hasCheckedOut = result.CashoutCheckpoint != null;
-                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, hasCheckedOut, result.Checkpoints);
+                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, playerUrl, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 

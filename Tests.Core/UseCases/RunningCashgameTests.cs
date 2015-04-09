@@ -92,10 +92,12 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.PlayerItems[0].HasCashedOut);
             Assert.AreEqual(Constants.PlayerNameA, result.PlayerItems[0].Name);
             Assert.AreEqual(Constants.PlayerIdA, result.PlayerItems[0].PlayerId);
+            Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(1, result.PlayerItems[1].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[1].HasCashedOut);
             Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[1].Name);
             Assert.AreEqual(Constants.PlayerIdB, result.PlayerItems[1].PlayerId);
+            Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
         }
 
         [Test]
