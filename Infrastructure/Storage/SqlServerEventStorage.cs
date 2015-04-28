@@ -36,10 +36,14 @@ namespace Infrastructure.Storage
             return CreateRawEvents(reader);
         }
 
-        public IList<int> GetEventIdList()
+        public IList<int> GetEventIdList(int bunchId)
         {
-            const string sql = "SELECT e.EventID FROM [Event] e";
-            var reader = Query(sql);
+            const string sql = "SELECT e.EventID FROM [Event] e WHERE e.BunchID = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", bunchId)
+                };
+            var reader = Query(sql, parameters);
             return reader.ReadIntList("EventID");
         }
 

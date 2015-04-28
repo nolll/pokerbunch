@@ -54,7 +54,7 @@ namespace Infrastructure.Storage.Repositories
         private IList<int> GetIds(int bunchId)
         {
             var cacheKey = CacheKeyProvider.EventIdsKey(bunchId);
-            return _cacheContainer.GetAndStore(() => _eventStorage.GetEventIdList(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _cacheContainer.GetAndStore(() => _eventStorage.GetEventIdList(bunchId), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
         private static Event CreateEvent(RawEvent rawEvent)

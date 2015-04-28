@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Tests.Common.Builders;
 
@@ -24,7 +26,10 @@ namespace Tests.Common.FakeRepositories
 
         public Bunch GetBySlug(string slug)
         {
-            return _list.FirstOrDefault(o => o.Slug == slug);
+            var bunch = _list.FirstOrDefault(o => o.Slug == slug);
+            if(bunch == null)
+                throw new BunchNotFoundException(slug);
+            return bunch;
         }
 
         public IList<Bunch> GetList()

@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Core.UseCases.AppContext;
@@ -18,10 +19,10 @@ namespace Core.UseCases.BunchContext
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var bunch = GetBunch(request);
             var appContextResult = new AppContextInteractor(_auth).Execute();
 
-            if (bunch == null)
+            var bunch = GetBunch(request);
+            if(bunch == null)
                 return new BunchContextResult(appContextResult);
             return new BunchContextResult(appContextResult, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
@@ -29,7 +30,16 @@ namespace Core.UseCases.BunchContext
         private Bunch GetBunch(BunchContextRequest request)
         {
             if (request.HasSlug)
-                return _bunchRepository.GetBySlug(request.Slug);
+            {
+                try
+                {
+                    return _bunchRepository.GetBySlug(request.Slug);
+                }
+                catch (BunchNotFoundException)
+                {
+                    return null;
+                }
+            }
             var bunches = _bunchRepository.GetByUserId(_auth.CurrentIdentity.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }

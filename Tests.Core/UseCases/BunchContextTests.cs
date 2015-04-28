@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.ClearList();
 
-            var result = Sut.Execute(new BunchContextRequest(Constants.SlugA));
+            var result = Sut.Execute(new BunchContextRequest());
 
             Assert.IsFalse(result.HasBunch);
         }

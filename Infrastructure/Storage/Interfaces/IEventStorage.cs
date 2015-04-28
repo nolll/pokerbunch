@@ -7,6 +7,6 @@ namespace Infrastructure.Storage.Interfaces
 	{
 	    RawEvent GetById(int id);
 		IList<RawEvent> GetEventList(IList<int> ids);
-        IList<int> GetEventIdList();
+        IList<int> GetEventIdList(int bunchId);
     }
 }

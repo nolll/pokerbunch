@@ -18,7 +18,7 @@ namespace Web.Models.HomegameModels.Add
         public string TimeZone { get; private set; }
 
         public AddBunchPageModel(AppContextResult contextResult, AddBunchFormResult bunchFormResult, AddBunchPostModel postModel)
-            : base("Create Homegame", contextResult)
+            : base("Create Bunch", contextResult)
         {
             CurrencyLayoutSelectItems = bunchFormResult.CurrencyLayouts.Select(o => new SelectListItem{ Text = o, Value = o }).ToList();
             TimezoneSelectItems = bunchFormResult.TimeZones.Select(o => new SelectListItem{ Text = o.Name, Value = o.Id }).ToList();

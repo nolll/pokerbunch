@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Repositories;
 using Core.Services;
 using Core.UseCases.BunchContext;
@@ -29,7 +30,10 @@ namespace Core.UseCases.CashgameContext
             var selectedYear = request.Year;
             if (request.SelectedPage == CashgamePage.Overview)
             {
-                selectedYear = years.Max(o => o);
+                if(years.Count > 0)
+                    selectedYear = years.Max(o => o);
+                else
+                    selectedYear = request.CurrentTime.Year; // todo: convert to local bunch time
             }
 
             return new CashgameContextResult(

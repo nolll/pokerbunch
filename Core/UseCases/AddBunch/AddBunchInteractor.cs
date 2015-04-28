@@ -26,9 +26,19 @@ namespace Core.UseCases.AddBunch
                 throw new ValidationException(validator);
 
             var slug = SlugGenerator.GetSlug(request.DisplayName);
-            var existingBunch = _bunchRepository.GetBySlug(slug);
 
-            if (existingBunch != null)
+            bool bunchExists;
+            try
+            {
+                var b = _bunchRepository.GetBySlug(slug);
+                bunchExists = true;
+            }
+            catch (BunchNotFoundException)
+            {
+                bunchExists = false;
+            }
+
+            if (bunchExists)
                 throw new BunchExistsException();
 
             var bunch = CreateBunch(request);

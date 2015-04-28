@@ -28,7 +28,7 @@ namespace Core.UseCases.CashgameTopList
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var years = _cashgameRepository.GetYears(bunch.Id);
-            var latestYear = years.OrderBy(o => o).Last();
+            var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
             return Execute(bunch, ToplistSortOrder.Disabled, latestYear);
         }
 
