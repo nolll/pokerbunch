@@ -204,6 +204,7 @@
     <Compile Include="Models\EventModels\Details\EventDetailsPageModel.cs" />
     <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
     <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
+    <Compile Include="Models\HomegameModels\List\BunchListModel.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
@@ -297,6 +298,8 @@
     <Content Include="FrontEnd\Css\form.css.map">
       <DependentUpon>form.css</DependentUpon>
     </Content>
+    <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
+    <Content Include="Views\Navigation\AdminNavigation.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

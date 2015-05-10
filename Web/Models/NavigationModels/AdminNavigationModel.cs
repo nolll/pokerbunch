@@ -8,7 +8,6 @@ namespace Web.Models.NavigationModels
         public AdminNavigationModel(HomeResult homeResult)
         {
             Heading = "Admin";
-            CssClass = "admin-nav";
             Nodes = GetNodes(homeResult);
         }
 
@@ -24,7 +23,7 @@ namespace Web.Models.NavigationModels
                     new NavigationNode("Bunches", homeResult.BunchListUrl.Relative),
                     new NavigationNode("Users", homeResult.UserListUrl.Relative),
                     new NavigationNode("Test Email", homeResult.TestEmailUrl.Relative),
-                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)//,
+                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)
                 };
         }
     }

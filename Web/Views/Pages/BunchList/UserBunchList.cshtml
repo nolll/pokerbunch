@@ -1,0 +1,10 @@
+@model Web.Models.HomegameModels.List.BunchListModel
+
+<ul class="simple list">
+    @foreach(var bunchModel in Model.BunchModels)
+    {
+        <li>
+            @Html.Partial("BunchList/BunchListItem", bunchModel)
+        </li>
+    }
+</ul>
