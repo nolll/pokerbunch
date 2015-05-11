@@ -1,11 +1,12 @@
 ﻿.simple.list {
   padding: 0;
   list-style-type: none;
-  border-top: 1px solid #e7ede7;
 }
 .simple.list li {
-  padding: 5px;
-  border-bottom: 1px solid #e7ede7;
+  padding: 5px 0;
+}
+.simple.list li + li {
+  border-top: 1px solid #e7ede7;
 }
 .value-list dd {
   margin: 0 0 10px 0;
@@ -19,7 +20,6 @@
   vertical-align: bottom;
   font-size: 0.75em;
   text-transform: uppercase;
-  border-bottom: 1px solid #e7ede7;
   font-weight: normal;
 }
 .table-list th a,
@@ -27,10 +27,12 @@
   padding: 10px 5px;
   display: block;
 }
+.table-list tr + tr {
+  border-top: 1px solid #e7ede7;
+}
 .table-list td {
   vertical-align: top;
   padding: 5px;
-  border-bottom: 1px solid #e7ede7;
 }
 .table-list .numeric {
   text-align: right;

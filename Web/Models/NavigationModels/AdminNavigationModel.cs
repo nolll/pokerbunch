@@ -26,5 +26,10 @@ namespace Web.Models.NavigationModels
                     new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)
                 };
         }
+
+        public override string ViewName
+        {
+            get { return "~/Views/Navigation/AdminNavigation.cshtml"; }
+        }
     }
 }

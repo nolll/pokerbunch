@@ -3,12 +3,14 @@
 .simple.list{
 	padding:0;
 	list-style-type: none;
-    border-top: 1px solid #e7ede7;
 
 	li {
-		padding:5px;
-        border-bottom: 1px solid #e7ede7;
+		padding:5px 0;
 	}
+
+    li + li{
+        border-top: 1px solid #e7ede7;
+    }
 }
 
 .value-list{
@@ -26,7 +28,6 @@
 		vertical-align: bottom;
 		.fontsize(12);
 		text-transform: uppercase;
-		border-bottom: 1px solid #e7ede7;
 		font-weight: normal;
 
 		a,
@@ -36,10 +37,13 @@
 		}
 	}
 
+    tr + tr{
+        border-top: 1px solid #e7ede7;
+    }
+
     td{
         vertical-align: top;
 		padding: 5px;
-        border-bottom: 1px solid #e7ede7;
     }
 
     .numeric{

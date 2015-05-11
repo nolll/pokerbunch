@@ -175,6 +175,7 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Board\CashgameBoardPageModel.cs" />
@@ -271,6 +272,9 @@
     <Content Include="FrontEnd\Css\form.min.css">
       <DependentUpon>form.css</DependentUpon>
     </Content>
+    <Content Include="FrontEnd\Css\list.min.css">
+      <DependentUpon>list.css</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\nav.min.css">
       <DependentUpon>nav.css</DependentUpon>
     </Content>
@@ -300,6 +304,9 @@
     </Content>
     <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
     <Content Include="Views\Navigation\AdminNavigation.cshtml" />
+    <Content Include="FrontEnd\Css\list.css.map">
+      <DependentUpon>list.css</DependentUpon>
+    </Content>
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

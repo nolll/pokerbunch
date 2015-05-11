@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Web.Extensions;
 
 namespace Web.Models.NavigationModels
 {
-	public abstract class NavigationModel
+	public abstract class NavigationModel : IViewModel
     {
 	    public string Heading { get; protected set; }
 	    public IList<NavigationNode> Nodes { get; protected set; }
@@ -13,5 +14,10 @@ namespace Web.Models.NavigationModels
 	    {
             Nodes = new List<NavigationNode>();
 	    }
-	}
+
+	    public virtual string ViewName
+	    {
+	        get { return "~/Views/Navigation/Navigation.cshtml"; }
+	    }
+    }
 }
