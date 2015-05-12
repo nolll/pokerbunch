@@ -10,10 +10,10 @@
 </div>
 <div class="block gutter">
 
-    <ul class="users simple list">
-        @foreach(var eventModel in Model.EventModels)
+    <ul class="simple-list">
+        @foreach (var eventModel in Model.EventModels)
         {
-            <li>
+            <li class="simple-list__item">
                 @Html.Partial("EventList/Item", eventModel)
             </li>
         }

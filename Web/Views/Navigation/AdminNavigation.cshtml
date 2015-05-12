@@ -4,10 +4,10 @@
 {
     <nav class="@Model.CssClass">
         <h1>@Model.Heading</h1>
-        <ul class="simple list">
+        <ul class="simple-list">
             @foreach (var node in Model.Nodes)
             {
-                <li class="@node.CssClass"><a href="@node.Url"><span>@node.Name</span></a></li>
+                <li class="simple-list__item @node.CssClass"><a href="@node.Url"><span>@node.Name</span></a></li>
             }
         </ul>
     </nav>

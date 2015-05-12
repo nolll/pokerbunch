@@ -1,11 +1,11 @@
-﻿.simple.list {
+﻿.simple-list {
   padding: 0;
   list-style-type: none;
 }
-.simple.list li {
+.simple-list .simple-list__item {
   padding: 5px 0;
 }
-.simple.list li + li {
+.simple-list .simple-list__item + .simple-list__item {
   border-top: 1px solid #e7ede7;
 }
 .value-list dd {

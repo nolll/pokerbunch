@@ -10,10 +10,10 @@
 </div>
 <div class="block gutter">
 
-    <ul class="simple list">
-        @foreach(var homegameModel in Model.BunchModels)
+    <ul class="simple-list">
+        @foreach (var homegameModel in Model.BunchModels)
         {
-            <li>
+            <li class="simple-list__item">
                 @Html.Partial("BunchList/BunchListItem", homegameModel)
             </li>
         }
