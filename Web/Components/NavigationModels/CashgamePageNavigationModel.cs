@@ -1,9 +1,9 @@
 using Core.UseCases.CashgameContext;
 using Web.Extensions;
 
-namespace Web.Models.NavigationModels
+namespace Web.Components.NavigationModels
 {
-	public class CashgamePageNavigationModel : IViewModel
+	public class CashgamePageNavigationModel : Component
     {
         public string SelectedName { get; private set; }
         public string OverviewUrl { get; private set; }
@@ -69,10 +69,5 @@ namespace Web.Models.NavigationModels
         {
             return current.Equals(selected) ? "selected" : null;
         }
-
-	    public string ViewName
-	    {
-	        get { return "~/Views/Navigation/CashgamePageNavigation.cshtml"; }
-	    }
     }
 }

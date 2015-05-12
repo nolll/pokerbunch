@@ -5,7 +5,7 @@ using Web.Extensions;
 
 namespace Web.Models.NavigationModels
 {
-    public class CashgameYearNavigationModel : IViewModel
+    public class CashgameYearNavigationModel : Component
     {
         public List<NavigationYearModel> YearModels { get; private set; }
         public string SelectedYear { get; private set; }
@@ -16,7 +16,7 @@ namespace Web.Models.NavigationModels
             SelectedYear = cashgameContextResult.SelectedYear.HasValue ? cashgameContextResult.SelectedYear.ToString() : cashgameContextResult.YearItems.Last().Label;
         }
 
-        public string ViewName
+        public override string ViewName
         {
             get { return "~/Views/Navigation/CashgameYearNavigation.cshtml"; }
         }

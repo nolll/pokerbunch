@@ -132,6 +132,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
+    <Compile Include="Components\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddPlayerController.cs" />
@@ -175,7 +176,9 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
+    <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\Component.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Board\CashgameBoardPageModel.cs" />
@@ -307,6 +310,7 @@
     <Content Include="FrontEnd\Css\list.css.map">
       <DependentUpon>list.css</DependentUpon>
     </Content>
+    <Content Include="Views\Web.config" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>
@@ -439,7 +443,7 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Components\Web.config" />
     <Content Include="_build\build.bat" />
     <None Include="_build\build.json" />
   </ItemGroup>
@@ -519,7 +523,6 @@
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistPageModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemModel.cs" />
-    <Compile Include="Models\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationYearModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />
@@ -587,7 +590,7 @@
     <Content Include="Views\Pages\CashgameList\List.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\RunningPage.cshtml" />
     <Content Include="Views\Forms\Errors.cshtml" />
-    <Content Include="Views\Navigation\CashgamePageNavigation.cshtml" />
+    <Content Include="Components\NavigationModels\CashgamePageNavigationModel.cshtml" />
     <Content Include="Views\Navigation\CashgameYearNavigation.cshtml" />
     <Content Include="Views\Misc\Avatar.cshtml" />
     <Content Include="Views\Pages\BunchDetails\BunchDetails.cshtml" />

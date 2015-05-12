@@ -1,4 +1,5 @@
 using Core.UseCases.CashgameContext;
+using Web.Components.NavigationModels;
 using Web.Models.NavigationModels;
 
 namespace Web.Models.PageBaseModels
