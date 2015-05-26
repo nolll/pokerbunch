@@ -7,7 +7,7 @@
 }
 
 <div class="block gutter">
-	<h1>This is Poker Bunch</h1>
+	<h1 class="page-heading">This is Poker Bunch</h1>
 </div>
 <div class="block gutter">
     @if (Model.IsLoggedIn)
@@ -36,9 +36,7 @@
     @if (Model.IsLoggedIn)
     {
         <div class="block gutter">
-            <h1>Your Bunches</h1>
-        </div>
-        <div class="block gutter">
+            <h1 class="module-heading">Your Bunches</h1>
             @Html.Partial("BunchList/UserBunchList", Model.BunchList)
         </div>
         <div class="block gutter">
