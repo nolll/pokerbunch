@@ -113,8 +113,9 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             };
 
             me.endGame = function () {
-                postData(me.endGameUrl);
-                location.href = me.cashgameIndexUrl;
+                postData(me.endGameUrl, null, function() {
+                    location.href = me.cashgameIndexUrl;
+                });
             };
 
             me.getPlayer = function (playerId) {
