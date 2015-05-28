@@ -112,12 +112,12 @@
     <div class="region width1 aside2">
         <div class="block gutter">
             <dl class="value-list">
-                <dt class="label" data-bind="visible: hasPlayers">Start Time</dt>
-                <dd data-bind="visible: hasPlayers, text: startTime"></dd>
-                <dt class="label">Location</dt>
-                <dd data-bind="text: location"></dd>
-                <dt class="label" data-bind="visible: isManager">Player</dt>
-                <dd data-bind="visible: isManager"><select data-bind="options: bunchPlayers, optionsText: 'name', optionsValue: 'id', value: playerId"></select></dd>
+                <dt class="value-list__key" data-bind="visible: hasPlayers">Start Time</dt>
+                <dd class="value-list__value" data-bind="visible: hasPlayers, text: startTime"></dd>
+                <dt class="value-list__key">Location</dt>
+                <dd class="value-list__value" data-bind="text: location"></dd>
+                <dt class="value-list__key" data-bind="visible: isManager">Player</dt>
+                <dd class="value-list__value" data-bind="visible: isManager"><select data-bind="options: bunchPlayers, optionsText: 'name', optionsValue: 'id', value: playerId"></select></dd>
             </dl>
         </div>
     </div>

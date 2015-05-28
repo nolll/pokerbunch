@@ -15,14 +15,14 @@
 </div>
 <div class="block gutter">
     <dl class="value-list">
-        <dt class="label">Login Name</dt>
-        <dd>@Model.UserName</dd>
-        <dt class="label">Display Name</dt>
-        <dd>@Model.DisplayName</dd>
-        <dt class="label">Real Name</dt>
-        <dd>@Model.RealName</dd>
-        <dt class="label">Email</dt>
-        <dd>@Model.Email</dd>
+        <dt class="value-list__key">Login Name</dt>
+        <dd class="value-list__value">@Model.UserName</dd>
+        <dt class="value-list__key">Display Name</dt>
+        <dd class="value-list__value">@Model.DisplayName</dd>
+        <dt class="value-list__key">Real Name</dt>
+        <dd class="value-list__value">@Model.RealName</dd>
+        <dt class="value-list__key">Email</dt>
+        <dd class="value-list__value">@Model.Email</dd>
     </dl>
     @if (Model.ShowEditLink)
     {

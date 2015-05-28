@@ -8,11 +8,11 @@
 <div class="block gutter">    
     <h2 class="h2">Single Game</h2>
     <dl class="value-list">
-        <dt class="label">Best Result</dt>
-        <dd>@Model.BestResultName: <span class="pos-result">@Model.BestResultAmount</span></dd>
+        <dt class="value-list__key">Best Result</dt>
+        <dd class="value-list__value">@Model.BestResultName: <span class="pos-result">@Model.BestResultAmount</span></dd>
 
-        <dt class="label">Worst Result</dt>
-        <dd>@Model.WorstResultName: <span class="neg-result">@Model.WorstResultAmount</span></dd>
+        <dt class="value-list__key">Worst Result</dt>
+        <dd class="value-list__value">@Model.WorstResultName: <span class="neg-result">@Model.WorstResultAmount</span></dd>
         
         @*
         BiggestBuyin
@@ -24,20 +24,20 @@
     
     <h2 class="h2">Totals</h2>
     <dl class="value-list">
-        <dt class="label">Most Time Played</dt>
-        <dd>@Model.MostTimeName: @Model.MostTimeDuration</dd>
+        <dt class="value-list__key">Most Time Played</dt>
+        <dd class="value-list__value">@Model.MostTimeName: @Model.MostTimeDuration</dd>
         
-        <dt class="label">Best Total Result</dt>
-        <dd>@Model.BestTotalWinningsName: <span class="pos-result">@Model.BestTotalWinningsAmount</span></dd>
+        <dt class="value-list__key">Best Total Result</dt>
+        <dd class="value-list__value">@Model.BestTotalWinningsName: <span class="pos-result">@Model.BestTotalWinningsAmount</span></dd>
         
-        <dt class="label">Worst Total Result</dt>
-        <dd>@Model.WorstTotalWinningsName: <span class="neg-result">@Model.WorstTotalWinningsAmount</span></dd>
+        <dt class="value-list__key">Worst Total Result</dt>
+        <dd class="value-list__value">@Model.WorstTotalWinningsName: <span class="neg-result">@Model.WorstTotalWinningsAmount</span></dd>
 
-        <dt class="label">Biggest Total Buyin</dt>
-        <dd>@Model.BiggestTotalBuyinName: @Model.BiggestTotalBuyinAmount</dd>
+        <dt class="value-list__key">Biggest Total Buyin</dt>
+        <dd class="value-list__value">@Model.BiggestTotalBuyinName: @Model.BiggestTotalBuyinAmount</dd>
         
-        <dt class="label">Biggest Total Cashout</dt>
-        <dd>@Model.BiggestTotalCashoutName: @Model.BiggestTotalCashoutAmount</dd>
+        <dt class="value-list__key">Biggest Total Cashout</dt>
+        <dd class="value-list__value">@Model.BiggestTotalCashoutName: @Model.BiggestTotalCashoutAmount</dd>
         
         @*
         MostGamesPlayed
@@ -52,14 +52,14 @@
     <div class="block gutter">
         <h2 class="h2">Overall</h2>
         <dl class="value-list">
-            <dt class="label">Number of games</dt>
-            <dd>@Model.GameCount</dd>
+            <dt class="value-list__key">Number of games</dt>
+            <dd class="value-list__value">@Model.GameCount</dd>
 
-            <dt class="label">Total Time Played</dt>
-            <dd>@Model.TotalGameTime</dd>
+            <dt class="value-list__key">Total Time Played</dt>
+            <dd class="value-list__value">@Model.TotalGameTime</dd>
         
-            <dt class="label">Total Turnover</dt>
-            <dd>@Model.TotalTurnover</dd>
+            <dt class="value-list__key">Total Turnover</dt>
+            <dd class="value-list__value">@Model.TotalTurnover</dd>
         </dl>
     </div>
 }
