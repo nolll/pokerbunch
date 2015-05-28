@@ -31,7 +31,6 @@ input[type=email] {
   float: left;
   margin: 14px 0 0 4px;
 }
-button,
 .button {
   border: 1px solid #ccc;
   color: #000;
@@ -45,7 +44,7 @@ button,
   font-size: 0.75em;
   text-transform: uppercase;
 }
-.icon-button {
+.button--icon {
   border: none;
   background: transparent;
   display: inline-block;
@@ -54,9 +53,13 @@ button,
   padding: 4px 9px;
   text-align: center;
 }
-.icon-button i {
+.button--icon i {
   display: block;
   font-size: 2.8em;
+}
+.button--action {
+  border: 1px solid #bcb;
+  background: #f6f4ef;
 }
 .buttons {
   margin-top: 15px;
@@ -68,10 +71,6 @@ button,
 .button-list .button {
   border: none;
   background: none;
-}
-.action {
-  border: 1px solid #bcb;
-  background: #f6f4ef;
 }
 .validation-error {
   color: red;

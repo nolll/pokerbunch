@@ -16,19 +16,19 @@
         </div>
 
         <div class="button-list" data-bind="visible: areButtonsVisible">
-            <button class="icon-button" data-bind="visible: canReport, click: showReportForm">
+            <button class="button button--icon" data-bind="visible: canReport, click: showReportForm">
                 <i class="icon-reorder"></i>
                 Report
             </button>
-            <button class="icon-button" data-bind="visible: canBuyIn, click: showBuyInForm">
+            <button class="button button--icon" data-bind="visible: canBuyIn, click: showBuyInForm">
                 <i class="icon-money"></i>
                 Buy In
             </button>
-            <button class="icon-button" data-bind="visible: canCashOut, click: showCashOutForm">
+            <button class="button button--icon" data-bind="visible: canCashOut, click: showCashOutForm">
                 <i class="icon-signout"></i>
                 Cash Out
             </button>
-            <button class="icon-button" data-bind="visible: canEndGame, click: showEndGameForm">
+            <button class="button button--icon" data-bind="visible: canEndGame, click: showEndGameForm">
                 <i class="icon-signout"></i>
                 End Game
             </button>
@@ -40,8 +40,8 @@
                     <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="report-stack" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
-                    <button data-bind="click: report" class="action">Report</button>
-                    <button data-bind="click: hideForms">Cancel</button>
+                    <button data-bind="click: report" class="button button--action">Report</button>
+                    <button data-bind="click: hideForms" class="button">Cancel</button>
                 </div>
             </div>
             <div class="form" data-bind="visible: buyInFormVisible">
@@ -54,8 +54,8 @@
                     <input class="numberfield" data-bind="value: beforeBuyInStack, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." data-val-required="The StackAmount field is required." min="0" id="buyin-stack" pattern="[0-9]*" required="True" type="text" value="0">
                 </div>
                 <div class="buttons">
-                    <button data-bind="click: buyIn" class="action">Buy In</button>
-                    <button data-bind="click: hideForms">Cancel</button>
+                    <button data-bind="click: buyIn" class="button button--action">Buy In</button>
+                    <button data-bind="click: hideForms" class="button">Cancel</button>
                 </div>
             </div>
             <div class="form" data-bind="visible: cashOutFormVisible">
@@ -64,15 +64,15 @@
                     <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="cashout-stack" pattern="[0-9]*" required="required" type="text" value="">
                 </div>
                 <div class="buttons">
-                    <button data-bind="click: cashOut" class="action">Cash Out</button>
-                    <button data-bind="click: hideForms">Cancel</button>
+                    <button data-bind="click: cashOut" class="button button--action">Cash Out</button>
+                    <button data-bind="click: hideForms" class="button">Cancel</button>
                 </div>
             </div>
             <div data-bind="visible: endGameFormVisible">
                 <h2>All done?</h2>
                 <div class="buttons">
-                    <button data-bind="click: endGame" class="action">Yes</button>
-                    <button data-bind="click: hideForms">Cancel</button>
+                    <button data-bind="click: endGame" class="button button--action">Yes</button>
+                    <button data-bind="click: hideForms" class="button">Cancel</button>
                 </div>
             </div>
         </div>
