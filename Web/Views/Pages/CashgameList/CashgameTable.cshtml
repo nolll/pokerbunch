@@ -10,7 +10,7 @@
             <th class="@Model.AverageBuyinSortClass"><a href="@Model.AverageBuyinSortUrl">Average Buyin</a></th>
         </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
         @foreach (var listItemModel in Model.ListItemModels)
         {
             @Html.Partial("CashgameList/CashgameTableItem", listItemModel)

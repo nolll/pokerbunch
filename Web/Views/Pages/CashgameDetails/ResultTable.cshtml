@@ -2,18 +2,18 @@
 
 <table class="table-list">
     <thead>
-        <tr>
-            <th><span>Player</span></th>
-            <th><span>Buyin</span></th>
-            <th><span>Cashout</span></th>
-            <th><span>Result</span></th>
-            <th><span>Winrate</span></th>
+        <tr class="table-list__row">
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Buyin</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Cashout</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Result</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Winrate</span></th>
         </tr>
     </thead>
-        <tbody class="list">
-            @foreach (var resultModel in Model.ResultModels)
-            {
-                @Html.Partial("CashgameDetails/ResultTableItem", resultModel)
-            }
-        </tbody>
+    <tbody>
+        @foreach (var resultModel in Model.ResultModels)
+        {
+            @Html.Partial("CashgameDetails/ResultTableItem", resultModel)
+        }
+    </tbody>
 </table>

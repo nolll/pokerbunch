@@ -28,7 +28,8 @@
 .table-list{
     margin-bottom:10px;
 
-	th{
+	th,
+    .table-list__column-header{
 		padding: 0;
 		text-align: left;
 		vertical-align: bottom;
@@ -37,22 +38,26 @@
 		font-weight: normal;
 
 		a,
-		span{
+		span,
+        .table-list__column-header__content{
 			padding: 10px 5px;
 			display: block;
 		}
 	}
 
-    tr + tr{
+    tr + tr,
+    .table-list__row + .table-list__row{
         border-top: 1px solid #e7ede7;
     }
 
-    td{
+    td,
+    .table-list__cell{
         vertical-align: top;
 		padding: 5px;
     }
 
-    .numeric{
+    .numeric,
+    .table-list__cell--numeric{
         text-align: right;
     }
 }
