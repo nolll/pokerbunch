@@ -3,10 +3,8 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.Urls;
 using Core.UseCases.BunchContext;
-using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.RunningCashgame;
 using Web.Controllers.Base;
-using Web.Models.CashgameModels.Board;
 using Web.Models.CashgameModels.Running;
 
 namespace Web.Controllers
@@ -49,25 +47,6 @@ namespace Web.Controllers
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
-        }
-
-        [Authorize]
-        [Route("{slug}/cashgame/board")]
-        public ActionResult Board(string slug)
-        {
-            RequirePlayer(slug);
-            try
-            {
-                var contextResult = UseCase.BaseContext.Execute();
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
-                var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChartRequest(slug, DateTime.UtcNow));
-                var model = new CashgameBoardPageModel(contextResult, runningCashgameResult, cashgameDetailsChartResult);
-                return View("~/Views/Pages/CashgameBoard/BoardPage.cshtml", model);
-            }
-            catch (CashgameNotRunningException)
-            {
-                return Redirect(new CashgameIndexUrl(slug).Relative);
-            }
         }
     }
 }
