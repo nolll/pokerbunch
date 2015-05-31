@@ -1,16 +1,6 @@
 ﻿.amount {
   text-align: right;
 }
-.cashgames th span,
-.cashgames td.game-info span {
-  display: block;
-}
-.cashgames .details {
-  display: none;
-}
-.cashgames .date {
-  text-align: right;
-}
 .pos-result {
   color: green;
 }
@@ -24,3 +14,4 @@
     left: 300px;
   }
 }
+/*# sourceMappingURL=cashgame.css.map */

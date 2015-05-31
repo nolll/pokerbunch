@@ -266,6 +266,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="FrontEnd\Css\cashgame.min.css">
+      <DependentUpon>cashgame.css</DependentUpon>
+    </Content>
     <Content Include="FrontEnd\Css\clearfix.min.css">
       <DependentUpon>clearfix.css</DependentUpon>
     </Content>
@@ -277,6 +280,9 @@
     </Content>
     <Content Include="FrontEnd\Css\nav.min.css">
       <DependentUpon>nav.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\sortable-table.min.css">
+      <DependentUpon>sortable-table.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\spinner.css">
       <DependentUpon>spinner.less</DependentUpon>
@@ -308,6 +314,12 @@
       <DependentUpon>list.css</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="FrontEnd\Css\sortable-table.css.map">
+      <DependentUpon>sortable-table.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\cashgame.css.map">
+      <DependentUpon>cashgame.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - Web Deploy.pubxml" />
     <None Include="Web.wpp.targets">

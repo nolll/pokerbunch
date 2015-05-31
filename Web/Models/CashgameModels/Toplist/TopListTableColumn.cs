@@ -20,7 +20,7 @@ namespace Web.Models.CashgameModels.Toplist
 
         private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)
         {
-            return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
+            return selectedSortOrder.Equals(columnSortOrder) ? ".table-list--sortable__sort-column" : "";
         }
 
         private string GetSortUrl(TopListResult topListResult, ToplistSortOrder sortOrder)

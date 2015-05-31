@@ -1,14 +1,14 @@
 @model Web.Models.CashgameModels.Toplist.CashgameToplistTableItemModel
 
-<tr>
-    <td class="rank base-column">@Model.Rank.</td>
-    <td class="name base-column">
+<tr class="table-list__row">
+    <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">@Model.Rank.</td>
+    <td class="table-list__cell table-list--sortable__base-column">
         <a href="@Model.PlayerUrl">@Model.Name</a>
     </td>
-    <td class="numeric result @Model.ResultClass @Model.ResultSortClass">@Model.TotalResult</td>
-    <td class="numeric @Model.BuyinSortClass">@Model.Buyin</td>
-    <td class="numeric @Model.CashoutSortClass">@Model.Cashout</td>
-    <td class="gametime @Model.GameTimeSortClass">@Model.GameTime</td>
-    <td class="numeric @Model.GameCountSortClass">@Model.GameCount</td>
-    <td class="numeric @Model.WinRateSortClass">@Model.WinRate</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.ResultClass @Model.ResultSortClass">@Model.TotalResult</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.BuyinSortClass">@Model.Buyin</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.CashoutSortClass">@Model.Cashout</td>
+    <td class="table-list__cell @Model.GameTimeSortClass">@Model.GameTime</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.GameCountSortClass">@Model.GameCount</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.WinRateSortClass">@Model.WinRate</td>
 </tr>

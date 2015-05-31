@@ -10,7 +10,7 @@ define(["jquery"],
 
         SortableTable.prototype.createForm = function () {
             var me = this;
-            var $div = $("<div class='sort-order-selector'><label for='sortorder'>Select Data:</label></div>");
+            var $div = $("<div class='table-list--sortable__sort-order-selector'><label for='sortorder'>Select Data:</label></div>");
             var $dropdown = $("<select id='sortorder' name='sortorder'></select>");
             var $tableHeaders = me.$el.find("th");
             $tableHeaders.each(function () {

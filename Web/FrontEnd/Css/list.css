@@ -18,8 +18,7 @@
 .table-list {
   margin-bottom: 10px;
 }
-.table-list th,
-.table-list .table-list__column-header {
+.table-list__column-header {
   padding: 0;
   text-align: left;
   vertical-align: bottom;
@@ -27,26 +26,18 @@
   text-transform: uppercase;
   font-weight: normal;
 }
-.table-list th a,
-.table-list .table-list__column-header a,
-.table-list th span,
-.table-list .table-list__column-header span,
-.table-list th .table-list__column-header__content,
-.table-list .table-list__column-header .table-list__column-header__content {
+.table-list__column-header__content {
   padding: 10px 5px;
   display: block;
 }
-.table-list tr + tr,
-.table-list .table-list__row + .table-list__row {
+.table-list__row + .table-list__row {
   border-top: 1px solid #e7ede7;
 }
-.table-list td,
-.table-list .table-list__cell {
+.table-list__cell {
   vertical-align: top;
   padding: 5px;
 }
-.table-list .numeric,
-.table-list .table-list__cell--numeric {
+.table-list__cell--numeric {
   text-align: right;
 }
 /*# sourceMappingURL=list.css.map */
