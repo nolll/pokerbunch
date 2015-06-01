@@ -1,21 +1,4 @@
-﻿.simple-list {
-  padding: 0;
-  list-style-type: none;
-}
-.simple-list__item {
-  padding: 5px 0;
-}
-.simple-list__item + .simple-list__item {
-  border-top: 1px solid #e7ede7;
-}
-.value-list__key {
-  font-size: 0.75em;
-  text-transform: uppercase;
-}
-.value-list__value {
-  margin: 0 0 10px 0;
-}
-.table-list {
+﻿.table-list {
   margin-bottom: 10px;
 }
 .table-list__column-header {
@@ -40,4 +23,4 @@
 .table-list__cell--numeric {
   text-align: right;
 }
-/*# sourceMappingURL=list.css.map */
+/*# sourceMappingURL=table-list.css.map */

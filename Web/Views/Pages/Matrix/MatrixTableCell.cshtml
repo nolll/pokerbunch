@@ -3,11 +3,11 @@
 <td class="table-list__cell table-list__cell--numeric @Model.WinnerClass">
     @if (@Model.ShowResult)
     {
-        <span class="@Model.ResultClass">@Model.Winnings</span>
+        <span class="matrix__value @Model.ResultClass">@Model.Winnings</span>
         if (Model.ShowTransactions)
         {
-            <span class="transaction">in @Model.Buyin</span>
-            <span class="transaction">out @Model.Cashout</span>
+            <span class="matrix__transaction">in @Model.Buyin</span>
+            <span class="matrix__transaction">out @Model.Cashout</span>
         }
     }
 </td>

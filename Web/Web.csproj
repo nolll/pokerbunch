@@ -275,14 +275,17 @@
     <Content Include="FrontEnd\Css\form.min.css">
       <DependentUpon>form.css</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\list.min.css">
-      <DependentUpon>list.css</DependentUpon>
+    <Content Include="FrontEnd\Css\value-list.css">
+      <DependentUpon>value-list.less</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\table-list.css">
+      <DependentUpon>table-list.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\nav.min.css">
       <DependentUpon>nav.css</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\sortable-table.min.css">
-      <DependentUpon>sortable-table.css</DependentUpon>
+    <Content Include="FrontEnd\Css\simple-list.min.css">
+      <DependentUpon>simple-list.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\spinner.css">
       <DependentUpon>spinner.less</DependentUpon>
@@ -310,15 +313,14 @@
     </Content>
     <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
     <Content Include="Views\Navigation\AdminNavigation.cshtml" />
-    <Content Include="FrontEnd\Css\list.css.map">
-      <DependentUpon>list.css</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="FrontEnd\Css\sortable-table.css.map">
-      <DependentUpon>sortable-table.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\cashgame.css.map">
       <DependentUpon>cashgame.css</DependentUpon>
+    </Content>
+    <Content Include="FrontEnd\Css\table-list.less" />
+    <Content Include="FrontEnd\Css\value-list.less" />
+    <Content Include="FrontEnd\Css\simple-list.css.map">
+      <DependentUpon>simple-list.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - Web Deploy.pubxml" />
@@ -329,14 +331,14 @@
     <Content Include="FrontEnd\Css\achievements.css">
       <DependentUpon>achievements.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\cashgame-matrix.css">
-      <DependentUpon>cashgame-matrix.less</DependentUpon>
+    <Content Include="FrontEnd\Css\matrix.css">
+      <DependentUpon>matrix.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\cashgame-results-form.css">
       <DependentUpon>cashgame-results-form.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\cashgame-toplist.css">
-      <DependentUpon>sortable-table.less</DependentUpon>
+    <Content Include="FrontEnd\Css\table-list--sortable.css">
+      <DependentUpon>table-list--sortable.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\cashgame.css">
       <DependentUpon>cashgame.less</DependentUpon>
@@ -365,8 +367,8 @@
     <Content Include="FrontEnd\Css\label.css">
       <DependentUpon>label.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\list.css">
-      <DependentUpon>list.less</DependentUpon>
+    <Content Include="FrontEnd\Css\simple-list.css">
+      <DependentUpon>simple-list.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\mediaqueries.css">
       <DependentUpon>mediaqueries.less</DependentUpon>
@@ -394,9 +396,6 @@
     </Content>
     <Content Include="FrontEnd\Css\site.min.css">
       <DependentUpon>site.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\sortable-table.css">
-      <DependentUpon>sortable-table.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\spinner.min.css">
       <DependentUpon>spinner.css</DependentUpon>
@@ -499,8 +498,8 @@
     <Content Include="FrontEnd\Css\label.less" />
     <Content Include="FrontEnd\Css\achievements.less" />
     <None Include=".bin\node.cmd" />
-    <None Include="FrontEnd\Css\sortable-table.less" />
-    <None Include="FrontEnd\Css\cashgame-matrix.less" />
+    <None Include="FrontEnd\Css\table-list--sortable.less" />
+    <None Include="FrontEnd\Css\matrix.less" />
     <None Include="FrontEnd\Css\cashgame-results-form.less" />
     <None Include="FrontEnd\Css\cashgame.less" />
     <None Include="FrontEnd\Css\checkpoint-list.less" />
@@ -509,7 +508,7 @@
     <None Include="FrontEnd\Css\form.less" />
     <None Include="FrontEnd\Css\grid.less" />
     <None Include="FrontEnd\Css\icon.less" />
-    <None Include="FrontEnd\Css\list.less" />
+    <None Include="FrontEnd\Css\simple-list.less" />
     <None Include="FrontEnd\Css\nav.less" />
     <None Include="FrontEnd\Css\normalize.less" />
     <None Include="FrontEnd\Css\player.less" />

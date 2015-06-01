@@ -39,7 +39,7 @@ namespace Web.Models.CashgameModels.Matrix
                         Cashout = resultItem.Cashout.Amount,
                         Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings.Amount),
                         ResultClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings),
-                        WinnerClass = resultItem.HasBestResult ? "winner" : null
+                        WinnerClass = resultItem.HasBestResult ? "matrix__winner" : null
                     };
                     models.Add(model);
                 }

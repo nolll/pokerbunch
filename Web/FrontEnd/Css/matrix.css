@@ -1,0 +1,13 @@
+﻿.matrix {
+  overflow: auto;
+}
+.matrix__value {
+  display: block;
+}
+.matrix__transaction {
+  font-size: 0.75em;
+  display: block;
+}
+.matrix__winner {
+  background: #e7ede7;
+}
