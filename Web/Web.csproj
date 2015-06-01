@@ -266,62 +266,26 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="FrontEnd\Css\cashgame.min.css">
-      <DependentUpon>cashgame.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\clearfix.min.css">
-      <DependentUpon>clearfix.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\form.min.css">
-      <DependentUpon>form.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\value-list.css">
       <DependentUpon>value-list.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\table-list.css">
       <DependentUpon>table-list.less</DependentUpon>
     </Content>
-    <Content Include="FrontEnd\Css\nav.min.css">
-      <DependentUpon>nav.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\simple-list.min.css">
-      <DependentUpon>simple-list.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\spinner.css">
       <DependentUpon>spinner.less</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\spinner.less" />
-    <Content Include="FrontEnd\Css\spinner.css.map">
-      <DependentUpon>spinner.css</DependentUpon>
-    </Content>
     <Content Include="Views\Misc\Spinner.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\CashgameIndex.cshtml" />
     <Content Include="Views\Pages\Toplist\SimpleToplistTable.cshtml" />
     <Content Include="Views\Pages\Toplist\SimpleToplistTableItem.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\Status.cshtml" />
-    <Content Include="FrontEnd\Css\nav.css.map">
-      <DependentUpon>nav.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\site.css.map">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\clearfix.css.map">
-      <DependentUpon>clearfix.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\form.css.map">
-      <DependentUpon>form.css</DependentUpon>
-    </Content>
     <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
     <Content Include="Views\Navigation\AdminNavigation.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="FrontEnd\Css\cashgame.css.map">
-      <DependentUpon>cashgame.css</DependentUpon>
-    </Content>
     <Content Include="FrontEnd\Css\table-list.less" />
     <Content Include="FrontEnd\Css\value-list.less" />
-    <Content Include="FrontEnd\Css\simple-list.css.map">
-      <DependentUpon>simple-list.css</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - Web Deploy.pubxml" />
     <None Include="Web.wpp.targets">
@@ -393,12 +357,6 @@
     </Content>
     <Content Include="FrontEnd\Css\site.css">
       <DependentUpon>site.less</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
-    <Content Include="FrontEnd\Css\spinner.min.css">
-      <DependentUpon>spinner.css</DependentUpon>
     </Content>
     <Content Include="FrontEnd\Css\standings.css">
       <DependentUpon>standings.less</DependentUpon>
