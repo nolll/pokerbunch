@@ -28,7 +28,7 @@ namespace Core.UseCases.JoinBunch
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var players = _playerRepository.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
-            if (player != null && player.IsUser)
+            if (player != null)
             {
                 _playerRepository.JoinHomegame(player, bunch, request.UserId);
             }
