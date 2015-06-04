@@ -10,9 +10,6 @@ nav ul {
 nav h2 {
   margin: 0;
 }
-nav a {
-  text-decoration: none;
-}
 nav .selected {
   font-weight: bold;
 }
@@ -151,4 +148,3 @@ nav .selected {
 .admin-nav a {
   color: red;
 }
-/*# sourceMappingURL=nav.css.map */
