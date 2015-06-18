@@ -8,8 +8,18 @@ html{
 }
 
 body{
-    color: @textColor;
+    color: @text-color;
     .default-font();
+}
+
+a{
+	color: @text-color;
+}
+
+h1, h2, h3{
+	margin:0;
+	font-weight:normal;
+	.fontsize(16);
 }
 
 .page-header{
@@ -21,16 +31,13 @@ body{
     margin: 0 auto;
 }
 
-.logo{
-	
-	a{
-		color:#000;
-		display:inline-block;
-		text-decoration:none;
-		.fontsize(24);
-		text-transform: lowercase;
-        font-family: 'Amatic SC', cursive;
-	}
+.logo-link{
+	color:#000;
+	display:inline-block;
+	text-decoration:none;
+	.fontsize(24);
+	text-transform: lowercase;
+    font-family: 'Amatic SC', cursive;
 }
 
 .main{
@@ -43,23 +50,6 @@ body{
 	.has-nav{
 		padding-top:40px;
 	}
-}
-
-footer{
-	.content{
-		padding:0 15px;
-		position:relative;
-	}
-}
-
-a{
-	color:#444;
-}
-
-h1, h2, h3{
-	margin:0;
-	font-weight:normal;
-	.fontsize(16);
 }
 
 .h1{
@@ -119,7 +109,7 @@ p{
         padding-top: 15px;
     }
     
-    .logo a{
+    .logo-link{
         .fontsize(32);
     }
 
@@ -149,6 +139,6 @@ p{
     }
 
     .logo {
-        margin-left: 0px;
+        margin-left: 0;
     }
 }

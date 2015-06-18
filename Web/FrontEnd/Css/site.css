@@ -6,6 +6,16 @@ body {
   color: #444444;
   font-family: arial, verdana;
 }
+a {
+  color: #444444;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 1em;
+}
 .page-header {
   padding: 5px 15px 0 15px;
 }
@@ -13,7 +23,7 @@ body {
   max-width: 981px;
   margin: 0 auto;
 }
-.logo a {
+.logo-link {
   color: #000;
   display: inline-block;
   text-decoration: none;
@@ -30,20 +40,6 @@ body {
 }
 .main .has-nav {
   padding-top: 40px;
-}
-footer .content {
-  padding: 0 15px;
-  position: relative;
-}
-a {
-  color: #444;
-}
-h1,
-h2,
-h3 {
-  margin: 0;
-  font-weight: normal;
-  font-size: 1em;
 }
 .h1 {
   margin-bottom: 10px;
@@ -90,7 +86,7 @@ p {
   .page-header {
     padding-top: 15px;
   }
-  .logo a {
+  .logo-link {
     font-size: 2em;
   }
   .page-heading {
@@ -111,7 +107,6 @@ p {
 }
 @media only screen and (min-width : 960px) {
   .logo {
-    margin-left: 0px;
+    margin-left: 0;
   }
 }
-/*# sourceMappingURL=site.css.map */

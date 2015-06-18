@@ -1,37 +1,49 @@
-﻿using System.Web.Optimization;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Optimization;
 
 namespace Web
 {
     public static class BundleConfig
     {
+        private static readonly List<string> CssFiles = new List<string>
+        {
+            "normalize",
+            "clearfix",
+            "grid",
+            "site",
+            "font-awesome",
+            "cashgame",
+            "matrix",
+            "cashgame-results-form",
+            "running-game",
+            "standings",
+            "player",
+            "nav",
+            "form",
+            "simple-list",
+            "value-list",
+            "table-list",
+            "table-list--sortable",
+            "label",
+            "icon",
+            "checkpoint-list",
+            "achievements",
+            "spinner",
+            "print"
+        };
+
         public static void RegisterBundles(BundleCollection bundles)
         {
-            var lessBundle = new StyleBundle(BundleUrl).Include(
-                GetCssUrl("normalize"),
-                GetCssUrl("clearfix"),
-                GetCssUrl("grid"),
-                GetCssUrl("site"),
-                GetCssUrl("font-awesome"),
-                GetCssUrl("cashgame"),
-                GetCssUrl("matrix"),
-                GetCssUrl("cashgame-results-form"),
-                GetCssUrl("running-game"),
-                GetCssUrl("standings"),
-                GetCssUrl("player"),
-                GetCssUrl("nav"),
-                GetCssUrl("form"),
-                GetCssUrl("simple-list"),
-                GetCssUrl("value-list"),
-                GetCssUrl("table-list"),
-                GetCssUrl("sortable-table"),
-                GetCssUrl("label"),
-                GetCssUrl("icon"),
-                GetCssUrl("checkpoint-list"),
-                GetCssUrl("achievements"),
-                GetCssUrl("spinner"),
-                GetCssUrl("print"));
-            lessBundle.Transforms.Add(new CssMinify());
+            var lessBundle = new LessBundle(BundleUrl).Include(CssUrls);
+            //lessBundle.Transforms.Add(new CssMinify());
             bundles.Add(lessBundle);
+            BundleTable.EnableOptimizations = true;
+        }
+
+        private static string[] CssUrls
+        {
+            get { return CssFiles.Select(GetCssUrl).ToArray(); }
         }
 
         public static string BundleUrl
@@ -47,6 +59,5 @@ namespace Web
         {
             return string.Format("~/FrontEnd/Css/{0}.css", cssName);
         }
-
     }
 }
