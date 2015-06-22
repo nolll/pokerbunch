@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.PlayerModels.Details.PlayerDetailsPageModel
 
@@ -10,7 +11,7 @@
 </div>
 <div class="block gutter">
     @Html.Partial("PlayerDetails/PlayerFacts", Model.PlayerFactsModel)
-    @Html.Partial("PlayerDetails/PlayerBadges", Model.PlayerBadgesModel)
+    @Html.Component(Model.BadgeListModel)
     
     @if (Model.DeleteEnabled)
     {
@@ -20,16 +21,23 @@
     }
 </div>
 @section Aside2{
-	<div class="block gutter">
-		@if (Model.ShowUserInfo){
+    <div class="block gutter">
+        <h2 class="module-heading">User</h2>
+        @if (Model.ShowUserInfo){
             @Html.Partial("~/Views/Misc/Avatar.cshtml", Model.AvatarModel)
-			<p>
-				<a href="@Model.UserUrl" class="button">User Profile</a>
-			</p>
-		} else {
-			<p>
-				<a href="@Model.InvitationUrl" class="button">Invite User</a>
-			</p>
-		}
-	</div>
+            <p>
+                This player is a registered user.
+            </p>
+            <p>
+                <a href="@Model.UserUrl" class="button">View User Profile</a>
+            </p>
+        } else {
+            <p>
+                This player is not registered yet.
+            </p>
+            <p>
+                <a href="@Model.InvitationUrl" class="button">Invite Player</a>
+            </p>
+        }
+    </div>
 }

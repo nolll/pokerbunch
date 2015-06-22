@@ -1,0 +1,12 @@
+@using Web.Extensions
+@model Web.Components.PlayerModels.Badges.BadgeListModel
+<h2 class="h2">Player Achievements</h2>
+
+<ul class="achievement-list">
+    @foreach (var badge in Model.NumberOfGamesBadges)
+    {
+        <li>
+            @Html.Component(@badge)
+        </li>
+    }
+</ul>

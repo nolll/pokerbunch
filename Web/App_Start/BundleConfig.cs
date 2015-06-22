@@ -31,7 +31,7 @@ namespace Web
             "label",
             "icon",
             "checkpoint-list",
-            "achievements",
+            "achievement-list",
             "spinner",
             "print"
         };

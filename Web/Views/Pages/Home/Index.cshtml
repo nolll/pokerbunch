@@ -40,7 +40,7 @@
             @Html.Partial("BunchList/UserBunchList", Model.BunchList)
         </div>
         <div class="block gutter">
-            @Html.PartialOrDiscard(Model.AdminNav)
+            @Html.Component(Model.AdminNav)
         </div>
     }
 }

@@ -2,7 +2,7 @@
 <ul class="checkpoint-list">
     @foreach (var checkpoint in Model)
     {
-        <li class="checkpoint">
+        <li class="checkpoint-list__item">
             @Html.Partial("CashgameAction/CheckpointItem", checkpoint)
         </li>
     }

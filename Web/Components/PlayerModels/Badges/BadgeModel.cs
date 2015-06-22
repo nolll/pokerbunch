@@ -1,6 +1,8 @@
-namespace Web.Models.PlayerModels.Badges
+using Web.Extensions;
+
+namespace Web.Components.PlayerModels.Badges
 {
-    public class BadgeModel
+    public class BadgeModel : Component
     {
         public string Description { get; private set; }
         public string CssClass { get; private set; }
