@@ -22,6 +22,8 @@ namespace Web
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+
             ModelBinders.Binders.DefaultBinder = new TrimModelBinder();
 
             ViewEngines.Engines.Clear();
@@ -58,6 +60,11 @@ namespace Web
             var userIdentity = JsonConvert.DeserializeObject<UserIdentity>(authTicket.UserData);
             var customIdentity = new CustomIdentity(userIdentity);
             HttpContext.Current.User = new CustomPrincipal(customIdentity);
+        }
+
+        protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
+        {
+            
         }
 
         protected void Application_End()
