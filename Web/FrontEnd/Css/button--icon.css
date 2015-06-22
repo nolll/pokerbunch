@@ -1,0 +1,13 @@
+﻿.button--icon {
+  border: none;
+  background: transparent;
+  display: inline-block;
+  font-family: arial, verdana;
+  font-size: 0.625em;
+  padding: 4px 9px;
+  text-align: center;
+}
+.button--icon i {
+  display: block;
+  font-size: 2.8em;
+}

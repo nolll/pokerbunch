@@ -20,6 +20,9 @@ namespace Web
             "standings",
             "player",
             "nav",
+            "button",
+            "button--icon",
+            "button--action",
             "form",
             "simple-list",
             "value-list",
@@ -35,10 +38,9 @@ namespace Web
 
         public static void RegisterBundles(BundleCollection bundles)
         {
-            var lessBundle = new LessBundle(BundleUrl).Include(CssUrls);
-            //lessBundle.Transforms.Add(new CssMinify());
-            bundles.Add(lessBundle);
-            BundleTable.EnableOptimizations = true;
+            var bundle = new StyleBundle(BundleUrl).Include(CssUrls);
+            bundle.Transforms.Add(new CssMinify());
+            bundles.Add(bundle);
         }
 
         private static string[] CssUrls

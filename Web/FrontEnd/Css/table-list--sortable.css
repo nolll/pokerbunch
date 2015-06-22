@@ -1,61 +1,25 @@
-﻿.toplist {
+﻿.table-list--sortable {
   margin: 15px 0;
 }
-.toplist table {
-  height: auto;
-  padding: 0;
-}
-.toplist th {
-  font-weight: normal;
-  text-align: left;
-}
-.toplist th,
-.toplist td {
+.table-list--sortable .table-list__column-header,
+.table-list--sortable .table-list__cell {
   display: none;
-  padding: 5px;
 }
-.toplist .base-column,
-.toplist .sort-column {
+.table-list--sortable .table-list--sortable__base-column,
+.table-list--sortable .table-list--sortable__sort-column {
   display: block;
   display: table-cell;
 }
-.toplist th.sort-column {
+.table-list--sortable__sort-column {
   font-weight: bold;
 }
-.toplist .gametime {
-  clear: left;
-}
-.toplist .rank {
-  left: 5px;
-  top: 5px;
-}
-.toplist .name {
-  left: 35px;
-  top: 5px;
-}
-.toplist .result {
-  right: 5px;
-  top: 5px;
-}
-.toplist .gametime {
-  left: 35px;
-  top: 1.75em;
-}
-.toplist .winrate {
-  right: 5px;
-  top: 1.75em;
-}
-.toplist .rank,
-.toplist .winrate {
-  text-align: right;
-}
 @media only screen and (min-width : 600px) {
-  .toplist th,
-  .toplist td {
+  .table-list--sortable .table-list__column-header,
+  .table-list--sortable .table-list__cell {
     display: block;
     display: table-cell;
   }
-  .sort-order-selector {
+  .table-list--sortable__sort-order-selector {
     display: none;
   }
 }
