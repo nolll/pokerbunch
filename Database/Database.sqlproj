@@ -81,4 +81,7 @@
     <Build Include="dbo\Tables\CashgameComment.sql" />
     <Build Include="dbo\Tables\Player.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Database.publish.xml" />
+  </ItemGroup>
 </Project>

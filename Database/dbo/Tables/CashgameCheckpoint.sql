@@ -6,6 +6,8 @@
     [Amount]       INT      DEFAULT ((0)) NOT NULL,
     [Stack]        INT      DEFAULT ((0)) NOT NULL,
     [Timestamp]    DATETIME NOT NULL,
-    PRIMARY KEY CLUSTERED ([CheckpointId] ASC) 
+    PRIMARY KEY CLUSTERED ([CheckpointId] ASC), 
+    CONSTRAINT [FK_CashgameCheckpoint_Game] FOREIGN KEY (GameId) REFERENCES [Game]([GameId]), 
+    CONSTRAINT [FK_CashgameCheckpoint_Player] FOREIGN KEY ([PlayerId]) REFERENCES [Player]([PlayerId]) 
 );
 
