@@ -297,6 +297,8 @@
     <Content Include="FrontEnd\Css\spinner.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.json" />
+    <Content Include="gulpfile.js" />
     <Content Include="Views\Misc\Spinner.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\CashgameIndex.cshtml" />
     <Content Include="Views\Pages\Toplist\SimpleToplistTable.cshtml" />
@@ -516,7 +518,6 @@
     <Content Include="FrontEnd\Css\achievement-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include=".bin\node.cmd" />
     <Content Include="FrontEnd\Css\table-list--sortable.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
