@@ -22,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddBunchRequest(Identity.UserId, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
+                var request = new AddBunchRequest(UserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
                 var result = UseCase.AddBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

@@ -66,9 +66,9 @@ namespace Web.Plumbing
     {
         // Contexts
         public BaseContextInteractor BaseContext { get { return new BaseContextInteractor(); } }
-        public AppContextInteractor AppContext { get { return new AppContextInteractor(Auth); } }
-        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(Auth, BunchRepository); } }
-        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(Auth, BunchRepository, CashgameRepository); } }
+        public AppContextInteractor AppContext { get { return new AppContextInteractor(UserRepository); } }
+        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(UserRepository, BunchRepository); } }
+        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(UserRepository, BunchRepository, CashgameRepository); } }
 
         // Auth and Home
         public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
@@ -95,7 +95,7 @@ namespace Web.Plumbing
         public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository); } }
         public BunchDetailsInteractor BunchDetails { get { return new BunchDetailsInteractor(BunchRepository, Auth); } }
         public AddBunchFormInteractor AddBunchForm { get { return new AddBunchFormInteractor(); } }
-        public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(BunchRepository, PlayerRepository); } }
+        public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(UserRepository, BunchRepository, PlayerRepository); } }
         public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(BunchRepository); } }
         public EditBunchInteractor EditBunch { get { return new EditBunchInteractor(BunchRepository); } }
         public JoinBunchFormInteractor JoinBunchForm { get { return new JoinBunchFormInteractor(BunchRepository); } }

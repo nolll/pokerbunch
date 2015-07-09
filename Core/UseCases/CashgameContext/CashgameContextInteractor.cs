@@ -1,27 +1,25 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases.BunchContext;
 
 namespace Core.UseCases.CashgameContext
 {
     public class CashgameContextInteractor
     {
-        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public CashgameContextInteractor(IAuth auth, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public CashgameContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            _auth = auth;
+            _userRepository = userRepository;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public CashgameContextResult Execute(CashgameContextRequest request)
         {
-            var bunchContextResult = new BunchContextInteractor(_auth, _bunchRepository).Execute(request);
+            var bunchContextResult = new BunchContextInteractor(_userRepository, _bunchRepository).Execute(request);
             var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

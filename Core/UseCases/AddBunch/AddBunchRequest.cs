@@ -4,7 +4,7 @@ namespace Core.UseCases.AddBunch
 {
     public class AddBunchRequest
     {
-        public int UserId { get; private set; }
+        public string UserName { get; private set; }
         [Required(ErrorMessage = "Display Name can't be empty")]
         public string DisplayName { get; private set; }
         public string Description { get; private set; }
@@ -15,9 +15,9 @@ namespace Core.UseCases.AddBunch
         [Required(ErrorMessage = "Timezone can't be empty")]
         public string TimeZone { get; private set; }
 
-        public AddBunchRequest(int userId, string displayName, string description, string currencySymbol, string currencyLayout, string timeZone)
+        public AddBunchRequest(string userName, string displayName, string description, string currencySymbol, string currencyLayout, string timeZone)
         {
-            UserId = userId;
+            UserName = userName;
             DisplayName = displayName;
             Description = description;
             CurrencySymbol = currencySymbol;

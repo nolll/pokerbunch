@@ -9,8 +9,8 @@ namespace Core.UseCases.CashgameContext
         public CashgamePage SelectedPage { get; private set; }
         public int? Year { get; private set; }
 
-        public CashgameContextRequest(string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
-            : base(slug)
+        public CashgameContextRequest(string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+            : base(userName, slug)
         {
             CurrentTime = currentTime;
             SelectedPage = selectedPage;

@@ -9,6 +9,7 @@ namespace Tests.Common.FakeClasses
             BaseContextResult baseContextResult = null,
             bool isLoggedIn = false,
             bool isAdmin = false,
+            int userId = 0,
             string userName = "",
             string userDisplayName = "")
 
@@ -16,6 +17,7 @@ namespace Tests.Common.FakeClasses
                 baseContextResult ?? new BaseContextResultInTest(),
                 isLoggedIn,
                 isAdmin,
+                userId,
                 userName,
                 userDisplayName)
         {

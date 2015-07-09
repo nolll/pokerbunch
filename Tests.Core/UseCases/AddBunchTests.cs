@@ -88,7 +88,7 @@ namespace Tests.Core.UseCases
 
         private AddBunchRequest CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
         {
-            return new AddBunchRequest(3, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
+            return new AddBunchRequest(Constants.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
         private AddBunchInteractor Sut
@@ -96,6 +96,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new AddBunchInteractor(
+                    Repos.User,
                     Repos.Bunch,
                     Repos.Player);
             }

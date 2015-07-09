@@ -1,34 +1,36 @@
 ﻿using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases.AppContext;
 
 namespace Core.UseCases.BunchContext
 {
     public class BunchContextInteractor
     {
-        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
 
-        public BunchContextInteractor(IAuth auth, IBunchRepository bunchRepository)
+        public BunchContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository)
         {
-            _auth = auth;
+            _userRepository = userRepository;
             _bunchRepository = bunchRepository;
         }
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var appContextResult = new AppContextInteractor(_auth).Execute();
+            var appContextResult = new AppContextInteractor(_userRepository).Execute(new AppContextRequest(request.UserName));
 
-            var bunch = GetBunch(request);
+            var bunch = GetBunch(appContextResult, request);
             if(bunch == null)
                 return new BunchContextResult(appContextResult);
             return new BunchContextResult(appContextResult, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
-        private Bunch GetBunch(BunchContextRequest request)
+        private Bunch GetBunch(AppContextResult appContext, BunchContextRequest request)
         {
+            if (!appContext.IsLoggedIn)
+                return null;
+
             if (request.HasSlug)
             {
                 try
@@ -40,7 +42,7 @@ namespace Core.UseCases.BunchContext
                     return null;
                 }
             }
-            var bunches = _bunchRepository.GetByUserId(_auth.CurrentIdentity.UserId);
+            var bunches = _bunchRepository.GetByUserId(appContext.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }
     }

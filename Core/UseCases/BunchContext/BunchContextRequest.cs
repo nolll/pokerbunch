@@ -2,10 +2,12 @@
 {
     public class BunchContextRequest
     {
+        public string UserName { get; private set; }
         public string Slug { get; private set; }
 
-        public BunchContextRequest(string slug = null)
+        public BunchContextRequest(string userName, string slug = null)
         {
+            UserName = userName;
             Slug = slug;
         }
 

@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchContext_WithSlug_HasBunchIsTrue()
         {
-            var result = Sut.Execute(new BunchContextRequest(Constants.SlugA));
+            var result = Sut.Execute(new BunchContextRequest(Constants.UserNameA, Constants.SlugA));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.SetupOneBunchList();
 
-            var result = Sut.Execute(new BunchContextRequest());
+            var result = Sut.Execute(new BunchContextRequest(Constants.UserNameA));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.ClearList();
 
-            var result = Sut.Execute(new BunchContextRequest());
+            var result = Sut.Execute(new BunchContextRequest(Constants.UserNameA));
 
             Assert.IsFalse(result.HasBunch);
         }
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_AppContextIsSet()
         {
-            var cashgameContextRequest = new BunchContextRequest(Constants.SlugA);
+            var cashgameContextRequest = new BunchContextRequest(Constants.UserNameA, Constants.SlugA);
 
             var result = Sut.Execute(cashgameContextRequest);
 
@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new BunchContextInteractor(
-                    Services.Auth,
+                    Repos.User,
                     Repos.Bunch);
             }
         }

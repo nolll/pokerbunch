@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithoutUser_AllPropertiesAreSet()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new AppContextRequest(null));
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsEmpty(result.UserDisplayName);
@@ -23,21 +23,17 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithUser_LoggedInPropertiesAreSet()
         {
-            const string userName = "a";
-            const string displayName = "b";
-            Services.Auth.CurrentIdentity = new CustomIdentity(new UserIdentity{DisplayName = displayName, UserName = userName});
-
-            var result = Sut.Execute();
+            var result = Sut.Execute(new AppContextRequest(Constants.UserNameA));
 
             Assert.IsTrue(result.IsLoggedIn);
-            Assert.AreEqual("b", result.UserDisplayName);
+            Assert.AreEqual(Constants.UserDisplayNameA, result.UserDisplayName);
             Assert.AreEqual("/-/auth/logout", result.LogoutUrl.Relative);
-            Assert.AreEqual("/-/user/details/a", result.UserDetailsUrl.Relative);
+            Assert.AreEqual("/-/user/details/user-name-a", result.UserDetailsUrl.Relative);
         }
 
         private AppContextInteractor Sut
         {
-            get { return new AppContextInteractor(Services.Auth); }
+            get { return new AppContextInteractor(Repos.User); }
         }
     }
 }
