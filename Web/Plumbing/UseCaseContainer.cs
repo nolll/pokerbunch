@@ -38,7 +38,6 @@ using Core.UseCases.EndCashgame;
 using Core.UseCases.EventDetails;
 using Core.UseCases.EventList;
 using Core.UseCases.ForgotPassword;
-using Core.UseCases.Home;
 using Core.UseCases.InvitePlayer;
 using Core.UseCases.JoinBunch;
 using Core.UseCases.JoinBunchConfirmation;
@@ -72,7 +71,6 @@ namespace Web.Plumbing
         public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(Auth, BunchRepository, CashgameRepository); } }
 
         // Auth and Home
-        public HomeInteractor Home { get { return new HomeInteractor(Auth); } }
         public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
         public LoginInteractor Login { get { return new LoginInteractor(UserRepository, Auth, BunchRepository, PlayerRepository); } }
         public LogoutInteractor Logout { get { return new LogoutInteractor(Auth); } }

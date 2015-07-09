@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.BunchContext;
 using Core.UseCases.EditCheckpoint;
 using Core.UseCases.EditCheckpointForm;
 using Web.Controllers.Base;
@@ -40,7 +39,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);

@@ -292,8 +292,6 @@
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordMessage.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordRequest.cs" />
     <Compile Include="UseCases\ForgotPassword\ForgotPasswordResult.cs" />
-    <Compile Include="UseCases\Home\HomeInteractor.cs" />
-    <Compile Include="UseCases\Home\HomeResult.cs" />
     <Compile Include="UseCases\InvitePlayer\InvitePlayerInteractor.cs" />
     <Compile Include="UseCases\InvitePlayer\InvitePlayerRequest.cs" />
     <Compile Include="UseCases\InvitePlayer\InvitePlayerResult.cs" />

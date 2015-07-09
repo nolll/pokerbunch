@@ -14,7 +14,7 @@ namespace Web.Controllers
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, DateTime.UtcNow, CashgamePage.List, year));
+            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.List, year);
             var listResult = UseCase.CashgameList.Execute(new CashgameListRequest(slug, orderBy, year));
 
             var model = new CashgameListPageModel(contextResult, listResult);

@@ -1,29 +1,31 @@
 using System.Collections.Generic;
-using Core.UseCases.Home;
+using Core;
+using Core.Urls;
+using Core.UseCases.AppContext;
 
 namespace Web.Models.NavigationModels
 {
     public class AdminNavigationModel : NavigationModel
     {
-        public AdminNavigationModel(HomeResult homeResult)
+        public AdminNavigationModel(AppContextResult appContext)
         {
             Heading = "Admin";
-            Nodes = GetNodes(homeResult);
+            Nodes = GetNodes(appContext);
         }
 
-        private IList<NavigationNode> GetNodes(HomeResult homeResult)
+        private IList<NavigationNode> GetNodes(AppContextResult appContext)
         {
-            return homeResult.IsAdmin ? GetAdminNodeList(homeResult) : new List<NavigationNode>();
+            return appContext.IsAdmin ? GetAdminNodeList() : new List<NavigationNode>();
         }
 
-        private List<NavigationNode> GetAdminNodeList(HomeResult homeResult)
+        private List<NavigationNode> GetAdminNodeList()
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", homeResult.BunchListUrl.Relative),
-                    new NavigationNode("Users", homeResult.UserListUrl.Relative),
-                    new NavigationNode("Test Email", homeResult.TestEmailUrl.Relative),
-                    new NavigationNode("Clear Cache", homeResult.ClearCacheUrl.Relative)
+                    new NavigationNode("Bunches", new BunchListUrl().Relative),
+                    new NavigationNode("Users", new UserListUrl().Relative),
+                    new NavigationNode("Test Email", new TestEmailUrl().Relative),
+                    new NavigationNode("Clear Cache", new ClearCacheUrl().Relative)
                 };
         }
 

@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route("-/user/details/{userName}")]
         public ActionResult UserDetails(string userName)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var userDetailsResult = UseCase.UserDetails.Execute(new UserDetailsRequest(userName));
             var model = new UserDetailsPageModel(contextResult, userDetailsResult);
             return View("~/Views/Pages/UserDetails/UserDetails.cshtml", model);

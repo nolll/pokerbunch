@@ -10,7 +10,7 @@ namespace Web.Controllers
         public ActionResult List()
         {
             RequireAdmin();
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var showUserListResult = UseCase.UserList.Execute();
             var model = new UserListPageModel(contextResult, showUserListResult);
             return View("~/Views/Pages/UserList/UserList.cshtml", model);

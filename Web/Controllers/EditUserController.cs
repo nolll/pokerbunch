@@ -37,7 +37,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserFormRequest(userName));
             var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
             return View("~/Views/Pages/EditUser/EditUser.cshtml", model);

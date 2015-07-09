@@ -36,7 +36,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm()
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var model = new ChangePasswordPageModel(contextResult);
             return View("~/Views/Pages/ChangePassword/ChangePassword.cshtml", model);
         }
@@ -44,7 +44,7 @@ namespace Web.Controllers
         [Route("-/user/changedpassword")]
         public ActionResult Done()
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var model = new ChangePasswordConfirmationPageModel(contextResult);
             return View("~/Views/Pages/ChangePassword/ChangePasswordDone.cshtml", model);
         }

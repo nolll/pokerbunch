@@ -36,7 +36,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var loginFormResult = UseCase.LoginForm.Execute(new LoginFormRequest(returnUrl));
             var model = new LoginPageModel(contextResult, loginFormResult, postModel);
             return View("~/Views/Login/Login.cshtml", model);

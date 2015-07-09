@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Core.UseCases.BunchContext;
 using Core.UseCases.EventDetails;
 using Core.UseCases.Matrix;
 using Web.Controllers.Base;
@@ -14,7 +13,7 @@ namespace Web.Controllers
         public ActionResult List(string slug, int id)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetailsInput(id));
             var matrixResult = UseCase.Matrix.Execute(new EventMatrixRequest(slug, id));
             var model = new EventDetailsPageModel(contextResult, eventDetailsOutput, matrixResult);

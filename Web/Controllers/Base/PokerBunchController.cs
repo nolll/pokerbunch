@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Web.Mvc;
-using Antlr.Runtime.Misc;
 using Core;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
+using Core.UseCases.AppContext;
+using Core.UseCases.BaseContext;
+using Core.UseCases.BunchContext;
+using Core.UseCases.CashgameContext;
 using Core.UseCases.RequireAdmin;
 using Core.UseCases.RequireManager;
 using Core.UseCases.RequirePlayer;
@@ -21,12 +26,40 @@ namespace Web.Controllers.Base
             get { return new UseCaseContainer(); }
         }
 
+        private BaseContextResult GetBaseContext()
+        {
+            return UseCase.BaseContext.Execute();
+        }
+        
+        protected AppContextResult GetAppContext()
+        {
+            return UseCase.AppContext.Execute();
+        }
+
+        protected BunchContextResult GetBunchContext(string slug = null)
+        {
+            return UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+        }
+
+        protected CashgameContextResult GetCashgameContext(string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+        {
+            return UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, currentTime, selectedPage, year));
+        }
+
         protected CustomIdentity Identity
         {
             get
             {
                 var identity = User.Identity as CustomIdentity;
                 return identity ?? new CustomIdentity();
+            }
+        }
+
+        protected IIdentity Identity1
+        {
+            get
+            {
+                return User.Identity;
             }
         }
 
@@ -56,7 +89,7 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 500, Error500);
         }
 
-        private void HandleError(ExceptionContext filterContext, int errorCode, Func<ActionResult> errorHandler)
+        private void HandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
         {
             filterContext.HttpContext.Response.StatusCode = errorCode;
             filterContext.Result = errorHandler();
@@ -66,25 +99,25 @@ namespace Web.Controllers.Base
 
         protected ActionResult Error404()
         {
-            var contextResult = UseCase.BaseContext.Execute();
+            var contextResult = GetBaseContext();
             return ShowError(new Error404PageModel(contextResult));
         }
 
         protected ActionResult Error401()
         {
-            var contextResult = UseCase.BaseContext.Execute();
+            var contextResult = GetBaseContext();
             return ShowError(new Error401PageModel(contextResult));
         }
 
         protected ActionResult Error403()
         {
-            var contextResult = UseCase.BaseContext.Execute();
+            var contextResult = GetBaseContext();
             return ShowError(new Error403PageModel(contextResult));
         }
 
         protected ActionResult Error500()
         {
-            var contextResult = UseCase.BaseContext.Execute();
+            var contextResult = GetBaseContext();
             return ShowError(new Error500PageModel(contextResult));
         }
 
@@ -115,17 +148,17 @@ namespace Web.Controllers.Base
 
         protected void RequirePlayer(string slug)
         {
-            UseCase.RequirePlayer.Execute(new RequirePlayerRequest(slug, Identity.UserName));
+            UseCase.RequirePlayer.Execute(new RequirePlayerRequest(slug, Identity1.Name));
         }
 
         protected void RequireManager(string slug)
         {
-            UseCase.RequireManager.Execute(new RequireManagerRequest(slug, Identity.UserName));
+            UseCase.RequireManager.Execute(new RequireManagerRequest(slug, Identity1.Name));
         }
 
         protected void RequireAdmin()
         {
-            UseCase.RequireAdmin.Execute(new RequireAdminRequest(Identity.UserName));
+            UseCase.RequireAdmin.Execute(new RequireAdminRequest(Identity1.Name));
         }
     }
 }

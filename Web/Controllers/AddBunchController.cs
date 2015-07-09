@@ -41,14 +41,14 @@ namespace Web.Controllers
         [Route("-/homegame/created")]
         public ActionResult Created()
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var model = new AddBunchConfirmationPageModel(contextResult);
             return View("~/Views/Pages/AddBunch/AddBunchConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(AddBunchPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var bunchFormResult = UseCase.AddBunchForm.Execute();
             var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel);
             return View("~/Views/Pages/AddBunch/AddBunch.cshtml", model);

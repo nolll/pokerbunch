@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.BunchContext;
 using Core.UseCases.EditCashgame;
 using Core.UseCases.EditCashgameForm;
 using Web.Controllers.Base;
@@ -40,7 +39,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameFormRequest(slug, dateStr));
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);

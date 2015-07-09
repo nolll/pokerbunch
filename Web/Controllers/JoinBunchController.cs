@@ -45,7 +45,7 @@ namespace Web.Controllers
         public ActionResult Joined(string slug)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmationRequest(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
@@ -53,7 +53,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, JoinBunchPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchFormRequest(slug));
             var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
             return View("~/Views/Pages/JoinBunch/Join.cshtml", model);

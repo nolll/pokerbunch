@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Core.UseCases.BunchContext;
 using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
@@ -15,7 +14,7 @@ namespace Web.Controllers
         public ActionResult Details(string slug, int playerId)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetailsRequest(slug, playerId));
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(slug, playerId));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(slug, playerId));

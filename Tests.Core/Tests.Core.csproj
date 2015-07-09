@@ -79,7 +79,6 @@
     <Compile Include="UseCases\EventDetailsTests.cs" />
     <Compile Include="UseCases\EventListTests.cs" />
     <Compile Include="UseCases\ForgotPasswordTests.cs" />
-    <Compile Include="UseCases\HomeTests.cs" />
     <Compile Include="UseCases\InvitePlayerTests.cs" />
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
     <Compile Include="UseCases\JoinBunchFormTests.cs" />

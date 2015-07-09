@@ -6,6 +6,7 @@ namespace Core.UseCases.AppContext
     public class AppContextResult
     {
         public bool IsLoggedIn { get; private set; }
+        public bool IsAdmin { get; private set; }
         public string UserDisplayName { get; private set; }
         public BaseContextResult BaseContext { get; private set; }
         public Url LoginUrl { get; private set; }
@@ -17,11 +18,13 @@ namespace Core.UseCases.AppContext
         public AppContextResult(
             BaseContextResult baseContextResult,
             bool isLoggedIn,
+            bool isAdmin,
             string userName,
             string userDisplayName)
         {
             BaseContext = baseContextResult;
             IsLoggedIn = isLoggedIn;
+            IsAdmin = isAdmin;
             UserDisplayName = userDisplayName;
             LoginUrl = new LoginUrl();
             AddUserUrl = new AddUserUrl();

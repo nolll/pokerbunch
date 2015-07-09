@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.BunchContext;
 using Core.UseCases.InvitePlayer;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
@@ -41,14 +40,14 @@ namespace Web.Controllers
         [Route("{slug}/player/invited/{playerId:int}")]
         public ActionResult Invited(string slug, int playerId)
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var model = new InvitePlayerPageModel(contextResult, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }

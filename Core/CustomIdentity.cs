@@ -43,11 +43,6 @@ namespace Core
             get { return _user.UserName; }
         }
 
-        public string UserName
-        {
-            get { return _user.UserName; }
-        }
-        
         public string DisplayName
         {
             get { return _user.DisplayName; }

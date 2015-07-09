@@ -39,14 +39,14 @@ namespace Web.Controllers
         [Route("-/user/passwordsent")]
         public ActionResult Done()
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var model = new ForgotPasswordConfirmationPageModel(contextResult);
             return View("~/Views/Pages/ForgotPassword/ForgotPasswordDone.cshtml", model);
         }
 
         private ActionResult ShowForm(ForgotPasswordPostModel postModel = null)
         {
-            var contextResult = UseCase.AppContext.Execute();
+            var contextResult = GetAppContext();
             var model = new ForgotPasswordPageModel(contextResult, postModel);
             return View("~/Views/Pages/ForgotPassword/ForgotPassword.cshtml", model);
         }

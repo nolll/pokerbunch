@@ -1,6 +1,5 @@
 using System;
 using System.Web.Mvc;
-using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetails;
 using Core.UseCases.CashgameDetailsChart;
 using Web.Controllers.Base;
@@ -15,7 +14,7 @@ namespace Web.Controllers
         public ActionResult Details(string slug, string dateStr)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetailsRequest(slug, dateStr));
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChartRequest(slug, DateTime.UtcNow, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);

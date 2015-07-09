@@ -14,7 +14,7 @@ namespace Web.Controllers
         public ActionResult Facts(string slug, int? year = null)
         {
             RequirePlayer(slug);
-            var contextResult = UseCase.CashgameContext.Execute(new CashgameContextRequest(slug, DateTime.UtcNow, CashgamePage.Facts, year));
+            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.Facts, year);
             var factsResult = UseCase.CashgameFacts.Execute(new CashgameFactsRequest(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);

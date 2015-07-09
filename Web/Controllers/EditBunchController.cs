@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.BunchContext;
 using Core.UseCases.EditBunch;
 using Core.UseCases.EditBunchForm;
 using Web.Controllers.Base;
@@ -40,7 +39,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest(slug));
+            var contextResult = GetBunchContext(slug);
             var editBunchFormRequest = new EditBunchFormRequest(slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);

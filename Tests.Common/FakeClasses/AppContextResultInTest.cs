@@ -7,14 +7,16 @@ namespace Tests.Common.FakeClasses
     {
         public AppContextResultInTest(
             BaseContextResult baseContextResult = null,
-            bool isLoggedIn = false, 
-            string userName = "", 
+            bool isLoggedIn = false,
+            bool isAdmin = false,
+            string userName = "",
             string userDisplayName = "")
-            
+
             : base(
                 baseContextResult ?? new BaseContextResultInTest(),
-                isLoggedIn, 
-                userName, 
+                isLoggedIn,
+                isAdmin,
+                userName,
                 userDisplayName)
         {
         }

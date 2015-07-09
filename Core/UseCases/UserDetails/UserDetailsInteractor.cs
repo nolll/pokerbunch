@@ -19,7 +19,7 @@ namespace Core.UseCases.UserDetails
         {
             var displayUser = _userRepository.GetByNameOrEmail(request.UserName);
 
-            var isViewingCurrentUser = displayUser.UserName == _auth.CurrentIdentity.UserName;
+            var isViewingCurrentUser = displayUser.UserName == _auth.CurrentIdentity.Name;
 
             var userName = displayUser.UserName;
             var displayName = displayUser.DisplayName;

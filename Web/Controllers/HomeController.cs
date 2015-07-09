@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Core.UseCases.BunchContext;
 using Core.UseCases.BunchList;
 using Web.Controllers.Base;
 using Web.Models.HomeModels;
@@ -11,10 +10,9 @@ namespace Web.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            var contextResult = UseCase.BunchContext.Execute(new BunchContextRequest());
+            var contextResult = GetBunchContext();
             var bunchListResult = UseCase.BunchList.Execute(new BunchListRequest(Identity.UserId));
-            var homeResult = UseCase.Home.Execute();
-            var model = new HomePageModel(contextResult, homeResult, bunchListResult);
+            var model = new HomePageModel(contextResult, bunchListResult);
             return View("~/Views/Pages/Home/Index.cshtml", model);
         }
     }
