@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/toplist/{year?}")]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
-            RequirePlayer(slug);
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.Toplist, year);
+            RequirePlayer(contextResult.BunchContext);
             var topListResult = UseCase.TopList.Execute(new TopListRequest(slug, orderBy, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("~/Views/Pages/Toplist/ToplistPage.cshtml", model);

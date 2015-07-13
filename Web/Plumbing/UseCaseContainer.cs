@@ -50,9 +50,6 @@ using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
-using Core.UseCases.RequireAdmin;
-using Core.UseCases.RequireManager;
-using Core.UseCases.RequirePlayer;
 using Core.UseCases.RunningCashgame;
 using Core.UseCases.TestEmail;
 using Core.UseCases.UserDetails;
@@ -66,15 +63,12 @@ namespace Web.Plumbing
         // Contexts
         public BaseContextInteractor BaseContext { get { return new BaseContextInteractor(); } }
         public AppContextInteractor AppContext { get { return new AppContextInteractor(UserRepository); } }
-        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(UserRepository, BunchRepository); } }
-        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(UserRepository, BunchRepository, CashgameRepository); } }
+        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(UserRepository, BunchRepository, PlayerRepository); } }
+        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(UserRepository, BunchRepository, CashgameRepository, PlayerRepository); } }
 
         // Auth and Home
         public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
-        public LoginInteractor Login { get { return new LoginInteractor(UserRepository, Auth, BunchRepository, PlayerRepository); } }
-        public RequirePlayerInteractor RequirePlayer { get { return new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
-        public RequireManagerInteractor RequireManager { get { return new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
-        public RequireAdminInteractor RequireAdmin { get { return new RequireAdminInteractor(UserRepository); } }
+        public LoginInteractor Login { get { return new LoginInteractor(UserRepository); } }
 
         // Admin
         public TestEmailInteractor TestEmail { get { return new TestEmailInteractor(MessageSender); } }
@@ -90,7 +84,7 @@ namespace Web.Plumbing
         public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(UserRepository, RandomService); } } 
 
         // Bunch
-        public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository); } }
+        public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository, UserRepository); } }
         public BunchDetailsInteractor BunchDetails { get { return new BunchDetailsInteractor(BunchRepository, Auth); } }
         public AddBunchFormInteractor AddBunchForm { get { return new AddBunchFormInteractor(); } }
         public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(UserRepository, BunchRepository, PlayerRepository); } }

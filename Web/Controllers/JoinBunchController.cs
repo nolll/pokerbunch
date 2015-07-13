@@ -44,8 +44,8 @@ namespace Web.Controllers
         [Route("{slug}/homegame/joined")]
         public ActionResult Joined(string slug)
         {
-            RequirePlayer(slug);
-            var contextResult = GetAppContext();
+            var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmationRequest(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);

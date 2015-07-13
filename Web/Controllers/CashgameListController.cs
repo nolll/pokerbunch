@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/list/{year?}")]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
-            RequirePlayer(slug);
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.List, year);
+            RequirePlayer(contextResult.BunchContext);
             var listResult = UseCase.CashgameList.Execute(new CashgameListRequest(slug, orderBy, year));
 
             var model = new CashgameListPageModel(contextResult, listResult);

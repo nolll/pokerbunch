@@ -15,8 +15,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/index")]
         public ActionResult Index(string slug)
         {
-            RequirePlayer(slug);
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.Overview);
+            RequirePlayer(contextResult.BunchContext);
             var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatusRequest(slug));
             var topListResult = UseCase.TopList.Execute(new LatestTopListRequest(slug));
             var model = new CashgameIndexPageModel(contextResult, statusResult, topListResult);

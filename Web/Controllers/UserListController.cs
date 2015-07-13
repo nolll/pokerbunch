@@ -9,10 +9,10 @@ namespace Web.Controllers
         [Route("-/user/list")]
         public ActionResult List()
         {
-            RequireAdmin();
-            var contextResult = GetAppContext();
+            var context = GetAppContext();
+            RequireAdmin(context);
             var showUserListResult = UseCase.UserList.Execute();
-            var model = new UserListPageModel(contextResult, showUserListResult);
+            var model = new UserListPageModel(context, showUserListResult);
             return View("~/Views/Pages/UserList/UserList.cshtml", model);
         }
     }

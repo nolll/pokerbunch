@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/details/{dateStr}")]
         public ActionResult Details(string slug, string dateStr)
         {
-            RequirePlayer(slug);
             var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetailsRequest(slug, dateStr));
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChartRequest(slug, DateTime.UtcNow, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);

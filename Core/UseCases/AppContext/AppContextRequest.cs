@@ -1,10 +1,10 @@
-namespace Core.UseCases.RequireAdmin
+﻿namespace Core.UseCases.AppContext
 {
-    public class RequireAdminRequest
+    public class AppContextRequest
     {
         public string UserName { get; private set; }
 
-        public RequireAdminRequest(string userName)
+        public AppContextRequest(string userName)
         {
             UserName = userName;
         }

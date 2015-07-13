@@ -13,7 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             return ShowForm(slug, dateStr, playerId, checkpointId);
         }
 
@@ -22,7 +23,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             try
             {
                 var request = new EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);

@@ -6,13 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Security;
-using Core;
-using Core.Entities;
 using Core.Services;
-using Newtonsoft.Json;
 using Web.Plumbing;
-using Web.Security;
 
 namespace Web
 {
@@ -42,24 +37,6 @@ namespace Web
         {
             EnsureLowercaseUrl();
             EnsureHttps();
-        }
-
-        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
-        {
-            if (!Request.IsAuthenticated)
-                return;
-
-            var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie == null)
-                return;
-            
-            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-            if (authTicket == null)
-                return;
-
-            var userIdentity = JsonConvert.DeserializeObject<UserIdentity>(authTicket.UserData);
-            var customIdentity = new CustomIdentity(userIdentity);
-            HttpContext.Current.User = new CustomPrincipal(customIdentity);
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)

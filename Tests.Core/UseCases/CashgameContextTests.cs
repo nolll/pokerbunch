@@ -104,7 +104,8 @@ namespace Tests.Core.UseCases
                 return new CashgameContextInteractor(
                     Repos.User,
                     Repos.Bunch,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.Player);
             }
         }
     }

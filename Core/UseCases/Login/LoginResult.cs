@@ -1,14 +1,12 @@
-using Core.Urls;
-
 namespace Core.UseCases.Login
 {
     public class LoginResult
     {
-        public Url ReturnUrl { get; private set; }
+        public string UserName { get; private set; }
 
-        public LoginResult(Url returnUrl)
+        public LoginResult(string userName)
         {
-            ReturnUrl = returnUrl;
+            UserName = userName;
         }
     }
 }

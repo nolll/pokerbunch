@@ -2,11 +2,11 @@
 {
     public class BunchListRequest
     {
-        public int UserId { get; private set; }
+        public string UserName { get; private set; }
 
-        public BunchListRequest(int userId)
+        public BunchListRequest(string userName)
         {
-            UserId = userId;
+            UserName = userName;
         }
     }
 }

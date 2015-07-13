@@ -14,7 +14,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/buyin")]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {
-            if(!IsPlayer(slug, postModel.PlayerId))
+            var bunchContext = GetBunchContext(slug);
+            if(!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new BuyinRequest(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);
             UseCase.Buyin.Execute(request);

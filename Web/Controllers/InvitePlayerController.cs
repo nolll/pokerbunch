@@ -12,7 +12,8 @@ namespace Web.Controllers
         [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite(string slug, int playerId)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             return ShowForm(slug);
         }
 
@@ -21,7 +22,8 @@ namespace Web.Controllers
         [Route("{slug}/player/invite/{playerId:int}")]
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
 
             try

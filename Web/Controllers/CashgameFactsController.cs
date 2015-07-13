@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/facts/{year?}")]
         public ActionResult Facts(string slug, int? year = null)
         {
-            RequirePlayer(slug);
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.Facts, year);
+            RequirePlayer(contextResult.BunchContext);
             var factsResult = UseCase.CashgameFacts.Execute(new CashgameFactsRequest(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);

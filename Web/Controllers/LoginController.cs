@@ -1,4 +1,7 @@
+using System;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases.Login;
 using Core.UseCases.LoginForm;
@@ -9,6 +12,8 @@ namespace Web.Controllers
 {
     public class LoginController : PokerBunchController
     {
+        private const int AuthVersion = 2;
+
         [Route("-/auth/login")]
         public ActionResult Login(string returnUrl = null)
         {
@@ -19,12 +24,13 @@ namespace Web.Controllers
         [Route("-/auth/login")]
         public ActionResult Post(LoginPostModel postModel)
         {
-            var request = new LoginRequest(postModel.LoginName, postModel.Password, postModel.RememberMe, postModel.ReturnUrl);
+            var request = new LoginRequest(postModel.LoginName, postModel.Password);
 
             try
             {
                 var result = UseCase.Login.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                SignIn(result.UserName, postModel.RememberMe);
+                return Redirect(postModel.ReturnUrl);
             }
             catch (ValidationException ex)
             {
@@ -32,6 +38,32 @@ namespace Web.Controllers
             }
 
             return ShowForm(postModel);
+        }
+
+        public void SignIn(string userName, bool createPersistentCookie)
+        {
+            var currentTime = DateTime.UtcNow;
+            var expires = currentTime.AddYears(100);
+
+            var authTicket = new FormsAuthenticationTicket(
+                AuthVersion,
+                userName,
+                currentTime,
+                expires,
+                createPersistentCookie,
+                "");
+
+            var encTicket = FormsAuthentication.Encrypt(authTicket);
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
+            {
+                Expires = authTicket.Expiration,
+                Path = FormsAuthentication.FormsCookiePath
+            };
+
+            if (System.Web.HttpContext.Current != null)
+            {
+                System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+            }
         }
 
         private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)

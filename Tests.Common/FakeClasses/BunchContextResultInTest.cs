@@ -1,4 +1,5 @@
-﻿using Core.UseCases.AppContext;
+﻿using Core.Entities;
+using Core.UseCases.AppContext;
 using Core.UseCases.BunchContext;
 
 namespace Tests.Common.FakeClasses
@@ -9,13 +10,17 @@ namespace Tests.Common.FakeClasses
             AppContextResult appContextResult = null,
             string slug = null, 
             int bunchId = default(int), 
-            string bunchName = null)
+            string bunchName = null,
+            Role userRole = Role.None,
+            int userPlayerId = default(int))
             
             : base(
                 appContextResult ?? new AppContextResultInTest(),
                 slug,
                 bunchId,
-                bunchName)
+                bunchName,
+                userRole,
+                userPlayerId)
         {
         }
     }

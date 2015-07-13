@@ -1,4 +1,5 @@
-﻿using Core.Repositories;
+﻿using Core.Exceptions;
+using Core.Repositories;
 using Core.UseCases.BaseContext;
 
 namespace Core.UseCases.AppContext
@@ -17,6 +18,8 @@ namespace Core.UseCases.AppContext
             var isAuthenticated = !string.IsNullOrEmpty(request.UserName);
             var userName = isAuthenticated ? request.UserName : string.Empty;
             var user = isAuthenticated ? _userRepository.GetByNameOrEmail(userName) : null;
+            if (isAuthenticated && user == null) // Broken auth cookie
+                throw new NotLoggedInException();
             var userId = isAuthenticated ? user.Id : 0;
             var userDisplayName = isAuthenticated ? user.DisplayName : string.Empty;
             var isAdmin = isAuthenticated && user.IsAdmin;
@@ -29,16 +32,6 @@ namespace Core.UseCases.AppContext
                 userId,
                 userName,
                 userDisplayName);
-        }
-    }
-
-    public class AppContextRequest
-    {
-        public string UserName { get; private set; }
-
-        public AppContextRequest(string userName)
-        {
-            UserName = userName;
         }
     }
 }

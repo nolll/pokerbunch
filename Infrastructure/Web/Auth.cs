@@ -9,34 +9,6 @@ namespace Infrastructure.Web
 {
     public class Auth : IAuth
     {
-        private const int Version = 2;
-
-        public void SignIn(UserIdentity user, bool createPersistentCookie)
-        {
-            var currentTime = DateTime.UtcNow;
-            var expires = currentTime.AddYears(100);
-
-            var authTicket = new FormsAuthenticationTicket(
-                Version,
-                user.UserName,
-                currentTime,
-                expires,
-                createPersistentCookie,
-                "");
-
-            var encTicket = FormsAuthentication.Encrypt(authTicket);
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
-            {
-                Expires = authTicket.Expiration,
-                Path = FormsAuthentication.FormsCookiePath
-            };
-
-            if (HttpContext.Current != null)
-            {
-                HttpContext.Current.Response.Cookies.Add(cookie);
-            }
-        }
-
         private CustomIdentity CurrentIdentity
         {
             get

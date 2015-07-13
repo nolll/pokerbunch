@@ -12,7 +12,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/end")]
         public ActionResult Post(string slug)
         {
-            if (!IsPlayer(slug))
+            var bunchContext = GetBunchContext(slug);
+            if (!bunchContext.IsPlayer)
                 throw new AccessDeniedException();
             UseCase.EndCashgame.Execute(new EndCashgameRequest(slug));
             return JsonView(new JsonViewModelOk());

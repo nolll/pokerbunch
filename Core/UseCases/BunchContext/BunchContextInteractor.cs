@@ -9,21 +9,27 @@ namespace Core.UseCases.BunchContext
     {
         private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public BunchContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository)
+        public BunchContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
         {
             _userRepository = userRepository;
             _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
         }
 
         public BunchContextResult Execute(BunchContextRequest request)
         {
-            var appContextResult = new AppContextInteractor(_userRepository).Execute(new AppContextRequest(request.UserName));
+            var appContext = new AppContextInteractor(_userRepository).Execute(new AppContextRequest(request.UserName));
 
-            var bunch = GetBunch(appContextResult, request);
+            var bunch = GetBunch(appContext, request);
             if(bunch == null)
-                return new BunchContextResult(appContextResult);
-            return new BunchContextResult(appContextResult, bunch.Slug, bunch.Id, bunch.DisplayName);
+                return new BunchContextResult(appContext);
+
+            var player = _playerRepository.GetByUserId(bunch.Id, appContext.UserId);
+            var role = appContext.IsAdmin ? Role.Admin : player.Role;
+
+            return new BunchContextResult(appContext, bunch.Slug, bunch.Id, bunch.DisplayName, role, player.Id);
         }
 
         private Bunch GetBunch(AppContextResult appContext, BunchContextRequest request)

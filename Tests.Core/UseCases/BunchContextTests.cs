@@ -51,7 +51,8 @@ namespace Tests.Core.UseCases
             {
                 return new BunchContextInteractor(
                     Repos.User,
-                    Repos.Bunch);
+                    Repos.Bunch,
+                    Repos.Player);
             }
         }
     }

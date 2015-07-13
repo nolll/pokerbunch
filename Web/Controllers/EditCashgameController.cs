@@ -13,7 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/edit/{dateStr}")]
         public ActionResult Edit(string slug, string dateStr)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             return ShowForm(slug, dateStr);
         }
 
@@ -22,7 +23,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/edit/{dateStr}")]
         public ActionResult Post(string slug, string dateStr, EditCashgamePostModel postModel)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             try
             {
                 var request = new EditCashgameRequest(slug, dateStr, postModel.Location);

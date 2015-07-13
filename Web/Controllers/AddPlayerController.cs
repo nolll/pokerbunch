@@ -12,7 +12,8 @@ namespace Web.Controllers
         [Route("{slug}/player/add")]
         public ActionResult Add(string slug)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             return ShowForm(slug);
         }
 
@@ -21,7 +22,8 @@ namespace Web.Controllers
         [Route("{slug}/player/add")]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             var request = new AddPlayerRequest(slug, postModel.Name);
 
             try

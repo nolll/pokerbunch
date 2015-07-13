@@ -11,8 +11,8 @@ namespace Web.Controllers
         [Route("{slug}/homegame/details")]
         public ActionResult Details(string slug)
         {
-            RequirePlayer(slug);
             var bunchContextResult = GetBunchContext(slug);
+            RequirePlayer(bunchContextResult);
             var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetailsRequest(slug));
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);

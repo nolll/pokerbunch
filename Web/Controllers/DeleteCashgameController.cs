@@ -10,7 +10,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/delete/{id}")]
         public ActionResult Delete(string slug, int id)
         {
-            RequireManager(slug);
+            var context = GetBunchContext(slug);
+            RequireManager(context);
             var request = new DeleteCashgameRequest(slug, id);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(result.ReturnUrl.Relative);

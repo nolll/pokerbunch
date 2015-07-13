@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/player/details/{playerId:int}")]
         public ActionResult Details(string slug, int playerId)
         {
-            RequirePlayer(slug);
             var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetailsRequest(slug, playerId));
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(slug, playerId));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(slug, playerId));

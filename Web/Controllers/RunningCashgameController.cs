@@ -14,10 +14,10 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/running")]
         public ActionResult Running(string slug)
         {
-            RequirePlayer(slug);
+            var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             try
             {
-                var contextResult = GetBunchContext(slug);
                 var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
@@ -32,7 +32,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/runninggamejson")]
         public ActionResult RunningGameJson(string slug)
         {
-            RequirePlayer(slug);
+            var bunchContext = GetBunchContext(slug);
+            RequirePlayer(bunchContext);
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
@@ -42,7 +43,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/runningplayersjson")]
         public ActionResult RunningPlayersJson(string slug)
         {
-            RequirePlayer(slug);
+            var bunchContext = GetBunchContext(slug);
+            RequirePlayer(bunchContext);
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);

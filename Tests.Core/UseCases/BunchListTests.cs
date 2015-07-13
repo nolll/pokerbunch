@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
 
         private BunchListInteractor Sut
         {
-            get { return new BunchListInteractor(Repos.Bunch); }
+            get { return new BunchListInteractor(Repos.Bunch, Repos.User); }
         }
     }
 }

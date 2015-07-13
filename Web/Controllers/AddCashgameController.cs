@@ -13,7 +13,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/add")]
         public ActionResult AddCashgame(string slug)
         {
-            RequirePlayer(slug);
+            var context = GetBunchContext(slug);
+            RequirePlayer(context);
             return ShowForm(slug);
         }
 

@@ -9,17 +9,19 @@ namespace Core.UseCases.CashgameContext
         private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public CashgameContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public CashgameContextInteractor(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _userRepository = userRepository;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
         }
 
         public CashgameContextResult Execute(CashgameContextRequest request)
         {
-            var bunchContextResult = new BunchContextInteractor(_userRepository, _bunchRepository).Execute(request);
+            var bunchContextResult = new BunchContextInteractor(_userRepository, _bunchRepository, _playerRepository).Execute(request);
             var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

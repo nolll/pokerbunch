@@ -9,7 +9,7 @@ namespace Web.Controllers
         [Route("-/admin/sendemail")]
         public ActionResult SendEmail()
         {
-            RequireAdmin();
+            RequireAdmin(GetAppContext());
             var result = UseCase.TestEmail.Execute();
 
             var model = new EmailModel(result);
@@ -20,7 +20,7 @@ namespace Web.Controllers
         [Route("-/admin/clearcache")]
         public ActionResult ClearCache()
         {
-            RequireAdmin();
+            RequireAdmin(GetAppContext());
             var result = UseCase.ClearCache.Execute();
 
             var model = new ClearCacheModel(result);

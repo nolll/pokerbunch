@@ -11,8 +11,8 @@ namespace Web.Controllers
         [Route("{slug}/player/index")]
         public ActionResult Index(string slug)
         {
-            RequirePlayer(slug);
             var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             var playerListResult = UseCase.PlayerList.Execute(new PlayerListRequest(slug));
             var model = new PlayerListPageModel(contextResult, playerListResult);
             return View("~/Views/Pages/PlayerList/List.cshtml", model);

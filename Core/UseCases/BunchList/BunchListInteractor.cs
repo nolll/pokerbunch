@@ -5,10 +5,12 @@ namespace Core.UseCases.BunchList
     public class BunchListInteractor
     {
         private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
 
-        public BunchListInteractor(IBunchRepository bunchRepository)
+        public BunchListInteractor(IBunchRepository bunchRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
         }
 
         public BunchListResult Execute()
@@ -20,7 +22,8 @@ namespace Core.UseCases.BunchList
 
         public BunchListResult Execute(BunchListRequest request)
         {
-            var homegames = _bunchRepository.GetByUserId(request.UserId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var homegames = _bunchRepository.GetByUserId(user.Id);
             
             return new BunchListResult(homegames);
         }

@@ -14,7 +14,8 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/cashout")]
         public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
         {
-            if (!IsPlayer(slug, postModel.PlayerId))
+            var bunchContext = GetBunchContext(slug);
+            if (!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new CashoutRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             UseCase.Cashout.Execute(request);

@@ -43,19 +43,9 @@ namespace Core
             get { return _user.UserName; }
         }
 
-        public string DisplayName
-        {
-            get { return _user.DisplayName; }
-        }
-        
         public bool IsAdmin
         {
             get { return _user.IsAdmin; }
-        }
-
-        public List<UserBunch> Bunches
-        {
-            get { return _user.Bunches; }
         }
 
         private Role GetRole(string slug)

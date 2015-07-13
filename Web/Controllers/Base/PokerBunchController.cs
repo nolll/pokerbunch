@@ -2,20 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Mvc;
+using System.Web.Security;
 using Core;
-using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameContext;
-using Core.UseCases.RequireAdmin;
-using Core.UseCases.RequireManager;
-using Core.UseCases.RequirePlayer;
 using Web.Models.ErrorModels;
 using Web.Plumbing;
-using Web.Security;
 
 namespace Web.Controllers.Base
 {
@@ -95,6 +91,8 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 404, Error404);
             else if(filterContext.Exception is AccessDeniedException)
                 HandleError(filterContext, 401, Error401);
+            else if(filterContext.Exception is NotLoggedInException)
+                SignOut();
             else if(Env.IsInProduction)
                 HandleError(filterContext, 500, Error500);
         }
@@ -105,6 +103,12 @@ namespace Web.Controllers.Base
             filterContext.Result = errorHandler();
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
             filterContext.ExceptionHandled = true;
+        }
+
+        private void SignOut()
+        {
+            FormsAuthentication.SignOut();
+            Response.Redirect("/");
         }
 
         protected ActionResult Error404()
@@ -141,34 +145,22 @@ namespace Web.Controllers.Base
             return new JsonResult(data, jsonRequestBehavior);
         }
 
-        protected bool IsPlayer(string slug)
+        protected void RequirePlayer(BunchContextResult bunchContext)
         {
-            return Authorize.Bunch(User, slug, Role.Player);
+            if (!bunchContext.IsPlayer)
+                throw new AccessDeniedException();
         }
 
-        protected bool IsPlayer(string slug, int playerId)
+        protected void RequireManager(BunchContextResult bunchContext)
         {
-            return Authorize.SpecificPlayer(User, slug, playerId);
+            if(!bunchContext.IsManager)
+                throw new AccessDeniedException();
         }
 
-        protected bool IsManager(string slug)
+        protected void RequireAdmin(AppContextResult appContext)
         {
-            return Authorize.Bunch(User, slug, Role.Manager);
-        }
-
-        protected void RequirePlayer(string slug)
-        {
-            UseCase.RequirePlayer.Execute(new RequirePlayerRequest(slug, Identity1.Name));
-        }
-
-        protected void RequireManager(string slug)
-        {
-            UseCase.RequireManager.Execute(new RequireManagerRequest(slug, Identity1.Name));
-        }
-
-        protected void RequireAdmin()
-        {
-            UseCase.RequireAdmin.Execute(new RequireAdminRequest(Identity1.Name));
+            if(!appContext.IsAdmin)
+                throw new AccessDeniedException();
         }
     }
 }

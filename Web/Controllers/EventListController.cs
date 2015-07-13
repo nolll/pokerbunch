@@ -11,8 +11,8 @@ namespace Web.Controllers
         [Route("{slug}/event/list")]
         public ActionResult List(string slug)
         {
-            RequirePlayer(slug);
             var contextResult = GetBunchContext(slug);
+            RequirePlayer(contextResult);
             var eventListOutput = UseCase.EventList.Execute(new EventListInput(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);
             return View("~/Views/Pages/EventList/EventList.cshtml", model);

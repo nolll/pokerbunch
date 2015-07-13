@@ -9,10 +9,10 @@ namespace Web.Controllers
         [Route("-/homegame/list")]
         public ActionResult List()
         {
-            RequireAdmin();
-            var contextResult = GetAppContext();
+            var context = GetAppContext();
+            RequireAdmin(context);
             var bunchListResult = UseCase.BunchList.Execute();
-            var model = new BunchListPageModel(contextResult, bunchListResult);
+            var model = new BunchListPageModel(context, bunchListResult);
             return View("~/Views/Pages/BunchList/BunchList.cshtml", model);
         }
     }
