@@ -6,27 +6,26 @@ namespace Core.UseCases.UserDetails
 {
     public class UserDetailsInteractor
     {
-        private readonly IAuth _auth;
         private readonly IUserRepository _userRepository;
 
-        public UserDetailsInteractor(IAuth auth, IUserRepository userRepository)
+        public UserDetailsInteractor(IUserRepository userRepository)
         {
-            _auth = auth;
             _userRepository = userRepository;
         }
 
         public UserDetailsResult Execute(UserDetailsRequest request)
         {
+            var currentUser = _userRepository.GetByNameOrEmail(request.CurrentUserName);
             var displayUser = _userRepository.GetByNameOrEmail(request.UserName);
 
-            var isViewingCurrentUser = displayUser.UserName == _auth.CurrentIdentity.Name;
+            var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
 
             var userName = displayUser.UserName;
             var displayName = displayUser.DisplayName;
             var realName = displayUser.RealName;
             var email = displayUser.Email;
             var avatarUrl = GravatarService.GetAvatarUrl(displayUser.Email);
-            var canEdit = _auth.CurrentIdentity.IsAdmin || isViewingCurrentUser;
+            var canEdit = currentUser.IsAdmin || isViewingCurrentUser;
             var canChangePassword = isViewingCurrentUser;
             var editUrl = new EditUserUrl(displayUser.UserName);
             var changePasswordUrl = new ChangePasswordUrl();

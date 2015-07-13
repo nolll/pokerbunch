@@ -1,4 +1,6 @@
 using System.Web.Mvc;
+using System.Web.Security;
+using Core.Urls;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
@@ -8,8 +10,8 @@ namespace Web.Controllers
         [Route("-/auth/logout")]
         public ActionResult Logout()
         {
-            var result = UseCase.Logout.Execute();
-            return Redirect(result.ReturnUrl.Relative);
+            FormsAuthentication.SignOut();
+            return Redirect(new HomeUrl().Relative);
         }
     }
 }

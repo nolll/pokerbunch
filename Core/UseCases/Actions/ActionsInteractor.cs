@@ -13,23 +13,25 @@ namespace Core.UseCases.Actions
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
 
-        public ActionsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IAuth auth)
+        public ActionsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _auth = auth;
+            _userRepository = userRepository;
         }
 
         public ActionsOutput Execute(ActionsInput input)
         {
+            var user = _userRepository.GetByNameOrEmail(input.CurrentUserName);
             var bunch = _bunchRepository.GetBySlug(input.Slug);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
             var player = _playerRepository.GetById(input.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
-            var isManager = _auth.IsInRole(bunch.Slug, Role.Manager);
+            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var isManager = user.IsAdmin || currentPlayer.IsInRole(Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;

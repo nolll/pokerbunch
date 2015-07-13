@@ -310,8 +310,6 @@
     <Compile Include="UseCases\Login\LoginInteractor.cs" />
     <Compile Include="UseCases\Login\LoginRequest.cs" />
     <Compile Include="UseCases\Login\LoginResult.cs" />
-    <Compile Include="UseCases\Logout\LogoutInteractor.cs" />
-    <Compile Include="UseCases\Logout\LogoutResult.cs" />
     <Compile Include="UseCases\Matrix\EventMatrixRequest.cs" />
     <Compile Include="UseCases\Matrix\GameItem.cs" />
     <Compile Include="UseCases\Matrix\MatrixInteractor.cs" />

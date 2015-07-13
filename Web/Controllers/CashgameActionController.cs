@@ -15,7 +15,7 @@ namespace Web.Controllers
         {
             RequirePlayer(slug);
             var contextResult = GetBunchContext(slug);
-            var actionsOutput = UseCase.Actions.Execute(new ActionsInput(slug, dateStr, playerId));
+            var actionsOutput = UseCase.Actions.Execute(new ActionsInput(CurrentUserName, slug, dateStr, playerId));
             var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChartRequest(slug, dateStr, playerId, DateTime.UtcNow));
             var model = new ActionPageModel(contextResult, actionsOutput, actionsChartResult);
             return View("~/Views/Pages/CashgameAction/Action.cshtml", model);

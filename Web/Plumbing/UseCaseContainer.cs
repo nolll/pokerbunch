@@ -44,7 +44,6 @@ using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
 using Core.UseCases.Login;
 using Core.UseCases.LoginForm;
-using Core.UseCases.Logout;
 using Core.UseCases.Matrix;
 using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerDetails;
@@ -73,7 +72,6 @@ namespace Web.Plumbing
         // Auth and Home
         public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
         public LoginInteractor Login { get { return new LoginInteractor(UserRepository, Auth, BunchRepository, PlayerRepository); } }
-        public LogoutInteractor Logout { get { return new LogoutInteractor(Auth); } }
         public RequirePlayerInteractor RequirePlayer { get { return new RequirePlayerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
         public RequireManagerInteractor RequireManager { get { return new RequireManagerInteractor(BunchRepository, UserRepository, PlayerRepository); } }
         public RequireAdminInteractor RequireAdmin { get { return new RequireAdminInteractor(UserRepository); } }
@@ -84,7 +82,7 @@ namespace Web.Plumbing
 
         // User
         public UserListInteractor UserList { get { return new UserListInteractor(UserRepository); } }
-        public UserDetailsInteractor UserDetails { get { return new UserDetailsInteractor(Auth, UserRepository); } }
+        public UserDetailsInteractor UserDetails { get { return new UserDetailsInteractor(UserRepository); } }
         public AddUserInteractor AddUser { get { return new AddUserInteractor(UserRepository, RandomService, MessageSender); } }
         public EditUserFormInteractor EditUserForm { get { return new EditUserFormInteractor(UserRepository); } }
         public EditUserInteractor EditUser { get { return new EditUserInteractor(UserRepository); } }
@@ -115,7 +113,7 @@ namespace Web.Plumbing
         public CashgameListInteractor CashgameList { get { return new CashgameListInteractor(BunchRepository, CashgameRepository); } }
         public AddCashgameFormInteractor AddCashgameForm { get { return new AddCashgameFormInteractor(BunchRepository, CashgameRepository); } }
         public AddCashgameInteractor AddCashgame { get { return new AddCashgameInteractor(BunchRepository, CashgameRepository); } }
-        public ActionsInteractor Actions { get { return new ActionsInteractor(BunchRepository, CashgameRepository, PlayerRepository, Auth); } }
+        public ActionsInteractor Actions { get { return new ActionsInteractor(BunchRepository, CashgameRepository, PlayerRepository, UserRepository); } }
         public ActionsChartInteractor ActionsChart { get { return new ActionsChartInteractor(BunchRepository, CashgameRepository); } }
         public EditCheckpointFormInteractor EditCheckpointForm { get { return new EditCheckpointFormInteractor(BunchRepository, CheckpointRepository); } }
         public EditCheckpointInteractor EditCheckpoint { get { return new EditCheckpointInteractor(BunchRepository, CheckpointRepository); } }

@@ -1,32 +1,28 @@
 using System;
-using System.Globalization;
 using System.Web;
 using System.Web.Security;
 using Core;
 using Core.Entities;
 using Core.Services;
-using Newtonsoft.Json;
 
 namespace Infrastructure.Web
 {
     public class Auth : IAuth
     {
-        private const int Version = 1;
+        private const int Version = 2;
 
         public void SignIn(UserIdentity user, bool createPersistentCookie)
         {
-            var userData = JsonConvert.SerializeObject(user);
-
             var currentTime = DateTime.UtcNow;
             var expires = currentTime.AddYears(100);
 
             var authTicket = new FormsAuthenticationTicket(
                 Version,
-                user.UserId.ToString(CultureInfo.InvariantCulture),
+                user.UserName,
                 currentTime,
                 expires,
                 createPersistentCookie,
-                userData);
+                "");
 
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
@@ -41,12 +37,7 @@ namespace Infrastructure.Web
             }
         }
 
-        public void SignOut()
-        {
-            FormsAuthentication.SignOut();
-        }
-
-        public CustomIdentity CurrentIdentity
+        private CustomIdentity CurrentIdentity
         {
             get
             {

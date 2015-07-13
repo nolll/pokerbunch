@@ -33,17 +33,17 @@ namespace Web.Controllers.Base
         
         protected AppContextResult GetAppContext()
         {
-            return UseCase.AppContext.Execute(new AppContextRequest(UserName));
+            return UseCase.AppContext.Execute(new AppContextRequest(CurrentUserName));
         }
 
         protected BunchContextResult GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContextRequest(UserName, slug));
+            return UseCase.BunchContext.Execute(new BunchContextRequest(CurrentUserName, slug));
         }
 
         protected CashgameContextResult GetCashgameContext(string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(new CashgameContextRequest(UserName, slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(new CashgameContextRequest(CurrentUserName, slug, currentTime, selectedPage, year));
         }
 
         protected CustomIdentity Identity
@@ -55,7 +55,7 @@ namespace Web.Controllers.Base
             }
         }
 
-        protected string UserName
+        protected string CurrentUserName
         {
             get
             {
