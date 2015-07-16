@@ -190,6 +190,8 @@
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
+    <Compile Include="Models\CashgameModels\CurrentRankings\CurrentRankingsTableItemModel.cs" />
+    <Compile Include="Models\CashgameModels\CurrentRankings\CurrentRankingsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\Index\CashgameIndexPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
@@ -301,8 +303,6 @@
     <Content Include="gulpfile.js" />
     <Content Include="Views\Misc\Spinner.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\CashgameIndex.cshtml" />
-    <Content Include="Views\Pages\Toplist\SimpleToplistTable.cshtml" />
-    <Content Include="Views\Pages\Toplist\SimpleToplistTableItem.cshtml" />
     <Content Include="Views\Pages\CashgameIndex\Status.cshtml" />
     <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
     <Content Include="Views\Navigation\AdminNavigation.cshtml" />
@@ -324,6 +324,8 @@
     </Content>
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-com-staging - Web Deploy.pubxml" />
+    <Content Include="Views\Pages\CurrentRankings\CurrentRankingsTable.cshtml" />
+    <Content Include="Views\Pages\CurrentRankings\CurrentRankingsTableItem.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

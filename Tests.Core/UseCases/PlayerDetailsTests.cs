@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Core.Urls;
+﻿using Core.Urls;
 using Core.UseCases.PlayerDetails;
 using NUnit.Framework;
 using Tests.Common;

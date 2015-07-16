@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Core.UseCases.PlayerList;
+﻿using Core.UseCases.PlayerList;
 using NUnit.Framework;
 using Tests.Common;
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Entities;
 using Core.Urls;
 using Core.UseCases.CashgameDetails;
 using NUnit.Framework;

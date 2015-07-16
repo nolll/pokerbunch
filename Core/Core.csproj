@@ -206,6 +206,10 @@
     <Compile Include="UseCases\CashgameContext\CashgameContextResult.cs" />
     <Compile Include="UseCases\CashgameContext\CashgamePage.cs" />
     <Compile Include="UseCases\CashgameContext\YearItem.cs" />
+    <Compile Include="UseCases\CashgameCurrentRankings\CurrentRankingsInteractor.cs" />
+    <Compile Include="UseCases\CashgameCurrentRankings\CurrentRankingsItem.cs" />
+    <Compile Include="UseCases\CashgameCurrentRankings\CurrentRankingsRequest.cs" />
+    <Compile Include="UseCases\CashgameCurrentRankings\CurrentRankingsResult.cs" />
     <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartInteractor.cs" />
     <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartRequest.cs" />
     <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartResult.cs" />
@@ -230,7 +234,6 @@
     <Compile Include="UseCases\CashgameStatus\CashgameStatusInteractor.cs" />
     <Compile Include="UseCases\CashgameStatus\CashgameStatusRequest.cs" />
     <Compile Include="UseCases\CashgameStatus\CashgameStatusResult.cs" />
-    <Compile Include="UseCases\CashgameTopList\LatestTopListRequest.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListInteractor.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListItem.cs" />
     <Compile Include="UseCases\CashgameTopList\TopListRequest.cs" />

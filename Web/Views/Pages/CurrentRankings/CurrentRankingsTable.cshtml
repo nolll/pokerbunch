@@ -1,0 +1,18 @@
+@model Web.Models.CashgameModels.CurrentRankings.CurrentRankingsTableModel
+
+<table class="table-list">
+    <thead>
+        <tr>
+            <th class="table-list__column-header"></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Total</span></th>
+            <th class="table-list__column-header"><span class="table-list__column-header__content">Last Game</span></th>
+        </tr>
+    </thead>
+    <tbody class="list">
+        @foreach(var itemModel in Model.ItemModels)
+        {
+            @Html.Partial("CurrentRankings/CurrentRankingsTableItem", itemModel)
+        }
+    </tbody>
+</table>

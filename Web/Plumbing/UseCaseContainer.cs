@@ -14,6 +14,7 @@ using Core.UseCases.BunchList;
 using Core.UseCases.Buyin;
 using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameContext;
+using Core.UseCases.CashgameCurrentRankings;
 using Core.UseCases.CashgameDetails;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
@@ -101,6 +102,7 @@ namespace Web.Plumbing
         // Cashgame
         public CashgameStatusInteractor CashgameStatus { get { return new CashgameStatusInteractor(BunchRepository, CashgameRepository); } }
         public TopListInteractor TopList { get { return new TopListInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
+        public CurrentRankingsInteractor CurrentRankings { get { return new CurrentRankingsInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CashgameDetailsInteractor CashgameDetails { get { return new CashgameDetailsInteractor(BunchRepository, CashgameRepository, UserRepository, PlayerRepository); } }
         public CashgameDetailsChartInteractor CashgameDetailsChart { get { return new CashgameDetailsChartInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CashgameFactsInteractor CashgameFacts { get { return new CashgameFactsInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }

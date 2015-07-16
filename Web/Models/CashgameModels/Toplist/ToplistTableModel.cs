@@ -4,15 +4,15 @@ using Core.UseCases.CashgameTopList;
 
 namespace Web.Models.CashgameModels.Toplist
 {
-	public class ToplistTableModel
+    public class ToplistTableModel
     {
-	    public TopListTableColumns ColumnsModel { get; private set; }
+        public TopListTableColumns ColumnsModel { get; private set; }
         public IList<CashgameToplistTableItemModel> ItemModels { get; private set; }
 
         public ToplistTableModel(TopListResult topListResult)
-	    {
+        {
             ColumnsModel = new TopListTableColumns(topListResult);
-            ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemModel(o)).ToList();
-	    }
+            ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemModel(o, topListResult.OrderBy)).ToList();
+        }
     }
 }

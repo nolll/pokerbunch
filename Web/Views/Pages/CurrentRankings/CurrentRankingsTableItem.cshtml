@@ -1,0 +1,10 @@
+@model Web.Models.CashgameModels.CurrentRankings.CurrentRankingsTableItemModel
+
+<tr class="table-list__row">
+    <td class="table-list__cell table-list__cell--numeric">@Model.Rank.</td>
+    <td class="table-list__cell">
+        <a href="@Model.PlayerUrl">@Model.Name</a>
+    </td>
+    <td class="table-list__cell table-list__cell--numeric @Model.TotalResultClass">@Model.TotalResult</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.LastGameResultClass">@Model.LastGameResult</td>
+</tr>

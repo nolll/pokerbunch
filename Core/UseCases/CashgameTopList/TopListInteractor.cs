@@ -24,14 +24,6 @@ namespace Core.UseCases.CashgameTopList
             return Execute(bunch, request.OrderBy, request.Year);
         }
 
-        public TopListResult Execute(LatestTopListRequest request)
-        {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var years = _cashgameRepository.GetYears(bunch.Id);
-            var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            return Execute(bunch, ToplistSortOrder.Disabled, latestYear);
-        }
-
         private TopListResult Execute(Bunch bunch, ToplistSortOrder orderBy, int? year)
         {
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, year);
