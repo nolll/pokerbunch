@@ -38,15 +38,7 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(Constants.UserNameA, result.UserName);
         }
-
-        [Test]
-        public void Login_RememberMeIsFalse_SignInDoesntSavePersistentCookie()
-        {
-            Sut.Execute(CreateRequest());
-
-            Assert.IsFalse(Services.Auth.StayLoggedIn);
-        }
-        
+      
         private static LoginRequest CreateRequest()
         {
             return new LoginRequest(Constants.UserNameA, Constants.UserPasswordA);

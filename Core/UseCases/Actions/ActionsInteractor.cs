@@ -31,7 +31,7 @@ namespace Core.UseCases.Actions
             var player = _playerRepository.GetById(input.PlayerId);
             var playerResult = cashgame.GetResult(player.Id);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            var isManager = user.IsAdmin || currentPlayer.IsInRole(Role.Manager);
+            var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;

@@ -6,15 +6,13 @@ namespace Core.UseCases.PlayerDetails
 {
     public class PlayerDetailsInteractor
     {
-        private readonly IAuth _auth;
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
 
-        public PlayerDetailsInteractor(IAuth auth, IBunchRepository bunchRepository,  IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository)
+        public PlayerDetailsInteractor(IBunchRepository bunchRepository,  IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository)
         {
-            _auth = auth;
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
@@ -26,7 +24,9 @@ namespace Core.UseCases.PlayerDetails
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var player = _playerRepository.GetById(request.PlayerId);
             var user = _userRepository.GetById(player.UserId);
-            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
             var hasPlayed = _cashgameRepository.HasPlayed(request.PlayerId);
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 

@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DisplayNameIsSet()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.AreEqual(Constants.PlayerNameA, result.DisplayName);
         }
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_DeleteUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsInstanceOf<DeletePlayerUrl>(result.DeleteUrl);
         }
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_InvitationUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsInstanceOf<InvitePlayerUrl>(result.InvitationUrl);
         }
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD, Constants.UserNameA));
 
             Assert.AreEqual("", result.AvatarUrl);
         }
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             const string expected = "http://www.gravatar.com/avatar/0796c9df772de3f82c0c89377330471b?s=100";
             Assert.AreEqual(expected, result.AvatarUrl);
@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_UserUrlIsEmpty()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD, Constants.UserNameA));
 
             Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
         }
@@ -60,7 +60,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_UserUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsInstanceOf<UserUrl>(result.UserUrl);
         }
@@ -68,7 +68,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithoutUser_IsUserIsFalse()
         {
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD, Constants.UserNameA));
 
             Assert.IsFalse(result.IsUser);
         }
@@ -76,7 +76,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsTrue(result.IsUser);
         }
@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithNormalUser_CanDeleteIsFalse()
         {
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsFalse(result.CanDelete);
         }
@@ -92,9 +92,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
-            Services.Auth.SetCurrentRole(Role.Manager);
-
-            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD));
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdD, Constants.UserNameC));
 
             Assert.IsTrue(result.CanDelete);
         }
@@ -102,16 +100,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasPlayedGames_CanDeleteIsFalse()
         {
-            Services.Auth.SetCurrentRole(Role.Manager);
-
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.PlayerIdA, Constants.UserNameA));
 
             Assert.IsFalse(result.CanDelete);
         }
 
-        private static PlayerDetailsRequest CreateRequest(int playerId = Constants.PlayerIdA)
+        private static PlayerDetailsRequest CreateRequest(int playerId, string userName)
         {
-            return new PlayerDetailsRequest(Constants.SlugA, playerId);
+            return new PlayerDetailsRequest(Constants.SlugA, playerId, userName);
         }
 
         private PlayerDetailsInteractor Sut
@@ -119,7 +115,6 @@ namespace Tests.Core.UseCases
             get
             {
                 return new PlayerDetailsInteractor(
-                    Services.Auth,
                     Repos.Bunch,
                     Repos.Player,
                     Repos.Cashgame,

@@ -28,7 +28,7 @@ namespace Core.UseCases.BunchDetails
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var editBunchUrl = new EditBunchUrl(bunch.Slug);
-            var canEdit = user.IsAdmin || player.IsInRole(Role.Manager);
+            var canEdit = RoleHandler.IsInRole(user, player, Role.Manager);
 
             return new BunchDetailsResult(bunchName, description, houseRules, editBunchUrl, canEdit);
         }

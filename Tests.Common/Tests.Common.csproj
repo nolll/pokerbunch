@@ -52,7 +52,6 @@
     <Compile Include="FakeRepositories\FakeEventRepository.cs" />
     <Compile Include="FakeRepositories\FakePlayerRepository.cs" />
     <Compile Include="FakeRepositories\FakeUserRepository.cs" />
-    <Compile Include="FakeServices\FakeAuth.cs" />
     <Compile Include="FakeServices\FakeMessageSender.cs" />
     <Compile Include="FakeServices\FakeCache.cs" />
     <Compile Include="FakeServices\FakeRandomService.cs" />

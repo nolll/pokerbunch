@@ -10,22 +10,24 @@ namespace Core.UseCases.CashgameDetails
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public CashgameDetailsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IAuth auth, IPlayerRepository playerRepository)
+        public CashgameDetailsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _auth = auth;
+            _userRepository = userRepository;
             _playerRepository = playerRepository;
         }
 
         public CashgameDetailsResult Execute(CashgameDetailsRequest request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
-            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
+            var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             var players = GetPlayers(_playerRepository, cashgame);
 
             return new CashgameDetailsResult(bunch, cashgame, players, isManager);

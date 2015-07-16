@@ -124,7 +124,6 @@ namespace Tests.Core.UseCases
             get
             {
                 return new RunningCashgameInteractor(
-                    Services.Auth,
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,

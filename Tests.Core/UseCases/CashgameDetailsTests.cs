@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -56,9 +56,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.DateStringA);
-
-            Services.Auth.SetCurrentRole(Role.Manager);
+            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameC, Constants.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -72,7 +70,7 @@ namespace Tests.Core.UseCases
                 return new CashgameDetailsInteractor(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Services.Auth,
+                    Repos.User,
                     Repos.Player);
             }
         }

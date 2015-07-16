@@ -22,12 +22,6 @@ namespace Plumbing
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
 
-        private IAuth _auth;
-        protected IAuth Auth
-        {
-            get { return _auth ?? (_auth = new Auth()); }
-        }
-
         private ICacheContainer _cacheContainer;
         protected ICacheContainer CacheContainer
         {

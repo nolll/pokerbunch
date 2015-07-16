@@ -37,7 +37,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomIdentity.cs" />
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
@@ -49,8 +48,6 @@
     <Compile Include="Entities\Time.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="Entities\UserBunch.cs" />
-    <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\BunchExistsException.cs" />
     <Compile Include="Exceptions\BunchNotFoundException.cs" />
@@ -75,7 +72,6 @@
     <Compile Include="Services\Env.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
-    <Compile Include="Services\Interfaces\IAuth.cs" />
     <Compile Include="Services\Interfaces\ICacheBuster.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICacheProvider.cs" />
@@ -89,6 +85,7 @@
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
+    <Compile Include="Services\RoleHandler.cs" />
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />

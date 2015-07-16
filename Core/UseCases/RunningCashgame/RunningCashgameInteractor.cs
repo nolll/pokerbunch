@@ -11,15 +11,13 @@ namespace Core.UseCases.RunningCashgame
 {
     public class RunningCashgameInteractor
     {
-        private readonly IAuth _auth;
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
 
-        public RunningCashgameInteractor(IAuth auth, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public RunningCashgameInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _auth = auth;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
@@ -40,7 +38,7 @@ namespace Core.UseCases.RunningCashgame
             var bunchPlayers = _playerRepository.GetList(bunch.Id);
 
             var isStarted = cashgame.IsStarted;
-            var isManager = _auth.IsInRole(request.Slug, Role.Manager);
+            var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
             var location = cashgame.Location;
             var gameDataUrl = new RunningCashgameGameJsonUrl(bunch.Slug);

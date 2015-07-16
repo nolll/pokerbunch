@@ -15,7 +15,7 @@ namespace Web.Controllers
         {
             var contextResult = GetBunchContext(slug);
             RequirePlayer(contextResult);
-            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetailsRequest(slug, dateStr));
+            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetailsRequest(slug, CurrentUserName, dateStr));
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChartRequest(slug, DateTime.UtcNow, dateStr));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
