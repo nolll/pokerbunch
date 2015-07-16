@@ -8,23 +8,27 @@ namespace Core.UseCases.BunchDetails
     public class BunchDetailsInteractor
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IAuth _auth;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public BunchDetailsInteractor(IBunchRepository bunchRepository, IAuth auth)
+        public BunchDetailsInteractor(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
-            _auth = auth;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public BunchDetailsResult Execute(BunchDetailsRequest request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var editBunchUrl = new EditBunchUrl(bunch.Slug);
-            var canEdit = _auth.IsInRole(bunch.Slug, Role.Manager);
+            var canEdit = user.IsAdmin || player.IsInRole(Role.Manager);
 
             return new BunchDetailsResult(bunchName, description, houseRules, editBunchUrl, canEdit);
         }

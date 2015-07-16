@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ChangePassword_EmptyPassword_ThrowsValidationException()
         {
-            var request = new ChangePasswordRequest(Constants.UserIdA, "", "");
+            var request = new ChangePasswordRequest(Constants.UserNameA, "", "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ChangePassword_DifferentPasswords_ThrowsValidationException()
         {
-            var request = new ChangePasswordRequest(Constants.UserIdA, "a", "b");
+            var request = new ChangePasswordRequest(Constants.UserNameA, "a", "b");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ChangePassword_EqualPasswords_SavesUserWithNewPassword()
         {
-            var request = new ChangePasswordRequest(Constants.UserIdA, "a", "a");
+            var request = new ChangePasswordRequest(Constants.UserNameA, "a", "a");
             Sut.Execute(request);
 
             Assert.AreNotEqual(Constants.UserEncryptedPasswordA, Repos.User.Saved.EncryptedPassword);
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ChangePassword_EqualPasswords_ReturnUrlIsSet()
         {
-            var request = new ChangePasswordRequest(Constants.UserIdA, "a", "a");
+            var request = new ChangePasswordRequest(Constants.UserNameA, "a", "a");
             var result = Sut.Execute(request);
 
             Assert.AreEqual("/-/user/changedpassword", result.ReturnUrl.Relative);

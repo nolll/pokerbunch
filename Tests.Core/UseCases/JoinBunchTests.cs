@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         public void JoinBunch_EmptyCode_ThrowsValidationException()
         {
             const string code = "";
-            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserIdA, code);
+            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserNameA, code);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         public void JoinBunch_InvalidCode_InvalidJoinCodeException()
         {
             const string code = "abc";
-            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserIdA, code);
+            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserNameA, code);
 
             Assert.Throws<InvalidJoinCodeException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunch_ValidCode_JoinsBunch()
         {
-            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserIdA, ValidCode);
+            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserNameA, ValidCode);
 
             var result = Sut.Execute(request);
             Assert.AreEqual("/bunch-a/homegame/joined", result.ReturnUrl.Relative);
@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunch_ValidCode_ReturnsConfirmationUrl()
         {
-            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserIdA, ValidCode);
+            var request = new JoinBunchRequest(Constants.SlugA, Constants.UserNameA, ValidCode);
 
             Sut.Execute(request);
             Assert.AreEqual(Constants.PlayerIdA, Repos.Player.Joined.PlayerId);
@@ -53,7 +53,8 @@ namespace Tests.Core.UseCases
             {
                 return new JoinBunchInteractor(
                     Repos.Bunch,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }

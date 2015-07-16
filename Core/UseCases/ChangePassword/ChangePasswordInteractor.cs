@@ -28,7 +28,7 @@ namespace Core.UseCases.ChangePassword
 
             var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = _userRepository.GetById(request.UserId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             user = CreateUser(user, encryptedPassword, salt);
             
             _userRepository.Save(user);

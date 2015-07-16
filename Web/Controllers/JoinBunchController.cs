@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new JoinBunchRequest(slug, Identity.UserId, postModel.Code);
+                var request = new JoinBunchRequest(slug, CurrentUserName, postModel.Code);
                 var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

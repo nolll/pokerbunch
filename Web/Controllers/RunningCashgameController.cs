@@ -18,7 +18,7 @@ namespace Web.Controllers
             RequirePlayer(contextResult);
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
@@ -34,7 +34,7 @@ namespace Web.Controllers
         {
             var bunchContext = GetBunchContext(slug);
             RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
         }
@@ -45,7 +45,7 @@ namespace Web.Controllers
         {
             var bunchContext = GetBunchContext(slug);
             RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, Identity.UserId, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }

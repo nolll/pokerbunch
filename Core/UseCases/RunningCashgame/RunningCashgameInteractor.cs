@@ -15,13 +15,15 @@ namespace Core.UseCases.RunningCashgame
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public RunningCashgameInteractor(IAuth auth, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public RunningCashgameInteractor(IAuth auth, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _auth = auth;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public RunningCashgameResult Execute(RunningCashgameRequest request)
@@ -32,7 +34,8 @@ namespace Core.UseCases.RunningCashgame
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var player = _playerRepository.GetByUserId(bunch.Id, request.UserId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             var players = _playerRepository.GetList(GetPlayerIds(cashgame));
             var bunchPlayers = _playerRepository.GetList(bunch.Id);
 

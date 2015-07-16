@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Core.Urls;
+﻿using Core.Urls;
 using Core.UseCases.BunchDetails;
 using NUnit.Framework;
 using Tests.Common;
@@ -51,16 +50,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithManager_CanEditIsTrue()
         {
-            Services.Auth.SetCurrentRole(Role.Manager);
-
-            var result = Sut.Execute(CreateRequest());
+            var result = Sut.Execute(CreateRequest(Constants.UserNameC));
 
             Assert.IsTrue(result.CanEdit);
         }
 
-        private static BunchDetailsRequest CreateRequest()
+        private static BunchDetailsRequest CreateRequest(string userName = Constants.UserNameA)
         {
-            return new BunchDetailsRequest(Constants.SlugA);
+            return new BunchDetailsRequest(Constants.SlugA, userName);
         }
 
         private BunchDetailsInteractor Sut
@@ -69,7 +66,8 @@ namespace Tests.Core.UseCases
             {
                 return new BunchDetailsInteractor(
                     Repos.Bunch,
-                    Services.Auth);
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

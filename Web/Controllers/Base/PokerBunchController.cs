@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Security;
-using Core;
 using Core.Exceptions;
 using Core.Services;
 using Core.UseCases.AppContext;
@@ -42,15 +40,6 @@ namespace Web.Controllers.Base
             return UseCase.CashgameContext.Execute(new CashgameContextRequest(CurrentUserName, slug, currentTime, selectedPage, year));
         }
 
-        protected CustomIdentity Identity
-        {
-            get
-            {
-                var identity = User.Identity as CustomIdentity;
-                return identity ?? new CustomIdentity();
-            }
-        }
-
         protected string CurrentUserName
         {
             get
@@ -58,14 +47,6 @@ namespace Web.Controllers.Base
                 if (!User.Identity.IsAuthenticated)
                     return null;
                 return User.Identity.Name;
-            }
-        }
-
-        protected IIdentity Identity1
-        {
-            get
-            {
-                return User.Identity;
             }
         }
 
@@ -153,13 +134,13 @@ namespace Web.Controllers.Base
 
         protected void RequireManager(BunchContextResult bunchContext)
         {
-            if(!bunchContext.IsManager)
+            if (!bunchContext.IsManager)
                 throw new AccessDeniedException();
         }
 
         protected void RequireAdmin(AppContextResult appContext)
         {
-            if(!appContext.IsAdmin)
+            if (!appContext.IsAdmin)
                 throw new AccessDeniedException();
         }
     }

@@ -13,7 +13,7 @@ namespace Web.Controllers
         {
             var bunchContextResult = GetBunchContext(slug);
             RequirePlayer(bunchContextResult);
-            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetailsRequest(slug));
+            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetailsRequest(slug, CurrentUserName));
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
             return View("~/Views/Pages/BunchDetails/BunchDetails.cshtml", model);

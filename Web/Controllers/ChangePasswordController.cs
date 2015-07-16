@@ -22,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ChangePasswordRequest(Identity.UserId, postModel.Password, postModel.Repeat);
+                var request = new ChangePasswordRequest(CurrentUserName, postModel.Password, postModel.Repeat);
                 var result = UseCase.ChangePassword.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
