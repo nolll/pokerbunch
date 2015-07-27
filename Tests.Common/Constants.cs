@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Entities;
 using Tests.Common.Builders;
 
 namespace Tests.Common
@@ -18,6 +19,7 @@ namespace Tests.Common
         public const int DefaultBuyinA = 100;
         public const int DefaultBuyinB = 200;
 
+        public const int UserIdNone = 0;
         public const int UserIdA = 1;
         public const int UserIdB = 2;
         public const int UserIdC = 3;
@@ -90,6 +92,7 @@ namespace Tests.Common
         public const string EventNameB = "Event B";
 
         public const string LocalTimeZoneName = "W. Europe Standard Time";
-        public static readonly TimeZoneInfo LocalTimeZone = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
+        public static readonly TimeZoneInfo TimeZoneLocal = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
+        public static readonly TimeZoneInfo TimeZoneUtc = TimeZoneInfo.Utc;
     }
 }

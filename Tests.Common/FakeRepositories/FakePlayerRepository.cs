@@ -65,29 +65,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Player>
             {
-                new PlayerBuilder()
-                    .WithId(Constants.PlayerIdA)
-                    .WithUserId(Constants.UserIdA)
-                    .WithDisplayName(Constants.PlayerNameA)
-                    .WithRole(Role.Player)
-                    .Build(),
-                new PlayerBuilder()
-                    .WithId(Constants.PlayerIdB)
-                    .WithUserId(Constants.UserIdB)
-                    .WithDisplayName(Constants.PlayerNameB)
-                    .WithRole(Role.Player)
-                    .Build(),
-                new PlayerBuilder()
-                    .WithId(Constants.PlayerIdC)
-                    .WithUserId(Constants.UserIdC)
-                    .WithDisplayName(Constants.PlayerNameC)
-                    .WithRole(Role.Manager)
-                    .Build(),
-                new PlayerBuilder()
-                    .WithId(Constants.PlayerIdD)
-                    .WithDisplayName(Constants.PlayerNameD)
-                    .WithRole(Role.Player)
-                    .Build()
+                new Player(Constants.BunchIdA, Constants.PlayerIdA, Constants.UserIdA, Constants.PlayerNameA, Role.Player),
+                new Player(Constants.BunchIdA, Constants.PlayerIdB, Constants.UserIdB, Constants.PlayerNameB, Role.Player),
+                new Player(Constants.BunchIdA, Constants.PlayerIdC, Constants.UserIdC, Constants.PlayerNameC, Role.Manager),
+                new Player(Constants.BunchIdA, Constants.PlayerIdD, Constants.UserIdNone, Constants.PlayerNameD, Role.Player),
             };
         }
 

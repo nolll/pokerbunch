@@ -70,7 +70,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
             Assert.AreEqual(Description, Repos.Bunch.Added.Description);
             Assert.AreEqual("", Repos.Bunch.Added.HouseRules);
-            Assert.AreEqual(Constants.LocalTimeZone.Id, Repos.Bunch.Added.Timezone.Id);
+            Assert.AreEqual(Constants.TimeZoneLocal.Id, Repos.Bunch.Added.Timezone.Id);
             Assert.AreEqual(200, Repos.Bunch.Added.DefaultBuyin);
             Assert.AreEqual(CurrencySymbol, Repos.Bunch.Added.Currency.Symbol);
             Assert.AreEqual(CurrencyLayout, Repos.Bunch.Added.Currency.Layout);

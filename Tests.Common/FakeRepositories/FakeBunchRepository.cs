@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -72,28 +73,12 @@ namespace Tests.Common.FakeRepositories
 
         private Bunch CreateFirstBunch()
         {
-            return new BunchBuilder()
-                .WithId(Constants.BunchIdA)
-                .WithSlug(Constants.SlugA)
-                .WithDisplayName(Constants.BunchNameA)
-                .WithDescription(Constants.DescriptionA)
-                .WithHouseRules(Constants.HouseRulesA)
-                .WithDefaultBuyin(Constants.DefaultBuyinA)
-                .WithUtcTimeZone()
-                .Build();
+            return new Bunch(Constants.BunchIdA, Constants.SlugA, Constants.BunchNameA, Constants.DescriptionA, Constants.HouseRulesA, Constants.TimeZoneUtc, Constants.DefaultBuyinA, Currency.Default);
         }
 
         private Bunch CreateSecondBunch()
         {
-            return new BunchBuilder()
-                .WithId(Constants.BunchIdB)
-                .WithSlug(Constants.SlugB)
-                .WithDisplayName(Constants.BunchNameB)
-                .WithDescription(Constants.DescriptionB)
-                .WithHouseRules(Constants.HouseRulesB)
-                .WithDefaultBuyin(Constants.DefaultBuyinB)
-                .WithLocalTimeZone()
-                .Build();
+            return new Bunch(Constants.BunchIdB, Constants.SlugB, Constants.BunchNameB, Constants.DescriptionB, Constants.HouseRulesB, Constants.TimeZoneLocal, Constants.DefaultBuyinB, Currency.Default);
         }
 
         public void ClearList()

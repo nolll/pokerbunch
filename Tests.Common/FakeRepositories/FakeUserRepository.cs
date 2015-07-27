@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Tests.Common.Builders;
 
 namespace Tests.Common.FakeRepositories
 {
@@ -48,43 +47,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<User>
             {
-                new UserBuilder()
-                    .WithId(Constants.UserIdA)
-                    .WithUserName(Constants.UserNameA)
-                    .WithEmail(Constants.UserEmailA)
-                    .WithRealName(Constants.UserRealNameA)
-                    .WithDisplayName(Constants.UserDisplayNameA)
-                    .WithEncryptedPassword(Constants.UserEncryptedPasswordA)
-                    .WithSalt(Constants.UserSaltA)
-                    .Build(),
-                new UserBuilder()
-                    .WithId(Constants.UserIdB)
-                    .WithUserName(Constants.UserNameB)
-                    .WithEmail(Constants.UserEmailB)
-                    .WithRealName(Constants.UserRealNameB)
-                    .WithDisplayName(Constants.UserDisplayNameB)
-                    .WithEncryptedPassword(Constants.UserEncryptedPasswordB)
-                    .WithSalt(Constants.UserSaltB)
-                    .WithGlobalRole(Role.Admin)
-                    .Build(),
-                new UserBuilder()
-                    .WithId(Constants.UserIdC)
-                    .WithUserName(Constants.UserNameC)
-                    .WithEmail(Constants.UserEmailC)
-                    .WithRealName(Constants.UserRealNameC)
-                    .WithDisplayName(Constants.UserDisplayNameC)
-                    .WithEncryptedPassword(Constants.UserEncryptedPasswordC)
-                    .WithSalt(Constants.UserSaltC)
-                    .Build(),
-                new UserBuilder()
-                    .WithId(Constants.UserIdD)
-                    .WithUserName(Constants.UserNameD)
-                    .WithEmail(Constants.UserEmailD)
-                    .WithRealName(Constants.UserRealNameD)
-                    .WithDisplayName(Constants.UserDisplayNameD)
-                    .WithEncryptedPassword(Constants.UserEncryptedPasswordD)
-                    .WithSalt(Constants.UserSaltD)
-                    .Build()
+                new User(Constants.UserIdA, Constants.UserNameA, Constants.UserDisplayNameA, Constants.UserRealNameA, Constants.UserEmailA, Role.Player, Constants.UserEncryptedPasswordA, Constants.UserSaltA),
+                new User(Constants.UserIdB, Constants.UserNameB, Constants.UserDisplayNameB, Constants.UserRealNameB, Constants.UserEmailB, Role.Admin, Constants.UserEncryptedPasswordB, Constants.UserSaltB),
+                new User(Constants.UserIdC, Constants.UserNameC, Constants.UserDisplayNameC, Constants.UserRealNameC, Constants.UserEmailC, Role.Player, Constants.UserEncryptedPasswordC, Constants.UserSaltC),
+                new User(Constants.UserIdD, Constants.UserNameD, Constants.UserDisplayNameD, Constants.UserRealNameD, Constants.UserEmailD, Role.Player, Constants.UserEncryptedPasswordD, Constants.UserSaltD),
             };
         }
     }
