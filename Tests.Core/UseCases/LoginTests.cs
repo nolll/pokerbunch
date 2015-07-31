@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserNameA, result.UserName);
+            Assert.AreEqual(TestData.UserNameA, result.UserName);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Login_UserFoundButPasswordIsWrong_ThrowsException()
         {
-            var request = new LoginRequest(Constants.UserA.UserName, Constants.UserB.UserName);
+            var request = new LoginRequest(TestData.UserA.UserName, TestData.UserB.UserName);
 
             Assert.Throws<LoginException>(() => Sut.Execute(request));
         }
@@ -36,12 +36,12 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserNameA, result.UserName);
+            Assert.AreEqual(TestData.UserNameA, result.UserName);
         }
       
         private static LoginRequest CreateRequest()
         {
-            return new LoginRequest(Constants.UserNameA, Constants.UserPasswordA);
+            return new LoginRequest(TestData.UserNameA, TestData.UserPasswordA);
         }
 
         private LoginInteractor Sut

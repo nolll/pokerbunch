@@ -81,7 +81,7 @@ namespace Tests.Core.UseCases
 
         private PlayerBadgesRequest CreateRequest()
         {
-            return new PlayerBadgesRequest(Constants.SlugA, Constants.PlayerIdA);
+            return new PlayerBadgesRequest(TestData.SlugA, TestData.PlayerIdA);
         }
 
         private PlayerBadgesInteractor Sut

@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerFacts_ReturnsResultObject()
         {
-            var request = new PlayerFactsRequest(Constants.SlugA, Constants.PlayerIdA);
+            var request = new PlayerFactsRequest(TestData.SlugA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GamesPlayed);

@@ -47,10 +47,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<User>
             {
-                Constants.UserA,
-                Constants.UserB,
-                Constants.UserC,
-                Constants.UserD
+                TestData.UserA,
+                TestData.UserB,
+                TestData.UserC,
+                TestData.UserD
             };
         }
     }

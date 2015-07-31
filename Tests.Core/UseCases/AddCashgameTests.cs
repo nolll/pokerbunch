@@ -41,9 +41,9 @@ namespace Tests.Core.UseCases
             return CreateRequest(null);
         }
 
-        private static AddCashgameRequest CreateRequest(string location = Constants.LocationA)
+        private static AddCashgameRequest CreateRequest(string location = TestData.LocationA)
         {
-            return new AddCashgameRequest(Constants.SlugA, location);
+            return new AddCashgameRequest(TestData.SlugA, location);
         }
 
         private AddCashgameInteractor Sut

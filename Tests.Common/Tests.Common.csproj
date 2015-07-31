@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="BuilderContainer.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="TestData.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />
     <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
     <Compile Include="FakeClasses\BunchContextResultInTest.cs" />

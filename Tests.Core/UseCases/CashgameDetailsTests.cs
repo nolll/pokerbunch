@@ -11,12 +11,12 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(Constants.DateStringA, result.Date.IsoString);
-            Assert.AreEqual(Constants.LocationA, result.Location);
+            Assert.AreEqual(TestData.DateStringA, result.Date.IsoString);
+            Assert.AreEqual(TestData.LocationA, result.Location);
             Assert.AreEqual(62, result.Duration.Minutes);
             Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -40,11 +40,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameA, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(Constants.PlayerNameB, result.PlayerItems[0].Name);
+            Assert.AreEqual(TestData.PlayerNameB, result.PlayerItems[0].Name);
             Assert.AreEqual("/bunch-a/cashgame/action/2001-01-01/2", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
-            var request = new CashgameDetailsRequest(Constants.SlugA, Constants.UserNameC, Constants.DateStringA);
+            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameC, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 

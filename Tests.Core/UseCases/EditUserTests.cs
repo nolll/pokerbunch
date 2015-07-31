@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_EmptyDisplayName_ThrowsException()
         {
-            var request = new EditUserRequest(Constants.UserNameA, "", RealName, ChangedEmail);
+            var request = new EditUserRequest(TestData.UserNameA, "", RealName, ChangedEmail);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_EmptyEmail_ThrowsException()
         {
-            var request = new EditUserRequest(Constants.UserNameA, ChangedDisplayName, RealName, "");
+            var request = new EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_InvalidEmail_ThrowsException()
         {
-            var request = new EditUserRequest(Constants.UserNameA, ChangedDisplayName, RealName, "a");
+            var request = new EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, "a");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_ValidInput_ReturnUrlIsSet()
         {
-            var request = new EditUserRequest(Constants.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
+            var request = new EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
 
             var result = Sut.Execute(request);
 
@@ -48,11 +48,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_ValidInput_UserIsSaved()
         {
-            var request = new EditUserRequest(Constants.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
+            var request = new EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
 
             Sut.Execute(request);
 
-            Assert.AreEqual(Constants.UserNameA, Repos.User.Saved.UserName);
+            Assert.AreEqual(TestData.UserNameA, Repos.User.Saved.UserName);
             Assert.AreEqual(ChangedDisplayName, Repos.User.Saved.DisplayName);
             Assert.AreEqual(ChangedEmail, Repos.User.Saved.Email);
         }

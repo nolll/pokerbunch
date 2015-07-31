@@ -54,7 +54,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<string> GetLocations(int bunchId)
         {
-            return new[] {Constants.LocationA, Constants.LocationB};
+            return new[] {TestData.LocationA, TestData.LocationB};
         }
 
         public bool DeleteGame(Cashgame cashgame)
@@ -98,7 +98,7 @@ namespace Tests.Common.FakeRepositories
 
         public void SetupSingleYear()
         {
-            _list = GetGames(Constants.StartTimeA.AddDays(7));
+            _list = GetGames(TestData.StartTimeA.AddDays(7));
         }
 
         public void SetupGameCount(int gameCount)
@@ -110,44 +110,44 @@ namespace Tests.Common.FakeRepositories
         {
             var checkpoints1 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeA, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeA.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeA.AddMinutes(30), CheckpointType.Report, 250, 0, 3),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, Constants.StartTimeA.AddMinutes(61), CheckpointType.Cashout, 50, 0, 4),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, Constants.StartTimeA.AddMinutes(62), CheckpointType.Cashout, 350, 0, 5)
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.StartTimeA, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, TestData.StartTimeA.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, TestData.StartTimeA.AddMinutes(30), CheckpointType.Report, 250, 0, 3),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.StartTimeA.AddMinutes(61), CheckpointType.Cashout, 50, 0, 4),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, TestData.StartTimeA.AddMinutes(62), CheckpointType.Cashout, 350, 0, 5)
             };
 
-            var startTime2 = secondGameStartTime ?? Constants.StartTimeB;
+            var startTime2 = secondGameStartTime ?? TestData.StartTimeB;
 
             var checkpoints2 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(2), CheckpointType.Buyin, 200, 200, 3),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2.AddMinutes(30), CheckpointType.Report, 450, 45, 4),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime2.AddMinutes(91), CheckpointType.Cashout, 550, 0, 5),
-                Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdB, startTime2.AddMinutes(92), CheckpointType.Cashout, 50, 0, 6)
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(2), CheckpointType.Buyin, 200, 200, 3),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(30), CheckpointType.Report, 450, 45, 4),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(91), CheckpointType.Cashout, 550, 0, 5),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(92), CheckpointType.Cashout, 50, 0, 6)
             };
 
             return new List<Cashgame>
             {
-                new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Finished, Constants.CashgameIdA, checkpoints1),
-                new Cashgame(Constants.BunchIdA, Constants.LocationB, GameStatus.Finished, Constants.CashgameIdB, checkpoints2)
+                new Cashgame(TestData.BunchIdA, TestData.LocationA, GameStatus.Finished, TestData.CashgameIdA, checkpoints1),
+                new Cashgame(TestData.BunchIdA, TestData.LocationB, GameStatus.Finished, TestData.CashgameIdB, checkpoints2)
             };
         }
 
         private IList<Cashgame> GetGames(int gameCount)
         {
             var games = new List<Cashgame>();
-            var startTime = Constants.StartTimeA;
+            var startTime = TestData.StartTimeA;
             for (var i = 0; i < gameCount; i++)
             {
                 var checkpoints = new List<Checkpoint>
                 {
-                    Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime, CheckpointType.Buyin, 200, 200, 1),
-                    Checkpoint.Create(Constants.CashgameIdA, Constants.PlayerIdA, startTime.AddMinutes(61), CheckpointType.Cashout, 200, 0, 2),
+                    Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime, CheckpointType.Buyin, 200, 200, 1),
+                    Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime.AddMinutes(61), CheckpointType.Cashout, 200, 0, 2),
                 };
-                games.Add(new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Finished, Constants.CashgameIdA, checkpoints));
+                games.Add(new Cashgame(TestData.BunchIdA, TestData.LocationA, GameStatus.Finished, TestData.CashgameIdA, checkpoints));
                 startTime = startTime.AddDays(1);
             }
             return games;
@@ -157,30 +157,30 @@ namespace Tests.Common.FakeRepositories
         {
             var checkpoints1 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdB, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 2)
+                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdB, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 2)
             };
 
-            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
+            _list.Add(new Cashgame(TestData.BunchIdA, TestData.LocationC, GameStatus.Running, TestData.CashgameIdC, checkpoints1));
         }
 
         public void SetupRunningGameWithCashoutCheckpoint()
         {
             var checkpoints1 = new List<Checkpoint>
             {
-                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdB, Constants.StartTimeC, CheckpointType.Buyin, 200, 200, 2),
-                Checkpoint.Create(Constants.CashgameIdC, Constants.PlayerIdA, Constants.StartTimeC.AddMinutes(1), CheckpointType.Cashout, 200, 0, 3),
+                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
+                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdB, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 2),
+                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC.AddMinutes(1), CheckpointType.Cashout, 200, 0, 3),
             };
 
-            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationC, GameStatus.Running, Constants.CashgameIdC, checkpoints1));
+            _list.Add(new Cashgame(TestData.BunchIdA, TestData.LocationC, GameStatus.Running, TestData.CashgameIdC, checkpoints1));
         }
 
         public void SetupEmptyGame()
         {
             var checkpoints1 = new List<Checkpoint>();
             _list.Clear();
-            _list.Add(new Cashgame(Constants.BunchIdA, Constants.LocationA, GameStatus.Running, Constants.CashgameIdA, checkpoints1));
+            _list.Add(new Cashgame(TestData.BunchIdA, TestData.LocationA, GameStatus.Running, TestData.CashgameIdA, checkpoints1));
         }
 
         public void ClearList()

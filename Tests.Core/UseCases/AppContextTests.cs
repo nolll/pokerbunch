@@ -22,10 +22,10 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithUserName_LoggedInPropertiesAreSet()
         {
-            var result = Sut.Execute(new AppContextRequest(Constants.UserNameA));
+            var result = Sut.Execute(new AppContextRequest(TestData.UserNameA));
 
             Assert.IsTrue(result.IsLoggedIn);
-            Assert.AreEqual(Constants.UserDisplayNameA, result.UserDisplayName);
+            Assert.AreEqual(TestData.UserDisplayNameA, result.UserDisplayName);
             Assert.AreEqual("/-/auth/logout", result.LogoutUrl.Relative);
             Assert.AreEqual("/-/user/details/user-name-a", result.UserDetailsUrl.Relative);
         }

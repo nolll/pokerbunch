@@ -40,14 +40,14 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
             Sut.Execute(request);
 
-            Assert.AreEqual(Constants.UserEmailA, Services.MessageSender.To);
+            Assert.AreEqual(TestData.UserEmailA, Services.MessageSender.To);
             Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
-        private static InvitePlayerRequest CreateRequest(string email = Constants.UserEmailA)
+        private static InvitePlayerRequest CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayerRequest(Constants.SlugA, Constants.PlayerIdA, email);
+            return new InvitePlayerRequest(TestData.SlugA, TestData.PlayerIdA, email);
         }
 
         private InvitePlayerInteractor Sut

@@ -13,9 +13,9 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(2, result.Bunches.Count);
             Assert.AreEqual("/bunch-a/homegame/details", result.Bunches[0].Url.Relative);
-            Assert.AreEqual(Constants.BunchNameA, result.Bunches[0].DisplayName);
+            Assert.AreEqual(TestData.BunchNameA, result.Bunches[0].DisplayName);
             Assert.AreEqual("/bunch-b/homegame/details", result.Bunches[1].Url.Relative);
-            Assert.AreEqual(Constants.BunchNameB, result.Bunches[1].DisplayName);
+            Assert.AreEqual(TestData.BunchNameB, result.Bunches[1].DisplayName);
         }
 
         private BunchListInteractor Sut

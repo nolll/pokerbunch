@@ -13,8 +13,8 @@ namespace Tests.Core.UseCases
         private const string ValidUserName = "a";
         private const string ValidDisplayName = "b";
         private const string ValidEmail = "a@b.com";
-        private const string ExistingUserName = Constants.UserNameA;
-        private const string ExistingEmail = Constants.UserEmailA;
+        private const string ExistingUserName = TestData.UserNameA;
+        private const string ExistingEmail = TestData.UserEmailA;
 
         [Test]
         public void AddUser_ReturnUrlIsSet()

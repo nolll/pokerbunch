@@ -58,8 +58,8 @@ namespace Tests.Common.FakeRepositories
         {
             _list = new List<Bunch>
             {
-                Constants.BunchA,
-                Constants.BunchB
+                TestData.BunchA,
+                TestData.BunchB
             };
         }
 
@@ -67,7 +67,7 @@ namespace Tests.Common.FakeRepositories
         {
             _list = new List<Bunch>
             {
-                Constants.BunchA
+                TestData.BunchA
             };
         }
 

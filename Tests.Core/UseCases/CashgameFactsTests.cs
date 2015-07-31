@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_ReturnsCashgameFactResult()
         {
-            var request = new CashgameFactsRequest(Constants.SlugA, null);
+            var request = new CashgameFactsRequest(TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.IsNotNull(result);
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void GetFactsResult_AllPropertiesAreSet()
         {
-            var request = new CashgameFactsRequest(Constants.SlugA, null);
+            var request = new CashgameFactsRequest(TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GameCount);

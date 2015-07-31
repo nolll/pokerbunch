@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
             var input = new EventDetailsInput(1);
             var result = Sut.Execute(input);
 
-            Assert.AreEqual(Constants.EventNameA, result.Name);
+            Assert.AreEqual(TestData.EventNameA, result.Name);
         }
 
         private EventDetailsInteractor Sut

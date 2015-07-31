@@ -46,9 +46,9 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Checkpoint>()
             {
-                Checkpoint.Create(0, 0, Constants.BuyinCheckpointTimestamp, CheckpointType.Buyin, Constants.BuyinCheckpointStack, Constants.BuyinCheckpointAmount, Constants.BuyinCheckpointId),
-                Checkpoint.Create(0, 0, Constants.ReportCheckpointTimestamp, CheckpointType.Report, Constants.ReportCheckpointStack, Constants.ReportCheckpointAmount, Constants.ReportCheckpointId),
-                Checkpoint.Create(0, 0, Constants.CashoutCheckpointTimestamp, CheckpointType.Cashout, Constants.CashoutCheckpointStack, Constants.CashoutCheckpointAmount, Constants.CashoutCheckpointId)
+                Checkpoint.Create(0, 0, TestData.BuyinCheckpointTimestamp, CheckpointType.Buyin, TestData.BuyinCheckpointStack, TestData.BuyinCheckpointAmount, TestData.BuyinCheckpointId),
+                Checkpoint.Create(0, 0, TestData.ReportCheckpointTimestamp, CheckpointType.Report, TestData.ReportCheckpointStack, TestData.ReportCheckpointAmount, TestData.ReportCheckpointId),
+                Checkpoint.Create(0, 0, TestData.CashoutCheckpointTimestamp, CheckpointType.Cashout, TestData.CashoutCheckpointStack, TestData.CashoutCheckpointAmount, TestData.CashoutCheckpointId)
             };
         }
     }

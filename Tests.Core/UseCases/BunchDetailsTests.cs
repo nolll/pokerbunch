@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.BunchNameA, result.BunchName);
+            Assert.AreEqual(TestData.BunchNameA, result.BunchName);
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.DescriptionA, result.Description);
+            Assert.AreEqual(TestData.DescriptionA, result.Description);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.HouseRulesA, result.HouseRules);
+            Assert.AreEqual(TestData.HouseRulesA, result.HouseRules);
         }
 
         [Test]
@@ -50,14 +50,14 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchDetails_WithManager_CanEditIsTrue()
         {
-            var result = Sut.Execute(CreateRequest(Constants.UserNameC));
+            var result = Sut.Execute(CreateRequest(TestData.UserNameC));
 
             Assert.IsTrue(result.CanEdit);
         }
 
-        private static BunchDetailsRequest CreateRequest(string userName = Constants.UserNameA)
+        private static BunchDetailsRequest CreateRequest(string userName = TestData.UserNameA)
         {
-            return new BunchDetailsRequest(Constants.SlugA, userName);
+            return new BunchDetailsRequest(TestData.SlugA, userName);
         }
 
         private BunchDetailsInteractor Sut

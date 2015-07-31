@@ -65,10 +65,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Player>
             {
-                Constants.PlayerA,
-                Constants.PlayerB,
-                Constants.PlayerC,
-                Constants.PlayerD
+                TestData.PlayerA,
+                TestData.PlayerB,
+                TestData.PlayerC,
+                TestData.PlayerD
             };
         }
 

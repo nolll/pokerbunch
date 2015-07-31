@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserNameA, result.UserName);
+            Assert.AreEqual(TestData.UserNameA, result.UserName);
         }
 
         [Test]
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserRealNameA, result.RealName);
+            Assert.AreEqual(TestData.UserRealNameA, result.RealName);
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserDisplayNameA, result.DisplayName);
+            Assert.AreEqual(TestData.UserDisplayNameA, result.DisplayName);
         }
 
         [Test]
@@ -35,12 +35,12 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.UserEmailA, result.Email);
+            Assert.AreEqual(TestData.UserEmailA, result.Email);
         }
 
         private EditUserFormRequest CreateRequest()
         {
-            return new EditUserFormRequest(Constants.UserNameA);
+            return new EditUserFormRequest(TestData.UserNameA);
         }
 
         private EditUserFormInteractor Sut

@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidBuyin_ReturnsError()
         {
-            var request = new BuyinRequest(Constants.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
+            var request = new BuyinRequest(TestData.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidStackSize_ReturnsError()
         {
-            var request = new BuyinRequest(Constants.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
+            var request = new BuyinRequest(TestData.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
 
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new BuyinRequest(Constants.SlugA, PlayerId, buyin, stack, timestamp);
+            var request = new BuyinRequest(TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
             var result = Repos.Checkpoint.Added;

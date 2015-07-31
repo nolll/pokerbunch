@@ -67,7 +67,7 @@ namespace Tests.Common.Builders
 
         public DateTimeBuilder AsLocal()
         {
-            _timeZone = Constants.TimeZoneLocal;
+            _timeZone = TestData.TimeZoneLocal;
             return this;
         }
 

@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
 {
     class ForgotPasswordTests : TestBase
     {
-        private const string ValidEmail = Constants.UserEmailA;
+        private const string ValidEmail = TestData.UserEmailA;
         private const string InvalidEmail = "";
         private const string NonExistingEmail = "a@b.com";
 

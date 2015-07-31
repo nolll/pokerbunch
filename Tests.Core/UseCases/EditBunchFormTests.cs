@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.DescriptionA, result.Description);
+            Assert.AreEqual(TestData.DescriptionA, result.Description);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.HouseRulesA, result.HouseRules);
+            Assert.AreEqual(TestData.HouseRulesA, result.HouseRules);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.DefaultBuyinA, result.DefaultBuyin);
+            Assert.AreEqual(TestData.DefaultBuyinA, result.DefaultBuyin);
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Tests.Core.UseCases
 
         private static EditBunchFormRequest CreateRequest()
         {
-            return new EditBunchFormRequest(Constants.SlugA);
+            return new EditBunchFormRequest(TestData.SlugA);
         }
 
         private EditBunchFormInteractor Sut

@@ -12,14 +12,14 @@ namespace Tests.Core.UseCases
         private const string Description = "b";
         private const string CurrencySymbol = "c";
         private const string CurrencyLayout = "d";
-        private const string ExistingDisplayName = Constants.BunchNameA;
+        private const string ExistingDisplayName = TestData.BunchNameA;
 
         private string _timeZone;
 
         [SetUp]
         public void SetUp()
         {
-            _timeZone = Constants.LocalTimeZoneName;
+            _timeZone = TestData.LocalTimeZoneName;
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
             Assert.AreEqual(Description, Repos.Bunch.Added.Description);
             Assert.AreEqual("", Repos.Bunch.Added.HouseRules);
-            Assert.AreEqual(Constants.TimeZoneLocal.Id, Repos.Bunch.Added.Timezone.Id);
+            Assert.AreEqual(TestData.TimeZoneLocal.Id, Repos.Bunch.Added.Timezone.Id);
             Assert.AreEqual(200, Repos.Bunch.Added.DefaultBuyin);
             Assert.AreEqual(CurrencySymbol, Repos.Bunch.Added.Currency.Symbol);
             Assert.AreEqual(CurrencyLayout, Repos.Bunch.Added.Currency.Layout);
@@ -88,7 +88,7 @@ namespace Tests.Core.UseCases
 
         private AddBunchRequest CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
         {
-            return new AddBunchRequest(Constants.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
+            return new AddBunchRequest(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
         private AddBunchInteractor Sut

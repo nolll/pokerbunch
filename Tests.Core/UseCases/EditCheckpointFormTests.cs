@@ -15,17 +15,17 @@ namespace Tests.Core.UseCases
         {
             var expected = A.DateTime.AsLocal().Build();
 
-            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
-            Assert.AreEqual(Constants.ReportCheckpointStack, result.Stack);
-            Assert.AreEqual(Constants.ReportCheckpointAmount, result.Amount);
+            Assert.AreEqual(TestData.ReportCheckpointStack, result.Stack);
+            Assert.AreEqual(TestData.ReportCheckpointAmount, result.Amount);
             Assert.AreEqual(expected, result.TimeStamp);
         }
 
         [Test]
         public void EditCheckpointForm_DeleteUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
             Assert.IsInstanceOf<DeleteCheckpointUrl>(result.DeleteUrl);
         }
@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_CancelUrlIsSet()
         {
-            var result = Sut.Execute(CreateRequest(Constants.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
             Assert.IsInstanceOf<CashgameActionUrl>(result.CancelUrl);
         }
@@ -41,13 +41,13 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_WithBuyinCheckpoint_CanEditAmountIsTrue()
         {
-            var result = Sut.Execute(CreateRequest(Constants.BuyinCheckpointId));
+            var result = Sut.Execute(CreateRequest(TestData.BuyinCheckpointId));
 
             Assert.IsTrue(result.CanEditAmount);
         }
 
-        [TestCase(Constants.ReportCheckpointId)]
-        [TestCase(Constants.CashoutCheckpointId)]
+        [TestCase(TestData.ReportCheckpointId)]
+        [TestCase(TestData.CashoutCheckpointId)]
         public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(int id)
         {
             var result = Sut.Execute(CreateRequest(id));
@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
 
         private static EditCheckpointFormRequest CreateRequest(int id)
         {
-            return new EditCheckpointFormRequest(Constants.SlugB, DateString, PlayerId, id);
+            return new EditCheckpointFormRequest(TestData.SlugB, DateString, PlayerId, id);
         }
 
         private EditCheckpointFormInteractor Sut

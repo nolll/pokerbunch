@@ -9,22 +9,22 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgameForm_AllPropertiesAreSet()
         {
-            var result = Sut.Execute(new EditCashgameFormRequest(Constants.SlugA, Constants.DateStringA));
+            var result = Sut.Execute(new EditCashgameFormRequest(TestData.SlugA, TestData.DateStringA));
 
             Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.CancelUrl.Relative);
             Assert.AreEqual("/bunch-a/cashgame/delete/2001-01-01", result.DeleteUrl.Relative);
-            Assert.AreEqual(Constants.LocationA, result.Location);
-            Assert.AreEqual(Constants.DateStringA, result.Date);
+            Assert.AreEqual(TestData.LocationA, result.Location);
+            Assert.AreEqual(TestData.DateStringA, result.Date);
         }
         
         [Test]
         public void EditCashgameForm_LocationsAreSet()
         {
-            var result = Sut.Execute(new EditCashgameFormRequest(Constants.SlugA, Constants.DateStringA));
+            var result = Sut.Execute(new EditCashgameFormRequest(TestData.SlugA, TestData.DateStringA));
 
             Assert.AreEqual(2, result.Locations.Count);
-            Assert.AreEqual(Constants.LocationA, result.Locations[0]);
-            Assert.AreEqual(Constants.LocationB, result.Locations[1]);
+            Assert.AreEqual(TestData.LocationA, result.Locations[0]);
+            Assert.AreEqual(TestData.LocationB, result.Locations[1]);
         }
 
         private EditCashgameFormInteractor Sut

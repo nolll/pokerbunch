@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgameOptions_ReturnsResultObject()
         {
-            const string slug = Constants.SlugA;
+            const string slug = TestData.SlugA;
             var result = Sut.Execute(new AddCashgameFormRequest(slug));
 
             Assert.IsInstanceOf<AddCashgameFormResult>(result);
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            const string slug = Constants.SlugA;
+            const string slug = TestData.SlugA;
 
             Assert.Throws<CashgameRunningException>(() => Sut.Execute(new AddCashgameFormRequest(slug)));
         }
@@ -29,12 +29,12 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgameOptions_LocationsAreSet()
         {
-            const string slug = Constants.SlugA;
+            const string slug = TestData.SlugA;
             var result = Sut.Execute(new AddCashgameFormRequest(slug));
 
             Assert.AreEqual(2, result.Locations.Count);
-            Assert.AreEqual(Constants.LocationA, result.Locations[0]);
-            Assert.AreEqual(Constants.LocationB, result.Locations[1]);
+            Assert.AreEqual(TestData.LocationA, result.Locations[0]);
+            Assert.AreEqual(TestData.LocationB, result.Locations[1]);
         }
 
         private AddCashgameFormInteractor Sut

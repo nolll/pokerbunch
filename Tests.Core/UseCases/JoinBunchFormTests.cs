@@ -9,11 +9,11 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchForm_BunchNameIsSet()
         {
-            var request = new JoinBunchFormRequest(Constants.SlugA);
+            var request = new JoinBunchFormRequest(TestData.SlugA);
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(Constants.BunchNameA, result.BunchName);
+            Assert.AreEqual(TestData.BunchNameA, result.BunchName);
         }
 
         private JoinBunchFormInteractor Sut

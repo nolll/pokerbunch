@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
 
         private static MatrixRequest CreateRequest(int? year = null)
         {
-            return new MatrixRequest(Constants.SlugA, year);
+            return new MatrixRequest(TestData.SlugA, year);
         }
 
         private MatrixInteractor Sut

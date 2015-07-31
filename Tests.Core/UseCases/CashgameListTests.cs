@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.SlugA, result.Slug);
+            Assert.AreEqual(TestData.SlugA, result.Slug);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.LocationB, result.List[0].Location);
+            Assert.AreEqual(TestData.LocationB, result.List[0].Location);
         }
 
         [Test]
@@ -129,8 +129,8 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(CreateRequest("location"));
 
             Assert.AreEqual(ListSortOrder.Location, result.SortOrder);
-            Assert.AreEqual(Constants.LocationB, result.List[0].Location);
-            Assert.AreEqual(Constants.LocationA, result.List[1].Location);
+            Assert.AreEqual(TestData.LocationB, result.List[0].Location);
+            Assert.AreEqual(TestData.LocationA, result.List[1].Location);
         }
 
         [Test]
@@ -165,7 +165,7 @@ namespace Tests.Core.UseCases
 
         private CashgameListRequest CreateRequest(string orderBy = null, int? year = null)
         {
-            return new CashgameListRequest(Constants.SlugA, orderBy, year);
+            return new CashgameListRequest(TestData.SlugA, orderBy, year);
         }
 
         private CashgameListInteractor Sut

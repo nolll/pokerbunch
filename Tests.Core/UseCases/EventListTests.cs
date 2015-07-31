@@ -20,8 +20,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual(Constants.EventNameB, result.Events[0].Name);
-            Assert.AreEqual(Constants.EventNameA, result.Events[1].Name);
+            Assert.AreEqual(TestData.EventNameB, result.Events[0].Name);
+            Assert.AreEqual(TestData.EventNameA, result.Events[1].Name);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Tests.Core.UseCases
         
         private EventListInput CreateInput()
         {
-            return new EventListInput(Constants.SlugA);
+            return new EventListInput(TestData.SlugA);
         }
     }
 }

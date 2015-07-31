@@ -14,18 +14,18 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ActionsResultIsReturned()
         {
-            var request = new ActionsInput(Constants.UserNameA, Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
+            var request = new ActionsInput(TestData.UserNameA, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:00:00"), result.Date);
-            Assert.AreEqual(Constants.PlayerNameA, result.PlayerName);
+            Assert.AreEqual(TestData.PlayerNameA, result.PlayerName);
             Assert.AreEqual(2, result.CheckpointItems.Count);
         }
 
         [Test]
         public void Actions_ItemPropertiesAreSet()
         {
-            var request = new ActionsInput(Constants.UserNameA, Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
+            var request = new ActionsInput(TestData.UserNameA, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(BuyinDescription, result.CheckpointItems[0].Type);
@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_WithManager_CanEditIsTrueOnItem()
         {
-            var request = new ActionsInput(Constants.UserNameC, Constants.SlugA, Constants.DateStringA, Constants.PlayerIdA);
+            var request = new ActionsInput(TestData.UserNameC, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);

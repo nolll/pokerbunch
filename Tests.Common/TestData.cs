@@ -4,7 +4,7 @@ using Tests.Common.Builders;
 
 namespace Tests.Common
 {
-    public static class Constants
+    public static class TestData
     {
         public const int BunchIdA = 1;
         private const int BunchIdB = 2;

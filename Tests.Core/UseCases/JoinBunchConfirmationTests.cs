@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(Constants.BunchNameA, result.BunchName);
+            Assert.AreEqual(TestData.BunchNameA, result.BunchName);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
 
         private static JoinBunchConfirmationRequest CreateRequest()
         {
-            return new JoinBunchConfirmationRequest(Constants.SlugA);
+            return new JoinBunchConfirmationRequest(TestData.SlugA);
         }
 
         private JoinBunchConfirmationInteractor Sut
