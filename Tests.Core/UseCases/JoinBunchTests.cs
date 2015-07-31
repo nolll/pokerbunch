@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
             Sut.Execute(request);
             Assert.AreEqual(Constants.PlayerIdA, Repos.Player.Joined.PlayerId);
             Assert.AreEqual(Constants.BunchIdA, Repos.Player.Joined.BunchId);
-            Assert.AreEqual(Constants.UserIdA, Repos.Player.Joined.UserId);
+            Assert.AreEqual(Constants.UserA.Id, Repos.Player.Joined.UserId);
         }
 
         private JoinBunchInteractor Sut

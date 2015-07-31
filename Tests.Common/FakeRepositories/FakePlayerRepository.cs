@@ -65,10 +65,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Player>
             {
-                new Player(Constants.BunchIdA, Constants.PlayerIdA, Constants.UserIdA, Constants.PlayerNameA, Role.Player),
-                new Player(Constants.BunchIdA, Constants.PlayerIdB, Constants.UserIdB, Constants.PlayerNameB, Role.Player),
-                new Player(Constants.BunchIdA, Constants.PlayerIdC, Constants.UserIdC, Constants.PlayerNameC, Role.Manager),
-                new Player(Constants.BunchIdA, Constants.PlayerIdD, Constants.UserIdNone, Constants.PlayerNameD, Role.Player),
+                Constants.PlayerA,
+                Constants.PlayerB,
+                Constants.PlayerC,
+                Constants.PlayerD
             };
         }
 

@@ -44,29 +44,11 @@ namespace Tests.Common.FakeRepositories
         
         private IList<Checkpoint> CreateList()
         {
-            return new List<Checkpoint>
+            return new List<Checkpoint>()
             {
-                new CheckpointBuilder()
-                    .WithId(Constants.BuyinCheckpointId)
-                    .WithStack(Constants.BuyinCheckpointStack)
-                    .WithAmount(Constants.BuyinCheckpointAmount)
-                    .WithTimestamp(Constants.BuyinCheckpointTimestamp)
-                    .OfType(CheckpointType.Buyin)
-                    .Build(),
-                new CheckpointBuilder()
-                    .WithId(Constants.ReportCheckpointId)
-                    .WithStack(Constants.ReportCheckpointStack)
-                    .WithAmount(Constants.ReportCheckpointAmount)
-                    .WithTimestamp(Constants.ReportCheckpointTimestamp)
-                    .OfType(CheckpointType.Report)
-                    .Build(),
-                new CheckpointBuilder()
-                    .WithId(Constants.CashoutCheckpointId)
-                    .WithStack(Constants.CashoutCheckpointStack)
-                    .WithAmount(Constants.CashoutCheckpointAmount)
-                    .WithTimestamp(Constants.CashoutCheckpointTimestamp)
-                    .OfType(CheckpointType.Cashout)
-                    .Build()
+                Checkpoint.Create(0, 0, Constants.BuyinCheckpointTimestamp, CheckpointType.Buyin, Constants.BuyinCheckpointStack, Constants.BuyinCheckpointAmount, Constants.BuyinCheckpointId),
+                Checkpoint.Create(0, 0, Constants.ReportCheckpointTimestamp, CheckpointType.Report, Constants.ReportCheckpointStack, Constants.ReportCheckpointAmount, Constants.ReportCheckpointId),
+                Checkpoint.Create(0, 0, Constants.CashoutCheckpointTimestamp, CheckpointType.Cashout, Constants.CashoutCheckpointStack, Constants.CashoutCheckpointAmount, Constants.CashoutCheckpointId)
             };
         }
     }

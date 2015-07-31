@@ -47,10 +47,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<User>
             {
-                new User(Constants.UserIdA, Constants.UserNameA, Constants.UserDisplayNameA, Constants.UserRealNameA, Constants.UserEmailA, Role.Player, Constants.UserEncryptedPasswordA, Constants.UserSaltA),
-                new User(Constants.UserIdB, Constants.UserNameB, Constants.UserDisplayNameB, Constants.UserRealNameB, Constants.UserEmailB, Role.Admin, Constants.UserEncryptedPasswordB, Constants.UserSaltB),
-                new User(Constants.UserIdC, Constants.UserNameC, Constants.UserDisplayNameC, Constants.UserRealNameC, Constants.UserEmailC, Role.Player, Constants.UserEncryptedPasswordC, Constants.UserSaltC),
-                new User(Constants.UserIdD, Constants.UserNameD, Constants.UserDisplayNameD, Constants.UserRealNameD, Constants.UserEmailD, Role.Player, Constants.UserEncryptedPasswordD, Constants.UserSaltD),
+                Constants.UserA,
+                Constants.UserB,
+                Constants.UserC,
+                Constants.UserD
             };
         }
     }

@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserDetails_AdminUser_CanEditIsTrue()
         {
-            var result = Sut.Execute(new UserDetailsRequest(Constants.UserNameB, Constants.UserNameC));
+            var result = Sut.Execute(new UserDetailsRequest(Constants.AdminUser.UserName, Constants.UserC.UserName));
 
             Assert.IsTrue(result.CanEdit);
         }

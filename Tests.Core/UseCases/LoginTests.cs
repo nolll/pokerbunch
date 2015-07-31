@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Login_UserFoundButPasswordIsWrong_ThrowsException()
         {
-            var request = new LoginRequest(Constants.UserNameA, Constants.UserNameB);
+            var request = new LoginRequest(Constants.UserA.UserName, Constants.UserB.UserName);
 
             Assert.Throws<LoginException>(() => Sut.Execute(request));
         }

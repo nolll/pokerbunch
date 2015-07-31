@@ -7,49 +7,68 @@ namespace Tests.Common
     public static class Constants
     {
         public const int BunchIdA = 1;
-        public const int BunchIdB = 2;
+        private const int BunchIdB = 2;
         public const string SlugA = "bunch-a";
         public const string SlugB = "bunch-b";
         public const string BunchNameA = "Bunch A";
         public const string BunchNameB = "Bunch B";
         public const string DescriptionA = "Description A";
-        public const string DescriptionB = "Description B";
+        private const string DescriptionB = "Description B";
         public const string HouseRulesA = "House Rules A";
-        public const string HouseRulesB = "House Rules B";
+        private const string HouseRulesB = "House Rules B";
         public const int DefaultBuyinA = 100;
-        public const int DefaultBuyinB = 200;
+        private const int DefaultBuyinB = 200;
 
-        public const int UserIdNone = 0;
-        public const int UserIdA = 1;
-        public const int UserIdB = 2;
-        public const int UserIdC = 3;
-        public const int UserIdD = 4;
+        private const int UserIdNone = 0;
+        private const int UserIdA = 1;
+        private const int UserIdB = 2;
+        private const int UserIdC = 3;
+        private const int UserIdD = 4;
         public const string UserNameA = "user-name-a";
-        public const string UserNameB = "user-name-b";
+        private const string UserNameB = "user-name-b";
         public const string UserNameC = "user-name-c";
-        public const string UserNameD = "user-name-d";
+        private const string UserNameD = "user-name-d";
         public const string UserEmailA = "email-a@example.com";
-        public const string UserEmailB = "email-b@example.com";
-        public const string UserEmailC = "email-c@example.com";
-        public const string UserEmailD = "email-d@example.com";
+        private const string UserEmailB = "email-b@example.com";
+        private const string UserEmailC = "email-c@example.com";
+        private const string UserEmailD = "email-d@example.com";
         public const string UserRealNameA = "Real Name A";
-        public const string UserRealNameB = "Real Name B";
-        public const string UserRealNameC = "Real Name C";
-        public const string UserRealNameD = "Real Name D";
+        private const string UserRealNameB = "Real Name B";
+        private const string UserRealNameC = "Real Name C";
+        private const string UserRealNameD = "Real Name D";
         public const string UserDisplayNameA = "Display Name A";
-        public const string UserDisplayNameB = "Display Name B";
-        public const string UserDisplayNameC = "Display Name C";
-        public const string UserDisplayNameD = "Display Name D";
+        private const string UserDisplayNameB = "Display Name B";
+        private const string UserDisplayNameC = "Display Name C";
+        private const string UserDisplayNameD = "Display Name D";
         public const string UserPasswordA = "PasswordA";
         public const string UserPasswordB = "PasswordB";
         public const string UserEncryptedPasswordA = "5a99a164773c45966e5fcdd1c3110937861094aa";
-        public const string UserEncryptedPasswordB = "6873088c1117d25d1abf4b75272d463b0ec6a504";
-        public const string UserEncryptedPasswordC = "not_used_in_any_test_yet";
-        public const string UserEncryptedPasswordD = "not_used_in_any_test_yet";
-        public const string UserSaltA = "SaltA";
-        public const string UserSaltB = "SaltB";
-        public const string UserSaltC = "SaltC";
-        public const string UserSaltD = "SaltD";
+        private const string UserEncryptedPasswordB = "6873088c1117d25d1abf4b75272d463b0ec6a504";
+        private const string UserEncryptedPasswordC = "not_used_in_any_test_yet";
+        private const string UserEncryptedPasswordD = "not_used_in_any_test_yet";
+        private const string UserSaltA = "SaltA";
+        private const string UserSaltB = "SaltB";
+        private const string UserSaltC = "SaltC";
+        private const string UserSaltD = "SaltD";
+
+        public const string LocalTimeZoneName = "W. Europe Standard Time";
+        public static readonly TimeZoneInfo TimeZoneLocal = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
+        public static readonly TimeZoneInfo TimeZoneUtc = TimeZoneInfo.Utc;
+
+        public static readonly User UserA = new User(UserIdA, UserNameA, UserDisplayNameA, UserRealNameA, UserEmailA, Role.Player, UserEncryptedPasswordA, UserSaltA);
+        public static readonly User UserB = new User(UserIdB, UserNameB, UserDisplayNameB, UserRealNameB, UserEmailB, Role.Admin, UserEncryptedPasswordB, UserSaltB);
+        public static readonly User UserC = new User(UserIdC, UserNameC, UserDisplayNameC, UserRealNameC, UserEmailC, Role.Player, UserEncryptedPasswordC, UserSaltC);
+        public static readonly User UserD = new User(UserIdD, UserNameD, UserDisplayNameD, UserRealNameD, UserEmailD, Role.Player, UserEncryptedPasswordD, UserSaltD);
+        public static readonly User AdminUser = UserB;
+
+        public static readonly Bunch BunchA = new Bunch(BunchIdA, SlugA, BunchNameA, DescriptionA, HouseRulesA, TimeZoneUtc, DefaultBuyinA, Currency.Default);
+        public static readonly Bunch BunchB = new Bunch(BunchIdB, SlugB, BunchNameB, DescriptionB, HouseRulesB, TimeZoneLocal, DefaultBuyinB, Currency.Default);
+
+        public static readonly Player PlayerA = new Player(BunchIdA, PlayerIdA, UserIdA, PlayerNameA, Role.Player);
+        public static readonly Player PlayerB = new Player(BunchIdA, PlayerIdB, UserIdB, PlayerNameB, Role.Player);
+        public static readonly Player PlayerC = new Player(BunchIdA, PlayerIdC, UserIdC, PlayerNameC, Role.Manager);
+        public static readonly Player PlayerD = new Player(BunchIdA, PlayerIdD, UserIdNone, PlayerNameD, Role.Player);
+        public static readonly Player ManagerPlayer = PlayerC;
 
         public const int BuyinCheckpointId = 1;
         public const int BuyinCheckpointStack = 100;
@@ -90,9 +109,5 @@ namespace Tests.Common
         public const int EventIdB = 2;
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
-
-        public const string LocalTimeZoneName = "W. Europe Standard Time";
-        public static readonly TimeZoneInfo TimeZoneLocal = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
-        public static readonly TimeZoneInfo TimeZoneUtc = TimeZoneInfo.Utc;
     }
 }

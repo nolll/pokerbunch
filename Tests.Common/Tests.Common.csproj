@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuilderContainer.cs" />
-    <Compile Include="Builders\CheckpointBuilder.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FakeClasses\AppContextResultInTest.cs" />

@@ -58,8 +58,8 @@ namespace Tests.Common.FakeRepositories
         {
             _list = new List<Bunch>
             {
-                CreateFirstBunch(),
-                CreateSecondBunch()
+                Constants.BunchA,
+                Constants.BunchB
             };
         }
 
@@ -67,18 +67,8 @@ namespace Tests.Common.FakeRepositories
         {
             _list = new List<Bunch>
             {
-                CreateFirstBunch()
+                Constants.BunchA
             };
-        }
-
-        private Bunch CreateFirstBunch()
-        {
-            return new Bunch(Constants.BunchIdA, Constants.SlugA, Constants.BunchNameA, Constants.DescriptionA, Constants.HouseRulesA, Constants.TimeZoneUtc, Constants.DefaultBuyinA, Currency.Default);
-        }
-
-        private Bunch CreateSecondBunch()
-        {
-            return new Bunch(Constants.BunchIdB, Constants.SlugB, Constants.BunchNameB, Constants.DescriptionB, Constants.HouseRulesB, Constants.TimeZoneLocal, Constants.DefaultBuyinB, Currency.Default);
         }
 
         public void ClearList()
