@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
             var request = new ChangePasswordRequest(TestData.UserNameA, "a", "a");
             Sut.Execute(request);
 
-            Assert.AreNotEqual(TestData.UserEncryptedPasswordA, Repos.User.Saved.EncryptedPassword);
+            Assert.AreNotEqual(TestData.UserA.EncryptedPassword, Repos.User.Saved.EncryptedPassword);
         }
         
         [Test]

@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         private const string Description = "b";
         private const string CurrencySymbol = "c";
         private const string CurrencyLayout = "d";
-        private const string ExistingDisplayName = TestData.BunchNameA;
+        private readonly string _existingDisplayName = TestData.BunchA.DisplayName;
 
         private string _timeZone;
 
@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddBunch_WithExistingSlug_ThrowsException()
         {
-            Assert.Throws<BunchExistsException>(() => Sut.Execute(CreateRequest(ExistingDisplayName)));
+            Assert.Throws<BunchExistsException>(() => Sut.Execute(CreateRequest(_existingDisplayName)));
         }
 
         [Test]

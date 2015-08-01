@@ -6,12 +6,12 @@ namespace Tests.Common
 {
     public static class TestData
     {
-        public const int BunchIdA = 1;
+        private const int BunchIdA = 1;
         private const int BunchIdB = 2;
         public const string SlugA = "bunch-a";
-        public const string SlugB = "bunch-b";
-        public const string BunchNameA = "Bunch A";
-        public const string BunchNameB = "Bunch B";
+        private const string SlugB = "bunch-b";
+        private const string BunchNameA = "Bunch A";
+        private const string BunchNameB = "Bunch B";
         public const string DescriptionA = "Description A";
         private const string DescriptionB = "Description B";
         public const string HouseRulesA = "House Rules A";
@@ -32,7 +32,7 @@ namespace Tests.Common
         private const string UserEmailB = "email-b@example.com";
         private const string UserEmailC = "email-c@example.com";
         private const string UserEmailD = "email-d@example.com";
-        public const string UserRealNameA = "Real Name A";
+        private const string UserRealNameA = "Real Name A";
         private const string UserRealNameB = "Real Name B";
         private const string UserRealNameC = "Real Name C";
         private const string UserRealNameD = "Real Name D";
@@ -42,7 +42,7 @@ namespace Tests.Common
         private const string UserDisplayNameD = "Display Name D";
         public const string UserPasswordA = "PasswordA";
         public const string UserPasswordB = "PasswordB";
-        public const string UserEncryptedPasswordA = "5a99a164773c45966e5fcdd1c3110937861094aa";
+        private const string UserEncryptedPasswordA = "5a99a164773c45966e5fcdd1c3110937861094aa";
         private const string UserEncryptedPasswordB = "6873088c1117d25d1abf4b75272d463b0ec6a504";
         private const string UserEncryptedPasswordC = "not_used_in_any_test_yet";
         private const string UserEncryptedPasswordD = "not_used_in_any_test_yet";
@@ -85,12 +85,12 @@ namespace Tests.Common
 
         public const int PlayerIdA = 1;
         public const int PlayerIdB = 2;
-        public const int PlayerIdC = 3;
+        private const int PlayerIdC = 3;
         public const int PlayerIdD = 4;
         public const string PlayerNameA = "Player Name A";
         public const string PlayerNameB = "Player Name B";
-        public const string PlayerNameC = "Player Name C";
-        public const string PlayerNameD = "Player Name D";
+        private const string PlayerNameC = "Player Name C";
+        private const string PlayerNameD = "Player Name D";
 
         public const int CashgameIdA = 1;
         public const int CashgameIdB = 2;

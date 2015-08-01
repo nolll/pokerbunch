@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.UserNameA, result.UserName);
+            Assert.AreEqual(TestData.UserA.UserName, result.UserName);
         }
 
         [Test]
@@ -36,12 +36,12 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.UserNameA, result.UserName);
+            Assert.AreEqual(TestData.UserA.UserName, result.UserName);
         }
       
         private static LoginRequest CreateRequest()
         {
-            return new LoginRequest(TestData.UserNameA, TestData.UserPasswordA);
+            return new LoginRequest(TestData.UserA.UserName, TestData.UserPasswordA);
         }
 
         private LoginInteractor Sut

@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithUserName_LoggedInPropertiesAreSet()
         {
-            var result = Sut.Execute(new AppContextRequest(TestData.UserNameA));
+            var result = Sut.Execute(new AppContextRequest(TestData.UserA.UserName));
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.AreEqual(TestData.UserDisplayNameA, result.UserDisplayName);

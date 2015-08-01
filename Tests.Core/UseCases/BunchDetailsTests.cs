@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.BunchNameA, result.BunchName);
+            Assert.AreEqual(TestData.BunchA.DisplayName, result.BunchName);
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.DescriptionA, result.Description);
+            Assert.AreEqual(TestData.BunchA.Description, result.Description);
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEdit);
         }
 
-        private static BunchDetailsRequest CreateRequest(string userName = TestData.UserNameA)
+        private static BunchDetailsRequest CreateRequest(string userName = null)
         {
-            return new BunchDetailsRequest(TestData.SlugA, userName);
+            return new BunchDetailsRequest(TestData.SlugA, userName ?? TestData.UserA.UserName);
         }
 
         private BunchDetailsInteractor Sut

@@ -42,8 +42,8 @@ namespace Tests.Core.UseCases
             var request = new JoinBunchRequest(TestData.SlugA, TestData.UserNameA, ValidCode);
 
             Sut.Execute(request);
-            Assert.AreEqual(TestData.PlayerIdA, Repos.Player.Joined.PlayerId);
-            Assert.AreEqual(TestData.BunchIdA, Repos.Player.Joined.BunchId);
+            Assert.AreEqual(TestData.PlayerA.Id, Repos.Player.Joined.PlayerId);
+            Assert.AreEqual(TestData.BunchA.Id, Repos.Player.Joined.BunchId);
             Assert.AreEqual(TestData.UserA.Id, Repos.Player.Joined.UserId);
         }
 

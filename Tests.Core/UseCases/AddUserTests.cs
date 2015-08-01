@@ -13,8 +13,8 @@ namespace Tests.Core.UseCases
         private const string ValidUserName = "a";
         private const string ValidDisplayName = "b";
         private const string ValidEmail = "a@b.com";
-        private const string ExistingUserName = TestData.UserNameA;
-        private const string ExistingEmail = TestData.UserEmailA;
+        private readonly string _existingUserName = TestData.UserA.UserName;
+        private readonly string _existingEmail = TestData.UserA.Email;
 
         [Test]
         public void AddUser_ReturnUrlIsSet()
@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_UserNameAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(ExistingUserName, ValidDisplayName, ValidEmail);
+            var request = new AddUserRequest(_existingUserName, ValidDisplayName, ValidEmail);
 
             Assert.Throws<UserExistsException>(() => Sut.Execute(request));
         }
@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_EmailAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ExistingEmail);
+            var request = new AddUserRequest(ValidUserName, ValidDisplayName, _existingEmail);
 
             Assert.Throws<EmailExistsException>(() => Sut.Execute(request));
         }

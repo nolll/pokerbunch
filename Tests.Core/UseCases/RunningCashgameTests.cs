@@ -65,14 +65,14 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(2, result.Items.Count);
             Assert.AreEqual(200, result.Items[0].Buyin.Amount);
             Assert.AreEqual(false, result.Items[0].HasCashedOut);
-            Assert.AreEqual(TestData.PlayerNameA, result.Items[0].Name);
+            Assert.AreEqual(TestData.PlayerA.DisplayName, result.Items[0].Name);
             Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/1", result.Items[0].PlayerUrl.Relative);
             Assert.AreEqual(200, result.Items[0].Stack.Amount);
             Assert.AreEqual("now", result.Items[0].Time.RelativeString);
             Assert.AreEqual(0, result.Items[0].Winnings.Amount);
             Assert.AreEqual(200, result.Items[1].Buyin.Amount);
             Assert.AreEqual(false, result.Items[1].HasCashedOut);
-            Assert.AreEqual(TestData.PlayerNameB, result.Items[1].Name);
+            Assert.AreEqual(TestData.PlayerB.DisplayName, result.Items[1].Name);
             Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/2", result.Items[1].PlayerUrl.Relative);
             Assert.AreEqual(200, result.Items[1].Stack.Amount);
             Assert.AreEqual("now", result.Items[1].Time.RelativeString);
@@ -90,13 +90,13 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(1, result.PlayerItems[0].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[0].HasCashedOut);
-            Assert.AreEqual(TestData.PlayerNameA, result.PlayerItems[0].Name);
-            Assert.AreEqual(TestData.PlayerIdA, result.PlayerItems[0].PlayerId);
+            Assert.AreEqual(TestData.PlayerA.DisplayName, result.PlayerItems[0].Name);
+            Assert.AreEqual(TestData.PlayerA.Id, result.PlayerItems[0].PlayerId);
             Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(1, result.PlayerItems[1].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[1].HasCashedOut);
-            Assert.AreEqual(TestData.PlayerNameB, result.PlayerItems[1].Name);
-            Assert.AreEqual(TestData.PlayerIdB, result.PlayerItems[1].PlayerId);
+            Assert.AreEqual(TestData.PlayerB.DisplayName, result.PlayerItems[1].Name);
+            Assert.AreEqual(TestData.PlayerB.Id, result.PlayerItems[1].PlayerId);
             Assert.AreEqual("/bunch-a/cashgame/action/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
         }
 
@@ -109,14 +109,14 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(4, result.BunchPlayerItems.Count);
-            Assert.AreEqual(TestData.PlayerNameA, result.BunchPlayerItems[0].Name);
-            Assert.AreEqual(TestData.PlayerIdA, result.BunchPlayerItems[0].PlayerId);
-            Assert.AreEqual(TestData.PlayerNameB, result.BunchPlayerItems[1].Name);
-            Assert.AreEqual(TestData.PlayerIdB, result.BunchPlayerItems[1].PlayerId);
-            Assert.AreEqual(TestData.PlayerNameC, result.BunchPlayerItems[2].Name);
-            Assert.AreEqual(TestData.PlayerIdC, result.BunchPlayerItems[2].PlayerId);
-            Assert.AreEqual(TestData.PlayerNameD, result.BunchPlayerItems[3].Name);
-            Assert.AreEqual(TestData.PlayerIdD, result.BunchPlayerItems[3].PlayerId);
+            Assert.AreEqual(TestData.PlayerA.DisplayName, result.BunchPlayerItems[0].Name);
+            Assert.AreEqual(TestData.PlayerA.Id, result.BunchPlayerItems[0].PlayerId);
+            Assert.AreEqual(TestData.PlayerB.DisplayName, result.BunchPlayerItems[1].Name);
+            Assert.AreEqual(TestData.PlayerB.Id, result.BunchPlayerItems[1].PlayerId);
+            Assert.AreEqual(TestData.PlayerC.DisplayName, result.BunchPlayerItems[2].Name);
+            Assert.AreEqual(TestData.PlayerC.Id, result.BunchPlayerItems[2].PlayerId);
+            Assert.AreEqual(TestData.PlayerD.DisplayName, result.BunchPlayerItems[3].Name);
+            Assert.AreEqual(TestData.PlayerD.Id, result.BunchPlayerItems[3].PlayerId);
         }
 
         private RunningCashgameInteractor Sut

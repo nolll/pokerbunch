@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(TestData.BunchNameA, result.BunchName);
+            Assert.AreEqual(TestData.BunchA.DisplayName, result.BunchName);
         }
 
         private JoinBunchFormInteractor Sut

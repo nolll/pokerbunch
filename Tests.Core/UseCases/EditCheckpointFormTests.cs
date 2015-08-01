@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
 
         private static EditCheckpointFormRequest CreateRequest(int id)
         {
-            return new EditCheckpointFormRequest(TestData.SlugB, DateString, PlayerId, id);
+            return new EditCheckpointFormRequest(TestData.BunchB.Slug, DateString, PlayerId, id);
         }
 
         private EditCheckpointFormInteractor Sut

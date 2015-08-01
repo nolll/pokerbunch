@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.DescriptionA, result.Description);
+            Assert.AreEqual(TestData.BunchA.Description, result.Description);
         }
 
         [Test]
