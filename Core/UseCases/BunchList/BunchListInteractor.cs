@@ -1,4 +1,6 @@
-﻿using Core.Repositories;
+﻿using System.Collections.Generic;
+using Core.Entities;
+using Core.Repositories;
 
 namespace Core.UseCases.BunchList
 {
@@ -23,7 +25,7 @@ namespace Core.UseCases.BunchList
         public BunchListResult Execute(BunchListRequest request)
         {
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var homegames = _bunchRepository.GetByUserId(user.Id);
+            var homegames = user != null ? _bunchRepository.GetByUserId(user.Id) : new List<Bunch>();
             
             return new BunchListResult(homegames);
         }
