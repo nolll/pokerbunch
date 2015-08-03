@@ -32,9 +32,9 @@ namespace Web.Controllers
                 SignIn(result.UserName, postModel.RememberMe);
                 return Redirect(postModel.ReturnUrl);
             }
-            catch (ValidationException ex)
+            catch (LoginException ex)
             {
-                AddModelErrors(ex.Messages);
+                AddModelError(ex.Message);
             }
 
             return ShowForm(postModel);
