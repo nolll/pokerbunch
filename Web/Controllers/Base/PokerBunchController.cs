@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
-using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
 using Core.UseCases.BunchContext;
@@ -44,9 +43,9 @@ namespace Web.Controllers.Base
         {
             get
             {
-                if (!User.Identity.IsAuthenticated)
-                    return null;
-                return User.Identity.Name;
+                if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+                    return User.Identity.Name;
+                return null;
             }
         }
 
@@ -74,8 +73,8 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 401, Error401);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
-            else if(Env.IsInProduction)
-                HandleError(filterContext, 500, Error500);
+            //else if(Env.IsInProduction)
+            //    HandleError(filterContext, 500, Error500);
         }
 
         private void HandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
