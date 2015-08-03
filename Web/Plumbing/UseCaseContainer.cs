@@ -1,3 +1,4 @@
+using Core.UseCases;
 using Core.UseCases.Actions;
 using Core.UseCases.ActionsChart;
 using Core.UseCases.AddBunch;
@@ -9,13 +10,11 @@ using Core.UseCases.AddUser;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
 using Core.UseCases.BunchContext;
-using Core.UseCases.BunchDetails;
 using Core.UseCases.BunchList;
 using Core.UseCases.Buyin;
 using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameCurrentRankings;
-using Core.UseCases.CashgameDetails;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
 using Core.UseCases.CashgameList;
@@ -36,7 +35,6 @@ using Core.UseCases.EditCheckpointForm;
 using Core.UseCases.EditUser;
 using Core.UseCases.EditUserForm;
 using Core.UseCases.EndCashgame;
-using Core.UseCases.EventDetails;
 using Core.UseCases.EventList;
 using Core.UseCases.ForgotPassword;
 using Core.UseCases.InvitePlayer;
@@ -47,13 +45,11 @@ using Core.UseCases.Login;
 using Core.UseCases.LoginForm;
 using Core.UseCases.Matrix;
 using Core.UseCases.PlayerBadges;
-using Core.UseCases.PlayerDetails;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
 using Core.UseCases.RunningCashgame;
 using Core.UseCases.TestEmail;
-using Core.UseCases.UserDetails;
 using Core.UseCases.UserList;
 using Plumbing;
 
@@ -77,7 +73,7 @@ namespace Web.Plumbing
 
         // User
         public UserListInteractor UserList { get { return new UserListInteractor(UserRepository); } }
-        public UserDetailsInteractor UserDetails { get { return new UserDetailsInteractor(UserRepository); } }
+        public UserDetails UserDetails { get { return new UserDetails(UserRepository); } }
         public AddUserInteractor AddUser { get { return new AddUserInteractor(UserRepository, RandomService, MessageSender); } }
         public EditUserFormInteractor EditUserForm { get { return new EditUserFormInteractor(UserRepository); } }
         public EditUserInteractor EditUser { get { return new EditUserInteractor(UserRepository); } }
@@ -86,7 +82,7 @@ namespace Web.Plumbing
 
         // Bunch
         public BunchListInteractor BunchList { get { return new BunchListInteractor(BunchRepository, UserRepository); } }
-        public BunchDetailsInteractor BunchDetails { get { return new BunchDetailsInteractor(BunchRepository, UserRepository, PlayerRepository); } }
+        public BunchDetails BunchDetails { get { return new BunchDetails(BunchRepository, UserRepository, PlayerRepository); } }
         public AddBunchFormInteractor AddBunchForm { get { return new AddBunchFormInteractor(); } }
         public AddBunchInteractor AddBunch { get { return new AddBunchInteractor(UserRepository, BunchRepository, PlayerRepository); } }
         public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(BunchRepository); } }
@@ -97,13 +93,13 @@ namespace Web.Plumbing
 
         // Events
         public EventListInteractor EventList { get { return new EventListInteractor(BunchRepository, EventRepository); } }
-        public EventDetailsInteractor EventDetails { get { return new EventDetailsInteractor(EventRepository); } } 
+        public EventDetails EventDetails { get { return new EventDetails(EventRepository); } } 
 
         // Cashgame
         public CashgameStatusInteractor CashgameStatus { get { return new CashgameStatusInteractor(BunchRepository, CashgameRepository); } }
         public TopListInteractor TopList { get { return new TopListInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CurrentRankingsInteractor CurrentRankings { get { return new CurrentRankingsInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
-        public CashgameDetailsInteractor CashgameDetails { get { return new CashgameDetailsInteractor(BunchRepository, CashgameRepository, UserRepository, PlayerRepository); } }
+        public CashgameDetails CashgameDetails { get { return new CashgameDetails(BunchRepository, CashgameRepository, UserRepository, PlayerRepository); } }
         public CashgameDetailsChartInteractor CashgameDetailsChart { get { return new CashgameDetailsChartInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CashgameFactsInteractor CashgameFacts { get { return new CashgameFactsInteractor(BunchRepository, CashgameRepository, PlayerRepository); } }
         public CashgameListInteractor CashgameList { get { return new CashgameListInteractor(BunchRepository, CashgameRepository); } }
@@ -127,7 +123,7 @@ namespace Web.Plumbing
         
         // Player
         public PlayerListInteractor PlayerList { get { return new PlayerListInteractor(BunchRepository, UserRepository, PlayerRepository); } }
-        public PlayerDetailsInteractor PlayerDetails { get { return new PlayerDetailsInteractor(BunchRepository, PlayerRepository, CashgameRepository, UserRepository); } }
+        public PlayerDetails PlayerDetails { get { return new PlayerDetails(BunchRepository, PlayerRepository, CashgameRepository, UserRepository); } }
         public PlayerFactsInteractor PlayerFacts { get { return new PlayerFactsInteractor(BunchRepository, CashgameRepository); } }
         public PlayerBadgesInteractor PlayerBadges { get { return new PlayerBadgesInteractor(BunchRepository, CashgameRepository); } }
         public InvitePlayerInteractor InvitePlayer { get { return new InvitePlayerInteractor(BunchRepository, PlayerRepository, MessageSender); } }

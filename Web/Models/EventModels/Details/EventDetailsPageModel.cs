@@ -1,5 +1,5 @@
+using Core.UseCases;
 using Core.UseCases.BunchContext;
-using Core.UseCases.EventDetails;
 using Core.UseCases.Matrix;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.PageBaseModels;
@@ -11,16 +11,16 @@ namespace Web.Models.EventModels.Details
         public string Name { get; private set; }
         public CashgameMatrixTableModel MatrixModel { get; private set; }
 
-	    public EventDetailsPageModel(BunchContextResult contextResult, EventDetailsOutput eventDetailsOutput, MatrixResult matrixResult)
-            : base(GetBrowserTitle(eventDetailsOutput), contextResult)
+	    public EventDetailsPageModel(BunchContextResult contextResult, EventDetails.Result eventDetails, MatrixResult matrixResult)
+            : base(GetBrowserTitle(eventDetails), contextResult)
 	    {
-            Name = eventDetailsOutput.Name;
+            Name = eventDetails.Name;
             MatrixModel = new CashgameMatrixTableModel(matrixResult);
 	    }
 
-	    private static string GetBrowserTitle(EventDetailsOutput eventDetailsOutput)
+	    private static string GetBrowserTitle(EventDetails.Result eventDetails)
 	    {
-	        return string.Format("Event - {0}", eventDetailsOutput.Name);
+	        return string.Format("Event - {0}", eventDetails.Name);
 	    }
     }
 }

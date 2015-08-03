@@ -1,4 +1,4 @@
-﻿using Core.UseCases.EventDetails;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,17 +9,17 @@ namespace Tests.Core.UseCases
         [Test]
         public void EventDetails_NameIsSet()
         {
-            var input = new EventDetailsInput(1);
+            var input = new EventDetails.Request(1);
             var result = Sut.Execute(input);
 
             Assert.AreEqual(TestData.EventNameA, result.Name);
         }
 
-        private EventDetailsInteractor Sut
+        private EventDetails Sut
         {
             get
             {
-                return new EventDetailsInteractor(
+                return new EventDetails(
                     Repos.Event);
             }
         }

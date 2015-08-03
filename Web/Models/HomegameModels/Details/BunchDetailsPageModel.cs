@@ -1,5 +1,5 @@
+using Core.UseCases;
 using Core.UseCases.BunchContext;
-using Core.UseCases.BunchDetails;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Details
@@ -13,15 +13,15 @@ namespace Web.Models.HomegameModels.Details
         public string EditUrl { get; private set; }
         public bool ShowEditLink { get; private set; }
 
-        public BunchDetailsPageModel(BunchContextResult contextResult, BunchDetailsResult bunchDetailsResult)
+        public BunchDetailsPageModel(BunchContextResult contextResult, BunchDetails.Result bunchDetails)
             : base("Bunch Details", contextResult)
         {
-            DisplayName = bunchDetailsResult.BunchName;
-            Description = bunchDetailsResult.Description;
-            HouseRules = FormatHouseRules(bunchDetailsResult.HouseRules);
-            ShowHouseRules = !string.IsNullOrEmpty(bunchDetailsResult.HouseRules);
-            EditUrl = bunchDetailsResult.EditBunchUrl.Relative;
-            ShowEditLink = bunchDetailsResult.CanEdit;
+            DisplayName = bunchDetails.BunchName;
+            Description = bunchDetails.Description;
+            HouseRules = FormatHouseRules(bunchDetails.HouseRules);
+            ShowHouseRules = !string.IsNullOrEmpty(bunchDetails.HouseRules);
+            EditUrl = bunchDetails.EditBunchUrl.Relative;
+            ShowEditLink = bunchDetails.CanEdit;
         }
 
         private string FormatHouseRules(string houseRules)

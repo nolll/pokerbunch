@@ -1,5 +1,5 @@
 ﻿using Core.Urls;
-using Core.UseCases.BunchDetails;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -55,16 +55,16 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEdit);
         }
 
-        private static BunchDetailsRequest CreateRequest(string userName = null)
+        private static BunchDetails.Request CreateRequest(string userName = null)
         {
-            return new BunchDetailsRequest(TestData.SlugA, userName ?? TestData.UserA.UserName);
+            return new BunchDetails.Request(TestData.SlugA, userName ?? TestData.UserA.UserName);
         }
 
-        private BunchDetailsInteractor Sut
+        private BunchDetails Sut
         {
             get
             {
-                return new BunchDetailsInteractor(
+                return new BunchDetails(
                     Repos.Bunch,
                     Repos.User,
                     Repos.Player);

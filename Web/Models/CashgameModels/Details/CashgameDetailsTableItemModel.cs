@@ -1,5 +1,5 @@
 using Core.Services;
-using Core.UseCases.CashgameDetails;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Details
 {
@@ -13,7 +13,7 @@ namespace Web.Models.CashgameModels.Details
         public string WinningsClass { get; private set; }
         public string Winrate { get; private set; }
 
-        public CashgameDetailsTableItemModel(PlayerResultItem resultItem)
+        public CashgameDetailsTableItemModel(CashgameDetails.PlayerResultItem resultItem)
         {
             Name = resultItem.Name;
             PlayerUrl = resultItem.PlayerUrl.Relative;

@@ -187,9 +187,7 @@
     <Compile Include="UseCases\BunchContext\BunchContextInteractor.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextRequest.cs" />
     <Compile Include="UseCases\BunchContext\BunchContextResult.cs" />
-    <Compile Include="UseCases\BunchDetails\BunchDetailsInteractor.cs" />
-    <Compile Include="UseCases\BunchDetails\BunchDetailsRequest.cs" />
-    <Compile Include="UseCases\BunchDetails\BunchDetailsResult.cs" />
+    <Compile Include="UseCases\BunchDetails.cs" />
     <Compile Include="UseCases\BunchList\BunchListInteractor.cs" />
     <Compile Include="UseCases\BunchList\BunchListItem.cs" />
     <Compile Include="UseCases\BunchList\BunchListRequest.cs" />
@@ -215,10 +213,7 @@
     <Compile Include="UseCases\CashgameDetailsChart\CashgameDetailsChartResult.cs" />
     <Compile Include="UseCases\CashgameDetailsChart\DetailsChartPlayerItem.cs" />
     <Compile Include="UseCases\CashgameDetailsChart\DetailsChartResultItem.cs" />
-    <Compile Include="UseCases\CashgameDetails\CashgameDetailsInteractor.cs" />
-    <Compile Include="UseCases\CashgameDetails\CashgameDetailsRequest.cs" />
-    <Compile Include="UseCases\CashgameDetails\CashgameDetailsResult.cs" />
-    <Compile Include="UseCases\CashgameDetails\PlayerResultItem.cs" />
+    <Compile Include="UseCases\CashgameDetails.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsInteractor.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsRequest.cs" />
     <Compile Include="UseCases\CashgameFacts\CashgameFactsResult.cs" />
@@ -281,9 +276,7 @@
     <Compile Include="UseCases\EditUser\EditUserResult.cs" />
     <Compile Include="UseCases\EndCashgame\EndCashgameInteractor.cs" />
     <Compile Include="UseCases\EndCashgame\EndCashgameRequest.cs" />
-    <Compile Include="UseCases\EventDetails\EventDetailsInput.cs" />
-    <Compile Include="UseCases\EventDetails\EventDetailsInteractor.cs" />
-    <Compile Include="UseCases\EventDetails\EventDetailsOutput.cs" />
+    <Compile Include="UseCases\EventDetails.cs" />
     <Compile Include="UseCases\EventList\EventItem.cs" />
     <Compile Include="UseCases\EventList\EventListInput.cs" />
     <Compile Include="UseCases\EventList\EventListInteractor.cs" />
@@ -318,9 +311,7 @@
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesInteractor.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesRequest.cs" />
     <Compile Include="UseCases\PlayerBadges\PlayerBadgesResult.cs" />
-    <Compile Include="UseCases\PlayerDetails\PlayerDetailsInteractor.cs" />
-    <Compile Include="UseCases\PlayerDetails\PlayerDetailsRequest.cs" />
-    <Compile Include="UseCases\PlayerDetails\PlayerDetailsResult.cs" />
+    <Compile Include="UseCases\PlayerDetails.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsEvaluator.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsInteractor.cs" />
     <Compile Include="UseCases\PlayerFacts\PlayerFactsRequest.cs" />
@@ -341,9 +332,7 @@
     <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
     <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
     <Compile Include="UseCases\TestEmail\TestMessage.cs" />
-    <Compile Include="UseCases\UserDetails\UserDetailsInteractor.cs" />
-    <Compile Include="UseCases\UserDetails\UserDetailsRequest.cs" />
-    <Compile Include="UseCases\UserDetails\UserDetailsResult.cs" />
+    <Compile Include="UseCases\UserDetails.cs" />
     <Compile Include="UseCases\UserList\UserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListItem.cs" />
     <Compile Include="UseCases\UserList\UserListResult.cs" />

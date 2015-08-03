@@ -1,5 +1,5 @@
 ﻿using Core.Urls;
-using Core.UseCases.PlayerDetails;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -104,16 +104,16 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.CanDelete);
         }
 
-        private static PlayerDetailsRequest CreateRequest(int playerId, string userName)
+        private static PlayerDetails.Request CreateRequest(int playerId, string userName)
         {
-            return new PlayerDetailsRequest(TestData.SlugA, playerId, userName);
+            return new PlayerDetails.Request(TestData.SlugA, playerId, userName);
         }
 
-        private PlayerDetailsInteractor Sut
+        private PlayerDetails Sut
         {
             get
             {
-                return new PlayerDetailsInteractor(
+                return new PlayerDetails(
                     Repos.Bunch,
                     Repos.Player,
                     Repos.Cashgame,

@@ -1,5 +1,5 @@
+using Core.UseCases;
 using Core.UseCases.AppContext;
-using Core.UseCases.UserDetails;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 
@@ -17,18 +17,18 @@ namespace Web.Models.UserModels
         public bool ShowPasswordLink { get; private set; }
         public AvatarModel AvatarModel { get; private set; }
 
-        public UserDetailsPageModel(AppContextResult contextResult, UserDetailsResult userDetailsResult)
+        public UserDetailsPageModel(AppContextResult contextResult, UserDetails.Result userDetails)
             : base("User Details", contextResult)
         {
-            UserName = userDetailsResult.UserName;
-            DisplayName = userDetailsResult.DisplayName;
-            RealName = userDetailsResult.RealName;
-            Email = userDetailsResult.Email;
-            AvatarModel = new AvatarModel(userDetailsResult.AvatarUrl);
-            ShowEditLink = userDetailsResult.CanEdit;
-            ShowPasswordLink = userDetailsResult.CanChangePassword;
-            EditUrl = userDetailsResult.EditUrl.Relative;
-            ChangePasswordUrl = userDetailsResult.ChangePasswordUrl.Relative;
+            UserName = userDetails.UserName;
+            DisplayName = userDetails.DisplayName;
+            RealName = userDetails.RealName;
+            Email = userDetails.Email;
+            AvatarModel = new AvatarModel(userDetails.AvatarUrl);
+            ShowEditLink = userDetails.CanEdit;
+            ShowPasswordLink = userDetails.CanChangePassword;
+            EditUrl = userDetails.EditUrl.Relative;
+            ChangePasswordUrl = userDetails.ChangePasswordUrl.Relative;
         }
     }
 }

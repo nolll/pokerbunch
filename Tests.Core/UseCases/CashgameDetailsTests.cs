@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.Urls;
-using Core.UseCases.CashgameDetails;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()
         {
-            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
@@ -55,18 +55,18 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
-            var request = new CashgameDetailsRequest(TestData.SlugA, TestData.UserNameC, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameC, TestData.DateStringA);
 
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanEdit);
         }
 
-        private CashgameDetailsInteractor Sut
+        private CashgameDetails Sut
         {
             get
             {
-                return new CashgameDetailsInteractor(
+                return new CashgameDetails(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.User,
