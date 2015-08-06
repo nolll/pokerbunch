@@ -1,34 +1,26 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Api.Models;
+using Core.UseCases;
 
 namespace Api.Controllers
 {
-    public class BunchController : CustomApiController
+    public class BunchController : BaseApiController
     {
-        private readonly BunchListModel _bunchList = new BunchListModel
+        [Route("api/bunch")]
+        [AcceptVerbs("GET")]
+        public ApiBunchList List()
         {
-            new BunchModel {Id = 1, Slug = "tomato-soup", Name = "Tomato Soup"},
-            new BunchModel {Id = 2, Slug = "yo-yo", Name = "Yo-yo"},
-            new BunchModel {Id = 3, Slug = "hammer", Name = "Hammer"}
-        };
-
-        public BunchListModel GetAllProducts()
-        {
-            return _bunchList;
+            var bunchListResult = UseCase.BunchList.Execute();
+            return new ApiBunchList(bunchListResult);
         }
 
-        public IHttpActionResult GetProduct(int id)
+        [Route("api/bunch/{slug}")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult Details(string slug)
         {
-            var product = _bunchList.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-                return NotFound();
-            return Ok(product);
+            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(slug, "henriks"));
+            var bunchModel = new ApiBunch(bunchDetailsResult.Slug, bunchDetailsResult.BunchName);
+            return Ok(bunchModel);
         }
-    }
-
-    public abstract class CustomApiController : ApiController
-    {
-        
     }
 }

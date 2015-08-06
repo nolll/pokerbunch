@@ -5,7 +5,7 @@ using Web.Controllers.Base;
 
 namespace Web.Controllers
 {
-    public class EndCashgameController : PokerBunchController
+    public class EndCashgameController : BaseController
     {
         [HttpPost]
         [Authorize]

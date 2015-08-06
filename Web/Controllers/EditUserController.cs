@@ -7,7 +7,7 @@ using Web.Models.UserModels.Edit;
 
 namespace Web.Controllers
 {
-    public class EditUserController : PokerBunchController
+    public class EditUserController : BaseController
     {
         [Authorize]
         [Route("-/user/edit/{userName}")]

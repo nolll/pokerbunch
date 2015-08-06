@@ -4,7 +4,7 @@ using Web.Controllers.Base;
 
 namespace Web.Controllers
 {
-    public class DeleteCheckpointController : PokerBunchController
+    public class DeleteCheckpointController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/deletecheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]

@@ -10,7 +10,7 @@ using Web.Models.AuthModels;
 
 namespace Web.Controllers
 {
-    public class LoginController : PokerBunchController
+    public class LoginController : BaseController
     {
         private const int AuthVersion = 2;
 

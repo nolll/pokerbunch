@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Toplist;
 
 namespace Web.Controllers
 {
-    public class TopListController : PokerBunchController
+    public class TopListController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/toplist/{year?}")]

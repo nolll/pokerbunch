@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Facts;
 
 namespace Web.Controllers
 {
-    public class CashgameFactsController : PokerBunchController
+    public class CashgameFactsController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/facts/{year?}")]

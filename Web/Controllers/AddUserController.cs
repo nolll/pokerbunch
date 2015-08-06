@@ -6,7 +6,7 @@ using Web.Models.UserModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddUserController : PokerBunchController
+    public class AddUserController : BaseController
     {
         [Route("-/user/add")]
         public ActionResult AddUser()

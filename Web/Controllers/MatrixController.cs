@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Matrix;
 
 namespace Web.Controllers
 {
-    public class MatrixController : PokerBunchController
+    public class MatrixController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/matrix/{year?}")]

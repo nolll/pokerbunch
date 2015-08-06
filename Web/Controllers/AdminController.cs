@@ -4,7 +4,7 @@ using Web.Models.AdminModels;
 
 namespace Web.Controllers
 {
-    public class AdminController : PokerBunchController
+    public class AdminController : BaseController
     {
         [Route("-/admin/sendemail")]
         public ActionResult SendEmail()

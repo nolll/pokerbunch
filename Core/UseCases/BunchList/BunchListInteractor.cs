@@ -17,9 +17,8 @@ namespace Core.UseCases.BunchList
 
         public BunchListResult Execute()
         {
-            var homegames = _bunchRepository.GetList();
-
-            return new BunchListResult(homegames);
+            var bunches = _bunchRepository.GetList();
+            return new BunchListResult(bunches);
         }
 
         public BunchListResult Execute(BunchListRequest request)

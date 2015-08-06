@@ -4,7 +4,7 @@ using Web.Controllers.Base;
 namespace Web.Controllers
 {
     [HandleError]
-    public class ErrorController : PokerBunchController
+    public class ErrorController : BaseController
     {
         [Route("-/error/notfound")]
         public ActionResult NotFound()

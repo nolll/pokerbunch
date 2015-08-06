@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Checkpoints;
 
 namespace Web.Controllers
 {
-    public class EditCheckpointController : PokerBunchController
+    public class EditCheckpointController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]

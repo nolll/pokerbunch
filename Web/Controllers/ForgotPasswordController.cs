@@ -6,7 +6,7 @@ using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers
 {
-    public class ForgotPasswordController : PokerBunchController
+    public class ForgotPasswordController : BaseController
     {
         [Route("-/user/forgotpassword")]
         public ActionResult ForgotPassword()

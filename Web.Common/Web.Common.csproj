@@ -40,8 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UseCaseContainer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plumbing\Plumbing.csproj">
       <Project>{ea0817fd-9b9e-4c97-96b4-e62239619923}</Project>
       <Name>Plumbing</Name>

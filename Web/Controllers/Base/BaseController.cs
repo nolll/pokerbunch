@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
+using Core.Services;
 using Core.UseCases.AppContext;
 using Core.UseCases.BaseContext;
 using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameContext;
+using Web.Common;
 using Web.Models.ErrorModels;
-using Web.Plumbing;
 
 namespace Web.Controllers.Base
 {
-    public class PokerBunchController : Controller
+    public class BaseController : Controller
     {
-        protected UseCaseContainer UseCase
-        {
-            get { return new UseCaseContainer(); }
-        }
+        protected readonly UseCaseContainer UseCase = new UseCaseContainer();
 
         private BaseContextResult GetBaseContext()
         {
@@ -73,8 +71,8 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 401, Error401);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
-            //else if(Env.IsInProduction)
-            //    HandleError(filterContext, 500, Error500);
+            else if(Env.IsInProduction)
+                HandleError(filterContext, 500, Error500);
         }
 
         private void HandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)

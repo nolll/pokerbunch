@@ -8,7 +8,7 @@ using Web.Models.HomegameModels.Join;
 
 namespace Web.Controllers
 {
-    public class JoinBunchController : PokerBunchController
+    public class JoinBunchController : BaseController
     {
         [Authorize]
         [Route("{slug}/homegame/join")]

@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Action;
 
 namespace Web.Controllers
 {
-    public class CashgameActionController : PokerBunchController
+    public class CashgameActionController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/action/{dateStr}/{playerId:int}")]

@@ -5,7 +5,7 @@ using Web.Models.HomegameModels.Details;
 
 namespace Web.Controllers
 {
-    public class BunchDetailsController : PokerBunchController
+    public class BunchDetailsController : BaseController
     {
         [Authorize]
         [Route("{slug}/homegame/details")]

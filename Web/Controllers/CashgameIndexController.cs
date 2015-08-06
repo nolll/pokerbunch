@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Index;
 
 namespace Web.Controllers
 {
-    public class CashgameIndexController : PokerBunchController
+    public class CashgameIndexController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame")]

@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Cashout;
 
 namespace Web.Controllers
 {
-    public class CashgameCashoutController : PokerBunchController
+    public class CashgameCashoutController : BaseController
     {
         [HttpPost]
         [Authorize]

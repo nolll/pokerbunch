@@ -6,7 +6,7 @@ using Web.Models.UserModels.ChangePassword;
 
 namespace Web.Controllers
 {
-    public class ChangePasswordController : PokerBunchController
+    public class ChangePasswordController : BaseController
     {
         [Authorize]
         [Route("-/user/changepassword")]

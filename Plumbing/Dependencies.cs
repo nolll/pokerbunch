@@ -11,19 +11,22 @@ namespace Plumbing
     public class Dependencies
     {
         private IRandomService _randomService;
-        protected IRandomService RandomService
+
+        public IRandomService RandomService
         {
             get { return _randomService ?? (_randomService = new RandomService()); }
         }
 
         private IMessageSender _messageSender;
-        protected IMessageSender MessageSender
+
+        public IMessageSender MessageSender
         {
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
 
         private ICacheContainer _cacheContainer;
-        protected ICacheContainer CacheContainer
+
+        public ICacheContainer CacheContainer
         {
             get { return _cacheContainer ?? (_cacheContainer = new CacheContainer(CacheProvider)); }
         }
@@ -41,37 +44,43 @@ namespace Plumbing
         }
 
         private IBunchRepository _bunchRepository;
-        protected IBunchRepository BunchRepository
+
+        public IBunchRepository BunchRepository
         {
             get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer, CacheBuster)); }
         }
 
         private IUserRepository _userRepository;
-        protected IUserRepository UserRepository
+
+        public IUserRepository UserRepository
         {
             get { return _userRepository ?? (_userRepository = new SqlUserRepository(UserStorage, CacheContainer, CacheBuster)); }
         }
 
         private IPlayerRepository _playerRepository;
-        protected IPlayerRepository PlayerRepository
+
+        public IPlayerRepository PlayerRepository
         {
             get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, CacheBuster, UserRepository)); }
         }
 
         private ICashgameRepository _cashgameRepository;
-        protected ICashgameRepository CashgameRepository
+
+        public ICashgameRepository CashgameRepository
         {
             get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage, CacheBuster)); }
         }
 
         private ICheckpointRepository _checkpointRepository;
-        protected ICheckpointRepository CheckpointRepository
+
+        public ICheckpointRepository CheckpointRepository
         {
             get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage, CacheBuster)); }
         }
 
         private IEventRepository _eventRepository;
-        protected IEventRepository EventRepository
+
+        public IEventRepository EventRepository
         {
             get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer, CacheBuster)); }
         }

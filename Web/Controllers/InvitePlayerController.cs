@@ -6,7 +6,7 @@ using Web.Models.PlayerModels.Invite;
 
 namespace Web.Controllers
 {
-    public class InvitePlayerController : PokerBunchController
+    public class InvitePlayerController : BaseController
     {
         [Authorize]
         [Route("{slug}/player/invite/{playerId:int}")]

@@ -23,14 +23,15 @@ namespace Core.UseCases
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            
+
+            var slug = bunch.Slug;
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var editBunchUrl = new EditBunchUrl(bunch.Slug);
             var canEdit = RoleHandler.IsInRole(user, player, Role.Manager);
 
-            return new Result(bunchName, description, houseRules, editBunchUrl, canEdit);
+            return new Result(slug, bunchName, description, houseRules, editBunchUrl, canEdit);
         }
 
         public class Request
@@ -47,14 +48,16 @@ namespace Core.UseCases
 
         public class Result
         {
+            public string Slug { get; private set; }
             public string BunchName { get; private set; }
             public string Description { get; private set; }
             public string HouseRules { get; private set; }
             public Url EditBunchUrl { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public Result(string bunchName, string description, string houseRules, Url editBunchUrl, bool canEdit)
+            public Result(string slug, string bunchName, string description, string houseRules, Url editBunchUrl, bool canEdit)
             {
+                Slug = slug;
                 BunchName = bunchName;
                 Description = description;
                 HouseRules = houseRules;

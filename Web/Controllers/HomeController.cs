@@ -5,7 +5,7 @@ using Web.Models.HomeModels;
 
 namespace Web.Controllers
 {
-    public class HomeController : PokerBunchController
+    public class HomeController : BaseController
     {
         [Route("")]
         public ActionResult Index()

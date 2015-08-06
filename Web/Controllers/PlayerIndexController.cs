@@ -5,7 +5,7 @@ using Web.Models.PlayerModels.List;
 
 namespace Web.Controllers
 {
-    public class PlayerIndexController : PokerBunchController
+    public class PlayerIndexController : BaseController
     {
         [Authorize]
         [Route("{slug}/player/index")]

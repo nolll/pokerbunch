@@ -6,7 +6,7 @@ using Web.Models.EventModels.Details;
 
 namespace Web.Controllers
 {
-    public class EventDetailsController : PokerBunchController
+    public class EventDetailsController : BaseController
     {
         [Authorize]
         [Route("{slug}/event/details/{id}")]

@@ -5,7 +5,7 @@ using Web.Models.UserModels;
 
 namespace Web.Controllers
 {
-    public class UserDetailsController : PokerBunchController
+    public class UserDetailsController : BaseController
     {
         [Authorize]
         [Route("-/user/details/{userName}")]

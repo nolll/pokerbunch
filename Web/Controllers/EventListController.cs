@@ -5,7 +5,7 @@ using Web.Models.EventModels.List;
 
 namespace Web.Controllers
 {
-    public class EventListController : PokerBunchController
+    public class EventListController : BaseController
     {
         [Authorize]
         [Route("{slug}/event/list")]

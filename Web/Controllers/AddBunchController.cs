@@ -6,7 +6,7 @@ using Web.Models.HomegameModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddBunchController : PokerBunchController
+    public class AddBunchController : BaseController
     {
         [Authorize]
         [Route("-/homegame/add")]

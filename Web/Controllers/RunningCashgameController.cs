@@ -8,7 +8,7 @@ using Web.Models.CashgameModels.Running;
 
 namespace Web.Controllers
 {
-    public class RunningCashgameController : PokerBunchController
+    public class RunningCashgameController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/running")]

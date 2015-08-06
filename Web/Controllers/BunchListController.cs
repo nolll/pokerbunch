@@ -4,7 +4,7 @@ using Web.Models.HomegameModels.List;
 
 namespace Web.Controllers
 {
-    public class BunchListController : PokerBunchController
+    public class BunchListController : BaseController
     {
         [Route("-/homegame/list")]
         public ActionResult List()

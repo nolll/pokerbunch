@@ -7,7 +7,7 @@ using Web.Models.CashgameModels.Edit;
 
 namespace Web.Controllers
 {
-    public class EditCashgameController : PokerBunchController
+    public class EditCashgameController : BaseController
     {
         [Authorize]
         [Route("{slug}/cashgame/edit/{dateStr}")]

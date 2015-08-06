@@ -5,7 +5,7 @@ using Web.Controllers.Base;
 
 namespace Web.Controllers
 {
-    public class LogoutController : PokerBunchController
+    public class LogoutController : BaseController
     {
         [Route("-/auth/logout")]
         public ActionResult Logout()

@@ -7,7 +7,7 @@ using Web.Models.PlayerModels.Details;
 
 namespace Web.Controllers
 {
-    public class PlayerDetailsController : PokerBunchController
+    public class PlayerDetailsController : BaseController
     {
         [Authorize]
         [Route("{slug}/player/details/{playerId:int}")]
