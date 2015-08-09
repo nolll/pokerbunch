@@ -13,7 +13,7 @@ namespace Core.UseCases.CashgameTopList
         {
         }
 
-        private TopListRequest(string slug, ToplistSortOrder orderBy, int? year)
+        public TopListRequest(string slug, ToplistSortOrder orderBy, int? year)
         {
             Slug = slug;
             OrderBy = orderBy;

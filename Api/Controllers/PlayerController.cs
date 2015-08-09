@@ -7,7 +7,7 @@ namespace Api.Controllers
 {
     public class PlayerController : BaseApiController
     {
-        [Route("api/player/{slug}")]
+        [Route("player/{slug}")]
         [AcceptVerbs("GET")]
         public ApiPlayerList List(string slug)
         {
@@ -15,7 +15,7 @@ namespace Api.Controllers
             return new ApiPlayerList(playerListResult);
         }
 
-        [Route("api/player/{slug}/{playerId}")]
+        [Route("player/{slug}/{playerId}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult Details(string slug, int playerId)
         {

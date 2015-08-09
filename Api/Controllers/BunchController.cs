@@ -6,7 +6,7 @@ namespace Api.Controllers
 {
     public class BunchController : BaseApiController
     {
-        [Route("api/bunch")]
+        [Route("bunch")]
         [AcceptVerbs("GET")]
         public ApiBunchList List()
         {
@@ -14,7 +14,7 @@ namespace Api.Controllers
             return new ApiBunchList(bunchListResult);
         }
 
-        [Route("api/bunch/{slug}")]
+        [Route("bunch/{slug}")]
         [AcceptVerbs("GET")]
         public IHttpActionResult Details(string slug)
         {
