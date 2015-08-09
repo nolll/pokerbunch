@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Core.Urls;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.NavigationModels
 {
@@ -22,7 +24,7 @@ namespace Web.Models.NavigationModels
             return new List<NavigationNode>
                 {
                     new NavigationNode("Sign in", appContextResult.LoginUrl.Relative),
-                    new NavigationNode("Register", appContextResult.AddUserUrl.Relative),
+                    new NavigationNode("Register", new AddUserUrl().Relative),
                     new NavigationNode("Forgot password", appContextResult.ForgotPasswordUrl.Relative)
                 };
         }

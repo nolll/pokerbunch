@@ -1,6 +1,8 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases.DeletePlayer;
 using Web.Controllers.Base;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -14,7 +16,15 @@ namespace Web.Controllers
             RequireManager(context);
             var request = new DeletePlayerRequest(slug, playerId);
             var result = UseCase.DeletePlayer.Execute(request);
-            return Redirect(result.ReturnUrl.Relative);
+            var returnUrl = CreateReturnUrl(result);
+            return Redirect(returnUrl.Relative);
+        }
+
+        private static Url CreateReturnUrl(DeletePlayerResult result)
+        {
+            if (result.Deleted)
+                return new PlayerIndexUrl(result.Slug);
+            return new PlayerDetailsUrl(result.Slug, result.PlayerId);
         }
     }
 }

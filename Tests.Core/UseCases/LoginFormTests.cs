@@ -7,16 +7,6 @@ namespace Tests.Core.UseCases
     class LoginFormTests
     {
         [Test]
-        public void LoginForm_AddUserUrlIsSet()
-        {
-            var request = new LoginFormRequest("");
-
-            var result = Sut.Execute(request);
-
-            Assert.IsInstanceOf<AddUserUrl>(result.AddUserUrl);
-        }
-
-        [Test]
         public void LoginForm_ForgotPasswordUrlIsSet()
         {
             var request = new LoginFormRequest("");

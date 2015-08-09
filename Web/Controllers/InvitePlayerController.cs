@@ -1,8 +1,10 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases.InvitePlayer;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -24,7 +26,7 @@ namespace Web.Controllers
         {
             var context = GetBunchContext(slug);
             RequireManager(context);
-            var request = new InvitePlayerRequest(slug, playerId, postModel.Email);
+            var request = new InvitePlayerRequest(slug, playerId, postModel.Email, new AddUserUrl().Absolute);
 
             try
             {

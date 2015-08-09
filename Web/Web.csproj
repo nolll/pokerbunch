@@ -266,6 +266,8 @@
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Urls\AddUserUrl.cs" />
+    <Compile Include="Urls\PlayerIndexUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

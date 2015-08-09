@@ -9,12 +9,14 @@ namespace Core.UseCases.InvitePlayer
         [Required(ErrorMessage = "Email can't be empty")]
         [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string Email { get; private set; }
+        public string RegisterUrl { get; private set; }
 
-        public InvitePlayerRequest(string slug, int playerId, string email)
+        public InvitePlayerRequest(string slug, int playerId, string email, string registerUrl)
         {
             Slug = slug;
             PlayerId = playerId;
             Email = email;
+            RegisterUrl = registerUrl;
         }
     }
 }

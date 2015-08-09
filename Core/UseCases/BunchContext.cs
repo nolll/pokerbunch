@@ -74,12 +74,12 @@ namespace Core.UseCases
             private readonly Role _userRole;
             private readonly int _userPlayerId;
 
-            public string BunchName { get; private set; }
             public int BunchId { get; private set; }
+            public string Slug { get; private set; }
+            public string BunchName { get; private set; }
             public bool HasBunch { get; private set; }
             public Url BunchUrl { get; private set; }
             public Url CashgameUrl { get; private set; }
-            public Url PlayerUrl { get; private set; }
             public Url EventUrl { get; private set; }
             public AppContext.Result AppContext { get; private set; }
 
@@ -95,11 +95,11 @@ namespace Core.UseCases
                 _userPlayerId = userPlayerId;
 
                 BunchId = bunchId;
+                Slug = slug;
                 BunchName = bunchName;
                 HasBunch = true;
                 BunchUrl = new BunchDetailsUrl(slug);
                 CashgameUrl = new CashgameIndexUrl(slug);
-                PlayerUrl = new PlayerIndexUrl(slug);
                 EventUrl = new EventListUrl(slug);
             }
 

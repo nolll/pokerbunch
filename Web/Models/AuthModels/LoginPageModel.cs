@@ -1,6 +1,8 @@
+using Core.Urls;
 using Core.UseCases;
 using Core.UseCases.LoginForm;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.AuthModels
 {
@@ -16,7 +18,7 @@ namespace Web.Models.AuthModels
             : base("Login", contextResult)
         {
             ReturnUrl = loginFormResult.ReturnUrl.Relative;
-            AddUserUrl = loginFormResult.AddUserUrl.Relative;
+            AddUserUrl = new AddUserUrl().Relative;
             ForgotPasswordUrl = loginFormResult.ForgotPasswordUrl.Relative;
             if (postModel == null) return;
             LoginName = postModel.LoginName;

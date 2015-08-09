@@ -6,7 +6,7 @@ using Tests.Common;
 
 namespace Tests.Core.UseCases
 {
-    class InvitePlayerTests : TestBase
+    public class InvitePlayerTests : TestBase
     {
         [Test]
         public void InvitePlayer_ReturnUrlIsSet()
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
 
 To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
 
-If you don't have an account, you can register at http://pokerbunch.com/-/user/add";
+If you don't have an account, you can register at http://pokerbunch.com/test";
             var request = CreateRequest();
 
             Sut.Execute(request);
@@ -47,7 +47,7 @@ If you don't have an account, you can register at http://pokerbunch.com/-/user/a
 
         private static InvitePlayerRequest CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayerRequest(TestData.SlugA, TestData.PlayerIdA, email);
+            return new InvitePlayerRequest(TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
         }
 
         private InvitePlayerInteractor Sut

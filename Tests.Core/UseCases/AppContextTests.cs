@@ -15,7 +15,6 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsEmpty(result.UserDisplayName);
             Assert.AreEqual("/-/auth/login", result.LoginUrl.Relative);
-            Assert.AreEqual("/-/user/add", result.AddUserUrl.Relative);
             Assert.AreEqual("/-/user/forgotpassword", result.ForgotPasswordUrl.Relative);
         }
 

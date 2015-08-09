@@ -109,5 +109,7 @@ namespace Tests.Common
         public const int EventIdB = 2;
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
+
+        public const string TestUrl = "http://pokerbunch.com/test";
     }
 }

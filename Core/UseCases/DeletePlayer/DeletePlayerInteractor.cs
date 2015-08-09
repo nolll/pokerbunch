@@ -16,22 +16,14 @@ namespace Core.UseCases.DeletePlayer
 
         public DeletePlayerResult Execute(DeletePlayerRequest request)
         {
-            var hasPlayed = _cashgameRepository.HasPlayed(request.PlayerId);
+            var canDelete = !_cashgameRepository.HasPlayed(request.PlayerId);
 
-            if (!hasPlayed)
+            if (canDelete)
             {
                 _playerRepository.Delete(request.PlayerId);
             }
 
-            var returnUrl = CreateReturnUrl(request, hasPlayed);
-            return new DeletePlayerResult(returnUrl);
-        }
-
-        private static Url CreateReturnUrl(DeletePlayerRequest request, bool hasPlayed)
-        {
-            if (hasPlayed)
-                return new PlayerDetailsUrl(request.Slug, request.PlayerId);
-            return new PlayerIndexUrl(request.Slug);
+            return new DeletePlayerResult(canDelete, request.Slug, request.PlayerId);
         }
     }
 }

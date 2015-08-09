@@ -1,4 +1,6 @@
+using Core.Urls;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.NavigationModels
 {
@@ -22,7 +24,7 @@ namespace Web.Models.NavigationModels
             Heading = bunchContextResult.BunchName;
             HeadingUrl = bunchContextResult.BunchUrl.Relative;
             CashgameUrl = bunchContextResult.CashgameUrl.Relative;
-            PlayerUrl = bunchContextResult.PlayerUrl.Relative;
+            PlayerUrl = new PlayerIndexUrl(bunchContextResult.Slug).Relative;
             EventUrl = bunchContextResult.EventUrl.Relative;
         }
 

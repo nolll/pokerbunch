@@ -1,14 +1,16 @@
-using Core.Urls;
-
 namespace Core.UseCases.DeletePlayer
 {
     public class DeletePlayerResult
     {
-        public Url ReturnUrl { get; private set; }
+        public bool Deleted { get; private set; }
+        public string Slug { get; private set; }
+        public int PlayerId { get; private set; }
 
-        public DeletePlayerResult(Url returnUrl)
+        public DeletePlayerResult(bool deleted, string slug, int playerId)
         {
-            ReturnUrl = returnUrl;
+            Deleted = deleted;
+            Slug = slug;
+            PlayerId = playerId;
         }
     }
 }

@@ -7,11 +7,13 @@ namespace Core.Services
     {
         private readonly Bunch _bunch;
         private readonly Player _player;
+        private readonly string _registerUrl;
 
-        public InvitationMessage(Bunch bunch, Player player)
+        public InvitationMessage(Bunch bunch, Player player, string registerUrl)
         {
             _bunch = bunch;
             _player = player;
+            _registerUrl = registerUrl;
         }
 
         public string Subject
@@ -24,9 +26,8 @@ namespace Core.Services
             get
             {
                 var joinUrl = new JoinBunchUrl(_bunch.Slug).Absolute;
-                var addUserUrl = new AddUserUrl().Absolute;
                 var invitationCode = InvitationCodeCreator.GetCode(_player);
-                return string.Format(BodyFormat, _bunch.DisplayName, joinUrl, invitationCode, addUserUrl);
+                return string.Format(BodyFormat, _bunch.DisplayName, joinUrl, invitationCode, _registerUrl);
             }
         }
 

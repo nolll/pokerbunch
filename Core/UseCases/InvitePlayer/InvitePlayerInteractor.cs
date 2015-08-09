@@ -27,7 +27,7 @@ namespace Core.UseCases.InvitePlayer
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var player = _playerRepository.GetById(request.PlayerId);
-            var message = new InvitationMessage(bunch, player);
+            var message = new InvitationMessage(bunch, player, request.RegisterUrl);
             _messageSender.Send(request.Email, message);
 
             var url = new InvitePlayerConfirmationUrl(request.Slug, request.PlayerId);
