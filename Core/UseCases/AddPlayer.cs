@@ -1,24 +1,26 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Urls;
+using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases.AddPlayer
+namespace Core.UseCases
 {
-    public class AddPlayerInteractor
+    public class AddPlayer
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public AddPlayerInteractor(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public AddPlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
         }
 
-        public AddPlayerResult Execute(AddPlayerRequest request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -36,7 +38,30 @@ namespace Core.UseCases.AddPlayer
             _playerRepository.Add(player);
 
             var returnUrl = new AddPlayerConfirmationUrl(request.Slug);
-            return new AddPlayerResult(returnUrl);
+            return new Result(returnUrl);
+        }
+
+        public class Request
+        {
+            public string Slug { get; private set; }
+            [Required(ErrorMessage = "Name can't be empty")]
+            public string Name { get; private set; }
+
+            public Request(string slug, string name)
+            {
+                Slug = slug;
+                Name = name;
+            }
+        }
+
+        public class Result
+        {
+            public AddPlayerConfirmationUrl ReturnUrl { get; private set; }
+
+            public Result(AddPlayerConfirmationUrl returnUrl)
+            {
+                ReturnUrl = returnUrl;
+            }
         }
     }
 }

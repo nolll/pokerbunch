@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.AddPlayer;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Add;
 
@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             var context = GetBunchContext(slug);
             RequireManager(context);
-            var request = new AddPlayerRequest(slug, postModel.Name);
+            var request = new AddPlayer.Request(slug, postModel.Name);
 
             try
             {

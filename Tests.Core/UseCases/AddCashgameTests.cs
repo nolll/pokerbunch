@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.AddCashgame;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -36,21 +36,21 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
-        private static AddCashgameRequest CreateRequestWithoutLocation()
+        private static AddCashgame.Request CreateRequestWithoutLocation()
         {
             return CreateRequest(null);
         }
 
-        private static AddCashgameRequest CreateRequest(string location = TestData.LocationA)
+        private static AddCashgame.Request CreateRequest(string location = TestData.LocationA)
         {
-            return new AddCashgameRequest(TestData.SlugA, location);
+            return new AddCashgame.Request(TestData.SlugA, location);
         }
 
-        private AddCashgameInteractor Sut
+        private AddCashgame Sut
         {
             get
             {
-                return new AddCashgameInteractor(
+                return new AddCashgame(
                     Repos.Bunch,
                     Repos.Cashgame);
             }

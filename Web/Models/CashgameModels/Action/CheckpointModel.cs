@@ -1,5 +1,5 @@
 using Core.Services;
-using Core.UseCases.Actions;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Action
 {
@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Action
         public bool ShowLink { get; private set; }
         public string EditUrl { get; private set; }
 
-        public CheckpointModel(CheckpointItem checkpointItem)
+        public CheckpointModel(Actions.CheckpointItem checkpointItem)
         {
             Description = checkpointItem.Type;
             Stack = checkpointItem.DisplayAmount.String;

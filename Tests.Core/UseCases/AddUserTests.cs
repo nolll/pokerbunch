@@ -2,7 +2,7 @@
 using Core.Entities;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.AddUser;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_ReturnUrlIsSet()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
+            var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail);
 
             var result = Sut.Execute(request);
 
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_WithEmptyUserName_ThrowsValidationError()
         {
-            var request = new AddUserRequest("", ValidDisplayName, ValidEmail);
+            var request = new AddUser.Request("", ValidDisplayName, ValidEmail);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_WithEmptyDisplayName_ThrowsValidationError()
         {
-            var request = new AddUserRequest(ValidUserName, "", ValidEmail);
+            var request = new AddUser.Request(ValidUserName, "", ValidEmail);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -47,7 +47,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_WithEmptyEmail_ThrowsValidationError()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, "");
+            var request = new AddUser.Request(ValidUserName, ValidDisplayName, "");
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_UserNameAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(_existingUserName, ValidDisplayName, ValidEmail);
+            var request = new AddUser.Request(_existingUserName, ValidDisplayName, ValidEmail);
 
             Assert.Throws<UserExistsException>(() => Sut.Execute(request));
         }
@@ -64,7 +64,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddUser_EmailAlreadyInUse_ThrowsException()
         {
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, _existingEmail);
+            var request = new AddUser.Request(ValidUserName, ValidDisplayName, _existingEmail);
 
             Assert.Throws<EmailExistsException>(() => Sut.Execute(request));
         }
@@ -75,7 +75,7 @@ namespace Tests.Core.UseCases
             const string expectedEncryptedPassword = "0478095c8ece0bbc11f94663ac2c4f10b29666de";
             const string expectedSalt = "aaaaaaaaaa";
 
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
+            var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail);
             Sut.Execute(request);
 
             var user = Repos.User.Added;
@@ -101,7 +101,7 @@ aaaaaaaa
 
 Please sign in here: http://pokerbunch.com/-/auth/login";
 
-            var request = new AddUserRequest(ValidUserName, ValidDisplayName, ValidEmail);
+            var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail);
             Sut.Execute(request);
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);
@@ -109,11 +109,11 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
-        private AddUserInteractor Sut
+        private AddUser Sut
         {
             get
             {
-                return new AddUserInteractor(
+                return new AddUser(
                     Repos.User,
                     Services.RandomService,
                     Services.MessageSender);

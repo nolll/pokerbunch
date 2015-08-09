@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.AddUser;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
 
@@ -20,7 +20,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddUserRequest(postModel.UserName, postModel.DisplayName, postModel.Email);
+                var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email);
                 var result = UseCase.AddUser.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

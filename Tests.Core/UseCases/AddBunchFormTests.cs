@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Core.UseCases.AddBunchForm;
+using Core.UseCases;
 using NUnit.Framework;
 
 namespace Tests.Core.UseCases
@@ -27,9 +27,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("{AMOUNT} {SYMBOL}", result.CurrencyLayouts[3]);
         }
 
-        private AddBunchFormInteractor Sut
+        private AddBunchForm Sut
         {
-            get { return new AddBunchFormInteractor(); }
+            get { return new AddBunchForm(); }
         }
     }
 }

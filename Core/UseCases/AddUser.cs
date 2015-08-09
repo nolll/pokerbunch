@@ -1,17 +1,20 @@
+using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
+using Core.Urls;
+using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases.AddUser
+namespace Core.UseCases
 {
-    public class AddUserInteractor
+    public class AddUser
     {
         private readonly IUserRepository _userRepository;
         private readonly IRandomService _randomService;
         private readonly IMessageSender _messageSender;
 
-        public AddUserInteractor(
+        public AddUser(
             IUserRepository userRepository,
             IRandomService randomService,
             IMessageSender messageSender)
@@ -21,7 +24,7 @@ namespace Core.UseCases.AddUser
             _messageSender = messageSender;
         }
 
-        public AddUserResult Execute(AddUserRequest request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -44,10 +47,10 @@ namespace Core.UseCases.AddUser
             var message = new RegistrationMessage(password);
             _messageSender.Send(request.Email, message);
 
-            return new AddUserResult();
+            return new Result();
         }
 
-        private static User CreateUser(AddUserRequest request, string encryptedPassword, string salt)
+        private static User CreateUser(Request request, string encryptedPassword, string salt)
         {
             return new User(
                 0,
@@ -58,6 +61,36 @@ namespace Core.UseCases.AddUser
                 Role.Player,
                 encryptedPassword,
                 salt);
+        }
+
+        public class Request
+        {
+            [Required(ErrorMessage = "Login Name can't be empty")]
+            public string UserName { get; private set; }
+
+            [Required(ErrorMessage = "Display Name can't be empty")]
+            public string DisplayName { get; private set; }
+
+            [Required(ErrorMessage = "Email can't be empty")]
+            [EmailAddress(ErrorMessage = "The email address is not valid")]
+            public string Email { get; private set; }
+
+            public Request(string userName, string displayName, string email)
+            {
+                UserName = userName;
+                DisplayName = displayName;
+                Email = email;
+            }
+        }
+
+        public class Result
+        {
+            public Url ReturnUrl { get; private set; }
+
+            public Result()
+            {
+                ReturnUrl = new AddUserConfirmationUrl();
+            }
         }
     }
 }

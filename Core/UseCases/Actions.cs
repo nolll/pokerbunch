@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
@@ -6,16 +7,16 @@ using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 
-namespace Core.UseCases.Actions
+namespace Core.UseCases
 {
-    public class ActionsInteractor
+    public class Actions
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
 
-        public ActionsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public Actions(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
@@ -23,7 +24,7 @@ namespace Core.UseCases.Actions
             _userRepository = userRepository;
         }
 
-        public ActionsOutput Execute(ActionsInput input)
+        public Result Execute(Request input)
         {
             var user = _userRepository.GetByNameOrEmail(input.CurrentUserName);
             var bunch = _bunchRepository.GetBySlug(input.Slug);
@@ -37,7 +38,7 @@ namespace Core.UseCases.Actions
             var playerName = player.DisplayName;
             var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, cashgame, player, isManager, o)).ToList();
 
-            return new ActionsOutput(date, playerName, checkpointItems);
+            return new Result(date, playerName, checkpointItems);
         }
 
         private static CheckpointItem CreateCheckpointItem(Bunch bunch, Cashgame cashgame, Player player, bool isManager, Checkpoint checkpoint)
@@ -56,6 +57,54 @@ namespace Core.UseCases.Actions
             if (checkpoint.Type == CheckpointType.Buyin)
                 return checkpoint.Amount;
             return checkpoint.Stack;
+        }
+
+        public class Request
+        {
+            public string CurrentUserName { get; private set; }
+            public string Slug { get; private set; }
+            public string DateStr { get; private set; }
+            public int PlayerId { get; private set; }
+
+            public Request(string currentUserName, string slug, string dateStr, int playerId)
+            {
+                CurrentUserName = currentUserName;
+                Slug = slug;
+                DateStr = dateStr;
+                PlayerId = playerId;
+            }
+        }
+
+        public class Result
+        {
+            public DateTime Date { get; private set; }
+            public string PlayerName { get; private set; }
+            public IList<CheckpointItem> CheckpointItems { get; private set; }
+
+            public Result(DateTime date, string playerName, List<CheckpointItem> checkpointItems)
+            {
+                Date = date;
+                PlayerName = playerName;
+                CheckpointItems = checkpointItems;
+            }
+        }
+
+        public class CheckpointItem
+        {
+            public DateTime Time { get; private set; }
+            public Url EditUrl { get; private set; }
+            public string Type { get; private set; }
+            public Money DisplayAmount { get; private set; }
+            public bool CanEdit { get; private set; }
+
+            public CheckpointItem(DateTime time, Url editUrl, string type, Money displayAmount, bool canEdit)
+            {
+                Time = time;
+                EditUrl = editUrl;
+                Type = type;
+                DisplayAmount = displayAmount;
+                CanEdit = canEdit;
+            }
         }
     }
 }

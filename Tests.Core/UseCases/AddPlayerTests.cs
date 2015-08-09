@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.AddPlayer;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ReturnUrlIsSet()
         {
-            var request = new AddPlayerRequest(TestData.SlugA, UniqueName);
+            var request = new AddPlayer.Request(TestData.SlugA, UniqueName);
             var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_EmptyName_ThrowsException()
         {
-            var request = new AddPlayerRequest(TestData.SlugA, EmptyName);
+            var request = new AddPlayer.Request(TestData.SlugA, EmptyName);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidName_AddsPlayer()
         {
-            var request = new AddPlayerRequest(TestData.SlugA, UniqueName);
+            var request = new AddPlayer.Request(TestData.SlugA, UniqueName);
             Sut.Execute(request);
 
             Assert.IsNotNull(Repos.Player.Added);
@@ -43,15 +43,15 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
-            var request = new AddPlayerRequest(TestData.SlugA, ExistingName);
+            var request = new AddPlayer.Request(TestData.SlugA, ExistingName);
             Assert.Throws<PlayerExistsException>(() => Sut.Execute(request));
         }
 
-        private AddPlayerInteractor Sut
+        private AddPlayer Sut
         {
             get
             {
-                return new AddPlayerInteractor(
+                return new AddPlayer(
                     Repos.Bunch,
                     Repos.Player);
             }

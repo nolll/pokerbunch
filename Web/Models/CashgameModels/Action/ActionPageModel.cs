@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
-using Core.UseCases.Actions;
-using Core.UseCases.ActionsChart;
+using Core.UseCases;
 using Core.UseCases.BunchContext;
 using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
@@ -15,18 +14,18 @@ namespace Web.Models.CashgameModels.Action
         public string ChartJson { get; private set; }
         public string Heading { get; private set; }
 
-        public ActionPageModel(BunchContextResult contextResult, ActionsOutput actionsOutput, ActionsChartResult actionsChartResult)
+        public ActionPageModel(BunchContextResult contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)
             : base("Player Actions", contextResult)
         {
-            var date = Globalization.FormatShortDate(actionsOutput.Date, true);
-            Heading = string.Format("Cashgame {0}, {1}", date, actionsOutput.PlayerName);
-            Checkpoints = GetCheckpointModels(actionsOutput);
+            var date = Globalization.FormatShortDate(actionsResult.Date, true);
+            Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
+            Checkpoints = GetCheckpointModels(actionsResult);
             ChartJson = JsonConvert.SerializeObject(new ActionChartModel(actionsChartResult));
         }
 
-        private List<CheckpointModel> GetCheckpointModels(ActionsOutput actionsOutput)
+        private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)
         {
-            return actionsOutput.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
+            return actionsResult.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
         }
     }
 }

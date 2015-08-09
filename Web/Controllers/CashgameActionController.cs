@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
-using Core.UseCases.Actions;
-using Core.UseCases.ActionsChart;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Action;
 
@@ -15,8 +14,8 @@ namespace Web.Controllers
         {
             var contextResult = GetBunchContext(slug);
             RequirePlayer(contextResult);
-            var actionsOutput = UseCase.Actions.Execute(new ActionsInput(CurrentUserName, slug, dateStr, playerId));
-            var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChartRequest(slug, dateStr, playerId, DateTime.UtcNow));
+            var actionsOutput = UseCase.Actions.Execute(new Actions.Request(CurrentUserName, slug, dateStr, playerId));
+            var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChart.Request(slug, dateStr, playerId, DateTime.UtcNow));
             var model = new ActionPageModel(contextResult, actionsOutput, actionsChartResult);
             return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
         }

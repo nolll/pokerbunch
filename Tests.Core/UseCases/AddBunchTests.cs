@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 using Core.Exceptions;
-using Core.UseCases.AddBunch;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -86,16 +86,16 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(Role.Manager, Repos.Player.Added.Role);
         }
 
-        private AddBunchRequest CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
+        private AddBunch.Request CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
         {
-            return new AddBunchRequest(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
+            return new AddBunch.Request(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
-        private AddBunchInteractor Sut
+        private AddBunch Sut
         {
             get
             {
-                return new AddBunchInteractor(
+                return new AddBunch(
                     Repos.User,
                     Repos.Bunch,
                     Repos.Player);

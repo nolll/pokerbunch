@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.AddBunch;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
 
@@ -22,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddBunchRequest(CurrentUserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
+                var request = new AddBunch.Request(CurrentUserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
                 var result = UseCase.AddBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.Urls;
-using Core.UseCases.Actions;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ActionsResultIsReturned()
         {
-            var request = new ActionsInput(TestData.UserA.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
+            var request = new Actions.Request(TestData.UserA.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:00:00"), result.Date);
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_ItemPropertiesAreSet()
         {
-            var request = new ActionsInput(TestData.UserA.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
+            var request = new Actions.Request(TestData.UserA.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(BuyinDescription, result.CheckpointItems[0].Type);
@@ -41,17 +41,17 @@ namespace Tests.Core.UseCases
         [Test]
         public void Actions_WithManager_CanEditIsTrueOnItem()
         {
-            var request = new ActionsInput(TestData.UserC.UserName, TestData.BunchA.Slug, TestData.DateStringA, TestData.PlayerA.Id);
+            var request = new Actions.Request(TestData.UserC.UserName, TestData.BunchA.Slug, TestData.DateStringA, TestData.PlayerA.Id);
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
         }
 
-        private ActionsInteractor Sut
+        private Actions Sut
         {
             get
             {
-                return new ActionsInteractor(
+                return new Actions(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,

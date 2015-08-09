@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
-using Core.UseCases.ActionsChart;
+using Core.UseCases;
 using Web.Models.ChartModels;
 
 namespace Web.Models.CashgameModels.Action
 {
     public class ActionChartModel : ChartModel
     {
-        public ActionChartModel(ActionsChartResult actionsChartResult)
+        public ActionChartModel(ActionsChart.Result actionsChartResult)
             : base(
             GetActionColumns(),
             GetRowsNew(actionsChartResult.CheckpointItems))
         {
         }
 
-        private static IList<ChartRowModel> GetRowsNew(IEnumerable<ActionsChartCheckpointItem> checkpointItems)
+        private static IList<ChartRowModel> GetRowsNew(IEnumerable<ActionsChart.CheckpointItem> checkpointItems)
         {
             var rowModels = new List<ChartRowModel>();
             foreach (var item in checkpointItems)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Core.UseCases.AddBunchForm;
+using Core.UseCases;
 using Core.UseCases.BunchContext;
 using Core.UseCases.EditBunchForm;
 using Web.Models.PageBaseModels;
@@ -44,7 +44,7 @@ namespace Web.Models.HomegameModels.Edit
             CurrencyLayout = postModel.CurrencyLayout;
         }
 
-        private SelectListItem CreateTimezoneSelectListItem(TimeZoneItem item)
+        private SelectListItem CreateTimezoneSelectListItem(AddBunchForm.TimeZoneItem item)
         {
             return CreateSelectListItem(item.Name, item.Id);
         }

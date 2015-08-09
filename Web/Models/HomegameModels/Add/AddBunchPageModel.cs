@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Core.UseCases.AddBunchForm;
+using Core.UseCases;
 using Core.UseCases.AppContext;
 using Web.Models.PageBaseModels;
 
@@ -17,7 +17,7 @@ namespace Web.Models.HomegameModels.Add
         public string CurrencyLayout { get; private set; }
         public string TimeZone { get; private set; }
 
-        public AddBunchPageModel(AppContextResult contextResult, AddBunchFormResult bunchFormResult, AddBunchPostModel postModel)
+        public AddBunchPageModel(AppContextResult contextResult, AddBunchForm.Result bunchFormResult, AddBunchPostModel postModel)
             : base("Create Bunch", contextResult)
         {
             CurrencyLayoutSelectItems = bunchFormResult.CurrencyLayouts.Select(o => new SelectListItem{ Text = o, Value = o }).ToList();
