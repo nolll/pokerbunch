@@ -15,7 +15,7 @@ namespace Web.Controllers
         {
             var contextResult = GetBunchContext(slug);
             RequirePlayer(contextResult);
-            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(slug, playerId, CurrentUserName));
+            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(playerId, CurrentUserName));
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(slug, playerId));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(slug, playerId));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);

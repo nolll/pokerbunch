@@ -7,7 +7,7 @@ namespace Api.Controllers
 {
     public class PlayerController : BaseApiController
     {
-        [Route("player/{slug}")]
+        [Route("players/{slug}")]
         [AcceptVerbs("GET")]
         public ApiPlayerList List(string slug)
         {
@@ -15,11 +15,11 @@ namespace Api.Controllers
             return new ApiPlayerList(playerListResult);
         }
 
-        [Route("player/{slug}/{playerId}")]
+        [Route("player/{playerId}")]
         [AcceptVerbs("GET")]
-        public IHttpActionResult Details(string slug, int playerId)
+        public IHttpActionResult Details(int playerId)
         {
-            var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(slug, playerId, "henriks"));
+            var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(playerId, "henriks"));
             var bunchModel = new ApiPlayer(playerDetailsResult.DisplayName);
             return Ok(bunchModel);
         }

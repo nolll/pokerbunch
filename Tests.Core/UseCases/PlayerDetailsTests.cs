@@ -106,7 +106,7 @@ namespace Tests.Core.UseCases
 
         private static PlayerDetails.Request CreateRequest(int playerId, string userName)
         {
-            return new PlayerDetails.Request(TestData.SlugA, playerId, userName);
+            return new PlayerDetails.Request(playerId, userName);
         }
 
         private PlayerDetails Sut

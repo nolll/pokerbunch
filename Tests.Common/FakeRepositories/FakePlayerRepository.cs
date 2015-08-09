@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Tests.Common.Builders;
 
 namespace Tests.Common.FakeRepositories
 {
@@ -81,9 +80,9 @@ namespace Tests.Common.FakeRepositories
                 UserId = userId;
             }
 
-            public int PlayerId { get; set; }
-            public int BunchId { get; set; }
-            public int UserId { get; set; }
+            public int PlayerId { get; private set; }
+            public int BunchId { get; private set; }
+            public int UserId { get; private set; }
         }
     }
 }

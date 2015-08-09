@@ -22,8 +22,8 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
             var player = _playerRepository.GetById(request.PlayerId);
+            var bunch = _bunchRepository.GetById(player.BunchId);
             var user = _userRepository.GetById(player.UserId);
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
@@ -36,13 +36,11 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
             public int PlayerId { get; private set; }
             public string UserName { get; private set; }
 
-            public Request(string slug, int playerId, string userName)
+            public Request(int playerId, string userName)
             {
-                Slug = slug;
                 PlayerId = playerId;
                 UserName = userName;
             }
