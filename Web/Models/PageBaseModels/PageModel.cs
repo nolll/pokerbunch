@@ -1,4 +1,4 @@
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 using Web.Models.MiscModels;
 
 namespace Web.Models.PageBaseModels
@@ -12,7 +12,7 @@ namespace Web.Models.PageBaseModels
         public string JsPath { get; private set; }
         public string JsLoaderPath { get; private set; }
 
-        protected PageModel(string browserTitle, BaseContextResult contextResult)
+        protected PageModel(string browserTitle, BaseContext.Result contextResult)
         {
             BrowserTitle = browserTitle;
             CssUrl = BundleConfig.BundleUrl;

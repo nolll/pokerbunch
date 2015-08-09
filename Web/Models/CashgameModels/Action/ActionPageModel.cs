@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
 using Core.UseCases;
-using Core.UseCases.BunchContext;
 using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
 
@@ -14,7 +13,7 @@ namespace Web.Models.CashgameModels.Action
         public string ChartJson { get; private set; }
         public string Heading { get; private set; }
 
-        public ActionPageModel(BunchContextResult contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)
+        public ActionPageModel(BunchContext.Result contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)
             : base("Player Actions", contextResult)
         {
             var date = Globalization.FormatShortDate(actionsResult.Date, true);

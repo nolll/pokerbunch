@@ -1,4 +1,4 @@
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Invite
@@ -7,7 +7,7 @@ namespace Web.Models.PlayerModels.Invite
     {
         public string Email { get; private set; }
 
-        public InvitePlayerPageModel(BunchContextResult contextResult, InvitePlayerPostModel postModel)
+        public InvitePlayerPageModel(BunchContext.Result contextResult, InvitePlayerPostModel postModel)
             : base("Invite Player", contextResult)
         {
             if (postModel == null) return;

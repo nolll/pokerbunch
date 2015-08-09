@@ -1,11 +1,5 @@
 using Core.UseCases;
-using Core.UseCases.AppContext;
-using Core.UseCases.BaseContext;
-using Core.UseCases.BunchContext;
-using Core.UseCases.BunchList;
-using Core.UseCases.Buyin;
 using Core.UseCases.CashgameChart;
-using Core.UseCases.CashgameContext;
 using Core.UseCases.CashgameCurrentRankings;
 using Core.UseCases.CashgameDetailsChart;
 using Core.UseCases.CashgameFacts;
@@ -49,13 +43,13 @@ namespace Web.Common
 {
     public class UseCaseContainer
     {
-        private Dependencies _deps = new Dependencies();
+        private readonly Dependencies _deps = new Dependencies();
 
         // Contexts
-        public BaseContextInteractor BaseContext { get { return new BaseContextInteractor(); } }
-        public AppContextInteractor AppContext { get { return new AppContextInteractor(_deps.UserRepository); } }
-        public BunchContextInteractor BunchContext { get { return new BunchContextInteractor(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository); } }
-        public CashgameContextInteractor CashgameContext { get { return new CashgameContextInteractor(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public BaseContext BaseContext { get { return new BaseContext(); } }
+        public AppContext AppContext { get { return new AppContext(_deps.UserRepository); } }
+        public BunchContext BunchContext { get { return new BunchContext(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository); } }
+        public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
 
         // Auth and Home
         public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
@@ -75,7 +69,7 @@ namespace Web.Common
         public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(_deps.UserRepository, _deps.RandomService); } } 
 
         // Bunch
-        public BunchListInteractor BunchList { get { return new BunchListInteractor(_deps.BunchRepository, _deps.UserRepository); } }
+        public BunchList BunchList { get { return new BunchList(_deps.BunchRepository, _deps.UserRepository); } }
         public BunchDetails BunchDetails { get { return new BunchDetails(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public AddBunchForm AddBunchForm { get { return new AddBunchForm(); } }
         public AddBunch AddBunch { get { return new AddBunch(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository); } }
@@ -110,7 +104,7 @@ namespace Web.Common
         public EditCashgameInteractor EditCashgame { get { return new EditCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
         public DeleteCashgameInteractor DeleteCashgame { get { return new DeleteCashgameInteractor(_deps.CashgameRepository); } }
         public DeleteCheckpointInteractor DeleteCheckpoint { get { return new DeleteCheckpointInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
-        public BuyinInteractor Buyin { get { return new BuyinInteractor(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
+        public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public ReportInteractor Report { get { return new ReportInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }
         public CashoutInteractor Cashout { get { return new CashoutInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }
         public EndCashgameInteractor EndCashgame { get { return new EndCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }

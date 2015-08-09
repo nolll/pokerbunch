@@ -1,4 +1,4 @@
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.ErrorModels
@@ -8,7 +8,7 @@ namespace Web.Models.ErrorModels
         public string Title { get; private set; }
         public string Message { get; private set; }
 
-        protected ErrorPageModel(BaseContextResult contextResult, string title, string message)
+        protected ErrorPageModel(BaseContext.Result contextResult, string title, string message)
             : base("Error", contextResult)
         {
             Title = title;

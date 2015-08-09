@@ -4,10 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.Services;
-using Core.UseCases.AppContext;
-using Core.UseCases.BaseContext;
-using Core.UseCases.BunchContext;
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Web.Common;
 using Web.Models.ErrorModels;
 
@@ -17,24 +14,24 @@ namespace Web.Controllers.Base
     {
         protected readonly UseCaseContainer UseCase = new UseCaseContainer();
 
-        private BaseContextResult GetBaseContext()
+        private BaseContext.Result GetBaseContext()
         {
             return UseCase.BaseContext.Execute();
         }
         
-        protected AppContextResult GetAppContext()
+        protected AppContext.Result GetAppContext()
         {
-            return UseCase.AppContext.Execute(new AppContextRequest(CurrentUserName));
+            return UseCase.AppContext.Execute(new AppContext.Request(CurrentUserName));
         }
 
-        protected BunchContextResult GetBunchContext(string slug = null)
+        protected BunchContext.Result GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContextRequest(CurrentUserName, slug));
+            return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, slug));
         }
 
-        protected CashgameContextResult GetCashgameContext(string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+        protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(new CashgameContextRequest(CurrentUserName, slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(new CashgameContext.Request(CurrentUserName, slug, currentTime, selectedPage, year));
         }
 
         protected string CurrentUserName
@@ -123,19 +120,19 @@ namespace Web.Controllers.Base
             return new JsonResult(data, jsonRequestBehavior);
         }
 
-        protected void RequirePlayer(BunchContextResult bunchContext)
+        protected void RequirePlayer(BunchContext.Result bunchContext)
         {
             if (!bunchContext.IsPlayer)
                 throw new AccessDeniedException();
         }
 
-        protected void RequireManager(BunchContextResult bunchContext)
+        protected void RequireManager(BunchContext.Result bunchContext)
         {
             if (!bunchContext.IsManager)
                 throw new AccessDeniedException();
         }
 
-        protected void RequireAdmin(AppContextResult appContext)
+        protected void RequireAdmin(AppContext.Result appContext)
         {
             if (!appContext.IsAdmin)
                 throw new AccessDeniedException();

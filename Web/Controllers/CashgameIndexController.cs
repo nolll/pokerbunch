@@ -1,6 +1,6 @@
 using System;
 using System.Web.Mvc;
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.CashgameCurrentRankings;
 using Core.UseCases.CashgameStatus;
 using Web.Controllers.Base;
@@ -15,7 +15,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/index")]
         public ActionResult Index(string slug)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.Overview);
+            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);
             RequirePlayer(contextResult.BunchContext);
             var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatusRequest(slug));
             var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankingsRequest(slug));

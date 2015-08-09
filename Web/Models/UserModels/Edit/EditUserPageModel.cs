@@ -1,4 +1,4 @@
-using Core.UseCases.AppContext;
+using Core.UseCases;
 using Core.UseCases.EditUserForm;
 using Web.Models.PageBaseModels;
 
@@ -11,7 +11,7 @@ namespace Web.Models.UserModels.Edit
         public string RealName { get; private set; }
         public string Email { get; private set; }
 
-        public EditUserPageModel(AppContextResult contextResult, EditUserFormResult editUserFormResult, EditUserPostModel postModel)
+        public EditUserPageModel(AppContext.Result contextResult, EditUserFormResult editUserFormResult, EditUserPostModel postModel)
             : base("Edit Profile", contextResult)
         {
             UserName = editUserFormResult.UserName;

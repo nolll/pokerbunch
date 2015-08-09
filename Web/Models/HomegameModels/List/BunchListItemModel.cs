@@ -1,4 +1,4 @@
-using Core.UseCases.BunchList;
+using Core.UseCases;
 
 namespace Web.Models.HomegameModels.List
 {
@@ -7,7 +7,7 @@ namespace Web.Models.HomegameModels.List
         public string Name { get; private set; }
         public string Url { get; private set; }
 
-        public BunchListItemModel(BunchListItem bunchListItem)
+        public BunchListItemModel(BunchList.ResultItem bunchListItem)
         {
             Name = bunchListItem.DisplayName;
             Url = bunchListItem.Url.Relative;

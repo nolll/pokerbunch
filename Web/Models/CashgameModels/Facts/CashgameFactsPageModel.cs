@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.CashgameFacts;
 using Web.Models.PageBaseModels;
 
@@ -25,7 +25,7 @@ namespace Web.Models.CashgameModels.Facts
         public string BiggestTotalCashoutAmount { get; private set; }
 
 	    public CashgameFactsPageModel(
-            CashgameContextResult cashgameContextResult,
+            CashgameContext.Result cashgameContextResult,
             CashgameFactsResult factsResult) :
             base(
             "Cashgame Facts",

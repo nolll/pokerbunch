@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.CashgameCurrentRankings;
 using Core.UseCases.CashgameStatus;
 using Web.Models.CashgameModels.CurrentRankings;
@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Index
         public CashgameStatusModel StatusModel { get; private set; }
         public CurrentRankingsTableModel CurrentRankingsModel { get; private set; }
 
-        public CashgameIndexPageModel(CashgameContextResult contextResult, CashgameStatusResult statusResult, CurrentRankingsResult currentRankingsResult)
+        public CashgameIndexPageModel(CashgameContext.Result contextResult, CashgameStatusResult statusResult, CurrentRankingsResult currentRankingsResult)
             : base(
                 "Cashgames",
                 contextResult)

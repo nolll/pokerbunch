@@ -1,4 +1,4 @@
-﻿using Core.UseCases.BaseContext;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -22,9 +22,9 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.IsInProduction);
         }
 
-        private BaseContextInteractor Sut
+        private BaseContext Sut
         {
-            get { return new BaseContextInteractor(); }
+            get { return new BaseContext(); }
         }
     }
 }

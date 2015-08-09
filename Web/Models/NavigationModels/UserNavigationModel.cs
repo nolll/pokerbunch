@@ -1,23 +1,23 @@
 using System.Collections.Generic;
-using Core.UseCases.AppContext;
+using Core.UseCases;
 
 namespace Web.Models.NavigationModels
 {
     public class UserNavigationModel : NavigationModel
     {
-        public UserNavigationModel(AppContextResult appContextResult)
+        public UserNavigationModel(AppContext.Result appContextResult)
         {
             Heading = "Account";
             CssClass = "user-nav";
             Nodes = GetNodes(appContextResult);
         }
 
-        private IList<NavigationNode> GetNodes(AppContextResult appContextResult)
+        private IList<NavigationNode> GetNodes(AppContext.Result appContextResult)
         {
             return appContextResult.IsLoggedIn ? GetLoggedInNodes(appContextResult) : GetAnonymousNodes(appContextResult);
         }
 
-        private IList<NavigationNode> GetAnonymousNodes(AppContextResult appContextResult)
+        private IList<NavigationNode> GetAnonymousNodes(AppContext.Result appContextResult)
         {
             return new List<NavigationNode>
                 {
@@ -27,7 +27,7 @@ namespace Web.Models.NavigationModels
                 };
         }
 
-        private IList<NavigationNode> GetLoggedInNodes(AppContextResult appContextResult)
+        private IList<NavigationNode> GetLoggedInNodes(AppContext.Result appContextResult)
         {
             return new List<NavigationNode>
                 {

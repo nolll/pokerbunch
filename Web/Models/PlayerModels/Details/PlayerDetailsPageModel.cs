@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.BunchContext;
 using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerFacts;
 using Web.Components.PlayerModels.Badges;
@@ -21,7 +20,7 @@ namespace Web.Models.PlayerModels.Details
         public PlayerFactsModel PlayerFactsModel { get; private set; }
         public BadgeListModel BadgeListModel { get; private set; }
 
-        public PlayerDetailsPageModel(BunchContextResult contextResult, PlayerDetails.Result detailsResult, PlayerFactsResult factsResult, PlayerBadgesResult badgesResult)
+        public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFactsResult factsResult, PlayerBadgesResult badgesResult)
             : base("Player Details", contextResult)
         {
             DisplayName = detailsResult.DisplayName;

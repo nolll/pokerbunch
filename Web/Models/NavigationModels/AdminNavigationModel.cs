@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using Core.Urls;
-using Core.UseCases.AppContext;
+using Core.UseCases;
 
 namespace Web.Models.NavigationModels
 {
     public class AdminNavigationModel : NavigationModel
     {
-        public AdminNavigationModel(AppContextResult appContext)
+        public AdminNavigationModel(AppContext.Result appContext)
         {
             Heading = "Admin";
             Nodes = GetNodes(appContext);
         }
 
-        private IList<NavigationNode> GetNodes(AppContextResult appContext)
+        private IList<NavigationNode> GetNodes(AppContext.Result appContext)
         {
             return appContext.IsAdmin ? GetAdminNodeList() : new List<NavigationNode>();
         }

@@ -1,4 +1,4 @@
-using Core.UseCases.AppContext;
+using Core.UseCases;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Add
@@ -9,7 +9,7 @@ namespace Web.Models.UserModels.Add
         public string DisplayName { get; private set; }
         public string Email { get; private set; }
 
-        public AddUserPageModel(AppContextResult contextResult, AddUserPostModel postModel)
+        public AddUserPageModel(AppContext.Result contextResult, AddUserPostModel postModel)
             : base("Register", contextResult)
         {
             if (postModel == null) return;

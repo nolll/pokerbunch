@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Web.Extensions;
 
 namespace Web.Components.NavigationModels
@@ -25,47 +25,47 @@ namespace Web.Components.NavigationModels
         public string FactsName { get; private set; }
         public string FactsSelectedClass { get; private set; }
 
-	    public CashgamePageNavigationModel(CashgameContextResult cashgameContextResult)
+	    public CashgamePageNavigationModel(CashgameContext.Result cashgameContextResult)
 	    {
 	        var selectedPage = cashgameContextResult.SelectedPage;
 
             SelectedName = GetPageName(selectedPage);
             OverviewUrl = cashgameContextResult.StartPageUrl.Relative;
-	        OverviewName = GetPageName(CashgamePage.Overview);
-            OverviewSelectedClass = GetSelectedClass(CashgamePage.Overview, selectedPage);
+	        OverviewName = GetPageName(CashgameContext.CashgamePage.Overview);
+            OverviewSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Overview, selectedPage);
             MatrixUrl = cashgameContextResult.MatrixUrl.Relative;
-            MatrixName = GetPageName(CashgamePage.Matrix);
-            MatrixSelectedClass = GetSelectedClass(CashgamePage.Matrix, selectedPage);
+            MatrixName = GetPageName(CashgameContext.CashgamePage.Matrix);
+            MatrixSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Matrix, selectedPage);
             ToplistUrl = cashgameContextResult.ToplistUrl.Relative;
-            ToplistName = GetPageName(CashgamePage.Toplist);
-            ToplistSelectedClass = GetSelectedClass(CashgamePage.Toplist, selectedPage);
+            ToplistName = GetPageName(CashgameContext.CashgamePage.Toplist);
+            ToplistSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Toplist, selectedPage);
             ChartUrl = cashgameContextResult.ChartUrl.Relative;
-            ChartName = GetPageName(CashgamePage.Chart);
-            ChartSelectedClass = GetSelectedClass(CashgamePage.Chart, selectedPage);
+            ChartName = GetPageName(CashgameContext.CashgamePage.Chart);
+            ChartSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Chart, selectedPage);
             ListUrl = cashgameContextResult.ListUrl.Relative;
-            ListName = GetPageName(CashgamePage.List);
-            ListSelectedClass = GetSelectedClass(CashgamePage.List, selectedPage);
+            ListName = GetPageName(CashgameContext.CashgamePage.List);
+            ListSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.List, selectedPage);
             FactsUrl = cashgameContextResult.FactsUrl.Relative;
-            FactsName = GetPageName(CashgamePage.Facts);
-            FactsSelectedClass = GetSelectedClass(CashgamePage.Facts, selectedPage);
+            FactsName = GetPageName(CashgameContext.CashgamePage.Facts);
+            FactsSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Facts, selectedPage);
 	    }
 
-	    private string GetPageName(CashgamePage page)
+	    private string GetPageName(CashgameContext.CashgamePage page)
 	    {
-	        if (page == CashgamePage.Matrix)
+	        if (page == CashgameContext.CashgamePage.Matrix)
 	            return "Matrix";
-	        if (page == CashgamePage.Toplist)
+	        if (page == CashgameContext.CashgamePage.Toplist)
 	            return "Toplist";
-	        if (page == CashgamePage.Chart)
+	        if (page == CashgameContext.CashgamePage.Chart)
 	            return "Chart";
-	        if (page == CashgamePage.List)
+	        if (page == CashgameContext.CashgamePage.List)
 	            return "List";
-	        if (page == CashgamePage.Facts)
+	        if (page == CashgameContext.CashgamePage.Facts)
 	            return "Facts";
             return "Overview";
 	    }
 
-        private string GetSelectedClass(CashgamePage current, CashgamePage selected)
+        private string GetSelectedClass(CashgameContext.CashgamePage current, CashgameContext.CashgamePage selected)
         {
             return current.Equals(selected) ? "selected" : null;
         }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.BunchList;
+using Core.UseCases;
 
 namespace Web.Models.HomegameModels.List
 {
@@ -8,7 +8,7 @@ namespace Web.Models.HomegameModels.List
     {
         public List<BunchListItemModel> BunchModels { get; private set; }
 
-        public BunchListModel(BunchListResult bunchListResult)
+        public BunchListModel(BunchList.Result bunchListResult)
         {
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();
         }

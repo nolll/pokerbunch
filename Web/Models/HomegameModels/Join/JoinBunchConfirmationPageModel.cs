@@ -1,4 +1,4 @@
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 using Core.UseCases.JoinBunchConfirmation;
 using Web.Models.PageBaseModels;
 
@@ -9,7 +9,7 @@ namespace Web.Models.HomegameModels.Join
         public string BunchName { get; private set; }
         public string BunchUrl { get; private set; }
 
-        public JoinBunchConfirmationPageModel(BunchContextResult contextResult, JoinBunchConfirmationResult joinBunchConfirmationResult)
+        public JoinBunchConfirmationPageModel(BunchContext.Result contextResult, JoinBunchConfirmationResult joinBunchConfirmationResult)
             : base("Welcome", contextResult)
         {
             BunchName = joinBunchConfirmationResult.BunchName;

@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Web.Components.NavigationModels;
 using Web.Models.NavigationModels;
 
@@ -9,10 +9,10 @@ namespace Web.Models.PageBaseModels
         public CashgamePageNavigationModel PageNavModel { get; private set; }
         public CashgameYearNavigationModel YearNavModel { get; private set; }
 
-        protected CashgamePageModel(string browserTitle, CashgameContextResult cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
+        protected CashgamePageModel(string browserTitle, CashgameContext.Result cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
         {
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult);
-            YearNavModel = cashgameContextResult.SelectedPage != CashgamePage.Overview ? new CashgameYearNavigationModel(cashgameContextResult) : null;
+            YearNavModel = cashgameContextResult.SelectedPage != CashgameContext.CashgamePage.Overview ? new CashgameYearNavigationModel(cashgameContextResult) : null;
         }
 
         public override string Layout

@@ -1,5 +1,5 @@
 using System;
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 using Core.UseCases.EditCheckpointForm;
 using Web.Models.PageBaseModels;
 
@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Checkpoints
         public int Stack { get; private set; }
         public int Amount { get; private set; }
 
-        public EditCheckpointPageModel(BunchContextResult contextResult, EditCheckpointFormResult editCheckpointFormResult, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointFormResult editCheckpointFormResult, EditCheckpointPostModel postModel)
             : base("Edit Checkpoint", contextResult)
         {
             Stack = editCheckpointFormResult.Stack;

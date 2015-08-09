@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add
@@ -13,7 +12,7 @@ namespace Web.Models.CashgameModels.Add
         public string TypedLocation { get; private set; }
         public string SelectedLocation { get; private set; }
 
-        public AddCashgamePageModel(BunchContextResult contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
+        public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
             : base("New Cashgame", contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);

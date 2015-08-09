@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.CashgameList;
 using Web.Models.PageBaseModels;
 
@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.List
     {
         public CashgameListTableModel ListTableModel { get; private set; }
 
-        public CashgameListPageModel(CashgameContextResult cashgameContextResult, CashgameListResult listResult)
+        public CashgameListPageModel(CashgameContext.Result cashgameContextResult, CashgameListResult listResult)
             : base("Cashgame List", cashgameContextResult)
         {
             ListTableModel = new CashgameListTableModel(listResult);

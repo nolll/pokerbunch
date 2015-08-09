@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 using Core.UseCases.PlayerList;
 using Web.Models.PageBaseModels;
 
@@ -12,7 +12,7 @@ namespace Web.Models.PlayerModels.List
 	    public string AddUrl { get; private set; }
 	    public bool ShowAddLink { get; private set; }
 
-        public PlayerListPageModel(BunchContextResult contextResult, PlayerListResult playerListResult)
+        public PlayerListPageModel(BunchContext.Result contextResult, PlayerListResult playerListResult)
             : base("Player List", contextResult)
         {
             PlayerModels = playerListResult.Players.Select(item => new PlayerItemModel(item)).ToList();

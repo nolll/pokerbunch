@@ -1,6 +1,6 @@
 using System;
 using System.Web.Mvc;
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.CashgameList;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.List;
@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route("{slug}/cashgame/list/{year?}")]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgamePage.List, year);
+            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);
             RequirePlayer(contextResult.BunchContext);
             var listResult = UseCase.CashgameList.Execute(new CashgameListRequest(slug, orderBy, year));
 

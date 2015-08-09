@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.AppContext;
-using Core.UseCases.BunchList;
+using Core.UseCases;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.List
@@ -10,7 +9,7 @@ namespace Web.Models.HomegameModels.List
     {
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 
-	    public BunchListPageModel(AppContextResult contextResult, BunchListResult bunchListResult)
+	    public BunchListPageModel(AppContext.Result contextResult, BunchList.Result bunchListResult)
             : base("Bunches", contextResult)
 	    {
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();

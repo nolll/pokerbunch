@@ -1,12 +1,11 @@
-using Core.UseCases.AppContext;
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 
 namespace Tests.Common.FakeClasses
 {
-    public class AppContextResultInTest : AppContextResult
+    public class AppContextResultInTest : AppContext.Result
     {
         public AppContextResultInTest(
-            BaseContextResult baseContextResult = null,
+            BaseContext.Result baseContextResult = null,
             bool isLoggedIn = false,
             bool isAdmin = false,
             int userId = 0,

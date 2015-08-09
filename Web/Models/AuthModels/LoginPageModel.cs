@@ -1,4 +1,4 @@
-using Core.UseCases.AppContext;
+using Core.UseCases;
 using Core.UseCases.LoginForm;
 using Web.Models.PageBaseModels;
 
@@ -12,7 +12,7 @@ namespace Web.Models.AuthModels
         public bool RememberMe { get; private set; }
         public string ReturnUrl { get; private set; }
 
-        public LoginPageModel(AppContextResult contextResult, LoginFormResult loginFormResult, LoginPostModel postModel)
+        public LoginPageModel(AppContext.Result contextResult, LoginFormResult loginFormResult, LoginPostModel postModel)
             : base("Login", contextResult)
         {
             ReturnUrl = loginFormResult.ReturnUrl.Relative;

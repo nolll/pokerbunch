@@ -1,4 +1,4 @@
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 using Web.Models.NavigationModels;
 
 namespace Web.Models.PageBaseModels
@@ -7,7 +7,7 @@ namespace Web.Models.PageBaseModels
     {
         public BunchNavigationModel BunchNavModel { get; private set; }
 
-        protected BunchPageModel(string browserTitle, BunchContextResult bunchContextResult)
+        protected BunchPageModel(string browserTitle, BunchContext.Result bunchContextResult)
             : base(browserTitle, bunchContextResult.AppContext)
         {
             BunchNavModel = GetBunchNavModel(bunchContextResult);
@@ -18,7 +18,7 @@ namespace Web.Models.PageBaseModels
             get { return ContextLayout.Bunch; }
         }
 
-        private BunchNavigationModel GetBunchNavModel(BunchContextResult bunchContextResult)
+        private BunchNavigationModel GetBunchNavModel(BunchContext.Result bunchContextResult)
         {
             if (bunchContextResult.HasBunch)
                 return new BunchNavigationModel(bunchContextResult);

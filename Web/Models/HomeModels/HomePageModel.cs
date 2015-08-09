@@ -1,6 +1,5 @@
 using Core.Urls;
-using Core.UseCases.BunchContext;
-using Core.UseCases.BunchList;
+using Core.UseCases;
 using Web.Models.HomegameModels.List;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
@@ -16,7 +15,7 @@ namespace Web.Models.HomeModels
         public NavigationModel AdminNav { get; private set; }
         public BunchListModel BunchList { get; private set; }
 
-        public HomePageModel(BunchContextResult contextResult, BunchListResult bunchListResult)
+        public HomePageModel(BunchContext.Result contextResult, BunchList.Result bunchListResult)
             : base("Poker Bunch", contextResult)
         {
             IsLoggedIn = contextResult.AppContext.IsLoggedIn;

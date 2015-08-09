@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Exceptions;
-using Core.UseCases.Buyin;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidBuyin_ReturnsError()
         {
-            var request = new BuyinRequest(TestData.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
+            var request = new Buyin.Request(TestData.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidStackSize_ReturnsError()
         {
-            var request = new BuyinRequest(TestData.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
+            var request = new Buyin.Request(TestData.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
 
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new BuyinRequest(TestData.SlugA, PlayerId, buyin, stack, timestamp);
+            var request = new Buyin.Request(TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
             var result = Repos.Checkpoint.Added;
@@ -53,11 +53,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(savedStack, result.Stack);
         }
 
-        private BuyinInteractor Sut
+        private Buyin Sut
         {
             get
             {
-                return new BuyinInteractor(
+                return new Buyin(
                     Repos.Bunch,
                     Repos.Player,
                     Repos.Cashgame,

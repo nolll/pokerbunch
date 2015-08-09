@@ -1,4 +1,4 @@
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 
 namespace Web.Models.MiscModels
 {
@@ -6,7 +6,7 @@ namespace Web.Models.MiscModels
     {
         public bool EnableAnalytics { get; private set; }
 
-        public GoogleAnalyticsModel(BaseContextResult baseContextResult)
+        public GoogleAnalyticsModel(BaseContext.Result baseContextResult)
         {
             EnableAnalytics = baseContextResult.IsInProduction;
         }

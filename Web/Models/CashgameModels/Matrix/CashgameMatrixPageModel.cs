@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using Core.UseCases.Matrix;
 using Web.Models.PageBaseModels;
 
@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.Matrix
     {
         public CashgameMatrixTableModel TableModel { get; private set; }
 
-        public CashgameMatrixPageModel(CashgameContextResult cashgameContextResult, MatrixResult matrixResult)
+        public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, MatrixResult matrixResult)
             : base("Cashgame Matrix", cashgameContextResult)
         {
             TableModel = new CashgameMatrixTableModel(matrixResult);

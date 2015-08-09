@@ -1,8 +1,8 @@
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 
 namespace Tests.Common.FakeClasses
 {
-    public class BaseContextResultInTest : BaseContextResult
+    public class BaseContextResultInTest : BaseContext.Result
     {
         public BaseContextResultInTest(
             bool isInProduction = false,

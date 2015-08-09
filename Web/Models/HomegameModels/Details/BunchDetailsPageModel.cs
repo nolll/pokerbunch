@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.BunchContext;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Details
@@ -13,7 +12,7 @@ namespace Web.Models.HomegameModels.Details
         public string EditUrl { get; private set; }
         public bool ShowEditLink { get; private set; }
 
-        public BunchDetailsPageModel(BunchContextResult contextResult, BunchDetails.Result bunchDetails)
+        public BunchDetailsPageModel(BunchContext.Result contextResult, BunchDetails.Result bunchDetails)
             : base("Bunch Details", contextResult)
         {
             DisplayName = bunchDetails.BunchName;

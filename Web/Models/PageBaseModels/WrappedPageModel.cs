@@ -1,10 +1,10 @@
-using Core.UseCases.BaseContext;
+using Core.UseCases;
 
 namespace Web.Models.PageBaseModels
 {
     public abstract class WrappedPageModel : PageModel
     {
-        protected WrappedPageModel(string browserTitle, BaseContextResult contextResult)
+        protected WrappedPageModel(string browserTitle, BaseContext.Result contextResult)
             : base(browserTitle, contextResult)
         {
         }

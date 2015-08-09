@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.Buyin;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Buyin;
 
@@ -17,7 +17,7 @@ namespace Web.Controllers
             var bunchContext = GetBunchContext(slug);
             if(!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
-            var request = new BuyinRequest(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);
+            var request = new Buyin.Request(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);
             UseCase.Buyin.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

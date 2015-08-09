@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.AppContext;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 
@@ -17,7 +16,7 @@ namespace Web.Models.UserModels
         public bool ShowPasswordLink { get; private set; }
         public AvatarModel AvatarModel { get; private set; }
 
-        public UserDetailsPageModel(AppContextResult contextResult, UserDetails.Result userDetails)
+        public UserDetailsPageModel(AppContext.Result contextResult, UserDetails.Result userDetails)
             : base("User Details", contextResult)
         {
             UserName = userDetails.UserName;

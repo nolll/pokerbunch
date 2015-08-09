@@ -1,4 +1,4 @@
-﻿using Core.UseCases.BunchList;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -18,9 +18,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.BunchB.DisplayName, result.Bunches[1].DisplayName);
         }
 
-        private BunchListInteractor Sut
+        private BunchList Sut
         {
-            get { return new BunchListInteractor(Repos.Bunch, Repos.User); }
+            get { return new BunchList(Repos.Bunch, Repos.User); }
         }
     }
 }

@@ -1,6 +1,5 @@
 using Core.Services;
 using Core.UseCases;
-using Core.UseCases.BunchContext;
 using Core.UseCases.CashgameDetailsChart;
 using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
@@ -22,7 +21,7 @@ namespace Web.Models.CashgameModels.Details
         public string ChartJson { get; private set; }
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
 
-        public CashgameDetailsPageModel(BunchContextResult contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChartResult cashgameDetailsChartResult)
+        public CashgameDetailsPageModel(BunchContext.Result contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChartResult cashgameDetailsChartResult)
             : base("Cashgame", contextResult)
         {
             var date = Globalization.FormatShortDate(detailsResult.Date, true);

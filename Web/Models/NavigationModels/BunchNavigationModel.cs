@@ -1,4 +1,4 @@
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 
 namespace Web.Models.NavigationModels
 {
@@ -16,7 +16,7 @@ namespace Web.Models.NavigationModels
             IsEmpty = false;
         }
 
-        public BunchNavigationModel(BunchContextResult bunchContextResult)
+        public BunchNavigationModel(BunchContext.Result bunchContextResult)
             : this()
         {
             Heading = bunchContextResult.BunchName;

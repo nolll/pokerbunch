@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 
 namespace Web.Models.NavigationModels
 {
@@ -8,7 +8,7 @@ namespace Web.Models.NavigationModels
         public string Url { get; private set; }
         public string SelectedCssClass { get; private set; }
 
-        public NavigationYearModel(YearItem yearItem)
+        public NavigationYearModel(CashgameContext.YearItem yearItem)
         {
             Text = yearItem.Label;
             Url = yearItem.Url.Relative;

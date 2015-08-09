@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.UseCases.BunchContext;
-using Core.UseCases.CashgameContext;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -14,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow, CashgamePage.Unknown, year);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow, CashgameContext.CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -25,11 +24,11 @@ namespace Tests.Core.UseCases
         public void Execute_BunchContextIsSet()
         {
             const string slug = "a";
-            var cashgameContextRequest = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow);
+            var cashgameContextRequest = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow);
 
             var result = Sut.Execute(cashgameContextRequest);
 
-            Assert.IsInstanceOf<BunchContextResult>(result.BunchContext);
+            Assert.IsInstanceOf<BunchContext.Result>(result.BunchContext);
         }
 
         [Test]
@@ -37,7 +36,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow, CashgamePage.Unknown, year);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow, CashgameContext.CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -48,7 +47,7 @@ namespace Tests.Core.UseCases
         public void Execute_WithoutYear_SelectedYearIsNull()
         {
             const string slug = "a";
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
@@ -60,7 +59,7 @@ namespace Tests.Core.UseCases
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow, CashgamePage.Unknown, year);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow, CashgameContext.CashgamePage.Unknown, year);
 
             var result = Sut.Execute(request);
 
@@ -73,23 +72,23 @@ namespace Tests.Core.UseCases
             Repos.Cashgame.SetupRunningGame();
 
             const string slug = "a";
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.GameIsRunning);
         }
 
-        [TestCase(CashgamePage.Matrix, "/a/cashgame/matrix")]
-        [TestCase(CashgamePage.Toplist, "/a/cashgame/toplist")]
-        [TestCase(CashgamePage.Chart, "/a/cashgame/chart")]
-        [TestCase(CashgamePage.List, "/a/cashgame/list")]
-        [TestCase(CashgamePage.Facts, "/a/cashgame/facts")]
-        public void Execute_SelectedPage_SelectedPageAndLastYearUrlIsCorrect(CashgamePage selectedPage, string url)
+        [TestCase(CashgameContext.CashgamePage.Matrix, "/a/cashgame/matrix")]
+        [TestCase(CashgameContext.CashgamePage.Toplist, "/a/cashgame/toplist")]
+        [TestCase(CashgameContext.CashgamePage.Chart, "/a/cashgame/chart")]
+        [TestCase(CashgameContext.CashgamePage.List, "/a/cashgame/list")]
+        [TestCase(CashgameContext.CashgamePage.Facts, "/a/cashgame/facts")]
+        public void Execute_SelectedPage_SelectedPageAndLastYearUrlIsCorrect(CashgameContext.CashgamePage selectedPage, string url)
         {
             const string slug = "a";
             const int year = 1;
-            var request = new CashgameContextRequest(TestData.UserNameA, slug, DateTime.UtcNow, selectedPage, year);
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow, selectedPage, year);
 
             var result = Sut.Execute(request);
 
@@ -97,11 +96,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(url, result.YearItems.Last().Url.Relative);
         }
 
-        private CashgameContextInteractor Sut
+        private CashgameContext Sut
         {
             get
             {
-                return new CashgameContextInteractor(
+                return new CashgameContext(
                     Repos.User,
                     Repos.Bunch,
                     Repos.Cashgame,

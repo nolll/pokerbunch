@@ -1,13 +1,12 @@
 ﻿using Core.Entities;
-using Core.UseCases.AppContext;
-using Core.UseCases.BunchContext;
+using Core.UseCases;
 
 namespace Tests.Common.FakeClasses
 {
-    public class BunchContextResultInTest : BunchContextResult
+    public class BunchContextResultInTest : BunchContext.Result
     {
         public BunchContextResultInTest(
-            AppContextResult appContextResult = null,
+            AppContext.Result appContextResult = null,
             string slug = null, 
             int bunchId = default(int), 
             string bunchName = null,
