@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.UseCases.InvitePlayer;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -45,16 +45,16 @@ If you don't have an account, you can register at http://pokerbunch.com/test";
             Assert.AreEqual(body, Services.MessageSender.Message.Body);
         }
 
-        private static InvitePlayerRequest CreateRequest(string email = TestData.UserEmailA)
+        private static InvitePlayer.Request CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayerRequest(TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
+            return new InvitePlayer.Request(TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
         }
 
-        private InvitePlayerInteractor Sut
+        private InvitePlayer Sut
         {
             get
             {
-                return new InvitePlayerInteractor(
+                return new InvitePlayer(
                     Repos.Bunch,
                     Repos.Player,
                     Services.MessageSender);

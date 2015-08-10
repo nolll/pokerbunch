@@ -1,5 +1,5 @@
 using Core.Exceptions;
-using Core.UseCases.JoinBunch;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         public void JoinBunch_EmptyCode_ThrowsValidationException()
         {
             const string code = "";
-            var request = new JoinBunchRequest(TestData.SlugA, TestData.UserNameA, code);
+            var request = new JoinBunch.Request(TestData.SlugA, TestData.UserNameA, code);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         public void JoinBunch_InvalidCode_InvalidJoinCodeException()
         {
             const string code = "abc";
-            var request = new JoinBunchRequest(TestData.SlugA, TestData.UserNameA, code);
+            var request = new JoinBunch.Request(TestData.SlugA, TestData.UserNameA, code);
 
             Assert.Throws<InvalidJoinCodeException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunch_ValidCode_JoinsBunch()
         {
-            var request = new JoinBunchRequest(TestData.SlugA, TestData.UserNameA, ValidCode);
+            var request = new JoinBunch.Request(TestData.SlugA, TestData.UserNameA, ValidCode);
 
             var result = Sut.Execute(request);
             Assert.AreEqual("/bunch-a/homegame/joined", result.ReturnUrl.Relative);
@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunch_ValidCode_ReturnsConfirmationUrl()
         {
-            var request = new JoinBunchRequest(TestData.SlugA, TestData.UserNameA, ValidCode);
+            var request = new JoinBunch.Request(TestData.SlugA, TestData.UserNameA, ValidCode);
 
             Sut.Execute(request);
             Assert.AreEqual(TestData.PlayerA.Id, Repos.Player.Joined.PlayerId);
@@ -47,11 +47,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.UserA.Id, Repos.Player.Joined.UserId);
         }
 
-        private JoinBunchInteractor Sut
+        private JoinBunch Sut
         {
             get
             {
-                return new JoinBunchInteractor(
+                return new JoinBunch(
                     Repos.Bunch,
                     Repos.Player,
                     Repos.User);

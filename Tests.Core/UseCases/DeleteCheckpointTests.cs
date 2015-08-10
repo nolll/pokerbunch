@@ -1,4 +1,4 @@
-using Core.UseCases.DeleteCheckpoint;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeleteCheckpoint_EndedGame_DeletesCheckpointAndReturnsCorrectReturnUrl()
         {
-            var request = new DeleteCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.ReportCheckpointId);
+            var request = new DeleteCheckpoint.Request(TestData.SlugA, TestData.DateStringA, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
@@ -21,18 +21,18 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new DeleteCheckpointRequest(TestData.SlugA, TestData.DateStringC, TestData.ReportCheckpointId);
+            var request = new DeleteCheckpoint.Request(TestData.SlugA, TestData.DateStringC, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
             Assert.AreEqual("/bunch-a/cashgame/running", result.ReturnUrl.Relative);
         }
 
-        private DeleteCheckpointInteractor Sut
+        private DeleteCheckpoint Sut
         {
             get
             {
-                return new DeleteCheckpointInteractor(
+                return new DeleteCheckpoint(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Checkpoint);

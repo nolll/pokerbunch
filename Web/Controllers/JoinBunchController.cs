@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.JoinBunch;
+using Core.UseCases;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
 using Web.Controllers.Base;
@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new JoinBunchRequest(slug, CurrentUserName, postModel.Code);
+                var request = new JoinBunch.Request(slug, CurrentUserName, postModel.Code);
                 var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

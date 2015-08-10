@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.UseCases.EventList;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.EventModels.List;
 
@@ -13,7 +13,7 @@ namespace Web.Controllers
         {
             var contextResult = GetBunchContext(slug);
             RequirePlayer(contextResult);
-            var eventListOutput = UseCase.EventList.Execute(new EventListInput(slug));
+            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);
             return View("~/Views/Pages/EventList/EventList.cshtml", model);
         }

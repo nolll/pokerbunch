@@ -1,4 +1,4 @@
-﻿using Core.UseCases.DeletePlayer;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             const int playerIdThatHasNotPlayed = 3;
 
-            var request = new DeletePlayerRequest(TestData.SlugA, playerIdThatHasNotPlayed);
+            var request = new DeletePlayer.Request(TestData.SlugA, playerIdThatHasNotPlayed);
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.Deleted);
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeletePlayer_PlayerHasPlayed_ReturnUrlIsPlayerDetails()
         {
-            var request = new DeletePlayerRequest(TestData.SlugA, TestData.PlayerIdA);
+            var request = new DeletePlayer.Request(TestData.SlugA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.IsFalse(result.Deleted);
@@ -31,11 +31,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.PlayerIdA, result.PlayerId);
         }
 
-        private DeletePlayerInteractor Sut
+        private DeletePlayer Sut
         {
             get
             {
-                return new DeletePlayerInteractor(
+                return new DeletePlayer(
                     Repos.Player,
                     Repos.Cashgame);
             }

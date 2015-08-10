@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Core.UseCases.EventList;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -51,19 +51,19 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/bunch-a/event/details/1", result.Events[1].EventDetailsUrl.Relative);
         }
 
-        private EventListInteractor Sut
+        private EventList Sut
         {
             get
             {
-                return new EventListInteractor(
+                return new EventList(
                     Repos.Bunch,
                     Repos.Event);
             }
         }
         
-        private EventListInput CreateInput()
+        private EventList.Request CreateInput()
         {
-            return new EventListInput(TestData.SlugA);
+            return new EventList.Request(TestData.SlugA);
         }
     }
 }

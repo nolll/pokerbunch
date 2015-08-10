@@ -1,6 +1,6 @@
 using System;
 using Core.Exceptions;
-using Core.UseCases.Report;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new ReportRequest(TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
+            var request = new Report.Request(TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -24,17 +24,17 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new ReportRequest(TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
+            var request = new Report.Request(TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
             Assert.AreEqual(stack, Repos.Checkpoint.Added.Stack);
         }
 
-        private ReportInteractor Sut
+        private Report Sut
         {
             get
             {
-                return new ReportInteractor(
+                return new Report(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,

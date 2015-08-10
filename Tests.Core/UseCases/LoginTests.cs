@@ -1,5 +1,5 @@
 ﻿using Core.Exceptions;
-using Core.UseCases.Login;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Login_UserNotFound_ThrowsException()
         {
-            var request = new LoginRequest("username-that-does-not-exist", "");
+            var request = new Login.Request("username-that-does-not-exist", "");
 
             Assert.Throws<LoginException>(() => Sut.Execute(request));
         }
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Login_UserFoundButPasswordIsWrong_ThrowsException()
         {
-            var request = new LoginRequest(TestData.UserA.UserName, TestData.UserB.UserName);
+            var request = new Login.Request(TestData.UserA.UserName, TestData.UserB.UserName);
 
             Assert.Throws<LoginException>(() => Sut.Execute(request));
         }
@@ -39,14 +39,14 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.UserA.UserName, result.UserName);
         }
       
-        private static LoginRequest CreateRequest()
+        private static Login.Request CreateRequest()
         {
-            return new LoginRequest(TestData.UserA.UserName, TestData.UserPasswordA);
+            return new Login.Request(TestData.UserA.UserName, TestData.UserPasswordA);
         }
 
-        private LoginInteractor Sut
+        private Login Sut
         {
-            get { return new LoginInteractor(Repos.User); }
+            get { return new Login(Repos.User); }
         }
     }
 }

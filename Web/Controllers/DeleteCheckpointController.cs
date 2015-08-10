@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.UseCases.DeleteCheckpoint;
+using Core.UseCases;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             var context = GetBunchContext(slug);
             RequireManager(context);
-            var request = new DeleteCheckpointRequest(slug, dateStr, checkpointId);
+            var request = new DeleteCheckpoint.Request(slug, dateStr, checkpointId);
             var result = UseCase.DeleteCheckpoint.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
         }

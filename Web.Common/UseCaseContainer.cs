@@ -4,9 +4,6 @@ using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
 using Core.UseCases.ClearCache;
-using Core.UseCases.DeleteCashgame;
-using Core.UseCases.DeleteCheckpoint;
-using Core.UseCases.DeletePlayer;
 using Core.UseCases.EditBunch;
 using Core.UseCases.EditBunchForm;
 using Core.UseCases.EditCashgame;
@@ -16,18 +13,12 @@ using Core.UseCases.EditCheckpointForm;
 using Core.UseCases.EditUser;
 using Core.UseCases.EditUserForm;
 using Core.UseCases.EndCashgame;
-using Core.UseCases.EventList;
-using Core.UseCases.ForgotPassword;
-using Core.UseCases.InvitePlayer;
-using Core.UseCases.JoinBunch;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
-using Core.UseCases.Login;
 using Core.UseCases.Matrix;
 using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
-using Core.UseCases.Report;
 using Core.UseCases.RunningCashgame;
 using Core.UseCases.UserList;
 using Plumbing;
@@ -46,7 +37,7 @@ namespace Web.Common
 
         // Auth and Home
         public LoginForm LoginForm { get { return new LoginForm(); } }
-        public LoginInteractor Login { get { return new LoginInteractor(_deps.UserRepository); } }
+        public Login Login { get { return new Login(_deps.UserRepository); } }
 
         // Admin
         public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender); } }
@@ -58,7 +49,7 @@ namespace Web.Common
         public AddUser AddUser { get { return new AddUser(_deps.UserRepository, _deps.RandomService, _deps.MessageSender); } }
         public EditUserFormInteractor EditUserForm { get { return new EditUserFormInteractor(_deps.UserRepository); } }
         public EditUserInteractor EditUser { get { return new EditUserInteractor(_deps.UserRepository); } }
-        public ForgotPasswordInteractor ForgotPassword { get { return new ForgotPasswordInteractor(_deps.UserRepository, _deps.MessageSender, _deps.RandomService); } }
+        public ForgotPassword ForgotPassword { get { return new ForgotPassword(_deps.UserRepository, _deps.MessageSender, _deps.RandomService); } }
         public ChangePasswordInteractor ChangePassword { get { return new ChangePasswordInteractor(_deps.UserRepository, _deps.RandomService); } } 
 
         // Bunch
@@ -69,11 +60,11 @@ namespace Web.Common
         public EditBunchFormInteractor EditBunchForm { get { return new EditBunchFormInteractor(_deps.BunchRepository); } }
         public EditBunchInteractor EditBunch { get { return new EditBunchInteractor(_deps.BunchRepository); } }
         public JoinBunchFormInteractor JoinBunchForm { get { return new JoinBunchFormInteractor(_deps.BunchRepository); } }
-        public JoinBunchInteractor JoinBunch { get { return new JoinBunchInteractor(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
+        public JoinBunch JoinBunch { get { return new JoinBunch(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public JoinBunchConfirmationInteractor JoinBunchConfirmation { get { return new JoinBunchConfirmationInteractor(_deps.BunchRepository); } }
 
         // Events
-        public EventListInteractor EventList { get { return new EventListInteractor(_deps.BunchRepository, _deps.EventRepository); } }
+        public EventList EventList { get { return new EventList(_deps.BunchRepository, _deps.EventRepository); } }
         public EventDetails EventDetails { get { return new EventDetails(_deps.EventRepository); } } 
 
         // Cashgame
@@ -95,10 +86,10 @@ namespace Web.Common
         public RunningCashgameInteractor RunningCashgame { get { return new RunningCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameFormInteractor EditCashgameForm { get { return new EditCashgameFormInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
         public EditCashgameInteractor EditCashgame { get { return new EditCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
-        public DeleteCashgameInteractor DeleteCashgame { get { return new DeleteCashgameInteractor(_deps.CashgameRepository); } }
-        public DeleteCheckpointInteractor DeleteCheckpoint { get { return new DeleteCheckpointInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
+        public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository); } }
+        public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
-        public ReportInteractor Report { get { return new ReportInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }
+        public Report Report { get { return new Report(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }
         public CashoutInteractor Cashout { get { return new CashoutInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }
         public EndCashgameInteractor EndCashgame { get { return new EndCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
         
@@ -107,8 +98,8 @@ namespace Web.Common
         public PlayerDetails PlayerDetails { get { return new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository); } }
         public PlayerFactsInteractor PlayerFacts { get { return new PlayerFactsInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public PlayerBadgesInteractor PlayerBadges { get { return new PlayerBadgesInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
-        public InvitePlayerInteractor InvitePlayer { get { return new InvitePlayerInteractor(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender); } }
+        public InvitePlayer InvitePlayer { get { return new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender); } }
         public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository); } }
-        public DeletePlayerInteractor DeletePlayer { get { return new DeletePlayerInteractor(_deps.PlayerRepository, _deps.CashgameRepository); } }
+        public DeletePlayer DeletePlayer { get { return new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository); } }
     }
 }

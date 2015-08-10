@@ -5,7 +5,6 @@ using System.Web.Security;
 using Core.Exceptions;
 using Core.Urls;
 using Core.UseCases;
-using Core.UseCases.Login;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
 
@@ -25,7 +24,7 @@ namespace Web.Controllers
         [Route("-/auth/login")]
         public ActionResult Post(LoginPostModel postModel)
         {
-            var request = new LoginRequest(postModel.LoginName, postModel.Password);
+            var request = new Login.Request(postModel.LoginName, postModel.Password);
 
             try
             {

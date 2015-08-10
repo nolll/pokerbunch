@@ -1,5 +1,5 @@
 using Core.Exceptions;
-using Core.UseCases.DeleteCashgame;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeleteCashgame_GameHasResults_ThrowsCashgameHasResultsException()
         {
-            var request = new DeleteCashgameRequest(TestData.SlugA, TestData.CashgameIdA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             Assert.Throws<CashgameHasResultsException>(() => Sut.Execute(request));
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupEmptyGame();
 
-            var request = new DeleteCashgameRequest(TestData.SlugA, TestData.CashgameIdA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             Sut.Execute(request);
 
@@ -32,18 +32,18 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupEmptyGame();
 
-            var request = new DeleteCashgameRequest(TestData.SlugA, TestData.CashgameIdA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 
             Assert.AreEqual("/bunch-a/cashgame", result.ReturnUrl.Relative);
         }
 
-        private DeleteCashgameInteractor Sut
+        private DeleteCashgame Sut
         {
             get
             {
-                return new DeleteCashgameInteractor(
+                return new DeleteCashgame(
                     Repos.Cashgame);
             }
         }

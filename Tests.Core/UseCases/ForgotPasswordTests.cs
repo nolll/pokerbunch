@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.ForgotPassword;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -61,16 +61,16 @@ Please sign in here: http://pokerbunch.com/-/auth/login";
             Assert.AreEqual("aaaaaaaaaa", savedUser.Salt);
         }
 
-        private ForgotPasswordRequest CreateRequest(string email = ValidEmail)
+        private ForgotPassword.Request CreateRequest(string email = ValidEmail)
         {
-            return new ForgotPasswordRequest(email);
+            return new ForgotPassword.Request(email);
         }
 
-        private ForgotPasswordInteractor Sut
+        private ForgotPassword Sut
         {
             get
             {
-                return new ForgotPasswordInteractor(
+                return new ForgotPassword(
                     Repos.User,
                     Services.MessageSender,
                     Services.RandomService);

@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Core.UseCases.DeleteCashgame;
+using Core.UseCases;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             var context = GetBunchContext(slug);
             RequireManager(context);
-            var request = new DeleteCashgameRequest(slug, id);
+            var request = new DeleteCashgame.Request(slug, id);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
 		}

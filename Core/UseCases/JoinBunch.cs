@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
@@ -6,22 +7,22 @@ using Core.Services;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases.JoinBunch
+namespace Core.UseCases
 {
-    public class JoinBunchInteractor
+    public class JoinBunch
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
 
-        public JoinBunchInteractor(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public JoinBunch(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
         }
 
-        public JoinBunchResult Execute(JoinBunchRequest request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -41,7 +42,7 @@ namespace Core.UseCases.JoinBunch
             }
 
             var returnUrl = new JoinBunchConfirmationUrl(request.Slug);
-            return new JoinBunchResult(returnUrl);
+            return new Result(returnUrl);
         }
         
         private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
@@ -53,6 +54,31 @@ namespace Core.UseCases.JoinBunch
                     return player;
             }
             return null;
+        }
+
+        public class Request
+        {
+            public string Slug { get; private set; }
+            public string UserName { get; private set; }
+            [Required(ErrorMessage = "Code can't be empty")]
+            public string Code { get; private set; }
+
+            public Request(string slug, string userName, string code)
+            {
+                Slug = slug;
+                UserName = userName;
+                Code = code;
+            }
+        }
+
+        public class Result
+        {
+            public Url ReturnUrl { get; private set; }
+
+            public Result(Url returnUrl)
+            {
+                ReturnUrl = returnUrl;
+            }
         }
     }
 }

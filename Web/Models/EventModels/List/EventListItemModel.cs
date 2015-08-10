@@ -1,4 +1,4 @@
-using Core.UseCases.EventList;
+using Core.UseCases;
 
 namespace Web.Models.EventModels.List
 {
@@ -10,7 +10,7 @@ namespace Web.Models.EventModels.List
         public string StartDate { get; private set; }
         public string EndDate { get; private set; }
 
-        public EventListItemModel(EventItem item)
+        public EventListItemModel(EventList.Item item)
         {
             Name = item.Name;
             DetailsUrl = item.EventDetailsUrl.Relative;

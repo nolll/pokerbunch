@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.ForgotPassword;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ForgotPassword;
 
@@ -20,7 +20,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ForgotPasswordRequest(postModel.Email);
+                var request = new ForgotPassword.Request(postModel.Email);
                 var result = UseCase.ForgotPassword.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
