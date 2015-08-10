@@ -39,7 +39,7 @@ namespace Core.UseCases.CashgameCurrentRankings
             foreach (var totalResult in suite.TotalResults)
             {
                 var lastGameResult = lastGame.GetResult(totalResult.Player.Id);
-                var item = new CurrentRankingsItem(bunch.Slug, totalResult, lastGameResult, index++, bunch.Currency);
+                var item = new CurrentRankingsItem(totalResult, lastGameResult, index++, bunch.Currency);
                 items.Add(item);
             }
             return items;

@@ -6,19 +6,22 @@ namespace Core.UseCases.PlayerFacts
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public PlayerFactsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public PlayerFactsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
         }
 
         public PlayerFactsResult Execute(PlayerFactsRequest request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var player = _playerRepository.GetById(request.PlayerId);
+            var bunch = _bunchRepository.GetById(player.BunchId);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id);
 
-            return new PlayerFactsResult(cashgames, request.PlayerId, bunch.Currency);
+            return new PlayerFactsResult(cashgames, player.Id, bunch.Currency);
         }
     }
 }

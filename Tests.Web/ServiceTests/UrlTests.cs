@@ -349,12 +349,11 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerDetailsUrl()
         {
-            const string slug = "a";
             const int playerId = 1;
 
-            var result = new PlayerDetailsUrl(slug, playerId);
+            var result = new PlayerDetailsUrl(playerId);
 
-            Assert.AreEqual("/a/player/details/1", result.Relative);
+            Assert.AreEqual("/-/player/details/1", result.Relative);
         }
 
         [Test]

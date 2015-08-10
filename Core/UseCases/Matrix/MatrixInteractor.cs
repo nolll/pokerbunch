@@ -55,10 +55,9 @@ namespace Core.UseCases.Matrix
                 var p = totalResult.Player;
                 var rank = ++index;
                 var name = p.DisplayName;
-                var playerUrl = new PlayerDetailsUrl(bunch.Slug, p.Id);
                 var results = CreatePlayerResultItems(bunch, suite.Cashgames, p);
                 var winnings = new Money(totalResult.Winnings, bunch.Currency);
-                var playerItem = new MatrixPlayerItem(rank, name, playerUrl, results, winnings);
+                var playerItem = new MatrixPlayerItem(rank, name, p.Id, results, winnings);
                 playerItems.Add(playerItem);
             }
             return playerItems;

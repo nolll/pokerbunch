@@ -1,4 +1,5 @@
 using Core.Services;
+using Core.Urls;
 using Core.UseCases.CashgameCurrentRankings;
 
 namespace Web.Models.CashgameModels.CurrentRankings
@@ -22,7 +23,7 @@ namespace Web.Models.CashgameModels.CurrentRankings
             LastGameResult = playedInLastGame ? currentRankingsItem.LastGameWinnings.String : string.Empty;
             LastGameResultClass = playedInLastGame ? ResultFormatter.GetWinningsCssClass(currentRankingsItem.LastGameWinnings) : string.Empty;
             Name = currentRankingsItem.Name;
-            PlayerUrl = currentRankingsItem.PlayerUrl.Relative;
+            PlayerUrl = new PlayerDetailsUrl(currentRankingsItem.PlayerId).Relative;
         }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using Core.Entities;
-using Core.Urls;
 
 namespace Core.UseCases.PlayerList
 {
     public class PlayerListItem
     {
         public string Name { get; private set; }
-        public Url Url { get; private set; }
+        public int Id { get; private set; }
 
-        public PlayerListItem(string slug, Player player)
+        public PlayerListItem(Player player)
         {
             Name = player.DisplayName;
-            Url = new PlayerDetailsUrl(slug, player.Id);
+            Id = player.Id;
         }
     }
 }

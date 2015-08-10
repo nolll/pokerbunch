@@ -112,8 +112,8 @@ namespace Web.Common
         // Player
         public PlayerListInteractor PlayerList { get { return new PlayerListInteractor(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public PlayerDetails PlayerDetails { get { return new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository); } }
-        public PlayerFactsInteractor PlayerFacts { get { return new PlayerFactsInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
-        public PlayerBadgesInteractor PlayerBadges { get { return new PlayerBadgesInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
+        public PlayerFactsInteractor PlayerFacts { get { return new PlayerFactsInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public PlayerBadgesInteractor PlayerBadges { get { return new PlayerBadgesInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public InvitePlayerInteractor InvitePlayer { get { return new InvitePlayerInteractor(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender); } }
         public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository); } }
         public DeletePlayerInteractor DeletePlayer { get { return new DeletePlayerInteractor(_deps.PlayerRepository, _deps.CashgameRepository); } }

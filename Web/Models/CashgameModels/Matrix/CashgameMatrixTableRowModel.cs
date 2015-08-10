@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Services;
+using Core.Urls;
 using Core.UseCases.Matrix;
 
 namespace Web.Models.CashgameModels.Matrix
@@ -17,7 +18,7 @@ namespace Web.Models.CashgameModels.Matrix
         {
             Rank = playerItem.Rank;
             Name = playerItem.Name;
-            PlayerUrl = playerItem.PlayerUrl.Relative;
+            PlayerUrl = new PlayerDetailsUrl(playerItem.PlayerId).Relative;
             CellModels = CreateCells(gameItems, playerItem);
             TotalResult = ResultFormatter.FormatWinnings(playerItem.TotalResult);
             ResultClass = ResultFormatter.GetWinningsCssClass(playerItem.TotalResult);

@@ -30,7 +30,7 @@ namespace Core.UseCases.CashgameTopList
             var players = _playerRepository.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
-            var items = suite.TotalResults.Select((o, index) => new TopListItem(bunch.Slug, o, index, bunch.Currency));
+            var items = suite.TotalResults.Select((o, index) => new TopListItem(o, index, bunch.Currency));
             items = SortItems(items, orderBy);
 
             return new TopListResult(items, orderBy, bunch.Slug, year);

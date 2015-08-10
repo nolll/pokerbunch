@@ -1,4 +1,5 @@
 using Core.Services;
+using Core.Urls;
 using Core.UseCases.CashgameTopList;
 
 namespace Web.Models.CashgameModels.Toplist
@@ -33,7 +34,7 @@ namespace Web.Models.CashgameModels.Toplist
             GameCount = toplistItem.GamesPlayed;
             WinRate = toplistItem.WinRate.String;
             Name = toplistItem.Name;
-            PlayerUrl = toplistItem.PlayerUrl.Relative;
+            PlayerUrl = new PlayerDetailsUrl(toplistItem.PlayerId).Relative;
             ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
             BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
             CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);

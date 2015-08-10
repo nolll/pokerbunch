@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Urls;
 
 namespace Core.UseCases.Matrix
 {
@@ -22,15 +21,15 @@ namespace Core.UseCases.Matrix
     {
         public int Rank { get; private set; }
         public string Name { get; private set; }
-        public Url PlayerUrl { get; private set; }
+        public int PlayerId { get; private set; }
         public IDictionary<int, MatrixResultItem> ResultItems { get; private set; }
         public Money TotalResult { get; private set; }
 
-        public MatrixPlayerItem(int rank, string name, Url playerUrl, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
+        public MatrixPlayerItem(int rank, string name, int playerId, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
         {
             Rank = rank;
             Name = name;
-            PlayerUrl = playerUrl;
+            PlayerId = playerId;
             ResultItems = resultItems;
             TotalResult = totalResult;
         }

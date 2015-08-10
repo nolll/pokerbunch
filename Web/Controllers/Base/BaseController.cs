@@ -29,6 +29,11 @@ namespace Web.Controllers.Base
             return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, slug));
         }
 
+        protected BunchContext.Result GetBunchContext(int playerId)
+        {
+            return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, playerId));
+        }
+
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
             return UseCase.CashgameContext.Execute(new CashgameContext.Request(CurrentUserName, slug, currentTime, selectedPage, year));

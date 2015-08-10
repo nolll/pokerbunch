@@ -10,14 +10,14 @@ namespace Web.Controllers
     public class PlayerDetailsController : BaseController
     {
         [Authorize]
-        [Route("{slug}/player/details/{playerId:int}")]
-        public ActionResult Details(string slug, int playerId)
+        [Route("-/player/details/{playerId:int}")]
+        public ActionResult Details(int playerId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(playerId);
             RequirePlayer(contextResult);
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(playerId, CurrentUserName));
-            var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(slug, playerId));
-            var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(slug, playerId));
+            var factsResult = UseCase.PlayerFacts.Execute(new PlayerFactsRequest(playerId));
+            var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadgesRequest(playerId));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);
             return View("~/Views/Pages/PlayerDetails/Details.cshtml", model);
         }

@@ -37,6 +37,12 @@ namespace Core.UseCases
             if (!appContext.IsLoggedIn)
                 return null;
 
+            if (request.HasPlayerId)
+            {
+                var player = _playerRepository.GetById(request.PlayerId);
+                return _bunchRepository.GetById(player.BunchId);
+            }
+
             if (request.HasSlug)
             {
                 try
@@ -56,6 +62,7 @@ namespace Core.UseCases
         {
             public string UserName { get; private set; }
             public string Slug { get; private set; }
+            public int PlayerId { get; private set; }
 
             public Request(string userName, string slug = null)
             {
@@ -63,9 +70,20 @@ namespace Core.UseCases
                 Slug = slug;
             }
 
+            public Request(string userName, int playerId)
+            {
+                UserName = userName;
+                PlayerId = playerId;
+            }
+
             public bool HasSlug
             {
                 get { return !string.IsNullOrEmpty(Slug); }
+            }
+
+            public bool HasPlayerId
+            {
+                get { return PlayerId > 0; }
             }
         }
 

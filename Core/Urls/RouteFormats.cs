@@ -47,7 +47,7 @@ namespace Core.Urls
         public const string PlayerAdd = "/{0}/player/add";
         public const string PlayerAddConfirmation = "/{0}/player/created";
         public const string PlayerDelete = "/{0}/player/delete/{1}";
-        public const string PlayerDetails = "/{0}/player/details/{1}";
+        public const string PlayerDetails = "/-/player/details/{1}";
         public const string PlayerIndex = "/{0}/player/index";
         public const string PlayerInvite = "/{0}/player/invite/{1}";
         public const string PlayerInviteConfirmation = "/{0}/player/invited/{1}";

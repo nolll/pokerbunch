@@ -150,7 +150,7 @@ namespace Tests.Web.Routing
         [Test]
         public void PlayerDetails()
         {
-            _routes.ShouldMap("/a/player/details/1").To<PlayerDetailsController>(x => x.Details("a", 1));
+            _routes.ShouldMap("/-/player/details/1").To<PlayerDetailsController>(x => x.Details(1));
         }
 
         [Test]

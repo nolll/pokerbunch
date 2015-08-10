@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual("/bunch-a/player/add", result.AddUrl.Relative);
             Assert.AreEqual(4, result.Players.Count);
-            Assert.AreEqual("/bunch-a/player/details/1", result.Players[0].Url.Relative);
+            Assert.AreEqual(1, result.Players[0].Id);
             Assert.AreEqual(TestData.PlayerNameA, result.Players[0].Name);
             Assert.IsFalse(result.CanAddPlayer);
         }

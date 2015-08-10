@@ -13,7 +13,7 @@ namespace Core.UseCases.PlayerList
 
         public PlayerListResult(Bunch bunch, IEnumerable<Player> players, bool isManager)
         {
-            Players = players.Select(o => new PlayerListItem(bunch.Slug, o)).OrderBy(o => o.Name).ToList();
+            Players = players.Select(o => new PlayerListItem(o)).OrderBy(o => o.Name).ToList();
             CanAddPlayer = isManager;
             AddUrl = new AddPlayerUrl(bunch.Slug);
         }
