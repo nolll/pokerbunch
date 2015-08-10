@@ -3,8 +3,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
+using Core.Urls;
+using Core.UseCases;
 using Core.UseCases.Login;
-using Core.UseCases.LoginForm;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
 
@@ -69,7 +70,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)
         {
             var contextResult = GetAppContext();
-            var loginFormResult = UseCase.LoginForm.Execute(new LoginFormRequest(returnUrl));
+            var loginFormResult = UseCase.LoginForm.Execute(new LoginForm.Request(new HomeUrl().Relative, returnUrl));
             var model = new LoginPageModel(contextResult, loginFormResult, postModel);
             return View("~/Views/Login/Login.cshtml", model);
         }

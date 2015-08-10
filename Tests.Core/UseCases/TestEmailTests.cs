@@ -1,4 +1,4 @@
-﻿using Core.UseCases.TestEmail;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -26,11 +26,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(Email, result.Email);
         }
 
-        private TestEmailInteractor Sut
+        private TestEmail Sut
         {
             get
             {
-                return new TestEmailInteractor(Services.MessageSender);
+                return new TestEmail(Services.MessageSender);
             }
         }
     }

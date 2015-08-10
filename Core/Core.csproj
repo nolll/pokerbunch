@@ -240,9 +240,7 @@
     <Compile Include="UseCases\JoinBunch\JoinBunchInteractor.cs" />
     <Compile Include="UseCases\JoinBunch\JoinBunchRequest.cs" />
     <Compile Include="UseCases\JoinBunch\JoinBunchResult.cs" />
-    <Compile Include="UseCases\LoginForm\LoginFormInteractor.cs" />
-    <Compile Include="UseCases\LoginForm\LoginFormRequest.cs" />
-    <Compile Include="UseCases\LoginForm\LoginFormResult.cs" />
+    <Compile Include="UseCases\LoginForm.cs" />
     <Compile Include="UseCases\Login\LoginInteractor.cs" />
     <Compile Include="UseCases\Login\LoginRequest.cs" />
     <Compile Include="UseCases\Login\LoginResult.cs" />
@@ -272,9 +270,7 @@
     <Compile Include="UseCases\RunningCashgame\RunningCashgameResult.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgamePlayerItem.cs" />
     <Compile Include="UseCases\RunningCashgame\RunningCashgameTableItem.cs" />
-    <Compile Include="UseCases\TestEmail\TestEmailInteractor.cs" />
-    <Compile Include="UseCases\TestEmail\TestEmailResult.cs" />
-    <Compile Include="UseCases\TestEmail\TestMessage.cs" />
+    <Compile Include="UseCases\TestEmail.cs" />
     <Compile Include="UseCases\UserDetails.cs" />
     <Compile Include="UseCases\UserList\UserListInteractor.cs" />
     <Compile Include="UseCases\UserList\UserListItem.cs" />

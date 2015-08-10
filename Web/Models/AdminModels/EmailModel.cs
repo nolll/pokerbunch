@@ -1,4 +1,4 @@
-﻿using Core.UseCases.TestEmail;
+﻿using Core.UseCases;
 
 namespace Web.Models.AdminModels
 {
@@ -6,7 +6,7 @@ namespace Web.Models.AdminModels
     {
         public string Email { get; private set; }
 
-        public EmailModel(TestEmailResult result)
+        public EmailModel(TestEmail.Result result)
         {
             Email = result.Email;
         }

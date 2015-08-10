@@ -23,14 +23,12 @@ using Core.UseCases.JoinBunch;
 using Core.UseCases.JoinBunchConfirmation;
 using Core.UseCases.JoinBunchForm;
 using Core.UseCases.Login;
-using Core.UseCases.LoginForm;
 using Core.UseCases.Matrix;
 using Core.UseCases.PlayerBadges;
 using Core.UseCases.PlayerFacts;
 using Core.UseCases.PlayerList;
 using Core.UseCases.Report;
 using Core.UseCases.RunningCashgame;
-using Core.UseCases.TestEmail;
 using Core.UseCases.UserList;
 using Plumbing;
 
@@ -47,11 +45,11 @@ namespace Web.Common
         public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
 
         // Auth and Home
-        public LoginFormInteractor LoginForm { get { return new LoginFormInteractor(); } }
+        public LoginForm LoginForm { get { return new LoginForm(); } }
         public LoginInteractor Login { get { return new LoginInteractor(_deps.UserRepository); } }
 
         // Admin
-        public TestEmailInteractor TestEmail { get { return new TestEmailInteractor(_deps.MessageSender); } }
+        public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender); } }
         public ClearCacheInteractor ClearCache { get { return new ClearCacheInteractor(_deps.CacheContainer); } }
 
         // User
