@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.CurrentRankings
     {
         public IList<CurrentRankingsTableItemModel> ItemModels { get; private set; }
 
-        public CurrentRankingsTableModel(CurrentRankingsResult currentRankings)
+        public CurrentRankingsTableModel(Core.UseCases.CashgameCurrentRankings.CurrentRankings.Result currentRankings)
         {
             ItemModels = currentRankings.Items.Select(o => new CurrentRankingsTableItemModel(o)).ToList();
         }

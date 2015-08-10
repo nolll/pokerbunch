@@ -1,10 +1,5 @@
 using Core.UseCases;
-using Core.UseCases.CashgameChart;
 using Core.UseCases.CashgameCurrentRankings;
-using Core.UseCases.CashgameDetailsChart;
-using Core.UseCases.CashgameFacts;
-using Core.UseCases.CashgameList;
-using Core.UseCases.CashgameStatus;
 using Core.UseCases.CashgameTopList;
 using Core.UseCases.Cashout;
 using Core.UseCases.ChangePassword;
@@ -84,20 +79,20 @@ namespace Web.Common
         public EventDetails EventDetails { get { return new EventDetails(_deps.EventRepository); } } 
 
         // Cashgame
-        public CashgameStatusInteractor CashgameStatus { get { return new CashgameStatusInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
+        public CashgameStatus CashgameStatus { get { return new CashgameStatus(_deps.BunchRepository, _deps.CashgameRepository); } }
         public TopListInteractor TopList { get { return new TopListInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
-        public CurrentRankingsInteractor CurrentRankings { get { return new CurrentRankingsInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public CurrentRankings CurrentRankings { get { return new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public CashgameDetails CashgameDetails { get { return new CashgameDetails(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
-        public CashgameDetailsChartInteractor CashgameDetailsChart { get { return new CashgameDetailsChartInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
-        public CashgameFactsInteractor CashgameFacts { get { return new CashgameFactsInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
-        public CashgameListInteractor CashgameList { get { return new CashgameListInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }
+        public CashgameDetailsChart CashgameDetailsChart { get { return new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public CashgameFacts CashgameFacts { get { return new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public CashgameList CashgameList { get { return new CashgameList(_deps.BunchRepository, _deps.CashgameRepository); } }
         public AddCashgameForm AddCashgameForm { get { return new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository); } }
         public AddCashgame AddCashgame { get { return new AddCashgame(_deps.BunchRepository, _deps.CashgameRepository); } }
         public Actions Actions { get { return new Actions(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public ActionsChart ActionsChart { get { return new ActionsChart(_deps.BunchRepository, _deps.CashgameRepository); } }
         public EditCheckpointFormInteractor EditCheckpointForm { get { return new EditCheckpointFormInteractor(_deps.BunchRepository, _deps.CheckpointRepository); } }
         public EditCheckpointInteractor EditCheckpoint { get { return new EditCheckpointInteractor(_deps.BunchRepository, _deps.CheckpointRepository); } }
-        public CashgameChartInteractor CashgameChart { get { return new CashgameChartInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public CashgameChart CashgameChart { get { return new CashgameChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public MatrixInteractor Matrix { get { return new MatrixInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public RunningCashgameInteractor RunningCashgame { get { return new RunningCashgameInteractor(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameFormInteractor EditCashgameForm { get { return new EditCashgameFormInteractor(_deps.BunchRepository, _deps.CashgameRepository); } }

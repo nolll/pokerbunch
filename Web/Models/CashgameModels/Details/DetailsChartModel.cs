@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Core.UseCases.CashgameDetailsChart;
+using Core.UseCases;
 using Web.Models.ChartModels;
 
 namespace Web.Models.CashgameModels.Details
 {
     public class DetailsChartModel : ChartModel
     {
-        public DetailsChartModel(CashgameDetailsChartResult cashgameDetailsChartResult)
+        public DetailsChartModel(CashgameDetailsChart.Result cashgameDetailsChartResult)
             : base(
             GetColumns(cashgameDetailsChartResult.PlayerItems),
             GetRows(cashgameDetailsChartResult.PlayerItems))
         {
         }
 
-        private static IList<ChartRowModel> GetRows(IList<DetailsChartPlayerItem> playerItems)
+        private static IList<ChartRowModel> GetRows(IList<CashgameDetailsChart.PlayerItem> playerItems)
         {
             var rowModels = new List<ChartRowModel>();
             foreach (var playerItem in playerItems)
@@ -28,14 +28,14 @@ namespace Web.Models.CashgameModels.Details
             return rowModels;
         }
 
-        private static IList<ChartColumnModel> GetColumns(IEnumerable<DetailsChartPlayerItem> playerItems)
+        private static IList<ChartColumnModel> GetColumns(IEnumerable<CashgameDetailsChart.PlayerItem> playerItems)
         {
             var columnModels = new List<ChartColumnModel> { new ChartDateTimeColumnModel("Time", "HH:mm") };
             columnModels.AddRange(playerItems.Select(item => new ChartNumberColumnModel(item.Name)));
             return columnModels;
         }
 
-        private static ChartRowModel GetRow(IEnumerable<DetailsChartPlayerItem> playerItems, DetailsChartResultItem resultItem, int playerId)
+        private static ChartRowModel GetRow(IEnumerable<CashgameDetailsChart.PlayerItem> playerItems, CashgameDetailsChart.ResultItem resultItem, int playerId)
         {
             var values = new List<ChartValueModel> { new ChartDateTimeValueModel(resultItem.Timestamp) };
             foreach (var item in playerItems)

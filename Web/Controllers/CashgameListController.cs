@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.CashgameList;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.List;
 
@@ -15,7 +14,7 @@ namespace Web.Controllers
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);
             RequirePlayer(contextResult.BunchContext);
-            var listResult = UseCase.CashgameList.Execute(new CashgameListRequest(slug, orderBy, year));
+            var listResult = UseCase.CashgameList.Execute(new CashgameList.Request(slug, orderBy, year));
 
             var model = new CashgameListPageModel(contextResult, listResult);
             return View("~/Views/Pages/CashgameList/List.cshtml", model);

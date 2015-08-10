@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Core.UseCases.CashgameList;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -108,7 +108,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(orderBy));
 
-            Assert.AreEqual(ListSortOrder.Date, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.Date, result.SortOrder);
             Assert.AreEqual(new Date(2002, 2, 2), result.List[0].Date);
             Assert.AreEqual(new Date(2001, 1, 1), result.List[1].Date);
         }
@@ -118,7 +118,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest("playercount"));
 
-            Assert.AreEqual(ListSortOrder.PlayerCount, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.PlayerCount, result.SortOrder);
             Assert.AreEqual(2, result.List[0].PlayerCount);
             Assert.AreEqual(2, result.List[1].PlayerCount);
         }
@@ -128,7 +128,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest("location"));
 
-            Assert.AreEqual(ListSortOrder.Location, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.Location, result.SortOrder);
             Assert.AreEqual(TestData.LocationB, result.List[0].Location);
             Assert.AreEqual(TestData.LocationA, result.List[1].Location);
         }
@@ -138,7 +138,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest("duration"));
 
-            Assert.AreEqual(ListSortOrder.Duration, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.Duration, result.SortOrder);
             Assert.AreEqual(92, result.List[0].Duration.Minutes);
             Assert.AreEqual(62, result.List[1].Duration.Minutes);
         }
@@ -148,7 +148,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest("turnover"));
 
-            Assert.AreEqual(ListSortOrder.Turnover, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.Turnover, result.SortOrder);
             Assert.AreEqual(600, result.List[0].Turnover.Amount);
             Assert.AreEqual(400, result.List[1].Turnover.Amount);
         }
@@ -158,21 +158,21 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest("averagebuyin"));
 
-            Assert.AreEqual(ListSortOrder.AverageBuyin, result.SortOrder);
+            Assert.AreEqual(CashgameList.SortOrder.AverageBuyin, result.SortOrder);
             Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
             Assert.AreEqual(200, result.List[1].AverageBuyin.Amount);
         }
 
-        private CashgameListRequest CreateRequest(string orderBy = null, int? year = null)
+        private CashgameList.Request CreateRequest(string orderBy = null, int? year = null)
         {
-            return new CashgameListRequest(TestData.SlugA, orderBy, year);
+            return new CashgameList.Request(TestData.SlugA, orderBy, year);
         }
 
-        private CashgameListInteractor Sut
+        private CashgameList Sut
         {
             get
             {
-                return new CashgameListInteractor(
+                return new CashgameList(
                     Repos.Bunch,
                     Repos.Cashgame);
             }

@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.CashgameFacts;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Facts;
 
@@ -15,7 +14,7 @@ namespace Web.Controllers
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Facts, year);
             RequirePlayer(contextResult.BunchContext);
-            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFactsRequest(slug, year));
+            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
             return View("~/Views/Pages/CashgameFacts/FactsPage.cshtml", model);

@@ -1,4 +1,4 @@
-﻿using Core.UseCases.CashgameChart;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameChart_GameDataIsCorrect()
         {
-            var request = new CashgameChartRequest(TestData.SlugA, null);
+            var request = new CashgameChart.Request(TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GameItems.Count);
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameChart_PlayerDataIsCorrect()
         {
-            var request = new CashgameChartRequest(TestData.SlugA, null);
+            var request = new CashgameChart.Request(TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -36,11 +36,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.PlayerNameB, result.PlayerItems[1].Name);
         }
 
-        private CashgameChartInteractor Sut
+        private CashgameChart Sut
         {
             get
             {
-                return new CashgameChartInteractor(
+                return new CashgameChart(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player);

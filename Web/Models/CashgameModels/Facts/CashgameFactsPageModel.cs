@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.CashgameFacts;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts
@@ -26,7 +25,7 @@ namespace Web.Models.CashgameModels.Facts
 
 	    public CashgameFactsPageModel(
             CashgameContext.Result cashgameContextResult,
-            CashgameFactsResult factsResult) :
+            CashgameFacts.Result factsResult) :
             base(
             "Cashgame Facts",
             cashgameContextResult)

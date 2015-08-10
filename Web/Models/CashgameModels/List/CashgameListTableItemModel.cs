@@ -1,5 +1,5 @@
 using Core.Services;
-using Core.UseCases.CashgameList;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.List
 {
@@ -18,23 +18,23 @@ namespace Web.Models.CashgameModels.List
         public string TurnoverSortClass { get; private set; }
         public string AvgBuyinSortClass { get; private set; }
 
-        public CashgameListTableItemModel(CashgameItem item, ListSortOrder sortOrder, bool showYear)
+        public CashgameListTableItemModel(CashgameList.Item item, CashgameList.SortOrder sortOrder, bool showYear)
         {
             PlayerCount = item.PlayerCount;
-            PlayerCountSortClass = GetSortCssClass(sortOrder, ListSortOrder.PlayerCount);
+            PlayerCountSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.PlayerCount);
             Location = item.Location;
-            LocationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Location);
+            LocationSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.Location);
             Duration = item.Duration.String;
-            DurationSortClass = GetSortCssClass(sortOrder, ListSortOrder.Duration);
+            DurationSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.Duration);
             Turnover = item.Turnover.String;
-            TurnoverSortClass = GetSortCssClass(sortOrder, ListSortOrder.Turnover);
+            TurnoverSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.Turnover);
             AvgBuyin = item.AverageBuyin.String;
-            AvgBuyinSortClass = GetSortCssClass(sortOrder, ListSortOrder.AverageBuyin);
+            AvgBuyinSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.AverageBuyin);
             DetailsUrl = item.Url.Relative;
             DisplayDate = Globalization.FormatShortDate(item.Date, showYear);
         }
 
-        private string GetSortCssClass(ListSortOrder selectedSortOrder, ListSortOrder columnSortOrder)
+        private string GetSortCssClass(CashgameList.SortOrder selectedSortOrder, CashgameList.SortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
         }

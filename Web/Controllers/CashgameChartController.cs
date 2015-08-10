@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.CashgameChart;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Chart;
 
@@ -15,7 +14,7 @@ namespace Web.Controllers
         {
             var cashgameContextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Chart, year);
             RequirePlayer(cashgameContextResult.BunchContext);
-            var cashgameChartResult = UseCase.CashgameChart.Execute(new CashgameChartRequest(slug, year));
+            var cashgameChartResult = UseCase.CashgameChart.Execute(new CashgameChart.Request(slug, year));
             var model = new CashgameChartPageModel(cashgameContextResult, cashgameChartResult);
             return View("~/Views/Pages/CashgameChart/Chart.cshtml", model);
         }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Urls;
-using Core.UseCases.CashgameList;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.List{
 
@@ -21,31 +21,31 @@ namespace Web.Models.CashgameModels.List{
         public object AverageBuyinSortClass { get; private set; }
         public object AverageBuyinSortUrl { get; private set; }
 
-	    public CashgameListTableModel(CashgameListResult result)
+	    public CashgameListTableModel(CashgameList.Result result)
 	    {
             var sortUrl = string.Concat(new CashgameListUrl(result.Slug, result.Year).Relative, "?orderby={0}");
 
             ListItemModels = GetListItemModels(result);
-            DateSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.Date);
-            DateSortUrl = string.Format(sortUrl, ListSortOrder.Date);
-            PlayerSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.PlayerCount);
-            PlayerSortUrl = string.Format(sortUrl, ListSortOrder.PlayerCount);
-            LocationSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.Location);
-            LocationSortUrl = string.Format(sortUrl, ListSortOrder.Location);
-            DurationSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.Duration);
-            DurationSortUrl = string.Format(sortUrl, ListSortOrder.Duration);
-            TurnoverSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.Turnover);
-            TurnoverSortUrl = string.Format(sortUrl, ListSortOrder.Turnover);
-            AverageBuyinSortClass = GetSortCssClass(result.SortOrder, ListSortOrder.AverageBuyin);
-	        AverageBuyinSortUrl = string.Format(sortUrl, ListSortOrder.AverageBuyin);
+            DateSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.Date);
+            DateSortUrl = string.Format(sortUrl, CashgameList.SortOrder.Date);
+            PlayerSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.PlayerCount);
+            PlayerSortUrl = string.Format(sortUrl, CashgameList.SortOrder.PlayerCount);
+            LocationSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.Location);
+            LocationSortUrl = string.Format(sortUrl, CashgameList.SortOrder.Location);
+            DurationSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.Duration);
+            DurationSortUrl = string.Format(sortUrl, CashgameList.SortOrder.Duration);
+            TurnoverSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.Turnover);
+            TurnoverSortUrl = string.Format(sortUrl, CashgameList.SortOrder.Turnover);
+            AverageBuyinSortClass = GetSortCssClass(result.SortOrder, CashgameList.SortOrder.AverageBuyin);
+	        AverageBuyinSortUrl = string.Format(sortUrl, CashgameList.SortOrder.AverageBuyin);
 	    }
 
-        private List<CashgameListTableItemModel> GetListItemModels(CashgameListResult result)
+        private List<CashgameListTableItemModel> GetListItemModels(CashgameList.Result result)
         {
             return result.List.Select(o => new CashgameListTableItemModel(o, result.SortOrder, result.SpansMultipleYears)).ToList();
         }
 
-        private string GetSortCssClass(ListSortOrder selectedSortOrder, ListSortOrder columnSortOrder)
+        private string GetSortCssClass(CashgameList.SortOrder selectedSortOrder, CashgameList.SortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
         }

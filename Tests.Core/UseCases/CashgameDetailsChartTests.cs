@@ -1,5 +1,5 @@
 using System;
-using Core.UseCases.CashgameDetailsChart;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerItems_EndedGame_TwoPlayersWithTwoAndThreeCheckpoints()
         {
-            var request = new CashgameDetailsChartRequest(TestData.SlugA, DateTime.Now, TestData.DateStringA);
+            var request = new CashgameDetailsChart.Request(TestData.SlugA, DateTime.Now, TestData.DateStringA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new CashgameDetailsChartRequest(TestData.SlugA, DateTime.Now);
+            var request = new CashgameDetailsChart.Request(TestData.SlugA, DateTime.Now);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -42,11 +42,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(0, result.PlayerItems[1].Results[1].Winnings);
         }
 
-        public CashgameDetailsChartInteractor Sut
+        public CashgameDetailsChart Sut
         {
             get
             {
-                return new CashgameDetailsChartInteractor(
+                return new CashgameDetailsChart(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player);

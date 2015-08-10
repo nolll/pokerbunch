@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameStatus;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Status
 {
@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.Status
         public string Description { get; private set; }
         public string Url { get; private set; }
 
-        public CashgameStatusModel(CashgameStatusResult statusResult)
+        public CashgameStatusModel(CashgameStatus.Result statusResult)
         {
             Heading = "Current Game";
             LinkText = statusResult.GameIsRunning ? "Go to game" : "Start a game";
