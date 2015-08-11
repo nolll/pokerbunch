@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_WithSlug_SlugAndPlayersAreSet()
         {
-            var request = new PlayerListRequest(TestData.SlugA, TestData.UserNameA);
+            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameA);
 
             var result = Sut.Execute(request);
 
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayersAreSortedAlphabetically()
         {
-            var request = new PlayerListRequest(TestData.SlugA, TestData.UserNameA);
+            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameA);
 
             var result = Sut.Execute(request);
 
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayerIsManager_CanAddPlayerIsTrue()
         {
-            var request = new PlayerListRequest(TestData.SlugA, TestData.UserNameC);
+            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameC);
 
             var result = Sut.Execute(request);
 

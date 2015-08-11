@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.ChangePassword;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ChangePassword;
 
@@ -22,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ChangePasswordRequest(CurrentUserName, postModel.Password, postModel.Repeat);
+                var request = new ChangePassword.Request(CurrentUserName, postModel.Password, postModel.Repeat);
                 var result = UseCase.ChangePassword.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

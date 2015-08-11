@@ -1,4 +1,4 @@
-using Core.UseCases.CashgameTopList;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Toplist
 {
@@ -11,14 +11,14 @@ namespace Web.Models.CashgameModels.Toplist
         public TopListTableColumn GamesPlayedColumn { get; private set; }
         public TopListTableColumn WinRateColumn { get; private set; }
 
-        public TopListTableColumns(TopListResult topListResult)
+        public TopListTableColumns(TopList.Result topListResult)
         {
-            ResultColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Winnings, "Winnings");
-            BuyinColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Buyin, "Buyin");
-            CashoutColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Cashout, "Cashout");
-            TimePlayedColumn = new TopListTableColumn(topListResult, ToplistSortOrder.TimePlayed, "Time");
-            GamesPlayedColumn = new TopListTableColumn(topListResult, ToplistSortOrder.GamesPlayed, "Games");
-            WinRateColumn = new TopListTableColumn(topListResult, ToplistSortOrder.WinRate, "Winrate");
+            ResultColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Winnings, "Winnings");
+            BuyinColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Buyin, "Buyin");
+            CashoutColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Cashout, "Cashout");
+            TimePlayedColumn = new TopListTableColumn(topListResult, TopList.SortOrder.TimePlayed, "Time");
+            GamesPlayedColumn = new TopListTableColumn(topListResult, TopList.SortOrder.GamesPlayed, "Games");
+            WinRateColumn = new TopListTableColumn(topListResult, TopList.SortOrder.WinRate, "Winrate");
         }
     }
 
@@ -31,14 +31,14 @@ namespace Web.Models.CashgameModels.Toplist
         public TopListTableColumn GamesPlayedColumn { get; private set; }
         public TopListTableColumn WinRateColumn { get; private set; }
 
-        public CurrentRankingsTableColumns(TopListResult topListResult)
+        public CurrentRankingsTableColumns(TopList.Result topListResult)
         {
-            ResultColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Winnings, "Winnings");
-            BuyinColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Buyin, "Buyin");
-            CashoutColumn = new TopListTableColumn(topListResult, ToplistSortOrder.Cashout, "Cashout");
-            TimePlayedColumn = new TopListTableColumn(topListResult, ToplistSortOrder.TimePlayed, "Time");
-            GamesPlayedColumn = new TopListTableColumn(topListResult, ToplistSortOrder.GamesPlayed, "Games");
-            WinRateColumn = new TopListTableColumn(topListResult, ToplistSortOrder.WinRate, "Winrate");
+            ResultColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Winnings, "Winnings");
+            BuyinColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Buyin, "Buyin");
+            CashoutColumn = new TopListTableColumn(topListResult, TopList.SortOrder.Cashout, "Cashout");
+            TimePlayedColumn = new TopListTableColumn(topListResult, TopList.SortOrder.TimePlayed, "Time");
+            GamesPlayedColumn = new TopListTableColumn(topListResult, TopList.SortOrder.GamesPlayed, "Games");
+            WinRateColumn = new TopListTableColumn(topListResult, TopList.SortOrder.WinRate, "Winrate");
         }
     }
 }

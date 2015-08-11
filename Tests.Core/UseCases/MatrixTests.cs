@@ -36,9 +36,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.SpansMultipleYears);
         }
 
-        private static MatrixRequest CreateRequest(int? year = null)
+        private static MatrixInteractor.MatrixRequest CreateRequest(int? year = null)
         {
-            return new MatrixRequest(TestData.SlugA, year);
+            return new MatrixInteractor.MatrixRequest(TestData.SlugA, year);
         }
 
         private MatrixInteractor Sut

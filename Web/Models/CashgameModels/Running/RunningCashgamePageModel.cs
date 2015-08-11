@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.Running
     {
         public string GameDataUrl { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgameResult runningCashgameResult)
+	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgameInteractor.RunningCashgameResult runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
 	        GameDataUrl = runningCashgameResult.GameDataUrl.Relative;

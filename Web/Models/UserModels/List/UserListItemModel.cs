@@ -7,7 +7,7 @@ namespace Web.Models.UserModels.List
         public string Name { get; private set; }
         public string Url { get; private set; }
 
-        public UserListItemModel(UserListItem userListItem)
+        public UserListItemModel(UserListInteractor.UserListItem userListItem)
         {
             Name = userListItem.DisplayName;
             Url = userListItem.Url.Relative;

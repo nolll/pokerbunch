@@ -1,6 +1,6 @@
 using Core.Services;
 using Core.Urls;
-using Core.UseCases.CashgameTopList;
+using Core.UseCases;
 using Web.Urls;
 
 namespace Web.Models.CashgameModels.Toplist
@@ -24,7 +24,7 @@ namespace Web.Models.CashgameModels.Toplist
         public string WinRateSortClass { get; private set; }
         public string PlayerUrl { get; private set; }
 
-        public CashgameToplistTableItemModel(TopListItem toplistItem, ToplistSortOrder sortOrder)
+        public CashgameToplistTableItemModel(TopList.Item toplistItem, TopList.SortOrder sortOrder)
         {
             Rank = toplistItem.Rank;
             TotalResult = toplistItem.Winnings.String;
@@ -36,15 +36,15 @@ namespace Web.Models.CashgameModels.Toplist
             WinRate = toplistItem.WinRate.String;
             Name = toplistItem.Name;
             PlayerUrl = new PlayerDetailsUrl(toplistItem.PlayerId).Relative;
-            ResultSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Winnings);
-            BuyinSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Buyin);
-            CashoutSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.Cashout);
-            GameTimeSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.TimePlayed);
-            GameCountSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.GamesPlayed);
-            WinRateSortClass = GetSortCssClass(sortOrder, ToplistSortOrder.WinRate);
+            ResultSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.Winnings);
+            BuyinSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.Buyin);
+            CashoutSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.Cashout);
+            GameTimeSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.TimePlayed);
+            GameCountSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.GamesPlayed);
+            WinRateSortClass = GetSortCssClass(sortOrder, TopList.SortOrder.WinRate);
         }
 
-        private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)
+        private string GetSortCssClass(TopList.SortOrder selectedSortOrder, TopList.SortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
         }

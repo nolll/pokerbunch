@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidStack_ThrowsException()
         {
-            var request = new EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
+            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidAmount_ThrowsException()
         {
-            var request = new EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
+            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_ReturnUrlIsSet()
         {
-            var request = new EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             var result = Sut.Execute(request);
 
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_CheckpointIsSaved()
         {
-            var request = new EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             Sut.Execute(request);
 

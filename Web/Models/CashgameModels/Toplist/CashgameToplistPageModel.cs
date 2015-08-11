@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.CashgameTopList;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Toplist
@@ -10,7 +9,7 @@ namespace Web.Models.CashgameModels.Toplist
 
         public CashgameToplistPageModel(
             CashgameContext.Result cashgameContextResult,
-            TopListResult topListResult)
+            TopList.Result topListResult)
             : base(
             "Cashgame Toplist",
             cashgameContextResult)

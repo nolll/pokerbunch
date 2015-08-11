@@ -22,7 +22,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public IList<RunningCashgameCheckpointJsonModel> Checkpoints { get; private set; }
 
-        public RunningCashgamePlayerJsonModel(RunningCashgamePlayerItem item)
+        public RunningCashgamePlayerJsonModel(RunningCashgameInteractor.RunningCashgamePlayerItem item)
         {
             Id = item.PlayerId;
             Name = item.Name;

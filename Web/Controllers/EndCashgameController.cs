@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.EndCashgame;
+using Core.UseCases;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
@@ -15,7 +15,7 @@ namespace Web.Controllers
             var bunchContext = GetBunchContext(slug);
             if (!bunchContext.IsPlayer)
                 throw new AccessDeniedException();
-            UseCase.EndCashgame.Execute(new EndCashgameRequest(slug));
+            UseCase.EndCashgame.Execute(new EndCashgame.Request(slug));
             return JsonView(new JsonViewModelOk());
         }
     }

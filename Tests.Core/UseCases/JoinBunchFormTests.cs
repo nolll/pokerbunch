@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchForm_BunchNameIsSet()
         {
-            var request = new JoinBunchFormRequest(TestData.SlugA);
+            var request = new JoinBunchFormInteractor.JoinBunchFormRequest(TestData.SlugA);
 
             var result = Sut.Execute(request);
 

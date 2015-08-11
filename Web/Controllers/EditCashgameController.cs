@@ -1,7 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.EditCashgame;
-using Core.UseCases.EditCashgameForm;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Edit;
 
@@ -27,7 +26,7 @@ namespace Web.Controllers
             RequireManager(context);
             try
             {
-                var request = new EditCashgameRequest(slug, dateStr, postModel.Location);
+                var request = new EditCashgame.EditCashgameRequest(slug, dateStr, postModel.Location);
                 var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +41,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameFormRequest(slug, dateStr));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(slug, dateStr));
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
         }

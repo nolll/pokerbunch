@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Checkpoints
         public int Stack { get; private set; }
         public int Amount { get; private set; }
 
-        public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointFormResult editCheckpointFormResult, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointFormInteractor.EditCheckpointFormResult editCheckpointFormResult, EditCheckpointPostModel postModel)
             : base("Edit Checkpoint", contextResult)
         {
             Stack = editCheckpointFormResult.Stack;

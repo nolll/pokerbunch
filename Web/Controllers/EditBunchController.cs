@@ -1,7 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.EditBunch;
-using Core.UseCases.EditBunchForm;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
 
@@ -27,7 +26,7 @@ namespace Web.Controllers
             RequireManager(context);
             try
             {
-                var request = new EditBunchRequest(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var request = new EditBunch.Request(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +41,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var editBunchFormRequest = new EditBunchFormRequest(slug);
+            var editBunchFormRequest = new EditBunchForm.Request(slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
             return View("~/Views/Pages/EditBunch/Edit.cshtml", model);

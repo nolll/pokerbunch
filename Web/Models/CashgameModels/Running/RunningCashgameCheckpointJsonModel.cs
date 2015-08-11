@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public int AddedMoney { get; private set; }
 
-        public RunningCashgameCheckpointJsonModel(RunningCashgameCheckpointItem item)
+        public RunningCashgameCheckpointJsonModel(RunningCashgameInteractor.RunningCashgameCheckpointItem item)
         {
             Time = item.Time;
             Stack = item.Stack;

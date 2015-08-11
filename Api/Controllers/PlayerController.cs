@@ -11,7 +11,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public ApiPlayerList List(string slug)
         {
-            var playerListResult = UseCase.PlayerList.Execute(new PlayerListRequest(slug, "henriks"));
+            var playerListResult = UseCase.PlayerList.Execute(new PlayerListInteractor.PlayerListRequest(slug, "henriks"));
             return new ApiPlayerList(playerListResult);
         }
 

@@ -1,5 +1,5 @@
 using Core.Urls;
-using Core.UseCases.CashgameTopList;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Toplist
 {
@@ -10,26 +10,26 @@ namespace Web.Models.CashgameModels.Toplist
         public string CssClass { get; private set; }
         public bool SortingEnabled { get; private set; }
 
-        public TopListTableColumn(TopListResult topListResult, ToplistSortOrder sortOrder, string text)
+        public TopListTableColumn(TopList.Result topListResult, TopList.SortOrder sortOrder, string text)
         {
             Url = GetSortUrl(topListResult, sortOrder);
             CssClass = GetSortCssClass(topListResult.OrderBy, sortOrder);
             Text = text;
-            SortingEnabled = topListResult.OrderBy != ToplistSortOrder.Disabled;
+            SortingEnabled = topListResult.OrderBy != TopList.SortOrder.Disabled;
         }
 
-        private string GetSortCssClass(ToplistSortOrder selectedSortOrder, ToplistSortOrder columnSortOrder)
+        private string GetSortCssClass(TopList.SortOrder selectedSortOrder, TopList.SortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? ".table-list--sortable__sort-column" : "";
         }
 
-        private string GetSortUrl(TopListResult topListResult, ToplistSortOrder sortOrder)
+        private string GetSortUrl(TopList.Result topListResult, TopList.SortOrder sortOrder)
         {
             var format = string.Concat(new TopListUrl(topListResult.Slug, topListResult.Year), "?orderby={0}");
             return string.Format(format, GetSortOrderUrlName(sortOrder));
         }
 
-        private string GetSortOrderUrlName(ToplistSortOrder sortOrder)
+        private string GetSortOrderUrlName(TopList.SortOrder sortOrder)
         {
             return sortOrder.ToString().ToLower();
         }

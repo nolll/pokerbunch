@@ -8,7 +8,7 @@ namespace Web.Components.PlayerModels.Badges
     {
         public IList<BadgeModel> NumberOfGamesBadges { get; private set; }
 
-	    public BadgeListModel(PlayerBadgesResult badgesResult)
+	    public BadgeListModel(PlayerBadgesInteractor.PlayerBadgesResult badgesResult)
 	    {
 	        NumberOfGamesBadges = new List<BadgeModel>
 	        {

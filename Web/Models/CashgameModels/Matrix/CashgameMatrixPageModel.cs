@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.Matrix
     {
         public CashgameMatrixTableModel TableModel { get; private set; }
 
-        public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, MatrixResult matrixResult)
+        public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, MatrixInteractor.MatrixResult matrixResult)
             : base("Cashgame Matrix", cashgameContextResult)
         {
             TableModel = new CashgameMatrixTableModel(matrixResult);

@@ -1,6 +1,6 @@
 using System.Web.Http;
 using Api.Models;
-using Core.UseCases.CashgameTopList;
+using Core.UseCases;
 
 namespace Api.Controllers
 {
@@ -10,7 +10,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public ApiCashgameTopList Index(string slug, int? year = null)
         {
-            var topListResult = UseCase.TopList.Execute(new TopListRequest(slug, ToplistSortOrder.Winnings, year));
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(slug, TopList.SortOrder.Winnings, year));
             return new ApiCashgameTopList(topListResult);
         }
     }

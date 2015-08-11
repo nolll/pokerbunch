@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.CashgameTopList;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Toplist;
 
@@ -15,7 +14,7 @@ namespace Web.Controllers
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);
             RequirePlayer(contextResult.BunchContext);
-            var topListResult = UseCase.TopList.Execute(new TopListRequest(slug, orderBy, year));
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(slug, orderBy, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("~/Views/Pages/Toplist/ToplistPage.cshtml", model);
         }

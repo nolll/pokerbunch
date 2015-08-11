@@ -55,9 +55,9 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.CanEditAmount);
         }
 
-        private static EditCheckpointFormRequest CreateRequest(int id)
+        private static EditCheckpointFormInteractor.EditCheckpointFormRequest CreateRequest(int id)
         {
-            return new EditCheckpointFormRequest(TestData.BunchB.Slug, DateString, PlayerId, id);
+            return new EditCheckpointFormInteractor.EditCheckpointFormRequest(TestData.BunchB.Slug, DateString, PlayerId, id);
         }
 
         private EditCheckpointFormInteractor Sut

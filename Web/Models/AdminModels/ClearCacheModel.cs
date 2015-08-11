@@ -1,4 +1,4 @@
-using Core.UseCases.ClearCache;
+using Core.UseCases;
 
 namespace Web.Models.AdminModels
 {
@@ -6,9 +6,9 @@ namespace Web.Models.AdminModels
     {
         public string Message { get; private set; }
 
-        public ClearCacheModel(ClearCacheOutput clearCacheOutput)
+        public ClearCacheModel(ClearCache.Result clearCacheResult)
         {
-            Message = GetMessage(clearCacheOutput.DeleteCount);
+            Message = GetMessage(clearCacheResult.DeleteCount);
         }
 
         private string GetMessage(int objectCount)

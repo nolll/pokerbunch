@@ -1,4 +1,4 @@
-using Core.UseCases.ClearCache;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -13,11 +13,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, result.DeleteCount);
         }
 
-        private ClearCacheInteractor Sut
+        private ClearCache Sut
         {
             get
             {
-                return new ClearCacheInteractor(Services.Cache);
+                return new ClearCache(Services.Cache);
             }
         }
     }

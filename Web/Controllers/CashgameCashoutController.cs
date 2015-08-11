@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.Cashout;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Cashout;
 
@@ -17,7 +17,7 @@ namespace Web.Controllers
             var bunchContext = GetBunchContext(slug);
             if (!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
-            var request = new CashoutRequest(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
+            var request = new Cashout.Request(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             UseCase.Cashout.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

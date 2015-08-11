@@ -12,7 +12,7 @@ namespace Web.Models.PlayerModels.List
 	    public string AddUrl { get; private set; }
 	    public bool ShowAddLink { get; private set; }
 
-        public PlayerListPageModel(BunchContext.Result contextResult, PlayerListResult playerListResult)
+        public PlayerListPageModel(BunchContext.Result contextResult, PlayerListInteractor.PlayerListResult playerListResult)
             : base("Player List", contextResult)
         {
             PlayerModels = playerListResult.Players.Select(item => new PlayerItemModel(item)).ToList();

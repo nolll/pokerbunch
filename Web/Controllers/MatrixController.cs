@@ -15,7 +15,7 @@ namespace Web.Controllers
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);
             RequirePlayer(contextResult.BunchContext);
-            var matrixResult = UseCase.Matrix.Execute(new MatrixRequest(slug, year));
+            var matrixResult = UseCase.Matrix.Execute(new MatrixInteractor.MatrixRequest(slug, year));
             var model = new CashgameMatrixPageModel(contextResult, matrixResult);
             return View("~/Views/Pages/Matrix/MatrixPage.cshtml", model);
         }

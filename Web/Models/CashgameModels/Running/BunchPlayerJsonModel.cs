@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public string Name { get; private set; }
 
-        public BunchPlayerJsonModel(BunchPlayerItem item)
+        public BunchPlayerJsonModel(RunningCashgameInteractor.BunchPlayerItem item)
         {
             Id = item.PlayerId;
             Name = item.Name;

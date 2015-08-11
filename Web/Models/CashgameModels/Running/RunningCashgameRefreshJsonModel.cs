@@ -40,7 +40,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public List<BunchPlayerJsonModel> BunchPlayers { get; private set; }
 
-        public RunningCashgameJsonModel(RunningCashgameResult result) : base(result)
+        public RunningCashgameJsonModel(RunningCashgameInteractor.RunningCashgameResult result) : base(result)
         {
             PlayerId = result.PlayerId;
             RefreshUrl = result.PlayersDataUrl.Relative;
@@ -61,7 +61,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public List<RunningCashgamePlayerJsonModel> Players { get; private set; }
 
-        public RunningCashgameRefreshJsonModel(RunningCashgameResult result)
+        public RunningCashgameRefreshJsonModel(RunningCashgameInteractor.RunningCashgameResult result)
         {
             Players = result.PlayerItems.Select(o => new RunningCashgamePlayerJsonModel(o)).ToList();
         }

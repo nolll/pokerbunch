@@ -23,9 +23,9 @@ namespace Tests.Core.UseCases
             Assert.IsInstanceOf<BunchDetailsUrl>(result.BunchDetailsUrl);
         }
 
-        private static JoinBunchConfirmationRequest CreateRequest()
+        private static JoinBunchConfirmationInteractor.JoinBunchConfirmationRequest CreateRequest()
         {
-            return new JoinBunchConfirmationRequest(TestData.SlugA);
+            return new JoinBunchConfirmationInteractor.JoinBunchConfirmationRequest(TestData.SlugA);
         }
 
         private JoinBunchConfirmationInteractor Sut

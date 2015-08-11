@@ -1,4 +1,4 @@
-﻿using Core.UseCases.EndCashgame;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EndGame_WithoutRunningGame_DoesNotEndGame()
         {
-            var request = new EndCashgameRequest(TestData.SlugA);
+            var request = new EndCashgame.Request(TestData.SlugA);
             Sut.Execute(request);
 
             Assert.IsNull(Repos.Cashgame.Ended);
@@ -20,17 +20,17 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new EndCashgameRequest(TestData.SlugA);
+            var request = new EndCashgame.Request(TestData.SlugA);
             Sut.Execute(request);
 
             Assert.AreEqual(TestData.CashgameIdC, Repos.Cashgame.Ended.Id);
         }
 
-        private EndCashgameInteractor Sut
+        private EndCashgame Sut
         {
             get
             {
-                return new EndCashgameInteractor(
+                return new EndCashgame(
                     Repos.Bunch,
                     Repos.Cashgame);
             }

@@ -38,9 +38,9 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.UserEmailA, result.Email);
         }
 
-        private EditUserFormRequest CreateRequest()
+        private EditUserFormInteractor.EditUserFormRequest CreateRequest()
         {
-            return new EditUserFormRequest(TestData.UserA.UserName);
+            return new EditUserFormInteractor.EditUserFormRequest(TestData.UserA.UserName);
         }
 
         private EditUserFormInteractor Sut

@@ -17,7 +17,7 @@ namespace Web.Models.PlayerModels.Facts
         public int WinningStreak { get; private set; }
         public int LosingStreak { get; private set; }
 
-	    public PlayerFactsModel(PlayerFactsResult factsResult)
+	    public PlayerFactsModel(PlayerFactsInteractor.PlayerFactsResult factsResult)
 	    {
 	        Winnings = factsResult.Winnings.String;
 	        WinningsCssClass = ResultFormatter.GetWinningsCssClass(factsResult.Winnings);

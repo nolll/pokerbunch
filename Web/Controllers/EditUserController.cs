@@ -23,7 +23,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditUserRequest(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
+                var request = new EditUserInteractor.EditUserRequest(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
                 var result = UseCase.EditUser.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -38,7 +38,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
         {
             var contextResult = GetAppContext();
-            var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserFormRequest(userName));
+            var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserFormInteractor.EditUserFormRequest(userName));
             var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
             return View("~/Views/Pages/EditUser/EditUser.cshtml", model);
         }

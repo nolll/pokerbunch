@@ -9,7 +9,7 @@ namespace Web.Models.HomegameModels.Join
         public string Name { get; private set; }
         public string Code { get; private set; }
 
-        public JoinBunchPageModel(AppContext.Result contextResult, JoinBunchFormResult joinBunchFormResult, JoinBunchPostModel postModel)
+        public JoinBunchPageModel(AppContext.Result contextResult, JoinBunchFormInteractor.JoinBunchFormResult joinBunchFormResult, JoinBunchPostModel postModel)
             : base("Join Bunch", contextResult)
         {
             Name = joinBunchFormResult.BunchName;

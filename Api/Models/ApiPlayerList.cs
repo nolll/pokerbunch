@@ -8,7 +8,7 @@ namespace Api.Models
     [CollectionDataContract(Namespace = "", Name = "players", ItemName = "player")]
     public class ApiPlayerList : List<ApiPlayer>
     {
-        public ApiPlayerList(PlayerListResult playerListResult)
+        public ApiPlayerList(PlayerListInteractor.PlayerListResult playerListResult)
         {
             AddRange(playerListResult.Players.Select(o => new ApiPlayer(o.Name)));
         }

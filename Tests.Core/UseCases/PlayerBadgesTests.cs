@@ -79,9 +79,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.Played500Games);
         }
 
-        private PlayerBadgesRequest CreateRequest()
+        private PlayerBadgesInteractor.PlayerBadgesRequest CreateRequest()
         {
-            return new PlayerBadgesRequest(TestData.PlayerIdA);
+            return new PlayerBadgesInteractor.PlayerBadgesRequest(TestData.PlayerIdA);
         }
 
         private PlayerBadgesInteractor Sut

@@ -1,5 +1,5 @@
 ﻿using Core.Exceptions;
-using Core.UseCases.EditCashgame;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_EmptyLocation_ThrowsException()
         {
-            var request = new EditCashgameRequest(TestData.SlugA, TestData.DateStringA, "");
+            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_ReturnUrlIsSet()
         {
-            var request = new EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
+            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
 
             var result = Sut.Execute(request);
 
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_SavesCashgame()
         {
-            var request = new EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
+            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
 
             Sut.Execute(request);
 
@@ -38,11 +38,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(ChangedLocation, Repos.Cashgame.Updated.Location);
         }
 
-        private EditCashgameInteractor Sut
+        private EditCashgame Sut
         {
             get
             {
-                return new EditCashgameInteractor(
+                return new EditCashgame(
                     Repos.Bunch,
                     Repos.Cashgame);
             }

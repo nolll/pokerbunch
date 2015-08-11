@@ -8,7 +8,7 @@ namespace Web.Models.PlayerModels.List
         public string Name { get; private set; }
         public string Url { get; private set; }
 
-        public PlayerItemModel(PlayerListItem p)
+        public PlayerItemModel(PlayerListInteractor.PlayerListItem p)
         {
             Name = p.Name;
             Url = new PlayerDetailsUrl(p.Id).Relative;

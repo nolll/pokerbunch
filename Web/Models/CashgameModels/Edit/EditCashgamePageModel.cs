@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.EditCashgameForm;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Edit
@@ -16,7 +15,7 @@ namespace Web.Models.CashgameModels.Edit
         public string TypedLocation { get; private set; }
         public string SelectedLocation { get; private set; }
 
-        public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameFormResult editCashgameFormResult, EditCashgamePostModel postModel)
+        public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel)
             : base("Edit Cashgame", contextResult)
         {
             IsoDate = editCashgameFormResult.Date;

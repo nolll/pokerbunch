@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Entities;
 using Core.Urls;
-using Core.UseCases.EditBunchForm;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -94,16 +94,16 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("{AMOUNT} {SYMBOL}", result.CurrencyLayouts[3]);
         }
 
-        private static EditBunchFormRequest CreateRequest()
+        private static EditBunchForm.Request CreateRequest()
         {
-            return new EditBunchFormRequest(TestData.SlugA);
+            return new EditBunchForm.Request(TestData.SlugA);
         }
 
-        private EditBunchFormInteractor Sut
+        private EditBunchForm Sut
         {
             get
             {
-                return new EditBunchFormInteractor(
+                return new EditBunchForm(
                     Repos.Bunch);
             }
         }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Core.Services;
 using Core.Urls;
+using Core.UseCases;
 using Core.UseCases.Matrix;
+using Web.Controllers;
 using Web.Urls;
 
 namespace Web.Models.CashgameModels.Matrix
@@ -15,7 +17,7 @@ namespace Web.Models.CashgameModels.Matrix
 	    public string PlayerUrl { get; private set; }
         public IList<CashgameMatrixTableCellModel> CellModels { get; private set; }
 
-        public CashgameMatrixTableRowModel(IEnumerable<GameItem> gameItems, MatrixPlayerItem playerItem)
+        public CashgameMatrixTableRowModel(IEnumerable<MatrixInteractor.GameItem> gameItems, MatrixInteractor.MatrixPlayerItem playerItem)
         {
             Rank = playerItem.Rank;
             Name = playerItem.Name;
@@ -25,12 +27,12 @@ namespace Web.Models.CashgameModels.Matrix
             ResultClass = ResultFormatter.GetWinningsCssClass(playerItem.TotalResult);
         }
 
-        private static IList<CashgameMatrixTableCellModel> CreateCells(IEnumerable<GameItem> gameItems, MatrixPlayerItem playerItem)
+        private static IList<CashgameMatrixTableCellModel> CreateCells(IEnumerable<MatrixInteractor.GameItem> gameItems, MatrixInteractor.MatrixPlayerItem playerItem)
         {
             var models = new List<CashgameMatrixTableCellModel>();
             foreach (var gameItem in gameItems)
             {
-                MatrixResultItem resultItem;
+                MatrixInteractor.MatrixResultItem resultItem;
                 if (playerItem.ResultItems.TryGetValue(gameItem.Id, out resultItem))
                 {
                     var model = new CashgameMatrixTableCellModel

@@ -27,7 +27,7 @@ namespace Web.Controllers
             RequireManager(context);
             try
             {
-                var request = new EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var request = new EditCheckpointInteractor.EditCheckpointRequest(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +42,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointFormInteractor.EditCheckpointFormRequest(slug, dateStr, playerId, checkpointId));
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
         }

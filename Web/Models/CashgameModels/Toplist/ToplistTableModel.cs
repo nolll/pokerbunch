@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.CashgameTopList;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Toplist
 {
@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.Toplist
         public TopListTableColumns ColumnsModel { get; private set; }
         public IList<CashgameToplistTableItemModel> ItemModels { get; private set; }
 
-        public ToplistTableModel(TopListResult topListResult)
+        public ToplistTableModel(TopList.Result topListResult)
         {
             ColumnsModel = new TopListTableColumns(topListResult);
             ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemModel(o, topListResult.OrderBy)).ToList();
