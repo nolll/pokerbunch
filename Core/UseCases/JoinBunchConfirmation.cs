@@ -1,43 +1,43 @@
 using Core.Repositories;
 using Core.Urls;
 
-namespace Core.UseCases.JoinBunchConfirmation
+namespace Core.UseCases
 {
-    public class JoinBunchConfirmationInteractor
+    public class JoinBunchConfirmation
     {
         private readonly IBunchRepository _bunchRepository;
 
-        public JoinBunchConfirmationInteractor(IBunchRepository bunchRepository)
+        public JoinBunchConfirmation(IBunchRepository bunchRepository)
         {
             _bunchRepository = bunchRepository;
         }
 
-        public JoinBunchConfirmationResult Execute(JoinBunchConfirmationRequest request)
+        public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var bunchName = bunch.DisplayName;
 
             var detailsUrl = new BunchDetailsUrl(request.Slug);
             
-            return new JoinBunchConfirmationResult(bunchName, detailsUrl);
+            return new Result(bunchName, detailsUrl);
         }
 
-        public class JoinBunchConfirmationRequest
+        public class Request
         {
             public string Slug { get; private set; }
 
-            public JoinBunchConfirmationRequest(string slug)
+            public Request(string slug)
             {
                 Slug = slug;
             }
         }
 
-        public class JoinBunchConfirmationResult
+        public class Result
         {
             public string BunchName { get; private set; }
             public Url BunchDetailsUrl { get; private set; }
 
-            public JoinBunchConfirmationResult(string bunchName, Url bunchDetailsUrl)
+            public Result(string bunchName, Url bunchDetailsUrl)
             {
                 BunchDetailsUrl = bunchDetailsUrl;
                 BunchName = bunchName;

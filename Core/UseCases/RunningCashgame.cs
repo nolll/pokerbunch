@@ -8,16 +8,16 @@ using Core.Repositories;
 using Core.Services;
 using Core.Urls;
 
-namespace Core.UseCases.RunningCashgame
+namespace Core.UseCases
 {
-    public class RunningCashgameInteractor
+    public class RunningCashgame
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
 
-        public RunningCashgameInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
@@ -25,7 +25,7 @@ namespace Core.UseCases.RunningCashgame
             _userRepository = userRepository;
         }
 
-        public RunningCashgameResult Execute(RunningCashgameRequest request)
+        public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var cashgame = _cashgameRepository.GetRunning(bunch.Id);
@@ -62,7 +62,7 @@ namespace Core.UseCases.RunningCashgame
 
             var defaultBuyin = bunch.DefaultBuyin;
 
-            return new RunningCashgameResult(
+            return new Result(
                 player.Id,
                 location,
                 gameDataUrl,
@@ -99,11 +99,6 @@ namespace Core.UseCases.RunningCashgame
                 return Globalization.FormatTime(localTime);
             }
             return null;
-        }
-
-        private static bool CanBeEnded(Cashgame cashgame)
-        {
-            return cashgame.IsStarted && !cashgame.HasActivePlayers;
         }
 
         private static IList<RunningCashgameTableItem> GetItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)
@@ -169,13 +164,13 @@ namespace Core.UseCases.RunningCashgame
             return results.OrderByDescending(o => o.Winnings);
         }
 
-        public class RunningCashgameRequest
+        public class Request
         {
             public string Slug { get; private set; }
             public string UserName { get; private set; }
             public DateTime CurrentTime { get; private set; }
 
-            public RunningCashgameRequest(string slug, string userName, DateTime currentTime)
+            public Request(string slug, string userName, DateTime currentTime)
             {
                 Slug = slug;
                 UserName = userName;
@@ -183,7 +178,7 @@ namespace Core.UseCases.RunningCashgame
             }
         }
 
-        public class RunningCashgameResult
+        public class Result
         {
             public int PlayerId { get; private set; }
             public string Location { get; private set; }
@@ -207,7 +202,7 @@ namespace Core.UseCases.RunningCashgame
             public int DefaultBuyin { get; private set; }
             public bool IsManager { get; private set; }
 
-            public RunningCashgameResult(
+            public Result(
                 int playerId,
                 string location,
                 Url gameDataUrl,

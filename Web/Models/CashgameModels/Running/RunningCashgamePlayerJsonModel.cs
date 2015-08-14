@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.RunningCashgame;
+using Core.UseCases;
 using Web.Annotations;
 
 namespace Web.Models.CashgameModels.Running
@@ -22,7 +22,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public IList<RunningCashgameCheckpointJsonModel> Checkpoints { get; private set; }
 
-        public RunningCashgamePlayerJsonModel(RunningCashgameInteractor.RunningCashgamePlayerItem item)
+        public RunningCashgamePlayerJsonModel(RunningCashgame.RunningCashgamePlayerItem item)
         {
             Id = item.PlayerId;
             Name = item.Name;

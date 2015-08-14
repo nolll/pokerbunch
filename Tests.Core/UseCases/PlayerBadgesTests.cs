@@ -1,4 +1,4 @@
-﻿using Core.UseCases.PlayerBadges;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -79,16 +79,16 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.Played500Games);
         }
 
-        private PlayerBadgesInteractor.PlayerBadgesRequest CreateRequest()
+        private PlayerBadges.Request CreateRequest()
         {
-            return new PlayerBadgesInteractor.PlayerBadgesRequest(TestData.PlayerIdA);
+            return new PlayerBadges.Request(TestData.PlayerIdA);
         }
 
-        private PlayerBadgesInteractor Sut
+        private PlayerBadges Sut
         {
             get
             {
-                return new PlayerBadgesInteractor(
+                return new PlayerBadges(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player);

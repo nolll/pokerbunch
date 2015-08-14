@@ -1,5 +1,5 @@
 using Core.Services;
-using Core.UseCases.PlayerFacts;
+using Core.UseCases;
 
 namespace Web.Models.PlayerModels.Facts
 {
@@ -17,7 +17,7 @@ namespace Web.Models.PlayerModels.Facts
         public int WinningStreak { get; private set; }
         public int LosingStreak { get; private set; }
 
-	    public PlayerFactsModel(PlayerFactsInteractor.PlayerFactsResult factsResult)
+	    public PlayerFactsModel(PlayerFacts.Result factsResult)
 	    {
 	        Winnings = factsResult.Winnings.String;
 	        WinningsCssClass = ResultFormatter.GetWinningsCssClass(factsResult.Winnings);

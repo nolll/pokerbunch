@@ -1,4 +1,4 @@
-﻿using Core.UseCases.PlayerFacts;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerFacts_ReturnsResultObject()
         {
-            var request = new PlayerFactsInteractor.PlayerFactsRequest(TestData.PlayerIdA);
+            var request = new PlayerFacts.Request(TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GamesPlayed);
@@ -22,11 +22,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, result.LosingStreak);
         }
 
-        private PlayerFactsInteractor Sut
+        private PlayerFacts Sut
         {
             get
             {
-                return new PlayerFactsInteractor(
+                return new PlayerFacts(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player);

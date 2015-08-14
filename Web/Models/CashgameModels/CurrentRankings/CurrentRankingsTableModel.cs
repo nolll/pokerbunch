@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.CashgameCurrentRankings;
 
 namespace Web.Models.CashgameModels.CurrentRankings
 {
@@ -8,7 +7,7 @@ namespace Web.Models.CashgameModels.CurrentRankings
     {
         public IList<CurrentRankingsTableItemModel> ItemModels { get; private set; }
 
-        public CurrentRankingsTableModel(Core.UseCases.CashgameCurrentRankings.CurrentRankings.Result currentRankings)
+        public CurrentRankingsTableModel(Core.UseCases.CurrentRankings.Result currentRankings)
         {
             ItemModels = currentRankings.Items.Select(o => new CurrentRankingsTableItemModel(o)).ToList();
         }

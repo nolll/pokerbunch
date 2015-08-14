@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.RunningCashgame;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
@@ -8,7 +7,7 @@ namespace Web.Models.CashgameModels.Running
     {
         public string GameDataUrl { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgameInteractor.RunningCashgameResult runningCashgameResult)
+	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
 	        GameDataUrl = runningCashgameResult.GameDataUrl.Relative;

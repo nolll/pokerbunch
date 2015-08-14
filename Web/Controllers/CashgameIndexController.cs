@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Core.UseCases.CashgameCurrentRankings;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Index;
 

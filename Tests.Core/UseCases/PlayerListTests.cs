@@ -1,4 +1,4 @@
-﻿using Core.UseCases.PlayerList;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_WithSlug_SlugAndPlayersAreSet()
         {
-            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameA);
+            var request = new PlayerList.Request(TestData.SlugA, TestData.UserNameA);
 
             var result = Sut.Execute(request);
 
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayersAreSortedAlphabetically()
         {
-            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameA);
+            var request = new PlayerList.Request(TestData.SlugA, TestData.UserNameA);
 
             var result = Sut.Execute(request);
 
@@ -34,18 +34,18 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_PlayerIsManager_CanAddPlayerIsTrue()
         {
-            var request = new PlayerListInteractor.PlayerListRequest(TestData.SlugA, TestData.UserNameC);
+            var request = new PlayerList.Request(TestData.SlugA, TestData.UserNameC);
 
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.CanAddPlayer);
         }
 
-        private PlayerListInteractor Sut
+        private PlayerList Sut
         {
             get
             {
-                return new PlayerListInteractor(
+                return new PlayerList(
                     Repos.Bunch,
                     Repos.User,
                     Repos.Player);

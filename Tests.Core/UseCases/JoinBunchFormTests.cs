@@ -1,4 +1,4 @@
-﻿using Core.UseCases.JoinBunchForm;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,18 +9,18 @@ namespace Tests.Core.UseCases
         [Test]
         public void JoinBunchForm_BunchNameIsSet()
         {
-            var request = new JoinBunchFormInteractor.JoinBunchFormRequest(TestData.SlugA);
+            var request = new JoinBunchForm.Request(TestData.SlugA);
 
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.BunchA.DisplayName, result.BunchName);
         }
 
-        private JoinBunchFormInteractor Sut
+        private JoinBunchForm Sut
         {
             get
             {
-                return new JoinBunchFormInteractor(
+                return new JoinBunchForm(
                     Repos.Bunch);
             }
         }

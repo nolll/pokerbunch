@@ -1,4 +1,4 @@
-using Core.UseCases.PlayerList;
+using Core.UseCases;
 using Web.Urls;
 
 namespace Web.Models.PlayerModels.List
@@ -8,7 +8,7 @@ namespace Web.Models.PlayerModels.List
         public string Name { get; private set; }
         public string Url { get; private set; }
 
-        public PlayerItemModel(PlayerListInteractor.PlayerListItem p)
+        public PlayerItemModel(PlayerList.PlayerListItem p)
         {
             Name = p.Name;
             Url = new PlayerDetailsUrl(p.Id).Relative;

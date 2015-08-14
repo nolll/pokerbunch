@@ -1,4 +1,4 @@
-﻿using Core.UseCases.EditUserForm;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -38,16 +38,16 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.UserEmailA, result.Email);
         }
 
-        private EditUserFormInteractor.EditUserFormRequest CreateRequest()
+        private EditUserForm.Request CreateRequest()
         {
-            return new EditUserFormInteractor.EditUserFormRequest(TestData.UserA.UserName);
+            return new EditUserForm.Request(TestData.UserA.UserName);
         }
 
-        private EditUserFormInteractor Sut
+        private EditUserForm Sut
         {
             get
             {
-                return new EditUserFormInteractor(Repos.User);
+                return new EditUserForm(Repos.User);
             }
         }
     }

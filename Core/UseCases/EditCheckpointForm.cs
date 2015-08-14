@@ -3,20 +3,20 @@ using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Urls;
 
-namespace Core.UseCases.EditCheckpointForm
+namespace Core.UseCases
 {
-    public class EditCheckpointFormInteractor
+    public class EditCheckpointForm
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
 
-        public EditCheckpointFormInteractor(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
+        public EditCheckpointForm(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
         }
 
-        public EditCheckpointFormResult Execute(EditCheckpointFormRequest request)
+        public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
@@ -27,17 +27,17 @@ namespace Core.UseCases.EditCheckpointForm
             var cancelUrl = new CashgameActionUrl(request.Slug, request.DateString, request.PlayerId);
             var canEditAmount = checkpoint.Type == CheckpointType.Buyin;
 
-            return new EditCheckpointFormResult(stack, amount, timestamp, deleteUrl, cancelUrl, canEditAmount);
+            return new Result(stack, amount, timestamp, deleteUrl, cancelUrl, canEditAmount);
         }
 
-        public class EditCheckpointFormRequest
+        public class Request
         {
             public string Slug { get; private set; }
             public int CheckpointId { get; private set; }
             public string DateString { get; private set; }
             public int PlayerId { get; private set; }
 
-            public EditCheckpointFormRequest(string slug, string dateString, int playerId, int checkpointId)
+            public Request(string slug, string dateString, int playerId, int checkpointId)
             {
                 Slug = slug;
                 CheckpointId = checkpointId;
@@ -46,7 +46,7 @@ namespace Core.UseCases.EditCheckpointForm
             }
         }
 
-        public class EditCheckpointFormResult
+        public class Result
         {
             public int Stack { get; private set; }
             public int Amount { get; private set; }
@@ -55,7 +55,7 @@ namespace Core.UseCases.EditCheckpointForm
             public Url CancelUrl { get; private set; }
             public bool CanEditAmount { get; private set; }
 
-            public EditCheckpointFormResult(int stack, int amount, DateTime timeStamp, Url deleteUrl, Url cancelUrl, bool canEditAmount)
+            public Result(int stack, int amount, DateTime timeStamp, Url deleteUrl, Url cancelUrl, bool canEditAmount)
             {
                 TimeStamp = timeStamp;
                 Stack = stack;

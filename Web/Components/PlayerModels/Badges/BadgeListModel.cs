@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.UseCases.PlayerBadges;
+using Core.UseCases;
 using Web.Extensions;
 
 namespace Web.Components.PlayerModels.Badges
@@ -8,7 +8,7 @@ namespace Web.Components.PlayerModels.Badges
     {
         public IList<BadgeModel> NumberOfGamesBadges { get; private set; }
 
-	    public BadgeListModel(PlayerBadgesInteractor.PlayerBadgesResult badgesResult)
+	    public BadgeListModel(PlayerBadges.Result badgesResult)
 	    {
 	        NumberOfGamesBadges = new List<BadgeModel>
 	        {

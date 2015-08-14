@@ -5,36 +5,36 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Urls;
 
-namespace Core.UseCases.Matrix
+namespace Core.UseCases
 {
-    public class MatrixInteractor
+    public class Matrix
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public MatrixInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
-        public MatrixResult Execute(MatrixRequest request)
+        public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
         }
 
-        public MatrixResult Execute(EventMatrixRequest request)
+        public Result Execute(EventMatrixRequest request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var cashgames = _cashgameRepository.GetByEvent(request.EventId);
             return Execute(bunch, cashgames);
         }
 
-        private MatrixResult Execute(Bunch bunch, IList<Cashgame> cashgames)
+        private Result Execute(Bunch bunch, IList<Cashgame> cashgames)
         {
             var players = _playerRepository.GetList(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
@@ -43,7 +43,7 @@ namespace Core.UseCases.Matrix
             var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;
 
-            return new MatrixResult(gameItems, playerItems, spansMultipleYears);
+            return new Result(gameItems, playerItems, spansMultipleYears);
         }
 
         private static IList<MatrixPlayerItem> CreatePlayerItems(Bunch bunch, CashgameSuite suite)
@@ -100,12 +100,12 @@ namespace Core.UseCases.Matrix
             return new GameItem(cashgameId, date, url);
         }
 
-        public class MatrixRequest
+        public class Request
         {
             public string Slug { get; private set; }
             public int? Year { get; private set; }
 
-            public MatrixRequest(string slug, int? year)
+            public Request(string slug, int? year)
             {
                 Slug = slug;
                 Year = year;
@@ -124,13 +124,13 @@ namespace Core.UseCases.Matrix
             }
         }
 
-        public class MatrixResult
+        public class Result
         {
             public IList<GameItem> GameItems { get; private set; }
             public IList<MatrixPlayerItem> PlayerItems { get; private set; }
             public bool SpansMultipleYears { get; private set; }
 
-            public MatrixResult(IList<GameItem> gameItems, IList<MatrixPlayerItem> playerItems, bool spansMultipleYears)
+            public Result(IList<GameItem> gameItems, IList<MatrixPlayerItem> playerItems, bool spansMultipleYears)
             {
                 GameItems = gameItems;
                 PlayerItems = playerItems;

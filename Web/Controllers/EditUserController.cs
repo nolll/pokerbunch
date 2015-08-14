@@ -1,7 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.UseCases.EditUser;
-using Core.UseCases.EditUserForm;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Edit;
 
@@ -23,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditUserInteractor.EditUserRequest(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
+                var request = new EditUser.Request(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
                 var result = UseCase.EditUser.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -38,7 +37,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
         {
             var contextResult = GetAppContext();
-            var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserFormInteractor.EditUserFormRequest(userName));
+            var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserForm.Request(userName));
             var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
             return View("~/Views/Pages/EditUser/EditUser.cshtml", model);
         }

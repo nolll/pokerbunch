@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Core.UseCases.UserList;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -17,11 +17,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/-/user/details/user-name-a", result.Users.First().Url.Relative);
         }
 
-        private UserListInteractor Sut
+        private UserList Sut
         {
             get
             {
-                return new UserListInteractor(Repos.User);
+                return new UserList(Repos.User);
             }
         }
     }

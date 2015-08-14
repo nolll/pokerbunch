@@ -1,5 +1,5 @@
 ﻿using Core.Urls;
-using Core.UseCases.JoinBunchConfirmation;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -23,16 +23,16 @@ namespace Tests.Core.UseCases
             Assert.IsInstanceOf<BunchDetailsUrl>(result.BunchDetailsUrl);
         }
 
-        private static JoinBunchConfirmationInteractor.JoinBunchConfirmationRequest CreateRequest()
+        private static JoinBunchConfirmation.Request CreateRequest()
         {
-            return new JoinBunchConfirmationInteractor.JoinBunchConfirmationRequest(TestData.SlugA);
+            return new JoinBunchConfirmation.Request(TestData.SlugA);
         }
 
-        private JoinBunchConfirmationInteractor Sut
+        private JoinBunchConfirmation Sut
         {
             get
             {
-                return new JoinBunchConfirmationInteractor(
+                return new JoinBunchConfirmation(
                     Repos.Bunch);
             }
         }

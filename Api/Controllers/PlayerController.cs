@@ -1,7 +1,6 @@
 using System.Web.Http;
 using Api.Models;
 using Core.UseCases;
-using Core.UseCases.PlayerList;
 
 namespace Api.Controllers
 {
@@ -11,7 +10,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public ApiPlayerList List(string slug)
         {
-            var playerListResult = UseCase.PlayerList.Execute(new PlayerListInteractor.PlayerListRequest(slug, "henriks"));
+            var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(slug, "henriks"));
             return new ApiPlayerList(playerListResult);
         }
 

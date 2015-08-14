@@ -2,7 +2,7 @@ using System;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.Urls;
-using Core.UseCases.RunningCashgame;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Running;
 
@@ -18,7 +18,7 @@ namespace Web.Controllers
             RequirePlayer(contextResult);
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameInteractor.RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
@@ -34,7 +34,7 @@ namespace Web.Controllers
         {
             var bunchContext = GetBunchContext(slug);
             RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameInteractor.RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
         }
@@ -45,7 +45,7 @@ namespace Web.Controllers
         {
             var bunchContext = GetBunchContext(slug);
             RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgameInteractor.RunningCashgameRequest(slug, CurrentUserName, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }

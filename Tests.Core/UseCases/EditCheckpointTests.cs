@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Checkpoints;
 using Core.Exceptions;
-using Core.UseCases.EditCheckpoint;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidStack_ThrowsException()
         {
-            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidAmount_ThrowsException()
         {
-            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
+            var request = new EditCheckpoint.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_ReturnUrlIsSet()
         {
-            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             var result = Sut.Execute(request);
 
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_CheckpointIsSaved()
         {
-            var request = new EditCheckpointInteractor.EditCheckpointRequest(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             Sut.Execute(request);
 
@@ -50,11 +50,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(ChangedAmount, Repos.Checkpoint.Saved.Amount);
         }
 
-        private EditCheckpointInteractor Sut
+        private EditCheckpoint Sut
         {
             get
             {
-                return new EditCheckpointInteractor(
+                return new EditCheckpoint(
                     Repos.Bunch,
                     Repos.Checkpoint);
             }

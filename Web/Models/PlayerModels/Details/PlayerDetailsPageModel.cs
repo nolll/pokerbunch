@@ -1,6 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.PlayerBadges;
-using Core.UseCases.PlayerFacts;
 using Web.Components.PlayerModels.Badges;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
@@ -20,7 +18,7 @@ namespace Web.Models.PlayerModels.Details
         public PlayerFactsModel PlayerFactsModel { get; private set; }
         public BadgeListModel BadgeListModel { get; private set; }
 
-        public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFactsInteractor.PlayerFactsResult factsResult, PlayerBadgesInteractor.PlayerBadgesResult badgesResult)
+        public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
             : base("Player Details", contextResult)
         {
             DisplayName = detailsResult.DisplayName;

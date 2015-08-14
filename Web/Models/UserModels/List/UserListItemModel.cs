@@ -1,4 +1,4 @@
-using Core.UseCases.UserList;
+using Core.UseCases;
 
 namespace Web.Models.UserModels.List
 {
@@ -7,7 +7,7 @@ namespace Web.Models.UserModels.List
         public string Name { get; private set; }
         public string Url { get; private set; }
 
-        public UserListItemModel(UserListInteractor.UserListItem userListItem)
+        public UserListItemModel(UserList.UserListItem userListItem)
         {
             Name = userListItem.DisplayName;
             Url = userListItem.Url.Relative;

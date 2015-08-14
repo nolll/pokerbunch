@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Core.UseCases.Matrix;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Matrix
@@ -8,7 +7,7 @@ namespace Web.Models.CashgameModels.Matrix
     {
         public CashgameMatrixTableModel TableModel { get; private set; }
 
-        public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, MatrixInteractor.MatrixResult matrixResult)
+        public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, Core.UseCases.Matrix.Result matrixResult)
             : base("Cashgame Matrix", cashgameContextResult)
         {
             TableModel = new CashgameMatrixTableModel(matrixResult);

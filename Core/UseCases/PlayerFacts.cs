@@ -3,41 +3,41 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
-namespace Core.UseCases.PlayerFacts
+namespace Core.UseCases
 {
-    public class PlayerFactsInteractor
+    public class PlayerFacts
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public PlayerFactsInteractor(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public PlayerFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
-        public PlayerFactsResult Execute(PlayerFactsRequest request)
+        public Result Execute(Request request)
         {
             var player = _playerRepository.GetById(request.PlayerId);
             var bunch = _bunchRepository.GetById(player.BunchId);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id);
 
-            return new PlayerFactsResult(cashgames, player.Id, bunch.Currency);
+            return new Result(cashgames, player.Id, bunch.Currency);
         }
 
-        public class PlayerFactsRequest
+        public class Request
         {
             public int PlayerId { get; private set; }
 
-            public PlayerFactsRequest(int playerId)
+            public Request(int playerId)
             {
                 PlayerId = playerId;
             }
         }
 
-        public class PlayerFactsResult
+        public class Result
         {
             public MoneyResult Winnings { get; private set; }
             public MoneyResult BestResult { get; private set; }
@@ -48,7 +48,7 @@ namespace Core.UseCases.PlayerFacts
             public int WinningStreak { get; private set; }
             public int LosingStreak { get; private set; }
 
-            public PlayerFactsResult(IEnumerable<Cashgame> cashgames, int playerId, Currency currency)
+            public Result(IEnumerable<Cashgame> cashgames, int playerId, Currency currency)
             {
                 var evaluator = new PlayerFactsEvaluator(cashgames, playerId);
 
@@ -63,7 +63,7 @@ namespace Core.UseCases.PlayerFacts
             }
         }
 
-        public class PlayerFactsEvaluator
+        private class PlayerFactsEvaluator
         {
             private readonly IEnumerable<Cashgame> _cashgames;
             private readonly int _playerId;

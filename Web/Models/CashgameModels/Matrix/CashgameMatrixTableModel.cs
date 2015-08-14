@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.UseCases.Matrix;
+using Core.UseCases;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.Matrix
 	    public List<CashgameMatrixTableColumnHeaderModel> ColumnHeaderModels { get; private set; }
 	    public List<CashgameMatrixTableRowModel> RowModels { get; private set; }
 
-        public CashgameMatrixTableModel(MatrixInteractor.MatrixResult matrixResult)
+        public CashgameMatrixTableModel(Core.UseCases.Matrix.Result matrixResult)
         {
             var showYear = matrixResult.SpansMultipleYears;
             var headerModels = matrixResult.GameItems.Select(o => new CashgameMatrixTableColumnHeaderModel(o, showYear)).ToList();

@@ -1,6 +1,5 @@
 using Core.Services;
 using Core.Urls;
-using Core.UseCases.CashgameCurrentRankings;
 using Web.Urls;
 
 namespace Web.Models.CashgameModels.CurrentRankings
@@ -15,7 +14,7 @@ namespace Web.Models.CashgameModels.CurrentRankings
         public string LastGameResultClass { get; private set; }
         public string PlayerUrl { get; private set; }
 
-        public CurrentRankingsTableItemModel(Core.UseCases.CashgameCurrentRankings.CurrentRankings.Item currentRankingsItem)
+        public CurrentRankingsTableItemModel(Core.UseCases.CurrentRankings.Item currentRankingsItem)
         {
             Rank = currentRankingsItem.Rank;
             TotalResult = currentRankingsItem.TotalWinnings.String;

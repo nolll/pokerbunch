@@ -1,5 +1,5 @@
 ﻿using Core.Exceptions;
-using Core.UseCases.EditUser;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_EmptyDisplayName_ThrowsException()
         {
-            var request = new EditUserInteractor.EditUserRequest(TestData.UserNameA, "", RealName, ChangedEmail);
+            var request = new EditUser.Request(TestData.UserNameA, "", RealName, ChangedEmail);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_EmptyEmail_ThrowsException()
         {
-            var request = new EditUserInteractor.EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, "");
+            var request = new EditUser.Request(TestData.UserNameA, ChangedDisplayName, RealName, "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_InvalidEmail_ThrowsException()
         {
-            var request = new EditUserInteractor.EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, "a");
+            var request = new EditUser.Request(TestData.UserNameA, ChangedDisplayName, RealName, "a");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_ValidInput_ReturnUrlIsSet()
         {
-            var request = new EditUserInteractor.EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
+            var request = new EditUser.Request(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
 
             var result = Sut.Execute(request);
 
@@ -48,7 +48,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditUser_ValidInput_UserIsSaved()
         {
-            var request = new EditUserInteractor.EditUserRequest(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
+            var request = new EditUser.Request(TestData.UserNameA, ChangedDisplayName, RealName, ChangedEmail);
 
             Sut.Execute(request);
 
@@ -57,11 +57,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(ChangedEmail, Repos.User.Saved.Email);
         }
 
-        private EditUserInteractor Sut
+        private EditUser Sut
         {
             get
             {
-                return new EditUserInteractor(Repos.User);
+                return new EditUser(Repos.User);
             }
         }
     }

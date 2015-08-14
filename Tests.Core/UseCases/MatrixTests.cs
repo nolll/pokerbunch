@@ -1,4 +1,4 @@
-﻿using Core.UseCases.Matrix;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -36,16 +36,16 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.SpansMultipleYears);
         }
 
-        private static MatrixInteractor.MatrixRequest CreateRequest(int? year = null)
+        private static Matrix.Request CreateRequest(int? year = null)
         {
-            return new MatrixInteractor.MatrixRequest(TestData.SlugA, year);
+            return new Matrix.Request(TestData.SlugA, year);
         }
 
-        private MatrixInteractor Sut
+        private Matrix Sut
         {
             get
             {
-                return new MatrixInteractor(
+                return new Matrix(
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player);

@@ -5,20 +5,20 @@ using Core.Repositories;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases.EditCheckpoint
+namespace Core.UseCases
 {
-    public class EditCheckpointInteractor
+    public class EditCheckpoint
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
 
-        public EditCheckpointInteractor(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
+        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
         }
 
-        public EditCheckpointResult Execute(EditCheckpointRequest request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -39,10 +39,10 @@ namespace Core.UseCases.EditCheckpoint
             _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
             var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
-            return new EditCheckpointResult(returnUrl);
+            return new Result(returnUrl);
         }
 
-        public class EditCheckpointRequest
+        public class Request
         {
             public string Slug { get; private set; }
             public string DateStr { get; private set; }
@@ -54,7 +54,7 @@ namespace Core.UseCases.EditCheckpoint
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
             public int Amount { get; private set; }
 
-            public EditCheckpointRequest(string slug, string dateStr, int playerId, int checkpointId, DateTime timestamp, int stack, int amount)
+            public Request(string slug, string dateStr, int playerId, int checkpointId, DateTime timestamp, int stack, int amount)
             {
                 Slug = slug;
                 DateStr = dateStr;
@@ -66,11 +66,11 @@ namespace Core.UseCases.EditCheckpoint
             }
         }
 
-        public class EditCheckpointResult
+        public class Result
         {
             public Url ReturnUrl { get; private set; }
 
-            public EditCheckpointResult(Url returnUrl)
+            public Result(Url returnUrl)
             {
                 ReturnUrl = returnUrl;
             }

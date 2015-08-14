@@ -1,38 +1,38 @@
 using Core.Repositories;
 
-namespace Core.UseCases.JoinBunchForm
+namespace Core.UseCases
 {
-    public class JoinBunchFormInteractor
+    public class JoinBunchForm
     {
         private readonly IBunchRepository _bunchRepository;
 
-        public JoinBunchFormInteractor(IBunchRepository bunchRepository)
+        public JoinBunchForm(IBunchRepository bunchRepository)
         {
             _bunchRepository = bunchRepository;
         }
 
-        public JoinBunchFormResult Execute(JoinBunchFormRequest request)
+        public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
 
-            return new JoinBunchFormResult(bunch.DisplayName);
+            return new Result(bunch.DisplayName);
         }
 
-        public class JoinBunchFormRequest
+        public class Request
         {
             public string Slug { get; private set; }
 
-            public JoinBunchFormRequest(string slug)
+            public Request(string slug)
             {
                 Slug = slug;
             }
         }
 
-        public class JoinBunchFormResult
+        public class Result
         {
             public string BunchName { get; private set; }
 
-            public JoinBunchFormResult(string bunchName)
+            public Result(string bunchName)
             {
                 BunchName = bunchName;
             }

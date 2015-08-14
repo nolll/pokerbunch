@@ -4,18 +4,18 @@ using Core.Repositories;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases.EditUser
+namespace Core.UseCases
 {
-    public class EditUserInteractor
+    public class EditUser
     {
         private readonly IUserRepository _userRepository;
 
-        public EditUserInteractor(IUserRepository userRepository)
+        public EditUser(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public EditUserResult Execute(EditUserRequest request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -27,10 +27,10 @@ namespace Core.UseCases.EditUser
             _userRepository.Save(userToSave);
 
             var returnUrl = new UserDetailsUrl(request.UserName);
-            return new EditUserResult(returnUrl);
+            return new Result(returnUrl);
         }
 
-        private static User GetUser(User user, EditUserRequest request)
+        private static User GetUser(User user, Request request)
         {
             return new User(
                 user.Id,
@@ -43,7 +43,7 @@ namespace Core.UseCases.EditUser
                 user.Salt);
         }
 
-        public class EditUserRequest
+        public class Request
         {
             public string UserName { get; private set; }
             [Required(ErrorMessage = "Display Name can't be empty")]
@@ -53,7 +53,7 @@ namespace Core.UseCases.EditUser
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; private set; }
 
-            public EditUserRequest(string userName, string displayName, string realName, string email)
+            public Request(string userName, string displayName, string realName, string email)
             {
                 UserName = userName;
                 DisplayName = displayName;
@@ -62,11 +62,11 @@ namespace Core.UseCases.EditUser
             }
         }
 
-        public class EditUserResult
+        public class Result
         {
             public Url ReturnUrl { get; private set; }
 
-            public EditUserResult(Url returnUrl)
+            public Result(Url returnUrl)
             {
                 ReturnUrl = returnUrl;
             }

@@ -1,4 +1,4 @@
-using Core.UseCases.RunningCashgame;
+using Core.UseCases;
 using Web.Annotations;
 
 namespace Web.Models.CashgameModels.Running
@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public string Name { get; private set; }
 
-        public BunchPlayerJsonModel(RunningCashgameInteractor.BunchPlayerItem item)
+        public BunchPlayerJsonModel(RunningCashgame.BunchPlayerItem item)
         {
             Id = item.PlayerId;
             Name = item.Name;

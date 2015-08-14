@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
-namespace Core.UseCases.CashgameCurrentRankings
+namespace Core.UseCases
 {
     public class CurrentRankings
     {

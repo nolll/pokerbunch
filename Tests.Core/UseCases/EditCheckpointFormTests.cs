@@ -1,5 +1,5 @@
 ﻿using Core.Urls;
-using Core.UseCases.EditCheckpointForm;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -55,16 +55,16 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.CanEditAmount);
         }
 
-        private static EditCheckpointFormInteractor.EditCheckpointFormRequest CreateRequest(int id)
+        private static EditCheckpointForm.Request CreateRequest(int id)
         {
-            return new EditCheckpointFormInteractor.EditCheckpointFormRequest(TestData.BunchB.Slug, DateString, PlayerId, id);
+            return new EditCheckpointForm.Request(TestData.BunchB.Slug, DateString, PlayerId, id);
         }
 
-        private EditCheckpointFormInteractor Sut
+        private EditCheckpointForm Sut
         {
             get
             {
-                return new EditCheckpointFormInteractor(
+                return new EditCheckpointForm(
                     Repos.Bunch,
                     Repos.Checkpoint);
             }
