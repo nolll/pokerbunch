@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerDetails)]
         public ActionResult Details(int playerId)
         {
-            var contextResult = GetBunchContext(playerId);
+            var contextResult = GetBunchContextByPlayerId(playerId);
             RequirePlayer(contextResult);
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(playerId, CurrentUserName));
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(playerId));

@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameDetails)]
         public ActionResult Details(string slug, string dateStr)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             RequirePlayer(contextResult);
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(slug, CurrentUserName, dateStr));
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(slug, DateTime.UtcNow, dateStr));

@@ -14,7 +14,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerInvite)]
         public ActionResult Invite(string slug, int playerId)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             return ShowForm(slug);
         }
@@ -24,7 +24,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerInvite)]
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             var request = new InvitePlayer.Request(slug, playerId, postModel.Email, new AddUserUrl().Absolute);
 
@@ -44,14 +44,14 @@ namespace Web.Controllers
         [Route(Routes.PlayerInviteConfirmation)]
         public ActionResult Invited(string slug, int playerId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             var model = new InvitePlayerPageModel(contextResult, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }

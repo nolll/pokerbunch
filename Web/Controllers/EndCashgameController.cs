@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameEnd)]
         public ActionResult Post(string slug)
         {
-            var bunchContext = GetBunchContext(slug);
+            var bunchContext = GetBunchContextBySlug(slug);
             if (!bunchContext.IsPlayer)
                 throw new AccessDeniedException();
             UseCase.EndCashgame.Execute(new EndCashgame.Request(slug));

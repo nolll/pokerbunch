@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameAction)]
         public ActionResult Action(string slug, string dateStr, int playerId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             RequirePlayer(contextResult);
             var actionsOutput = UseCase.Actions.Execute(new Actions.Request(CurrentUserName, slug, dateStr, playerId));
             var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChart.Request(slug, dateStr, playerId, DateTime.UtcNow));

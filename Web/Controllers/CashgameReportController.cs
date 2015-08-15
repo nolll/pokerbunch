@@ -15,7 +15,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameReport)]
         public ActionResult Report_Post(string slug, ReportPostModel postModel)
         {
-            var bunchContext = GetBunchContext(slug);
+            var bunchContext = GetBunchContextBySlug(slug);
             if (!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new Report.Request(slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);

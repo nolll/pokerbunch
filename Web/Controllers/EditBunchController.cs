@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(Routes.BunchEdit)]
         public ActionResult Edit(string slug)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             return ShowForm(slug);
         }
@@ -23,7 +23,7 @@ namespace Web.Controllers
         [Route(Routes.BunchEdit)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             try
             {
@@ -41,7 +41,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             var editBunchFormRequest = new EditBunchForm.Request(slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);

@@ -24,12 +24,12 @@ namespace Web.Controllers.Base
             return UseCase.AppContext.Execute(new AppContext.Request(CurrentUserName));
         }
 
-        protected BunchContext.Result GetBunchContext(string slug = null)
+        protected BunchContext.Result GetBunchContextBySlug(string slug = null)
         {
             return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, slug));
         }
 
-        protected BunchContext.Result GetBunchContext(int playerId)
+        protected BunchContext.Result GetBunchContextByPlayerId(int playerId)
         {
             return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, playerId));
         }

@@ -15,7 +15,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameBuyin)]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {
-            var bunchContext = GetBunchContext(slug);
+            var bunchContext = GetBunchContextBySlug(slug);
             if(!bunchContext.IsCurrentPlayer(postModel.PlayerId))
                 throw new AccessDeniedException();
             var request = new Buyin.Request(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);

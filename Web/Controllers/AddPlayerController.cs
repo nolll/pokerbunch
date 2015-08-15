@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerAdd)]
         public ActionResult Add(string slug)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             return ShowForm(slug);
         }
@@ -23,7 +23,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerAdd)]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             var request = new AddPlayer.Request(slug, postModel.Name);
 
@@ -47,14 +47,14 @@ namespace Web.Controllers
         [Route(Routes.PlayerAddConfirmation)]
         public ActionResult Created(string slug)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             var model = new AddPlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/AddPlayer/AddConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             var model = new AddPlayerPageModel(contextResult, postModel);
             return View("~/Views/Pages/AddPlayer/Add.cshtml", model);
         }

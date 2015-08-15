@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameDelete)]
         public ActionResult Delete(string slug, int id)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             var request = new DeleteCashgame.Request(slug, id);
             var result = UseCase.DeleteCashgame.Execute(request);

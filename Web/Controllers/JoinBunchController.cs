@@ -43,7 +43,7 @@ namespace Web.Controllers
         [Route(Routes.BunchJoinConfirmation)]
         public ActionResult Joined(string slug)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             RequirePlayer(contextResult);
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);

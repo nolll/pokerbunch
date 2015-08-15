@@ -14,7 +14,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgame)]
         public ActionResult Running(string slug)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             RequirePlayer(contextResult);
             try
             {
@@ -32,7 +32,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgameGameJson)]
         public ActionResult RunningGameJson(string slug)
         {
-            var bunchContext = GetBunchContext(slug);
+            var bunchContext = GetBunchContextBySlug(slug);
             RequirePlayer(bunchContext);
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
@@ -43,7 +43,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgamePlayersJson)]
         public ActionResult RunningPlayersJson(string slug)
         {
-            var bunchContext = GetBunchContext(slug);
+            var bunchContext = GetBunchContextBySlug(slug);
             RequirePlayer(bunchContext);
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);

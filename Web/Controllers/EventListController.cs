@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(Routes.EventList)]
         public ActionResult List(string slug)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContextBySlug(slug);
             RequirePlayer(contextResult);
             var eventListOutput = UseCase.EventList.Execute(new EventList.Request(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);

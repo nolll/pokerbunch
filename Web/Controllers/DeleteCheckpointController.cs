@@ -11,7 +11,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameCheckpointDelete)]
         public ActionResult DeleteCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var context = GetBunchContext(slug);
+            var context = GetBunchContextBySlug(slug);
             RequireManager(context);
             var request = new DeleteCheckpoint.Request(slug, dateStr, checkpointId);
             var result = UseCase.DeleteCheckpoint.Execute(request);

@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(Routes.BunchDetails)]
         public ActionResult Details(string slug)
         {
-            var bunchContextResult = GetBunchContext(slug);
+            var bunchContextResult = GetBunchContextBySlug(slug);
             RequirePlayer(bunchContextResult);
             var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(slug, CurrentUserName));
 
