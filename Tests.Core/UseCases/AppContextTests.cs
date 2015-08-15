@@ -14,8 +14,8 @@ namespace Tests.Core.UseCases
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsEmpty(result.UserDisplayName);
-            Assert.AreEqual("/-/auth/login", result.LoginUrl.Relative);
-            Assert.AreEqual("/-/user/forgotpassword", result.ForgotPasswordUrl.Relative);
+            Assert.AreEqual("/auth/login", result.LoginUrl.Relative);
+            Assert.AreEqual("/user/forgotpassword", result.ForgotPasswordUrl.Relative);
         }
 
         [Test]
@@ -25,8 +25,8 @@ namespace Tests.Core.UseCases
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.AreEqual(TestData.UserDisplayNameA, result.UserDisplayName);
-            Assert.AreEqual("/-/auth/logout", result.LogoutUrl.Relative);
-            Assert.AreEqual("/-/user/details/user-name-a", result.UserDetailsUrl.Relative);
+            Assert.AreEqual("/auth/logout", result.LogoutUrl.Relative);
+            Assert.AreEqual("/user/details/user-name-a", result.UserDetailsUrl.Relative);
         }
 
         [Test]

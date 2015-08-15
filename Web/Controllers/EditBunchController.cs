@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class EditBunchController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameEdit)]
+        [Route(Routes.BunchEdit)]
         public ActionResult Edit(string slug)
         {
             var context = GetBunchContext(slug);
@@ -20,7 +20,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.CashgameEdit)]
+        [Route(Routes.BunchEdit)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
             var context = GetBunchContext(slug);

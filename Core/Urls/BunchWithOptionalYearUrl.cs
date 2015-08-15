@@ -9,7 +9,10 @@
 
         private static string FormatBunchWithOptionalYear(string format, string formatWithYear, string slug, int? year)
         {
-            return year.HasValue ? string.Format(formatWithYear, slug, year.Value) : string.Format(format, slug);
+            if (!year.HasValue)
+                return RouteParams.ReplaceSlug(format, slug);
+            var url = RouteParams.ReplaceSlug(formatWithYear, slug);
+            return RouteParams.ReplaceOptionalYear(url, year.Value);
         }
     }
 }

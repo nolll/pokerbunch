@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
             const string body = @"Here is your new password for Poker Bunch:
 aaaaaaaa
 
-Please sign in here: http://pokerbunch.com/-/auth/login";
+Please sign in here: http://pokerbunch.com/auth/login";
             Sut.Execute(CreateRequest());
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);

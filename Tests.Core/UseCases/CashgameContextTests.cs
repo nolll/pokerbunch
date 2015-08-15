@@ -79,11 +79,11 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.GameIsRunning);
         }
 
-        [TestCase(CashgameContext.CashgamePage.Matrix, "/a/cashgame/matrix")]
-        [TestCase(CashgameContext.CashgamePage.Toplist, "/a/cashgame/toplist")]
-        [TestCase(CashgameContext.CashgamePage.Chart, "/a/cashgame/chart")]
-        [TestCase(CashgameContext.CashgamePage.List, "/a/cashgame/list")]
-        [TestCase(CashgameContext.CashgamePage.Facts, "/a/cashgame/facts")]
+        [TestCase(CashgameContext.CashgamePage.Matrix, "/cashgame/matrix/a")]
+        [TestCase(CashgameContext.CashgamePage.Toplist, "/cashgame/toplist/a")]
+        [TestCase(CashgameContext.CashgamePage.Chart, "/cashgame/chart/a")]
+        [TestCase(CashgameContext.CashgamePage.List, "/cashgame/list/a")]
+        [TestCase(CashgameContext.CashgamePage.Facts, "/cashgame/facts/a")]
         public void Execute_SelectedPage_SelectedPageAndLastYearUrlIsCorrect(CashgameContext.CashgamePage selectedPage, string url)
         {
             const string slug = "a";

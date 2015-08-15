@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual("/bunch-a/cashgame/details/2002-02-02", result.List[0].Url.Relative);
+            Assert.AreEqual("/cashgame/details/bunch-a/2002-02-02", result.List[0].Url.Relative);
         }
 
         [Test]

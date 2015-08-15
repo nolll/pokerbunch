@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(4, result.Users.Count);
             Assert.AreEqual(TestData.UserDisplayNameA, result.Users.First().DisplayName);
-            Assert.AreEqual("/-/user/details/user-name-a", result.Users.First().Url.Relative);
+            Assert.AreEqual("/user/details/user-name-a", result.Users.First().Url.Relative);
         }
 
         private UserList Sut

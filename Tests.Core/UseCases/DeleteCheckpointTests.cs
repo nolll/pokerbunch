@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
-            Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.ReturnUrl.Relative);
+            Assert.AreEqual("/cashgame/details/bunch-a/2001-01-01", result.ReturnUrl.Relative);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
-            Assert.AreEqual("/bunch-a/cashgame/running", result.ReturnUrl.Relative);
+            Assert.AreEqual("/cashgame/running/bunch-a", result.ReturnUrl.Relative);
         }
 
         private DeleteCheckpoint Sut

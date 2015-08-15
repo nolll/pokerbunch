@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeleteCashgame_GameHasResults_ThrowsCashgameHasResultsException()
         {
-            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.DateStringA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             Assert.Throws<CashgameHasResultsException>(() => Sut.Execute(request));
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupEmptyGame();
 
-            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.DateStringA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             Sut.Execute(request);
 
@@ -32,11 +32,11 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupEmptyGame();
 
-            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.DateStringA);
+            var request = new DeleteCashgame.Request(TestData.SlugA, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/bunch-a/cashgame", result.ReturnUrl.Relative);
+            Assert.AreEqual("/cashgame/index/bunch-a", result.ReturnUrl.Relative);
         }
 
         private DeleteCashgame Sut
@@ -44,7 +44,6 @@ namespace Tests.Core.UseCases
             get
             {
                 return new DeleteCashgame(
-                    Repos.Bunch,
                     Repos.Cashgame);
             }
         }

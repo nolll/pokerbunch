@@ -99,7 +99,7 @@ namespace Tests.Core.UseCases
 Here is your password:
 aaaaaaaa
 
-Please sign in here: http://pokerbunch.com/-/auth/login";
+Please sign in here: http://pokerbunch.com/auth/login";
 
             var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail);
             Sut.Execute(request);

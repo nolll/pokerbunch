@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
             var request = new ChangePassword.Request(TestData.UserNameA, "a", "a");
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/-/user/changedpassword", result.ReturnUrl.Relative);
+            Assert.AreEqual("/user/changedpassword", result.ReturnUrl.Relative);
         }
 
         private ChangePassword Sut

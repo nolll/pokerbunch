@@ -1,17 +1,21 @@
-﻿using System.Globalization;
-
-namespace Core.Urls
+﻿namespace Core.Urls
 {
     public abstract class PlayerUrl : Url
     {
         protected PlayerUrl(string format, string slug, int playerId)
-            : base(format.Replace("{slug}", slug).Replace("{playerId}", playerId.ToString(CultureInfo.InvariantCulture)))
+            : base(BuildUrl(format, slug, playerId))
         {
         }
 
         protected PlayerUrl(string format, int playerId)
             : this(format, "-", playerId)
         {
+        }
+
+        private static string BuildUrl(string format, string slug, int playerId)
+        {
+            var url = RouteParams.ReplaceSlug(format, slug);
+            return RouteParams.ReplacePlayerId(url, playerId);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new LoginUrl();
 
-            Assert.AreEqual("/-/auth/login", result.Relative);
+            Assert.AreEqual("/auth/login", result.Relative);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new LogoutUrl();
 
-            Assert.AreEqual("/-/auth/logout", result.Relative);
+            Assert.AreEqual("/auth/logout", result.Relative);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new AddCashgameUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/add", result.Relative);
+            Assert.AreEqual("/cashgame/add/a", result.Relative);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameChartUrl(slug, year);
 
-            Assert.AreEqual("/a/cashgame/chart/2010", result.Relative);
+            Assert.AreEqual("/cashgame/chart/a/2010", result.Relative);
         }
 
         [Test]
@@ -68,18 +68,18 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameChartUrl(slug, null);
 
-            Assert.AreEqual("/a/cashgame/chart", result.Relative);
+            Assert.AreEqual("/cashgame/chart/a", result.Relative);
         }
 
         [Test]
         public void CashgameDeleteUrl()
         {
             const string slug = "a";
-            const string dateStr = "b";
+            const int id = 1;
 
-            var result = new DeleteCashgameUrl(slug, dateStr);
+            var result = new DeleteCashgameUrl(slug, id);
 
-            Assert.AreEqual("/a/cashgame/delete/b", result.Relative);
+            Assert.AreEqual("/cashgame/delete/a/1", result.Relative);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameDetailsUrl(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/details/b", result.Relative);
+            Assert.AreEqual("/cashgame/details/a/b", result.Relative);
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new EditCashgameUrl(slug, dateStr);
 
-            Assert.AreEqual("/a/cashgame/edit/b", result.Relative);
+            Assert.AreEqual("/cashgame/edit/a/b", result.Relative);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameIndexUrl(slug);
 
-            Assert.AreEqual("/a/cashgame", result.Relative);
+            Assert.AreEqual("/cashgame/index/a", result.Relative);
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new TopListUrl(slug, year);
 
-            Assert.AreEqual("/a/cashgame/toplist/2010", result.Relative);
+            Assert.AreEqual("/cashgame/toplist/a/2010", result.Relative);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new TopListUrl(slug, null);
 
-            Assert.AreEqual("/a/cashgame/toplist", result.Relative);
+            Assert.AreEqual("/cashgame/toplist/a", result.Relative);
         }
 
         [Test]
@@ -143,7 +143,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameMatrixUrl(slug, year);
 
-            Assert.AreEqual("/a/cashgame/matrix/2010", result.Relative);
+            Assert.AreEqual("/cashgame/matrix/a/2010", result.Relative);
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameMatrixUrl(slug, null);
 
-            Assert.AreEqual("/a/cashgame/matrix", result.Relative);
+            Assert.AreEqual("/cashgame/matrix/a", result.Relative);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameListUrl(slug, year);
 
-            Assert.AreEqual("/a/cashgame/list/2010", result.Relative);
+            Assert.AreEqual("/cashgame/list/a/2010", result.Relative);
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameListUrl(slug, null);
 
-            Assert.AreEqual("/a/cashgame/list", result.Relative);
+            Assert.AreEqual("/cashgame/list/a", result.Relative);
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameActionUrl(slug, dateStr, playerId);
 
-            Assert.AreEqual("/a/cashgame/action/b/1", result.Relative);
+            Assert.AreEqual("/cashgame/action/a/b/1", result.Relative);
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameBuyinUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/buyin", result.Relative);
+            Assert.AreEqual("/cashgame/buyin/a", result.Relative);
         }
 
         [Test]
@@ -206,7 +206,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameReportUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/report", result.Relative);
+            Assert.AreEqual("/cashgame/report/a", result.Relative);
         }
 
         [Test]
@@ -216,7 +216,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameCashoutUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/cashout", result.Relative);
+            Assert.AreEqual("/cashgame/cashout/a", result.Relative);
         }
 
         [Test]
@@ -224,7 +224,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new ChangePasswordConfirmationUrl();
 
-            Assert.AreEqual("/-/user/changedpassword", result.Relative);
+            Assert.AreEqual("/user/changedpassword", result.Relative);
         }
 
         [Test]
@@ -232,7 +232,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new ChangePasswordUrl();
 
-            Assert.AreEqual("/-/user/changepassword", result.Relative);
+            Assert.AreEqual("/user/changepassword", result.Relative);
         }
 
         [Test]
@@ -240,7 +240,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new ForgotPasswordConfirmationUrl();
 
-            Assert.AreEqual("/-/user/passwordsent", result.Relative);
+            Assert.AreEqual("/user/passwordsent", result.Relative);
         }
 
         [Test]
@@ -248,7 +248,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new ForgotPasswordUrl();
 
-            Assert.AreEqual("/-/user/forgotpassword", result.Relative);
+            Assert.AreEqual("/user/forgotpassword", result.Relative);
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new AddBunchUrl();
 
-            Assert.AreEqual("/-/homegame/add", result.Relative);
+            Assert.AreEqual("/bunch/add", result.Relative);
         }
 
         [Test]
@@ -264,7 +264,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new AddBunchConfirmationUrl();
 
-            Assert.AreEqual("/-/homegame/created", result.Relative);
+            Assert.AreEqual("/bunch/created", result.Relative);
         }
 
         [Test]
@@ -274,7 +274,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new BunchDetailsUrl(slug);
 
-            Assert.AreEqual("/a/homegame/details", result.Relative);
+            Assert.AreEqual("/bunch/details/a", result.Relative);
         }
 
         [Test]
@@ -284,7 +284,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new EditBunchUrl(slug);
 
-            Assert.AreEqual("/a/homegame/edit", result.Relative);
+            Assert.AreEqual("/bunch/edit/a", result.Relative);
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new JoinBunchUrl(slug);
 
-            Assert.AreEqual("/a/homegame/join", result.Relative);
+            Assert.AreEqual("/bunch/join/a", result.Relative);
         }
 
         [Test]
@@ -304,7 +304,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new JoinBunchConfirmationUrl(slug);
 
-            Assert.AreEqual("/a/homegame/joined", result.Relative);
+            Assert.AreEqual("/bunch/joined/a", result.Relative);
         }
 
         [Test]
@@ -312,7 +312,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new BunchListUrl();
 
-            Assert.AreEqual("/-/homegame/list", result.Relative);
+            Assert.AreEqual("/bunch/list", result.Relative);
         }
 
         [Test]
@@ -322,7 +322,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new AddPlayerUrl(slug);
 
-            Assert.AreEqual("/a/player/add", result.Relative);
+            Assert.AreEqual("/player/add/a", result.Relative);
         }
 
         [Test]
@@ -332,7 +332,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new AddPlayerConfirmationUrl(slug);
 
-            Assert.AreEqual("/a/player/created", result.Relative);
+            Assert.AreEqual("/player/created/a", result.Relative);
         }
 
         [Test]
@@ -343,7 +343,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new DeletePlayerUrl(slug, playerId);
 
-            Assert.AreEqual("/a/player/delete/1", result.Relative);
+            Assert.AreEqual("/player/delete/a/1", result.Relative);
         }
 
         [Test]
@@ -353,7 +353,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new PlayerDetailsUrl(playerId);
 
-            Assert.AreEqual("/-/player/details/1", result.Relative);
+            Assert.AreEqual("/player/details/1", result.Relative);
         }
 
         [Test]
@@ -363,7 +363,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new PlayerIndexUrl(slug);
 
-            Assert.AreEqual("/a/player/index", result.Relative);
+            Assert.AreEqual("/player/index/a", result.Relative);
         }
 
         [Test]
@@ -374,7 +374,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new InvitePlayerUrl(slug, playerId);
 
-            Assert.AreEqual("/a/player/invite/1", result.Relative);
+            Assert.AreEqual("/player/invite/a/1", result.Relative);
         }
 
         [Test]
@@ -382,7 +382,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new AddUserConfirmationUrl();
 
-            Assert.AreEqual("/-/user/created", result.Relative);
+            Assert.AreEqual("/user/created", result.Relative);
         }
 
         [Test]
@@ -390,7 +390,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new AddUserUrl();
 
-            Assert.AreEqual("/-/user/add", result.Relative);
+            Assert.AreEqual("/user/add", result.Relative);
         }
 
         [Test]
@@ -400,7 +400,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new UserDetailsUrl(userName);
 
-            Assert.AreEqual("/-/user/details/a", result.Relative);
+            Assert.AreEqual("/user/details/a", result.Relative);
         }
 
         [Test]
@@ -410,7 +410,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new EditUserUrl(userName);
 
-            Assert.AreEqual("/-/user/edit/a", result.Relative);
+            Assert.AreEqual("/user/edit/a", result.Relative);
         }
 
         [Test]
@@ -418,7 +418,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new UserListUrl();
 
-            Assert.AreEqual("/-/user/list", result.Relative);
+            Assert.AreEqual("/user/list", result.Relative);
         }
 
         [Test]
@@ -431,7 +431,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new DeleteCheckpointUrl(slug, dateStr, playerId, checkpointId);
 
-            Assert.AreEqual("/a/cashgame/deletecheckpoint/b/1/2", result.Relative);
+            Assert.AreEqual("/cashgame/deletecheckpoint/a/b/1/2", result.Relative);
         }
 
         [Test]
@@ -444,7 +444,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new EditCheckpointUrl(slug, dateStr, playerId, checkpointId);
 
-            Assert.AreEqual("/a/cashgame/editcheckpoint/b/1/2", result.Relative);
+            Assert.AreEqual("/cashgame/editcheckpoint/a/b/1/2", result.Relative);
         }
 
         [Test]
@@ -454,7 +454,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new EndCashgameUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/end", result.Relative);
+            Assert.AreEqual("/cashgame/end/a", result.Relative);
         }
 
         [Test]
@@ -465,7 +465,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new CashgameFactsUrl(slug, year);
 
-            Assert.AreEqual("/a/cashgame/facts/2010", result.Relative);
+            Assert.AreEqual("/cashgame/facts/a/2010", result.Relative);
         }
 
         [Test]
@@ -476,7 +476,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new InvitePlayerConfirmationUrl(slug, playerId);
 
-            Assert.AreEqual("/a/player/invited/1", result.Relative);
+            Assert.AreEqual("/player/invited/a/1", result.Relative);
         }
 
         [Test]
@@ -486,7 +486,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new RunningCashgameUrl(slug);
 
-            Assert.AreEqual("/a/cashgame/running", result.Relative);
+            Assert.AreEqual("/cashgame/running/a", result.Relative);
         }
 
         [Test]

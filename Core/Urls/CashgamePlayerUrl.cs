@@ -1,12 +1,17 @@
-﻿using System.Globalization;
-
-namespace Core.Urls
+﻿namespace Core.Urls
 {
     public abstract class CashgamePlayerUrl : Url
     {
         protected CashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
-            : base(format.Replace("{slug}", slug).Replace("{dateStr}", dateStr).Replace("{playerId}", playerId.ToString(CultureInfo.InvariantCulture)))
+            : base(BuildUrl(format, slug, dateStr, playerId))
         {
+        }
+
+        private static string BuildUrl(string format, string slug, string dateStr, int playerId)
+        {
+            var url = RouteParams.ReplaceSlug(format, slug);
+            url = RouteParams.ReplaceDateStr(url, dateStr);
+            return RouteParams.ReplacePlayerId(url, playerId);
         }
     }
 }

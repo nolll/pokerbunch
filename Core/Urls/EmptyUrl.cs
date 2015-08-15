@@ -2,7 +2,7 @@
 {
     public class EmptyUrl : Url
     {
-        public EmptyUrl() : base(string.Empty)
+        public EmptyUrl() : base(null)
         {
         }
 

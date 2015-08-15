@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/bunch-a/player/invited/1", result.ReturnUrl.Relative);
+            Assert.AreEqual("/player/invited/bunch-a/1", result.ReturnUrl.Relative);
         }
 
         [TestCase("")]
@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
             const string subject = "Invitation to Poker Bunch: Bunch A";
             const string body = @"You have been invited to join the poker game: Bunch A.
 
-To accept this invitation, go to http://pokerbunch.com/bunch-a/homegame/join and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
+To accept this invitation, go to http://pokerbunch.com/bunch/join/bunch-a and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
 
 If you don't have an account, you can register at http://pokerbunch.com/test";
             var request = CreateRequest();

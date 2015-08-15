@@ -12,9 +12,9 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute();
 
             Assert.AreEqual(2, result.Bunches.Count);
-            Assert.AreEqual("/bunch-a/homegame/details", result.Bunches[0].Url.Relative);
+            Assert.AreEqual("/bunch/details/bunch-a", result.Bunches[0].Url.Relative);
             Assert.AreEqual(TestData.BunchA.DisplayName, result.Bunches[0].DisplayName);
-            Assert.AreEqual("/bunch-b/homegame/details", result.Bunches[1].Url.Relative);
+            Assert.AreEqual("/bunch/details/bunch-b", result.Bunches[1].Url.Relative);
             Assert.AreEqual(TestData.BunchB.DisplayName, result.Bunches[1].DisplayName);
         }
 

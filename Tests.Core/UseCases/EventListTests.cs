@@ -47,8 +47,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual("/bunch-a/event/details/2", result.Events[0].EventDetailsUrl.Relative);
-            Assert.AreEqual("/bunch-a/event/details/1", result.Events[1].EventDetailsUrl.Relative);
+            Assert.AreEqual("/event/details/bunch-a/2", result.Events[0].EventDetailsUrl.Relative);
+            Assert.AreEqual("/event/details/bunch-a/1", result.Events[1].EventDetailsUrl.Relative);
         }
 
         private EventList Sut

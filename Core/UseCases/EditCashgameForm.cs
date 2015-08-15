@@ -21,7 +21,7 @@ namespace Core.UseCases
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
             var cancelUrl = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString);
-            var deleteUrl = new DeleteCashgameUrl(bunch.Slug, cashgame.DateString);
+            var deleteUrl = new DeleteCashgameUrl(bunch.Slug, cashgame.Id);
             var location = cashgame.Location;
             var locations = _cashgameRepository.GetLocations(bunch.Id);
 

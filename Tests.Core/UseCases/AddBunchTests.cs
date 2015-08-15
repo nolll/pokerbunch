@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual("/-/homegame/created", result.ReturnUrl.Relative);
+            Assert.AreEqual("/bunch/created", result.ReturnUrl.Relative);
         }
 
         [Test]

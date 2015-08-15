@@ -6,7 +6,7 @@
 
         protected Url(string url)
         {
-            _url = !string.IsNullOrEmpty(url) ? string.Concat("/", url) : string.Empty;
+            _url = url != null ? string.Concat("/", url) : string.Empty;
         }
 
         public string Relative

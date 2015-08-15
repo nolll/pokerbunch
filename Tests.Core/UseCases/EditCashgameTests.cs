@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/bunch-a/cashgame/details/2001-01-01", result.ReturnUrl.Relative);
+            Assert.AreEqual("/cashgame/details/bunch-a/2001-01-01", result.ReturnUrl.Relative);
         }
 
         [Test]
