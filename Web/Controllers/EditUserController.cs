@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Edit;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class EditUserController : BaseController
     {
         [Authorize]
-        [Route("-/user/edit/{userName}")]
+        [Route(Routes.UserEdit)]
         public ActionResult EditUser(string userName)
         {
             return ShowForm(userName);
@@ -17,7 +18,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("-/user/edit/{userName}")]
+        [Route(Routes.UserEdit)]
         public ActionResult Post(string userName, EditUserPostModel postModel)
         {
             try

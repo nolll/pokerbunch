@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Core.Urls;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
 
@@ -6,7 +7,7 @@ namespace Web.Controllers
 {
     public class AdminController : BaseController
     {
-        [Route("-/admin/sendemail")]
+        [Route(Routes.AdminSendEmail)]
         public ActionResult SendEmail()
         {
             RequireAdmin(GetAppContext());
@@ -17,7 +18,7 @@ namespace Web.Controllers
             return View("Email", model);
         }
 
-        [Route("-/admin/clearcache")]
+        [Route(Routes.AdminClearCache)]
         public ActionResult ClearCache()
         {
             RequireAdmin(GetAppContext());

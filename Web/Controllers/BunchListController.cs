@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.List;
 
@@ -6,7 +7,7 @@ namespace Web.Controllers
 {
     public class BunchListController : BaseController
     {
-        [Route("-/homegame/list")]
+        [Route(Routes.BunchList)]
         public ActionResult List()
         {
             var context = GetAppContext();

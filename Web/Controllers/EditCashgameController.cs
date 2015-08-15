@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Edit;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class EditCashgameController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/edit/{dateStr}")]
+        [Route(Routes.CashgameEdit)]
         public ActionResult Edit(string slug, string dateStr)
         {
             var context = GetBunchContext(slug);
@@ -19,7 +20,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/cashgame/edit/{dateStr}")]
+        [Route(Routes.CashgameEdit)]
         public ActionResult Post(string slug, string dateStr, EditCashgamePostModel postModel)
         {
             var context = GetBunchContext(slug);

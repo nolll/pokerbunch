@@ -3,7 +3,7 @@
     public class JoinBunchUrl : BunchUrl
     {
         public JoinBunchUrl(string slug)
-            : base(RouteFormats.BunchJoin, slug)
+            : base(Routes.BunchJoin, slug)
         {
         }
     }

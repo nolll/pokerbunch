@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Details;
@@ -8,7 +9,7 @@ namespace Web.Controllers
     public class PlayerDetailsController : BaseController
     {
         [Authorize]
-        [Route("-/player/details/{playerId:int}")]
+        [Route(Routes.PlayerDetails)]
         public ActionResult Details(int playerId)
         {
             var contextResult = GetBunchContext(playerId);

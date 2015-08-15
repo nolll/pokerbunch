@@ -6,16 +6,19 @@ namespace Core.UseCases
 {
     public class DeleteCashgame
     {
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public DeleteCashgame(ICashgameRepository cashgameRepository)
+        public DeleteCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();
@@ -29,12 +32,12 @@ namespace Core.UseCases
         public class Request
         {
             public string Slug { get; private set; }
-            public int CashgameId { get; private set; }
+            public string DateStr { get; private set; }
 
-            public Request(string slug, int cashgameId)
+            public Request(string slug, string dateStr)
             {
                 Slug = slug;
-                CashgameId = cashgameId;
+                DateStr = dateStr;
             }
         }
 

@@ -140,7 +140,7 @@
     <Compile Include="Urls\MatrixUrl.cs" />
     <Compile Include="Urls\EventListUrl.cs" />
     <Compile Include="Urls\PlayerUrl.cs" />
-    <Compile Include="Urls\RouteFormats.cs" />
+    <Compile Include="Urls\Routes.cs" />
     <Compile Include="Urls\RunningCashgameGameJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />

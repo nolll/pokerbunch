@@ -3,7 +3,7 @@
     public class CashgameCashoutUrl : BunchUrl
     {
         public CashgameCashoutUrl(string slug)
-            : base(RouteFormats.CashgameCashout, slug)
+            : base(Routes.CashgameCashout, slug)
         {
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Details;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class CashgameDetailsController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/details/{dateStr}")]
+        [Route(Routes.CashgameDetails)]
         public ActionResult Details(string slug, string dateStr)
         {
             var contextResult = GetBunchContext(slug);

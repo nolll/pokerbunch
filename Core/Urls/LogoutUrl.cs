@@ -3,7 +3,7 @@
     public class LogoutUrl : Url
     {
         public LogoutUrl()
-            : base(RouteFormats.AuthLogout)
+            : base(Routes.AuthLogout)
         {
         }
     }

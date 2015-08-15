@@ -3,7 +3,7 @@
     public class HomeUrl : Url
     {
         public HomeUrl()
-            : base(RouteFormats.Home)
+            : base(Routes.Home)
         {
         }
     }

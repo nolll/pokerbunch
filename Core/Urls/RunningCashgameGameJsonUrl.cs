@@ -3,7 +3,7 @@
     public class RunningCashgameGameJsonUrl : BunchUrl
     {
         public RunningCashgameGameJsonUrl(string slug)
-            : base(RouteFormats.RunningCashgameGameJson, slug)
+            : base(Routes.RunningCashgameGameJson, slug)
         {
         }
     }

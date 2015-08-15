@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels;
@@ -8,7 +9,7 @@ namespace Web.Controllers
     public class UserDetailsController : BaseController
     {
         [Authorize]
-        [Route("-/user/details/{userName}")]
+        [Route(Routes.UserDetails)]
         public ActionResult UserDetails(string userName)
         {
             var contextResult = GetAppContext();

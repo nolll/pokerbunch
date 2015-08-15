@@ -14,14 +14,14 @@ namespace Web.Controllers
     {
         private const int AuthVersion = 2;
 
-        [Route("-/auth/login")]
+        [Route(Routes.AuthLogin)]
         public ActionResult Login(string returnUrl = null)
         {
             return ShowForm(returnUrl);
         }
 
         [HttpPost]
-        [Route("-/auth/login")]
+        [Route(Routes.AuthLogin)]
         public ActionResult Post(LoginPostModel postModel)
         {
             var request = new Login.Request(postModel.LoginName, postModel.Password);

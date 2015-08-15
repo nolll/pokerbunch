@@ -3,7 +3,7 @@
     public class AddPlayerConfirmationUrl : BunchUrl
     {
         public AddPlayerConfirmationUrl(string slug)
-            : base(RouteFormats.PlayerAddConfirmation, slug)
+            : base(Routes.PlayerAddConfirmation, slug)
         {
         }
     }

@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class DeletePlayerController : BaseController
     {
         [Authorize]
-        [Route("{slug}/player/delete/{playerId:int}")]
+        [Route(Routes.PlayerDelete)]
         public ActionResult Delete(string slug, int playerId)
         {
             var context = GetBunchContext(slug);

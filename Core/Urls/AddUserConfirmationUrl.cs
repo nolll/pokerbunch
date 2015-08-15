@@ -3,7 +3,7 @@
     public class AddUserConfirmationUrl : Url
     {
         public AddUserConfirmationUrl()
-            : base(RouteFormats.UserAddConfirmation)
+            : base(Routes.UserAddConfirmation)
         {
         }
     }

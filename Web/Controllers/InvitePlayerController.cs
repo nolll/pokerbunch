@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class InvitePlayerController : BaseController
     {
         [Authorize]
-        [Route("{slug}/player/invite/{playerId:int}")]
+        [Route(Routes.PlayerInvite)]
         public ActionResult Invite(string slug, int playerId)
         {
             var context = GetBunchContext(slug);
@@ -20,7 +21,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/player/invite/{playerId:int}")]
+        [Route(Routes.PlayerInvite)]
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
             var context = GetBunchContext(slug);
@@ -40,7 +41,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [Route("{slug}/player/invited/{playerId:int}")]
+        [Route(Routes.PlayerInviteConfirmation)]
         public ActionResult Invited(string slug, int playerId)
         {
             var contextResult = GetBunchContext(slug);

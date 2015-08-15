@@ -3,7 +3,7 @@
     public class CashgameIndexUrl : BunchUrl
     {
         public CashgameIndexUrl(string slug)
-            : base(RouteFormats.CashgameIndex, slug)
+            : base(Routes.CashgameIndex, slug)
         {
         }
     }

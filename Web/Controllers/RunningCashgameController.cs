@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class RunningCashgameController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/running")]
+        [Route(Routes.RunningCashgame)]
         public ActionResult Running(string slug)
         {
             var contextResult = GetBunchContext(slug);
@@ -29,7 +29,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route("{slug}/cashgame/runninggamejson")]
+        [Route(Routes.RunningCashgameGameJson)]
         public ActionResult RunningGameJson(string slug)
         {
             var bunchContext = GetBunchContext(slug);
@@ -40,7 +40,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route("{slug}/cashgame/runningplayersjson")]
+        [Route(Routes.RunningCashgamePlayersJson)]
         public ActionResult RunningPlayersJson(string slug)
         {
             var bunchContext = GetBunchContext(slug);

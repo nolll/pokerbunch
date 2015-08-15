@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ChangePassword;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class ChangePasswordController : BaseController
     {
         [Authorize]
-        [Route("-/user/changepassword")]
+        [Route(Routes.ChangePassword)]
         public ActionResult ChangePassword()
         {
             return ShowForm();
@@ -17,7 +18,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("-/user/changepassword")]
+        [Route(Routes.ChangePassword)]
         public ActionResult Post(ChangePasswordPostModel postModel)
         {
             try
@@ -41,7 +42,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/ChangePassword/ChangePassword.cshtml", model);
         }
 
-        [Route("-/user/changedpassword")]
+        [Route(Routes.ChangePasswordConfirmation)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

@@ -1,12 +1,12 @@
 ﻿namespace Core.Urls
 {
-    public class Url
+    public abstract class Url
     {
         private readonly string _url;
 
-        public Url(string url)
+        protected Url(string url)
         {
-            _url = url ?? string.Empty;
+            _url = !string.IsNullOrEmpty(url) ? string.Concat("/", url) : string.Empty;
         }
 
         public string Relative

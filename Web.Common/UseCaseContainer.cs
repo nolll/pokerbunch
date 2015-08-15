@@ -64,7 +64,7 @@ namespace Web.Common
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository); } }
         public EditCashgame EditCashgame { get { return new EditCashgame(_deps.BunchRepository, _deps.CashgameRepository); } }
-        public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository); } }
+        public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.BunchRepository, _deps.CashgameRepository); } }
         public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public Report Report { get { return new Report(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }

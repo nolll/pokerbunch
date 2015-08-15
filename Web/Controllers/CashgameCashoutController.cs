@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Cashout;
@@ -11,7 +12,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route("{slug}/cashgame/cashout")]
+        [Route(Routes.CashgameCashout)]
         public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
         {
             var bunchContext = GetBunchContext(slug);

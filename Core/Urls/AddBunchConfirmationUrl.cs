@@ -3,7 +3,7 @@
     public class AddBunchConfirmationUrl : Url
     {
         public AddBunchConfirmationUrl()
-            : base(RouteFormats.BunchAddConfirmation)
+            : base(Routes.BunchAddConfirmation)
         {
         }
     }

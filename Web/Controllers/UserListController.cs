@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Web.Controllers.Base;
 using Web.Models.UserModels.List;
 
@@ -6,7 +7,7 @@ namespace Web.Controllers
 {
     public class UserListController : BaseController
     {
-        [Route("-/user/list")]
+        [Route(Routes.UserList)]
         public ActionResult List()
         {
             var context = GetAppContext();

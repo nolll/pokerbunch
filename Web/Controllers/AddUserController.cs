@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
@@ -8,14 +9,14 @@ namespace Web.Controllers
 {
     public class AddUserController : BaseController
     {
-        [Route("-/user/add")]
+        [Route(Routes.UserAdd)]
         public ActionResult AddUser()
         {
             return ShowForm();
         }
 
         [HttpPost]
-        [Route("-/user/add")]
+        [Route(Routes.UserAdd)]
         public ActionResult Post(AddUserPostModel postModel)
         {
             try
@@ -47,7 +48,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/AddUser/AddUser.cshtml", model);
         }
 
-        [Route("-/user/created")]
+        [Route(Routes.UserAddConfirmation)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

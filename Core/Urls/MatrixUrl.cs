@@ -3,7 +3,7 @@
     public class MatrixUrl : BunchWithOptionalYearUrl
     {
         public MatrixUrl(string slug, int? year)
-            : base(RouteFormats.CashgameMatrix, RouteFormats.CashgameMatrixWithYear, slug, year)
+            : base(Routes.CashgameMatrix, Routes.CashgameMatrixWithYear, slug, year)
         {
         }
     }

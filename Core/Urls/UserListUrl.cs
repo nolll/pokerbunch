@@ -3,7 +3,7 @@
     public class UserListUrl : Url
     {
         public UserListUrl()
-            : base(RouteFormats.UserList)
+            : base(Routes.UserList)
         {
         }
     }

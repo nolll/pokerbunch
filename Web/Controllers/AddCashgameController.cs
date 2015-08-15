@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class AddCashgameController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/add")]
+        [Route(Routes.CashgameAdd)]
         public ActionResult AddCashgame(string slug)
         {
             var context = GetBunchContext(slug);
@@ -19,7 +20,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/cashgame/add")]
+        [Route(Routes.CashgameAdd)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
             var request = new AddCashgame.Request(slug, postModel.Location);

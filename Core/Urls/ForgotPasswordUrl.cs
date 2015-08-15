@@ -3,7 +3,7 @@
     public class ForgotPasswordUrl : Url
     {
         public ForgotPasswordUrl()
-            : base(RouteFormats.ForgotPassword)
+            : base(Routes.ForgotPassword)
         {
         }
     }

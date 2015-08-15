@@ -3,7 +3,7 @@
     public class LoginUrl : Url
     {
         public LoginUrl()
-            : base(RouteFormats.AuthLogin)
+            : base(Routes.AuthLogin)
         {
         }
     }

@@ -3,7 +3,7 @@
     public class InvitePlayerConfirmationUrl : PlayerUrl
     {
         public InvitePlayerConfirmationUrl(string slug, int playerId)
-            : base(RouteFormats.PlayerInviteConfirmation, slug, playerId)
+            : base(Routes.PlayerInviteConfirmation, slug, playerId)
         {
         }
     }

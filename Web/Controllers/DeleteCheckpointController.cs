@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 
@@ -7,7 +8,7 @@ namespace Web.Controllers
     public class DeleteCheckpointController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/deletecheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
+        [Route(Routes.CashgameCheckpointDelete)]
         public ActionResult DeleteCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
             var context = GetBunchContext(slug);

@@ -170,7 +170,7 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameIndex()
         {
-            _routes.ShouldMap("/a/cashgame/index").To<CashgameIndexController>(x => x.Index("a"));
+            _routes.ShouldMap("/a/cashgame").To<CashgameIndexController>(x => x.Index("a"));
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameDelete()
         {
-            _routes.ShouldMap("/a/cashgame/delete/1").To<DeleteCashgameController>(x => x.Delete("a", 1));
+            _routes.ShouldMap("/a/cashgame/delete/2001-01-01").To<DeleteCashgameController>(x => x.Delete("a", "2001-01-01"));
         }
 
         [Test]

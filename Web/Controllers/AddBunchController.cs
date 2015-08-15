@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class AddBunchController : BaseController
     {
         [Authorize]
-        [Route("-/homegame/add")]
+        [Route(Routes.BunchAdd)]
         public ActionResult Add()
         {
             return ShowForm();
@@ -17,7 +18,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("-/homegame/add")]
+        [Route(Routes.BunchAdd)]
         public ActionResult Add_Post(AddBunchPostModel postModel)
         {
             try
@@ -38,7 +39,7 @@ namespace Web.Controllers
             return ShowForm(postModel);
         }
 
-        [Route("-/homegame/created")]
+        [Route(Routes.BunchAddConfirmation)]
         public ActionResult Created()
         {
             var contextResult = GetAppContext();

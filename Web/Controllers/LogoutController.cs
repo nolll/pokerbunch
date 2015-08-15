@@ -7,7 +7,7 @@ namespace Web.Controllers
 {
     public class LogoutController : BaseController
     {
-        [Route("-/auth/logout")]
+        [Route(Routes.AuthLogout)]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

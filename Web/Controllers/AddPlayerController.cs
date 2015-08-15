@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Add;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class AddPlayerController : BaseController
     {
         [Authorize]
-        [Route("{slug}/player/add")]
+        [Route(Routes.PlayerAdd)]
         public ActionResult Add(string slug)
         {
             var context = GetBunchContext(slug);
@@ -19,7 +20,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/player/add")]
+        [Route(Routes.PlayerAdd)]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
             var context = GetBunchContext(slug);
@@ -43,7 +44,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [Route("{slug}/player/created")]
+        [Route(Routes.PlayerAddConfirmation)]
         public ActionResult Created(string slug)
         {
             var contextResult = GetBunchContext(slug);

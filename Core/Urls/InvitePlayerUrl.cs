@@ -3,7 +3,7 @@
     public class InvitePlayerUrl : PlayerUrl
     {
         public InvitePlayerUrl(string slug, int playerId)
-            : base(RouteFormats.PlayerInvite, slug, playerId)
+            : base(Routes.PlayerInvite, slug, playerId)
         {
         }
     }

@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ForgotPassword;
@@ -8,14 +9,14 @@ namespace Web.Controllers
 {
     public class ForgotPasswordController : BaseController
     {
-        [Route("-/user/forgotpassword")]
+        [Route(Routes.ForgotPassword)]
         public ActionResult ForgotPassword()
         {
             return ShowForm();
         }
 
         [HttpPost]
-        [Route("-/user/forgotpassword")]
+        [Route(Routes.ForgotPassword)]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
             try
@@ -36,7 +37,7 @@ namespace Web.Controllers
             return ShowForm(postModel);
         }
 
-        [Route("-/user/passwordsent")]
+        [Route(Routes.ForgotPasswordConfirmation)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

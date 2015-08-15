@@ -1,9 +1,11 @@
-﻿namespace Core.Urls
+﻿using System.Globalization;
+
+namespace Core.Urls
 {
     public abstract class CashgamePlayerUrl : Url
     {
         protected CashgamePlayerUrl(string format, string slug, string dateStr, int playerId)
-            : base(string.Format(format, slug, dateStr, playerId))
+            : base(format.Replace("{slug}", slug).Replace("{dateStr}", dateStr).Replace("{playerId}", playerId.ToString(CultureInfo.InvariantCulture)))
         {
         }
     }

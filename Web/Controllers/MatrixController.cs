@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Matrix;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class MatrixController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/matrix/{year?}")]
+        [Route(Routes.CashgameMatrixWithYear)]
         public ActionResult Matrix(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);

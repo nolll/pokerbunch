@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.List;
@@ -8,7 +9,7 @@ namespace Web.Controllers
     public class PlayerIndexController : BaseController
     {
         [Authorize]
-        [Route("{slug}/player/index")]
+        [Route(Routes.PlayerIndex)]
         public ActionResult Index(string slug)
         {
             var contextResult = GetBunchContext(slug);

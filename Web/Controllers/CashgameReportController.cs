@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Report;
@@ -11,7 +12,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route("{slug}/cashgame/report")]
+        [Route(Routes.CashgameReport)]
         public ActionResult Report_Post(string slug, ReportPostModel postModel)
         {
             var bunchContext = GetBunchContext(slug);

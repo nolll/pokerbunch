@@ -3,7 +3,7 @@
     public class EditCashgameUrl : CashgameUrl
     {
         public EditCashgameUrl(string slug, string dateStr)
-            : base(RouteFormats.CashgameEdit, slug, dateStr)
+            : base(Routes.CashgameEdit, slug, dateStr)
         {
         }
     }

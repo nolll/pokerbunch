@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Join;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class JoinBunchController : BaseController
     {
         [Authorize]
-        [Route("{slug}/homegame/join")]
+        [Route(Routes.BunchJoin)]
         public ActionResult Join(string slug)
         {
             return ShowForm(slug);
@@ -17,7 +18,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/homegame/join")]
+        [Route(Routes.BunchJoin)]
         public ActionResult Post(string slug, JoinBunchPostModel postModel)
         {
             try
@@ -39,7 +40,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route("{slug}/homegame/joined")]
+        [Route(Routes.BunchJoinConfirmation)]
         public ActionResult Joined(string slug)
         {
             var contextResult = GetBunchContext(slug);

@@ -3,7 +3,7 @@
     public class TopListUrl : BunchWithOptionalYearUrl
     {
         public TopListUrl(string slug, int? year)
-            : base(RouteFormats.CashgameToplist, RouteFormats.CashgameToplistWithYear, slug, year)
+            : base(Routes.CashgameToplist, Routes.CashgameToplistWithYear, slug, year)
         {
         }
     }

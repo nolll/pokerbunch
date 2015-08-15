@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class EditCheckpointController : BaseController
     {
         [Authorize]
-        [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
+        [Route(Routes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
             var context = GetBunchContext(slug);
@@ -19,7 +20,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{slug}/cashgame/editcheckpoint/{dateStr}/{playerId:int}/{checkpointId:int}")]
+        [Route(Routes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
             var context = GetBunchContext(slug);

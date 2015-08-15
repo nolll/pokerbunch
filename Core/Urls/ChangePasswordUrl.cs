@@ -3,7 +3,7 @@
     public class ChangePasswordUrl : Url
     {
         public ChangePasswordUrl()
-            : base(RouteFormats.ChangePassword)
+            : base(Routes.ChangePassword)
         {
         }
     }
