@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TestEmail_MessageIsSent()
         {
-            Sut.Execute();
+            Sut.Execute(new TestEmail.Request(TestData.AdminUser.UserName));
 
             Assert.AreEqual(Email, Services.MessageSender.To);
             Assert.AreEqual("Test Email", Services.MessageSender.Message.Subject);
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TestEmail_EmailIsSet()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new TestEmail.Request(TestData.AdminUser.UserName));
 
             Assert.AreEqual(Email, result.Email);
         }
@@ -30,7 +30,9 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new TestEmail(Services.MessageSender);
+                return new TestEmail(
+                    Services.MessageSender,
+                    Repos.User);
             }
         }
     }

@@ -74,23 +74,21 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameDeleteUrl()
         {
-            const string slug = "a";
             const int id = 1;
 
-            var result = new DeleteCashgameUrl(slug, id);
+            var result = new DeleteCashgameUrl(id);
 
-            Assert.AreEqual("/cashgame/delete/a/1", result.Relative);
+            Assert.AreEqual("/cashgame/delete/1", result.Relative);
         }
 
         [Test]
         public void CashgameDetailsUrl()
         {
-            const string slug = "a";
-            const string dateStr = "b";
+            const int id = 1;
 
-            var result = new CashgameDetailsUrl(slug, dateStr);
+            var result = new CashgameDetailsUrl(id);
 
-            Assert.AreEqual("/cashgame/details/a/b", result.Relative);
+            Assert.AreEqual("/cashgame/details/1", result.Relative);
         }
 
         [Test]

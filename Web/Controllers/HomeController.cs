@@ -12,7 +12,7 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             var contextResult = GetBunchContextBySlug();
-            var bunchListResult = UseCase.BunchList.Execute(new BunchList.Request(CurrentUserName));
+            var bunchListResult = UseCase.BunchList.Execute(new BunchList.UserBunchesRequest(CurrentUserName));
             var model = new HomePageModel(contextResult, bunchListResult);
             return View("~/Views/Pages/Home/Index.cshtml", model);
         }

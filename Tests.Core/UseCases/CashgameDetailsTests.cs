@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllBaseValuesAreSet()
         {
-            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.UserNameA, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 
@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.UserNameA, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 
@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameA, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.UserNameA, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 
@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameDetails_WithManager_CanEditIsTrue()
         {
-            var request = new CashgameDetails.Request(TestData.SlugA, TestData.UserNameC, TestData.DateStringA);
+            var request = new CashgameDetails.Request(TestData.UserNameC, TestData.CashgameIdA);
 
             var result = Sut.Execute(request);
 

@@ -39,7 +39,7 @@ namespace Core.UseCases
             var players = _playerRepository.GetList(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
 
-            var gameItems = CreateGameItems(bunch.Slug, cashgames);
+            var gameItems = CreateGameItems(cashgames);
             var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;
 
@@ -83,19 +83,19 @@ namespace Core.UseCases
             return items;
         }
 
-        private static List<GameItem> CreateGameItems(string slug, IEnumerable<Cashgame> cashgames)
+        private static List<GameItem> CreateGameItems(IEnumerable<Cashgame> cashgames)
         {
             return cashgames
                 .Where(o => o.StartTime.HasValue)
                 .OrderByDescending(o => o.StartTime)
-                .Select(o => CreateGameItem(slug, o.Id, o.StartTime.Value))
+                .Select(o => CreateGameItem(o.Id, o.StartTime.Value))
                 .ToList();
         }
 
-        private static GameItem CreateGameItem(string slug, int cashgameId, DateTime startTime)
+        private static GameItem CreateGameItem(int cashgameId, DateTime startTime)
         {
             var date = new Date(startTime);
-            var url = new CashgameDetailsUrl(slug, date.IsoString);
+            var url = new CashgameDetailsUrl(cashgameId);
             
             return new GameItem(cashgameId, date, url);
         }

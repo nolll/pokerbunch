@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void UserList_ReturnsListOfUserItems()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new UserList.Request(TestData.AdminUser.UserName));
 
             Assert.AreEqual(4, result.Users.Count);
             Assert.AreEqual(TestData.UserDisplayNameA, result.Users.First().DisplayName);

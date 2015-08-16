@@ -10,7 +10,7 @@ namespace Web.Common
         // Contexts
         public BaseContext BaseContext { get { return new BaseContext(); } }
         public AppContext AppContext { get { return new AppContext(_deps.UserRepository); } }
-        public BunchContext BunchContext { get { return new BunchContext(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository); } }
+        public BunchContext BunchContext { get { return new BunchContext(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository); } }
         public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
 
         // Auth and Home
@@ -18,8 +18,8 @@ namespace Web.Common
         public Login Login { get { return new Login(_deps.UserRepository); } }
 
         // Admin
-        public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender); } }
-        public ClearCache ClearCache { get { return new ClearCache(_deps.CacheContainer); } }
+        public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender, _deps.UserRepository); } }
+        public ClearCache ClearCache { get { return new ClearCache(_deps.CacheContainer, _deps.UserRepository); } }
 
         // User
         public UserList UserList { get { return new UserList(_deps.UserRepository); } }
@@ -50,7 +50,7 @@ namespace Web.Common
         public TopList TopList { get { return new TopList(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public CurrentRankings CurrentRankings { get { return new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public CashgameDetails CashgameDetails { get { return new CashgameDetails(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
-        public CashgameDetailsChart CashgameDetailsChart { get { return new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public CashgameDetailsChart CashgameDetailsChart { get { return new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public CashgameFacts CashgameFacts { get { return new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
         public CashgameList CashgameList { get { return new CashgameList(_deps.BunchRepository, _deps.CashgameRepository); } }
         public AddCashgameForm AddCashgameForm { get { return new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository); } }
@@ -64,7 +64,7 @@ namespace Web.Common
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository); } }
         public EditCashgame EditCashgame { get { return new EditCashgame(_deps.BunchRepository, _deps.CashgameRepository); } }
-        public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository); } }
+        public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository, _deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
         public Report Report { get { return new Report(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository); } }

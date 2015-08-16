@@ -10,7 +10,23 @@ namespace Core.Services
             return user.IsAdmin || player.IsInRole(role);
         }
 
-        public static void RequireRole(User user, Player player, Role role)
+        public static void RequirePlayer(User user, Player player)
+        {
+            RequireRole(user, player, Role.Player);
+        }
+
+        public static void RequireManager(User user, Player player)
+        {
+            RequireRole(user, player, Role.Manager);
+        }
+
+        public static void RequireAdmin(User user)
+        {
+            if(!user.IsAdmin)
+                throw new AccessDeniedException();
+        }
+        
+        private static void RequireRole(User user, Player player, Role role)
         {
             if(!IsInRole(user, player, role))
                 throw new AccessDeniedException();

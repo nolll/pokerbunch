@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Core.Urls;
+using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
 
@@ -10,8 +11,7 @@ namespace Web.Controllers
         [Route(Routes.AdminSendEmail)]
         public ActionResult SendEmail()
         {
-            RequireAdmin(GetAppContext());
-            var result = UseCase.TestEmail.Execute();
+            var result = UseCase.TestEmail.Execute(new TestEmail.Request(CurrentUserName));
 
             var model = new EmailModel(result);
 
@@ -21,8 +21,7 @@ namespace Web.Controllers
         [Route(Routes.AdminClearCache)]
         public ActionResult ClearCache()
         {
-            RequireAdmin(GetAppContext());
-            var result = UseCase.ClearCache.Execute();
+            var result = UseCase.ClearCache.Execute(new ClearCache.Request(CurrentUserName));
 
             var model = new ClearCacheModel(result);
 

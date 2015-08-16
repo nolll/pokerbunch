@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
-            Assert.AreEqual("/cashgame/details/bunch-a/2001-01-01", result.ReturnUrl.Relative);
+            Assert.AreEqual("/cashgame/details/1", result.ReturnUrl.Relative);
         }
 
         [Test]

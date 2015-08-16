@@ -10,7 +10,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public ApiBunchList List()
         {
-            var bunchListResult = UseCase.BunchList.Execute();
+            var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest("henriks"));
             return new ApiBunchList(bunchListResult);
         }
 

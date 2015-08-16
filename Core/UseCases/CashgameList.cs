@@ -109,7 +109,7 @@ namespace Core.UseCases
             public Item(Bunch bunch, Cashgame cashgame)
             {
                 Location = cashgame.Location;
-                Url = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString);
+                Url = new CashgameDetailsUrl(cashgame.Id);
                 Duration = Time.FromMinutes(cashgame.Duration);
                 Date = cashgame.StartTime.HasValue ? new Date(cashgame.StartTime.Value) : new Date(DateTime.MinValue);
                 Turnover = new Money(cashgame.Turnover, bunch.Currency);

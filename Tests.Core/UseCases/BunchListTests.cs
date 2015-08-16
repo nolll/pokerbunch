@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchList_ReturnsListOfBunchItems()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new BunchList.AllBunchesRequest(TestData.AdminUser.UserName));
 
             Assert.AreEqual(2, result.Bunches.Count);
             Assert.AreEqual("/bunch/details/bunch-a", result.Bunches[0].Url.Relative);

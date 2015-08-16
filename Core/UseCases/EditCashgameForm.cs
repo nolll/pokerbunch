@@ -20,8 +20,8 @@ namespace Core.UseCases
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
-            var cancelUrl = new CashgameDetailsUrl(bunch.Slug, cashgame.DateString);
-            var deleteUrl = new DeleteCashgameUrl(bunch.Slug, cashgame.Id);
+            var cancelUrl = new CashgameDetailsUrl(cashgame.Id);
+            var deleteUrl = new DeleteCashgameUrl(cashgame.Id);
             var location = cashgame.Location;
             var locations = _cashgameRepository.GetLocations(bunch.Id);
 

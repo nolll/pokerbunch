@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ClearCache_ClearsCacheAndReturnsNumberOfClearedObjects()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new ClearCache.Request(TestData.AdminUser.UserName));
             Assert.AreEqual(1, result.DeleteCount);
         }
 
@@ -17,7 +17,9 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new ClearCache(Services.Cache);
+                return new ClearCache(
+                    Services.Cache,
+                    Repos.User);
             }
         }
     }

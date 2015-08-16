@@ -24,15 +24,15 @@ namespace Core.UseCases
             var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
             _checkpointRepository.DeleteCheckpoint(checkpoint);
 
-            var returnUrl = GetReturnUrl(cashgame.Status, request);
+            var returnUrl = GetReturnUrl(cashgame.Status, request, cashgame);
             return new Result(returnUrl);
         }
 
-        private static Url GetReturnUrl(GameStatus status, Request request)
+        private static Url GetReturnUrl(GameStatus status, Request request, Cashgame cashgame)
         {
             if(status == GameStatus.Running)
                 return new RunningCashgameUrl(request.Slug);
-            return new CashgameDetailsUrl(request.Slug, request.DateStr);
+            return new CashgameDetailsUrl(cashgame.Id);
         }
 
         public class Request

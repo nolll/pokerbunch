@@ -28,7 +28,7 @@ namespace Core.UseCases
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
             _cashgameRepository.UpdateGame(cashgame);
             
-            var returnUrl = new CashgameDetailsUrl(request.Slug, request.DateStr);
+            var returnUrl = new CashgameDetailsUrl(cashgame.Id);
             return new Result(returnUrl);
         }
 

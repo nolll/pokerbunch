@@ -10,12 +10,14 @@ namespace Core.UseCases
         private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public BunchContext(IUserRepository userRepository, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public BunchContext(IUserRepository userRepository, IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
             _userRepository = userRepository;
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(BunchRequest request)
@@ -26,6 +28,13 @@ namespace Core.UseCases
         }
 
         public Result Execute(PlayerRequest request)
+        {
+            var appContext = new AppContext(_userRepository).Execute(new AppContext.Request(request.UserName));
+            var bunch = GetBunch(appContext, request);
+            return GetResult(appContext, bunch);
+        }
+
+        public Result Execute(CashgameRequest request)
         {
             var appContext = new AppContext(_userRepository).Execute(new AppContext.Request(request.UserName));
             var bunch = GetBunch(appContext, request);
@@ -72,6 +81,15 @@ namespace Core.UseCases
             return _bunchRepository.GetById(player.BunchId);
         }
 
+        private Bunch GetBunch(AppContext.Result appContext, CashgameRequest request)
+        {
+            if (!appContext.IsLoggedIn)
+                return null;
+
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            return _bunchRepository.GetById(cashgame.BunchId);
+        }
+
         public class BunchRequest
         {
             public string UserName { get; private set; }
@@ -93,6 +111,18 @@ namespace Core.UseCases
             {
                 UserName = userName;
                 PlayerId = playerId;
+            }
+        }
+
+        public class CashgameRequest
+        {
+            public string UserName { get; private set; }
+            public int CashgameId { get; private set; }
+
+            public CashgameRequest(string userName, int cashgameId)
+            {
+                UserName = userName;
+                CashgameId = cashgameId;
             }
         }
 

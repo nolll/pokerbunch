@@ -10,9 +10,8 @@ namespace Core.Urls
         public const string CashgameAdd = "cashgame/add/{slug}";
         public const string CashgameChart = "cashgame/chart/{slug}";
         public const string CashgameChartWithYear = CashgameChart + "/{year?}";
-        public const string CashgameDelete = "cashgame/delete/{slug}/{id}";
-        public const string CashgameDetails = "cashgame/details/{slug}/{dateStr}";
-        public const string CashgameDetails2 = "cashgame/details/{id}";
+        public const string CashgameDelete = "cashgame/delete/{id}";
+        public const string CashgameDetails = "cashgame/details/{id}";
         public const string CashgameEdit = "cashgame/edit/{slug}/{dateStr}";
         public const string CashgameEnd = "cashgame/end/{slug}";
         public const string CashgameIndex = "cashgame/index/{slug}";

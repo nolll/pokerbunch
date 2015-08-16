@@ -9,11 +9,9 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.CashgameDelete)]
-        public ActionResult Delete(string slug, int id)
+        public ActionResult Delete(int id)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
-            var request = new DeleteCashgame.Request(slug, id);
+            var request = new DeleteCashgame.Request(CurrentUserName, id);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(result.ReturnUrl.Relative);
 		}

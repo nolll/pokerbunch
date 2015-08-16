@@ -25,10 +25,11 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            RoleHandler.RequirePlayer(user, player);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             var players = GetPlayers(_playerRepository, cashgame);
 
@@ -43,15 +44,13 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
             public string UserName { get; private set; }
-            public string DateStr { get; private set; }
+            public int CashgameId { get; private set; }
 
-            public Request(string slug, string userName, string dateStr)
+            public Request(string userName, int cashgameId)
             {
-                Slug = slug;
                 UserName = userName;
-                DateStr = dateStr;
+                CashgameId = cashgameId;
             }
         }
 

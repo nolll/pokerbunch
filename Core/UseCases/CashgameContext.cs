@@ -24,7 +24,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository, _playerRepository).Execute(request);
+            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository, _playerRepository, _cashgameRepository).Execute(request);
             var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

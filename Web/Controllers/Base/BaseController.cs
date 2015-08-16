@@ -34,6 +34,11 @@ namespace Web.Controllers.Base
             return UseCase.BunchContext.Execute(new BunchContext.PlayerRequest(CurrentUserName, playerId));
         }
 
+        protected BunchContext.Result GetBunchContextByCashgameId(int cashgameId)
+        {
+            return UseCase.BunchContext.Execute(new BunchContext.CashgameRequest(CurrentUserName, cashgameId));
+        }
+
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
             return UseCase.CashgameContext.Execute(new CashgameContext.Request(CurrentUserName, slug, currentTime, selectedPage, year));
@@ -134,12 +139,6 @@ namespace Web.Controllers.Base
         protected void RequireManager(BunchContext.Result bunchContext)
         {
             if (!bunchContext.IsManager)
-                throw new AccessDeniedException();
-        }
-
-        protected void RequireAdmin(AppContext.Result appContext)
-        {
-            if (!appContext.IsAdmin)
                 throw new AccessDeniedException();
         }
     }

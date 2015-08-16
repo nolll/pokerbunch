@@ -11,8 +11,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(new EditCashgameForm.Request(TestData.SlugA, TestData.DateStringA));
 
-            Assert.AreEqual("/cashgame/details/bunch-a/2001-01-01", result.CancelUrl.Relative);
-            Assert.AreEqual("/cashgame/delete/bunch-a/1", result.DeleteUrl.Relative);
+            Assert.AreEqual("/cashgame/details/1", result.CancelUrl.Relative);
+            Assert.AreEqual("/cashgame/delete/1", result.DeleteUrl.Relative);
             Assert.AreEqual(TestData.LocationA, result.Location);
             Assert.AreEqual(TestData.DateStringA, result.Date);
         }

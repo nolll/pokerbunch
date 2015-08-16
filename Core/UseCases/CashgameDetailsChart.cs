@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -12,31 +13,29 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CashgameDetailsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public CashgameDetailsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var cashgame = GetCashgame(bunch, request.DateStr);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             var players = _playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
 
             return new Result(playerItems);
-        }
-
-        private Cashgame GetCashgame(Bunch bunch, string dateStr)
-        {
-            if (string.IsNullOrEmpty(dateStr))
-                return _cashgameRepository.GetRunning(bunch.Id);
-            return _cashgameRepository.GetByDateString(bunch.Id, dateStr);
         }
 
         private static IList<PlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, DateTime now)
@@ -70,15 +69,15 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
+            public string UserName { get; private set; }
             public DateTime CurrentTime { get; private set; }
-            public string DateStr { get; private set; }
+            public int CashgameId { get; private set; }
 
-            public Request(string slug, DateTime currentTime, string dateStr = null)
+            public Request(string userName, DateTime currentTime, int cashgameId)
             {
-                Slug = slug;
+                UserName = userName;
                 CurrentTime = currentTime;
-                DateStr = dateStr;
+                CashgameId = cashgameId;
             }
         }
 

@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class CashgameDetailsUrl : CashgameUrl
+    public class CashgameDetailsUrl : Url
     {
-        public CashgameDetailsUrl(string slug, string dateStr)
-            : base(Routes.CashgameDetails, slug, dateStr)
+        public CashgameDetailsUrl(int id)
+            : base(RouteParams.ReplaceId(Routes.CashgameDetails, id))
         {
         }
     }

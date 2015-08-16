@@ -11,12 +11,11 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.CashgameDetails)]
-        public ActionResult Details(string slug, string dateStr)
+        public ActionResult Details(int id)
         {
-            var contextResult = GetBunchContextBySlug(slug);
-            RequirePlayer(contextResult);
-            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(slug, CurrentUserName, dateStr));
-            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(slug, DateTime.UtcNow, dateStr));
+            var contextResult = GetBunchContextByCashgameId(id);
+            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(CurrentUserName, id));
+            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(CurrentUserName, DateTime.UtcNow, id));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
         }

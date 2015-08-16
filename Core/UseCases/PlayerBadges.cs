@@ -25,7 +25,7 @@ namespace Core.UseCases
         {
             var player = _playerRepository.GetById(request.PlayerId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            RoleHandler.RequireRole(user, player, Role.Player);
+            RoleHandler.RequirePlayer(user, player);
             var bunch = _bunchRepository.GetById(player.BunchId);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id);
 

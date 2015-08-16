@@ -13,9 +13,9 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(2, result.GameItems.Count);
             Assert.AreEqual("2002-02-02", result.GameItems[0].Date.IsoString);
-            Assert.AreEqual("/cashgame/details/bunch-a/2002-02-02", result.GameItems[0].Url.Relative);
+            Assert.AreEqual("/cashgame/details/2", result.GameItems[0].Url.Relative);
             Assert.AreEqual("2001-01-01", result.GameItems[1].Date.IsoString);
-            Assert.AreEqual("/cashgame/details/bunch-a/2001-01-01", result.GameItems[1].Url.Relative);
+            Assert.AreEqual("/cashgame/details/1", result.GameItems[1].Url.Relative);
         }
 
         [Test]

@@ -1,3 +1,4 @@
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -5,19 +6,33 @@ namespace Core.UseCases
     public class TestEmail
     {
         private readonly IMessageSender _messageSender;
+        private readonly IUserRepository _userRepository;
 
-        public TestEmail(IMessageSender messageSender)
+        public TestEmail(IMessageSender messageSender, IUserRepository userRepository)
         {
             _messageSender = messageSender;
+            _userRepository = userRepository;
         }
 
-        public Result Execute()
+        public Result Execute(Request request)
         {
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            RoleHandler.RequireAdmin(user);
             const string email = "henriks@gmail.com";
             var message = new TestMessage();
             _messageSender.Send(email, message);
 
             return new Result(email);
+        }
+
+        public class Request
+        {
+            public string UserName { get; private set; }
+
+            public Request(string userName)
+            {
+                UserName = userName;
+            }
         }
 
         public class Result

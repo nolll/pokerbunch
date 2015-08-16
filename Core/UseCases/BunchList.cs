@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 using Core.Urls;
 
 namespace Core.UseCases
@@ -17,13 +18,16 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public Result Execute()
+        public Result Execute(AllBunchesRequest request)
         {
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            RoleHandler.RequireAdmin(user);
+
             var bunches = _bunchRepository.GetList();
             return new Result(bunches);
         }
 
-        public Result Execute(Request request)
+        public Result Execute(UserBunchesRequest request)
         {
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var homegames = user != null ? _bunchRepository.GetByUserId(user.Id) : new List<Bunch>();
@@ -31,11 +35,21 @@ namespace Core.UseCases
             return new Result(homegames);
         }
 
-        public class Request
+        public class AllBunchesRequest
         {
             public string UserName { get; private set; }
 
-            public Request(string userName)
+            public AllBunchesRequest(string userName)
+            {
+                UserName = userName;
+            }
+        }
+
+        public class UserBunchesRequest
+        {
+            public string UserName { get; private set; }
+
+            public UserBunchesRequest(string userName)
             {
                 UserName = userName;
             }
