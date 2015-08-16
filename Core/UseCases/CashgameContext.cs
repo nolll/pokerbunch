@@ -48,7 +48,7 @@ namespace Core.UseCases
                 selectedYear);
         }
 
-        public class Request : BunchContext.Request
+        public class Request : BunchContext.BunchRequest
         {
             public DateTime CurrentTime { get; private set; }
             public CashgamePage SelectedPage { get; private set; }

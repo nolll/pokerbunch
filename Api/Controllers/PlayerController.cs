@@ -18,7 +18,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult Details(int playerId)
         {
-            var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(playerId, "henriks"));
+            var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request("henriks", playerId));
             var bunchModel = new ApiPlayer(playerDetailsResult.DisplayName);
             return Ok(bunchModel);
         }

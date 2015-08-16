@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -10,17 +11,21 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PlayerBadges(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public PlayerBadges(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
             var player = _playerRepository.GetById(request.PlayerId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            RoleHandler.RequireRole(user, player, Role.Player);
             var bunch = _bunchRepository.GetById(player.BunchId);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id);
 
@@ -29,10 +34,12 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public int PlayerId { get; private set; }
 
-            public Request(int playerId)
+            public Request(string userName, int playerId)
             {
+                UserName = userName;
                 PlayerId = playerId;
             }
         }

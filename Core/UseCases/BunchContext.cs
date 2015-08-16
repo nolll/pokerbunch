@@ -18,12 +18,23 @@ namespace Core.UseCases
             _playerRepository = playerRepository;
         }
 
-        public Result Execute(Request request)
+        public Result Execute(BunchRequest request)
         {
             var appContext = new AppContext(_userRepository).Execute(new AppContext.Request(request.UserName));
-
             var bunch = GetBunch(appContext, request);
-            if(bunch == null)
+            return GetResult(appContext, bunch);
+        }
+
+        public Result Execute(PlayerRequest request)
+        {
+            var appContext = new AppContext(_userRepository).Execute(new AppContext.Request(request.UserName));
+            var bunch = GetBunch(appContext, request);
+            return GetResult(appContext, bunch);
+        }
+
+        private Result GetResult(AppContext.Result appContext, Bunch bunch)
+        {
+            if (bunch == null)
                 return new Result(appContext);
 
             var player = _playerRepository.GetByUserId(bunch.Id, appContext.UserId);
@@ -32,18 +43,12 @@ namespace Core.UseCases
             return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName, role, player.Id);
         }
 
-        private Bunch GetBunch(AppContext.Result appContext, Request request)
+        private Bunch GetBunch(AppContext.Result appContext, BunchRequest request)
         {
             if (!appContext.IsLoggedIn)
                 return null;
 
-            if (request.HasPlayerId)
-            {
-                var player = _playerRepository.GetById(request.PlayerId);
-                return _bunchRepository.GetById(player.BunchId);
-            }
-
-            if (request.HasSlug)
+            if (!string.IsNullOrEmpty(request.Slug))
             {
                 try
                 {
@@ -58,32 +63,36 @@ namespace Core.UseCases
             return bunches.Count == 1 ? bunches[0] : null;
         }
 
-        public class Request
+        private Bunch GetBunch(AppContext.Result appContext, PlayerRequest request)
+        {
+            if (!appContext.IsLoggedIn)
+                return null;
+
+            var player = _playerRepository.GetById(request.PlayerId);
+            return _bunchRepository.GetById(player.BunchId);
+        }
+
+        public class BunchRequest
         {
             public string UserName { get; private set; }
             public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
 
-            public Request(string userName, string slug = null)
+            public BunchRequest(string userName, string slug = null)
             {
                 UserName = userName;
                 Slug = slug;
             }
+        }
 
-            public Request(string userName, int playerId)
+        public class PlayerRequest
+        {
+            public string UserName { get; private set; }
+            public int PlayerId { get; private set; }
+
+            public PlayerRequest(string userName, int playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
-            }
-
-            public bool HasSlug
-            {
-                get { return !string.IsNullOrEmpty(Slug); }
-            }
-
-            public bool HasPlayerId
-            {
-                get { return PlayerId > 0; }
             }
         }
 

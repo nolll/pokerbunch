@@ -26,12 +26,12 @@ namespace Web.Controllers.Base
 
         protected BunchContext.Result GetBunchContextBySlug(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, slug));
+            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(CurrentUserName, slug));
         }
 
         protected BunchContext.Result GetBunchContextByPlayerId(int playerId)
         {
-            return UseCase.BunchContext.Execute(new BunchContext.Request(CurrentUserName, playerId));
+            return UseCase.BunchContext.Execute(new BunchContext.PlayerRequest(CurrentUserName, playerId));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)

@@ -81,7 +81,7 @@ namespace Tests.Core.UseCases
 
         private PlayerBadges.Request CreateRequest()
         {
-            return new PlayerBadges.Request(TestData.PlayerIdA);
+            return new PlayerBadges.Request(TestData.UserNameA, TestData.PlayerIdA);
         }
 
         private PlayerBadges Sut
@@ -91,7 +91,8 @@ namespace Tests.Core.UseCases
                 return new PlayerBadges(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }

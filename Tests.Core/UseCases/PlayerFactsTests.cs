@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void PlayerFacts_ReturnsResultObject()
         {
-            var request = new PlayerFacts.Request(TestData.PlayerIdA);
+            var request = new PlayerFacts.Request(TestData.UserNameA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GamesPlayed);
@@ -29,7 +29,8 @@ namespace Tests.Core.UseCases
                 return new PlayerFacts(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }
