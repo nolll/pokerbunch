@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_ReturnsTopListItems()
         {
-            var request = new TopList.Request(TestData.SlugA, "winnings", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.Winnings, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.Items.Count);
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_ItemHasCorrectValues()
         {
-            var request = new TopList.Request(TestData.SlugA, "winnings", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.Winnings, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(1, result.Items[0].Rank);
@@ -35,11 +35,10 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(79, result.Items[0].WinRate.Amount);
         }
 
-        [TestCase("winnings")]
-        [TestCase(null)]
-        public void TopList_SortByWinnings_HighestWinningsIsFirst(string orderBy)
+        [Test]
+        public void TopList_SortByWinnings_HighestWinningsIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, orderBy, null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.Winnings, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(200, result.Items[0].Winnings.Amount);
@@ -49,7 +48,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByBuyin_HighestBuyinIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, "buyin", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.Buyin, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(600, result.Items[0].Buyin.Amount);
@@ -59,7 +58,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByCashout_HighestCashoutIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, "cashout", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.Cashout, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(600, result.Items[0].Cashout.Amount);
@@ -69,7 +68,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByTimePlayed_HighestTotalMinutesIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, "timeplayed", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.TimePlayed, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(152, result.Items[0].TimePlayed.Minutes);
@@ -79,7 +78,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByGamesPlayed_HighestGameCountIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, "gamesplayed", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.GamesPlayed, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.Items[0].GamesPlayed);
@@ -89,7 +88,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByWinRate_HighestWinRateIsFirst()
         {
-            var request = new TopList.Request(TestData.SlugA, "winrate", null);
+            var request = new TopList.Request(TestData.UserNameA, TestData.SlugA, TopList.SortOrder.WinRate, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(79, result.Items[0].WinRate.Amount);
@@ -103,7 +102,8 @@ namespace Tests.Core.UseCases
                 return new TopList(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }

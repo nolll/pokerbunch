@@ -102,11 +102,10 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
         }
 
-        [TestCase("date")]
-        [TestCase(null)]
-        public void TopList_SortByWinnings_HighestWinningsIsFirst(string orderBy)
+        [Test]
+        public void TopList_SortByWinnings_HighestWinningsIsFirst()
         {
-            var result = Sut.Execute(CreateRequest(orderBy));
+            var result = Sut.Execute(CreateRequest());
 
             Assert.AreEqual(CashgameList.SortOrder.Date, result.SortOrder);
             Assert.AreEqual(new Date(2002, 2, 2), result.List[0].Date);
@@ -116,7 +115,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByPlayerCount_HighestPlayerCountIsFirst()
         {
-            var result = Sut.Execute(CreateRequest("playercount"));
+            var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.PlayerCount));
 
             Assert.AreEqual(CashgameList.SortOrder.PlayerCount, result.SortOrder);
             Assert.AreEqual(2, result.List[0].PlayerCount);
@@ -126,7 +125,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByLocation_HighestLocationIsFirst()
         {
-            var result = Sut.Execute(CreateRequest("location"));
+            var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.Location));
 
             Assert.AreEqual(CashgameList.SortOrder.Location, result.SortOrder);
             Assert.AreEqual(TestData.LocationB, result.List[0].Location);
@@ -136,7 +135,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByDuration_HighestDurationIsFirst()
         {
-            var result = Sut.Execute(CreateRequest("duration"));
+            var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.Duration));
 
             Assert.AreEqual(CashgameList.SortOrder.Duration, result.SortOrder);
             Assert.AreEqual(92, result.List[0].Duration.Minutes);
@@ -146,7 +145,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByTurnover_HighestTurnoverIsFirst()
         {
-            var result = Sut.Execute(CreateRequest("turnover"));
+            var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.Turnover));
 
             Assert.AreEqual(CashgameList.SortOrder.Turnover, result.SortOrder);
             Assert.AreEqual(600, result.List[0].Turnover.Amount);
@@ -156,16 +155,16 @@ namespace Tests.Core.UseCases
         [Test]
         public void TopList_SortByAverageBuyin_HighestAverageBuyinIsFirst()
         {
-            var result = Sut.Execute(CreateRequest("averagebuyin"));
+            var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.AverageBuyin));
 
             Assert.AreEqual(CashgameList.SortOrder.AverageBuyin, result.SortOrder);
             Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
             Assert.AreEqual(200, result.List[1].AverageBuyin.Amount);
         }
 
-        private CashgameList.Request CreateRequest(string orderBy = null, int? year = null)
+        private CashgameList.Request CreateRequest(CashgameList.SortOrder orderBy = CashgameList.SortOrder.Date, int? year = null)
         {
-            return new CashgameList.Request(TestData.SlugA, orderBy, year);
+            return new CashgameList.Request(TestData.UserNameA, TestData.SlugA, orderBy, year);
         }
 
         private CashgameList Sut
@@ -174,7 +173,9 @@ namespace Tests.Core.UseCases
             {
                 return new CashgameList(
                     Repos.Bunch,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

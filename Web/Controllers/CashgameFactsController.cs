@@ -15,8 +15,7 @@ namespace Web.Controllers
         public ActionResult Facts(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Facts, year);
-            RequirePlayer(contextResult.BunchContext);
-            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(slug, year));
+            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(CurrentUserName, slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
             return View("~/Views/Pages/CashgameFacts/FactsPage.cshtml", model);

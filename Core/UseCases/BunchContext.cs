@@ -160,7 +160,7 @@ namespace Core.UseCases
                 EventUrl = new EventListUrl(slug);
             }
 
-            public bool IsAdmin
+            private bool IsAdmin
             {
                 get { return IsInRole(Role.Admin); }
             }

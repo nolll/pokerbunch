@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
 
         private static AddCashgame.Request CreateRequest(string location = TestData.LocationA)
         {
-            return new AddCashgame.Request(TestData.SlugA, location);
+            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, location);
         }
 
         private AddCashgame Sut
@@ -52,7 +52,9 @@ namespace Tests.Core.UseCases
             {
                 return new AddCashgame(
                     Repos.Bunch,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

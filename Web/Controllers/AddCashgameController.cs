@@ -13,8 +13,6 @@ namespace Web.Controllers
         [Route(Routes.CashgameAdd)]
         public ActionResult AddCashgame(string slug)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequirePlayer(context);
             return ShowForm(slug);
         }
 
@@ -23,7 +21,7 @@ namespace Web.Controllers
         [Route(Routes.CashgameAdd)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
-            var request = new AddCashgame.Request(slug, postModel.Location);
+            var request = new AddCashgame.Request(CurrentUserName, slug, postModel.Location);
 
             try
             {
@@ -41,7 +39,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(slug));
+            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(CurrentUserName, slug));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
             return View("~/Views/Pages/AddCashgame/Add.cshtml", model);
         }

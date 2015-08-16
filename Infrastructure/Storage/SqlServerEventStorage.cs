@@ -7,7 +7,7 @@ namespace Infrastructure.Storage
 {
     public class SqlServerEventStorage : SqlServerStorageProvider, IEventStorage 
     {
-        private const string EventSql = @"SELECT e.EventID, e.Name, g.Location, g.Date
+        private const string EventSql = @"SELECT e.EventID, e.BunchID, e.Name, g.Location, g.Date
                                         FROM [Event] e
                                         LEFT JOIN EventCashgame ecg on e.EventId = ecg.EventId
                                         LEFT JOIN Game g on ecg.GameId = g.GameID
@@ -72,7 +72,7 @@ namespace Infrastructure.Storage
                 var item = map[key];
                 var firstItem = item.First();
                 var lastItem = item.Last();
-                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.Name, firstItem.Location, firstItem.Date, lastItem.Date));
+                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.BunchId, firstItem.Name, firstItem.Location, firstItem.Date, lastItem.Date));
             }
             return rawEvents;
         } 
@@ -81,6 +81,7 @@ namespace Infrastructure.Storage
         {
             return new RawEventDay(
                 reader.GetIntValue("EventID"),
+                reader.GetIntValue("BunchId"),
                 reader.GetStringValue("Name"),
                 reader.GetStringValue("Location"),
                 reader.GetDateTimeValue("Date"));

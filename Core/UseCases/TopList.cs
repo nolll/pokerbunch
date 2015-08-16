@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -11,30 +12,30 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            return Execute(bunch, request.OrderBy, request.Year);
-        }
-
-        private Result Execute(Bunch bunch, SortOrder orderBy, int? year)
-        {
-            var cashgames = _cashgameRepository.GetFinished(bunch.Id, year);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
+            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             var players = _playerRepository.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
-            items = SortItems(items, orderBy);
+            items = SortItems(items, request.OrderBy);
 
-            return new Result(items, orderBy, bunch.Slug, year);
+            return new Result(items, request.OrderBy, bunch.Slug, request.Year);
         }
 
         private static IEnumerable<Item> SortItems(IEnumerable<Item> items, SortOrder orderBy)
@@ -58,28 +59,17 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public SortOrder OrderBy { get; private set; }
             public int? Year { get; private set; }
 
-            public Request(string slug, string orderBy, int? year)
-                : this(slug, ParseToplistSortOrder(orderBy), year)
+            public Request(string userName, string slug, SortOrder orderBy, int? year)
             {
-            }
-
-            public Request(string slug, SortOrder orderBy, int? year)
-            {
+                UserName = userName;
                 Slug = slug;
                 OrderBy = orderBy;
                 Year = year;
-            }
-
-            private static SortOrder ParseToplistSortOrder(string s)
-            {
-                if (s == null)
-                    return SortOrder.Winnings;
-                SortOrder sortOrder;
-                return Enum.TryParse(s, true, out sortOrder) ? sortOrder : SortOrder.Winnings;
             }
         }
 

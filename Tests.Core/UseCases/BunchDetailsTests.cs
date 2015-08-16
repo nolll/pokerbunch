@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
 
         private static BunchDetails.Request CreateRequest(string userName = null)
         {
-            return new BunchDetails.Request(TestData.SlugA, userName ?? TestData.UserA.UserName);
+            return new BunchDetails.Request(userName ?? TestData.UserA.UserName, TestData.SlugA);
         }
 
         private BunchDetails Sut

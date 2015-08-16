@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameChart_GameDataIsCorrect()
         {
-            var request = new CashgameChart.Request(TestData.SlugA, null);
+            var request = new CashgameChart.Request(TestData.UserNameA, TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.GameItems.Count);
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void CashgameChart_PlayerDataIsCorrect()
         {
-            var request = new CashgameChart.Request(TestData.SlugA, null);
+            var request = new CashgameChart.Request(TestData.UserNameA, TestData.SlugA, null);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -43,7 +43,8 @@ namespace Tests.Core.UseCases
                 return new CashgameChart(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }

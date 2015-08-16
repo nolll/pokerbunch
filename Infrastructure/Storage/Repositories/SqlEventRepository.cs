@@ -61,6 +61,7 @@ namespace Infrastructure.Storage.Repositories
         {
             return new Event(
                 rawEvent.Id,
+                rawEvent.BunchId,
                 rawEvent.Name,
                 rawEvent.Location,
                 new Date(rawEvent.StartDate),

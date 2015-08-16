@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -10,17 +11,22 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CashgameChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public CashgameChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
             var players = _playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             var suite = new CashgameSuite(cashgames, players);
@@ -70,11 +76,13 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public int? Year { get; private set; }
 
-            public Request(string slug, int? year)
+            public Request(string userName, string slug, int? year)
             {
+                UserName = userName;
                 Slug = slug;
                 Year = year;
             }

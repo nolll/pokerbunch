@@ -15,11 +15,17 @@ namespace Web.Controllers
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);
-            RequirePlayer(contextResult.BunchContext);
-            var listResult = UseCase.CashgameList.Execute(new CashgameList.Request(slug, orderBy, year));
-
+            var listResult = UseCase.CashgameList.Execute(new CashgameList.Request(CurrentUserName, slug, ParseListSortOrder(orderBy), year));
             var model = new CashgameListPageModel(contextResult, listResult);
             return View("~/Views/Pages/CashgameList/List.cshtml", model);
+        }
+
+        private static CashgameList.SortOrder ParseListSortOrder(string s)
+        {
+            if (s == null)
+                return CashgameList.SortOrder.Date;
+            CashgameList.SortOrder sortOrder;
+            return Enum.TryParse(s, true, out sortOrder) ? sortOrder : CashgameList.SortOrder.Date;
         }
     }
 }

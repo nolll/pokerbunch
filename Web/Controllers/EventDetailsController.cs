@@ -13,9 +13,8 @@ namespace Web.Controllers
         public ActionResult List(string slug, int eventId)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            RequirePlayer(contextResult);
-            var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetails.Request(eventId));
-            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(slug, eventId));
+            var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, eventId));
+            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(CurrentUserName, slug, eventId));
             var model = new EventDetailsPageModel(contextResult, eventDetailsOutput, matrixResult);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
         }

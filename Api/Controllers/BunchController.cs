@@ -18,7 +18,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult Details(string slug)
         {
-            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(slug, "henriks"));
+            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request("henriks", slug));
             var bunchModel = new ApiBunch(bunchDetailsResult.Slug, bunchDetailsResult.BunchName);
             return Ok(bunchModel);
         }

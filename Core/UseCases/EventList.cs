@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 using Core.Urls;
 
 namespace Core.UseCases
@@ -10,16 +11,23 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IEventRepository _eventRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EventList(IBunchRepository bunchRepository, IEventRepository eventRepository)
+        public EventList(IBunchRepository bunchRepository, IEventRepository eventRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _eventRepository = eventRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
             var events = _eventRepository.Find(bunch.Id);
 
             var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(request.Slug, o)).ToList();
@@ -36,10 +44,12 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
 
-            public Request(string slug)
+            public Request(string userName, string slug)
             {
+                UserName = userName;
                 Slug = slug;
             }
         }

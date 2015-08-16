@@ -12,16 +12,23 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
@@ -51,28 +58,17 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public SortOrder SortOrder { get; private set; }
             public int? Year { get; private set; }
 
-            public Request(string slug, string orderBy, int? year)
-                : this(slug, ParseToplistSortOrder(orderBy), year)
+            public Request(string userName, string slug, SortOrder sortOrder, int? year)
             {
-            }
-
-            private Request(string slug, SortOrder sortOrder, int? year)
-            {
+                UserName = userName;
                 Slug = slug;
                 SortOrder = sortOrder;
                 Year = year;
-            }
-
-            private static SortOrder ParseToplistSortOrder(string s)
-            {
-                if (s == null)
-                    return SortOrder.Date;
-                SortOrder sortOrder;
-                return Enum.TryParse(s, true, out sortOrder) ? sortOrder : SortOrder.Date;
             }
         }
 

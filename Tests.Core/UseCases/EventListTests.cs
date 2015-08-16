@@ -57,13 +57,15 @@ namespace Tests.Core.UseCases
             {
                 return new EventList(
                     Repos.Bunch,
-                    Repos.Event);
+                    Repos.Event,
+                    Repos.User,
+                    Repos.Player);
             }
         }
         
         private EventList.Request CreateInput()
         {
-            return new EventList.Request(TestData.SlugA);
+            return new EventList.Request(TestData.UserNameA, TestData.SlugA);
         }
     }
 }

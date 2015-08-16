@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
 
         private static Matrix.Request CreateRequest(int? year = null)
         {
-            return new Matrix.Request(TestData.SlugA, year);
+            return new Matrix.Request(TestData.UserNameA, TestData.SlugA, year);
         }
 
         private Matrix Sut
@@ -48,7 +48,8 @@ namespace Tests.Core.UseCases
                 return new Matrix(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }
