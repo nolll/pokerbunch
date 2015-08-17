@@ -170,11 +170,6 @@ namespace Core.UseCases
                 get { return IsInRole(Role.Manager); }
             }
 
-            public bool IsPlayer
-            {
-                get { return IsInRole(Role.Player); }
-            }
-
             public bool IsCurrentPlayer(int playerId)
             {
                 return IsAdmin || playerId == _userPlayerId;

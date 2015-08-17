@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameAPlayerA_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChart.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, DateTime.UtcNow);
+            var request = new ActionsChart.Request(TestData.UserNameA, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameAPlayerB_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChart.Request(TestData.SlugA, TestData.DateStringA, TestData.PlayerIdB, DateTime.UtcNow);
+            var request = new ActionsChart.Request(TestData.UserNameA, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdB, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameBPlayerA_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChart.Request(TestData.SlugA, TestData.DateStringB, TestData.PlayerIdA, DateTime.UtcNow);
+            var request = new ActionsChart.Request(TestData.UserNameA, TestData.SlugA, TestData.DateStringB, TestData.PlayerIdA, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
@@ -80,7 +80,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void ActionsChart_GameBPlayerB_CheckpointItemsAreCorrect()
         {
-            var request = new ActionsChart.Request(TestData.SlugA, TestData.DateStringB, TestData.PlayerIdB, DateTime.UtcNow);
+            var request = new ActionsChart.Request(TestData.UserNameA, TestData.SlugA, TestData.DateStringB, TestData.PlayerIdB, DateTime.UtcNow);
 
             var result = Sut.Execute(request);
 
@@ -107,7 +107,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new ActionsChart.Request(TestData.SlugA, TestData.DateStringC, TestData.PlayerIdA, TestData.StartTimeC.AddHours(1));
+            var request = new ActionsChart.Request(TestData.UserNameA, TestData.SlugA, TestData.DateStringC, TestData.PlayerIdA, TestData.StartTimeC.AddHours(1));
 
             var result = Sut.Execute(request);
 
@@ -130,7 +130,9 @@ namespace Tests.Core.UseCases
             {
                 return new ActionsChart(
                     Repos.Bunch,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

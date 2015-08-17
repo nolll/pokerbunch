@@ -25,6 +25,7 @@ namespace Core.UseCases
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
             var players = _playerRepository.GetList(bunch.Id);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
 
@@ -33,13 +34,13 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
             public string UserName { get; private set; }
+            public string Slug { get; private set; }
 
-            public Request(string slug, string userName)
+            public Request(string userName, string slug)
             {
-                Slug = slug;
                 UserName = userName;
+                Slug = slug;
             }
         }
 

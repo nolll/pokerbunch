@@ -130,12 +130,6 @@ namespace Web.Controllers.Base
             return new JsonResult(data, jsonRequestBehavior);
         }
 
-        protected void RequirePlayer(BunchContext.Result bunchContext)
-        {
-            if (!bunchContext.IsPlayer)
-                throw new AccessDeniedException();
-        }
-
         protected void RequireManager(BunchContext.Result bunchContext)
         {
             if (!bunchContext.IsManager)

@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void RunningCashgame_CashgameNotRunning_ThrowsException()
         {
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, DateTime.Now);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, DateTime.Now);
 
             Assert.Throws<CashgameNotRunningException>(() => Sut.Execute(request));
         }
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, DateTime.Now);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, DateTime.Now);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.PlayerIdA, result.PlayerId);
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, DateTime.Now);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, DateTime.Now);
             var result = Sut.Execute(request);
 
             Assert.AreEqual("/cashgame/runningplayersjson/bunch-a", result.PlayersDataUrl.Relative);
@@ -59,7 +59,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, TestData.StartTimeC);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, TestData.StartTimeC);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.Items.Count);
@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, TestData.StartTimeC);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, TestData.StartTimeC);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
@@ -105,7 +105,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new RunningCashgame.Request(TestData.SlugA, TestData.UserNameA, TestData.StartTimeC);
+            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, TestData.StartTimeC);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(4, result.BunchPlayerItems.Count);

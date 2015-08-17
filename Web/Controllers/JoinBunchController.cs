@@ -44,8 +44,7 @@ namespace Web.Controllers
         public ActionResult Joined(string slug)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            RequirePlayer(contextResult);
-            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(slug));
+            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(CurrentUserName, slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
         }

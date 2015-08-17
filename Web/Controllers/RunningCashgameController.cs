@@ -15,10 +15,9 @@ namespace Web.Controllers
         public ActionResult Running(string slug)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            RequirePlayer(contextResult);
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug, DateTime.UtcNow));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
@@ -32,9 +31,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgameGameJson)]
         public ActionResult RunningGameJson(string slug)
         {
-            var bunchContext = GetBunchContextBySlug(slug);
-            RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug, DateTime.UtcNow));
             var model = new RunningCashgameJsonModel(runningCashgameResult);
             return JsonView(model);
         }
@@ -43,9 +40,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgamePlayersJson)]
         public ActionResult RunningPlayersJson(string slug)
         {
-            var bunchContext = GetBunchContextBySlug(slug);
-            RequirePlayer(bunchContext);
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(slug, CurrentUserName, DateTime.UtcNow));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug, DateTime.UtcNow));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }

@@ -30,6 +30,7 @@ namespace Core.UseCases
             var bunch = _bunchRepository.GetBySlug(input.Slug);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
             var player = _playerRepository.GetById(input.PlayerId);
+            RoleHandler.RequirePlayer(user, player);
             var playerResult = cashgame.GetResult(player.Id);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, user.Id);
             var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);

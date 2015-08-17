@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
 
         private static JoinBunchConfirmation.Request CreateRequest()
         {
-            return new JoinBunchConfirmation.Request(TestData.SlugA);
+            return new JoinBunchConfirmation.Request(TestData.UserNameA, TestData.SlugA);
         }
 
         private JoinBunchConfirmation Sut
@@ -33,7 +33,9 @@ namespace Tests.Core.UseCases
             get
             {
                 return new JoinBunchConfirmation(
-                    Repos.Bunch);
+                    Repos.Bunch,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

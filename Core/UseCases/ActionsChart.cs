@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -10,16 +11,23 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public ActionsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public ActionsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequirePlayer(user, player);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var result = cashgame.GetResult(request.PlayerId);
 
@@ -68,13 +76,15 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public string DateStr { get; private set; }
             public int PlayerId { get; private set; }
             public DateTime CurrentTime { get; private set; }
 
-            public Request(string slug, string dateStr, int playerId, DateTime currentTime)
+            public Request(string userName, string slug, string dateStr, int playerId, DateTime currentTime)
             {
+                UserName = userName;
                 Slug = slug;
                 DateStr = dateStr;
                 PlayerId = playerId;

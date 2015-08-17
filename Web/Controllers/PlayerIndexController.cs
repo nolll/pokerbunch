@@ -13,7 +13,6 @@ namespace Web.Controllers
         public ActionResult Index(string slug)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            RequirePlayer(contextResult);
             var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(slug, CurrentUserName));
             var model = new PlayerListPageModel(contextResult, playerListResult);
             return View("~/Views/Pages/PlayerList/List.cshtml", model);
