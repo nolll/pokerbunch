@@ -13,8 +13,6 @@ namespace Web.Controllers
         [Route(Routes.PlayerAdd)]
         public ActionResult Add(string slug)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             return ShowForm(slug);
         }
 
@@ -23,12 +21,9 @@ namespace Web.Controllers
         [Route(Routes.PlayerAdd)]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
-            var request = new AddPlayer.Request(slug, postModel.Name);
-
             try
             {
+                var request = new AddPlayer.Request(CurrentUserName, slug, postModel.Name);
                 var result = UseCase.AddPlayer.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }

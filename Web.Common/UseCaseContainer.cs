@@ -35,8 +35,8 @@ namespace Web.Common
         public BunchDetails BunchDetails { get { return new BunchDetails(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public AddBunchForm AddBunchForm { get { return new AddBunchForm(); } }
         public AddBunch AddBunch { get { return new AddBunch(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository); } }
-        public EditBunchForm EditBunchForm { get { return new EditBunchForm(_deps.BunchRepository); } }
-        public EditBunch EditBunch { get { return new EditBunch(_deps.BunchRepository); } }
+        public EditBunchForm EditBunchForm { get { return new EditBunchForm(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
+        public EditBunch EditBunch { get { return new EditBunch(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public JoinBunchForm JoinBunchForm { get { return new JoinBunchForm(_deps.BunchRepository); } }
         public JoinBunch JoinBunch { get { return new JoinBunch(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public JoinBunchConfirmation JoinBunchConfirmation { get { return new JoinBunchConfirmation(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
@@ -58,14 +58,14 @@ namespace Web.Common
         public Actions Actions { get { return new Actions(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public ActionsChart ActionsChart { get { return new ActionsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public EditCheckpointForm EditCheckpointForm { get { return new EditCheckpointForm(_deps.BunchRepository, _deps.CheckpointRepository); } }
-        public EditCheckpoint EditCheckpoint { get { return new EditCheckpoint(_deps.BunchRepository, _deps.CheckpointRepository); } }
+        public EditCheckpoint EditCheckpoint { get { return new EditCheckpoint(_deps.BunchRepository, _deps.CheckpointRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public CashgameChart CashgameChart { get { return new CashgameChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public Matrix Matrix { get { return new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
-        public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository); } }
-        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.BunchRepository, _deps.CashgameRepository); } }
+        public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
+        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository, _deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
-        public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository); } }
+        public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository, _deps.UserRepository); } }
         public Report Report { get { return new Report(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository, _deps.UserRepository); } }
         public Cashout Cashout { get { return new Cashout(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.CheckpointRepository, _deps.UserRepository); } }
@@ -76,8 +76,8 @@ namespace Web.Common
         public PlayerDetails PlayerDetails { get { return new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository); } }
         public PlayerFacts PlayerFacts { get { return new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public PlayerBadges PlayerBadges { get { return new PlayerBadges(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
-        public InvitePlayer InvitePlayer { get { return new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender); } }
-        public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository); } }
-        public DeletePlayer DeletePlayer { get { return new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository); } }
+        public InvitePlayer InvitePlayer { get { return new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender, _deps.UserRepository); } }
+        public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
+        public DeletePlayer DeletePlayer { get { return new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.BunchRepository); } }
     }
 }

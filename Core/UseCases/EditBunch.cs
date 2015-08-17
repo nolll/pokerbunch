@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -10,10 +11,14 @@ namespace Core.UseCases
     public class EditBunch
     {
         private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EditBunch(IBunchRepository bunchRepository)
+        public EditBunch(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
@@ -23,6 +28,9 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequireManager(user, player);
             var postedHomegame = CreateBunch(bunch, request);
             _bunchRepository.Save(postedHomegame);
 
@@ -45,6 +53,7 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public string Description { get; private set; }
             [Required(ErrorMessage = "Currency Symbol can't be empty")]
@@ -56,8 +65,9 @@ namespace Core.UseCases
             public string HouseRules { get; private set; }
             public int DefaultBuyin { get; private set; }
 
-            public Request(string slug, string description, string currencySymbol, string currencyLayout, string timeZone, string houseRules, int defaultBuyin)
+            public Request(string userName, string slug, string description, string currencySymbol, string currencyLayout, string timeZone, string houseRules, int defaultBuyin)
             {
+                UserName = userName;
                 Slug = slug;
                 Description = description;
                 CurrencySymbol = currencySymbol;

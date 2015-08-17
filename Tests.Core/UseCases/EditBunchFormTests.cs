@@ -96,7 +96,7 @@ namespace Tests.Core.UseCases
 
         private static EditBunchForm.Request CreateRequest()
         {
-            return new EditBunchForm.Request(TestData.SlugA);
+            return new EditBunchForm.Request(TestData.ManagerUser.UserName, TestData.SlugA);
         }
 
         private EditBunchForm Sut
@@ -104,7 +104,9 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditBunchForm(
-                    Repos.Bunch);
+                    Repos.Bunch,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

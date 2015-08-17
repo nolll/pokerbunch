@@ -13,8 +13,6 @@ namespace Web.Controllers
         [Route(Routes.CashgameEdit)]
         public ActionResult Edit(string slug, string dateStr)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             return ShowForm(slug, dateStr);
         }
 
@@ -23,11 +21,9 @@ namespace Web.Controllers
         [Route(Routes.CashgameEdit)]
         public ActionResult Post(string slug, string dateStr, EditCashgamePostModel postModel)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             try
             {
-                var request = new EditCashgame.EditCashgameRequest(slug, dateStr, postModel.Location);
+                var request = new EditCashgame.Request(CurrentUserName, slug, dateStr, postModel.Location);
                 var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +38,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(slug, dateStr));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(CurrentUserName, slug, dateStr));
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
         }

@@ -37,7 +37,7 @@ namespace Core.UseCases
             public string DateString { get; private set; }
             public int PlayerId { get; private set; }
 
-            public Request(string slug, string dateString, int playerId, int checkpointId)
+            public Request(string currentUserName, string slug, string dateString, int playerId, int checkpointId)
             {
                 Slug = slug;
                 CheckpointId = checkpointId;

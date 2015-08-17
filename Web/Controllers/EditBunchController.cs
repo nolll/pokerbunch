@@ -13,8 +13,6 @@ namespace Web.Controllers
         [Route(Routes.BunchEdit)]
         public ActionResult Edit(string slug)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             return ShowForm(slug);
         }
 
@@ -23,11 +21,9 @@ namespace Web.Controllers
         [Route(Routes.BunchEdit)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             try
             {
-                var request = new EditBunch.Request(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var request = new EditBunch.Request(CurrentUserName, slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +38,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            var editBunchFormRequest = new EditBunchForm.Request(slug);
+            var editBunchFormRequest = new EditBunchForm.Request(CurrentUserName, slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
             return View("~/Views/Pages/EditBunch/Edit.cshtml", model);

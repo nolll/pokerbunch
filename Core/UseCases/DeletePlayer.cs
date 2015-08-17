@@ -1,4 +1,5 @@
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
@@ -6,16 +7,25 @@ namespace Core.UseCases
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IBunchRepository _bunchRepository;
 
-        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
+        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IBunchRepository bunchRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var canDelete = !_cashgameRepository.HasPlayed(request.PlayerId);
+            var player = _playerRepository.GetById(request.PlayerId);
+            var bunch = _bunchRepository.GetById(player.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            RoleHandler.RequireManager(currentUser, currentPlayer);
+            var canDelete = !_cashgameRepository.HasPlayed(player.Id);
 
             if (canDelete)
             {
@@ -27,13 +37,15 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public int PlayerId { get; private set; }
 
-            public Request(string slug, int playerId)
+            public Request(string userName, string slug, int playerId)
             {
-                PlayerId = playerId;
+                UserName = userName;
                 Slug = slug;
+                PlayerId = playerId;
             }
         }
 

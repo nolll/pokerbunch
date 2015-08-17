@@ -12,9 +12,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerDelete)]
         public ActionResult Delete(string slug, int playerId)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
-            var request = new DeletePlayer.Request(slug, playerId);
+            var request = new DeletePlayer.Request(CurrentUserName, slug, playerId);
             var result = UseCase.DeletePlayer.Execute(request);
             var returnUrl = CreateReturnUrl(result);
             return Redirect(returnUrl.Relative);

@@ -47,7 +47,7 @@ If you don't have an account, you can register at http://pokerbunch.com/test";
 
         private static InvitePlayer.Request CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayer.Request(TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
+            return new InvitePlayer.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
         }
 
         private InvitePlayer Sut
@@ -57,7 +57,8 @@ If you don't have an account, you can register at http://pokerbunch.com/test";
                 return new InvitePlayer(
                     Repos.Bunch,
                     Repos.Player,
-                    Services.MessageSender);
+                    Services.MessageSender,
+                    Repos.User);
             }
         }
     }

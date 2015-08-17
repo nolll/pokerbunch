@@ -24,9 +24,7 @@ namespace Web.Controllers
         [Route(Routes.PlayerInvite)]
         public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
-            var request = new InvitePlayer.Request(slug, playerId, postModel.Email, new AddUserUrl().Absolute);
+            var request = new InvitePlayer.Request(CurrentUserName, slug, playerId, postModel.Email, new AddUserUrl().Absolute);
 
             try
             {
@@ -52,7 +50,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            var model = new InvitePlayerPageModel(contextResult, postModel);
+            var model = new InvitePlayerPageModel(CurrentUserName, slug, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }
     }

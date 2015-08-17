@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             const int playerIdThatHasNotPlayed = 3;
 
-            var request = new DeletePlayer.Request(TestData.SlugA, playerIdThatHasNotPlayed);
+            var request = new DeletePlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, playerIdThatHasNotPlayed);
             var result = Sut.Execute(request);
 
             Assert.IsTrue(result.Deleted);
@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeletePlayer_PlayerHasPlayed_ReturnUrlIsPlayerDetails()
         {
-            var request = new DeletePlayer.Request(TestData.SlugA, TestData.PlayerIdA);
+            var request = new DeletePlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.PlayerIdA);
             var result = Sut.Execute(request);
 
             Assert.IsFalse(result.Deleted);
@@ -37,7 +37,9 @@ namespace Tests.Core.UseCases
             {
                 return new DeletePlayer(
                     Repos.Player,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Bunch);
             }
         }
     }

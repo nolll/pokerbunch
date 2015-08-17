@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_EmptyLocation_ThrowsException()
         {
-            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, "");
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_ReturnUrlIsSet()
         {
-            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, ChangedLocation);
 
             var result = Sut.Execute(request);
 
@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_SavesCashgame()
         {
-            var request = new EditCashgame.EditCashgameRequest(TestData.SlugA, TestData.DateStringA, ChangedLocation);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, ChangedLocation);
 
             Sut.Execute(request);
 
@@ -44,7 +44,9 @@ namespace Tests.Core.UseCases
             {
                 return new EditCashgame(
                     Repos.Bunch,
-                    Repos.Cashgame);
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

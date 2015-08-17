@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Repositories;
+using Core.Services;
 using Core.Urls;
 
 namespace Core.UseCases
@@ -8,16 +9,23 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EditCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public EditCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequireManager(user, player);
             var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
             var cancelUrl = new CashgameDetailsUrl(cashgame.Id);
@@ -30,11 +38,13 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public string DateStr { get; private set; }
 
-            public Request(string slug, string dateStr)
+            public Request(string userName, string slug, string dateStr)
             {
+                UserName = userName;
                 Slug = slug;
                 DateStr = dateStr;
             }

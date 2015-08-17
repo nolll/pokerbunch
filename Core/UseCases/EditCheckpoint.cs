@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
+using Core.Services;
 using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -11,11 +13,15 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository)
+        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
@@ -25,6 +31,9 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            RoleHandler.RequireManager(user, player);
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
 
             var postedCheckpoint = Checkpoint.Create(
@@ -44,6 +53,7 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string UserName { get; private set; }
             public string Slug { get; private set; }
             public string DateStr { get; private set; }
             public int PlayerId { get; private set; }
@@ -54,8 +64,9 @@ namespace Core.UseCases
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
             public int Amount { get; private set; }
 
-            public Request(string slug, string dateStr, int playerId, int checkpointId, DateTime timestamp, int stack, int amount)
+            public Request(string userName, string slug, string dateStr, int playerId, int checkpointId, DateTime timestamp, int stack, int amount)
             {
+                UserName = userName;
                 Slug = slug;
                 DateStr = dateStr;
                 PlayerId = playerId;

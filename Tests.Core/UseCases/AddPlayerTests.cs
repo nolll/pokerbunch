@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ReturnUrlIsSet()
         {
-            var request = new AddPlayer.Request(TestData.SlugA, UniqueName);
+            var request = new AddPlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, UniqueName);
             var result = Sut.Execute(request);
 
             Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_EmptyName_ThrowsException()
         {
-            var request = new AddPlayer.Request(TestData.SlugA, EmptyName);
+            var request = new AddPlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, EmptyName);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidName_AddsPlayer()
         {
-            var request = new AddPlayer.Request(TestData.SlugA, UniqueName);
+            var request = new AddPlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, UniqueName);
             Sut.Execute(request);
 
             Assert.IsNotNull(Repos.Player.Added);
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddPlayer_ValidNameButNameExists_ThrowsException()
         {
-            var request = new AddPlayer.Request(TestData.SlugA, ExistingName);
+            var request = new AddPlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, ExistingName);
             Assert.Throws<PlayerExistsException>(() => Sut.Execute(request));
         }
 
@@ -53,7 +53,8 @@ namespace Tests.Core.UseCases
             {
                 return new AddPlayer(
                     Repos.Bunch,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.User);
             }
         }
     }

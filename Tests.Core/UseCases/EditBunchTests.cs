@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_EmptyCurrencySymbol_ThrowsValidationException()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, "", ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, "", ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_EmptyCurrencyLayout_ThrowsValidationException()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, ValidCurrencySymbol, "", ValidTimeZone, HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, ValidCurrencySymbol, "", ValidTimeZone, HouseRules, DefaultBuyin);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_EmptyTimeZone_ThrowsValidationException()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, "", HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, "", HouseRules, DefaultBuyin);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_InvalidTimeZone_ThrowsValidationException()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, "a", HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, "a", HouseRules, DefaultBuyin);
 
             Assert.Throws<TimeZoneNotFoundException>(() => Sut.Execute(request));
         }
@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_ValidData_SavesBunch()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
 
             Sut.Execute(request);
 
@@ -65,7 +65,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditBunch_ValidData_ReturnUrlIsCorrect()
         {
-            var request = new EditBunch.Request(TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
+            var request = new EditBunch.Request(TestData.ManagerUser.UserName, TestData.SlugA, Description, ValidCurrencySymbol, ValidCurrencyLayout, ValidTimeZone, HouseRules, DefaultBuyin);
 
             var result = Sut.Execute(request);
 
@@ -76,7 +76,10 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new EditBunch(Repos.Bunch);
+                return new EditBunch(
+                    Repos.Bunch,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

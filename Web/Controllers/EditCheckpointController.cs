@@ -13,8 +13,6 @@ namespace Web.Controllers
         [Route(Routes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             return ShowForm(slug, dateStr, playerId, checkpointId);
         }
 
@@ -23,11 +21,9 @@ namespace Web.Controllers
         [Route(Routes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             try
             {
-                var request = new EditCheckpoint.Request(slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var request = new EditCheckpoint.Request(CurrentUserName, slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -42,7 +38,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
             var contextResult = GetBunchContextBySlug(slug);
-            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(slug, dateStr, playerId, checkpointId));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(CurrentUserName, slug, dateStr, playerId, checkpointId));
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
         }
