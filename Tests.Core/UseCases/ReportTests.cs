@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new Report.Request(TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
+            var request = new Report.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new Report.Request(TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
+            var request = new Report.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
             Assert.AreEqual(stack, Repos.Checkpoint.Added.Stack);
@@ -38,7 +38,8 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,
-                    Repos.Checkpoint);
+                    Repos.Checkpoint,
+                    Repos.User);
             }
         }
     }

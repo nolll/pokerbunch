@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidBuyin_ReturnsError()
         {
-            var request = new Buyin.Request(TestData.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
+            var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, InvalidBuyin, ValidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void Buyin_InvalidStackSize_ReturnsError()
         {
-            var request = new Buyin.Request(TestData.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
+            var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, ValidBuyin, InvalidStack, DateTime.UtcNow);
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
 
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new Buyin.Request(TestData.SlugA, PlayerId, buyin, stack, timestamp);
+            var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
             var result = Repos.Checkpoint.Added;
@@ -61,7 +61,8 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.Player,
                     Repos.Cashgame,
-                    Repos.Checkpoint);
+                    Repos.Checkpoint,
+                    Repos.User);
             }
         }
     }

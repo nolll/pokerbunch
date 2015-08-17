@@ -25,6 +25,12 @@ namespace Core.Services
             if(!user.IsAdmin)
                 throw new AccessDeniedException();
         }
+
+        public static void RequireMe(User user, Player player, int playerId)
+        {
+            if(!user.IsAdmin && playerId != player.Id)
+                throw new AccessDeniedException();
+        }
         
         private static void RequireRole(User user, Player player, Role role)
         {

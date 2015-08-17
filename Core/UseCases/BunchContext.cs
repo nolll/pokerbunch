@@ -160,19 +160,9 @@ namespace Core.UseCases
                 EventUrl = new EventListUrl(slug);
             }
 
-            private bool IsAdmin
-            {
-                get { return IsInRole(Role.Admin); }
-            }
-
             public bool IsManager
             {
                 get { return IsInRole(Role.Manager); }
-            }
-
-            public bool IsCurrentPlayer(int playerId)
-            {
-                return IsAdmin || playerId == _userPlayerId;
             }
 
             private bool IsInRole(Role requestedRole)

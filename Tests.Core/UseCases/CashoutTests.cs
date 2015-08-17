@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new Cashout.Request(TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
+            var request = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new Cashout.Request(TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
+            var request = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
             Assert.AreEqual(stack, Repos.Checkpoint.Added.Stack);
@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGameWithCashoutCheckpoint();
 
-            var request2 = new Cashout.Request(TestData.SlugA, TestData.PlayerIdA, 2, DateTime.Now.AddMinutes(1));
+            var request2 = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, 2, DateTime.Now.AddMinutes(1));
             Sut.Execute(request2);
 
             Assert.AreEqual(2, Repos.Checkpoint.Saved.Stack);
@@ -49,7 +49,8 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,
-                    Repos.Checkpoint);
+                    Repos.Checkpoint,
+                    Repos.User);
             }
         }
     }
