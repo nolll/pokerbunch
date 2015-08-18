@@ -129,11 +129,5 @@ namespace Web.Controllers.Base
         {
             return new JsonResult(data, jsonRequestBehavior);
         }
-
-        protected void RequireManager(BunchContext.Result bunchContext)
-        {
-            if (!bunchContext.IsManager)
-                throw new AccessDeniedException();
-        }
     }
 }

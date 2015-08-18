@@ -39,9 +39,6 @@
     <Compile Include="BuilderContainer.cs" />
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="TestData.cs" />
-    <Compile Include="FakeClasses\AppContextResultInTest.cs" />
-    <Compile Include="FakeClasses\BaseContextResultInTest.cs" />
-    <Compile Include="FakeClasses\BunchContextResultInTest.cs" />
     <Compile Include="FakeRepositories\FakeBunchRepository.cs" />
     <Compile Include="FakeRepositories\FakeCashgameRepository.cs" />
     <Compile Include="FakeRepositories\FakeCheckpointRepository.cs" />

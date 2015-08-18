@@ -14,8 +14,6 @@ namespace Web.Controllers
         [Route(Routes.PlayerInvite)]
         public ActionResult Invite(string slug, int playerId)
         {
-            var context = GetBunchContextBySlug(slug);
-            RequireManager(context);
             return ShowForm(slug);
         }
 
@@ -49,8 +47,8 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
-            var contextResult = GetBunchContextBySlug(slug);
-            var model = new InvitePlayerPageModel(CurrentUserName, slug, postModel);
+            var context = GetBunchContextBySlug(slug);
+            var model = new InvitePlayerPageModel(context, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }
     }

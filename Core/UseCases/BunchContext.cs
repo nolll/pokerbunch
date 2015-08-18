@@ -46,10 +46,7 @@ namespace Core.UseCases
             if (bunch == null)
                 return new Result(appContext);
 
-            var player = _playerRepository.GetByUserId(bunch.Id, appContext.UserId);
-            var role = appContext.IsAdmin ? Role.Admin : player.Role;
-
-            return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName, role, player.Id);
+            return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
         private Bunch GetBunch(AppContext.Result appContext, BunchRequest request)
@@ -128,9 +125,6 @@ namespace Core.UseCases
 
         public class Result
         {
-            private readonly Role _userRole;
-            private readonly int _userPlayerId;
-
             public int BunchId { get; private set; }
             public string Slug { get; private set; }
             public string BunchName { get; private set; }
@@ -145,12 +139,9 @@ namespace Core.UseCases
                 AppContext = appContextResult;
             }
 
-            public Result(AppContext.Result appContextResult, string slug, int bunchId, string bunchName, Role userRole, int userPlayerId)
+            public Result(AppContext.Result appContextResult, string slug, int bunchId, string bunchName)
                 : this(appContextResult)
             {
-                _userRole = userRole;
-                _userPlayerId = userPlayerId;
-
                 BunchId = bunchId;
                 Slug = slug;
                 BunchName = bunchName;
@@ -158,16 +149,6 @@ namespace Core.UseCases
                 BunchUrl = new BunchDetailsUrl(slug);
                 CashgameUrl = new CashgameIndexUrl(slug);
                 EventUrl = new EventListUrl(slug);
-            }
-
-            public bool IsManager
-            {
-                get { return IsInRole(Role.Manager); }
-            }
-
-            private bool IsInRole(Role requestedRole)
-            {
-                return requestedRole <= _userRole;
             }
         }
     }
