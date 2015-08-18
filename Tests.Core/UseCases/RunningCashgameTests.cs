@@ -66,14 +66,14 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(200, result.Items[0].Buyin.Amount);
             Assert.AreEqual(false, result.Items[0].HasCashedOut);
             Assert.AreEqual(TestData.PlayerA.DisplayName, result.Items[0].Name);
-            Assert.AreEqual("/cashgame/action/bunch-a/2003-03-03/1", result.Items[0].PlayerUrl.Relative);
+            Assert.AreEqual("/cashgame/action/3/1", result.Items[0].PlayerUrl.Relative);
             Assert.AreEqual(200, result.Items[0].Stack.Amount);
             Assert.AreEqual("now", result.Items[0].Time.RelativeString);
             Assert.AreEqual(0, result.Items[0].Winnings.Amount);
             Assert.AreEqual(200, result.Items[1].Buyin.Amount);
             Assert.AreEqual(false, result.Items[1].HasCashedOut);
             Assert.AreEqual(TestData.PlayerB.DisplayName, result.Items[1].Name);
-            Assert.AreEqual("/cashgame/action/bunch-a/2003-03-03/2", result.Items[1].PlayerUrl.Relative);
+            Assert.AreEqual("/cashgame/action/3/2", result.Items[1].PlayerUrl.Relative);
             Assert.AreEqual(200, result.Items[1].Stack.Amount);
             Assert.AreEqual("now", result.Items[1].Time.RelativeString);
             Assert.AreEqual(0, result.Items[1].Winnings.Amount);
@@ -92,12 +92,12 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.PlayerItems[0].HasCashedOut);
             Assert.AreEqual(TestData.PlayerA.DisplayName, result.PlayerItems[0].Name);
             Assert.AreEqual(TestData.PlayerA.Id, result.PlayerItems[0].PlayerId);
-            Assert.AreEqual("/cashgame/action/bunch-a/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
+            Assert.AreEqual("/cashgame/action/3/1", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(1, result.PlayerItems[1].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[1].HasCashedOut);
             Assert.AreEqual(TestData.PlayerB.DisplayName, result.PlayerItems[1].Name);
             Assert.AreEqual(TestData.PlayerB.Id, result.PlayerItems[1].PlayerId);
-            Assert.AreEqual("/cashgame/action/bunch-a/2003-03-03/1", result.PlayerItems[0].PlayerUrl.Relative);
+            Assert.AreEqual("/cashgame/action/3/1", result.PlayerItems[0].PlayerUrl.Relative);
         }
 
         [Test]

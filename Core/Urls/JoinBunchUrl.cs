@@ -1,6 +1,6 @@
 ﻿namespace Core.Urls
 {
-    public class JoinBunchUrl : BunchUrl
+    public class JoinBunchUrl : SlugUrl
     {
         public JoinBunchUrl(string slug)
             : base(Routes.BunchJoin, slug)

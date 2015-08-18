@@ -35,7 +35,7 @@ namespace Core.UseCases
             var amount = checkpoint.Amount;
             var timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
             var deleteUrl = new DeleteCheckpointUrl(request.CheckpointId);
-            var cancelUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, checkpoint.PlayerId);
+            var cancelUrl = new CashgameActionUrl(cashgame.Id, checkpoint.PlayerId);
             var canEditAmount = checkpoint.Type == CheckpointType.Buyin;
 
             return new Result(stack, amount, timestamp, deleteUrl, cancelUrl, bunch.Slug, canEditAmount);

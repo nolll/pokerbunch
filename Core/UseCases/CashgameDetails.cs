@@ -106,7 +106,7 @@ namespace Core.UseCases
             public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
             {
                 Name = player.DisplayName;
-                PlayerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
+                PlayerUrl = new CashgameActionUrl(cashgame.Id, player.Id);
                 Buyin = new Money(result.Buyin, bunch.Currency);
                 Cashout = new Money(result.Stack, bunch.Currency);
                 Winnings = new MoneyResult(result.Winnings, bunch.Currency);

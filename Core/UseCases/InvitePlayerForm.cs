@@ -3,19 +3,17 @@ using Core.Services;
 
 namespace Core.UseCases
 {
-    public class DeletePlayer
+    public class InvitePlayerForm
     {
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IBunchRepository bunchRepository)
+        public InvitePlayerForm(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _playerRepository = playerRepository;
-            _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
             _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
@@ -25,14 +23,8 @@ namespace Core.UseCases
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
-            var canDelete = !_cashgameRepository.HasPlayed(player.Id);
 
-            if (canDelete)
-            {
-                _playerRepository.Delete(request.PlayerId);
-            }
-
-            return new Result(canDelete, bunch.Slug, request.PlayerId);
+            return new Result(bunch.Slug);
         }
 
         public class Request
@@ -49,15 +41,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public bool Deleted { get; private set; }
             public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
 
-            public Result(bool deleted, string slug, int playerId)
+            public Result(string slug)
             {
-                Deleted = deleted;
                 Slug = slug;
-                PlayerId = playerId;
             }
         }
     }

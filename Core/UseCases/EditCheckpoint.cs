@@ -49,7 +49,7 @@ namespace Core.UseCases
 
             _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
-            var returnUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, existingCheckpoint.PlayerId);
+            var returnUrl = new CashgameActionUrl(cashgame.Id, existingCheckpoint.PlayerId);
             return new Result(returnUrl);
         }
 

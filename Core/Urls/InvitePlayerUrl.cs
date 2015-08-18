@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class InvitePlayerUrl : PlayerUrl
+    public class InvitePlayerUrl : IdUrl
     {
-        public InvitePlayerUrl(string slug, int playerId)
-            : base(Routes.PlayerInvite, slug, playerId)
+        public InvitePlayerUrl(int playerId)
+            : base(Routes.PlayerInvite, playerId)
         {
         }
     }

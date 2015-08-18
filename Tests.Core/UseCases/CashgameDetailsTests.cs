@@ -45,7 +45,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.PlayerNameB, result.PlayerItems[0].Name);
-            Assert.AreEqual("/cashgame/action/bunch-a/2001-01-01/2", result.PlayerItems[0].PlayerUrl.Relative);
+            Assert.AreEqual("/cashgame/action/1/2", result.PlayerItems[0].PlayerUrl.Relative);
             Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);

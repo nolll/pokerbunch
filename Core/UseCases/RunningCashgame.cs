@@ -112,7 +112,7 @@ namespace Core.UseCases
                 var player = players.First(o => o.Id == playerId);
 
                 var name = player.DisplayName;
-                var playerUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, player.Id);
+                var playerUrl = new CashgameActionUrl(cashgame.Id, player.Id);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
                 var winnings = new Money(result.Winnings, bunch.Currency);
@@ -142,7 +142,7 @@ namespace Core.UseCases
             {
                 var playerId = result.PlayerId;
                 var player = players.First(o => o.Id == playerId);
-                var playerUrl = new CashgameActionUrl(slug, cashgame.DateString, playerId);
+                var playerUrl = new CashgameActionUrl(cashgame.Id, playerId);
                 var hasCheckedOut = result.CashoutCheckpoint != null;
                 var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, playerUrl, hasCheckedOut, result.Checkpoints);
                 items.Add(item);

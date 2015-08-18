@@ -156,15 +156,15 @@ namespace Tests.Web.Routing
         [Test]
         public void DeletePlayer()
         {
-            _routes.ShouldMap("/player/delete/a/1").To<DeletePlayerController>(x => x.Delete("a", 1));
+            _routes.ShouldMap("/player/delete/1").To<DeletePlayerController>(x => x.Delete(1));
         }
 
         [Test]
         public void InvitePlayer()
         {
-            _routes.ShouldMap("/player/invite/a/1").To<InvitePlayerController>(x => x.Invite("a", 1));
-            _routes.ShouldMap("/player/invite/a/1").To<InvitePlayerController>(HttpMethod.Post, x => x.Invite_Post("a", 1, new InvitePlayerPostModel()));
-            _routes.ShouldMap("/player/invited/a/1").To<InvitePlayerController>(x => x.Invited("a", 1));
+            _routes.ShouldMap("/player/invite/1").To<InvitePlayerController>(x => x.Invite( 1));
+            _routes.ShouldMap("/player/invite/1").To<InvitePlayerController>(HttpMethod.Post, x => x.Invite_Post(1, new InvitePlayerPostModel()));
+            _routes.ShouldMap("/player/invited/1").To<InvitePlayerController>(x => x.Invited(1));
         }
 
         [Test]
@@ -262,7 +262,7 @@ namespace Tests.Web.Routing
         [Test]
         public void CashgameAction()
         {
-            _routes.ShouldMap("/cashgame/action/a/2001-01-01/1").To<CashgameActionController>(x => x.Action("a", "2001-01-01", 1));
+            _routes.ShouldMap("/cashgame/action/1/2").To<CashgameActionController>(x => x.Action(1, 2));
         }
 
         [Test]

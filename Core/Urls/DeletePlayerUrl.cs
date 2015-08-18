@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class DeletePlayerUrl : PlayerUrl
+    public class DeletePlayerUrl : IdUrl
     {
-        public DeletePlayerUrl(string slug, int playerId)
-            : base(Routes.PlayerDelete, slug, playerId)
+        public DeletePlayerUrl(int playerId)
+            : base(Routes.PlayerDelete, playerId)
         {
         }
     }

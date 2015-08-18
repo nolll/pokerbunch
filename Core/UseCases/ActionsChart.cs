@@ -24,11 +24,12 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequirePlayer(user, player);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            RoleHandler.RequirePlayer(currentUser, currentPlayer);
+            
             var result = cashgame.GetResult(request.PlayerId);
 
             var checkpointItems = GetCheckpointItems(bunch, cashgame, result, request.CurrentTime);
@@ -77,16 +78,14 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
+            public int CashgameId { get; private set; }
             public int PlayerId { get; private set; }
             public DateTime CurrentTime { get; private set; }
 
-            public Request(string userName, string slug, string dateStr, int playerId, DateTime currentTime)
+            public Request(string userName, int cashgameId, int playerId, DateTime currentTime)
             {
                 UserName = userName;
-                Slug = slug;
-                DateStr = dateStr;
+                CashgameId = cashgameId;
                 PlayerId = playerId;
                 CurrentTime = currentTime;
             }

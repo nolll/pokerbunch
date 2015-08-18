@@ -96,7 +96,8 @@
     <Compile Include="Urls\AddPlayerUrl.cs" />
     <Compile Include="Urls\AddUserConfirmationUrl.cs" />
     <Compile Include="Urls\BunchDetailsUrl.cs" />
-    <Compile Include="Urls\BunchUrl.cs" />
+    <Compile Include="Urls\IdUrl.cs" />
+    <Compile Include="Urls\SlugUrl.cs" />
     <Compile Include="Urls\BunchWithOptionalYearUrl.cs" />
     <Compile Include="Urls\CashgameActionUrl.cs" />
     <Compile Include="Urls\CashgameBuyinUrl.cs" />
@@ -107,13 +108,10 @@
     <Compile Include="Urls\CashgameIndexUrl.cs" />
     <Compile Include="Urls\CashgameListUrl.cs" />
     <Compile Include="Urls\CashgameMatrixUrl.cs" />
-    <Compile Include="Urls\CashgamePlayerUrl.cs" />
     <Compile Include="Urls\CashgameReportUrl.cs" />
-    <Compile Include="Urls\CashgameUrl.cs" />
     <Compile Include="Urls\ChangePasswordConfirmationUrl.cs" />
     <Compile Include="Urls\ChangePasswordUrl.cs" />
     <Compile Include="Urls\ChartUrl.cs" />
-    <Compile Include="Urls\CheckpointUrl.cs" />
     <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\DeleteCheckpointUrl.cs" />
     <Compile Include="Urls\DeletePlayerUrl.cs" />
@@ -169,6 +167,8 @@
     <Compile Include="UseCases\CashgameFacts.cs" />
     <Compile Include="UseCases\CashgameList.cs" />
     <Compile Include="UseCases\CashgameStatus.cs" />
+    <Compile Include="UseCases\InvitePlayerConfirmation.cs" />
+    <Compile Include="UseCases\InvitePlayerForm.cs" />
     <Compile Include="UseCases\TopList.cs" />
     <Compile Include="UseCases\Cashout.cs" />
     <Compile Include="UseCases\ChangePassword.cs" />

@@ -1,8 +1,8 @@
 ﻿namespace Core.Urls
 {
-    public abstract class BunchUrl : Url
+    public abstract class SlugUrl : Url
     {
-        protected BunchUrl(string format, string slug)
+        protected SlugUrl(string format, string slug)
             : base(RouteParams.ReplaceSlug(format, slug))
         {
         }

@@ -77,6 +77,8 @@ namespace Web.Common
         public PlayerFacts PlayerFacts { get { return new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public PlayerBadges PlayerBadges { get { return new PlayerBadges(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public InvitePlayer InvitePlayer { get { return new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender, _deps.UserRepository); } }
+        public InvitePlayerForm InvitePlayerForm { get { return new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
+        public InvitePlayerConfirmation InvitePlayerConfirmation { get { return new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public DeletePlayer DeletePlayer { get { return new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.BunchRepository); } }
     }

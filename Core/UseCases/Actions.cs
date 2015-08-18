@@ -24,12 +24,13 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public Result Execute(Request input)
+        public Result Execute(Request request)
         {
-            var user = _userRepository.GetByNameOrEmail(input.CurrentUserName);
-            var bunch = _bunchRepository.GetBySlug(input.Slug);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, input.DateStr);
-            var player = _playerRepository.GetById(input.PlayerId);
+            var player = _playerRepository.GetById(request.PlayerId);
+            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
+            var bunch = _bunchRepository.GetById(player.BunchId);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            
             RoleHandler.RequirePlayer(user, player);
             var playerResult = cashgame.GetResult(player.Id);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, user.Id);
@@ -39,7 +40,7 @@ namespace Core.UseCases
             var playerName = player.DisplayName;
             var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, isManager, o)).ToList();
 
-            return new Result(date, playerName, checkpointItems);
+            return new Result(date, playerName, bunch.Slug, checkpointItems);
         }
 
         private static CheckpointItem CreateCheckpointItem(Bunch bunch, bool isManager, Checkpoint checkpoint)
@@ -63,15 +64,13 @@ namespace Core.UseCases
         public class Request
         {
             public string CurrentUserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
+            public int CashgameId { get; private set; }
             public int PlayerId { get; private set; }
 
-            public Request(string currentUserName, string slug, string dateStr, int playerId)
+            public Request(string currentUserName, int cashgameId, int playerId)
             {
                 CurrentUserName = currentUserName;
-                Slug = slug;
-                DateStr = dateStr;
+                CashgameId = cashgameId;
                 PlayerId = playerId;
             }
         }
@@ -80,12 +79,14 @@ namespace Core.UseCases
         {
             public DateTime Date { get; private set; }
             public string PlayerName { get; private set; }
+            public string Slug { get; private set; }
             public IList<CheckpointItem> CheckpointItems { get; private set; }
 
-            public Result(DateTime date, string playerName, List<CheckpointItem> checkpointItems)
+            public Result(DateTime date, string playerName, string slug, List<CheckpointItem> checkpointItems)
             {
                 Date = date;
                 PlayerName = playerName;
+                Slug = slug;
                 CheckpointItems = checkpointItems;
             }
         }

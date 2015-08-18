@@ -177,13 +177,12 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameActionUrlModel_ReturnsCorrectUrl()
         {
-            const string slug = "a";
-            const string dateStr = "b";
-            const int playerId = 1;
+            const int cashgameId = 1;
+            const int playerId = 2;
 
-            var result = new CashgameActionUrl(slug, dateStr, playerId);
+            var result = new CashgameActionUrl(cashgameId, playerId);
 
-            Assert.AreEqual("/cashgame/action/a/b/1", result.Relative);
+            Assert.AreEqual("/cashgame/action/1/2", result.Relative);
         }
 
         [Test]
@@ -335,12 +334,11 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerDeleteUrl()
         {
-            const string slug = "a";
             const int playerId = 1;
 
-            var result = new DeletePlayerUrl(slug, playerId);
+            var result = new DeletePlayerUrl(playerId);
 
-            Assert.AreEqual("/player/delete/a/1", result.Relative);
+            Assert.AreEqual("/player/delete/1", result.Relative);
         }
 
         [Test]
@@ -366,12 +364,11 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerInviteUrl()
         {
-            const string slug = "a";
             const int playerId = 1;
 
-            var result = new InvitePlayerUrl(slug, playerId);
+            var result = new InvitePlayerUrl(playerId);
 
-            Assert.AreEqual("/player/invite/a/1", result.Relative);
+            Assert.AreEqual("/player/invite/1", result.Relative);
         }
 
         [Test]
@@ -462,12 +459,11 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void GetPlayerInviteConfirmationUrl()
         {
-            const string slug = "a";
             const int playerId = 1;
 
-            var result = new InvitePlayerConfirmationUrl(slug, playerId);
+            var result = new InvitePlayerConfirmationUrl(playerId);
 
-            Assert.AreEqual("/player/invited/a/1", result.Relative);
+            Assert.AreEqual("/player/invited/1", result.Relative);
         }
 
         [Test]

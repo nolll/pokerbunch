@@ -63,12 +63,12 @@ namespace Core.UseCases
                 var isUser = user != null;
 
                 DisplayName = player.DisplayName;
-                DeleteUrl = new DeletePlayerUrl(bunch.Slug, player.Id);
+                DeleteUrl = new DeletePlayerUrl(player.Id);
                 CanDelete = isManager && !hasPlayed;
                 IsUser = isUser;
                 UserUrl = isUser ? new UserDetailsUrl(user.UserName) : Url.Empty;
                 AvatarUrl = avatarUrl;
-                InvitationUrl = new InvitePlayerUrl(bunch.Slug, player.Id);
+                InvitationUrl = new InvitePlayerUrl(player.Id);
                 Slug = bunch.Slug;
             }
         }

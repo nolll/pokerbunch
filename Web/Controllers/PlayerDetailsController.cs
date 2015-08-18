@@ -10,12 +10,12 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.PlayerDetails)]
-        public ActionResult Details(int playerId)
+        public ActionResult Details(int id)
         {
-            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, playerId));
+            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, id));
             var contextResult = GetBunchContext(detailsResult.Slug);
-            var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(CurrentUserName, playerId));
-            var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadges.Request(CurrentUserName, playerId));
+            var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(CurrentUserName, id));
+            var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadges.Request(CurrentUserName, id));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);
             return View("~/Views/Pages/PlayerDetails/Details.cshtml", model);
         }

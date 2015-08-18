@@ -1,6 +1,6 @@
 ﻿namespace Core.Urls
 {
-    public class RunningCashgamePlayersJsonUrl : BunchUrl
+    public class RunningCashgamePlayersJsonUrl : SlugUrl
     {
         public RunningCashgamePlayersJsonUrl(string slug)
             : base(Routes.RunningCashgamePlayersJson, slug)

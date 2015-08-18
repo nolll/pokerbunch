@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/player/invited/bunch-a/1", result.ReturnUrl.Relative);
+            Assert.AreEqual("/player/invited/1", result.ReturnUrl.Relative);
         }
 
         [TestCase("")]
@@ -47,7 +47,7 @@ If you don't have an account, you can register at http://pokerbunch.com/test";
 
         private static InvitePlayer.Request CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayer.Request(TestData.UserNameC, TestData.SlugA, TestData.PlayerIdA, email, TestData.TestUrl);
+            return new InvitePlayer.Request(TestData.UserNameC, TestData.PlayerIdA, email, TestData.TestUrl);
         }
 
         private InvitePlayer Sut

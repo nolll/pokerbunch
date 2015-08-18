@@ -23,7 +23,7 @@ namespace Core.Urls
         public const string CashgameListWithYear = CashgameList + "/{year?}";
         public const string CashgameFacts = "cashgame/facts/{slug}";
         public const string CashgameFactsWithYear = CashgameFacts + "/{year?}";
-        public const string CashgameAction = "cashgame/action/{slug}/{dateStr}/{playerId}";
+        public const string CashgameAction = "cashgame/action/{cashgameId}/{playerId}";
         public const string CashgameBuyin = "cashgame/buyin/{slug}";
         public const string CashgameReport = "cashgame/report/{slug}";
         public const string CashgameCashout = "cashgame/cashout/{slug}";
@@ -46,11 +46,11 @@ namespace Core.Urls
 
         public const string PlayerAdd = "player/add/{slug}";
         public const string PlayerAddConfirmation = "player/created/{slug}";
-        public const string PlayerDelete = "player/delete/{slug}/{playerId}";
-        public const string PlayerDetails = "player/details/{playerId}";
+        public const string PlayerDelete = "player/delete/{id}";
+        public const string PlayerDetails = "player/details/{id}";
         public const string PlayerIndex = "player/index/{slug}";
-        public const string PlayerInvite = "player/invite/{slug}/{playerId}";
-        public const string PlayerInviteConfirmation = "player/invited/{slug}/{playerId}";
+        public const string PlayerInvite = "player/invite/{id}";
+        public const string PlayerInviteConfirmation = "player/invited/{id}";
 
         public const string UserAdd = "user/add";
         public const string UserAddConfirmation = "user/created";

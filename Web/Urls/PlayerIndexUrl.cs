@@ -2,7 +2,7 @@ using Core.Urls;
 
 namespace Web.Urls
 {
-    public class PlayerIndexUrl : BunchUrl
+    public class PlayerIndexUrl : SlugUrl
     {
         public PlayerIndexUrl(string slug)
             : base(Routes.PlayerIndex, slug)

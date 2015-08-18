@@ -1,10 +1,16 @@
 ﻿namespace Core.Urls
 {
-    public class CashgameActionUrl : CashgamePlayerUrl
+    public class CashgameActionUrl : Url
     {
-        public CashgameActionUrl(string slug, string dateStr, int playerId)
-            : base(Routes.CashgameAction, slug, dateStr, playerId)
+        public CashgameActionUrl(int cashgameId, int playerId)
+            : base(BuildUrl(Routes.CashgameAction, cashgameId, playerId))
         {
+        }
+
+        private static string BuildUrl(string format, int cashgameId, int playerId)
+        {
+            var url = RouteParams.ReplaceCashgameId(format, cashgameId);
+            return RouteParams.ReplacePlayerId(url, playerId);
         }
     }
 }

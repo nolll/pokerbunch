@@ -12,20 +12,19 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.PlayerInvite)]
-        public ActionResult Invite(string slug, int playerId)
+        public ActionResult Invite(int id)
         {
-            return ShowForm(slug);
+            return ShowForm(id);
         }
 
         [HttpPost]
         [Authorize]
         [Route(Routes.PlayerInvite)]
-        public ActionResult Invite_Post(string slug, int playerId, InvitePlayerPostModel postModel)
+        public ActionResult Invite_Post(int id, InvitePlayerPostModel postModel)
         {
-            var request = new InvitePlayer.Request(CurrentUserName, slug, playerId, postModel.Email, new AddUserUrl().Absolute);
-
             try
             {
+                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute);
                 var result = UseCase.InvitePlayer.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -34,20 +33,22 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            return ShowForm(slug, postModel);
+            return ShowForm(id, postModel);
         }
 
         [Route(Routes.PlayerInviteConfirmation)]
-        public ActionResult Invited(string slug, int playerId)
+        public ActionResult Invited(int id)
         {
-            var contextResult = GetBunchContext(slug);
+            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
-        private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
+        private ActionResult ShowForm(int id, InvitePlayerPostModel postModel = null)
         {
-            var context = GetBunchContext(slug);
+            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(CurrentUserName, id));
+            var context = GetBunchContext(invitePlayerForm.Slug);
             var model = new InvitePlayerPageModel(context, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }
