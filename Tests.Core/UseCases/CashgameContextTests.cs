@@ -103,8 +103,7 @@ namespace Tests.Core.UseCases
                 return new CashgameContext(
                     Repos.User,
                     Repos.Bunch,
-                    Repos.Cashgame,
-                    Repos.Player);
+                    Repos.Cashgame);
             }
         }
     }

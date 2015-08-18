@@ -13,8 +13,8 @@ namespace Web.Controllers
         [Route(Routes.CashgameDetails)]
         public ActionResult Details(int id)
         {
-            var contextResult = GetBunchContextByCashgameId(id);
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(cashgameDetailsResult.Slug);
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(CurrentUserName, DateTime.UtcNow, id));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);

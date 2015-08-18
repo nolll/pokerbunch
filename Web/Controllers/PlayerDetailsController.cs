@@ -12,8 +12,8 @@ namespace Web.Controllers
         [Route(Routes.PlayerDetails)]
         public ActionResult Details(int playerId)
         {
-            var contextResult = GetBunchContextByPlayerId(playerId);
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, playerId));
+            var contextResult = GetBunchContext(detailsResult.Slug);
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(CurrentUserName, playerId));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadges.Request(CurrentUserName, playerId));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);

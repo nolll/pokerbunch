@@ -22,31 +22,29 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetById(request.Id);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             
             var cancelUrl = new CashgameDetailsUrl(cashgame.Id);
             var deleteUrl = new DeleteCashgameUrl(cashgame.Id);
             var location = cashgame.Location;
-            var locations = _cashgameRepository.GetLocations(bunch.Id);
+            var locations = _cashgameRepository.GetLocations(cashgame.BunchId);
 
-            return new Result(cashgame.DateString, cancelUrl, deleteUrl, location, locations);
+            return new Result(cashgame.DateString, cancelUrl, deleteUrl, bunch.Slug, location, locations);
         }
 
         public class Request
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
+            public int Id { get; private set; }
 
-            public Request(string userName, string slug, string dateStr)
+            public Request(string userName, int id)
             {
                 UserName = userName;
-                Slug = slug;
-                DateStr = dateStr;
+                Id = id;
             }
         }
 
@@ -55,14 +53,16 @@ namespace Core.UseCases
             public string Date { get; private set; }
             public Url CancelUrl { get; private set; }
             public Url DeleteUrl { get; private set; }
+            public string Slug { get; private set; }
             public string Location { get; private set; }
             public IList<string> Locations { get; private set; }
 
-            public Result(string date, Url cancelUrl, Url deleteUrl, string location, IList<string> locations)
+            public Result(string date, Url cancelUrl, Url deleteUrl, string slug, string location, IList<string> locations)
             {
                 Date = date;
                 CancelUrl = cancelUrl;
                 DeleteUrl = deleteUrl;
+                Slug = slug;
                 Location = location;
                 Locations = locations;
             }

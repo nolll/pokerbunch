@@ -9,14 +9,12 @@ namespace Core.UseCases
 {
     public class EditCashgame
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public EditCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EditCashgame(ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
@@ -28,11 +26,10 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var cashgame = _cashgameRepository.GetById(request.Id);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
             _cashgameRepository.UpdateGame(cashgame);
             
@@ -43,16 +40,14 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
+            public int Id { get; private set; }
             [Required(ErrorMessage = "Please select or enter a location")]
             public string Location { get; private set; }
 
-            public Request(string userName, string slug, string dateStr, string location)
+            public Request(string userName, int id, string location)
             {
                 UserName = userName;
-                Slug = slug;
-                DateStr = dateStr;
+                Id = id;
                 Location = location;
             }
         }

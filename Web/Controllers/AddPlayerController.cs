@@ -42,14 +42,14 @@ namespace Web.Controllers
         [Route(Routes.PlayerAddConfirmation)]
         public ActionResult Created(string slug)
         {
-            var contextResult = GetBunchContextBySlug(slug);
+            var contextResult = GetBunchContext(slug);
             var model = new AddPlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/AddPlayer/AddConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null)
         {
-            var contextResult = GetBunchContextBySlug(slug);
+            var contextResult = GetBunchContext(slug);
             var model = new AddPlayerPageModel(contextResult, postModel);
             return View("~/Views/Pages/AddPlayer/Add.cshtml", model);
         }

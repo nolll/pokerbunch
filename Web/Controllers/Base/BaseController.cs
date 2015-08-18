@@ -24,19 +24,9 @@ namespace Web.Controllers.Base
             return UseCase.AppContext.Execute(new AppContext.Request(CurrentUserName));
         }
 
-        protected BunchContext.Result GetBunchContextBySlug(string slug = null)
+        protected BunchContext.Result GetBunchContext(string slug = null)
         {
             return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(CurrentUserName, slug));
-        }
-
-        protected BunchContext.Result GetBunchContextByPlayerId(int playerId)
-        {
-            return UseCase.BunchContext.Execute(new BunchContext.PlayerRequest(CurrentUserName, playerId));
-        }
-
-        protected BunchContext.Result GetBunchContextByCashgameId(int cashgameId)
-        {
-            return UseCase.BunchContext.Execute(new BunchContext.CashgameRequest(CurrentUserName, cashgameId));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)

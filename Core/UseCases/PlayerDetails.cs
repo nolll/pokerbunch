@@ -56,6 +56,7 @@ namespace Core.UseCases
             public Url UserUrl { get; private set; }
             public string AvatarUrl { get; private set; }
             public Url InvitationUrl { get; private set; }
+            public string Slug { get; private set; }
 
             public Result(Bunch bunch, Player player, User user, bool isManager, bool hasPlayed, string avatarUrl)
             {
@@ -68,6 +69,7 @@ namespace Core.UseCases
                 UserUrl = isUser ? new UserDetailsUrl(user.UserName) : Url.Empty;
                 AvatarUrl = avatarUrl;
                 InvitationUrl = new InvitePlayerUrl(bunch.Slug, player.Id);
+                Slug = bunch.Slug;
             }
         }
     }

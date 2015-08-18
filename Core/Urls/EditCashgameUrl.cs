@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class EditCashgameUrl : CashgameUrl
+    public class EditCashgameUrl : IdUrl
     {
-        public EditCashgameUrl(string slug, string dateStr)
-            : base(Routes.CashgameEdit, slug, dateStr)
+        public EditCashgameUrl(int id)
+            : base(Routes.CashgameEdit, id)
         {
         }
     }

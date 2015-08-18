@@ -37,7 +37,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
         {
-            var contextResult = GetBunchContextBySlug(slug);
+            var contextResult = GetBunchContext(slug);
             var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(CurrentUserName, slug, dateStr, playerId, checkpointId));
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);

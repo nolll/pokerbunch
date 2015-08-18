@@ -14,7 +14,7 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgame)]
         public ActionResult Running(string slug)
         {
-            var contextResult = GetBunchContextBySlug(slug);
+            var contextResult = GetBunchContext(slug);
             try
             {
                 var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug, DateTime.UtcNow));

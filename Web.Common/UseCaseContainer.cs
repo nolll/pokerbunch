@@ -10,8 +10,8 @@ namespace Web.Common
         // Contexts
         public BaseContext BaseContext { get { return new BaseContext(); } }
         public AppContext AppContext { get { return new AppContext(_deps.UserRepository); } }
-        public BunchContext BunchContext { get { return new BunchContext(_deps.UserRepository, _deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository); } }
-        public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository); } }
+        public BunchContext BunchContext { get { return new BunchContext(_deps.UserRepository, _deps.BunchRepository); } }
+        public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository); } }
 
         // Auth and Home
         public LoginForm LoginForm { get { return new LoginForm(); } }
@@ -63,7 +63,7 @@ namespace Web.Common
         public Matrix Matrix { get { return new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
-        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
+        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameRepository, _deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.CheckpointRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.CheckpointRepository, _deps.UserRepository); } }

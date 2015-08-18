@@ -40,14 +40,14 @@ namespace Web.Controllers
         [Route(Routes.PlayerInviteConfirmation)]
         public ActionResult Invited(string slug, int playerId)
         {
-            var contextResult = GetBunchContextBySlug(slug);
+            var contextResult = GetBunchContext(slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, InvitePlayerPostModel postModel = null)
         {
-            var context = GetBunchContextBySlug(slug);
+            var context = GetBunchContext(slug);
             var model = new InvitePlayerPageModel(context, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
         }

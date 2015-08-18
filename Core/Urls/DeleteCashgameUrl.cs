@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class DeleteCashgameUrl : Url
+    public class DeleteCashgameUrl : IdUrl
     {
         public DeleteCashgameUrl(int id)
-            : base(RouteParams.ReplaceId(Routes.CashgameDelete, id))
+            : base(Routes.CashgameDelete, id)
         {
         }
     }

@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgameForm_AllPropertiesAreSet()
         {
-            var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA));
+            var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA));
 
             Assert.AreEqual("/cashgame/details/1", result.CancelUrl.Relative);
             Assert.AreEqual("/cashgame/delete/1", result.DeleteUrl.Relative);
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgameForm_LocationsAreSet()
         {
-            var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA));
+            var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA));
 
             Assert.AreEqual(2, result.Locations.Count);
             Assert.AreEqual(TestData.LocationA, result.Locations[0]);

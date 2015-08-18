@@ -94,12 +94,11 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameEditUrlModel_ReturnsCorrectUrl()
         {
-            const string slug = "a";
-            const string dateStr = "b";
+            const int id = 1;
 
-            var result = new EditCashgameUrl(slug, dateStr);
+            var result = new EditCashgameUrl(id);
 
-            Assert.AreEqual("/cashgame/edit/a/b", result.Relative);
+            Assert.AreEqual("/cashgame/edit/1", result.Relative);
         }
 
         [Test]

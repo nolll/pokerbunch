@@ -12,19 +12,17 @@ namespace Core.UseCases
         private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public CashgameContext(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public CashgameContext(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
             _userRepository = userRepository;
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository, _playerRepository, _cashgameRepository).Execute(request);
+            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository).Execute(request);
             var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

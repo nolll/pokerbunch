@@ -50,9 +50,7 @@ namespace Tests.Core.UseCases
             {
                 return new BunchContext(
                     Repos.User,
-                    Repos.Bunch,
-                    Repos.Player,
-                    Repos.Cashgame);
+                    Repos.Bunch);
             }
         }
     }

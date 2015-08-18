@@ -11,19 +11,19 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.CashgameEdit)]
-        public ActionResult Edit(string slug, string dateStr)
+        public ActionResult Edit(int id)
         {
-            return ShowForm(slug, dateStr);
+            return ShowForm(id);
         }
 
         [HttpPost]
         [Authorize]
         [Route(Routes.CashgameEdit)]
-        public ActionResult Post(string slug, string dateStr, EditCashgamePostModel postModel)
+        public ActionResult Post(int id, EditCashgamePostModel postModel)
         {
             try
             {
-                var request = new EditCashgame.Request(CurrentUserName, slug, dateStr, postModel.Location);
+                var request = new EditCashgame.Request(CurrentUserName, id, postModel.Location);
                 var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -32,13 +32,13 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            return ShowForm(slug, dateStr, postModel);
+            return ShowForm(id, postModel);
         }
 
-        private ActionResult ShowForm(string slug, string dateStr, EditCashgamePostModel postModel = null)
+        private ActionResult ShowForm(int id, EditCashgamePostModel postModel = null)
         {
-            var contextResult = GetBunchContextBySlug(slug);
-            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(CurrentUserName, slug, dateStr));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(editCashgameFormResult.Slug);
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
         }
