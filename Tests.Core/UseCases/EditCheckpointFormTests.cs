@@ -7,13 +7,10 @@ namespace Tests.Core.UseCases
 {
     class EditCheckpointFormTests : TestBase
     {
-        private const string DateString = "any";
-        private const int PlayerId = 2;
-
         [Test]
         public void EditCheckpointForm_StackAndAmountAndTimestampIsSet()
         {
-            var expected = A.DateTime.AsLocal().Build();
+            var expected = A.DateTime.AsUtc().Build();
 
             var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
@@ -57,7 +54,7 @@ namespace Tests.Core.UseCases
 
         private static EditCheckpointForm.Request CreateRequest(int id)
         {
-            return new EditCheckpointForm.Request(TestData.ManagerUser.UserName, TestData.BunchB.Slug, DateString, PlayerId, id);
+            return new EditCheckpointForm.Request(TestData.ManagerUser.UserName, id);
         }
 
         private EditCheckpointForm Sut
@@ -66,7 +63,10 @@ namespace Tests.Core.UseCases
             {
                 return new EditCheckpointForm(
                     Repos.Bunch,
-                    Repos.Checkpoint);
+                    Repos.Checkpoint,
+                    Repos.Cashgame,
+                    Repos.User,
+                    Repos.Player);
             }
         }
     }

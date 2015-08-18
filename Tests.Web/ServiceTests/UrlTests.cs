@@ -421,27 +421,21 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void GetCashgameCheckpointDeleteUrl()
         {
-            const string slug = "a";
-            const string dateStr = "b";
-            const int playerId = 1;
-            const int checkpointId = 2;
+            const int checkpointId = 1;
 
-            var result = new DeleteCheckpointUrl(slug, dateStr, playerId, checkpointId);
+            var result = new DeleteCheckpointUrl(checkpointId);
 
-            Assert.AreEqual("/cashgame/deletecheckpoint/a/b/1/2", result.Relative);
+            Assert.AreEqual("/cashgame/deletecheckpoint/1", result.Relative);
         }
 
         [Test]
         public void GetCashgameCheckpointEditUrl()
         {
-            const string slug = "a";
-            const string dateStr = "b";
-            const int playerId = 1;
-            const int checkpointId = 2;
+            const int checkpointId = 1;
 
-            var result = new EditCheckpointUrl(slug, dateStr, playerId, checkpointId);
+            var result = new EditCheckpointUrl(checkpointId);
 
-            Assert.AreEqual("/cashgame/editcheckpoint/a/b/1/2", result.Relative);
+            Assert.AreEqual("/cashgame/editcheckpoint/1", result.Relative);
         }
 
         [Test]

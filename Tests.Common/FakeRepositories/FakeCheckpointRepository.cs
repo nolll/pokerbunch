@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Tests.Common.Builders;
 
 namespace Tests.Common.FakeRepositories
 {
@@ -41,14 +40,29 @@ namespace Tests.Common.FakeRepositories
             Deleted = checkpoint;
             return true;
         }
+
+        public void SetupRunningGame()
+        {
+            ClearList();
+
+            foreach (var runningGameCheckpoint in TestData.RunningGameCheckpoints)
+            {
+                _list.Add(runningGameCheckpoint);
+            }
+        }
+
+        private void ClearList()
+        {
+            _list.Clear();
+        }
         
         private IList<Checkpoint> CreateList()
         {
             return new List<Checkpoint>()
             {
-                Checkpoint.Create(0, 0, TestData.BuyinCheckpointTimestamp, CheckpointType.Buyin, TestData.BuyinCheckpointStack, TestData.BuyinCheckpointAmount, TestData.BuyinCheckpointId),
-                Checkpoint.Create(0, 0, TestData.ReportCheckpointTimestamp, CheckpointType.Report, TestData.ReportCheckpointStack, TestData.ReportCheckpointAmount, TestData.ReportCheckpointId),
-                Checkpoint.Create(0, 0, TestData.CashoutCheckpointTimestamp, CheckpointType.Cashout, TestData.CashoutCheckpointStack, TestData.CashoutCheckpointAmount, TestData.CashoutCheckpointId)
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.BuyinCheckpointTimestamp, CheckpointType.Buyin, TestData.BuyinCheckpointStack, TestData.BuyinCheckpointAmount, TestData.BuyinCheckpointId),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.ReportCheckpointTimestamp, CheckpointType.Report, TestData.ReportCheckpointStack, TestData.ReportCheckpointAmount, TestData.ReportCheckpointId),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.CashoutCheckpointTimestamp, CheckpointType.Cashout, TestData.CashoutCheckpointStack, TestData.CashoutCheckpointAmount, TestData.CashoutCheckpointId)
             };
         }
     }

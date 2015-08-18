@@ -11,19 +11,19 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.CashgameCheckpointEdit)]
-        public ActionResult EditCheckpoint(string slug, string dateStr, int playerId, int checkpointId)
+        public ActionResult EditCheckpoint(int id)
         {
-            return ShowForm(slug, dateStr, playerId, checkpointId);
+            return ShowForm(id);
         }
 
         [HttpPost]
         [Authorize]
         [Route(Routes.CashgameCheckpointEdit)]
-        public ActionResult EditCheckpoint_Post(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel)
+        public ActionResult EditCheckpoint_Post(int id, EditCheckpointPostModel postModel)
         {
             try
             {
-                var request = new EditCheckpoint.Request(CurrentUserName, slug, dateStr, playerId, checkpointId, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var request = new EditCheckpoint.Request(CurrentUserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(result.ReturnUrl.Relative);
             }
@@ -32,13 +32,13 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            return ShowForm(slug, dateStr, playerId, checkpointId, postModel);
+            return ShowForm(id, postModel);
         }
 
-        private ActionResult ShowForm(string slug, string dateStr, int playerId, int checkpointId, EditCheckpointPostModel postModel = null)
+        private ActionResult ShowForm(int id, EditCheckpointPostModel postModel = null)
         {
-            var contextResult = GetBunchContext(slug);
-            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(CurrentUserName, slug, dateStr, playerId, checkpointId));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(editCheckpointFormResult.Slug);
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
         }

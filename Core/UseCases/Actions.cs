@@ -37,18 +37,18 @@ namespace Core.UseCases
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;
-            var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, cashgame, player, isManager, o)).ToList();
+            var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, isManager, o)).ToList();
 
             return new Result(date, playerName, checkpointItems);
         }
 
-        private static CheckpointItem CreateCheckpointItem(Bunch bunch, Cashgame cashgame, Player player, bool isManager, Checkpoint checkpoint)
+        private static CheckpointItem CreateCheckpointItem(Bunch bunch, bool isManager, Checkpoint checkpoint)
         {
             var type = checkpoint.Description;
             var displayAmount = new Money(GetDisplayAmount(checkpoint), bunch.Currency);
             var time = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
             var canEdit = isManager;
-            var editUrl = new EditCheckpointUrl(bunch.Slug, cashgame.DateString, player.Id, checkpoint.Id);
+            var editUrl = new EditCheckpointUrl(checkpoint.Id);
 
             return new CheckpointItem(time, editUrl, type, displayAmount, canEdit);
         }

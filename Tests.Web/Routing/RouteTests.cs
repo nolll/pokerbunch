@@ -274,14 +274,14 @@ namespace Tests.Web.Routing
         [Test]
         public void EditCheckpoint()
         {
-            _routes.ShouldMap("/cashgame/editcheckpoint/a/2001-01-01/1/2").To<EditCheckpointController>(x => x.EditCheckpoint("a", "2001-01-01", 1, 2));
-            _routes.ShouldMap("/cashgame/editcheckpoint/a/2001-01-01/1/2").To<EditCheckpointController>(HttpMethod.Post, x => x.EditCheckpoint_Post("a", "2001-01-01", 1, 2, new EditCheckpointPostModel()));
+            _routes.ShouldMap("/cashgame/editcheckpoint/1").To<EditCheckpointController>(x => x.EditCheckpoint(1));
+            _routes.ShouldMap("/cashgame/editcheckpoint/1").To<EditCheckpointController>(HttpMethod.Post, x => x.EditCheckpoint_Post(1, new EditCheckpointPostModel()));
         }
 
         [Test]
         public void DeleteCheckpoint()
         {
-            _routes.ShouldMap("/cashgame/deletecheckpoint/a/2001-01-01/1/2").To<DeleteCheckpointController>(x => x.DeleteCheckpoint("a", "2001-01-01", 1, 2));
+            _routes.ShouldMap("/cashgame/deletecheckpoint/1").To<DeleteCheckpointController>(x => x.DeleteCheckpoint(1));
         }
 
         [Test]

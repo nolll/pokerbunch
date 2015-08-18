@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Checkpoints;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -15,7 +14,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidStack_ThrowsException()
         {
-            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.BuyinCheckpointId, TestData.StartTimeA, -1, ChangedAmount);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -23,7 +22,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_InvalidAmount_ThrowsException()
         {
-            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
+            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, -1);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -31,7 +30,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_ReturnUrlIsSet()
         {
-            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             var result = Sut.Execute(request);
 
@@ -41,7 +40,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpoint_ValidInput_CheckpointIsSaved()
         {
-            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, TestData.PlayerIdA, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
+            var request = new EditCheckpoint.Request(TestData.ManagerUser.UserName, TestData.BuyinCheckpointId, TestData.StartTimeA, ChangedStack, ChangedAmount);
 
             Sut.Execute(request);
 
@@ -59,7 +58,8 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.Checkpoint,
                     Repos.User,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.Cashgame);
             }
         }
     }

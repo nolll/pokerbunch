@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Tests.Common.Builders;
 
 namespace Tests.Common
@@ -112,5 +114,17 @@ namespace Tests.Common
         public const string EventNameB = "Event B";
 
         public const string TestUrl = "http://pokerbunch.com/test";
+
+        public static IList<Checkpoint> RunningGameCheckpoints
+        {
+            get
+            {
+                return new List<Checkpoint>
+                {
+                    Checkpoint.Create(CashgameIdC, PlayerIdA, StartTimeC, CheckpointType.Buyin, 200, 200, 1),
+                    Checkpoint.Create(CashgameIdC, PlayerIdB, StartTimeC, CheckpointType.Buyin, 200, 200, 2)
+                };
+            }
+        }
     }
 }

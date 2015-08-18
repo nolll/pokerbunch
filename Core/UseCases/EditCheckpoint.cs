@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
@@ -15,13 +14,15 @@ namespace Core.UseCases
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(Request request)
@@ -30,12 +31,13 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequireManager(user, player);
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
-
+            var cashgame = _cashgameRepository.GetById(existingCheckpoint.CashgameId);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            RoleHandler.RequireManager(currentUser, currentPlayer);
+            
             var postedCheckpoint = Checkpoint.Create(
                 existingCheckpoint.CashgameId,
                 existingCheckpoint.PlayerId,
@@ -47,16 +49,13 @@ namespace Core.UseCases
 
             _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
-            var returnUrl = new CashgameActionUrl(request.Slug, request.DateStr, request.PlayerId);
+            var returnUrl = new CashgameActionUrl(bunch.Slug, cashgame.DateString, existingCheckpoint.PlayerId);
             return new Result(returnUrl);
         }
 
         public class Request
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
-            public int PlayerId { get; private set; }
             public int CheckpointId { get; private set; }
             public DateTime Timestamp { get; private set; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
@@ -64,12 +63,9 @@ namespace Core.UseCases
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
             public int Amount { get; private set; }
 
-            public Request(string userName, string slug, string dateStr, int playerId, int checkpointId, DateTime timestamp, int stack, int amount)
+            public Request(string userName, int checkpointId, DateTime timestamp, int stack, int amount)
             {
                 UserName = userName;
-                Slug = slug;
-                DateStr = dateStr;
-                PlayerId = playerId;
                 CheckpointId = checkpointId;
                 Timestamp = timestamp;
                 Stack = stack;

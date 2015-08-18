@@ -24,37 +24,33 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequireManager(user, player);
-            var cashgame = _cashgameRepository.GetByDateString(bunch.Id, request.DateStr);
             var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
+            var cashgame = _cashgameRepository.GetById(checkpoint.CashgameId);
+            var bunch = _bunchRepository.GetById(cashgame.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUserId(cashgame.BunchId, currentUser.Id);
+            RoleHandler.RequireManager(currentUser, currentPlayer);
             _checkpointRepository.DeleteCheckpoint(checkpoint);
 
-            var returnUrl = GetReturnUrl(cashgame.Status, request, cashgame);
+            var returnUrl = GetReturnUrl(cashgame.Status, bunch.Slug, cashgame);
             return new Result(returnUrl);
         }
 
-        private static Url GetReturnUrl(GameStatus status, Request request, Cashgame cashgame)
+        private static Url GetReturnUrl(GameStatus status, string slug, Cashgame cashgame)
         {
             if(status == GameStatus.Running)
-                return new RunningCashgameUrl(request.Slug);
+                return new RunningCashgameUrl(slug);
             return new CashgameDetailsUrl(cashgame.Id);
         }
 
         public class Request
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string DateStr { get; private set; }
             public int CheckpointId { get; private set; }
 
-            public Request(string userName, string slug, string dateStr, int checkpointId)
+            public Request(string userName, int checkpointId)
             {
                 UserName = userName;
-                Slug = slug;
-                DateStr = dateStr;
                 CheckpointId = checkpointId;
             }
         }

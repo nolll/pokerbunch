@@ -30,8 +30,8 @@ namespace Core.Urls
         public const string RunningCashgame = "cashgame/running/{slug}";
         public const string RunningCashgameGameJson = "cashgame/runninggamejson/{slug}";
         public const string RunningCashgamePlayersJson = "cashgame/runningplayersjson/{slug}";
-        public const string CashgameCheckpointDelete = "cashgame/deletecheckpoint/{slug}/{dateStr}/{playerId}/{checkpointId}";
-        public const string CashgameCheckpointEdit = "cashgame/editcheckpoint/{slug}/{dateStr}/{playerId}/{checkpointId}";
+        public const string CashgameCheckpointDelete = "cashgame/deletecheckpoint/{id}";
+        public const string CashgameCheckpointEdit = "cashgame/editcheckpoint/{id}";
 
         public const string BunchAdd = "bunch/add";
         public const string BunchAddConfirmation = "bunch/created";

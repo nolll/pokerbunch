@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeleteCheckpoint_EndedGame_DeletesCheckpointAndReturnsCorrectReturnUrl()
         {
-            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringA, TestData.ReportCheckpointId);
+            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
@@ -20,8 +20,9 @@ namespace Tests.Core.UseCases
         public void DeleteCheckpoint_RunningGame_DeletesCheckpointAndReturnsCorrectReturnUrl()
         {
             Repos.Cashgame.SetupRunningGame();
+            Repos.Checkpoint.SetupRunningGame();
 
-            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.SlugA, TestData.DateStringC, TestData.ReportCheckpointId);
+            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);

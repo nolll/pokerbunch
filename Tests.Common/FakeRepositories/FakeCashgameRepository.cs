@@ -155,13 +155,7 @@ namespace Tests.Common.FakeRepositories
 
         public void SetupRunningGame()
         {
-            var checkpoints1 = new List<Checkpoint>
-            {
-                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdB, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, 2)
-            };
-
-            _list.Add(new Cashgame(TestData.BunchA.Id, TestData.LocationC, GameStatus.Running, TestData.CashgameIdC, checkpoints1));
+            _list.Add(new Cashgame(TestData.BunchA.Id, TestData.LocationC, GameStatus.Running, TestData.CashgameIdC, TestData.RunningGameCheckpoints));
         }
 
         public void SetupRunningGameWithCashoutCheckpoint()

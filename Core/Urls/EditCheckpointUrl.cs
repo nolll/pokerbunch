@@ -1,9 +1,9 @@
 ﻿namespace Core.Urls
 {
-    public class EditCheckpointUrl : CheckpointUrl
+    public class EditCheckpointUrl : IdUrl
     {
-        public EditCheckpointUrl(string slug, string dateStr, int playerId, int checkpointId)
-            : base(Routes.CashgameCheckpointEdit, slug, dateStr, playerId, checkpointId)
+        public EditCheckpointUrl(int checkpointId)
+            : base(Routes.CashgameCheckpointEdit, checkpointId)
         {
         }
     }
