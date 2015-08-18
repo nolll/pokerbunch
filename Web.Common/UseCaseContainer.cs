@@ -43,7 +43,7 @@ namespace Web.Common
 
         // Events
         public EventList EventList { get { return new EventList(_deps.BunchRepository, _deps.EventRepository, _deps.UserRepository, _deps.PlayerRepository); } }
-        public EventDetails EventDetails { get { return new EventDetails(_deps.EventRepository, _deps.UserRepository, _deps.PlayerRepository); } } 
+        public EventDetails EventDetails { get { return new EventDetails(_deps.EventRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.BunchRepository); } } 
 
         // Cashgame
         public CashgameStatus CashgameStatus { get { return new CashgameStatus(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
@@ -60,7 +60,7 @@ namespace Web.Common
         public EditCheckpointForm EditCheckpointForm { get { return new EditCheckpointForm(_deps.BunchRepository, _deps.CheckpointRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public EditCheckpoint EditCheckpoint { get { return new EditCheckpoint(_deps.BunchRepository, _deps.CheckpointRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.CashgameRepository); } }
         public CashgameChart CashgameChart { get { return new CashgameChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
-        public Matrix Matrix { get { return new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
+        public Matrix Matrix { get { return new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.EventRepository); } }
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }
         public EditCashgame EditCashgame { get { return new EditCashgame(_deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository); } }

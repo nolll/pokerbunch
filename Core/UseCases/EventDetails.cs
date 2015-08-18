@@ -8,22 +8,25 @@ namespace Core.UseCases
         private readonly IEventRepository _eventRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchRepository _bunchRepository;
 
-        public EventDetails(IEventRepository eventRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EventDetails(IEventRepository eventRepository, IUserRepository userRepository, IPlayerRepository playerRepository, IBunchRepository bunchRepository)
         {
             _eventRepository = eventRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
             var e = _eventRepository.GetById(request.EventId);
+            var bunch = _bunchRepository.GetById(e.BunchId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(e.BunchId, user.Id);
             RoleHandler.RequirePlayer(user, player);
             
-            return new Result(e.Name);
+            return new Result(e.Name, bunch.Slug);
         }
 
         public class Request
@@ -41,10 +44,12 @@ namespace Core.UseCases
         public class Result
         {
             public string Name { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(string name)
+            public Result(string name, string slug)
             {
                 Name = name;
+                Slug = slug;
             }
         }
     }

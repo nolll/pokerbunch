@@ -30,15 +30,14 @@ namespace Core.UseCases
             RoleHandler.RequirePlayer(user, player);
             var events = _eventRepository.Find(bunch.Id);
 
-            var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(request.Slug, o)).ToList();
+            var eventItems = events.OrderByDescending(o => o.StartDate).Select(CreateEventItem).ToList();
 
             return new Result(eventItems);
         }
 
-        private static Item CreateEventItem(string slug, Event e)
+        private static Item CreateEventItem(Event e)
         {
-            var eventDetailsUrl = new EventDetailsUrl(slug, e.Id);
-
+            var eventDetailsUrl = new EventDetailsUrl(e.Id);
             return new Item(e.Name, eventDetailsUrl, e.Location, e.StartDate, e.EndDate);
         }
 

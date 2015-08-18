@@ -14,13 +14,15 @@ namespace Core.UseCases
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
 
-        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
+            _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
@@ -35,7 +37,8 @@ namespace Core.UseCases
 
         public Result Execute(EventMatrixRequest request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var e = _eventRepository.GetById(request.EventId);
+            var bunch = _bunchRepository.GetById(e.Id);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
@@ -126,13 +129,11 @@ namespace Core.UseCases
         public class EventMatrixRequest
         {
             public string UserName { get; private set; }
-            public string Slug { get; private set; }
             public int EventId { get; private set; }
 
-            public EventMatrixRequest(string userName, string slug, int eventId)
+            public EventMatrixRequest(string userName, int eventId)
             {
                 UserName = userName;
-                Slug = slug;
                 EventId = eventId;
             }
         }

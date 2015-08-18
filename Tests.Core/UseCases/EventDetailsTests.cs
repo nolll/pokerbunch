@@ -22,7 +22,8 @@ namespace Tests.Core.UseCases
                 return new EventDetails(
                     Repos.Event,
                     Repos.User,
-                    Repos.Player);
+                    Repos.Player,
+                    Repos.Bunch);
             }
         }
     }

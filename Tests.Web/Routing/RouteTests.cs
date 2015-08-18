@@ -288,7 +288,7 @@ namespace Tests.Web.Routing
         public void Events()
         {
             _routes.ShouldMap("/event/list/a").To<EventListController>(x => x.List("a"));
-            _routes.ShouldMap("/event/details/a/1").To<EventDetailsController>(x => x.List("a", 1));
+            _routes.ShouldMap("/event/details/1").To<EventDetailsController>(x => x.List(1));
         }
 
         [Test]

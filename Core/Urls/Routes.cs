@@ -42,7 +42,7 @@ namespace Core.Urls
         public const string BunchList = "bunch/list";
 
         public const string EventList = "event/list/{slug}";
-        public const string EventDetails = "event/details/{slug}/{eventId}";
+        public const string EventDetails = "event/details/{id}";
 
         public const string PlayerAdd = "player/add/{slug}";
         public const string PlayerAddConfirmation = "player/created/{slug}";

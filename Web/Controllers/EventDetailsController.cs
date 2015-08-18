@@ -10,12 +10,12 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(Routes.EventDetails)]
-        public ActionResult List(string slug, int eventId)
+        public ActionResult List(int id)
         {
-            var contextResult = GetBunchContext(slug);
-            var eventDetailsOutput = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, eventId));
-            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(CurrentUserName, slug, eventId));
-            var model = new EventDetailsPageModel(contextResult, eventDetailsOutput, matrixResult);
+            var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(eventDetails.Slug);
+            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(CurrentUserName, id));
+            var model = new EventDetailsPageModel(contextResult, eventDetails, matrixResult);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
         }
     }
