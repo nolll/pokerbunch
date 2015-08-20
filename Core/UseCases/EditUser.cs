@@ -26,8 +26,7 @@ namespace Core.UseCases
             
             _userRepository.Save(userToSave);
 
-            var returnUrl = new UserDetailsUrl(request.UserName);
-            return new Result(returnUrl);
+            return new Result(userToSave.UserName);
         }
 
         private static User GetUser(User user, Request request)
@@ -64,11 +63,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string UserName { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(string userName)
             {
-                ReturnUrl = returnUrl;
+                UserName = userName;
             }
         }
     }

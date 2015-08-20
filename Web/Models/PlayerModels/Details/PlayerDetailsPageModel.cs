@@ -1,3 +1,4 @@
+using Core.Urls;
 using Core.UseCases;
 using Web.Components.PlayerModels.Badges;
 using Web.Models.MiscModels;
@@ -25,7 +26,7 @@ namespace Web.Models.PlayerModels.Details
             DeleteUrl = detailsResult.DeleteUrl.Relative;
             DeleteEnabled = detailsResult.CanDelete;
             ShowUserInfo = detailsResult.IsUser;
-            UserUrl = detailsResult.UserUrl.Relative;
+            UserUrl = detailsResult.IsUser ? new UserDetailsUrl(detailsResult.UserName).Relative : string.Empty;
             AvatarModel = new AvatarModel(detailsResult.AvatarUrl);
             InvitationUrl = detailsResult.InvitationUrl.Relative;
             BadgeListModel = new BadgeListModel(badgesResult);

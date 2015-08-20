@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.IsLoggedIn);
             Assert.AreEqual(TestData.UserDisplayNameA, result.UserDisplayName);
             Assert.AreEqual("/auth/logout", result.LogoutUrl.Relative);
-            Assert.AreEqual("/user/details/user-name-a", result.UserDetailsUrl.Relative);
+            Assert.AreEqual("user-name-a", result.UserName);
         }
 
         [Test]

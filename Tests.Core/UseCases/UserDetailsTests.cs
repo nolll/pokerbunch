@@ -84,7 +84,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(new UserDetails.Request(TestData.UserA.UserName, TestData.UserA.UserName));
 
-            Assert.IsInstanceOf<EditUserUrl>(result.EditUrl);
+            Assert.AreEqual("user-name-a", result.UserName);
         }
 
         [Test]

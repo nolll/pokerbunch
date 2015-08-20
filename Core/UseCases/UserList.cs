@@ -49,12 +49,12 @@ namespace Core.UseCases
         public class UserListItem
         {
             public string DisplayName { get; private set; }
-            public Url Url { get; private set; }
+            public string UserName { get; private set; }
 
             public UserListItem(string displayName, string userName)
             {
                 DisplayName = displayName;
-                Url = new UserDetailsUrl(userName);
+                UserName = userName;
             }
         }
     }

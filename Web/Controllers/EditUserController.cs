@@ -25,7 +25,7 @@ namespace Web.Controllers
             {
                 var request = new EditUser.Request(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
                 var result = UseCase.EditUser.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new UserDetailsUrl(result.UserName).Relative);
             }
             catch (ValidationException ex)
             {

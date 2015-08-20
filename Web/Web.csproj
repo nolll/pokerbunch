@@ -272,11 +272,14 @@
     <Compile Include="Urls\AddUserUrl.cs" />
     <Compile Include="Urls\BunchListUrl.cs" />
     <Compile Include="Urls\ClearCacheUrl.cs" />
+    <Compile Include="Urls\EditUserUrl.cs" />
     <Compile Include="Urls\PlayerDetailsUrl.cs" />
     <Compile Include="Urls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
+    <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
+    <Compile Include="Urls\UserUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

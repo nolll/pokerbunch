@@ -1,3 +1,4 @@
+using Core.Urls;
 using Core.UseCases;
 
 namespace Web.Models.UserModels.List
@@ -10,7 +11,7 @@ namespace Web.Models.UserModels.List
         public UserListItemModel(UserList.UserListItem userListItem)
         {
             Name = userListItem.DisplayName;
-            Url = userListItem.Url.Relative;
+            Url = new UserDetailsUrl(userListItem.UserName).Relative;
         }
     }
 }

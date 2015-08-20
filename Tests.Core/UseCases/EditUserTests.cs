@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/user/details/user-name-a", result.ReturnUrl.Relative);
+            Assert.AreEqual("user-name-a", result.UserName);
         }
 
         [Test]

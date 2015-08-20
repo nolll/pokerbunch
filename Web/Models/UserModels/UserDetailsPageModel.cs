@@ -1,3 +1,4 @@
+using Core.Urls;
 using Core.UseCases;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
@@ -26,7 +27,7 @@ namespace Web.Models.UserModels
             AvatarModel = new AvatarModel(userDetails.AvatarUrl);
             ShowEditLink = userDetails.CanEdit;
             ShowPasswordLink = userDetails.CanChangePassword;
-            EditUrl = userDetails.EditUrl.Relative;
+            EditUrl = new EditUserUrl(userDetails.UserName).Relative;
             ChangePasswordUrl = userDetails.ChangePasswordUrl.Relative;
         }
     }

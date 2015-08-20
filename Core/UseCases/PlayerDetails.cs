@@ -53,7 +53,7 @@ namespace Core.UseCases
             public DeletePlayerUrl DeleteUrl { get; private set; }
             public bool CanDelete { get; private set; }
             public bool IsUser { get; private set; }
-            public Url UserUrl { get; private set; }
+            public string UserName { get; private set; }
             public string AvatarUrl { get; private set; }
             public Url InvitationUrl { get; private set; }
             public string Slug { get; private set; }
@@ -66,7 +66,7 @@ namespace Core.UseCases
                 DeleteUrl = new DeletePlayerUrl(player.Id);
                 CanDelete = isManager && !hasPlayed;
                 IsUser = isUser;
-                UserUrl = isUser ? new UserDetailsUrl(user.UserName) : Url.Empty;
+                UserName = isUser ? user.UserName : string.Empty;
                 AvatarUrl = avatarUrl;
                 InvitationUrl = new InvitePlayerUrl(player.Id);
                 Slug = bunch.Slug;

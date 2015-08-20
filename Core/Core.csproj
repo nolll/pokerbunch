@@ -115,7 +115,6 @@
     <Compile Include="Urls\EditBunchUrl.cs" />
     <Compile Include="Urls\EditCashgameUrl.cs" />
     <Compile Include="Urls\EditCheckpointUrl.cs" />
-    <Compile Include="Urls\EditUserUrl.cs" />
     <Compile Include="Urls\EmptyUrl.cs" />
     <Compile Include="Urls\EndCashgameUrl.cs" />
     <Compile Include="Urls\EventDetailsUrl.cs" />
@@ -139,8 +138,6 @@
     <Compile Include="Urls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
     <Compile Include="Urls\Url.cs" />
-    <Compile Include="Urls\UserDetailsUrl.cs" />
-    <Compile Include="Urls\UserUrl.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddBunchForm.cs" />

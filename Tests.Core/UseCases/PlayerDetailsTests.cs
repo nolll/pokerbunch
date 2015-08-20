@@ -53,7 +53,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdD));
 
-            Assert.IsInstanceOf<EmptyUrl>(result.UserUrl);
+            Assert.AreEqual(string.Empty, result.UserName);
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdA));
 
-            Assert.IsInstanceOf<UserUrl>(result.UserUrl);
+            Assert.AreEqual("user-name-a", result.UserName);
         }
 
         [Test]
