@@ -7,17 +7,19 @@ namespace Tests.Core.UseCases
     public class DeleteCheckpointTests : TestBase
     {
         [Test]
-        public void DeleteCheckpoint_EndedGame_DeletesCheckpointAndReturnsCorrectReturnUrl()
+        public void DeleteCheckpoint_EndedGame_DeletesCheckpointAndReturnsCorrectValues()
         {
             var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
-            Assert.AreEqual("/cashgame/details/1", result.ReturnUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
+            Assert.AreEqual(1, result.CashgameId);
+            Assert.IsFalse(result.GameIsRunning);
         }
 
         [Test]
-        public void DeleteCheckpoint_RunningGame_DeletesCheckpointAndReturnsCorrectReturnUrl()
+        public void DeleteCheckpoint_RunningGame_DeletesCheckpointAndReturnsCorrectValues()
         {
             Repos.Cashgame.SetupRunningGame();
             Repos.Checkpoint.SetupRunningGame();
@@ -26,7 +28,9 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
-            Assert.AreEqual("/cashgame/running/bunch-a", result.ReturnUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
+            Assert.AreEqual(3, result.CashgameId);
+            Assert.IsTrue(result.GameIsRunning);
         }
 
         private DeleteCheckpoint Sut

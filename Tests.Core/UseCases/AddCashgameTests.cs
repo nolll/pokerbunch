@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -10,12 +9,12 @@ namespace Tests.Core.UseCases
     class AddCashgameTests : TestBase
     {
         [Test]
-        public void AddCashgame_ReturnUrlIsSet()
+        public void AddCashgame_SlugIsSet()
         {
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.IsInstanceOf<RunningCashgameUrl>(result.ReturnUrl);
+            Assert.AreEqual(TestData.SlugA, result.Slug);
         }
 
         [Test]

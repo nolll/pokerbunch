@@ -42,8 +42,7 @@ namespace Core.UseCases
             player = new Player(bunch.Id, request.Name, Role.Player);
             _playerRepository.Add(player);
 
-            var returnUrl = new AddPlayerConfirmationUrl(request.Slug);
-            return new Result(returnUrl);
+            return new Result(bunch.Slug);
         }
 
         public class Request
@@ -63,11 +62,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public AddPlayerConfirmationUrl ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(AddPlayerConfirmationUrl returnUrl)
+            public Result(string slug)
             {
-                ReturnUrl = returnUrl;
+                Slug = slug;
             }
         }
     }

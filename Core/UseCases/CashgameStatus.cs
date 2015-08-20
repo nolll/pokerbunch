@@ -48,17 +48,15 @@ namespace Core.UseCases
 
         public class Result
         {
+            public string Slug { get; private set; }
             public bool GameIsRunning { get; private set; }
-            public Url RunningCashgameUrl { get; private set; }
-            public Url AddCashgameUrl { get; private set; }
 
             public Result(
                 string slug,
                 bool gameIsRunning)
             {
+                Slug = slug;
                 GameIsRunning = gameIsRunning;
-                RunningCashgameUrl = new RunningCashgameUrl(slug);
-                AddCashgameUrl = new AddCashgameUrl(slug);
             }
         }
     }

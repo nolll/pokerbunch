@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -19,7 +18,7 @@ namespace Tests.Core.UseCases
             var request = new AddPlayer.Request(TestData.ManagerUser.UserName, TestData.SlugA, UniqueName);
             var result = Sut.Execute(request);
 
-            Assert.IsInstanceOf<AddPlayerConfirmationUrl>(result.ReturnUrl);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         [Test]

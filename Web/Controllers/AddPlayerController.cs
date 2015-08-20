@@ -25,7 +25,7 @@ namespace Web.Controllers
             {
                 var request = new AddPlayer.Request(CurrentUserName, slug, postModel.Name);
                 var result = UseCase.AddPlayer.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new AddPlayerConfirmationUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
             {

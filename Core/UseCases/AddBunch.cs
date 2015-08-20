@@ -4,7 +4,6 @@ using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -22,7 +21,7 @@ namespace Core.UseCases
             _playerRepository = playerRepository;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -49,9 +48,6 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = new Player(id, user.Id, Role.Manager);
             _playerRepository.Add(player);
-
-            var returnUrl = new AddBunchConfirmationUrl();
-            return new Result(returnUrl);
         }
 
         private static Bunch CreateBunch(Request request)
@@ -93,12 +89,6 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
-
-            public Result(Url returnUrl)
-            {
-                ReturnUrl = returnUrl;
-            }
         }
     }
 }

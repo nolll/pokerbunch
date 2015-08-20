@@ -56,11 +56,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
 
             public Result(string slug)
             {
-                ReturnUrl = new RunningCashgameUrl(slug);
+                Slug = slug;
             }
         }
     }

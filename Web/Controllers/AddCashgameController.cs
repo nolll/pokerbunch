@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -26,7 +27,7 @@ namespace Web.Controllers
             try
             {
                 var result = UseCase.AddCashgame.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new RunningCashgameUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
             {

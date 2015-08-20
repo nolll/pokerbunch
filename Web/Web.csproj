@@ -266,11 +266,15 @@
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Urls\AddBunchConfirmationUrl.cs" />
+    <Compile Include="Urls\AddBunchUrl.cs" />
+    <Compile Include="Urls\AddCashgameUrl.cs" />
     <Compile Include="Urls\AddUserUrl.cs" />
     <Compile Include="Urls\BunchListUrl.cs" />
     <Compile Include="Urls\ClearCacheUrl.cs" />
     <Compile Include="Urls\PlayerDetailsUrl.cs" />
     <Compile Include="Urls\PlayerIndexUrl.cs" />
+    <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
   </ItemGroup>

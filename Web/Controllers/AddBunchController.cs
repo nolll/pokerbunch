@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -24,8 +25,8 @@ namespace Web.Controllers
             try
             {
                 var request = new AddBunch.Request(CurrentUserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
-                var result = UseCase.AddBunch.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                UseCase.AddBunch.Execute(request);
+                return Redirect(new AddBunchConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
             {

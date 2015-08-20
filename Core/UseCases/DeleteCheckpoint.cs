@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -32,15 +31,8 @@ namespace Core.UseCases
             RoleHandler.RequireManager(currentUser, currentPlayer);
             _checkpointRepository.DeleteCheckpoint(checkpoint);
 
-            var returnUrl = GetReturnUrl(cashgame.Status, bunch.Slug, cashgame);
-            return new Result(returnUrl);
-        }
-
-        private static Url GetReturnUrl(GameStatus status, string slug, Cashgame cashgame)
-        {
-            if(status == GameStatus.Running)
-                return new RunningCashgameUrl(slug);
-            return new CashgameDetailsUrl(cashgame.Id);
+            var gameIsRunning = cashgame.Status == GameStatus.Running;
+            return new Result(bunch.Slug, gameIsRunning, cashgame.Id);
         }
 
         public class Request
@@ -57,11 +49,15 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
+            public bool GameIsRunning { get; private set; }
+            public int CashgameId { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(string slug, bool gameIsRunning, int cashgameId)
             {
-                ReturnUrl = returnUrl;
+                Slug = slug;
+                GameIsRunning = gameIsRunning;
+                CashgameId = cashgameId;
             }
         }
     }

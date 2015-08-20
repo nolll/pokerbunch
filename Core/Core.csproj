@@ -89,9 +89,6 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="Urls\AddBunchConfirmationUrl.cs" />
-    <Compile Include="Urls\AddBunchUrl.cs" />
-    <Compile Include="Urls\AddCashgameUrl.cs" />
     <Compile Include="Urls\AddPlayerConfirmationUrl.cs" />
     <Compile Include="Urls\AddPlayerUrl.cs" />
     <Compile Include="Urls\AddUserConfirmationUrl.cs" />
@@ -140,7 +137,6 @@
     <Compile Include="Urls\Routes.cs" />
     <Compile Include="Urls\RunningCashgameGameJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgamePlayersJsonUrl.cs" />
-    <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
     <Compile Include="Urls\Url.cs" />
     <Compile Include="Urls\UserDetailsUrl.cs" />

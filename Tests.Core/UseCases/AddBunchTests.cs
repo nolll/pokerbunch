@@ -21,15 +21,7 @@ namespace Tests.Core.UseCases
         {
             _timeZone = TestData.LocalTimeZoneName;
         }
-
-        [Test]
-        public void AddBunch_ReturnUrlIsSetToConfirmationUrl()
-        {
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.AreEqual("/bunch/created", result.ReturnUrl.Relative);
-        }
-
+        
         [Test]
         public void AddBunch_WithEmptyDisplayName_ThrowsValidationException()
         {
