@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void RunningCashgame_CashgameRunning_AllUrlsAreSet()
+        public void RunningCashgame_CashgameRunning_SlugIsSet()
         {
             Repos.Cashgame.SetupRunningGame();
 
@@ -51,7 +51,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("/cashgame/report/bunch-a", result.ReportUrl.Relative);
             Assert.AreEqual("/cashgame/cashout/bunch-a", result.CashoutUrl.Relative);
             Assert.AreEqual("/cashgame/end/bunch-a", result.EndGameUrl.Relative);
-            Assert.AreEqual("/cashgame/index/bunch-a", result.CashgameIndexUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         [Test]

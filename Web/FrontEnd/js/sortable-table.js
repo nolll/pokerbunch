@@ -18,7 +18,7 @@ define(["jquery"],
                 var $link = $th.find("a");
                 if ($link.length > 0) {
                     var $option = $("<option value='" + $link.attr("href") + "'>" + $link.text() + "</option>");
-                    if ($th.hasClass("sort-column")) {
+                    if ($th.hasClass("table-list--sortable__sort-column")) {
                         $option.attr("selected", "selected");
                     }
                     $dropdown.append($option);

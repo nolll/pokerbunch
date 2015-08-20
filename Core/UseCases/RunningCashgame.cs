@@ -49,7 +49,6 @@ namespace Core.UseCases
             var reportUrl = new CashgameReportUrl(bunch.Slug);
             var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
             var endGameUrl = new EndCashgameUrl(bunch.Slug);
-            var cashgameIndexUrl = new CashgameIndexUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
             var showTable = cashgame.IsStarted;
@@ -64,6 +63,7 @@ namespace Core.UseCases
             var defaultBuyin = bunch.DefaultBuyin;
 
             return new Result(
+                bunch.Slug,
                 player.Id,
                 location,
                 gameDataUrl,
@@ -72,7 +72,6 @@ namespace Core.UseCases
                 reportUrl,
                 cashoutUrl,
                 endGameUrl,
-                cashgameIndexUrl,
                 showStartTime,
                 startTime,
                 isStarted,
@@ -181,6 +180,7 @@ namespace Core.UseCases
 
         public class Result
         {
+            public string Slug { get; private set; }
             public int PlayerId { get; private set; }
             public string Location { get; private set; }
             public Url GameDataUrl { get; private set; }
@@ -204,6 +204,7 @@ namespace Core.UseCases
             public bool IsManager { get; private set; }
 
             public Result(
+                string slug,
                 int playerId,
                 string location,
                 Url gameDataUrl,
@@ -212,7 +213,6 @@ namespace Core.UseCases
                 Url reportUrl,
                 Url cashoutUrl,
                 Url endGameUrl,
-                Url cashgameIndexUrl,
                 bool showStartTime,
                 string startTime,
                 bool isStarted,
@@ -226,6 +226,7 @@ namespace Core.UseCases
                 int defaultBuyin,
                 bool isManager)
             {
+                Slug = slug;
                 PlayerId = playerId;
                 Location = location;
                 PlayersDataUrl = playersDataUrl;
@@ -234,7 +235,6 @@ namespace Core.UseCases
                 ReportUrl = reportUrl;
                 CashoutUrl = cashoutUrl;
                 EndGameUrl = endGameUrl;
-                CashgameIndexUrl = cashgameIndexUrl;
                 ShowStartTime = showStartTime;
                 StartTime = startTime;
                 IsStarted = isStarted;

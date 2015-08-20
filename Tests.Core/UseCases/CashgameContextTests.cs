@@ -79,12 +79,12 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.GameIsRunning);
         }
 
-        [TestCase(CashgameContext.CashgamePage.Matrix, "/cashgame/matrix/a")]
-        [TestCase(CashgameContext.CashgamePage.Toplist, "/cashgame/toplist/a")]
-        [TestCase(CashgameContext.CashgamePage.Chart, "/cashgame/chart/a")]
-        [TestCase(CashgameContext.CashgamePage.List, "/cashgame/list/a")]
-        [TestCase(CashgameContext.CashgamePage.Facts, "/cashgame/facts/a")]
-        public void Execute_SelectedPage_SelectedPageAndLastYearUrlIsCorrect(CashgameContext.CashgamePage selectedPage, string url)
+        [TestCase(CashgameContext.CashgamePage.Matrix)]
+        [TestCase(CashgameContext.CashgamePage.Toplist)]
+        [TestCase(CashgameContext.CashgamePage.Chart)]
+        [TestCase(CashgameContext.CashgamePage.List)]
+        [TestCase(CashgameContext.CashgamePage.Facts)]
+        public void Execute_SelectedPage_SelectedPageIsCorrect(CashgameContext.CashgamePage selectedPage)
         {
             const string slug = "a";
             const int year = 1;
@@ -93,7 +93,20 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(selectedPage, result.SelectedPage);
-            Assert.AreEqual(url, result.YearItems.Last().Url.Relative);
+            Assert.AreEqual(2002, result.Years.Last());
+        }
+
+        [Test]
+        public void Execute_SelectedPage_YearsAreCorrect()
+        {
+            const string slug = "a";
+            const int year = 1;
+            var request = new CashgameContext.Request(TestData.UserNameA, slug, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);
+
+            var result = Sut.Execute(request);
+
+            Assert.AreEqual(2001, result.Years.First());
+            Assert.AreEqual(2002, result.Years.Last());
         }
 
         private CashgameContext Sut

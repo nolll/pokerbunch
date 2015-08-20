@@ -36,7 +36,7 @@ namespace Web.Models.CashgameModels.List
 
         private string GetSortCssClass(CashgameList.SortOrder selectedSortOrder, CashgameList.SortOrder columnSortOrder)
         {
-            return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
+            return selectedSortOrder.Equals(columnSortOrder) ? "table-list--sortable__sort-item" : "";
         }
     }
 }

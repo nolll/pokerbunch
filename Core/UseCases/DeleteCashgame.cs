@@ -34,8 +34,7 @@ namespace Core.UseCases
 
             _cashgameRepository.DeleteGame(cashgame);
 
-            var returnUrl = new CashgameIndexUrl(bunch.Slug);
-            return new Result(returnUrl);
+            return new Result(bunch.Slug);
         }
 
         public class Request
@@ -52,11 +51,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(string slug)
             {
-                ReturnUrl = returnUrl;
+                Slug = slug;
             }
         }
     }

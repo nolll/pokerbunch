@@ -1,5 +1,4 @@
 using Core.Services;
-using Core.Urls;
 using Core.UseCases;
 using Web.Urls;
 
@@ -46,7 +45,7 @@ namespace Web.Models.CashgameModels.Toplist
 
         private string GetSortCssClass(TopList.SortOrder selectedSortOrder, TopList.SortOrder columnSortOrder)
         {
-            return selectedSortOrder.Equals(columnSortOrder) ? "sort-column" : "";
+            return selectedSortOrder.Equals(columnSortOrder) ? "table-list--sortable__sort-item" : "";
         }
     }
 }

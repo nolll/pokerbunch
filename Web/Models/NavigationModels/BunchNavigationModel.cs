@@ -23,7 +23,7 @@ namespace Web.Models.NavigationModels
         {
             Heading = bunchContextResult.BunchName;
             HeadingUrl = bunchContextResult.BunchUrl.Relative;
-            CashgameUrl = bunchContextResult.CashgameUrl.Relative;
+            CashgameUrl = new CashgameIndexUrl(bunchContextResult.Slug).Relative;
             PlayerUrl = new PlayerIndexUrl(bunchContextResult.Slug).Relative;
             EventUrl = bunchContextResult.EventUrl.Relative;
         }

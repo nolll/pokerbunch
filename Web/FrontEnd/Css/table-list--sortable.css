@@ -6,7 +6,8 @@
   display: none;
 }
 .table-list--sortable .table-list--sortable__base-column,
-.table-list--sortable .table-list--sortable__sort-column {
+.table-list--sortable .table-list--sortable__sort-column,
+.table-list--sortable .table-list--sortable__sort-item {
   display: block;
   display: table-cell;
 }

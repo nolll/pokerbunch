@@ -13,7 +13,7 @@ namespace Web.Controllers
         {
             var request = new DeleteCashgame.Request(CurrentUserName, id);
             var result = UseCase.DeleteCashgame.Execute(request);
-            return Redirect(result.ReturnUrl.Relative);
+            return Redirect(new CashgameIndexUrl(result.Slug).Relative);
 		}
     }
 }

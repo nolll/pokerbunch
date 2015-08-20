@@ -70,7 +70,6 @@ namespace Core.UseCases
             public string BunchName { get; private set; }
             public bool HasBunch { get; private set; }
             public Url BunchUrl { get; private set; }
-            public Url CashgameUrl { get; private set; }
             public Url EventUrl { get; private set; }
             public AppContext.Result AppContext { get; private set; }
 
@@ -87,7 +86,6 @@ namespace Core.UseCases
                 BunchName = bunchName;
                 HasBunch = true;
                 BunchUrl = new BunchDetailsUrl(slug);
-                CashgameUrl = new CashgameIndexUrl(slug);
                 EventUrl = new EventListUrl(slug);
             }
         }

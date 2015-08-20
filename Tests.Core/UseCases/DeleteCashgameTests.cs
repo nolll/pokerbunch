@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/cashgame/index/bunch-a", result.ReturnUrl.Relative);
+            Assert.AreEqual(TestData.SlugA, result.Slug);
         }
 
         private DeleteCashgame Sut
