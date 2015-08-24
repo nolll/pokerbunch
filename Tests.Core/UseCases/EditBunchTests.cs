@@ -69,7 +69,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/bunch/details/bunch-a", result.ReturnUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         private EditBunch Sut

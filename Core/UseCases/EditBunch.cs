@@ -34,8 +34,7 @@ namespace Core.UseCases
             var postedHomegame = CreateBunch(bunch, request);
             _bunchRepository.Save(postedHomegame);
 
-            var returnUrl = new BunchDetailsUrl(request.Slug);
-            return new Result(returnUrl);
+            return new Result(bunch.Slug);
         }
 
         private static Bunch CreateBunch(Bunch bunch, Request request)
@@ -80,11 +79,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(string slug)
             {
-                ReturnUrl = returnUrl;
+                Slug = slug;
             }
         }
     }

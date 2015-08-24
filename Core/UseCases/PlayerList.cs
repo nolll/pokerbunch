@@ -48,13 +48,13 @@ namespace Core.UseCases
         {
             public IList<PlayerListItem> Players { get; private set; }
             public bool CanAddPlayer { get; private set; }
-            public Url AddUrl { get; private set; }
+            public string Slug { get; private set; }
 
             public Result(Bunch bunch, IEnumerable<Player> players, bool isManager)
             {
                 Players = players.Select(o => new PlayerListItem(o)).OrderBy(o => o.Name).ToList();
                 CanAddPlayer = isManager;
-                AddUrl = new AddPlayerUrl(bunch.Slug);
+                Slug = bunch.Slug;
             }
         }
 

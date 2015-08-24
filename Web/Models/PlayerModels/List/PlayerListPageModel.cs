@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.PlayerModels.List
 {
@@ -15,7 +16,7 @@ namespace Web.Models.PlayerModels.List
             : base("Player List", contextResult)
         {
             PlayerModels = playerListResult.Players.Select(item => new PlayerItemModel(item)).ToList();
-            AddUrl = playerListResult.AddUrl.Relative;
+            AddUrl = new AddPlayerUrl(playerListResult.Slug).Relative;
             ShowAddLink = playerListResult.CanAddPlayer;
         }
     }

@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Web.Controllers
             {
                 var request = new EditBunch.Request(CurrentUserName, slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new BunchDetailsUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
             {

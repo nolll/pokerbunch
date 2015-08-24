@@ -25,7 +25,6 @@ namespace Core.UseCases
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequireManager(user, player);
             var heading = string.Format("{0} Settings", bunch.DisplayName);
-            var cancelUrl = new BunchDetailsUrl(bunch.Slug);
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var defaultBuyin = bunch.DefaultBuyin;
@@ -35,7 +34,7 @@ namespace Core.UseCases
             var timeZones = TimeZoneService.GetTimeZones();
             var currencyLayouts = Globalization.GetCurrencyLayouts();
             
-            return new Result(heading, cancelUrl, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZones, currencyLayouts);
+            return new Result(heading, bunch.Slug, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZones, currencyLayouts);
         }
 
         public class Request
@@ -53,7 +52,7 @@ namespace Core.UseCases
         public class Result
         {
             public string Heading { get; private set; }
-            public Url CancelUrl { get; private set; }
+            public string Slug { get; private set; }
             public string Description { get; private set; }
             public string HouseRules { get; private set; }
             public int DefaultBuyin { get; private set; }
@@ -63,10 +62,10 @@ namespace Core.UseCases
             public IList<AddBunchForm.TimeZoneItem> TimeZones { get; private set; }
             public IList<string> CurrencyLayouts { get; private set; }
 
-            public Result(string heading, Url cancelUrl, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout, IList<AddBunchForm.TimeZoneItem> timeZones, IList<string> currencyLayouts)
+            public Result(string heading, string slug, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout, IList<AddBunchForm.TimeZoneItem> timeZones, IList<string> currencyLayouts)
             {
                 Heading = heading;
-                CancelUrl = cancelUrl;
+                Slug = slug;
                 Description = description;
                 HouseRules = houseRules;
                 DefaultBuyin = defaultBuyin;

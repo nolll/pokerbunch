@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/player/add/bunch-a", result.AddUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(4, result.Players.Count);
             Assert.AreEqual(1, result.Players[0].Id);
             Assert.AreEqual(TestData.PlayerNameA, result.Players[0].Name);

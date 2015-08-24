@@ -22,10 +22,10 @@ namespace Web.Models.NavigationModels
             : this()
         {
             Heading = bunchContextResult.BunchName;
-            HeadingUrl = bunchContextResult.BunchUrl.Relative;
+            HeadingUrl = new BunchDetailsUrl(bunchContextResult.Slug).Relative;
             CashgameUrl = new CashgameIndexUrl(bunchContextResult.Slug).Relative;
             PlayerUrl = new PlayerIndexUrl(bunchContextResult.Slug).Relative;
-            EventUrl = bunchContextResult.EventUrl.Relative;
+            EventUrl = new EventListUrl(bunchContextResult.Slug).Relative;
         }
 
         public static BunchNavigationModel Empty

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Core.Entities;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -18,11 +17,11 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void EditBunchForm_CancelUrlIsSet()
+        public void EditBunchForm_SlugIsSet()
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.IsInstanceOf<BunchDetailsUrl>(result.CancelUrl);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         [Test]

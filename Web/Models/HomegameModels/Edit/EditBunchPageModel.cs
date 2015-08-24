@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.HomegameModels.Edit
 {
@@ -22,7 +24,7 @@ namespace Web.Models.HomegameModels.Edit
         public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel)
             : base("Edit Bunch", contextResult)
         {
-            CancelUrl = editBunchFormResult.CancelUrl.Relative;
+            CancelUrl = new BunchDetailsUrl(editBunchFormResult.Slug).Relative;
             Heading = editBunchFormResult.Heading;
             Description = editBunchFormResult.Description;
             HouseRules = editBunchFormResult.HouseRules;

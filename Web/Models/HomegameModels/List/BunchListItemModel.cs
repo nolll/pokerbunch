@@ -1,4 +1,6 @@
+using Core.Urls;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.HomegameModels.List
 {
@@ -10,7 +12,7 @@ namespace Web.Models.HomegameModels.List
         public BunchListItemModel(BunchList.ResultItem bunchListItem)
         {
             Name = bunchListItem.DisplayName;
-            Url = bunchListItem.Url.Relative;
+            Url = new BunchDetailsUrl(bunchListItem.Slug).Relative;
         }
     }
 }

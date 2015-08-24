@@ -25,9 +25,7 @@ namespace Core.UseCases
             RoleHandler.RequirePlayer(user, player);
             var bunchName = bunch.DisplayName;
 
-            var detailsUrl = new BunchDetailsUrl(request.Slug);
-            
-            return new Result(bunchName, detailsUrl);
+            return new Result(bunchName, bunch.Slug);
         }
 
         public class Request
@@ -45,11 +43,11 @@ namespace Core.UseCases
         public class Result
         {
             public string BunchName { get; private set; }
-            public Url BunchDetailsUrl { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(string bunchName, Url bunchDetailsUrl)
+            public Result(string bunchName, string slug)
             {
-                BunchDetailsUrl = bunchDetailsUrl;
+                Slug = slug;
                 BunchName = bunchName;
             }
         }

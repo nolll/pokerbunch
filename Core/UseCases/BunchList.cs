@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -69,13 +68,11 @@ namespace Core.UseCases
         {
             public string Slug { get; private set; }
             public string DisplayName { get; private set; }
-            public Url Url { get; private set; }
 
             public ResultItem(Bunch bunch)
             {
                 Slug = bunch.Slug;
                 DisplayName = bunch.DisplayName;
-                Url = new BunchDetailsUrl(bunch.Slug);
             }
         }
     }

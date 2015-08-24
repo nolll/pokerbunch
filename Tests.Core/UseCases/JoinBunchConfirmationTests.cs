@@ -1,5 +1,4 @@
-﻿using Core.Urls;
-using Core.UseCases;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -20,7 +19,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.IsInstanceOf<BunchDetailsUrl>(result.BunchDetailsUrl);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         private static JoinBunchConfirmation.Request CreateRequest()

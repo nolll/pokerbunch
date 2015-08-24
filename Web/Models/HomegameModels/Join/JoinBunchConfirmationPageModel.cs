@@ -1,5 +1,7 @@
+using Core.Urls;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.HomegameModels.Join
 {
@@ -12,7 +14,7 @@ namespace Web.Models.HomegameModels.Join
             : base("Welcome", contextResult)
         {
             BunchName = joinBunchConfirmationResult.BunchName;
-            BunchUrl = joinBunchConfirmationResult.BunchDetailsUrl.Relative;
+            BunchUrl = new BunchDetailsUrl(joinBunchConfirmationResult.Slug).Relative;
         }
     }
 }
