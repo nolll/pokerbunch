@@ -45,12 +45,6 @@ namespace Tests.Core.UseCases
             var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA, DateTime.Now);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/cashgame/runningplayersjson/bunch-a", result.PlayersDataUrl.Relative);
-            Assert.AreEqual("/cashgame/runninggamejson/bunch-a", result.GameDataUrl.Relative);
-            Assert.AreEqual("/cashgame/buyin/bunch-a", result.BuyinUrl.Relative);
-            Assert.AreEqual("/cashgame/report/bunch-a", result.ReportUrl.Relative);
-            Assert.AreEqual("/cashgame/cashout/bunch-a", result.CashoutUrl.Relative);
-            Assert.AreEqual("/cashgame/end/bunch-a", result.EndGameUrl.Relative);
             Assert.AreEqual("bunch-a", result.Slug);
         }
 

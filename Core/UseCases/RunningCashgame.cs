@@ -43,12 +43,6 @@ namespace Core.UseCases
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
             var location = cashgame.Location;
-            var gameDataUrl = new RunningCashgameGameJsonUrl(bunch.Slug);
-            var playerDataUrl = new RunningCashgamePlayersJsonUrl(bunch.Slug);
-            var buyinUrl = new CashgameBuyinUrl(bunch.Slug);
-            var reportUrl = new CashgameReportUrl(bunch.Slug);
-            var cashoutUrl = new CashgameCashoutUrl(bunch.Slug);
-            var endGameUrl = new EndCashgameUrl(bunch.Slug);
             var showStartTime = cashgame.IsStarted;
             var startTime = GetStartTime(cashgame, bunch.Timezone);
             var showTable = cashgame.IsStarted;
@@ -66,12 +60,6 @@ namespace Core.UseCases
                 bunch.Slug,
                 player.Id,
                 location,
-                gameDataUrl,
-                playerDataUrl,
-                buyinUrl,
-                reportUrl,
-                cashoutUrl,
-                endGameUrl,
                 showStartTime,
                 startTime,
                 isStarted,
@@ -183,13 +171,6 @@ namespace Core.UseCases
             public string Slug { get; private set; }
             public int PlayerId { get; private set; }
             public string Location { get; private set; }
-            public Url GameDataUrl { get; private set; }
-            public Url PlayersDataUrl { get; private set; }
-            public Url BuyinUrl { get; private set; }
-            public Url ReportUrl { get; private set; }
-            public Url CashoutUrl { get; private set; }
-            public Url EndGameUrl { get; private set; }
-            public Url CashgameIndexUrl { get; private set; }
             public bool ShowStartTime { get; private set; }
             public string StartTime { get; private set; }
             public bool IsStarted { get; private set; }
@@ -207,12 +188,6 @@ namespace Core.UseCases
                 string slug,
                 int playerId,
                 string location,
-                Url gameDataUrl,
-                Url playersDataUrl,
-                Url buyinUrl,
-                Url reportUrl,
-                Url cashoutUrl,
-                Url endGameUrl,
                 bool showStartTime,
                 string startTime,
                 bool isStarted,
@@ -229,12 +204,6 @@ namespace Core.UseCases
                 Slug = slug;
                 PlayerId = playerId;
                 Location = location;
-                PlayersDataUrl = playersDataUrl;
-                GameDataUrl = gameDataUrl;
-                BuyinUrl = buyinUrl;
-                ReportUrl = reportUrl;
-                CashoutUrl = cashoutUrl;
-                EndGameUrl = endGameUrl;
                 ShowStartTime = showStartTime;
                 StartTime = startTime;
                 IsStarted = isStarted;

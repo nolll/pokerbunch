@@ -1,5 +1,7 @@
+using Core.Urls;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -10,7 +12,7 @@ namespace Web.Models.CashgameModels.Running
 	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base("Running Cashgame", contextResult)
 	    {
-	        GameDataUrl = runningCashgameResult.GameDataUrl.Relative;
+	        GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
 	    }
     }
 }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Urls;
 using Core.UseCases;
 using Web.Annotations;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -43,12 +45,12 @@ namespace Web.Models.CashgameModels.Running
         public RunningCashgameJsonModel(RunningCashgame.Result result) : base(result)
         {
             PlayerId = result.PlayerId;
-            RefreshUrl = result.PlayersDataUrl.Relative;
-            ReportUrl = result.ReportUrl.Relative;
-            BuyinUrl = result.BuyinUrl.Relative;
-            CashoutUrl = result.CashoutUrl.Relative;
-            EndGameUrl = result.EndGameUrl.Relative;
-            CashgameIndexUrl = result.CashgameIndexUrl.Relative;
+            RefreshUrl = new RunningCashgamePlayersJsonUrl(result.Slug).Relative;
+            ReportUrl = new CashgameReportUrl(result.Slug).Relative;
+            BuyinUrl = new CashgameBuyinUrl(result.Slug).Relative;
+            CashoutUrl = new CashgameCashoutUrl(result.Slug).Relative;
+            EndGameUrl = new EndCashgameUrl(result.Slug).Relative;
+            CashgameIndexUrl = new RunningCashgameGameJsonUrl(result.Slug).Relative;
             DefaultBuyin = result.DefaultBuyin;
             Location = result.Location;
             IsManager = result.IsManager;
