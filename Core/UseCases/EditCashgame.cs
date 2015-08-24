@@ -2,7 +2,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -33,8 +32,7 @@ namespace Core.UseCases
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
             _cashgameRepository.UpdateGame(cashgame);
             
-            var returnUrl = new CashgameDetailsUrl(cashgame.Id);
-            return new Result(returnUrl);
+            return new Result(cashgame.Id);
         }
 
         public class Request
@@ -53,11 +51,11 @@ namespace Core.UseCases
         }
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public int CashgameId { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(int cashgameId)
             {
-                ReturnUrl = returnUrl;
+                CashgameId = cashgameId;
             }
         }
     }

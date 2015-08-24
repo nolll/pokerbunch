@@ -275,10 +275,12 @@
     <Compile Include="Urls\AddUserUrl.cs" />
     <Compile Include="Urls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\BunchListUrl.cs" />
+    <Compile Include="Urls\CashgameDetailsUrl.cs" />
     <Compile Include="Urls\CashgameIndexUrl.cs" />
     <Compile Include="Urls\ChangePasswordConfirmationUrl.cs" />
     <Compile Include="Urls\ChartUrl.cs" />
     <Compile Include="Urls\ClearCacheUrl.cs" />
+    <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\EditUserUrl.cs" />
     <Compile Include="Urls\EventListUrl.cs" />
     <Compile Include="Urls\FactsUrl.cs" />

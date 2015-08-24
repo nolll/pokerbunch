@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -28,12 +27,10 @@ namespace Core.UseCases
             var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
             
-            var cancelUrl = new CashgameDetailsUrl(cashgame.Id);
-            var deleteUrl = new DeleteCashgameUrl(cashgame.Id);
             var location = cashgame.Location;
             var locations = _cashgameRepository.GetLocations(cashgame.BunchId);
 
-            return new Result(cashgame.DateString, cancelUrl, deleteUrl, bunch.Slug, location, locations);
+            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locations);
         }
 
         public class Request
@@ -51,17 +48,15 @@ namespace Core.UseCases
         public class Result
         {
             public string Date { get; private set; }
-            public Url CancelUrl { get; private set; }
-            public Url DeleteUrl { get; private set; }
+            public int CashgameId { get; private set; }
             public string Slug { get; private set; }
             public string Location { get; private set; }
             public IList<string> Locations { get; private set; }
 
-            public Result(string date, Url cancelUrl, Url deleteUrl, string slug, string location, IList<string> locations)
+            public Result(string date, int cashgameId, string slug, string location, IList<string> locations)
             {
                 Date = date;
-                CancelUrl = cancelUrl;
-                DeleteUrl = deleteUrl;
+                CashgameId = cashgameId;
                 Slug = slug;
                 Location = location;
                 Locations = locations;

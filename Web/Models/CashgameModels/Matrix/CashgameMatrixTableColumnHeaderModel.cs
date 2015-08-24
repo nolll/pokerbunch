@@ -1,5 +1,5 @@
 using Core.Services;
-using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Matrix
         public CashgameMatrixTableColumnHeaderModel(Core.UseCases.Matrix.GameItem gameItem, bool showYear = false)
         {
             Date = Globalization.FormatShortDate(gameItem.Date, showYear);
-            CashgameUrl = gameItem.Url.Relative;
+            CashgameUrl = new CashgameDetailsUrl(gameItem.Id).Relative;
         }
     }
 }

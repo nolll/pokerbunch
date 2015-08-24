@@ -107,9 +107,8 @@ namespace Core.UseCases
         private static GameItem CreateGameItem(int cashgameId, DateTime startTime)
         {
             var date = new Date(startTime);
-            var url = new CashgameDetailsUrl(cashgameId);
             
-            return new GameItem(cashgameId, date, url);
+            return new GameItem(cashgameId, date);
         }
 
         public class Request
@@ -192,13 +191,11 @@ namespace Core.UseCases
         {
             public int Id { get; private set; }
             public Date Date { get; private set; }
-            public Url Url { get; private set; }
 
-            public GameItem(int id, Date date, Url url)
+            public GameItem(int id, Date date)
             {
                 Id = id;
                 Date = date;
-                Url = url;
             }
         }
     }

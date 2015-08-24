@@ -95,7 +95,7 @@ namespace Core.UseCases
         public class Item
         {
             public string Location { get; private set; }
-            public Url Url { get; private set; }
+            public int CashgameId { get; private set; }
             public Time Duration { get; private set; }
             public Date Date { get; private set; }
             public Money Turnover { get; private set; }
@@ -105,7 +105,7 @@ namespace Core.UseCases
             public Item(Bunch bunch, Cashgame cashgame)
             {
                 Location = cashgame.Location;
-                Url = new CashgameDetailsUrl(cashgame.Id);
+                CashgameId = cashgame.Id;
                 Duration = Time.FromMinutes(cashgame.Duration);
                 Date = cashgame.StartTime.HasValue ? new Date(cashgame.StartTime.Value) : new Date(DateTime.MinValue);
                 Turnover = new Money(cashgame.Turnover, bunch.Currency);

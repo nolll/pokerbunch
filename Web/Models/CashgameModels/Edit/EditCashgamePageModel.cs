@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Core.Urls;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Edit
 {
@@ -19,8 +21,8 @@ namespace Web.Models.CashgameModels.Edit
             : base("Edit Cashgame", contextResult)
         {
             IsoDate = editCashgameFormResult.Date;
-            CancelUrl = editCashgameFormResult.CancelUrl.Relative;
-            DeleteUrl = editCashgameFormResult.DeleteUrl.Relative;
+            CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.CashgameId).Relative;
+            DeleteUrl = new DeleteCashgameUrl(editCashgameFormResult.CashgameId).Relative;
             TypedLocation = editCashgameFormResult.Location;
             SelectedLocation = editCashgameFormResult.Location;
             Locations = editCashgameFormResult.Locations.Select(l => new SelectListItem {Text = l, Value = l});

@@ -1,5 +1,7 @@
 using Core.Services;
+using Core.Urls;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.List
 {
@@ -30,7 +32,7 @@ namespace Web.Models.CashgameModels.List
             TurnoverSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.Turnover);
             AvgBuyin = item.AverageBuyin.String;
             AvgBuyinSortClass = GetSortCssClass(sortOrder, CashgameList.SortOrder.AverageBuyin);
-            DetailsUrl = item.Url.Relative;
+            DetailsUrl = new CashgameDetailsUrl(item.CashgameId).Relative;
             DisplayDate = Globalization.FormatShortDate(item.Date, showYear);
         }
 

@@ -96,13 +96,11 @@
     <Compile Include="Urls\CashgameBuyinUrl.cs" />
     <Compile Include="Urls\CashgameCashoutUrl.cs" />
     <Compile Include="Urls\CashgameChartUrl.cs" />
-    <Compile Include="Urls\CashgameDetailsUrl.cs" />
     <Compile Include="Urls\CashgameFactsUrl.cs" />
     <Compile Include="Urls\CashgameListUrl.cs" />
     <Compile Include="Urls\CashgameMatrixUrl.cs" />
     <Compile Include="Urls\CashgameReportUrl.cs" />
     <Compile Include="Urls\ChangePasswordUrl.cs" />
-    <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\DeleteCheckpointUrl.cs" />
     <Compile Include="Urls\DeletePlayerUrl.cs" />
     <Compile Include="Urls\EditBunchUrl.cs" />
