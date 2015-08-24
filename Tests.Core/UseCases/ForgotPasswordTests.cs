@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -12,14 +11,6 @@ namespace Tests.Core.UseCases
         private const string ValidEmail = TestData.UserEmailA;
         private const string InvalidEmail = "";
         private const string NonExistingEmail = "a@b.com";
-
-        [Test]
-        public void ForgotPassword_WithValidEmail_ReturnUrlIsSet()
-        {
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.IsInstanceOf<ForgotPasswordConfirmationUrl>(result.ReturnUrl);
-        }
 
         [Test]
         public void ForgotPassword_WithInvalidEmail_ValidationExceptionIsThrown()

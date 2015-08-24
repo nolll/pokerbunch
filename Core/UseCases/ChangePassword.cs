@@ -18,7 +18,7 @@ namespace Core.UseCases
             _randomService = randomService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -33,9 +33,6 @@ namespace Core.UseCases
             user = CreateUser(user, encryptedPassword, salt);
             
             _userRepository.Save(user);
-
-            var returnUrl = new ChangePasswordConfirmationUrl();
-            return new Result(returnUrl);
         }
 
         private static User CreateUser(User user, string encryptedPassword, string salt)
@@ -63,16 +60,6 @@ namespace Core.UseCases
                 UserName = userName;
                 Password = password;
                 Repeat = repeat;
-            }
-        }
-
-        public class Result
-        {
-            public Url ReturnUrl { get; private set; }
-
-            public Result(Url returnUrl)
-            {
-                ReturnUrl = returnUrl;
             }
         }
     }

@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ChangePassword;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -24,8 +25,8 @@ namespace Web.Controllers
             try
             {
                 var request = new ChangePassword.Request(CurrentUserName, postModel.Password, postModel.Repeat);
-                var result = UseCase.ChangePassword.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                UseCase.ChangePassword.Execute(request);
+                return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
             {

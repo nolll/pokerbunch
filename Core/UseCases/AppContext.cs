@@ -52,9 +52,6 @@ namespace Core.UseCases
             public string UserDisplayName { get; private set; }
             public BaseContext.Result BaseContext { get; private set; }
             public string UserName { get; private set; }
-            public Url LoginUrl { get; private set; }
-            public Url ForgotPasswordUrl { get; private set; }
-            public Url LogoutUrl { get; private set; }
 
             public Result(
                 BaseContext.Result baseContextResult,
@@ -69,9 +66,6 @@ namespace Core.UseCases
                 IsAdmin = isAdmin;
                 UserId = userId;
                 UserDisplayName = userDisplayName;
-                LoginUrl = new LoginUrl();
-                ForgotPasswordUrl = new ForgotPasswordUrl();
-                LogoutUrl = new LogoutUrl();
                 UserName = userName;
             }
         }

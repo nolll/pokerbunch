@@ -24,7 +24,7 @@ namespace Core.UseCases
             _messageSender = messageSender;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -46,8 +46,6 @@ namespace Core.UseCases
             
             var message = new RegistrationMessage(password);
             _messageSender.Send(request.Email, message);
-
-            return new Result();
         }
 
         private static User CreateUser(Request request, string encryptedPassword, string salt)
@@ -80,16 +78,6 @@ namespace Core.UseCases
                 UserName = userName;
                 DisplayName = displayName;
                 Email = email;
-            }
-        }
-
-        public class Result
-        {
-            public Url ReturnUrl { get; private set; }
-
-            public Result()
-            {
-                ReturnUrl = new AddUserConfirmationUrl();
             }
         }
     }

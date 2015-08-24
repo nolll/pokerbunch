@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -22,8 +23,8 @@ namespace Web.Controllers
             try
             {
                 var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email);
-                var result = UseCase.AddUser.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                UseCase.AddUser.Execute(request);
+                return Redirect(new AddUserConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
             {

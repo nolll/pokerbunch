@@ -15,17 +15,7 @@ namespace Tests.Core.UseCases
         private const string ValidEmail = "a@b.com";
         private readonly string _existingUserName = TestData.UserA.UserName;
         private readonly string _existingEmail = TestData.UserA.Email;
-
-        [Test]
-        public void AddUser_ReturnUrlIsSet()
-        {
-            var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail);
-
-            var result = Sut.Execute(request);
-
-            Assert.IsInstanceOf<AddUserConfirmationUrl>(result.ReturnUrl);
-        }
-
+        
         [Test]
         public void AddUser_WithEmptyUserName_ThrowsValidationError()
         {

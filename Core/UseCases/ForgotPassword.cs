@@ -20,7 +20,7 @@ namespace Core.UseCases
             _randomService = randomService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -41,10 +41,6 @@ namespace Core.UseCases
             
             var message = new ForgotPasswordMessage(password);
             _messageSender.Send(request.Email, message);
-
-            var returnUrl = new ForgotPasswordConfirmationUrl();
-
-            return new Result(returnUrl);
         }
 
         public class Request
@@ -56,16 +52,6 @@ namespace Core.UseCases
             public Request(string email)
             {
                 Email = email;
-            }
-        }
-
-        public class Result
-        {
-            public Url ReturnUrl { get; private set; }
-
-            public Result(Url returnUrl)
-            {
-                ReturnUrl = returnUrl;
             }
         }
 
