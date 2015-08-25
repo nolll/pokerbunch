@@ -6,7 +6,7 @@
         {
         }
 
-        public override bool IsEmpty()
+        public virtual bool IsEmpty()
         {
             return true;
         }

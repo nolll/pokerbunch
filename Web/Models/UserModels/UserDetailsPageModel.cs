@@ -2,6 +2,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.UserModels
 {
@@ -28,7 +29,7 @@ namespace Web.Models.UserModels
             ShowEditLink = userDetails.CanEdit;
             ShowPasswordLink = userDetails.CanChangePassword;
             EditUrl = new EditUserUrl(userDetails.UserName).Relative;
-            ChangePasswordUrl = userDetails.ChangePasswordUrl.Relative;
+            ChangePasswordUrl = new ChangePasswordUrl().Relative;
         }
     }
 }

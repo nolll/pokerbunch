@@ -1,5 +1,7 @@
 using Core.Services;
+using Core.Urls;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Details
 {
@@ -16,7 +18,7 @@ namespace Web.Models.CashgameModels.Details
         public CashgameDetailsTableItemModel(CashgameDetails.PlayerResultItem resultItem)
         {
             Name = resultItem.Name;
-            PlayerUrl = resultItem.PlayerUrl.Relative;
+            PlayerUrl = new CashgameActionUrl(resultItem.CashgameId, resultItem.PlayerId).Relative;
             Buyin = resultItem.Buyin.String;
             Cashout = resultItem.Cashout.String;
             Winnings = resultItem.Winnings.String;

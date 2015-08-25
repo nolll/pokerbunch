@@ -23,18 +23,5 @@
         {
             return Relative;
         }
-
-        public virtual bool IsEmpty()
-        {
-            return false;
-        }
-
-        public static Url Empty
-        {
-            get
-            {
-                return new EmptyUrl();
-            }
-        }
     }
 }

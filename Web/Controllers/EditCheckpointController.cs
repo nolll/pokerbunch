@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Web.Controllers
             {
                 var request = new EditCheckpoint.Request(CurrentUserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new CashgameActionUrl(result.CashgameId, result.PlayerId).Relative);
             }
             catch (ValidationException ex)
             {

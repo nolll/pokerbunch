@@ -2,7 +2,6 @@ using System;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -34,11 +33,9 @@ namespace Core.UseCases
             var stack = checkpoint.Stack;
             var amount = checkpoint.Amount;
             var timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
-            var deleteUrl = new DeleteCheckpointUrl(request.CheckpointId);
-            var cancelUrl = new CashgameActionUrl(cashgame.Id, checkpoint.PlayerId);
             var canEditAmount = checkpoint.Type == CheckpointType.Buyin;
 
-            return new Result(stack, amount, timestamp, deleteUrl, cancelUrl, bunch.Slug, canEditAmount);
+            return new Result(stack, amount, timestamp, checkpoint.Id, cashgame.Id, player.Id, bunch.Slug, canEditAmount);
         }
 
         public class Request
@@ -58,18 +55,20 @@ namespace Core.UseCases
             public int Stack { get; private set; }
             public int Amount { get; private set; }
             public DateTime TimeStamp { get; private set; }
-            public Url DeleteUrl { get; private set; }
-            public Url CancelUrl { get; private set; }
+            public int CheckpointId { get; private set; }
+            public int CashgameId { get; private set; }
+            public int PlayerId { get; private set; }
             public string Slug { get; private set; }
             public bool CanEditAmount { get; private set; }
 
-            public Result(int stack, int amount, DateTime timeStamp, Url deleteUrl, Url cancelUrl, string slug, bool canEditAmount)
+            public Result(int stack, int amount, DateTime timeStamp, int checkpointId, int cashgameId, int playerId, string slug, bool canEditAmount)
             {
                 TimeStamp = timeStamp;
+                CheckpointId = checkpointId;
                 Stack = stack;
                 Amount = amount;
-                DeleteUrl = deleteUrl;
-                CancelUrl = cancelUrl;
+                CashgameId = cashgameId;
+                PlayerId = playerId;
                 Slug = slug;
                 CanEditAmount = canEditAmount;
             }

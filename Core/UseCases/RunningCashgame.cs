@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
@@ -99,7 +100,6 @@ namespace Core.UseCases
                 var player = players.First(o => o.Id == playerId);
 
                 var name = player.DisplayName;
-                var playerUrl = new CashgameActionUrl(cashgame.Id, player.Id);
                 var buyin = new Money(result.Buyin, bunch.Currency);
                 var stack = new Money(result.Stack, bunch.Currency);
                 var winnings = new Money(result.Winnings, bunch.Currency);
@@ -108,7 +108,8 @@ namespace Core.UseCases
 
                 var item = new RunningCashgameTableItem(
                     name,
-                    playerUrl,
+                    cashgame.Id,
+                    player.Id,
                     buyin,
                     stack,
                     winnings,
@@ -129,9 +130,8 @@ namespace Core.UseCases
             {
                 var playerId = result.PlayerId;
                 var player = players.First(o => o.Id == playerId);
-                var playerUrl = new CashgameActionUrl(cashgame.Id, playerId);
                 var hasCheckedOut = result.CashoutCheckpoint != null;
-                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, playerUrl, hasCheckedOut, result.Checkpoints);
+                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, cashgame.Id, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 
@@ -249,15 +249,15 @@ namespace Core.UseCases
         {
             public int PlayerId { get; private set; }
             public string Name { get; private set; }
-            public Url PlayerUrl { get; private set; }
+            public int CashgameId { get; private set; }
             public bool HasCashedOut { get; private set; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }
 
-            public RunningCashgamePlayerItem(int playerId, string name, Url playerUrl, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
+            public RunningCashgamePlayerItem(int playerId, string name, int cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
             {
                 PlayerId = playerId;
                 Name = name;
-                PlayerUrl = playerUrl;
+                CashgameId = cashgameId;
                 HasCashedOut = hasCashedOut;
                 Checkpoints = checkpoints.Select(o => new RunningCashgameCheckpointItem(o)).ToList();
             }
@@ -266,17 +266,19 @@ namespace Core.UseCases
         public class RunningCashgameTableItem
         {
             public string Name { get; private set; }
-            public Url PlayerUrl { get; private set; }
+            public int CashgameId { get; private set; }
+            public int PlayerId { get; private set; }
             public Money Buyin { get; private set; }
             public Money Stack { get; private set; }
             public Money Winnings { get; private set; }
             public Time Time { get; private set; }
             public bool HasCashedOut { get; private set; }
 
-            public RunningCashgameTableItem(string name, Url playerUrl, Money buyin, Money stack, Money winnings, Time time, bool hasCashedOut)
+            public RunningCashgameTableItem(string name, int cashgameId, int playerId, Money buyin, Money stack, Money winnings, Time time, bool hasCashedOut)
             {
                 Name = name;
-                PlayerUrl = playerUrl;
+                CashgameId = cashgameId;
+                PlayerId = playerId;
                 Buyin = buyin;
                 Stack = stack;
                 Winnings = winnings;

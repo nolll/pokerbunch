@@ -97,7 +97,8 @@ namespace Core.UseCases
         public class PlayerResultItem
         {
             public string Name { get; private set; }
-            public Url PlayerUrl { get; private set; }
+            public int CashgameId { get; set; }
+            public int PlayerId { get; private set; }
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }
             public MoneyResult Winnings { get; private set; }
@@ -106,7 +107,8 @@ namespace Core.UseCases
             public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
             {
                 Name = player.DisplayName;
-                PlayerUrl = new CashgameActionUrl(cashgame.Id, player.Id);
+                CashgameId = cashgame.Id;
+                PlayerId = player.Id;
                 Buyin = new Money(result.Buyin, bunch.Currency);
                 Cashout = new Money(result.Stack, bunch.Currency);
                 Winnings = new MoneyResult(result.Winnings, bunch.Currency);

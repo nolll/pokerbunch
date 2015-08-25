@@ -13,7 +13,6 @@ namespace Tests.Web.ServiceTests
             var result = new HomeUrl();
             
             Assert.AreEqual("/", result.Relative);
-            Assert.IsFalse(result.IsEmpty());
         }
 
         [Test]
@@ -56,7 +55,7 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var result = new CashgameChartUrl(slug, year);
+            var result = new ChartUrl(slug, year);
 
             Assert.AreEqual("/cashgame/chart/a/2010", result.Relative);
         }
@@ -66,7 +65,7 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var result = new CashgameChartUrl(slug, null);
+            var result = new ChartUrl(slug, null);
 
             Assert.AreEqual("/cashgame/chart/a", result.Relative);
         }
@@ -138,7 +137,7 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var result = new CashgameMatrixUrl(slug, year);
+            var result = new MatrixUrl(slug, year);
 
             Assert.AreEqual("/cashgame/matrix/a/2010", result.Relative);
         }
@@ -148,7 +147,7 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var result = new CashgameMatrixUrl(slug, null);
+            var result = new MatrixUrl(slug, null);
 
             Assert.AreEqual("/cashgame/matrix/a", result.Relative);
         }
@@ -451,7 +450,7 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var result = new CashgameFactsUrl(slug, year);
+            var result = new FactsUrl(slug, year);
 
             Assert.AreEqual("/cashgame/facts/a/2010", result.Relative);
         }
@@ -474,14 +473,6 @@ namespace Tests.Web.ServiceTests
             var result = new RunningCashgameUrl(slug);
 
             Assert.AreEqual("/cashgame/running/a", result.Relative);
-        }
-
-        [Test]
-        public void EmptyUrl_IsEmptyIsTrue()
-        {
-            var result = Url.Empty;
-
-            Assert.IsTrue(result.IsEmpty());
         }
     }
 }

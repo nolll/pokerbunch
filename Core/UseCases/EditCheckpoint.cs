@@ -49,8 +49,7 @@ namespace Core.UseCases
 
             _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
 
-            var returnUrl = new CashgameActionUrl(cashgame.Id, existingCheckpoint.PlayerId);
-            return new Result(returnUrl);
+            return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }
 
         public class Request
@@ -75,11 +74,13 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public int CashgameId { get; private set; }
+            public int PlayerId { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(int cashgameId, int playerId)
             {
-                ReturnUrl = returnUrl;
+                CashgameId = cashgameId;
+                PlayerId = playerId;
             }
         }
     }

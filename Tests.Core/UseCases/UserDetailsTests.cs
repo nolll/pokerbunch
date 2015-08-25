@@ -88,14 +88,6 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void UserDetails_ChangePasswordUrlIsCorrectType()
-        {
-            var result = Sut.Execute(new UserDetails.Request(TestData.UserA.UserName, TestData.UserA.UserName));
-
-            Assert.IsInstanceOf<ChangePasswordUrl>(result.ChangePasswordUrl);
-        }
-
-        [Test]
         public void UserDetails_AvatarUrlIsSet()
         {
             var result = Sut.Execute(new UserDetails.Request(TestData.UserA.UserName, TestData.UserA.UserName));

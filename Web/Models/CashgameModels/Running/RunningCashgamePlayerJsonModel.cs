@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
 using Web.Annotations;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -26,7 +27,7 @@ namespace Web.Models.CashgameModels.Running
         {
             Id = item.PlayerId;
             Name = item.Name;
-            Url = item.PlayerUrl.Relative;
+            Url = new CashgameActionUrl(item.CashgameId, item.PlayerId).Relative;
             HasCashedOut = item.HasCashedOut;
             Checkpoints = item.Checkpoints.Select(o => new RunningCashgameCheckpointJsonModel(o)).ToList();
         }

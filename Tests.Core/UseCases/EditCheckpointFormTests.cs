@@ -1,5 +1,4 @@
-﻿using Core.Urls;
-using Core.UseCases;
+﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -20,11 +19,11 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void EditCheckpointForm_DeleteUrlIsSet()
+        public void EditCheckpointForm_CheckpointIdIsSet()
         {
             var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
-            Assert.IsInstanceOf<DeleteCheckpointUrl>(result.DeleteUrl);
+            Assert.AreEqual(2, result.CheckpointId);
         }
 
         [Test]
@@ -32,7 +31,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
-            Assert.IsInstanceOf<CashgameActionUrl>(result.CancelUrl);
+            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual(3, result.PlayerId);
         }
 
         [Test]

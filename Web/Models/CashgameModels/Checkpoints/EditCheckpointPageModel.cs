@@ -1,6 +1,7 @@
 using System;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {
@@ -20,8 +21,8 @@ namespace Web.Models.CashgameModels.Checkpoints
             Stack = editCheckpointFormResult.Stack;
             Amount = editCheckpointFormResult.Amount;
             Timestamp = editCheckpointFormResult.TimeStamp;
-            DeleteUrl = editCheckpointFormResult.DeleteUrl.Relative;
-            CancelUrl = editCheckpointFormResult.CancelUrl.Relative;
+            DeleteUrl = new DeleteCheckpointUrl(editCheckpointFormResult.CheckpointId).Relative;
+            CancelUrl = new CashgameActionUrl(editCheckpointFormResult.CashgameId, editCheckpointFormResult.PlayerId).Relative;
             EnableAmountField = editCheckpointFormResult.CanEditAmount;
             StackLabel = editCheckpointFormResult.CanEditAmount ? "Stack after buyin" : "Stack";
             if (postModel == null) return;
