@@ -1,4 +1,6 @@
-﻿namespace Core.Urls
+using Core.Urls;
+
+namespace Web.Urls
 {
     public abstract class BunchWithOptionalYearUrl : Url
     {

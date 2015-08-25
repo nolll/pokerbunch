@@ -24,14 +24,6 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void PlayerDetails_InvitationUrlIsSet()
-        {
-            var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdA));
-
-            Assert.IsInstanceOf<InvitePlayerUrl>(result.InvitationUrl);
-        }
-
-        [Test]
         public void PlayerDetails_WithoutUser_AvatarUrlIsEmpty()
         {
             var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdD));

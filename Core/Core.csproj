@@ -92,10 +92,7 @@
     <Compile Include="Urls\IdUrl.cs" />
     <Compile Include="Urls\JoinBunchUrl.cs" />
     <Compile Include="Urls\SlugUrl.cs" />
-    <Compile Include="Urls\BunchWithOptionalYearUrl.cs" />
-    <Compile Include="Urls\InvitePlayerUrl.cs" />
     <Compile Include="Urls\LoginUrl.cs" />
-    <Compile Include="Urls\PlayerUrl.cs" />
     <Compile Include="Urls\RouteParams.cs" />
     <Compile Include="Urls\Routes.cs" />
     <Compile Include="Urls\Url.cs" />

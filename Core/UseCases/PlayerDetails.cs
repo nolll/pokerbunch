@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -55,7 +54,6 @@ namespace Core.UseCases
             public bool IsUser { get; private set; }
             public string UserName { get; private set; }
             public string AvatarUrl { get; private set; }
-            public Url InvitationUrl { get; private set; }
             public string Slug { get; private set; }
 
             public Result(Bunch bunch, Player player, User user, bool isManager, bool hasPlayed, string avatarUrl)
@@ -68,7 +66,6 @@ namespace Core.UseCases
                 IsUser = isUser;
                 UserName = isUser ? user.UserName : string.Empty;
                 AvatarUrl = avatarUrl;
-                InvitationUrl = new InvitePlayerUrl(player.Id);
                 Slug = bunch.Slug;
             }
         }

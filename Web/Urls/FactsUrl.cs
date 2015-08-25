@@ -1,4 +1,6 @@
-﻿namespace Core.Urls
+﻿using Web.Urls;
+
+namespace Core.Urls
 {
     public class FactsUrl : BunchWithOptionalYearUrl
     {

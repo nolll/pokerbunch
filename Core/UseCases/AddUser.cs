@@ -3,7 +3,6 @@ using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -44,7 +43,7 @@ namespace Core.UseCases
 
             _userRepository.Add(user);
             
-            var message = new RegistrationMessage(password);
+            var message = new RegistrationMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
         }
 
@@ -73,11 +72,14 @@ namespace Core.UseCases
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; private set; }
 
-            public Request(string userName, string displayName, string email)
+            public string LoginUrl { get; private set; }
+
+            public Request(string userName, string displayName, string email, string loginUrl)
             {
                 UserName = userName;
                 DisplayName = displayName;
                 Email = email;
+                LoginUrl = loginUrl;
             }
         }
     }

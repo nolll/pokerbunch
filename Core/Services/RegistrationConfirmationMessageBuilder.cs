@@ -1,14 +1,14 @@
-using Core.Urls;
-
 namespace Core.Services
 {
     public class RegistrationMessage : IMessage
     {
         private readonly string _password;
+        private readonly string _loginUrl;
 
-        public RegistrationMessage(string password)
+        public RegistrationMessage(string password, string loginUrl)
         {
             _password = password;
+            _loginUrl = loginUrl;
         }
 
         public string Subject
@@ -20,8 +20,7 @@ namespace Core.Services
         {
             get
             {
-                var loginUrl = new LoginUrl().Absolute;
-                return string.Format(BodyFormat, _password, loginUrl);
+                return string.Format(BodyFormat, _password, _loginUrl);
             }
         }
 

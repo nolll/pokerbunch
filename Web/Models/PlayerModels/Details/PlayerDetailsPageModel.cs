@@ -29,7 +29,7 @@ namespace Web.Models.PlayerModels.Details
             ShowUserInfo = detailsResult.IsUser;
             UserUrl = detailsResult.IsUser ? new UserDetailsUrl(detailsResult.UserName).Relative : string.Empty;
             AvatarModel = new AvatarModel(detailsResult.AvatarUrl);
-            InvitationUrl = detailsResult.InvitationUrl.Relative;
+            InvitationUrl = new InvitePlayerUrl(detailsResult.PlayerId).Relative;
             BadgeListModel = new BadgeListModel(badgesResult);
             PlayerFactsModel = new PlayerFactsModel(factsResult);
         }

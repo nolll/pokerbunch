@@ -22,7 +22,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email);
+                var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, new LoginUrl().Absolute);
                 UseCase.AddUser.Execute(request);
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }
