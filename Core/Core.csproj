@@ -90,15 +90,10 @@
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
     <Compile Include="Urls\IdUrl.cs" />
+    <Compile Include="Urls\JoinBunchUrl.cs" />
     <Compile Include="Urls\SlugUrl.cs" />
     <Compile Include="Urls\BunchWithOptionalYearUrl.cs" />
-    <Compile Include="Urls\EditCashgameUrl.cs" />
-    <Compile Include="Urls\EditCheckpointUrl.cs" />
-    <Compile Include="Urls\EventDetailsUrl.cs" />
-    <Compile Include="Urls\InvitePlayerConfirmationUrl.cs" />
     <Compile Include="Urls\InvitePlayerUrl.cs" />
-    <Compile Include="Urls\JoinBunchConfirmationUrl.cs" />
-    <Compile Include="Urls\JoinBunchUrl.cs" />
     <Compile Include="Urls\LoginUrl.cs" />
     <Compile Include="Urls\PlayerUrl.cs" />
     <Compile Include="Urls\RouteParams.cs" />

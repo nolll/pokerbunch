@@ -37,8 +37,7 @@ namespace Core.UseCases
             var message = new InvitationMessage(bunch, player, request.RegisterUrl);
             _messageSender.Send(request.Email, message);
 
-            var url = new InvitePlayerConfirmationUrl(player.Id);
-            return new Result(url);
+            return new Result(player.Id);
         }
 
         public class Request
@@ -61,11 +60,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public int PlayerId { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(int playerId)
             {
-                ReturnUrl = returnUrl;
+                PlayerId = playerId;
             }
         }
     }

@@ -4,6 +4,7 @@ using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Join;
+using Web.Urls;
 
 namespace Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Web.Controllers
             {
                 var request = new JoinBunch.Request(slug, CurrentUserName, postModel.Code);
                 var result = UseCase.JoinBunch.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new JoinBunchConfirmationUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
             {

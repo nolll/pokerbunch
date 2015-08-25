@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.AreEqual("/player/invited/1", result.ReturnUrl.Relative);
+            Assert.AreEqual(1, result.PlayerId);
         }
 
         [TestCase("")]

@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
             var request = new JoinBunch.Request(TestData.SlugA, TestData.UserNameA, ValidCode);
 
             var result = Sut.Execute(request);
-            Assert.AreEqual("/bunch/joined/bunch-a", result.ReturnUrl.Relative);
+            Assert.AreEqual("bunch-a", result.Slug);
         }
 
         [Test]

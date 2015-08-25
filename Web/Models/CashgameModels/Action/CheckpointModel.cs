@@ -1,5 +1,6 @@
 using Core.Services;
 using Core.UseCases;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Action
 {
@@ -17,7 +18,7 @@ namespace Web.Models.CashgameModels.Action
             Stack = checkpointItem.DisplayAmount.String;
             Timestamp = Globalization.FormatTime(checkpointItem.Time);
             ShowLink = checkpointItem.CanEdit;
-            EditUrl = checkpointItem.EditUrl.Relative;
+            EditUrl = new EditCheckpointUrl(checkpointItem.CheckpointId).Relative;
         }
     }
 }

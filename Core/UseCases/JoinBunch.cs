@@ -41,8 +41,7 @@ namespace Core.UseCases
                 throw new InvalidJoinCodeException();
             }
 
-            var returnUrl = new JoinBunchConfirmationUrl(request.Slug);
-            return new Result(returnUrl);
+            return new Result(bunch.Slug);
         }
         
         private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
@@ -73,11 +72,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Url ReturnUrl { get; private set; }
+            public string Slug { get; private set; }
 
-            public Result(Url returnUrl)
+            public Result(string slug)
             {
-                ReturnUrl = returnUrl;
+                Slug = slug;
             }
         }
     }

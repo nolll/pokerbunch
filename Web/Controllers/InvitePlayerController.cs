@@ -26,7 +26,7 @@ namespace Web.Controllers
             {
                 var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute);
                 var result = UseCase.InvitePlayer.Execute(request);
-                return Redirect(result.ReturnUrl.Relative);
+                return Redirect(new InvitePlayerConfirmationUrl(result.PlayerId).Relative);
             }
             catch (ValidationException ex)
             {

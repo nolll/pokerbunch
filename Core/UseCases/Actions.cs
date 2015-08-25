@@ -5,7 +5,6 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -49,9 +48,8 @@ namespace Core.UseCases
             var displayAmount = new Money(GetDisplayAmount(checkpoint), bunch.Currency);
             var time = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
             var canEdit = isManager;
-            var editUrl = new EditCheckpointUrl(checkpoint.Id);
 
-            return new CheckpointItem(time, editUrl, type, displayAmount, canEdit);
+            return new CheckpointItem(time, checkpoint.Id, type, displayAmount, canEdit);
         }
 
         private static int GetDisplayAmount(Checkpoint checkpoint)
@@ -94,15 +92,15 @@ namespace Core.UseCases
         public class CheckpointItem
         {
             public DateTime Time { get; private set; }
-            public Url EditUrl { get; private set; }
+            public int CheckpointId { get; private set; }
             public string Type { get; private set; }
             public Money DisplayAmount { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public CheckpointItem(DateTime time, Url editUrl, string type, Money displayAmount, bool canEdit)
+            public CheckpointItem(DateTime time, int checkpointId, string type, Money displayAmount, bool canEdit)
             {
                 Time = time;
-                EditUrl = editUrl;
+                CheckpointId = checkpointId;
                 Type = type;
                 DisplayAmount = displayAmount;
                 CanEdit = canEdit;

@@ -3,6 +3,7 @@ using Core.Urls;
 using Core.UseCases;
 using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.CashgameModels.Details
 {
