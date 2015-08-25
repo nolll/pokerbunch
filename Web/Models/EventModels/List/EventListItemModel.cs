@@ -1,3 +1,4 @@
+using Core.Urls;
 using Core.UseCases;
 
 namespace Web.Models.EventModels.List
@@ -13,7 +14,7 @@ namespace Web.Models.EventModels.List
         public EventListItemModel(EventList.Item item)
         {
             Name = item.Name;
-            DetailsUrl = item.EventDetailsUrl.Relative;
+            DetailsUrl = new EventDetailsUrl(item.EventId).Relative;
             Location = item.Location;
             StartDate = item.StartDate.IsoString;
             EndDate = item.EndDate.IsoString;

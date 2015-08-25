@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
-            Assert.IsInstanceOf<EditCashgameUrl>(result.EditUrl);
+            Assert.AreEqual(1, result.CashgameId);
             Assert.AreEqual(2, result.PlayerItems.Count);
         }
 

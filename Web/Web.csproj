@@ -288,6 +288,8 @@
     <Compile Include="Urls\ClearCacheUrl.cs" />
     <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\DeleteCheckpointUrl.cs" />
+    <Compile Include="Urls\DeletePlayerUrl.cs" />
+    <Compile Include="Urls\EditBunchUrl.cs" />
     <Compile Include="Urls\EditUserUrl.cs" />
     <Compile Include="Urls\EndCashgameUrl.cs" />
     <Compile Include="Urls\EventListUrl.cs" />

@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdA));
 
-            Assert.IsInstanceOf<DeletePlayerUrl>(result.DeleteUrl);
+            Assert.AreEqual(1, result.PlayerId);
         }
 
         [Test]

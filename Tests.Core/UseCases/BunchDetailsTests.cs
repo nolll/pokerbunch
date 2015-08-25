@@ -32,14 +32,6 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void BunchDetails_EditBunchUrlIsSet()
-        {
-            var result = Sut.Execute(CreateRequest());
-
-            Assert.IsInstanceOf<EditBunchUrl>(result.EditBunchUrl);
-        }
-
-        [Test]
         public void BunchDetails_WithPlayer_CanEditIsFalse()
         {
             var result = Sut.Execute(CreateRequest());

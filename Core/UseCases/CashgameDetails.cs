@@ -62,8 +62,8 @@ namespace Core.UseCases
             public DateTime? EndTime { get; private set; }
             public string Location { get; private set; }
             public bool CanEdit { get; private set; }
-            public Url EditUrl { get; private set; }
             public string Slug { get; private set; }
+            public int CashgameId { get; private set; }
             public IList<PlayerResultItem> PlayerItems { get; private set; }
 
             public Result(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, bool isManager)
@@ -76,8 +76,8 @@ namespace Core.UseCases
                 StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
                 EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);
                 CanEdit = isManager;
-                EditUrl = new EditCashgameUrl(cashgame.Id);
                 Slug = bunch.Slug;
+                CashgameId = cashgame.Id;
                 PlayerItems = sortedResults.Select(o => new PlayerResultItem(bunch, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
             }
 

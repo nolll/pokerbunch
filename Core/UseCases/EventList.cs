@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -37,8 +36,7 @@ namespace Core.UseCases
 
         private static Item CreateEventItem(Event e)
         {
-            var eventDetailsUrl = new EventDetailsUrl(e.Id);
-            return new Item(e.Name, eventDetailsUrl, e.Location, e.StartDate, e.EndDate);
+            return new Item(e.Id, e.Name, e.Location, e.StartDate, e.EndDate);
         }
 
         public class Request
@@ -65,16 +63,16 @@ namespace Core.UseCases
 
         public class Item
         {
+            public int EventId { get; private set; }
             public string Name { get; private set; }
-            public Url EventDetailsUrl { get; private set; }
             public string Location { get; private set; }
             public Date StartDate { get; private set; }
             public Date EndDate { get; private set; }
 
-            public Item(string name, Url eventDetailsUrl, string location, Date startDate, Date endDate)
+            public Item(int id, string name, string location, Date startDate, Date endDate)
             {
+                EventId = id;
                 Name = name;
-                EventDetailsUrl = eventDetailsUrl;
                 Location = location;
                 StartDate = startDate;
                 EndDate = endDate;

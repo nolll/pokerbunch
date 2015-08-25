@@ -50,7 +50,7 @@ namespace Core.UseCases
         public class Result
         {
             public string DisplayName { get; private set; }
-            public DeletePlayerUrl DeleteUrl { get; private set; }
+            public int PlayerId { get; private set; }
             public bool CanDelete { get; private set; }
             public bool IsUser { get; private set; }
             public string UserName { get; private set; }
@@ -63,7 +63,7 @@ namespace Core.UseCases
                 var isUser = user != null;
 
                 DisplayName = player.DisplayName;
-                DeleteUrl = new DeletePlayerUrl(player.Id);
+                PlayerId = player.Id;
                 CanDelete = isManager && !hasPlayed;
                 IsUser = isUser;
                 UserName = isUser ? user.UserName : string.Empty;

@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -29,10 +28,9 @@ namespace Core.UseCases
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
-            var editBunchUrl = new EditBunchUrl(bunch.Slug);
             var canEdit = RoleHandler.IsInRole(user, player, Role.Manager);
 
-            return new Result(slug, bunchName, description, houseRules, editBunchUrl, canEdit);
+            return new Result(slug, bunchName, description, houseRules, canEdit);
         }
 
         public class Request
@@ -53,16 +51,14 @@ namespace Core.UseCases
             public string BunchName { get; private set; }
             public string Description { get; private set; }
             public string HouseRules { get; private set; }
-            public Url EditBunchUrl { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public Result(string slug, string bunchName, string description, string houseRules, Url editBunchUrl, bool canEdit)
+            public Result(string slug, string bunchName, string description, string houseRules, bool canEdit)
             {
                 Slug = slug;
                 BunchName = bunchName;
                 Description = description;
                 HouseRules = houseRules;
-                EditBunchUrl = editBunchUrl;
                 CanEdit = canEdit;
             }
         }

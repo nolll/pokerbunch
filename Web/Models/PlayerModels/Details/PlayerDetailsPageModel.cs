@@ -4,6 +4,7 @@ using Web.Components.PlayerModels.Badges;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Facts;
+using Web.Urls;
 
 namespace Web.Models.PlayerModels.Details
 {
@@ -23,7 +24,7 @@ namespace Web.Models.PlayerModels.Details
             : base("Player Details", contextResult)
         {
             DisplayName = detailsResult.DisplayName;
-            DeleteUrl = detailsResult.DeleteUrl.Relative;
+            DeleteUrl = new DeletePlayerUrl(detailsResult.PlayerId).Relative;
             DeleteEnabled = detailsResult.CanDelete;
             ShowUserInfo = detailsResult.IsUser;
             UserUrl = detailsResult.IsUser ? new UserDetailsUrl(detailsResult.UserName).Relative : string.Empty;

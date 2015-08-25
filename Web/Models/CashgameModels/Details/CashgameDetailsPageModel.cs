@@ -1,4 +1,5 @@
 using Core.Services;
+using Core.Urls;
 using Core.UseCases;
 using Newtonsoft.Json;
 using Web.Models.PageBaseModels;
@@ -37,7 +38,7 @@ namespace Web.Models.CashgameModels.Details
 			ShowEndTime = showEndTime;
             EndTime = showEndTime ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
             EnableEdit = detailsResult.CanEdit;
-            EditUrl = detailsResult.EditUrl.Relative;
+            EditUrl = new EditCashgameUrl(detailsResult.CashgameId).Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
             ChartJson = JsonConvert.SerializeObject(new DetailsChartModel(cashgameDetailsChartResult));
         }

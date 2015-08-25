@@ -1,5 +1,6 @@
 using Core.UseCases;
 using Web.Models.PageBaseModels;
+using Web.Urls;
 
 namespace Web.Models.HomegameModels.Details
 {
@@ -19,7 +20,7 @@ namespace Web.Models.HomegameModels.Details
             Description = bunchDetails.Description;
             HouseRules = FormatHouseRules(bunchDetails.HouseRules);
             ShowHouseRules = !string.IsNullOrEmpty(bunchDetails.HouseRules);
-            EditUrl = bunchDetails.EditBunchUrl.Relative;
+            EditUrl = new EditBunchUrl(bunchDetails.Slug).Relative;
             ShowEditLink = bunchDetails.CanEdit;
         }
 
