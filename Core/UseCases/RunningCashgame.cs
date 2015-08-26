@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {
@@ -40,37 +38,21 @@ namespace Core.UseCases
             var players = _playerRepository.GetList(GetPlayerIds(cashgame));
             var bunchPlayers = _playerRepository.GetList(bunch.Id);
 
-            var isStarted = cashgame.IsStarted;
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
             var location = cashgame.Location;
-            var showStartTime = cashgame.IsStarted;
-            var startTime = GetStartTime(cashgame, bunch.Timezone);
-            var showTable = cashgame.IsStarted;
-            var showChart = cashgame.IsStarted;
 
-            var items = GetItems(bunch, cashgame, players, request.CurrentTime);
-            var playerItems = GetPlayerItems(bunch.Slug, cashgame, players);
+            var playerItems = GetPlayerItems(cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
-            var totalBuyin = new Money(cashgame.Turnover, bunch.Currency);
-            var totalStacks = new Money(cashgame.TotalStacks, bunch.Currency);
-
+            
             var defaultBuyin = bunch.DefaultBuyin;
 
             return new Result(
                 bunch.Slug,
                 player.Id,
                 location,
-                showStartTime,
-                startTime,
-                isStarted,
-                showTable,
-                showChart,
-                items,
                 playerItems,
                 bunchPlayerItems,
-                totalBuyin,
-                totalStacks,
                 defaultBuyin,
                 isManager);
         }
@@ -80,49 +62,7 @@ namespace Core.UseCases
             return cashgame.Results.Select(o => o.PlayerId).ToList();
         }
 
-        private static string GetStartTime(Cashgame cashgame, TimeZoneInfo timezone)
-        {
-            if (cashgame.IsStarted && cashgame.StartTime.HasValue)
-            {
-                var localTime = TimeZoneInfo.ConvertTime(cashgame.StartTime.Value, timezone);
-                return Globalization.FormatTime(localTime);
-            }
-            return null;
-        }
-
-        private static IList<RunningCashgameTableItem> GetItems(Bunch bunch, Cashgame cashgame, IList<Player> players, DateTime now)
-        {
-            var results = GetSortedResults(cashgame);
-            var items = new List<RunningCashgameTableItem>();
-            foreach (var result in results)
-            {
-                var playerId = result.PlayerId;
-                var player = players.First(o => o.Id == playerId);
-
-                var name = player.DisplayName;
-                var buyin = new Money(result.Buyin, bunch.Currency);
-                var stack = new Money(result.Stack, bunch.Currency);
-                var winnings = new Money(result.Winnings, bunch.Currency);
-                var time = GetTime(result.LastReportTime, now);
-                var hasCashedOut = result.CashoutTime != null;
-
-                var item = new RunningCashgameTableItem(
-                    name,
-                    cashgame.Id,
-                    player.Id,
-                    buyin,
-                    stack,
-                    winnings,
-                    time,
-                    hasCashedOut);
-
-                items.Add(item);
-            }
-
-            return items;
-        }
-
-        private static IList<RunningCashgamePlayerItem> GetPlayerItems(string slug, Cashgame cashgame, IList<Player> players)
+        private static IList<RunningCashgamePlayerItem> GetPlayerItems(Cashgame cashgame, IList<Player> players)
         {
             var results = GetSortedResults(cashgame);
             var items = new List<RunningCashgamePlayerItem>();
@@ -138,14 +78,6 @@ namespace Core.UseCases
             return items;
         }
 
-        private static Time GetTime(DateTime? lastReportedTime, DateTime now)
-        {
-            if (!lastReportedTime.HasValue)
-                return null;
-            var timespan = now - lastReportedTime.Value;
-            return Time.FromTimeSpan(timespan);
-        }
-
         private static IEnumerable<CashgameResult> GetSortedResults(Cashgame cashgame)
         {
             var results = cashgame.Results;
@@ -156,13 +88,11 @@ namespace Core.UseCases
         {
             public string UserName { get; private set; }
             public string Slug { get; private set; }
-            public DateTime CurrentTime { get; private set; }
 
-            public Request(string userName, string slug, DateTime currentTime)
+            public Request(string userName, string slug)
             {
                 UserName = userName;
                 Slug = slug;
-                CurrentTime = currentTime;
             }
         }
 
@@ -171,16 +101,8 @@ namespace Core.UseCases
             public string Slug { get; private set; }
             public int PlayerId { get; private set; }
             public string Location { get; private set; }
-            public bool ShowStartTime { get; private set; }
-            public string StartTime { get; private set; }
-            public bool IsStarted { get; private set; }
-            public bool ShowTable { get; private set; }
-            public bool ShowChart { get; private set; }
-            public IList<RunningCashgameTableItem> Items { get; private set; }
             public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
             public IList<BunchPlayerItem> BunchPlayerItems { get; private set; }
-            public Money TotalBuyin { get; private set; }
-            public Money TotalStacks { get; private set; }
             public int DefaultBuyin { get; private set; }
             public bool IsManager { get; private set; }
 
@@ -188,32 +110,16 @@ namespace Core.UseCases
                 string slug,
                 int playerId,
                 string location,
-                bool showStartTime,
-                string startTime,
-                bool isStarted,
-                bool showTable,
-                bool showChart,
-                IList<RunningCashgameTableItem> items,
                 IList<RunningCashgamePlayerItem> playerItems,
                 IList<BunchPlayerItem> bunchPlayerItems,
-                Money totalBuyin,
-                Money totalStacks,
                 int defaultBuyin,
                 bool isManager)
             {
                 Slug = slug;
                 PlayerId = playerId;
                 Location = location;
-                ShowStartTime = showStartTime;
-                StartTime = startTime;
-                IsStarted = isStarted;
-                ShowTable = showTable;
-                ShowChart = showChart;
-                Items = items;
                 PlayerItems = playerItems;
                 BunchPlayerItems = bunchPlayerItems;
-                TotalBuyin = totalBuyin;
-                TotalStacks = totalStacks;
                 DefaultBuyin = defaultBuyin;
                 IsManager = isManager;
             }
@@ -260,30 +166,6 @@ namespace Core.UseCases
                 CashgameId = cashgameId;
                 HasCashedOut = hasCashedOut;
                 Checkpoints = checkpoints.Select(o => new RunningCashgameCheckpointItem(o)).ToList();
-            }
-        }
-
-        public class RunningCashgameTableItem
-        {
-            public string Name { get; private set; }
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
-            public Money Buyin { get; private set; }
-            public Money Stack { get; private set; }
-            public Money Winnings { get; private set; }
-            public Time Time { get; private set; }
-            public bool HasCashedOut { get; private set; }
-
-            public RunningCashgameTableItem(string name, int cashgameId, int playerId, Money buyin, Money stack, Money winnings, Time time, bool hasCashedOut)
-            {
-                Name = name;
-                CashgameId = cashgameId;
-                PlayerId = playerId;
-                Buyin = buyin;
-                Stack = stack;
-                Winnings = winnings;
-                Time = time;
-                HasCashedOut = hasCashedOut;
             }
         }
     }

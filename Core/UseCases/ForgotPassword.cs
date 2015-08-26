@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -39,7 +38,7 @@ namespace Core.UseCases
             
             _userRepository.Save(user);
             
-            var message = new ForgotPasswordMessage(password);
+            var message = new ForgotPasswordMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
         }
 
@@ -48,20 +47,24 @@ namespace Core.UseCases
             [Required(ErrorMessage = "Email can't be empty")]
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; private set; }
+            public string LoginUrl { get; private set; }
 
-            public Request(string email)
+            public Request(string email, string loginUrl)
             {
                 Email = email;
+                LoginUrl = loginUrl;
             }
         }
 
         private class ForgotPasswordMessage : IMessage
         {
             private readonly string _password;
+            private readonly string _loginUrl;
 
-            public ForgotPasswordMessage(string password)
+            public ForgotPasswordMessage(string password, string loginUrl)
             {
                 _password = password;
+                _loginUrl = loginUrl;
             }
 
             public string Subject
@@ -73,8 +76,7 @@ namespace Core.UseCases
             {
                 get
                 {
-                    var loginUrl = new LoginUrl().Absolute;
-                    return string.Format(BodyFormat, _password, loginUrl);
+                    return string.Format(BodyFormat, _password, _loginUrl);
                 }
             }
 

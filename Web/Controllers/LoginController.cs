@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;

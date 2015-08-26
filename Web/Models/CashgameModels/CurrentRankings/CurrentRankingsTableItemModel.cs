@@ -1,5 +1,4 @@
 using Core.Services;
-using Core.Urls;
 using Web.Urls;
 
 namespace Web.Models.CashgameModels.CurrentRankings

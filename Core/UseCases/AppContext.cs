@@ -1,6 +1,5 @@
 ﻿using Core.Exceptions;
 using Core.Repositories;
-using Core.Urls;
 
 namespace Core.UseCases
 {

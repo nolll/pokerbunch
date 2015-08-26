@@ -89,13 +89,6 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="Urls\IdUrl.cs" />
-    <Compile Include="Urls\JoinBunchUrl.cs" />
-    <Compile Include="Urls\SlugUrl.cs" />
-    <Compile Include="Urls\LoginUrl.cs" />
-    <Compile Include="Urls\RouteParams.cs" />
-    <Compile Include="Urls\Routes.cs" />
-    <Compile Include="Urls\Url.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddBunchForm.cs" />

@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
             const string body = @"Here is your new password for Poker Bunch:
 aaaaaaaa
 
-Please sign in here: http://pokerbunch.com/auth/login";
+Please sign in here: loginUrl";
             Sut.Execute(CreateRequest());
 
             Assert.AreEqual(ValidEmail, Services.MessageSender.To);
@@ -54,7 +54,7 @@ Please sign in here: http://pokerbunch.com/auth/login";
 
         private ForgotPassword.Request CreateRequest(string email = ValidEmail)
         {
-            return new ForgotPassword.Request(email);
+            return new ForgotPassword.Request(email, "loginUrl");
         }
 
         private ForgotPassword Sut

@@ -1,6 +1,4 @@
-﻿using Web.Urls;
-
-namespace Core.Urls
+﻿namespace Web.Urls
 {
     public class TopListUrl : BunchWithOptionalYearUrl
     {

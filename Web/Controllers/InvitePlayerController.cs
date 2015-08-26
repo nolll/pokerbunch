@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
@@ -24,7 +23,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute);
+                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute, new JoinBunchUrl("{0}").Absolute);
                 var result = UseCase.InvitePlayer.Execute(request);
                 return Redirect(new InvitePlayerConfirmationUrl(result.PlayerId).Relative);
             }

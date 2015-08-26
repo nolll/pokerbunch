@@ -113,7 +113,7 @@ namespace Tests.Common
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
 
-        public const string TestUrl = "http://pokerbunch.com/test";
+        public const string TestUrl = "https://pokerbunch.com/test";
 
         public static IList<Checkpoint> RunningGameCheckpoints
         {

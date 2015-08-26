@@ -1,6 +1,4 @@
-﻿using Core.Urls;
-
-namespace Web.Urls
+﻿namespace Web.Urls
 {
     public class ChartUrl : BunchWithOptionalYearUrl
     {

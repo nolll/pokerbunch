@@ -1,5 +1,3 @@
-using Core.Urls;
-
 namespace Web.Urls
 {
     public abstract class BunchWithOptionalYearUrl : Url

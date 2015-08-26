@@ -1,15 +1,15 @@
-﻿using System.Globalization;
+using System.Globalization;
 
-namespace Core.Urls
+namespace Web.Urls
 {
     public static class RouteParams
     {
-        public const string Slug = "{slug}";
-        public const string Year = "{year?}";
-        public const string PlayerId = "{playerId}";
-        public const string CashgameId = "{cashgameId}";
-        public const string Id = "{id}";
-        public const string UserName = "{userName}";
+        private const string Slug = "{slug}";
+        private const string Year = "{year?}";
+        private const string PlayerId = "{playerId}";
+        private const string CashgameId = "{cashgameId}";
+        private const string Id = "{id}";
+        private const string UserName = "{userName}";
 
         public static string ReplaceSlug(string format, string slug)
         {

@@ -1,33 +1,33 @@
 using Core.Entities;
-using Core.Urls;
 
 namespace Core.Services
 {
     public class InvitationMessage : IMessage
     {
-        private readonly Bunch _bunch;
+        private readonly string _bunchName;
         private readonly Player _player;
         private readonly string _registerUrl;
+        private readonly string _joinUrl;
 
-        public InvitationMessage(Bunch bunch, Player player, string registerUrl)
+        public InvitationMessage(string bunchName, Player player, string registerUrl, string joinUrl)
         {
-            _bunch = bunch;
+            _bunchName = bunchName;
             _player = player;
             _registerUrl = registerUrl;
+            _joinUrl = joinUrl;
         }
 
         public string Subject
         {
-            get { return string.Format("Invitation to Poker Bunch: {0}", _bunch.DisplayName); }
+            get { return string.Format("Invitation to Poker Bunch: {0}", _bunchName); }
         }
 
         public string Body
         {
             get
             {
-                var joinUrl = new JoinBunchUrl(_bunch.Slug).Absolute;
                 var invitationCode = InvitationCodeCreator.GetCode(_player);
-                return string.Format(BodyFormat, _bunch.DisplayName, joinUrl, invitationCode, _registerUrl);
+                return string.Format(BodyFormat, _bunchName, _joinUrl, invitationCode, _registerUrl);
             }
         }
 

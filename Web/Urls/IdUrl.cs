@@ -1,4 +1,4 @@
-﻿namespace Core.Urls
+namespace Web.Urls
 {
     public abstract class IdUrl : Url
     {

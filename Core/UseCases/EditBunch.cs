@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases

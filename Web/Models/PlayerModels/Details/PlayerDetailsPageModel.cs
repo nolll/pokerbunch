@@ -1,4 +1,3 @@
-using Core.Urls;
 using Core.UseCases;
 using Web.Components.PlayerModels.Badges;
 using Web.Models.MiscModels;

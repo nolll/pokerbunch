@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -34,7 +33,8 @@ namespace Core.UseCases
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
 
-            var message = new InvitationMessage(bunch, player, request.RegisterUrl);
+            var joinUrl = string.Format(request.JoinUrlFormat, bunch.Slug);
+            var message = new InvitationMessage(bunch.DisplayName, player, request.RegisterUrl, joinUrl);
             _messageSender.Send(request.Email, message);
 
             return new Result(player.Id);
@@ -48,13 +48,15 @@ namespace Core.UseCases
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; private set; }
             public string RegisterUrl { get; private set; }
+            public string JoinUrlFormat { get; private set; }
 
-            public Request(string userName, int playerId, string email, string registerUrl)
+            public Request(string userName, int playerId, string email, string registerUrl, string joinUrlFormat)
             {
                 UserName = userName;
                 PlayerId = playerId;
                 Email = email;
                 RegisterUrl = registerUrl;
+                JoinUrlFormat = joinUrlFormat;
             }
         }
 

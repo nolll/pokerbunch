@@ -1,9 +1,9 @@
 using System.Web.Mvc;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Edit;
+using Web.Urls;
 
 namespace Web.Controllers
 {

@@ -1,4 +1,4 @@
-using Core.Urls;
+using Web.Urls;
 
 namespace Web.Models.NavigationModels
 {

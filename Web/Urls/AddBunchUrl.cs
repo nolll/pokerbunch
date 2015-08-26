@@ -1,5 +1,3 @@
-using Core.Urls;
-
 namespace Web.Urls
 {
     public class AddBunchUrl : Url

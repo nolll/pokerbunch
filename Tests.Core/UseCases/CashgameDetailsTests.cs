@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;

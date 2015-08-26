@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.Repositories;
 using Core.Services;
-using Core.Urls;
 
 namespace Core.UseCases
 {

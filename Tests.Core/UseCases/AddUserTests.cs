@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Urls;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
