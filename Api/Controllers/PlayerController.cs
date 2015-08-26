@@ -8,6 +8,7 @@ namespace Api.Controllers
     {
         [Route("players/{slug}")]
         [AcceptVerbs("GET")]
+        [Authorize]
         public ApiPlayerList List(string slug)
         {
             var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request("henriks", slug));
@@ -16,6 +17,7 @@ namespace Api.Controllers
 
         [Route("player/{playerId}")]
         [AcceptVerbs("GET")]
+        [Authorize]
         public IHttpActionResult Details(int playerId)
         {
             var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request("henriks", playerId));
