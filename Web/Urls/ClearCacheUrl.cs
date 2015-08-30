@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class ClearCacheUrl : Url
+    public class ClearCacheUrl : SiteUrl
     {
         public ClearCacheUrl()
             : base("-/admin/clearcache")

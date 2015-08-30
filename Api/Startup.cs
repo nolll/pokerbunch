@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Api;
 using Api.Auth;
+using Api.Urls;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -25,7 +26,7 @@ namespace Api
             var oAuthServerOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString(new TokenUrl().Relative),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new SimpleAuthorizationServerProvider()
             };

@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public abstract class BunchWithOptionalYearUrl : Url
+    public abstract class BunchWithOptionalYearUrl : SiteUrl
     {
         protected BunchWithOptionalYearUrl(string format, string formatWithYear, string slug, int? year)
             : base(FormatBunchWithOptionalYear(format, formatWithYear, slug, year))

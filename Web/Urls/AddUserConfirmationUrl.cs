@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class AddUserConfirmationUrl : Url
+    public class AddUserConfirmationUrl : SiteUrl
     {
         public AddUserConfirmationUrl()
             : base(Routes.UserAddConfirmation)

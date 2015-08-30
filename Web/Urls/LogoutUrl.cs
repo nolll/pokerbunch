@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class LogoutUrl : Url
+    public class LogoutUrl : SiteUrl
     {
         public LogoutUrl()
             : base(Routes.AuthLogout)

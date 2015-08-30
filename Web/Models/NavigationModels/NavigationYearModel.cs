@@ -8,7 +8,7 @@ namespace Web.Models.NavigationModels
         public string Url { get; private set; }
         public string SelectedCssClass { get; private set; }
 
-        public NavigationYearModel(string label, Url url, bool isSelected)
+        public NavigationYearModel(string label, SiteUrl url, bool isSelected)
         {
             Text = label;
             Url = url.Relative;

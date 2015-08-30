@@ -35,7 +35,7 @@ namespace Web.Models.NavigationModels
             return new NavigationYearModel(label, url, isSelected);
         } 
 
-        private Url GetYearUrl(string slug, CashgameContext.CashgamePage cashgamePage, int? year = null)
+        private SiteUrl GetYearUrl(string slug, CashgameContext.CashgamePage cashgamePage, int? year = null)
         {
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Overview))
                 return new CashgameIndexUrl(slug);

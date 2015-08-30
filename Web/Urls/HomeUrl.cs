@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class HomeUrl : Url
+    public class HomeUrl : SiteUrl
     {
         public HomeUrl()
             : base(Routes.Home)

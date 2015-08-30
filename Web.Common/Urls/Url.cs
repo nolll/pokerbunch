@@ -1,4 +1,4 @@
-namespace Web.Urls
+namespace Web.Common.Urls
 {
     public abstract class Url
     {
@@ -16,8 +16,10 @@ namespace Web.Urls
 
         public string Absolute
         {
-            get { return string.Concat("http://pokerbunch.com", _url); }
+            get { return string.Format("http://{0}{1}", GetDomainName(), _url); }
         }
+
+        public abstract string GetDomainName();
 
         public override string ToString()
         {

@@ -320,7 +320,7 @@
     <Compile Include="Urls\SlugUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
-    <Compile Include="Urls\Url.cs" />
+    <Compile Include="Urls\SiteUrl.cs" />
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
     <Compile Include="Urls\UserUrl.cs" />

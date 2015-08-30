@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class BunchListUrl : Url
+    public class BunchListUrl : SiteUrl
     {
         public BunchListUrl()
             : base(Routes.BunchList)

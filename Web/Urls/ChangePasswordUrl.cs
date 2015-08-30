@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class ChangePasswordUrl : Url
+    public class ChangePasswordUrl : SiteUrl
     {
         public ChangePasswordUrl()
             : base(Routes.ChangePassword)

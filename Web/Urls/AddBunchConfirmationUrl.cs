@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class AddBunchConfirmationUrl : Url
+    public class AddBunchConfirmationUrl : SiteUrl
     {
         public AddBunchConfirmationUrl()
             : base(Routes.BunchAddConfirmation)

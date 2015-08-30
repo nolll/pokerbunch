@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Auth\Class1.cs" />
+    <Compile Include="Auth\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BunchController.cs" />
     <Compile Include="Controllers\CashgameTopListController.cs" />
@@ -128,6 +128,8 @@
     <Compile Include="Models\ApiPlayerList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Urls\ApiUrl.cs" />
+    <Compile Include="Urls\Routes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

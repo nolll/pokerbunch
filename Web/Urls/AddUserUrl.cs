@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class AddUserUrl : Url
+    public class AddUserUrl : SiteUrl
     {
         public AddUserUrl()
             : base(Routes.UserAdd)

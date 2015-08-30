@@ -17,7 +17,7 @@ namespace Web.Controllers
             return Redirect(returnUrl.Relative);
         }
 
-        private static Url CreateReturnUrl(DeletePlayer.Result result)
+        private static SiteUrl CreateReturnUrl(DeletePlayer.Result result)
         {
             if (result.Deleted)
                 return new PlayerIndexUrl(result.Slug);

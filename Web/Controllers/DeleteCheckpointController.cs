@@ -16,7 +16,7 @@ namespace Web.Controllers
             return Redirect(GetReturnUrl(result).Relative);
         }
 
-        private static Url GetReturnUrl(DeleteCheckpoint.Result result)
+        private static SiteUrl GetReturnUrl(DeleteCheckpoint.Result result)
         {
             if (result.GameIsRunning)
                 return new RunningCashgameUrl(result.Slug);

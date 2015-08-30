@@ -1,6 +1,6 @@
 namespace Web.Urls
 {
-    public class UserListUrl : Url
+    public class UserListUrl : SiteUrl
     {
         public UserListUrl()
             : base(Routes.UserList)
