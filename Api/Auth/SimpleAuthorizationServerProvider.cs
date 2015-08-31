@@ -13,17 +13,21 @@ namespace Api.Auth
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
-            //string clientId;
-            //string clientSecret;
-            //if (context.TryGetFormCredentials(out clientId, out clientSecret))
-            //{
-            //    var x = 0;
-            //    context.Validated(clientId);
-            //}
-            //else
-            //{
-            //    context.Rejected();
-            //}
+            string clientId;
+            string clientSecret;
+            if (context.TryGetFormCredentials(out clientId, out clientSecret))
+            {
+                var useCase = new UseCaseContainer();
+                var request = new VerifyAppKey.Request(clientId);
+                var result = useCase.VerifyAppKey.Execute(request);
+
+                if (result.IsValid)
+                {
+                    context.Validated(clientId);
+                    return;
+                }
+            }
+            context.Rejected();
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -37,7 +41,7 @@ namespace Api.Auth
                 var loginResult = useCase.Login.Execute(loginRequest);
 
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                identity.AddClaim(new Claim("sub", loginResult.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Name, loginResult.UserName));
 
                 context.Validated(identity);
             }

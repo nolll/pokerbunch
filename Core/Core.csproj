@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
+    <Compile Include="Exceptions\AppNotFoundException.cs" />
     <Compile Include="Exceptions\BunchExistsException.cs" />
     <Compile Include="Exceptions\BunchNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameHasResultsException.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
@@ -98,6 +101,8 @@
     <Compile Include="UseCases\AddPlayer.cs" />
     <Compile Include="UseCases\AddUser.cs" />
     <Compile Include="UseCases\AppContext.cs" />
+    <Compile Include="UseCases\AppDetails.cs" />
+    <Compile Include="UseCases\AppList.cs" />
     <Compile Include="UseCases\BaseContext.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
     <Compile Include="UseCases\BunchDetails.cs" />

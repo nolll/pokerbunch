@@ -1,5 +1,4 @@
 using Web.Common.Urls;
-using Web.Urls;
 
 namespace Api.Urls
 {
@@ -13,14 +12,6 @@ namespace Api.Urls
         public override string GetDomainName()
         {
             return "api.pokerbunch.com";
-        }
-    }
-
-    public class TokenUrl : ApiUrl
-    {
-        public TokenUrl()
-            : base(Routes.Token)
-        {
         }
     }
 }

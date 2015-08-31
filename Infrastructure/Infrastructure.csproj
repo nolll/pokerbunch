@@ -65,8 +65,8 @@
     <Compile Include="Storage\Interfaces\IEventStorage.cs" />
     <Compile Include="Storage\Interfaces\IPlayerStorage.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
-    <Compile Include="Storage\Interfaces\IUserStorage.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
+    <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
     <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCheckpointRepository.cs" />

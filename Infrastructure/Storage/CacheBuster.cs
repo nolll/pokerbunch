@@ -10,7 +10,7 @@ namespace Infrastructure.Storage
     public class CacheBuster : ICacheBuster
     {
         private readonly ICacheContainer _cacheContainer;
-        private readonly IUserStorage _userStorage;
+        private readonly SqlServerUserStorage _userStorage;
         private readonly IBunchStorage _bunchStorage;
         private readonly IPlayerStorage _playerStorage;
         private readonly ICashgameStorage _cashgameStorage;
@@ -18,7 +18,7 @@ namespace Infrastructure.Storage
 
         public CacheBuster(
             ICacheContainer cacheContainer,
-            IUserStorage userStorage,
+            SqlServerUserStorage userStorage,
             IBunchStorage bunchStorage,
             IPlayerStorage playerStorage,
             ICashgameStorage cashgameStorage,

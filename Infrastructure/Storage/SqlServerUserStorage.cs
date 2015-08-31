@@ -4,7 +4,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage
 {
-    public class SqlServerUserStorage : SqlServerStorageProvider, IUserStorage 
+    public class SqlServerUserStorage : SqlServerStorageProvider 
     {
         private const string UserDataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
         private const string UserIdSql = "SELECT u.UserID FROM [User] u ";

@@ -85,8 +85,14 @@ namespace Plumbing
             get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer, CacheBuster)); }
         }
 
-        private IUserStorage _userStorage;
-        private IUserStorage UserStorage
+        private IAppRepository _appRepository;
+        public IAppRepository AppRepository
+        {
+            get { return _appRepository ?? (_appRepository = new SqlAppRepository()); }
+        }
+
+        private SqlServerUserStorage _userStorage;
+        private SqlServerUserStorage UserStorage
         {
             get { return _userStorage ?? (_userStorage = new SqlServerUserStorage()); }
         }

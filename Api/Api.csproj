@@ -130,6 +130,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Urls\ApiUrl.cs" />
     <Compile Include="Urls\Routes.cs" />
+    <Compile Include="Urls\TokenUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

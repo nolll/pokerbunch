@@ -81,5 +81,10 @@ namespace Web.Common
         public InvitePlayerConfirmation InvitePlayerConfirmation { get { return new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public AddPlayer AddPlayer { get { return new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository); } }
         public DeletePlayer DeletePlayer { get { return new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.BunchRepository); } }
+
+        // Apps
+        public AppDetails AppDetails { get { return new AppDetails(_deps.AppRepository); } }
+        public VerifyAppKey VerifyAppKey { get { return new VerifyAppKey(_deps.AppRepository); } }
+        public AppList AppList { get { return new AppList(_deps.AppRepository); } }
     }
 }

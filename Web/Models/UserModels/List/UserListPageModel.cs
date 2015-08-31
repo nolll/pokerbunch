@@ -5,14 +5,14 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.List
 {
-	public class UserListPageModel : AppPageModel
+    public class UserListPageModel : AppPageModel
     {
         public IList<UserListItemModel> UserModels { get; private set; }
 
-	    public UserListPageModel(AppContext.Result contextResult, UserList.Result userListResult)
+        public UserListPageModel(AppContext.Result contextResult, UserList.Result userListResult)
             : base("Users", contextResult)
-	    {
+        {
             UserModels = userListResult.Users.Select(o => new UserListItemModel(o)).ToList();
-	    }
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace Api
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString(new TokenUrl().Relative),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
                 Provider = new SimpleAuthorizationServerProvider()
             };
 

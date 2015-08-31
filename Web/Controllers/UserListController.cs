@@ -12,8 +12,8 @@ namespace Web.Controllers
         public ActionResult List()
         {
             var context = GetAppContext();
-            var showUserListResult = UseCase.UserList.Execute(new UserList.Request(CurrentUserName));
-            var model = new UserListPageModel(context, showUserListResult);
+            var userListResult = UseCase.UserList.Execute(new UserList.Request(CurrentUserName));
+            var model = new UserListPageModel(context, userListResult);
             return View("~/Views/Pages/UserList/UserList.cshtml", model);
         }
     }

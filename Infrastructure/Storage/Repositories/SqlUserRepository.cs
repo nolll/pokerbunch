@@ -6,18 +6,17 @@ using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.Cache;
 using Infrastructure.Storage.Classes;
-using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class SqlUserRepository : IUserRepository
     {
-        private readonly IUserStorage _userStorage;
+        private readonly SqlServerUserStorage _userStorage;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheBuster _cacheBuster;
 
         public SqlUserRepository(
-            IUserStorage userStorage,
+            SqlServerUserStorage userStorage,
             ICacheContainer cacheContainer,
             ICacheBuster cacheBuster)
         {

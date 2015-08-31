@@ -62,6 +62,9 @@ namespace Web.Urls
         public const string ForgotPassword = "user/forgotpassword";
         public const string ForgotPasswordConfirmation = "user/passwordsent";
 
+        public const string AppList = "app/list";
+        public const string AppDetails = "app/details/{id}";
+
         public const string AdminSendEmail = "admin/sendemail";
         public const string AdminClearCache = "admin/clearcache";
 

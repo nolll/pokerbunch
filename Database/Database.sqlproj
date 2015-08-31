@@ -80,6 +80,7 @@
     <Build Include="dbo\Tables\UserTwitter.sql" />
     <Build Include="dbo\Tables\CashgameComment.sql" />
     <Build Include="dbo\Tables\Player.sql" />
+    <Build Include="dbo\Tables\App.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
