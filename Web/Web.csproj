@@ -175,7 +175,7 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MatrixController.cs" />
     <Compile Include="Controllers\PlayerDetailsController.cs" />
-    <Compile Include="Controllers\PlayerIndexController.cs" />
+    <Compile Include="Controllers\PlayerListController.cs" />
     <Compile Include="Controllers\RunningCashgameController.cs" />
     <Compile Include="Controllers\TopListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />

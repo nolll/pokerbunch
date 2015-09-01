@@ -30,13 +30,13 @@ namespace Infrastructure.Storage.Repositories
 
         public Bunch GetBySlug(string slug)
         {
-            var userId = GetIdBySlug(slug);
-            if (!userId.HasValue)
+            var id = GetIdBySlug(slug);
+            if (!id.HasValue)
                 throw new BunchNotFoundException(slug);
-            var bunch = GetById(userId.Value);
+            var bunch = GetById(id.Value);
             if (bunch == null)
                 throw new BunchNotFoundException(slug);
-            return GetById(userId.Value);
+            return GetById(id.Value);
         }
 
         public Bunch GetById(int id)

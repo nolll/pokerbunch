@@ -134,9 +134,9 @@ namespace Tests.Web.Routing
         }
 
         [Test]
-        public void PlayerIndex()
+        public void PlayerList()
         {
-            _routes.ShouldMap("/player/index/a").To<PlayerIndexController>(x => x.Index("a"));
+            _routes.ShouldMap("/player/list/a").To<PlayerListController>(x => x.List("a"));
         }
 
         [Test]

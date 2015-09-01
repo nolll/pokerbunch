@@ -48,7 +48,7 @@ namespace Web.Urls
         public const string PlayerAddConfirmation = "player/created/{slug}";
         public const string PlayerDelete = "player/delete/{id}";
         public const string PlayerDetails = "player/details/{id}";
-        public const string PlayerIndex = "player/index/{slug}";
+        public const string PlayerList = "player/list/{slug}";
         public const string PlayerInvite = "player/invite/{id}";
         public const string PlayerInviteConfirmation = "player/invited/{id}";
 

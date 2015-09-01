@@ -356,7 +356,7 @@ namespace Tests.Web.ServiceTests
 
             var result = new PlayerIndexUrl(slug);
 
-            Assert.AreEqual("/player/index/a", result.Relative);
+            Assert.AreEqual("/player/list/a", result.Relative);
         }
 
         [Test]
