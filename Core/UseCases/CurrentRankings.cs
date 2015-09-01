@@ -83,7 +83,7 @@ namespace Core.UseCases
 
             public Item(CashgameTotalResult totalResult, CashgameResult lastGameResult, int index, Currency currency)
             {
-                Rank = index + 1;
+                Rank = index;
                 PlayerId = totalResult.Player.Id;
                 Name = totalResult.Player.DisplayName;
                 TotalWinnings = new MoneyResult(totalResult.Winnings, currency);
