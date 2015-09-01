@@ -10,7 +10,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public ApiCashgameTopList Index(string slug, int? year = null)
         {
-            var topListResult = UseCase.TopList.Execute(new TopList.Request("henriks", slug, TopList.SortOrder.Winnings, year));
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(CurrentUserName, slug, TopList.SortOrder.Winnings, year));
             return new ApiCashgameTopList(topListResult);
         }
     }
