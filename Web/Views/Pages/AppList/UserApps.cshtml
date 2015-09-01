@@ -1,0 +1,21 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.AppModels.List.UserAppsPageModel
+
+@{
+    Layout = PageLayout.OneColumn;
+}
+
+<div class="block gutter">
+    <h1 class="page-heading">User Apps</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="simple-list">
+        @foreach (var appModel in Model.AppModels)
+        {
+            <li class="simple-list__item">
+                @Html.Partial("AppList/Item", appModel)
+            </li>
+        }
+    </ul>
+</div>

@@ -13,8 +13,10 @@ namespace Web.Models.UserModels
         public string Email { get; private set; }
         public string EditUrl { get; private set; }
         public string ChangePasswordUrl { get; private set; }
+        public string AppsUrl { get; private set; }
         public bool ShowEditLink { get; private set; }
         public bool ShowPasswordLink { get; private set; }
+        public bool ShowAppsLink { get; private set; }
         public AvatarModel AvatarModel { get; private set; }
 
         public UserDetailsPageModel(AppContext.Result contextResult, UserDetails.Result userDetails)
@@ -29,6 +31,8 @@ namespace Web.Models.UserModels
             ShowPasswordLink = userDetails.CanChangePassword;
             EditUrl = new EditUserUrl(userDetails.UserName).Relative;
             ChangePasswordUrl = new ChangePasswordUrl().Relative;
+            AppsUrl = new UserAppsUrl().Relative;
+            ShowAppsLink = userDetails.CanViewApps;
         }
     }
 }

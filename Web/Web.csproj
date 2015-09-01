@@ -185,8 +185,10 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\Component.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
+    <Compile Include="Models\AppModels\Details\AppDetailsPageModel.cs" />
     <Compile Include="Models\AppModels\List\AppListItemModel.cs" />
-    <Compile Include="Models\AppModels\List\AppListPageModel.cs" />
+    <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
+    <Compile Include="Models\AppModels\List\UserAppsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Chart\CashgameChartModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
@@ -276,7 +278,8 @@
     <Compile Include="Urls\AddPlayerUrl.cs" />
     <Compile Include="Urls\AddUserConfirmationUrl.cs" />
     <Compile Include="Urls\AddUserUrl.cs" />
-    <Compile Include="Urls\AppListUrl.cs" />
+    <Compile Include="Urls\AllAppsUrl.cs" />
+    <Compile Include="Urls\AppDetailsUrl.cs" />
     <Compile Include="Urls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\BunchListUrl.cs" />
     <Compile Include="Urls\BunchWithOptionalYearUrl.cs" />
@@ -294,6 +297,7 @@
     <Compile Include="Urls\DeleteCashgameUrl.cs" />
     <Compile Include="Urls\DeleteCheckpointUrl.cs" />
     <Compile Include="Urls\DeletePlayerUrl.cs" />
+    <Compile Include="Urls\EditAppUrl.cs" />
     <Compile Include="Urls\EditBunchUrl.cs" />
     <Compile Include="Urls\EditCashgameUrl.cs" />
     <Compile Include="Urls\EditCheckpointUrl.cs" />
@@ -325,6 +329,7 @@
     <Compile Include="Urls\TestEmailUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
     <Compile Include="Urls\SiteUrl.cs" />
+    <Compile Include="Urls\UserAppsUrl.cs" />
     <Compile Include="Urls\UserDetailsUrl.cs" />
     <Compile Include="Urls\UserListUrl.cs" />
     <Compile Include="Urls\UserUrl.cs" />
@@ -458,8 +463,10 @@
     <Content Include="Views\Pages\UserList\Item.cshtml" />
     <Content Include="Views\Pages\UserList\UserList.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Pages\AppList\AppList.cshtml" />
+    <Content Include="Views\Pages\AppList\AllApps.cshtml" />
     <Content Include="Views\Pages\AppList\Item.cshtml" />
+    <Content Include="Views\Pages\AppList\UserApps.cshtml" />
+    <Content Include="Views\Pages\AppDetails\AppDetails.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

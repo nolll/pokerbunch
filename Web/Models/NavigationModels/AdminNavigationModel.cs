@@ -23,7 +23,7 @@ namespace Web.Models.NavigationModels
                 {
                     new NavigationNode("Bunches", new BunchListUrl().Relative),
                     new NavigationNode("Users", new UserListUrl().Relative),
-                    new NavigationNode("Apps", new AppListUrl().Relative),
+                    new NavigationNode("Apps", new AllAppsUrl().Relative),
                     new NavigationNode("Test Email", new TestEmailUrl().Relative),
                     new NavigationNode("Clear Cache", new ClearCacheUrl().Relative)
                 };

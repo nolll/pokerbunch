@@ -2,28 +2,60 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AppList
     {
         private readonly IAppRepository _appRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AppList(IAppRepository appRepository)
+        public AppList(IAppRepository appRepository, IUserRepository userRepository)
         {
             _appRepository = appRepository;
+            _userRepository = userRepository;
         }
 
-        public Result Execute(Request request)
+        public Result Execute(AllAppsRequest request)
         {
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            RoleHandler.RequireAdmin(user);
             var apps = _appRepository.ListApps();
 
             return new Result(apps);
         }
 
-        public class Request
+        public Result Execute(UserAppsRequest request)
         {
-            public Request()
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var apps = _appRepository.ListApps(user.Id);
+
+            return new Result(apps);
+        }
+
+        public abstract class Request
+        {
+            public string UserName { get; private set; }
+
+            protected Request(string userName)
+            {
+                UserName = userName;
+            }
+        }
+
+        public class AllAppsRequest : Request
+        {
+            public AllAppsRequest(string userName)
+                : base(userName)
+            {
+            }
+        }
+
+        public class UserAppsRequest : Request
+        {
+            public UserAppsRequest(string userName)
+                : base(userName)
             {
             }
         }

@@ -153,6 +153,7 @@
     <Compile Include="UseCases\TestEmail.cs" />
     <Compile Include="UseCases\UserDetails.cs" />
     <Compile Include="UseCases\UserList.cs" />
+    <Compile Include="UseCases\VerifyAppKey.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>

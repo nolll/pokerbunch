@@ -26,8 +26,9 @@ namespace Core.UseCases
             var avatarUrl = GravatarService.GetAvatarUrl(displayUser.Email);
             var canEdit = currentUser.IsAdmin || isViewingCurrentUser;
             var canChangePassword = isViewingCurrentUser;
+            var canViewApps = isViewingCurrentUser;
 
-            return new Result(userName, displayName, realName, email, avatarUrl, canEdit, canChangePassword);
+            return new Result(userName, displayName, realName, email, avatarUrl, canEdit, canChangePassword, canViewApps);
         }
 
         public class Request
@@ -51,8 +52,9 @@ namespace Core.UseCases
             public string AvatarUrl { get; private set; }
             public bool CanEdit { get; private set; }
             public bool CanChangePassword { get; private set; }
+            public bool CanViewApps { get; private set; }
 
-            public Result(string userName, string displayName, string realName, string email, string avatarUrl, bool canEdit, bool canChangePassword)
+            public Result(string userName, string displayName, string realName, string email, string avatarUrl, bool canEdit, bool canChangePassword, bool canViewApps)
             {
                 UserName = userName;
                 DisplayName = displayName;
@@ -61,6 +63,7 @@ namespace Core.UseCases
                 AvatarUrl = avatarUrl;
                 CanEdit = canEdit;
                 CanChangePassword = canChangePassword;
+                CanViewApps = canViewApps;
             }
         }
     }
