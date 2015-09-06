@@ -1,4 +1,5 @@
 using System.Web.Http;
+using Api.Auth;
 using Api.Models;
 using Api.Urls;
 using Core.UseCases;
@@ -9,7 +10,7 @@ namespace Api.Controllers
     {
         [Route(Routes.PlayerList)]
         [AcceptVerbs("GET")]
-        [Authorize]
+        [ApiAuthorize]
         public ApiPlayerList List(string slug)
         {
             var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(CurrentUserName, slug));
@@ -18,7 +19,7 @@ namespace Api.Controllers
 
         [Route(Routes.PlayerDetails)]
         [AcceptVerbs("GET")]
-        [Authorize]
+        [ApiAuthorize]
         public IHttpActionResult Details(int id)
         {
             var playerDetailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, id));
