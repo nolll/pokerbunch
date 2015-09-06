@@ -66,6 +66,8 @@ namespace Web.Urls
         public const string UserApps = "user/apps";
         public const string AppDetails = "app/details/{id}";
         public const string AppEdit = "app/edit/{id}";
+        public const string AppAdd = "app/add";
+        public const string AppAddConfirmation = "app/added";
 
         public const string AdminSendEmail = "admin/sendemail";
         public const string AdminClearCache = "admin/clearcache";

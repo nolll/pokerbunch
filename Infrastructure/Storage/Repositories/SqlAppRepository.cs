@@ -51,9 +51,16 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadIntList("ID");
         }
 
-        public void Add(App app)
+        public int Add(App app)
         {
-            throw new System.NotImplementedException();
+            const string sql = "INSERT INTO [app] (AppKey, Name, UserId) VALUES (@appKey, @name, @userId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+		            new SimpleSqlParameter("@appKey", app.AppKey),
+		            new SimpleSqlParameter("@name", app.Name),
+		            new SimpleSqlParameter("@userId", app.UserId)
+		        };
+            return ExecuteInsert(sql, parameters);
         }
 
         public void Update(App app)

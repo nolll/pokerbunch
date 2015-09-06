@@ -94,6 +94,7 @@
     <Compile Include="Services\TimeZoneService.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
+    <Compile Include="UseCases\AddApp.cs" />
     <Compile Include="UseCases\AddBunchForm.cs" />
     <Compile Include="UseCases\AddBunch.cs" />
     <Compile Include="UseCases\AddCashgameForm.cs" />

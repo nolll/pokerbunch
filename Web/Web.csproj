@@ -140,6 +140,7 @@
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddPlayerController.cs" />
+    <Compile Include="Controllers\AddAppController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppListController.cs" />
@@ -185,6 +186,8 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\Component.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
+    <Compile Include="Models\AppModels\Add\AddAppPageModel.cs" />
+    <Compile Include="Models\AppModels\Add\AddAppPostModel.cs" />
     <Compile Include="Models\AppModels\Details\AppDetailsPageModel.cs" />
     <Compile Include="Models\AppModels\List\AppListItemModel.cs" />
     <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
@@ -271,6 +274,8 @@
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="Urls\AddAppConfirmationUrl.cs" />
+    <Compile Include="Urls\AddAppUrl.cs" />
     <Compile Include="Urls\AddBunchConfirmationUrl.cs" />
     <Compile Include="Urls\AddBunchUrl.cs" />
     <Compile Include="Urls\AddCashgameUrl.cs" />
@@ -467,6 +472,7 @@
     <Content Include="Views\Pages\AppList\Item.cshtml" />
     <Content Include="Views\Pages\AppList\UserApps.cshtml" />
     <Content Include="Views\Pages\AppDetails\AppDetails.cshtml" />
+    <Content Include="Views\Pages\AddApp\AddApp.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

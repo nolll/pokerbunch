@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
@@ -19,7 +20,7 @@ namespace Core.UseCases
 
         public Result Execute(AllAppsRequest request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
             RoleHandler.RequireAdmin(user);
             var apps = _appRepository.ListApps();
 
@@ -28,7 +29,7 @@ namespace Core.UseCases
 
         public Result Execute(UserAppsRequest request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
             var apps = _appRepository.ListApps(user.Id);
 
             return new Result(apps);
@@ -36,26 +37,26 @@ namespace Core.UseCases
 
         public abstract class Request
         {
-            public string UserName { get; private set; }
+            public string CurrentUserName { get; private set; }
 
-            protected Request(string userName)
+            protected Request(string currentUserName)
             {
-                UserName = userName;
+                CurrentUserName = currentUserName;
             }
         }
 
         public class AllAppsRequest : Request
         {
-            public AllAppsRequest(string userName)
-                : base(userName)
+            public AllAppsRequest(string currentUserName)
+                : base(currentUserName)
             {
             }
         }
 
         public class UserAppsRequest : Request
         {
-            public UserAppsRequest(string userName)
-                : base(userName)
+            public UserAppsRequest(string currentUserName)
+                : base(currentUserName)
             {
             }
         }

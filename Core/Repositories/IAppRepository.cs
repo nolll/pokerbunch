@@ -9,7 +9,7 @@ namespace Core.Repositories
         IList<App> ListApps(int userId);
         App Get(int id);
         App Get(string appKey);
-        void Add(App app);
+        int Add(App app);
         void Update(App app);
     }
 }

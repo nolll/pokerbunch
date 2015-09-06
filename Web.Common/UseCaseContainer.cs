@@ -86,5 +86,6 @@ namespace Web.Common
         public AppDetails AppDetails { get { return new AppDetails(_deps.AppRepository); } }
         public VerifyAppKey VerifyAppKey { get { return new VerifyAppKey(_deps.AppRepository); } }
         public AppList AppList { get { return new AppList(_deps.AppRepository, _deps.UserRepository); } }
+        public AddApp AddApp { get { return new AddApp(_deps.AppRepository, _deps.UserRepository); } }
     }
 }

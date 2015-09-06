@@ -2,7 +2,7 @@
 @model Web.Models.AppModels.List.UserAppsPageModel
 
 @{
-    Layout = PageLayout.OneColumn;
+    Layout = PageLayout.TwoColumns;
 }
 
 <div class="block gutter">
@@ -19,3 +19,12 @@
         }
     </ul>
 </div>
+
+@section Aside1
+{
+    <div class="block gutter">
+        <div>
+            <a href="@Model.AddUrl" class="button button--action">Add App</a>
+        </div>
+    </div>
+}
