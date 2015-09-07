@@ -24,7 +24,7 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public void Execute(Request request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -51,6 +51,8 @@ namespace Core.UseCases
                 _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
             else
                 _checkpointRepository.AddCheckpoint(postedCheckpoint);
+
+            return new Result(cashgame.Id);
         }
 
         public class Request
@@ -69,6 +71,16 @@ namespace Core.UseCases
                 PlayerId = playerId;
                 Stack = stack;
                 CurrentTime = currentTime;
+            }
+        }
+
+        public class Result
+        {
+            public int CashgameId { get; private set; }
+
+            public Result(int cashgameId)
+            {
+                CashgameId = cashgameId;
             }
         }
     }

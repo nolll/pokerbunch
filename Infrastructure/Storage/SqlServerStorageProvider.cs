@@ -8,7 +8,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage
 {
-	public abstract class SqlServerStorageProvider
+	public class SqlServerStorageProvider
     {
 	    private SqlConnection GetConnection()
         {
@@ -21,7 +21,7 @@ namespace Infrastructure.Storage
 	        get { return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString; }
 	    }
 
-	    protected IStorageDataReader Query(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
+	    public IStorageDataReader Query(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
 	    {
             using (var connection = GetConnection())
             {
@@ -40,13 +40,13 @@ namespace Infrastructure.Storage
             }
 	    }
 
-        protected IStorageDataReader Query(string sql, ListSqlParameter parameter)
+	    public IStorageDataReader Query(string sql, ListSqlParameter parameter)
 	    {
 	        var sqlWithIdList = sql.Replace(parameter.ParameterName, parameter.ParameterNameList);
 	        return Query(sqlWithIdList, parameter.ParameterList);
 	    }
 
-        protected int Execute(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
+	    public int Execute(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
         {
             using (var connection = GetConnection())
             {
@@ -62,7 +62,7 @@ namespace Infrastructure.Storage
             }
         }
 
-        protected int ExecuteInsert(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
+        public int ExecuteInsert(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
         {
             using (var connection = GetConnection())
             {

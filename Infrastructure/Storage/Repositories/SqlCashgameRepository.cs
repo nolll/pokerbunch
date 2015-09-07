@@ -142,25 +142,19 @@ namespace Infrastructure.Storage.Repositories
 		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
-            var id = _cashgameStorage.AddGame(bunch, rawCashgame);
-            _cacheBuster.CashgameStarted(id);
-			return id;
+            return _cashgameStorage.AddGame(bunch, rawCashgame);
 		}
 
 		public bool UpdateGame(Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame);
-            var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
-            return success;
+            return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
 		public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame, GameStatus.Finished);
-            var success = _cashgameStorage.UpdateGame(rawCashgame);
-            _cacheBuster.CashgameUpdated(cashgame.Id);
-			return success;
+            return _cashgameStorage.UpdateGame(rawCashgame);
 		}
 
 		public bool HasPlayed(int playerId)

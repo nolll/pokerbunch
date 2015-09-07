@@ -21,7 +21,7 @@ namespace Core.UseCases
             _playerRepository = playerRepository;
         }
 
-        public void Execute(Request request)
+        public Result Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -48,6 +48,8 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = new Player(id, user.Id, Role.Manager);
             _playerRepository.Add(player);
+
+            return new Result(bunch.Id);
         }
 
         private static Bunch CreateBunch(Request request)
@@ -89,6 +91,12 @@ namespace Core.UseCases
 
         public class Result
         {
+            public int BunchId { get; private set; }
+
+            public Result(int bunchId)
+            {
+                BunchId = bunchId;
+            }
         }
     }
 }

@@ -1,11 +1,22 @@
 ﻿using System.Web.Http;
 using Web.Common;
+using Web.Common.Cache;
 
 namespace Api.Controllers
 {
     public abstract class BaseApiController : ApiController
     {
-        protected readonly UseCaseContainer UseCase = new UseCaseContainer();
+        private readonly Bootstrap _bootstrap = new Bootstrap();
+
+        protected UseCaseContainer UseCase
+        {
+            get { return _bootstrap.UseCases; }
+        }
+
+        protected CacheBuster Buster
+        {
+            get { return _bootstrap.CacheBuster; }
+        }
 
         protected string CurrentUserName
         {

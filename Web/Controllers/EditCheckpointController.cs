@@ -25,6 +25,7 @@ namespace Web.Controllers
             {
                 var request = new EditCheckpoint.Request(CurrentUserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
+                Buster.CashgameUpdated(result.CashgameId);
                 return Redirect(new CashgameActionUrl(result.CashgameId, result.PlayerId).Relative);
             }
             catch (ValidationException ex)

@@ -25,6 +25,7 @@ namespace Web.Controllers
             {
                 var request = new EditCashgame.Request(CurrentUserName, id, postModel.Location);
                 var result = UseCase.EditCashgame.Execute(request);
+                Buster.CashgameStarted(id);
                 return Redirect(new CashgameDetailsUrl(result.CashgameId).Relative);
             }
             catch (ValidationException ex)

@@ -22,7 +22,8 @@ namespace Web.Controllers
             try
             {
                 var request = new ForgotPassword.Request(postModel.Email, new LoginUrl().Absolute);
-                UseCase.ForgotPassword.Execute(request);
+                var result = UseCase.ForgotPassword.Execute(request);
+                Buster.UserUpdated(result.UserId);
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }
             catch (ValidationException ex)

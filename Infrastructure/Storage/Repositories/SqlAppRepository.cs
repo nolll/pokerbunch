@@ -5,10 +5,17 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class SqlAppRepository : SqlServerStorageProvider, IAppRepository
+    public class SqlAppRepository : IAppRepository
     {
         private const string AppDataSql = "SELECT a.ID, a.AppKey, a.Name, a.UserId FROM [App] a ";
         private const string AppIdSql = "SELECT a.ID FROM [App] a ";
+
+        private SqlServerStorageProvider _db;
+
+        public SqlAppRepository()
+        {
+            _db = new SqlServerStorageProvider();
+        }
 
         public IList<App> ListApps()
         {
@@ -29,7 +36,7 @@ namespace Infrastructure.Storage.Repositories
             {
                 new SimpleSqlParameter("@appId", id)
             };
-            var reader = Query(sql, parameters);
+            var reader = _db.Query(sql, parameters);
             return reader.ReadOne(CreateApp);
         }
 
@@ -40,14 +47,14 @@ namespace Infrastructure.Storage.Repositories
             {
                 new SimpleSqlParameter("@appKey", appKey)
             };
-            var reader = Query(sql, parameters);
+            var reader = _db.Query(sql, parameters);
             return reader.ReadOne(CreateApp);
         }
 
         private IList<int> GetAppIdList()
         {
             var sql = string.Concat(AppIdSql, "ORDER BY a.Name");
-            var reader = Query(sql);
+            var reader = _db.Query(sql);
             return reader.ReadIntList("ID");
         }
 
@@ -60,7 +67,7 @@ namespace Infrastructure.Storage.Repositories
 		            new SimpleSqlParameter("@name", app.Name),
 		            new SimpleSqlParameter("@userId", app.UserId)
 		        };
-            return ExecuteInsert(sql, parameters);
+            return _db.ExecuteInsert(sql, parameters);
         }
 
         public void Update(App app)
@@ -75,7 +82,7 @@ namespace Infrastructure.Storage.Repositories
             {
                 new SimpleSqlParameter("@userId", userId)
             };
-            var reader = Query(sql, parameters);
+            var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("ID");
         }
 
@@ -83,7 +90,7 @@ namespace Infrastructure.Storage.Repositories
         {
             var sql = string.Concat(AppDataSql, "WHERE a.ID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
-            var reader = Query(sql, parameter);
+            var reader = _db.Query(sql, parameter);
             return reader.ReadList(CreateApp);
         }
 

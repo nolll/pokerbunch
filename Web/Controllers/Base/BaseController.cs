@@ -6,13 +6,24 @@ using Core.Exceptions;
 using Core.Services;
 using Core.UseCases;
 using Web.Common;
+using Web.Common.Cache;
 using Web.Models.ErrorModels;
 
 namespace Web.Controllers.Base
 {
     public class BaseController : Controller
     {
-        protected readonly UseCaseContainer UseCase = new UseCaseContainer();
+        private readonly Bootstrap _bootstrap = new Bootstrap();
+
+        protected UseCaseContainer UseCase
+        {
+            get { return _bootstrap.UseCases; }
+        }
+
+        protected CacheBuster Buster
+        {
+            get { return _bootstrap.CacheBuster; }
+        }
 
         private BaseContext.Result GetBaseContext()
         {

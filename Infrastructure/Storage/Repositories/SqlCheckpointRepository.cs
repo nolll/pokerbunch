@@ -22,24 +22,18 @@ namespace Infrastructure.Storage.Repositories
         public int AddCheckpoint(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
-            var id = _checkpointStorage.AddCheckpoint(rawCheckpoint);
-            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
-            return id;
+            return _checkpointStorage.AddCheckpoint(rawCheckpoint);
         }
 
         public bool UpdateCheckpoint(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
-            var success = _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
-            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
-            return success;
+            return _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
         }
 
         public bool DeleteCheckpoint(Checkpoint checkpoint)
         {
-            var success = _checkpointStorage.DeleteCheckpoint(checkpoint.Id);
-            _cacheBuster.CashgameUpdated(checkpoint.CashgameId);
-            return success;
+            return _checkpointStorage.DeleteCheckpoint(checkpoint.Id);
         }
 
         public Checkpoint GetCheckpoint(int checkpointId)

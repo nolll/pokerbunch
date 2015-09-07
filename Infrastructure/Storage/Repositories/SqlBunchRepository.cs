@@ -62,17 +62,13 @@ namespace Infrastructure.Storage.Repositories
         public int Add(Bunch bunch)
         {
             var rawHomegame = RawBunch.Create(bunch);
-            var id = _bunchStorage.AddBunch(rawHomegame);
-            _cacheBuster.BunchAdded();
-            return id;
+            return _bunchStorage.AddBunch(rawHomegame);
         }
 
         public bool Save(Bunch bunch)
         {
             var rawHomegame = RawBunch.Create(bunch);
-            var success = _bunchStorage.UpdateBunch(rawHomegame);
-            _cacheBuster.BunchUpdated(bunch.Id);
-            return success;
+            return _bunchStorage.UpdateBunch(rawHomegame);
         }
 
         private Bunch GetByIdUncached(int id)

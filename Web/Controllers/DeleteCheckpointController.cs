@@ -13,6 +13,7 @@ namespace Web.Controllers
         {
             var request = new DeleteCheckpoint.Request(CurrentUserName, id);
             var result = UseCase.DeleteCheckpoint.Execute(request);
+            Buster.CashgameUpdated(result.CashgameId);
             return Redirect(GetReturnUrl(result).Relative);
         }
 

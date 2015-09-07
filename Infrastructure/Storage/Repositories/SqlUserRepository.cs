@@ -14,6 +14,7 @@ namespace Infrastructure.Storage.Repositories
         private readonly SqlServerUserStorage _userStorage;
         private readonly ICacheContainer _cacheContainer;
         private readonly ICacheBuster _cacheBuster;
+        private readonly SqlServerStorageProvider _db;
 
         public SqlUserRepository(
             SqlServerUserStorage userStorage,
@@ -23,6 +24,7 @@ namespace Infrastructure.Storage.Repositories
             _userStorage = userStorage;
             _cacheContainer = cacheContainer;
             _cacheBuster = cacheBuster;
+            _db = new SqlServerStorageProvider();
         }
 
         public User GetById(int id)
@@ -47,17 +49,21 @@ namespace Infrastructure.Storage.Repositories
         public bool Save(User user)
         {
             var rawUser = RawUser.Create(user);
-            var updated = _userStorage.UpdateUser(rawUser);
-            _cacheBuster.UserUpdated(user.Id);
-            return updated;
+            return _userStorage.UpdateUser(rawUser);
         }
 
         public int Add(User user)
         {
-            var rawUser = RawUser.Create(user);
-            var id = _userStorage.AddUser(rawUser);
-            _cacheBuster.UserAdded();
-            return id;
+            const string sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Password, Salt) VALUES (@userName, @displayName, @email, 1, @password, @salt) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+		            new SimpleSqlParameter("@userName", user.UserName),
+		            new SimpleSqlParameter("@displayName", user.DisplayName),
+		            new SimpleSqlParameter("@email", user.Email),
+		            new SimpleSqlParameter("@password", user.EncryptedPassword),
+		            new SimpleSqlParameter("@salt", user.Salt)
+		        };
+            return _db.ExecuteInsert(sql, parameters);
         }
 
         private User GetByIdUncached(int id)

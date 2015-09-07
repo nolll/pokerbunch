@@ -5,7 +5,12 @@ namespace Web.Common
 {
     public class UseCaseContainer
     {
-        private readonly Dependencies _deps = new Dependencies();
+        private readonly Dependencies _deps;
+
+        public UseCaseContainer(Dependencies deps)
+        {
+            _deps = deps;
+        }
 
         // Contexts
         public BaseContext BaseContext { get { return new BaseContext(); } }

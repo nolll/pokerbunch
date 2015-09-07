@@ -30,17 +30,13 @@ namespace Core.UseCases
             var bunch = _bunchRepository.GetBySlug(request.Slug);
             var players = _playerRepository.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
-            if (player != null)
-            {
-                var user = _userRepository.GetByNameOrEmail(request.UserName);
-                _playerRepository.JoinHomegame(player, bunch, user.Id);
-            }
-            else
-            {
+            
+            if (player == null)
                 throw new InvalidJoinCodeException();
-            }
-
-            return new Result(bunch.Slug);
+            
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            _playerRepository.JoinHomegame(player, bunch, user.Id);
+            return new Result(bunch.Slug, player.Id);
         }
         
         private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
@@ -72,10 +68,12 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
+            public int PlayerId { get; private set; }
 
-            public Result(string slug)
+            public Result(string slug, int playerId)
             {
                 Slug = slug;
+                PlayerId = playerId;
             }
         }
     }

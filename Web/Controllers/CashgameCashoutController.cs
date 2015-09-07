@@ -15,7 +15,8 @@ namespace Web.Controllers
         public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
         {
             var request = new Cashout.Request(CurrentUserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
-            UseCase.Cashout.Execute(request);
+            var result = UseCase.Cashout.Execute(request);
+            Buster.CashgameUpdated(result.CashgameId);
             return JsonView(new JsonViewModelOk());
         }
     }

@@ -5,6 +5,7 @@ using Core.Exceptions;
 using Core.UseCases;
 using Microsoft.Owin.Security.OAuth;
 using Web.Common;
+using Web.Common.Cache;
 
 namespace Api.Auth
 {
@@ -17,9 +18,8 @@ namespace Api.Auth
             string clientSecret;
             if (context.TryGetFormCredentials(out clientId, out clientSecret))
             {
-                var useCase = new UseCaseContainer();
                 var request = new VerifyAppKey.Request(clientId);
-                var result = useCase.VerifyAppKey.Execute(request);
+                var result = UseCase.VerifyAppKey.Execute(request);
 
                 if (result.IsValid)
                 {
@@ -36,9 +36,8 @@ namespace Api.Auth
 
             try
             {
-                var useCase = new UseCaseContainer();
                 var loginRequest = new Login.Request(context.UserName, context.Password);
-                var loginResult = useCase.Login.Execute(loginRequest);
+                var loginResult = UseCase.Login.Execute(loginRequest);
 
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, loginResult.UserName));
@@ -53,6 +52,11 @@ namespace Api.Auth
             {
                 context.SetError("invalid_grant", e.Message);
             }
+        }
+
+        private UseCaseContainer UseCase
+        {
+            get { return new Bootstrap().UseCases; }
         }
     }
 }

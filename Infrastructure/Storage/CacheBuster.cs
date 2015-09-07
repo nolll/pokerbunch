@@ -7,81 +7,26 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage
 {
-    public class CacheBuster : ICacheBuster
+    public class CacheBuster1 : ICacheBuster
     {
         private readonly ICacheContainer _cacheContainer;
-        private readonly SqlServerUserStorage _userStorage;
         private readonly IBunchStorage _bunchStorage;
         private readonly IPlayerStorage _playerStorage;
         private readonly ICashgameStorage _cashgameStorage;
         private readonly ICheckpointStorage _checkpointStorage;
 
-        public CacheBuster(
+        public CacheBuster1(
             ICacheContainer cacheContainer,
-            SqlServerUserStorage userStorage,
             IBunchStorage bunchStorage,
             IPlayerStorage playerStorage,
             ICashgameStorage cashgameStorage,
             ICheckpointStorage checkpointStorage)
         {
             _cacheContainer = cacheContainer;
-            _userStorage = userStorage;
             _bunchStorage = bunchStorage;
             _playerStorage = playerStorage;
             _cashgameStorage = cashgameStorage;
             _checkpointStorage = checkpointStorage;
-        }
-
-        public void UserAdded()
-        {
-            var key = CacheKeyProvider.UserIdsKey();
-            _cacheContainer.Remove(key);
-        }
-
-        public void UserUpdated(int userId)
-        {
-            var user = _userStorage.GetUserById(userId);
-
-            var singleUserKey = CacheKeyProvider.UserKey(userId);
-            _cacheContainer.Remove(singleUserKey);
-
-            var nameKey = CacheKeyProvider.UserIdByNameOrEmailKey(user.UserName);
-            _cacheContainer.Remove(nameKey);
-
-            var emailKey = CacheKeyProvider.UserIdByNameOrEmailKey(user.Email);
-            _cacheContainer.Remove(emailKey);
-        }
-
-        public void BunchAdded()
-        {
-            var key = CacheKeyProvider.BunchIdsKey();
-            _cacheContainer.Remove(key);
-        }
-
-        public void BunchUpdated(int bunchId)
-        {
-            var bunch = _bunchStorage.GetById(bunchId);
-
-            var singleHomegameKey = CacheKeyProvider.BunchKey(bunchId);
-            _cacheContainer.Remove(singleHomegameKey);
-
-            var slugKey = CacheKeyProvider.BunchIdBySlugKey(bunch.Slug);
-            _cacheContainer.Remove(slugKey);
-        }
-
-        public void PlayerAdded(int playerId)
-        {
-            var player = _playerStorage.GetPlayerById(playerId);
-            var bunch = _bunchStorage.GetById(player.BunchId);
-
-            var key = CacheKeyProvider.PlayerIdsKey(bunch.Id);
-            _cacheContainer.Remove(key);
-        }
-
-        public void PlayerUpdated(int playerId)
-        {
-            var singleUserKey = CacheKeyProvider.PlayerKey(playerId);
-            _cacheContainer.Remove(singleUserKey);
         }
 
         public void PlayerDeleted(int playerId)

@@ -12,7 +12,8 @@ namespace Web.Controllers
         [Route(Routes.CashgameEnd)]
         public ActionResult Post(string slug)
         {
-            UseCase.EndCashgame.Execute(new EndCashgame.Request(CurrentUserName, slug));
+            var result = UseCase.EndCashgame.Execute(new EndCashgame.Request(CurrentUserName, slug));
+            Buster.CashgameUpdated(result.CashgameId);
             return JsonView(new JsonViewModelOk());
         }
     }

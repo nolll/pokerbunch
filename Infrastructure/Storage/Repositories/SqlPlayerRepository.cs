@@ -92,23 +92,17 @@ namespace Infrastructure.Storage.Repositories
         public int Add(Player player)
         {
             var rawPlayer = RawPlayer.Create(player);
-            var playerId = _playerStorage.AddPlayer(rawPlayer);
-            _cacheBuster.PlayerAdded(player.BunchId);
-            return playerId;
+            return _playerStorage.AddPlayer(rawPlayer);
         }
 
 		public bool JoinHomegame(Player player, Bunch bunch, int userId)
         {
-            var success = _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, userId);
-            _cacheBuster.PlayerUpdated(player.Id);
-		    return success;
+            return _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, userId);
 		}
 
 		public bool Delete(int playerId)
         {
-			var success = _playerStorage.DeletePlayer(playerId);
-            _cacheBuster.PlayerDeleted(playerId);
-            return success;
+			return _playerStorage.DeletePlayer(playerId);
 		}
 
 	    private Player CreatePlayer(RawPlayer rawPlayer)

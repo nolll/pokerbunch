@@ -26,6 +26,7 @@ namespace Web.Controllers
             try
             {
                 var result = UseCase.AddCashgame.Execute(request);
+                Buster.CashgameUpdated(result.CashgameId);
                 return Redirect(new RunningCashgameUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)

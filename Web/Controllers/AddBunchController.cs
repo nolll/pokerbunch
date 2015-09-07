@@ -24,7 +24,9 @@ namespace Web.Controllers
             try
             {
                 var request = new AddBunch.Request(CurrentUserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
-                UseCase.AddBunch.Execute(request);
+                var result = UseCase.AddBunch.Execute(request);
+                Buster.BunchAdded();
+                Buster.PlayerAdded(result.BunchId);
                 return Redirect(new AddBunchConfirmationUrl().Relative);
             }
             catch (ValidationException ex)

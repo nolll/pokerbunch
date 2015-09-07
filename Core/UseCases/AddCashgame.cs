@@ -33,9 +33,9 @@ namespace Core.UseCases
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var cashgame = new Cashgame(bunch.Id, request.Location, GameStatus.Running);
-            _cashgameRepository.AddGame(bunch, cashgame);
+            var cashgameId = _cashgameRepository.AddGame(bunch, cashgame);
 
-            return new Result(request.Slug);
+            return new Result(request.Slug, cashgameId);
         }
 
         public class Request
@@ -56,10 +56,12 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
+            public int CashgameId { get; private set; }
 
-            public Result(string slug)
+            public Result(string slug, int cashgameId)
             {
                 Slug = slug;
+                CashgameId = cashgameId;
             }
         }
     }
