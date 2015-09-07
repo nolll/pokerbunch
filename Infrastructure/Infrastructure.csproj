@@ -48,7 +48,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Storage\CacheBuster.cs" />
     <Compile Include="Storage\CacheTime.cs" />
     <Compile Include="Storage\Cache\CacheContainer.cs" />
     <Compile Include="Storage\Cache\CacheKeyProvider.cs" />

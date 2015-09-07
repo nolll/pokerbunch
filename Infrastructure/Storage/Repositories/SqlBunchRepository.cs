@@ -16,16 +16,13 @@ namespace Infrastructure.Storage.Repositories
 	{
 	    private readonly IBunchStorage _bunchStorage;
 	    private readonly ICacheContainer _cacheContainer;
-	    private readonly ICacheBuster _cacheBuster;
 
 	    public SqlBunchRepository(
             IBunchStorage bunchStorage, 
-            ICacheContainer cacheContainer, 
-            ICacheBuster cacheBuster)
+            ICacheContainer cacheContainer)
 	    {
 	        _bunchStorage = bunchStorage;
 	        _cacheContainer = cacheContainer;
-	        _cacheBuster = cacheBuster;
 	    }
 
         public Bunch GetBySlug(string slug)

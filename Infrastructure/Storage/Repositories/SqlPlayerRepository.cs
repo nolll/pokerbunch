@@ -14,18 +14,15 @@ namespace Infrastructure.Storage.Repositories
     {
 	    private readonly IPlayerStorage _playerStorage;
 	    private readonly ICacheContainer _cacheContainer;
-	    private readonly ICacheBuster _cacheBuster;
 	    private readonly IUserRepository _userRepository;
 
 	    public SqlPlayerRepository(
             IPlayerStorage playerStorage,
             ICacheContainer cacheContainer,
-            ICacheBuster cacheBuster,
             IUserRepository userRepository)
 	    {
 	        _playerStorage = playerStorage;
 	        _cacheContainer = cacheContainer;
-	        _cacheBuster = cacheBuster;
 	        _userRepository = userRepository;
 	    }
 

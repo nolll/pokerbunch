@@ -37,52 +37,46 @@ namespace Plumbing
             get { return _cacheProvider ?? (_cacheProvider = new AspNetCacheProvider()); }
         }
 
-        private ICacheBuster _cacheBuster1;
-        private ICacheBuster CacheBuster1
-        {
-            get { return _cacheBuster1 ?? (_cacheBuster1 = new CacheBuster1(CacheContainer, BunchStorage, PlayerStorage, CashgameStorage, CheckpointStorage)); }
-        }
-
         private IBunchRepository _bunchRepository;
 
         public IBunchRepository BunchRepository
         {
-            get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer, CacheBuster1)); }
+            get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer)); }
         }
 
         private IUserRepository _userRepository;
 
         public IUserRepository UserRepository
         {
-            get { return _userRepository ?? (_userRepository = new SqlUserRepository(UserStorage, CacheContainer, CacheBuster1)); }
+            get { return _userRepository ?? (_userRepository = new SqlUserRepository(UserStorage, CacheContainer)); }
         }
 
         private IPlayerRepository _playerRepository;
 
         public IPlayerRepository PlayerRepository
         {
-            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, CacheBuster1, UserRepository)); }
+            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, UserRepository)); }
         }
 
         private ICashgameRepository _cashgameRepository;
 
         public ICashgameRepository CashgameRepository
         {
-            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage, CacheBuster1)); }
+            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage)); }
         }
 
         private ICheckpointRepository _checkpointRepository;
 
         public ICheckpointRepository CheckpointRepository
         {
-            get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage, CacheBuster1)); }
+            get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage)); }
         }
 
         private IEventRepository _eventRepository;
 
         public IEventRepository EventRepository
         {
-            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer, CacheBuster1)); }
+            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer)); }
         }
 
         private IAppRepository _appRepository;

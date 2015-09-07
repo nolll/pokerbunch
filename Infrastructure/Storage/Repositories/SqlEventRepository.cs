@@ -14,16 +14,13 @@ namespace Infrastructure.Storage.Repositories
     {
         private readonly IEventStorage _eventStorage;
         private readonly ICacheContainer _cacheContainer;
-        private readonly ICacheBuster _cacheBuster;
 
         public SqlEventRepository(
             IEventStorage eventStorage,
-            ICacheContainer cacheContainer,
-            ICacheBuster cacheBuster)
+            ICacheContainer cacheContainer)
         {
             _eventStorage = eventStorage;
             _cacheContainer = cacheContainer;
-            _cacheBuster = cacheBuster;
         }
 
         public IList<Event> Find(int bunchId)

@@ -1,6 +1,5 @@
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
@@ -9,14 +8,10 @@ namespace Infrastructure.Storage.Repositories
     public class SqlCheckpointRepository : ICheckpointRepository
     {
         private readonly ICheckpointStorage _checkpointStorage;
-        private readonly ICacheBuster _cacheBuster;
 
-        public SqlCheckpointRepository(
-            ICheckpointStorage checkpointStorage,
-            ICacheBuster cacheBuster)
+        public SqlCheckpointRepository(ICheckpointStorage checkpointStorage)
         {
             _checkpointStorage = checkpointStorage;
-            _cacheBuster = cacheBuster;
         }
 
         public int AddCheckpoint(Checkpoint checkpoint)

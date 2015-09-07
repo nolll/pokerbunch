@@ -13,17 +13,14 @@ namespace Infrastructure.Storage.Repositories
     {
         private readonly SqlServerUserStorage _userStorage;
         private readonly ICacheContainer _cacheContainer;
-        private readonly ICacheBuster _cacheBuster;
         private readonly SqlServerStorageProvider _db;
 
         public SqlUserRepository(
             SqlServerUserStorage userStorage,
-            ICacheContainer cacheContainer,
-            ICacheBuster cacheBuster)
+            ICacheContainer cacheContainer)
         {
             _userStorage = userStorage;
             _cacheContainer = cacheContainer;
-            _cacheBuster = cacheBuster;
             _db = new SqlServerStorageProvider();
         }
 

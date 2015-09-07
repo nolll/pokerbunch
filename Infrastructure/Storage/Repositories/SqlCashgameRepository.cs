@@ -24,18 +24,15 @@ namespace Infrastructure.Storage.Repositories
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICacheContainer _cacheContainer;
 	    private readonly ICheckpointStorage _checkpointStorage;
-	    private readonly ICacheBuster _cacheBuster;
 
 	    public SqlCashgameRepository(
             ICashgameStorage cashgameStorage,
             ICacheContainer cacheContainer,
-            ICheckpointStorage checkpointStorage,
-            ICacheBuster cacheBuster)
+            ICheckpointStorage checkpointStorage)
 	    {
 	        _cashgameStorage = cashgameStorage;
 	        _cacheContainer = cacheContainer;
 	        _checkpointStorage = checkpointStorage;
-	        _cacheBuster = cacheBuster;
 	    }
 
         public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
