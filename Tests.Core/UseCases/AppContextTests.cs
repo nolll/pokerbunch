@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
 
         private AppContext Sut
         {
-            get { return new AppContext(Repos.User); }
+            get { return new AppContext(Services.UserService); }
         }
     }
 }

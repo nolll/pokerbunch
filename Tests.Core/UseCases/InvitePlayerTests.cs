@@ -58,7 +58,7 @@ If you don't have an account, you can register at https://pokerbunch.com/test";
                     Repos.Bunch,
                     Repos.Player,
                     Services.MessageSender,
-                    Repos.User);
+                    Services.UserService);
             }
         }
     }

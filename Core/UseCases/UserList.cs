@@ -7,19 +7,20 @@ namespace Core.UseCases
 {
     public class UserList
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
         public UserList(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            _userService = new UserService(userRepository);
         }
 
         public Result Execute(Request request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             RoleHandler.RequireAdmin(user);
 
-            var users = _userRepository.GetList();
+
+            var users = _userService.GetList();
             var userItems = users.Select(o => new UserListItem(o.DisplayName, o.UserName)).ToList();
 
             return new Result(userItems);

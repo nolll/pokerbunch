@@ -8,13 +8,13 @@ namespace Core.UseCases
 {
     public class ForgotPassword
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IMessageSender _messageSender;
         private readonly IRandomService _randomService;
 
-        public ForgotPassword(IUserRepository userRepository, IMessageSender messageSender, IRandomService randomService)
+        public ForgotPassword(UserService userService, IMessageSender messageSender, IRandomService randomService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _messageSender = messageSender;
             _randomService = randomService;
         }
@@ -26,7 +26,7 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = _userRepository.GetByNameOrEmail(request.Email);
+            var user = _userService.GetByNameOrEmail(request.Email);
             if(user == null)
                 throw new UserNotFoundException();
 
@@ -35,8 +35,8 @@ namespace Core.UseCases
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
 
             user.SetPassword(encryptedPassword, salt);
-            
-            _userRepository.Save(user);
+
+            _userService.Save(user);
             
             var message = new ForgotPasswordMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);

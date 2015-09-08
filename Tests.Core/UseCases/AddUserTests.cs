@@ -103,7 +103,7 @@ Please sign in here: /loginUrl";
             get
             {
                 return new AddUser(
-                    Repos.User,
+                    Services.UserService,
                     Services.RandomService,
                     Services.MessageSender);
             }

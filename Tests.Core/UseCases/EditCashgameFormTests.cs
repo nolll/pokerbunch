@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
                 return new EditCashgameForm(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }        

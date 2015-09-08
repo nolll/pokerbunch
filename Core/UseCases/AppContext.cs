@@ -1,22 +1,22 @@
 ﻿using Core.Exceptions;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AppContext
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public AppContext(IUserRepository userRepository)
+        public AppContext(UserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
             var isAuthenticated = !string.IsNullOrEmpty(request.UserName);
             var userName = isAuthenticated ? request.UserName : string.Empty;
-            var user = isAuthenticated ? _userRepository.GetByNameOrEmail(userName) : null;
+            var user = isAuthenticated ? _userService.GetByNameOrEmail(userName) : null;
             if (isAuthenticated && user == null) // Broken auth cookie
                 throw new NotLoggedInException();
             var userId = isAuthenticated ? user.Id : 0;

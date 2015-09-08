@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
             {
                 return new EventDetails(
                     Repos.Event,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player,
                     Repos.Bunch);
             }

@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
             {
                 return new TestEmail(
                     Services.MessageSender,
-                    Repos.User);
+                    Services.UserService);
             }
         }
     }

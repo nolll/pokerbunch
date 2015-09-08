@@ -1,4 +1,5 @@
 using Plumbing;
+using Web.Common.Cache.Repositories;
 
 namespace Web.Common.Cache
 {
@@ -9,7 +10,7 @@ namespace Web.Common.Cache
 
         public Bootstrap()
         {
-            var deps = new Dependencies();
+            var deps = new Dependencies(new AspNetCacheProvider(), new CachedRepositoryFactory());
             UseCases = new UseCaseContainer(deps);
             CacheBuster = new CacheBuster(deps);
         }

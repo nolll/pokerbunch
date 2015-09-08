@@ -1,4 +1,5 @@
-﻿using Tests.Common.FakeServices;
+﻿using Core.Services;
+using Tests.Common.FakeServices;
 
 namespace Tests.Common
 {
@@ -7,12 +8,14 @@ namespace Tests.Common
         public FakeMessageSender MessageSender { get; private set; }
         public FakeRandomService RandomService { get; private set; }
         public FakeCache Cache { get; private set; }
+        public UserService UserService { get; private set; }
 
-        public ServiceContainer()
+        public ServiceContainer(RepositoryContainer repos)
         {
             MessageSender = new FakeMessageSender();
             RandomService = new FakeRandomService();
             Cache = new FakeCache();
+            UserService = new UserService(repos.User);
         }
 
         public void Clear()

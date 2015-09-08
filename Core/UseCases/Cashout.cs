@@ -13,15 +13,15 @@ namespace Core.UseCases
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public Cashout(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, ICheckpointRepository checkpointRepository, IUserRepository userRepository)
+        public Cashout(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, ICheckpointRepository checkpointRepository, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _checkpointRepository = checkpointRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
@@ -31,7 +31,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
             var cashgame = _cashgameRepository.GetRunning(bunch.Id);

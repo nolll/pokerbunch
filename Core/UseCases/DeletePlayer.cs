@@ -7,14 +7,14 @@ namespace Core.UseCases
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IBunchRepository _bunchRepository;
 
-        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IBunchRepository bunchRepository)
+        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, UserService userService, IBunchRepository bunchRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
+            _userService = userService;
             _bunchRepository = bunchRepository;
         }
 
@@ -22,7 +22,7 @@ namespace Core.UseCases
         {
             var player = _playerRepository.GetById(request.PlayerId);
             var bunch = _bunchRepository.GetById(player.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
             var canDelete = !_cashgameRepository.HasPlayed(player.Id);

@@ -61,7 +61,7 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new EditUser(Repos.User);
+                return new EditUser(Services.UserService);
             }
         }
     }

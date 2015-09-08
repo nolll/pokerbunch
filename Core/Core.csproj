@@ -70,6 +70,7 @@
     <Compile Include="IMessage.cs" />
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddApp.cs" />

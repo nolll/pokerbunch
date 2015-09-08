@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
             {
                 return new BunchDetails(
                     Repos.Bunch,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }

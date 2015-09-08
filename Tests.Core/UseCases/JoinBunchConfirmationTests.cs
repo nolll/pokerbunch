@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases
             {
                 return new JoinBunchConfirmation(
                     Repos.Bunch,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }

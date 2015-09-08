@@ -49,7 +49,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new BunchContext(
-                    Repos.User,
+                    Services.UserService,
                     Repos.Bunch);
             }
         }

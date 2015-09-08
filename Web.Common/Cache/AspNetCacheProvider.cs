@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Web;
-using System.Web.Caching;
 using Core.Services;
 
-namespace Infrastructure.Web
+namespace Web.Common.Cache
 {
     public class AspNetCacheProvider : ICacheProvider
     {
@@ -15,7 +14,7 @@ namespace Infrastructure.Web
 
         public void Put(string key, object obj, TimeSpan time)
         {
-            HttpContext.Current.Cache.Insert(key, obj, null, Cache.NoAbsoluteExpiration, time);
+            HttpContext.Current.Cache.Insert(key, obj, null, System.Web.Caching.Cache.NoAbsoluteExpiration, time);
         }
 
         public void Remove(string key)

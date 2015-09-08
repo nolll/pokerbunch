@@ -5,17 +5,17 @@ namespace Core.UseCases
 {
     public class UserDetails
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public UserDetails(IUserRepository userRepository)
+        public UserDetails(UserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var currentUser = _userRepository.GetByNameOrEmail(request.CurrentUserName);
-            var displayUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.CurrentUserName);
+            var displayUser = _userService.GetByNameOrEmail(request.UserName);
 
             var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
 

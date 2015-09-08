@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
 
         private Login Sut
         {
-            get { return new Login(Repos.User); }
+            get { return new Login(Services.UserService); }
         }
     }
 }

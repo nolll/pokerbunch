@@ -47,7 +47,7 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new EditUserForm(Repos.User);
+                return new EditUserForm(Services.UserService);
             }
         }
     }

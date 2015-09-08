@@ -81,7 +81,6 @@
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\SqlServerUserStorage.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />
-    <Compile Include="Web\AspNetCacheProvider.cs" />
     <Compile Include="Web\EmailMessageSender.cs" />
   </ItemGroup>
   <ItemGroup>

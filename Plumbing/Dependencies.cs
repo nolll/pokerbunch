@@ -10,70 +10,70 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private IRandomService _randomService;
+        private readonly ICacheProvider _cacheProvider;
+        private readonly IRepositoryFactory _cachedRepositoryFactory;
 
+        public Dependencies(ICacheProvider cacheProvider, IRepositoryFactory cachedRepositoryFactory)
+        {
+            _cacheProvider = cacheProvider;
+            _cachedRepositoryFactory = cachedRepositoryFactory;
+        }
+
+        private UserService _userService;
+        public UserService UserService
+        {
+            get { return _userService ?? (_userService = new UserService(UserRepository)); }
+        }
+
+        private IRandomService _randomService;
         public IRandomService RandomService
         {
             get { return _randomService ?? (_randomService = new RandomService()); }
         }
 
         private IMessageSender _messageSender;
-
         public IMessageSender MessageSender
         {
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
 
         private ICacheContainer _cacheContainer;
-
         public ICacheContainer CacheContainer
         {
-            get { return _cacheContainer ?? (_cacheContainer = new CacheContainer(CacheProvider)); }
+            get { return _cacheContainer ?? (_cacheContainer = new CacheContainer(_cacheProvider)); }
         }
-
-        private ICacheProvider _cacheProvider;
-        private ICacheProvider CacheProvider
-        {
-            get { return _cacheProvider ?? (_cacheProvider = new AspNetCacheProvider()); }
-        }
-
+        
         private IBunchRepository _bunchRepository;
-
         public IBunchRepository BunchRepository
         {
             get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer)); }
         }
 
         private IUserRepository _userRepository;
-
         public IUserRepository UserRepository
         {
-            get { return _userRepository ?? (_userRepository = new SqlUserRepository(UserStorage, CacheContainer)); }
+            get { return _userRepository ?? (_userRepository = _cachedRepositoryFactory.GetUserRepository(new SqlUserRepository())); }
         }
 
         private IPlayerRepository _playerRepository;
-
         public IPlayerRepository PlayerRepository
         {
             get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, UserRepository)); }
         }
 
         private ICashgameRepository _cashgameRepository;
-
         public ICashgameRepository CashgameRepository
         {
             get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage)); }
         }
 
         private ICheckpointRepository _checkpointRepository;
-
         public ICheckpointRepository CheckpointRepository
         {
             get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage)); }
         }
 
         private IEventRepository _eventRepository;
-
         public IEventRepository EventRepository
         {
             get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer)); }
@@ -83,12 +83,6 @@ namespace Plumbing
         public IAppRepository AppRepository
         {
             get { return _appRepository ?? (_appRepository = new SqlAppRepository()); }
-        }
-
-        private SqlServerUserStorage _userStorage;
-        private SqlServerUserStorage UserStorage
-        {
-            get { return _userStorage ?? (_userStorage = new SqlServerUserStorage()); }
         }
 
         private IBunchStorage _bunchStorage;

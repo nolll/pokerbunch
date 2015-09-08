@@ -7,7 +7,12 @@ namespace Web.Common.Cache
     {
         public static string UserKey(int id)
         {
-            return ConstructCacheKey("User", id);
+            return ConstructCacheKey("UserById", id);
+        }
+
+        public static string UserKey(string nameOrEmail)
+        {
+            return ConstructCacheKey("UserByNameOrEmail", nameOrEmail);
         }
 
         public static string UserIdByNameOrEmailKey(string nameOrEmail)

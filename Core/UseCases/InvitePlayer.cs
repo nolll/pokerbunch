@@ -10,14 +10,14 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMessageSender _messageSender;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public InvitePlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IMessageSender messageSender, IUserRepository userRepository)
+        public InvitePlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IMessageSender messageSender, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
             _messageSender = messageSender;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
@@ -29,7 +29,7 @@ namespace Core.UseCases
 
             var player = _playerRepository.GetById(request.PlayerId);
             var bunch = _bunchRepository.GetById(player.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
 

@@ -13,13 +13,13 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public AddPlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public AddPlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
@@ -30,7 +30,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
             var existingPlayers = _playerRepository.GetList(bunch.Id);

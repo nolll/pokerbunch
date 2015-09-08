@@ -37,7 +37,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new ChangePassword(
-                    Repos.User,
+                    Services.UserService,
                     Services.RandomService);
             }
         }

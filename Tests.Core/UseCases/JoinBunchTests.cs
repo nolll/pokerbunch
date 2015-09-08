@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases
                 return new JoinBunch(
                     Repos.Bunch,
                     Repos.Player,
-                    Repos.User);
+                    Services.UserService);
             }
         }
     }

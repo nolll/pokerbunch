@@ -12,13 +12,13 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public JoinBunch(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public JoinBunch(IBunchRepository bunchRepository, IPlayerRepository playerRepository, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
@@ -33,8 +33,8 @@ namespace Core.UseCases
             
             if (player == null)
                 throw new InvalidJoinCodeException();
-            
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+
+            var user = _userService.GetByNameOrEmail(request.UserName);
             _playerRepository.JoinHomegame(player, bunch, user.Id);
             return new Result(bunch.Slug, player.Id);
         }

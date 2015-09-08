@@ -97,7 +97,7 @@ namespace Tests.Core.UseCases
         
         private UserDetails Sut
         {
-            get { return new UserDetails(Repos.User); }
+            get { return new UserDetails(Services.UserService); }
         }
     }
 }

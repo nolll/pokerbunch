@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
     public class EditUser
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public EditUser(IUserRepository userRepository)
+        public EditUser(UserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
@@ -20,10 +20,10 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
-            
-            _userRepository.Save(userToSave);
+
+            _userService.Save(userToSave);
 
             return new Result(userToSave.UserName, userToSave.Id);
         }

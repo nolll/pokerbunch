@@ -7,20 +7,20 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public InvitePlayerForm(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public InvitePlayerForm(IBunchRepository bunchRepository, IPlayerRepository playerRepository, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
             var player = _playerRepository.GetById(request.PlayerId);
             var bunch = _bunchRepository.GetById(player.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
 

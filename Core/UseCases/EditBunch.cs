@@ -10,13 +10,13 @@ namespace Core.UseCases
     public class EditBunch
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EditBunch(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EditBunch(IBunchRepository bunchRepository, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
+            _userService = userService;
             _playerRepository = playerRepository;
         }
 
@@ -27,7 +27,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequireManager(user, player);
             var postedHomegame = CreateBunch(bunch, request);

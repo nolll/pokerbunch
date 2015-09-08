@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
@@ -10,17 +9,17 @@ namespace Core.UseCases
     public class AppList
     {
         private readonly IAppRepository _appRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public AppList(IAppRepository appRepository, IUserRepository userRepository)
+        public AppList(IAppRepository appRepository, UserService userService)
         {
             _appRepository = appRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(AllAppsRequest request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
+            var user = _userService.GetByNameOrEmail(request.CurrentUserName);
             RoleHandler.RequireAdmin(user);
             var apps = _appRepository.ListApps();
 
@@ -29,7 +28,7 @@ namespace Core.UseCases
 
         public Result Execute(UserAppsRequest request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
+            var user = _userService.GetByNameOrEmail(request.CurrentUserName);
             var apps = _appRepository.ListApps(user.Id);
 
             return new Result(apps);

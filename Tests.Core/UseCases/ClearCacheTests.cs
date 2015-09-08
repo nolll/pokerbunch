@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
             {
                 return new ClearCache(
                     Services.Cache,
-                    Repos.User);
+                    Services.UserService);
             }
         }
     }

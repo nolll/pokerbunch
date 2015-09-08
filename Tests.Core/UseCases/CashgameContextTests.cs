@@ -114,7 +114,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new CashgameContext(
-                    Repos.User,
+                    Services.UserService,
                     Repos.Bunch,
                     Repos.Cashgame);
             }

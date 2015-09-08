@@ -12,20 +12,20 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, UserService userService)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);

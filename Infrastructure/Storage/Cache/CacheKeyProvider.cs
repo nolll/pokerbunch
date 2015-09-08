@@ -3,6 +3,7 @@ using Core.Entities;
 
 namespace Infrastructure.Storage.Cache
 {
+    //todo: remove
     public static class CacheKeyProvider
     {
         public static string UserKey(int id)

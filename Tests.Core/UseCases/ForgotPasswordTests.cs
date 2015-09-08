@@ -62,7 +62,7 @@ Please sign in here: loginUrl";
             get
             {
                 return new ForgotPassword(
-                    Repos.User,
+                    Services.UserService,
                     Services.MessageSender,
                     Services.RandomService);
             }

@@ -40,9 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\AspNetCacheProvider.cs" />
     <Compile Include="Cache\Bootstrap.cs" />
     <Compile Include="Cache\CacheBuster.cs" />
+    <Compile Include="Cache\CacheContainer.cs" />
     <Compile Include="Cache\CacheKeyProvider.cs" />
+    <Compile Include="Cache\CacheTime.cs" />
+    <Compile Include="Cache\Repositories\CachedRepositoryFactory.cs" />
+    <Compile Include="Cache\Repositories\CachedUserRepository.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urls\Url.cs" />

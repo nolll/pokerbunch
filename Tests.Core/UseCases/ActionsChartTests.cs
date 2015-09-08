@@ -131,7 +131,7 @@ namespace Tests.Core.UseCases
                 return new ActionsChart(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }

@@ -88,7 +88,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new AddBunch(
-                    Repos.User,
+                    Services.UserService,
                     Repos.Bunch,
                     Repos.Player);
             }

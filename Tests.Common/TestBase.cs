@@ -13,7 +13,7 @@ namespace Tests.Common
         {
             A = new BuilderContainer();
             Repos = new RepositoryContainer();
-            Services = new ServiceContainer();
+            Services = new ServiceContainer(Repos);
         }
     }
 }

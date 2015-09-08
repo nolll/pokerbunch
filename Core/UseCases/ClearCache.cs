@@ -1,22 +1,21 @@
-﻿using Core.Repositories;
-using Core.Services;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
     public class ClearCache
     {
         private readonly ICacheContainer _cacheContainer;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
 
-        public ClearCache(ICacheContainer cacheContainer, IUserRepository userRepository)
+        public ClearCache(ICacheContainer cacheContainer, UserService userService)
         {
             _cacheContainer = cacheContainer;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             RoleHandler.RequireAdmin(user);
 
             var objectCount = _cacheContainer.ClearAll();

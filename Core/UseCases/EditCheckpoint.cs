@@ -11,15 +11,15 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
+        public EditCheckpoint(IBunchRepository bunchRepository, ICheckpointRepository checkpointRepository, UserService userService, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
             _bunchRepository = bunchRepository;
             _checkpointRepository = checkpointRepository;
-            _userRepository = userRepository;
+            _userService = userService;
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
         }
@@ -33,7 +33,7 @@ namespace Core.UseCases
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
             var cashgame = _cashgameRepository.GetById(existingCheckpoint.CashgameId);
             var bunch = _bunchRepository.GetById(cashgame.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
             

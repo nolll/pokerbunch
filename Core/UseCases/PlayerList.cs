@@ -9,20 +9,20 @@ namespace Core.UseCases
     public class PlayerList
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public PlayerList(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public PlayerList(IBunchRepository bunchRepository, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
+            _userService = userService;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.GetBySlug(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var players = _playerRepository.GetList(bunch.Id);

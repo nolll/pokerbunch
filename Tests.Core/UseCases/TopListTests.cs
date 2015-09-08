@@ -103,7 +103,7 @@ namespace Tests.Core.UseCases
                     Repos.Bunch,
                     Repos.Cashgame,
                     Repos.Player,
-                    Repos.User);
+                    Services.UserService);
             }
         }
     }

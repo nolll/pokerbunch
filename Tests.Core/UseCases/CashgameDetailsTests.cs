@@ -69,7 +69,7 @@ namespace Tests.Core.UseCases
                 return new CashgameDetails(
                     Repos.Bunch,
                     Repos.Cashgame,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }

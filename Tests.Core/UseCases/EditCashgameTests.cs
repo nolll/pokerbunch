@@ -44,7 +44,7 @@ namespace Tests.Core.UseCases
             {
                 return new EditCashgame(
                     Repos.Cashgame,
-                    Repos.User,
+                    Services.UserService,
                     Repos.Player);
             }
         }

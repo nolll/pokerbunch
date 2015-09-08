@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -9,16 +8,16 @@ namespace Core.UseCases
 {
     public class AddUser
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserService _userService;
         private readonly IRandomService _randomService;
         private readonly IMessageSender _messageSender;
 
         public AddUser(
-            IUserRepository userRepository,
+            UserService userService,
             IRandomService randomService,
             IMessageSender messageSender)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _randomService = randomService;
             _messageSender = messageSender;
         }
@@ -30,10 +29,10 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            if (_userRepository.GetByNameOrEmail(request.UserName) != null)
+            if (_userService.GetByNameOrEmail(request.UserName) != null)
                 throw new UserExistsException();
 
-            if (_userRepository.GetByNameOrEmail(request.Email) != null)
+            if (_userService.GetByNameOrEmail(request.Email) != null)
                 throw new EmailExistsException();
 
             var password = PasswordGenerator.CreatePassword(_randomService.GetAllowedChars());
@@ -41,7 +40,7 @@ namespace Core.UseCases
             var encryptedPassword = EncryptionService.Encrypt(password, salt);
             var user = CreateUser(request, encryptedPassword, salt);
 
-            _userRepository.Add(user);
+            _userService.Add(user);
             
             var message = new RegistrationMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
