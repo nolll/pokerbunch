@@ -51,7 +51,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new AddPlayer(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Player,
                     Services.UserService);
             }

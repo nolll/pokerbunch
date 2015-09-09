@@ -9,6 +9,7 @@ namespace Tests.Common
         public FakeRandomService RandomService { get; private set; }
         public FakeCache Cache { get; private set; }
         public UserService UserService { get; private set; }
+        public BunchService BunchService { get; private set; }
 
         public ServiceContainer(RepositoryContainer repos)
         {
@@ -16,6 +17,7 @@ namespace Tests.Common
             RandomService = new FakeRandomService();
             Cache = new FakeCache();
             UserService = new UserService(repos.User);
+            BunchService = new BunchService(repos.Bunch);
         }
 
         public void Clear()

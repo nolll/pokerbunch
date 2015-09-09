@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases
                     Repos.Event,
                     Services.UserService,
                     Repos.Player,
-                    Repos.Bunch);
+                    Services.BunchService);
             }
         }
     }

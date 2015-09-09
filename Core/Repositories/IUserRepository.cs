@@ -5,7 +5,7 @@ namespace Core.Repositories
 {
     public interface IUserRepository
     {
-        User GetById(int id);
+        User Get(int id);
         IList<User> Get(IList<int> ids);
         IList<int> Search();
         IList<int> Search(string nameOrEmail);

@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditCashgameForm(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Services.UserService,
                     Repos.Player);

@@ -129,7 +129,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new ActionsChart(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Services.UserService,
                     Repos.Player);

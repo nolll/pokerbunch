@@ -23,9 +23,9 @@ namespace Web.Common.Cache
 
         public void UserUpdated(int userId)
         {
-            var user = _deps.UserRepository.GetById(userId);
+            var user = _deps.UserRepository.Get(userId);
 
-            var singleUserKey = CacheKeyProvider.UserKey(userId);
+            var singleUserKey = CacheKeyProvider.ConstructCacheKey(typeof(User), userId);
             _cache.Remove(singleUserKey);
 
             var nameKey = CacheKeyProvider.UserIdByNameOrEmailKey(user.UserName);
@@ -43,10 +43,10 @@ namespace Web.Common.Cache
 
         public void BunchUpdated(int bunchId)
         {
-            var bunch = _deps.BunchRepository.GetById(bunchId);
+            var bunch = _deps.BunchService.Get(bunchId);
 
-            var singleHomegameKey = CacheKeyProvider.BunchKey(bunchId);
-            _cache.Remove(singleHomegameKey);
+            var singleBunchKey = CacheKeyProvider.ConstructCacheKey(typeof(Bunch), bunchId);
+            _cache.Remove(singleBunchKey);
 
             var slugKey = CacheKeyProvider.BunchIdBySlugKey(bunch.Slug);
             _cache.Remove(slugKey);
@@ -55,7 +55,7 @@ namespace Web.Common.Cache
         public void PlayerAdded(int playerId)
         {
             var player = _deps.PlayerRepository.GetById(playerId);
-            var bunch = _deps.BunchRepository.GetById(player.BunchId);
+            var bunch = _deps.BunchService.Get(player.BunchId);
 
             var key = CacheKeyProvider.PlayerIdsKey(bunch.Id);
             _cache.Remove(key);
@@ -63,8 +63,8 @@ namespace Web.Common.Cache
 
         public void PlayerUpdated(int playerId)
         {
-            var singleUserKey = CacheKeyProvider.PlayerKey(playerId);
-            _cache.Remove(singleUserKey);
+            var singlePlayerKey = CacheKeyProvider.ConstructCacheKey(typeof(Bunch), playerId);
+            _cache.Remove(singlePlayerKey);
         }
 
         public void PlayerDeleted(int playerId)
@@ -74,8 +74,8 @@ namespace Web.Common.Cache
             var key = CacheKeyProvider.PlayerIdsKey(player.BunchId);
             _cache.Remove(key);
 
-            var singleUserKey = CacheKeyProvider.PlayerKey(playerId);
-            _cache.Remove(singleUserKey);
+            var singlePlayerKey = CacheKeyProvider.ConstructCacheKey(typeof(Player), playerId);
+            _cache.Remove(singlePlayerKey);
         }
 
         public void CashgameStarted(int cashgameId)
@@ -97,7 +97,7 @@ namespace Web.Common.Cache
 
         private void ClearCashgame(int cashgameId)
         {
-            var singleCashgameKey = CacheKeyProvider.CashgameKey(cashgameId);
+            var singleCashgameKey = CacheKeyProvider.ConstructCacheKey(typeof(Cashgame), cashgameId);
             _cache.Remove(singleCashgameKey);
         }
 

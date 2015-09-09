@@ -97,7 +97,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<Cashgame> GetList(IList<int> ids)
         {
-            var cashgames = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            var cashgames = _cacheContainer.GetAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return cashgames.OrderBy(o => o.Id).ToList();
         }
 

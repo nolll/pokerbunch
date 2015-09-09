@@ -11,13 +11,13 @@ namespace Core.UseCases
     public class AddBunch
     {
         private readonly UserService _userService;
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
         private readonly IPlayerRepository _playerRepository;
 
-        public AddBunch(UserService userService, IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public AddBunch(UserService userService, BunchService bunchService, IPlayerRepository playerRepository)
         {
             _userService = userService;
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
             _playerRepository = playerRepository;
         }
 
@@ -32,7 +32,7 @@ namespace Core.UseCases
             bool bunchExists;
             try
             {
-                var b = _bunchRepository.GetBySlug(slug);
+                var b = _bunchService.GetBySlug(slug);
                 bunchExists = true;
             }
             catch (BunchNotFoundException)
@@ -44,7 +44,7 @@ namespace Core.UseCases
                 throw new BunchExistsException();
 
             var bunch = CreateBunch(request);
-            var id = _bunchRepository.Add(bunch);
+            var id = _bunchService.Add(bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = new Player(id, user.Id, Role.Manager);
             _playerRepository.Add(player);

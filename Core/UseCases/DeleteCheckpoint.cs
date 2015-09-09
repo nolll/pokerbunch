@@ -6,15 +6,15 @@ namespace Core.UseCases
 {
     public class DeleteCheckpoint
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public DeleteCheckpoint(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, UserService userService, IPlayerRepository playerRepository)
+        public DeleteCheckpoint(BunchService bunchService, ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository, UserService userService, IPlayerRepository playerRepository)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
             _cashgameRepository = cashgameRepository;
             _checkpointRepository = checkpointRepository;
             _userService = userService;
@@ -25,7 +25,7 @@ namespace Core.UseCases
         {
             var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
             var cashgame = _cashgameRepository.GetById(checkpoint.CashgameId);
-            var bunch = _bunchRepository.GetById(cashgame.BunchId);
+            var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(cashgame.BunchId, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);

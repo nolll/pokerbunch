@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
 
         private BunchList Sut
         {
-            get { return new BunchList(Repos.Bunch, Services.UserService); }
+            get { return new BunchList(Services.BunchService, Services.UserService); }
         }
     }
 }

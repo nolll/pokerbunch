@@ -16,14 +16,14 @@ namespace Core.Services
 
         public User GetById(int id)
         {
-            return _userRepository.GetById(id);
+            return _userRepository.Get(id);
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
         {
             var ids = _userRepository.Search(nameOrEmail);
             if (ids.Any())
-                return _userRepository.GetById(ids.First());
+                return _userRepository.Get(ids.First());
             return null;
         }
 

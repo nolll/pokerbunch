@@ -11,5 +11,10 @@ namespace Web.Common.Cache.Repositories
         {
             return new CachedUserRepository(userRepository, _cacheContainer);
         }
+
+        public IBunchRepository GetBunchRepository(IBunchRepository bunchRepository)
+        {
+            return new CachedBunchRepository(bunchRepository, _cacheContainer);
+        }
     }
 }

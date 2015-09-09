@@ -16,7 +16,7 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public User GetById(int id)
+        public User Get(int id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }

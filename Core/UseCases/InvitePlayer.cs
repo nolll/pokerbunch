@@ -7,14 +7,14 @@ namespace Core.UseCases
 {
     public class InvitePlayer
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMessageSender _messageSender;
         private readonly UserService _userService;
 
-        public InvitePlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IMessageSender messageSender, UserService userService)
+        public InvitePlayer(BunchService bunchService, IPlayerRepository playerRepository, IMessageSender messageSender, UserService userService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
             _playerRepository = playerRepository;
             _messageSender = messageSender;
             _userService = userService;
@@ -28,7 +28,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var player = _playerRepository.GetById(request.PlayerId);
-            var bunch = _bunchRepository.GetById(player.BunchId);
+            var bunch = _bunchService.Get(player.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);

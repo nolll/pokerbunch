@@ -103,7 +103,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditBunchForm(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Services.UserService,
                     Repos.Player);
             }

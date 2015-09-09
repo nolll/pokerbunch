@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Core.Entities;
 
@@ -5,11 +6,6 @@ namespace Web.Common.Cache
 {
     public static class CacheKeyProvider
     {
-        public static string UserKey(int id)
-        {
-            return ConstructCacheKey("UserById", id);
-        }
-
         public static string UserKey(string nameOrEmail)
         {
             return ConstructCacheKey("UserByNameOrEmail", nameOrEmail);
@@ -25,11 +21,6 @@ namespace Web.Common.Cache
             return ConstructCacheKey("UserIds", "all");
         }
 
-        public static string BunchKey(int id)
-        {
-            return ConstructCacheKey("Homegame", id);
-        }
-
         public static string BunchIdBySlugKey(string slug)
         {
             return ConstructCacheKey("HomegameId", "slug", slug);
@@ -38,11 +29,6 @@ namespace Web.Common.Cache
         public static string BunchIdsKey()
         {
             return ConstructCacheKey("HomegameIds", "all");
-        }
-
-        public static string PlayerKey(int id)
-        {
-            return ConstructCacheKey("Player", id);
         }
 
         public static string PlayerIdsKey(int bunchId)
@@ -58,11 +44,6 @@ namespace Web.Common.Cache
         public static string PlayerIdByUserIdKey(int bunchId, int userId)
         {
             return ConstructCacheKey("PlayerId", "user", bunchId, userId);
-        }
-
-        public static string CashgameKey(int id)
-        {
-            return ConstructCacheKey("Cashgame", id);
         }
 
         public static string CashgameIdByDateStringKey(int bunchId, string dateString)
@@ -89,15 +70,15 @@ namespace Web.Common.Cache
         {
             return ConstructCacheKey("CashgameYears", bunchId);
         }
-
-        public static string EventKey(int id)
-        {
-            return ConstructCacheKey("Event", id);
-        }
-
+        
         public static string EventIdsKey(int bunchId)
         {
             return ConstructCacheKey("EventIds", bunchId);
+        }
+
+        public static string ConstructCacheKey(Type t, int id)
+        {
+            return ConstructCacheKey(t.ToString(), id);
         }
 
         public static string ConstructCacheKey(string typeName, params object[] procedureParameters)

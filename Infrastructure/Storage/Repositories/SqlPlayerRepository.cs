@@ -34,7 +34,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<Player> GetList(IList<int> ids)
         {
-            var players = _cacheContainer.GetEachAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            var players = _cacheContainer.GetAndStore(GetListUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return players.ToList();
         }
 
@@ -116,7 +116,7 @@ namespace Infrastructure.Storage.Repositories
         {
             if (rawPlayer.IsUser && rawPlayer.DisplayName == null)
             {
-                var user = _userRepository.GetById(rawPlayer.UserId);
+                var user = _userRepository.Get(rawPlayer.UserId);
                 return user.DisplayName;
             }
             return rawPlayer.DisplayName;

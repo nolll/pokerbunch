@@ -71,6 +71,7 @@
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\IRepositoryFactory.cs" />
+    <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />

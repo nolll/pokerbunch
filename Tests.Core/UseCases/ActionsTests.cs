@@ -51,7 +51,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new Actions(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Player,
                     Services.UserService);

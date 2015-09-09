@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new Buyin(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Player,
                     Repos.Cashgame,
                     Repos.Checkpoint,

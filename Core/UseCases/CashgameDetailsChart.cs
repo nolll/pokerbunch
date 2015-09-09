@@ -10,14 +10,14 @@ namespace Core.UseCases
 {
     public class CashgameDetailsChart
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly UserService _userService;
 
-        public CashgameDetailsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, UserService userService)
+        public CashgameDetailsChart(BunchService bunchService, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, UserService userService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _userService = userService;
@@ -26,7 +26,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameRepository.GetById(request.CashgameId);
-            var bunch = _bunchRepository.GetById(cashgame.BunchId);
+            var bunch = _bunchService.Get(cashgame.BunchId);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             var players = _playerRepository.GetList(playerIds).OrderBy(o => o.Id).ToList();
             var user = _userService.GetByNameOrEmail(request.UserName);

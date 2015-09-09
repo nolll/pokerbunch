@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new AddCashgameForm(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Services.UserService,
                     Repos.Player);

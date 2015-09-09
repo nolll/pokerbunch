@@ -17,7 +17,7 @@ namespace Infrastructure.Storage.Repositories
             _db = new SqlServerStorageProvider();
         }
 
-        public User GetById(int id)
+        public User Get(int id)
         {
             var rawUser = _userStorage.GetUserById(id);
             return rawUser != null ? RawUser.CreateReal(rawUser) : null;

@@ -8,12 +8,12 @@ namespace Core.UseCases
     public class BunchContext
     {
         private readonly UserService _userService;
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
 
-        public BunchContext(UserService userService, IBunchRepository bunchRepository)
+        public BunchContext(UserService userService, BunchService bunchService)
         {
             _userService = userService;
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public Result Execute(BunchRequest request)
@@ -40,14 +40,14 @@ namespace Core.UseCases
             {
                 try
                 {
-                    return _bunchRepository.GetBySlug(request.Slug);
+                    return _bunchService.GetBySlug(request.Slug);
                 }
                 catch (BunchNotFoundException)
                 {
                     return null;
                 }
             }
-            var bunches = _bunchRepository.GetByUserId(appContext.UserId);
+            var bunches = _bunchService.GetByUserId(appContext.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }
 

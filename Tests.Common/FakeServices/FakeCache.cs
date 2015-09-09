@@ -27,7 +27,7 @@ namespace Tests.Common.FakeServices
             throw new NotImplementedException();
         }
 
-        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
+        public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
         {
             throw new NotImplementedException();
         }

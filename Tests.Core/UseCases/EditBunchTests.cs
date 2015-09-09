@@ -77,7 +77,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditBunch(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Services.UserService,
                     Repos.Player);
             }

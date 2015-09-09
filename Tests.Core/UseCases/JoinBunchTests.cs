@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new JoinBunch(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Player,
                     Services.UserService);
             }

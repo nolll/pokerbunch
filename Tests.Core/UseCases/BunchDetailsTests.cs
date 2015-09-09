@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new BunchDetails(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Services.UserService,
                     Repos.Player);
             }

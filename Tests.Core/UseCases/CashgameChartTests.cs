@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new CashgameChart(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Player,
                     Services.UserService);

@@ -45,7 +45,7 @@ namespace Tests.Core.UseCases
             {
                 return new DeleteCashgame(
                     Repos.Cashgame,
-                    Repos.Bunch,
+                    Services.BunchService,
                     Services.UserService,
                     Repos.Player);
             }

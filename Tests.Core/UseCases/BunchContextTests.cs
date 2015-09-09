@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
             {
                 return new BunchContext(
                     Services.UserService,
-                    Repos.Bunch);
+                    Services.BunchService);
             }
         }
     }

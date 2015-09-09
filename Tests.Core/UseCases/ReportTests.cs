@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new Report(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Player,
                     Repos.Checkpoint,

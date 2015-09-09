@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new JoinBunchForm(
-                    Repos.Bunch);
+                    Services.BunchService);
             }
         }
     }

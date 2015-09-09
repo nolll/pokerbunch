@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditCheckpoint(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Checkpoint,
                     Services.UserService,
                     Repos.Player,

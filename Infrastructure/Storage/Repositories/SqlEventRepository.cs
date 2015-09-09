@@ -26,7 +26,7 @@ namespace Infrastructure.Storage.Repositories
         public IList<Event> Find(int bunchId)
         {
             var ids = GetIds(bunchId);
-            var events = _cacheContainer.GetEachAndStore(FindUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            var events = _cacheContainer.GetAndStore(FindUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
             return events.OrderBy(o => o.Name).ToList();
         }
 

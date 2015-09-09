@@ -5,10 +5,11 @@ namespace Core.Repositories
 {
     public interface IBunchRepository
     {
-        Bunch GetById(int id);
-        Bunch GetBySlug(string slug);
-        IList<Bunch> GetList();
-        IList<Bunch> GetByUserId(int userId);
+        Bunch Get(int id);
+        IList<Bunch> Get(IList<int> ids);
+        IList<int> Search();
+        IList<int> Search(string slug);
+        IList<int> Search(int userId);
         int Add(Bunch bunch);
         bool Save(Bunch bunch);
     }

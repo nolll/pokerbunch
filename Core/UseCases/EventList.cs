@@ -8,14 +8,14 @@ namespace Core.UseCases
 {
     public class EventList
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly BunchService _bunchService;
         private readonly IEventRepository _eventRepository;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EventList(IBunchRepository bunchRepository, IEventRepository eventRepository, UserService userService, IPlayerRepository playerRepository)
+        public EventList(BunchService bunchService, IEventRepository eventRepository, UserService userService, IPlayerRepository playerRepository)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
             _eventRepository = eventRepository;
             _userService = userService;
             _playerRepository = playerRepository;
@@ -23,7 +23,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.GetBySlug(request.Slug);
+            var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);

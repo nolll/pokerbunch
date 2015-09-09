@@ -56,7 +56,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EventList(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Event,
                     Services.UserService,
                     Repos.Player);

@@ -25,6 +25,12 @@ namespace Plumbing
             get { return _userService ?? (_userService = new UserService(UserRepository)); }
         }
 
+        private BunchService _bunchService;
+        public BunchService BunchService
+        {
+            get { return _bunchService ?? (_bunchService = new BunchService(BunchRepository)); }
+        }
+
         private IRandomService _randomService;
         public IRandomService RandomService
         {
@@ -46,7 +52,7 @@ namespace Plumbing
         private IBunchRepository _bunchRepository;
         public IBunchRepository BunchRepository
         {
-            get { return _bunchRepository ?? (_bunchRepository = new SqlBunchRepository(BunchStorage, CacheContainer)); }
+            get { return _bunchRepository ?? (_bunchRepository = _cachedRepositoryFactory.GetBunchRepository(new SqlBunchRepository(BunchStorage))); }
         }
 
         private IUserRepository _userRepository;

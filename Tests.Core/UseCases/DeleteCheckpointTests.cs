@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new DeleteCheckpoint(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Checkpoint,
                     Services.UserService,

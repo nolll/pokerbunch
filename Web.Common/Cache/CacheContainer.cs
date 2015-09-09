@@ -69,7 +69,7 @@ namespace Web.Common.Cache
             return cachedInt;
         }
 
-        public IList<T> GetEachAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
+        public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
         {
             var list = new List<T>();
             var notInCache = new List<int>();

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
-using Infrastructure.Storage.Cache;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
@@ -15,47 +12,41 @@ namespace Infrastructure.Storage.Repositories
 	public class SqlBunchRepository : IBunchRepository
 	{
 	    private readonly IBunchStorage _bunchStorage;
-	    private readonly ICacheContainer _cacheContainer;
 
 	    public SqlBunchRepository(
-            IBunchStorage bunchStorage, 
-            ICacheContainer cacheContainer)
+            IBunchStorage bunchStorage)
 	    {
 	        _bunchStorage = bunchStorage;
-	        _cacheContainer = cacheContainer;
 	    }
 
-        public Bunch GetBySlug(string slug)
+	    public IList<Bunch> Get(IList<int> ids)
+	    {
+	        return GetByIdsUncached(ids);
+	    }
+
+        public Bunch Get(int id)
         {
+            return GetByIdUncached(id);
+        }
+
+	    public IList<int> Search()
+	    {
+            return GetAllIds();
+	    }
+
+	    public IList<int> Search(string slug)
+	    {
             var id = GetIdBySlug(slug);
-            if (!id.HasValue)
-                throw new BunchNotFoundException(slug);
-            var bunch = GetById(id.Value);
-            if (bunch == null)
-                throw new BunchNotFoundException(slug);
-            return GetById(id.Value);
-        }
+            if(id.HasValue)
+                return new List<int>{id.Value};
+            return new List<int>();
+	    }
 
-        public Bunch GetById(int id)
-        {
-            var cacheKey = CacheKeyProvider.BunchKey(id);
-            return _cacheContainer.GetAndStore(() => GetByIdUncached(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
-        }
-
-        public IList<Bunch> GetByUserId(int userId)
-        {
-            var ids = _bunchStorage.GetBunchIdsByUserId(userId);
-            var bunches = _cacheContainer.GetEachAndStore(GetByIdsUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
-            return bunches.OrderBy(o => o.DisplayName).ToList();
-        }
-
-        public IList<Bunch> GetList()
-        {
-            var ids = GetAllIds();
-            var bunches = _cacheContainer.GetEachAndStore(GetByIdsUncached, TimeSpan.FromMinutes(CacheTime.Long), ids);
-            return bunches.OrderBy(o => o.DisplayName).ToList();
-        }
-
+	    public IList<int> Search(int userId)
+	    {
+            return _bunchStorage.GetBunchIdsByUserId(userId);
+	    }
+        
         public int Add(Bunch bunch)
         {
             var rawHomegame = RawBunch.Create(bunch);
@@ -76,8 +67,7 @@ namespace Infrastructure.Storage.Repositories
 
         private int? GetIdBySlug(string slug)
         {
-            var cacheKey = CacheKeyProvider.BunchIdBySlugKey(slug);
-            return _cacheContainer.GetAndStore(() => _bunchStorage.GetIdBySlug(slug), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _bunchStorage.GetIdBySlug(slug);
         }
 
         private IList<Bunch> GetByIdsUncached(IList<int> ids)
@@ -88,8 +78,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetAllIds()
         {
-            var cacheKey = CacheKeyProvider.BunchIdsKey();
-            return _cacheContainer.GetAndStore(() => _bunchStorage.GetAllIds(), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _bunchStorage.GetAllIds();
         }
 
 	    private static Bunch CreateBunch(RawBunch rawBunch)

@@ -100,7 +100,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new TopList(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Player,
                     Services.UserService);

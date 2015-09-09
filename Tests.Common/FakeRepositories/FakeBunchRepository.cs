@@ -17,9 +17,14 @@ namespace Tests.Common.FakeRepositories
             SetupDefaultList();
         }
 
-        public Bunch GetById(int id)
+        public Bunch Get(int id)
         {
             return _list.First(o => o.Id == id);
+        }
+
+        public IList<Bunch> Get(IList<int> ids)
+        {
+            return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
         public Bunch GetBySlug(string slug)
@@ -30,14 +35,24 @@ namespace Tests.Common.FakeRepositories
             return bunch;
         }
 
-        public IList<Bunch> GetList()
+        public IList<Bunch> GetByUserId(int userId)
         {
             return _list;
         }
 
-        public IList<Bunch> GetByUserId(int userId)
+        public IList<int> Search()
         {
-            return _list;
+            return _list.Select(o => o.Id).ToList();
+        }
+
+        public IList<int> Search(string slug)
+        {
+            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> Search(int userId)
+        {
+            return _list.Select(o => o.Id).ToList();
         }
 
         public int Add(Bunch bunch)

@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new Cashout(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Repos.Cashgame,
                     Repos.Player,
                     Repos.Checkpoint,

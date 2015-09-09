@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new JoinBunchConfirmation(
-                    Repos.Bunch,
+                    Services.BunchService,
                     Services.UserService,
                     Repos.Player);
             }
