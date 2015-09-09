@@ -10,9 +10,10 @@ namespace Web.Common.Cache
 
         public Bootstrap()
         {
-            var deps = new Dependencies(new AspNetCacheProvider(), new CachedRepositoryFactory());
+            var cacheContainer = new CacheContainer(new AspNetCacheProvider());
+            var deps = new Dependencies(new CachedRepositoryFactory(cacheContainer));
             UseCases = new UseCaseContainer(deps);
-            CacheBuster = new CacheBuster(deps);
+            CacheBuster = new CacheBuster(deps, cacheContainer);
         }
     }
 }

@@ -5,7 +5,12 @@ namespace Web.Common.Cache.Repositories
 {
     public class CachedRepositoryFactory : IRepositoryFactory
     {
-        private readonly ICacheContainer _cacheContainer = new CacheContainer(new AspNetCacheProvider());
+        private readonly ICacheContainer _cacheContainer;
+
+        public CachedRepositoryFactory(ICacheContainer cacheContainer)
+        {
+            _cacheContainer = cacheContainer;
+        }
 
         public IUserRepository GetUserRepository(IUserRepository userRepository)
         {

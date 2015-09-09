@@ -9,10 +9,10 @@ namespace Web.Common.Cache
         private readonly Dependencies _deps;
         private readonly ICacheContainer _cache;
 
-        public CacheBuster(Dependencies deps)
+        public CacheBuster(Dependencies deps, ICacheContainer cacheContainer)
         {
             _deps = deps;
-            _cache = _deps.CacheContainer;
+            _cache = cacheContainer;
         }
 
         public void UserAdded()

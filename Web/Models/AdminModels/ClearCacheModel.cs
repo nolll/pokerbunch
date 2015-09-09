@@ -1,14 +1,12 @@
-using Core.UseCases;
-
 namespace Web.Models.AdminModels
 {
     public class ClearCacheModel
     {
         public string Message { get; private set; }
 
-        public ClearCacheModel(ClearCache.Result clearCacheResult)
+        public ClearCacheModel(int objectCount)
         {
-            Message = GetMessage(clearCacheResult.DeleteCount);
+            Message = GetMessage(objectCount);
         }
 
         private string GetMessage(int objectCount)

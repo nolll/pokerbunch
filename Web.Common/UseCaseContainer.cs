@@ -26,7 +26,6 @@ namespace Web.Common
 
         // Admin
         public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender, _deps.UserService); } }
-        public ClearCache ClearCache { get { return new ClearCache(_deps.CacheContainer, _deps.UserService); } }
 
         // User
         public UserList UserList { get { return new UserList(_deps.UserRepository); } }

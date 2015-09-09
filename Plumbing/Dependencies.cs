@@ -1,7 +1,6 @@
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage;
-using Infrastructure.Storage.Cache;
 using Infrastructure.Storage.Interfaces;
 using Infrastructure.Storage.Repositories;
 using Infrastructure.Web;
@@ -10,12 +9,10 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private readonly ICacheProvider _cacheProvider;
         private readonly IRepositoryFactory _cachedRepositoryFactory;
 
-        public Dependencies(ICacheProvider cacheProvider, IRepositoryFactory cachedRepositoryFactory)
+        public Dependencies(IRepositoryFactory cachedRepositoryFactory)
         {
-            _cacheProvider = cacheProvider;
             _cachedRepositoryFactory = cachedRepositoryFactory;
         }
 
@@ -42,12 +39,6 @@ namespace Plumbing
         {
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
-
-        private ICacheContainer _cacheContainer;
-        public ICacheContainer CacheContainer
-        {
-            get { return _cacheContainer ?? (_cacheContainer = new CacheContainer(_cacheProvider)); }
-        }
         
         private IBunchRepository _bunchRepository;
         public IBunchRepository BunchRepository
@@ -64,13 +55,13 @@ namespace Plumbing
         private IPlayerRepository _playerRepository;
         public IPlayerRepository PlayerRepository
         {
-            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, CacheContainer, UserRepository)); }
+            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, UserRepository)); }
         }
 
         private ICashgameRepository _cashgameRepository;
         public ICashgameRepository CashgameRepository
         {
-            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CacheContainer, CheckpointStorage)); }
+            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CheckpointStorage)); }
         }
 
         private ICheckpointRepository _checkpointRepository;
@@ -82,7 +73,7 @@ namespace Plumbing
         private IEventRepository _eventRepository;
         public IEventRepository EventRepository
         {
-            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage, CacheContainer)); }
+            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage)); }
         }
 
         private IAppRepository _appRepository;

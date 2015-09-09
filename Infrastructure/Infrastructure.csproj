@@ -49,8 +49,6 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Storage\CacheTime.cs" />
-    <Compile Include="Storage\Cache\CacheContainer.cs" />
-    <Compile Include="Storage\Cache\CacheKeyProvider.cs" />
     <Compile Include="Storage\Classes\RawBunch.cs" />
     <Compile Include="Storage\Classes\RawCashgame.cs" />
     <Compile Include="Storage\Classes\RawCheckpoint.cs" />
@@ -95,6 +93,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
