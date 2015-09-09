@@ -8,7 +8,6 @@ namespace Core.Repositories
         IList<Cashgame> GetFinished(int bunchId, int? year = null);
         IList<Cashgame> GetByEvent(int eventId);
         Cashgame GetRunning(int bunchId);
-        Cashgame GetByDateString(int bunchId, string dateString);
         Cashgame GetById(int cashgameId);
         IList<int> GetYears(int bunchId);
 		IList<string> GetLocations(int bunchId);

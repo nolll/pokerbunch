@@ -56,7 +56,6 @@
     <Compile Include="Storage\Classes\RawEventDay.cs" />
     <Compile Include="Storage\Classes\RawPlayer.cs" />
     <Compile Include="Storage\Classes\RawUser.cs" />
-    <Compile Include="Storage\Interfaces\IBunchStorage.cs" />
     <Compile Include="Storage\Interfaces\ICashgameStorage.cs" />
     <Compile Include="Storage\Interfaces\ICheckpointStorage.cs" />
     <Compile Include="Storage\Interfaces\IEventStorage.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
     <Compile Include="Storage\Repositories\SqlUserRepository.cs" />
     <Compile Include="Storage\SimpleSqlParameter.cs" />
-    <Compile Include="Storage\SqlServerBunchStorage.cs" />
     <Compile Include="Storage\SqlServerCashgameStorage.cs" />
     <Compile Include="Storage\SqlServerCheckpointStorage.cs" />
     <Compile Include="Storage\SqlServerEventStorage.cs" />

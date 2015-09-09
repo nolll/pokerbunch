@@ -43,7 +43,7 @@ namespace Plumbing
         private IBunchRepository _bunchRepository;
         public IBunchRepository BunchRepository
         {
-            get { return _bunchRepository ?? (_bunchRepository = _cachedRepositoryFactory.GetBunchRepository(new SqlBunchRepository(BunchStorage))); }
+            get { return _bunchRepository ?? (_bunchRepository = _cachedRepositoryFactory.GetBunchRepository(new SqlBunchRepository())); }
         }
 
         private IUserRepository _userRepository;
@@ -55,37 +55,31 @@ namespace Plumbing
         private IPlayerRepository _playerRepository;
         public IPlayerRepository PlayerRepository
         {
-            get { return _playerRepository ?? (_playerRepository = new SqlPlayerRepository(PlayerStorage, UserRepository)); }
+            get { return _playerRepository ?? (_playerRepository = _cachedRepositoryFactory.GetPlayerRepository(new SqlPlayerRepository(PlayerStorage, UserRepository))); }
         }
 
         private ICashgameRepository _cashgameRepository;
         public ICashgameRepository CashgameRepository
         {
-            get { return _cashgameRepository ?? (_cashgameRepository = new SqlCashgameRepository(CashgameStorage, CheckpointStorage)); }
+            get { return _cashgameRepository ?? (_cashgameRepository = _cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(CashgameStorage, CheckpointStorage))); }
         }
 
         private ICheckpointRepository _checkpointRepository;
         public ICheckpointRepository CheckpointRepository
         {
-            get { return _checkpointRepository ?? (_checkpointRepository = new SqlCheckpointRepository(CheckpointStorage)); }
+            get { return _checkpointRepository ?? (_checkpointRepository = _cachedRepositoryFactory.GetCheckpointRepository(new SqlCheckpointRepository(CheckpointStorage))); }
         }
 
         private IEventRepository _eventRepository;
         public IEventRepository EventRepository
         {
-            get { return _eventRepository ?? (_eventRepository = new SqlEventRepository(EventStorage)); }
+            get { return _eventRepository ?? (_eventRepository = _cachedRepositoryFactory.GetEventRepository(new SqlEventRepository(EventStorage))); }
         }
 
         private IAppRepository _appRepository;
         public IAppRepository AppRepository
         {
-            get { return _appRepository ?? (_appRepository = new SqlAppRepository()); }
-        }
-
-        private IBunchStorage _bunchStorage;
-        private IBunchStorage BunchStorage
-        {
-            get { return _bunchStorage ?? (_bunchStorage = new SqlServerBunchStorage()); }
+            get { return _appRepository ?? (_appRepository = _cachedRepositoryFactory.GetAppRepository(new SqlAppRepository())); }
         }
 
         private IPlayerStorage _playerStorage;

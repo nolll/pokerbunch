@@ -11,32 +11,50 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlBunchRepository : IBunchRepository
 	{
-	    private readonly IBunchStorage _bunchStorage;
-
-	    public SqlBunchRepository(
-            IBunchStorage bunchStorage)
+	    private readonly SqlServerStorageProvider _db;
+        
+        public SqlBunchRepository()
 	    {
-	        _bunchStorage = bunchStorage;
+            _db = new SqlServerStorageProvider();
 	    }
 
 	    public IList<Bunch> Get(IList<int> ids)
 	    {
-	        return GetByIdsUncached(ids);
+            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
+            var parameter = new ListSqlParameter("@ids", ids);
+            var reader = _db.Query(sql, parameter);
+            var rawHomegames = reader.ReadList(CreateRawBunch);
+            return rawHomegames.Select(CreateBunch).ToList();
 	    }
 
         public Bunch Get(int id)
         {
-            return GetByIdUncached(id);
+            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE HomegameID = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", id)
+                };
+            var reader = _db.Query(sql, parameters);
+            var rawHomegame = reader.ReadOne(CreateRawBunch);
+            return rawHomegame != null ? CreateBunch(rawHomegame) : null;
         }
 
 	    public IList<int> Search()
 	    {
-            return GetAllIds();
+            const string sql = "SELECT h.HomegameID FROM homegame h";
+            var reader = _db.Query(sql);
+            return reader.ReadIntList("HomegameID");
 	    }
 
 	    public IList<int> Search(string slug)
 	    {
-            var id = GetIdBySlug(slug);
+            const string sql = "SELECT h.HomegameID FROM homegame h WHERE h.Name = @slug";
+	        var parameters = new List<SimpleSqlParameter>
+	        {
+	            new SimpleSqlParameter("@slug", slug)
+	        };
+            var reader = _db.Query(sql, parameters);
+            var id = reader.ReadInt("HomegameID");
             if(id.HasValue)
                 return new List<int>{id.Value};
             return new List<int>();
@@ -44,43 +62,60 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> Search(int userId)
 	    {
-            return _bunchStorage.GetBunchIdsByUserId(userId);
+            const string sql = "SELECT h.HomegameID FROM homegame h INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name";
+	        var parameters = new List<SimpleSqlParameter>
+	        {
+	            new SimpleSqlParameter("@userId", userId)
+	        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("HomegameID");
 	    }
         
         public int Add(Bunch bunch)
         {
-            var rawHomegame = RawBunch.Create(bunch);
-            return _bunchStorage.AddBunch(rawHomegame);
+            var rawBunch = RawBunch.Create(bunch);
+            const string sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES (@slug, @displayName, @description, @currencySymbol, @currencyLayout, @timeZone, 0, @cashgamesEnabled, @tournamentsEnabled, @videosEnabled, @houseRules) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@slug", rawBunch.Slug),
+                new SimpleSqlParameter("@displayName", rawBunch.DisplayName),
+                new SimpleSqlParameter("@description", rawBunch.Description),
+                new SimpleSqlParameter("@currencySymbol", rawBunch.CurrencySymbol),
+                new SimpleSqlParameter("@currencyLayout", rawBunch.CurrencyLayout),
+                new SimpleSqlParameter("@timeZone", rawBunch.TimezoneName),
+                new SimpleSqlParameter("@cashgamesEnabled", rawBunch.CashgamesEnabled),
+                new SimpleSqlParameter("@tournamentsEnabled", rawBunch.TournamentsEnabled),
+                new SimpleSqlParameter("@videosEnabled", rawBunch.VideosEnabled),
+                new SimpleSqlParameter("@houseRules", rawBunch.HouseRules)
+            };
+            return _db.ExecuteInsert(sql, parameters);
         }
 
         public bool Save(Bunch bunch)
         {
-            var rawHomegame = RawBunch.Create(bunch);
-            return _bunchStorage.UpdateBunch(rawHomegame);
-        }
+            var rawBunch = RawBunch.Create(bunch);
+            const string sql = "UPDATE homegame SET Name = @slug, DisplayName = @displayName, Description = @description, HouseRules = @houseRules, Currency = @currencySymbol, CurrencyLayout = @currencyLayout, Timezone = @timeZone, DefaultBuyin = @defaultBuyin, CashgamesEnabled = @cashgamesEnabled, TournamentsEnabled = @tournamentsEnabled, VideosEnabled = @videosEnabled WHERE HomegameID = @id";
 
-        private Bunch GetByIdUncached(int id)
-        {
-            var rawHomegame = _bunchStorage.GetById(id);
-            return rawHomegame != null ? CreateBunch(rawHomegame) : null;
-        }
+            var parameters = new List<SimpleSqlParameter>
+	            {
+                    new SimpleSqlParameter("@slug", rawBunch.Slug),
+                    new SimpleSqlParameter("@displayName", rawBunch.DisplayName),
+                    new SimpleSqlParameter("@description", rawBunch.Description),
+                    new SimpleSqlParameter("@houseRules", rawBunch.HouseRules),
+                    new SimpleSqlParameter("@currencySymbol", rawBunch.CurrencySymbol),
+                    new SimpleSqlParameter("@currencyLayout", rawBunch.CurrencyLayout),
+                    new SimpleSqlParameter("@timeZone", rawBunch.TimezoneName),
+                    new SimpleSqlParameter("@defaultBuyin", rawBunch.DefaultBuyin),
+                    new SimpleSqlParameter("@cashgamesEnabled", rawBunch.CashgamesEnabled),
+                    new SimpleSqlParameter("@tournamentsEnabled", rawBunch.TournamentsEnabled),
+                    new SimpleSqlParameter("@videosEnabled", rawBunch.VideosEnabled),
+                    new SimpleSqlParameter("@id", rawBunch.Id)
+                };
 
-        private int? GetIdBySlug(string slug)
-        {
-            return _bunchStorage.GetIdBySlug(slug);
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
         }
-
-        private IList<Bunch> GetByIdsUncached(IList<int> ids)
-        {
-            var rawHomegames = _bunchStorage.GetBunches(ids);
-            return rawHomegames.Select(CreateBunch).ToList();
-        }
-
-        private IList<int> GetAllIds()
-        {
-            return _bunchStorage.GetAllIds();
-        }
-
+        
 	    private static Bunch CreateBunch(RawBunch rawBunch)
         {
             var culture = CultureInfo.CreateSpecificCulture("sv-SE");
@@ -95,6 +130,34 @@ namespace Infrastructure.Storage.Repositories
                 TimeZoneInfo.FindSystemTimeZoneById(rawBunch.TimezoneName),
                 rawBunch.DefaultBuyin,
                 currency);
+        }
+        
+        public bool DeleteBunch(int id)
+        {
+            const string sql = "DELETE FROM homegame WHERE Id = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", id)
+                };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+        }
+
+        private static RawBunch CreateRawBunch(IStorageDataReader reader)
+        {
+            return new RawBunch(
+                reader.GetIntValue("HomegameID"),
+                reader.GetStringValue("Name"),
+                reader.GetStringValue("DisplayName"),
+                reader.GetStringValue("Description"),
+                reader.GetStringValue("HouseRules"),
+                reader.GetStringValue("Timezone"),
+                reader.GetIntValue("DefaultBuyin"),
+                reader.GetStringValue("CurrencyLayout"),
+                reader.GetStringValue("Currency"),
+                reader.GetBooleanValue("CashgamesEnabled"),
+                reader.GetBooleanValue("TournamentsEnabled"),
+                reader.GetBooleanValue("VideosEnabled"));
         }
 	}
 }
