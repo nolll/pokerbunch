@@ -13,15 +13,15 @@ namespace Core.UseCases
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
 
-        public EditCheckpoint(BunchService bunchService, ICheckpointRepository checkpointRepository, UserService userService, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
+        public EditCheckpoint(BunchService bunchService, ICheckpointRepository checkpointRepository, UserService userService, IPlayerRepository playerRepository, CashgameService cashgameService)
         {
             _bunchService = bunchService;
             _checkpointRepository = checkpointRepository;
             _userService = userService;
             _playerRepository = playerRepository;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
@@ -31,7 +31,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
-            var cashgame = _cashgameRepository.GetById(existingCheckpoint.CashgameId);
+            var cashgame = _cashgameService.GetById(existingCheckpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);

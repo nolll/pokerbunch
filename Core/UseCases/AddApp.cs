@@ -1,19 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddApp
     {
-        private readonly IAppRepository _appRepository;
+        private readonly AppService _appService;
         private readonly UserService _userService;
 
-        public AddApp(IAppRepository appRepository, UserService userService)
+        public AddApp(AppService appService, UserService userService)
         {
-            _appRepository = appRepository;
+            _appService = appService;
             _userService = userService;
         }
 
@@ -25,7 +24,7 @@ namespace Core.UseCases
 
             var app = new App(0, apiKey, appName, user.Id);
 
-            _appRepository.Add(app);
+            _appService.Add(app);
         }
 
         public class Request

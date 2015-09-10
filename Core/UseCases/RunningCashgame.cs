@@ -12,14 +12,14 @@ namespace Core.UseCases
     public class RunningCashgame
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly IPlayerRepository _playerRepository;
         private readonly UserService _userService;
 
-        public RunningCashgame(BunchService bunchService, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, UserService userService)
+        public RunningCashgame(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _playerRepository = playerRepository;
             _userService = userService;
         }
@@ -27,7 +27,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
-            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
+            var cashgame = _cashgameService.GetRunning(bunch.Id);
 
             if(cashgame == null)
                 throw new CashgameNotRunningException();

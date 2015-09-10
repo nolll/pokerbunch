@@ -1,19 +1,16 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
-namespace Web.Common.Cache.Repositories
+namespace Core.Services
 {
-    public class CachedEventRepository : IEventRepository
+    public class EventService
     {
         private readonly IEventRepository _eventRepository;
-        private readonly ICacheContainer _cacheContainer;
 
-        public CachedEventRepository(IEventRepository eventRepository, ICacheContainer cacheContainer)
+        public EventService(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
-            _cacheContainer = cacheContainer;
         }
 
         public IList<Event> Find(int bunchId)

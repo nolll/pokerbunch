@@ -116,7 +116,7 @@ namespace Tests.Core.UseCases
                 return new CashgameContext(
                     Services.UserService,
                     Services.BunchService,
-                    Repos.Cashgame);
+                    Services.CashgameService);
             }
         }
     }

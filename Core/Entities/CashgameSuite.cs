@@ -9,12 +9,6 @@ namespace Core.Entities
 	    public IList<Cashgame> Cashgames { get; private set; }
         public IList<CashgameTotalResult> TotalResults { get; private set; }
 
-        protected CashgameSuite(IList<Cashgame> cashgames, IList<CashgameTotalResult> totalResults)
-        {
-            Cashgames = cashgames;
-            TotalResults = totalResults;
-        }
-
         public CashgameSuite(IList<Cashgame> cashgames, IEnumerable<Player> players)
         {
             var sortedCashgames = cashgames.OrderByDescending(o => o.StartTime).ToList();

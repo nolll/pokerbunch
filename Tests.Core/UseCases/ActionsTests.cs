@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
             {
                 return new Actions(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService);
             }

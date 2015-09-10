@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
             {
                 return new CashgameFacts(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService);
             }

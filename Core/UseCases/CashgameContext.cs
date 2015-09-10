@@ -10,22 +10,22 @@ namespace Core.UseCases
     {
         private readonly UserService _userService;
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
 
-        public CashgameContext(UserService userService, BunchService bunchService, ICashgameRepository cashgameRepository)
+        public CashgameContext(UserService userService, BunchService bunchService, CashgameService cashgameService)
         {
             _userService = userService;
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
             var bunchContextResult = new BunchContext(_userService, _bunchService).Execute(request);
-            var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
+            var runningGame = _cashgameService.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
+            var years = _cashgameService.GetYears(bunchContextResult.BunchId);
 
             var selectedYear = request.Year;
             if (request.SelectedPage == CashgamePage.Overview)

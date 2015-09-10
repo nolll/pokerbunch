@@ -1,19 +1,16 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
-namespace Web.Common.Cache.Repositories
+namespace Core.Services
 {
-    public class CachedPlayerRepository : IPlayerRepository
+    public class PlayerService
     {
         private readonly IPlayerRepository _playerRepository;
-        private readonly ICacheContainer _cacheContainer;
 
-        public CachedPlayerRepository(IPlayerRepository playerRepository, ICacheContainer cacheContainer)
+        public PlayerService(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
-            _cacheContainer = cacheContainer;
         }
 
         public IList<Player> GetList(int bunchId)

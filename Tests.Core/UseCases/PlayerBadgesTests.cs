@@ -90,7 +90,7 @@ namespace Tests.Core.UseCases
             {
                 return new PlayerBadges(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService);
             }

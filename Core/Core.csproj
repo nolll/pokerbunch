@@ -71,10 +71,13 @@
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\IRepositoryFactory.cs" />
+    <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
+    <Compile Include="Services\CheckpointService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Env.cs" />
+    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
+    <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
@@ -124,7 +128,6 @@
     <Compile Include="UseCases\TopList.cs" />
     <Compile Include="UseCases\Cashout.cs" />
     <Compile Include="UseCases\ChangePassword.cs" />
-    <Compile Include="UseCases\ClearCache.cs" />
     <Compile Include="UseCases\DeleteCashgame.cs" />
     <Compile Include="UseCases\DeleteCheckpoint.cs" />
     <Compile Include="UseCases\DeletePlayer.cs" />
@@ -166,7 +169,7 @@
     <Compile Include="Entities\Role.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\ICashgameRepository.cs" />
+    <Compile Include="Repositories\CashgameService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cashgame.cs" />

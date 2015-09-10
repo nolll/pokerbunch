@@ -10,21 +10,21 @@ namespace Core.UseCases
     public class ActionsChart
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public ActionsChart(BunchService bunchService, ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public ActionsChart(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var cashgame = _cashgameService.GetById(request.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);

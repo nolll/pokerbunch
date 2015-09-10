@@ -8,14 +8,14 @@ namespace Core.UseCases
     public class AddCashgameForm
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public AddCashgameForm(BunchService bunchService, ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public AddCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
@@ -26,12 +26,12 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var runningGame = _cashgameRepository.GetRunning(bunch.Id);
+            var runningGame = _cashgameService.GetRunning(bunch.Id);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
-            var locations = _cashgameRepository.GetLocations(bunch.Id);
+            var locations = _cashgameService.GetLocations(bunch.Id);
             return new Result(locations);
         }
 

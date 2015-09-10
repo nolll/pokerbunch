@@ -10,15 +10,15 @@ namespace Core.UseCases
     public class Cashout
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly IPlayerRepository _playerRepository;
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly UserService _userService;
 
-        public Cashout(BunchService bunchService, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, ICheckpointRepository checkpointRepository, UserService userService)
+        public Cashout(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, ICheckpointRepository checkpointRepository, UserService userService)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _playerRepository = playerRepository;
             _checkpointRepository = checkpointRepository;
             _userService = userService;
@@ -34,7 +34,7 @@ namespace Core.UseCases
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
-            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
+            var cashgame = _cashgameService.GetRunning(bunch.Id);
             var result = cashgame.GetResult(request.PlayerId);
 
             var existingCashoutCheckpoint = result.CashoutCheckpoint;

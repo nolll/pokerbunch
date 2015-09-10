@@ -10,14 +10,14 @@ namespace Core.UseCases
     public class CashgameList
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public CashgameList(BunchService bunchService, ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public CashgameList(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
@@ -28,7 +28,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
             var list = cashgames.Select(o => new Item(bunch, o));

@@ -18,57 +18,57 @@ namespace Web.Common.Cache.Repositories
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetFinished(bunchId, year);
         }
 
         public IList<Cashgame> GetByEvent(int eventId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetByEvent(eventId);
         }
 
         public Cashgame GetRunning(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetRunning(bunchId);
         }
 
         public Cashgame GetById(int cashgameId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetById(cashgameId);
         }
 
         public IList<int> GetYears(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetYears(bunchId);
         }
 
         public IList<string> GetLocations(int bunchId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.GetLocations(bunchId);
         }
 
         public bool DeleteGame(Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.DeleteGame(cashgame);
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.AddGame(bunch, cashgame);
         }
 
         public bool UpdateGame(Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.UpdateGame(cashgame);
         }
 
         public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.EndGame(bunch, cashgame);
         }
 
         public bool HasPlayed(int playerId)
         {
-            throw new System.NotImplementedException();
+            return _cashgameRepository.HasPlayed(playerId);
         }
     }
 }

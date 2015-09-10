@@ -8,14 +8,14 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
 
-        public PlayerDetails(BunchService bunchService,  IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, UserService userService)
+        public PlayerDetails(BunchService bunchService,  IPlayerRepository playerRepository, CashgameService cashgameService, UserService userService)
         {
             _bunchService = bunchService;
             _playerRepository = playerRepository;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
         }
 
@@ -28,7 +28,7 @@ namespace Core.UseCases
             var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequirePlayer(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
-            var hasPlayed = _cashgameRepository.HasPlayed(request.PlayerId);
+            var hasPlayed = _cashgameService.HasPlayed(request.PlayerId);
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 
             return new Result(bunch, player, user, isManager, hasPlayed, avatarUrl);

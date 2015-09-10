@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EditCashgame(
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Services.UserService,
                     Repos.Player);
             }

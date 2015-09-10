@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases
             {
                 return new PlayerFacts(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService);
             }

@@ -8,13 +8,13 @@ namespace Core.UseCases
 {
     public class EditCashgame
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EditCashgame(ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public EditCashgame(CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
@@ -25,12 +25,12 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var cashgame = _cashgameRepository.GetById(request.Id);
+            var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
-            _cashgameRepository.UpdateGame(cashgame);
+            _cashgameService.UpdateGame(cashgame);
             
             return new Result(cashgame.Id);
         }

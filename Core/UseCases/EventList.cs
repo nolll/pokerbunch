@@ -9,14 +9,14 @@ namespace Core.UseCases
     public class EventList
     {
         private readonly BunchService _bunchService;
-        private readonly IEventRepository _eventRepository;
+        private readonly EventService _eventService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EventList(BunchService bunchService, IEventRepository eventRepository, UserService userService, IPlayerRepository playerRepository)
+        public EventList(BunchService bunchService, EventService eventService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
-            _eventRepository = eventRepository;
+            _eventService = eventService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
@@ -27,7 +27,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var events = _eventRepository.Find(bunch.Id);
+            var events = _eventService.Find(bunch.Id);
 
             var eventItems = events.OrderByDescending(o => o.StartDate).Select(CreateEventItem).ToList();
 

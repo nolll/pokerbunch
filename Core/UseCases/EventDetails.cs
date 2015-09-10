@@ -5,14 +5,14 @@ namespace Core.UseCases
 {
     public class EventDetails
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly EventService _eventService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
         private readonly BunchService _bunchService;
 
-        public EventDetails(IEventRepository eventRepository, UserService userService, IPlayerRepository playerRepository, BunchService bunchService)
+        public EventDetails(EventService eventService, UserService userService, IPlayerRepository playerRepository, BunchService bunchService)
         {
-            _eventRepository = eventRepository;
+            _eventService = eventService;
             _userService = userService;
             _playerRepository = playerRepository;
             _bunchService = bunchService;
@@ -20,7 +20,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var e = _eventRepository.GetById(request.EventId);
+            var e = _eventService.GetById(request.EventId);
             var bunch = _bunchService.Get(e.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(e.BunchId, user.Id);

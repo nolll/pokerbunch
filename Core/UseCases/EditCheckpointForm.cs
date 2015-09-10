@@ -9,15 +9,15 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EditCheckpointForm(BunchService bunchService, ICheckpointRepository checkpointRepository, ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public EditCheckpointForm(BunchService bunchService, ICheckpointRepository checkpointRepository, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
             _checkpointRepository = checkpointRepository;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
@@ -25,7 +25,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
-            var cashgame = _cashgameRepository.GetById(checkpoint.CashgameId);
+            var cashgame = _cashgameService.GetById(checkpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);

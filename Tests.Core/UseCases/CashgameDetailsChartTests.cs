@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases
             {
                 return new CashgameDetailsChart(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService);
             }

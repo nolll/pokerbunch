@@ -10,18 +10,18 @@ namespace Core.UseCases
     public class Matrix
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly IPlayerRepository _playerRepository;
         private readonly UserService _userService;
-        private readonly IEventRepository _eventRepository;
+        private readonly EventService _eventService;
 
-        public Matrix(BunchService bunchService, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, UserService userService, IEventRepository eventRepository)
+        public Matrix(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService, EventService eventServicey)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _playerRepository = playerRepository;
             _userService = userService;
-            _eventRepository = eventRepository;
+            _eventService = eventServicey;
         }
 
         public Result Execute(Request request)
@@ -30,18 +30,18 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var cashgames = _cashgameRepository.GetFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
         }
 
         public Result Execute(EventMatrixRequest request)
         {
-            var e = _eventRepository.GetById(request.EventId);
+            var e = _eventService.GetById(request.EventId);
             var bunch = _bunchService.Get(e.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var cashgames = _cashgameRepository.GetByEvent(request.EventId);
+            var cashgames = _cashgameService.GetByEvent(request.EventId);
             return Execute(bunch, cashgames);
         }
 

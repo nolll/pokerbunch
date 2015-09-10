@@ -47,10 +47,10 @@ namespace Tests.Core.UseCases
             {
                 return new Matrix(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Player,
                     Services.UserService,
-                    Repos.Event);
+                    Services.EventService);
             }
         }
     }

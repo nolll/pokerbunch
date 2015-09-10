@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new EventDetails(
-                    Repos.Event,
+                    Services.EventService,
                     Services.UserService,
                     Repos.Player,
                     Services.BunchService);

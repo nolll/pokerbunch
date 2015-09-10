@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
             {
                 return new EndCashgame(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Services.UserService,
                     Repos.Player);
             }

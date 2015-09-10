@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases
             {
                 return new DeleteCheckpoint(
                     Services.BunchService,
-                    Repos.Cashgame,
+                    Services.CashgameService,
                     Repos.Checkpoint,
                     Services.UserService,
                     Repos.Player);

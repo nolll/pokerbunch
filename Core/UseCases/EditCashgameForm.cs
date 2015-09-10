@@ -7,28 +7,28 @@ namespace Core.UseCases
     public class EditCashgameForm
     {
         private readonly BunchService _bunchService;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public EditCashgameForm(BunchService bunchService, ICashgameRepository cashgameRepository, UserService userService, IPlayerRepository playerRepository)
+        public EditCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
         {
             _bunchService = bunchService;
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _userService = userService;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.Id);
+            var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
             
             var location = cashgame.Location;
-            var locations = _cashgameRepository.GetLocations(cashgame.BunchId);
+            var locations = _cashgameService.GetLocations(cashgame.BunchId);
 
             return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locations);
         }

@@ -1,18 +1,15 @@
-using Core.Entities.Checkpoints;
+﻿using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
-namespace Web.Common.Cache.Repositories
+namespace Core.Services
 {
-    public class CachedCheckpointRepository : ICheckpointRepository
+    public class CheckpointService
     {
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly ICacheContainer _cacheContainer;
 
-        public CachedCheckpointRepository(ICheckpointRepository checkpointRepository, ICacheContainer cacheContainer)
+        public CheckpointService(ICheckpointRepository checkpointRepository)
         {
             _checkpointRepository = checkpointRepository;
-            _cacheContainer = cacheContainer;
         }
 
         public int AddCheckpoint(Checkpoint checkpoint)

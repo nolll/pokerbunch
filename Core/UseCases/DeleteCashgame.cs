@@ -6,14 +6,14 @@ namespace Core.UseCases
 {
     public class DeleteCashgame
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly CashgameService _cashgameService;
         private readonly BunchService _bunchService;
         private readonly UserService _userService;
         private readonly IPlayerRepository _playerRepository;
 
-        public DeleteCashgame(ICashgameRepository cashgameRepository, BunchService bunchService, UserService userService, IPlayerRepository playerRepository)
+        public DeleteCashgame(CashgameService cashgameService, BunchService bunchService, UserService userService, IPlayerRepository playerRepository)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
             _bunchService = bunchService;
             _userService = userService;
             _playerRepository = playerRepository;
@@ -21,7 +21,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.Id);
+            var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
@@ -30,7 +30,7 @@ namespace Core.UseCases
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();
 
-            _cashgameRepository.DeleteGame(cashgame);
+            _cashgameService.DeleteGame(cashgame);
 
             return new Result(bunch.Slug);
         }
