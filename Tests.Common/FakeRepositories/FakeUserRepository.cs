@@ -42,7 +42,7 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool Save(User user)
+        public bool Update(User user)
         {
             Saved = user;
             return true;

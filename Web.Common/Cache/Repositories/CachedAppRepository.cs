@@ -15,25 +15,15 @@ namespace Web.Common.Cache.Repositories
             _appRepository = appRepository;
             _cacheContainer = cacheContainer;
         }
-
-        public IList<App> ListApps()
-        {
-            return _appRepository.ListApps();
-        }
-
-        public IList<App> ListApps(int userId)
-        {
-            return _appRepository.ListApps(userId);
-        }
-
+        
         public App Get(int id)
         {
             return _appRepository.Get(id);
         }
 
-        public App Get(string appKey)
+        public IList<App> Get(IList<int> ids)
         {
-            return _appRepository.Get(appKey);
+            return _appRepository.Get(ids);
         }
 
         public IList<int> Find()

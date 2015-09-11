@@ -18,24 +18,24 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public Checkpoint GetCheckpoint(int id)
+        public Checkpoint Get(int id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public int AddCheckpoint(Checkpoint checkpoint)
+        public int Add(Checkpoint checkpoint)
         {
             Added = checkpoint;
             return 1;
         }
 
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        public bool Update(Checkpoint checkpoint)
         {
             Saved = checkpoint;
             return true;
         }
         
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        public bool Delete(Checkpoint checkpoint)
         {
             Deleted = checkpoint;
             return true;

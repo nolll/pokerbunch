@@ -6,6 +6,6 @@ namespace Core.Repositories
     public interface IEventRepository
     {
         IList<Event> Find(int bunchId);
-        Event GetById(int eventId);
+        Event Get(int eventId);
     }
 }

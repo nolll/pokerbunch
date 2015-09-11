@@ -14,22 +14,22 @@ namespace Core.Services
 
         public int AddCheckpoint(Checkpoint checkpoint)
         {
-            return _checkpointRepository.AddCheckpoint(checkpoint);
+            return _checkpointRepository.Add(checkpoint);
         }
 
         public bool UpdateCheckpoint(Checkpoint checkpoint)
         {
-            return _checkpointRepository.UpdateCheckpoint(checkpoint);
+            return _checkpointRepository.Update(checkpoint);
         }
 
         public bool DeleteCheckpoint(Checkpoint checkpoint)
         {
-            return _checkpointRepository.DeleteCheckpoint(checkpoint);
+            return _checkpointRepository.Delete(checkpoint);
         }
 
         public Checkpoint GetCheckpoint(int checkpointId)
         {
-            return _checkpointRepository.GetCheckpoint(checkpointId);
+            return _checkpointRepository.Get(checkpointId);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var checkpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
+            var checkpoint = _checkpointRepository.Get(request.CheckpointId);
             var cashgame = _cashgameService.GetById(checkpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);

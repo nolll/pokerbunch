@@ -21,9 +21,9 @@ namespace Web.Common.Cache.Repositories
             return _eventRepository.Find(bunchId);
         }
 
-        public Event GetById(int eventId)
+        public Event Get(int eventId)
         {
-            return _eventRepository.GetById(eventId);
+            return _eventRepository.Get(eventId);
         }
     }
 }

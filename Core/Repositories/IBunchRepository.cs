@@ -11,6 +11,6 @@ namespace Core.Repositories
         IList<int> Search(string slug);
         IList<int> Search(int userId);
         int Add(Bunch bunch);
-        bool Save(Bunch bunch);
+        bool Update(Bunch bunch);
     }
 }

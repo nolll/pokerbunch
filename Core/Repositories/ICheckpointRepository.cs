@@ -4,9 +4,9 @@ namespace Core.Repositories
 {
 	public interface ICheckpointRepository
     {
-		int AddCheckpoint(Checkpoint checkpoint);
-        bool UpdateCheckpoint(Checkpoint checkpoint);
-        bool DeleteCheckpoint(Checkpoint checkpoint);
-	    Checkpoint GetCheckpoint(int checkpointId);
+		int Add(Checkpoint checkpoint);
+        bool Update(Checkpoint checkpoint);
+        bool Delete(Checkpoint checkpoint);
+	    Checkpoint Get(int checkpointId);
 	}
 }

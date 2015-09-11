@@ -9,7 +9,7 @@ namespace Core.Repositories
         IList<User> Get(IList<int> ids);
         IList<int> Find();
         IList<int> Find(string nameOrEmail);
-        bool Save(User user);
+        bool Update(User user);
         int Add(User user);
     }
 }

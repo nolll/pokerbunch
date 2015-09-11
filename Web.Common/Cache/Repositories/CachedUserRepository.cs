@@ -48,9 +48,9 @@ namespace Web.Common.Cache.Repositories
             return _bunchRepository.Add(bunch);
         }
 
-        public bool Save(Bunch bunch)
+        public bool Update(Bunch bunch)
         {
-            return _bunchRepository.Save(bunch);
+            return _bunchRepository.Update(bunch);
         }
     }
 
@@ -86,9 +86,9 @@ namespace Web.Common.Cache.Repositories
             return _userRepository.Find(nameOrEmail);
         }
 
-        public bool Save(User user)
+        public bool Update(User user)
         {
-            return _userRepository.Save(user);
+            return _userRepository.Update(user);
         }
 
         public int Add(User user)

@@ -40,15 +40,9 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadOne(CreateApp);
         }
 
-        public App Get(string appKey)
+        public IList<App> Get(IList<int> ids)
         {
-            var sql = string.Concat(AppDataSql, "WHERE a.AppKey = @appKey");
-            var parameters = new List<SimpleSqlParameter>
-            {
-                new SimpleSqlParameter("@appKey", appKey)
-            };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadOne(CreateApp);
+            return GetAppList(ids);
         }
 
         public IList<int> Find()

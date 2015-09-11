@@ -42,7 +42,7 @@ namespace Infrastructure.Storage.Repositories
             return new List<int>();
         }
 
-        public bool Save(User user)
+        public bool Update(User user)
         {
             var rawUser = RawUser.Create(user);
             return _userStorage.UpdateUser(rawUser);

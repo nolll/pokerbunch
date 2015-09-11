@@ -30,7 +30,7 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var existingCheckpoint = _checkpointRepository.GetCheckpoint(request.CheckpointId);
+            var existingCheckpoint = _checkpointRepository.Get(request.CheckpointId);
             var cashgame = _cashgameService.GetById(existingCheckpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
@@ -46,7 +46,7 @@ namespace Core.UseCases
                 request.Amount,
                 existingCheckpoint.Id);
 
-            _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
+            _checkpointRepository.Update(postedCheckpoint);
 
             return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }

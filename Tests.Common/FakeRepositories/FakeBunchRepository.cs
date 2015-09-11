@@ -61,7 +61,7 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool Save(Bunch bunch)
+        public bool Update(Bunch bunch)
         {
             Saved = bunch;
             return true;

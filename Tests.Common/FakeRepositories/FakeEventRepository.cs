@@ -19,7 +19,7 @@ namespace Tests.Common.FakeRepositories
             return _list;
         }
 
-        public Event GetById(int eventId)
+        public Event Get(int eventId)
         {
             return _list.FirstOrDefault(o => o.Id == eventId);
         }

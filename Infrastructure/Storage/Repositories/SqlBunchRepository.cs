@@ -91,7 +91,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
 
-        public bool Save(Bunch bunch)
+        public bool Update(Bunch bunch)
         {
             var rawBunch = RawBunch.Create(bunch);
             const string sql = "UPDATE homegame SET Name = @slug, DisplayName = @displayName, Description = @description, HouseRules = @houseRules, Currency = @currencySymbol, CurrencyLayout = @currencyLayout, Timezone = @timeZone, DefaultBuyin = @defaultBuyin, CashgamesEnabled = @cashgamesEnabled, TournamentsEnabled = @tournamentsEnabled, VideosEnabled = @videosEnabled WHERE HomegameID = @id";

@@ -48,9 +48,9 @@ namespace Core.UseCases
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
             if (existingCashoutCheckpoint != null)
-                _checkpointRepository.UpdateCheckpoint(postedCheckpoint);
+                _checkpointRepository.Update(postedCheckpoint);
             else
-                _checkpointRepository.AddCheckpoint(postedCheckpoint);
+                _checkpointRepository.Add(postedCheckpoint);
 
             return new Result(cashgame.Id);
         }

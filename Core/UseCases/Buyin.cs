@@ -39,7 +39,7 @@ namespace Core.UseCases
 
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
-            _checkpointRepository.AddCheckpoint(checkpoint);
+            _checkpointRepository.Add(checkpoint);
 
             return new Result(game.Id);
         }

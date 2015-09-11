@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
             return FindUncached(ids).OrderBy(o => o.Name).ToList();
         }
 
-        public Event GetById(int id)
+        public Event Get(int id)
         {
             return GetByIdUncached(id);
         }

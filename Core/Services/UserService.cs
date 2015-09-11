@@ -35,7 +35,7 @@ namespace Core.Services
         
         public bool Save(User user)
         {
-            return _userRepository.Save(user);
+            return _userRepository.Update(user);
         }
 
         public int Add(User user)

@@ -14,24 +14,24 @@ namespace Infrastructure.Storage.Repositories
             _checkpointStorage = checkpointStorage;
         }
 
-        public int AddCheckpoint(Checkpoint checkpoint)
+        public int Add(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
             return _checkpointStorage.AddCheckpoint(rawCheckpoint);
         }
 
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        public bool Update(Checkpoint checkpoint)
         {
             var rawCheckpoint = RawCheckpoint.Create(checkpoint);
             return _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
         }
 
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        public bool Delete(Checkpoint checkpoint)
         {
             return _checkpointStorage.DeleteCheckpoint(checkpoint.Id);
         }
 
-        public Checkpoint GetCheckpoint(int checkpointId)
+        public Checkpoint Get(int checkpointId)
         {
             var rawCheckpoint = _checkpointStorage.GetCheckpoint(checkpointId);
             return rawCheckpoint != null ? RawCheckpoint.CreateReal(rawCheckpoint) : null;

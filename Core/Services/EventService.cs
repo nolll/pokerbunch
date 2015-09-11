@@ -20,7 +20,7 @@ namespace Core.Services
 
         public Event GetById(int eventId)
         {
-            return _eventRepository.GetById(eventId);
+            return _eventRepository.Get(eventId);
         }
     }
 }

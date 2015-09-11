@@ -15,24 +15,24 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public int AddCheckpoint(Checkpoint checkpoint)
+        public int Add(Checkpoint checkpoint)
         {
-            return _checkpointRepository.AddCheckpoint(checkpoint);
+            return _checkpointRepository.Add(checkpoint);
         }
 
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        public bool Update(Checkpoint checkpoint)
         {
-            return _checkpointRepository.UpdateCheckpoint(checkpoint);
+            return _checkpointRepository.Update(checkpoint);
         }
 
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        public bool Delete(Checkpoint checkpoint)
         {
-            return _checkpointRepository.DeleteCheckpoint(checkpoint);
+            return _checkpointRepository.Delete(checkpoint);
         }
 
-        public Checkpoint GetCheckpoint(int checkpointId)
+        public Checkpoint Get(int checkpointId)
         {
-            return _checkpointRepository.GetCheckpoint(checkpointId);
+            return _checkpointRepository.Get(checkpointId);
         }
     }
 }
