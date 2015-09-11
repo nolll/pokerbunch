@@ -76,14 +76,14 @@ namespace Web.Common.Cache.Repositories
             return _cacheContainer.GetAndStore(_userRepository.Get, TimeSpan.FromMinutes(CacheTime.Long), ids);
         }
         
-        public IList<int> Search()
+        public IList<int> Find()
         {
-            return _userRepository.Search();
+            return _userRepository.Find();
         }
 
-        public IList<int> Search(string nameOrEmail)
+        public IList<int> Find(string nameOrEmail)
         {
-            return _userRepository.Search(nameOrEmail);
+            return _userRepository.Find(nameOrEmail);
         }
 
         public bool Save(User user)

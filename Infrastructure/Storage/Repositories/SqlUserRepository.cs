@@ -29,12 +29,12 @@ namespace Infrastructure.Storage.Repositories
             return rawUsers.Select(RawUser.CreateReal).OrderBy(o => o.DisplayName).ToList();
         }
 
-        public IList<int> Search()
+        public IList<int> Find()
         {
             return GetIds();
         }
 
-        public IList<int> Search(string nameOrEmail)
+        public IList<int> Find(string nameOrEmail)
         {
             var userId = GetIdByNameOrEmail(nameOrEmail);
             if(userId.HasValue)

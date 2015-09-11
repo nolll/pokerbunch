@@ -7,8 +7,8 @@ namespace Core.Repositories
     {
         User Get(int id);
         IList<User> Get(IList<int> ids);
-        IList<int> Search();
-        IList<int> Search(string nameOrEmail);
+        IList<int> Find();
+        IList<int> Find(string nameOrEmail);
         bool Save(User user);
         int Add(User user);
     }

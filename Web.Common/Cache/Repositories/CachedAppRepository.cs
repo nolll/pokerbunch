@@ -36,6 +36,21 @@ namespace Web.Common.Cache.Repositories
             return _appRepository.Get(appKey);
         }
 
+        public IList<int> Find()
+        {
+            return _appRepository.Find();
+        }
+
+        public IList<int> Find(int userId)
+        {
+            return _appRepository.Find(userId);
+        }
+
+        public IList<int> Find(string appKey)
+        {
+            return _appRepository.Find(appKey);
+        }
+
         public int Add(App app)
         {
             return _appRepository.Add(app);

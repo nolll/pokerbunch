@@ -26,12 +26,12 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<int> Search()
+        public IList<int> Find()
         {
             return _list.Select(o => o.Id).ToList();
         }
 
-        public IList<int> Search(string nameOrEmail)
+        public IList<int> Find(string nameOrEmail)
         {
             return _list.Where(o => o.UserName == nameOrEmail || o.Email == nameOrEmail).Select(o => o.Id).ToList();
         }

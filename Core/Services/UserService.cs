@@ -21,7 +21,7 @@ namespace Core.Services
 
         public User GetByNameOrEmail(string nameOrEmail)
         {
-            var ids = _userRepository.Search(nameOrEmail);
+            var ids = _userRepository.Find(nameOrEmail);
             if (ids.Any())
                 return _userRepository.Get(ids.First());
             return null;
@@ -29,7 +29,7 @@ namespace Core.Services
 
         public IList<User> GetList()
         {
-            var ids = _userRepository.Search();
+            var ids = _userRepository.Find();
             return _userRepository.Get(ids);
         }
         

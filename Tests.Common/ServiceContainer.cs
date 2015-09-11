@@ -11,7 +11,7 @@ namespace Tests.Common
         public BunchService BunchService { get; private set; }
         public CashgameService CashgameService { get; private set; }
         public UserService UserService { get; private set; }
-        public EventService EventService { get; set; }
+        public EventService EventService { get; private set; }
 
         public ServiceContainer(RepositoryContainer repos)
         {

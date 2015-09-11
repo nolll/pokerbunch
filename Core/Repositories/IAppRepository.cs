@@ -9,6 +9,9 @@ namespace Core.Repositories
         IList<App> ListApps(int userId);
         App Get(int id);
         App Get(string appKey);
+        IList<int> Find();
+        IList<int> Find(int userId);
+        IList<int> Find(string appKey);
         int Add(App app);
         void Update(App app);
     }

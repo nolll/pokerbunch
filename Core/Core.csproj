@@ -169,7 +169,7 @@
     <Compile Include="Entities\Role.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\CashgameService.cs" />
+    <Compile Include="Repositories\ICashgameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cashgame.cs" />

@@ -10,7 +10,7 @@ namespace Infrastructure.Storage.Repositories
         private const string AppDataSql = "SELECT a.ID, a.AppKey, a.Name, a.UserId FROM [App] a ";
         private const string AppIdSql = "SELECT a.ID FROM [App] a ";
 
-        private SqlServerStorageProvider _db;
+        private readonly SqlServerStorageProvider _db;
 
         public SqlAppRepository()
         {
@@ -51,6 +51,21 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadOne(CreateApp);
         }
 
+        public IList<int> Find()
+        {
+            return GetAppIdList();
+        }
+
+        public IList<int> Find(int userId)
+        {
+            return GetAppIdList(userId);
+        }
+
+        public IList<int> Find(string appKey)
+        {
+            return GetAppIdList(appKey);
+        }
+
         private IList<int> GetAppIdList()
         {
             var sql = string.Concat(AppIdSql, "ORDER BY a.Name");
@@ -81,6 +96,17 @@ namespace Infrastructure.Storage.Repositories
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@userId", userId)
+            };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("ID");
+        }
+
+        private IList<int> GetAppIdList(string appKey)
+        {
+            var sql = string.Concat(AppDataSql, "WHERE a.Id = @appId");
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@appKey", appKey)
             };
             var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("ID");
