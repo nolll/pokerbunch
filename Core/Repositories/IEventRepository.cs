@@ -5,7 +5,8 @@ namespace Core.Repositories
 {
     public interface IEventRepository
     {
-        IList<Event> Find(int bunchId);
-        Event Get(int eventId);
+        Event Get(int id);
+        IList<Event> Get(IList<int> ids);
+        IList<int> Find(int bunchId);
     }
 }

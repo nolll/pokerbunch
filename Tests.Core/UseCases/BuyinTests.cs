@@ -59,7 +59,7 @@ namespace Tests.Core.UseCases
             {
                 return new Buyin(
                     Services.BunchService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.CashgameService,
                     Repos.Checkpoint,
                     Services.UserService);

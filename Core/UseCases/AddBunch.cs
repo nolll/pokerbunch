@@ -12,13 +12,13 @@ namespace Core.UseCases
     {
         private readonly UserService _userService;
         private readonly BunchService _bunchService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public AddBunch(UserService userService, BunchService bunchService, IPlayerRepository playerRepository)
+        public AddBunch(UserService userService, BunchService bunchService, PlayerService playerService)
         {
             _userService = userService;
             _bunchService = bunchService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
@@ -47,7 +47,7 @@ namespace Core.UseCases
             var id = _bunchService.Add(bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = new Player(id, user.Id, Role.Manager);
-            _playerRepository.Add(player);
+            _playerService.Add(player);
 
             return new Result(bunch.Id);
         }

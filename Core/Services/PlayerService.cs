@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
@@ -18,24 +19,22 @@ namespace Core.Services
             return _playerRepository.GetList(bunchId);
         }
 
-        public IList<Player> GetList(IList<int> ids)
+        public IList<Player> Get(IList<int> ids)
         {
-            return _playerRepository.GetList(ids);
+            return _playerRepository.Get(ids);
         }
 
-        public Player GetById(int id)
+        public Player Get(int id)
         {
-            return _playerRepository.GetById(id);
-        }
-
-        public Player GetByName(int bunchId, string name)
-        {
-            return _playerRepository.GetByName(bunchId, name);
+            return _playerRepository.Get(id);
         }
 
         public Player GetByUserId(int bunchId, int userId)
         {
-            return _playerRepository.GetByUserId(bunchId, userId);
+            var ids = _playerRepository.Find(bunchId, userId);
+            if (!ids.Any())
+                return null;
+            return _playerRepository.Get(ids).First();
         }
 
         public int Add(Player player)

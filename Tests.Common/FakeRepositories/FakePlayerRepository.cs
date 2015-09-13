@@ -17,17 +17,42 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
+        public IList<int> Find(int bunchId)
+        {
+            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> Find(int bunchId, string name)
+        {
+            return _list.Where(o => o.BunchId == bunchId && o.DisplayName == name).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> Find(int bunchId, int userId)
+        {
+            return _list.Where(o => o.BunchId == bunchId && o.UserId == userId).Select(o => o.Id).ToList();
+        }
+
+        public int FindOld(int bunchId, string name)
+        {
+            return _list.Where(o => o.BunchId == bunchId && o.DisplayName == name).Select(o => o.Id).FirstOrDefault();
+        }
+
+        public int FindOld(int bunchId, int userId)
+        {
+            return _list.Where(o => o.BunchId == bunchId && o.UserId == userId).Select(o => o.Id).FirstOrDefault();
+        }
+
         public IList<Player> GetList(int bunchId)
         {
             return _list;
         }
 
-        public IList<Player> GetList(IList<int> ids)
+        public IList<Player> Get(IList<int> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public Player GetById(int id)
+        public Player Get(int id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }

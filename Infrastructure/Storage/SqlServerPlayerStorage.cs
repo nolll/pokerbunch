@@ -18,24 +18,24 @@ namespace Infrastructure.Storage
             return reader.ReadOne(CreateRawPlayer);
         }
 
+        public IList<int> GetPlayerIdsByUserId(int bunchId, int userId)
+        {
+            const string sql = "SELECT p.PlayerID FROM player p WHERE p.HomegameID = @homegameId AND p.UserID = @userId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@userId", userId)
+                };
+            var reader = Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
+        }
+
         public IList<RawPlayer> GetPlayerList(IList<int> ids)
         {
             const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID IN (@ids)";
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = Query(sql, parameter);
             return reader.ReadList(CreateRawPlayer);
-        }
-
-        public int? GetPlayerIdByName(int homegameId, string name)
-        {
-            const string sql = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)";
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@homegameId", homegameId),
-                    new SimpleSqlParameter("@playerName", name)
-                };
-            var reader = Query(sql, parameters);
-            return reader.ReadInt("PlayerID");
         }
 
         public int? GetPlayerIdByUserId(int bunchId, int userId)
@@ -48,6 +48,18 @@ namespace Infrastructure.Storage
                 };
             var reader = Query(sql, parameters);
             return reader.ReadInt("PlayerID");
+        }
+
+        public IList<int> GetPlayerIdsByName(int homegameId, string name)
+        {
+            const string sql = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", homegameId),
+                    new SimpleSqlParameter("@playerName", name)
+                };
+            var reader = Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
         }
 
         public IList<int> GetPlayerIdList(int homegameId)

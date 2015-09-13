@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -12,14 +11,14 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public CashgameDetails(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
+        public CashgameDetails(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
@@ -27,18 +26,18 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
-            var players = GetPlayers(_playerRepository, cashgame);
+            var players = GetPlayers(_playerService, cashgame);
 
             return new Result(bunch, cashgame, players, isManager);
         }
 
-        private static IEnumerable<Player> GetPlayers(IPlayerRepository playerRepository, Cashgame cashgame)
+        private static IEnumerable<Player> GetPlayers(PlayerService playerService, Cashgame cashgame)
         {
             var playerIds = cashgame.Results.Select(o => o.PlayerId).ToList();
-            return playerRepository.GetList(playerIds);
+            return playerService.Get(playerIds);
         }
 
         public class Request

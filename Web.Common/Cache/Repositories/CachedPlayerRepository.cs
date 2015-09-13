@@ -16,29 +16,34 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
+        public IList<int> Find(int bunchId)
+        {
+            return _playerRepository.Find(bunchId);
+        }
+
+        public IList<int> Find(int bunchId, string name)
+        {
+            return _playerRepository.Find(bunchId, name);
+        }
+
+        public IList<int> Find(int bunchId, int userId)
+        {
+            return _playerRepository.Find(bunchId, userId);
+        }
+
         public IList<Player> GetList(int bunchId)
         {
             return _playerRepository.GetList(bunchId);
         }
 
-        public IList<Player> GetList(IList<int> ids)
+        public IList<Player> Get(IList<int> ids)
         {
-            return _playerRepository.GetList(ids);
+            return _playerRepository.Get(ids);
         }
 
-        public Player GetById(int id)
+        public Player Get(int id)
         {
-            return _playerRepository.GetById(id);
-        }
-
-        public Player GetByName(int bunchId, string name)
-        {
-            return _playerRepository.GetByName(bunchId, name);
-        }
-
-        public Player GetByUserId(int bunchId, int userId)
-        {
-            return _playerRepository.GetByUserId(bunchId, userId);
+            return _playerRepository.Get(id);
         }
 
         public int Add(Player player)

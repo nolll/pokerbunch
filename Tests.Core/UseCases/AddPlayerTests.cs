@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
             {
                 return new AddPlayer(
                     Services.BunchService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.UserService);
             }
         }

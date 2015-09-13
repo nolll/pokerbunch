@@ -37,7 +37,7 @@ namespace Tests.Core.UseCases
                 return new Report(
                     Services.BunchService,
                     Services.CashgameService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Repos.Checkpoint,
                     Services.UserService);
             }

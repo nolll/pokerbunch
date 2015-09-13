@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
                 return new PlayerFacts(
                     Services.BunchService,
                     Services.CashgameService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.UserService);
             }
         }

@@ -10,20 +10,20 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public PlayerFacts(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService)
+        public PlayerFacts(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.GetById(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             RoleHandler.RequirePlayer(user, player);
             var bunch = _bunchService.Get(player.BunchId);

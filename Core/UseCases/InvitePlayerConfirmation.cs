@@ -6,22 +6,22 @@ namespace Core.UseCases
     public class InvitePlayerConfirmation
     {
         private readonly BunchService _bunchService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public InvitePlayerConfirmation(BunchService bunchService, IPlayerRepository playerRepository, UserService userService)
+        public InvitePlayerConfirmation(BunchService bunchService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.GetById(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
             var bunch = _bunchService.Get(player.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
 
             return new Result(bunch.Slug);

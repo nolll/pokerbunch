@@ -66,7 +66,7 @@ namespace Tests.Core.UseCases
                     Repos.Checkpoint,
                     Services.CashgameService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

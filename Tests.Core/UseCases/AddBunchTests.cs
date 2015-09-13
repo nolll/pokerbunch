@@ -90,7 +90,7 @@ namespace Tests.Core.UseCases
                 return new AddBunch(
                     Services.UserService,
                     Services.BunchService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

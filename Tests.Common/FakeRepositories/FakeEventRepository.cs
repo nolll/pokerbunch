@@ -14,14 +14,24 @@ namespace Tests.Common.FakeRepositories
             _list = CreateEventList();
         }
 
-        public IList<Event> Find(int bunchId)
+        public IList<Event> Get(IList<int> ids)
+        {
+            return _list.Where(o => ids.Contains(o.Id)).ToList();
+        }
+
+        public IList<Event> FindOld(int bunchId)
         {
             return _list;
         }
 
-        public Event Get(int eventId)
+        public IList<int> Find(int bunchId)
         {
-            return _list.FirstOrDefault(o => o.Id == eventId);
+            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
+        }
+
+        public Event Get(int id)
+        {
+            return _list.FirstOrDefault(o => o.Id == id);
         }
 
         private IList<Event> CreateEventList()

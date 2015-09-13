@@ -11,13 +11,13 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public EditBunch(BunchService bunchService, UserService userService, IPlayerRepository playerRepository)
+        public EditBunch(BunchService bunchService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
@@ -28,7 +28,7 @@ namespace Core.UseCases
 
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequireManager(user, player);
             var postedHomegame = CreateBunch(bunch, request);
             _bunchService.Save(postedHomegame);

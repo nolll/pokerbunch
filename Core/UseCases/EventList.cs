@@ -11,21 +11,21 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly EventService _eventService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public EventList(BunchService bunchService, EventService eventService, UserService userService, IPlayerRepository playerRepository)
+        public EventList(BunchService bunchService, EventService eventService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _eventService = eventService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var events = _eventService.Find(bunch.Id);
 

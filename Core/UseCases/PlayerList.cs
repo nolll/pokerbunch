@@ -10,22 +10,22 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public PlayerList(BunchService bunchService, UserService userService, IPlayerRepository playerRepository)
+        public PlayerList(BunchService bunchService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var players = _playerRepository.GetList(bunch.Id);
+            var players = _playerService.GetList(bunch.Id);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
 
             return new Result(bunch, players, isManager);

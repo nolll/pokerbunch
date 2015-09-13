@@ -48,7 +48,7 @@ namespace Tests.Core.UseCases
                 return new Matrix(
                     Services.BunchService,
                     Services.CashgameService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.UserService,
                     Services.EventService);
             }

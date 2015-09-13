@@ -8,20 +8,20 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public EditBunchForm(BunchService bunchService, UserService userService, IPlayerRepository playerRepository)
+        public EditBunchForm(BunchService bunchService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequireManager(user, player);
             var heading = string.Format("{0} Settings", bunch.DisplayName);
             var description = bunch.Description;

@@ -102,7 +102,7 @@ namespace Tests.Core.UseCases
                 return new TopList(
                     Services.BunchService,
                     Services.CashgameService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.UserService);
             }
         }

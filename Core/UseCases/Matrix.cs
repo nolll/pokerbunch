@@ -11,15 +11,15 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
         private readonly EventService _eventService;
 
-        public Matrix(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService, EventService eventServicey)
+        public Matrix(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService, EventService eventServicey)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
             _eventService = eventServicey;
         }
@@ -28,7 +28,7 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
@@ -36,10 +36,10 @@ namespace Core.UseCases
 
         public Result Execute(EventMatrixRequest request)
         {
-            var e = _eventService.GetById(request.EventId);
+            var e = _eventService.Get(request.EventId);
             var bunch = _bunchService.Get(e.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameService.GetByEvent(request.EventId);
             return Execute(bunch, cashgames);
@@ -47,7 +47,7 @@ namespace Core.UseCases
 
         private Result Execute(Bunch bunch, IList<Cashgame> cashgames)
         {
-            var players = _playerRepository.GetList(bunch.Id);
+            var players = _playerService.GetList(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
 
             var gameItems = CreateGameItems(cashgames);

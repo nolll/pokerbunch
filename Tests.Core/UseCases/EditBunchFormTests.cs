@@ -105,7 +105,7 @@ namespace Tests.Core.UseCases
                 return new EditBunchForm(
                     Services.BunchService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

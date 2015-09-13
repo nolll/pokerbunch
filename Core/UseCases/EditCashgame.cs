@@ -10,13 +10,13 @@ namespace Core.UseCases
     {
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
+        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
             _cashgameService = cashgameService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
@@ -27,7 +27,7 @@ namespace Core.UseCases
 
             var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(cashgame.BunchId, user.Id);
+            var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
             cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);

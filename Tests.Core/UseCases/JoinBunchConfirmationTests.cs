@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases
                 return new JoinBunchConfirmation(
                     Services.BunchService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -12,27 +11,27 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public Actions(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService)
+        public Actions(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.GetById(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
             var user = _userService.GetByNameOrEmail(request.CurrentUserName);
             var bunch = _bunchService.Get(player.BunchId);
             var cashgame = _cashgameService.GetById(request.CashgameId);
             
             RoleHandler.RequirePlayer(user, player);
             var playerResult = cashgame.GetResult(player.Id);
-            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, user.Id);
             var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;

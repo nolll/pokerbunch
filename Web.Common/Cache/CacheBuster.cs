@@ -54,7 +54,7 @@ namespace Web.Common.Cache
 
         public void PlayerAdded(int playerId)
         {
-            var player = _deps.PlayerRepository.GetById(playerId);
+            var player = _deps.PlayerRepository.Get(playerId);
             var bunch = _deps.BunchService.Get(player.BunchId);
 
             var key = CacheKeyProvider.PlayerIdsKey(bunch.Id);
@@ -69,7 +69,7 @@ namespace Web.Common.Cache
 
         public void PlayerDeleted(int playerId)
         {
-            var player = _deps.PlayerRepository.GetById(playerId);
+            var player = _deps.PlayerRepository.Get(playerId);
 
             var key = CacheKeyProvider.PlayerIdsKey(player.BunchId);
             _cache.Remove(key);

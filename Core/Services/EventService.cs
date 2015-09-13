@@ -15,10 +15,11 @@ namespace Core.Services
 
         public IList<Event> Find(int bunchId)
         {
-            return _eventRepository.Find(bunchId);
+            var ids = _eventRepository.Find(bunchId);
+            return _eventRepository.Get(ids);
         }
 
-        public Event GetById(int eventId)
+        public Event Get(int eventId)
         {
             return _eventRepository.Get(eventId);
         }

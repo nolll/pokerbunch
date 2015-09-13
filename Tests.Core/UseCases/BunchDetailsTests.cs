@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
                 return new BunchDetails(
                     Services.BunchService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

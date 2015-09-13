@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new DeletePlayer(
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.CashgameService,
                     Services.UserService,
                     Services.BunchService);

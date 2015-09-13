@@ -10,14 +10,14 @@ namespace Core.UseCases
     {
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public CashgameFacts(BunchService bunchService, CashgameService cashgameService, IPlayerRepository playerRepository, UserService userService)
+        public CashgameFacts(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
@@ -25,22 +25,22 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var players = _playerRepository.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var players = _playerService.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
-            return GetFactsResult(_playerRepository, bunch, factBuilder);
+            return GetFactsResult(_playerService, bunch, factBuilder);
         }
 
-        private static Result GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)
+        private static Result GetFactsResult(PlayerService playerService, Bunch bunch, FactBuilder factBuilder)
         {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);
             var turnover = new Money(factBuilder.TotalTurnover, bunch.Currency);
-            var bestResult = GetBestResult(playerRepository, factBuilder, bunch.Currency);
-            var worstResult = GetWorstResult(playerRepository, factBuilder, bunch.Currency);
+            var bestResult = GetBestResult(playerService, factBuilder, bunch.Currency);
+            var worstResult = GetWorstResult(playerService, factBuilder, bunch.Currency);
             var bestTotalResult = GetBestTotalResult(factBuilder, bunch.Currency);
             var worstTotalResult = GetWorstTotalResult(factBuilder, bunch.Currency);
             var mostTimeResult = GetMostTimeResult(factBuilder);
@@ -50,16 +50,16 @@ namespace Core.UseCases
             return new Result(gameCount, timePlayed, turnover, bestResult, worstResult, bestTotalResult, worstTotalResult, mostTimeResult, biggestTotalBuyin, biggestTotalCashout);
         }
 
-        private static MoneyFact GetBestResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
+        private static MoneyFact GetBestResult(PlayerService playerService, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(playerRepository, facts.BestResult.PlayerId);
+            var playerName = GetPlayerName(playerService, facts.BestResult.PlayerId);
             var amount = new MoneyResult(facts.BestResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
-        private static MoneyFact GetWorstResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
+        private static MoneyFact GetWorstResult(PlayerService playerService, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(playerRepository, facts.WorstResult.PlayerId);
+            var playerName = GetPlayerName(playerService, facts.WorstResult.PlayerId);
             var amount = new MoneyResult(facts.WorstResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
@@ -94,9 +94,9 @@ namespace Core.UseCases
             return new MoneyFact(facts.BiggestCashoutTotalResult.Player.DisplayName, amount);
         }
 
-        private static string GetPlayerName(IPlayerRepository playerRepository, int playerId)
+        private static string GetPlayerName(PlayerService playerService, int playerId)
         {
-            var player = playerRepository.GetById(playerId);
+            var player = playerService.Get(playerId);
             return player == null ? string.Empty : player.DisplayName;
         }
 

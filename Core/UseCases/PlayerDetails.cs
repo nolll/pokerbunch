@@ -7,25 +7,25 @@ namespace Core.UseCases
     public class PlayerDetails
     {
         private readonly BunchService _bunchService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
 
-        public PlayerDetails(BunchService bunchService,  IPlayerRepository playerRepository, CashgameService cashgameService, UserService userService)
+        public PlayerDetails(BunchService bunchService,  PlayerService playerService, CashgameService cashgameService, UserService userService)
         {
             _bunchService = bunchService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _cashgameService = cashgameService;
             _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.GetById(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
             var bunch = _bunchService.Get(player.BunchId);
             var user = _userService.GetById(player.UserId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequirePlayer(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
             var hasPlayed = _cashgameService.HasPlayed(request.PlayerId);

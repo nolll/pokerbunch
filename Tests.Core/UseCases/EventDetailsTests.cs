@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases
                 return new EventDetails(
                     Services.EventService,
                     Services.UserService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.BunchService);
             }
         }

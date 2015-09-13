@@ -20,13 +20,28 @@ namespace Infrastructure.Storage.Repositories
 	        _userRepository = userRepository;
 	    }
 
-        public IList<Player> GetList(int bunchId)
+	    public IList<int> Find(int bunchId)
+	    {
+	        return GetIds(bunchId);
+	    }
+
+	    public IList<int> Find(int bunchId, string name)
+	    {
+	        return GetIdsByName(bunchId, name);
+	    }
+
+	    public IList<int> Find(int bunchId, int userId)
+	    {
+	        return GetIdsByUserId(bunchId, userId);
+	    }
+
+	    public IList<Player> GetList(int bunchId)
         {
             var ids = GetIds(bunchId);
-            return GetList(ids);
+            return Get(ids);
         }
 
-	    public IList<Player> GetList(IList<int> ids)
+	    public IList<Player> Get(IList<int> ids)
 	    {
 	        return GetListUncached(ids);
         }
@@ -42,7 +57,7 @@ namespace Infrastructure.Storage.Repositories
             return _playerStorage.GetPlayerIdList(bunchId);
         }
 
-        public Player GetById(int id)
+        public Player Get(int id)
         {
             return GetByIdUncached(id);
         }
@@ -53,26 +68,14 @@ namespace Infrastructure.Storage.Repositories
             return rawPlayer != null ? CreatePlayer(rawPlayer) : null;
         }
 
-        public Player GetByName(int bunchId, string name)
+        private IList<int> GetIdsByName(int bunchId, string name)
         {
-            var playerId = GetIdByName(bunchId, name);
-            return playerId.HasValue ? GetById(playerId.Value) : null;
+            return _playerStorage.GetPlayerIdsByName(bunchId, name);
         }
 
-        private int? GetIdByName(int bunchId, string name)
+        private IList<int> GetIdsByUserId(int bunchId, int userId)
         {
-            return _playerStorage.GetPlayerIdByName(bunchId, name);
-        }
-
-	    public Player GetByUserId(int bunchId, int userId)
-	    {
-            var playerId = GetIdByUserId(bunchId, userId);
-            return playerId.HasValue ? GetById(playerId.Value) : null;
-	    }
-
-        private int? GetIdByUserId(int bunchId, int userId)
-        {
-            return _playerStorage.GetPlayerIdByUserId(bunchId, userId);
+            return _playerStorage.GetPlayerIdsByUserId(bunchId, userId);
         }
 
         public int Add(Player player)

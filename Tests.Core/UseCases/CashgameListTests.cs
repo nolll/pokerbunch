@@ -175,7 +175,7 @@ namespace Tests.Core.UseCases
                     Services.BunchService,
                     Services.CashgameService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

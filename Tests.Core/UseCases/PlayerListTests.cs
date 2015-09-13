@@ -48,7 +48,7 @@ namespace Tests.Core.UseCases
                 return new PlayerList(
                     Services.BunchService,
                     Services.UserService,
-                    Repos.Player);
+                    Services.PlayerService);
             }
         }
     }

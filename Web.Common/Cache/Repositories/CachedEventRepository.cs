@@ -16,14 +16,19 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public IList<Event> Find(int bunchId)
+        public IList<Event> Get(IList<int> ids)
+        {
+            return _eventRepository.Get(ids);
+        }
+
+        public IList<int> Find(int bunchId)
         {
             return _eventRepository.Find(bunchId);
         }
 
-        public Event Get(int eventId)
+        public Event Get(int id)
         {
-            return _eventRepository.Get(eventId);
+            return _eventRepository.Get(id);
         }
     }
 }

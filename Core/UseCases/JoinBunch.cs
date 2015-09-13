@@ -11,13 +11,13 @@ namespace Core.UseCases
     public class JoinBunch
     {
         private readonly BunchService _bunchService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public JoinBunch(BunchService bunchService, IPlayerRepository playerRepository, UserService userService)
+        public JoinBunch(BunchService bunchService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
@@ -28,14 +28,14 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchService.GetBySlug(request.Slug);
-            var players = _playerRepository.GetList(bunch.Id);
+            var players = _playerService.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
             
             if (player == null)
                 throw new InvalidJoinCodeException();
 
             var user = _userService.GetByNameOrEmail(request.UserName);
-            _playerRepository.JoinHomegame(player, bunch, user.Id);
+            _playerService.JoinHomegame(player, bunch, user.Id);
             return new Result(bunch.Slug, player.Id);
         }
         

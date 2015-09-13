@@ -90,7 +90,7 @@ namespace Tests.Core.UseCases
                 return new RunningCashgame(
                     Services.BunchService,
                     Services.CashgameService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.UserService);
             }
         }

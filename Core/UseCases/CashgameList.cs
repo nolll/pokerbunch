@@ -12,21 +12,21 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
 
-        public CashgameList(BunchService bunchService, CashgameService cashgameService, UserService userService, IPlayerRepository playerRepository)
+        public CashgameList(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();

@@ -12,13 +12,13 @@ namespace Core.UseCases
     public class AddPlayer
     {
         private readonly BunchService _bunchService;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public AddPlayer(BunchService bunchService, IPlayerRepository playerRepository, UserService userService)
+        public AddPlayer(BunchService bunchService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
-            _playerRepository = playerRepository;
+            _playerService = playerService;
             _userService = userService;
         }
 
@@ -31,15 +31,15 @@ namespace Core.UseCases
 
             var bunch = _bunchService.GetBySlug(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
-            var existingPlayers = _playerRepository.GetList(bunch.Id);
+            var existingPlayers = _playerService.GetList(bunch.Id);
             var player = existingPlayers.FirstOrDefault(o => String.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)
                 throw new PlayerExistsException();
 
             player = new Player(bunch.Id, request.Name, Role.Player);
-            _playerRepository.Add(player);
+            _playerService.Add(player);
 
             return new Result(bunch.Slug);
         }

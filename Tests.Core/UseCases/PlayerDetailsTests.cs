@@ -106,7 +106,7 @@ namespace Tests.Core.UseCases
             {
                 return new PlayerDetails(
                     Services.BunchService,
-                    Repos.Player,
+                    Services.PlayerService,
                     Services.CashgameService,
                     Services.UserService);
             }

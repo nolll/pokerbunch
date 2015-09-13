@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -18,10 +17,14 @@ namespace Infrastructure.Storage.Repositories
             _eventStorage = eventStorage;
         }
 
-        public IList<Event> Find(int bunchId)
+        public IList<Event> Get(IList<int> ids)
         {
-            var ids = GetIds(bunchId);
-            return FindUncached(ids).OrderBy(o => o.Name).ToList();
+            return FindUncached(ids);
+        }
+
+        public IList<int> Find(int bunchId)
+        {
+            return GetIds(bunchId);
         }
 
         public Event Get(int id)
