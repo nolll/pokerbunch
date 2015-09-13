@@ -57,18 +57,6 @@ namespace Infrastructure.Storage
             return reader.ReadInt("GameID");
         }
 
-        public int? GetCashgameId(int homegameId, string dateStr)
-        {
-            const string sql = "SELECT g.GameID FROM game g WHERE g.HomegameID = @homegameId AND g.Date = @date";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@homegameId", homegameId),
-                    new SimpleSqlParameter("@date", dateStr)
-		        };
-            var reader = Query(sql, parameters);
-            return reader.ReadInt("GameID");
-        }
-
         public IList<RawCashgame> GetGames(IList<int> idList)
         {
             const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";

@@ -10,7 +10,6 @@ namespace Infrastructure.Storage.Interfaces
 		bool DeleteGame(int cashgameId);
         RawCashgame GetGame(int cashgameId);
         int? GetRunningCashgameId(int homegameId);
-        int? GetCashgameId(int homegameId, string dateStr);
         IList<RawCashgame> GetGames(IList<int> idList);
         IList<int> GetGameIds(int homegameId, int? status = null, int? year = null);
         IList<int> GetGameIdsByEvent(int eventId);

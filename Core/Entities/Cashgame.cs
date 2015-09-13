@@ -12,15 +12,11 @@ namespace Core.Entities
         public int BunchId { get; private set; }
         public string Location { get; private set; }
         public GameStatus Status { get; private set; }
-        public bool IsStarted { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
         public IList<CashgameResult> Results { get; private set; }
         public int PlayerCount { get; private set; }
-        public int Diff { get; private set; }
         public int Turnover { get; private set; }
-        public bool HasActivePlayers { get; private set; }
-        public int TotalStacks { get; private set; }
         public int AverageBuyin { get; private set; }
         public string DateString { get; private set; }
         
@@ -32,15 +28,16 @@ namespace Core.Entities
             Location = location;
             Status = status;
             StartTime = GetStartTime(Results);
-            IsStarted = StartTime.HasValue;
             EndTime = GetEndTime(Results);
             PlayerCount = Results.Count;
             Turnover = GetBuyinSum(Results);
-            Diff = Turnover - GetCashoutSum(Results);
-            HasActivePlayers = Results.Any(result => !result.CashoutTime.HasValue);
-            TotalStacks = Results.Sum(result => result.Stack);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
             DateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
+        }
+
+        public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
+        {
+            Results = CreateResults(checkpoints);
         }
 
         private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)

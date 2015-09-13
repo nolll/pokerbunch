@@ -23,6 +23,16 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
+        public IList<int> List(int cashgameId)
+        {
+            return _list.Where(o => o.CashgameId == cashgameId).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> List(IList<int> cashgameIds)
+        {
+            return _list.Where(o => cashgameIds.Contains(o.Id)).Select(o => o.Id).ToList();
+        }
+
         public int Add(Checkpoint checkpoint)
         {
             Added = checkpoint;

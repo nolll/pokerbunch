@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
@@ -33,6 +34,16 @@ namespace Web.Common.Cache.Repositories
         public Checkpoint Get(int checkpointId)
         {
             return _checkpointRepository.Get(checkpointId);
+        }
+
+        public IList<int> List(int cashgameId)
+        {
+            return _checkpointRepository.List(cashgameId);
+        }
+
+        public IList<int> List(IList<int> cashgameIds)
+        {
+            return _checkpointRepository.List(cashgameIds);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Plumbing
         private IMessageSender _messageSender;
         private IUserRepository _userRepository;
         private IPlayerRepository _playerRepository;
+        private ICheckpointRepository _checkpointRepository;
         private ICheckpointStorage _checkpointStorage;
         private ICashgameStorage _cashgameStorage;
                 
@@ -43,7 +44,7 @@ namespace Plumbing
 
         public CashgameService CashgameService
         {
-            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(CashgameStorage, CheckpointStorage)))); }
+            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(CashgameStorage, CheckpointStorage)), CheckpointRepository)); }
         }
 
         public CheckpointService CheckpointService
@@ -84,6 +85,11 @@ namespace Plumbing
         private IPlayerRepository PlayerRepository
         {
             get { return _playerRepository ?? (_playerRepository = _cachedRepositoryFactory.GetPlayerRepository(new SqlPlayerRepository(_db, UserRepository))); }
+        }
+
+        private ICheckpointRepository CheckpointRepository
+        {
+            get { return _checkpointRepository ?? (_checkpointRepository = _cachedRepositoryFactory.GetCheckpointRepository(new SqlCheckpointRepository(CheckpointStorage))); }
         }
 
         private ICheckpointStorage CheckpointStorage

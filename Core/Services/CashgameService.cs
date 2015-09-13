@@ -7,10 +7,12 @@ namespace Core.Services
     public class CashgameService
     {
         private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
 
-        public CashgameService(ICashgameRepository cashgameRepository)
+        public CashgameService(ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository)
         {
             _cashgameRepository = cashgameRepository;
+            _checkpointRepository = checkpointRepository;
         }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)

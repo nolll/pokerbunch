@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Infrastructure.Storage.Classes;
@@ -35,6 +37,18 @@ namespace Infrastructure.Storage.Repositories
         {
             var rawCheckpoint = _checkpointStorage.GetCheckpoint(checkpointId);
             return rawCheckpoint != null ? RawCheckpoint.CreateReal(rawCheckpoint) : null;
+        }
+
+        public IList<int> List(int cashgameId)
+        {
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
+            return rawCheckpoints.Select(o => o.Id).ToList();
+        }
+
+        public IList<int> List(IList<int> cashgameIds)
+        {
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameIds);
+            return rawCheckpoints.Select(o => o.Id).ToList();
         }
     }
 }

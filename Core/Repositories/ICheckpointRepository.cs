@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities.Checkpoints;
 
 namespace Core.Repositories
@@ -7,6 +8,8 @@ namespace Core.Repositories
 		int Add(Checkpoint checkpoint);
         bool Update(Checkpoint checkpoint);
         bool Delete(Checkpoint checkpoint);
-	    Checkpoint Get(int checkpointId);
+        Checkpoint Get(int checkpointId);
+        IList<int> List(int cashgameId);
+        IList<int> List(IList<int> cashgameIds);
 	}
 }

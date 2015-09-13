@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Exceptions;
 using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class CashgameSearchCriteria
-    {
-        public int BunchId { get; private set; }
-        public GameStatus? Status { get; private set; }
-        public int? Year { get; private set; }
-    }
-
 	public class SqlCashgameRepository : ICashgameRepository
     {
 	    private readonly ICashgameStorage _cashgameStorage;
@@ -30,15 +22,9 @@ namespace Infrastructure.Storage.Repositories
 	        _checkpointStorage = checkpointStorage;
 	    }
 
-        public IList<Cashgame> Search(CashgameSearchCriteria searchCriteria)
-        {
-            var ids = GetIds(searchCriteria.BunchId, searchCriteria.Status, searchCriteria.Year);
-            return GetList(ids);
-        }
-
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            var ids = GetIds(bunchId, GameStatus.Finished, year);
+            var ids = _cashgameStorage.GetGameIds(bunchId, (int?) GameStatus.Finished, year);
             return GetList(ids);
         }
 
@@ -53,27 +39,15 @@ namespace Infrastructure.Storage.Repositories
             var id = GetIdByRunning(bunchId);
             return id.HasValue ? GetById(id.Value) : null;
         }
-
-        public Cashgame GetByDateString(int bunchId, string dateString)
+        
+        public Cashgame GetById(int cashgameId)
         {
-            var id = GetIdByDateString(bunchId, dateString);
-            if(!id.HasValue)
-                throw new CashgameNotFoundException(bunchId, dateString);
-            var cashgame = GetById(id.Value);
-            if (cashgame == null)
-                throw new CashgameNotFoundException(bunchId, dateString);
-            
+            var rawGame = _cashgameStorage.GetGame(cashgameId);
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
+            var checkpoints = CreateCheckpoints(rawCheckpoints);
+            var cashgame = CreateCashgame(rawGame);
+            cashgame.AddCheckpoints(checkpoints);
             return cashgame;
-        }
-
-        public Cashgame GetById(int id)
-        {
-            return GetByIdUncached(id);
-        }
-
-        private int? GetIdByDateString(int bunchId, string dateString)
-        {
-            return _cashgameStorage.GetCashgameId(bunchId, dateString);
         }
 
         private int? GetIdByRunning(int bunchId)
@@ -88,28 +62,11 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<Cashgame> GetList(IList<int> ids)
         {
-            return GetListUncached(ids).OrderBy(o => o.Id).ToList();
-        }
-
-        private IList<Cashgame> GetListUncached(IList<int> ids)
-        {
             var rawCashgames = _cashgameStorage.GetGames(ids);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
             return CreateCashgameList(rawCashgames, rawCheckpoints);
         }
-
-        private Cashgame GetByIdUncached(int cashgameId)
-        {
-            var rawGame = _cashgameStorage.GetGame(cashgameId);
-            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
-            return CreateCashgame(rawGame, rawCheckpoints);
-        }
-
-        private IList<int> GetIds(int bunchId, GameStatus? status = null, int? year = null)
-        {
-            return _cashgameStorage.GetGameIds(bunchId, (int?) status, year);
-        }
-
+        
         private IList<int> GetIdsByEvent(int eventId)
         {
             return _cashgameStorage.GetGameIdsByEvent(eventId);
@@ -155,10 +112,9 @@ namespace Infrastructure.Storage.Repositories
             return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.Location, rawStatus, date);
         }
 
-	    private static Cashgame CreateCashgame(RawCashgame rawGame, IEnumerable<RawCheckpoint> rawCheckpoints)
+	    private static Cashgame CreateCashgame(RawCashgame rawGame)
 	    {
-            var checkpoints = CreateCheckpoints(rawCheckpoints);
-            return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id, checkpoints);
+            return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id);
         }
 
         private static IList<Checkpoint> CreateCheckpoints(IEnumerable<RawCheckpoint> checkpoints)
@@ -166,9 +122,9 @@ namespace Infrastructure.Storage.Repositories
             return checkpoints.Select(RawCheckpoint.CreateReal).ToList();
 	    } 
 
-	    private static IList<Cashgame> CreateCashgameList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> checkpoints)
+	    private static IList<Cashgame> CreateCashgameList(IEnumerable<RawCashgame> rawGames, IEnumerable<RawCheckpoint> rawCheckpoints)
         {
-            var checkpointMap = GetGameCheckpointMap(checkpoints);
+            var checkpointMap = GetGameCheckpointMap(rawCheckpoints);
 
             var cashgames = new List<Cashgame>();
             foreach (var rawGame in rawGames)
@@ -178,7 +134,9 @@ namespace Infrastructure.Storage.Repositories
                 {
                     continue;
                 }
-                var cashgame = CreateCashgame(rawGame, gameCheckpoints);
+                var checkpoints = CreateCheckpoints(gameCheckpoints);
+                var cashgame = CreateCashgame(rawGame);
+                cashgame.AddCheckpoints(checkpoints);
                 cashgames.Add(cashgame);
             }
             return cashgames;
