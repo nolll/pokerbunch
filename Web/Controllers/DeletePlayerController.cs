@@ -14,7 +14,6 @@ namespace Web.Controllers
             var request = new DeletePlayer.Request(CurrentUserName, id);
             var result = UseCase.DeletePlayer.Execute(request);
             var returnUrl = CreateReturnUrl(result);
-            Buster.PlayerDeleted(result.PlayerId);
             return Redirect(returnUrl.Relative);
         }
 

@@ -12,9 +12,9 @@ namespace Infrastructure.Storage.Repositories
 
         private readonly SqlServerStorageProvider _db;
 
-        public SqlAppRepository()
+        public SqlAppRepository(SqlServerStorageProvider db)
         {
-            _db = new SqlServerStorageProvider();
+            _db = db;
         }
 
         public IList<App> ListApps()

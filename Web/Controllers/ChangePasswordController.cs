@@ -24,8 +24,7 @@ namespace Web.Controllers
             try
             {
                 var request = new ChangePassword.Request(CurrentUserName, postModel.Password, postModel.Repeat);
-                var result = UseCase.ChangePassword.Execute(request);
-                Buster.UserUpdated(result.UserId);
+                UseCase.ChangePassword.Execute(request);
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             catch (ValidationException ex)

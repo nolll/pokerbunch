@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases
         {
             get
             {
-                return new UserList(Repos.User);
+                return new UserList(Services.UserService);
             }
         }
     }

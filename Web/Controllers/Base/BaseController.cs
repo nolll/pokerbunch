@@ -13,16 +13,11 @@ namespace Web.Controllers.Base
 {
     public class BaseController : Controller
     {
-        private readonly Bootstrap _bootstrap = new Bootstrap();
+        private readonly Bootstrapper _bootstrapper = new Bootstrapper();
 
         protected UseCaseContainer UseCase
         {
-            get { return _bootstrap.UseCases; }
-        }
-
-        protected CacheBuster Buster
-        {
-            get { return _bootstrap.CacheBuster; }
+            get { return _bootstrapper.UseCases; }
         }
 
         private BaseContext.Result GetBaseContext()

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -9,9 +8,9 @@ namespace Core.UseCases
     {
         private readonly UserService _userService;
 
-        public UserList(IUserRepository userRepository)
+        public UserList(UserService userService)
         {
-            _userService = new UserService(userRepository);
+            _userService = userService;
         }
 
         public Result Execute(Request request)

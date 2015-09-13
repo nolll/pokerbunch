@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -19,7 +18,7 @@ namespace Core.UseCases
             _randomService = randomService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -40,8 +39,6 @@ namespace Core.UseCases
             
             var message = new ForgotPasswordMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
-
-            return new Result(user.Id);
         }
 
         public class Request
@@ -55,16 +52,6 @@ namespace Core.UseCases
             {
                 Email = email;
                 LoginUrl = loginUrl;
-            }
-        }
-
-        public class Result
-        {
-            public int UserId { get; private set; }
-
-            public Result(int userId)
-            {
-                UserId = userId;
             }
         }
 

@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\AspNetCacheProvider.cs" />
-    <Compile Include="Cache\Bootstrap.cs" />
+    <Compile Include="Cache\Bootstrapper.cs" />
     <Compile Include="Cache\CacheBuster.cs" />
     <Compile Include="Cache\CacheContainer.cs" />
     <Compile Include="Cache\CacheKeyProvider.cs" />

@@ -1,5 +1,4 @@
-﻿using Core.Repositories;
-using Core.Services;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
@@ -18,7 +17,7 @@ namespace Core.UseCases
             _playerService = playerService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
@@ -26,11 +25,8 @@ namespace Core.UseCases
             RoleHandler.RequirePlayer(user, player);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
 
-            if (cashgame == null)
-                return null;
-
-            _cashgameService.EndGame(bunch, cashgame);
-            return new Result(cashgame.Id);
+            if (cashgame != null)
+                _cashgameService.EndGame(bunch, cashgame);
         }
 
         public class Request
@@ -42,16 +38,6 @@ namespace Core.UseCases
             {
                 UserName = userName;
                 Slug = slug;
-            }
-        }
-
-        public class Result
-        {
-            public int CashgameId { get; private set; }
-
-            public Result(int cashgameId)
-            {
-                CashgameId = cashgameId;
             }
         }
     }

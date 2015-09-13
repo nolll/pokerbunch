@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -17,7 +16,7 @@ namespace Core.UseCases
             _randomService = randomService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -32,8 +31,6 @@ namespace Core.UseCases
             user = CreateUser(user, encryptedPassword, salt);
 
             _userService.Save(user);
-
-            return new Result(user.Id);
         }
 
         private static User CreateUser(User user, string encryptedPassword, string salt)
@@ -61,16 +58,6 @@ namespace Core.UseCases
                 UserName = userName;
                 Password = password;
                 Repeat = repeat;
-            }
-        }
-
-        public class Result
-        {
-            public int UserId { get; private set; }
-
-            public Result(int userId)
-            {
-                UserId = userId;
             }
         }
     }

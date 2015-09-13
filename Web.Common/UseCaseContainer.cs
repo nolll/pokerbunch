@@ -26,7 +26,7 @@ namespace Web.Common
         public TestEmail TestEmail { get { return new TestEmail(_deps.MessageSender, _deps.UserService); } }
 
         // User
-        public UserList UserList { get { return new UserList(_deps.UserRepository); } }
+        public UserList UserList { get { return new UserList(_deps.UserService); } }
         public UserDetails UserDetails { get { return new UserDetails(_deps.UserService); } }
         public AddUser AddUser { get { return new AddUser(_deps.UserService, _deps.RandomService, _deps.MessageSender); } }
         public EditUserForm EditUserForm { get { return new EditUserForm(_deps.UserService); } }

@@ -25,7 +25,6 @@ namespace Web.Controllers
             {
                 var request = new JoinBunch.Request(slug, CurrentUserName, postModel.Code);
                 var result = UseCase.JoinBunch.Execute(request);
-                Buster.PlayerUpdated(result.PlayerId);
                 return Redirect(new JoinBunchConfirmationUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)

@@ -13,9 +13,9 @@ namespace Infrastructure.Storage.Repositories
 	{
 	    private readonly SqlServerStorageProvider _db;
         
-        public SqlBunchRepository()
+        public SqlBunchRepository(SqlServerStorageProvider db)
 	    {
-            _db = new SqlServerStorageProvider();
+            _db = db;
 	    }
 
 	    public IList<Bunch> Get(IList<int> ids)

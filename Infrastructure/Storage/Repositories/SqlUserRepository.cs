@@ -11,10 +11,10 @@ namespace Infrastructure.Storage.Repositories
         private readonly SqlServerUserStorage _userStorage;
         private readonly SqlServerStorageProvider _db;
 
-        public SqlUserRepository()
+        public SqlUserRepository(SqlServerStorageProvider db)
         {
             _userStorage = new SqlServerUserStorage();
-            _db = new SqlServerStorageProvider();
+            _db = db;
         }
 
         public User Get(int id)

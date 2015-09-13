@@ -16,7 +16,6 @@ namespace Web.Controllers
         {
             var request = new Cashout.Request(CurrentUserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             var result = UseCase.Cashout.Execute(request);
-            Buster.CashgameUpdated(result.CashgameId);
             return JsonView(new JsonViewModelOk());
         }
     }

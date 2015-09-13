@@ -23,7 +23,6 @@ namespace Web.Controllers
             {
                 var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, new LoginUrl().Absolute);
                 UseCase.AddUser.Execute(request);
-                Buster.UserAdded();
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }
             catch (ValidationException ex)

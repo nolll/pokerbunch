@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -21,7 +20,7 @@ namespace Core.UseCases
             _playerService = playerService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
             if(!validator.IsValid)
@@ -48,8 +47,6 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = new Player(id, user.Id, Role.Manager);
             _playerService.Add(player);
-
-            return new Result(bunch.Id);
         }
 
         private static Bunch CreateBunch(Request request)
@@ -86,16 +83,6 @@ namespace Core.UseCases
                 CurrencySymbol = currencySymbol;
                 CurrencyLayout = currencyLayout;
                 TimeZone = timeZone;
-            }
-        }
-
-        public class Result
-        {
-            public int BunchId { get; private set; }
-
-            public Result(int bunchId)
-            {
-                BunchId = bunchId;
             }
         }
     }

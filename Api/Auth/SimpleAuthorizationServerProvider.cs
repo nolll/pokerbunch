@@ -56,7 +56,7 @@ namespace Api.Auth
 
         private UseCaseContainer UseCase
         {
-            get { return new Bootstrap().UseCases; }
+            get { return new Bootstrapper().UseCases; }
         }
     }
 }

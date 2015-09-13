@@ -6,18 +6,13 @@ namespace Api.Controllers
 {
     public abstract class BaseApiController : ApiController
     {
-        private readonly Bootstrap _bootstrap = new Bootstrap();
+        private readonly Bootstrapper _bootstrapper = new Bootstrapper();
 
         protected UseCaseContainer UseCase
         {
-            get { return _bootstrap.UseCases; }
+            get { return _bootstrapper.UseCases; }
         }
-
-        protected CacheBuster Buster
-        {
-            get { return _bootstrap.CacheBuster; }
-        }
-
+        
         protected string CurrentUserName
         {
             get

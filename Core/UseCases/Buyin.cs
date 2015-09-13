@@ -24,7 +24,7 @@ namespace Core.UseCases
             _userService = userService;
         }
 
-        public Result Execute(Request request)
+        public void Execute(Request request)
         {
             var validator = new Validator(request);
 
@@ -40,8 +40,6 @@ namespace Core.UseCases
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
             _checkpointRepository.Add(checkpoint);
-
-            return new Result(game.Id);
         }
 
         public class Request
@@ -63,16 +61,6 @@ namespace Core.UseCases
                 BuyinAmount = buyinAmount;
                 StackAmount = stackAmount;
                 CurrentTime = currentTime;
-            }
-        }
-
-        public class Result
-        {
-            public int CashgameId { get; private set; }
-
-            public Result(int cashgameId)
-            {
-                CashgameId = cashgameId;
             }
         }
     }
