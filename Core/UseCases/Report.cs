@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -12,15 +11,15 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
-        private readonly ICheckpointRepository _checkpointRepository;
+        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Report(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, ICheckpointRepository checkpointRepository, UserService userService)
+        public Report(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, CheckpointService checkpointService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _playerService = playerService;
-            _checkpointRepository = checkpointRepository;
+            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -37,7 +36,7 @@ namespace Core.UseCases
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, request.PlayerId, request.CurrentTime, CheckpointType.Report, request.Stack);
-            _checkpointRepository.Add(checkpoint);
+            _checkpointService.Add(checkpoint);
         }
 
         public class Request

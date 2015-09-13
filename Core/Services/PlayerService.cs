@@ -16,7 +16,8 @@ namespace Core.Services
 
         public IList<Player> GetList(int bunchId)
         {
-            return _playerRepository.GetList(bunchId);
+            var ids = _playerRepository.Find(bunchId);
+            return _playerRepository.Get(ids);
         }
 
         public IList<Player> Get(IList<int> ids)

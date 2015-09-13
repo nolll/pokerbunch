@@ -9,90 +9,124 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlPlayerRepository : IPlayerRepository
     {
-	    private readonly IPlayerStorage _playerStorage;
+	    private readonly SqlServerStorageProvider _db;
 	    private readonly IUserRepository _userRepository;
 
-	    public SqlPlayerRepository(
-            IPlayerStorage playerStorage,
-            IUserRepository userRepository)
+	    public SqlPlayerRepository(SqlServerStorageProvider db, IUserRepository userRepository)
 	    {
-	        _playerStorage = playerStorage;
+	        _db = db;
 	        _userRepository = userRepository;
 	    }
 
 	    public IList<int> Find(int bunchId)
 	    {
-	        return GetIds(bunchId);
+            const string sql = "SELECT p.PlayerID FROM player p WHERE p.HomegameID = @homegameId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunchId)
+                };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
+
 	    }
 
 	    public IList<int> Find(int bunchId, string name)
 	    {
-	        return GetIdsByName(bunchId, name);
+            const string sql = "SELECT p.PlayerID FROM player p LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@playerName", name)
+                };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
+
 	    }
 
 	    public IList<int> Find(int bunchId, int userId)
 	    {
-	        return GetIdsByUserId(bunchId, userId);
+            const string sql = "SELECT p.PlayerID FROM player p WHERE p.HomegameID = @homegameId AND p.UserID = @userId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@userId", userId)
+                };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
 	    }
-
-	    public IList<Player> GetList(int bunchId)
-        {
-            var ids = GetIds(bunchId);
-            return Get(ids);
-        }
 
 	    public IList<Player> Get(IList<int> ids)
 	    {
-	        return GetListUncached(ids);
-        }
-
-        private IList<Player> GetListUncached(IList<int> ids)
-        {
-            var rawPlayers = _playerStorage.GetPlayerList(ids);
+            const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID IN (@ids)";
+            var parameter = new ListSqlParameter("@ids", ids);
+            var reader = _db.Query(sql, parameter);
+            var rawPlayers = reader.ReadList(CreateRawPlayer);
             return rawPlayers.Select(CreatePlayer).ToList();
-        }
-
-        private IList<int> GetIds(int bunchId)
-        {
-            return _playerStorage.GetPlayerIdList(bunchId);
         }
 
         public Player Get(int id)
         {
-            return GetByIdUncached(id);
-        }
-
-        private Player GetByIdUncached(int id)
-        {
-            var rawPlayer = _playerStorage.GetPlayerById(id);
+            const string sql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p WHERE p.PlayerID = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", id)
+                };
+            var reader = _db.Query(sql, parameters);
+            var rawPlayer = reader.ReadOne(CreateRawPlayer);
             return rawPlayer != null ? CreatePlayer(rawPlayer) : null;
-        }
-
-        private IList<int> GetIdsByName(int bunchId, string name)
-        {
-            return _playerStorage.GetPlayerIdsByName(bunchId, name);
-        }
-
-        private IList<int> GetIdsByUserId(int bunchId, int userId)
-        {
-            return _playerStorage.GetPlayerIdsByUserId(bunchId, userId);
         }
 
         public int Add(Player player)
         {
-            var rawPlayer = RawPlayer.Create(player);
-            return _playerStorage.AddPlayer(rawPlayer);
+            if (player.IsUser)
+            {
+                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES (@homegameId, @userId, @role, 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", player.BunchId),
+                    new SimpleSqlParameter("@userId", player.UserId),
+                    new SimpleSqlParameter("@role", player.Role)
+                };
+                return _db.ExecuteInsert(sql, parameters);
+            }
+            else
+            {
+                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (@homegameId, @role, 1, @playerName) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", player.BunchId),
+                    new SimpleSqlParameter("@role", (int)Role.Player),
+                    new SimpleSqlParameter("@playerName", player.DisplayName)
+                };
+                return _db.ExecuteInsert(sql, parameters);
+            }
         }
 
 		public bool JoinHomegame(Player player, Bunch bunch, int userId)
         {
-            return _playerStorage.JoinHomegame(player.Id, (int)player.Role, bunch.Id, userId);
+            const string sql = "UPDATE player SET HomegameID = @homegameId, PlayerName = NULL, UserID = @userId, RoleID = @role, Approved = 1 WHERE PlayerID = @playerId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunch.Id),
+                    new SimpleSqlParameter("@userId", userId),
+                    new SimpleSqlParameter("@role", (int)player.Role),
+                    new SimpleSqlParameter("@playerId", player.Id)
+                };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+
 		}
 
 		public bool Delete(int playerId)
         {
-			return _playerStorage.DeletePlayer(playerId);
-		}
+            const string sql = @"DELETE FROM player WHERE PlayerID = @playerId";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@playerId", playerId)
+                };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+        }
 
 	    private Player CreatePlayer(RawPlayer rawPlayer)
         {
@@ -112,6 +146,16 @@ namespace Infrastructure.Storage.Repositories
                 return user.DisplayName;
             }
             return rawPlayer.DisplayName;
+        }
+
+        private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
+        {
+            return new RawPlayer(
+                reader.GetIntValue("HomegameID"),
+                reader.GetIntValue("PlayerID"),
+                reader.GetIntValue("UserID"),
+                reader.GetStringValue("PlayerName"),
+                reader.GetIntValue("RoleID"));
         }
 	}
 }

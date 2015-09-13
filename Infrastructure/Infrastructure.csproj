@@ -57,7 +57,6 @@
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\ICashgameStorage.cs" />
     <Compile Include="Storage\Interfaces\ICheckpointStorage.cs" />
-    <Compile Include="Storage\Interfaces\IPlayerStorage.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
     <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="Storage\SimpleSqlParameter.cs" />
     <Compile Include="Storage\SqlServerCashgameStorage.cs" />
     <Compile Include="Storage\SqlServerCheckpointStorage.cs" />
-    <Compile Include="Storage\SqlServerPlayerStorage.cs" />
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\SqlServerUserStorage.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />

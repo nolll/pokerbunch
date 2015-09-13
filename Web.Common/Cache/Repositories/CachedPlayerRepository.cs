@@ -31,11 +31,6 @@ namespace Web.Common.Cache.Repositories
             return _playerRepository.Find(bunchId, userId);
         }
 
-        public IList<Player> GetList(int bunchId)
-        {
-            return _playerRepository.GetList(bunchId);
-        }
-
         public IList<Player> Get(IList<int> ids)
         {
             return _playerRepository.Get(ids);

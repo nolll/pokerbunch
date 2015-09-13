@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -12,15 +11,15 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
-        private readonly ICheckpointRepository _checkpointRepository;
+        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Buyin(BunchService bunchService, PlayerService playerService, CashgameService cashgameService, ICheckpointRepository checkpointRepository, UserService userService)
+        public Buyin(BunchService bunchService, PlayerService playerService, CashgameService cashgameService, CheckpointService checkpointService, UserService userService)
         {
             _bunchService = bunchService;
             _playerService = playerService;
             _cashgameService = cashgameService;
-            _checkpointRepository = checkpointRepository;
+            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -39,7 +38,7 @@ namespace Core.UseCases
 
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
-            _checkpointRepository.Add(checkpoint);
+            _checkpointService.Add(checkpoint);
         }
 
         public class Request

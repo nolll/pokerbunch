@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -12,15 +11,15 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
-        private readonly ICheckpointRepository _checkpointRepository;
+        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Cashout(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, ICheckpointRepository checkpointRepository, UserService userService)
+        public Cashout(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, CheckpointService checkpointService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _playerService = playerService;
-            _checkpointRepository = checkpointRepository;
+            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -48,9 +47,9 @@ namespace Core.UseCases
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
             if (existingCashoutCheckpoint != null)
-                _checkpointRepository.Update(postedCheckpoint);
+                _checkpointService.Update(postedCheckpoint);
             else
-                _checkpointRepository.Add(postedCheckpoint);
+                _checkpointService.Add(postedCheckpoint);
 
             return new Result(cashgame.Id);
         }
