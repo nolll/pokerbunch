@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
             var request = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
-            Assert.AreEqual(stack, Repos.Checkpoint.Added.Stack);
+            Assert.AreEqual(stack, Repos.Cashgame.AddedCheckpoint.Stack);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases
             var request2 = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, 2, DateTime.Now.AddMinutes(1));
             Sut.Execute(request2);
 
-            Assert.AreEqual(2, Repos.Checkpoint.Saved.Stack);
+            Assert.AreEqual(2, Repos.Cashgame.SavedCheckpoint.Stack);
         }
 
         private Cashout Sut
@@ -49,7 +49,6 @@ namespace Tests.Core.UseCases
                     Services.BunchService,
                     Services.CashgameService,
                     Services.PlayerService,
-                    Services.CheckpointService,
                     Services.UserService);
             }
         }

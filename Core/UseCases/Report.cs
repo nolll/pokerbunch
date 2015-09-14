@@ -11,15 +11,13 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
-        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Report(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, CheckpointService checkpointService, UserService userService)
+        public Report(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _playerService = playerService;
-            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -36,7 +34,7 @@ namespace Core.UseCases
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, request.PlayerId, request.CurrentTime, CheckpointType.Report, request.Stack);
-            _checkpointService.Add(checkpoint);
+            _cashgameService.AddCheckpoint(checkpoint);
         }
 
         public class Request

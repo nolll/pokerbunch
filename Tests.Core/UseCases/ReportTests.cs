@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases
             var request = new Report.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
-            Assert.AreEqual(stack, Repos.Checkpoint.Added.Stack);
+            Assert.AreEqual(stack, Repos.Cashgame.AddedCheckpoint.Stack);
         }
 
         private Report Sut
@@ -38,7 +38,6 @@ namespace Tests.Core.UseCases
                     Services.BunchService,
                     Services.CashgameService,
                     Services.PlayerService,
-                    Services.CheckpointService,
                     Services.UserService);
             }
         }

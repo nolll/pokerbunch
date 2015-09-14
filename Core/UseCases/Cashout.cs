@@ -11,15 +11,13 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
-        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Cashout(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, CheckpointService checkpointService, UserService userService)
+        public Cashout(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _playerService = playerService;
-            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -47,9 +45,9 @@ namespace Core.UseCases
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
             if (existingCashoutCheckpoint != null)
-                _checkpointService.Update(postedCheckpoint);
+                _cashgameService.UpdateCheckpoint(postedCheckpoint);
             else
-                _checkpointService.Add(postedCheckpoint);
+                _cashgameService.AddCheckpoint(postedCheckpoint);
 
             return new Result(cashgame.Id);
         }

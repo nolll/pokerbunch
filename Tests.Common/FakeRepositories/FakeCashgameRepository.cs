@@ -9,15 +9,20 @@ namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
+        private readonly IList<Checkpoint> _checkpointList;
         private IList<Cashgame> _list;
         public Cashgame Added { get; private set; }
         public Cashgame Deleted { get; private set; }
         public Cashgame Ended { get; private set; }
         public Cashgame Updated { get; private set; }
-
+        public Checkpoint AddedCheckpoint { get; private set; }
+        public Checkpoint SavedCheckpoint { get; private set; }
+        public Checkpoint DeletedCheckpoint { get; private set; }
+        
         public FakeCashgameRepository()
         {
             SetupMultiYear();
+            _checkpointList = CreateCheckpointList();
         }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
@@ -180,6 +185,64 @@ namespace Tests.Common.FakeRepositories
         public void ClearList()
         {
             _list.Clear();
+        }
+        
+        public Checkpoint GetCheckpoint(int id)
+        {
+            return _checkpointList.FirstOrDefault(o => o.Id == id);
+        }
+
+        public IList<int> FindCheckpoints(int cashgameId)
+        {
+            return _checkpointList.Where(o => o.CashgameId == cashgameId).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> FindCheckpoints(IList<int> cashgameIds)
+        {
+            return _checkpointList.Where(o => cashgameIds.Contains(o.Id)).Select(o => o.Id).ToList();
+        }
+
+        public int AddCheckpoint(Checkpoint checkpoint)
+        {
+            AddedCheckpoint = checkpoint;
+            return 1;
+        }
+
+        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        {
+            SavedCheckpoint = checkpoint;
+            return true;
+        }
+        
+        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        {
+            DeletedCheckpoint = checkpoint;
+            return true;
+        }
+
+        public void SetupRunningGameForCheckpoints()
+        {
+            ClearCheckpointList();
+
+            foreach (var runningGameCheckpoint in TestData.RunningGameCheckpoints)
+            {
+                _checkpointList.Add(runningGameCheckpoint);
+            }
+        }
+
+        private void ClearCheckpointList()
+        {
+            _checkpointList.Clear();
+        }
+
+        private IList<Checkpoint> CreateCheckpointList()
+        {
+            return new List<Checkpoint>()
+            {
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.BuyinCheckpointTimestamp, CheckpointType.Buyin, TestData.BuyinCheckpointStack, TestData.BuyinCheckpointAmount, TestData.BuyinCheckpointId),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.ReportCheckpointTimestamp, CheckpointType.Report, TestData.ReportCheckpointStack, TestData.ReportCheckpointAmount, TestData.ReportCheckpointId),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.CashoutCheckpointTimestamp, CheckpointType.Cashout, TestData.CashoutCheckpointStack, TestData.CashoutCheckpointAmount, TestData.CashoutCheckpointId)
+            };
         }
     }
 }

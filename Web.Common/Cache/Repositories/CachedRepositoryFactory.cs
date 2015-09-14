@@ -26,12 +26,7 @@ namespace Web.Common.Cache.Repositories
         {
             return new CachedCashgameRepository(cashgameRepository, _cacheContainer);
         }
-
-        public ICheckpointRepository GetCheckpointRepository(ICheckpointRepository checkpointRepository)
-        {
-            return new CachedCheckpointRepository(checkpointRepository, _cacheContainer);
-        }
-
+        
         public IEventRepository GetEventRepository(IEventRepository eventRepository)
         {
             return new CachedEventRepository(eventRepository, _cacheContainer);

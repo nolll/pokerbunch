@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
             var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
-            var result = Repos.Checkpoint.Added;
+            var result = Repos.Cashgame.AddedCheckpoint;
 
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
@@ -61,7 +61,6 @@ namespace Tests.Core.UseCases
                     Services.BunchService,
                     Services.PlayerService,
                     Services.CashgameService,
-                    Services.CheckpointService,
                     Services.UserService);
             }
         }

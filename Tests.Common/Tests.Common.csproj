@@ -41,7 +41,6 @@
     <Compile Include="TestData.cs" />
     <Compile Include="FakeRepositories\FakeBunchRepository.cs" />
     <Compile Include="FakeRepositories\FakeCashgameRepository.cs" />
-    <Compile Include="FakeRepositories\FakeCheckpointRepository.cs" />
     <Compile Include="FakeRepositories\FakeEventRepository.cs" />
     <Compile Include="FakeRepositories\FakePlayerRepository.cs" />
     <Compile Include="FakeRepositories\FakeUserRepository.cs" />

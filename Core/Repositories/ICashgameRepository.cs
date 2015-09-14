@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 
 namespace Core.Repositories
 {
@@ -16,5 +17,12 @@ namespace Core.Repositories
 		bool UpdateGame(Cashgame cashgame);
         bool EndGame(Bunch bunch, Cashgame cashgame);
 		bool HasPlayed(int playerId);
+
+        int AddCheckpoint(Checkpoint checkpoint);
+        bool UpdateCheckpoint(Checkpoint checkpoint);
+        bool DeleteCheckpoint(Checkpoint checkpoint);
+        Checkpoint GetCheckpoint(int checkpointId);
+        IList<int> FindCheckpoints(int cashgameId);
+        IList<int> FindCheckpoints(IList<int> cashgameIds);
 	}
 }

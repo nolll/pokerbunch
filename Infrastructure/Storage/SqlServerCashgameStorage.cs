@@ -8,42 +8,6 @@ namespace Infrastructure.Storage
 {
     public class SqlServerCashgameStorage : SqlServerStorageProvider, ICashgameStorage
     {
-        public int AddGame(Bunch bunch, RawCashgame cashgame)
-        {
-            const string sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (@homegameId, @location, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
-            var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(cashgame.Date, bunch.Timezone);
-		    var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@homegameId", bunch.Id),
-                    new SimpleSqlParameter("@location", cashgame.Location),
-                    new SimpleSqlParameter("@status", cashgame.Status),
-                    new SimpleSqlParameter("@date", timezoneAdjustedDate)
-                };
-            return ExecuteInsert(sql, parameters);
-		}
-
-		public bool DeleteGame(int cashgameId)
-        {
-			const string sql = "DELETE FROM game WHERE GameID = @cashgameId";
-		    var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@cashgameId", cashgameId)
-		        };
-			var rowCount = Execute(sql, parameters);
-			return rowCount > 0;
-		}
-
-        public RawCashgame GetGame(int cashgameId)
-        {
-            const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = @cashgameId ORDER BY g.GameId";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@cashgameId", cashgameId)
-		        };
-            var reader = Query(sql, parameters);
-            return reader.ReadOne(CreateRawCashgame);
-        }
-
         public int? GetRunningCashgameId(int homegameId)
         {
             const int status = (int)GameStatus.Running;

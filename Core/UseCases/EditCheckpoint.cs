@@ -9,15 +9,13 @@ namespace Core.UseCases
     public class EditCheckpoint
     {
         private readonly BunchService _bunchService;
-        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
 
-        public EditCheckpoint(BunchService bunchService, CheckpointService checkpointService, UserService userService, PlayerService playerService, CashgameService cashgameService)
+        public EditCheckpoint(BunchService bunchService, UserService userService, PlayerService playerService, CashgameService cashgameService)
         {
             _bunchService = bunchService;
-            _checkpointService = checkpointService;
             _userService = userService;
             _playerService = playerService;
             _cashgameService = cashgameService;
@@ -29,7 +27,7 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var existingCheckpoint = _checkpointService.Get(request.CheckpointId);
+            var existingCheckpoint = _cashgameService.GetCheckpoint(request.CheckpointId);
             var cashgame = _cashgameService.GetById(existingCheckpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
@@ -45,7 +43,7 @@ namespace Core.UseCases
                 request.Amount,
                 existingCheckpoint.Id);
 
-            _checkpointService.Update(postedCheckpoint);
+            _cashgameService.UpdateCheckpoint(postedCheckpoint);
 
             return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }

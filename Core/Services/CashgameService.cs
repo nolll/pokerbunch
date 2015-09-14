@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 
 namespace Core.Services
@@ -7,12 +8,10 @@ namespace Core.Services
     public class CashgameService
     {
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly ICheckpointRepository _checkpointRepository;
 
-        public CashgameService(ICashgameRepository cashgameRepository, ICheckpointRepository checkpointRepository)
+        public CashgameService(ICashgameRepository cashgameRepository)
         {
             _cashgameRepository = cashgameRepository;
-            _checkpointRepository = checkpointRepository;
         }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
@@ -68,6 +67,26 @@ namespace Core.Services
         public bool HasPlayed(int playerId)
         {
             return _cashgameRepository.HasPlayed(playerId);
+        }
+        
+        public int AddCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.AddCheckpoint(checkpoint);
+        }
+
+        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.UpdateCheckpoint(checkpoint);
+        }
+
+        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.DeleteCheckpoint(checkpoint);
+        }
+
+        public Checkpoint GetCheckpoint(int checkpointId)
+        {
+            return _cashgameRepository.GetCheckpoint(checkpointId);
         }
 
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)

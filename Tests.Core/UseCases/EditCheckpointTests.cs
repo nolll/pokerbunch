@@ -45,10 +45,10 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            Assert.AreEqual(CheckpointType.Buyin, Repos.Checkpoint.Saved.Type);
-            Assert.AreEqual(TestData.BuyinCheckpointId, Repos.Checkpoint.Saved.Id);
-            Assert.AreEqual(ChangedStack, Repos.Checkpoint.Saved.Stack);
-            Assert.AreEqual(ChangedAmount, Repos.Checkpoint.Saved.Amount);
+            Assert.AreEqual(CheckpointType.Buyin, Repos.Cashgame.SavedCheckpoint.Type);
+            Assert.AreEqual(TestData.BuyinCheckpointId, Repos.Cashgame.SavedCheckpoint.Id);
+            Assert.AreEqual(ChangedStack, Repos.Cashgame.SavedCheckpoint.Stack);
+            Assert.AreEqual(ChangedAmount, Repos.Cashgame.SavedCheckpoint.Amount);
         }
 
         private EditCheckpoint Sut
@@ -57,7 +57,6 @@ namespace Tests.Core.UseCases
             {
                 return new EditCheckpoint(
                     Services.BunchService,
-                    Services.CheckpointService,
                     Services.UserService,
                     Services.PlayerService,
                     Services.CashgameService);

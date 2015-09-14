@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
 
@@ -69,6 +70,36 @@ namespace Web.Common.Cache.Repositories
         public bool HasPlayed(int playerId)
         {
             return _cashgameRepository.HasPlayed(playerId);
+        }
+
+        public int AddCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.AddCheckpoint(checkpoint);
+        }
+
+        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.UpdateCheckpoint(checkpoint);
+        }
+
+        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        {
+            return _cashgameRepository.DeleteCheckpoint(checkpoint);
+        }
+
+        public Checkpoint GetCheckpoint(int checkpointId)
+        {
+            return _cashgameRepository.GetCheckpoint(checkpointId);
+        }
+
+        public IList<int> FindCheckpoints(int cashgameId)
+        {
+            return _cashgameRepository.FindCheckpoints(cashgameId);
+        }
+
+        public IList<int> FindCheckpoints(IList<int> cashgameIds)
+        {
+            return _cashgameRepository.FindCheckpoints(cashgameIds);
         }
     }
 }

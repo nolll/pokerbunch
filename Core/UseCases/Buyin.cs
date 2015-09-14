@@ -11,15 +11,13 @@ namespace Core.UseCases
         private readonly BunchService _bunchService;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
-        private readonly CheckpointService _checkpointService;
         private readonly UserService _userService;
 
-        public Buyin(BunchService bunchService, PlayerService playerService, CashgameService cashgameService, CheckpointService checkpointService, UserService userService)
+        public Buyin(BunchService bunchService, PlayerService playerService, CashgameService cashgameService, UserService userService)
         {
             _bunchService = bunchService;
             _playerService = playerService;
             _cashgameService = cashgameService;
-            _checkpointService = checkpointService;
             _userService = userService;
         }
 
@@ -38,7 +36,7 @@ namespace Core.UseCases
 
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
             var checkpoint = new BuyinCheckpoint(game.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
-            _checkpointService.Add(checkpoint);
+            _cashgameService.AddCheckpoint(checkpoint);
         }
 
         public class Request

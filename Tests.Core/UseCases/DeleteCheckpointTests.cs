@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
             var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
+            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Cashgame.DeletedCheckpoint.Id);
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(1, result.CashgameId);
             Assert.IsFalse(result.GameIsRunning);
@@ -22,12 +22,12 @@ namespace Tests.Core.UseCases
         public void DeleteCheckpoint_RunningGame_DeletesCheckpointAndReturnsCorrectValues()
         {
             Repos.Cashgame.SetupRunningGame();
-            Repos.Checkpoint.SetupRunningGame();
+            Repos.Cashgame.SetupRunningGameForCheckpoints();
 
             var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Checkpoint.Deleted.Id);
+            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Cashgame.DeletedCheckpoint.Id);
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(3, result.CashgameId);
             Assert.IsTrue(result.GameIsRunning);
@@ -40,7 +40,6 @@ namespace Tests.Core.UseCases
                 return new DeleteCheckpoint(
                     Services.BunchService,
                     Services.CashgameService,
-                    Services.CheckpointService,
                     Services.UserService,
                     Services.PlayerService);
             }

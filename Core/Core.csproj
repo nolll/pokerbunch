@@ -200,7 +200,6 @@
     <Compile Include="Entities\Bunch.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\ICheckpointRepository.cs" />
     <Compile Include="Repositories\IBunchRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
   </ItemGroup>

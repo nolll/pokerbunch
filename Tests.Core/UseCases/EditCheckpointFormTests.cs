@@ -63,7 +63,6 @@ namespace Tests.Core.UseCases
             {
                 return new EditCheckpointForm(
                     Services.BunchService,
-                    Services.CheckpointService,
                     Services.CashgameService,
                     Services.UserService,
                     Services.PlayerService);

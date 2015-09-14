@@ -7,15 +7,13 @@ namespace Core.UseCases
     public class EditCheckpointForm
     {
         private readonly BunchService _bunchService;
-        private readonly CheckpointService _checkpointService;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
 
-        public EditCheckpointForm(BunchService bunchService, CheckpointService checkpointService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public EditCheckpointForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
             _bunchService = bunchService;
-            _checkpointService = checkpointService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
@@ -23,7 +21,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var checkpoint = _checkpointService.Get(request.CheckpointId);
+            var checkpoint = _cashgameService.GetCheckpoint(request.CheckpointId);
             var cashgame = _cashgameService.GetById(checkpoint.CashgameId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);

@@ -14,15 +14,11 @@ namespace Plumbing
         private AppService _appService;
         private BunchService _bunchService;
         private CashgameService _cashgameService;
-        private CheckpointService _checkpointService;
         private EventService _eventService;
         private PlayerService _playerService;
         private UserService _userService;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
-        private IUserRepository _userRepository;
-        private IPlayerRepository _playerRepository;
-        private ICheckpointRepository _checkpointRepository;
         private ICheckpointStorage _checkpointStorage;
         private ICashgameStorage _cashgameStorage;
                 
@@ -44,12 +40,7 @@ namespace Plumbing
 
         public CashgameService CashgameService
         {
-            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(CashgameStorage, CheckpointStorage)), CheckpointRepository)); }
-        }
-
-        public CheckpointService CheckpointService
-        {
-            get { return _checkpointService ?? (_checkpointService = new CheckpointService(_cachedRepositoryFactory.GetCheckpointRepository(new SqlCheckpointRepository(CheckpointStorage)))); }
+            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(_db, CashgameStorage, CheckpointStorage)))); }
         }
 
         public EventService EventService
@@ -77,11 +68,6 @@ namespace Plumbing
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
         
-        private ICheckpointRepository CheckpointRepository
-        {
-            get { return _checkpointRepository ?? (_checkpointRepository = _cachedRepositoryFactory.GetCheckpointRepository(new SqlCheckpointRepository(CheckpointStorage))); }
-        }
-
         private ICheckpointStorage CheckpointStorage
         {
             get { return _checkpointStorage ?? (_checkpointStorage = new SqlServerCheckpointStorage()); }

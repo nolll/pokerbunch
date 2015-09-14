@@ -62,7 +62,6 @@
     <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
     <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlCheckpointRepository.cs" />
     <Compile Include="Storage\Repositories\SqlEventRepository.cs" />
     <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
     <Compile Include="Storage\Repositories\SqlUserRepository.cs" />

@@ -11,13 +11,17 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlCashgameRepository : ICashgameRepository
     {
+	    private readonly SqlServerStorageProvider _db;
+
 	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICheckpointStorage _checkpointStorage;
 
 	    public SqlCashgameRepository(
+            SqlServerStorageProvider db,
             ICashgameStorage cashgameStorage,
             ICheckpointStorage checkpointStorage)
 	    {
+	        _db = db;
 	        _cashgameStorage = cashgameStorage;
 	        _checkpointStorage = checkpointStorage;
 	    }
@@ -42,12 +46,35 @@ namespace Infrastructure.Storage.Repositories
         
         public Cashgame GetById(int cashgameId)
         {
-            var rawGame = _cashgameStorage.GetGame(cashgameId);
+            const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID = @cashgameId ORDER BY g.GameId";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@cashgameId", cashgameId)
+		        };
+            var reader = _db.Query(sql, parameters);
+            var rawGame = reader.ReadOne(CreateRawCashgame);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
             var checkpoints = CreateCheckpoints(rawCheckpoints);
             var cashgame = CreateCashgame(rawGame);
             cashgame.AddCheckpoints(checkpoints);
             return cashgame;
+        }
+
+        private RawCashgame CreateRawCashgame(IStorageDataReader reader)
+        {
+            var id = reader.GetIntValue("GameID");
+            var bunchId = reader.GetIntValue("HomegameID");
+            var location = ReadLocation(reader);
+            var status = reader.GetIntValue("Status");
+            var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
+
+            return new RawCashgame(id, bunchId, location, status, date);
+        }
+
+        private static string ReadLocation(IStorageDataReader reader)
+        {
+            var location = reader.GetStringValue("Location");
+            return location == "" ? null : location;
         }
 
         private int? GetIdByRunning(int bunchId)
@@ -78,15 +105,30 @@ namespace Infrastructure.Storage.Repositories
 		}
 
 		public bool DeleteGame(Cashgame cashgame){
-			return _cashgameStorage.DeleteGame(cashgame.Id);
+            const string sql = "DELETE FROM game WHERE GameID = @cashgameId";
+		    var parameters = new List<SimpleSqlParameter>
+		    {
+		        new SimpleSqlParameter("@cashgameId", cashgame.Id)
+		    };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
 		}
-
+        
 		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
-            return _cashgameStorage.AddGame(bunch, rawCashgame);
+            const string sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (@homegameId, @location, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(rawCashgame.Date, bunch.Timezone);
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@homegameId", bunch.Id),
+                    new SimpleSqlParameter("@location", rawCashgame.Location),
+                    new SimpleSqlParameter("@status", rawCashgame.Status),
+                    new SimpleSqlParameter("@date", timezoneAdjustedDate)
+                };
+            return _db.ExecuteInsert(sql, parameters);
 		}
-
+        
 		public bool UpdateGame(Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame);
@@ -156,6 +198,41 @@ namespace Infrastructure.Storage.Repositories
                 checkpointList.Add(checkpoint);
             }
             return checkpointMap;
+        }
+
+        public int AddCheckpoint(Checkpoint checkpoint)
+        {
+            var rawCheckpoint = RawCheckpoint.Create(checkpoint);
+            return _checkpointStorage.AddCheckpoint(rawCheckpoint);
+        }
+
+        public bool UpdateCheckpoint(Checkpoint checkpoint)
+        {
+            var rawCheckpoint = RawCheckpoint.Create(checkpoint);
+            return _checkpointStorage.UpdateCheckpoint(rawCheckpoint);
+        }
+
+        public bool DeleteCheckpoint(Checkpoint checkpoint)
+        {
+            return _checkpointStorage.DeleteCheckpoint(checkpoint.Id);
+        }
+
+        public Checkpoint GetCheckpoint(int checkpointId)
+        {
+            var rawCheckpoint = _checkpointStorage.GetCheckpoint(checkpointId);
+            return rawCheckpoint != null ? RawCheckpoint.CreateReal(rawCheckpoint) : null;
+        }
+
+        public IList<int> FindCheckpoints(int cashgameId)
+        {
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameId);
+            return rawCheckpoints.Select(o => o.Id).ToList();
+        }
+
+        public IList<int> FindCheckpoints(IList<int> cashgameIds)
+        {
+            var rawCheckpoints = _checkpointStorage.GetCheckpoints(cashgameIds);
+            return rawCheckpoints.Select(o => o.Id).ToList();
         }
 	}
 }
