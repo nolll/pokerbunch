@@ -3,29 +3,40 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Storage.Classes;
+using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class SqlUserRepository : IUserRepository
     {
-        private readonly SqlServerUserStorage _userStorage;
+        private const string UserDataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
+        private const string UserIdSql = "SELECT u.UserID FROM [User] u ";
+        
         private readonly SqlServerStorageProvider _db;
 
         public SqlUserRepository(SqlServerStorageProvider db)
         {
-            _userStorage = new SqlServerUserStorage();
             _db = db;
         }
 
         public User Get(int id)
         {
-            var rawUser = _userStorage.GetUserById(id);
+            var sql = string.Concat(UserDataSql, "WHERE u.UserId = @userId");
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@userId", id)
+            };
+            var reader = _db.Query(sql, parameters);
+            var rawUser = reader.ReadOne(CreateRawUser);
             return rawUser != null ? RawUser.CreateReal(rawUser) : null;
         }
 
         public IList<User> Get(IList<int> ids)
         {
-            var rawUsers = _userStorage.GetUserList(ids);
+            var sql = string.Concat(UserDataSql, "WHERE u.UserID IN(@ids)");
+            var parameter = new ListSqlParameter("@ids", ids);
+            var reader = _db.Query(sql, parameter);
+            var rawUsers = reader.ReadList(CreateRawUser);
             return rawUsers.Select(RawUser.CreateReal).OrderBy(o => o.DisplayName).ToList();
         }
 
@@ -44,32 +55,75 @@ namespace Infrastructure.Storage.Repositories
 
         public bool Update(User user)
         {
-            var rawUser = RawUser.Create(user);
-            return _userStorage.UpdateUser(rawUser);
+            const string sql = "UPDATE [user] SET DisplayName = @displayName, RealName = @realName, Email = @email, Password = @password, Salt = @salt WHERE UserID = @userId";
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@displayName", user.DisplayName),
+                new SimpleSqlParameter("@realName", user.RealName),
+                new SimpleSqlParameter("@email", user.Email),
+                new SimpleSqlParameter("@password", user.EncryptedPassword),
+                new SimpleSqlParameter("@salt", user.Salt),
+                new SimpleSqlParameter("@userId", user.Id)
+            };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+
         }
 
         public int Add(User user)
         {
             const string sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Password, Salt) VALUES (@userName, @displayName, @email, 1, @password, @salt) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
-		        {
-		            new SimpleSqlParameter("@userName", user.UserName),
-		            new SimpleSqlParameter("@displayName", user.DisplayName),
-		            new SimpleSqlParameter("@email", user.Email),
-		            new SimpleSqlParameter("@password", user.EncryptedPassword),
-		            new SimpleSqlParameter("@salt", user.Salt)
-		        };
+            {
+                new SimpleSqlParameter("@userName", user.UserName),
+                new SimpleSqlParameter("@displayName", user.DisplayName),
+                new SimpleSqlParameter("@email", user.Email),
+                new SimpleSqlParameter("@password", user.EncryptedPassword),
+                new SimpleSqlParameter("@salt", user.Salt)
+            };
             return _db.ExecuteInsert(sql, parameters);
         }
         
         private int? GetIdByNameOrEmail(string nameOrEmail)
         {
-            return _userStorage.GetUserIdByNameOrEmail(nameOrEmail);
+            var sql = string.Concat(UserIdSql, "WHERE (u.UserName = @query OR u.Email = @query)");
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@query", nameOrEmail)
+            };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadInt("UserID");
         }
 
         private IList<int> GetIds()
         {
-            return _userStorage.GetUserIdList();
+            var sql = string.Concat(UserIdSql, "ORDER BY u.DisplayName");
+            var reader = _db.Query(sql);
+            return reader.ReadIntList("UserID");
+        }
+
+        public bool DeleteUser(int userId)
+        {
+            const string sql = "DELETE FROM [user] WHERE UserID = @userId";
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@userId", userId)
+            };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+        }
+
+        private static RawUser CreateRawUser(IStorageDataReader reader)
+        {
+            return new RawUser(
+                reader.GetIntValue("UserID"),
+                reader.GetStringValue("UserName"),
+                reader.GetStringValue("DisplayName"),
+                reader.GetStringValue("RealName"),
+                reader.GetStringValue("Email"),
+                reader.GetIntValue("RoleID"),
+                reader.GetStringValue("Password"),
+                reader.GetStringValue("Salt"));
         }
     }
 }

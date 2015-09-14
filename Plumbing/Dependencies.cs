@@ -59,12 +59,12 @@ namespace Plumbing
 
         public PlayerService PlayerService
         {
-            get { return _playerService ?? (_playerService = new PlayerService(PlayerRepository)); }
+            get { return _playerService ?? (_playerService = new PlayerService(_cachedRepositoryFactory.GetPlayerRepository(new SqlPlayerRepository(_db)))); }
         }
 
         public UserService UserService
         {
-            get { return _userService ?? (_userService = new UserService(UserRepository)); }
+            get { return _userService ?? (_userService = new UserService(_cachedRepositoryFactory.GetUserRepository(new SqlUserRepository(_db)))); }
         }
 
         public IRandomService RandomService
@@ -76,17 +76,7 @@ namespace Plumbing
         {
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
         }
-
-        private IUserRepository UserRepository
-        {
-            get { return _userRepository ?? (_userRepository = _cachedRepositoryFactory.GetUserRepository(new SqlUserRepository(_db))); }
-        }
-
-        private IPlayerRepository PlayerRepository
-        {
-            get { return _playerRepository ?? (_playerRepository = _cachedRepositoryFactory.GetPlayerRepository(new SqlPlayerRepository(_db, UserRepository))); }
-        }
-
+        
         private ICheckpointRepository CheckpointRepository
         {
             get { return _checkpointRepository ?? (_checkpointRepository = _cachedRepositoryFactory.GetCheckpointRepository(new SqlCheckpointRepository(CheckpointStorage))); }

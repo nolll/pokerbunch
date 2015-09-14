@@ -25,19 +25,6 @@ namespace Infrastructure.Storage.Classes
 	        Salt = salt;
 	    }
 
-        public static RawUser Create(User user)
-        {
-            return new RawUser(
-                user.Id,
-                user.UserName,
-                user.DisplayName,
-                user.RealName,
-                user.Email,
-                (int)user.GlobalRole,
-                user.EncryptedPassword,
-                user.Salt);
-        }
-
 	    public static User CreateReal(RawUser rawUser)
         {
             return new User(

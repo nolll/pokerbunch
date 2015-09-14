@@ -1,5 +1,3 @@
-using Core.Entities;
-
 namespace Infrastructure.Storage.Classes
 {
 	public class RawPlayer
@@ -17,21 +15,6 @@ namespace Infrastructure.Storage.Classes
 	        UserId = userId;
 	        DisplayName = displayName;
 	        Role = role;
-	    }
-
-	    public bool IsUser
-	    {
-	        get { return UserId != default(int); }
-	    }
-
-	    public static RawPlayer Create(Player player)
-	    {
-	        return new RawPlayer(
-	            player.BunchId,
-                player.Id,
-                player.UserId,
-                player.DisplayName,
-                (int)player.Role);
 	    }
 	}
 }
