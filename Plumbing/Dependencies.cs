@@ -1,7 +1,6 @@
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage;
-using Infrastructure.Storage.Interfaces;
 using Infrastructure.Storage.Repositories;
 using Infrastructure.Web;
 
@@ -19,7 +18,6 @@ namespace Plumbing
         private UserService _userService;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
-        private ICheckpointStorage _checkpointStorage;
                 
         public Dependencies(IRepositoryFactory cachedRepositoryFactory)
         {
@@ -29,32 +27,32 @@ namespace Plumbing
 
         public AppService AppService
         {
-            get { return _appService ?? (_appService = new AppService(_cachedRepositoryFactory.GetAppRepository(new SqlAppRepository(_db)))); }
+            get { return _appService ?? (_appService = new AppService(_cachedRepositoryFactory.CreateAppRepository(new SqlAppRepository(_db)))); }
         }
 
         public BunchService BunchService
         {
-            get { return _bunchService ?? (_bunchService = new BunchService(_cachedRepositoryFactory.GetBunchRepository(new SqlBunchRepository(_db)))); }
+            get { return _bunchService ?? (_bunchService = new BunchService(_cachedRepositoryFactory.CreateBunchRepository(new SqlBunchRepository(_db)))); }
         }
 
         public CashgameService CashgameService
         {
-            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(_db, CheckpointStorage)))); }
+            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.CreateCashgameRepository(new SqlCashgameRepository(_db)))); }
         }
 
         public EventService EventService
         {
-            get { return _eventService ?? (_eventService = new EventService(_cachedRepositoryFactory.GetEventRepository(new SqlEventRepository(_db)))); }
+            get { return _eventService ?? (_eventService = new EventService(_cachedRepositoryFactory.CreateEventRepository(new SqlEventRepository(_db)))); }
         }
 
         public PlayerService PlayerService
         {
-            get { return _playerService ?? (_playerService = new PlayerService(_cachedRepositoryFactory.GetPlayerRepository(new SqlPlayerRepository(_db)))); }
+            get { return _playerService ?? (_playerService = new PlayerService(_cachedRepositoryFactory.CreatePlayerRepository(new SqlPlayerRepository(_db)))); }
         }
 
         public UserService UserService
         {
-            get { return _userService ?? (_userService = new UserService(_cachedRepositoryFactory.GetUserRepository(new SqlUserRepository(_db)))); }
+            get { return _userService ?? (_userService = new UserService(_cachedRepositoryFactory.CreateUserRepository(new SqlUserRepository(_db)))); }
         }
 
         public IRandomService RandomService
@@ -65,11 +63,6 @@ namespace Plumbing
         public IMessageSender MessageSender
         {
             get { return _messageSender ?? (_messageSender = new MessageSender()); }
-        }
-        
-        private ICheckpointStorage CheckpointStorage
-        {
-            get { return _checkpointStorage ?? (_checkpointStorage = new SqlServerCheckpointStorage()); }
         }
     }
 }

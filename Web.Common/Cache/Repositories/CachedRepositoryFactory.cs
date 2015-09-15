@@ -12,32 +12,32 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public IAppRepository GetAppRepository(IAppRepository appRepository)
+        public IAppRepository CreateAppRepository(IAppRepository appRepository)
         {
             return new CachedAppRepository(appRepository, _cacheContainer);
         }
 
-        public IBunchRepository GetBunchRepository(IBunchRepository bunchRepository)
+        public IBunchRepository CreateBunchRepository(IBunchRepository bunchRepository)
         {
             return new CachedBunchRepository(bunchRepository, _cacheContainer);
         }
 
-        public ICashgameRepository GetCashgameRepository(ICashgameRepository cashgameRepository)
+        public ICashgameRepository CreateCashgameRepository(ICashgameRepository cashgameRepository)
         {
             return new CachedCashgameRepository(cashgameRepository, _cacheContainer);
         }
         
-        public IEventRepository GetEventRepository(IEventRepository eventRepository)
+        public IEventRepository CreateEventRepository(IEventRepository eventRepository)
         {
             return new CachedEventRepository(eventRepository, _cacheContainer);
         }
 
-        public IPlayerRepository GetPlayerRepository(IPlayerRepository playerRepository)
+        public IPlayerRepository CreatePlayerRepository(IPlayerRepository playerRepository)
         {
             return new CachedPlayerRepository(playerRepository, _cacheContainer);
         }
 
-        public IUserRepository GetUserRepository(IUserRepository userRepository)
+        public IUserRepository CreateUserRepository(IUserRepository userRepository)
         {
             return new CachedUserRepository(userRepository, _cacheContainer);
         }
