@@ -20,7 +20,6 @@ namespace Plumbing
         private IRandomService _randomService;
         private IMessageSender _messageSender;
         private ICheckpointStorage _checkpointStorage;
-        private ICashgameStorage _cashgameStorage;
                 
         public Dependencies(IRepositoryFactory cachedRepositoryFactory)
         {
@@ -40,7 +39,7 @@ namespace Plumbing
 
         public CashgameService CashgameService
         {
-            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(_db, CashgameStorage, CheckpointStorage)))); }
+            get { return _cashgameService ?? (_cashgameService = new CashgameService(_cachedRepositoryFactory.GetCashgameRepository(new SqlCashgameRepository(_db, CheckpointStorage)))); }
         }
 
         public EventService EventService
@@ -71,11 +70,6 @@ namespace Plumbing
         private ICheckpointStorage CheckpointStorage
         {
             get { return _checkpointStorage ?? (_checkpointStorage = new SqlServerCheckpointStorage()); }
-        }
-
-        private ICashgameStorage CashgameStorage
-        {
-            get { return _cashgameStorage ?? (_cashgameStorage = new SqlServerCashgameStorage()); }
         }
     }
 }

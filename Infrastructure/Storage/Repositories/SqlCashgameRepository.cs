@@ -13,25 +13,36 @@ namespace Infrastructure.Storage.Repositories
     {
 	    private readonly SqlServerStorageProvider _db;
 
-	    private readonly ICashgameStorage _cashgameStorage;
 	    private readonly ICheckpointStorage _checkpointStorage;
 
 	    public SqlCashgameRepository(
             SqlServerStorageProvider db,
-            ICashgameStorage cashgameStorage,
             ICheckpointStorage checkpointStorage)
 	    {
 	        _db = db;
-	        _cashgameStorage = cashgameStorage;
 	        _checkpointStorage = checkpointStorage;
 	    }
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            var ids = _cashgameStorage.GetGameIds(bunchId, (int?) GameStatus.Finished, year);
+            var sql = "SELECT g.GameID FROM game g WHERE g.HomegameID = @homegameId";
+            var parameters = new List<SimpleSqlParameter>
+            {
+                new SimpleSqlParameter("@homegameId", bunchId),
+            };
+            const int status = (int) GameStatus.Finished;
+            sql = string.Concat(sql, " AND g.Status = @status");
+            parameters.Add(new SimpleSqlParameter("@status", status));
+            if (year.HasValue)
+            {
+                sql = string.Concat(sql, " AND YEAR(g.Date) = @year");
+                parameters.Add(new SimpleSqlParameter("@year", year.Value));
+            }
+            var reader = _db.Query(sql, parameters);
+            var ids = reader.ReadIntList("GameID");
             return GetList(ids);
         }
-
+        
 	    public IList<Cashgame> GetByEvent(int eventId)
 	    {
             var ids = GetIdsByEvent(eventId);
@@ -79,30 +90,60 @@ namespace Infrastructure.Storage.Repositories
 
         private int? GetIdByRunning(int bunchId)
         {
-            return _cashgameStorage.GetRunningCashgameId(bunchId);
+            const int status = (int)GameStatus.Running;
+            const string sql = "SELECT g.GameID FROM game g WHERE g.HomegameID = @homegameId AND g.Status = @status";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@status", status)
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadInt("GameID");
         }
 
         public IList<int> GetYears(int bunchId)
         {
-            return _cashgameStorage.GetYears(bunchId);
+            const string sql = "SELECT DISTINCT YEAR(g.[Date]) as 'Year' FROM Game g WHERE g.HomegameID = @homegameId AND g.Status = @status ORDER BY 'Year' DESC";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@status", (int)GameStatus.Finished)
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("Year");
         }
 
         private IList<Cashgame> GetList(IList<int> ids)
         {
-            var rawCashgames = _cashgameStorage.GetGames(ids);
+            const string sql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g WHERE g.GameID IN (@idList) ORDER BY g.GameID";
+            var parameter = new ListSqlParameter("@idList", ids);
+            var reader = _db.Query(sql, parameter);
+            var rawCashgames = reader.ReadList(CreateRawCashgame);
             var rawCheckpoints = _checkpointStorage.GetCheckpoints(ids);
             return CreateCashgameList(rawCashgames, rawCheckpoints);
         }
         
         private IList<int> GetIdsByEvent(int eventId)
         {
-            return _cashgameStorage.GetGameIdsByEvent(eventId);
+            const string sql = "SELECT g.GameID FROM game g WHERE g.GameID IN (SELECT ecg.GameID FROM eventcashgame ecg WHERE ecg.EventId = @eventId)";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@eventId", eventId),
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("GameID");
         }
-
+        
         public IList<string> GetLocations(int bunchId)
         {
-			return _cashgameStorage.GetLocations(bunchId);
-		}
+            const string sql = "SELECT DISTINCT g.Location FROM game g WHERE g.HomegameID = @id AND g.Location <> '' ORDER BY g.Location";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@id", bunchId)
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadStringList("Location");
+        }
 
 		public bool DeleteGame(Cashgame cashgame){
             const string sql = "DELETE FROM game WHERE GameID = @cashgameId";
@@ -132,21 +173,41 @@ namespace Infrastructure.Storage.Repositories
 		public bool UpdateGame(Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame);
-            return _cashgameStorage.UpdateGame(rawCashgame);
+            return UpdateGame(rawCashgame);
 		}
 
 		public bool EndGame(Bunch bunch, Cashgame cashgame)
         {
             var rawCashgame = CreateRawCashgame(cashgame, GameStatus.Finished);
-            return _cashgameStorage.UpdateGame(rawCashgame);
+            return UpdateGame(rawCashgame);
 		}
+
+	    private bool UpdateGame(RawCashgame cashgame)
+        {
+            const string sql = "UPDATE game SET Location = @location, Date = @date, Status = @status WHERE GameID = @cashgameId";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@location", cashgame.Location),
+                    new SimpleSqlParameter("@date", cashgame.Date),
+                    new SimpleSqlParameter("@status", cashgame.Status),
+                    new SimpleSqlParameter("@cashgameId", cashgame.Id)
+		        };
+            var rowCount = _db.Execute(sql, parameters);
+            return rowCount > 0;
+        }
 
 		public bool HasPlayed(int playerId)
         {
-			return _cashgameStorage.HasPlayed(playerId);
-		}
+            const string sql = "SELECT DISTINCT PlayerID FROM cashgamecheckpoint WHERE PlayerId = @playerId";
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@playerId", playerId)
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.HasRows();
+        }
 
-	    private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
+        private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
 	    {
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
 	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.UtcNow;
