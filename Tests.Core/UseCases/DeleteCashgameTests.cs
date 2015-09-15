@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            Assert.AreEqual(TestData.CashgameIdA, Repos.Cashgame.Deleted.Id);
+            Assert.AreEqual(TestData.CashgameIdA, Repos.Cashgame.Deleted);
         }
 
         [Test]

@@ -12,8 +12,7 @@ namespace Tests.Common.FakeRepositories
         private readonly IList<Checkpoint> _checkpointList;
         private IList<Cashgame> _list;
         public Cashgame Added { get; private set; }
-        public Cashgame Deleted { get; private set; }
-        public Cashgame Ended { get; private set; }
+        public int Deleted { get; private set; }
         public Cashgame Updated { get; private set; }
         public Checkpoint AddedCheckpoint { get; private set; }
         public Checkpoint SavedCheckpoint { get; private set; }
@@ -25,31 +24,44 @@ namespace Tests.Common.FakeRepositories
             _checkpointList = CreateCheckpointList();
         }
 
-        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
+        public Cashgame Get(int cashgameId)
         {
-            if(year.HasValue)
-                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).ToList();
-            return _list;
+            return _list.FirstOrDefault(o => o.Id == cashgameId);
         }
 
-        public IList<Cashgame> GetByEvent(int eventId)
+        public IList<Cashgame> Get(IList<int> ids)
+        {
+            return _list.Where(o => ids.Contains(o.Id)).ToList();
+        }
+
+        public IList<int> FindFinished(int bunchId, int? year = null)
+        {
+            if (year.HasValue)
+                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).Select(o => o.Id).ToList();
+            return _list.Where(o => o.Status == GameStatus.Finished).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> FindByEvent(int eventId)
         {
             throw new NotImplementedException();
         }
 
-        public Cashgame GetRunning(int bunchId)
+        public IList<int> FindByPlayerId(int playerId)
         {
-            return _list.FirstOrDefault(o => o.Status == GameStatus.Running);
+            var ids = new List<int>();
+            foreach (var game in _list)
+            {
+                if (game.GetResult(playerId) != null)
+                {
+                    ids.Add(game.Id);
+                }
+            }
+            return ids;
         }
 
-        public Cashgame GetByDateString(int bunchId, string dateString)
+        public IList<int> FindRunning(int bunchId)
         {
-            return _list.FirstOrDefault(o => o.DateString == dateString);
-        }
-
-        public Cashgame GetById(int cashgameId)
-        {
-            return _list.FirstOrDefault(o => o.Id == cashgameId);
+            return _list.Where(o => o.Status == GameStatus.Running).Select(o => o.Id).ToList();
         }
 
         public IList<int> GetYears(int bunchId)
@@ -62,9 +74,9 @@ namespace Tests.Common.FakeRepositories
             return new[] {TestData.LocationA, TestData.LocationB};
         }
 
-        public bool DeleteGame(Cashgame cashgame)
+        public bool DeleteGame(int id)
         {
-            Deleted = cashgame;
+            Deleted = id;
             return true;
         }
 
@@ -78,22 +90,6 @@ namespace Tests.Common.FakeRepositories
         {
             Updated = cashgame;
             return true;
-        }
-
-        public bool EndGame(Bunch bunch, Cashgame cashgame)
-        {
-            Ended = cashgame;
-            return true;
-        }
-
-        public bool HasPlayed(int playerId)
-        {
-            foreach (var game in _list)
-            {
-                if (game.GetResult(playerId) != null)
-                    return true;
-            }
-            return false;
         }
 
         public void SetupMultiYear()

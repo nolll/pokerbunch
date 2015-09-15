@@ -1,5 +1,4 @@
-﻿using Core.Repositories;
-using Core.Services;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {

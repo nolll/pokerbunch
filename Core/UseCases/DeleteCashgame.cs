@@ -30,7 +30,7 @@ namespace Core.UseCases
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();
 
-            _cashgameService.DeleteGame(cashgame);
+            _cashgameService.DeleteGame(cashgame.Id);
 
             return new Result(bunch.Slug);
         }

@@ -26,7 +26,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetRunning(bunch.Id);
 
             if (cashgame != null)
-                _cashgameService.EndGame(bunch, cashgame);
+                _cashgameService.EndGame(cashgame);
         }
 
         public class Request

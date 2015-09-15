@@ -17,24 +17,34 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
+        public Cashgame Get(int cashgameId)
         {
-            return _cashgameRepository.GetFinished(bunchId, year);
+            return _cashgameRepository.Get(cashgameId);
         }
 
-        public IList<Cashgame> GetByEvent(int eventId)
+        public IList<Cashgame> Get(IList<int> ids)
         {
-            return _cashgameRepository.GetByEvent(eventId);
+            return _cashgameRepository.Get(ids);
         }
 
-        public Cashgame GetRunning(int bunchId)
+        public IList<int> FindFinished(int bunchId, int? year = null)
         {
-            return _cashgameRepository.GetRunning(bunchId);
+            return _cashgameRepository.FindFinished(bunchId, year);
         }
 
-        public Cashgame GetById(int cashgameId)
+        public IList<int> FindByEvent(int eventId)
         {
-            return _cashgameRepository.GetById(cashgameId);
+            return _cashgameRepository.FindByEvent(eventId);
+        }
+
+        public IList<int> FindByPlayerId(int playerId)
+        {
+            return _cashgameRepository.FindByPlayerId(playerId);
+        }
+
+        public IList<int> FindRunning(int bunchId)
+        {
+            return _cashgameRepository.FindRunning(bunchId);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -47,9 +57,9 @@ namespace Web.Common.Cache.Repositories
             return _cashgameRepository.GetLocations(bunchId);
         }
 
-        public bool DeleteGame(Cashgame cashgame)
+        public bool DeleteGame(int id)
         {
-            return _cashgameRepository.DeleteGame(cashgame);
+            return _cashgameRepository.DeleteGame(id);
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -60,16 +70,6 @@ namespace Web.Common.Cache.Repositories
         public bool UpdateGame(Cashgame cashgame)
         {
             return _cashgameRepository.UpdateGame(cashgame);
-        }
-
-        public bool EndGame(Bunch bunch, Cashgame cashgame)
-        {
-            return _cashgameRepository.EndGame(bunch, cashgame);
-        }
-
-        public bool HasPlayed(int playerId)
-        {
-            return _cashgameRepository.HasPlayed(playerId);
         }
 
         public int AddCheckpoint(Checkpoint checkpoint)

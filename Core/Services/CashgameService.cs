@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
@@ -16,22 +17,25 @@ namespace Core.Services
 
         public IList<Cashgame> GetFinished(int bunchId, int? year = null)
         {
-            return _cashgameRepository.GetFinished(bunchId, year);
+            var ids = _cashgameRepository.FindFinished(bunchId, year);
+            return _cashgameRepository.Get(ids);
         }
 
         public IList<Cashgame> GetByEvent(int eventId)
         {
-            return _cashgameRepository.GetByEvent(eventId);
+            var ids = _cashgameRepository.FindByEvent(eventId);
+            return _cashgameRepository.Get(ids);
         }
 
         public Cashgame GetRunning(int bunchId)
         {
-            return _cashgameRepository.GetRunning(bunchId);
+            var ids = _cashgameRepository.FindRunning(bunchId);
+            return _cashgameRepository.Get(ids).FirstOrDefault();
         }
 
         public Cashgame GetById(int cashgameId)
         {
-            return _cashgameRepository.GetById(cashgameId);
+            return _cashgameRepository.Get(cashgameId);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -44,9 +48,9 @@ namespace Core.Services
             return _cashgameRepository.GetLocations(bunchId);
         }
 
-        public bool DeleteGame(Cashgame cashgame)
+        public bool DeleteGame(int id)
         {
-            return _cashgameRepository.DeleteGame(cashgame);
+            return _cashgameRepository.DeleteGame(id);
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -59,14 +63,16 @@ namespace Core.Services
             return _cashgameRepository.UpdateGame(cashgame);
         }
 
-        public bool EndGame(Bunch bunch, Cashgame cashgame)
+        public bool EndGame(Cashgame cashgame)
         {
-            return _cashgameRepository.EndGame(bunch, cashgame);
+            cashgame.ChangeStatus(GameStatus.Finished);
+            return _cashgameRepository.UpdateGame(cashgame);
         }
 
         public bool HasPlayed(int playerId)
         {
-            return _cashgameRepository.HasPlayed(playerId);
+            var ids = _cashgameRepository.FindByPlayerId(playerId);
+            return ids.Any();
         }
         
         public int AddCheckpoint(Checkpoint checkpoint)

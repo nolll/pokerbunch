@@ -29,6 +29,11 @@ namespace Core.Entities
             AddCheckpoints(checkpoints);
         }
 
+        public void ChangeStatus(GameStatus status)
+        {
+            Status = status;
+        }
+
         public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
         {
             Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();

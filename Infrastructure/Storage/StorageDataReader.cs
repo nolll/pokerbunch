@@ -29,9 +29,7 @@ namespace Infrastructure.Storage
         public string ReadString(string key)
         {
             if (Read())
-            {
                 return GetStringValue(key);
-            }
             return null;
         }
 
@@ -53,9 +51,7 @@ namespace Infrastructure.Storage
         public int? ReadInt(string key)
         {
             if (Read())
-            {
                 return GetIntValue(key);
-            }
             return null;
         }
 
