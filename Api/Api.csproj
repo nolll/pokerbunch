@@ -119,7 +119,7 @@
     <Compile Include="Auth\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BunchController.cs" />
-    <Compile Include="Controllers\CashgameTopListController.cs" />
+    <Compile Include="Controllers\CashgameController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Models\ApiBunch.cs" />
     <Compile Include="Models\ApiBunchList.cs" />
