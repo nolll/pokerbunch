@@ -9,7 +9,7 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlPlayerRepository : IPlayerRepository
     {
-        private const string PlayerDataSql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, p.PlayerName FROM player p ";
+        private const string PlayerDataSql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID ";
         private const string PlayerIdSql = "SELECT p.PlayerID FROM player p ";
 
 	    private readonly SqlServerStorageProvider _db;
