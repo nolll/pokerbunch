@@ -22,22 +22,22 @@ namespace Core.Entities
         
         public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IEnumerable<Checkpoint> checkpoints = null)
         {
-            Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();
             Id = id ?? 0;
             BunchId = bunchId;
             Location = location;
             Status = status;
+            AddCheckpoints(checkpoints);
+        }
+
+        public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
+        {
+            Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();
             StartTime = GetStartTime(Results);
             EndTime = GetEndTime(Results);
             PlayerCount = Results.Count;
             Turnover = GetBuyinSum(Results);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
             DateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
-        }
-
-        public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
-        {
-            Results = CreateResults(checkpoints);
         }
 
         private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)
