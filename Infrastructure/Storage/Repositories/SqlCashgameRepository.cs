@@ -39,6 +39,8 @@ namespace Infrastructure.Storage.Repositories
         
         public IList<Cashgame> Get(IList<int> ids)
 	    {
+            if(ids.Count == 0)
+                return new List<Cashgame>();
             var sql = string.Concat(CashgameDataSql, "WHERE g.GameID IN (@idList) ORDER BY g.GameID");
             var parameter = new ListSqlParameter("@idList", ids);
             var reader = _db.Query(sql, parameter);

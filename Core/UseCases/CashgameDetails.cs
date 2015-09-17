@@ -95,7 +95,7 @@ namespace Core.UseCases
         public class PlayerResultItem
         {
             public string Name { get; private set; }
-            public int CashgameId { get; set; }
+            public int CashgameId { get; private set; }
             public int PlayerId { get; private set; }
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }

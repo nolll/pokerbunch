@@ -28,6 +28,8 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
 
+            var x = 9;
+
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
@@ -156,6 +158,10 @@ namespace Core.UseCases
             public string Name { get; private set; }
             public int CashgameId { get; private set; }
             public bool HasCashedOut { get; private set; }
+            public int Buyin { get; private set; }
+            public int Stack { get; private set; }
+            public int Winnings { get; private set; }
+            public DateTime LastReport { get; set; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }
 
             public RunningCashgamePlayerItem(int playerId, string name, int cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
@@ -164,7 +170,13 @@ namespace Core.UseCases
                 Name = name;
                 CashgameId = cashgameId;
                 HasCashedOut = hasCashedOut;
-                Checkpoints = checkpoints.Select(o => new RunningCashgameCheckpointItem(o)).ToList();
+                var list = checkpoints.ToList();
+                var lastCheckpoint = list.Last();
+                Checkpoints = list.Select(o => new RunningCashgameCheckpointItem(o)).ToList();
+                Buyin = list.Sum(o => o.Amount);
+                Stack = lastCheckpoint.Stack;
+                Winnings = Stack - Buyin;
+                LastReport = lastCheckpoint.Timestamp;
             }
         }
     }

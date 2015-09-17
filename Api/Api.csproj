@@ -127,6 +127,9 @@
     <Compile Include="Models\ApiCashgameTopListItem.cs" />
     <Compile Include="Models\ApiPlayer.cs" />
     <Compile Include="Models\ApiPlayerList.cs" />
+    <Compile Include="Models\ApiRunning.cs" />
+    <Compile Include="Models\ApiRunningResult.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Urls\ApiUrl.cs" />

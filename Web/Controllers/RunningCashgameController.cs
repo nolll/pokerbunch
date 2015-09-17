@@ -1,3 +1,7 @@
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -30,9 +34,16 @@ namespace Web.Controllers
         [Route(Routes.RunningCashgameGameJson)]
         public ActionResult RunningGameJson(string slug)
         {
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
-            var model = new RunningCashgameJsonModel(runningCashgameResult);
-            return JsonView(model);
+            try
+            {
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+                var model = new RunningCashgameJsonModel(runningCashgameResult);
+                return JsonView(model);
+            }
+            catch (CashgameNotRunningException e)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NoContent, e.Message);
+            }
         }
 
         [Authorize]
