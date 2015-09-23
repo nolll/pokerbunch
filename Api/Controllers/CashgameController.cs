@@ -62,11 +62,11 @@ namespace Api.Controllers
 
         [Route("cashgame/cashout/{slug}")]
         [AcceptVerbs("GET")]
-        public IHttpActionResult Buyin(string slug, [FromBody] CashoutObject buyin)
+        public IHttpActionResult Buyin(string slug, [FromBody] CashoutObject cashout)
         {
             try
             {
-                UseCase.Cashout.Execute(new Cashout.Request(CurrentUserName, slug, buyin.playerid, buyin.stack, DateTime.UtcNow));
+                UseCase.Cashout.Execute(new Cashout.Request(CurrentUserName, slug, cashout.playerid, cashout.stack, DateTime.UtcNow));
                 return Ok();
             }
             catch (CashgameNotRunningException e)
@@ -85,11 +85,11 @@ namespace Api.Controllers
 
         [Route("cashgame/report/{slug}")]
         [AcceptVerbs("GET")]
-        public IHttpActionResult Report(string slug, [FromBody] CashoutObject buyin)
+        public IHttpActionResult Report(string slug, [FromBody] ReportObject report)
         {
             try
             {
-                UseCase.Report.Execute(new Report.Request(CurrentUserName, slug, buyin.playerid, buyin.stack, DateTime.UtcNow));
+                UseCase.Report.Execute(new Report.Request(CurrentUserName, slug, report.playerid, report.stack, DateTime.UtcNow));
                 return Ok();
             }
             catch (CashgameNotRunningException e)

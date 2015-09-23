@@ -20,4 +20,15 @@ namespace Web.Models.AppModels.Details
             EditUrl = new EditAppUrl(appDetailsResult.AppId).Relative;
         }
     }
+
+    public class ApiDocsPageModel : AppPageModel
+    {
+        public string AppListUrl { get; private set; }
+
+        public ApiDocsPageModel(AppContext.Result contextResult)
+            : base("All Details", contextResult)
+        {
+            AppListUrl = new UserAppsUrl().Relative;
+        }
+    }
 }

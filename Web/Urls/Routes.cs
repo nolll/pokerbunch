@@ -62,12 +62,14 @@ namespace Web.Urls
         public const string ForgotPassword = "user/forgotpassword";
         public const string ForgotPasswordConfirmation = "user/passwordsent";
 
-        public const string AllApps = "app/list";
-        public const string UserApps = "user/apps";
-        public const string AppDetails = "app/details/{id}";
-        public const string AppEdit = "app/edit/{id}";
-        public const string AppAdd = "app/add";
-        public const string AppAddConfirmation = "app/added";
+        public const string ApiDocs = "api";
+
+        public const string UserApps = "apps/list";
+        public const string AllApps = "apps/all";
+        public const string AppDetails = "apps/details/{id}";
+        public const string AppEdit = "apps/edit/{id}";
+        public const string AppAdd = "apps/add";
+        public const string AppAddConfirmation = "apps/added";
 
         public const string AdminSendEmail = "admin/sendemail";
         public const string AdminClearCache = "admin/clearcache";
