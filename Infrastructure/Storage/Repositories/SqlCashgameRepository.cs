@@ -211,7 +211,7 @@ namespace Infrastructure.Storage.Repositories
                 IList<RawCheckpoint> gameCheckpoints;
                 if (!checkpointMap.TryGetValue(rawGame.Id, out gameCheckpoints))
                 {
-                    continue;
+                    gameCheckpoints = new List<RawCheckpoint>();
                 }
                 var checkpoints = CreateCheckpoints(gameCheckpoints);
                 var cashgame = CreateCashgame(rawGame);

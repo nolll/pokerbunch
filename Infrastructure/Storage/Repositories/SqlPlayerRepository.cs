@@ -58,6 +58,8 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<Player> Get(IList<int> ids)
 	    {
+            if(!ids.Any())
+                return new List<Player>();
             var sql = string.Concat(PlayerDataSql, "WHERE p.PlayerID IN (@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _db.Query(sql, parameter);

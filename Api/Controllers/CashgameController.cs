@@ -36,7 +36,7 @@ namespace Api.Controllers
         }
 
         [Route("cashgame/buyin/{slug}")]
-        [AcceptVerbs("GET")]
+        [AcceptVerbs("POST")]
         public IHttpActionResult Buyin(string slug, [FromBody] BuyinObject buyin)
         {
             try
@@ -61,8 +61,8 @@ namespace Api.Controllers
         }
 
         [Route("cashgame/cashout/{slug}")]
-        [AcceptVerbs("GET")]
-        public IHttpActionResult Buyin(string slug, [FromBody] CashoutObject cashout)
+        [AcceptVerbs("POST")]
+        public IHttpActionResult Cashout(string slug, [FromBody] CashoutObject cashout)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Api.Controllers
         }
 
         [Route("cashgame/report/{slug}")]
-        [AcceptVerbs("GET")]
+        [AcceptVerbs("POST")]
         public IHttpActionResult Report(string slug, [FromBody] ReportObject report)
         {
             try
