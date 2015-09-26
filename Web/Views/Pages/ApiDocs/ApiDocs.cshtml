@@ -10,6 +10,53 @@
 </div>
 <div class="block gutter">
     <p>
-        There will be more documentation here soon. The first thing you need to know is that you will need an <a href="@Model.AppListUrl">app key</a> to access the api. 
+        You can build your own applications that interact with Poker Bunch, by using the Poker Bunch API. You'll find everything you need to know right here.
     </p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">API Key</h1>
+</div>
+<div class="block gutter">
+    <p>
+        The first thing you need to know is that you will need an <a href="@Model.AppListUrl">API Key</a> to access the API. 
+    </p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Authentication</h1>
+</div>
+<div class="block gutter">
+    <p>To authenticate, your application needs to post a request to <a href="@Model.TokenUrl">@Model.TokenUrl</a> with the Content-Type application/x-www-form-urlencoded.</p>
+    <p>Send the following POST parameters: grant_type = password, client_id = {your API key}, username = {your user's username}, password = your user's password</p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Game Status</h1>
+</div>
+<div class="block gutter">
+    <p>To get information about a running game, your application needs to call <a href="@Model.RunningGameUrl">@Model.RunningGameUrl</a>.</p>
+    <p>If there is a game running, you will get the current results for it</p>
+    <p>It there is no game running, you will get a 204 NO CONTENT response</p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Buying in</h1>
+</div>
+<div class="block gutter">
+    <p>Yada yada yada</p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Reporting</h1>
+</div>
+<div class="block gutter">
+    <p>Yada yada yada</p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Cashing out</h1>
+</div>
+<div class="block gutter">
+    <p>Yada yada yada</p>
 </div>

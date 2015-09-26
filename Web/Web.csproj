@@ -195,6 +195,7 @@
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPageModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPostModel.cs" />
+    <Compile Include="Models\AppModels\Details\ApiDocsPageModel.cs" />
     <Compile Include="Models\AppModels\Details\AppDetailsPageModel.cs" />
     <Compile Include="Models\AppModels\List\AppListItemModel.cs" />
     <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
@@ -291,6 +292,9 @@
     <Compile Include="Urls\AddUserConfirmationUrl.cs" />
     <Compile Include="Urls\AddUserUrl.cs" />
     <Compile Include="Urls\AllAppsUrl.cs" />
+    <Compile Include="Urls\ApiRoutes.cs" />
+    <Compile Include="Urls\ApiRunningGameUrl.cs" />
+    <Compile Include="Urls\ApiUrl.cs" />
     <Compile Include="Urls\AppDetailsUrl.cs" />
     <Compile Include="Urls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\BunchListUrl.cs" />
@@ -339,6 +343,7 @@
     <Compile Include="Urls\RunningCashgameUrl.cs" />
     <Compile Include="Urls\SlugUrl.cs" />
     <Compile Include="Urls\TestEmailUrl.cs" />
+    <Compile Include="Urls\TokenUrl.cs" />
     <Compile Include="Urls\TopListUrl.cs" />
     <Compile Include="Urls\SiteUrl.cs" />
     <Compile Include="Urls\UserAppsUrl.cs" />

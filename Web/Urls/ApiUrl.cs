@@ -1,6 +1,6 @@
 using Web.Common.Urls;
 
-namespace Api.Urls
+namespace Web.Urls
 {
     public abstract class ApiUrl : Url
     {

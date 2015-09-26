@@ -9,7 +9,7 @@ namespace Web.Urls
         {
         }
 
-        public override string GetDomainName()
+        protected override string GetDomainName()
         {
             return "pokerbunch.com";
         }
