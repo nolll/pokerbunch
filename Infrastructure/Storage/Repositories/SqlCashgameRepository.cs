@@ -47,7 +47,6 @@ namespace Infrastructure.Storage.Repositories
             var rawCashgames = reader.ReadList(CreateRawCashgame);
             var rawCheckpoints = GetCheckpoints(ids);
             return CreateCashgameList(rawCashgames, rawCheckpoints);
-
 	    }
 
 	    public IList<int> FindFinished(int bunchId, int? year = null)

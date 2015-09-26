@@ -14,7 +14,6 @@ namespace Api
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseForcedHttps(443);
             ConfigureOAuth(app);
             var config = new HttpConfiguration();
             WebApiConfig.Register(config);
@@ -35,7 +34,6 @@ namespace Api
             // Token Generation
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
         }
     }
 }

@@ -28,8 +28,6 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
 
-            var x = 9;
-
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
