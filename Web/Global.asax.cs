@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Core.Services;
+using Web.Common;
 using Web.Plumbing;
 
 namespace Web
@@ -35,8 +33,8 @@ namespace Web
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            EnsureLowercaseUrl();
-            EnsureHttps();
+            CommonWebFunctions.EnsureLowercaseUrl(Context);
+            CommonWebFunctions.EnsureHttps(Context);
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
@@ -46,33 +44,6 @@ namespace Web
 
         protected void Application_End()
         {
-        }
-
-        private void EnsureLowercaseUrl()
-        {
-            // Don't rewrite requests for content (.png, .css) or scripts (.js)
-            if (Request.Url.AbsolutePath.Contains("/Frontend/"))
-                return;
-
-            // If uppercase chars exist, redirect to a lowercase version
-            var url = Request.Url.ToString();
-            if (Regex.IsMatch(url, @"[A-Z]"))
-            {
-                Response.Clear();
-                Response.Status = "301 Moved Permanently";
-                Response.StatusCode = (int)HttpStatusCode.MovedPermanently;
-                Response.AddHeader("Location", url.ToLower());
-                Response.End();
-            }
-        }
-
-        private void EnsureHttps()
-        {
-            if(Context.Request.IsSecureConnection)
-                return;
-
-            if(Env.IsInProduction)
-                Response.RedirectPermanent(Context.Request.Url.ToString().Replace("http:", "https:"));
         }
 
         private static void RegisterRoutes(RouteCollection routes)

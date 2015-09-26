@@ -60,29 +60,6 @@ namespace Api.Controllers
             public int stack { get; [UsedImplicitly] set; }
         }
 
-        [Route("cashgame/cashout/{slug}")]
-        [AcceptVerbs("POST")]
-        public IHttpActionResult Cashout(string slug, [FromBody] CashoutObject cashout)
-        {
-            try
-            {
-                UseCase.Cashout.Execute(new Cashout.Request(CurrentUserName, slug, cashout.playerid, cashout.stack, DateTime.UtcNow));
-                return Ok();
-            }
-            catch (CashgameNotRunningException e)
-            {
-                return InternalServerError();
-            }
-        }
-
-        public class CashoutObject
-        {
-            // ReSharper disable once InconsistentNaming
-            public int playerid { get; [UsedImplicitly] set; }
-            // ReSharper disable once InconsistentNaming
-            public int stack { get; [UsedImplicitly] set; }
-        }
-
         [Route("cashgame/report/{slug}")]
         [AcceptVerbs("POST")]
         public IHttpActionResult Report(string slug, [FromBody] ReportObject report)
@@ -99,6 +76,29 @@ namespace Api.Controllers
         }
 
         public class ReportObject
+        {
+            // ReSharper disable once InconsistentNaming
+            public int playerid { get; [UsedImplicitly] set; }
+            // ReSharper disable once InconsistentNaming
+            public int stack { get; [UsedImplicitly] set; }
+        }
+
+        [Route("cashgame/cashout/{slug}")]
+        [AcceptVerbs("POST")]
+        public IHttpActionResult Cashout(string slug, [FromBody] CashoutObject cashout)
+        {
+            try
+            {
+                UseCase.Cashout.Execute(new Cashout.Request(CurrentUserName, slug, cashout.playerid, cashout.stack, DateTime.UtcNow));
+                return Ok();
+            }
+            catch (CashgameNotRunningException e)
+            {
+                return InternalServerError();
+            }
+        }
+
+        public class CashoutObject
         {
             // ReSharper disable once InconsistentNaming
             public int playerid { get; [UsedImplicitly] set; }
