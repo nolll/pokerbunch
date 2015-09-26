@@ -48,7 +48,6 @@
     <Compile Include="Cache\Repositories\CachedPlayerRepository.cs" />
     <Compile Include="Cache\Repositories\CachedRepositoryFactory.cs" />
     <Compile Include="Cache\Repositories\CachedUserRepository.cs" />
-    <Compile Include="CommonWebFunctions.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urls\Url.cs" />

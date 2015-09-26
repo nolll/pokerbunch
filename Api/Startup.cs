@@ -14,6 +14,7 @@ namespace Api
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseForcedHttps(443);
             ConfigureOAuth(app);
             var config = new HttpConfiguration();
             WebApiConfig.Register(config);
