@@ -292,6 +292,9 @@
     <Compile Include="Urls\AddUserConfirmationUrl.cs" />
     <Compile Include="Urls\AddUserUrl.cs" />
     <Compile Include="Urls\AllAppsUrl.cs" />
+    <Compile Include="Urls\ApiBuyinUrl.cs" />
+    <Compile Include="Urls\ApiCashoutUrl.cs" />
+    <Compile Include="Urls\ApiReportUrl.cs" />
     <Compile Include="Urls\ApiRoutes.cs" />
     <Compile Include="Urls\ApiRunningGameUrl.cs" />
     <Compile Include="Urls\ApiUrl.cs" />

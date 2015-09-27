@@ -19,7 +19,16 @@
 </div>
 <div class="block gutter">
     <p>
-        The first thing you need to know is that you will need an <a href="@Model.AppListUrl">API Key</a> to access the API. 
+        The first thing you need to know is that you will need an <a href="@Model.AppListUrl">API Key</a> to access the API.
+    </p>
+</div>
+
+<div class="block gutter">
+    <h1 class="module-heading">Posting Data</h1>
+</div>
+<div class="block gutter">
+    <p>
+        The content type of all POST request has to be application/x-www-form-urlencoded.
     </p>
 </div>
 
@@ -27,15 +36,21 @@
     <h1 class="module-heading">Authentication</h1>
 </div>
 <div class="block gutter">
-    <p>To authenticate, your application needs to post a request to <a href="@Model.TokenUrl">@Model.TokenUrl</a> with the Content-Type application/x-www-form-urlencoded.</p>
-    <p>Send the following POST parameters: grant_type = password, client_id = {your API key}, username = {your user's username}, password = your user's password</p>
+    <p>To authenticate, your application needs to post a request to <a href="@Model.TokenUrl">@Model.TokenUrl</a>.</p>
+    <p>
+        Send the following POST parameters:<br />
+        grant_type = password<br />
+        client_id = {your API key}<br />
+        username = {your user's username}<br />
+        password = {your user's password}
+    </p>
 </div>
 
 <div class="block gutter">
     <h1 class="module-heading">Game Status</h1>
 </div>
 <div class="block gutter">
-    <p>To get information about a running game, your application needs to call <a href="@Model.RunningGameUrl">@Model.RunningGameUrl</a>.</p>
+    <p>To get information about a running game, your application needs to call <a href="@Model.RunningGameUrl">@Model.RunningGameUrl</a>. The slug is the short name for your user's bunch. It's the same that appears in urls on the pokerbunch web site</p>
     <p>If there is a game running, you will get the current results for it</p>
     <p>It there is no game running, you will get a 204 NO CONTENT response</p>
 </div>
@@ -44,19 +59,36 @@
     <h1 class="module-heading">Buying in</h1>
 </div>
 <div class="block gutter">
-    <p>Yada yada yada</p>
+    <p>To enter a player into a game, or to add money for a player, you post to <a href="@Model.BuyinUrl">@Model.BuyinUrl</a></p>
+    <p>
+        Send the following POST parameters:<br />
+        playerid = {the player id}<br />
+        amount = {the amount to add}<br />
+        stack = {optional remaining money in stack before buyin}<br />
+    </p>
 </div>
 
 <div class="block gutter">
     <h1 class="module-heading">Reporting</h1>
 </div>
 <div class="block gutter">
-    <p>Yada yada yada</p>
+    <p>To report a players stack size, you post to <a href="@Model.ReportUrl">@Model.ReportUrl</a></p>
+    <p>
+        Send the following POST parameters:<br />
+        playerid = {the player id}<br />
+        stack = {the players stack}<br />
+    </p>
 </div>
 
 <div class="block gutter">
     <h1 class="module-heading">Cashing out</h1>
 </div>
 <div class="block gutter">
-    <p>Yada yada yada</p>
+    <p>To report a players stack and leave the game size, you post to <a href="@Model.CashoutUrl">@Model.CashoutUrl</a></p>
+    <p>Cashing out is the same thing as reporting, except that you also leave the game. If you need to correct the cashout stack, just post again and the previous cashout will be overwritten</p>
+    <p>
+        Send the following POST parameters:<br />
+        playerid = {the player id}<br />
+        stack = {the players stack}<br />
+    </p>
 </div>
