@@ -11,10 +11,11 @@ namespace Api.Controllers
         [Route(ApiRoutes.PlayerList)]
         [AcceptVerbs("GET")]
         [ApiAuthorize]
-        public ApiPlayerList List(string slug)
+        public IHttpActionResult List(string slug)
         {
             var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(CurrentUserName, slug));
-            return new ApiPlayerList(playerListResult);
+            var model = new ApiPlayerList(playerListResult);
+            return Ok(model);
         }
 
         [Route(ApiRoutes.PlayerDetails)]

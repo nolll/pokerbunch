@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.UseCases;
+using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
-using Web.Urls;
 
 namespace Web.Models.NavigationModels
 {

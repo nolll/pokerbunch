@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Core.Services;
 using Core.UseCases;
+using Web.Common.Urls.SiteUrls;
 using Web.Controllers;
-using Web.Urls;
 
 namespace Web.Models.CashgameModels.Matrix
 {

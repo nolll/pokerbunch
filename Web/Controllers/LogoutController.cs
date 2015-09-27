@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using Web.Common.Routes;
+using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
-using Web.Urls;
 
 namespace Web.Controllers
 {

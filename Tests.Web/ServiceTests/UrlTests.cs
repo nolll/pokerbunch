@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Tests.Common;
-using Web.Urls;
+using Web.Common.Urls.SiteUrls;
 
 namespace Tests.Web.ServiceTests
 {

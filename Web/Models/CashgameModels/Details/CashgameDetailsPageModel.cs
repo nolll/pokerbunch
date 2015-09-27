@@ -1,8 +1,8 @@
 using Core.Services;
 using Core.UseCases;
 using Newtonsoft.Json;
+using Web.Common.Urls.SiteUrls;
 using Web.Models.PageBaseModels;
-using Web.Urls;
 
 namespace Web.Models.CashgameModels.Details
 {

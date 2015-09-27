@@ -4,7 +4,6 @@ using Web.Common.Cache;
 using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
-using Web.Urls;
 
 namespace Web.Controllers
 {

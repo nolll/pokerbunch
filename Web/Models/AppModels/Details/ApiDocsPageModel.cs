@@ -1,6 +1,7 @@
 using Core.UseCases;
+using Web.Common.Urls.ApiUrls;
+using Web.Common.Urls.SiteUrls;
 using Web.Models.PageBaseModels;
-using Web.Urls;
 
 namespace Web.Models.AppModels.Details
 {

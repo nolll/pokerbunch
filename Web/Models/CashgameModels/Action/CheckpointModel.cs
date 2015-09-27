@@ -1,6 +1,6 @@
 using Core.Services;
 using Core.UseCases;
-using Web.Urls;
+using Web.Common.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Action
 {

@@ -1,6 +1,6 @@
 using Core.UseCases;
+using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
-using Web.Urls;
 
 namespace Web.Components.NavigationModels
 {

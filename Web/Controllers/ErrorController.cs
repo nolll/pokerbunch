@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Web.Common.Routes;
 using Web.Controllers.Base;
-using Web.Urls;
 
 namespace Web.Controllers
 {

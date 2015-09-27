@@ -1,9 +1,9 @@
 using Core.UseCases;
+using Web.Common.Urls.SiteUrls;
 using Web.Components.PlayerModels.Badges;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Facts;
-using Web.Urls;
 
 namespace Web.Models.PlayerModels.Details
 {

@@ -2,9 +2,9 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
 using Web.Common.Routes;
+using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Edit;
-using Web.Urls;
 
 namespace Web.Controllers
 {

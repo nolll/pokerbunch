@@ -3,7 +3,6 @@ using Core.UseCases;
 using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Details;
-using Web.Urls;
 
 namespace Web.Controllers
 {
