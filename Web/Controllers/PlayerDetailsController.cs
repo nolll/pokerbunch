@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Details;
 using Web.Urls;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class PlayerDetailsController : BaseController
     {
         [Authorize]
-        [Route(Routes.PlayerDetails)]
+        [Route(WebRoutes.PlayerDetails)]
         public ActionResult Details(int id)
         {
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, id));

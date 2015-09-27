@@ -1,9 +1,11 @@
-﻿namespace Web.Urls
+﻿using Web.Common.Routes;
+
+namespace Web.Urls
 {
     public class EditUserUrl : UserUrl
     {
         public EditUserUrl(string userName)
-            : base(Routes.UserEdit, userName)
+            : base(WebRoutes.UserEdit, userName)
         {
         }
     }

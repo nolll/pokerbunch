@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class CashgameBuyinUrl : SlugUrl
     {
         public CashgameBuyinUrl(string slug)
-            : base(Routes.CashgameBuyin, slug)
+            : base(WebRoutes.CashgameBuyin, slug)
         {
         }
     }

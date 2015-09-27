@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Toplist;
 using Web.Urls;
@@ -10,8 +11,8 @@ namespace Web.Controllers
     public class TopListController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameToplist)]
-        [Route(Routes.CashgameToplistWithYear)]
+        [Route(WebRoutes.CashgameToplist)]
+        [Route(WebRoutes.CashgameToplistWithYear)]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);

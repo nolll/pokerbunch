@@ -295,7 +295,6 @@
     <Compile Include="Urls\ApiBuyinUrl.cs" />
     <Compile Include="Urls\ApiCashoutUrl.cs" />
     <Compile Include="Urls\ApiReportUrl.cs" />
-    <Compile Include="Urls\ApiRoutes.cs" />
     <Compile Include="Urls\ApiRunningGameUrl.cs" />
     <Compile Include="Urls\ApiUrl.cs" />
     <Compile Include="Urls\AppDetailsUrl.cs" />
@@ -340,7 +339,6 @@
     <Compile Include="Urls\PlayerDetailsUrl.cs" />
     <Compile Include="Urls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\RouteParams.cs" />
-    <Compile Include="Urls\Routes.cs" />
     <Compile Include="Urls\RunningCashgameGameJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\RunningCashgameUrl.cs" />

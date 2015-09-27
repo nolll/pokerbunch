@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Urls;
 
@@ -9,7 +10,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(Routes.CashgameEnd)]
+        [Route(WebRoutes.CashgameEnd)]
         public ActionResult Post(string slug)
         {
             UseCase.EndCashgame.Execute(new EndCashgame.Request(CurrentUserName, slug));

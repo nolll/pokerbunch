@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class RunningCashgamePlayersJsonUrl : SlugUrl
     {
         public RunningCashgamePlayersJsonUrl(string slug)
-            : base(Routes.RunningCashgamePlayersJson, slug)
+            : base(WebRoutes.RunningCashgamePlayersJson, slug)
         {
         }
     }

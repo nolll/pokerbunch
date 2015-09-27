@@ -1,6 +1,6 @@
-namespace Web.Urls
+namespace Web.Common.Routes
 {
-    public static class Routes
+    public static class WebRoutes
     {
         public const string Home = "";
 

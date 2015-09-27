@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.List;
 using Web.Urls;
@@ -10,8 +11,8 @@ namespace Web.Controllers
     public class CashgameListController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameList)]
-        [Route(Routes.CashgameListWithYear)]
+        [Route(WebRoutes.CashgameList)]
+        [Route(WebRoutes.CashgameListWithYear)]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);

@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class EditBunchUrl : SlugUrl
     {
         public EditBunchUrl(string slug)
-            : base(Routes.BunchEdit, slug)
+            : base(WebRoutes.BunchEdit, slug)
         {
         }
     }

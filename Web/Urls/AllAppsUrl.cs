@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class AllAppsUrl : SiteUrl
     {
         public AllAppsUrl()
-            : base(Routes.AllApps)
+            : base(WebRoutes.AllApps)
         {
         }
     }

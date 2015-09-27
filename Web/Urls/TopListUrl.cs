@@ -1,9 +1,11 @@
-﻿namespace Web.Urls
+﻿using Web.Common.Routes;
+
+namespace Web.Urls
 {
     public class TopListUrl : BunchWithOptionalYearUrl
     {
         public TopListUrl(string slug, int? year)
-            : base(Routes.CashgameToplist, Routes.CashgameToplistWithYear, slug, year)
+            : base(WebRoutes.CashgameToplist, WebRoutes.CashgameToplistWithYear, slug, year)
         {
         }
     }

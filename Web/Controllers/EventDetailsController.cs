@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.EventModels.Details;
 using Web.Urls;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class EventDetailsController : BaseController
     {
         [Authorize]
-        [Route(Routes.EventDetails)]
+        [Route(WebRoutes.EventDetails)]
         public ActionResult List(int id)
         {
             var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, id));

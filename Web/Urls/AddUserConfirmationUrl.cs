@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class AddUserConfirmationUrl : SiteUrl
     {
         public AddUserConfirmationUrl()
-            : base(Routes.UserAddConfirmation)
+            : base(WebRoutes.UserAddConfirmation)
         {
         }
     }

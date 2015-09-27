@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class DeletePlayerUrl : IdUrl
     {
         public DeletePlayerUrl(int playerId)
-            : base(Routes.PlayerDelete, playerId)
+            : base(WebRoutes.PlayerDelete, playerId)
         {
         }
     }

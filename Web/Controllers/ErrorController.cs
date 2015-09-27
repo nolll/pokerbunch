@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Urls;
 
@@ -7,7 +8,7 @@ namespace Web.Controllers
     [HandleError]
     public class ErrorController : BaseController
     {
-        [Route(Routes.ErrorNotFound)]
+        [Route(WebRoutes.ErrorNotFound)]
         public ActionResult NotFound()
         {
             Response.StatusCode = 404;
@@ -15,7 +16,7 @@ namespace Web.Controllers
             return Error404();
         }
 
-        [Route(Routes.ErrorUnauthorized)]
+        [Route(WebRoutes.ErrorUnauthorized)]
         public ActionResult Unauthorized()
         {
             Response.StatusCode = 401;
@@ -23,7 +24,7 @@ namespace Web.Controllers
             return Error401();
         }
         
-        [Route(Routes.ErrorForbidden)]
+        [Route(WebRoutes.ErrorForbidden)]
         public ActionResult Forbidden()
         {
             Response.StatusCode = 403;
@@ -31,7 +32,7 @@ namespace Web.Controllers
             return Error403();
         }
 
-        [Route(Routes.ErrorOther)]
+        [Route(WebRoutes.ErrorOther)]
         public ActionResult ServerError()
         {
             Response.StatusCode = 500;

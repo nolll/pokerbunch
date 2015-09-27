@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Urls;
 
@@ -8,7 +9,7 @@ namespace Web.Controllers
     public class DeleteCheckpointController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameCheckpointDelete)]
+        [Route(WebRoutes.CashgameCheckpointDelete)]
         public ActionResult DeleteCheckpoint(int id)
         {
             var request = new DeleteCheckpoint.Request(CurrentUserName, id);

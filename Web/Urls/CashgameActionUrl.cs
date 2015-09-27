@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class CashgameActionUrl : SiteUrl
     {
         public CashgameActionUrl(int cashgameId, int playerId)
-            : base(BuildUrl(Routes.CashgameAction, cashgameId, playerId))
+            : base(BuildUrl(WebRoutes.CashgameAction, cashgameId, playerId))
         {
         }
 

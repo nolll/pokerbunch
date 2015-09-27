@@ -1,9 +1,11 @@
-﻿namespace Web.Urls
+﻿using Web.Common.Routes;
+
+namespace Web.Urls
 {
     public class MatrixUrl : BunchWithOptionalYearUrl
     {
         public MatrixUrl(string slug, int? year)
-            : base(Routes.CashgameMatrix, Routes.CashgameMatrixWithYear, slug, year)
+            : base(WebRoutes.CashgameMatrix, WebRoutes.CashgameMatrixWithYear, slug, year)
         {
         }
     }

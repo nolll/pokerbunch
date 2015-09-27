@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AppModels.List;
 using Web.Urls;
@@ -8,7 +9,7 @@ namespace Web.Controllers
 {
     public class AppListController : BaseController
     {
-        [Route(Routes.UserApps)]
+        [Route(WebRoutes.UserApps)]
         public ActionResult Apps()
         {
             var context = GetAppContext();
@@ -17,7 +18,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/AppList/UserApps.cshtml", model);
         }
 
-        [Route(Routes.AllApps)]
+        [Route(WebRoutes.AllApps)]
         public ActionResult All()
         {
             var context = GetAppContext();

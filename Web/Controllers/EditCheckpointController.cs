@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class EditCheckpointController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameCheckpointEdit)]
+        [Route(WebRoutes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint(int id)
         {
             return ShowForm(id);
@@ -18,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.CashgameCheckpointEdit)]
+        [Route(WebRoutes.CashgameCheckpointEdit)]
         public ActionResult EditCheckpoint_Post(int id, EditCheckpointPostModel postModel)
         {
             try

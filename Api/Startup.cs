@@ -2,10 +2,10 @@
 using System.Web.Http;
 using Api;
 using Api.Auth;
-using Api.Urls;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Web.Common.Urls.ApiUrls;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace Api

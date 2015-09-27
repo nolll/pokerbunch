@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class EditBunchController : BaseController
     {
         [Authorize]
-        [Route(Routes.BunchEdit)]
+        [Route(WebRoutes.BunchEdit)]
         public ActionResult Edit(string slug)
         {
             return ShowForm(slug);
@@ -18,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.BunchEdit)]
+        [Route(WebRoutes.BunchEdit)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
             try

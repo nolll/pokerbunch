@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Chart;
 using Web.Urls;
@@ -10,8 +11,8 @@ namespace Web.Controllers
     public class CashgameChartController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameChart)]
-        [Route(Routes.CashgameChartWithYear)]
+        [Route(WebRoutes.CashgameChart)]
+        [Route(WebRoutes.CashgameChartWithYear)]
         public ActionResult Chart(string slug, int? year = null)
         {
             var cashgameContextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Chart, year);

@@ -50,6 +50,10 @@
     <Compile Include="Cache\Repositories\CachedUserRepository.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routes\ApiRoutes.cs" />
+    <Compile Include="Routes\WebRoutes.cs" />
+    <Compile Include="Urls\ApiUrl.cs" />
+    <Compile Include="Urls\ApiUrls\TokenUrl.cs" />
     <Compile Include="Urls\Url.cs" />
     <Compile Include="UseCaseContainer.cs" />
   </ItemGroup>

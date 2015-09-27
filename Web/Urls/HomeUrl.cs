@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class HomeUrl : SiteUrl
     {
         public HomeUrl()
-            : base(Routes.Home)
+            : base(WebRoutes.Home)
         {
         }
     }

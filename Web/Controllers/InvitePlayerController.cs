@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Invite;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class InvitePlayerController : BaseController
     {
         [Authorize]
-        [Route(Routes.PlayerInvite)]
+        [Route(WebRoutes.PlayerInvite)]
         public ActionResult Invite(int id)
         {
             return ShowForm(id);
@@ -18,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.PlayerInvite)]
+        [Route(WebRoutes.PlayerInvite)]
         public ActionResult Invite_Post(int id, InvitePlayerPostModel postModel)
         {
             try
@@ -35,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel);
         }
 
-        [Route(Routes.PlayerInviteConfirmation)]
+        [Route(WebRoutes.PlayerInviteConfirmation)]
         public ActionResult Invited(int id)
         {
             var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(CurrentUserName, id));

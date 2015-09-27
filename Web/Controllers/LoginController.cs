@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
 using Web.Urls;
@@ -14,14 +15,14 @@ namespace Web.Controllers
     {
         private const int AuthVersion = 2;
 
-        [Route(Routes.AuthLogin)]
+        [Route(WebRoutes.AuthLogin)]
         public ActionResult Login(string returnUrl = null)
         {
             return ShowForm(returnUrl);
         }
 
         [HttpPost]
-        [Route(Routes.AuthLogin)]
+        [Route(WebRoutes.AuthLogin)]
         public ActionResult Post(LoginPostModel postModel)
         {
             var request = new Login.Request(postModel.LoginName, postModel.Password);

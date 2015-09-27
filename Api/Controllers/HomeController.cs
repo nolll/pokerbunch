@@ -1,11 +1,11 @@
 ﻿using System.Web.Http;
-using Api.Urls;
+using Web.Common.Routes;
 
 namespace Api.Controllers
 {
     public class HomeController : BaseApiController
     {
-        [Route(Routes.Home)]
+        [Route(ApiRoutes.Home)]
         [AcceptVerbs("GET")]
         public IHttpActionResult Home()
         {

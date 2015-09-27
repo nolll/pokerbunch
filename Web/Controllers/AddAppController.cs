@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AppModels.Add;
 using Web.Urls;
@@ -9,7 +10,7 @@ namespace Web.Controllers
 {
     public class AddAppController : BaseController
     {
-        [Route(Routes.AppAdd)]
+        [Route(WebRoutes.AppAdd)]
         [Authorize]
         public ActionResult AddUser()
         {
@@ -17,7 +18,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route(Routes.AppAdd)]
+        [Route(WebRoutes.AppAdd)]
         [Authorize]
         public ActionResult Post(AddAppPostModel postModel)
         {

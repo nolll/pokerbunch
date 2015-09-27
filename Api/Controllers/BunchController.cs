@@ -1,13 +1,13 @@
 ﻿using System.Web.Http;
 using Api.Models;
-using Api.Urls;
 using Core.UseCases;
+using Web.Common.Routes;
 
 namespace Api.Controllers
 {
     public class BunchController : BaseApiController
     {
-        [Route(Routes.BunchList)]
+        [Route(ApiRoutes.BunchList)]
         [AcceptVerbs("GET")]
         public ApiBunchList List()
         {
@@ -15,7 +15,7 @@ namespace Api.Controllers
             return new ApiBunchList(bunchListResult);
         }
 
-        [Route(Routes.BunchDetails)]
+        [Route(ApiRoutes.BunchDetails)]
         [AcceptVerbs("GET")]
         public IHttpActionResult Details(string slug)
         {

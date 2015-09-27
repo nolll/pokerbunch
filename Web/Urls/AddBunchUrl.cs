@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class AddBunchUrl : SiteUrl
     {
         public AddBunchUrl()
-            : base(Routes.BunchAdd)
+            : base(WebRoutes.BunchAdd)
         {
         }
     }

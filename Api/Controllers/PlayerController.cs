@@ -1,14 +1,14 @@
 using System.Web.Http;
 using Api.Auth;
 using Api.Models;
-using Api.Urls;
 using Core.UseCases;
+using Web.Common.Routes;
 
 namespace Api.Controllers
 {
     public class PlayerController : BaseApiController
     {
-        [Route(Routes.PlayerList)]
+        [Route(ApiRoutes.PlayerList)]
         [AcceptVerbs("GET")]
         [ApiAuthorize]
         public ApiPlayerList List(string slug)
@@ -17,7 +17,7 @@ namespace Api.Controllers
             return new ApiPlayerList(playerListResult);
         }
 
-        [Route(Routes.PlayerDetails)]
+        [Route(ApiRoutes.PlayerDetails)]
         [AcceptVerbs("GET")]
         [ApiAuthorize]
         public IHttpActionResult Details(int id)

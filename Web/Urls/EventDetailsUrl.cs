@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class EventDetailsUrl : IdUrl
     {
         public EventDetailsUrl(int eventId)
-            : base(Routes.EventDetails, eventId)
+            : base(WebRoutes.EventDetails, eventId)
         {
         }
     }

@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class PlayerDetailsUrl : IdUrl
     {
         public PlayerDetailsUrl(int playerId)
-            : base(Routes.PlayerDetails, playerId)
+            : base(WebRoutes.PlayerDetails, playerId)
         {
         }
     }

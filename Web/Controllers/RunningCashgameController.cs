@@ -5,6 +5,7 @@ using System.Web.Http.Results;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Running;
 using Web.Urls;
@@ -14,7 +15,7 @@ namespace Web.Controllers
     public class RunningCashgameController : BaseController
     {
         [Authorize]
-        [Route(Routes.RunningCashgame)]
+        [Route(WebRoutes.RunningCashgame)]
         public ActionResult Running(string slug)
         {
             var contextResult = GetBunchContext(slug);
@@ -31,7 +32,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(Routes.RunningCashgameGameJson)]
+        [Route(WebRoutes.RunningCashgameGameJson)]
         public ActionResult RunningGameJson(string slug)
         {
             try
@@ -47,7 +48,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(Routes.RunningCashgamePlayersJson)]
+        [Route(WebRoutes.RunningCashgamePlayersJson)]
         public ActionResult RunningPlayersJson(string slug)
         {
             var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));

@@ -1,9 +1,11 @@
+using Web.Common.Routes;
+
 namespace Web.Urls
 {
     public class ChangePasswordConfirmationUrl : SiteUrl
     {
         public ChangePasswordConfirmationUrl()
-            : base(Routes.ChangePasswordConfirmation)
+            : base(WebRoutes.ChangePasswordConfirmation)
         {
         }
     }

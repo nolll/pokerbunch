@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.List;
 using Web.Urls;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class PlayerListController : BaseController
     {
         [Authorize]
-        [Route(Routes.PlayerList)]
+        [Route(WebRoutes.PlayerList)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

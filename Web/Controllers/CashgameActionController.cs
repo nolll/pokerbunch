@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Action;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class CashgameActionController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameAction)]
+        [Route(WebRoutes.CashgameAction)]
         public ActionResult Action(int cashgameId, int playerId)
         {
             var actionsResult = UseCase.Actions.Execute(new Actions.Request(CurrentUserName, cashgameId, playerId));

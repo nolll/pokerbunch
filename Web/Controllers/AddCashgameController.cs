@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class AddCashgameController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameAdd)]
+        [Route(WebRoutes.CashgameAdd)]
         public ActionResult AddCashgame(string slug)
         {
             return ShowForm(slug);
@@ -18,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.CashgameAdd)]
+        [Route(WebRoutes.CashgameAdd)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
             var request = new AddCashgame.Request(CurrentUserName, slug, postModel.Location);

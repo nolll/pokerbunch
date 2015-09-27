@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Details;
 using Web.Urls;
@@ -9,7 +10,7 @@ namespace Web.Controllers
     public class BunchDetailsController : BaseController
     {
         [Authorize]
-        [Route(Routes.BunchDetails)]
+        [Route(WebRoutes.BunchDetails)]
         public ActionResult Details(string slug)
         {
             var bunchContextResult = GetBunchContext(slug);

@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Edit;
 using Web.Urls;
@@ -10,7 +11,7 @@ namespace Web.Controllers
     public class EditCashgameController : BaseController
     {
         [Authorize]
-        [Route(Routes.CashgameEdit)]
+        [Route(WebRoutes.CashgameEdit)]
         public ActionResult Edit(int id)
         {
             return ShowForm(id);
@@ -18,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Routes.CashgameEdit)]
+        [Route(WebRoutes.CashgameEdit)]
         public ActionResult Post(int id, EditCashgamePostModel postModel)
         {
             try

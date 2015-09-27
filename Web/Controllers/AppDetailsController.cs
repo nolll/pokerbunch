@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AppModels.Details;
 using Web.Urls;
@@ -8,7 +9,7 @@ namespace Web.Controllers
 {
     public class AppDetailsController : BaseController
     {
-        [Route(Routes.AppDetails)]
+        [Route(WebRoutes.AppDetails)]
         public ActionResult Details(int id)
         {
             var context = GetAppContext();
@@ -20,7 +21,7 @@ namespace Web.Controllers
 
     public class ApiDocsController : BaseController
     {
-        [Route(Routes.ApiDocs)]
+        [Route(WebRoutes.ApiDocs)]
         public ActionResult ApiDocs()
         {
             var context = GetAppContext();
