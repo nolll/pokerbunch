@@ -40,7 +40,7 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadOne(CreateApp);
         }
 
-        public IList<App> Get(IList<int> ids)
+        public IList<App> GetList(IList<int> ids)
         {
             return GetAppList(ids);
         }

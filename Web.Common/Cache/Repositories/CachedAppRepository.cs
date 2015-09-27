@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
@@ -18,12 +19,13 @@ namespace Web.Common.Cache.Repositories
         
         public App Get(int id)
         {
-            return _appRepository.Get(id);
+            var cacheKey = CacheKeyProvider.GetKey(TypeCacheKey, id);
+            return _cacheContainer.GetAndStore(() => _appRepository.Get(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
         }
 
-        public IList<App> Get(IList<int> ids)
+        public IList<App> GetList(IList<int> ids)
         {
-            return _appRepository.Get(ids);
+            return _cacheContainer.GetAndStore(_appRepository.GetList, TimeSpan.FromMinutes(CacheTime.Long), ids);
         }
 
         public IList<int> Find()
@@ -49,6 +51,12 @@ namespace Web.Common.Cache.Repositories
         public void Update(App app)
         {
             _appRepository.Update(app);
+            _cacheContainer.Remove(CacheKeyProvider.GetKey(TypeCacheKey, app.Id));
+        }
+
+        private Type TypeCacheKey
+        {
+            get { return typeof (App); }
         }
     }
 }

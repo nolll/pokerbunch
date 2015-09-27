@@ -73,11 +73,10 @@ namespace Web.Common.Cache
         {
             var list = new List<T>();
             var notInCache = new List<int>();
-            var cacheKeyName = typeof (T).ToString();
             foreach (var id in ids)
             {
                 T cachedObject;
-                var cacheKey = ConstructCacheKey(cacheKeyName, id);
+                var cacheKey = CacheKeyProvider.GetKey(typeof(T), id);
                 var foundInCache = TryGet(cacheKey, out cachedObject);
                 if (foundInCache)
                     list.Add(cachedObject);
@@ -93,7 +92,7 @@ namespace Web.Common.Cache
                 {
                     if (sourceItem != null) //Om något id inte har hämtats så stoppar vi inte in det i vårt resultat eller i cachen.
                     {
-                        var cacheKey = ConstructCacheKey(cacheKeyName, sourceItem.Id);
+                        var cacheKey = CacheKeyProvider.GetKey(typeof(T), sourceItem.Id);
                         Insert(cacheKey, sourceItem, cacheTime);
                     }
                 }

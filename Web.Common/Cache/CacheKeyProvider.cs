@@ -6,6 +6,16 @@ namespace Web.Common.Cache
 {
     public static class CacheKeyProvider
     {
+        public static string GetKey(Type t, int id)
+        {
+            return ConstructCacheKey(t.ToString(), id); ;
+        }
+
+        public static string AppKey(int id)
+        {
+            return ConstructCacheKey("App", id);
+        }
+
         public static string UserKey(string nameOrEmail)
         {
             return ConstructCacheKey("UserByNameOrEmail", nameOrEmail);

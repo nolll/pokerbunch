@@ -1,11 +1,11 @@
 namespace Core.Entities
 {
-    public class App
+    public class App : IEntity
     {
-        public int Id { get; set; }
-        public string AppKey { get; set; }
-        public string Name { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; private set; }
+        public string AppKey { get; private set; }
+        public string Name { get; private set; }
+        public int UserId { get; private set; }
 
         public App(int id, string appKey, string name, int userId)
         {

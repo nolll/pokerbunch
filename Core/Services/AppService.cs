@@ -18,13 +18,13 @@ namespace Core.Services
         public IList<App> ListApps()
         {
             var ids = _appRepository.Find();
-            return _appRepository.Get(ids);
+            return _appRepository.GetList(ids);
         }
 
         public IList<App> ListApps(int userId)
         {
             var ids = _appRepository.Find(userId);
-            return _appRepository.Get(ids);
+            return _appRepository.GetList(ids);
         }
 
         public App Get(int id)
