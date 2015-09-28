@@ -14,9 +14,9 @@ namespace Core.Repositories
         IList<int> FindByPlayerId(int playerId);
         IList<int> FindRunning(int bunchId);
         
-        bool DeleteGame(int id);
+        void DeleteGame(int id);
 		int AddGame(Bunch bunch, Cashgame cashgame);
-		bool UpdateGame(Cashgame cashgame);
+		void UpdateGame(Cashgame cashgame);
 
         IList<int> GetYears(int bunchId);
         IList<string> GetLocations(int bunchId);

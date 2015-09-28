@@ -48,9 +48,9 @@ namespace Core.Services
             return _playerRepository.JoinHomegame(player, bunch, userId);
         }
 
-        public bool Delete(int playerId)
+        public void Delete(int playerId)
         {
-            return _playerRepository.Delete(playerId);
+            _playerRepository.Delete(playerId);
         }
     }
 }

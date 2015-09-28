@@ -131,14 +131,13 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadStringList("Location");
         }
 
-		public bool DeleteGame(int id){
+		public void DeleteGame(int id){
             const string sql = "DELETE FROM game WHERE GameID = @cashgameId";
 		    var parameters = new List<SimpleSqlParameter>
 		    {
 		        new SimpleSqlParameter("@cashgameId", id)
 		    };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
 		}
         
 		public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -156,7 +155,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
 		}
         
-		public bool UpdateGame(Cashgame cashgame)
+		public void UpdateGame(Cashgame cashgame)
         {
             const string sql = "UPDATE game SET Location = @location, Date = @date, Status = @status WHERE GameID = @cashgameId";
             var rawCashgame = CreateRawCashgame(cashgame);
@@ -167,8 +166,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@cashgameId", rawCashgame.Id)
 		        };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
 		}
         
         public IList<int> FindByPlayerId(int playerId)

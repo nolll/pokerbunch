@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
@@ -16,19 +17,19 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
+        public Event Get(int id)
+        {
+            return _cacheContainer.GetAndStore(_eventRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
+        }
+
         public IList<Event> Get(IList<int> ids)
         {
-            return _eventRepository.Get(ids);
+            return _cacheContainer.GetAndStore(_eventRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<int> Find(int bunchId)
         {
             return _eventRepository.Find(bunchId);
-        }
-
-        public Event Get(int id)
-        {
-            return _eventRepository.Get(id);
         }
     }
 }

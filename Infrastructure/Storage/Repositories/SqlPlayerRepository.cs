@@ -117,18 +117,16 @@ namespace Infrastructure.Storage.Repositories
                 };
             var rowCount = _db.Execute(sql, parameters);
             return rowCount > 0;
-
 		}
 
-		public bool Delete(int playerId)
+		public void Delete(int playerId)
         {
             const string sql = @"DELETE FROM player WHERE PlayerID = @playerId";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@playerId", playerId)
                 };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
         }
 
 	    private Player CreatePlayer(RawPlayer rawPlayer)

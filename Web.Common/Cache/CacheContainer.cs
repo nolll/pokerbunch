@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
@@ -11,11 +10,14 @@ namespace Web.Common.Cache
     {
         private readonly ICacheProvider _cacheProvider;
 
-        private readonly CacheableNullValue _nullValue = new CacheableNullValue();
-
         public CacheContainer(ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
+        }
+
+        public void Remove<T>(int id)
+        {
+            Remove(CacheKeyProvider.GetKey<T>(id));
         }
 
         public int ClearAll()
@@ -23,7 +25,7 @@ namespace Web.Common.Cache
             return _cacheProvider.ClearAll();
         }
 
-        public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue) where T : class
+        public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
         {
             T cachedObject;
             var foundInCache = TryGet(cacheKey, out cachedObject);
@@ -37,46 +39,35 @@ namespace Web.Common.Cache
             {
                 Insert(cacheKey, cachedObject, cacheTime);
             }
-            else if (allowCachedNullValue)
+            return cachedObject;
+        }
+
+        public T GetAndStore<T>(Func<int, T> sourceExpression, int id, TimeSpan cacheTime) where T : class, IEntity
+        {
+            T cachedObject;
+            var cacheKey = CacheKeyProvider.GetKey<T>(id);
+            var foundInCache = TryGet(cacheKey, out cachedObject);
+
+            if (foundInCache)
             {
-                Insert(cacheKey, new CacheableNullValue(), cacheTime);
+                return cachedObject;
+            }
+            cachedObject = sourceExpression(id);
+            if (cachedObject != null)
+            {
+                Insert(cacheKey, cachedObject, cacheTime);
             }
             return cachedObject;
         }
 
-        public int? GetAndStore(Func<int?> sourceExpression, TimeSpan cacheTime, string cacheKey, bool allowCachedNullValue)
-        {
-            string cachedString;
-            var foundInCache = TryGet(cacheKey, out cachedString);
-
-            if (foundInCache)
-            {
-                if (cachedString == null)
-                {
-                    return null;
-                }
-                return int.Parse(cachedString);
-            }
-            var cachedInt = sourceExpression();
-            if (cachedInt.HasValue)
-            {
-                Insert(cacheKey, cachedInt.Value.ToString(CultureInfo.InvariantCulture), cacheTime);
-            }
-            else if (allowCachedNullValue)
-            {
-                Insert(cacheKey, new CacheableNullValue(), cacheTime);
-            }
-            return cachedInt;
-        }
-
-        public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, TimeSpan cacheTime, IList<int> ids) where T : class, IEntity
+        public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, IList<int> ids, TimeSpan cacheTime) where T : class, IEntity
         {
             var list = new List<T>();
             var notInCache = new List<int>();
             foreach (var id in ids)
             {
                 T cachedObject;
-                var cacheKey = CacheKeyProvider.GetKey(typeof(T), id);
+                var cacheKey = CacheKeyProvider.GetKey<T>(id);
                 var foundInCache = TryGet(cacheKey, out cachedObject);
                 if (foundInCache)
                     list.Add(cachedObject);
@@ -92,7 +83,7 @@ namespace Web.Common.Cache
                 {
                     if (sourceItem != null) //Om något id inte har hämtats så stoppar vi inte in det i vårt resultat eller i cachen.
                     {
-                        var cacheKey = CacheKeyProvider.GetKey(typeof(T), sourceItem.Id);
+                        var cacheKey = CacheKeyProvider.GetKey<T>(sourceItem.Id);
                         Insert(cacheKey, sourceItem, cacheTime);
                     }
                 }
@@ -116,13 +107,6 @@ namespace Web.Common.Cache
 
             var o = _cacheProvider.Get(key);
 
-            if (o is CacheableNullValue)
-            {
-                // A fake null value was found in the cache
-                value = default(T);
-                return true;
-            }
-
             if (o == null)
             {
                 // A real null was found, this means that 'nothing is cached for this key
@@ -136,21 +120,12 @@ namespace Web.Common.Cache
 
         private void Insert(string cacheKey, object objectToBeCached, TimeSpan cacheTime)
         {
-            _cacheProvider.Put(cacheKey, objectToBeCached ?? _nullValue, cacheTime);
+            _cacheProvider.Put(cacheKey, objectToBeCached, cacheTime);
         }
 
         public void Remove(string cacheKey)
         {
             _cacheProvider.Remove(cacheKey);
-        }
-
-        private string ConstructCacheKey(string typeName, params object[] procedureParameters)
-        {
-            return CacheKeyProvider.ConstructCacheKey(typeName, procedureParameters);
-        }
-
-        private class CacheableNullValue
-        {
         }
     }
 }

@@ -91,7 +91,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
 
-        public bool Update(Bunch bunch)
+        public void Update(Bunch bunch)
         {
             var rawBunch = RawBunch.Create(bunch);
             const string sql = "UPDATE homegame SET Name = @slug, DisplayName = @displayName, Description = @description, HouseRules = @houseRules, Currency = @currencySymbol, CurrencyLayout = @currencyLayout, Timezone = @timeZone, DefaultBuyin = @defaultBuyin, CashgamesEnabled = @cashgamesEnabled, TournamentsEnabled = @tournamentsEnabled, VideosEnabled = @videosEnabled WHERE HomegameID = @id";
@@ -112,8 +112,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@id", rawBunch.Id)
                 };
 
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
         }
         
 	    private static Bunch CreateBunch(RawBunch rawBunch)

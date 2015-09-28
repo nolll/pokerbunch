@@ -74,10 +74,9 @@ namespace Tests.Common.FakeRepositories
             return new[] {TestData.LocationA, TestData.LocationB};
         }
 
-        public bool DeleteGame(int id)
+        public void DeleteGame(int id)
         {
             Deleted = id;
-            return true;
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -86,10 +85,9 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool UpdateGame(Cashgame cashgame)
+        public void UpdateGame(Cashgame cashgame)
         {
             Updated = cashgame;
-            return true;
         }
 
         public void SetupMultiYear()

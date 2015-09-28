@@ -32,21 +32,6 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => o.BunchId == bunchId && o.UserId == userId).Select(o => o.Id).ToList();
         }
 
-        public int FindOld(int bunchId, string name)
-        {
-            return _list.Where(o => o.BunchId == bunchId && o.DisplayName == name).Select(o => o.Id).FirstOrDefault();
-        }
-
-        public int FindOld(int bunchId, int userId)
-        {
-            return _list.Where(o => o.BunchId == bunchId && o.UserId == userId).Select(o => o.Id).FirstOrDefault();
-        }
-
-        public IList<Player> GetList(int bunchId)
-        {
-            return _list;
-        }
-
         public IList<Player> Get(IList<int> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
@@ -55,16 +40,6 @@ namespace Tests.Common.FakeRepositories
         public Player Get(int id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
-        }
-
-        public Player GetByName(int bunchId, string name)
-        {
-            return _list.FirstOrDefault(o => o.BunchId == bunchId && o.DisplayName == name);
-        }
-
-        public Player GetByUserId(int bunchId, int userId)
-        {
-            return _list.FirstOrDefault(o => o.UserId == userId);
         }
 
         public int Add(Player player)
@@ -79,10 +54,9 @@ namespace Tests.Common.FakeRepositories
             return true;
         }
 
-        public bool Delete(int playerId)
+        public void Delete(int playerId)
         {
             Deleted = playerId;
-            return true;
         }
 
         private IList<Player> CreateList()

@@ -19,13 +19,12 @@ namespace Web.Common.Cache.Repositories
         
         public App Get(int id)
         {
-            var cacheKey = CacheKeyProvider.GetKey(TypeCacheKey, id);
-            return _cacheContainer.GetAndStore(() => _appRepository.Get(id), TimeSpan.FromMinutes(CacheTime.Long), cacheKey);
+            return _cacheContainer.GetAndStore(_appRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<App> GetList(IList<int> ids)
         {
-            return _cacheContainer.GetAndStore(_appRepository.GetList, TimeSpan.FromMinutes(CacheTime.Long), ids);
+            return _cacheContainer.GetAndStore(_appRepository.GetList, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<int> Find()
@@ -51,12 +50,7 @@ namespace Web.Common.Cache.Repositories
         public void Update(App app)
         {
             _appRepository.Update(app);
-            _cacheContainer.Remove(CacheKeyProvider.GetKey(TypeCacheKey, app.Id));
-        }
-
-        private Type TypeCacheKey
-        {
-            get { return typeof (App); }
+            _cacheContainer.Remove<App>(app.Id);
         }
     }
 }

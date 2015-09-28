@@ -48,9 +48,9 @@ namespace Core.Services
             return _cashgameRepository.GetLocations(bunchId);
         }
 
-        public bool DeleteGame(int id)
+        public void DeleteGame(int id)
         {
-            return _cashgameRepository.DeleteGame(id);
+            _cashgameRepository.DeleteGame(id);
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -58,15 +58,15 @@ namespace Core.Services
             return _cashgameRepository.AddGame(bunch, cashgame);
         }
 
-        public bool UpdateGame(Cashgame cashgame)
+        public void UpdateGame(Cashgame cashgame)
         {
-            return _cashgameRepository.UpdateGame(cashgame);
+            _cashgameRepository.UpdateGame(cashgame);
         }
 
-        public bool EndGame(Cashgame cashgame)
+        public void EndGame(Cashgame cashgame)
         {
             cashgame.ChangeStatus(GameStatus.Finished);
-            return _cashgameRepository.UpdateGame(cashgame);
+            _cashgameRepository.UpdateGame(cashgame);
         }
 
         public bool HasPlayed(int playerId)

@@ -42,8 +42,8 @@
     <Compile Include="Cache\CacheKeyProvider.cs" />
     <Compile Include="Cache\CacheTime.cs" />
     <Compile Include="Cache\Repositories\CachedAppRepository.cs" />
+    <Compile Include="Cache\Repositories\CachedBunchRepository.cs" />
     <Compile Include="Cache\Repositories\CachedCashgameRepository.cs" />
-    <Compile Include="Cache\Repositories\CachedCheckpointRepository.cs" />
     <Compile Include="Cache\Repositories\CachedEventRepository.cs" />
     <Compile Include="Cache\Repositories\CachedPlayerRepository.cs" />
     <Compile Include="Cache\Repositories\CachedRepositoryFactory.cs" />

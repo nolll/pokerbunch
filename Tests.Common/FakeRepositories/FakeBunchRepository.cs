@@ -61,10 +61,9 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool Update(Bunch bunch)
+        public void Update(Bunch bunch)
         {
             Saved = bunch;
-            return true;
         }
 
         public void SetupDefaultList()

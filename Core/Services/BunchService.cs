@@ -45,9 +45,9 @@ namespace Core.Services
             return _bunchRepository.Add(bunch);
         }
 
-        public bool Save(Bunch bunch)
+        public void Save(Bunch bunch)
         {
-            return _bunchRepository.Update(bunch);
+            _bunchRepository.Update(bunch);
         }
     }
 }

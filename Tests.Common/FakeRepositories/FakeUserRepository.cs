@@ -42,10 +42,9 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
             Saved = user;
-            return true;
         }
 
         private IList<User> CreateList()

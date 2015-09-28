@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
@@ -19,12 +20,12 @@ namespace Web.Common.Cache.Repositories
 
         public Cashgame Get(int cashgameId)
         {
-            return _cashgameRepository.Get(cashgameId);
+            return _cacheContainer.GetAndStore(_cashgameRepository.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<Cashgame> Get(IList<int> ids)
         {
-            return _cashgameRepository.Get(ids);
+            return _cacheContainer.GetAndStore(_cashgameRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<int> FindFinished(int bunchId, int? year = null)
@@ -57,9 +58,10 @@ namespace Web.Common.Cache.Repositories
             return _cashgameRepository.GetLocations(bunchId);
         }
 
-        public bool DeleteGame(int id)
+        public void DeleteGame(int id)
         {
-            return _cashgameRepository.DeleteGame(id);
+            _cashgameRepository.DeleteGame(id);
+            _cacheContainer.Remove<Cashgame>(id);
         }
 
         public int AddGame(Bunch bunch, Cashgame cashgame)
@@ -67,9 +69,10 @@ namespace Web.Common.Cache.Repositories
             return _cashgameRepository.AddGame(bunch, cashgame);
         }
 
-        public bool UpdateGame(Cashgame cashgame)
+        public void UpdateGame(Cashgame cashgame)
         {
-            return _cashgameRepository.UpdateGame(cashgame);
+            _cashgameRepository.UpdateGame(cashgame);
+            _cacheContainer.Remove<Cashgame>(cashgame.Id);
         }
 
         public int AddCheckpoint(Checkpoint checkpoint)

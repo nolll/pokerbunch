@@ -14,6 +14,6 @@ namespace Core.Repositories
 
         bool JoinHomegame(Player player, Bunch bunch, int userId);
         int Add(Player player);
-		bool Delete(int playerId);
+		void Delete(int playerId);
 	}
 }

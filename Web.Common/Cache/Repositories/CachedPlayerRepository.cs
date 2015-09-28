@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
@@ -16,6 +17,16 @@ namespace Web.Common.Cache.Repositories
             _cacheContainer = cacheContainer;
         }
 
+        public Player Get(int id)
+        {
+            return _cacheContainer.GetAndStore(_playerRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
+        }
+
+        public IList<Player> Get(IList<int> ids)
+        {
+            return _cacheContainer.GetAndStore(_playerRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
+        }
+
         public IList<int> Find(int bunchId)
         {
             return _playerRepository.Find(bunchId);
@@ -31,16 +42,6 @@ namespace Web.Common.Cache.Repositories
             return _playerRepository.Find(bunchId, userId);
         }
 
-        public IList<Player> Get(IList<int> ids)
-        {
-            return _playerRepository.Get(ids);
-        }
-
-        public Player Get(int id)
-        {
-            return _playerRepository.Get(id);
-        }
-
         public int Add(Player player)
         {
             return _playerRepository.Add(player);
@@ -51,9 +52,10 @@ namespace Web.Common.Cache.Repositories
             return _playerRepository.JoinHomegame(player, bunch, userId);
         }
 
-        public bool Delete(int playerId)
+        public void Delete(int playerId)
         {
-            return _playerRepository.Delete(playerId);
+            _playerRepository.Delete(playerId);
+            _cacheContainer.Remove<Player>(playerId);
         }
     }
 }

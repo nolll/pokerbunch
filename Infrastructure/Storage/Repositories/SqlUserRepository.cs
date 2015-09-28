@@ -53,7 +53,7 @@ namespace Infrastructure.Storage.Repositories
             return new List<int>();
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
             const string sql = "UPDATE [user] SET DisplayName = @displayName, RealName = @realName, Email = @email, Password = @password, Salt = @salt WHERE UserID = @userId";
             var parameters = new List<SimpleSqlParameter>
@@ -65,9 +65,7 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@salt", user.Salt),
                 new SimpleSqlParameter("@userId", user.Id)
             };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
-
+            _db.Execute(sql, parameters);
         }
 
         public int Add(User user)

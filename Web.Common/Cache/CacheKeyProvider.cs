@@ -6,9 +6,9 @@ namespace Web.Common.Cache
 {
     public static class CacheKeyProvider
     {
-        public static string GetKey(Type t, int id)
+        public static string GetKey<T>(int id)
         {
-            return ConstructCacheKey(t.ToString(), id); ;
+            return ConstructCacheKey(typeof(T).ToString(), id); ;
         }
 
         public static string AppKey(int id)
