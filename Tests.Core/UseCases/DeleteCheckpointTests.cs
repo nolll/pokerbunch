@@ -22,12 +22,11 @@ namespace Tests.Core.UseCases
         public void DeleteCheckpoint_RunningGame_DeletesCheckpointAndReturnsCorrectValues()
         {
             Repos.Cashgame.SetupRunningGame();
-            Repos.Cashgame.SetupRunningGameForCheckpoints();
 
-            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
+            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, 12);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Cashgame.DeletedCheckpoint.Id);
+            Assert.AreEqual(12, Repos.Cashgame.DeletedCheckpoint.Id);
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(3, result.CashgameId);
             Assert.IsTrue(result.GameIsRunning);

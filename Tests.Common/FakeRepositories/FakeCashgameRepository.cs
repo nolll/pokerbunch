@@ -64,6 +64,11 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => o.Status == GameStatus.Running).Select(o => o.Id).ToList();
         }
 
+        public IList<int> FindByCheckpoint(int checkpointId)
+        {
+            return _list.Where(o => o.Checkpoints.Any(p => p.Id == checkpointId)).Select(o => o.Id).ToList();
+        }
+
         public IList<int> GetYears(int bunchId)
         {
             return _list.Where(o => o.StartTime.HasValue && o.Status == GameStatus.Finished).Select(o => o.StartTime.Value.Year).ToList();
@@ -120,12 +125,12 @@ namespace Tests.Common.FakeRepositories
 
             var checkpoints2 = new List<Checkpoint>
             {
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2, CheckpointType.Buyin, 200, 200, 1),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(1), CheckpointType.Buyin, 200, 200, 2),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(2), CheckpointType.Buyin, 200, 200, 3),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(30), CheckpointType.Report, 450, 45, 4),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(91), CheckpointType.Cashout, 550, 0, 5),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(92), CheckpointType.Cashout, 50, 0, 6)
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2, CheckpointType.Buyin, 200, 200, 6),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(1), CheckpointType.Buyin, 200, 200, 7),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(2), CheckpointType.Buyin, 200, 200, 8),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(30), CheckpointType.Report, 450, 45, 9),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, startTime2.AddMinutes(91), CheckpointType.Cashout, 550, 0, 10),
+                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdB, startTime2.AddMinutes(92), CheckpointType.Cashout, 50, 0, 11)
             };
 
             return new List<Cashgame>
@@ -181,21 +186,6 @@ namespace Tests.Common.FakeRepositories
             _list.Clear();
         }
         
-        public Checkpoint GetCheckpoint(int id)
-        {
-            return _checkpointList.FirstOrDefault(o => o.Id == id);
-        }
-
-        public IList<int> FindCheckpoints(int cashgameId)
-        {
-            return _checkpointList.Where(o => o.CashgameId == cashgameId).Select(o => o.Id).ToList();
-        }
-
-        public IList<int> FindCheckpoints(IList<int> cashgameIds)
-        {
-            return _checkpointList.Where(o => cashgameIds.Contains(o.Id)).Select(o => o.Id).ToList();
-        }
-
         public int AddCheckpoint(Checkpoint checkpoint)
         {
             AddedCheckpoint = checkpoint;
@@ -212,21 +202,6 @@ namespace Tests.Common.FakeRepositories
         {
             DeletedCheckpoint = checkpoint;
             return true;
-        }
-
-        public void SetupRunningGameForCheckpoints()
-        {
-            ClearCheckpointList();
-
-            foreach (var runningGameCheckpoint in TestData.RunningGameCheckpoints)
-            {
-                _checkpointList.Add(runningGameCheckpoint);
-            }
-        }
-
-        private void ClearCheckpointList()
-        {
-            _checkpointList.Clear();
         }
 
         private IList<Checkpoint> CreateCheckpointList()

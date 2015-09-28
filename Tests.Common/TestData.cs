@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Tests.Common.Builders;
@@ -121,8 +122,8 @@ namespace Tests.Common
             {
                 return new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameIdC, PlayerIdA, StartTimeC, CheckpointType.Buyin, 200, 200, 1),
-                    Checkpoint.Create(CashgameIdC, PlayerIdB, StartTimeC, CheckpointType.Buyin, 200, 200, 2)
+                    Checkpoint.Create(CashgameIdC, PlayerIdA, StartTimeC, CheckpointType.Buyin, 200, 200, 12),
+                    Checkpoint.Create(CashgameIdC, PlayerIdB, StartTimeC, CheckpointType.Buyin, 200, 200, 13)
                 };
             }
         }

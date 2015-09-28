@@ -33,6 +33,12 @@ namespace Core.Services
             return _cashgameRepository.Get(ids).FirstOrDefault();
         }
 
+        public Cashgame GetByCheckpoint(int checkpointId)
+        {
+            var ids = _cashgameRepository.FindByCheckpoint(checkpointId);
+            return _cashgameRepository.Get(ids).FirstOrDefault();
+        }
+
         public Cashgame GetById(int cashgameId)
         {
             return _cashgameRepository.Get(cashgameId);
@@ -90,10 +96,10 @@ namespace Core.Services
             return _cashgameRepository.DeleteCheckpoint(checkpoint);
         }
 
-        public Checkpoint GetCheckpoint(int checkpointId)
-        {
-            return _cashgameRepository.GetCheckpoint(checkpointId);
-        }
+        //public Checkpoint GetCheckpoint(int checkpointId)
+        //{
+        //    return _cashgameRepository.GetCheckpoint(checkpointId);
+        //}
 
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
         {

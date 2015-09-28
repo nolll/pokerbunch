@@ -5,7 +5,7 @@ using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
 
-namespace Web.Common.Cache.Repositories
+namespace Infrastructure.Storage.CachedRepositories
 {
     public class CachedCashgameRepository : ICashgameRepository
     {
@@ -48,6 +48,11 @@ namespace Web.Common.Cache.Repositories
             return _cashgameRepository.FindRunning(bunchId);
         }
 
+        public IList<int> FindByCheckpoint(int checkpointId)
+        {
+            return _cashgameRepository.FindByCheckpoint(checkpointId);
+        }
+
         public IList<int> GetYears(int bunchId)
         {
             return _cashgameRepository.GetYears(bunchId);
@@ -88,21 +93,6 @@ namespace Web.Common.Cache.Repositories
         public bool DeleteCheckpoint(Checkpoint checkpoint)
         {
             return _cashgameRepository.DeleteCheckpoint(checkpoint);
-        }
-
-        public Checkpoint GetCheckpoint(int checkpointId)
-        {
-            return _cashgameRepository.GetCheckpoint(checkpointId);
-        }
-
-        public IList<int> FindCheckpoints(int cashgameId)
-        {
-            return _cashgameRepository.FindCheckpoints(cashgameId);
-        }
-
-        public IList<int> FindCheckpoints(IList<int> cashgameIds)
-        {
-            return _cashgameRepository.FindCheckpoints(cashgameIds);
         }
     }
 }

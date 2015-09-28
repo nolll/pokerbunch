@@ -27,8 +27,9 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var existingCheckpoint = _cashgameService.GetCheckpoint(request.CheckpointId);
-            var cashgame = _cashgameService.GetById(existingCheckpoint.CashgameId);
+            var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
+            var existingCheckpoint = cashgame.GetCheckpoint(request.CheckpointId);
+            //var existingCheckpoint = _cashgameService.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);

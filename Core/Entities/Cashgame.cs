@@ -8,6 +8,7 @@ namespace Core.Entities
 {
     public class Cashgame : IEntity
     {
+        public IEnumerable<Checkpoint> Checkpoints { get; private set; }
 	    public int Id { get; private set; }
         public int BunchId { get; private set; }
         public string Location { get; private set; }
@@ -36,13 +37,19 @@ namespace Core.Entities
 
         public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
         {
-            Results = checkpoints != null ? CreateResults(checkpoints) : new List<CashgameResult>();
+            Checkpoints = checkpoints ?? new List<Checkpoint>();
+            Results = CreateResults(Checkpoints);
             StartTime = GetStartTime(Results);
             EndTime = GetEndTime(Results);
             PlayerCount = Results.Count;
             Turnover = GetBuyinSum(Results);
             AverageBuyin = GetAverageBuyin(Turnover, PlayerCount);
             DateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
+        }
+
+        public Checkpoint GetCheckpoint(int checkpointId)
+        {
+            return Checkpoints.FirstOrDefault(o => o.Id == checkpointId);
         }
 
         private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)

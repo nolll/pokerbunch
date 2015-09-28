@@ -1,4 +1,5 @@
-﻿using Core.UseCases;
+﻿using System;
+using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -9,12 +10,12 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCheckpointForm_StackAndAmountAndTimestampIsSet()
         {
-            var expected = A.DateTime.AsUtc().Build();
+            var expected = DateTime.Parse("2001-01-01 11:30:00");
 
-            var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
+            var result = Sut.Execute(CreateRequest(3));
 
-            Assert.AreEqual(TestData.ReportCheckpointStack, result.Stack);
-            Assert.AreEqual(TestData.ReportCheckpointAmount, result.Amount);
+            Assert.AreEqual(250, result.Stack);
+            Assert.AreEqual(0, result.Amount);
             Assert.AreEqual(expected, result.TimeStamp);
         }
 
@@ -43,8 +44,8 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEditAmount);
         }
 
-        [TestCase(TestData.ReportCheckpointId)]
-        [TestCase(TestData.CashoutCheckpointId)]
+        [TestCase(3)]
+        [TestCase(5)]
         public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(int id)
         {
             var result = Sut.Execute(CreateRequest(id));

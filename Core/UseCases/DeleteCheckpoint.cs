@@ -20,8 +20,8 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var checkpoint = _cashgameService.GetCheckpoint(request.CheckpointId);
-            var cashgame = _cashgameService.GetById(checkpoint.CashgameId);
+            var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
+            var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(cashgame.BunchId, currentUser.Id);

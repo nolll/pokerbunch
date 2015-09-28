@@ -4,7 +4,7 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 
-namespace Web.Common.Cache.Repositories
+namespace Infrastructure.Storage.CachedRepositories
 {
     public class CachedUserRepository : IUserRepository
     {

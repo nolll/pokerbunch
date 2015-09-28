@@ -13,6 +13,7 @@ namespace Infrastructure.Storage.Repositories
     {
         private const string CashgameDataSql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g ";
         private const string CashgameIdSql = "SELECT g.GameID FROM game g ";
+        private const string CashgameIdByCheckpointSql = "SELECT cp.GameID FROM CashgameCheckpoint cp ";
         
         private readonly SqlServerStorageProvider _db;
 
@@ -91,7 +92,18 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadIntList("GameID");
 	    }
 
-        private RawCashgame CreateRawCashgame(IStorageDataReader reader)
+	    public IList<int> FindByCheckpoint(int checkpointId)
+	    {
+            var sql = string.Concat(CashgameIdByCheckpointSql, "WHERE cp.CheckpointID = @checkpointId");
+            var parameters = new List<SimpleSqlParameter>
+		        {
+                    new SimpleSqlParameter("@checkpointId", checkpointId)
+		        };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("GameID");
+	    }
+
+	    private RawCashgame CreateRawCashgame(IStorageDataReader reader)
         {
             var id = reader.GetIntValue("GameID");
             var bunchId = reader.GetIntValue("HomegameID");
@@ -274,31 +286,7 @@ namespace Infrastructure.Storage.Repositories
             return rowCount > 0;
         }
 
-        public Checkpoint GetCheckpoint(int checkpointId)
-        {
-            const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.CheckpointID = @checkpointId";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-		            new SimpleSqlParameter("@checkpointId", checkpointId)
-		        };
-            var reader = _db.Query(sql, parameters);
-            var rawCheckpoint = reader.ReadOne(CreateRawCheckpoint);
-            return rawCheckpoint != null ? RawCheckpoint.CreateReal(rawCheckpoint) : null;
-        }
-
-        public IList<int> FindCheckpoints(int cashgameId)
-        {
-            var rawCheckpoints = GetCheckpoints(cashgameId);
-            return rawCheckpoints.Select(o => o.Id).ToList();
-        }
-
-        public IList<int> FindCheckpoints(IList<int> cashgameIds)
-        {
-            var rawCheckpoints = GetCheckpoints(cashgameIds);
-            return rawCheckpoints.Select(o => o.Id).ToList();
-        }
-
-	    private IList<RawCheckpoint> GetCheckpoints(int cashgameId)
+ 	    private IList<RawCheckpoint> GetCheckpoints(int cashgameId)
         {
             const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = @cashgameId ORDER BY cp.PlayerID, cp.Timestamp";
             var parameters = new List<SimpleSqlParameter>
