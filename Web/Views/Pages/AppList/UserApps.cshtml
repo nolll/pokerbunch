@@ -9,15 +9,21 @@
     <h1 class="page-heading">User Apps</h1>
 </div>
 <div class="block gutter">
-
-    <ul class="simple-list">
-        @foreach (var appModel in Model.AppModels)
-        {
-            <li class="simple-list__item">
-                @Html.Partial("AppList/Item", appModel)
-            </li>
-        }
-    </ul>
+    @if (Model.HasApps)
+    {
+        <ul class="simple-list">
+            @foreach (var appModel in Model.AppModels)
+            {
+                <li class="simple-list__item">
+                    @Html.Partial("AppList/Item", appModel)
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        @:You have no apps yet.
+    }
 </div>
 
 @section Aside1
