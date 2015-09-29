@@ -16,7 +16,6 @@ namespace Tests.Common.FakeRepositories
         public Cashgame Updated { get; private set; }
         public Checkpoint AddedCheckpoint { get; private set; }
         public Checkpoint SavedCheckpoint { get; private set; }
-        public Checkpoint DeletedCheckpoint { get; private set; }
         
         public FakeCashgameRepository()
         {
@@ -198,12 +197,6 @@ namespace Tests.Common.FakeRepositories
             return true;
         }
         
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
-        {
-            DeletedCheckpoint = checkpoint;
-            return true;
-        }
-
         private IList<Checkpoint> CreateCheckpointList()
         {
             return new List<Checkpoint>()

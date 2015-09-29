@@ -1,3 +1,4 @@
+using System.Linq;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -12,7 +13,8 @@ namespace Tests.Core.UseCases
             var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, TestData.ReportCheckpointId);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(TestData.ReportCheckpointId, Repos.Cashgame.DeletedCheckpoint.Id);
+            var deletedCheckpointIds = Repos.Cashgame.Updated.DeletedCheckpoints.Select(o => o.Id);
+            Assert.IsTrue(deletedCheckpointIds.Contains(TestData.ReportCheckpointId));
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(1, result.CashgameId);
             Assert.IsFalse(result.GameIsRunning);
@@ -26,7 +28,8 @@ namespace Tests.Core.UseCases
             var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, 12);
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(12, Repos.Cashgame.DeletedCheckpoint.Id);
+            var deletedCheckpointIds = Repos.Cashgame.Updated.DeletedCheckpoints.Select(o => o.Id);
+            Assert.IsTrue(deletedCheckpointIds.Contains(12));
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(3, result.CashgameId);
             Assert.IsTrue(result.GameIsRunning);

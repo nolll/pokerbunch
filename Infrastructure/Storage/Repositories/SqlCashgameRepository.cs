@@ -178,6 +178,13 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@cashgameId", rawCashgame.Id)
 		        };
+		    if (cashgame.DeletedCheckpoints.Any())
+		    {
+		        foreach (var checkpoint in cashgame.DeletedCheckpoints)
+		        {
+		            DeleteCheckpoint(checkpoint);
+		        }
+		    }
             _db.Execute(sql, parameters);
 		}
         

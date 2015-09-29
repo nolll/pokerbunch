@@ -89,10 +89,5 @@ namespace Infrastructure.Storage.CachedRepositories
         {
             return _cashgameRepository.UpdateCheckpoint(checkpoint);
         }
-
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
-        {
-            return _cashgameRepository.DeleteCheckpoint(checkpoint);
-        }
     }
 }

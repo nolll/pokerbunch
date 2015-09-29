@@ -90,17 +90,7 @@ namespace Core.Services
         {
             return _cashgameRepository.UpdateCheckpoint(checkpoint);
         }
-
-        public bool DeleteCheckpoint(Checkpoint checkpoint)
-        {
-            return _cashgameRepository.DeleteCheckpoint(checkpoint);
-        }
-
-        //public Checkpoint GetCheckpoint(int checkpointId)
-        //{
-        //    return _cashgameRepository.GetCheckpoint(checkpointId);
-        //}
-
+        
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
         {
             var years = new List<int>();

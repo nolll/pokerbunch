@@ -24,6 +24,5 @@ namespace Core.Repositories
 
         int AddCheckpoint(Checkpoint checkpoint);
         bool UpdateCheckpoint(Checkpoint checkpoint);
-        bool DeleteCheckpoint(Checkpoint checkpoint);
 	}
 }

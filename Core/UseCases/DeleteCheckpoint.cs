@@ -26,7 +26,8 @@ namespace Core.UseCases
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(cashgame.BunchId, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
-            _cashgameService.DeleteCheckpoint(checkpoint);
+            cashgame.DeleteCheckpoint(checkpoint);
+            _cashgameService.UpdateGame(cashgame);
 
             var gameIsRunning = cashgame.Status == GameStatus.Running;
             return new Result(bunch.Slug, gameIsRunning, cashgame.Id);

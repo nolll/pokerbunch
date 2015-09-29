@@ -8,7 +8,8 @@ namespace Core.Entities
 {
     public class Cashgame : IEntity
     {
-        public IEnumerable<Checkpoint> Checkpoints { get; private set; }
+        public IList<Checkpoint> Checkpoints { get; private set; }
+        public IList<Checkpoint> DeletedCheckpoints { get; private set; }
 	    public int Id { get; private set; }
         public int BunchId { get; private set; }
         public string Location { get; private set; }
@@ -21,13 +22,14 @@ namespace Core.Entities
         public int AverageBuyin { get; private set; }
         public string DateString { get; private set; }
         
-        public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IEnumerable<Checkpoint> checkpoints = null)
+        public Cashgame(int bunchId, string location, GameStatus status, int? id = null, IList<Checkpoint> checkpoints = null)
         {
             Id = id ?? 0;
             BunchId = bunchId;
             Location = location;
             Status = status;
             AddCheckpoints(checkpoints);
+            DeletedCheckpoints = new List<Checkpoint>();
         }
 
         public void ChangeStatus(GameStatus status)
@@ -35,7 +37,7 @@ namespace Core.Entities
             Status = status;
         }
 
-        public void AddCheckpoints(IEnumerable<Checkpoint> checkpoints)
+        public void AddCheckpoints(IList<Checkpoint> checkpoints)
         {
             Checkpoints = checkpoints ?? new List<Checkpoint>();
             Results = CreateResults(Checkpoints);
@@ -107,16 +109,17 @@ namespace Core.Entities
             return results.Sum(result => result.Buyin);
         }
 
-        private static int GetCashoutSum(IEnumerable<CashgameResult> results)
-        {
-            return results.Sum(result => result.Stack);
-        }
-
         private static int GetAverageBuyin(int turnover, int playerCount)
         {
             if (playerCount == 0)
                 return 0;
             return (int)Math.Round(turnover / (double)playerCount);
+        }
+
+        public void DeleteCheckpoint(Checkpoint checkpoint)
+        {
+            Checkpoints.Remove(checkpoint);
+            DeletedCheckpoints.Add(checkpoint);
         }
         
         public int Duration
