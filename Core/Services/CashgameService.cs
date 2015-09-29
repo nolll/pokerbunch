@@ -81,11 +81,6 @@ namespace Core.Services
             return ids.Any();
         }
         
-        public int AddCheckpoint(Checkpoint checkpoint)
-        {
-            return _cashgameRepository.AddCheckpoint(checkpoint);
-        }
-        
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
         {
             var years = new List<int>();

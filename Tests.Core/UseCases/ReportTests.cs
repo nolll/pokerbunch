@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;
@@ -27,7 +28,8 @@ namespace Tests.Core.UseCases
             var request = new Report.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, stack, DateTime.Now);
             Sut.Execute(request);
 
-            Assert.AreEqual(stack, Repos.Cashgame.AddedCheckpoint.Stack);
+            var result = Repos.Cashgame.Updated.AddedCheckpoints.First();
+            Assert.AreEqual(stack, result.Stack);
         }
 
         private Report Sut

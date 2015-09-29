@@ -34,7 +34,8 @@ namespace Core.UseCases
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, request.PlayerId, request.CurrentTime, CheckpointType.Report, request.Stack);
-            _cashgameService.AddCheckpoint(checkpoint);
+            cashgame.AddCheckpoint(checkpoint);
+            _cashgameService.UpdateGame(cashgame);
         }
 
         public class Request

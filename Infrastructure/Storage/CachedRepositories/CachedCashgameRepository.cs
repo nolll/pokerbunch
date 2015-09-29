@@ -79,10 +79,5 @@ namespace Infrastructure.Storage.CachedRepositories
             _cashgameRepository.UpdateGame(cashgame);
             _cacheContainer.Remove<Cashgame>(cashgame.Id);
         }
-
-        public int AddCheckpoint(Checkpoint checkpoint)
-        {
-            return _cashgameRepository.AddCheckpoint(checkpoint);
-        }
     }
 }

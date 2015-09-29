@@ -45,14 +45,10 @@ namespace Core.UseCases
                 existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
 
             if (existingCashoutCheckpoint != null)
-            {
                 cashgame.UpdateCheckpoint(postedCheckpoint);
-                _cashgameService.UpdateGame(cashgame);
-            }
             else
-            {
-                _cashgameService.AddCheckpoint(postedCheckpoint);
-            }
+                cashgame.AddCheckpoint(postedCheckpoint);
+            _cashgameService.UpdateGame(cashgame);
 
             return new Result(cashgame.Id);
         }

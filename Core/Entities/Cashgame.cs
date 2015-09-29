@@ -9,6 +9,7 @@ namespace Core.Entities
     public class Cashgame : IEntity
     {
         public IList<Checkpoint> Checkpoints { get; private set; }
+        public IList<Checkpoint> AddedCheckpoints { get; private set; }
         public IList<Checkpoint> UpdatedCheckpoints { get; private set; }
         public IList<Checkpoint> DeletedCheckpoints { get; private set; }
         public int Id { get; private set; }
@@ -30,8 +31,9 @@ namespace Core.Entities
             Location = location;
             Status = status;
             AddCheckpoints(checkpoints);
-            DeletedCheckpoints = new List<Checkpoint>();
+            AddedCheckpoints = new List<Checkpoint>();
             UpdatedCheckpoints = new List<Checkpoint>();
+            DeletedCheckpoints = new List<Checkpoint>();
         }
 
         public void ChangeStatus(GameStatus status)
@@ -116,6 +118,12 @@ namespace Core.Entities
             if (playerCount == 0)
                 return 0;
             return (int)Math.Round(turnover / (double)playerCount);
+        }
+
+        public void AddCheckpoint(Checkpoint checkpoint)
+        {
+            Checkpoints.Add(checkpoint);
+            AddedCheckpoints.Add(checkpoint);
         }
 
         public void UpdateCheckpoint(Checkpoint checkpoint)

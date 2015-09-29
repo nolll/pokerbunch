@@ -32,11 +32,12 @@ namespace Core.UseCases
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
-            var game = _cashgameService.GetRunning(bunch.Id);
+            var cashgame = _cashgameService.GetRunning(bunch.Id);
 
             var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
-            var checkpoint = new BuyinCheckpoint(game.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
-            _cashgameService.AddCheckpoint(checkpoint);
+            var checkpoint = new BuyinCheckpoint(cashgame.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
+            cashgame.AddCheckpoint(checkpoint);
+            _cashgameService.UpdateGame(cashgame);
         }
 
         public class Request

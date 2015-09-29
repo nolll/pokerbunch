@@ -46,7 +46,7 @@ namespace Tests.Core.UseCases
             var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
-            var result = Repos.Cashgame.AddedCheckpoint;
+            var result = Repos.Cashgame.Updated.AddedCheckpoints.First();
 
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);

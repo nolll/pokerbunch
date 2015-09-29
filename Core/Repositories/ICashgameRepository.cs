@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 
 namespace Core.Repositories
 {
@@ -21,7 +20,5 @@ namespace Core.Repositories
 
         IList<int> GetYears(int bunchId);
         IList<string> GetLocations(int bunchId);
-
-        int AddCheckpoint(Checkpoint checkpoint);
 	}
 }

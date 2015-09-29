@@ -9,18 +9,14 @@ namespace Tests.Common.FakeRepositories
 {
     public class FakeCashgameRepository : ICashgameRepository
     {
-        private readonly IList<Checkpoint> _checkpointList;
         private IList<Cashgame> _list;
         public Cashgame Added { get; private set; }
         public int Deleted { get; private set; }
         public Cashgame Updated { get; private set; }
-        public Checkpoint AddedCheckpoint { get; private set; }
-        public Checkpoint SavedCheckpoint { get; private set; }
         
         public FakeCashgameRepository()
         {
             SetupMultiYear();
-            _checkpointList = CreateCheckpointList();
         }
 
         public Cashgame Get(int cashgameId)
@@ -183,28 +179,6 @@ namespace Tests.Common.FakeRepositories
         public void ClearList()
         {
             _list.Clear();
-        }
-        
-        public int AddCheckpoint(Checkpoint checkpoint)
-        {
-            AddedCheckpoint = checkpoint;
-            return 1;
-        }
-
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
-        {
-            SavedCheckpoint = checkpoint;
-            return true;
-        }
-        
-        private IList<Checkpoint> CreateCheckpointList()
-        {
-            return new List<Checkpoint>()
-            {
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.BuyinCheckpointTimestamp, CheckpointType.Buyin, TestData.BuyinCheckpointStack, TestData.BuyinCheckpointAmount, TestData.BuyinCheckpointId),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.ReportCheckpointTimestamp, CheckpointType.Report, TestData.ReportCheckpointStack, TestData.ReportCheckpointAmount, TestData.ReportCheckpointId),
-                Checkpoint.Create(TestData.CashgameIdA, TestData.PlayerIdA, TestData.CashoutCheckpointTimestamp, CheckpointType.Cashout, TestData.CashoutCheckpointStack, TestData.CashoutCheckpointAmount, TestData.CashoutCheckpointId)
-            };
         }
     }
 }

@@ -178,11 +178,11 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@cashgameId", rawCashgame.Id)
 		        };
-            if (cashgame.DeletedCheckpoints.Any())
+            if (cashgame.AddedCheckpoints.Any())
             {
-                foreach (var checkpoint in cashgame.DeletedCheckpoints)
+                foreach (var checkpoint in cashgame.AddedCheckpoints)
                 {
-                    DeleteCheckpoint(checkpoint);
+                    AddCheckpoint(checkpoint);
                 }
             }
             if (cashgame.UpdatedCheckpoints.Any())
@@ -190,6 +190,13 @@ namespace Infrastructure.Storage.Repositories
                 foreach (var checkpoint in cashgame.UpdatedCheckpoints)
                 {
                     UpdateCheckpoint(checkpoint);
+                }
+            }
+            if (cashgame.DeletedCheckpoints.Any())
+            {
+                foreach (var checkpoint in cashgame.DeletedCheckpoints)
+                {
+                    DeleteCheckpoint(checkpoint);
                 }
             }
             _db.Execute(sql, parameters);
@@ -260,7 +267,7 @@ namespace Infrastructure.Storage.Repositories
             return checkpointMap;
         }
 
-        public int AddCheckpoint(Checkpoint checkpoint)
+	    private int AddCheckpoint(Checkpoint checkpoint)
         {
             const string sql = "INSERT INTO cashgamecheckpoint (GameID, PlayerID, Type, Amount, Stack, Timestamp) VALUES (@gameId, @playerId, @type, @amount, @stack, @timestamp) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
