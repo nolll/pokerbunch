@@ -23,6 +23,5 @@ namespace Core.Repositories
         IList<string> GetLocations(int bunchId);
 
         int AddCheckpoint(Checkpoint checkpoint);
-        bool UpdateCheckpoint(Checkpoint checkpoint);
 	}
 }

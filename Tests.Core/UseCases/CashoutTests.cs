@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;
@@ -38,7 +39,8 @@ namespace Tests.Core.UseCases
             var request2 = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, 2, DateTime.Now.AddMinutes(1));
             Sut.Execute(request2);
 
-            Assert.AreEqual(2, Repos.Cashgame.SavedCheckpoint.Stack);
+            var updatedCheckpointIds = Repos.Cashgame.Updated.UpdatedCheckpoints.Select(o => o.Id);
+            Assert.IsTrue(updatedCheckpointIds.Contains(3));
         }
 
         private Cashout Sut

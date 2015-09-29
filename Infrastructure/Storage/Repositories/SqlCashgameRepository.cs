@@ -178,13 +178,20 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@cashgameId", rawCashgame.Id)
 		        };
-		    if (cashgame.DeletedCheckpoints.Any())
-		    {
-		        foreach (var checkpoint in cashgame.DeletedCheckpoints)
-		        {
-		            DeleteCheckpoint(checkpoint);
-		        }
-		    }
+            if (cashgame.DeletedCheckpoints.Any())
+            {
+                foreach (var checkpoint in cashgame.DeletedCheckpoints)
+                {
+                    DeleteCheckpoint(checkpoint);
+                }
+            }
+            if (cashgame.UpdatedCheckpoints.Any())
+            {
+                foreach (var checkpoint in cashgame.UpdatedCheckpoints)
+                {
+                    UpdateCheckpoint(checkpoint);
+                }
+            }
             _db.Execute(sql, parameters);
 		}
         
@@ -268,7 +275,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
 
-        public bool UpdateCheckpoint(Checkpoint checkpoint)
+	    private void UpdateCheckpoint(Checkpoint checkpoint)
         {
             const string sql = "UPDATE cashgamecheckpoint SET Timestamp = @timestamp, Amount = @amount, Stack = @stack WHERE CheckpointID = @checkpointId";
             var parameters = new List<SimpleSqlParameter>
@@ -278,19 +285,17 @@ namespace Infrastructure.Storage.Repositories
 		            new SimpleSqlParameter("@stack", checkpoint.Stack),
 		            new SimpleSqlParameter("@checkpointId", checkpoint.Id)
 		        };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
         }
 
-	    public bool DeleteCheckpoint(Checkpoint checkpoint)
+	    private void DeleteCheckpoint(Checkpoint checkpoint)
         {
             const string sql = "DELETE FROM cashgamecheckpoint WHERE CheckpointID = @checkpointId";
             var parameters = new List<SimpleSqlParameter>
 		        {
 		            new SimpleSqlParameter("@checkpointId", checkpoint.Id)
 		        };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
+            _db.Execute(sql, parameters);
         }
 
  	    private IList<RawCheckpoint> GetCheckpoints(int cashgameId)

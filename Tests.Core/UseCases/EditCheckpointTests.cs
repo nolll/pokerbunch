@@ -1,4 +1,5 @@
-﻿using Core.Entities.Checkpoints;
+﻿using System.Linq;
+using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;
@@ -45,10 +46,11 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            Assert.AreEqual(CheckpointType.Buyin, Repos.Cashgame.SavedCheckpoint.Type);
-            Assert.AreEqual(TestData.BuyinCheckpointId, Repos.Cashgame.SavedCheckpoint.Id);
-            Assert.AreEqual(ChangedStack, Repos.Cashgame.SavedCheckpoint.Stack);
-            Assert.AreEqual(ChangedAmount, Repos.Cashgame.SavedCheckpoint.Amount);
+            var updatedCheckpoint = Repos.Cashgame.Updated.UpdatedCheckpoints.First();
+            Assert.AreEqual(CheckpointType.Buyin, updatedCheckpoint.Type);
+            Assert.AreEqual(TestData.BuyinCheckpointId, updatedCheckpoint.Id);
+            Assert.AreEqual(ChangedStack, updatedCheckpoint.Stack);
+            Assert.AreEqual(ChangedAmount, updatedCheckpoint.Amount);
         }
 
         private EditCheckpoint Sut
