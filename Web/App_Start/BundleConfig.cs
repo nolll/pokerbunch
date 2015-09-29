@@ -53,7 +53,7 @@ namespace Web
             get
             {
                 var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                return string.Format("~/-/css/{0}", version.Replace(".", "-"));
+                return string.Format("~/css/{0}", version.Replace(".", "-"));
             }
         }
 
