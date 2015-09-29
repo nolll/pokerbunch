@@ -58,11 +58,6 @@ namespace Infrastructure.Storage.CachedRepositories
             return _cashgameRepository.GetYears(bunchId);
         }
 
-        public IList<string> GetLocations(int bunchId)
-        {
-            return _cashgameRepository.GetLocations(bunchId);
-        }
-
         public void DeleteGame(int id)
         {
             _cashgameRepository.DeleteGame(id);

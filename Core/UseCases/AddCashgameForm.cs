@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -11,13 +10,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public AddCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public AddCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -31,7 +32,7 @@ namespace Core.UseCases
             {
                 throw new CashgameRunningException();
             }
-            var locations = _cashgameService.GetLocations(bunch.Id);
+            var locations = _locationService.GetLocations(bunch.Id);
             return new Result(locations);
         }
 

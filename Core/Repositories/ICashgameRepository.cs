@@ -19,6 +19,10 @@ namespace Core.Repositories
 		void UpdateGame(Cashgame cashgame);
 
         IList<int> GetYears(int bunchId);
-        IList<string> GetLocations(int bunchId);
 	}
+
+    public interface ILocationRepository
+    {
+        IList<string> GetLocations(int bunchId);
+    }
 }

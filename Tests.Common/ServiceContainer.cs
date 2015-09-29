@@ -12,6 +12,7 @@ namespace Tests.Common
         public UserService UserService { get; private set; }
         public EventService EventService { get; private set; }
         public PlayerService PlayerService { get; private set; }
+        public LocationService LocationService { get; private set; }
 
         public ServiceContainer(RepositoryContainer repos)
         {
@@ -22,6 +23,7 @@ namespace Tests.Common
             UserService = new UserService(repos.User);
             EventService = new EventService(repos.Event);
             PlayerService = new PlayerService(repos.Player);
+            LocationService = new LocationService(repos.Location);
         }
 
         public void Clear()

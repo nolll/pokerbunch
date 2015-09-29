@@ -9,6 +9,7 @@ namespace Tests.Common
         public FakePlayerRepository Player { get; private set; }
         public FakeCashgameRepository Cashgame { get; private set; }
         public FakeEventRepository Event { get; private set; }
+        public FakeLocationRepository Location { get; private set; }
 
         public RepositoryContainer()
         {
@@ -17,6 +18,7 @@ namespace Tests.Common
             Player = new FakePlayerRepository();
             Cashgame = new FakeCashgameRepository();
             Event = new FakeEventRepository();
+            Location = new FakeLocationRepository();
         }
     }
 }

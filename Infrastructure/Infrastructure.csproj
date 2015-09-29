@@ -51,6 +51,7 @@
     <Compile Include="Storage\CachedRepositories\CachedBunchRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedCashgameRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedEventRepository.cs" />
+    <Compile Include="Storage\CachedRepositories\CachedLocationRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedPlayerRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedUserRepository.cs" />
     <Compile Include="Storage\CacheTime.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
     <Compile Include="Storage\Repositories\SqlEventRepository.cs" />
+    <Compile Include="Storage\Repositories\SqlLocationRepository.cs" />
     <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
     <Compile Include="Storage\Repositories\SqlUserRepository.cs" />
     <Compile Include="Storage\SimpleSqlParameter.cs" />

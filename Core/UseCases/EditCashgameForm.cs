@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -10,13 +9,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public EditCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public EditCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -28,7 +29,7 @@ namespace Core.UseCases
             RoleHandler.RequireManager(user, player);
             
             var location = cashgame.Location;
-            var locations = _cashgameService.GetLocations(cashgame.BunchId);
+            var locations = _locationService.GetLocations(cashgame.BunchId);
 
             return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locations);
         }

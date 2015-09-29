@@ -9,7 +9,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
-	public class SqlCashgameRepository : ICashgameRepository
+    public class SqlCashgameRepository : ICashgameRepository
     {
         private const string CashgameDataSql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g ";
         private const string CashgameIdSql = "SELECT g.GameID FROM game g ";
@@ -130,17 +130,6 @@ namespace Infrastructure.Storage.Repositories
 		        };
             var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("Year");
-        }
-
-        public IList<string> GetLocations(int bunchId)
-        {
-            const string sql = "SELECT DISTINCT g.Location FROM game g WHERE g.HomegameID = @id AND g.Location <> '' ORDER BY g.Location";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@id", bunchId)
-		        };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("Location");
         }
 
 		public void DeleteGame(int id){

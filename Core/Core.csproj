@@ -87,6 +87,7 @@
     <Compile Include="Services\Interfaces\ISocialService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\RandomService.cs" />

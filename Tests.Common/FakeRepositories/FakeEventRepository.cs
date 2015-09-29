@@ -19,11 +19,6 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<Event> FindOld(int bunchId)
-        {
-            return _list;
-        }
-
         public IList<int> Find(int bunchId)
         {
             return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();

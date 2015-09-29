@@ -17,7 +17,7 @@ namespace Tests.Common.FakeRepositories
         public FakeCashgameRepository()
         {
             SetupMultiYear();
-        }
+}
 
         public Cashgame Get(int cashgameId)
         {
@@ -67,11 +67,6 @@ namespace Tests.Common.FakeRepositories
         public IList<int> GetYears(int bunchId)
         {
             return _list.Where(o => o.StartTime.HasValue && o.Status == GameStatus.Finished).Select(o => o.StartTime.Value.Year).ToList();
-        }
-
-        public IList<string> GetLocations(int bunchId)
-        {
-            return new[] {TestData.LocationA, TestData.LocationB};
         }
 
         public void DeleteGame(int id)

@@ -15,6 +15,7 @@ namespace Plumbing
         private CashgameService _cashgameService;
         private EventService _eventService;
         private PlayerService _playerService;
+        private LocationService _locationService;
         private UserService _userService;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
@@ -48,6 +49,11 @@ namespace Plumbing
         public PlayerService PlayerService
         {
             get { return _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer))); }
+        }
+
+        public LocationService LocationService
+        {
+            get { return _locationService ?? (_locationService = new LocationService(new CachedLocationRepository(new SqlLocationRepository(_db), _cacheContainer))); }
         }
 
         public UserService UserService

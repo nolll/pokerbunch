@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 using Core.Repositories;
 
 namespace Core.Services
@@ -47,11 +46,6 @@ namespace Core.Services
         public IList<int> GetYears(int bunchId)
         {
             return _cashgameRepository.GetYears(bunchId);
-        }
-
-        public IList<string> GetLocations(int bunchId)
-        {
-            return _cashgameRepository.GetLocations(bunchId);
         }
 
         public void DeleteGame(int id)
