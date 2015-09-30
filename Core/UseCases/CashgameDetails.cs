@@ -12,13 +12,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public CashgameDetails(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public CashgameDetails(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -30,8 +32,9 @@ namespace Core.UseCases
             RoleHandler.RequirePlayer(user, player);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             var players = GetPlayers(_playerService, cashgame);
+            var location = _locationService.Get(cashgame.LocationId);
 
-            return new Result(bunch, cashgame, players, isManager);
+            return new Result(bunch, cashgame, location, players, isManager);
         }
 
         private static IEnumerable<Player> GetPlayers(PlayerService playerService, Cashgame cashgame)
@@ -64,12 +67,12 @@ namespace Core.UseCases
             public int CashgameId { get; private set; }
             public IList<PlayerResultItem> PlayerItems { get; private set; }
 
-            public Result(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, bool isManager)
+            public Result(Bunch bunch, Cashgame cashgame, Location location, IEnumerable<Player> players, bool isManager)
             {
                 var sortedResults = cashgame.Results.OrderByDescending(o => o.Winnings);
 
                 Date = Date.Parse(cashgame.DateString);
-                Location = cashgame.Location;
+                Location = location.Name;
                 Duration = Time.FromMinutes(cashgame.Duration);
                 StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
                 EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);

@@ -21,9 +21,10 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA));
 
-            Assert.AreEqual(2, result.Locations.Count);
+            Assert.AreEqual(3, result.Locations.Count);
             Assert.AreEqual(TestData.LocationNameA, result.Locations[0]);
             Assert.AreEqual(TestData.LocationNameB, result.Locations[1]);
+            Assert.AreEqual(TestData.LocationNameC, result.Locations[2]);
         }
 
         private EditCashgameForm Sut

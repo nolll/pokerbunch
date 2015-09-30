@@ -7,8 +7,6 @@ namespace Tests.Core.UseCases
 {
     public class EditCashgameTests : TestBase
     {
-        private const string ChangedLocation = "ChangedLocation";
-
         [Test]
         public void EditCashgame_EmptyLocation_ThrowsException()
         {
@@ -20,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_ReturnUrlIsSet()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, ChangedLocation);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationName);
 
             var result = Sut.Execute(request);
 
@@ -30,12 +28,12 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_SavesCashgame()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, ChangedLocation);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationName);
 
             Sut.Execute(request);
 
             Assert.AreEqual(TestData.BunchA.Id, Repos.Cashgame.Updated.Id);
-            Assert.AreEqual(ChangedLocation, Repos.Cashgame.Updated.Location);
+            Assert.AreEqual(TestData.ChangedLocationId, Repos.Cashgame.Updated.LocationId);
         }
 
         private EditCashgame Sut
@@ -45,7 +43,8 @@ namespace Tests.Core.UseCases
                 return new EditCashgame(
                     Services.CashgameService,
                     Services.UserService,
-                    Services.PlayerService);
+                    Services.PlayerService,
+                    Services.LocationService);
             }
         }
     }

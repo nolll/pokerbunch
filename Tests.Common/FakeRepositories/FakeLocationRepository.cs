@@ -8,7 +8,8 @@ namespace Tests.Common.FakeRepositories
     public class FakeLocationRepository : ILocationRepository
     {
         private readonly IList<Location> _list;
-
+        public Location Added { get; private set; }
+        
         public FakeLocationRepository()
         {
             _list = CreateLocationList();
@@ -28,13 +29,27 @@ namespace Tests.Common.FakeRepositories
         {
             return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
         }
-        
+
+        public IList<int> Find(int bunchId, string name)
+        {
+            return _list.Where(o => o.BunchId == bunchId && o.Name == name).Select(o => o.Id).ToList();
+        }
+
+        public int Add(Location location)
+        {
+            Added = location;
+            const int id = 1000;
+            _list.Add(new Location(id, location.Name, location.BunchId));
+            return 1000;
+        }
+
         private IList<Location> CreateLocationList()
         {
-            return new[]
+            return new List<Location>
             {
                 new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Id),
-                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Id)
+                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Id),
+                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Id)
             };
         }
     }

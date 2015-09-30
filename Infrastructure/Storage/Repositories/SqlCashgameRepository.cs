@@ -11,7 +11,7 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlCashgameRepository : ICashgameRepository
     {
-        private const string CashgameDataSql = "SELECT g.GameID, g.HomegameID, g.Location, g.Status, g.Date FROM game g ";
+        private const string CashgameDataSql = "SELECT g.GameID, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g ";
         private const string CashgameIdSql = "SELECT g.GameID FROM game g ";
         private const string CashgameIdByCheckpointSql = "SELECT cp.GameID FROM CashgameCheckpoint cp ";
         
@@ -107,17 +107,11 @@ namespace Infrastructure.Storage.Repositories
         {
             var id = reader.GetIntValue("GameID");
             var bunchId = reader.GetIntValue("HomegameID");
-            var location = ReadLocation(reader);
+            var locationId = reader.GetIntValue("LocationId");
             var status = reader.GetIntValue("Status");
             var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
 
-            return new RawCashgame(id, bunchId, location, status, date);
-        }
-
-        private static string ReadLocation(IStorageDataReader reader)
-        {
-            var location = reader.GetStringValue("Location");
-            return location == "" ? null : location;
+            return new RawCashgame(id, bunchId, locationId, status, date);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -144,12 +138,12 @@ namespace Infrastructure.Storage.Repositories
 		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
-            const string sql = "INSERT INTO game (HomegameID, Location, Status, Date) VALUES (@homegameId, @location, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO game (HomegameID, Location, LocationId, Status, Date) VALUES (@homegameId, '', @locationId, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(rawCashgame.Date, bunch.Timezone);
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@homegameId", bunch.Id),
-                    new SimpleSqlParameter("@location", rawCashgame.Location),
+                    new SimpleSqlParameter("@locationId", rawCashgame.LocationId),
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@date", timezoneAdjustedDate)
                 };
@@ -158,11 +152,11 @@ namespace Infrastructure.Storage.Repositories
         
 		public void UpdateGame(Cashgame cashgame)
         {
-            const string sql = "UPDATE game SET Location = @location, Date = @date, Status = @status WHERE GameID = @cashgameId";
+            const string sql = "UPDATE game SET LocationId = @locationId, Date = @date, Status = @status WHERE GameID = @cashgameId";
             var rawCashgame = CreateRawCashgame(cashgame);
             var parameters = new List<SimpleSqlParameter>
 		        {
-                    new SimpleSqlParameter("@location", rawCashgame.Location),
+                    new SimpleSqlParameter("@locationId", rawCashgame.LocationId),
                     new SimpleSqlParameter("@date", rawCashgame.Date),
                     new SimpleSqlParameter("@status", rawCashgame.Status),
                     new SimpleSqlParameter("@cashgameId", rawCashgame.Id)
@@ -207,12 +201,12 @@ namespace Infrastructure.Storage.Repositories
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
 	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.UtcNow;
             
-            return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.Location, rawStatus, date);
+            return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.LocationId, rawStatus, date);
         }
 
 	    private static Cashgame CreateCashgame(RawCashgame rawGame)
 	    {
-            return new Cashgame(rawGame.BunchId, rawGame.Location, (GameStatus)rawGame.Status, rawGame.Id);
+            return new Cashgame(rawGame.BunchId, rawGame.LocationId, (GameStatus)rawGame.Status, rawGame.Id);
         }
 
         private static IList<Checkpoint> CreateCheckpoints(IEnumerable<RawCheckpoint> checkpoints)

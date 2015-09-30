@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
@@ -13,10 +14,26 @@ namespace Core.Services
             _locationRepository = locationRepository;
         }
 
-        public IList<Location> GetLocations(int bunchId)
+        public Location Get(int id)
+        {
+            return _locationRepository.Get(id);
+        }
+
+        public IList<Location> GetByBunch(int bunchId)
         {
             var ids = _locationRepository.Find(bunchId);
             return _locationRepository.Get(ids);
+        }
+
+        public Location GetByName(int bunchId, string name)
+        {
+            var ids = _locationRepository.Find(bunchId, name);
+            return _locationRepository.Get(ids).FirstOrDefault();
+        }
+
+        public int Add(Location location)
+        {
+            return _locationRepository.Add(location);
         }
     }
 }

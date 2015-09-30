@@ -14,13 +14,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
+        private readonly LocationService _locationService;
 
-        public RunningCashgame(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public RunningCashgame(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _playerService = playerService;
             _userService = userService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -39,7 +41,7 @@ namespace Core.UseCases
 
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
-            var location = cashgame.Location;
+            var location = _locationService.Get(cashgame.LocationId).Name;
 
             var playerItems = GetPlayerItems(cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();

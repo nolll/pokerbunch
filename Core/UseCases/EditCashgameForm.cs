@@ -28,12 +28,12 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
-            
-            var location = cashgame.Location;
-            var locations = _locationService.GetLocations(cashgame.BunchId);
+
+            var locationName = _locationService.Get(cashgame.LocationId).Name;
+            var locations = _locationService.GetByBunch(cashgame.BunchId);
             var locationNames = locations.Select(o => o.Name).ToList();
 
-            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locationNames);
+            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, locationName, locationNames);
         }
 
         public class Request

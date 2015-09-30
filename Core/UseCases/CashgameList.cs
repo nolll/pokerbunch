@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -13,13 +12,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public CashgameList(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public CashgameList(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -31,9 +32,15 @@ namespace Core.UseCases
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
-            var list = cashgames.Select(o => new Item(bunch, o));
+            var locations = _locationService.GetByBunch(bunch.Id);
+            var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));
 
             return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, spansMultipleYears);
+        }
+
+        private Location GetLocation(Cashgame cashgame, IEnumerable<Location> locations)
+        {
+            return locations.First(o => o.Id == cashgame.LocationId);
         }
 
         private static IEnumerable<Cashgame> SortItems(IEnumerable<Cashgame> items, SortOrder orderBy)
@@ -42,8 +49,6 @@ namespace Core.UseCases
             {
                 case SortOrder.PlayerCount:
                     return items.OrderByDescending(o => o.PlayerCount);
-                case SortOrder.Location:
-                    return items.OrderByDescending(o => o.Location);
                 case SortOrder.Duration:
                     return items.OrderByDescending(o => o.Duration);
                 case SortOrder.Turnover:
@@ -101,9 +106,9 @@ namespace Core.UseCases
             public Money AverageBuyin { get; private set; }
             public int PlayerCount { get; private set; }
 
-            public Item(Bunch bunch, Cashgame cashgame)
+            public Item(Bunch bunch, Cashgame cashgame, Location location)
             {
-                Location = cashgame.Location;
+                Location = location.Name;
                 CashgameId = cashgame.Id;
                 Duration = Time.FromMinutes(cashgame.Duration);
                 Date = cashgame.StartTime.HasValue ? new Date(cashgame.StartTime.Value) : new Date(DateTime.MinValue);

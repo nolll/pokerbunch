@@ -6,15 +6,15 @@ namespace Infrastructure.Storage.Classes
     {
 	    public int Id { get; private set; }
         public int BunchId { get; private set; }
-	    public string Location { get; private set; }
+	    public int LocationId { get; private set; }
 	    public int Status { get; private set; }
 	    public DateTime Date { get; private set; }
 
-	    public RawCashgame(int id, int bunchId, string location, int status, DateTime date)
+	    public RawCashgame(int id, int bunchId, int locationId, int status, DateTime date)
 	    {
 	        Id = id;
 	        BunchId = bunchId;
-	        Location = location;
+	        LocationId = locationId;
 	        Status = status;
 	        Date = date;
 	    }

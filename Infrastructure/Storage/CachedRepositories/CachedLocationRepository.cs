@@ -31,5 +31,15 @@ namespace Infrastructure.Storage.CachedRepositories
         {
             return _locationRepository.Find(bunchId);
         }
+
+        public IList<int> Find(int bunchId, string name)
+        {
+            return _locationRepository.Find(bunchId, name);
+        }
+
+        public int Add(Location location)
+        {
+            return _locationRepository.Add(location);
+        }
     }
 }

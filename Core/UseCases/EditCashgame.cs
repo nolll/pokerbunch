@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -11,12 +10,14 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -29,10 +30,20 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
-            cashgame = new Cashgame(cashgame.BunchId, request.Location, cashgame.Status, cashgame.Id);
+            var location = GetOrCreateLocation(cashgame.BunchId, request.Location);
+            cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);
             
             return new Result(cashgame.Id);
+        }
+
+        private Location GetOrCreateLocation(int bunchId, string locationName)
+        {
+            var location = _locationService.GetByName(bunchId, locationName);
+            if (location != null)
+                return location;
+            var id = _locationService.Add(new Location(0, locationName, bunchId));
+            return _locationService.Get(id);
         }
 
         public class Request

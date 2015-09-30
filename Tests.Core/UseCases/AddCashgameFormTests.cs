@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
             const string slug = TestData.SlugA;
             var result = Sut.Execute(new AddCashgameForm.Request(TestData.UserNameA, slug));
 
-            Assert.AreEqual(2, result.Locations.Count);
+            Assert.AreEqual(3, result.Locations.Count);
             Assert.AreEqual(TestData.LocationNameA, result.Locations[0]);
             Assert.AreEqual(TestData.LocationNameB, result.Locations[1]);
         }

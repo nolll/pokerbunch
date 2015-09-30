@@ -33,7 +33,7 @@ namespace Core.UseCases
             {
                 throw new CashgameRunningException();
             }
-            var locations = _locationService.GetLocations(bunch.Id);
+            var locations = _locationService.GetByBunch(bunch.Id);
             var locationNames = locations.Select(o => o.Name).ToList();
             return new Result(locationNames);
         }

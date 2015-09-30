@@ -12,13 +12,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public AddCashgame(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public AddCashgame(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -32,10 +34,20 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var cashgame = new Cashgame(bunch.Id, request.Location, GameStatus.Running);
+            var location = GetOrCreateLocation(bunch.Id, request.Location);
+            var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);
             var cashgameId = _cashgameService.AddGame(bunch, cashgame);
 
             return new Result(request.Slug, cashgameId);
+        }
+
+        private Location GetOrCreateLocation(int bunchId, string locationName)
+        {
+            var location = _locationService.GetByName(bunchId, locationName);
+            if (location != null)
+                return location;
+            var id = _locationService.Add(new Location(0, locationName, bunchId));
+            return _locationService.Get(id);
         }
 
         public class Request

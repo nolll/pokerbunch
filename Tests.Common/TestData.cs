@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Tests.Common.Builders;
@@ -102,9 +101,11 @@ namespace Tests.Common
         public const int LocationIdA = 1;
         public const int LocationIdB = 2;
         public const int LocationIdC = 3;
+        public const int ChangedLocationId = 1000;
         public const string LocationNameA = "Location A";
         public const string LocationNameB = "Location B";
         public const string LocationNameC = "Location C";
+        public const string ChangedLocationName = "Changed Location";
         public const string DateStringA = "2001-01-01";
         public const string DateStringB = "2002-02-02";
         public const string DateStringC = "2003-03-03";
