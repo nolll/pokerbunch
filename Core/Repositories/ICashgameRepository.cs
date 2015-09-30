@@ -20,9 +20,4 @@ namespace Core.Repositories
 
         IList<int> GetYears(int bunchId);
 	}
-
-    public interface ILocationRepository
-    {
-        IList<string> GetLocations(int bunchId);
-    }
 }

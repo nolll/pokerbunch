@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(TestData.LocationB, result.List[0].Location);
+            Assert.AreEqual(TestData.LocationNameB, result.List[0].Location);
         }
 
         [Test]
@@ -128,8 +128,8 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(CreateRequest(CashgameList.SortOrder.Location));
 
             Assert.AreEqual(CashgameList.SortOrder.Location, result.SortOrder);
-            Assert.AreEqual(TestData.LocationB, result.List[0].Location);
-            Assert.AreEqual(TestData.LocationA, result.List[1].Location);
+            Assert.AreEqual(TestData.LocationNameB, result.List[0].Location);
+            Assert.AreEqual(TestData.LocationNameA, result.List[1].Location);
         }
 
         [Test]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Services;
 
 namespace Core.UseCases
@@ -30,8 +31,9 @@ namespace Core.UseCases
             
             var location = cashgame.Location;
             var locations = _locationService.GetLocations(cashgame.BunchId);
+            var locationNames = locations.Select(o => o.Name).ToList();
 
-            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locations);
+            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, location, locationNames);
         }
 
         public class Request

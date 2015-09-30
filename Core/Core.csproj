@@ -43,6 +43,7 @@
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Money.cs" />
     <Compile Include="Entities\MoneyResult.cs" />
     <Compile Include="Entities\MoneyWinRate.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="IMessage.cs" />
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Repositories\ILocationRepository.cs" />
     <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\BunchService.cs" />

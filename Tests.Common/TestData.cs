@@ -99,9 +99,12 @@ namespace Tests.Common
         public const int CashgameIdA = 1;
         public const int CashgameIdB = 2;
         public const int CashgameIdC = 3;
-        public const string LocationA = "Location A";
-        public const string LocationB = "Location B";
-        public const string LocationC = "Location C";
+        public const int LocationIdA = 1;
+        public const int LocationIdB = 2;
+        public const int LocationIdC = 3;
+        public const string LocationNameA = "Location A";
+        public const string LocationNameB = "Location B";
+        public const string LocationNameC = "Location C";
         public const string DateStringA = "2001-01-01";
         public const string DateStringB = "2002-02-02";
         public const string DateStringC = "2003-03-03";

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Exceptions;
 using Core.Services;
 
@@ -33,7 +34,8 @@ namespace Core.UseCases
                 throw new CashgameRunningException();
             }
             var locations = _locationService.GetLocations(bunch.Id);
-            return new Result(locations);
+            var locationNames = locations.Select(o => o.Name).ToList();
+            return new Result(locationNames);
         }
 
         public class Request

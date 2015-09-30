@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 
@@ -15,9 +17,19 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer = cacheContainer;
         }
 
-        public IList<string> GetLocations(int bunchId)
+        public Location Get(int id)
         {
-            return _locationRepository.GetLocations(bunchId);
+            return _cacheContainer.GetAndStore(_locationRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
+        }
+
+        public IList<Location> Get(IList<int> ids)
+        {
+            return _cacheContainer.GetAndStore(_locationRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
+        }
+
+        public IList<int> Find(int bunchId)
+        {
+            return _locationRepository.Find(bunchId);
         }
     }
 }

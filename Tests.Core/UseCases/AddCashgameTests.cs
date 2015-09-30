@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases
             return CreateRequest(null);
         }
 
-        private static AddCashgame.Request CreateRequest(string location = TestData.LocationA)
+        private static AddCashgame.Request CreateRequest(string location = TestData.LocationNameA)
         {
             return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, location);
         }
