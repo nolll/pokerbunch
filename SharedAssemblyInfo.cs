@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Poker Bunch Web")]
+[assembly: AssemblyTitle("Poker Bunch")]
 [assembly: AssemblyDescription("Manage your poker home game")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("nolll")]
@@ -30,4 +30,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("7.14.*")]
+[assembly: AssemblyVersion("7.15.*")]
