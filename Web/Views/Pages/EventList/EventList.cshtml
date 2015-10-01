@@ -2,7 +2,7 @@
 @model Web.Models.EventModels.List.EventListPageModel
 
 @{
-    Layout = PageLayout.OneColumn;
+    Layout = PageLayout.TwoColumns;
 }
 
 <div class="block gutter">
@@ -19,3 +19,10 @@
         }
     </ul>
 </div>
+
+@section Aside1
+{
+    <div class="block gutter">
+        <a href="@Model.AddUrl" class="button button--action">Add Event</a>
+    </div>
+}

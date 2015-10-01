@@ -47,5 +47,14 @@ namespace Core.Entities
         {
             return UtcMidninght.CompareTo(that.UtcMidninght);
         }
+
+        public bool IsNull
+        {
+            get
+            {
+                var minDate = new Date(DateTime.MinValue);
+                return CompareTo(minDate) == 0;
+            }
+        }
     }
 }

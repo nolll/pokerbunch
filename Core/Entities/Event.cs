@@ -9,14 +9,39 @@ namespace Core.Entities
         public Date StartDate { get; private set; }
         public Date EndDate { get; private set; }
 
-        public Event(int id, int bunchId, string name, string location, Date startDate, Date endDate)
+        public Event(int id, int bunchId, string name)
         {
             Id = id;
             BunchId = bunchId;
             Name = name;
+        }
+
+        public Event(int id, int bunchId, string name, string location, Date startDate, Date endDate)
+            : this(id, bunchId, name)
+        {
             Location = location;
             StartDate = startDate;
             EndDate = endDate;
+        }
+
+        public bool HasGames
+        {
+            get { return HasLocation && HasStartDate && HasEndDate; }
+        }
+
+        private bool HasLocation
+        {
+            get { return !string.IsNullOrEmpty(Location); }
+        }
+
+        private bool HasStartDate
+        {
+            get { return !StartDate.IsNull; }
+        }
+
+        private bool HasEndDate
+        {
+            get { return !EndDate.IsNull; }
         }
     }
 }

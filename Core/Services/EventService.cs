@@ -23,5 +23,10 @@ namespace Core.Services
         {
             return _eventRepository.Get(eventId);
         }
+
+        public int Add(Event e)
+        {
+            return _eventRepository.Add(e);
+        }
     }
 }

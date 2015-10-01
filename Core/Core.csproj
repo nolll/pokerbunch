@@ -108,6 +108,7 @@
     <Compile Include="UseCases\AddBunch.cs" />
     <Compile Include="UseCases\AddCashgameForm.cs" />
     <Compile Include="UseCases\AddCashgame.cs" />
+    <Compile Include="UseCases\AddEvent.cs" />
     <Compile Include="UseCases\AddPlayer.cs" />
     <Compile Include="UseCases\AddUser.cs" />
     <Compile Include="UseCases\AppContext.cs" />

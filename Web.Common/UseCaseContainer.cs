@@ -47,7 +47,8 @@ namespace Web.Common
 
         // Events
         public EventList EventList { get { return new EventList(_deps.BunchService, _deps.EventService, _deps.UserService, _deps.PlayerService); } }
-        public EventDetails EventDetails { get { return new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchService); } } 
+        public EventDetails EventDetails { get { return new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchService); } }
+        public AddEvent AddEvent { get { return new AddEvent(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.EventService); } }
 
         // Cashgame
         public CashgameStatus CashgameStatus { get { return new CashgameStatus(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService); } }

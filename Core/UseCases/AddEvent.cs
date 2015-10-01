@@ -8,17 +8,19 @@ using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
-    public class AddPlayer
+    public class AddEvent
     {
         private readonly BunchService _bunchService;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
+        private readonly EventService _eventService;
 
-        public AddPlayer(BunchService bunchService, PlayerService playerService, UserService userService)
+        public AddEvent(BunchService bunchService, PlayerService playerService, UserService userService, EventService eventService)
         {
             _bunchService = bunchService;
             _playerService = playerService;
             _userService = userService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
@@ -31,14 +33,10 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireManager(currentUser, currentPlayer);
-            var existingPlayers = _playerService.GetList(bunch.Id);
-            var player = existingPlayers.FirstOrDefault(o => String.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
-            if(player != null)
-                throw new PlayerExistsException();
+            RoleHandler.RequirePlayer(currentUser, currentPlayer);
 
-            player = new Player(bunch.Id, request.Name, Role.Player);
-            _playerService.Add(player);
+            var e = new Event(0, bunch.Id, request.Name);
+            _eventService.Add(e);
 
             return new Result(bunch.Slug);
         }

@@ -145,6 +145,7 @@
     <Compile Include="Components\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
+    <Compile Include="Controllers\AddEventController.cs" />
     <Compile Include="Controllers\AddPlayerController.cs" />
     <Compile Include="Controllers\AddAppController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
@@ -237,6 +238,8 @@
     <Compile Include="Models\PageBaseModels\PageLayout.cs" />
     <Compile Include="Models\PageBaseModels\WrappedPageModel.cs" />
     <Compile Include="Components\PlayerModels\Badges\BadgeModel.cs" />
+    <Compile Include="Models\EventModels\Add\AddEventPostModel.cs" />
+    <Compile Include="Models\EventModels\Add\AddEventPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
     <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -418,6 +421,7 @@
     <Content Include="Views\Pages\AppDetails\AppDetails.cshtml" />
     <Content Include="Views\Pages\AddApp\AddApp.cshtml" />
     <Content Include="Views\Pages\ApiDocs\ApiDocs.cshtml" />
+    <Content Include="Views\Pages\AddEvent\Add.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

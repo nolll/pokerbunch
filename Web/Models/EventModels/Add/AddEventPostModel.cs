@@ -1,8 +1,8 @@
 using Web.Annotations;
 
-namespace Web.Models.PlayerModels.Add
+namespace Web.Models.EventModels.Add
 {
-    public class AddPlayerPostModel
+    public class AddEventPostModel
     {
         public string Name { get; [UsedImplicitly] set; }
     }

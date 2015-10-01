@@ -58,6 +58,17 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadIntList("EventID");
         }
 
+        public int Add(Event e)
+        {
+            const string sql = "INSERT INTO location (Name, BunchId VALUES (@name, @bunchId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@name", e.Name),
+                    new SimpleSqlParameter("@bunchId", e.BunchId)
+                };
+            return _db.ExecuteInsert(sql, parameters);
+        }
+
         private static Event CreateEvent(RawEvent rawEvent)
         {
             return new Event(

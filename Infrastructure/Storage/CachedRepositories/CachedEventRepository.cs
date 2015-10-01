@@ -31,5 +31,10 @@ namespace Infrastructure.Storage.CachedRepositories
         {
             return _eventRepository.Find(bunchId);
         }
+
+        public int Add(Event e)
+        {
+            return _eventRepository.Add(e);
+        }
     }
 }

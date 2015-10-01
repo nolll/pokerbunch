@@ -7,6 +7,8 @@ namespace Tests.Common.FakeRepositories
 {
     public class FakeEventRepository : IEventRepository
     {
+        public Event Added { get; private set; }
+
         private readonly IList<Event> _list;
 
         public FakeEventRepository()
@@ -14,6 +16,11 @@ namespace Tests.Common.FakeRepositories
             _list = CreateEventList();
         }
 
+        public Event Get(int id)
+        {
+            return _list.FirstOrDefault(o => o.Id == id);
+        }
+        
         public IList<Event> Get(IList<int> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
@@ -24,9 +31,10 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
         }
 
-        public Event Get(int id)
+        public int Add(Event e)
         {
-            return _list.FirstOrDefault(o => o.Id == id);
+            Added = e;
+            return 1;
         }
 
         private IList<Event> CreateEventList()
