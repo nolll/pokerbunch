@@ -49,7 +49,7 @@ namespace Web.Models.CashgameModels.Running
             BuyinUrl = new CashgameBuyinUrl(result.Slug).Relative;
             CashoutUrl = new CashgameCashoutUrl(result.Slug).Relative;
             EndGameUrl = new EndCashgameUrl(result.Slug).Relative;
-            CashgameIndexUrl = new RunningCashgameGameJsonUrl(result.Slug).Relative;
+            CashgameIndexUrl = new CashgameIndexUrl(result.Slug).Relative;
             DefaultBuyin = result.DefaultBuyin;
             Location = result.Location;
             IsManager = result.IsManager;
