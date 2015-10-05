@@ -10,7 +10,7 @@ namespace Infrastructure.Storage.Repositories
     public class SqlEventRepository : IEventRepository
     {
         // Todo: remove all the joins. NOW!
-        private const string EventSql = @"SELECT e.EventID, e.BunchID, e.Name, g.Location, g.Date
+        private const string EventSql = @"SELECT e.EventID, e.BunchID, e.Name, g.LocationId, g.Date
                                         FROM [Event] e
                                         LEFT JOIN EventCashgame ecg on e.EventId = ecg.EventId
                                         LEFT JOIN Game g on ecg.GameId = g.GameID
@@ -61,7 +61,7 @@ namespace Infrastructure.Storage.Repositories
 
         public int Add(Event e)
         {
-            const string sql = "INSERT INTO location (Name, BunchId VALUES (@name, @bunchId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO event (Name, BunchId) VALUES (@name, @bunchId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@name", e.Name),
@@ -76,7 +76,7 @@ namespace Infrastructure.Storage.Repositories
                 rawEvent.Id,
                 rawEvent.BunchId,
                 rawEvent.Name,
-                rawEvent.Location,
+                rawEvent.LocationId,
                 new Date(rawEvent.StartDate),
                 new Date(rawEvent.EndDate));
         }
@@ -106,7 +106,7 @@ namespace Infrastructure.Storage.Repositories
                 var item = map[key];
                 var firstItem = item.First();
                 var lastItem = item.Last();
-                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.BunchId, firstItem.Name, firstItem.Location, firstItem.Date, lastItem.Date));
+                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.BunchId, firstItem.Name, firstItem.LocationId, firstItem.Date, lastItem.Date));
             }
             return rawEvents;
         }
@@ -117,7 +117,7 @@ namespace Infrastructure.Storage.Repositories
                 reader.GetIntValue("EventID"),
                 reader.GetIntValue("BunchId"),
                 reader.GetStringValue("Name"),
-                reader.GetStringValue("Location"),
+                reader.GetIntValue("LocationId"),
                 reader.GetDateTimeValue("Date"));
         }
     }

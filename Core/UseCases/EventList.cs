@@ -12,13 +12,15 @@ namespace Core.UseCases
         private readonly EventService _eventService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
+        private readonly LocationService _locationService;
 
-        public EventList(BunchService bunchService, EventService eventService, UserService userService, PlayerService playerService)
+        public EventList(BunchService bunchService, EventService eventService, UserService userService, PlayerService playerService, LocationService locationService)
         {
             _bunchService = bunchService;
             _eventService = eventService;
             _userService = userService;
             _playerService = playerService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -28,16 +30,20 @@ namespace Core.UseCases
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
             var events = _eventService.Find(bunch.Id);
+            var locationIds = events.Select(o => o.LocationId).Distinct().ToList();
+            var locations = _locationService.Get(locationIds);
 
-            var eventItems = events.OrderByDescending(o => o.StartDate).Select(CreateEventItem).ToList();
+            var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(o, locations)).ToList();
 
             return new Result(eventItems);
         }
 
-        private static Item CreateEventItem(Event e)
+        private static Item CreateEventItem(Event e, IList<Location> locations)
         {
+            var location = locations.FirstOrDefault(o => o.Id == e.LocationId);
+            var locationName = location != null ? location.Name : "";
             if(e.HasGames)
-                return new Item(e.Id, e.Name, e.Location, e.StartDate, e.EndDate);
+                return new Item(e.Id, e.Name, locationName, e.StartDate, e.EndDate);
             return new Item(e.Id, e.Name);
         }
 

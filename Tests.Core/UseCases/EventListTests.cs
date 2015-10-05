@@ -59,7 +59,8 @@ namespace Tests.Core.UseCases
                     Services.BunchService,
                     Services.EventService,
                     Services.UserService,
-                    Services.PlayerService);
+                    Services.PlayerService,
+                    Services.LocationService);
             }
         }
         

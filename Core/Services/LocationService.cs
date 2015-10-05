@@ -19,6 +19,11 @@ namespace Core.Services
             return _locationRepository.Get(id);
         }
 
+        public IList<Location> Get(IList<int> ids)
+        {
+            return _locationRepository.Get(ids);
+        }
+
         public IList<Location> GetByBunch(int bunchId)
         {
             var ids = _locationRepository.Find(bunchId);

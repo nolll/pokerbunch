@@ -5,7 +5,7 @@ namespace Core.Entities
         public int Id { get; private set; }
         public int BunchId { get; private set; }
         public string Name { get; private set; }
-        public string Location { get; private set; }
+        public int LocationId { get; private set; }
         public Date StartDate { get; private set; }
         public Date EndDate { get; private set; }
 
@@ -16,10 +16,10 @@ namespace Core.Entities
             Name = name;
         }
 
-        public Event(int id, int bunchId, string name, string location, Date startDate, Date endDate)
+        public Event(int id, int bunchId, string name, int locationId, Date startDate, Date endDate)
             : this(id, bunchId, name)
         {
-            Location = location;
+            LocationId = locationId;
             StartDate = startDate;
             EndDate = endDate;
         }
@@ -31,7 +31,7 @@ namespace Core.Entities
 
         private bool HasLocation
         {
-            get { return !string.IsNullOrEmpty(Location); }
+            get { return LocationId != 0; }
         }
 
         private bool HasStartDate

@@ -46,7 +46,7 @@ namespace Web.Common
         public JoinBunchConfirmation JoinBunchConfirmation { get { return new JoinBunchConfirmation(_deps.BunchService, _deps.UserService, _deps.PlayerService); } }
 
         // Events
-        public EventList EventList { get { return new EventList(_deps.BunchService, _deps.EventService, _deps.UserService, _deps.PlayerService); } }
+        public EventList EventList { get { return new EventList(_deps.BunchService, _deps.EventService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
         public EventDetails EventDetails { get { return new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchService); } }
         public AddEvent AddEvent { get { return new AddEvent(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.EventService); } }
 
