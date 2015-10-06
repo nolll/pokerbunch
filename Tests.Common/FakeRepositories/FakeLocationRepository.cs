@@ -49,7 +49,8 @@ namespace Tests.Common.FakeRepositories
             {
                 new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Id),
                 new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Id),
-                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Id)
+                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Id),
+                new Location(TestData.ChangedLocationId, TestData.ChangedLocationName, TestData.BunchA.Id)
             };
         }
     }

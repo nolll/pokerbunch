@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditCashgame.Request(CurrentUserName, id, postModel.Location);
+                var request = new EditCashgame.Request(CurrentUserName, id, postModel.LocationId, postModel.EventId);
                 var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(new CashgameDetailsUrl(result.CashgameId).Relative);
             }

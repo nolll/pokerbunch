@@ -27,9 +27,14 @@ namespace Infrastructure.Storage.CachedRepositories
             return _cacheContainer.GetAndStore(_eventRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> Find(int bunchId)
+        public IList<int> FindByBunchId(int bunchId)
         {
-            return _eventRepository.Find(bunchId);
+            return _eventRepository.FindByBunchId(bunchId);
+        }
+
+        public IList<int> FindByCashgameId(int cashgameId)
+        {
+            return _eventRepository.FindByBunchId(cashgameId);
         }
 
         public int Add(Event e)

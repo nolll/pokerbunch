@@ -48,12 +48,23 @@ namespace Infrastructure.Storage.Repositories
             return rawEvents.Select(CreateEvent).ToList();
         }
 
-        public IList<int> Find(int bunchId)
+        public IList<int> FindByBunchId(int bunchId)
         {
             const string sql = "SELECT e.EventID FROM [Event] e WHERE e.BunchID = @id";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@id", bunchId)
+                };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("EventID");
+        }
+
+        public IList<int> FindByCashgameId(int cashgameId)
+        {
+            const string sql = "SELECT ecg.EventID FROM [EventCashgame] ecg WHERE ecg.CashgameId = @id";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@id", cashgameId)
                 };
             var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("EventID");

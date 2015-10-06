@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -29,7 +28,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var events = _eventService.Find(bunch.Id);
+            var events = _eventService.GetByBunch(bunch.Id);
             var locationIds = events.Select(o => o.LocationId).Distinct().ToList();
             var locations = _locationService.Get(locationIds);
 

@@ -30,34 +30,27 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
             RoleHandler.RequireManager(user, player);
-            var location = GetOrCreateLocation(cashgame.BunchId, request.Location);
+            var location = _locationService.Get(request.LocationId);
             cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);
             
             return new Result(cashgame.Id);
         }
 
-        private Location GetOrCreateLocation(int bunchId, string locationName)
-        {
-            var location = _locationService.GetByName(bunchId, locationName);
-            if (location != null)
-                return location;
-            var id = _locationService.Add(new Location(0, locationName, bunchId));
-            return _locationService.Get(id);
-        }
-
         public class Request
         {
             public string UserName { get; private set; }
             public int Id { get; private set; }
-            [Required(ErrorMessage = "Please select or enter a location")]
-            public string Location { get; private set; }
+            [Range(1, int.MaxValue, ErrorMessage = "Please a location")]
+            public int LocationId { get; private set; }
+            public int EventId { get; private set; }
 
-            public Request(string userName, int id, string location)
+            public Request(string userName, int id, int locationId, int eventId)
             {
                 UserName = userName;
                 Id = id;
-                Location = location;
+                LocationId = locationId;
+                EventId = eventId;
             }
         }
         public class Result
