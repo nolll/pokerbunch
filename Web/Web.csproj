@@ -225,6 +225,7 @@
     <Compile Include="Models\ErrorModels\Error404PageModel.cs" />
     <Compile Include="Models\ErrorModels\Error500PageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorPageModel.cs" />
+    <Compile Include="Models\EventModels\Add\AddEventConfirmationPageModel.cs" />
     <Compile Include="Models\EventModels\Details\EventDetailsPageModel.cs" />
     <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
     <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
@@ -422,6 +423,7 @@
     <Content Include="Views\Pages\AddApp\AddApp.cshtml" />
     <Content Include="Views\Pages\ApiDocs\ApiDocs.cshtml" />
     <Content Include="Views\Pages\AddEvent\Add.cshtml" />
+    <Content Include="Views\Pages\AddEvent\AddConfirmation.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

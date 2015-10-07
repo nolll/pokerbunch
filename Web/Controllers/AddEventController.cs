@@ -4,8 +4,8 @@ using Core.UseCases;
 using Web.Common.Routes;
 using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
+using Web.Models.EventModels;
 using Web.Models.EventModels.Add;
-using Web.Models.PlayerModels.Add;
 
 namespace Web.Controllers
 {
@@ -27,7 +27,7 @@ namespace Web.Controllers
             {
                 var request = new AddEvent.Request(CurrentUserName, slug, postModel.Name);
                 var result = UseCase.AddEvent.Execute(request);
-                return Redirect(new AddPlayerConfirmationUrl(result.Slug).Relative);
+                return Redirect(new AddEventConfirmationUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
             {
@@ -35,6 +35,14 @@ namespace Web.Controllers
             }
 
             return ShowForm(slug, postModel);
+        }
+
+        [Route(WebRoutes.EventAddConfirmation)]
+        public ActionResult Created(string slug)
+        {
+            var contextResult = GetBunchContext(slug);
+            var model = new AddEventConfirmationPageModel(contextResult);
+            return View("~/Views/Pages/AddEvent/AddConfirmation.cshtml", model);
         }
 
         private ActionResult ShowForm(string slug, AddEventPostModel postModel = null)

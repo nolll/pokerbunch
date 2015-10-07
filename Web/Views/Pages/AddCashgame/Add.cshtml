@@ -6,7 +6,7 @@
 }
 
 <div class="block gutter">
-    <h1 class="page-heading">New Cashgame</h1>
+    <h1 class="page-heading">Start Cashgame</h1>
 </div>
 <div class="block gutter">
     
@@ -15,13 +15,8 @@
     <form method="post">
         <fieldset>
             <p>
-                @Html.LabelFor(model => model.TypedLocation, "Enter Location", new { @class = "label" })
-                @Html.TextBoxFor(model => model.TypedLocation, new { @class="textfield", list = "location-list"})
-
-                <datalist id="location-list">
-                    @Html.LabelFor(model => model.SelectedLocation, "or", new { @class = "label" })
-                    @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations)
-                </datalist>
+                @Html.LabelFor(model => model.LocationId, "Location", new { @class = "label" })
+                @Html.DropDownListFor(x => x.LocationId, Model.Locations)
             </p>
         </fieldset>
         <div class="buttons">

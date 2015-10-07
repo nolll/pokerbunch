@@ -9,16 +9,14 @@ namespace Web.Models.CashgameModels.Add
     public class AddCashgamePageModel : BunchPageModel
     {
         public IEnumerable<SelectListItem> Locations { get; private set; }
-        public string TypedLocation { get; private set; }
-        public string SelectedLocation { get; private set; }
+        public int LocationId { get; private set; }
 
         public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
             : base("New Cashgame", contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);
             if (postModel == null) return;
-            TypedLocation = postModel.TypedLocation;
-            SelectedLocation = postModel.SelectedLocation;
+            LocationId = postModel.LocationId;
         }
 
         private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<string> locations)

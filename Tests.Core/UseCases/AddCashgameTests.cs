@@ -37,12 +37,12 @@ namespace Tests.Core.UseCases
 
         private static AddCashgame.Request CreateRequestWithoutLocation()
         {
-            return CreateRequest(null);
+            return CreateRequest(0);
         }
 
-        private static AddCashgame.Request CreateRequest(string location = TestData.LocationNameA)
+        private static AddCashgame.Request CreateRequest(int locationId = TestData.LocationIdA)
         {
-            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, location);
+            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId);
         }
 
         private AddCashgame Sut

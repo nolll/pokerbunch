@@ -53,6 +53,7 @@
     <Compile Include="Urls\SiteUrls\AddBunchConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddBunchUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddCashgameUrl.cs" />
+    <Compile Include="Urls\SiteUrls\AddEventConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddEventUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddPlayerConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddPlayerUrl.cs" />

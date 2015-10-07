@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -34,34 +33,25 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RoleHandler.RequirePlayer(user, player);
-            var location = GetOrCreateLocation(bunch.Id, request.Location);
+            var location = _locationService.Get(request.LocationId);
             var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);
             var cashgameId = _cashgameService.AddGame(bunch, cashgame);
 
             return new Result(request.Slug, cashgameId);
         }
 
-        private Location GetOrCreateLocation(int bunchId, string locationName)
-        {
-            var location = _locationService.GetByName(bunchId, locationName);
-            if (location != null)
-                return location;
-            var id = _locationService.Add(new Location(0, locationName, bunchId));
-            return _locationService.Get(id);
-        }
-
         public class Request
         {
             public string UserName { get; private set; }
             public string Slug { get; private set; }
-            [Required(ErrorMessage = "Please select or enter a location")]
-            public string Location { get; private set; }
+            [Range(1, int.MaxValue, ErrorMessage = "Please a location")]
+            public int LocationId { get; private set; }
 
-            public Request(string userName, string slug, string location)
+            public Request(string userName, string slug, int locationId)
             {
                 UserName = userName;
                 Slug = slug;
-                Location = location;
+                LocationId = locationId;
             }
         }
 
