@@ -30,10 +30,13 @@ namespace Web.Models.CashgameModels.Running
         public string CashgameIndexUrl { get; private set; }
 
         [UsedImplicitly]
+        public string LocationUrl { get; private set; }
+
+        [UsedImplicitly]
         public int DefaultBuyin { get; private set; }
 
         [UsedImplicitly]
-        public string Location { get; private set; }
+        public string LocationName { get; private set; }
 
         [UsedImplicitly]
         public bool IsManager { get; private set; }
@@ -50,8 +53,9 @@ namespace Web.Models.CashgameModels.Running
             CashoutUrl = new CashgameCashoutUrl(result.Slug).Relative;
             EndGameUrl = new EndCashgameUrl(result.Slug).Relative;
             CashgameIndexUrl = new CashgameIndexUrl(result.Slug).Relative;
+            LocationUrl = new LocationDetailsUrl(result.LocationId).Relative;
             DefaultBuyin = result.DefaultBuyin;
-            Location = result.Location;
+            LocationName = result.LocationName;
             IsManager = result.IsManager;
             BunchPlayers = result.BunchPlayerItems.Select(o => new BunchPlayerJsonModel(o)).ToList();
         }

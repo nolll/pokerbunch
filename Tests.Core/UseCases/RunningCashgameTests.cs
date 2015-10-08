@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.PlayerIdA, result.PlayerId);
-            Assert.AreEqual(TestData.LocationNameC, result.Location);
+            Assert.AreEqual(TestData.LocationNameC, result.LocationName);
             Assert.AreEqual(100, result.DefaultBuyin);
             Assert.IsFalse(result.IsManager);
         }

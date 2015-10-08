@@ -41,7 +41,7 @@ namespace Core.UseCases
 
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
-            var location = _locationService.Get(cashgame.LocationId).Name;
+            var location = _locationService.Get(cashgame.LocationId);
 
             var playerItems = GetPlayerItems(cashgame, players);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
@@ -51,7 +51,8 @@ namespace Core.UseCases
             return new Result(
                 bunch.Slug,
                 player.Id,
-                location,
+                location.Name,
+                location.Id,
                 playerItems,
                 bunchPlayerItems,
                 defaultBuyin,
@@ -101,7 +102,8 @@ namespace Core.UseCases
         {
             public string Slug { get; private set; }
             public int PlayerId { get; private set; }
-            public string Location { get; private set; }
+            public string LocationName { get; private set; }
+            public int LocationId { get; private set; }
             public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
             public IList<BunchPlayerItem> BunchPlayerItems { get; private set; }
             public int DefaultBuyin { get; private set; }
@@ -110,7 +112,8 @@ namespace Core.UseCases
             public Result(
                 string slug,
                 int playerId,
-                string location,
+                string locationName,
+                int locationId,
                 IList<RunningCashgamePlayerItem> playerItems,
                 IList<BunchPlayerItem> bunchPlayerItems,
                 int defaultBuyin,
@@ -118,7 +121,8 @@ namespace Core.UseCases
             {
                 Slug = slug;
                 PlayerId = playerId;
-                Location = location;
+                LocationName = locationName;
+                LocationId = locationId;
                 PlayerItems = playerItems;
                 BunchPlayerItems = bunchPlayerItems;
                 DefaultBuyin = defaultBuyin;

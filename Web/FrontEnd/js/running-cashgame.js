@@ -35,8 +35,9 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             me.cashOutUrl = data.cashoutUrl;
             me.endGameUrl = data.endGameUrl;
             me.cashgameIndexUrl = data.cashgameIndexUrl;
+            me.locationUrl = data.locationUrl;
             me.defaultBuyIn = data.defaultBuyin;
-            me.location = data.location;
+            me.locationName = data.locationName;
             me.refreshUrl = data.refreshUrl;
             me.isManager = ko.observable(data.isManager);
             me.areButtonsVisible = ko.observable(true);

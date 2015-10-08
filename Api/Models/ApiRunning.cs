@@ -15,7 +15,7 @@ namespace Api.Models
 
         public ApiRunning(RunningCashgame.Result runningCashgame)
         {
-            Location = runningCashgame.Location;
+            Location = runningCashgame.LocationName;
             Results = runningCashgame.PlayerItems.Select(o => new ApiRunningResult(o)).ToList();
         }
     }
