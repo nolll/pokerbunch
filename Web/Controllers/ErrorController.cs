@@ -7,7 +7,7 @@ namespace Web.Controllers
     [HandleError]
     public class ErrorController : BaseController
     {
-        [Route(WebRoutes.ErrorNotFound)]
+        [Route(WebRoutes.Error.NotFound)]
         public ActionResult NotFound()
         {
             Response.StatusCode = 404;
@@ -15,7 +15,7 @@ namespace Web.Controllers
             return Error404();
         }
 
-        [Route(WebRoutes.ErrorUnauthorized)]
+        [Route(WebRoutes.Error.Unauthorized)]
         public ActionResult Unauthorized()
         {
             Response.StatusCode = 401;
@@ -23,7 +23,7 @@ namespace Web.Controllers
             return Error401();
         }
         
-        [Route(WebRoutes.ErrorForbidden)]
+        [Route(WebRoutes.Error.Forbidden)]
         public ActionResult Forbidden()
         {
             Response.StatusCode = 403;
@@ -31,7 +31,7 @@ namespace Web.Controllers
             return Error403();
         }
 
-        [Route(WebRoutes.ErrorOther)]
+        [Route(WebRoutes.Error.Other)]
         public ActionResult ServerError()
         {
             Response.StatusCode = 500;

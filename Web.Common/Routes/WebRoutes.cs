@@ -81,10 +81,13 @@ namespace Web.Common.Routes
 
         public const string AdminSendEmail = "admin/sendemail";
         public const string AdminClearCache = "admin/clearcache";
-
-        public const string ErrorNotFound = "error/notfound";
-        public const string ErrorUnauthorized = "error/unauthorized";
-        public const string ErrorForbidden = "error/forbidden";
-        public const string ErrorOther = "error/servererror";
+        
+        public static class Error
+        {
+            public const string NotFound = "error/notfound";
+            public const string Unauthorized = "error/unauthorized";
+            public const string Forbidden = "error/forbidden";
+            public const string Other = "error/servererror";
+        }
     }
 }
