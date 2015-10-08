@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class ForgotPasswordConfirmationUrl : SiteUrl
     {
         public ForgotPasswordConfirmationUrl()
-            : base(WebRoutes.ForgotPasswordConfirmation)
+            : base(WebRoutes.User.ForgotPasswordConfirmation)
         {
         }
     }

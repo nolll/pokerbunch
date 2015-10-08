@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class AddCashgameController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameAdd)]
+        [Route(WebRoutes.Cashgame.Add)]
         public ActionResult AddCashgame(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameAdd)]
+        [Route(WebRoutes.Cashgame.Add)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
             var request = new AddCashgame.Request(CurrentUserName, slug, postModel.LocationId, postModel.EventId);

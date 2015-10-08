@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class DeleteCashgameUrl : IdUrl
     {
         public DeleteCashgameUrl(int id)
-            : base(WebRoutes.CashgameDelete, id)
+            : base(WebRoutes.Cashgame.Delete, id)
         {
         }
     }

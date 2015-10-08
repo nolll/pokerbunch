@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class AddPlayerController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.PlayerAdd)]
+        [Route(WebRoutes.Player.Add)]
         public ActionResult Add(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.PlayerAdd)]
+        [Route(WebRoutes.Player.Add)]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
             try
@@ -40,7 +40,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [Route(WebRoutes.PlayerAddConfirmation)]
+        [Route(WebRoutes.Player.AddConfirmation)]
         public ActionResult Created(string slug)
         {
             var contextResult = GetBunchContext(slug);

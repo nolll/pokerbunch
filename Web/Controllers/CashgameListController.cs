@@ -10,8 +10,8 @@ namespace Web.Controllers
     public class CashgameListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameList)]
-        [Route(WebRoutes.CashgameListWithYear)]
+        [Route(WebRoutes.Cashgame.List)]
+        [Route(WebRoutes.Cashgame.ListWithYear)]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);

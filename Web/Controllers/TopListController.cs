@@ -10,8 +10,8 @@ namespace Web.Controllers
     public class TopListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameToplist)]
-        [Route(WebRoutes.CashgameToplistWithYear)]
+        [Route(WebRoutes.Cashgame.Toplist)]
+        [Route(WebRoutes.Cashgame.ToplistWithYear)]
         public ActionResult Toplist(string slug, string orderBy = null, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);

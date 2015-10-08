@@ -10,8 +10,8 @@ namespace Web.Controllers
     public class CashgameFactsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameFacts)]
-        [Route(WebRoutes.CashgameFactsWithYear)]
+        [Route(WebRoutes.Cashgame.Facts)]
+        [Route(WebRoutes.Cashgame.FactsWithYear)]
         public ActionResult Facts(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Facts, year);

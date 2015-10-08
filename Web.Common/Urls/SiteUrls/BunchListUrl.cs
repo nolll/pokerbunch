@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class BunchListUrl : SiteUrl
     {
         public BunchListUrl()
-            : base(WebRoutes.BunchList)
+            : base(WebRoutes.Bunch.List)
         {
         }
     }

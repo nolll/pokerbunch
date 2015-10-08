@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class AppDetailsController : BaseController
     {
-        [Route(WebRoutes.AppDetails)]
+        [Route(WebRoutes.App.Details)]
         public ActionResult Details(int id)
         {
             var context = GetAppContext();
@@ -20,7 +20,7 @@ namespace Web.Controllers
 
     public class ApiDocsController : BaseController
     {
-        [Route(WebRoutes.ApiDocs)]
+        [Route(WebRoutes.Api.Docs)]
         public ActionResult ApiDocs()
         {
             var context = GetAppContext();

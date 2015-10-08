@@ -10,7 +10,7 @@ namespace Web.Controllers
 {
     public class AddAppController : BaseController
     {
-        [Route(WebRoutes.AppAdd)]
+        [Route(WebRoutes.App.Add)]
         [Authorize]
         public ActionResult AddUser()
         {
@@ -18,7 +18,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route(WebRoutes.AppAdd)]
+        [Route(WebRoutes.App.Add)]
         [Authorize]
         public ActionResult Post(AddAppPostModel postModel)
         {

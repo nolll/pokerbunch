@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class CashgameIndexController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameIndex)]
+        [Route(WebRoutes.Cashgame.Index)]
         public ActionResult Index(string slug)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);

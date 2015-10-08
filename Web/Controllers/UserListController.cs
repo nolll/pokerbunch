@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class UserListController : BaseController
     {
-        [Route(WebRoutes.UserList)]
+        [Route(WebRoutes.User.List)]
         public ActionResult List()
         {
             var context = GetAppContext();

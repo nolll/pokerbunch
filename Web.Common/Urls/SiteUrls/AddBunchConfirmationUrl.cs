@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class AddBunchConfirmationUrl : SiteUrl
     {
         public AddBunchConfirmationUrl()
-            : base(WebRoutes.BunchAddConfirmation)
+            : base(WebRoutes.Bunch.AddConfirmation)
         {
         }
     }

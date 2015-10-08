@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class PlayerListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.PlayerList)]
+        [Route(WebRoutes.Player.List)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

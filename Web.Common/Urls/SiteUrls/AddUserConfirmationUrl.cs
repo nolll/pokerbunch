@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class AddUserConfirmationUrl : SiteUrl
     {
         public AddUserConfirmationUrl()
-            : base(WebRoutes.UserAddConfirmation)
+            : base(WebRoutes.User.AddConfirmation)
         {
         }
     }

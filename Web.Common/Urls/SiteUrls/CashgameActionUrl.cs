@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class CashgameActionUrl : SiteUrl
     {
         public CashgameActionUrl(int cashgameId, int playerId)
-            : base(BuildUrl(WebRoutes.CashgameAction, cashgameId, playerId))
+            : base(BuildUrl(WebRoutes.Cashgame.Action, cashgameId, playerId))
         {
         }
 

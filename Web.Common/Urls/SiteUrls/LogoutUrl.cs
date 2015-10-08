@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class LogoutUrl : SiteUrl
     {
         public LogoutUrl()
-            : base(WebRoutes.AuthLogout)
+            : base(WebRoutes.Auth.Logout)
         {
         }
     }

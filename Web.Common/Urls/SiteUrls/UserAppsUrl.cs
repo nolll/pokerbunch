@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class UserAppsUrl : SiteUrl
     {
         public UserAppsUrl()
-            : base(WebRoutes.UserApps)
+            : base(WebRoutes.App.List)
         {
         }
     }

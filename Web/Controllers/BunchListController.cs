@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class BunchListController : BaseController
     {
-        [Route(WebRoutes.BunchList)]
+        [Route(WebRoutes.Bunch.List)]
         public ActionResult List()
         {
             var context = GetAppContext();

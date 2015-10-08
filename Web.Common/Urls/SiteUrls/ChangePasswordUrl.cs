@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class ChangePasswordUrl : SiteUrl
     {
         public ChangePasswordUrl()
-            : base(WebRoutes.ChangePassword)
+            : base(WebRoutes.User.ChangePassword)
         {
         }
     }

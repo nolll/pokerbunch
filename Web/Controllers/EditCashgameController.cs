@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class EditCashgameController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameEdit)]
+        [Route(WebRoutes.Cashgame.Edit)]
         public ActionResult Edit(int id)
         {
             return ShowForm(id);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameEdit)]
+        [Route(WebRoutes.Cashgame.Edit)]
         public ActionResult Post(int id, EditCashgamePostModel postModel)
         {
             try

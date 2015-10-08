@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class AddEventConfirmationUrl : SlugUrl
     {
         public AddEventConfirmationUrl(string slug)
-            : base(WebRoutes.EventAddConfirmation, slug)
+            : base(WebRoutes.Event.AddConfirmation, slug)
         {
         }
     }

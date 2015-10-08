@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class LocationListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.LocationList)]
+        [Route(WebRoutes.Location.List)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

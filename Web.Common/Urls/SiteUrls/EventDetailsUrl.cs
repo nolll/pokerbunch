@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class EventDetailsUrl : IdUrl
     {
         public EventDetailsUrl(int eventId)
-            : base(WebRoutes.EventDetails, eventId)
+            : base(WebRoutes.Event.Details, eventId)
         {
         }
     }

@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class PlayerDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.PlayerDetails)]
+        [Route(WebRoutes.Player.Details)]
         public ActionResult Details(int id)
         {
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(CurrentUserName, id));

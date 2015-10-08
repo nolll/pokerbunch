@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class LocationListUrl : SlugUrl
     {
         public LocationListUrl(string slug)
-            : base(WebRoutes.LocationList, slug)
+            : base(WebRoutes.Location.List, slug)
         {
         }
     }

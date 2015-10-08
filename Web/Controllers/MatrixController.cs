@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class MatrixController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameMatrixWithYear)]
+        [Route(WebRoutes.Cashgame.MatrixWithYear)]
         public ActionResult Matrix(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);

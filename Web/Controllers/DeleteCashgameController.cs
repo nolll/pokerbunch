@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class DeleteCashgameController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameDelete)]
+        [Route(WebRoutes.Cashgame.Delete)]
         public ActionResult Delete(int id)
         {
             var request = new DeleteCashgame.Request(CurrentUserName, id);

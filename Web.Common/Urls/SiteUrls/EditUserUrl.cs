@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class EditUserUrl : UserUrl
     {
         public EditUserUrl(string userName)
-            : base(WebRoutes.UserEdit, userName)
+            : base(WebRoutes.User.Edit, userName)
         {
         }
     }

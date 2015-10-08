@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class AddLocationController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.LocationAdd)]
+        [Route(WebRoutes.Location.Add)]
         public ActionResult Add(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.LocationAdd)]
+        [Route(WebRoutes.Location.Add)]
         public ActionResult Add_Post(string slug, AddLocationPostModel postModel)
         {
             try
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [Route(WebRoutes.LocationAddConfirmation)]
+        [Route(WebRoutes.Location.AddConfirmation)]
         public ActionResult Created(string slug)
         {
             var contextResult = GetBunchContext(slug);

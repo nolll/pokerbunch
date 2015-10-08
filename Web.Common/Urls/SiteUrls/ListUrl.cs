@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class ListUrl : BunchWithOptionalYearUrl
     {
         public ListUrl(string slug, int? year)
-            : base(WebRoutes.CashgameList, WebRoutes.CashgameListWithYear, slug, year)
+            : base(WebRoutes.Cashgame.List, WebRoutes.Cashgame.ListWithYear, slug, year)
         {
         }
     }

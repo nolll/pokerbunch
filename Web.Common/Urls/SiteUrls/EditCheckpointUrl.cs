@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class EditCheckpointUrl : IdUrl
     {
         public EditCheckpointUrl(int checkpointId)
-            : base(WebRoutes.CashgameCheckpointEdit, checkpointId)
+            : base(WebRoutes.Cashgame.CheckpointEdit, checkpointId)
         {
         }
     }

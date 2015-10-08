@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class InvitePlayerController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.PlayerInvite)]
+        [Route(WebRoutes.Player.Invite)]
         public ActionResult Invite(int id)
         {
             return ShowForm(id);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.PlayerInvite)]
+        [Route(WebRoutes.Player.Invite)]
         public ActionResult Invite_Post(int id, InvitePlayerPostModel postModel)
         {
             try
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel);
         }
 
-        [Route(WebRoutes.PlayerInviteConfirmation)]
+        [Route(WebRoutes.Player.InviteConfirmation)]
         public ActionResult Invited(int id)
         {
             var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(CurrentUserName, id));

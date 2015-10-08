@@ -9,7 +9,7 @@ namespace Web.Controllers
 {
     public class AdminController : BaseController
     {
-        [Route(WebRoutes.AdminSendEmail)]
+        [Route(WebRoutes.Admin.SendEmail)]
         public ActionResult SendEmail()
         {
             var result = UseCase.TestEmail.Execute(new TestEmail.Request(CurrentUserName));
@@ -19,7 +19,7 @@ namespace Web.Controllers
             return View("Email", model);
         }
 
-        [Route(WebRoutes.AdminClearCache)]
+        [Route(WebRoutes.Admin.ClearCache)]
         public ActionResult ClearCache()
         {
             var cacheContainer = new CacheContainer(new AspNetCacheProvider());

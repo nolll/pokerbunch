@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class EditUserController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.UserEdit)]
+        [Route(WebRoutes.User.Edit)]
         public ActionResult EditUser(string userName)
         {
             return ShowForm(userName);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.UserEdit)]
+        [Route(WebRoutes.User.Edit)]
         public ActionResult Post(string userName, EditUserPostModel postModel)
         {
             try

@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class EndCashgameUrl : SlugUrl
     {
         public EndCashgameUrl(string slug)
-            : base(WebRoutes.CashgameEnd, slug)
+            : base(WebRoutes.Cashgame.End, slug)
         {
         }
     }

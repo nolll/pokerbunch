@@ -9,7 +9,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameEnd)]
+        [Route(WebRoutes.Cashgame.End)]
         public ActionResult Post(string slug)
         {
             UseCase.EndCashgame.Execute(new EndCashgame.Request(CurrentUserName, slug));

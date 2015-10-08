@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class AddEventController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.EventAdd)]
+        [Route(WebRoutes.Event.Add)]
         public ActionResult Add(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.EventAdd)]
+        [Route(WebRoutes.Event.Add)]
         public ActionResult Add_Post(string slug, AddEventPostModel postModel)
         {
             try
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel);
         }
 
-        [Route(WebRoutes.EventAddConfirmation)]
+        [Route(WebRoutes.Event.AddConfirmation)]
         public ActionResult Created(string slug)
         {
             var contextResult = GetBunchContext(slug);

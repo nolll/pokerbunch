@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class EditCheckpointController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameCheckpointEdit)]
+        [Route(WebRoutes.Cashgame.CheckpointEdit)]
         public ActionResult EditCheckpoint(int id)
         {
             return ShowForm(id);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameCheckpointEdit)]
+        [Route(WebRoutes.Cashgame.CheckpointEdit)]
         public ActionResult EditCheckpoint_Post(int id, EditCheckpointPostModel postModel)
         {
             try

@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameReport)]
+        [Route(WebRoutes.Cashgame.Report)]
         public ActionResult Report_Post(string slug, ReportPostModel postModel)
         {
             var request = new Report.Request(CurrentUserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);

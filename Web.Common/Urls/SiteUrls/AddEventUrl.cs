@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class AddEventUrl : SlugUrl
     {
         public AddEventUrl(string slug)
-            : base(WebRoutes.EventAdd, slug)
+            : base(WebRoutes.Event.Add, slug)
         {
         }
     }

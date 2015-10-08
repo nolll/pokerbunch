@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class BunchDetailsUrl : SlugUrl
     {
         public BunchDetailsUrl(string slug)
-            : base(WebRoutes.BunchDetails, slug)
+            : base(WebRoutes.Bunch.Details, slug)
         {
         }
     }

@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class CashgameDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.CashgameDetails)]
+        [Route(WebRoutes.Cashgame.Details)]
         public ActionResult Details(int id)
         {
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(CurrentUserName, id));

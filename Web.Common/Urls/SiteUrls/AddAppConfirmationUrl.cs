@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class AddAppConfirmationUrl : SiteUrl
     {
         public AddAppConfirmationUrl()
-            : base(WebRoutes.AppAddConfirmation)
+            : base(WebRoutes.App.AddConfirmation)
         {
         }
     }

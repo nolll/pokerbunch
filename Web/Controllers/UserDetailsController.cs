@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class UserDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.UserDetails)]
+        [Route(WebRoutes.User.Details)]
         public ActionResult UserDetails(string userName)
         {
             var contextResult = GetAppContext();

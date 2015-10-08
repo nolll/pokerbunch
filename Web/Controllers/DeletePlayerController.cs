@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class DeletePlayerController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.PlayerDelete)]
+        [Route(WebRoutes.Player.Delete)]
         public ActionResult Delete(int id)
         {
             var request = new DeletePlayer.Request(CurrentUserName, id);

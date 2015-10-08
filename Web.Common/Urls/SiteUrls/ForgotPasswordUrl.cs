@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class ForgotPasswordUrl : SiteUrl
     {
         public ForgotPasswordUrl()
-            : base(WebRoutes.ForgotPassword)
+            : base(WebRoutes.User.ForgotPassword)
         {
         }
     }

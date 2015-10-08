@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class ChangePasswordController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.ChangePassword)]
+        [Route(WebRoutes.User.ChangePassword)]
         public ActionResult ChangePassword()
         {
             return ShowForm();
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.ChangePassword)]
+        [Route(WebRoutes.User.ChangePassword)]
         public ActionResult Post(ChangePasswordPostModel postModel)
         {
             try
@@ -43,7 +43,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/ChangePassword/ChangePassword.cshtml", model);
         }
 
-        [Route(WebRoutes.ChangePasswordConfirmation)]
+        [Route(WebRoutes.User.ChangePasswordConfirmation)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

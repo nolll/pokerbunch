@@ -10,14 +10,14 @@ namespace Web.Controllers
 {
     public class ForgotPasswordController : BaseController
     {
-        [Route(WebRoutes.ForgotPassword)]
+        [Route(WebRoutes.User.ForgotPassword)]
         public ActionResult ForgotPassword()
         {
             return ShowForm();
         }
 
         [HttpPost]
-        [Route(WebRoutes.ForgotPassword)]
+        [Route(WebRoutes.User.ForgotPassword)]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
             try
@@ -38,7 +38,7 @@ namespace Web.Controllers
             return ShowForm(postModel);
         }
 
-        [Route(WebRoutes.ForgotPasswordConfirmation)]
+        [Route(WebRoutes.User.ForgotPasswordConfirmation)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

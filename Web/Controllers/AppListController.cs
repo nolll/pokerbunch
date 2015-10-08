@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class AppListController : BaseController
     {
-        [Route(WebRoutes.UserApps)]
+        [Route(WebRoutes.App.List)]
         public ActionResult Apps()
         {
             var context = GetAppContext();
@@ -17,7 +17,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/AppList/UserApps.cshtml", model);
         }
 
-        [Route(WebRoutes.AllApps)]
+        [Route(WebRoutes.App.All)]
         public ActionResult All()
         {
             var context = GetAppContext();

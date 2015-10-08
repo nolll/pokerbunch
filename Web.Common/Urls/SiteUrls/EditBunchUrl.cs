@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class EditBunchUrl : SlugUrl
     {
         public EditBunchUrl(string slug)
-            : base(WebRoutes.BunchEdit, slug)
+            : base(WebRoutes.Bunch.Edit, slug)
         {
         }
     }

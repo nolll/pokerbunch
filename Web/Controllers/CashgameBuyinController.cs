@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameBuyin)]
+        [Route(WebRoutes.Cashgame.Buyin)]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {
             var request = new Buyin.Request(CurrentUserName, slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);

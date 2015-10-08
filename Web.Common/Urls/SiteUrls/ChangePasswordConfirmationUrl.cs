@@ -5,7 +5,7 @@ namespace Web.Common.Urls.SiteUrls
     public class ChangePasswordConfirmationUrl : SiteUrl
     {
         public ChangePasswordConfirmationUrl()
-            : base(WebRoutes.ChangePasswordConfirmation)
+            : base(WebRoutes.User.ChangePasswordConfirmation)
         {
         }
     }

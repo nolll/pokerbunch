@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class JoinBunchController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.BunchJoin)]
+        [Route(WebRoutes.Bunch.Join)]
         public ActionResult Join(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.BunchJoin)]
+        [Route(WebRoutes.Bunch.Join)]
         public ActionResult Post(string slug, JoinBunchPostModel postModel)
         {
             try
@@ -41,7 +41,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(WebRoutes.BunchJoinConfirmation)]
+        [Route(WebRoutes.Bunch.JoinConfirmation)]
         public ActionResult Joined(string slug)
         {
             var contextResult = GetBunchContext(slug);

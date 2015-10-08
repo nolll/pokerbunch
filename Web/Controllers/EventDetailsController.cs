@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class EventDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.EventDetails)]
+        [Route(WebRoutes.Event.Details)]
         public ActionResult List(int id)
         {
             var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, id));
@@ -24,7 +24,7 @@ namespace Web.Controllers
     public class LocationDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.LocationDetails)]
+        [Route(WebRoutes.Location.Details)]
         public ActionResult List(int id)
         {
             var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(CurrentUserName, id));

@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class EventListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.EventList)]
+        [Route(WebRoutes.Event.List)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class AddBunchController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.BunchAdd)]
+        [Route(WebRoutes.Bunch.Add)]
         public ActionResult Add()
         {
             return ShowForm();
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.BunchAdd)]
+        [Route(WebRoutes.Bunch.Add)]
         public ActionResult Add_Post(AddBunchPostModel postModel)
         {
             try
@@ -40,7 +40,7 @@ namespace Web.Controllers
             return ShowForm(postModel);
         }
 
-        [Route(WebRoutes.BunchAddConfirmation)]
+        [Route(WebRoutes.Bunch.AddConfirmation)]
         public ActionResult Created()
         {
             var contextResult = GetAppContext();

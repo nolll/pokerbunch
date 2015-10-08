@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class EditBunchController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.BunchEdit)]
+        [Route(WebRoutes.Bunch.Edit)]
         public ActionResult Edit(string slug)
         {
             return ShowForm(slug);
@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.BunchEdit)]
+        [Route(WebRoutes.Bunch.Edit)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
             try

@@ -4,84 +4,114 @@ namespace Web.Common.Routes
     {
         public const string Home = "";
 
-        public const string AuthLogin = "auth/login";
-        public const string AuthLogout = "auth/logout";
+        public static class Auth
+        {
+            public const string Login = "auth/login";
+            public const string Logout = "auth/logout";
+        }
 
-        public const string CashgameAdd = "cashgame/add/{slug}";
-        public const string CashgameChart = "cashgame/chart/{slug}";
-        public const string CashgameChartWithYear = CashgameChart + "/{year?}";
-        public const string CashgameDelete = "cashgame/delete/{id}";
-        public const string CashgameDetails = "cashgame/details/{id}";
-        public const string CashgameEdit = "cashgame/edit/{id}";
-        public const string CashgameEnd = "cashgame/end/{slug}";
-        public const string CashgameIndex = "cashgame/index/{slug}";
-        public const string CashgameToplist = "cashgame/toplist/{slug}";
-        public const string CashgameToplistWithYear = CashgameToplist + "/{year?}";
-        public const string CashgameMatrix = "cashgame/matrix/{slug}";
-        public const string CashgameMatrixWithYear = CashgameMatrix + "/{year?}";
-        public const string CashgameList = "cashgame/list/{slug}";
-        public const string CashgameListWithYear = CashgameList + "/{year?}";
-        public const string CashgameFacts = "cashgame/facts/{slug}";
-        public const string CashgameFactsWithYear = CashgameFacts + "/{year?}";
-        public const string CashgameAction = "cashgame/action/{cashgameId}/{playerId}";
-        public const string CashgameBuyin = "cashgame/buyin/{slug}";
-        public const string CashgameReport = "cashgame/report/{slug}";
-        public const string CashgameCashout = "cashgame/cashout/{slug}";
-        public const string RunningCashgame = "cashgame/running/{slug}";
-        public const string RunningCashgameGameJson = "cashgame/runninggamejson/{slug}";
-        public const string RunningCashgamePlayersJson = "cashgame/runningplayersjson/{slug}";
-        public const string CashgameCheckpointDelete = "cashgame/deletecheckpoint/{id}";
-        public const string CashgameCheckpointEdit = "cashgame/editcheckpoint/{id}";
+        public static class Cashgame
+        {
+            public const string Add = "cashgame/add/{slug}";
+            public const string Chart = "cashgame/chart/{slug}";
+            public const string ChartWithYear = Chart + "/{year?}";
+            public const string Delete = "cashgame/delete/{id}";
+            public const string Details = "cashgame/details/{id}";
+            public const string Edit = "cashgame/edit/{id}";
+            public const string End = "cashgame/end/{slug}";
+            public const string Index = "cashgame/index/{slug}";
+            public const string Toplist = "cashgame/toplist/{slug}";
+            public const string ToplistWithYear = Toplist + "/{year?}";
+            public const string Matrix = "cashgame/matrix/{slug}";
+            public const string MatrixWithYear = Matrix + "/{year?}";
+            public const string List = "cashgame/list/{slug}";
+            public const string ListWithYear = List + "/{year?}";
+            public const string Facts = "cashgame/facts/{slug}";
+            public const string FactsWithYear = Facts + "/{year?}";
+            public const string Action = "cashgame/action/{cashgameId}/{playerId}";
+            public const string Buyin = "cashgame/buyin/{slug}";
+            public const string Report = "cashgame/report/{slug}";
+            public const string Cashout = "cashgame/cashout/{slug}";
+            public const string Running = "cashgame/running/{slug}";
+            public const string RunningGameJson = "cashgame/runninggamejson/{slug}";
+            public const string RunningPlayersJson = "cashgame/runningplayersjson/{slug}";
+            public const string CheckpointDelete = "cashgame/deletecheckpoint/{id}";
+            public const string CheckpointEdit = "cashgame/editcheckpoint/{id}";
+        }
 
-        public const string BunchAdd = "bunch/add";
-        public const string BunchAddConfirmation = "bunch/created";
-        public const string BunchDetails = "bunch/details/{slug}";
-        public const string BunchEdit = "bunch/edit/{slug}";
-        public const string BunchJoin = "bunch/join/{slug}";
-        public const string BunchJoinConfirmation = "bunch/joined/{slug}";
-        public const string BunchList = "bunch/list";
+        public static class Bunch
+        {
+            public const string Add = "bunch/add";
+            public const string AddConfirmation = "bunch/created";
+            public const string Details = "bunch/details/{slug}";
+            public const string Edit = "bunch/edit/{slug}";
+            public const string Join = "bunch/join/{slug}";
+            public const string JoinConfirmation = "bunch/joined/{slug}";
+            public const string List = "bunch/list";
+        }
 
-        public const string EventList = "event/list/{slug}";
-        public const string EventDetails = "event/details/{id}";
-        public const string EventAdd = "event/add/{slug}";
-        public const string EventAddConfirmation = "event/created/{slug}";
+        public static class Event
+        {
+            public const string List = "event/list/{slug}";
+            public const string Details = "event/details/{id}";
+            public const string Add = "event/add/{slug}";
+            public const string AddConfirmation = "event/created/{slug}";
+        }
 
-        public const string LocationList = "location/list/{slug}";
-        public const string LocationDetails = "location/details/{id}";
-        public const string LocationEdit = "location/edit/{id}";
-        public const string LocationAdd = "location/add/{slug}";
-        public const string LocationAddConfirmation = "location/created/{slug}";
+        public static class Location
+        {
+            public const string List = "location/list/{slug}";
+            public const string Details = "location/details/{id}";
+            public const string Edit = "location/edit/{id}";
+            public const string Add = "location/add/{slug}";
+            public const string AddConfirmation = "location/created/{slug}";
+        }
 
-        public const string PlayerAdd = "player/add/{slug}";
-        public const string PlayerAddConfirmation = "player/created/{slug}";
-        public const string PlayerDelete = "player/delete/{id}";
-        public const string PlayerDetails = "player/details/{id}";
-        public const string PlayerList = "player/list/{slug}";
-        public const string PlayerInvite = "player/invite/{id}";
-        public const string PlayerInviteConfirmation = "player/invited/{id}";
+        public static class Player
+        {
+            public const string Add = "player/add/{slug}";
+            public const string AddConfirmation = "player/created/{slug}";
+            public const string Delete = "player/delete/{id}";
+            public const string Details = "player/details/{id}";
+            public const string List = "player/list/{slug}";
+            public const string Invite = "player/invite/{id}";
+            public const string InviteConfirmation = "player/invited/{id}";
+        }
 
-        public const string UserAdd = "user/add";
-        public const string UserAddConfirmation = "user/created";
-        public const string UserDetails = "user/details/{userName}";
-        public const string UserEdit = "user/edit/{userName}";
-        public const string UserList = "user/list";
-        public const string ChangePassword = "user/changepassword";
-        public const string ChangePasswordConfirmation = "user/changedpassword";
-        public const string ForgotPassword = "user/forgotpassword";
-        public const string ForgotPasswordConfirmation = "user/passwordsent";
+        public static class User
+        {
+            public const string Add = "user/add";
+            public const string AddConfirmation = "user/created";
+            public const string Details = "user/details/{userName}";
+            public const string Edit = "user/edit/{userName}";
+            public const string List = "user/list";
+            public const string ChangePassword = "user/changepassword";
+            public const string ChangePasswordConfirmation = "user/changedpassword";
+            public const string ForgotPassword = "user/forgotpassword";
+            public const string ForgotPasswordConfirmation = "user/passwordsent";
+        }
 
-        public const string ApiDocs = "api";
+        public static class Api
+        {
+            public const string Docs = "api";
+        }
 
-        public const string UserApps = "apps/list";
-        public const string AllApps = "apps/all";
-        public const string AppDetails = "apps/details/{id}";
-        public const string AppEdit = "apps/edit/{id}";
-        public const string AppAdd = "apps/add";
-        public const string AppAddConfirmation = "apps/added";
+        public static class App
+        {
+            public const string List = "apps/list";
+            public const string All = "apps/all";
+            public const string Details = "apps/details/{id}";
+            public const string Edit = "apps/edit/{id}";
+            public const string Add = "apps/add";
+            public const string AddConfirmation = "apps/added";
+        }
 
-        public const string AdminSendEmail = "admin/sendemail";
-        public const string AdminClearCache = "admin/clearcache";
-        
+        public static class Admin
+        {
+            public const string SendEmail = "admin/sendemail";
+            public const string ClearCache = "admin/clearcache";
+        }
+
         public static class Error
         {
             public const string NotFound = "error/notfound";

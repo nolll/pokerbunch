@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.CashgameCashout)]
+        [Route(WebRoutes.Cashgame.Cashout)]
         public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
         {
             var request = new Cashout.Request(CurrentUserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
