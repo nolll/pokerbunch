@@ -13,6 +13,7 @@ namespace Web.Models.CashgameModels.Details
         public string StartTime { get; private set; }
         public string EndTime { get; private set; }
         public string Location { get; private set; }
+        public string LocationUrl { get; private set; }
         public bool ShowStartTime { get; private set; }
         public bool ShowEndTime { get; private set; }
         public bool EnableEdit { get; private set; }
@@ -30,7 +31,8 @@ namespace Web.Models.CashgameModels.Details
             var showDuration = showStartTime && showEndTime;
             
             Heading = string.Format("Cashgame {0}", date);
-            Location = detailsResult.Location;
+            Location = detailsResult.LocationName;
+            LocationUrl = new LocationDetailsUrl(detailsResult.LocationId).Relative;
             Duration = detailsResult.Duration.String;
 			DurationEnabled = showDuration;
             ShowStartTime = showStartTime;

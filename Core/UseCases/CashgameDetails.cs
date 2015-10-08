@@ -61,7 +61,8 @@ namespace Core.UseCases
             public Time Duration { get; private set; }
             public DateTime? StartTime { get; private set; }
             public DateTime? EndTime { get; private set; }
-            public string Location { get; private set; }
+            public string LocationName { get; private set; }
+            public int LocationId { get; private set; }
             public bool CanEdit { get; private set; }
             public string Slug { get; private set; }
             public int CashgameId { get; private set; }
@@ -72,7 +73,8 @@ namespace Core.UseCases
                 var sortedResults = cashgame.Results.OrderByDescending(o => o.Winnings);
 
                 Date = Date.Parse(cashgame.DateString);
-                Location = location.Name;
+                LocationName = location.Name;
+                LocationId = location.Id;
                 Duration = Time.FromMinutes(cashgame.Duration);
                 StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
                 EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);

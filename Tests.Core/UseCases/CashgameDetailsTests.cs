@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.DateStringA, result.Date.IsoString);
-            Assert.AreEqual(TestData.LocationNameA, result.Location);
+            Assert.AreEqual(TestData.LocationNameA, result.LocationName);
             Assert.AreEqual(62, result.Duration.Minutes);
             Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
