@@ -9,7 +9,7 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlPlayerRepository : IPlayerRepository
     {
-        private const string PlayerDataSql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID ";
+        private const string PlayerDataSql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName, p.Color FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID ";
         private const string PlayerIdSql = "SELECT p.PlayerID FROM player p ";
 
 	    private readonly SqlServerStorageProvider _db;
@@ -83,23 +83,25 @@ namespace Infrastructure.Storage.Repositories
         {
             if (player.IsUser)
             {
-                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved) VALUES (@homegameId, @userId, @role, 1) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved, Color) VALUES (@homegameId, @userId, @role, 1, @color) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
                 var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@homegameId", player.BunchId),
                     new SimpleSqlParameter("@userId", player.UserId),
-                    new SimpleSqlParameter("@role", player.Role)
+                    new SimpleSqlParameter("@role", player.Role),
+                    new SimpleSqlParameter("@color", player.Color)
                 };
                 return _db.ExecuteInsert(sql, parameters);
             }
             else
             {
-                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName) VALUES (@homegameId, @role, 1, @playerName) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName, Color) VALUES (@homegameId, @role, 1, @playerName, @color) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
                 var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@homegameId", player.BunchId),
                     new SimpleSqlParameter("@role", (int)Role.Player),
-                    new SimpleSqlParameter("@playerName", player.DisplayName)
+                    new SimpleSqlParameter("@playerName", player.DisplayName),
+                    new SimpleSqlParameter("@color", player.Color)
                 };
                 return _db.ExecuteInsert(sql, parameters);
             }
@@ -136,7 +138,8 @@ namespace Infrastructure.Storage.Repositories
                 rawPlayer.Id,
                 rawPlayer.UserId,
                 rawPlayer.DisplayName,
-                (Role)rawPlayer.Role);
+                (Role)rawPlayer.Role,
+                rawPlayer.Color);
         }
 
         private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
@@ -146,7 +149,8 @@ namespace Infrastructure.Storage.Repositories
                 reader.GetIntValue("PlayerID"),
                 reader.GetIntValue("UserID"),
                 reader.GetStringValue("PlayerName"),
-                reader.GetIntValue("RoleID"));
+                reader.GetIntValue("RoleID"),
+                reader.GetStringValue("Color"));
         }
 	}
 }

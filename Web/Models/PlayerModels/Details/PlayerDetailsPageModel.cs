@@ -18,6 +18,7 @@ namespace Web.Models.PlayerModels.Details
         public AvatarModel AvatarModel { get; private set; }
         public PlayerFactsModel PlayerFactsModel { get; private set; }
         public BadgeListModel BadgeListModel { get; private set; }
+        public string Color { get; private set; }
 
         public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
             : base("Player Details", contextResult)
@@ -31,6 +32,7 @@ namespace Web.Models.PlayerModels.Details
             InvitationUrl = new InvitePlayerUrl(detailsResult.PlayerId).Relative;
             BadgeListModel = new BadgeListModel(badgesResult);
             PlayerFactsModel = new PlayerFactsModel(factsResult);
+            Color = detailsResult.Color;
         }
     }
 }

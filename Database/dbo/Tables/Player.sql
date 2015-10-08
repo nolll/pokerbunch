@@ -5,6 +5,7 @@
     [RoleId]     INT           NOT NULL,
     [Approved]   BIT           DEFAULT ((0)) NOT NULL,
     [PlayerName] NVARCHAR (50) NULL,
+    [Color] NVARCHAR(10) NULL  , 
     PRIMARY KEY CLUSTERED ([PlayerId] ASC)
 );
 

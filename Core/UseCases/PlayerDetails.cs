@@ -54,6 +54,7 @@ namespace Core.UseCases
             public string UserName { get; private set; }
             public string AvatarUrl { get; private set; }
             public string Slug { get; private set; }
+            public string Color { get; private set; }
 
             public Result(Bunch bunch, Player player, User user, bool isManager, bool hasPlayed, string avatarUrl)
             {
@@ -65,6 +66,7 @@ namespace Core.UseCases
                 IsUser = isUser;
                 UserName = isUser ? user.UserName : string.Empty;
                 AvatarUrl = avatarUrl;
+                Color = player.Color;
                 Slug = bunch.Slug;
             }
         }

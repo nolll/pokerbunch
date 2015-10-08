@@ -61,11 +61,13 @@ namespace Core.UseCases
         {
             public string Name { get; private set; }
             public int Id { get; private set; }
+            public string Color { get; set; }
 
             public PlayerListItem(Player player)
             {
                 Name = player.DisplayName;
                 Id = player.Id;
+                Color = player.Color;
             }
         }
     }

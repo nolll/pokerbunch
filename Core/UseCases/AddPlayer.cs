@@ -37,7 +37,7 @@ namespace Core.UseCases
             if(player != null)
                 throw new PlayerExistsException();
 
-            player = new Player(bunch.Id, request.Name, Role.Player);
+            player = new Player(bunch.Id, request.Name, Role.Player, "#9e9e9e");
             _playerService.Add(player);
 
             return new Result(bunch.Slug);
