@@ -35,7 +35,7 @@ namespace Core.UseCases
             var lastGame = cashgames.Last();
             var items = CreateItems(bunch, suite, lastGame);
 
-            return new Result(items);
+            return new Result(items, lastGame.Id);
         }
         
         private IEnumerable<Item> CreateItems(Bunch bunch, CashgameSuite suite, Cashgame lastGame)
@@ -66,10 +66,12 @@ namespace Core.UseCases
         public class Result
         {
             public IList<Item> Items { get; private set; }
+            public int LastGameId { get; private set; }
 
-            public Result(IEnumerable<Item> items)
+            public Result(IEnumerable<Item> items, int lastGameId)
             {
                 Items = items.ToList();
+                LastGameId = lastGameId;
             }
         }
 
