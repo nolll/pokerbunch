@@ -11,13 +11,15 @@ namespace Core.UseCases
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly LocationService _locationService;
+        private readonly EventService _eventService;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
+        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService, EventService eventService)
         {
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
             _locationService = locationService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
@@ -33,6 +35,11 @@ namespace Core.UseCases
             var location = _locationService.Get(request.LocationId);
             cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);
+
+            if (request.EventId > 0)
+            {
+                _eventService.AddCashgame(request.EventId, cashgame.Id);
+            }
             
             return new Result(cashgame.Id);
         }
@@ -41,7 +48,7 @@ namespace Core.UseCases
         {
             public string UserName { get; private set; }
             public int Id { get; private set; }
-            [Range(1, int.MaxValue, ErrorMessage = "Please a location")]
+            [Range(1, int.MaxValue, ErrorMessage = "Please select a location")]
             public int LocationId { get; private set; }
             public int EventId { get; private set; }
 

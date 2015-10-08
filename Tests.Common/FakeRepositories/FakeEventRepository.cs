@@ -42,6 +42,11 @@ namespace Tests.Common.FakeRepositories
             return 1;
         }
 
+        public void AddCashgame(int eventId, int cashgameId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private IList<Event> CreateEventList()
         {
             return new List<Event>

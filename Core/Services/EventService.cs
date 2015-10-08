@@ -35,5 +35,10 @@ namespace Core.Services
         {
             return _eventRepository.Add(e);
         }
+
+        public void AddCashgame(int eventId, int cashgameId)
+        {
+            _eventRepository.AddCashgame(eventId, cashgameId);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Core.Repositories
         IList<int> FindByBunchId(int bunchId);
         IList<int> FindByCashgameId(int cashgameId);
         int Add(Event e);
+        void AddCashgame(int eventId, int cashgameId);
     }
 }

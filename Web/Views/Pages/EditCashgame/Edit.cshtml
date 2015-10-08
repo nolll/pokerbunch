@@ -18,12 +18,12 @@
 				@Model.IsoDate
 			</p>
             <p>
-                @Html.LabelFor(model => model.SelectedLocation, "Location", new { @class = "label" })
-                @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations)
+                @Html.LabelFor(model => model.LocationId, "Location", new { @class = "label" })
+                @Html.DropDownListFor(x => x.LocationId, Model.Locations)
             </p>
             <p>
-                @Html.LabelFor(model => model.SelectedEvent, "Event", new { @class = "label" })
-                @Html.DropDownListFor(x => x.SelectedEvent, Model.Events)
+                @Html.LabelFor(model => model.EventId, "Event", new { @class = "label" })
+                @Html.DropDownListFor(x => x.EventId, Model.Events)
             </p>
         </fieldset>
         <div class="buttons">

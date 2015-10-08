@@ -58,8 +58,8 @@ namespace Web.Common
         public CashgameDetailsChart CashgameDetailsChart { get { return new CashgameDetailsChart(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService); } }
         public CashgameFacts CashgameFacts { get { return new CashgameFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService); } }
         public CashgameList CashgameList { get { return new CashgameList(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
-        public AddCashgameForm AddCashgameForm { get { return new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
-        public AddCashgame AddCashgame { get { return new AddCashgame(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
+        public AddCashgameForm AddCashgameForm { get { return new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService); } }
+        public AddCashgame AddCashgame { get { return new AddCashgame(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService); } }
         public Actions Actions { get { return new Actions(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService); } }
         public ActionsChart ActionsChart { get { return new ActionsChart(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService); } }
         public EditCheckpointForm EditCheckpointForm { get { return new EditCheckpointForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService); } }
@@ -68,7 +68,7 @@ namespace Web.Common
         public Matrix Matrix { get { return new Matrix(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.EventService); } }
         public RunningCashgame RunningCashgame { get { return new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.LocationService); } }
         public EditCashgameForm EditCashgameForm { get { return new EditCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService); } }
-        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
+        public EditCashgame EditCashgame { get { return new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService); } }
         public DeleteCashgame DeleteCashgame { get { return new DeleteCashgame(_deps.CashgameService, _deps.BunchService, _deps.UserService, _deps.PlayerService); } }
         public DeleteCheckpoint DeleteCheckpoint { get { return new DeleteCheckpoint(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService); } }
         public Buyin Buyin { get { return new Buyin(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService); } }

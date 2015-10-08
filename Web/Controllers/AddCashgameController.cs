@@ -22,7 +22,7 @@ namespace Web.Controllers
         [Route(WebRoutes.CashgameAdd)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
-            var request = new AddCashgame.Request(CurrentUserName, slug, postModel.LocationId);
+            var request = new AddCashgame.Request(CurrentUserName, slug, postModel.LocationId, postModel.EventId);
 
             try
             {

@@ -12,14 +12,16 @@ namespace Core.UseCases
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly LocationService _locationService;
+        private readonly EventService _eventService;
 
-        public AddCashgame(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService)
+        public AddCashgame(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService, EventService eventService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
             _locationService = locationService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
@@ -37,6 +39,11 @@ namespace Core.UseCases
             var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);
             var cashgameId = _cashgameService.AddGame(bunch, cashgame);
 
+            if (request.EventId > 0)
+            {
+                _eventService.AddCashgame(request.EventId, cashgameId);
+            }
+
             return new Result(request.Slug, cashgameId);
         }
 
@@ -44,14 +51,16 @@ namespace Core.UseCases
         {
             public string UserName { get; private set; }
             public string Slug { get; private set; }
-            [Range(1, int.MaxValue, ErrorMessage = "Please a location")]
+            [Range(1, int.MaxValue, ErrorMessage = "Please select a location")]
             public int LocationId { get; private set; }
+            public int EventId { get; private set; }
 
-            public Request(string userName, string slug, int locationId)
+            public Request(string userName, string slug, int locationId, int eventId)
             {
                 UserName = userName;
                 Slug = slug;
                 LocationId = locationId;
+                EventId = eventId;
             }
         }
 

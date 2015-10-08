@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
@@ -10,20 +11,33 @@ namespace Web.Models.CashgameModels.Add
     {
         public IEnumerable<SelectListItem> Locations { get; private set; }
         public int LocationId { get; private set; }
+        public IEnumerable<SelectListItem> Events { get; private set; }
+        public int EventId { get; private set; }
 
         public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
-            : base("New Cashgame", contextResult)
+            : base("Start Cashgame", contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);
+            Events = GetEventListItems(formResult.Events);
             if (postModel == null) return;
             LocationId = postModel.LocationId;
+            EventId = postModel.EventId;
         }
 
-        private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<string> locations)
+        private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<AddCashgameForm.LocationItem> locations)
         {
-            var listItems = locations.Select(l => new SelectListItem { Text = l, Value = l });
+            var listItems = locations.Select(o => new SelectListItem { Text = o.Name, Value = o.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
             var firstItem = new SelectListItem { Text = "Select Location", Value = "" };
-            return new List<SelectListItem> { firstItem }.Concat(listItems);
+            listItems.Insert(0, firstItem);
+            return listItems;
+        }
+
+        private IEnumerable<SelectListItem> GetEventListItems(IEnumerable<AddCashgameForm.EventItem> locations)
+        {
+            var listItems = locations.Select(o => new SelectListItem { Text = o.Name, Value = o.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
+            var firstItem = new SelectListItem { Text = "No Event", Value = "" };
+            listItems.Insert(0, firstItem);
+            return listItems;
         }
     }
 }

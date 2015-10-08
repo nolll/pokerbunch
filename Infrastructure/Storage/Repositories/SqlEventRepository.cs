@@ -81,6 +81,17 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
 
+        public void AddCashgame(int eventId, int cashgameId)
+        {
+            const string sql = "INSERT INTO eventcashgame (EventId, GameId) VALUES (@eventId, @cashgameId)";
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@eventId", eventId),
+                    new SimpleSqlParameter("@cashgameId", cashgameId)
+                };
+            _db.ExecuteInsert(sql, parameters);
+        }
+
         private static Event CreateEvent(RawEvent rawEvent)
         {
             return new Event(

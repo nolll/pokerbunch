@@ -44,7 +44,8 @@ namespace Tests.Core.UseCases
                     Services.CashgameService,
                     Services.UserService,
                     Services.PlayerService,
-                    Services.LocationService);
+                    Services.LocationService,
+                    Services.EventService);
             }
         }
     }

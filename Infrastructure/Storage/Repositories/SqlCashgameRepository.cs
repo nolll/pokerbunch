@@ -138,7 +138,7 @@ namespace Infrastructure.Storage.Repositories
 		public int AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
-            const string sql = "INSERT INTO game (HomegameID, Location, LocationId, Status, Date) VALUES (@homegameId, '', @locationId, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO game (HomegameID, LocationId, Status, Date) VALUES (@homegameId, @locationId, @status, @date) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var timezoneAdjustedDate = TimeZoneInfo.ConvertTime(rawCashgame.Date, bunch.Timezone);
             var parameters = new List<SimpleSqlParameter>
                 {

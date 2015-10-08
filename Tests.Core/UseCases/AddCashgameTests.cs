@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
 
         private static AddCashgame.Request CreateRequest(int locationId = TestData.LocationIdA)
         {
-            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId);
+            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId, 0);
         }
 
         private AddCashgame Sut
@@ -54,7 +54,8 @@ namespace Tests.Core.UseCases
                     Services.CashgameService,
                     Services.UserService,
                     Services.PlayerService,
-                    Services.LocationService);
+                    Services.LocationService,
+                    Services.EventService);
             }
         }
     }
