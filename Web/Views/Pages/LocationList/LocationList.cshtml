@@ -1,0 +1,28 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.LocationModels.List.LocationListPageModel
+
+@{
+    Layout = PageLayout.TwoColumns;
+}
+
+<div class="block gutter">
+    <h1 class="page-heading">Locations</h1>
+</div>
+<div class="block gutter">
+
+    <ul class="simple-list">
+        @foreach (var locationModel in Model.LocationModels)
+        {
+            <li class="simple-list__item">
+                @Html.Partial("LocationList/Item", locationModel)
+            </li>
+        }
+    </ul>
+</div>
+
+@section Aside1
+{
+    <div class="block gutter">
+        <a href="@Model.AddUrl" class="button button--action">Add Location</a>
+    </div>
+}

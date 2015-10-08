@@ -50,6 +50,11 @@ namespace Web.Common
         public EventDetails EventDetails { get { return new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchService); } }
         public AddEvent AddEvent { get { return new AddEvent(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.EventService); } }
 
+        // Locations
+        public LocationList LocationList { get { return new LocationList(_deps.BunchService, _deps.UserService, _deps.PlayerService, _deps.LocationService); } }
+        public LocationDetails LocationDetails { get { return new LocationDetails(_deps.LocationService, _deps.UserService, _deps.PlayerService, _deps.BunchService);} }
+        public AddLocation AddLocation { get { return new AddLocation(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.LocationService); } }
+
         // Cashgame
         public CashgameStatus CashgameStatus { get { return new CashgameStatus(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService); } }
         public TopList TopList { get { return new TopList(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService); } }

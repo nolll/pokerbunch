@@ -13,6 +13,8 @@ namespace Web.Models.CashgameModels.Edit
         public string IsoDate { get; private set; }
         public string CancelUrl { get; private set; }
         public string DeleteUrl { get; private set; }
+        public string AddLocationUrl { get; private set; }
+        public string AddEventUrl { get; private set; }
         public IList<SelectListItem> Locations { get; private set; }
         public int LocationId { get; private set; }
         public IList<SelectListItem> Events { get; private set; }
@@ -24,6 +26,8 @@ namespace Web.Models.CashgameModels.Edit
             IsoDate = editCashgameFormResult.Date;
             CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.CashgameId).Relative;
             DeleteUrl = new DeleteCashgameUrl(editCashgameFormResult.CashgameId).Relative;
+            AddLocationUrl = new AddLocationUrl(editCashgameFormResult.Slug).Relative;
+            AddEventUrl = new AddEventUrl(editCashgameFormResult.Slug).Relative;
             LocationId = editCashgameFormResult.LocationId;
             Locations = editCashgameFormResult.Locations.Select(o => new SelectListItem { Text = o.Name, Value = o.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
             Locations.Insert(0, new SelectListItem{Text = "Select Location", Value = "0"});

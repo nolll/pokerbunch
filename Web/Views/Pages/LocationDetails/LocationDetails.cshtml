@@ -1,0 +1,17 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.LocationModels.Details.LocationDetailsPageModel
+
+@{
+    Layout = PageLayout.TwoColumns;
+}
+
+<div class="block gutter">
+    <h1 class="page-heading">@Model.Name</h1>
+</div>
+
+@section Aside1
+{
+    @*<div class="block gutter">
+        <a href="@Model.EditUrl" class="button button--action">Edit Location</a>
+    </div>*@
+}

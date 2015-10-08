@@ -5,19 +5,19 @@ using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
-    public class AddEvent
+    public class AddLocation
     {
         private readonly BunchService _bunchService;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
-        private readonly EventService _eventService;
+        private readonly LocationService _locationService;
 
-        public AddEvent(BunchService bunchService, PlayerService playerService, UserService userService, EventService eventService)
+        public AddLocation(BunchService bunchService, PlayerService playerService, UserService userService, LocationService locationService)
         {
             _bunchService = bunchService;
             _playerService = playerService;
             _userService = userService;
-            _eventService = eventService;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
@@ -32,8 +32,8 @@ namespace Core.UseCases
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequirePlayer(currentUser, currentPlayer);
 
-            var e = new Event(0, bunch.Id, request.Name);
-            _eventService.Add(e);
+            var location = new Location(0, request.Name, bunch.Id);
+            _locationService.Add(location);
 
             return new Result(bunch.Slug);
         }

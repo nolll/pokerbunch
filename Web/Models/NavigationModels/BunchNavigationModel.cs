@@ -10,6 +10,7 @@ namespace Web.Models.NavigationModels
         public string CashgameUrl { get; private set; }
         public string PlayerUrl { get; private set; }
         public string EventUrl { get; private set; }
+        public string LocationUrl { get; private set; }
         public bool IsEmpty { get; private set; }
 
         protected BunchNavigationModel()
@@ -25,6 +26,7 @@ namespace Web.Models.NavigationModels
             CashgameUrl = new CashgameIndexUrl(bunchContextResult.Slug).Relative;
             PlayerUrl = new PlayerIndexUrl(bunchContextResult.Slug).Relative;
             EventUrl = new EventListUrl(bunchContextResult.Slug).Relative;
+            LocationUrl = new LocationListUrl(bunchContextResult.Slug).Relative;
         }
 
         public static BunchNavigationModel Empty

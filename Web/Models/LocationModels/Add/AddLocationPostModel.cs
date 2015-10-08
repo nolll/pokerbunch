@@ -1,8 +1,8 @@
 using Web.Annotations;
 
-namespace Web.Models.EventModels.Add
+namespace Web.Models.LocationModels.Add
 {
-    public class AddEventPostModel
+    public class AddLocationPostModel
     {
         public string Name { get; [UsedImplicitly] set; }
     }

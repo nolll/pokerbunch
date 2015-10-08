@@ -146,6 +146,7 @@
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddEventController.cs" />
+    <Compile Include="Controllers\AddLocationController.cs" />
     <Compile Include="Controllers\AddPlayerController.cs" />
     <Compile Include="Controllers\AddAppController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\LocationListController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MatrixController.cs" />
@@ -230,6 +232,12 @@
     <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
     <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListModel.cs" />
+    <Compile Include="Models\LocationModels\Add\AddLocationConfirmationPageModel.cs" />
+    <Compile Include="Models\LocationModels\Add\AddLocationPageModel.cs" />
+    <Compile Include="Models\LocationModels\Add\AddLocationPostModel.cs" />
+    <Compile Include="Models\LocationModels\Details\LocationDetailsPageModel.cs" />
+    <Compile Include="Models\LocationModels\List\LocationListItemModel.cs" />
+    <Compile Include="Models\LocationModels\List\LocationListPageModel.cs" />
     <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
@@ -424,6 +432,11 @@
     <Content Include="Views\Pages\ApiDocs\ApiDocs.cshtml" />
     <Content Include="Views\Pages\AddEvent\Add.cshtml" />
     <Content Include="Views\Pages\AddEvent\AddConfirmation.cshtml" />
+    <Content Include="Views\Pages\AddLocation\Add.cshtml" />
+    <Content Include="Views\Pages\AddLocation\AddConfirmation.cshtml" />
+    <Content Include="Views\Pages\LocationList\LocationList.cshtml" />
+    <Content Include="Views\Pages\LocationList\Item.cshtml" />
+    <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

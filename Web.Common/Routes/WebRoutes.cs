@@ -46,6 +46,12 @@ namespace Web.Common.Routes
         public const string EventAdd = "event/add/{slug}";
         public const string EventAddConfirmation = "event/created/{slug}";
 
+        public const string LocationList = "location/list/{slug}";
+        public const string LocationDetails = "location/details/{id}";
+        public const string LocationEdit = "location/edit/{id}";
+        public const string LocationAdd = "location/add/{slug}";
+        public const string LocationAddConfirmation = "location/created/{slug}";
+
         public const string PlayerAdd = "player/add/{slug}";
         public const string PlayerAddConfirmation = "player/created/{slug}";
         public const string PlayerDelete = "player/delete/{id}";

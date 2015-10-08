@@ -55,6 +55,8 @@
     <Compile Include="Urls\SiteUrls\AddCashgameUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddEventConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddEventUrl.cs" />
+    <Compile Include="Urls\SiteUrls\AddLocationConfirmationUrl.cs" />
+    <Compile Include="Urls\SiteUrls\AddLocationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddPlayerConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddPlayerUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddUserConfirmationUrl.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Urls\SiteUrls\EditBunchUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditCashgameUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditCheckpointUrl.cs" />
+    <Compile Include="Urls\SiteUrls\EditLocationUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditUserUrl.cs" />
     <Compile Include="Urls\SiteUrls\EndCashgameUrl.cs" />
     <Compile Include="Urls\SiteUrls\EventDetailsUrl.cs" />
@@ -100,6 +103,8 @@
     <Compile Include="Urls\SiteUrls\JoinBunchConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\JoinBunchUrl.cs" />
     <Compile Include="Urls\SiteUrls\ListUrl.cs" />
+    <Compile Include="Urls\SiteUrls\LocationDetailsUrl.cs" />
+    <Compile Include="Urls\SiteUrls\LocationListUrl.cs" />
     <Compile Include="Urls\SiteUrls\LoginUrl.cs" />
     <Compile Include="Urls\SiteUrls\LogoutUrl.cs" />
     <Compile Include="Urls\SiteUrls\MatrixUrl.cs" />

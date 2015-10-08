@@ -20,10 +20,12 @@
             <p>
                 @Html.LabelFor(model => model.LocationId, "Location", new { @class = "label" })
                 @Html.DropDownListFor(x => x.LocationId, Model.Locations)
+                <a href="@Model.AddLocationUrl">Add new location</a>
             </p>
             <p>
                 @Html.LabelFor(model => model.EventId, "Event", new { @class = "label" })
                 @Html.DropDownListFor(x => x.EventId, Model.Events)
+                <a href="@Model.AddEventUrl">Add new event</a>
             </p>
         </fieldset>
         <div class="buttons">

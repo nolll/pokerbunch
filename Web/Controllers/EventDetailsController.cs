@@ -3,6 +3,7 @@ using Core.UseCases;
 using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.EventModels.Details;
+using Web.Models.LocationModels.Details;
 
 namespace Web.Controllers
 {
@@ -17,6 +18,19 @@ namespace Web.Controllers
             var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(CurrentUserName, id));
             var model = new EventDetailsPageModel(contextResult, eventDetails, matrixResult);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
+        }
+    }
+
+    public class LocationDetailsController : BaseController
+    {
+        [Authorize]
+        [Route(WebRoutes.LocationDetails)]
+        public ActionResult List(int id)
+        {
+            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(CurrentUserName, id));
+            var contextResult = GetBunchContext(locationDetails.Slug);
+            var model = new LocationDetailsPageModel(contextResult, locationDetails);
+            return View("~/Views/Pages/LocationDetails/LocationDetails.cshtml", model);
         }
     }
 }
