@@ -1,5 +1,5 @@
 define([
-    'knockout-raw', 'linechart2', 'moment'
+    'knockout-raw', 'linechart', 'moment'
 ], function (ko, lineChart, moment) {
     ko.bindingHandlers.gameChart = {
         init: function(element) {
@@ -20,12 +20,22 @@ define([
     };
 
     function getGameChartData(players) {
-        var data = {
+        return {
+            colors: getColors(players),
             cols: getColumns(players),
             rows: getRows(players),
             p: null
         };
-        return data;
+    }
+
+    function getColors(players) {
+        var i, p,
+            colors = [];
+        for (i = 0; i < players.length; i++) {
+            p = players[i];
+            colors.push(p.color);
+        }
+        return colors;
     }
 
     function getColumns(players) {

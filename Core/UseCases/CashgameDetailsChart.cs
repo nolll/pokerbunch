@@ -62,7 +62,7 @@ namespace Core.UseCases
                     var timestamp = TimeZoneInfo.ConvertTime(now, bunch.Timezone);
                     resultItems.Add(new ResultItem(timestamp, result.Winnings));
                 }
-                playerItems.Add(new PlayerItem(player.Id, player.DisplayName, resultItems));
+                playerItems.Add(new PlayerItem(player.Id, player.DisplayName, player.Color, resultItems));
             }
             return playerItems;
         }
@@ -95,12 +95,14 @@ namespace Core.UseCases
         {
             public int Id { get; private set; }
             public string Name { get; private set; }
+            public string Color { get; private set; }
             public IList<ResultItem> Results { get; private set; }
 
-            public PlayerItem(int id, string name, IList<ResultItem> results)
+            public PlayerItem(int id, string name, string color, IList<ResultItem> results)
             {
                 Id = id;
                 Name = name;
+                Color = color;
                 Results = results;
             }
         }

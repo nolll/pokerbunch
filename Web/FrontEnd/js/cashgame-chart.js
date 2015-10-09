@@ -9,7 +9,8 @@ define(['linechart'],
                     position: 'none'
                 }
             };
-            return lineChart.init(this, config);
+            var chart = lineChart.init(this, config);
+            chart.loadAndDraw();
         }
 
         return {

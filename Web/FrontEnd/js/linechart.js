@@ -2,24 +2,20 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
     function ($) {
         "use strict";
 
-        function LineChart(el, config, data){
+        function LineChart(el, config){
             var me = this;
                 me.el = el;
                 me.$el = $(el);
             this.chart = new google.visualization.LineChart(el);
             this.config = this.configure(config);
-            if(data != null){
-                this.data = data;
-                this.draw();
-            } else {
-                this.loadDataAndDraw();
-            }
             $(window).on("debouncedresize", function( event ) {
                 me.draw();
             });
         }
 
-        LineChart.prototype.draw = function () {
+        LineChart.prototype.draw = function (data) {
+            if (data)
+                this.data = data;
             var width = this.$el.width(),
                 height = width / 2;
             this.config.width = width;
@@ -71,8 +67,8 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
             }
         }
 
-        function init(el, config, data) {
-            return new LineChart(el, config, data);
+        function init(el, config) {
+            return new LineChart(el, config);
         }
 
         return {

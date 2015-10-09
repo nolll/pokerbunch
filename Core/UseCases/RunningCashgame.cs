@@ -73,7 +73,7 @@ namespace Core.UseCases
                 var playerId = result.PlayerId;
                 var player = players.First(o => o.Id == playerId);
                 var hasCheckedOut = result.CashoutCheckpoint != null;
-                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, cashgame.Id, hasCheckedOut, result.Checkpoints);
+                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, player.Color, cashgame.Id, hasCheckedOut, result.Checkpoints);
                 items.Add(item);
             }
 
@@ -160,6 +160,7 @@ namespace Core.UseCases
         {
             public int PlayerId { get; private set; }
             public string Name { get; private set; }
+            public string Color { get; private set; }
             public int CashgameId { get; private set; }
             public bool HasCashedOut { get; private set; }
             public int Buyin { get; private set; }
@@ -168,10 +169,11 @@ namespace Core.UseCases
             public DateTime LastReport { get; set; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }
 
-            public RunningCashgamePlayerItem(int playerId, string name, int cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
+            public RunningCashgamePlayerItem(int playerId, string name, string color, int cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
             {
                 PlayerId = playerId;
                 Name = name;
+                Color = color;
                 CashgameId = cashgameId;
                 HasCashedOut = hasCashedOut;
                 var list = checkpoints.ToList();

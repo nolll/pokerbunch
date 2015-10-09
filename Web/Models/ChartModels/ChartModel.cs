@@ -22,7 +22,7 @@ namespace Web.Models.ChartModels
         [JsonProperty("p")]
         public string P { get; private set; }
 
-	    protected ChartModel(IList<ChartColumnModel> columns, IList<ChartRowModel> rows, IList<string> colors)
+	    protected ChartModel(IList<ChartColumnModel> columns, IList<ChartRowModel> rows, IList<string> colors = null)
 	    {
 	        Colors = colors;
             Columns = columns;

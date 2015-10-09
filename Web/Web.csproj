@@ -552,7 +552,6 @@
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\knockout-extended.js" />
-    <Content Include="FrontEnd\js\linechart2.js" />
     <Content Include="FrontEnd\js\require.config.js" />
     <Content Include="FrontEnd\js\require.loader.dev.js" />
     <Content Include="FrontEnd\js\running-cashgame.js" />

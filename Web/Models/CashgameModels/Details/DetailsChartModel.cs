@@ -12,8 +12,13 @@ namespace Web.Models.CashgameModels.Details
             : base(
             GetColumns(cashgameDetailsChartResult.PlayerItems),
             GetRows(cashgameDetailsChartResult.PlayerItems),
-            null)
+            GetColors(cashgameDetailsChartResult.PlayerItems))
         {
+        }
+
+        private static IList<string> GetColors(IList<CashgameDetailsChart.PlayerItem> playerItems)
+        {
+            return playerItems.Select(o => o.Color).ToList();
         }
 
         private static IList<ChartRowModel> GetRows(IList<CashgameDetailsChart.PlayerItem> playerItems)

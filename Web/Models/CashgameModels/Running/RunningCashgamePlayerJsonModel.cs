@@ -18,6 +18,9 @@ namespace Web.Models.CashgameModels.Running
         public string Url { get; private set; }
 
         [UsedImplicitly]
+        public string Color { get; private set; }
+
+        [UsedImplicitly]
         public bool HasCashedOut { get; private set; }
 
         [UsedImplicitly]
@@ -28,6 +31,7 @@ namespace Web.Models.CashgameModels.Running
             Id = item.PlayerId;
             Name = item.Name;
             Url = new CashgameActionUrl(item.CashgameId, item.PlayerId).Relative;
+            Color = item.Color;
             HasCashedOut = item.HasCashedOut;
             Checkpoints = item.Checkpoints.Select(o => new RunningCashgameCheckpointJsonModel(o)).ToList();
         }

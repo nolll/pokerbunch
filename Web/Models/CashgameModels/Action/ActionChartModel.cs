@@ -10,12 +10,11 @@ namespace Web.Models.CashgameModels.Action
         public ActionChartModel(ActionsChart.Result actionsChartResult)
             : base(
             GetActionColumns(),
-            GetRowsNew(actionsChartResult.CheckpointItems),
-            null)
+            GetRows(actionsChartResult.CheckpointItems))
         {
         }
 
-        private static IList<ChartRowModel> GetRowsNew(IEnumerable<ActionsChart.CheckpointItem> checkpointItems)
+        private static IList<ChartRowModel> GetRows(IEnumerable<ActionsChart.CheckpointItem> checkpointItems)
         {
             var rowModels = new List<ChartRowModel>();
             foreach (var item in checkpointItems)
