@@ -10,7 +10,8 @@ namespace Web.Models.CashgameModels.Action
         public ActionChartModel(ActionsChart.Result actionsChartResult)
             : base(
             GetActionColumns(),
-            GetRowsNew(actionsChartResult.CheckpointItems))
+            GetRowsNew(actionsChartResult.CheckpointItems),
+            null)
         {
         }
 

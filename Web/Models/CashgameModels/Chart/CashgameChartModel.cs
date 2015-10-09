@@ -10,9 +10,15 @@ namespace Web.Models.CashgameModels.Chart
     {
         public CashgameChartModel(CashgameChart.Result cashgameChartResult)
             : base(
-                GetColumnModels(cashgameChartResult.PlayerItems),
-                GetRowModels(cashgameChartResult.GameItems, cashgameChartResult.PlayerItems))
+            GetColumnModels(cashgameChartResult.PlayerItems),
+            GetRowModels(cashgameChartResult.GameItems, cashgameChartResult.PlayerItems),
+            GetColors(cashgameChartResult.PlayerItems))
         {
+        }
+
+        private static IList<string> GetColors(IList<CashgameChart.PlayerItem> playerItems)
+        {
+            return playerItems.Select(o => o.Color).ToList();
         }
 
         private static IList<ChartRowModel> GetRowModels(IList<CashgameChart.GameItem> gameItems, IList<CashgameChart.PlayerItem> playerItems)

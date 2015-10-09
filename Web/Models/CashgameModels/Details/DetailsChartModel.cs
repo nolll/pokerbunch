@@ -11,7 +11,8 @@ namespace Web.Models.CashgameModels.Details
         public DetailsChartModel(CashgameDetailsChart.Result cashgameDetailsChartResult)
             : base(
             GetColumns(cashgameDetailsChartResult.PlayerItems),
-            GetRows(cashgameDetailsChartResult.PlayerItems))
+            GetRows(cashgameDetailsChartResult.PlayerItems),
+            null)
         {
         }
 

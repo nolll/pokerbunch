@@ -39,7 +39,7 @@ namespace Core.UseCases
 
         private static IList<PlayerItem> GetPlayerItems(IEnumerable<CashgameTotalResult> results)
         {
-            return results.Select(result => new PlayerItem(result.Player.Id, result.Player.DisplayName)).ToList();
+            return results.Select(result => new PlayerItem(result.Player.Id, result.Player.DisplayName, result.Player.Color)).ToList();
         }
 
         private static IList<GameItem> GetGameItems(IList<Cashgame> cashgames, IList<CashgameTotalResult> results)
@@ -116,11 +116,13 @@ namespace Core.UseCases
         {
             public int Id { get; private set; }
             public string Name { get; private set; }
+            public string Color { get; private set; }
 
-            public PlayerItem(int id, string name)
+            public PlayerItem(int id, string name, string color)
             {
                 Id = id;
                 Name = name;
+                Color = color;
             }
         }
     }

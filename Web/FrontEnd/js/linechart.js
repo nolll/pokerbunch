@@ -19,12 +19,16 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
             });
         }
 
-        LineChart.prototype.draw = function(){
+        LineChart.prototype.draw = function () {
             var width = this.$el.width(),
                 height = width / 2;
             this.config.width = width;
             this.config.height = height;
-            this.chart.draw(this.data, this.config);
+            if (!this.config.colors && this.data.colors) {
+                this.config.colors = this.data.colors;
+            }
+            var chartData = new google.visualization.DataTable(this.data);
+            this.chart.draw(chartData, this.config);
         }
 
         LineChart.prototype.configure = function(config){
@@ -54,7 +58,7 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
                     dataType: 'json',
                     url: url,
                     success: function(loadedData) {
-                        me.data = new google.visualization.DataTable(loadedData);
+                        me.data = loadedData;
                         me.draw();
                     },
                     error: function() {
@@ -62,8 +66,7 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
                     }
                 });
             } else {
-                var data = JSON.parse(me.$el.find('[type="application/json"]').html());
-                me.data = new google.visualization.DataTable(data);
+                me.data = JSON.parse(me.$el.find('[type="application/json"]').html());
                 me.draw();
             }
         }
