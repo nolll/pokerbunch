@@ -97,7 +97,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetAppIdList(string appKey)
         {
-            var sql = string.Concat(AppDataSql, "WHERE a.Id = @appId");
+            var sql = string.Concat(AppDataSql, "WHERE a.AppKey = @appKey");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@appKey", appKey)
