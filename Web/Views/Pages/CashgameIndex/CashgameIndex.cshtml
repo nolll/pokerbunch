@@ -7,12 +7,19 @@
 
 <div class="block gutter">
     <h1 class="page-heading">Current Rankings</h1>
-    @Html.Partial("CurrentRankings/CurrentRankingsTable", Model.CurrentRankingsModel)
+    @if (Model.HasGames)
+    {
+        @Html.Partial("CurrentRankings/CurrentRankingsTable", Model.CurrentRankingsModel)
+    }
+    else
+    {
+        <p>The rankings will be displayed here when you have played your first game.</p>
+    }
 </div>
 
 @section Aside1
 {
-<div class="gutter">
-    @Html.Partial("CashgameIndex/Status", Model.StatusModel)
-</div>
+    <div class="gutter">
+        @Html.Partial("CashgameIndex/Status", Model.StatusModel)
+    </div>
 }

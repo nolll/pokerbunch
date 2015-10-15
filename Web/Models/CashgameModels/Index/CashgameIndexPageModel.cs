@@ -9,6 +9,7 @@ namespace Web.Models.CashgameModels.Index
     {
         public CashgameStatusModel StatusModel { get; private set; }
         public CurrentRankingsTableModel CurrentRankingsModel { get; private set; }
+        public bool HasGames { get; private set; }
 
         public CashgameIndexPageModel(CashgameContext.Result contextResult, CashgameStatus.Result statusResult, Core.UseCases.CurrentRankings.Result currentRankingsResult)
             : base(
@@ -17,6 +18,7 @@ namespace Web.Models.CashgameModels.Index
         {
             StatusModel = new CashgameStatusModel(statusResult);
             CurrentRankingsModel = new CurrentRankingsTableModel(currentRankingsResult);
+            HasGames = currentRankingsResult.HasGames;
         }
     }
 }

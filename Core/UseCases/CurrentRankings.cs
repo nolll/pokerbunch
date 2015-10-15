@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -30,11 +29,14 @@ namespace Core.UseCases
             var years = _cashgameService.GetYears(bunch.Id);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
             var cashgames = _cashgameService.GetFinished(bunch.Id, latestYear);
+            if (!cashgames.Any())
+                return new Result(new List<Item>(), 0);
+
             var players = _playerService.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
             var lastGame = cashgames.Last();
             var items = CreateItems(bunch, suite, lastGame);
-
+            
             return new Result(items, lastGame.Id);
         }
         
@@ -72,6 +74,11 @@ namespace Core.UseCases
             {
                 Items = items.ToList();
                 LastGameId = lastGameId;
+            }
+
+            public bool HasGames
+            {
+                get { return Items.Any(); }
             }
         }
 
