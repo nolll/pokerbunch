@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Api.Annotations;
+using Api.Auth;
 using Api.Models;
 using Core.Exceptions;
 using Core.UseCases;
@@ -14,6 +15,7 @@ namespace Api.Controllers
     {
         [Route("cashgame/toplist/{slug}/{year?}")]
         [AcceptVerbs("GET")]
+        [ApiAuthorize]
         public ApiCashgameTopList TopListAction(string slug, int? year = null)
         {
             var topListResult = UseCase.TopList.Execute(new TopList.Request(CurrentUserName, slug, TopList.SortOrder.Winnings, year));
@@ -22,6 +24,7 @@ namespace Api.Controllers
 
         [Route("cashgame/running/{slug}")]
         [AcceptVerbs("GET")]
+        [ApiAuthorize]
         public IHttpActionResult Running(string slug)
         {
             try
@@ -37,6 +40,7 @@ namespace Api.Controllers
 
         [Route("cashgame/buyin/{slug}")]
         [AcceptVerbs("POST")]
+        [ApiAuthorize]
         public IHttpActionResult Buyin(string slug, [FromBody] BuyinObject buyin)
         {
             try
@@ -62,6 +66,7 @@ namespace Api.Controllers
 
         [Route("cashgame/report/{slug}")]
         [AcceptVerbs("POST")]
+        [ApiAuthorize]
         public IHttpActionResult Report(string slug, [FromBody] ReportObject report)
         {
             try
@@ -85,6 +90,7 @@ namespace Api.Controllers
 
         [Route("cashgame/cashout/{slug}")]
         [AcceptVerbs("POST")]
+        [ApiAuthorize]
         public IHttpActionResult Cashout(string slug, [FromBody] CashoutObject cashout)
         {
             try

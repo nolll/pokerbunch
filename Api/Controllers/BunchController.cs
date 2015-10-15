@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Api.Auth;
 using Api.Models;
 using Core.UseCases;
 using Web.Common.Routes;
@@ -9,6 +10,7 @@ namespace Api.Controllers
     {
         [Route(ApiRoutes.BunchList)]
         [AcceptVerbs("GET")]
+        [ApiAuthorize]
         public ApiBunchList List()
         {
             var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest(CurrentUserName));
@@ -17,6 +19,7 @@ namespace Api.Controllers
 
         [Route(ApiRoutes.BunchDetails)]
         [AcceptVerbs("GET")]
+        [ApiAuthorize]
         public IHttpActionResult Details(string slug)
         {
             var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(CurrentUserName, slug));
