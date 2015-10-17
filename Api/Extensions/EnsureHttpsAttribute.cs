@@ -8,7 +8,7 @@ using Web.Common.Services;
 
 namespace Api.Extensions
 {
-    public class CustomRequireHttpsAttribute : AuthorizationFilterAttribute
+    public class EnsureHttpsAttribute : AuthorizationFilterAttribute
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {

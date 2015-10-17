@@ -4,7 +4,7 @@ using Web.Common.Services;
 
 namespace Web.Extensions
 {
-    public class CustomRequireHttpsAttribute : RequireHttpsAttribute
+    public class EnsureHttpsAttribute : RequireHttpsAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

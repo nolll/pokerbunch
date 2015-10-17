@@ -12,7 +12,7 @@ using Web.Models.ErrorModels;
 
 namespace Web.Controllers.Base
 {
-    [CustomRequireHttps]
+    [EnsureHttps]
     public class BaseController : Controller
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();

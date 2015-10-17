@@ -128,7 +128,7 @@
     <Compile Include="Controllers\CashgameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
-    <Compile Include="Extensions\CustomRequireHttpsAttribute.cs" />
+    <Compile Include="Extensions\EnsureHttpsAttribute.cs" />
     <Compile Include="Models\ApiBunch.cs" />
     <Compile Include="Models\ApiBunchList.cs" />
     <Compile Include="Models\ApiCashgameTopList.cs" />
