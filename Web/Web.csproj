@@ -215,6 +215,7 @@
     <Compile Include="Models\CashgameModels\CurrentRankings\CurrentRankingsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\Index\CashgameIndexPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\CashgameDashBoardPageModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
@@ -439,6 +440,8 @@
     <Content Include="Views\Pages\LocationList\LocationList.cshtml" />
     <Content Include="Views\Pages\LocationList\Item.cshtml" />
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
+    <Content Include="Views\Pages\RunningCashgame\RunningCashgame.cshtml" />
+    <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>

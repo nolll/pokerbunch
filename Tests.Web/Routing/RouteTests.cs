@@ -191,6 +191,7 @@ namespace Tests.Web.Routing
         public void RunningCashgame()
         {
             _routes.ShouldMap("/cashgame/running/a").To<RunningCashgameController>(x => x.Running("a"));
+            _routes.ShouldMap("/cashgame/dashboard/a").To<RunningCashgameController>(x => x.DashBoard("a"));
         }
 
         [Test]

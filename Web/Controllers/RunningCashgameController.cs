@@ -29,6 +29,23 @@ namespace Web.Controllers
         }
 
         [Authorize]
+        [Route(WebRoutes.Cashgame.DashBoard)]
+        public ActionResult DashBoard(string slug)
+        {
+            var contextResult = GetBunchContext(slug);
+            try
+            {
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+                var model = new CashgameDashBoardPageModel(contextResult, runningCashgameResult);
+                return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
+            }
+            catch (CashgameNotRunningException)
+            {
+                return Redirect(new CashgameIndexUrl(slug).Relative);
+            }
+        }
+
+        [Authorize]
         [Route(WebRoutes.Cashgame.RunningGameJson)]
         public ActionResult RunningGameJson(string slug)
         {

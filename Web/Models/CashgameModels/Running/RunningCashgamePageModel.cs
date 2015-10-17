@@ -8,10 +8,15 @@ namespace Web.Models.CashgameModels.Running
     {
         public string GameDataUrl { get; private set; }
 
-	    public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
+        public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base("Running Cashgame", contextResult)
-	    {
-	        GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
-	    }
+        {
+            GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
+        }
+
+        public virtual bool IsInteractive
+        {
+            get { return true; }
+        }
     }
 }
