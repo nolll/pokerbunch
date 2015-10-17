@@ -6,8 +6,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Core.Services;
-using Web.Common;
 using Web.Plumbing;
 
 namespace Web
@@ -37,7 +35,6 @@ namespace Web
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             EnsureLowercaseUrl(Context);
-            EnsureHttps(Context);
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
@@ -54,16 +51,7 @@ namespace Web
             routes.MapMvcAttributeRoutes();
             RouteConfig.RegisterRoutes(routes);
         }
-
-        private static void EnsureHttps(HttpContext httpContext)
-        {
-            if (httpContext.Request.IsSecureConnection)
-                return;
-
-            if (Env.IsInProduction)
-                httpContext.Response.RedirectPermanent(httpContext.Request.Url.ToString().Replace("http:", "https:"));
-        }
-
+        
         private static void EnsureLowercaseUrl(HttpContext httpContext)
         {
             // Don't rewrite requests for content (.png, .css) or scripts (.js)

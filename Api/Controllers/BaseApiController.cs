@@ -1,9 +1,11 @@
 ﻿using System.Web.Http;
+using Api.Extensions;
 using Web.Common;
 using Web.Common.Cache;
 
 namespace Api.Controllers
 {
+    [CustomRequireHttps]
     public abstract class BaseApiController : ApiController
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();

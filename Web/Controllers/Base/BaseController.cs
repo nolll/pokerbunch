@@ -7,10 +7,12 @@ using Core.Services;
 using Core.UseCases;
 using Web.Common;
 using Web.Common.Cache;
+using Web.Extensions;
 using Web.Models.ErrorModels;
 
 namespace Web.Controllers.Base
 {
+    [CustomRequireHttps]
     public class BaseController : Controller
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();

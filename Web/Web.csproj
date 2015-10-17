@@ -196,6 +196,7 @@
     <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\Component.cs" />
+    <Compile Include="Extensions\RequireHttps.cs" />
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPageModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPostModel.cs" />
