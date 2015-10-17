@@ -10,7 +10,7 @@ namespace Api.Models
     {
         public ApiBunchList(BunchList.Result bunchListResult)
         {
-            AddRange(bunchListResult.Bunches.Select(o => new ApiBunch(o.Slug, o.DisplayName)));
+            AddRange(bunchListResult.Bunches.Select(o => new ApiBunch(o.Id, o.Slug, o.DisplayName)));
         }
 
         public ApiBunchList()

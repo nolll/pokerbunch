@@ -8,8 +8,8 @@ namespace Web.Controllers
 {
     public class BunchListController : BaseController
     {
-        [Route(WebRoutes.Bunch.List)]
-        public ActionResult List()
+        [Route(WebRoutes.Bunch.All)]
+        public ActionResult All()
         {
             var context = GetAppContext();
             var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest(CurrentUserName));

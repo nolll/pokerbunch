@@ -17,15 +17,4 @@ namespace Web.Controllers
             return View("~/Views/Pages/AppDetails/AppDetails.cshtml", model);
         }
     }
-
-    public class ApiDocsController : BaseController
-    {
-        [Route(WebRoutes.Api.Docs)]
-        public ActionResult ApiDocs()
-        {
-            var context = GetAppContext();
-            var model = new ApiDocsPageModel(context);
-            return View("~/Views/Pages/ApiDocs/ApiDocs.cshtml", model);
-        }
-    }
 }

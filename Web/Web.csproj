@@ -151,6 +151,7 @@
     <Compile Include="Controllers\AddAppController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ApiDocsController.cs" />
     <Compile Include="Controllers\AppDetailsController.cs" />
     <Compile Include="Controllers\AppListController.cs" />
     <Compile Include="Controllers\Base\JsonResult.cs" />

@@ -48,6 +48,7 @@
     <Compile Include="Routes\ApiRoutes.cs" />
     <Compile Include="Routes\WebRoutes.cs" />
     <Compile Include="Urls\ApiUrl.cs" />
+    <Compile Include="Urls\ApiUrls\ApiBunchListUrl.cs" />
     <Compile Include="Urls\ApiUrls\SlugApiUrl.cs" />
     <Compile Include="Urls\ApiUrls\TokenUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddAppConfirmationUrl.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Urls\ApiUrls\ApiRunningGameUrl.cs" />
     <Compile Include="Urls\SiteUrls\AppDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\BunchListUrl.cs" />
+    <Compile Include="Urls\SiteUrls\BunchListAllUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchWithOptionalYearUrl.cs" />
     <Compile Include="Urls\SiteUrls\CashgameActionUrl.cs" />
     <Compile Include="Urls\SiteUrls\CashgameBuyinUrl.cs" />

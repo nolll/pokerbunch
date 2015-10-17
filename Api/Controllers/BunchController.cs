@@ -13,7 +13,7 @@ namespace Api.Controllers
         [ApiAuthorize]
         public ApiBunchList List()
         {
-            var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest(CurrentUserName));
+            var bunchListResult = UseCase.BunchList.Execute(new BunchList.UserBunchesRequest(CurrentUserName));
             return new ApiBunchList(bunchListResult);
         }
 
@@ -22,8 +22,8 @@ namespace Api.Controllers
         [ApiAuthorize]
         public IHttpActionResult Details(string slug)
         {
-            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(CurrentUserName, slug));
-            var bunchModel = new ApiBunch(bunchDetailsResult.Slug, bunchDetailsResult.BunchName);
+            var bunchDetails = UseCase.BunchDetails.Execute(new BunchDetails.Request(CurrentUserName, slug));
+            var bunchModel = new ApiBunch(bunchDetails.Id, bunchDetails.Slug, bunchDetails.BunchName);
             return Ok(bunchModel);
         }
     }

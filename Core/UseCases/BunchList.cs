@@ -58,19 +58,21 @@ namespace Core.UseCases
         {
             public IList<ResultItem> Bunches { get; private set; }
 
-            public Result(IEnumerable<Bunch> homegames)
+            public Result(IEnumerable<Bunch> bunches)
             {
-                Bunches = homegames.Select(o => new ResultItem(o)).ToList();
+                Bunches = bunches.Select(o => new ResultItem(o)).ToList();
             }
         }
 
         public class ResultItem
         {
+            public int Id { get; private set; }
             public string Slug { get; private set; }
             public string DisplayName { get; private set; }
 
             public ResultItem(Bunch bunch)
             {
+                Id = bunch.Id;
                 Slug = bunch.Slug;
                 DisplayName = bunch.DisplayName;
             }

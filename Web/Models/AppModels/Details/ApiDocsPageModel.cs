@@ -9,17 +9,19 @@ namespace Web.Models.AppModels.Details
     {
         public string AppListUrl { get; private set; }
         public string TokenUrl { get; private set; }
+        public string BunchListUrl { get; private set; }
         public string RunningGameUrl { get; private set; }
         public string BuyinUrl { get; private set; }
         public string ReportUrl { get; private set; }
         public string CashoutUrl { get; private set; }
 
         public ApiDocsPageModel(AppContext.Result contextResult)
-            : base("All Details", contextResult)
+            : base("Api Documentation", contextResult)
         {
             const string slug = "bunch-short-name";
             AppListUrl = new UserAppsUrl().Relative;
             TokenUrl = new TokenUrl().Absolute;
+            BunchListUrl = new ApiBunchListUrl().Absolute;
             RunningGameUrl = new ApiRunningGameUrl(slug).Absolute;
             BuyinUrl = new ApiBuyinUrl(slug).Absolute;
             ReportUrl = new ApiReportUrl(slug).Absolute;

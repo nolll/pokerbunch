@@ -302,11 +302,11 @@ namespace Tests.Web.ServiceTests
         }
 
         [Test]
-        public void BunchListUrl()
+        public void BunchListAllUrl()
         {
-            var result = new BunchListUrl();
+            var result = new BunchListAllUrl();
 
-            Assert.AreEqual("/bunch/list", result.Relative);
+            Assert.AreEqual("/bunch/all", result.Relative);
         }
 
         [Test]

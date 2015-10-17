@@ -112,9 +112,9 @@ namespace Tests.Web.Routing
         }
 
         [Test]
-        public void BunchList()
+        public void BunchAll()
         {
-            _routes.ShouldMap("/bunch/list").To<BunchListController>(x => x.List());
+            _routes.ShouldMap("/bunch/all").To<BunchListController>(x => x.All());
         }
 
         [Test]

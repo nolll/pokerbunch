@@ -47,7 +47,7 @@ namespace Web.Common.Routes
             public const string Edit = "bunch/edit/{slug}";
             public const string Join = "bunch/join/{slug}";
             public const string JoinConfirmation = "bunch/joined/{slug}";
-            public const string List = "bunch/list";
+            public const string All = "bunch/all";
         }
 
         public static class Event

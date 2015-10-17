@@ -21,7 +21,7 @@ namespace Web.Models.NavigationModels
         {
             return new List<NavigationNode>
                 {
-                    new NavigationNode("Bunches", new BunchListUrl().Relative),
+                    new NavigationNode("Bunches", new BunchListAllUrl().Relative),
                     new NavigationNode("Users", new UserListUrl().Relative),
                     new NavigationNode("Apps", new AllAppsUrl().Relative),
                     new NavigationNode("Test Email", new TestEmailUrl().Relative),
