@@ -1,6 +1,5 @@
 ﻿html {
   overflow-y: auto;
-  background: #f6f4ef;
 }
 body {
   color: #444444;
@@ -15,6 +14,9 @@ h3 {
   margin: 0;
   font-weight: normal;
   font-size: 1em;
+}
+.page-bg {
+  background: #f6f4ef;
 }
 .page-header {
   padding: 5px 15px 0 15px;
@@ -75,9 +77,6 @@ ul {
 }
 p {
   margin: 15px 0 0 0;
-}
-.body-wide {
-  background: #fff;
 }
 .wide-wrap {
   margin: 10px auto;

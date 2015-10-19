@@ -22,7 +22,7 @@ namespace Web.Controllers.Base
             get { return _bootstrapper.UseCases; }
         }
 
-        private BaseContext.Result GetBaseContext()
+        protected BaseContext.Result GetBaseContext()
         {
             return UseCase.BaseContext.Execute();
         }

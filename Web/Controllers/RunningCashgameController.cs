@@ -29,15 +29,15 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(WebRoutes.Cashgame.DashBoard)]
-        public ActionResult DashBoard(string slug)
+        [Route(WebRoutes.Cashgame.Dashboard)]
+        public ActionResult Dashboard(string slug)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBaseContext();
             try
             {
                 var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
-                var model = new CashgameDashBoardPageModel(contextResult, runningCashgameResult);
-                return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
+                var model = new CashgameDashboardPageModel(contextResult, runningCashgameResult);
+                return View("~/Views/Pages/RunningCashgame/DashboardPage.cshtml", model);
             }
             catch (CashgameNotRunningException)
             {

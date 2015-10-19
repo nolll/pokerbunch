@@ -14,9 +14,14 @@ namespace Web.Models.PageBaseModels
             get { return ContextLayout.Wrapped; }
         }
 
+        public override string HtmlCssClass
+        {
+            get { return "page-bg"; }
+        }
+
         public override string BodyCssClass
         {
-            get { return ""; }
+            get { return null; }
         }
     }
 }

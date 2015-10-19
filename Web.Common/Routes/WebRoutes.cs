@@ -33,7 +33,7 @@ namespace Web.Common.Routes
             public const string Report = "cashgame/report/{slug}";
             public const string Cashout = "cashgame/cashout/{slug}";
             public const string Running = "cashgame/running/{slug}";
-            public const string DashBoard = "cashgame/dashboard/{slug}";
+            public const string Dashboard = "cashgame/dashboard/{slug}";
             public const string RunningGameJson = "cashgame/runninggamejson/{slug}";
             public const string RunningPlayersJson = "cashgame/runningplayersjson/{slug}";
             public const string CheckpointDelete = "cashgame/deletecheckpoint/{id}";

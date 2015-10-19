@@ -1,0 +1,21 @@
+<div data-bind="foreach: sortedPlayers">
+    <div class="standings-item">
+        <div class="name">
+            <a data-bind="text: name, attr: {href: url}"></a>
+            <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
+        </div>
+        <div class="amounts">
+            <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
+            <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
+            <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
+        </div>
+        <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
+    </div>
+</div>
+<div class="totals">
+    <div class="title">Totals: </div>
+    <div class="amounts">
+        <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
+        <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
+    </div>
+</div>

@@ -4,7 +4,12 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Running
 {
-    public class RunningCashgamePageModel : BunchPageModel
+    public interface IRunningCashgamePageModel
+    {
+        string GameDataUrl { get; }
+    }
+
+    public class RunningCashgamePageModel : BunchPageModel, IRunningCashgamePageModel
     {
         public string GameDataUrl { get; private set; }
 
