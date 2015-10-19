@@ -9,7 +9,7 @@ namespace Web.Models.CashgameModels.Running
         public string GameDataUrl { get; private set; }
 
         public CashgameDashboardPageModel(BaseContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
-            : base("Cashgame DashBoard", contextResult)
+            : base("Cashgame Dashboard", contextResult)
         {
             GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
         }
