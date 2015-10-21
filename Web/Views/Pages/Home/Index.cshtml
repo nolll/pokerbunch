@@ -9,9 +9,9 @@
 <div class="block gutter">
 	<h1 class="page-heading">This is Poker Bunch</h1>
 </div>
-<div class="block gutter">
-    @if (Model.IsLoggedIn)
-    {
+@if (Model.IsLoggedIn)
+{
+    <div class="block gutter">
         <p>
             Poker Bunch helps you keep track of the results in your poker homegames.
             Please select one of your bunches, or <a href="@Model.AddBunchUrl">create a new bunch</a>.
@@ -19,17 +19,25 @@
         <p>
             If you want to join an existing bunch, you will need an invitation from a bunch player.
         </p>
-    }
-    else
-    {
+    </div>
+    <div class="block gutter">
+        <h2 class="module-heading">Api</h2>
+        <p>
+            The <a href="@Model.ApiDocsUrl">api</a> makes it possible to create your own apps that interact with Poker Bunch.
+        </p>
+    </div>
+}
+else
+{
+    <div class="block gutter">
         <p>
             Poker Bunch helps you keep track of the results in your poker homegames.
         </p>
         <p>
             <a href="@Model.LoginUrl">Sign in</a> if you already have an account, or <a href="@Model.RegisterUrl">register</a> to create a bunch and begin inviting players.
         </p>
-    }
-</div>
+    </div>
+}
 
 @section Aside2
 {

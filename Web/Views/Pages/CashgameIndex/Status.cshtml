@@ -6,3 +6,9 @@
 <div class="block">
     <a href="@Model.Url" class="button button--action">@Model.LinkText</a>
 </div>
+@if (Model.GameIsRunning)
+{
+    <div class="block">
+        There is also a <a href="@Model.DashboardUrl">dashboard</a> for this game.
+    </div>
+}

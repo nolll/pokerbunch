@@ -71,6 +71,7 @@
     <Compile Include="Urls\ApiUrls\ApiCashoutUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiReportUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiRunningGameUrl.cs" />
+    <Compile Include="Urls\SiteUrls\ApiDocsUrl.cs" />
     <Compile Include="Urls\SiteUrls\AppDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchListAllUrl.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Urls\SiteUrls\PlayerDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\SiteUrls\RouteParams.cs" />
+    <Compile Include="Urls\SiteUrls\DashboardCashgameUrl.cs" />
     <Compile Include="Urls\SiteUrls\RunningCashgameGameJsonUrl.cs" />
     <Compile Include="Urls\SiteUrls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\SiteUrls\RunningCashgameUrl.cs" />

@@ -12,6 +12,7 @@ namespace Web.Models.HomeModels
         public string AddBunchUrl { get; private set; }
         public string LoginUrl { get; private set; }
         public string RegisterUrl { get; private set; }
+        public string ApiDocsUrl { get; private set; }
         public NavigationModel AdminNav { get; private set; }
         public BunchListModel BunchList { get; private set; }
 
@@ -22,6 +23,7 @@ namespace Web.Models.HomeModels
             AddBunchUrl = new AddBunchUrl().Relative;
             LoginUrl = new LoginUrl().Relative;
             RegisterUrl = new AddUserUrl().Relative;
+            ApiDocsUrl = new ApiDocsUrl().Relative;
             AdminNav = new AdminNavigationModel(contextResult.AppContext);
             BunchList = new BunchListModel(bunchListResult);
         }

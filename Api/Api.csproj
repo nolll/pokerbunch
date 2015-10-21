@@ -120,7 +120,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Auth\ApiAuthorizeAttribute.cs" />
     <Compile Include="Auth\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
