@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Api;
 using Api.Auth;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using Web.Common.Urls.ApiUrls;
 
@@ -14,9 +17,10 @@ namespace Api
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureOAuth(app);
             var config = new HttpConfiguration();
-            WebApiConfig.Register(config);
+            ConfigureOAuth(app);
+            ConfigRoutes(config);
+            ConfigFormatters(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
@@ -34,6 +38,23 @@ namespace Api
             // Token Generation
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+        }
+
+        private static void ConfigRoutes(HttpConfiguration config)
+        {
+            config.MapHttpAttributeRoutes();
+            config.Routes.MapHttpRoute("default", "{controller}/{id}", new { id = RouteParameter.Optional });
+        }
+
+        private static void ConfigFormatters(HttpConfiguration config)
+        {
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            config.Formatters.Clear();
+            config.Formatters.Add(jsonFormatter);
+            config.Formatters.Add(new XmlMediaTypeFormatter());
         }
     }
 }
