@@ -44,7 +44,7 @@ namespace Core.UseCases
             var location = _locationService.Get(cashgame.LocationId);
 
             var playerItems = GetPlayerItems(cashgame, players);
-            var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName)).OrderBy(o => o.Name).ToList();
+            var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName, o.Color)).OrderBy(o => o.Name).ToList();
             
             var defaultBuyin = bunch.DefaultBuyin;
 
@@ -134,11 +134,13 @@ namespace Core.UseCases
         {
             public int PlayerId { get; private set; }
             public string Name { get; private set; }
+            public string Color { get; private set; }
 
-            public BunchPlayerItem(int playerId, string name)
+            public BunchPlayerItem(int playerId, string name, string color)
             {
                 PlayerId = playerId;
                 Name = name;
+                Color = color;
             }
         }
 

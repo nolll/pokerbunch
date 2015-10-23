@@ -90,8 +90,10 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 var buyInData = { playerId: me.playerId(), stack: beforeStack, addedMoney: buyinAmount };
                 var player = me.getPlayer(me.playerId());
                 if (!player) {
-                    var playerName = me.getPlayerName();
-                    player = new PlayerViewModel(me.playerId(), playerName, null, null, false, []);
+                    var bunchPlayer = me.getBunchPlayer();
+                    var playerName = bunchPlayer != null ? bunchPlayer.name : '';
+                    var playerColor = bunchPlayer != null ? bunchPlayer.color : '#9e9e9e';
+                    player = new PlayerViewModel(me.playerId(), playerName, playerColor, null, false, []);
                     player.addCheckpoint(afterStack, buyInData.addedMoney);
                     me.players.push(player);
                 } else {
@@ -252,15 +254,15 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 return formatCurrency(me.totalStacks());
             });
 
-            me.getPlayerName = function() {
+            me.getBunchPlayer = function () {
                 var i,
                     bp = me.bunchPlayers();
                 for (i = 0; i < bp.length; i++) {
                     if (bp[i].id == me.playerId()) {
-                        return bp[i].name;
+                        return bp[i];
                     }
                 }
-                return '';
+                return null;
             }
 
             me.resetPlayerId = function() {
@@ -287,7 +289,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 players = [];
                 for (i = 0; i < loadedData.bunchPlayers.length; i++) {
                     player = loadedData.bunchPlayers[i];
-                    players.push(new BunchPlayerViewModel(player.id, player.name));
+                    players.push(new BunchPlayerViewModel(player.id, player.name, player.color));
                 }
                 return players;
             }
@@ -360,9 +362,10 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             this.addedMoney = addedMoney !== undefined ? addedMoney : 0;
         }
 
-        function BunchPlayerViewModel(id, name) {
+        function BunchPlayerViewModel(id, name, color) {
             this.id = id;
             this.name = name;
+            this.color = color;
         }
 
         function loadData(url, callback) {
