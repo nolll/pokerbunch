@@ -18,10 +18,5 @@ namespace Web.Models.CashgameModels.Running
         {
             GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
         }
-
-        public virtual bool IsInteractive
-        {
-            get { return true; }
-        }
     }
 }

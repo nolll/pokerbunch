@@ -10,7 +10,7 @@ define(['linechart'],
                 }
             };
             var chart = lineChart.init(this, config);
-            chart.loadAndDraw();
+            chart.loadDataAndDraw();
         }
 
         return {
