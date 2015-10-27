@@ -13,13 +13,16 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
             });
         }
 
-        LineChart.prototype.draw = function (data) {
+        LineChart.prototype.draw = function (data, options) {
             if (data)
                 this.data = data;
             var width = this.$el.width(),
                 height = width / 2;
             this.config.width = width;
             this.config.height = height;
+            if (options && options.colors) {
+                this.config.colors = options.colors;
+            }
             if (!this.config.colors && this.data.colors) {
                 this.config.colors = this.data.colors;
             }

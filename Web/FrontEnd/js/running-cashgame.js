@@ -295,7 +295,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             }
         }
 
-        function PlayerViewModel(id, name, url, color, hasCashedOut, checkpoints) {
+        function PlayerViewModel(id, name, color, url, hasCashedOut, checkpoints) {
             var me = this;
             me.id = id;
             me.name = name;

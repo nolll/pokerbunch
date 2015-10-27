@@ -15,13 +15,13 @@ define([
             var players = valueAccessor();
             var data = getGameChartData(players());
             var chart = ko.utils.domData.get(element, 'chart');
-            chart.draw(data);
+            var options = { colors: getColors(players()) };
+            chart.draw(data, options);
         }
     };
 
     function getGameChartData(players) {
         return {
-            colors: getColors(players),
             cols: getColumns(players),
             rows: getRows(players),
             p: null
