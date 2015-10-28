@@ -100,6 +100,7 @@ namespace Core.UseCases
         public class PlayerResultItem
         {
             public string Name { get; private set; }
+            public string Color { get; private set; }
             public int CashgameId { get; private set; }
             public int PlayerId { get; private set; }
             public Money Buyin { get; private set; }
@@ -110,6 +111,7 @@ namespace Core.UseCases
             public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
             {
                 Name = player.DisplayName;
+                Color = player.Color;
                 CashgameId = cashgame.Id;
                 PlayerId = player.Id;
                 Buyin = new Money(result.Buyin, bunch.Currency);

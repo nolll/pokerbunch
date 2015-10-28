@@ -6,7 +6,10 @@ define([
             var config = {
                 pointSize: 0,
                 vAxis: { minValue: 0 },
-                hAxis: { format: 'HH:mm' }
+                hAxis: { format: 'HH:mm' },
+                legend: {
+                    position: 'none'
+                }
             };
             var chart = lineChart.init(element, config);
             ko.utils.domData.set(element, 'chart', chart);

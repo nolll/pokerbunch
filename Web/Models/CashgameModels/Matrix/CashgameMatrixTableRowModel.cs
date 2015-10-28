@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Core.Services;
-using Core.UseCases;
 using Web.Common.Urls.SiteUrls;
-using Web.Controllers;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -10,7 +8,8 @@ namespace Web.Models.CashgameModels.Matrix
     {
 	    public int Rank { get; private set; }
 	    public string Name { get; private set; }
-	    public string TotalResult { get; private set; }
+        public string Color { get; private set; }
+        public string TotalResult { get; private set; }
 	    public string ResultClass { get; private set; }
 	    public string PlayerUrl { get; private set; }
         public IList<CashgameMatrixTableCellModel> CellModels { get; private set; }
@@ -19,6 +18,7 @@ namespace Web.Models.CashgameModels.Matrix
         {
             Rank = playerItem.Rank;
             Name = playerItem.Name;
+            Color = playerItem.Color;
             PlayerUrl = new PlayerDetailsUrl(playerItem.PlayerId).Relative;
             CellModels = CreateCells(gameItems, playerItem);
             TotalResult = ResultFormatter.FormatWinnings(playerItem.TotalResult);

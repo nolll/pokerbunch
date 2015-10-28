@@ -279,7 +279,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                         checkpoint = player.checkpoints[j];
                         checkpoints.push(new CheckpointViewModel(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney));
                     }
-                    players.push(new PlayerViewModel(player.id, player.name, player.url, player.color, player.hasCashedOut, checkpoints));
+                    players.push(new PlayerViewModel(player.id, player.name, player.color, player.url, player.hasCashedOut, checkpoints));
                 }
                 return players;
             }

@@ -1,6 +1,7 @@
 <div data-bind="foreach: sortedPlayers">
     <div class="standings-item">
         <div class="name">
+            <div class="player-color-box" data-bind="style: { backgroundColor: color }"></div>
             <a data-bind="text: name, attr: {href: url}"></a>
             <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
         </div>

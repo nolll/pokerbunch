@@ -7,6 +7,7 @@ namespace Web.Models.CashgameModels.Details
     public class CashgameDetailsTableItemModel
     {
         public string Name { get; private set; }
+        public string Color { get; private set; }
         public string PlayerUrl { get; private set; }
         public string Buyin { get; private set; }
         public string Cashout { get; private set; }
@@ -17,6 +18,7 @@ namespace Web.Models.CashgameModels.Details
         public CashgameDetailsTableItemModel(CashgameDetails.PlayerResultItem resultItem)
         {
             Name = resultItem.Name;
+            Color = resultItem.Color;
             PlayerUrl = new CashgameActionUrl(resultItem.CashgameId, resultItem.PlayerId).Relative;
             Buyin = resultItem.Buyin.String;
             Cashout = resultItem.Cashout.String;

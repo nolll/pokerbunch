@@ -66,9 +66,10 @@ namespace Core.UseCases
                 var p = totalResult.Player;
                 var rank = ++index;
                 var name = p.DisplayName;
+                var color = p.Color;
                 var results = CreatePlayerResultItems(bunch, suite.Cashgames, p);
                 var winnings = new Money(totalResult.Winnings, bunch.Currency);
-                var playerItem = new MatrixPlayerItem(rank, name, p.Id, results, winnings);
+                var playerItem = new MatrixPlayerItem(rank, name, color, p.Id, results, winnings);
                 playerItems.Add(playerItem);
             }
             return playerItems;
@@ -154,14 +155,16 @@ namespace Core.UseCases
         {
             public int Rank { get; private set; }
             public string Name { get; private set; }
+            public string Color { get; private set; }
             public int PlayerId { get; private set; }
             public IDictionary<int, MatrixResultItem> ResultItems { get; private set; }
             public Money TotalResult { get; private set; }
 
-            public MatrixPlayerItem(int rank, string name, int playerId, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
+            public MatrixPlayerItem(int rank, string name, string color, int playerId, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
             {
                 Rank = rank;
                 Name = name;
+                Color = color;
                 PlayerId = playerId;
                 ResultItems = resultItems;
                 TotalResult = totalResult;
