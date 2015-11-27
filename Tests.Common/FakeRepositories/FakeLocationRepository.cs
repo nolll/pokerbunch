@@ -40,7 +40,7 @@ namespace Tests.Common.FakeRepositories
             Added = location;
             const int id = 1000;
             _list.Add(new Location(id, location.Name, location.BunchId));
-            return 1000;
+            return id;
         }
 
         private IList<Location> CreateLocationList()

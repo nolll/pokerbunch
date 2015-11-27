@@ -42,6 +42,7 @@
     <Compile Include="Services\GlobalizationTests.cs" />
     <Compile Include="UseCases\ActionsChartTests.cs" />
     <Compile Include="UseCases\ActionsTests.cs" />
+    <Compile Include="UseCases\AddAppTests.cs" />
     <Compile Include="UseCases\AddBunchFormTests.cs" />
     <Compile Include="UseCases\AddBunchTests.cs" />
     <Compile Include="UseCases\AddCashgameFormTests.cs" />
