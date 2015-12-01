@@ -14,6 +14,7 @@ namespace Tests.Core.UseCases
             Sut.Execute(new AddApp.Request(TestData.UserA.UserName, addedAppName));
 
             Assert.AreEqual(addedAppName, Repos.App.Added.Name);
+            Assert.AreEqual(TestData.UserA.Id, Repos.App.Added.UserId);
         }
 
         private AddApp Sut

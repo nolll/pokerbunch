@@ -47,6 +47,8 @@
     <Compile Include="UseCases\AddBunchTests.cs" />
     <Compile Include="UseCases\AddCashgameFormTests.cs" />
     <Compile Include="UseCases\AddCashgameTests.cs" />
+    <Compile Include="UseCases\AddEventTests.cs" />
+    <Compile Include="UseCases\AddLocationTests.cs" />
     <Compile Include="UseCases\AddPlayerTests.cs" />
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
