@@ -37,7 +37,7 @@ namespace Tests.Common.FakeRepositories
 
         public IList<int> Find(string appKey)
         {
-            throw new System.NotImplementedException();
+            return _list.Where(o => o.AppKey == appKey).Select(o => o.Id).ToList();
         }
 
         public int Add(App app)
