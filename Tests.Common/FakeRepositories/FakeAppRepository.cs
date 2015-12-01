@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
@@ -11,12 +12,12 @@ namespace Tests.Common.FakeRepositories
 
         public FakeAppRepository()
         {
-            _list = new List<App>();
+            _list = CreateList();
         }
 
         public App Get(int id)
         {
-            throw new System.NotImplementedException();
+            return _list.FirstOrDefault(o => o.Id == id);
         }
 
         public IList<App> GetList(IList<int> ids)
@@ -50,6 +51,15 @@ namespace Tests.Common.FakeRepositories
         public void Update(App app)
         {
             throw new System.NotImplementedException();
+        }
+
+        private IList<App> CreateList()
+        {
+            return new List<App>
+            {
+                TestData.AppA,
+                TestData.AppB
+            };
         }
     }
 }
