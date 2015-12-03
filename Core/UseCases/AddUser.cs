@@ -81,15 +81,5 @@ namespace Core.UseCases
                 LoginUrl = loginUrl;
             }
         }
-
-        public class Result
-        {
-            public int UserId { get; private set; }
-
-            public Result(int userId)
-            {
-                UserId = userId;
-            }
-        }
     }
 }

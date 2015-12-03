@@ -8,6 +8,7 @@ namespace Tests.Common.FakeRepositories
     public class FakeEventRepository : IEventRepository
     {
         public Event Added { get; private set; }
+        public int AddedCashgameId { get; private set; }
 
         private readonly IList<Event> _list;
 
@@ -44,7 +45,7 @@ namespace Tests.Common.FakeRepositories
 
         public void AddCashgame(int eventId, int cashgameId)
         {
-            throw new System.NotImplementedException();
+            AddedCashgameId = cashgameId;
         }
 
         private IList<Event> CreateEventList()

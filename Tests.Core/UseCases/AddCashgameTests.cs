@@ -6,12 +6,12 @@ using Tests.Common;
 
 namespace Tests.Core.UseCases
 {
-    class AddCashgameTests : TestBase
+    public class AddCashgameTests : TestBase
     {
         [Test]
         public void AddCashgame_SlugIsSet()
         {
-            var request = CreateRequest();
+            var request = CreateRequest(TestData.LocationIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.SlugA, result.Slug);
@@ -20,29 +20,33 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgame_WithLocation_GameIsAdded()
         {
-            var request = CreateRequest();
+            var request = CreateRequest(TestData.LocationIdA);
             Sut.Execute(request);
 
             Assert.IsNotNull(Repos.Cashgame.Added);
         }
 
         [Test]
+        public void AddCashgame_WithEventId_GameIsAddedToEvent()
+        {
+            var request = CreateRequest(TestData.LocationIdA, 2);
+            Sut.Execute(request);
+
+            Assert.AreEqual(1, Repos.Event.AddedCashgameId);
+        }
+
+        [Test]
         public void AddCashgame_WithoutLocation_ThrowsValidationException()
         {
-            var request = CreateRequestWithoutLocation();
+            var request = CreateRequest();
 
             var ex = Assert.Throws<ValidationException>(() => Sut.Execute(request));
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
-        private static AddCashgame.Request CreateRequestWithoutLocation()
+        private static AddCashgame.Request CreateRequest(int locationId = 0, int eventId = 0)
         {
-            return CreateRequest(0);
-        }
-
-        private static AddCashgame.Request CreateRequest(int locationId = TestData.LocationIdA)
-        {
-            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId, 0);
+            return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId, eventId);
         }
 
         private AddCashgame Sut
