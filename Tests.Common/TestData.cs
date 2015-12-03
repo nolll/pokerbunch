@@ -57,12 +57,12 @@ namespace Tests.Common
         public static readonly TimeZoneInfo TimeZoneLocal = TimeZoneInfo.FindSystemTimeZoneById(LocalTimeZoneName);
         public static readonly TimeZoneInfo TimeZoneUtc = TimeZoneInfo.Utc;
 
-        public static readonly User UserA = new User(UserIdA, UserNameA, UserDisplayNameA, UserRealNameA, UserEmailA, Role.Player, UserEncryptedPasswordA, UserSaltA);
-        public static readonly User UserB = new User(UserIdB, UserNameB, UserDisplayNameB, UserRealNameB, UserEmailB, Role.Admin, UserEncryptedPasswordB, UserSaltB);
-        public static readonly User UserC = new User(UserIdC, UserNameC, UserDisplayNameC, UserRealNameC, UserEmailC, Role.Player, UserEncryptedPasswordC, UserSaltC);
-        public static readonly User UserD = new User(UserIdD, UserNameD, UserDisplayNameD, UserRealNameD, UserEmailD, Role.Player, UserEncryptedPasswordD, UserSaltD);
-        public static readonly User AdminUser = UserB;
-        public static readonly User ManagerUser = UserC;
+        public static User UserA { get { return new User(UserIdA, UserNameA, UserDisplayNameA, UserRealNameA, UserEmailA, Role.Player, UserEncryptedPasswordA, UserSaltA); } }
+        public static User UserB { get { return new User(UserIdB, UserNameB, UserDisplayNameB, UserRealNameB, UserEmailB, Role.Admin, UserEncryptedPasswordB, UserSaltB); } }
+        public static User UserC { get { return new User(UserIdC, UserNameC, UserDisplayNameC, UserRealNameC, UserEmailC, Role.Player, UserEncryptedPasswordC, UserSaltC); } }
+        public static User UserD { get { return new User(UserIdD, UserNameD, UserDisplayNameD, UserRealNameD, UserEmailD, Role.Player, UserEncryptedPasswordD, UserSaltD); } }
+        public static User AdminUser { get { return UserB; } }
+        public static User ManagerUser { get { return UserC; } }
 
         public static readonly Bunch BunchA = new Bunch(BunchIdA, SlugA, BunchNameA, DescriptionA, HouseRulesA, TimeZoneUtc, DefaultBuyinA, Currency.Default);
         public static readonly Bunch BunchB = new Bunch(BunchIdB, SlugB, BunchNameB, DescriptionB, HouseRulesB, TimeZoneLocal, DefaultBuyinB, Currency.Default);

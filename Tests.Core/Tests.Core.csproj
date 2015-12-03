@@ -73,6 +73,7 @@
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
+    <Compile Include="UseCases\LocationDetailsTests.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\CashoutTests.cs" />

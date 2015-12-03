@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Tests.Core.Services
 {
-	public class GlobalizationTests
+    public class GlobalizationTests
     {
         [TestCase(0, "0")]
         [TestCase(1, "1")]
