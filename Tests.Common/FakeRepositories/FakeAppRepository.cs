@@ -22,12 +22,12 @@ namespace Tests.Common.FakeRepositories
 
         public IList<App> GetList(IList<int> ids)
         {
-            throw new System.NotImplementedException();
+            return _list;
         }
 
         public IList<int> Find()
         {
-            throw new System.NotImplementedException();
+            return _list.Select(o => o.Id).ToList();
         }
 
         public IList<int> Find(int userId)
