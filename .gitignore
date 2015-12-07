@@ -1,0 +1,5 @@
+packages
+*.ncrunchproject
+**/obj/
+**/bin/
+**/*proj.user
