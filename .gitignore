@@ -1,5 +1,6 @@
 packages
 *.ncrunchproject
+*.suo
 **/obj/
 **/bin/
 **/*proj.user
