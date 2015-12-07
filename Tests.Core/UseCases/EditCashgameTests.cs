@@ -36,6 +36,15 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.ChangedLocationId, Repos.Cashgame.Updated.LocationId);
         }
 
+        [Test]
+        public void EditCashgame_WithEventId_GameIsAddedToEvent()
+        {
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 1);
+            Sut.Execute(request);
+
+            Assert.AreEqual(1, Repos.Event.AddedCashgameId);
+        }
+
         private EditCashgame Sut
         {
             get
