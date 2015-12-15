@@ -1,6 +1,10 @@
 packages
 *.ncrunchproject
+*.ncrunchsolution.user
+_NCrunch_*/
+.vs/
 *.suo
 **/obj/
 **/bin/
 **/*proj.user
+**/*.dbmdl

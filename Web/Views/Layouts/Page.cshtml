@@ -26,8 +26,25 @@
         <script src="/FrontEnd/js/lib/respond.min.js"></script>
     <![endif]-->
     <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
+    <script src="/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
 
-    @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
+    @*kolla här för att integrera signalr med require:
+    http://stackoverflow.com/questions/17598006/signalr-require-js-configuration*@
+
+    <script>
+        $(function () {
+            var socket = $.connection.runningGameHub;
+            socket.client.updateClient = function () {
+                alert('updated');
+            };
+            $.connection.hub.start().done(function () {
+                socket.server.dataUpdated();
+            });
+        });
+    </script>
+
+@Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
 
 </body>
 
