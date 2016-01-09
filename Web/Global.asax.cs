@@ -55,7 +55,7 @@ namespace Web
         private static void EnsureLowercaseUrl(HttpContext httpContext)
         {
             // Don't rewrite requests for content (.png, .css) or scripts (.js)
-            if (httpContext.Request.Url.AbsolutePath.Contains("/Frontend/"))
+            if (IsExcluded(httpContext.Request.Url.AbsolutePath))
                 return;
 
             // If uppercase chars exist, redirect to a lowercase version
@@ -68,6 +68,15 @@ namespace Web
                 httpContext.Response.AddHeader("Location", url.ToLower());
                 httpContext.Response.End();
             }
+        }
+
+        private static bool IsExcluded(string url)
+        {
+            if (url.Contains("/Frontend/"))
+                return true;
+            if (url.Contains("/signalr/"))
+                return true;
+            return false;
         }
     }
 }

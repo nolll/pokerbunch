@@ -350,6 +350,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\signalrtest.js" />
     <Content Include="FrontEnd\js\lib\async.js" />
     <Content Include="FrontEnd\js\lib\goog.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />

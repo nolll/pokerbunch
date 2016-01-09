@@ -5,7 +5,8 @@ namespace Web
     {
         public void DataUpdated(string message)
         {
-            Clients.All.updateClient(message);
+            var responseMessage = $"{message}, sent from server";
+            Clients.All.updateClient(responseMessage);
         }
     }
 }
