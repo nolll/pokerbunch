@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "moment", "select-on-focus"],
+define(["jquery", "knockout", "moment", "select-on-focus", "signalr.hubs"],
     function ($, ko, moment) {
         "use strict";
 
@@ -8,7 +8,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
             loadData(url, function (data) {
                 var standings = new StandingsViewModel(data);
                 ko.applyBindings(standings);
-                standings.startAutoRefresh();
+                standings.initSockets(data.slug);
             });
         }
 
@@ -25,7 +25,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
         function StandingsViewModel(data) {
             var me = this;
 
-            me.refreshTimeout = 30000;
+            me.slug = data.slug;
             me.players = ko.observableArray(createPlayers(data));
             me.bunchPlayers = ko.observableArray(createBunchPlayers(data));
             me.loadedPlayerId = data.playerId;
@@ -55,13 +55,21 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 });
             };
 
-            me.startAutoRefresh = function() {
-                window.setTimeout(me.autoRefresh, me.refreshTimeout);
+            me.initSockets = function (slug) {
+                var socket = $.connection.runningGameHub;
+                socket.client.updateClient = me.updateClient;
+                $.connection.hub.start().done(function () {
+                    socket.server.joinGame(slug);
+                });
             }
 
-            me.autoRefresh = function() {
+            me.updateClient = function(message) {
                 me.refresh(me.setPlayers);
-                window.setTimeout(me.autoRefresh, me.refreshTimeout);
+            }
+
+            me.notify = function() {
+                var socket = $.connection.runningGameHub;
+                socket.server.dataUpdated(me.slug, '');
             }
 
             me.setPlayers = function(playerData) {
@@ -79,7 +87,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 var player = me.getPlayer(me.playerId());
                 player.addCheckpoint(reportData.stack, 0);
                 me.hideForms();
-                postData(me.reportUrl, reportData);
+                postData(me.reportUrl, reportData, me.notify);
                 me.resetPlayerId();
             };
 
@@ -101,7 +109,7 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 }
                 me.hideForms();
                 me.currentStack(me.defaultBuyIn);
-                postData(me.buyInUrl, buyInData);
+                postData(me.buyInUrl, buyInData, me.notify);
                 me.resetPlayerId();
             };
 
@@ -111,12 +119,13 @@ define(["jquery", "knockout", "moment", "select-on-focus"],
                 player.addCheckpoint(cashOutData.stack, 0);
                 player.hasCashedOut(true);
                 me.hideForms();
-                postData(me.cashOutUrl, cashOutData);
+                postData(me.cashOutUrl, cashOutData, me.notify);
                 me.resetPlayerId();
             };
 
             me.endGame = function () {
-                postData(me.endGameUrl, null, function() {
+                postData(me.endGameUrl, null, function () {
+                    me.notify();
                     location.href = me.cashgameIndexUrl;
                 });
             };

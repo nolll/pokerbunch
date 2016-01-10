@@ -9,6 +9,9 @@ namespace Web.Models.CashgameModels.Running
     public class RunningCashgameJsonModel : RunningCashgameRefreshJsonModel
     {
         [UsedImplicitly]
+        public string Slug { get; private set; }
+
+        [UsedImplicitly]
         public int PlayerId { get; private set; }
 
         [UsedImplicitly]
@@ -46,6 +49,7 @@ namespace Web.Models.CashgameModels.Running
 
         public RunningCashgameJsonModel(RunningCashgame.Result result) : base(result)
         {
+            Slug = result.Slug;
             PlayerId = result.PlayerId;
             RefreshUrl = new RunningCashgamePlayersJsonUrl(result.Slug).Relative;
             ReportUrl = new CashgameReportUrl(result.Slug).Relative;
