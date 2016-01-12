@@ -12,8 +12,7 @@ requirejs.config({
         knockout: "knockout-extended",
         "select-on-focus": "lib/knockout.selectOnFocus",
         moment: "lib/moment.min",
-        "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min",
-        "signalr.hubs": "../../signalr/hubs?"
+        "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min"
     },
     shim: {
         "pubsub": {
@@ -32,7 +31,7 @@ requirejs.config({
             deps: ["jquery"],
             exports: "$.connection"
         },
-        "signalr.hubs": {
+        "/signalr/hubs?": {
             deps: ["signalr.core"]
         }
     },

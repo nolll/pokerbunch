@@ -58,7 +58,7 @@ define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
             me.initSockets = function (slug) {
                 var socket = $.connection.runningGameHub;
                 socket.client.updateClient = me.updateClient;
-                $.connection.hub.start().done(function () {
+                $.connection.hub.start({ pingInterval: null }).done(function () {
                     socket.server.joinGame(slug);
                 });
             }
