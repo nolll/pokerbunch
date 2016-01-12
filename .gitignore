@@ -11,4 +11,4 @@ _NCrunch_*/
 *.pubxml.user
 **/*.dbmdl
 Web/_build/main.js
-Web/Properties/PublishProfiles/*.*
+**/Properties/PublishProfiles/*.*
