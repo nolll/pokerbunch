@@ -7,4 +7,8 @@ _NCrunch_*/
 **/obj/
 **/bin/
 **/*proj.user
+*.pubxml
+*.pubxml.user
 **/*.dbmdl
+Web/_build/main.js
+Web/Properties/PublishProfiles/*.*

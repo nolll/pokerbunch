@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "moment", "select-on-focus", "signalr.hubs"],
+define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
     function ($, ko, moment) {
         "use strict";
 

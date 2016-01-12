@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RequireJsDir Condition="'$(RequireJsDir)' == '' ">$(MSBuildProjectDirectory)\Scripts</RequireJsDir>
     <BuildDir Condition="'$(BuildDir)' == '' ">$(MSBuildProjectDirectory)\_build</BuildDir>
-    <NodeExePath Condition="'$(NodeExePath)' == '' ">$(MSBuildProjectDirectory)\.bin\node.cmd</NodeExePath>
+    <NodeExePath Condition="'$(NodeExePath)' == '' ">node</NodeExePath>
     <BuildRequireJSCommand>$(NodeExePath) $(RequireJsDir)\r.js -o $(BuildDir)\build.json</BuildRequireJSCommand>
     <OnAfterPipelineCollectFilesPhase>
       IncludeJs;

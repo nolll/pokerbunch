@@ -772,7 +772,6 @@
     <Content Include="Components\NavigationModels\CashgamePageNavigationModel.cshtml" />
     <Compile Include="Models\HomegameModels\Details\BunchDetailsPageModel.cs" />
     <Content Include="Components\PlayerModels\Badges\BadgeListModel.cshtml" />
-    <None Include="Properties\PublishProfiles\pokerbunch-com - Web Deploy.pubxml" />
     <Content Include="Components\PlayerModels\Badges\BadgeModel.cshtml" />
   </ItemGroup>
   <PropertyGroup>

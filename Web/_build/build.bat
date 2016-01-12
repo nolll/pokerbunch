@@ -1,1 +1,1 @@
-..\.bin\node ..\Scripts\r.js -o build.json
+node ..\Scripts\r.js -o build.json
