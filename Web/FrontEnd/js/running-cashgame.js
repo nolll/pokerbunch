@@ -61,6 +61,11 @@ define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
                 $.connection.hub.start({ pingInterval: null }).done(function () {
                     socket.server.joinGame(slug);
                 });
+                $.connection.hub.disconnected(function () {
+                    setTimeout(function () {
+                        $.connection.hub.start();
+                    }, 5000);
+                });
             }
 
             me.updateClient = function(message) {
@@ -193,21 +198,25 @@ define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
             };
 
             me.showReportForm = function () {
+                me.refresh(me.setPlayers);
                 me.reportFormVisible(true);
                 me.hideButtons();
             };
 
             me.showBuyInForm = function () {
+                me.refresh(me.setPlayers);
                 me.buyInFormVisible(true);
                 me.hideButtons();
             };
 
             me.showCashOutForm = function () {
+                me.refresh(me.setPlayers);
                 me.cashOutFormVisible(true);
                 me.hideButtons();
             };
 
             me.showEndGameForm = function () {
+                me.refresh(me.setPlayers);
                 me.endGameFormVisible(true);
                 me.hideButtons();
             };
