@@ -17,10 +17,7 @@ namespace Web.Controllers.Base
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
 
-        protected UseCaseContainer UseCase
-        {
-            get { return _bootstrapper.UseCases; }
-        }
+        protected UseCaseContainer UseCase => _bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()
         {
