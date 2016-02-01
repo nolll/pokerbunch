@@ -5,7 +5,7 @@ namespace Web.Models.UserModels.ChangePassword
 {
     public class ChangePasswordConfirmationPageModel : AppPageModel
     {
-        public ChangePasswordConfirmationPageModel(AppContext.Result contextResult)
+        public ChangePasswordConfirmationPageModel(CoreContext.Result contextResult)
             : base("Password Changed", contextResult)
         {
         }

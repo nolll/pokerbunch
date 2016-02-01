@@ -5,7 +5,7 @@ namespace Web.Models.HomegameModels.Add
 {
     public class AddBunchConfirmationPageModel : AppPageModel
     {
-        public AddBunchConfirmationPageModel(AppContext.Result contextResult)
+        public AddBunchConfirmationPageModel(CoreContext.Result contextResult)
             : base("Bunch Created", contextResult)
         {
         }

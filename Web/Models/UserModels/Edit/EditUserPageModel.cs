@@ -10,7 +10,7 @@ namespace Web.Models.UserModels.Edit
         public string RealName { get; private set; }
         public string Email { get; private set; }
 
-        public EditUserPageModel(AppContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel)
+        public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel)
             : base("Edit Profile", contextResult)
         {
             UserName = editUserFormResult.UserName;

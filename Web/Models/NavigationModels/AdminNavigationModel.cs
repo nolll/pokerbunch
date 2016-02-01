@@ -6,13 +6,13 @@ namespace Web.Models.NavigationModels
 {
     public class AdminNavigationModel : NavigationModel
     {
-        public AdminNavigationModel(AppContext.Result appContext)
+        public AdminNavigationModel(CoreContext.Result appContext)
         {
             Heading = "Admin";
             Nodes = GetNodes(appContext);
         }
 
-        private IList<NavigationNode> GetNodes(AppContext.Result appContext)
+        private IList<NavigationNode> GetNodes(CoreContext.Result appContext)
         {
             return appContext.IsAdmin ? GetAdminNodeList() : new List<NavigationNode>();
         }

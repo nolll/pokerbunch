@@ -14,7 +14,7 @@ namespace Web.Common
 
         // Contexts
         public BaseContext BaseContext { get { return new BaseContext(); } }
-        public AppContext AppContext { get { return new AppContext(_deps.UserService); } }
+        public CoreContext CoreContext { get { return new CoreContext(_deps.UserService); } }
         public BunchContext BunchContext { get { return new BunchContext(_deps.UserService, _deps.BunchService); } }
         public CashgameContext CashgameContext { get { return new CashgameContext(_deps.UserService, _deps.BunchService, _deps.CashgameService); } }
 

@@ -11,7 +11,7 @@ namespace Web.Models.AppModels.Details
         public bool ShowEditLink { get; private set; }
         public string EditUrl { get; private set; }
 
-        public AppDetailsPageModel(AppContext.Result contextResult, AppDetails.Result appDetailsResult)
+        public AppDetailsPageModel(CoreContext.Result contextResult, AppDetails.Result appDetailsResult)
             : base("All Details", contextResult)
         {
             AppName = appDetailsResult.AppName;

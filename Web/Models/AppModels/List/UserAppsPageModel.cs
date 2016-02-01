@@ -12,7 +12,7 @@ namespace Web.Models.AppModels.List
         public bool HasApps { get; private set; }
         public string AddUrl { get; private set; }
 
-        public UserAppsPageModel(AppContext.Result contextResult, AppList.Result appListResult)
+        public UserAppsPageModel(CoreContext.Result contextResult, AppList.Result appListResult)
             : base("User Apps", contextResult)
         {
             AppModels = appListResult.Items.Select(o => new AppListItemModel(o)).ToList();

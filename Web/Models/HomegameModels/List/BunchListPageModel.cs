@@ -9,7 +9,7 @@ namespace Web.Models.HomegameModels.List
     {
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 
-	    public BunchListPageModel(AppContext.Result contextResult, BunchList.Result bunchListResult)
+	    public BunchListPageModel(CoreContext.Result contextResult, BunchList.Result bunchListResult)
             : base("Bunches", contextResult)
 	    {
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();

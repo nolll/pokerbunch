@@ -18,12 +18,12 @@ namespace Core.UseCases
 
         public Result Execute(BunchRequest request)
         {
-            var appContext = new AppContext(_userService).Execute(new AppContext.Request(request.UserName));
+            var appContext = new CoreContext(_userService).Execute(new CoreContext.Request(request.UserName));
             var bunch = GetBunch(appContext, request);
             return GetResult(appContext, bunch);
         }
 
-        private Result GetResult(AppContext.Result appContext, Bunch bunch)
+        private Result GetResult(CoreContext.Result appContext, Bunch bunch)
         {
             if (bunch == null)
                 return new Result(appContext);
@@ -31,7 +31,7 @@ namespace Core.UseCases
             return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
-        private Bunch GetBunch(AppContext.Result appContext, BunchRequest request)
+        private Bunch GetBunch(CoreContext.Result appContext, BunchRequest request)
         {
             if (!appContext.IsLoggedIn)
                 return null;
@@ -69,14 +69,14 @@ namespace Core.UseCases
             public string Slug { get; private set; }
             public string BunchName { get; private set; }
             public bool HasBunch { get; private set; }
-            public AppContext.Result AppContext { get; private set; }
+            public CoreContext.Result AppContext { get; private set; }
 
-            public Result(AppContext.Result appContextResult)
+            public Result(CoreContext.Result appContextResult)
             {
                 AppContext = appContextResult;
             }
 
-            public Result(AppContext.Result appContextResult, string slug, int bunchId, string bunchName)
+            public Result(CoreContext.Result appContextResult, string slug, int bunchId, string bunchName)
                 : this(appContextResult)
             {
                 BunchId = bunchId;

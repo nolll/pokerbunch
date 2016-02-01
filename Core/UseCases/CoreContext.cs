@@ -3,11 +3,11 @@ using Core.Services;
 
 namespace Core.UseCases
 {
-    public class AppContext
+    public class CoreContext
     {
         private readonly UserService _userService;
 
-        public AppContext(UserService userService)
+        public CoreContext(UserService userService)
         {
             _userService = userService;
         }

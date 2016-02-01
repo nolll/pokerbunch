@@ -8,7 +8,7 @@ namespace Web.Models.AppModels.Add
     {
         public string AppName { get; private set; }
         
-        public AddAppPageModel(AppContext.Result contextResult, AddAppPostModel postModel)
+        public AddAppPageModel(CoreContext.Result contextResult, AddAppPostModel postModel)
             : base("Register", contextResult)
         {
             if (postModel == null) return;

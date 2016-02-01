@@ -5,7 +5,7 @@ namespace Web.Models.UserModels.ForgotPassword
 {
     public class ForgotPasswordConfirmationPageModel : AppPageModel
     {
-        public ForgotPasswordConfirmationPageModel(AppContext.Result contextResult)
+        public ForgotPasswordConfirmationPageModel(CoreContext.Result contextResult)
             : base("Password Sent", contextResult)
         {
         }

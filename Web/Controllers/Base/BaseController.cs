@@ -27,9 +27,9 @@ namespace Web.Controllers.Base
             return UseCase.BaseContext.Execute();
         }
         
-        protected AppContext.Result GetAppContext()
+        protected CoreContext.Result GetAppContext()
         {
-            return UseCase.AppContext.Execute(new AppContext.Request(CurrentUserName));
+            return UseCase.CoreContext.Execute(new CoreContext.Request(CurrentUserName));
         }
 
         protected BunchContext.Result GetBunchContext(string slug = null)

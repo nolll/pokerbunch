@@ -5,7 +5,7 @@ namespace Web.Models.UserModels.Add
 {
     public class AddUserConfirmationPageModel : AppPageModel
     {
-        public AddUserConfirmationPageModel(AppContext.Result contextResult)
+        public AddUserConfirmationPageModel(CoreContext.Result contextResult)
             : base("Homegame Created", contextResult)
         {
         }

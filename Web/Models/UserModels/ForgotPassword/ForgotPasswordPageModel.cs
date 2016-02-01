@@ -7,7 +7,7 @@ namespace Web.Models.UserModels.ForgotPassword
     {
         public string Email { get; private set; }
 
-        public ForgotPasswordPageModel(AppContext.Result contextResult, ForgotPasswordPostModel postModel)
+        public ForgotPasswordPageModel(CoreContext.Result contextResult, ForgotPasswordPostModel postModel)
             : base("Forgot Password", contextResult)
         {
             if (postModel == null) return;

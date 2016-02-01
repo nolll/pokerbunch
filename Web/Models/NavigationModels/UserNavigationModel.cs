@@ -6,14 +6,14 @@ namespace Web.Models.NavigationModels
 {
     public class UserNavigationModel : NavigationModel
     {
-        public UserNavigationModel(AppContext.Result appContextResult)
+        public UserNavigationModel(CoreContext.Result appContextResult)
         {
             Heading = "Account";
             CssClass = "user-nav";
             Nodes = GetNodes(appContextResult);
         }
 
-        private IList<NavigationNode> GetNodes(AppContext.Result appContextResult)
+        private IList<NavigationNode> GetNodes(CoreContext.Result appContextResult)
         {
             return appContextResult.IsLoggedIn ? GetLoggedInNodes(appContextResult) : GetAnonymousNodes();
         }
@@ -28,7 +28,7 @@ namespace Web.Models.NavigationModels
                 };
         }
 
-        private IList<NavigationNode> GetLoggedInNodes(AppContext.Result appContextResult)
+        private IList<NavigationNode> GetLoggedInNodes(CoreContext.Result appContextResult)
         {
             return new List<NavigationNode>
                 {

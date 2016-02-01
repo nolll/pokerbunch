@@ -15,7 +15,7 @@ namespace Web.Models.AppModels.Details
         public string ReportUrl { get; private set; }
         public string CashoutUrl { get; private set; }
 
-        public ApiDocsPageModel(AppContext.Result contextResult)
+        public ApiDocsPageModel(CoreContext.Result contextResult)
             : base("Api Documentation", contextResult)
         {
             const string slug = "bunch-short-name";

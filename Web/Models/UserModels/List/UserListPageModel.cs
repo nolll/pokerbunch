@@ -9,7 +9,7 @@ namespace Web.Models.UserModels.List
     {
         public IList<UserListItemModel> UserModels { get; private set; }
 
-        public UserListPageModel(AppContext.Result contextResult, UserList.Result userListResult)
+        public UserListPageModel(CoreContext.Result contextResult, UserList.Result userListResult)
             : base("Users", contextResult)
         {
             UserModels = userListResult.Users.Select(o => new UserListItemModel(o)).ToList();

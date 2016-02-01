@@ -9,7 +9,7 @@ namespace Web.Models.UserModels.Add
         public string DisplayName { get; private set; }
         public string Email { get; private set; }
 
-        public AddUserPageModel(AppContext.Result contextResult, AddUserPostModel postModel)
+        public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel)
             : base("Register", contextResult)
         {
             if (postModel == null) return;

@@ -12,7 +12,7 @@ namespace Web.Models.AuthModels
         public bool RememberMe { get; private set; }
         public string ReturnUrl { get; private set; }
 
-        public LoginPageModel(AppContext.Result contextResult, LoginForm.Result loginFormResult, LoginPostModel postModel)
+        public LoginPageModel(CoreContext.Result contextResult, LoginForm.Result loginFormResult, LoginPostModel postModel)
             : base("Login", contextResult)
         {
             ReturnUrl = loginFormResult.ReturnUrl;

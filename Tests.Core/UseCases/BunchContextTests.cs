@@ -41,7 +41,7 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(cashgameContextRequest);
 
-            Assert.IsInstanceOf<AppContext.Result>(result.AppContext);
+            Assert.IsInstanceOf<CoreContext.Result>(result.AppContext);
         }
 
         private BunchContext Sut
