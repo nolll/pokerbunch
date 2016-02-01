@@ -1,4 +1,3 @@
-using System;
 using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;

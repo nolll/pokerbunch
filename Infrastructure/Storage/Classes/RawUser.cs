@@ -4,14 +4,14 @@ namespace Infrastructure.Storage.Classes
 {
 	public class RawUser
     {
-	    public int Id { get; private set; }
-	    public string UserName { get; private set; }
-	    public string DisplayName { get; private set; }
-	    public string RealName { get; private set; }
-	    public string Email { get; private set; }
-	    public int GlobalRole { get; private set; }
-	    public string EncryptedPassword { get; private set; }
-	    public string Salt { get; private set; }
+	    public int Id { get; }
+	    public string UserName { get; }
+	    public string DisplayName { get; }
+	    public string RealName { get; }
+	    public string Email { get; }
+	    public int GlobalRole { get; }
+	    public string EncryptedPassword { get; }
+	    public string Salt { get; }
 
 	    public RawUser(int id, string userName, string displayName, string realName, string email, int globalRole, string encryptedPassword, string salt)
 	    {

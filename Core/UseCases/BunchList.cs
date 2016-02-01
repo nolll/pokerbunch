@@ -35,7 +35,7 @@ namespace Core.UseCases
 
         public class AllBunchesRequest
         {
-            public string UserName { get; private set; }
+            public string UserName { get; }
 
             public AllBunchesRequest(string userName)
             {
@@ -45,7 +45,7 @@ namespace Core.UseCases
 
         public class UserBunchesRequest
         {
-            public string UserName { get; private set; }
+            public string UserName { get; }
 
             public UserBunchesRequest(string userName)
             {

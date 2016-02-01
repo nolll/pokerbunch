@@ -1,6 +1,5 @@
 ﻿using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -53,8 +52,8 @@ namespace Core.UseCases
 
         public class BunchRequest
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
 
             public BunchRequest(string userName, string slug = null)
             {

@@ -6,7 +6,7 @@ namespace Web.Models.CashgameModels.Running
 {
     public class CashgameDashboardPageModel : PageModel, IRunningCashgamePageModel
     {
-        public string GameDataUrl { get; private set; }
+        public string GameDataUrl { get; }
 
         public CashgameDashboardPageModel(BaseContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base("Cashgame Dashboard", contextResult)

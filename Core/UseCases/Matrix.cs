@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -113,9 +112,9 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public int? Year { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public int? Year { get; }
 
             public Request(string userName, string slug, int? year)
             {
@@ -127,8 +126,8 @@ namespace Core.UseCases
 
         public class EventMatrixRequest
         {
-            public string UserName { get; private set; }
-            public int EventId { get; private set; }
+            public string UserName { get; }
+            public int EventId { get; }
 
             public EventMatrixRequest(string userName, int eventId)
             {

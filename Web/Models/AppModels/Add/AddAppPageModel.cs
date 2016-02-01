@@ -1,6 +1,5 @@
 using Core.UseCases;
 using Web.Models.PageBaseModels;
-using Web.Models.UserModels.Add;
 
 namespace Web.Models.AppModels.Add
 {

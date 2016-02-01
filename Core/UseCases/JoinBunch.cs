@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -52,10 +51,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
-            public string UserName { get; private set; }
+            public string Slug { get; }
+            public string UserName { get; }
             [Required(ErrorMessage = "Code can't be empty")]
-            public string Code { get; private set; }
+            public string Code { get; }
 
             public Request(string slug, string userName, string code)
             {

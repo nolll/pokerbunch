@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -42,13 +41,13 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int PlayerId { get; private set; }
+            public string UserName { get; }
+            public int PlayerId { get; }
             [Required(ErrorMessage = "Email can't be empty")]
             [EmailAddress(ErrorMessage = "The email address is not valid")]
-            public string Email { get; private set; }
-            public string RegisterUrl { get; private set; }
-            public string JoinUrlFormat { get; private set; }
+            public string Email { get; }
+            public string RegisterUrl { get; }
+            public string JoinUrlFormat { get; }
 
             public Request(string userName, int playerId, string email, string registerUrl, string joinUrlFormat)
             {

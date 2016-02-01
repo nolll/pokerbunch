@@ -1,4 +1,3 @@
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -37,8 +36,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int PlayerId { get; private set; }
+            public string UserName { get; }
+            public int PlayerId { get; }
 
             public Request(string userName, int playerId)
             {

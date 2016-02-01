@@ -88,8 +88,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
 
             public Request(string userName, string slug)
             {
@@ -133,7 +133,7 @@ namespace Core.UseCases
         public class BunchPlayerItem
         {
             public int PlayerId { get; private set; }
-            public string Name { get; private set; }
+            public string Name { get; }
             public string Color { get; private set; }
 
             public BunchPlayerItem(int playerId, string name, string color)
@@ -165,8 +165,8 @@ namespace Core.UseCases
             public string Color { get; private set; }
             public int CashgameId { get; private set; }
             public bool HasCashedOut { get; private set; }
-            public int Buyin { get; private set; }
-            public int Stack { get; private set; }
+            public int Buyin { get; }
+            public int Stack { get; }
             public int Winnings { get; private set; }
             public DateTime LastReport { get; set; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }

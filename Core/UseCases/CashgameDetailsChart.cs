@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -69,9 +68,9 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public DateTime CurrentTime { get; private set; }
-            public int CashgameId { get; private set; }
+            public string UserName { get; }
+            public DateTime CurrentTime { get; }
+            public int CashgameId { get; }
 
             public Request(string userName, DateTime currentTime, int cashgameId)
             {

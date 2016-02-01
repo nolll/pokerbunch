@@ -2,7 +2,7 @@ namespace Web.Models.MiscModels
 {
     public class AvatarModel
     {
-        public string AvatarUrl { get; private set; }
+        public string AvatarUrl { get; }
 
         public AvatarModel()
             : this(string.Empty)

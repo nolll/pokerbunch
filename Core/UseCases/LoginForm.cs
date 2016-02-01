@@ -11,7 +11,7 @@ namespace Core.UseCases
         public class Request
         {
             public string DefaultUrl { get; set; }
-            public string ReturnUrl { get; private set; }
+            public string ReturnUrl { get; }
 
             public Request(string defaultUrl, string returnUrl)
             {

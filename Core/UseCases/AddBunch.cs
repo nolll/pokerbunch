@@ -64,16 +64,16 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
+            public string UserName { get; }
             [Required(ErrorMessage = "Display Name can't be empty")]
-            public string DisplayName { get; private set; }
-            public string Description { get; private set; }
+            public string DisplayName { get; }
+            public string Description { get; }
             [Required(ErrorMessage = "Currency Symbol can't be empty")]
-            public string CurrencySymbol { get; private set; }
+            public string CurrencySymbol { get; }
             [Required(ErrorMessage = "Currency Layout can't be empty")]
-            public string CurrencyLayout { get; private set; }
+            public string CurrencyLayout { get; }
             [Required(ErrorMessage = "Timezone can't be empty")]
-            public string TimeZone { get; private set; }
+            public string TimeZone { get; }
 
             public Request(string userName, string displayName, string description, string currencySymbol, string currencyLayout, string timeZone)
             {

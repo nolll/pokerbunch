@@ -4,7 +4,7 @@ namespace Core.Entities
 {
     public class Money : IComparable<Money>
     {
-        public int Amount { get; private set; }
+        public int Amount { get; }
         private readonly Currency _currency;
         
         public Money(int amount, Currency currency = null)

@@ -42,14 +42,14 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public int PlayerId { get; }
             [Range(1, int.MaxValue, ErrorMessage = "Amount needs to be positive")]
-            public int BuyinAmount { get; private set; }
+            public int BuyinAmount { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
-            public int StackAmount { get; private set; }
-            public DateTime CurrentTime { get; private set; }
+            public int StackAmount { get; }
+            public DateTime CurrentTime { get; }
 
             public Request(string userName, string slug, int playerId, int buyinAmount, int stackAmount, DateTime currentTime)
             {

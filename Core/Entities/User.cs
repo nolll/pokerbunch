@@ -2,12 +2,12 @@ namespace Core.Entities
 {
     public class User : IEntity
     {
-	    public int Id { get; private set; }
+	    public int Id { get; }
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }
         public string RealName { get; private set; }
         public string Email { get; private set; }
-        public Role GlobalRole { get; private set; }
+        public Role GlobalRole { get; }
         public string EncryptedPassword { get; private set; }
         public string Salt { get; private set; }
 
@@ -31,10 +31,7 @@ namespace Core.Entities
 	        Salt = salt;
 	    }
 
-	    public bool IsAdmin
-	    {
-	        get { return GlobalRole == Role.Admin; }
-	    }
+	    public bool IsAdmin => GlobalRole == Role.Admin;
 
         public void SetPassword(string encryptedPassword, string salt)
         {

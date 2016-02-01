@@ -8,15 +8,15 @@ namespace Core.Entities
     public class CashgameResult
     {
         public int PlayerId { get; private set; }
-        public int Buyin { get; private set; }
-        public int Winnings { get; private set; }
+        public int Buyin { get; }
+        public int Winnings { get; }
         public IList<Checkpoint> Checkpoints { get; private set; }
-        public DateTime? BuyinTime { get; private set; }
-        public DateTime? CashoutTime { get; private set; }
-        public int PlayedTime { get; private set; }
-        public int Stack { get; private set; }
+        public DateTime? BuyinTime { get; }
+        public DateTime? CashoutTime { get; }
+        public int PlayedTime { get; }
+        public int Stack { get; }
         public DateTime? LastReportTime { get; private set; }
-        public Checkpoint CashoutCheckpoint { get; private set; }
+        public Checkpoint CashoutCheckpoint { get; }
         public int WinRate { get; private set; }
 
         public CashgameResult(int playerId, IList<Checkpoint> checkpoints)

@@ -62,16 +62,16 @@ namespace Core.UseCases
         public class Request
         {
             [Required(ErrorMessage = "Login Name can't be empty")]
-            public string UserName { get; private set; }
+            public string UserName { get; }
 
             [Required(ErrorMessage = "Display Name can't be empty")]
-            public string DisplayName { get; private set; }
+            public string DisplayName { get; }
 
             [Required(ErrorMessage = "Email can't be empty")]
             [EmailAddress(ErrorMessage = "The email address is not valid")]
-            public string Email { get; private set; }
+            public string Email { get; }
 
-            public string LoginUrl { get; private set; }
+            public string LoginUrl { get; }
 
             public Request(string userName, string displayName, string email, string loginUrl)
             {

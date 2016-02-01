@@ -52,13 +52,13 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int CheckpointId { get; private set; }
-            public DateTime Timestamp { get; private set; }
+            public string UserName { get; }
+            public int CheckpointId { get; }
+            public DateTime Timestamp { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
-            public int Stack { get; private set; }
+            public int Stack { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
-            public int Amount { get; private set; }
+            public int Amount { get; }
 
             public Request(string userName, int checkpointId, DateTime timestamp, int stack, int amount)
             {

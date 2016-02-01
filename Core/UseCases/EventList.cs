@@ -48,8 +48,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
 
             public Request(string userName, string slug)
             {

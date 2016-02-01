@@ -3,10 +3,10 @@ namespace Core.Entities
     public class Player : IEntity
     {
         public int BunchId { get; private set; }
-	    public int Id { get; private set; }
-        public int UserId { get; private set; }
+	    public int Id { get; }
+        public int UserId { get; }
         public string DisplayName { get; private set; }
-        public Role Role { get; private set; }
+        public Role Role { get; }
         public string Color { get; private set; }
 
 	    public Player(

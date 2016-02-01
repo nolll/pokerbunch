@@ -6,8 +6,9 @@ namespace Core.Entities
 {
     public class CashgameSuite
     {
-	    public IList<Cashgame> Cashgames { get; private set; }
-        public IList<CashgameTotalResult> TotalResults { get; private set; }
+	    public IList<Cashgame> Cashgames { get; }
+        public IList<CashgameTotalResult> TotalResults { get; }
+        public bool SpansMultipleYears => CashgameService.SpansMultipleYears(Cashgames);
 
         public CashgameSuite(IList<Cashgame> cashgames, IEnumerable<Player> players)
         {
@@ -22,10 +23,5 @@ namespace Core.Entities
         {
             return players.Select(player => new CashgameTotalResult(player, cashgames)).Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();
         }
-
-        public bool SpansMultipleYears
-        {
-            get { return CashgameService.SpansMultipleYears(Cashgames); }
-        }
-	}
+    }
 }

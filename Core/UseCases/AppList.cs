@@ -35,7 +35,7 @@ namespace Core.UseCases
 
         public abstract class Request
         {
-            public string CurrentUserName { get; private set; }
+            public string CurrentUserName { get; }
 
             protected Request(string currentUserName)
             {

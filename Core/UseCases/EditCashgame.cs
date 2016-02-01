@@ -46,11 +46,11 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int Id { get; private set; }
+            public string UserName { get; }
+            public int Id { get; }
             [Range(1, int.MaxValue, ErrorMessage = "Please select a location")]
-            public int LocationId { get; private set; }
-            public int EventId { get; private set; }
+            public int LocationId { get; }
+            public int EventId { get; }
 
             public Request(string userName, int id, int locationId, int eventId)
             {

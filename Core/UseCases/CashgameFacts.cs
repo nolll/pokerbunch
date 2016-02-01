@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -102,9 +101,9 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public int? Year { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public int? Year { get; }
 
             public Request(string userName, string slug, int? year)
             {
@@ -176,16 +175,16 @@ namespace Core.UseCases
 
         private class FactBuilder
         {
-            public int GameCount { get; private set; }
-            public CashgameResult BestResult { get; private set; }
-            public CashgameResult WorstResult { get; private set; }
-            public CashgameTotalResult BestTotalResult { get; private set; }
-            public CashgameTotalResult WorstTotalResult { get; private set; }
-            public CashgameTotalResult MostTimeResult { get; private set; }
-            public CashgameTotalResult BiggestBuyinTotalResult { get; private set; }
-            public CashgameTotalResult BiggestCashoutTotalResult { get; private set; }
-            public int TotalGameTime { get; private set; }
-            public int TotalTurnover { get; private set; }
+            public int GameCount { get; }
+            public CashgameResult BestResult { get; }
+            public CashgameResult WorstResult { get; }
+            public CashgameTotalResult BestTotalResult { get; }
+            public CashgameTotalResult WorstTotalResult { get; }
+            public CashgameTotalResult MostTimeResult { get; }
+            public CashgameTotalResult BiggestBuyinTotalResult { get; }
+            public CashgameTotalResult BiggestCashoutTotalResult { get; }
+            public int TotalGameTime { get; }
+            public int TotalTurnover { get; }
 
             public FactBuilder(IList<Cashgame> cashgames, IEnumerable<Player> players)
             {
@@ -234,11 +233,11 @@ namespace Core.UseCases
 
             private class GameData
             {
-                public int GameCount { get; private set; }
-                public CashgameResult BestResult { get; private set; }
-                public CashgameResult WorstResult { get; private set; }
-                public int TotalGameTime { get; private set; }
-                public int TotalTurnover { get; private set; }
+                public int GameCount { get; }
+                public CashgameResult BestResult { get; }
+                public CashgameResult WorstResult { get; }
+                public int TotalGameTime { get; }
+                public int TotalTurnover { get; }
 
                 public GameData(int gameCount, CashgameResult bestResult, CashgameResult worstResult, int totalGameTime, int totalTurnover)
                 {

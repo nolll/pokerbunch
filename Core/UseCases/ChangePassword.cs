@@ -48,10 +48,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
+            public string UserName { get; }
             [Required(ErrorMessage = "Password can't be empty")]
-            public string Password { get; private set; }
-            public string Repeat { get; private set; }
+            public string Password { get; }
+            public string Repeat { get; }
 
             public Request(string userName, string password, string repeat)
             {

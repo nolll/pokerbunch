@@ -62,10 +62,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public SortOrder SortOrder { get; private set; }
-            public int? Year { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public SortOrder SortOrder { get; }
+            public int? Year { get; }
 
             public Request(string userName, string slug, SortOrder sortOrder, int? year)
             {

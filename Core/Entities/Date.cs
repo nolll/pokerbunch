@@ -4,9 +4,9 @@ namespace Core.Entities
 {
     public class Date : IComparable<Date>
     {
-        public int Month { get; private set; }
-        public int Day { get; private set; }
-        public int Year { get; private set; }
+        public int Month { get; }
+        public int Day { get; }
+        public int Year { get; }
 
         public Date(int year, int month, int day)
         {

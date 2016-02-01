@@ -76,10 +76,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
-            public DateTime CurrentTime { get; private set; }
+            public string UserName { get; }
+            public int CashgameId { get; }
+            public int PlayerId { get; }
+            public DateTime CurrentTime { get; }
 
             public Request(string userName, int cashgameId, int playerId, DateTime currentTime)
             {

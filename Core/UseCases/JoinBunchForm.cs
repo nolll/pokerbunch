@@ -20,7 +20,7 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string Slug { get; private set; }
+            public string Slug { get; }
 
             public Request(string slug)
             {

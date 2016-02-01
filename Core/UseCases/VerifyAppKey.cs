@@ -27,7 +27,7 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string AppKey { get; private set; }
+            public string AppKey { get; }
 
             public Request(string appKey)
             {

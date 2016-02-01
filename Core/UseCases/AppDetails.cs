@@ -20,7 +20,7 @@ namespace Core.UseCases
 
         public class Request
         {
-            public int AppId { get; private set; }
+            public int AppId { get; }
 
             public Request(int appId)
             {

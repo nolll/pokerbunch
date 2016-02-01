@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -51,17 +50,17 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public string Description { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public string Description { get; }
             [Required(ErrorMessage = "Currency Symbol can't be empty")]
-            public string CurrencySymbol { get; private set; }
+            public string CurrencySymbol { get; }
             [Required(ErrorMessage = "Currency Layout can't be empty")]
-            public string CurrencyLayout { get; private set; }
+            public string CurrencyLayout { get; }
             [Required(ErrorMessage = "Timezone can't be empty")]
-            public string TimeZone { get; private set; }
-            public string HouseRules { get; private set; }
-            public int DefaultBuyin { get; private set; }
+            public string TimeZone { get; }
+            public string HouseRules { get; }
+            public int DefaultBuyin { get; }
 
             public Request(string userName, string slug, string description, string currencySymbol, string currencyLayout, string timeZone, string houseRules, int defaultBuyin)
             {

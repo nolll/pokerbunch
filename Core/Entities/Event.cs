@@ -2,12 +2,12 @@ namespace Core.Entities
 {
     public class Event : IEntity
     {
-        public int Id { get; private set; }
+        public int Id { get; }
         public int BunchId { get; private set; }
         public string Name { get; private set; }
-        public int LocationId { get; private set; }
-        public Date StartDate { get; private set; }
-        public Date EndDate { get; private set; }
+        public int LocationId { get; }
+        public Date StartDate { get; }
+        public Date EndDate { get; }
 
         public Event(int id, int bunchId, string name)
         {
@@ -24,24 +24,9 @@ namespace Core.Entities
             EndDate = endDate;
         }
 
-        public bool HasGames
-        {
-            get { return HasLocation && HasStartDate && HasEndDate; }
-        }
-
-        private bool HasLocation
-        {
-            get { return LocationId != 0; }
-        }
-
-        private bool HasStartDate
-        {
-            get { return !StartDate.IsNull; }
-        }
-
-        private bool HasEndDate
-        {
-            get { return !EndDate.IsNull; }
-        }
+        public bool HasGames => HasLocation && HasStartDate && HasEndDate;
+        private bool HasLocation => LocationId != 0;
+        private bool HasStartDate => !StartDate.IsNull;
+        private bool HasEndDate => !EndDate.IsNull;
     }
 }

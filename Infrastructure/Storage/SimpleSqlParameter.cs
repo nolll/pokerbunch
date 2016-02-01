@@ -5,8 +5,8 @@ namespace Infrastructure.Storage
 {
     public class SimpleSqlParameter : IEquatable<SimpleSqlParameter>
     {
-        private string ParameterName { get; set; }
-        private object Value { get; set; }
+        private string ParameterName { get; }
+        private object Value { get; }
 
         public SimpleSqlParameter(string parameterName, object value)
         {

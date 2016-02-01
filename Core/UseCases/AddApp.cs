@@ -30,10 +30,10 @@ namespace Core.UseCases
         public class Request
         {
             [Required(ErrorMessage = "User Name can't be empty")]
-            public string UserName { get; private set; }
+            public string UserName { get; }
 
             [Required(ErrorMessage = "App Name can't be empty")]
-            public string AppName { get; private set; }
+            public string AppName { get; }
 
             public Request(string userName, string appName)
             {

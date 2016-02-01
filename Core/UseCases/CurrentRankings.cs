@@ -55,8 +55,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
 
             public Request(string userName, string slug)
             {
@@ -67,7 +67,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<Item> Items { get; private set; }
+            public IList<Item> Items { get; }
             public int LastGameId { get; private set; }
 
             public Result(IEnumerable<Item> items, int lastGameId)

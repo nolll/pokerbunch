@@ -9,10 +9,10 @@ namespace Core.Entities
     public class Cashgame : IEntity
     {
         public IList<Checkpoint> Checkpoints { get; private set; }
-        public IList<Checkpoint> AddedCheckpoints { get; private set; }
-        public IList<Checkpoint> UpdatedCheckpoints { get; private set; }
-        public IList<Checkpoint> DeletedCheckpoints { get; private set; }
-        public int Id { get; private set; }
+        public IList<Checkpoint> AddedCheckpoints { get; }
+        public IList<Checkpoint> UpdatedCheckpoints { get; }
+        public IList<Checkpoint> DeletedCheckpoints { get; }
+        public int Id { get; }
         public int BunchId { get; private set; }
         public int LocationId { get; private set; }
         public GameStatus Status { get; private set; }

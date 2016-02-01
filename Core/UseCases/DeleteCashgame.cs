@@ -1,5 +1,4 @@
 ﻿using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -37,8 +36,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int Id { get; private set; }
+            public string UserName { get; }
+            public int Id { get; }
 
             public Request(string userName, int id)
             {

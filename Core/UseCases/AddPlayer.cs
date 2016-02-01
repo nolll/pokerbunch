@@ -45,10 +45,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
             [Required(ErrorMessage = "Name can't be empty")]
-            public string Name { get; private set; }
+            public string Name { get; }
 
             public Request(string userName, string slug, string name)
             {

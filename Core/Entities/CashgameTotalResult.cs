@@ -6,13 +6,13 @@ namespace Core.Entities
 {
 	public class CashgameTotalResult
     {
-        public int Winnings { get; private set; }
-        public int GameCount { get; private set; }
-        public int TimePlayed { get; private set; }
+        public int Winnings { get; }
+        public int GameCount { get; }
+        public int TimePlayed { get; }
         public int WinRate { get; private set; }
         public Player Player { get; private set; }
-	    public int Buyin { get; private set; }
-	    public int Cashout { get; private set; }
+	    public int Buyin { get; }
+	    public int Cashout { get; }
 
         public CashgameTotalResult(Player player, IEnumerable<Cashgame> cashgames)
         {

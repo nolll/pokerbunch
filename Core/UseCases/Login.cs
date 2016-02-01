@@ -1,4 +1,3 @@
-using System;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Services;
@@ -34,8 +33,8 @@ namespace Core.UseCases
 
         public class Request 
         {
-            public string LoginName { get; private set; }
-            public string Password { get; private set; }
+            public string LoginName { get; }
+            public string Password { get; }
 
             public Request(string loginName, string password)
             {

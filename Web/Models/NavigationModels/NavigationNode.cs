@@ -4,7 +4,7 @@ namespace Web.Models.NavigationModels
     {
         public string Name { get; private set; }
         public string Url { get; private set; }
-        public bool Selected { get; private set; }
+        public bool Selected { get; }
 
         public NavigationNode(string name, string url, bool selected = false)
         {

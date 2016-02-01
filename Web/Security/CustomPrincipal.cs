@@ -4,7 +4,7 @@ namespace Web.Security
 {
     public class CustomPrincipal : IPrincipal
     {
-        public IIdentity Identity { get; private set; }
+        public IIdentity Identity { get; }
 
         public CustomPrincipal(IIdentity identity)
         {

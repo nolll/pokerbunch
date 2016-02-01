@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -59,10 +57,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public SortOrder OrderBy { get; private set; }
-            public int? Year { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public SortOrder OrderBy { get; }
+            public int? Year { get; }
 
             public Request(string userName, string slug, SortOrder orderBy, int? year)
             {
@@ -94,12 +92,12 @@ namespace Core.UseCases
             public int Rank { get; private set; }
             public int PlayerId { get; private set; }
             public string Name { get; private set; }
-            public Money Winnings { get; private set; }
-            public Money Buyin { get; private set; }
-            public Money Cashout { get; private set; }
-            public Time TimePlayed { get; private set; }
-            public int GamesPlayed { get; private set; }
-            public Money WinRate { get; private set; }
+            public Money Winnings { get; }
+            public Money Buyin { get; }
+            public Money Cashout { get; }
+            public Time TimePlayed { get; }
+            public int GamesPlayed { get; }
+            public Money WinRate { get; }
 
             public Item(CashgameTotalResult totalResult, int index, Currency currency)
             {

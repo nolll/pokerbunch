@@ -45,8 +45,8 @@ namespace Core.UseCases
         {
             [Required(ErrorMessage = "Email can't be empty")]
             [EmailAddress(ErrorMessage = "The email address is not valid")]
-            public string Email { get; private set; }
-            public string LoginUrl { get; private set; }
+            public string Email { get; }
+            public string LoginUrl { get; }
 
             public Request(string email, string loginUrl)
             {

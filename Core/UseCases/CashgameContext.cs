@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -47,9 +46,9 @@ namespace Core.UseCases
 
         public class Request : BunchContext.BunchRequest
         {
-            public DateTime CurrentTime { get; private set; }
-            public CashgamePage SelectedPage { get; private set; }
-            public int? Year { get; private set; }
+            public DateTime CurrentTime { get; }
+            public CashgamePage SelectedPage { get; }
+            public int? Year { get; }
 
             public Request(string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
                 : base(userName, slug)

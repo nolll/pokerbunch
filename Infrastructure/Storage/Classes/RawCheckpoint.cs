@@ -5,13 +5,13 @@ namespace Infrastructure.Storage.Classes
 {
 	public class RawCheckpoint
     {
-        public int CashgameId { get; private set; }
-        public int PlayerId { get; private set; }
-	    public int Amount { get; private set; }
-	    public int Stack { get; private set; }
-	    public DateTime Timestamp { get; private set; }
-	    public int Id { get; private set; }
-        public int Type { get; private set; }
+        public int CashgameId { get; }
+        public int PlayerId { get; }
+	    public int Amount { get; }
+	    public int Stack { get; }
+	    public DateTime Timestamp { get; }
+	    public int Id { get; }
+        public int Type { get; }
 
 	    public RawCheckpoint(int cashgameId, int playerId, int amount, int stack, DateTime timestamp, int id, int type)
 	    {

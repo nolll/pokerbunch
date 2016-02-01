@@ -55,12 +55,12 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
+            public string UserName { get; }
+            public string Slug { get; }
+            public int PlayerId { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
-            public int Stack { get; private set; }
-            public DateTime CurrentTime { get; private set; }
+            public int Stack { get; }
+            public DateTime CurrentTime { get; }
 
             public Request(string userName, string slug, int playerId, int stack, DateTime currentTime)
             {

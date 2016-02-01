@@ -30,8 +30,8 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; private set; }
-            public int LocationId { get; private set; }
+            public string UserName { get; }
+            public int LocationId { get; }
 
             public Request(string userName, int locationId)
             {

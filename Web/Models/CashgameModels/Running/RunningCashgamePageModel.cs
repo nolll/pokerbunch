@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Running
 
     public class RunningCashgamePageModel : BunchPageModel, IRunningCashgamePageModel
     {
-        public string GameDataUrl { get; private set; }
+        public string GameDataUrl { get; }
 
         public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base("Running Cashgame", contextResult)

@@ -5,15 +5,15 @@ namespace Tests.Common
 {
     public class ServiceContainer
     {
-        public FakeMessageSender MessageSender { get; private set; }
-        public FakeRandomService RandomService { get; private set; }
-        public BunchService BunchService { get; private set; }
-        public CashgameService CashgameService { get; private set; }
-        public UserService UserService { get; private set; }
-        public EventService EventService { get; private set; }
-        public PlayerService PlayerService { get; private set; }
-        public LocationService LocationService { get; private set; }
-        public AppService AppService { get; private set; }
+        public FakeMessageSender MessageSender { get; }
+        public FakeRandomService RandomService { get; }
+        public BunchService BunchService { get; }
+        public CashgameService CashgameService { get; }
+        public UserService UserService { get; }
+        public EventService EventService { get; }
+        public PlayerService PlayerService { get; }
+        public LocationService LocationService { get; }
+        public AppService AppService { get; }
 
         public ServiceContainer(RepositoryContainer repos)
         {
