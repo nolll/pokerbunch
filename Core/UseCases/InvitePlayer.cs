@@ -32,8 +32,10 @@ namespace Core.UseCases
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
 
+            var invitationCode = InvitationCodeCreator.GetCode(player);
             var joinUrl = string.Format(request.JoinUrlFormat, bunch.Slug);
-            var message = new InvitationMessage(bunch.DisplayName, player, request.RegisterUrl, joinUrl);
+            var joinWithCodeUrl = string.Format(request.JoinWithCodeUrlFormat, bunch.Slug, invitationCode);
+            var message = new InvitationMessage(bunch.DisplayName, invitationCode, request.RegisterUrl, joinUrl, joinWithCodeUrl);
             _messageSender.Send(request.Email, message);
 
             return new Result(player.Id);
@@ -48,14 +50,16 @@ namespace Core.UseCases
             public string Email { get; }
             public string RegisterUrl { get; }
             public string JoinUrlFormat { get; }
+            public string JoinWithCodeUrlFormat { get; }
 
-            public Request(string userName, int playerId, string email, string registerUrl, string joinUrlFormat)
+            public Request(string userName, int playerId, string email, string registerUrl, string joinUrlFormat, string joinWithCodeUrlFormat)
             {
                 UserName = userName;
                 PlayerId = playerId;
                 Email = email;
                 RegisterUrl = registerUrl;
                 JoinUrlFormat = joinUrlFormat;
+                JoinWithCodeUrlFormat = joinWithCodeUrlFormat;
             }
         }
 

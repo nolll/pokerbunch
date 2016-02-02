@@ -33,7 +33,8 @@ namespace Tests.Core.UseCases
             const string subject = "Invitation to Poker Bunch: Bunch A";
             const string body = @"You have been invited to join the poker game: Bunch A.
 
-To accept this invitation, go to https://pokerbunch.com/fakejoin/bunch-a and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
+Use this link to accept the invitation: https://pokerbunch.com/fakejoin/bunch-a/d643c7857f8c3bffb1e9e7017a5448d09ef59d33. If the link doesn't work in your email client,
+use this link instead, https://pokerbunch.com/fakejoin/bunch-a, and enter this verification code: d643c7857f8c3bffb1e9e7017a5448d09ef59d33
 
 If you don't have an account, you can register at https://pokerbunch.com/test";
             var request = CreateRequest();
@@ -47,7 +48,7 @@ If you don't have an account, you can register at https://pokerbunch.com/test";
 
         private static InvitePlayer.Request CreateRequest(string email = TestData.UserEmailA)
         {
-            return new InvitePlayer.Request(TestData.UserNameC, TestData.PlayerIdA, email, TestData.TestUrl, "https://pokerbunch.com/fakejoin/{0}");
+            return new InvitePlayer.Request(TestData.UserNameC, TestData.PlayerIdA, email, TestData.TestUrl, "https://pokerbunch.com/fakejoin/{0}", "https://pokerbunch.com/fakejoin/{0}/{1}");
         }
 
         private InvitePlayer Sut

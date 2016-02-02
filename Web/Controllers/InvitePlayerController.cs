@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute, new JoinBunchUrl("{0}").Absolute);
+                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().Absolute, new JoinBunchUrl("{0}").Absolute, new JoinBunchUrl("{0}", "{1}").Absolute);
                 var result = UseCase.InvitePlayer.Execute(request);
                 return Redirect(new InvitePlayerConfirmationUrl(result.PlayerId).Relative);
             }

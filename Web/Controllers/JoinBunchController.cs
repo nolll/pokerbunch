@@ -14,7 +14,14 @@ namespace Web.Controllers
         [Route(WebRoutes.Bunch.Join)]
         public ActionResult Join(string slug)
         {
-            return ShowForm(slug);
+            return ShowForm(slug, "");
+        }
+
+        [Authorize]
+        [Route(WebRoutes.Bunch.JoinWithCode)]
+        public ActionResult Join(string slug, string code)
+        {
+            return ShowForm(slug, code);
         }
 
         [HttpPost]
@@ -22,9 +29,15 @@ namespace Web.Controllers
         [Route(WebRoutes.Bunch.Join)]
         public ActionResult Post(string slug, JoinBunchPostModel postModel)
         {
+            var code = postModel != null ? postModel.Code : "";
+            return JoinBunch(slug, code);
+        }
+
+        private ActionResult JoinBunch(string slug, string code)
+        {
             try
             {
-                var request = new JoinBunch.Request(slug, CurrentUserName, postModel.Code);
+                var request = new JoinBunch.Request(slug, CurrentUserName, code);
                 var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(new JoinBunchConfirmationUrl(result.Slug).Relative);
             }
@@ -37,7 +50,7 @@ namespace Web.Controllers
                 AddModelError(ex.Message);
             }
 
-            return ShowForm(slug, postModel);
+            return ShowForm(slug, code);
         }
 
         [Authorize]
@@ -50,11 +63,11 @@ namespace Web.Controllers
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
         }
 
-        private ActionResult ShowForm(string slug, JoinBunchPostModel postModel = null)
+        private ActionResult ShowForm(string slug, string code)
         {
             var contextResult = GetAppContext();
             var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(slug));
-            var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, postModel);
+            var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code);
             return View("~/Views/Pages/JoinBunch/Join.cshtml", model);
         }
     }

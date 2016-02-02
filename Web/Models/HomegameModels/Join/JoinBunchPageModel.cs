@@ -8,12 +8,11 @@ namespace Web.Models.HomegameModels.Join
         public string Name { get; private set; }
         public string Code { get; private set; }
 
-        public JoinBunchPageModel(CoreContext.Result contextResult, JoinBunchForm.Result joinBunchFormResult, JoinBunchPostModel postModel)
+        public JoinBunchPageModel(CoreContext.Result contextResult, JoinBunchForm.Result joinBunchFormResult, string code)
             : base("Join Bunch", contextResult)
         {
             Name = joinBunchFormResult.BunchName;
-            if (postModel == null) return;
-            Code = postModel.Code;
+            Code = code;
         }
     }
 }

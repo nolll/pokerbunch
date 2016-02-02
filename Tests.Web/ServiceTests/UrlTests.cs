@@ -292,6 +292,17 @@ namespace Tests.Web.ServiceTests
         }
 
         [Test]
+        public void BunchJoinUrlWithCode()
+        {
+            const string slug = "a";
+            const string code = "b";
+
+            var result = new JoinBunchUrl(slug, code);
+
+            Assert.AreEqual("/bunch/join/a/b", result.Relative);
+        }
+
+        [Test]
         public void BunchJoinConfirmationUrl()
         {
             const string slug = "a";

@@ -8,5 +8,10 @@ namespace Web.Common.Urls.SiteUrls
             : base(WebRoutes.Bunch.Join, slug)
         {
         }
+
+        public JoinBunchUrl(string slug, string code)
+            : base(WebRoutes.Bunch.JoinWithCode.Replace("{code}", code), slug)
+        {
+        }
     }
 }

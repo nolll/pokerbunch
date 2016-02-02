@@ -1,40 +1,30 @@
-using Core.Entities;
-
 namespace Core.Services
 {
     public class InvitationMessage : IMessage
     {
         private readonly string _bunchName;
-        private readonly Player _player;
+        private readonly string _invitationCode;
         private readonly string _registerUrl;
         private readonly string _joinUrl;
+        private readonly string _joinWithCodeUrl;
 
-        public InvitationMessage(string bunchName, Player player, string registerUrl, string joinUrl)
+        public InvitationMessage(string bunchName, string invitationCode, string registerUrl, string joinUrl, string joinWithCodeUrl)
         {
             _bunchName = bunchName;
-            _player = player;
+            _invitationCode = invitationCode;
             _registerUrl = registerUrl;
             _joinUrl = joinUrl;
+            _joinWithCodeUrl = joinWithCodeUrl;
         }
 
-        public string Subject
-        {
-            get { return string.Format("Invitation to Poker Bunch: {0}", _bunchName); }
-        }
-
-        public string Body
-        {
-            get
-            {
-                var invitationCode = InvitationCodeCreator.GetCode(_player);
-                return string.Format(BodyFormat, _bunchName, _joinUrl, invitationCode, _registerUrl);
-            }
-        }
+        public string Subject => $"Invitation to Poker Bunch: {_bunchName}";
+        public string Body => string.Format(BodyFormat, _bunchName, _joinUrl, _invitationCode, _registerUrl, _joinWithCodeUrl);
 
         private const string BodyFormat =
 @"You have been invited to join the poker game: {0}.
 
-To accept this invitation, go to {1} and enter this verification code: {2}
+Use this link to accept the invitation: {4}. If the link doesn't work in your email client,
+use this link instead, {1}, and enter this verification code: {2}
 
 If you don't have an account, you can register at {3}";
     }

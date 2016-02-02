@@ -47,6 +47,7 @@ namespace Web.Common.Routes
             public const string Details = "bunch/details/{slug}";
             public const string Edit = "bunch/edit/{slug}";
             public const string Join = "bunch/join/{slug}";
+            public const string JoinWithCode = "bunch/join/{slug}/{code}";
             public const string JoinConfirmation = "bunch/joined/{slug}";
             public const string All = "bunch/all";
         }
