@@ -20,7 +20,7 @@
 		<fieldset>
 			<p>
                 @Html.LabelFor(model => model.Email, "Email", new { @class = "label" })
-                @Html.TextBoxFor(model => model.Email, new { @class = "textfield" })
+                @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "textfield" })
 			</p>
 		</fieldset>
 		<div class="buttons">
