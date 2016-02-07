@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Web.Common.Routes;
+using Web.Common.Urls.SiteUrls;
 
 namespace Api.Controllers
 {
@@ -9,7 +10,7 @@ namespace Api.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult Home()
         {
-            return Redirect("https://pokerbunch.com/api");
+            return Redirect(new ApiDocsUrl().Absolute);
         }
     }
 }
