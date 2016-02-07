@@ -21,7 +21,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Bunch.JoinWithCode)]
         public ActionResult Join(string slug, string code)
         {
-            return ShowForm(slug, code);
+            return JoinBunch(slug, code);
         }
 
         [HttpPost]
