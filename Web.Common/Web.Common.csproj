@@ -46,6 +46,7 @@
     <Compile Include="Cache\CacheContainer.cs" />
     <Compile Include="Cache\CacheKeyProvider.cs" />
     <Compile Include="Cache\CacheTime.cs" />
+    <Compile Include="CommonSettings.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Routes\ApiRoutes.cs" />
     <Compile Include="Routes\WebRoutes.cs" />

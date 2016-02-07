@@ -81,12 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
-    <Compile Include="Routing\RouteTests.cs" />
     <Compile Include="ServiceTests\ResultFormatterTests.cs" />
     <Compile Include="ServiceTests\UrlTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

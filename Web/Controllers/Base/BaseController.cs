@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
-using Core.Services;
 using Core.UseCases;
 using Web.Common;
 using Web.Common.Cache;
@@ -21,22 +20,22 @@ namespace Web.Controllers.Base
 
         protected BaseContext.Result GetBaseContext()
         {
-            return UseCase.BaseContext.Execute();
+            return UseCase.BaseContext.Execute(new BaseContext.Request(SiteSettings.IsInProduction));
         }
         
         protected CoreContext.Result GetAppContext()
         {
-            return UseCase.CoreContext.Execute(new CoreContext.Request(CurrentUserName));
+            return UseCase.CoreContext.Execute(new CoreContext.Request(SiteSettings.IsInProduction, CurrentUserName));
         }
 
         protected BunchContext.Result GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(CurrentUserName, slug));
+            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(SiteSettings.IsInProduction, CurrentUserName, slug));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(new CashgameContext.Request(CurrentUserName, slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(new CashgameContext.Request(SiteSettings.IsInProduction, CurrentUserName, slug, currentTime, selectedPage, year));
         }
 
         protected string CurrentUserName
@@ -73,7 +72,7 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 401, Error401);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
-            else if(Env.IsInProduction)
+            else if(SiteSettings.IsInProduction)
                 HandleError(filterContext, 500, Error500);
         }
 

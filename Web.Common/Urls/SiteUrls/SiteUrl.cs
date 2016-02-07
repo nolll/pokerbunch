@@ -9,7 +9,7 @@ namespace Web.Common.Urls.SiteUrls
 
         protected override string GetDomainName()
         {
-            return "pokerbunch.com";
+            return CommonSettings.Instance.SiteHost;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Web.Common.Services
 
         private static string GetHostName(HttpRequestBase request)
         {
-            return request.Url != null ? request.Url.Host : string.Empty;
+            return request.Url?.Host ?? string.Empty;
         }
     }
 }

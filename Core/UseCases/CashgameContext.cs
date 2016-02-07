@@ -50,8 +50,8 @@ namespace Core.UseCases
             public CashgamePage SelectedPage { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
-                : base(userName, slug)
+            public Request(bool isInProduction, string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+                : base(isInProduction, userName, slug)
             {
                 CurrentTime = currentTime;
                 SelectedPage = selectedPage;

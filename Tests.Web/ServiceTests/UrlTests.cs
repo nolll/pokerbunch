@@ -1,11 +1,17 @@
 using NUnit.Framework;
 using Tests.Common;
+using Web.Common;
 using Web.Common.Urls.SiteUrls;
 
 namespace Tests.Web.ServiceTests
 {
     public class UrlTests : TestBase
     {
+        public UrlTests()
+        {
+            CommonSettings.Init("pokerbunch.com", "api.pokerbunch.com");
+        }
+
         [Test]
         public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()
         {

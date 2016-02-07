@@ -1,22 +1,28 @@
-﻿using Core.Services;
-
-namespace Core.UseCases
+﻿namespace Core.UseCases
 {
     public class BaseContext
     {
-        public Result Execute()
+        public Result Execute(Request request)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            return new Result(
-                Env.IsInProduction,
-                version);
+            return new Result(request.IsInProduction, version);
+        }
+
+        public class Request
+        {
+            public bool IsInProduction { get; }
+
+            public Request(bool isInProduction)
+            {
+                IsInProduction = isInProduction;
+            }
         }
 
         public class Result
         {
-            public bool IsInProduction { get; private set; }
-            public string Version { get; private set; }
+            public bool IsInProduction { get; }
+            public string Version { get; }
 
             public Result(
                 bool isInProduction,

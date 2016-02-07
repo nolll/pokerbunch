@@ -22,7 +22,7 @@ namespace Core.UseCases
             var userId = isAuthenticated ? user.Id : 0;
             var userDisplayName = isAuthenticated ? user.DisplayName : string.Empty;
             var isAdmin = isAuthenticated && user.IsAdmin;
-            var baseContextResult = new BaseContext().Execute();
+            var baseContextResult = new BaseContext().Execute(new BaseContext.Request(request.IsInProduction));
 
             return new Result(
                 baseContextResult,
@@ -35,10 +35,12 @@ namespace Core.UseCases
 
         public class Request
         {
+            public bool IsInProduction { get; }
             public string UserName { get; }
 
-            public Request(string userName)
+            public Request(bool isInProduction, string userName)
             {
+                IsInProduction = isInProduction;
                 UserName = userName;
             }
         }

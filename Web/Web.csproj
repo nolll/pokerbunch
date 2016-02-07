@@ -216,6 +216,7 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
+    <Compile Include="SiteSettings.cs" />
     <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\Component.cs" />
@@ -620,10 +621,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -635,7 +632,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Routing\" />
-    <Folder Include="Urls\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -4,6 +4,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin;
 using Owin;
 using Web;
+using Web.Common;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace Web
@@ -14,6 +15,7 @@ namespace Web
         {
             GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
             app.MapSignalR();
+            CommonSettings.Init(new SiteSettings());
         }
     }
 
@@ -27,7 +29,6 @@ namespace Web
                 Debug.WriteLine("=> Inner Exception " + exceptionContext.Error.InnerException.Message);
             }
             base.OnIncomingError(exceptionContext, invokerContext);
-
         }
     }
 }

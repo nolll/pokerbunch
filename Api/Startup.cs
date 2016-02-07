@@ -8,6 +8,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using Web.Common;
 using Web.Common.Urls.ApiUrls;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -23,6 +24,7 @@ namespace Api
             ConfigFormatters(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+            CommonSettings.Init(ApiSettings.Instance);
         }
 
         private void ConfigureOAuth(IAppBuilder app)

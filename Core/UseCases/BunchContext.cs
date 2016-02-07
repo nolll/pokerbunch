@@ -17,7 +17,7 @@ namespace Core.UseCases
 
         public Result Execute(BunchRequest request)
         {
-            var appContext = new CoreContext(_userService).Execute(new CoreContext.Request(request.UserName));
+            var appContext = new CoreContext(_userService).Execute(new CoreContext.Request(request.IsInProduction, request.UserName));
             var bunch = GetBunch(appContext, request);
             return GetResult(appContext, bunch);
         }
@@ -52,11 +52,13 @@ namespace Core.UseCases
 
         public class BunchRequest
         {
+            public bool IsInProduction { get; }
             public string UserName { get; }
             public string Slug { get; }
 
-            public BunchRequest(string userName, string slug = null)
+            public BunchRequest(bool isInProduction, string userName, string slug = null)
             {
+                IsInProduction = isInProduction;
                 UserName = userName;
                 Slug = slug;
             }

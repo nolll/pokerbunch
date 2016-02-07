@@ -9,7 +9,7 @@ namespace Web.Common.Urls
 
         protected override string GetDomainName()
         {
-            return "api.pokerbunch.com";
+            return CommonSettings.Instance.ApiHost;
         }
     }
 }

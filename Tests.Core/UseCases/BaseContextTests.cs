@@ -9,22 +9,27 @@ namespace Tests.Core.UseCases
         [Test]
         public void BaseContext_VersionIsSet()
         {
-            var result = Sut.Execute();
+            var result = Sut.Execute(new BaseContext.Request(false));
 
             Assert.IsNotEmpty(result.Version);
         }
 
         [Test]
-        public void BaseContext_AnyServerName_IsInProductionIsFalse()
+        public void BaseContext_InTest_IsInProductionIsFalse()
         {
-            var result = Sut.Execute();
-            
+            var result = Sut.Execute(new BaseContext.Request(false));
+
             Assert.IsFalse(result.IsInProduction);
         }
 
-        private BaseContext Sut
+        [Test]
+        public void BaseContext_InProduction_IsInProductionIsTrue()
         {
-            get { return new BaseContext(); }
+            var result = Sut.Execute(new BaseContext.Request(true));
+
+            Assert.IsTrue(result.IsInProduction);
         }
+
+        private BaseContext Sut => new BaseContext();
     }
 }
