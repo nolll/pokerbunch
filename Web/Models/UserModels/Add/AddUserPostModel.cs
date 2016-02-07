@@ -7,5 +7,6 @@ namespace Web.Models.UserModels.Add
         public string UserName { get; [UsedImplicitly] set; }
         public string DisplayName { get; [UsedImplicitly] set; }
         public string Email { get; [UsedImplicitly] set; }
+        public string Password { get; [UsedImplicitly] set; }
     }
 }

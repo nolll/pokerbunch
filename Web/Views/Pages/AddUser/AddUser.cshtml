@@ -11,8 +11,7 @@
 <div class="block gutter">
 	
     <p>
-		When you register, a password will be sent to the email address you provide.
-		This password can be changed after you log in
+		Register a new user
 	</p>
 
     @Html.Partial("~/Views/Forms/Errors.cshtml")
@@ -27,9 +26,13 @@
                 @Html.LabelFor(model => model.DisplayName, "Display Name", new { @class = "label" })
                 @Html.TextBoxFor(model => model.DisplayName, new { @class = "textfield" })
             </p>
-			<p>
-                @Html.LabelFor(model => model.Email, "Email", new { @class = "label" })
-                @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "textfield" })
+		    <p>
+		        @Html.LabelFor(model => model.Email, "Email", new {@class = "label"})
+		        @Html.TextBoxFor(model => model.Email, new {type = "email", @class = "textfield"})
+		    </p>
+            <p>
+                <label class="label" for="Password">Password</label>
+                <input class="textfield" id="Password" name="Password" type="password" value="" />
             </p>
 		</fieldset>
 		<div class="buttons">

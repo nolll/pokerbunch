@@ -35,14 +35,13 @@ namespace Core.UseCases
             if (_userService.GetByNameOrEmail(request.Email) != null)
                 throw new EmailExistsException();
 
-            var password = PasswordGenerator.CreatePassword(_randomService.GetAllowedChars());
             var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
-            var encryptedPassword = EncryptionService.Encrypt(password, salt);
+            var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
             var user = CreateUser(request, encryptedPassword, salt);
 
             _userService.Add(user);
             
-            var message = new RegistrationMessage(password, request.LoginUrl);
+            var message = new RegistrationMessage(request.Password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
         }
 
@@ -71,13 +70,17 @@ namespace Core.UseCases
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; }
 
+            [Required(ErrorMessage = "Password can't be empty")]
+            public string Password { get; }
+
             public string LoginUrl { get; }
 
-            public Request(string userName, string displayName, string email, string loginUrl)
+            public Request(string userName, string displayName, string email, string password, string loginUrl)
             {
                 UserName = userName;
                 DisplayName = displayName;
                 Email = email;
+                Password = password;
                 LoginUrl = loginUrl;
             }
         }
