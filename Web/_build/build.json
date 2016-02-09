@@ -21,6 +21,7 @@
         "heading-nav",
         "linechart",
         "running-cashgame",
+        "running-cashgame-vue",
         "sortable-table"
     ]
 }
