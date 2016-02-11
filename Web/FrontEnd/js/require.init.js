@@ -22,13 +22,15 @@ define(["jquery", "metadata", "pubsub"],
         function initRequiredModules(el, callback) {
             var $el = $(el),
                 modulesToRequire = $el.attr("data-require"),
-                modules = modulesToRequire.split(',');
+                modules = modulesToRequire.split(','),
+                data = $el.data();
 
+            delete data.require;
             require(modules, function () {
                 var i;
 
                 for (i = 0; i < arguments.length; i++) {
-                    arguments[i].init.apply(el);
+                    arguments[i].init.apply(el, [data]);
                 }
 
                 callback(el);

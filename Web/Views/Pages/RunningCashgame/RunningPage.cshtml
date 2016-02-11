@@ -5,15 +5,56 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div data-require="running-cashgame-vue">
-    {{message}}
-</div>
-
-<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }">
+<div data-require="running-cashgame-vue" data-url="@Model.GameDataUrl">
     @Html.Partial("~/Views/Misc/Spinner.cshtml")
 </div>
 
-<script type="text/html" id="running-cashgame-template">
+@*<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }">
+    @Html.Partial("~/Views/Misc/Spinner.cshtml")
+</div>*@
+
+<script type="text/html" id="running-cashgame-template-vue">
+    <div class="region width2">
+        <div class="block gutter">
+            <h1 class="page-heading">Running Cashgame</h1>
+        </div>
+
+        @*<div class="button-list" data-bind="visible: areButtonsVisible">
+            @Html.Partial("~/Views/Pages/RunningCashgame/Buttons.cshtml")
+        </div>
+
+        <div class="block gutter">
+            @Html.Partial("~/Views/Pages/RunningCashgame/Forms.cshtml")
+        </div>
+
+        <div class="standings block gutter" data-bind="visible: hasPlayers">
+            @Html.Partial("~/Views/Pages/RunningCashgame/Table.cshtml")
+        </div>
+
+        <div class="block gutter" data-bind="visible: noPlayers">
+            No one has joined the game yet.
+        </div>
+
+        <div class="block gutter" data-bind="visible: hasPlayers">
+            <div data-bind="gameChart: players"></div>
+        </div>*@
+    </div>
+
+    <div class="region width1 aside2">
+        <div class="block gutter">
+            <dl class="value-list">
+                <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
+                <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
+                <dt class="value-list__key">Location</dt>
+                <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
+                <dt class="value-list__key" v-if="isManager">Player</dt>
+                <dd class="value-list__value" v-if="isManager">SELECTBOX@*<select data-bind="options: bunchPlayers, optionsText: 'name', optionsValue: 'id', value: playerId"></select>*@</dd>
+            </dl>
+        </div>
+    </div>
+</script>
+
+@*<script type="text/html" id="running-cashgame-template">
     <div class="region width2">
         <div class="block gutter">
             <h1 class="page-heading">Running Cashgame</h1>
@@ -52,4 +93,4 @@
             </dl>
         </div>
     </div>
-</script>
+</script>*@

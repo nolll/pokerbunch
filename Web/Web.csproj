@@ -369,6 +369,7 @@
     <Content Include="FrontEnd\js\lib\require.js" />
     <Content Include="FrontEnd\js\lib\respond.min.js" />
     <Content Include="FrontEnd\js\lib\tinynav.min.js" />
+    <Content Include="FrontEnd\js\standings.js" />
     <Content Include="FrontEnd\js\running-cashgame-vue.js" />
     <Content Include="gulpfile.js" />
     <Content Include="FrontEnd\Css\table-list.less">

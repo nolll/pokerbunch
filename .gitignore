@@ -12,3 +12,5 @@ _NCrunch_*/
 **/*.dbmdl
 Web/_build/main.js
 **/Properties/PublishProfiles/*.*
+Web/node_modules
+Web/Assets
