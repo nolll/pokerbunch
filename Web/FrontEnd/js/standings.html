@@ -1,0 +1,117 @@
+<div class="region width2">
+    <div class="block gutter">
+        <h1 class="page-heading">Running Cashgame</h1>
+    </div>
+
+    <div class="button-list" v-if="areButtonsVisible">
+        <game-button text="Test" icon="reorder"></game-button>
+        <button class="button button--icon" data-bind="visible: canReport, click: showReportForm">
+            <i class="icon-reorder"></i>
+            Report
+        </button>
+        <button class="button button--icon" data-bind="visible: canBuyIn, click: showBuyInForm">
+            <i class="icon-money"></i>
+            Buy In
+        </button>
+        <button class="button button--icon" data-bind="visible: canCashOut, click: showCashOutForm">
+            <i class="icon-signout"></i>
+            Cash Out
+        </button>
+        <button class="button button--icon" data-bind="visible: canEndGame, click: showEndGameForm">
+            <i class="icon-signout"></i>
+            End Game
+        </button>
+    </div>
+
+    <div class="block gutter">
+        <div class="form" v-if="reportFormVisible">
+            <div class="field">
+                <label class="label" for="report-stack">Stack Size</label>
+                <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="report-stack" pattern="[0-9]*" required="required" type="text" value="">
+            </div>
+            <div class="buttons">
+                <button data-bind="click: report" class="button button--action">Report</button>
+                <button data-bind="click: hideForms" class="button">Cancel</button>
+            </div>
+        </div>
+        <div class="form" v-if="buyInFormVisible">
+            <div class="field">
+                <label class="label" for="buyin-amount">Amount</label>
+                <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field buyin must be a number." data-val-required="The BuyinAmount field is required." min="0" id="buyin-amount" pattern="[0-9]*" required="required" type="text" value="200">
+            </div>
+            <div class="field" data-bind="visible: isInGame">
+                <label class="label" for="buyin-stack">Stack Size</label>
+                <input class="numberfield" data-bind="value: beforeBuyInStack, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." data-val-required="The StackAmount field is required." min="0" id="buyin-stack" pattern="[0-9]*" required="True" type="text" value="0">
+            </div>
+            <div class="buttons">
+                <button data-bind="click: buyIn" class="button button--action">Buy In</button>
+                <button data-bind="click: hideForms" class="button">Cancel</button>
+            </div>
+        </div>
+        <div class="form" v-if="cashOutFormVisible">
+            <div class="field">
+                <label class="label" for="cashout-stack">Stack Size</label>
+                <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="cashout-stack" pattern="[0-9]*" required="required" type="text" value="">
+            </div>
+            <div class="buttons">
+                <button data-bind="click: cashOut" class="button button--action">Cash Out</button>
+                <button data-bind="click: hideForms" class="button">Cancel</button>
+            </div>
+        </div>
+        <div class="form" v-if="endGameFormVisible">
+            <h2>All done?</h2>
+            <div class="buttons">
+                <button data-bind="click: endGame" class="button button--action">Yes</button>
+                <button data-bind="click: hideForms" class="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="standings block gutter" v-if="hasPlayers">
+        <div v-for="player in players">
+            <div class="standings-item">
+                <div class="name">
+                    <div class="player-color-box" data-bind="style: { backgroundColor: color }"></div>
+                    <a href="{{player.url}}">{{player.name}}</a>
+                    <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
+                </div>
+                <div class="amounts">
+                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
+                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
+                    <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
+                </div>
+                <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
+            </div>
+        </div>
+        <div class="totals">
+            <div class="title">Totals: </div>
+            <div class="amounts">
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block gutter" v-if="noPlayers">
+        No one has joined the game yet.
+    </div>
+
+    <div class="block gutter" v-if="hasPlayers">
+        CHART@*<div data-bind="gameChart: players"></div>*@
+    </div>
+</div>
+
+<div class="region width1 aside2">
+    <div class="block gutter">
+        <dl class="value-list">
+            <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
+            <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
+            <dt class="value-list__key">Location</dt>
+            <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
+            <dt class="value-list__key" v-if="isManager">Player</dt>
+            <dd class="value-list__value" v-if="isManager">
+                <player-dropdown :players="bunchPlayers"></player-dropdown>
+            </dd>
+        </dl>
+    </div>
+</div>

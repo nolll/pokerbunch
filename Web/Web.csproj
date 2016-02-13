@@ -369,6 +369,12 @@
     <Content Include="FrontEnd\js\lib\require.js" />
     <Content Include="FrontEnd\js\lib\respond.min.js" />
     <Content Include="FrontEnd\js\lib\tinynav.min.js" />
+    <Content Include="FrontEnd\js\components.js" />
+    <Content Include="FrontEnd\js\game-button.js" />
+    <Content Include="FrontEnd\js\player-dropdown.js" />
+    <Content Include="FrontEnd\js\player-dropdown.html" />
+    <Content Include="FrontEnd\js\game-button.html" />
+    <Content Include="FrontEnd\js\standings.html" />
     <Content Include="FrontEnd\js\standings.js" />
     <Content Include="FrontEnd\js\running-cashgame-vue.js" />
     <Content Include="gulpfile.js" />
@@ -486,6 +492,7 @@
     <Content Include="Views\Pages\RunningCashgame\Buttons.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\Forms.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\Table.cshtml" />
+    <Content Include="Views\Pages\RunningCashgame\RunningPageVue.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>
@@ -617,7 +624,7 @@
     <Content Include="googlecd2b6bdc316289ae.html" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\text.js" />
+    <Content Include="FrontEnd\js\lib\text.js" />
     <Content Include="Views\Error\404.html" />
     <Content Include="Views\Error\500.html" />
     <Content Include="Web.config">

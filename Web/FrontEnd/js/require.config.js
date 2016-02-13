@@ -13,7 +13,8 @@ requirejs.config({
         "select-on-focus": "lib/knockout.selectOnFocus",
         moment: "lib/moment.min",
         "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min",
-        vue: "lib/vue"
+        vue: "lib/vue",
+        text: "lib/text"
     },
     shim: {
         "pubsub": {

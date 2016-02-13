@@ -1,5 +1,5 @@
-define(["standings", "jquery"],
-    function(standings, $) {
+define(["standings", "jquery", "moment"],
+    function(standings, $, moment) {
         "use strict";
 
         var el, vm;
@@ -11,10 +11,44 @@ define(["standings", "jquery"],
         }
 
         function initVue(data) {
+            var preparedData = prepareData(data);
             vm = new standings({
                 el: el,
-                data: data
+                data: preparedData
             });
+        }
+
+        function prepareData(data) {
+            data.areButtonsVisible = true;
+            data.reportFormVisible = false;
+            data.buyInFormVisible = false;
+            data.cashOutFormVisible = false;
+            data.endGameFormVisible = false;
+            data.players = preparePlayers(data.players);
+            return data;
+        }
+
+        function preparePlayers(players) {
+            var i, j, player, checkpoint, checkpoints;
+            for (i = 0; i < players.length; i++) {
+                player = players[i];
+                checkpoints = [];
+                for (j = 0; j < player.checkpoints.length; j++) {
+                    checkpoint = player.checkpoints[j];
+                    checkpoints.push(prepareCheckpoint(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney));
+                }
+                player.checkpoints = checkpoints;
+                player.prototype = Player.prototype;
+            }
+            return players;
+        }
+
+        function prepareCheckpoint(checkpoint) {
+            return {
+                time: checkpoint.time,
+                stack: checkpoint.stack,
+                addedMoney: checkpoint.addedMoney !== undefined ? checkpoint.addedMoney : 0,
+            }
         }
 
         function loadData(url, callback) {
@@ -24,6 +58,59 @@ define(["standings", "jquery"],
                 success: callback,
                 cache: false
             });
+        }
+
+        function Player() {
+            this.prototype.addCheckpoint = function (stack, addedMoney) {
+                var checkpoint = { time: moment().utc(), stack: stack, addedMoney: addedMoney };
+                this.checkpoints.push(checkpoint);
+            }
+
+            this.prototype.lastReportTime = function () {
+                if (this.checkpoints().length === 0)
+                    return moment().fromNow();
+                return this.checkpoints()[this.checkpoints().length - 1].time.fromNow();
+            };
+
+            this.prototype.buyin = function () {
+                if (this.checkpoints().length === 0)
+                    return 0;
+                var sum = 0;
+                for (var i = 0; i < this.checkpoints().length; i++) {
+                    sum += this.checkpoints()[i].addedMoney;
+                }
+                return sum;
+            };
+
+            this.prototype.formattedBuyin = function () {
+                return formatCurrency(this.buyin());
+            };
+
+            this.prototype.stack = function () {
+                var c = this.checkpoints();
+                if (c.length === 0)
+                    return 0;
+                return c[c.length - 1].stack;
+            };
+
+            this.prototype.formattedStack = function () {
+                return formatCurrency(this.stack());
+            };
+
+            this.prototype.winnings = function () {
+                return this.stack() - this.buyin();
+            };
+
+            this.prototype.formattedWinnings = function () {
+                return formatResult(this.winnings());
+            };
+
+            this.prototype.winningsCssClass = function () {
+                var winnings = this.winnings();
+                if (winnings === 0)
+                    return "";
+                return winnings > 0 ? "pos-result" : "neg-result";
+            };
         }
         
         return {

@@ -1,0 +1,10 @@
+@using Web.Models.PageBaseModels
+@model Web.Models.CashgameModels.Running.IRunningCashgamePageModel
+
+@{
+    Layout = PageLayout.OneColumn;
+}
+
+<div data-require="running-cashgame-vue" data-url="@Model.GameDataUrl">
+    @Html.Partial("~/Views/Misc/Spinner.cshtml")
+</div>
