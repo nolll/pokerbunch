@@ -5,7 +5,12 @@ define(["vue", "text!game-button.html"],
         return vue.extend({
             template: html,
             props: ['text', 'icon'],
-            ready: function() {
+            methods: {
+                clicked: function() {
+                    
+                }
+            },
+            ready: function () {
                 
             }
         });

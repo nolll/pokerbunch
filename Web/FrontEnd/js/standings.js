@@ -19,9 +19,53 @@ define(["vue", "moment", "text!standings.html"],
                     return true;
                 },
                 sortedPlayers: function() {
-                    return this.$data.players.sort(function (left, right) {
-                        return right.winnings() - left.winnings();
+                    return this.players.sort(function (left, right) {
+                        return right.winnings - left.winnings;
                     });
+                },
+                isInGame: function () {
+                    return this.getPlayer(this.playerId) !== null;
+                },
+                canCashOut: function () {
+                    return this.isInGame;
+                },
+                hasCashedOut: function() {
+                    var player = this.getPlayer(this.playerId);
+                    if (!player)
+                        return false;
+                    return player.hasCashedOut;
+                },
+                canEndGame: function () {
+                    var i;
+                    if (this.players.length === 0)
+                        return false;
+                    for (i = 0; i < this.players.length; i++) {
+                        if (!this.players[i].hasCashedOut) {
+
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                canReport: function () {
+                    return this.isInGame && !this.hasCashedOut;
+                }
+            },
+            methods: {
+                getPlayer: function (playerId) {
+                    var i;
+                    for (i = 0; i < this.players.length; i++) {
+                        if (this.players[i].id === playerId) {
+                            return this.players[i];
+                        }
+                    }
+                    return null;
+                },
+                hasCashedOut: function() {
+                    var player = this.getPlayer(this.playerId);
+                    if (!player)
+                        return false;
+                    return player.hasCashedOut();
                 }
             },
             ready: function () {

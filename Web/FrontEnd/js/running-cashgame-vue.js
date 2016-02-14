@@ -35,7 +35,7 @@ define(["standings", "jquery", "moment"],
                 checkpoints = [];
                 for (j = 0; j < player.checkpoints.length; j++) {
                     checkpoint = player.checkpoints[j];
-                    checkpoints.push(prepareCheckpoint(moment(checkpoint.time), checkpoint.stack, checkpoint.addedMoney));
+                    checkpoints.push(prepareCheckpoint(checkpoint));
                 }
                 player.checkpoints = checkpoints;
                 player.prototype = Player.prototype;
@@ -45,9 +45,9 @@ define(["standings", "jquery", "moment"],
 
         function prepareCheckpoint(checkpoint) {
             return {
-                time: checkpoint.time,
+                time: moment(checkpoint.time),
                 stack: checkpoint.stack,
-                addedMoney: checkpoint.addedMoney !== undefined ? checkpoint.addedMoney : 0,
+                addedMoney: checkpoint.addedMoney !== undefined ? checkpoint.addedMoney : 0
             }
         }
 
@@ -67,23 +67,23 @@ define(["standings", "jquery", "moment"],
             }
 
             this.prototype.lastReportTime = function () {
-                if (this.checkpoints().length === 0)
+                if (this.checkpoints.length === 0)
                     return moment().fromNow();
-                return this.checkpoints()[this.checkpoints().length - 1].time.fromNow();
+                return this.checkpoints[this.checkpoints.length - 1].time.fromNow();
             };
 
             this.prototype.buyin = function () {
-                if (this.checkpoints().length === 0)
+                if (this.checkpoints.length === 0)
                     return 0;
                 var sum = 0;
-                for (var i = 0; i < this.checkpoints().length; i++) {
-                    sum += this.checkpoints()[i].addedMoney;
+                for (var i = 0; i < this.checkpoints.length; i++) {
+                    sum += this.checkpoints[i].addedMoney;
                 }
                 return sum;
             };
 
             this.prototype.formattedBuyin = function () {
-                return formatCurrency(this.buyin());
+                return formatCurrency(this.buyin);
             };
 
             this.prototype.stack = function () {
@@ -94,19 +94,19 @@ define(["standings", "jquery", "moment"],
             };
 
             this.prototype.formattedStack = function () {
-                return formatCurrency(this.stack());
+                return formatCurrency(this.stack);
             };
 
             this.prototype.winnings = function () {
-                return this.stack() - this.buyin();
+                return this.stack - this.buyin;
             };
 
             this.prototype.formattedWinnings = function () {
-                return formatResult(this.winnings());
+                return formatResult(this.winnings);
             };
 
             this.prototype.winningsCssClass = function () {
-                var winnings = this.winnings();
+                var winnings = this.winnings;
                 if (winnings === 0)
                     return "";
                 return winnings > 0 ? "pos-result" : "neg-result";
@@ -116,5 +116,15 @@ define(["standings", "jquery", "moment"],
         return {
             init: init
         };
+
+        function formatResult(n) {
+            if (n > 0)
+                n = "+" + n;
+            return formatCurrency(n);
+        }
+
+        function formatCurrency(n) {
+            return n + " kr";
+        }
     }
 );

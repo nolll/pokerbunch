@@ -4,23 +4,10 @@
     </div>
 
     <div class="button-list" v-if="areButtonsVisible">
-        <game-button text="Test" icon="reorder"></game-button>
-        <button class="button button--icon" data-bind="visible: canReport, click: showReportForm">
-            <i class="icon-reorder"></i>
-            Report
-        </button>
-        <button class="button button--icon" data-bind="visible: canBuyIn, click: showBuyInForm">
-            <i class="icon-money"></i>
-            Buy In
-        </button>
-        <button class="button button--icon" data-bind="visible: canCashOut, click: showCashOutForm">
-            <i class="icon-signout"></i>
-            Cash Out
-        </button>
-        <button class="button button--icon" data-bind="visible: canEndGame, click: showEndGameForm">
-            <i class="icon-signout"></i>
-            End Game
-        </button>
+        <game-button text="Report" icon="reorder" v-show="canReport" action="showReportForm"></game-button>
+        <game-button text="Buy In" icon="reorder" v-show="canBuyIn" action="showBuyInForm"></game-button>
+        <game-button text="Cash Out" icon="reorder" v-show="canCashOut" action="showCashOutForm"></game-button>
+        <game-button text="End Game" icon="reorder" v-show="canEndGame" action="showEndGameForm"></game-button>
     </div>
 
     <div class="block gutter">
@@ -68,28 +55,7 @@
     </div>
 
     <div class="standings block gutter" v-if="hasPlayers">
-        <div v-for="player in players">
-            <div class="standings-item">
-                <div class="name">
-                    <div class="player-color-box" data-bind="style: { backgroundColor: color }"></div>
-                    <a href="{{player.url}}">{{player.name}}</a>
-                    <i title="Cashed out" class="icon-ok-sign" data-bind="visible: hasCashedOut"></i>
-                </div>
-                <div class="amounts">
-                    <div><i title="Buy in" class="icon-signin"></i> <span data-bind="text: formattedBuyin"></span></div>
-                    <div><i title="Stack" class="icon-reorder"></i> <span data-bind="text: formattedStack"></span></div>
-                    <div data-bind="text: formattedWinnings, css: winningsCssClass">Winnings</div>
-                </div>
-                <div class="time"><i title="Last report" class="icon-time"></i> <span data-bind="text: lastReportTime"></span></div>
-            </div>
-        </div>
-        <div class="totals">
-            <div class="title">Totals: </div>
-            <div class="amounts">
-                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span data-bind="text: formattedTotalBuyin"></span></div>
-                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span data-bind="text: formattedTotalStacks"></span></div>
-            </div>
-        </div>
+        <player-table v-bind:players="players"></player-table>
     </div>
 
     <div class="block gutter" v-if="noPlayers">
@@ -110,7 +76,7 @@
             <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
             <dt class="value-list__key" v-if="isManager">Player</dt>
             <dd class="value-list__value" v-if="isManager">
-                <player-dropdown :players="bunchPlayers"></player-dropdown>
+                <player-dropdown v-bind:players="bunchPlayers"></player-dropdown>
             </dd>
         </dl>
     </div>

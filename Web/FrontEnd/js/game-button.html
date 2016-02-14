@@ -1,4 +1,4 @@
-<button class="button button--icon" data-bind="visible: canReport, click: showReportForm">
+<button class="button button--icon" v-on:click="clicked">
     <i class="icon-{{icon}}"></i>
     {{text}}
 </button>
