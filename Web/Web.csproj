@@ -356,6 +356,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\player-row.html" />
+    <Content Include="FrontEnd\js\player-row.js" />
     <Content Include="FrontEnd\js\player-table.js" />
     <Content Include="FrontEnd\js\player-table.html" />
     <Content Include="FrontEnd\js\lib\async.js" />

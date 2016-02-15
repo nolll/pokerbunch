@@ -12,11 +12,18 @@ define(["vue", "moment", "text!standings.html"],
                     return this.players.length === 0;
                 },
                 startTime: function () {
-                    var t = moment().utc();
+                    var i, first,
+                    t = moment().utc(),
+                    p = this.players;
+                    if (p.length === 0)
+                        return '';
+                    for (i = 0; i < p.length; i++) {
+                        first = p[i].checkpoints[0];
+                        if (first !== undefined && first.time.isBefore(t)) {
+                            t = first.time;
+                        }
+                    }
                     return t.format('HH:mm');
-                },
-                areButtonsVisible: function() {
-                    return true;
                 },
                 sortedPlayers: function() {
                     return this.players.sort(function (left, right) {
@@ -49,9 +56,42 @@ define(["vue", "moment", "text!standings.html"],
                 },
                 canReport: function () {
                     return this.isInGame && !this.hasCashedOut;
+                },
+                canBuyIn: function () {
+                    return !this.hasCashedOut;
                 }
             },
             methods: {
+                showReportForm: function () {
+                    //refresh(me.setPlayers);
+                    this.reportFormVisible = true;
+                    this.hideButtons();
+                },
+                showBuyInForm: function () {
+                    //refresh(me.setPlayers);
+                    this.buyInFormVisible = true;
+                    this.hideButtons();
+                },
+                showCashOutForm: function () {
+                    //refresh(me.setPlayers);
+                    this.cashOutFormVisible = true;
+                    this.hideButtons();
+                },
+                showEndGameForm: function () {
+                    //refresh(me.setPlayers);
+                    this.endGameFormVisible = true;
+                    this.hideButtons();
+                },
+                hideButtons: function() {
+                    this.areButtonsVisible = false;
+                },
+                hideForms: function () {
+                    this.reportFormVisible = false;
+                    this.buyInFormVisible = false;
+                    this.cashOutFormVisible = false;
+                    this.endGameFormVisible = false;
+                    this.areButtonsVisible = true;
+                },
                 getPlayer: function (playerId) {
                     var i;
                     for (i = 0; i < this.players.length; i++) {
@@ -66,6 +106,11 @@ define(["vue", "moment", "text!standings.html"],
                     if (!player)
                         return false;
                     return player.hasCashedOut();
+                }
+            },
+            events: {
+                'change-player': function (playerId) {
+                    this.playerId = playerId;
                 }
             },
             ready: function () {

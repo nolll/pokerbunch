@@ -3,15 +3,15 @@
         <h1 class="page-heading">Running Cashgame</h1>
     </div>
 
-    <div class="button-list" v-if="areButtonsVisible">
-        <game-button text="Report" icon="reorder" v-show="canReport" action="showReportForm"></game-button>
-        <game-button text="Buy In" icon="reorder" v-show="canBuyIn" action="showBuyInForm"></game-button>
-        <game-button text="Cash Out" icon="reorder" v-show="canCashOut" action="showCashOutForm"></game-button>
-        <game-button text="End Game" icon="reorder" v-show="canEndGame" action="showEndGameForm"></game-button>
+    <div class="button-list" v-show="areButtonsVisible">
+        <game-button text="Report" icon="reorder" v-show="canReport" v-on:click="showReportForm"></game-button>
+        <game-button text="Buy In" icon="money" v-show="canBuyIn" v-on:click="showBuyInForm"></game-button>
+        <game-button text="Cash Out" icon="signout" v-show="canCashOut" v-on:click="showCashOutForm"></game-button>
+        <game-button text="End Game" icon="signout" v-show="canEndGame" v-on:click="showEndGameForm"></game-button>
     </div>
 
     <div class="block gutter">
-        <div class="form" v-if="reportFormVisible">
+        <div class="form" v-show="reportFormVisible">
             <div class="field">
                 <label class="label" for="report-stack">Stack Size</label>
                 <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="report-stack" pattern="[0-9]*" required="required" type="text" value="">
@@ -21,7 +21,7 @@
                 <button data-bind="click: hideForms" class="button">Cancel</button>
             </div>
         </div>
-        <div class="form" v-if="buyInFormVisible">
+        <div class="form" v-show="buyInFormVisible">
             <div class="field">
                 <label class="label" for="buyin-amount">Amount</label>
                 <input class="numberfield" data-bind="value: buyInAmount, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field buyin must be a number." data-val-required="The BuyinAmount field is required." min="0" id="buyin-amount" pattern="[0-9]*" required="required" type="text" value="200">
@@ -35,7 +35,7 @@
                 <button data-bind="click: hideForms" class="button">Cancel</button>
             </div>
         </div>
-        <div class="form" v-if="cashOutFormVisible">
+        <div class="form" v-show="cashOutFormVisible">
             <div class="field">
                 <label class="label" for="cashout-stack">Stack Size</label>
                 <input class="numberfield" data-bind="value: currentStack, hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="cashout-stack" pattern="[0-9]*" required="required" type="text" value="">
@@ -45,7 +45,7 @@
                 <button data-bind="click: hideForms" class="button">Cancel</button>
             </div>
         </div>
-        <div class="form" v-if="endGameFormVisible">
+        <div class="form" v-show="endGameFormVisible">
             <h2>All done?</h2>
             <div class="buttons">
                 <button data-bind="click: endGame" class="button button--action">Yes</button>
@@ -54,16 +54,15 @@
         </div>
     </div>
 
-    <div class="standings block gutter" v-if="hasPlayers">
-        <player-table v-bind:players="players"></player-table>
+    <div class="standings block gutter" v-show="hasPlayers">
+        <player-table v-bind:players="players" v-bind:currency-format="currencyFormat"></player-table>
     </div>
-
-    <div class="block gutter" v-if="noPlayers">
+    <div class="block gutter" v-else>
         No one has joined the game yet.
     </div>
 
-    <div class="block gutter" v-if="hasPlayers">
-        CHART@*<div data-bind="gameChart: players"></div>*@
+    <div class="block gutter" v-show="hasPlayers">
+        <!-- CHART <div data-bind="gameChart: players"></div> -->
     </div>
 </div>
 
@@ -76,7 +75,7 @@
             <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
             <dt class="value-list__key" v-if="isManager">Player</dt>
             <dd class="value-list__value" v-if="isManager">
-                <player-dropdown v-bind:players="bunchPlayers"></player-dropdown>
+                <player-dropdown v-bind:selected-player-id="playerId" v-bind:players="bunchPlayers"></player-dropdown>
             </dd>
         </dl>
     </div>

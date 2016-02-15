@@ -1,3 +1,3 @@
-<select>
+<select v-model="selectedPlayerId" v-on:change="changePlayer">
     <option v-for="player in players" value="{{player.id}}">{{player.name}}</option>
 </select>

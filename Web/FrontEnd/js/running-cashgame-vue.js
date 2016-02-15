@@ -1,5 +1,5 @@
-define(["standings", "jquery", "moment"],
-    function(standings, $, moment) {
+define(["vue", "standings", "jquery", "moment"],
+    function(vue, standings, $, moment) {
         "use strict";
 
         var el, vm;
@@ -12,6 +12,7 @@ define(["standings", "jquery", "moment"],
 
         function initVue(data) {
             var preparedData = prepareData(data);
+            vue.config.debug = true;
             vm = new standings({
                 el: el,
                 data: preparedData
@@ -24,6 +25,8 @@ define(["standings", "jquery", "moment"],
             data.buyInFormVisible = false;
             data.cashOutFormVisible = false;
             data.endGameFormVisible = false;
+            data.loadedPlayerId = data.playerId;
+            data.currencyFormat = '{0} kr';
             data.players = preparePlayers(data.players);
             return data;
         }

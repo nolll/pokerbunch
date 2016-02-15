@@ -4,7 +4,12 @@ define(["vue", "text!player-dropdown.html"],
 
         return vue.extend({
             template: html,
-            props: ['players'],
+            props: ['selectedPlayerId', 'players'],
+            methods: {
+                changePlayer: function () {
+                    this.$dispatch('change-player', this.selectedPlayerId);
+                }
+            },
             ready: function() {
                 var x = 0;
             }
