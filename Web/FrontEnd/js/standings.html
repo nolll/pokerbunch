@@ -18,7 +18,7 @@
             </div>
             <div class="buttons">
                 <button data-bind="click: report" class="button button--action">Report</button>
-                <button data-bind="click: hideForms" class="button">Cancel</button>
+                <button v-on:click="hideForms" class="button">Cancel</button>
             </div>
         </div>
         <div class="form" v-show="buyInFormVisible">
@@ -32,7 +32,7 @@
             </div>
             <div class="buttons">
                 <button data-bind="click: buyIn" class="button button--action">Buy In</button>
-                <button data-bind="click: hideForms" class="button">Cancel</button>
+                <button v-on:click="hideForms" class="button">Cancel</button>
             </div>
         </div>
         <div class="form" v-show="cashOutFormVisible">
@@ -42,14 +42,14 @@
             </div>
             <div class="buttons">
                 <button data-bind="click: cashOut" class="button button--action">Cash Out</button>
-                <button data-bind="click: hideForms" class="button">Cancel</button>
+                <button v-on:click="hideForms" class="button">Cancel</button>
             </div>
         </div>
         <div class="form" v-show="endGameFormVisible">
             <h2>All done?</h2>
             <div class="buttons">
                 <button data-bind="click: endGame" class="button button--action">Yes</button>
-                <button data-bind="click: hideForms" class="button">Cancel</button>
+                <button v-on:click="hideForms" class="button">Cancel</button>
             </div>
         </div>
     </div>
