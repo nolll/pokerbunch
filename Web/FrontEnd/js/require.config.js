@@ -14,7 +14,8 @@ requirejs.config({
         moment: "lib/moment.min",
         "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min",
         vue: "lib/vue",
-        text: "lib/text"
+        text: "lib/text",
+        fetch: "lib/fetch"
     },
     shim: {
         "pubsub": {

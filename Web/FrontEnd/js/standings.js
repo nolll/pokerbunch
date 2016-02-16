@@ -1,5 +1,5 @@
-define(["vue", "moment", "text!standings.html"],
-    function(vue, moment, html) {
+define(["vue", "moment", "text!standings.html", "ajax"],
+    function(vue, moment, html, ajax) {
         "use strict";
 
         return vue.extend({
@@ -106,6 +106,15 @@ define(["vue", "moment", "text!standings.html"],
                     if (!player)
                         return false;
                     return player.hasCashedOut();
+                },
+                loadData: function() {
+                    ajax.fetch(this.refreshUrl, loadComplete, loadError);
+                },
+                loadComplete: function() {
+                    
+                },
+                loadError: function() {
+                    
                 }
             },
             events: {

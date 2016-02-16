@@ -386,6 +386,7 @@
     <Content Include="FrontEnd\js\components\player-dropdown.js" />
     <Content Include="FrontEnd\js\components\player-dropdown.html" />
     <Content Include="FrontEnd\js\components\game-button.html" />
+    <Content Include="FrontEnd\js\ajax.js" />
     <Content Include="FrontEnd\js\standings.html" />
     <Content Include="FrontEnd\js\standings.js" />
     <Content Include="FrontEnd\js\running-cashgame-vue.js" />
